@@ -1,0 +1,2 @@
+1. Config eslint for nodeJS app
+2. Config prettier for nodeJS app

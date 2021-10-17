@@ -1,0 +1,19 @@
+{
+  "name": "teletalk-server",
+  "version": "1.0.0",
+  "description": "teletalk messenger app (server)",
+  "main": "server.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "non"
+  },
+  "keywords": [
+    "teletalk",
+    "messenger"
+  ],
+  "author": "S_STALWART_S",
+  "license": "MIT"
+}

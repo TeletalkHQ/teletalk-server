@@ -1,12 +1,25 @@
 require("module-alias/register");
-// const test = require("./Scripts/Functions/temp");
 
 const express = require("express");
-const test = require("~/temp");
+const path = require("path");
+
+const { connectDB } = require("./config/db");
+
 const app = express();
 
-app.listen(3000, () => {
+app.use(express.static(path.join(__dirname, "public")));
+
+connectDB();
+
+// app.use("/ROUTE_NAME",#EXPORTED_ROUTER)
+
+app.get("/", (req, res) => {
+	res.send("Heil Hitler!");
+});
+
+app.listen(8080, () => {
 	console.log("Server initialized");
 });
 
-test();
+const rootDir = path.dirname(require.main.filename);
+console.log(rootDir);

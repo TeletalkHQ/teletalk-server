@@ -1,3 +1,17 @@
 {
-	"cSpell.ignoreWords": ["camelcase", "flowtype", "teletalk"]
+	"cSpell.ignoreWords": [
+		"Jalali",
+		"Restify",
+		"axios",
+		"bcrypt",
+		"bcryptjs",
+		"camelcase",
+		"fileupload",
+		"flowtype",
+		"jsonwebtoken",
+		"multer",
+		"nodemailer",
+		"snyk",
+		"teletalk"
+	]
 }

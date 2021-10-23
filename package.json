@@ -10,8 +10,8 @@
 		"url": "https://github.com/S-STALWART-S/teletalk-server"
 	},
 	"scripts": {
-		"start": "node ./src/server.js",
-		"dev": "nodemon ./src/server.js",
+		"start": "cross-env\tNODE_ENV=production && node ./src/server.js",
+		"dev": "cross-env\tNODE_ENV=development && nodemon ./src/server.js",
 		"test": ""
 	},
 	"keywords": [
@@ -19,33 +19,52 @@
 		"messenger"
 	],
 	"dependencies": {
+		"app-root-path": "^3.0.0",
 		"axios": "^0.23.0",
+		"bcryptjs": "^2.4.3",
 		"chalk": "^4.1.2",
+		"cookie-parser": "^1.4.5",
 		"cors": "^2.8.5",
+		"cross-env": "^7.0.3",
+		"debug": "^4.3.2",
+		"dotenv": "^10.0.0",
 		"express": "^4.17.1",
+		"express-session": "^1.17.2",
+		"fastest-validator": "^1.12.0",
 		"fs-extra": "^10.0.0",
+		"helmet": "^4.6.0",
 		"jsonwebtoken": "^8.5.1",
 		"module-alias": "^2.2.2",
+		"mongoose": "^6.0.12",
+		"morgan": "^1.10.0",
 		"nanoid": "^3.1.30",
-		"nodemon": "^2.0.13"
+		"node-fetch": "^3.0.0",
+		"passport": "^0.5.0",
+		"sharp": "^0.29.2",
+		"socket.io": "^4.3.1",
+		"winston": "^3.3.3",
+		"yargs": "^17.2.1"
 	},
 	"devDependencies": {
 		"@types/express": "^4.17.13",
 		"@types/fs-extra": "^9.0.13",
 		"@types/jsonwebtoken": "^8.5.5",
-		"@types/node": "^16.11.1",
-		"@typescript-eslint/eslint-plugin": "^5.0.0",
-		"@typescript-eslint/parser": "^5.0.0",
+		"@types/module-alias": "^2.0.1",
+		"@types/node": "^16.11.2",
+		"@typescript-eslint/eslint-plugin": "^5.1.0",
+		"@typescript-eslint/parser": "^5.1.0",
 		"babel-eslint": "^10.1.0",
 		"eslint": "^8.0.1",
 		"eslint-config-react-app": "^6.0.0",
-		"eslint-plugin-flowtype": "^6.1.0",
+		"eslint-plugin-flowtype": "^6.1.1",
 		"eslint-plugin-import": "^2.25.2",
 		"eslint-plugin-jsx-a11y": "^6.4.1",
 		"eslint-plugin-react": "^7.26.1",
-		"eslint-plugin-react-hooks": "^4.2.0"
+		"eslint-plugin-react-hooks": "^4.2.0",
+		"nodemon": "^2.0.14"
 	},
 	"_moduleAliases": {
-		"~": "src/Scripts/Functions"
+		"~": "src/",
+		"~fn": "src/Scripts/Functions/"
 	}
 }

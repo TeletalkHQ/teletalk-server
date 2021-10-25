@@ -10,8 +10,8 @@
 		"url": "https://github.com/S-STALWART-S/teletalk-server"
 	},
 	"scripts": {
-		"start": "cross-env\tNODE_ENV=production && node ./src/server.js",
-		"dev": "cross-env\tNODE_ENV=development && nodemon ./src/server.js",
+		"start": "cross-env NODE_ENV=production node ./src/server.js",
+		"dev": "cross-env NODE_ENV=development nodemon ./src/server.js",
 		"test": ""
 	},
 	"keywords": [
@@ -42,6 +42,7 @@
 		"passport": "^0.5.0",
 		"sharp": "^0.29.2",
 		"socket.io": "^4.3.1",
+		"teletalk-utils": "^1.0.2",
 		"winston": "^3.3.3",
 		"yargs": "^17.2.1"
 	},
@@ -51,16 +52,16 @@
 		"@types/jsonwebtoken": "^8.5.5",
 		"@types/module-alias": "^2.0.1",
 		"@types/node": "^16.11.4",
-		"@typescript-eslint/eslint-plugin": "^5.1.0",
-		"@typescript-eslint/parser": "^5.1.0",
-		"babel-eslint": "^10.1.0",
-		"eslint": "^8.1.0",
+		"@typescript-eslint/eslint-plugin": "^4.33.0",
+		"@typescript-eslint/parser": "^4.33.0",
+		"babel-eslint": "^10.0.0",
+		"eslint": "^7.32.0",
 		"eslint-config-react-app": "^6.0.0",
-		"eslint-plugin-flowtype": "^6.1.1",
-		"eslint-plugin-import": "^2.25.2",
-		"eslint-plugin-jsx-a11y": "^6.4.1",
-		"eslint-plugin-react": "^7.26.1",
-		"eslint-plugin-react-hooks": "^4.2.0",
+		"eslint-plugin-flowtype": "^5.10.0",
+		"eslint-plugin-import": "^2.22.0",
+		"eslint-plugin-jsx-a11y": "^6.3.1",
+		"eslint-plugin-react": "^7.20.3",
+		"eslint-plugin-react-hooks": "^4.0.8",
 		"nodemon": "^2.0.14"
 	},
 	"_moduleAliases": {

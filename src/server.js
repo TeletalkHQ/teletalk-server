@@ -5,14 +5,21 @@ const path = require("path");
 const dotenv = require("dotenv");
 const express = require("express");
 
-const { connectDB } = require("~/config/db");
+const { connectDB } = require("~/config/database/connectDB");
 
-dotenv.config({ path: "./src/config/environments.env" });
+const { userRouter } = require("~/route/user/userRoute");
+
+// const rootDir = path.dirname(require.main.filename);
+
+dotenv.config({ path: "./src/config/environment/main.env" });
 const app = express();
+connectDB();
 
+// app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-connectDB();
+app.use("/users", userRouter);
 
 // app.use("/ROUTE_NAME",#EXPORTED_ROUTER)
 
@@ -20,11 +27,11 @@ app.get("/", (req, res) => {
 	res.send("Hey! Welcome to teletalk <3");
 });
 
-app.listen(8080, () => {
-	console.log("Server initialized");
-});
+const PORT = process.env.PORT;
+const MODE = process.env.NODE_ENV;
 
-console.log(process.env.PORT);
+const listenerCB = () => {
+	console.log(`Server is running in ${MODE} mode on port ${PORT}`);
+};
 
-const rootDir = path.dirname(require.main.filename);
-console.log(rootDir);
+app.listen(PORT, listenerCB);

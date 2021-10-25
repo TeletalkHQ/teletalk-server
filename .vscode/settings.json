@@ -1,17 +1,34 @@
 {
 	"cSpell.ignoreWords": [
+		"Fira",
 		"Jalali",
 		"Restify",
+		"Teletalk",
+		"autofetch",
+		"autopep",
 		"axios",
 		"bcrypt",
 		"bcryptjs",
 		"camelcase",
+		"codestream",
+		"esbenp",
 		"fileupload",
 		"flowtype",
+		"indenticator",
+		"ipynb",
 		"jsonwebtoken",
+		"maxlength",
+		"monospace",
 		"multer",
 		"nodemailer",
+		"onum",
+		"restclient",
 		"snyk",
-		"teletalk"
+		"soheil",
+		"strikethrough",
+		"tabnine",
+		"tabpanel",
+		"teletalk",
+		"vsintellicode"
 	]
 }

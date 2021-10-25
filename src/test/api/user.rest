@@ -1,0 +1,17 @@
+@url = http://localhost:
+@port = 8080
+@baseUrl = {{url}}{{port}}
+
+POST {{baseUrl}}/users/register/ HTTP/1.0
+Content-Type: application/json
+
+{
+  "firstName":"soheil",
+  "lastName":"sediqi",
+  "cellphone":"6012700470",
+  "countryName":"republic islamic of iran",
+  "countryCode":"98",
+  "avatarURLs":[],
+  "macAddress":"132654894651"
+}
+

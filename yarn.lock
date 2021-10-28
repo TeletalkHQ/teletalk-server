@@ -3484,10 +3484,10 @@ tar-stream@^2.1.4:
     inherits "^2.0.3"
     readable-stream "^3.1.1"
 
-teletalk-utils@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/teletalk-utils/-/teletalk-utils-1.0.2.tgz#97ea3ed7c30d6822148ac20ae851e277aae54e5c"
-  integrity sha512-f/Ly+Mtav4sidyc7KmTk2azL1blfkQWatpByg8Kdku0ElzjeJKj64kqliVLVVGd8ud+x4/82ZmQCYPfKSLnpcA==
+teletalk-utils@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/teletalk-utils/-/teletalk-utils-1.0.4.tgz#b91fe862a31dbb5468aa212b91646ff84fcc2285"
+  integrity sha512-3CNztR3terzwWx5YdRfX8Vo8zLlys5kqx8zuXEp+YsrWydwUZNIRJ5Iaey8YmOKjSv1t6AoRyxHjjNMHsjol+w==
 
 text-hex@1.0.x:
   version "1.0.0"

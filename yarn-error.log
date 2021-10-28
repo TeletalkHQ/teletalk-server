@@ -73,7 +73,7 @@ npm manifest:
   		"passport": "^0.5.0",
   		"sharp": "^0.29.2",
   		"socket.io": "^4.3.1",
-  		"teletalk-utils": "^1.0.2",
+  		"teletalk-utils": "^1.0.4",
   		"winston": "^3.3.3",
   		"yargs": "^17.2.1"
   	},
@@ -2611,11 +2611,6 @@ Lockfile:
     optionalDependencies:
       saslprep "^1.0.3"
   
-  mongoose-beautiful-unique-validation@^7.1.1:
-    version "7.1.1"
-    resolved "https://registry.yarnpkg.com/mongoose-beautiful-unique-validation/-/mongoose-beautiful-unique-validation-7.1.1.tgz#50eaf88e395f9b194cd29ad76913cd9ebd515653"
-    integrity sha512-fprzp8nY9Qjg0+RZFMl7gVmbINRt2H53fpqyjJWwPO7nxJ9RZZB/Lo3y+mXaMP4nNMOeoJb2v3dNou6h+iLh8w==
-  
   mongoose-unique-validator@^3.0.0:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/mongoose-unique-validator/-/mongoose-unique-validator-3.0.0.tgz#cc65a7237573cfc82d848f2fb9fade8627575760"
@@ -3597,10 +3592,10 @@ Lockfile:
       inherits "^2.0.3"
       readable-stream "^3.1.1"
   
-  teletalk-utils@^1.0.2:
-    version "1.0.2"
-    resolved "https://registry.yarnpkg.com/teletalk-utils/-/teletalk-utils-1.0.2.tgz#97ea3ed7c30d6822148ac20ae851e277aae54e5c"
-    integrity sha512-f/Ly+Mtav4sidyc7KmTk2azL1blfkQWatpByg8Kdku0ElzjeJKj64kqliVLVVGd8ud+x4/82ZmQCYPfKSLnpcA==
+  teletalk-utils@^1.0.4:
+    version "1.0.4"
+    resolved "https://registry.yarnpkg.com/teletalk-utils/-/teletalk-utils-1.0.4.tgz#b91fe862a31dbb5468aa212b91646ff84fcc2285"
+    integrity sha512-3CNztR3terzwWx5YdRfX8Vo8zLlys5kqx8zuXEp+YsrWydwUZNIRJ5Iaey8YmOKjSv1t6AoRyxHjjNMHsjol+w==
   
   text-hex@1.0.x:
     version "1.0.0"

@@ -1,29 +1,45 @@
 const mongoose = require("mongoose");
 var uniqueValidator = require("mongoose-unique-validator");
 
+const {
+	userRegisterValidator,
+} = require("~/model/validator/userValidator/userRegisterValidator");
+
+const {
+	userDefaultValue: {
+		private_id,
+		username,
+		first_name,
+		last_name,
+		cellphone,
+		country_code,
+		country_name,
+		bio,
+		mac_address,
+		created_at,
+	},
+} = require("~/model/defaultValue/userDefaultValue");
+
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 
-// const {
-// 	userRegisterValidator,
-// } = require("~/model/validator/userValidator/userRegisterValidator");
-
 const UserRegisterSchema = new mongoose.Schema({
 	private_id: {
-		type: String,
-		unique: true,
-		required: [true, private_id_required],
-		minlength: [30, private_id_min_length_reach],
-		maxlength: [35, private_id_max_length_reach],
-		trim: true,
+		type: private_id.Type[0],
+		unique: private_id.unique[0],
+		required: private_id.required,
+		minlength: private_id.minlength,
+		maxlength: private_id.maxlength,
+		trim: private_id.trim[0],
 	},
 	username: {
-		type: String,
-		unique: true,
-		minlength: [4, username_minlength_reach],
-		maxlength: [12, username_maxlength_reach],
-		trim: true,
+		type: username.Type[0],
+		unique: username.unique[0],
+		// minlength: username.minlength,
+		maxlength: username.maxlength,
+		trim: username.trim[0],
+		lowercase: username.lowercase[0],
 		// validate: {
 		// 	validator: function (value) {
 		// 		return /^[a-z\s]{0,255}$/i.test(value);
@@ -32,59 +48,58 @@ const UserRegisterSchema = new mongoose.Schema({
 		// },
 	},
 	first_name: {
-		type: String,
-		required: [true, first_name_required],
-		minlength: [1, first_name_minlength_reach],
-		maxlength: [18, first_name_maxlength_reach],
-		trim: true,
+		type: first_name.Type[0],
+		required: first_name.required,
+		minlength: first_name.minlength,
+		maxlength: first_name.maxlength,
 	},
 	last_name: {
-		type: String,
-		minlength: [1, last_name_minlength_reach],
-		maxlength: [18, last_name_maxlength_reach],
-		trim: true,
+		type: last_name.Type[0],
+		// minlength: last_name.minlength,
+		maxlength: last_name.maxlength,
+		trim: last_name.trim[0],
 	},
 	cellphone: {
-		type: String,
-		unique: true,
-		required: [true, cellphone_required],
-		minlength: [10, cellphone_minlength_reach],
-		maxlength: [12, cellphone_maxlength_reach],
+		type: cellphone.Type[0],
+		unique: cellphone.unique[0],
+		required: cellphone.required,
+		minlength: cellphone.minlength,
+		maxlength: cellphone.maxlength,
 	},
 	country_code: {
-		type: String,
-		required: [true, country_code_required],
-		minlength: [2, country_code_minlength_reach],
-		maxlength: [8, country_code_maxlength_reach],
+		type: country_code.Type[0],
+		required: country_code.required,
+		minlength: country_code.minlength,
+		maxlength: country_code.maxlength,
 	},
 	country_name: {
-		type: String,
-		required: [true, country_name_required],
-		minlength: [2, country_name_minlength_reach],
-		maxlength: [32, country_name_maxlength_reach],
+		type: country_name.Type[0],
+		required: country_name.required,
+		minlength: country_name.minlength,
+		maxlength: country_name.maxlength,
 	},
 	bio: {
-		type: String,
-		minlength: [1, bio_minlength_reach],
-		maxlength: [255, bio_maxlength_reach],
+		type: bio.Type[0],
+		// minlength: bio.minlength,
+		maxlength: bio.maxlength,
 	},
 	mac_address: {
-		type: String,
-		unique: true,
-		required: [true, mac_address_required],
-		minlength: [12, mac_address_minlength_reach],
-		maxlength: [16, mac_address_maxlength_reach],
-		trim: true,
+		type: mac_address.Type[0],
+		unique: mac_address.unique[0],
+		required: mac_address.required,
+		minlength: mac_address.minlength,
+		maxlength: mac_address.maxlength,
+		trim: mac_address.trim[0],
 	},
 	created_at: {
-		type: Date,
-		default: Date.now,
+		type: created_at.Type[0],
+		default: created_at.default[0],
 	},
 });
 
-// UserRegisterSchema.userRegisterValidator = function (body) {
-// 	return userRegisterValidator.validate(body, { abortEarly: false });
-// };
+UserRegisterSchema.statics.userRegisterValidator = async function (data) {
+	return await userRegisterValidator.validate(data, { abortEarly: false });
+};
 
 //* bcrypt
 // UserRegisterSchema.pre("save", function (next) {

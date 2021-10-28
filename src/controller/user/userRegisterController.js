@@ -3,13 +3,13 @@ const UserRegisterSchema = require("~/model/schema/userSchema/UserRegisterSchema
 const {
 	util: { idMaker },
 } = require("~/function/util");
-
 const {
-	userError: { cellphone_exist },
-} = require("~/constant/error/schemaError/userSchemaError");
+	userRegisterValidator,
+} = require("~/model/validator/userValidator/userRegisterValidator");
 
 exports.register = async (req, res) => {
 	const private_id = idMaker();
+
 	const {
 		username,
 		first_name,
@@ -22,19 +22,29 @@ exports.register = async (req, res) => {
 
 	console.log(req.body);
 
-	try {
-		const User = new UserRegisterSchema({
-			private_id,
-			username,
-			first_name,
-			last_name,
-			cellphone,
-			country_code,
-			country_name,
-			mac_address,
-		});
+	req.body.private_id = private_id;
 
-		await User.save();
+	try {
+		// await UserRegisterSchema.userRegisterValidator(req.body);
+		const validatedDataResult = userRegisterValidator(req.body);
+
+		if (validatedDataResult !== true) {
+			res.status(400).json(validatedDataResult);
+			return;
+		}
+
+		// const User = new UserRegisterSchema({
+		// 	private_id,
+		// 	username,
+		// 	first_name,
+		// 	last_name,
+		// 	cellphone,
+		// 	country_code,
+		// 	country_name,
+		// 	mac_address,
+		// });
+
+		// await User.save();
 
 		res.status(200).json({
 			private_id,

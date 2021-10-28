@@ -4,72 +4,49 @@ const {
 	util: { idMaker },
 } = require("~/function/util");
 
+const {
+	userError: { cellphone_exist },
+} = require("~/constant/error/schemaError/userSchemaError");
+
 exports.register = async (req, res) => {
-	const errors = [];
-	console.log(req.body);
+	const private_id = idMaker();
 	const {
-		firstName,
-		lastName,
+		username,
+		first_name,
+		last_name,
 		cellphone,
-		avatarURLs,
-		countryName,
-		macAddress,
-		countryCode,
+		country_code,
+		country_name,
+		mac_address,
 	} = req.body;
 
+	console.log(req.body);
+
 	try {
-		const user = await UserRegisterSchema.findOne({ cellphone });
-		if (user) {
-			errors.push({ message: "cellphone_exist" });
-			return res.status(400).json({
-				errors,
-			});
-		}
-
-		try {
-			await UserRegisterSchema.validate({
-				// privateID: idMaker(),
-				firstName,
-				lastName,
-				cellphone,
-				countryName,
-				countryCode,
-				avatarURLs,
-				macAddress,
-			});
-		} catch (err) {
-			console.log(err);
-			res.status(400).json({ errors: { err } });
-		}
-
-		// console.warn("error", error);
-		// errors.push(error);
-
-		// if (!error) {
-		// 	const userResponse = await UserRegisterSchema.create({
-		// 		privateID: idMaker(),
-		// 		firstName,
-		// 		lastName,
-		// 		cellphone,
-		// 		countryName,
-		// 		countryCode,
-		// 		avatarURLs,
-		// 		macAddress,
-		// 	});
-
-		// }
-		// res.status(200).json({ userResponse });
-	} catch (err) {
-		console.log(err);
-		err?.inner?.forEach((e) => {
-			errors.push({
-				name: e.path,
-				message: e.message,
-			});
+		const User = new UserRegisterSchema({
+			private_id,
+			username,
+			first_name,
+			last_name,
+			cellphone,
+			country_code,
+			country_name,
+			mac_address,
 		});
 
-		res.status(400).json({ errors });
-	}
+		await User.save();
 
-	// res.end();
+		res.status(200).json({
+			private_id,
+			username,
+			first_name,
+			last_name,
+			cellphone,
+			country_code,
+			country_name,
+			mac_address,
+		});
+	} catch (err) {
+		res.status(400).json(err);
+	}
 };

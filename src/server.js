@@ -15,6 +15,34 @@ dotenv.config({ path: "./src/config/environment/main.env" });
 const app = express();
 connectDB();
 
+// app.use((req, res, next) => {
+// 	res.header("Access-Control-Allow-Origin", "*");
+// 	res.header(
+// 		"Access-Control-Allow-Methods",
+// 		"GET,HEAD,OPTIONS,POST,PUT,DELETE"
+// 	);
+// 	res.header(
+// 		"Access-Control-Allow-Headers",
+// 		"Origin, X-Requested-With, Content-Type, Accept, Authorization"
+// 	);
+// 	next();
+// });
+// app.use((req, res, next) => {
+// 	var err = new Error("Not Found");
+// 	err.status = 404;
+// 	next(err);
+// });
+
+// app.use((err, req, res, next) => {
+// 	const error = {
+// 		error: err,
+// 		code: err.status,
+// 		success: false,
+// 	};
+
+// 	res.json(error);
+// });
+
 // app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));

@@ -1,0 +1,2 @@
+npm i validator for client-side
+nest-js for build swagger doc

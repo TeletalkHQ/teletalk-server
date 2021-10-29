@@ -1,11 +1,10 @@
 //* All routes come into here =>
 
+const { userRoute } = require("~/route/userRoute/userRoute");
 const { Router } = require("express");
-
-const { userRouter } = require("~/route/user/userRoute");
 
 const lifeline = Router();
 
-lifeline.use(userRouter);
+lifeline.use("/users", userRoute);
 
 exports.lifeline = lifeline;

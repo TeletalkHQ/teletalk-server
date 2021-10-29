@@ -3,6 +3,7 @@ require("module-alias/register");
 const path = require("path");
 
 const dotenv = require("dotenv");
+const morgan = require("morgan");
 const express = require("express");
 
 const { connectDB } = require("~/config/database/connectDB");
@@ -12,6 +13,8 @@ const { userRouter } = require("~/route/user/userRoute");
 // const rootDir = path.dirname(require.main.filename);
 
 dotenv.config({ path: "./src/config/environment/main.env" });
+
+require("pretty-error").start();
 const app = express();
 connectDB();
 
@@ -46,6 +49,7 @@ connectDB();
 // app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(morgan("dev"));
 
 app.use("/users", userRouter);
 

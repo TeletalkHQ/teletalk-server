@@ -39,9 +39,9 @@ const {
 		private_id_exist,
 		username_exist,
 	},
-} = require("~/constant/error/schemaError/userSchemaError");
+} = require("~/constant/error/userError/userError");
 
-exports.userDefaultValue = {
+exports.userTemplate = {
 	private_id: {
 		type: ["string", private_id_invalid_type],
 		Type: [String, private_id_invalid_type],
@@ -119,8 +119,8 @@ exports.userDefaultValue = {
 	},
 	created_at: {
 		type: ["date", created_at_invalid_type],
-		// required: [true],
 		Type: [Date, created_at_invalid_type],
+		// required: [true],
 		default: [Date.now],
 	},
 };

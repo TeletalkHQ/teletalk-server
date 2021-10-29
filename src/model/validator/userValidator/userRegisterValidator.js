@@ -12,7 +12,7 @@ const {
 		private_id,
 		username,
 	},
-} = require("~/model/defaultValue/userDefaultValue");
+} = require("~/model/template/userTemplate/userTemplate");
 
 const v = new Validator();
 

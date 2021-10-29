@@ -6,7 +6,7 @@ const {
 } = require("~/model/validator/userValidator/userRegisterValidator");
 
 const {
-	userDefaultValue: {
+	userTemplate: {
 		private_id,
 		username,
 		first_name,
@@ -18,7 +18,7 @@ const {
 		mac_address,
 		created_at,
 	},
-} = require("~/model/defaultValue/userDefaultValue");
+} = require("~/model/template/userTemplate/userTemplate");
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
@@ -98,7 +98,7 @@ const UserRegisterSchema = new mongoose.Schema({
 });
 
 UserRegisterSchema.statics.userRegisterValidator = async function (data) {
-	return await userRegisterValidator.validate(data, { abortEarly: false });
+	return userRegisterValidator(data);
 };
 
 //* bcrypt

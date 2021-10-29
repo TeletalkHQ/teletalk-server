@@ -8,7 +8,7 @@ const express = require("express");
 
 const { connectDB } = require("~/config/database/connectDB");
 
-const { userRouter } = require("~/route/user/userRoute");
+const { lifeline } = require("~/route/lifeline");
 
 // const rootDir = path.dirname(require.main.filename);
 
@@ -17,6 +17,8 @@ dotenv.config({ path: "./src/config/environment/main.env" });
 require("pretty-error").start();
 const app = express();
 connectDB();
+
+app.use(lifeline);
 
 // app.use((req, res, next) => {
 // 	res.header("Access-Control-Allow-Origin", "*");
@@ -50,8 +52,6 @@ connectDB();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
-
-app.use("/users", userRouter);
 
 // app.use("/ROUTE_NAME",#EXPORTED_ROUTER)
 

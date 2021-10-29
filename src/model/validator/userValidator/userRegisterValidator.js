@@ -1,7 +1,7 @@
 const Validator = require("fastest-validator");
 
 const {
-	userDefaultValue: {
+	userTemplate: {
 		bio,
 		cellphone,
 		country_code,

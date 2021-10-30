@@ -1,4 +1,3 @@
 {
-	"extends": "react-app",
-	"ignorePatterns": ["jsconfig.json", ".eslintrc.json"]
+	"extends": "react-app"
 }

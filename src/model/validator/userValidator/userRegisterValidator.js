@@ -8,7 +8,7 @@ const {
 		country_name,
 		first_name,
 		last_name,
-		mac_address,
+		// mac_address,
 		private_id,
 		username,
 	},
@@ -16,7 +16,7 @@ const {
 
 const v = new Validator();
 
-const userRegisterValidationSchema = {
+const userValidationSchema = {
 	private_id: {
 		type: private_id.type[0],
 		unique: private_id.unique[0],
@@ -112,26 +112,26 @@ const userRegisterValidationSchema = {
 			stringMax: bio.maxlength[1],
 		},
 	},
-	mac_address: {
-		type: mac_address.type[0],
-		unique: mac_address.unique[0],
-		min: mac_address.minlength[0],
-		max: mac_address.maxlength[0],
-		trim: mac_address.trim[0],
-		messages: {
-			string: mac_address.type[1],
-			unique: mac_address.unique[1],
-			required: mac_address.required[1],
-			stringMin: mac_address.minlength[1],
-			stringMax: mac_address.maxlength[1],
-		},
-	},
+	// mac_address: {
+	// 	type: mac_address.type[0],
+	// 	unique: mac_address.unique[0],
+	// 	min: mac_address.minlength[0],
+	// 	max: mac_address.maxlength[0],
+	// 	trim: mac_address.trim[0],
+	// 	messages: {
+	// 		string: mac_address.type[1],
+	// 		unique: mac_address.unique[1],
+	// required: mac_address.required[1],
+	// 		stringMin: mac_address.minlength[1],
+	// 		stringMax: mac_address.maxlength[1],
+	// 	},
+	// },
 	// created_at: {
 	// 	type: created_at.type[0],
 	// 	optimal: !created_at.required[0],
 	// },
 };
 
-const userRegisterValidator = v.compile(userRegisterValidationSchema);
+const userRegisterValidator = v.compile(userValidationSchema);
 
 exports.userRegisterValidator = userRegisterValidator;

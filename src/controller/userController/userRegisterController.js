@@ -17,10 +17,9 @@ exports.register = async (req, res) => {
 		mac_address,
 	} = req.body;
 
-	req.body.private_id = private_id;
-
 	try {
-		const validateSuccess = await UserRegisterSchema.userRegisterValidator({
+		req.body.private_id = private_id;
+		const validateResult = await UserRegisterSchema.userRegisterValidator({
 			username,
 			first_name,
 			last_name,
@@ -30,7 +29,7 @@ exports.register = async (req, res) => {
 			mac_address,
 		});
 
-		if (validateSuccess === true) {
+		if (validateResult === true) {
 			const User = new UserRegisterSchema({
 				private_id,
 				username,
@@ -54,7 +53,7 @@ exports.register = async (req, res) => {
 				country_name,
 				mac_address,
 			});
-		} else throw validateSuccess;
+		} else throw validateResult;
 	} catch (err) {
 		res.status(400).json({ mongooseError: err?.errors, validatorError: err });
 	}

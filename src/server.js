@@ -11,11 +11,10 @@ const { connectDB } = require("~/config/database/connectDB");
 
 dotenv.config({ path: "./src/config/environment/main.env" });
 
+pe.start();
 const app = express();
 
 const { lifeline } = require("~/route/lifeline");
-
-pe.start();
 
 connectDB();
 

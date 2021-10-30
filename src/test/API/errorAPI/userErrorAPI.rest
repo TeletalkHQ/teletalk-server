@@ -2,4 +2,4 @@
 @port = 8080
 @baseUrl = {{url}}
 
-GET {{baseUrl}}/error/user/ HTTP/1.1
+GET {{baseUrl}}/user/login/ HTTP/1.1

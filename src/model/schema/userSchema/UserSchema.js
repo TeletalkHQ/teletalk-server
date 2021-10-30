@@ -15,7 +15,7 @@ const {
 		country_code,
 		country_name,
 		bio,
-		mac_address,
+		// mac_address,
 		created_at,
 	},
 } = require("~/model/template/userTemplate/userTemplate");
@@ -83,14 +83,14 @@ const UserRegisterSchema = new mongoose.Schema({
 		// minlength: bio.minlength,
 		maxlength: bio.maxlength,
 	},
-	mac_address: {
-		type: mac_address.Type[0],
-		unique: mac_address.unique[0],
-		required: mac_address.required,
-		minlength: mac_address.minlength,
-		maxlength: mac_address.maxlength,
-		trim: mac_address.trim[0],
-	},
+	// mac_address: {
+	// 	type: mac_address.Type[0],
+	// 	unique: mac_address.unique[0],
+	// 	required: mac_address.required,
+	// 	minlength: mac_address.minlength,
+	// 	maxlength: mac_address.maxlength,
+	// 	trim: mac_address.trim[0],
+	// },
 	created_at: {
 		type: created_at.Type[0],
 		default: created_at.default[0],

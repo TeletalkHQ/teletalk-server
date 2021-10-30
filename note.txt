@@ -1,2 +1,3 @@
-npm i validator for client-side
-nest-js for build swagger doc
+npm i validator for client-side;
+nest-js for build swagger doc;
+what is differences between patch and put;

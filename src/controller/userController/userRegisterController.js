@@ -3,9 +3,6 @@ const UserRegisterSchema = require("~/model/schema/userSchema/UserSchema");
 const {
 	util: { idMaker },
 } = require("~/function/util");
-const {
-	userRegisterValidator,
-} = require("~/model/validator/userValidator/userRegisterValidator");
 
 exports.register = async (req, res) => {
 	const private_id = idMaker();

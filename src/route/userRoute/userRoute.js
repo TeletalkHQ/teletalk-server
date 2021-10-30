@@ -2,8 +2,11 @@ const { Router } = require("express");
 
 const TrezSmsClient = require("trez-sms-client");
 
-const userRegisterController = require("~/controller/userController/userRegisterController");
+const userNormalRegisterController = require("~/controller/userController/userNormalRegisterController");
+const userAnonymousRegisterController = require("~/controller/userController/userAnonymousRegisterController");
+
 const userLoginController = require("~/controller/userController/userLoginController");
+
 const userVerifyController = require("~/controller/userController/userVerifyController");
 
 const SMSClient = new TrezSmsClient(
@@ -15,11 +18,26 @@ const userRoute = Router();
 
 userRoute.use((req, res, next) => {
 	req.SMSClient = SMSClient;
+
 	next();
 });
 
-userRoute.post("/register/", userRegisterController.register);
-userRoute.post("/login", userLoginController.login);
-userRoute.post("/verify", userVerifyController.verify);
+userRoute.post(
+	"/register/normal/",
+	userNormalRegisterController.normalRegister
+);
+userRoute.post(
+	"/register/anonymous/",
+	userAnonymousRegisterController.anonymousRegister
+);
 
+userRoute.post("/login/", userLoginController.login);
+
+userRoute.post("/verify/", userVerifyController.verify);
+
+//* logout normal =>
+
+//* logout anonymous =>
+//
+//
 exports.userRoute = userRoute;

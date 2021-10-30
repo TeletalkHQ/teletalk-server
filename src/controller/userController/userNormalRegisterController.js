@@ -4,7 +4,7 @@ const {
 	util: { idMaker },
 } = require("~/function/util");
 
-exports.register = async (req, res) => {
+exports.normalRegister = async (req, res) => {
 	const private_id = idMaker();
 
 	const {

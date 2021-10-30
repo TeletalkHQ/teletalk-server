@@ -16,7 +16,7 @@ const {
 
 const v = new Validator();
 
-const userValidationSchema = {
+const userRegisterValidationSchema = {
 	private_id: {
 		type: private_id.type[0],
 		unique: private_id.unique[0],
@@ -132,6 +132,6 @@ const userValidationSchema = {
 	// },
 };
 
-const userRegisterValidator = v.compile(userValidationSchema);
+const userRegisterValidator = v.compile(userRegisterValidationSchema);
 
 exports.userRegisterValidator = userRegisterValidator;

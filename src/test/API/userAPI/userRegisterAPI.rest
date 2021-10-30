@@ -6,10 +6,10 @@ POST {{baseUrl}}/user/register/ HTTP/1.1
 Content-Type: application/json
 
 {
-  "last_name":"123",
-  "first_name":"republic",
-  "cellphone":"52534567890",
-  "country_name":"republic islamic of iran",
-  "country_code":"98",
-  "mac_address":"523456789012"
+  "first_name":"soheil",
+  "last_name":"ss",
+  "cellphone":"9012700470",
+  "country_name":"iran",
+  "country_code":"98"
+  # "mac_address":"523456789012"
 }

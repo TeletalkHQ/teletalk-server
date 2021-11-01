@@ -42,7 +42,7 @@ const {
 } = require("~/constant/error/userError/userError");
 
 exports.userSchemaTemplate = {
-	private_id: {
+	privateID: {
 		type: ["string", private_id_invalid_type],
 		Type: [String, private_id_invalid_type],
 		unique: [true, private_id_exist],
@@ -62,7 +62,7 @@ exports.userSchemaTemplate = {
 		trim: [true],
 		lowercase: [true],
 	},
-	first_name: {
+	firstName: {
 		type: ["string", first_name_invalid_type],
 		Type: [String, first_name_invalid_type],
 		required: [true, first_name_required],
@@ -70,7 +70,7 @@ exports.userSchemaTemplate = {
 		maxlength: [18, first_name_maxlength_reach],
 		trim: [false],
 	},
-	last_name: {
+	lastName: {
 		type: ["string", last_name_invalid_type],
 		Type: [String, last_name_invalid_type],
 		required: [false],
@@ -86,7 +86,7 @@ exports.userSchemaTemplate = {
 		minlength: [10, cellphone_minlength_reach],
 		maxlength: [12, cellphone_maxlength_reach],
 	},
-	country_code: {
+	countryCode: {
 		type: ["string", country_code_invalid_type],
 		Type: [String, country_code_invalid_type],
 		required: [true, country_code_required],
@@ -94,7 +94,7 @@ exports.userSchemaTemplate = {
 		maxlength: [8, country_code_maxlength_reach],
 		trim: [true],
 	},
-	country_name: {
+	countryName: {
 		type: ["string", country_name_invalid_type],
 		Type: [String, country_name_invalid_type],
 		required: [true, country_name_required],
@@ -108,7 +108,7 @@ exports.userSchemaTemplate = {
 		minlength: [1, bio_minlength_reach],
 		maxlength: [255, bio_maxlength_reach],
 	},
-	mac_address: {
+	macAddress: {
 		type: ["string", mac_address_invalid_type],
 		Type: [String, mac_address_invalid_type],
 		unique: [true, mac_address_exist],
@@ -117,7 +117,7 @@ exports.userSchemaTemplate = {
 		maxlength: [16, mac_address_maxlength_reach],
 		trim: [true],
 	},
-	created_at: {
+	createdAt: {
 		type: ["date", created_at_invalid_type],
 		Type: [Date, created_at_invalid_type],
 		// required: [true],

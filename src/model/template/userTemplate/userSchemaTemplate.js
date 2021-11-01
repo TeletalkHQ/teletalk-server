@@ -41,7 +41,7 @@ const {
 	},
 } = require("~/constant/error/userError/userError");
 
-exports.userTemplate = {
+exports.userSchemaTemplate = {
 	private_id: {
 		type: ["string", private_id_invalid_type],
 		Type: [String, private_id_invalid_type],

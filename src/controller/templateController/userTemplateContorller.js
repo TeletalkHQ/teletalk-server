@@ -1,8 +1,8 @@
-const { userTemplate } = require("~/model/template/userTemplate/userTemplate");
+const { userSchemaTemplate } = require("~/model/template/userTemplate/userSchemaTemplate");
 
 exports.sendUserTemplate = (req, res) => {
 	try {
-		res.status(200).json(userTemplate);
+		res.status(200).json(userSchemaTemplate);
 	} catch (error) {
 		res.status(500).json({ error: { message: "Unexpected server error" } });
 	}

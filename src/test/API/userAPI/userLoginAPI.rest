@@ -8,6 +8,6 @@ Content-Type: application/json
 
 {
   "cellphone":"9012700470",
-  "country_code": "98",
-  "country_name":"ir"
+  "countryCode": "98",
+  "countryName":"ir"
 }

@@ -9,18 +9,18 @@ const {
 exports.login = async (req, res) => {
 	try {
 		const {
-			body: { cellphone, country_code, country_name },
+			body: { cellphone, countryCode, countryName },
 			SMSClient,
 		} = req;
 
 		const validationResult = userLoginValidator({
 			cellphone,
-			country_code,
-			country_name,
+			countryCode,
+			countryName,
 		});
 
 		if (validationResult === true) {
-			const user = await UserSchema.findOne({ cellphone, country_code });
+			const user = await UserSchema.findOne({ cellphone, countryCode });
 			if (user) {
 				const randomPassword = generator.generate({
 					numbers: true,
@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
 				res.json({
 					messageID,
 					randomPassword,
-					cellphone: `${country_code}${cellphone}`,
+					cellphone: `${countryCode}${cellphone}`,
 				});
 			}
 		}

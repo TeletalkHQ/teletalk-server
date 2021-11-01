@@ -4,12 +4,12 @@ const {
 	userSchemaTemplate: {
 		bio,
 		cellphone,
-		country_code,
-		country_name,
-		first_name,
-		last_name,
-		// mac_address,
-		private_id,
+		countryCode,
+		countryName,
+		firstName,
+		lastName,
+		// macAddress,
+		privateID,
 		username,
 	},
 } = require("~/model/template/userTemplate/userSchemaTemplate");
@@ -17,18 +17,18 @@ const {
 const v = new Validator();
 
 const userRegisterValidationSchema = {
-	private_id: {
-		type: private_id.type[0],
-		unique: private_id.unique[0],
-		min: private_id.minlength[0],
-		max: private_id.maxlength[0],
-		trim: private_id.trim[0],
+	privateID: {
+		type: privateID.type[0],
+		unique: privateID.unique[0],
+		min: privateID.minlength[0],
+		max: privateID.maxlength[0],
+		trim: privateID.trim[0],
 		messages: {
-			string: private_id.type[1],
-			required: private_id.required[1],
-			unique: private_id.unique[1],
-			stringMin: private_id.minlength[1],
-			stringMax: private_id.maxlength[1],
+			string: privateID.type[1],
+			required: privateID.required[1],
+			unique: privateID.unique[1],
+			stringMin: privateID.minlength[1],
+			stringMax: privateID.maxlength[1],
 		},
 	},
 	username: {
@@ -44,26 +44,26 @@ const userRegisterValidationSchema = {
 			stringMax: username.maxlength[1],
 		},
 	},
-	first_name: {
-		type: first_name.type[0],
-		min: first_name.minlength[0],
-		max: first_name.maxlength[0],
-		trim: first_name.trim[0],
+	firstName: {
+		type: firstName.type[0],
+		min: firstName.minlength[0],
+		max: firstName.maxlength[0],
+		trim: firstName.trim[0],
 		messages: {
-			string: first_name.type[1],
-			required: first_name.required[1],
-			stringMin: first_name.minlength[1],
-			stringMax: first_name.maxlength[1],
+			string: firstName.type[1],
+			required: firstName.required[1],
+			stringMin: firstName.minlength[1],
+			stringMax: firstName.maxlength[1],
 		},
 	},
-	last_name: {
-		type: last_name.type[0],
-		optional: !last_name.required[0],
-		max: last_name.maxlength[0],
-		trim: last_name.trim[0],
+	lastName: {
+		type: lastName.type[0],
+		optional: !lastName.required[0],
+		max: lastName.maxlength[0],
+		trim: lastName.trim[0],
 		messages: {
-			string: last_name.type[1],
-			stringMax: last_name.maxlength[1],
+			string: lastName.type[1],
+			stringMax: lastName.maxlength[1],
 		},
 	},
 
@@ -80,27 +80,27 @@ const userRegisterValidationSchema = {
 			stringMax: cellphone.type[1],
 		},
 	},
-	country_code: {
-		type: country_code.type[0],
-		min: country_code.minlength[0],
-		max: country_code.maxlength[0],
-		trim: country_code.trim[0],
+	countryCode: {
+		type: countryCode.type[0],
+		min: countryCode.minlength[0],
+		max: countryCode.maxlength[0],
+		trim: countryCode.trim[0],
 		messages: {
-			string: country_code.type[1],
-			required: country_code.required[1],
-			stringMin: country_code.minlength[1],
-			stringMax: country_code.maxlength[1],
+			string: countryCode.type[1],
+			required: countryCode.required[1],
+			stringMin: countryCode.minlength[1],
+			stringMax: countryCode.maxlength[1],
 		},
 	},
-	country_name: {
-		type: country_name.type[0],
-		min: country_name.minlength[0],
-		max: country_name.maxlength[0],
+	countryName: {
+		type: countryName.type[0],
+		min: countryName.minlength[0],
+		max: countryName.maxlength[0],
 		messages: {
-			string: country_name.type[1],
-			required: country_name.required[1],
-			stringMin: country_name.minlength[1],
-			stringMax: country_name.maxlength[1],
+			string: countryName.type[1],
+			required: countryName.required[1],
+			stringMin: countryName.minlength[1],
+			stringMax: countryName.maxlength[1],
 		},
 	},
 	bio: {
@@ -112,23 +112,23 @@ const userRegisterValidationSchema = {
 			stringMax: bio.maxlength[1],
 		},
 	},
-	// mac_address: {
-	// 	type: mac_address.type[0],
-	// 	unique: mac_address.unique[0],
-	// 	min: mac_address.minlength[0],
-	// 	max: mac_address.maxlength[0],
-	// 	trim: mac_address.trim[0],
+	// macAddress: {
+	// 	type: macAddress.type[0],
+	// 	unique: macAddress.unique[0],
+	// 	min: macAddress.minlength[0],
+	// 	max: macAddress.maxlength[0],
+	// 	trim: macAddress.trim[0],
 	// 	messages: {
-	// 		string: mac_address.type[1],
-	// 		unique: mac_address.unique[1],
-	// required: mac_address.required[1],
-	// 		stringMin: mac_address.minlength[1],
-	// 		stringMax: mac_address.maxlength[1],
+	// 		string: macAddress.type[1],
+	// 		unique: macAddress.unique[1],
+	// required: macAddress.required[1],
+	// 		stringMin: macAddress.minlength[1],
+	// 		stringMax: macAddress.maxlength[1],
 	// 	},
 	// },
-	// created_at: {
-	// 	type: created_at.type[0],
-	// 	optimal: !created_at.required[0],
+	// createdAt: {
+	// 	type: createdAt.type[0],
+	// 	optimal: !createdAt.required[0],
 	// },
 };
 

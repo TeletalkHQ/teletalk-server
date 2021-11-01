@@ -7,16 +7,16 @@ const {
 
 const {
 	userSchemaTemplate: {
-		private_id,
+		privateID,
 		username,
-		first_name,
-		last_name,
+		firstName,
+		lastName,
 		cellphone,
-		country_code,
-		country_name,
+		countryCode,
+		countryName,
 		bio,
-		// mac_address,
-		created_at,
+		// macAddress,
+		createdAt,
 	},
 } = require("~/model/template/userTemplate/userSchemaTemplate");
 
@@ -25,13 +25,13 @@ const {
 uniqueValidator.defaults.message = "{PATH}_exist";
 
 const UserRegisterSchema = new mongoose.Schema({
-	private_id: {
-		type: private_id.Type[0],
-		unique: private_id.unique[0],
-		required: private_id.required,
-		minlength: private_id.minlength,
-		maxlength: private_id.maxlength,
-		trim: private_id.trim[0],
+	privateID: {
+		type: privateID.Type[0],
+		unique: privateID.unique[0],
+		required: privateID.required,
+		minlength: privateID.minlength,
+		maxlength: privateID.maxlength,
+		trim: privateID.trim[0],
 	},
 	username: {
 		type: username.Type[0],
@@ -47,17 +47,17 @@ const UserRegisterSchema = new mongoose.Schema({
 		// 	message: "{VALUE} is not a valid string!",
 		// },
 	},
-	first_name: {
-		type: first_name.Type[0],
-		required: first_name.required,
-		minlength: first_name.minlength,
-		maxlength: first_name.maxlength,
+	firstName: {
+		type: firstName.Type[0],
+		required: firstName.required,
+		minlength: firstName.minlength,
+		maxlength: firstName.maxlength,
 	},
-	last_name: {
-		type: last_name.Type[0],
-		// minlength: last_name.minlength,
-		maxlength: last_name.maxlength,
-		trim: last_name.trim[0],
+	lastName: {
+		type: lastName.Type[0],
+		// minlength: lastName.minlength,
+		maxlength: lastName.maxlength,
+		trim: lastName.trim[0],
 	},
 	cellphone: {
 		type: cellphone.Type[0],
@@ -66,34 +66,34 @@ const UserRegisterSchema = new mongoose.Schema({
 		minlength: cellphone.minlength,
 		maxlength: cellphone.maxlength,
 	},
-	country_code: {
-		type: country_code.Type[0],
-		required: country_code.required,
-		minlength: country_code.minlength,
-		maxlength: country_code.maxlength,
+	countryCode: {
+		type: countryCode.Type[0],
+		required: countryCode.required,
+		minlength: countryCode.minlength,
+		maxlength: countryCode.maxlength,
 	},
-	country_name: {
-		type: country_name.Type[0],
-		required: country_name.required,
-		minlength: country_name.minlength,
-		maxlength: country_name.maxlength,
+	countryName: {
+		type: countryName.Type[0],
+		required: countryName.required,
+		minlength: countryName.minlength,
+		maxlength: countryName.maxlength,
 	},
 	bio: {
 		type: bio.Type[0],
 		// minlength: bio.minlength,
 		maxlength: bio.maxlength,
 	},
-	// mac_address: {
-	// 	type: mac_address.Type[0],
-	// 	unique: mac_address.unique[0],
-	// 	required: mac_address.required,
-	// 	minlength: mac_address.minlength,
-	// 	maxlength: mac_address.maxlength,
-	// 	trim: mac_address.trim[0],
+	// macAddress: {
+	// 	type: macAddress.Type[0],
+	// 	unique: macAddress.unique[0],
+	// 	required: macAddress.required,
+	// 	minlength: macAddress.minlength,
+	// 	maxlength: macAddress.maxlength,
+	// 	trim: macAddress.trim[0],
 	// },
-	created_at: {
-		type: created_at.Type[0],
-		default: created_at.default[0],
+	createdAt: {
+		type: createdAt.Type[0],
+		default: createdAt.default[0],
 	},
 });
 

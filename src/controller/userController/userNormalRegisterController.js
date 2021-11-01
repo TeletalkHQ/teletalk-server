@@ -5,31 +5,31 @@ const {
 } = require("~/function/util");
 
 exports.normalRegister = async (req, res) => {
-	const private_id = idMaker();
+	const privateID = idMaker();
 
 	const {
 		username,
-		first_name,
-		last_name,
+		firstName,
+		lastName,
 		cellphone,
-		country_code,
-		country_name,
-		mac_address,
+		countryCode,
+		countryName,
+		macAddress,
 	} = req.body;
 
 	const body = {
-		private_id,
+		privateID,
 		username,
-		first_name,
-		last_name,
+		firstName,
+		lastName,
 		cellphone,
-		country_code,
-		country_name,
-		mac_address,
+		countryCode,
+		countryName,
+		macAddress,
 	};
 
 	try {
-		req.body.private_id = private_id;
+		req.body.privateID = privateID;
 		const validationResult = await UserRegisterSchema.userRegisterValidator(
 			body
 		);

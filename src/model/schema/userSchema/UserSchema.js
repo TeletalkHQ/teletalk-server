@@ -6,7 +6,7 @@ const {
 } = require("~/model/validator/userValidator/userRegisterValidator");
 
 const {
-	userTemplate: {
+	userSchemaTemplate: {
 		private_id,
 		username,
 		first_name,
@@ -18,7 +18,7 @@ const {
 		// mac_address,
 		created_at,
 	},
-} = require("~/model/template/userTemplate/userTemplate");
+} = require("~/model/template/userTemplate/userSchemaTemplate");
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 

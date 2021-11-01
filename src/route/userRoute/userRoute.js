@@ -4,17 +4,28 @@ const TrezSmsClient = require("trez-sms-client");
 
 const userNormalRegisterController = require("~/controller/userController/userNormalRegisterController");
 const userAnonymousRegisterController = require("~/controller/userController/userAnonymousRegisterController");
-
 const userLoginController = require("~/controller/userController/userLoginController");
-
 const userVerifyController = require("~/controller/userController/userVerifyController");
+
+const {
+	userRouteTemplate,
+} = require("~/model/template/routeTemplate/userRouteTemplate");
+
+const userRoute = Router();
+
+const {
+	login,
+	verify,
+	registerAnonymous,
+	// logoutNormal,
+	// logoutAnonymous,
+	registerNormal,
+} = userRouteTemplate;
 
 const SMSClient = new TrezSmsClient(
 	process.env.SMS_CLIENT_USERNAME,
 	process.env.SMS_CLIENT_PASSWORD
 );
-
-const userRoute = Router();
 
 userRoute.use((req, res, next) => {
 	req.SMSClient = SMSClient;
@@ -23,17 +34,17 @@ userRoute.use((req, res, next) => {
 });
 
 userRoute.post(
-	"/register/normal/",
+	registerNormal.route,
 	userNormalRegisterController.normalRegister
 );
 userRoute.post(
-	"/register/anonymous/",
+	registerAnonymous.route,
 	userAnonymousRegisterController.anonymousRegister
 );
 
-userRoute.post("/login/", userLoginController.login);
+userRoute.post(login.route, userLoginController.login);
 
-userRoute.post("/verify/", userVerifyController.verify);
+userRoute.post(verify.route, userVerifyController.verify);
 
 //* logout normal =>
 

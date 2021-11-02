@@ -1,12 +1,12 @@
 var generator = require("generate-password");
 
-const UserSchema = require("~/model/schema/userSchema/UserSchema");
+const UserSchema = require("~/model/schema/authSchema/UserAuthSchema");
 
 const {
 	userLoginValidator,
-} = require("~/model/validator/userValidator/userLoginValidator");
+} = require("~/model/validator/authValidator/loginAuthValidator");
 
-exports.login = async (req, res) => {
+exports.loginAuthController = async (req, res) => {
 	try {
 		const {
 			body: { cellphone, countryCode, countryName },

@@ -1,4 +1,4 @@
-const userError = {
+exports.userAuthError = {
 	private_id_invalid_type: "private_id_invalid_type",
 	private_id_required: "private_id_required",
 	private_id_exist: "private_id_exist",
@@ -39,4 +39,4 @@ const userError = {
 	created_at_invalid_type: "created_at_invalid_type",
 };
 
-exports.userError = userError;
+

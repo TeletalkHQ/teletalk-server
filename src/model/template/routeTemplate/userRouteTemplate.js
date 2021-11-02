@@ -1,5 +1,5 @@
 exports.userRouteTemplate = {
-  baseRoute: "/user",
+  mainBaseRoute: "/user",
   login: {
     route: "/login/",
     desc: "Use for login user as normal account",
@@ -23,5 +23,11 @@ exports.userRouteTemplate = {
   logoutAnonymous: {
     route: "/logout/anonymous",
     desc: "Use for burn user anonymous account (every footprint)",
+  },
+
+  templateBaseRoute: "/template",
+  user: {
+    route: "/user/",
+    desc: "Use for get all user properties and value structure",
   },
 }

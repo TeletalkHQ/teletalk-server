@@ -1,11 +1,12 @@
 const { Router } = require("express");
-const userTemplateController = require("~/controller/templateController/userTemplateContorller");
+
+const userTemplateController = require("~/controller/templateController/userTemplateController");
 const {
-	userTemplateTemplate: { user },
-} = require("~/model/template/routeTemplate/userTemplateTemplate");
+	userRouteTemplate: { user },
+} = require("~/model/template/routeTemplate/userRouteTemplate");
 
-const templateRoute = Router();
+const userTemplateRoute = Router();
 
-templateRoute.get(user.route, userTemplateController.sendUserTemplate);
+userTemplateRoute.get(user.route, userTemplateController.userTemplateController);
 
-exports.templateRoute = templateRoute;
+exports.userTemplateRoute = userTemplateRoute;

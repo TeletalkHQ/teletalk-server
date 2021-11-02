@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 var uniqueValidator = require("mongoose-unique-validator");
 
 const {
-	userRegisterValidator,
-} = require("~/model/validator/userValidator/userRegisterValidator");
+	registerAuthValidator
+} = require("~/model/validator/authValidator/registerAuthValidator");
 
 const {
-	userSchemaTemplate: {
+	userAuthTemplate: {
 		privateID,
 		username,
 		firstName,
@@ -18,13 +18,13 @@ const {
 		// macAddress,
 		createdAt,
 	},
-} = require("~/model/template/userTemplate/userSchemaTemplate");
+} = require("~/model/template/authTemplate/userAuthTemplate");
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 
-const UserRegisterSchema = new mongoose.Schema({
+const UserAuthSchema = new mongoose.Schema({
 	privateID: {
 		type: privateID.Type[0],
 		unique: privateID.unique[0],
@@ -97,8 +97,8 @@ const UserRegisterSchema = new mongoose.Schema({
 	},
 });
 
-UserRegisterSchema.statics.userRegisterValidator = async function (data) {
-	return userRegisterValidator(data);
+UserAuthSchema.statics.userRegisterValidator = async function (data) {
+	return registerAuthValidator(data);
 };
 
 //* bcrypt
@@ -126,6 +126,6 @@ UserRegisterSchema.statics.userRegisterValidator = async function (data) {
 // });
 //
 
-UserRegisterSchema.plugin(uniqueValidator);
+UserAuthSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model("User", UserRegisterSchema, "users");
+module.exports = mongoose.model("User", UserAuthSchema, "users");

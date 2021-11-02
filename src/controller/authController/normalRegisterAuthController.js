@@ -1,10 +1,10 @@
-const UserRegisterSchema = require("~/model/schema/userSchema/UserSchema");
+const UserRegisterSchema = require("~/model/schema/authSchema/UserAuthSchema");
 
 const {
-	util: { idMaker },
-} = require("~/function/util");
+	utilities: { idMaker },
+} = require("~/function/utilities");
 
-exports.normalRegister = async (req, res) => {
+exports.normalRegisterAuthController = async (req, res) => {
 	const privateID = idMaker();
 
 	const {

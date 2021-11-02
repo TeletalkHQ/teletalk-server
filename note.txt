@@ -1,4 +1,3 @@
 npm i validator for client-side;
 nest-js for build swagger doc;
 what is differences between patch and put;
-make a routes template and share between client and server;

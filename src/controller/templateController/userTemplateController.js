@@ -1,6 +1,6 @@
-const { userSchemaTemplate } = require("~/model/template/userTemplate/userSchemaTemplate");
+const { userSchemaTemplate } = require("~/model/template/authTemplate/userAuthTemplate");
 
-exports.sendUserTemplate = (req, res) => {
+exports.userTemplateController = (req, res) => {
 	try {
 		res.status(200).json(userSchemaTemplate);
 	} catch (error) {

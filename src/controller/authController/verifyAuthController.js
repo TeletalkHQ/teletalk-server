@@ -1,4 +1,4 @@
-exports.verify = async (req, res) => {
+exports.verifyAuthController = async (req, res) => {
 	try {
 		const {
 			body: { cellphone, verify_code },

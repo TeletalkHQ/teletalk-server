@@ -1,17 +1,17 @@
 const Validator = require("fastest-validator");
 
 const {
-	userSchemaTemplate: {
+	userAuthTemplate: {
 		cellphone,
 		countryCode,
 		countryName,
 		// macAddress,
 	},
-} = require("~/model/template/userTemplate/userSchemaTemplate");
+} = require("~/model/template/authTemplate/userAuthTemplate");
 
 const v = new Validator();
 
-const userLoginValidationSchema = {
+const loginAuthValidation = {
 	cellphone: {
 		type: cellphone.type[0],
 		unique: cellphone.unique[0],
@@ -50,6 +50,6 @@ const userLoginValidationSchema = {
 	},
 };
 
-const userLoginValidator = v.compile(userLoginValidationSchema);
+const loginAuthValidator = v.compile(loginAuthValidation);
 
-exports.userLoginValidator = userLoginValidator;
+exports.loginAuthValidator = loginAuthValidator;

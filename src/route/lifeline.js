@@ -2,23 +2,20 @@
 
 const { Router } = require("express");
 
-const { userRoute } = require("~/route/userRoute/userRoute");
-const { errorRoute } = require("~/route/errorRoute/userErrorRoute");
-const { templateRoute } = require("~/route/templateRoute/userTemplateRoute");
+const { userAuthRoute } = require("~/route/authRoute/userAuthRoute");
+const { authErrorRoute } = require("~/route/errorRoute/authErrorRoute");
+const { userTemplateRoute } = require("~/route/templateRoute/userTemplateRoute");
 
 const {
-	userTemplateTemplate,
-} = require("~/model/template/routeTemplate/userTemplateTemplate");
-const {
-	userRouteTemplate,
+	userRouteTemplate
 } = require("~/model/template/routeTemplate/userRouteTemplate");
 
 const lifeline = Router();
 
-lifeline.use(userRouteTemplate.baseRoute, userRoute);
+lifeline.use(userRouteTemplate.mainBaseRoute, userAuthRoute);
 
-lifeline.use("/error", errorRoute);
+lifeline.use("/error", authErrorRoute);
 
-lifeline.use(userTemplateTemplate.baseRoute, templateRoute);
+lifeline.use(userRouteTemplate.templateBaseRoute, userTemplateRoute);
 
 exports.lifeline = lifeline;

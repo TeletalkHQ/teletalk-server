@@ -1,5 +1,5 @@
 const {
-	userError: {
+	userAuthError: {
 		private_id_required,
 		private_id_max_length_reach,
 		private_id_min_length_reach,
@@ -39,9 +39,9 @@ const {
 		private_id_exist,
 		username_exist,
 	},
-} = require("~/constant/error/userError/userError");
+} = require("~/constant/error/authError/userAuthError");
 
-exports.userSchemaTemplate = {
+exports.userAuthTemplate = {
 	privateID: {
 		type: ["string", private_id_invalid_type],
 		Type: [String, private_id_invalid_type],

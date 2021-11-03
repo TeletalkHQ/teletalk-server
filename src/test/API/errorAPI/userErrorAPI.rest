@@ -1,5 +1,5 @@
 @url = http://localhost:
 @port = 8080
-@baseUrl = {{url}}
+@baseUrl = {{url}}{{port}}
 
-GET {{baseUrl}}/user/login/ HTTP/1.1
+POST {{baseUrl}}/user/login/ HTTP/1.1

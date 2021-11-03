@@ -1,3 +1,4 @@
+//* No more need attention to make absolute path
 require("module-alias/register");
 
 const path = require("path");
@@ -5,13 +6,15 @@ const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const express = require("express");
-const pe = require("pretty-error");
+const prettyError = require("pretty-error");
 
 const { connectDB } = require("~/config/database/connectDB");
 
 dotenv.config({ path: "./src/config/environment/main.env" });
 
-pe.start();
+//* Pretty error makes nodeJS error pretty in console, use it before express call
+prettyError.start();
+
 const app = express();
 
 const { lifeline } = require("~/route/lifeline");
@@ -31,11 +34,11 @@ app.get("/", (req, res) => {
 
 const { PORT, NODE_ENV: MODE } = process.env;
 
-const listenerCB = () => {
+const serverListenerCB = () => {
 	console.log(`Server is running in ${MODE} mode on port ${PORT}`);
 };
 
-app.listen(PORT, listenerCB);
+app.listen(PORT, serverListenerCB);
 
 // app.use((req, res, next) => {
 // 	res.header("Access-Control-Allow-Origin", "*");

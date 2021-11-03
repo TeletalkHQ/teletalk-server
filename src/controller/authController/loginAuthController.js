@@ -3,7 +3,7 @@ var generator = require("generate-password");
 const UserSchema = require("~/model/schema/authSchema/UserAuthSchema");
 
 const {
-	userLoginValidator,
+	loginAuthValidator
 } = require("~/model/validator/authValidator/loginAuthValidator");
 
 exports.loginAuthController = async (req, res) => {
@@ -13,7 +13,7 @@ exports.loginAuthController = async (req, res) => {
 			SMSClient,
 		} = req;
 
-		const validationResult = userLoginValidator({
+		const validationResult = loginAuthValidator({
 			cellphone,
 			countryCode,
 			countryName,

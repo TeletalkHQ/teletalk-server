@@ -14,7 +14,7 @@ const {
 } = require("~/controller/userController/verifyUserController");
 const {
 	routeUserTemplate,
-} = require("~/model/template/userTemplate/routeUserTemplate");
+} = require("~/template/userTemplate/routeUserTemplate");
 
 const {
 	errorUserController,

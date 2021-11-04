@@ -1,8 +1,8 @@
-const { User } = require("~/model/schema/userSchema/UserSchema");
+const { UserModel } = require("~/model/userModel/UserModel");
 
 const {
 	registerUserValidator,
-} = require("~/model/validator/userValidator/registerUserValidator");
+} = require("~/validator/userValidator/registerUserValidator");
 
 const {
 	randomID: { randomID },
@@ -38,7 +38,7 @@ const normalRegisterUserController = async (req, res) => {
 		const validationResult = await registerUserValidator(body);
 
 		if (validationResult === true) {
-			const user = new User(body);
+			const user = new UserModel(body);
 
 			await user.save();
 

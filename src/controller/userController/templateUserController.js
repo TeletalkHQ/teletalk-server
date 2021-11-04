@@ -1,6 +1,6 @@
 const {
 	schemaUserTemplate,
-} = require("~/model/template/userTemplate/schemaUserTemplate");
+} = require("~/template/userTemplate/schemaUserTemplate");
 
 const templateUserController = (req, res) => {
 	try {

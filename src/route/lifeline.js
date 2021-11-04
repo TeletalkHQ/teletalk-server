@@ -6,7 +6,7 @@ const { userRoute } = require("~/route/userRoute/userRoute");
 
 const {
 	routeUserTemplate,
-} = require("~/model/template/userTemplate/routeUserTemplate");
+} = require("~/template/userTemplate/routeUserTemplate");
 
 const lifeline = Router();
 

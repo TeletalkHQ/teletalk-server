@@ -1,8 +1,8 @@
-const { User } = require("~/model/schema/userSchema/UserSchema");
+const { UserModel } = require("~/model/userModel/UserModel");
 
 const {
 	loginUserValidator,
-} = require("~/model/validator/userValidator/loginUserValidator");
+} = require("~/validator/userValidator/loginUserValidator");
 
 const { passwordGenerator } = require("~/function/utility/passwordGenerator");
 
@@ -19,7 +19,7 @@ const loginUserController = async (req, res) => {
 		});
 
 		if (validationResult === true) {
-			const user = await User.findOne({
+			const user = await UserModel.findOne({
 				cellphone,
 				countryCode,
 				countryName,

@@ -3,7 +3,7 @@ var uniqueValidator = require("mongoose-unique-validator");
 
 const {
 	registerUserValidator,
-} = require("~/model/validator/userValidator/registerUserValidator");
+} = require("~/validator/userValidator/registerUserValidator");
 
 const {
 	schemaUserTemplate: {
@@ -18,7 +18,7 @@ const {
 		// macAddress,
 		createdAt,
 	},
-} = require("~/model/template/userTemplate/schemaUserTemplate");
+} = require("~/template/userTemplate/schemaUserTemplate");
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
@@ -128,6 +128,4 @@ UserSchema.statics.userRegisterValidator = async function (data) {
 
 UserSchema.plugin(uniqueValidator);
 
-const UserModel = mongoose.model("User", UserSchema, "users");
-
-module.exports = { User: UserModel };
+module.exports = { UserSchema };

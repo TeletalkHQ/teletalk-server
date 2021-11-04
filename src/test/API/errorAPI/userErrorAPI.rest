@@ -1,5 +1,0 @@
-@url = http://localhost:
-@port = 8080
-@baseUrl = {{url}}{{port}}
-
-POST {{baseUrl}}/user/login/ HTTP/1.1

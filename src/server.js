@@ -48,7 +48,7 @@ app.listen(PORT, serverListenerCB);
 // 	);
 // 	res.header(
 // 		"Access-Control-Allow-Headers",
-// 		"Origin, X-Requested-With, Content-Type, Accept, Authorization"
+// 		"Origin, X-Requested-With, Content-Type, Accept, Userorization"
 // 	);
 // 	next();
 // });

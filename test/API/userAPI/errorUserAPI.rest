@@ -1,0 +1,5 @@
+@url = http://localhost:
+@port = 8080
+@baseUrl = {{url}}{{port}}
+
+GET {{baseUrl}}/user/error/ HTTP/1.1

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-exports.connectDB = async () => {
+const connectDB = async () => {
 	try {
 		const { connection } = await mongoose.connect(process.env.MONGO_URI, {
 			// useFindAndModify: true,
@@ -14,3 +14,5 @@ exports.connectDB = async () => {
 		process.exit(1);
 	}
 };
+
+module.exports = { connectDB };

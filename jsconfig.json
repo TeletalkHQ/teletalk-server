@@ -7,6 +7,6 @@
 	},
 	"exclude": ["./node_modules"],
 	"typeAcquisition": {
-		"exclude": ["defer-to-connect", "safe-stable-stringify"]
+		"exclude": ["defer-to-connect", "safe-stable-stringify", "source-map", "*"]
 	}
 }

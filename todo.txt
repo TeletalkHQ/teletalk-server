@@ -20,7 +20,6 @@
 20. Use multer or express-fileupload for get multi-data, part 96
 21. Upload progress-bar, part 98
 22. Use sharp for compress images and ...
-22. ClipboardJS documentation
 23. NodeMailer, nodemailer-smtp-transport for send email in NodeJS , part 119
 24. Use cPanel for nodeJS host 
 25. Use jsonwebtoken for auth
@@ -38,3 +37,4 @@
 37. FTP part 150, nginx part 149
 38. Make a node module for utils functions
 39. Using ms for convert time to ms and reverse 
+40. ClipboardJS documentation

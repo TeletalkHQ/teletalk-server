@@ -7,42 +7,43 @@ const {
 const {
 	randomID: { randomID },
 } = require("~/function/utility/randomID");
+const { tokenMaker } = require("~/function/utility/tokenMaker");
+
+const {
+	userError: { cellphone_exist },
+} = require("~/constant/error/userError/userError");
+const bodyClarify = require("~/function/utility/bodyClearify");
 
 const normalRegisterUserController = async (req, res) => {
 	try {
 		const privateID = randomID();
 
-		const {
-			body: {
-				username,
-				firstName,
-				lastName,
-				cellphone,
-				countryCode,
-				countryName,
-				macAddress,
-			},
-		} = req;
+		const { body: userData } = bodyClarify(req.body);
 
-		const body = {
-			privateID,
-			username,
-			firstName,
-			lastName,
-			cellphone,
-			countryCode,
-			countryName,
-			macAddress,
-		};
+		userData.privateID = privateID;
 
-		const validationResult = await registerUserValidator(body);
+		const validationResult = await registerUserValidator(userData);
 
 		if (validationResult === true) {
-			const user = new UserModel(body);
+			const isUserExist = await UserModel.findOne({
+				cellphone: userData.cellphone,
+			});
 
-			await user.save();
+			// console.log(isUserExist);
+			if (isUserExist === null) {
+				const token = await tokenMaker(userData);
+				userData.tokens = [];
+				userData.tokens.push(token);
+				console.log(userData);
 
-			res.status(200).json(body);
+				const user = new UserModel(userData);
+
+				await user.save();
+
+				res.status(200).json(userData);
+			} else {
+				throw cellphone_exist;
+			}
 		} else {
 			throw validationResult;
 		}

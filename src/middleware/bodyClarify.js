@@ -1,6 +1,5 @@
 const bodyClarify = (body) => {
 	const filteredBody = {};
-
 	Object.entries(body).forEach(([key, value]) => {
 		if (value) {
 			filteredBody[key] = value;
@@ -10,4 +9,4 @@ const bodyClarify = (body) => {
 	return { body: filteredBody };
 };
 
-module.exports = bodyClarify;
+module.exports = { bodyClarify };

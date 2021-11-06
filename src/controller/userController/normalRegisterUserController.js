@@ -10,16 +10,16 @@ const {
 const { tokenMaker } = require("~/function/utility/tokenMaker");
 
 const {
-	userError: { cellphone_exist },
+	userError: { CELLPHONE_EXIST },
 } = require("~/constant/error/userError/userError");
-const bodyClarify = require("~/function/utility/bodyClearify");
 
 const normalRegisterUserController = async (req, res) => {
 	try {
 		const privateID = randomID();
 
-		const { body: userData } = bodyClarify(req.body);
+		const userData = req.body;
 
+		// console.log(userData);
 		userData.privateID = privateID;
 
 		const validationResult = await registerUserValidator(userData);
@@ -34,20 +34,21 @@ const normalRegisterUserController = async (req, res) => {
 				const token = await tokenMaker(userData);
 				userData.tokens = [];
 				userData.tokens.push(token);
-				console.log(userData);
 
 				const user = new UserModel(userData);
 
 				await user.save();
 
-				res.status(200).json(userData);
+				res.status(201).json(userData);
 			} else {
-				throw cellphone_exist;
+				throw CELLPHONE_EXIST;
 			}
 		} else {
+			console.log("validationResult!");
 			throw validationResult;
 		}
 	} catch (err) {
+		console.log("bad request!");
 		res.status(400).json(err);
 	}
 };

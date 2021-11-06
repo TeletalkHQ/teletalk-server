@@ -8,6 +8,7 @@ const {
 const {
 	schemaUserTemplate: {
 		privateID,
+		tokens,
 		username,
 		firstName,
 		lastName,
@@ -32,6 +33,11 @@ const UserSchema = new mongoose.Schema({
 		minlength: privateID.minlength,
 		maxlength: privateID.maxlength,
 		trim: privateID.trim[0],
+	},
+	tokens: {
+		type: tokens.Type[0],
+		unique: tokens.unique[0],
+		required: tokens.required,
 	},
 	username: {
 		type: username.Type[0],

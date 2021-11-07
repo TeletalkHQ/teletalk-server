@@ -1,12 +1,18 @@
-const bodyClarify = (body) => {
-	const filteredBody = {};
-	Object.entries(body).forEach(([key, value]) => {
-		if (value) {
-			filteredBody[key] = value;
-		}
-	});
+const { objectClarify } = require("~/function/utility/objectClarify");
 
-	return { body: filteredBody };
+/**
+ *
+ *
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ *
+ * @return req.body without undefined values
+ */
+const bodyClarify = (req, res, next) => {
+	const cleanBody = objectClarify(req.body);
+	req.body = cleanBody;
+	next();
 };
 
 module.exports = { bodyClarify };

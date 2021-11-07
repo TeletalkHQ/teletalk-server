@@ -19,6 +19,7 @@
 		"ipynb",
 		"jsonwebtoken",
 		"maxlength",
+		"middlewares",
 		"monospace",
 		"multer",
 		"nodemailer",

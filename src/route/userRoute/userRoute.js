@@ -1,28 +1,16 @@
 const { Router } = require("express");
 
 const {
-	normalRegisterUserController,
-} = require("~/controller/userController/normalRegisterUserController");
-const {
-	anonymousRegisterUserController,
-} = require("~/controller/userController/anonymousRegisterUserController");
-const {
-	loginUserController,
-} = require("~/controller/userController/loginUserController");
-const {
-	verifyUserController,
-} = require("~/controller/userController/verifyUserController");
-const {
-	routeUserTemplate,
-} = require("~/template/userTemplate/routeUserTemplate");
-
-const {
-	errorUserController,
-} = require("~/controller/userController/errorUserController");
-
-const {
-	templateUserController,
-} = require("~/controller/userController/templateUserController");
+	indexUserController: {
+		anonymousRegisterUserController,
+		errorUserController,
+		loginUserController,
+		normalRegisterUserController,
+		routeUserTemplate,
+		templateUserController,
+		verifyUserController,
+	},
+} = require("~/controller/userController/indexUserController");
 
 const userRoute = Router();
 

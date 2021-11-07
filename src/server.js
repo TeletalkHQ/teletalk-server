@@ -3,41 +3,24 @@ require("module-alias/register");
 
 const path = require("path");
 
-const dotenv = require("dotenv");
-const morgan = require("morgan");
 const express = require("express");
-const prettyError = require("pretty-error");
 
-const { connectDB } = require("~/config/database/connectDB");
+const { middleLine } = require("~/middleware/middleLine");
+const { lifeline } = require("~/route/lifeline");
+const { serverConfigurations } = require("~/config/server/serverConfiguration");
 
-const { bodyClarify } = require("~/middleware/bodyClarify");
-
-dotenv.config({ path: "./src/config/environment/main.env" });
-
-//* Pretty error makes nodeJS error pretty in console, use it before express call
-prettyError.start();
+//* Use it before creating app =>
+serverConfigurations();
 
 const app = express();
 
-const { lifeline } = require("~/route/lifeline");
+//* All middlewares is executing here =>
+middleLine(app, express);
 
-connectDB();
-
-app.use(express.json());
-
-app.use((req, res, next) => {
-	const cleanBody = bodyClarify(req.body);
-	req.body = cleanBody;
-	next();
-});
+//* All routers is here =>
 app.use(lifeline);
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(morgan("dev"));
-
-app.get("/", (req, res) => {
-	res.send("Hey! Welcome to teletalk <3");
-});
 
 const { PORT, NODE_ENV: MODE } = process.env;
 

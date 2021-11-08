@@ -1,8 +1,8 @@
-const { UserModel } = require("~/model/userModel/UserModel");
+const { AuthModel } = require("~/model/authModel/AuthModel");
 
 const {
 	registerUserValidator,
-} = require("~/validator/userValidator/registerUserValidator");
+} = require("~/validator/authValidator/registerAuthValidator");
 
 const {
 	randomID: { randomID },
@@ -10,38 +10,38 @@ const {
 const { tokenMaker } = require("~/function/utility/tokenMaker");
 
 const {
-	userError: { CELLPHONE_EXIST },
-} = require("~/constant/error/userError/userError");
+	authError: { CELLPHONE_EXIST },
+} = require("~/constant/error/authError/authError");
 
-const normalRegisterUserController = async (req, res) => {
+const normalRegisterAuthController = async (req, res) => {
 	try {
 		const privateID = randomID();
 
 		const userData = req.body;
 
-		// console.log(userData);
+		console.log(userData);
 		userData.privateID = privateID;
 
 		const validationResult = await registerUserValidator(userData);
 
 		if (validationResult === true) {
-			const isUserExist = await UserModel.findOne({
+			const isUserExist = await AuthModel.findOne({
 				cellphone: userData.cellphone,
 			});
 
 			// console.log(isUserExist);
-			if (isUserExist === null) {
+			if (isUserExist) {
+				throw CELLPHONE_EXIST;
+			} else {
 				const token = await tokenMaker(userData);
 				userData.tokens = [];
 				userData.tokens.push(token);
 
-				const user = new UserModel(userData);
+				const user = new AuthModel(userData);
 
 				await user.save();
 
 				res.status(201).json(userData);
-			} else {
-				throw CELLPHONE_EXIST;
 			}
 		} else {
 			console.log("validationResult!");
@@ -53,4 +53,4 @@ const normalRegisterUserController = async (req, res) => {
 	}
 };
 
-module.exports = { normalRegisterUserController };
+module.exports = { normalRegisterAuthController };

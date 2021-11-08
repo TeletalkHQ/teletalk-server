@@ -10,8 +10,8 @@ const { objectClarify } = require("~/function/utility/objectClarify");
  * @return req.body without undefined values
  */
 const bodyClarify = (req, res, next) => {
-	const cleanBody = objectClarify(req.body);
-	req.body = cleanBody;
+	const { object } = objectClarify(req.body);
+	req.body = object;
 	next();
 };
 

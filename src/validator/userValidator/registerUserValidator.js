@@ -16,16 +16,16 @@ const {
 const v = new Validator();
 
 const registerUserValidation = {
-	bio: bioValidation,
-	cellphone: cellphoneValidation,
-	countryCode: countryCodeValidation,
-	countryName: countryNameValidation,
-	// createdAt: createdAtValidation,
-	firstName: firstNameValidation,
-	lastName: lastNameValidation,
-	// macAddress: macAddressValidation,
-	privateID: privateIDValidation,
-	username: usernameValidation,
+	...bioValidation,
+	...cellphoneValidation,
+	...countryCodeValidation,
+	...countryNameValidation,
+	// ...createdAtValidation,
+	...firstNameValidation,
+	...lastNameValidation,
+	// ...macAddressValidation,
+	...privateIDValidation,
+	...usernameValidation,
 };
 
 const registerUserValidator = v.compile(registerUserValidation);

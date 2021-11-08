@@ -5,7 +5,7 @@ const {
 		anonymousRegisterAuthController,
 		loginAuthController,
 		normalRegisterAuthController,
-		routeAuthTemplate,
+		routeUserTemplate,
 		templateAuthController,
 		errorAuthController,
 		verifyAuthController,
@@ -23,7 +23,7 @@ const {
 	registerNormal,
 	error,
 	template,
-} = routeAuthTemplate;
+} = routeUserTemplate;
 
 authRoute.post(registerNormal.route, normalRegisterAuthController);
 authRoute.post(registerAnonymous.route, anonymousRegisterAuthController);

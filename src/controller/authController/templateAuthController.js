@@ -1,6 +1,6 @@
 const {
 	schemaUserTemplate,
-} = require("~/template/authTemplate/schemaAuthTemplate");
+} = require("~/template/userTemplate/schemaUserTemplate");
 
 const templateAuthController = (req, res) => {
 	try {

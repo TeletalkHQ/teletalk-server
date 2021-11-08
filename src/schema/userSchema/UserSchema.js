@@ -94,7 +94,7 @@ const UserSchema = new mongoose.Schema({
 	username: {
 		type: username.Type[0],
 		unique: username.unique[0],
-		minlength: username.minlength,
+		// minlength: username.minlength,
 		maxlength: username.maxlength,
 		trim: username.trim[0],
 		lowercase: username.lowercase[0],

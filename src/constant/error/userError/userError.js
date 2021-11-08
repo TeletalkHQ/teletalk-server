@@ -1,4 +1,4 @@
-const authError = {
+const userError = {
 	BIO_INVALID_TYPE: "BIO_INVALID_TYPE",
 	BIO_MAXLENGTH_REACH: "BIO_MAXLENGTH_REACH",
 	BIO_MINLENGTH_REACH: "BIO_MINLENGTH_REACH",
@@ -42,4 +42,4 @@ const authError = {
 	USERNAME_MINLENGTH_REACH: "USERNAME_MINLENGTH_REACH",
 };
 
-module.exports = { authError };
+module.exports = { userError };

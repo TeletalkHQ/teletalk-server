@@ -3,7 +3,7 @@ var uniqueValidator = require("mongoose-unique-validator");
 
 const {
 	registerUserValidator,
-} = require("~/validator/authValidator/registerAuthValidator");
+} = require("~/validator/userValidator/registerUserValidator");
 
 const {
 	schemaUserTemplate: {
@@ -20,13 +20,64 @@ const {
 		// macAddress,
 		createdAt,
 	},
-} = require("~/template/authTemplate/schemaAuthTemplate");
+} = require("~/template/userTemplate/schemaUserTemplate");
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 
-const AuthSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
+	bio: {
+		type: bio.Type[0],
+		// minlength: bio.minlength,
+		maxlength: bio.maxlength,
+	},
+	cellphone: {
+		type: cellphone.Type[0],
+		unique: cellphone.unique[0],
+		required: cellphone.required,
+		minlength: cellphone.minlength,
+		maxlength: cellphone.maxlength,
+	},
+	contacts: {
+		type: contacts.Type[0],
+	},
+	countryCode: {
+		type: countryCode.Type[0],
+		required: countryCode.required,
+		minlength: countryCode.minlength,
+		maxlength: countryCode.maxlength,
+	},
+	countryName: {
+		type: countryName.Type[0],
+		required: countryName.required,
+		minlength: countryName.minlength,
+		maxlength: countryName.maxlength,
+	},
+	createdAt: {
+		type: createdAt.Type[0],
+		default: createdAt.default[0],
+	},
+	firstName: {
+		type: firstName.Type[0],
+		required: firstName.required,
+		minlength: firstName.minlength,
+		maxlength: firstName.maxlength,
+	},
+	lastName: {
+		type: lastName.Type[0],
+		// minlength: lastName.minlength,
+		maxlength: lastName.maxlength,
+		trim: lastName.trim[0],
+	},
+	// macAddress: {
+	// 	type: macAddress.Type[0],
+	// 	unique: macAddress.unique[0],
+	// 	required: macAddress.required,
+	// 	minlength: macAddress.minlength,
+	// 	maxlength: macAddress.maxlength,
+	// 	trim: macAddress.trim[0],
+	// },
 	privateID: {
 		type: privateID.Type[0],
 		unique: privateID.unique[0],
@@ -54,60 +105,9 @@ const AuthSchema = new mongoose.Schema({
 		// 	message: "{VALUE} is not a valid string!",
 		// },
 	},
-	firstName: {
-		type: firstName.Type[0],
-		required: firstName.required,
-		minlength: firstName.minlength,
-		maxlength: firstName.maxlength,
-	},
-	lastName: {
-		type: lastName.Type[0],
-		// minlength: lastName.minlength,
-		maxlength: lastName.maxlength,
-		trim: lastName.trim[0],
-	},
-	cellphone: {
-		type: cellphone.Type[0],
-		unique: cellphone.unique[0],
-		required: cellphone.required,
-		minlength: cellphone.minlength,
-		maxlength: cellphone.maxlength,
-	},
-	contacts: {
-		type: contacts.Type[0],
-	},
-	countryCode: {
-		type: countryCode.Type[0],
-		required: countryCode.required,
-		minlength: countryCode.minlength,
-		maxlength: countryCode.maxlength,
-	},
-	countryName: {
-		type: countryName.Type[0],
-		required: countryName.required,
-		minlength: countryName.minlength,
-		maxlength: countryName.maxlength,
-	},
-	bio: {
-		type: bio.Type[0],
-		// minlength: bio.minlength,
-		maxlength: bio.maxlength,
-	},
-	// macAddress: {
-	// 	type: macAddress.Type[0],
-	// 	unique: macAddress.unique[0],
-	// 	required: macAddress.required,
-	// 	minlength: macAddress.minlength,
-	// 	maxlength: macAddress.maxlength,
-	// 	trim: macAddress.trim[0],
-	// },
-	createdAt: {
-		type: createdAt.Type[0],
-		default: createdAt.default[0],
-	},
 });
 
-AuthSchema.statics.userRegisterValidator = async function (data) {
+UserSchema.statics.userRegisterValidator = async function (data) {
 	return registerUserValidator(data);
 };
 
@@ -136,6 +136,6 @@ AuthSchema.statics.userRegisterValidator = async function (data) {
 // });
 //
 
-AuthSchema.plugin(uniqueValidator);
+UserSchema.plugin(uniqueValidator);
 
-module.exports = { AuthSchema };
+module.exports = { UserSchema };

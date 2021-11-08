@@ -1,7 +1,7 @@
 //* Using in mongoose schema and validators
 
 const {
-	authError: {
+	userError: {
 		BIO_INVALID_TYPE,
 		BIO_MAXLENGTH_REACH,
 		BIO_MINLENGTH_REACH,
@@ -44,7 +44,7 @@ const {
 		USERNAME_MAXLENGTH_REACH,
 		USERNAME_MINLENGTH_REACH,
 	},
-} = require("~/constant/error/authError/authError");
+} = require("~/constant/error/userError/userError");
 
 const schemaUserTemplate = {
 	bio: {

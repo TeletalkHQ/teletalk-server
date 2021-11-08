@@ -1,8 +1,8 @@
-const { AuthModel } = require("~/model/authModel/AuthModel");
+const { AuthModel } = require("~/model/userModel/UserModel");
 
 const {
 	registerUserValidator,
-} = require("~/validator/authValidator/registerAuthValidator");
+} = require("~/validator/userValidator/registerUserValidator");
 
 const {
 	randomID: { randomID },
@@ -10,8 +10,8 @@ const {
 const { tokenMaker } = require("~/function/utility/tokenMaker");
 
 const {
-	authError: { CELLPHONE_EXIST },
-} = require("~/constant/error/authError/authError");
+	userError: { CELLPHONE_EXIST },
+} = require("~/constant/error/userError/userError");
 
 const normalRegisterAuthController = async (req, res) => {
 	try {

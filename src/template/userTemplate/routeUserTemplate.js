@@ -1,6 +1,6 @@
-//* Using in routers and controllers
+//* Using in routers, controllers and client-side
 
-const routeAuthTemplate = {
+const routeUserTemplate = {
 	baseRoute: "/auth",
 
 	login: {
@@ -31,7 +31,7 @@ const routeAuthTemplate = {
 
 	error: {
 		route: "/error/",
-		description: "Use for get all user properties and value structure",
+		description: "Use for get all auth errors",
 	},
 	template: {
 		route: "/template/",
@@ -39,4 +39,4 @@ const routeAuthTemplate = {
 	},
 };
 
-module.exports = { routeAuthTemplate };
+module.exports = { routeUserTemplate };

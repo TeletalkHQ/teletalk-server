@@ -3,6 +3,7 @@ require("module-alias/register");
 
 const path = require("path");
 const express = require("express");
+const prettyError = require("pretty-error");
 
 const { middleLine } = require("~/middleware/middleLine");
 const { lifeline } = require("~/route/lifeline");
@@ -11,6 +12,8 @@ const { serverConfigurations } = require("~/config/server/serverConfiguration");
 //* Use it before express call =>
 serverConfigurations();
 
+//* Pretty error makes nodeJS error pretty in console, use it before express call
+prettyError.start();
 const app = express();
 
 //* All middlewares is executing here =>
@@ -19,6 +22,7 @@ middleLine(app, express);
 //* All routers is here =>
 app.use(lifeline);
 
+//* Your statics is here =>
 app.use(express.static(path.join(__dirname, "public")));
 
 const { PORT, NODE_ENV: MODE } = process.env;

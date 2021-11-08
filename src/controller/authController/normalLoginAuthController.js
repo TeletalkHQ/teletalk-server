@@ -1,8 +1,8 @@
-const { AuthModel } = require("~/model/authModel/AuthModel");
+const { AuthModel } = require("~/model/userModel/UserModel");
 
 const {
 	loginUserValidator,
-} = require("~/validator/authValidator/loginAuthValidator");
+} = require("~/validator/userValidator/loginUserValidator");
 
 const { passwordGenerator } = require("~/function/utility/passwordGenerator");
 

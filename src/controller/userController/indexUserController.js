@@ -22,7 +22,7 @@ const {
 	templateUserController,
 } = require("~/controller/userController/templateUserController");
 
-const indexUserController = {
+module.exports = {
 	normalRegisterUserController,
 	anonymousRegisterUserController,
 	normalLoginUserController,
@@ -31,5 +31,3 @@ const indexUserController = {
 	errorUserController,
 	templateUserController,
 };
-
-module.exports = { indexUserController };

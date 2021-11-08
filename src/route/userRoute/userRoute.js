@@ -1,15 +1,13 @@
 const { Router } = require("express");
 
 const {
-	indexUserController: {
-		anonymousRegisterUserController,
-		normalLoginUserController,
-		normalRegisterUserController,
-		routeUserTemplate,
-		templateUserController,
-		errorUserController,
-		verifyUserController,
-	},
+	anonymousRegisterUserController,
+	normalLoginUserController,
+	normalRegisterUserController,
+	routeUserTemplate,
+	templateUserController,
+	errorUserController,
+	verifyUserController,
 } = require("~/controller/userController/indexUserController");
 
 const userRoute = Router();

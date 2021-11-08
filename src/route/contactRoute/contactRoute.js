@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 const {
-	indexContactController: { addContactController },
+	addContactController,
 } = require("~/controller/contactController/indexContactController");
 
 const {

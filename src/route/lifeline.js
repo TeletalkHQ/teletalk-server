@@ -2,7 +2,7 @@
 
 const { Router } = require("express");
 
-const { authRoute } = require("~/route/authRoute/authRoute");
+const { userRoute } = require("~/route/userRoute/userRoute");
 const { contactRoute } = require("~/route/contactRoute/contactRoute");
 
 const {
@@ -18,7 +18,7 @@ lifeline.get("/", (req, res) => {
 	res.send("Hey! Welcome to teletalk <3");
 });
 
-lifeline.use(routeUserTemplate.baseRoute, authRoute);
+lifeline.use(routeUserTemplate.baseRoute, userRoute);
 lifeline.use(routeContactTemplate.baseRoute, contactRoute);
 
 exports.lifeline = lifeline;

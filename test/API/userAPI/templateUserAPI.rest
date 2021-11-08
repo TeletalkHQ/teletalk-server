@@ -2,4 +2,4 @@
 @port = 8080
 @baseUrl = {{url}}{{port}}
 
-GET {{baseUrl}}/auth/template/ HTTP/1.1
+GET {{baseUrl}}/user/template/ HTTP/1.1

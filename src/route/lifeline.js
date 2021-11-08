@@ -21,4 +21,4 @@ lifeline.get("/", (req, res) => {
 lifeline.use(routeUserTemplate.baseRoute, userRoute);
 lifeline.use(routeContactTemplate.baseRoute, contactRoute);
 
-exports.lifeline = lifeline;
+module.exports = { lifeline };

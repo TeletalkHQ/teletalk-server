@@ -85,7 +85,7 @@ const schemaUserTemplate = {
 	createdAt: {
 		type: ["date", CREATED_AT_INVALID_TYPE],
 		Type: [Date, CREATED_AT_INVALID_TYPE],
-		// required: [true],
+		required: [true],
 		default: [Date.now],
 	},
 	firstName: {

@@ -1,7 +1,7 @@
 //* Using in routers, controllers and client-side
 
 const routeUserTemplate = {
-	baseRoute: "/auth",
+	baseRoute: "/user",
 
 	login: {
 		route: "/login/",

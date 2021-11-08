@@ -11,8 +11,8 @@ const {
 	verifyAuthController,
 } = require("~/controller/authController/verifyAuthController");
 const {
-	routeAuthTemplate,
-} = require("~/template/authTemplate/routeAuthTemplate");
+	routeUserTemplate,
+} = require("~/template/userTemplate/routeUserTemplate");
 
 const {
 	errorAuthController,
@@ -27,7 +27,7 @@ const indexUserController = {
 	anonymousRegisterAuthController,
 	loginAuthController,
 	verifyAuthController,
-	routeAuthTemplate,
+	routeUserTemplate,
 	errorAuthController,
 	templateAuthController,
 };

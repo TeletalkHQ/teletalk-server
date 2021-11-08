@@ -2,14 +2,13 @@
 require("module-alias/register");
 
 const path = require("path");
-
 const express = require("express");
 
 const { middleLine } = require("~/middleware/middleLine");
 const { lifeline } = require("~/route/lifeline");
 const { serverConfigurations } = require("~/config/server/serverConfiguration");
 
-//* Use it before creating app =>
+//* Use it before express call =>
 serverConfigurations();
 
 const app = express();

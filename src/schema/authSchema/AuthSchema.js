@@ -3,7 +3,7 @@ var uniqueValidator = require("mongoose-unique-validator");
 
 const {
 	registerUserValidator,
-} = require("~/validator/userValidator/registerUserValidator");
+} = require("~/validator/authValidator/registerAuthValidator");
 
 const {
 	schemaUserTemplate: {
@@ -13,19 +13,20 @@ const {
 		firstName,
 		lastName,
 		cellphone,
+		contacts,
 		countryCode,
 		countryName,
 		bio,
 		// macAddress,
 		createdAt,
 	},
-} = require("~/template/userTemplate/schemaUserTemplate");
+} = require("~/template/authTemplate/schemaAuthTemplate");
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 
-const UserSchema = new mongoose.Schema({
+const AuthSchema = new mongoose.Schema({
 	privateID: {
 		type: privateID.Type[0],
 		unique: privateID.unique[0],
@@ -42,7 +43,7 @@ const UserSchema = new mongoose.Schema({
 	username: {
 		type: username.Type[0],
 		unique: username.unique[0],
-		// minlength: username.minlength,
+		minlength: username.minlength,
 		maxlength: username.maxlength,
 		trim: username.trim[0],
 		lowercase: username.lowercase[0],
@@ -71,6 +72,9 @@ const UserSchema = new mongoose.Schema({
 		required: cellphone.required,
 		minlength: cellphone.minlength,
 		maxlength: cellphone.maxlength,
+	},
+	contacts: {
+		type: contacts.Type[0],
 	},
 	countryCode: {
 		type: countryCode.Type[0],
@@ -103,7 +107,7 @@ const UserSchema = new mongoose.Schema({
 	},
 });
 
-UserSchema.statics.userRegisterValidator = async function (data) {
+AuthSchema.statics.userRegisterValidator = async function (data) {
 	return registerUserValidator(data);
 };
 
@@ -132,6 +136,6 @@ UserSchema.statics.userRegisterValidator = async function (data) {
 // });
 //
 
-UserSchema.plugin(uniqueValidator);
+AuthSchema.plugin(uniqueValidator);
 
-module.exports = { UserSchema };
+module.exports = { AuthSchema };

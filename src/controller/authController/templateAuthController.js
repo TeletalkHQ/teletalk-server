@@ -1,8 +1,8 @@
 const {
 	schemaUserTemplate,
-} = require("~/template/userTemplate/schemaUserTemplate");
+} = require("~/template/authTemplate/schemaAuthTemplate");
 
-const templateUserController = (req, res) => {
+const templateAuthController = (req, res) => {
 	try {
 		res.status(200).json(schemaUserTemplate);
 	} catch (error) {
@@ -10,4 +10,4 @@ const templateUserController = (req, res) => {
 	}
 };
 
-module.exports = { templateUserController };
+module.exports = { templateAuthController };

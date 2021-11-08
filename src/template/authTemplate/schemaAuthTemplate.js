@@ -1,7 +1,7 @@
 //* Using in mongoose schema and validators
 
 const {
-	userError: {
+	authError: {
 		BIO_INVALID_TYPE,
 		BIO_MAXLENGTH_REACH,
 		BIO_MINLENGTH_REACH,
@@ -10,6 +10,7 @@ const {
 		CELLPHONE_MAXLENGTH_REACH,
 		CELLPHONE_MINLENGTH_REACH,
 		CELLPHONE_REQUIRED,
+		CONTACTS_INVALID_TYPE,
 		COUNTRY_CODE_INVALID_TYPE,
 		COUNTRY_CODE_MAXLENGTH_REACH,
 		COUNTRY_CODE_MINLENGTH_REACH,
@@ -43,7 +44,7 @@ const {
 		USERNAME_MAXLENGTH_REACH,
 		USERNAME_MINLENGTH_REACH,
 	},
-} = require("~/constant/error/userError/userError");
+} = require("~/constant/error/authError/authError");
 
 const schemaUserTemplate = {
 	bio: {
@@ -60,6 +61,11 @@ const schemaUserTemplate = {
 		required: [true, CELLPHONE_REQUIRED],
 		minlength: [10, CELLPHONE_MINLENGTH_REACH],
 		maxlength: [12, CELLPHONE_MAXLENGTH_REACH],
+	},
+	contacts: {
+		type: ["array", CONTACTS_INVALID_TYPE],
+		Type: [Array, CONTACTS_INVALID_TYPE],
+		required: [false],
 	},
 	countryCode: {
 		type: ["string", COUNTRY_CODE_INVALID_TYPE],
@@ -121,6 +127,7 @@ const schemaUserTemplate = {
 		type: ["array", TOKENS_INVALID_TYPE],
 		Type: [Array, TOKENS_INVALID_TYPE],
 		unique: [true, TOKENS__EXIST],
+		required: [true],
 	},
 	username: {
 		type: ["string", USERNAME_INVALID_TYPE],

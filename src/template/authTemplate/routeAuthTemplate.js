@@ -1,7 +1,7 @@
 //* Using in routers and controllers
 
-const routeUserTemplate = {
-	baseRoute: "/user",
+const routeAuthTemplate = {
+	baseRoute: "/auth",
 
 	login: {
 		route: "/login/",
@@ -39,4 +39,4 @@ const routeUserTemplate = {
 	},
 };
 
-module.exports = { routeUserTemplate };
+module.exports = { routeAuthTemplate };

@@ -7,7 +7,7 @@ const {
 		countryName,
 		// macAddress,
 	},
-} = require("~/template/userTemplate/schemaUserTemplate");
+} = require("~/template/authTemplate/schemaAuthTemplate");
 
 const v = new Validator();
 

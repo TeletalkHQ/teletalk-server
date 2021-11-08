@@ -1,6 +1,6 @@
 const { smsValidator } = require("~/function/tool/SMSClient");
 
-const verifyUserController = async (req, res) => {
+const verifyAuthController = async (req, res) => {
 	try {
 		const {
 			body: { cellphone, verifyCode },
@@ -23,4 +23,4 @@ const verifyUserController = async (req, res) => {
 	}
 };
 
-module.exports = { verifyUserController };
+module.exports = { verifyAuthController };

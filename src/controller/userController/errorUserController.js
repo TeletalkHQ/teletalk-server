@@ -1,6 +1,6 @@
 const { userError } = require("~/constant/error/userError/userError");
 
-const errorAuthController = (req, res) => {
+const errorUserController = (req, res) => {
 	try {
 		res.status(200).json(userError);
 	} catch (error) {
@@ -8,4 +8,4 @@ const errorAuthController = (req, res) => {
 	}
 };
 
-module.exports = { errorAuthController };
+module.exports = { errorUserController };

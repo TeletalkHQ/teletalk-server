@@ -2,5 +2,5 @@
 @port = 8080
 @baseUrl = {{url}}{{port}}
 
-POST {{baseUrl}}/auth/register/anonymous/ HTTP/1.1
+POST {{baseUrl}}/user/register/anonymous/ HTTP/1.1
 Content-Type: application/json

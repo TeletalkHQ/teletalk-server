@@ -2,7 +2,7 @@
 @port = 8080
 @baseUrl = {{url}}{{port}}
 
-POST {{baseUrl}}/auth/register/normal/ HTTP/1.1
+POST {{baseUrl}}/user/register/normal/ HTTP/1.1
 Content-Type: application/json
 
 {

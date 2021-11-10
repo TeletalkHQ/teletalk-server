@@ -5,7 +5,7 @@ const path = require("path");
 const express = require("express");
 const prettyError = require("pretty-error");
 
-const { middleLine } = require("~/middleware/middleLine");
+const { middleLine } = require("~/middleware/indexMiddleware");
 const { lifeline } = require("~/route/lifeline");
 const { serverConfigurations } = require("~/config/server/serverConfiguration");
 
@@ -98,3 +98,8 @@ app.listen(PORT, serverListenerCB);
 // 		res.status(200).json({ answer: "answer is false", mobileNumber });
 // 	}
 // });
+const {
+	contactValidator,
+} = require("./validator/userPartValidator/contactValidator");
+
+console.log(contactValidator({ contact: ["sss", "sss"] }));

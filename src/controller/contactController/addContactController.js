@@ -4,6 +4,8 @@ const addContactController = async (req, res) => {
 	try {
 		const { cellphone } = req.body;
 
+		// console.log("res.errorCollector", res.errorCollector);
+
 		const user = await UserModel.findOne({ cellphone });
 		console.log(user);
 		if (user) {

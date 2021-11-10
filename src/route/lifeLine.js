@@ -12,13 +12,13 @@ const {
 	routeContactTemplate,
 } = require("~/template/contactTemplate/routeContactTemplate");
 
-const lifeline = Router();
+const lifeLine = Router();
 
-lifeline.get("/", (req, res) => {
+lifeLine.get("/", (req, res) => {
 	res.send("Hey! Welcome to teletalk <3");
 });
 
-lifeline.use(routeUserTemplate.baseRoute, userRoute);
-lifeline.use(routeContactTemplate.baseRoute, contactRoute);
+lifeLine.use(routeUserTemplate.baseRoute, userRoute);
+lifeLine.use(routeContactTemplate.baseRoute, contactRoute);
 
-module.exports = { lifeline };
+module.exports = { lifeLine };

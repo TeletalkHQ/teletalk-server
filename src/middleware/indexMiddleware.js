@@ -1,5 +1,3 @@
-const { middleLine } = require("~/middleware/middleLine");
-
 const {
 	authenticationMiddleware,
 } = require("~/middleware/authenticationMiddleware");
@@ -16,5 +14,4 @@ module.exports = {
 	cellphoneValidatorMiddleware,
 	errorCollector,
 	errorManager,
-	middleLine,
 };

@@ -10,7 +10,8 @@ const {
 		CELLPHONE_MAXLENGTH_REACH,
 		CELLPHONE_MINLENGTH_REACH,
 		CELLPHONE_REQUIRED,
-		CONTACTS_INVALID_TYPE,
+		CONTACT_EXIST,
+		CONTACT_INVALID_TYPE,
 		COUNTRY_CODE_INVALID_TYPE,
 		COUNTRY_CODE_MAXLENGTH_REACH,
 		COUNTRY_CODE_MINLENGTH_REACH,
@@ -60,11 +61,20 @@ const schemaUserTemplate = {
 		unique: [true, CELLPHONE_EXIST],
 		required: [true, CELLPHONE_REQUIRED],
 		minlength: [10, CELLPHONE_MINLENGTH_REACH],
-		maxlength: [12, CELLPHONE_MAXLENGTH_REACH],
+		maxlength: [14, CELLPHONE_MAXLENGTH_REACH],
 	},
-	contacts: {
-		type: ["array", CONTACTS_INVALID_TYPE],
-		Type: [Array, CONTACTS_INVALID_TYPE],
+	contact: {
+		type: ["array", CONTACT_INVALID_TYPE],
+		Type: [Array, CONTACT_INVALID_TYPE],
+		unique: [true, CONTACT_EXIST],
+		minlength: [
+			10,
+			// CONTACT_MINLENGTH_REACH
+		],
+		maxlength: [
+			14,
+			// CONTACT_MAXLENGTH_REACH
+		],
 		required: [false],
 	},
 	countryCode: {

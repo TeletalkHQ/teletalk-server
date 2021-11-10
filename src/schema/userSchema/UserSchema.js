@@ -13,7 +13,7 @@ const {
 		firstName,
 		lastName,
 		cellphone,
-		contacts,
+		contact,
 		countryCode,
 		countryName,
 		bio,
@@ -39,8 +39,8 @@ const UserSchema = new mongoose.Schema({
 		minlength: cellphone.minlength,
 		maxlength: cellphone.maxlength,
 	},
-	contacts: {
-		type: contacts.Type[0],
+	contact: {
+		type: contact.Type[0],
 	},
 	countryCode: {
 		type: countryCode.Type[0],

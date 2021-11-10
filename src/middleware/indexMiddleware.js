@@ -1,15 +1,20 @@
-const { bodyClarify } = require("~/middleware/bodyClarify");
-const { errorCollector } = require("~/middleware/errorCollector");
+const { middleLine } = require("~/middleware/middleLine");
 
+const {
+	authenticationMiddleware,
+} = require("~/middleware/authenticationMiddleware");
+const { bodyClarify } = require("~/middleware/bodyClarify");
 const {
 	cellphoneValidatorMiddleware,
 } = require("~/middleware/cellphoneValidatorMiddleware");
-
-const { middleLine } = require("~/middleware/middleLine");
+const { errorManager } = require("~/middleware/errorManager");
+const { errorCollector } = require("~/middleware/errorCollector");
 
 module.exports = {
-	cellphoneValidatorMiddleware,
+	authenticationMiddleware,
 	bodyClarify,
-	middleLine,
+	cellphoneValidatorMiddleware,
 	errorCollector,
+	errorManager,
+	middleLine,
 };

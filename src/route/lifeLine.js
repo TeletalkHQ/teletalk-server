@@ -8,6 +8,7 @@ const { contactRoute } = require("~/route/contactRoute/contactRoute");
 const {
 	routeUserTemplate,
 } = require("~/template/userTemplate/routeUserTemplate");
+
 const {
 	routeContactTemplate,
 } = require("~/template/contactTemplate/routeContactTemplate");
@@ -19,6 +20,7 @@ lifeLine.get("/", (req, res) => {
 });
 
 lifeLine.use(routeUserTemplate.baseRoute, userRoute);
+
 lifeLine.use(routeContactTemplate.baseRoute, contactRoute);
 
 module.exports = { lifeLine };

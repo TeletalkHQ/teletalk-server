@@ -8,7 +8,7 @@ const {
 	// createdAtValidation,
 	firstNameValidation,
 	lastNameValidation,
-	// macAddressValidation,
+	macAddressValidation,
 	privateIDValidation,
 	usernameValidation,
 } = require("~/validator/userPartValidator/indexUserPartValidator");
@@ -23,11 +23,11 @@ const registerUserValidation = {
 	// ...createdAtValidation,
 	...firstNameValidation,
 	...lastNameValidation,
-	// ...macAddressValidation,
+	...macAddressValidation,
 	...privateIDValidation,
 	...usernameValidation,
 };
 
-const registerUserValidator = v.compile(registerUserValidation);
+const normalRegisterUserValidator = v.compile(registerUserValidation);
 
-module.exports = { registerUserValidator };
+module.exports = { normalRegisterUserValidator };

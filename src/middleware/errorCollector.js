@@ -18,12 +18,9 @@ const errorCollector = (req, res, next) => {
 		} else {
 			//* Handle errorless call here, write log into log files =>
 		}
-
-		if (typeof statusCode === "number") {
+		if (statusCode && !isNaN(+statusCode)) {
 			res.errors.statusCode = statusCode;
 		}
-
-		console.log(res.errors);
 	};
 
 	next();

@@ -2,10 +2,10 @@ const {
 	cellphoneValidator,
 } = require("~/validator/userPartValidator/indexUserPartValidator");
 
-const cellphoneValidatorMiddleware = (req, res, next) => {
+const cellphoneValidatorMiddleware = async (req, res, next) => {
 	try {
 		const { cellphone } = req.body;
-		const cellphoneValidate = cellphoneValidator({ cellphone });
+		const cellphoneValidate = await cellphoneValidator({ cellphone });
 		if (cellphoneValidate !== true) {
 			throw cellphoneValidate;
 		}

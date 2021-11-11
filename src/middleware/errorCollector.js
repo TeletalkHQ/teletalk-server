@@ -1,13 +1,26 @@
 const errorCollector = (req, res, next) => {
-	res.errors = { categorized: [], uncategorized: [], statusCode: 400 };
+	res.errors = {
+		statusCode: 400,
+		categorizedLength: 0,
+		uncategorizedLength: 0,
+		categorized: [],
+		uncategorized: [],
+	};
 
-	res.errorCollector = (error) => {
+	res.errorCollector = (error, statusCode) => {
 		if (error) {
 			if (typeof error === "object") {
-				res.errors.categorized.push(error);
+				res.errors.categorizedLength = res.errors.categorized.push(error);
 			} else {
-				res.errors.uncategorized.push(error);
+				//* Handle non-object error, write log into log files=>
+				res.errors.uncategorizedLength = res.errors.uncategorized.push(error);
 			}
+		} else {
+			//* Handle errorless errorCollector call here, write log into log files =>
+		}
+
+		if (typeof statusCode === "number") {
+			res.errors.statusCode = statusCode;
 		}
 	};
 

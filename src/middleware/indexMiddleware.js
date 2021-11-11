@@ -7,6 +7,7 @@ const {
 } = require("~/middleware/cellphoneValidatorMiddleware");
 const { errorManager } = require("~/middleware/errorManager");
 const { errorCollector } = require("~/middleware/errorCollector");
+const { errorResponser } = require("~/middleware/errorResponser");
 
 module.exports = {
 	authenticationMiddleware,
@@ -14,4 +15,5 @@ module.exports = {
 	cellphoneValidatorMiddleware,
 	errorCollector,
 	errorManager,
+	errorResponser,
 };

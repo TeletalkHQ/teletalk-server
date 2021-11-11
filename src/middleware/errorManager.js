@@ -4,8 +4,6 @@ const errorManager = (req, res, next) => {
 	res
 		.status(statusCode)
 		.json({ errors: { categorized, uncategorized, statusCode } });
-
-	next();
 };
 
 module.exports = { errorManager };

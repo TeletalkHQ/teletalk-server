@@ -31,7 +31,6 @@ userRoute.post(login.route, normalLoginUserController);
 userRoute.post(verify.route, verifyUserController);
 
 userRoute.get(error.route, errorUserController);
-
 userRoute.get(template.route, templateUserController);
 
 //* logout normal =>

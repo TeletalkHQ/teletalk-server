@@ -15,6 +15,7 @@ const { connectDB } = require("~/config/database/connectDB");
 const { bodyClarify } = require("~/middleware/bodyClarify");
 
 const { errorCollector } = require("~/middleware/errorCollector");
+const { errorManager } = require("~/middleware/errorManager");
 
 dotenv.config({ path: "./src/config/environment/main.env" });
 
@@ -34,17 +35,21 @@ app.use(errorCollector);
 //* MiddleLine contains middlewares and some configurations
 // require("~/other/middleLine");
 
+//* Your statics is here =>
+app.use(express.static(path.join(__dirname, "public")));
+
 //* All routers is in lifeLine =>
 app.use(lifeLine);
 
-//* Your statics is here =>
-app.use(express.static(path.join(__dirname, "public")));
+app.use(errorManager);
 
 const { PORT, NODE_ENV: MODE } = process.env;
 
 const serverListenerCB = () => {
 	console.log(`Server is running in ${MODE} mode on port ${PORT}`);
 };
+
+//* Control your error here =>
 
 app.listen(PORT, serverListenerCB);
 

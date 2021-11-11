@@ -17,7 +17,7 @@ const cellphoneValidation = {
 			unique: cellphone.unique[1],
 			required: cellphone.required[1],
 			stringMin: cellphone.minlength[1],
-			stringMax: cellphone.type[1],
+			stringMax: cellphone.maxlength[1],
 		},
 	},
 };

@@ -5,17 +5,23 @@ const {
 } = require("~/controller/contactController/indexContactController");
 
 const {
-	routeContactTemplate: { add, block, edit, error, remove, share, template },
+	routeContactTemplate: {
+		add,
+		// block, edit, error, remove, share, template
+	},
 } = require("~/template/contactTemplate/routeContactTemplate");
 
 const {
 	cellphoneValidatorMiddleware,
+	errorResponser,
 } = require("~/middleware/indexMiddleware");
 
 const contactRoute = Router();
 
-//* Validate cellphone =>
 contactRoute.use(cellphoneValidatorMiddleware);
+
+//* Call errorResponser before http methods. if there is error in validators,middlewares and ...the request is not entered to http methods and the error will be sent to the client.
+contactRoute.use(errorResponser);
 
 contactRoute.get(add.route, addContactController);
 

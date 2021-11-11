@@ -8,13 +8,12 @@ const errorResponser = (req, res, next) => {
 		uncategorized,
 		statusCode,
 	} = res.errors;
-	myConsole.redBright(statusCode, "red").log();
 	if (categorizedLength || uncategorizedLength) {
+		myConsole.redBright(statusCode, "red").log();
 		res
 			.status(statusCode || 400)
 			.json({ errors: { categorized, uncategorized, statusCode } });
 	} else {
-		myConsole.redBright("errorResponse else called", "red").log();
 		next();
 	}
 };

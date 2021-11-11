@@ -1,0 +1,64 @@
+{
+	"errors": {
+		"categorized": [
+			[
+				{
+					"type": "stringMax",
+					"message": "CELLPHONE_MAXLENGTH_REACH",
+					"field": "cellphone",
+					"expected": 14,
+					"actual": 15
+				},
+				{
+					"type": "stringMax",
+					"message": "FIRST_NAME_MAXLENGTH_REACH",
+					"field": "firstName",
+					"expected": 18,
+					"actual": 21
+				},
+				{
+					"type": "stringMax",
+					"message": "LAST_NAME_MAXLENGTH_REACH",
+					"field": "lastName",
+					"expected": 18,
+					"actual": 27
+				},
+				{
+					"type": "stringMax",
+					"message": "MAC_ADDRESS_MAXLENGTH_REACH",
+					"field": "macAddress",
+					"expected": 16,
+					"actual": 17
+				},
+				{
+					"type": "stringMax",
+					"message": "USERNAME_MAXLENGTH_REACH",
+					"field": "username",
+					"expected": 12,
+					"actual": 18
+				}
+			]
+		],
+		"uncategorized": [],
+		"statusCode": 400
+	},
+
+	"errors": {
+		"categorized": [
+			[
+				{
+					"type": "required",
+					"message": "CELLPHONE_REQUIRED",
+					"field": "cellphone"
+				},
+				{
+					"type": "required",
+					"message": "MAC_ADDRESS_REQUIRED",
+					"field": "macAddress"
+				}
+			]
+		],
+		"uncategorized": [],
+		"statusCode": 400
+	}
+}

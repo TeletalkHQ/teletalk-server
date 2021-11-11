@@ -7,5 +7,5 @@ GET {{baseUrl}}/contact/add/  HTTP/1.1
 content-type: application/json
 
 {
-  "cellphone" : "123456789123125"
+  "cellphone" : "9012700470"
 }

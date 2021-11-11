@@ -1,55 +1,38 @@
 const { UserModel } = require("~/model/userModel/UserModel");
 
-const {
-	registerUserValidator,
-} = require("~/validator/userValidator/registerUserValidator");
-
-const {
-	randomID: { randomID },
-} = require("~/function/utility/randomID");
+const { randomID } = require("~/function/utility/randomID");
 const { tokenMaker } = require("~/function/utility/tokenMaker");
 
 const {
 	userError: { CELLPHONE_EXIST },
 } = require("~/constant/error/userError/userError");
 
-const normalRegisterUserController = async (req, res) => {
+const normalRegisterUserController = async (req, res, next) => {
 	try {
-		const privateID = randomID();
-
 		const userData = req.body;
 
-		console.log(userData);
-		userData.privateID = privateID;
+		userData.privateID = randomID();
 
-		const validationResult = await registerUserValidator(userData);
+		const user = await UserModel.findOne({
+			cellphone: userData.cellphone,
+		});
 
-		if (validationResult === true) {
-			const isUserExist = await UserModel.findOne({
-				cellphone: userData.cellphone,
-			});
-
-			// console.log(isUserExist);
-			if (isUserExist) {
-				throw CELLPHONE_EXIST;
-			} else {
-				const token = await tokenMaker(userData);
-				userData.tokens = [];
-				userData.tokens.push(token);
-
-				const user = new UserModel(userData);
-
-				await user.save();
-
-				res.status(201).json(userData);
-			}
+		if (user) {
+			throw CELLPHONE_EXIST;
 		} else {
-			console.log("validationResult!");
-			throw validationResult;
+			const token = await tokenMaker(userData);
+			userData.tokens = [token];
+
+			const user = new UserModel(userData);
+
+			await user.save();
+
+			res.status(201).json(userData);
 		}
-	} catch (err) {
-		console.log("bad request!");
-		res.status(400).json(err);
+	} catch (error) {
+		console.log("catch controller", error);
+		res.errorCollector(error);
+		res.errorResponser();
 	}
 };
 

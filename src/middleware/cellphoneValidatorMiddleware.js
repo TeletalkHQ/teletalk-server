@@ -11,9 +11,9 @@ const cellphoneValidatorMiddleware = async (req, res, next) => {
 		}
 	} catch (error) {
 		res.errorCollector({ cellphone: error });
+	} finally {
+		next();
 	}
-
-	next();
 };
 
 module.exports = { cellphoneValidatorMiddleware };

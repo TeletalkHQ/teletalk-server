@@ -16,12 +16,14 @@ const errorCollector = (req, res, next) => {
 				res.errors.uncategorizedLength = res.errors.uncategorized.push(error);
 			}
 		} else {
-			//* Handle errorless errorCollector call here, write log into log files =>
+			//* Handle errorless call here, write log into log files =>
 		}
 
 		if (typeof statusCode === "number") {
 			res.errors.statusCode = statusCode;
 		}
+
+		console.log(res.errors);
 	};
 
 	next();

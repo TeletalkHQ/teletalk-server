@@ -5,16 +5,17 @@ const {
 } = require("~/controller/contactController/indexContactController");
 
 const {
+	cellphoneValidatorMiddleware,
+} = require("~/middleware/cellphoneValidatorMiddleware");
+
+const { errorResponser } = require("~/middleware/errorResponser");
+
+const {
 	routeContactTemplate: {
 		add,
 		// block, edit, error, remove, share, template
 	},
 } = require("~/template/contactTemplate/routeContactTemplate");
-
-const {
-	cellphoneValidatorMiddleware,
-	errorResponser,
-} = require("~/middleware/indexMiddleware");
 
 const contactRoute = Router();
 

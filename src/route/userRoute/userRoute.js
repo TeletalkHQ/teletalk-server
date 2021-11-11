@@ -1,6 +1,12 @@
 const { Router } = require("express");
 
 const {
+	normalRegisterUserValidatorMiddleware,
+} = require("~/middleware/userMiddleware/normalRegisterUserValidatorMiddleware");
+
+const { errorResponser } = require("~/middleware/errorResponser");
+
+const {
 	anonymousRegisterUserController,
 	normalLoginUserController,
 	normalRegisterUserController,
@@ -23,7 +29,12 @@ const {
 	template,
 } = routeUserTemplate;
 
+userRoute.use(registerNormal.route, normalRegisterUserValidatorMiddleware);
+
+userRoute.use(errorResponser);
+
 userRoute.post(registerNormal.route, normalRegisterUserController);
+
 userRoute.post(registerAnonymous.route, anonymousRegisterUserController);
 
 userRoute.post(login.route, normalLoginUserController);

@@ -2,7 +2,7 @@ const { UserModel } = require("~/model/userModel/UserModel");
 
 const {
 	loginUserValidator,
-} = require("~/validator/userValidator/loginUserValidator");
+} = require("~/validator/userValidator/normalLoginUserValidator");
 
 const { passwordGenerator } = require("~/function/utility/passwordGenerator");
 

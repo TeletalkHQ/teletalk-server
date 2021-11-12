@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 var uniqueValidator = require("mongoose-unique-validator");
 
 const {
-	normalRegisterUserValidator,
-} = require("~/validator/userValidator/normalRegisterUserValidator");
+	registerNormalUserValidator,
+} = require("~/validator/userValidator/registerNormalUserValidator");
 
 const {
 	schemaUserTemplate: {
@@ -108,7 +108,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.statics.userRegisterValidator = async function (data) {
-	return normalRegisterUserValidator(data);
+	return registerNormalUserValidator(data);
 };
 
 //* bcrypt

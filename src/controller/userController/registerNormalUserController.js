@@ -7,7 +7,7 @@ const {
 	userError: { CELLPHONE_EXIST },
 } = require("~/constant/error/userError/userError");
 
-const normalRegisterUserController = async (req, res, next) => {
+const registerNormalUserController = async (req, res, next) => {
 	try {
 		const userData = req.body;
 
@@ -30,10 +30,9 @@ const normalRegisterUserController = async (req, res, next) => {
 			res.status(201).json(userData);
 		}
 	} catch (error) {
-		console.log("catch controller", error);
 		res.errorCollector(error);
 		res.errorResponser();
 	}
 };
 
-module.exports = { normalRegisterUserController };
+module.exports = { registerNormalUserController };

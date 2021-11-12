@@ -11,7 +11,7 @@ const {
 
 const v = new Validator();
 
-const loginUserValidation = {
+const loginNormalUserValidation = {
 	cellphone: {
 		type: cellphone.type[0],
 		unique: cellphone.unique[0],
@@ -50,6 +50,6 @@ const loginUserValidation = {
 	},
 };
 
-const loginUserValidator = v.compile(loginUserValidation);
+const loginNormalUserValidator = v.compile(loginNormalUserValidation);
 
-module.exports = { loginUserValidator };
+module.exports = { loginNormalUserValidator };

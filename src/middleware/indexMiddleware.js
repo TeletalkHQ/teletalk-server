@@ -7,8 +7,8 @@ const {
 	cellphoneValidatorMiddleware,
 } = require("~/middleware/cellphoneValidatorMiddleware");
 const {
-	normalRegisterUserValidatorMiddleware,
-} = require("~/middleware/userMiddleware/normalRegisterUserValidatorMiddleware");
+	registerNormalUserValidatorMiddleware,
+} = require("~/middleware/userMiddleware/registerNormalUserValidatorMiddleware");
 
 const { errorCollector } = require("~/middleware/errorCollector");
 const { errorResponser } = require("~/middleware/errorResponser");
@@ -19,5 +19,5 @@ module.exports = {
 	cellphoneValidatorMiddleware,
 	errorCollector,
 	errorResponser,
-	normalRegisterUserValidatorMiddleware,
+	registerNormalUserValidatorMiddleware,
 };

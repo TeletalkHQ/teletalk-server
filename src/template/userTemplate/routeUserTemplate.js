@@ -3,6 +3,10 @@
 const routeUserTemplate = {
 	baseRoute: "/user",
 
+	existenceChecker: {
+		route: "/existence/checker",
+		description: "Use for Check user if it's exist on database",
+	},
 	loginNormal: {
 		route: "/login/normal",
 		description: "Use for login user as normal account",

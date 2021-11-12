@@ -1,15 +1,23 @@
 const {
-	registerNormalUserController,
-} = require("~/controller/userController/registerNormalUserController");
-const {
 	anonymousRegisterUserController,
 } = require("~/controller/userController/anonymousRegisterUserController");
+
+const {
+	existenceCheckerUserController,
+} = require("~/controller/userController/existenceCheckerUserController");
+
 const {
 	loginNormalUserController,
 } = require("~/controller/userController/loginNormalUserController");
+
+const {
+	registerNormalUserController,
+} = require("~/controller/userController/registerNormalUserController");
+
 const {
 	verifyLoginNormalUserController,
-} = require("~/controller/userController/verificationCodeValidator");
+} = require("~/controller/userController/verifyLoginNormalUserController");
+
 const {
 	routeUserTemplate,
 } = require("~/template/userTemplate/routeUserTemplate");
@@ -23,11 +31,12 @@ const {
 } = require("~/controller/userController/templateUserController");
 
 module.exports = {
-	registerNormalUserController,
 	anonymousRegisterUserController,
-	loginNormalUserController,
-	verifyLoginNormalUserController,
-	routeUserTemplate,
 	errorUserController,
+	existenceCheckerUserController,
+	loginNormalUserController,
+	registerNormalUserController,
+	routeUserTemplate,
 	templateUserController,
+	verifyLoginNormalUserController,
 };

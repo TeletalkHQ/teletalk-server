@@ -44,6 +44,8 @@ const {
 		USERNAME_INVALID_TYPE,
 		USERNAME_MAXLENGTH_REACH,
 		USERNAME_MINLENGTH_REACH,
+		VERIFICATION_CODE_INVALID_TYPE,
+		VERIFICATION_CODE_INVALID_LENGTH,
 	},
 } = require("~/constant/error/userError/userError");
 
@@ -148,6 +150,12 @@ const schemaUserTemplate = {
 		maxlength: [12, USERNAME_MAXLENGTH_REACH],
 		trim: [true],
 		lowercase: [true],
+	},
+	verificationCode: {
+		type: ["string", VERIFICATION_CODE_INVALID_TYPE],
+		Type: [String, VERIFICATION_CODE_INVALID_TYPE],
+		length: [6, VERIFICATION_CODE_INVALID_LENGTH],
+		trim: [true],
 	},
 };
 

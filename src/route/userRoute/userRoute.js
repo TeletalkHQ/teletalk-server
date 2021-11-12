@@ -13,7 +13,7 @@ const {
 	routeUserTemplate,
 	templateUserController,
 	errorUserController,
-	verifyUserController,
+	verifyLoginNormalUserController,
 } = require("~/controller/userController/indexUserController");
 const {
 	loginNormalUserValidatorMiddleware,
@@ -23,7 +23,7 @@ const userRoute = Router();
 
 const {
 	loginNormal,
-	verify,
+	verifyLoginNormal,
 	registerAnonymous,
 	// logoutNormal,
 	// logoutAnonymous,
@@ -37,13 +37,13 @@ userRoute.use(loginNormal.route, loginNormalUserValidatorMiddleware);
 
 //? comment : danger : errorResponser
 userRoute.use(errorResponser);
-userRoute.post(registerNormal.route, registerNormalUserController);
 
+userRoute.post(registerNormal.route, registerNormalUserController);
 userRoute.post(registerAnonymous.route, anonymousRegisterUserController);
 
 userRoute.post(loginNormal.route, loginNormalUserController);
 
-userRoute.post(verify.route, verifyUserController);
+userRoute.post(verifyLoginNormal.route, verifyLoginNormalUserController);
 
 userRoute.get(error.route, errorUserController);
 userRoute.get(template.route, templateUserController);

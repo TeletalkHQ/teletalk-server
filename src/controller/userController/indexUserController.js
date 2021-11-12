@@ -8,8 +8,8 @@ const {
 	loginNormalUserController,
 } = require("~/controller/userController/loginNormalUserController");
 const {
-	verifyUserController,
-} = require("~/controller/userController/verifyUserController");
+	verifyLoginNormalUserController,
+} = require("~/controller/userController/verificationCodeValidator");
 const {
 	routeUserTemplate,
 } = require("~/template/userTemplate/routeUserTemplate");
@@ -26,7 +26,7 @@ module.exports = {
 	registerNormalUserController,
 	anonymousRegisterUserController,
 	loginNormalUserController,
-	verifyUserController,
+	verifyLoginNormalUserController,
 	routeUserTemplate,
 	errorUserController,
 	templateUserController,

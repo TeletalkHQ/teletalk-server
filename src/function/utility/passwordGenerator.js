@@ -1,5 +1,7 @@
 const generatePassword = require("generate-password");
 
+const passwords = { pass: 0 };
+
 const passwordGenerator = ({
 	length = 5,
 	number = true,
@@ -20,4 +22,4 @@ const passwordGenerator = ({
 	return randomPassword;
 };
 
-module.exports = { passwordGenerator };
+module.exports = { passwordGenerator, passwords };

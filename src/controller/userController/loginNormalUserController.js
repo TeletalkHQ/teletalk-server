@@ -1,21 +1,23 @@
 const { UserModel } = require("~/model/userModel/UserModel");
 
-const { passwordGenerator } = require("~/function/utility/passwordGenerator");
+const {
+	passwordGenerator,
+	passwords,
+} = require("~/function/utility/passwordGenerator");
 
 const loginNormalUserController = async (req, res) => {
 	try {
 		const {
-			body: { cellphone, countryCode, countryName },
+			body: { cellphone, countryCode },
 		} = req;
 
 		const user = await UserModel.findOne({
 			cellphone,
-			countryCode,
-			countryName,
 		});
+
 		if (user) {
 			const randomPassword = passwordGenerator({ numbers: true });
-
+			passwords.pass = randomPassword;
 			res.status(200).json({
 				randomPassword,
 				cellphone: `${countryCode}${cellphone}`,
@@ -25,7 +27,7 @@ const loginNormalUserController = async (req, res) => {
 			throw xs;
 		}
 	} catch (error) {
-		res.status(400).json({ error });
+		res.status(400).json(error);
 	}
 };
 

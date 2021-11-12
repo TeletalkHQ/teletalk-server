@@ -5,10 +5,10 @@ const SMSClient = new TrezSmsClient(
 	process.env.SMS_CLIENT_PASSWORD
 );
 
-const smsValidator = async (cellphone, verifyCode) => {
+const verificationCodeValidator = async (cellphone, verifyCode) => {
 	const isValid = await SMSClient.checkCode(cellphone, verifyCode);
 
 	return isValid;
 };
 
-module.exports = { smsValidator };
+module.exports = { verificationCodeValidator };

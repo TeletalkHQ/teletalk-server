@@ -1,57 +1,74 @@
 const { Router } = require("express");
 
-const {
-	registerNormalUserValidatorMiddleware,
-} = require("~/middleware/userMiddleware/registerNormalUserValidatorMiddleware");
+// const {
+// registerNormalUserValidatorMiddleware,
+// } = require("~/middleware/userMiddleware/registerNormalUserValidatorMiddleware");
+
+// const {
+// loginNormalUserValidatorMiddleware,
+// } = require("~/middleware/userMiddleware/loginNormalUserValidatorMiddleware");
+
+// const {
+// existenceCheckerUserValidatorMiddleware,
+// } = require("~/middleware/userMiddleware/existenceCheckerUserValidatorMiddleware");
 
 const {
-	loginNormalUserValidatorMiddleware,
-} = require("~/middleware/userMiddleware/loginNormalUserValidatorMiddleware");
-
-const {
-	existenceCheckerUserValidatorMiddleware,
-} = require("~/middleware/userMiddleware/existenceCheckerUserValidatorMiddleware");
+	signInNormalUserValidatorMiddleware,
+} = require("~/middleware/userMiddleware/signInNormalUserValidatorMiddleware");
 
 const { errorResponser } = require("~/middleware/errorResponser");
 
 const {
-	anonymousRegisterUserController,
-	errorUserController,
-	existenceCheckerUserController,
-	loginNormalUserController,
-	registerNormalUserController,
+	// anonymousRegisterUserController,
+	// existenceCheckerUserController,
+	// loginNormalUserController,
+	// registerNormalUserController,
 	routeUserTemplate,
+	signInNormalUserController,
+	// verifyLoginNormalUserController,
+
+	errorUserController,
 	templateUserController,
-	verifyLoginNormalUserController,
 } = require("~/controller/userController/indexUserController");
+const {
+	verifySignInNormalUserController,
+} = require("~/controller/userController/verifySignInNormalUserController");
 
 const userRoute = Router();
 
 const {
-	error,
-	existenceChecker,
-	loginNormal,
+	// existenceChecker,
+	// loginNormal,
 	// logoutAnonymous,
 	// logoutNormal,
-	registerAnonymous,
-	registerNormal,
+	// registerAnonymous,
+	// registerNormal,
+	signInNormal,
+	verifySignInNormal,
+	// verifyLoginNormal,
+
+	error,
 	template,
-	verifyLoginNormal,
 } = routeUserTemplate;
 
-userRoute.use(existenceChecker.route, existenceCheckerUserValidatorMiddleware);
-userRoute.use(loginNormal.route, loginNormalUserValidatorMiddleware);
-userRoute.use(registerNormal.route, registerNormalUserValidatorMiddleware);
+// userRoute.use(existenceChecker.route, existenceCheckerUserValidatorMiddleware);
+// userRoute.use(loginNormal.route, loginNormalUserValidatorMiddleware);
+// userRoute.use(registerNormal.route, registerNormalUserValidatorMiddleware);
+
+userRoute.use(signInNormal.route, signInNormalUserValidatorMiddleware);
 
 //? comment: middleware: danger: errorResponser
 userRoute.use(errorResponser);
 
-userRoute.post(existenceChecker.route, existenceCheckerUserController);
+userRoute.post(signInNormal.route, signInNormalUserController);
+userRoute.post(verifySignInNormal.route, verifySignInNormalUserController);
 
-userRoute.post(registerNormal.route, registerNormalUserController);
-userRoute.post(registerAnonymous.route, anonymousRegisterUserController);
+// userRoute.post(existenceChecker.route, existenceCheckerUserController);
 
-userRoute.post(loginNormal.route, loginNormalUserController);
+// userRoute.post(registerNormal.route, registerNormalUserController);
+// userRoute.post(registerAnonymous.route, anonymousRegisterUserController);
+
+// userRoute.post(loginNormal.route, loginNormalUserController);
 
 // userRoute.post(verifyLoginNormal.route, verifyLoginNormalUserController);
 

@@ -1,3 +1,5 @@
+//! Careful!!! its broken =>
+
 const {
 	verifyLoginNormalUserValidator,
 } = require("~/validator/userValidator/verifyLoginNormalUserValidator");
@@ -9,10 +11,12 @@ const verifyLoginNormalUserValidatorMiddleware = async (req, res, next) => {
 		const verified = await verifyLoginNormalUserValidator({
 			cellphone,
 			verificationCode,
-    });
-    if (verified !== true) {
-    throw }
+		});
+		if (verified !== true) {
+			throw verified;
+		}
 	} catch (error) {
+		res.errorCollector(error);
 	} finally {
 		next();
 	}

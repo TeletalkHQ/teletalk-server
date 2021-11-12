@@ -14,6 +14,7 @@ const errorResponser = (req, res, next) => {
 			.status(statusCode || 400)
 			.json({ errors: { categorized, uncategorized, statusCode } });
 	} else {
+		console.log("errorResponser else");
 		next();
 	}
 };

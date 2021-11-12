@@ -16,6 +16,7 @@ const {
 const lifeLine = Router();
 
 lifeLine.get("/", (req, res) => {
+	console.log(req);
 	res.send("Hey! Welcome to teletalk <3");
 });
 

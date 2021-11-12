@@ -15,6 +15,14 @@ const routeUserTemplate = {
 		route: "/login/anonymous",
 		description: "Use for login user as normal account",
 	},
+	logoutNormal: {
+		route: "/logout/normal",
+		description: "Use for logout user from normal account",
+	},
+	logoutAnonymous: {
+		route: "/logout/anonymous",
+		description: "Use for burn user anonymous account (every footprint)",
+	},
 	registerNormal: {
 		route: "/register/normal",
 		description: "Use for register permanent account for normal user",
@@ -23,18 +31,18 @@ const routeUserTemplate = {
 		route: "/register/anonymous",
 		description: "Use for register temporary account for user and maybe a bot!",
 	},
+	signInNormal: {
+		route: "/signIn/normal",
+		description: "Use for sign in client as a normal account",
+	},
 	verifyLoginNormal: {
 		route: "/verify/login/normal",
 		description:
 			"Use for verify login (normal account) and register (both mode)",
 	},
-	logoutNormal: {
-		route: "/logout/normal",
-		description: "Use for logout user from normal account",
-	},
-	logoutAnonymous: {
-		route: "/logout/anonymous",
-		description: "Use for burn user anonymous account (every footprint)",
+	verifySignInNormal: {
+		route: "/verify/signIn/normal",
+		description: "Use for verify sign in (normal account) as normal account",
 	},
 
 	error: {

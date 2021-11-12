@@ -1,11 +1,9 @@
 const { UserModel } = require("~/model/userModel/UserModel");
 
-const userFinder = async ({ data, keyToFind }) => {
+const userFinder = async (data) => {
 	try {
-		const { cellphone } = data;
-
 		const user = await UserModel.findOne({
-			cellphone: keyToFind || cellphone,
+			...data,
 		});
 
 		return { user };

@@ -3,6 +3,10 @@ const {
 } = require("~/controller/userController/anonymousRegisterUserController");
 
 const {
+	errorUserController,
+} = require("~/controller/userController/errorUserController");
+
+const {
 	existenceCheckerUserController,
 } = require("~/controller/userController/existenceCheckerUserController");
 
@@ -15,16 +19,16 @@ const {
 } = require("~/controller/userController/registerNormalUserController");
 
 const {
-	verifyLoginNormalUserController,
-} = require("~/controller/userController/verifyLoginNormalUserController");
-
-const {
 	routeUserTemplate,
 } = require("~/template/userTemplate/routeUserTemplate");
 
 const {
-	errorUserController,
-} = require("~/controller/userController/errorUserController");
+	signInNormalUserController,
+} = require("~/controller/userController/signInNormalUserController");
+
+const {
+	verifyLoginNormalUserController,
+} = require("~/controller/userController/verifyLoginNormalUserController");
 
 const {
 	templateUserController,
@@ -37,6 +41,7 @@ module.exports = {
 	loginNormalUserController,
 	registerNormalUserController,
 	routeUserTemplate,
+	signInNormalUserController,
 	templateUserController,
 	verifyLoginNormalUserController,
 };

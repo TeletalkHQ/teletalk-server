@@ -1,10 +1,8 @@
-//! Careful!!! its broken =>
-
 const {
 	loginNormalUserValidator,
 } = require("~/validator/userValidator/loginNormalUserValidator");
 
-const loginNormalUserValidatorMiddleware = async (req, res, next) => {
+const signInNormalUserValidatorMiddleware = async (req, res, next) => {
 	try {
 		const { cellphone, countryCode, countryName } = req.body;
 
@@ -20,8 +18,9 @@ const loginNormalUserValidatorMiddleware = async (req, res, next) => {
 	} catch (error) {
 		res.errorCollector(error);
 	} finally {
+		console.log("middleware signIn");
 		next();
 	}
 };
 
-module.exports = { loginNormalUserValidatorMiddleware };
+module.exports = { signInNormalUserValidatorMiddleware };

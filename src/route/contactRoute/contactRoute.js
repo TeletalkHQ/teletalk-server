@@ -21,7 +21,7 @@ const contactRoute = Router();
 
 contactRoute.use(cellphoneValidatorMiddleware);
 
-//* Call errorResponser before http methods. if there is error in validators,middlewares and ...the request is not entered to http methods and the error will be sent to the client.
+//? comment : danger : errorResponser
 contactRoute.use(errorResponser);
 
 contactRoute.get(add.route, addContactController);

@@ -28,6 +28,6 @@ const registerUserValidation = {
 	...usernameValidation,
 };
 
-const normalRegisterUserValidator = v.compile(registerUserValidation);
+const registerNormalUserValidator = v.compile(registerUserValidation);
 
-module.exports = { normalRegisterUserValidator };
+module.exports = { registerNormalUserValidator };

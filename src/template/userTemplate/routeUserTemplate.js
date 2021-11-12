@@ -3,20 +3,24 @@
 const routeUserTemplate = {
 	baseRoute: "/user",
 
-	login: {
-		route: "/login/",
+	loginNormal: {
+		route: "/login/normal",
+		description: "Use for login user as normal account",
+	},
+	loginAnonymous: {
+		route: "/login/anonymous",
 		description: "Use for login user as normal account",
 	},
 	registerNormal: {
-		route: "/register/normal/",
+		route: "/register/normal",
 		description: "Use for register permanent account for normal user",
 	},
 	registerAnonymous: {
-		route: "/register/anonymous/",
+		route: "/register/anonymous",
 		description: "Use for register temporary account for user and maybe a bot!",
 	},
 	verify: {
-		route: "/verify/",
+		route: "/verify",
 		description:
 			"Use for verify login (normal account) and register (both mode)",
 	},
@@ -30,11 +34,11 @@ const routeUserTemplate = {
 	},
 
 	error: {
-		route: "/error/",
+		route: "/error",
 		description: "Use for get all auth errors",
 	},
 	template: {
-		route: "/template/",
+		route: "/template",
 		description: "Use for get all user properties and value structure",
 	},
 };

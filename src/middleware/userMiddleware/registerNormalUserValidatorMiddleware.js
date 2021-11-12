@@ -1,16 +1,16 @@
 const {
-	normalRegisterUserValidator,
-} = require("~/validator/userValidator/normalRegisterUserValidator");
+	registerNormalUserValidator,
+} = require("~/validator/userValidator/registerNormalUserValidator");
 
 const { randomID } = require("~/function/utility/randomID");
 
-const normalRegisterUserValidatorMiddleware = async (req, res, next) => {
+const registerNormalUserValidatorMiddleware = async (req, res, next) => {
 	try {
 		const userData = req.body;
 
 		const privateID = randomID();
 
-		const validationResult = await normalRegisterUserValidator({
+		const validationResult = await registerNormalUserValidator({
 			...userData,
 			privateID,
 		});
@@ -24,4 +24,4 @@ const normalRegisterUserValidatorMiddleware = async (req, res, next) => {
 	}
 };
 
-module.exports = { normalRegisterUserValidatorMiddleware };
+module.exports = { registerNormalUserValidatorMiddleware };

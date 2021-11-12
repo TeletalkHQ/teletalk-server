@@ -39,7 +39,7 @@ const {
 		PRIVATE_ID_MIN_LENGTH_REACH,
 		PRIVATE_ID_REQUIRED,
 		TOKENS_INVALID_TYPE,
-		TOKENS__EXIST,
+		TOKENS_EXIST,
 		USERNAME_EXIST,
 		USERNAME_INVALID_TYPE,
 		USERNAME_MAXLENGTH_REACH,
@@ -136,7 +136,7 @@ const schemaUserTemplate = {
 	tokens: {
 		type: ["array", TOKENS_INVALID_TYPE],
 		Type: [Array, TOKENS_INVALID_TYPE],
-		unique: [true, TOKENS__EXIST],
+		unique: [true, TOKENS_EXIST],
 		required: [true],
 	},
 	username: {

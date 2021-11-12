@@ -19,8 +19,8 @@ const routeUserTemplate = {
 		route: "/register/anonymous",
 		description: "Use for register temporary account for user and maybe a bot!",
 	},
-	verify: {
-		route: "/verify",
+	verifyLoginNormal: {
+		route: "/verify/login/normal",
 		description:
 			"Use for verify login (normal account) and register (both mode)",
 	},

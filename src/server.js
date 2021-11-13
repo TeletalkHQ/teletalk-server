@@ -4,8 +4,11 @@ require("module-alias/register");
 const path = require("path");
 const express = require("express");
 
+const helmet = require("helmet");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+// const serveFavicon = require("serve-favicon");
+
 const prettyError = require("pretty-error");
 
 const { connectDB } = require("~/config/database/connectDB");
@@ -22,17 +25,21 @@ dotenv.config({ path: "./src/config/environment/main.env" });
 //* Connect to database =>
 connectDB();
 
+const app = express();
+
 //* Pretty error makes nodeJS error pretty in console, use it before express call
 prettyError.start();
 
-const app = express();
-
+app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
+// app.use(serveFavicon(path.join(__dirname, "../", "public")));
+
 app.use(bodyClarify);
 app.use(errorCollector);
 app.use((req, res, next) => {
-	res.errorResponser = () => errorResponser(req, res, next);
+	res.errorResponser = (statusCode) =>
+		errorResponser({ req, res, next, statusCode });
 	next();
 });
 
@@ -50,4 +57,6 @@ const serverListenerCB = () => {
 
 //* Control your error here =>
 
-app.listen(PORT, serverListenerCB);
+const server = app.listen(PORT, serverListenerCB);
+
+console.log(server);

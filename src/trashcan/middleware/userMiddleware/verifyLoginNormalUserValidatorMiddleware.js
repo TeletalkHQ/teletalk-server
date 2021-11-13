@@ -2,7 +2,7 @@
 
 const {
 	verifyLoginNormalUserValidator,
-} = require("~/validator/userValidator/verifyLoginNormalUserValidator");
+} = require("~/trashcan/validator/userValidator/verifyLoginNormalUserValidator");
 
 const verifyLoginNormalUserValidatorMiddleware = async (req, res, next) => {
 	try {

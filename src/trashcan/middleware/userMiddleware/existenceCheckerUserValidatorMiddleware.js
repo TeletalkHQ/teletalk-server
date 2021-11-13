@@ -1,11 +1,11 @@
 const {
-	loginNormalUserValidator,
-} = require("~/validator/userValidator/loginNormalUserValidator");
+	signInNormalUserValidator,
+} = require("~/validator/userValidator/signInNormalUserValidator");
 const existenceCheckerUserValidatorMiddleware = async (req, res, next) => {
 	try {
 		const { cellphone, countryCode, countryName } = req.body;
 
-		const validationResult = await loginNormalUserValidator({
+		const validationResult = await signInNormalUserValidator({
 			cellphone,
 			countryCode,
 			countryName,

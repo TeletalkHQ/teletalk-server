@@ -2,23 +2,20 @@ const generatePassword = require("generate-password");
 
 const passwords = { pass: 0 };
 
-const passwordGenerator = ({
-	length = 6,
-	number = true,
-	lowercase = false,
-	uppercase = false,
-	symbol = false,
-	exclude = "",
-}) => {
+const initialOptions = {
+	length: 6,
+	numbers: true,
+	lowercase: false,
+	uppercase: false,
+	symbol: false,
+	exclude: "",
+};
+
+const passwordGenerator = (options = initialOptions) => {
 	try {
-		console.log("passwordGenerator");
 		const randomPassword = generatePassword.generate({
-			length,
-			number,
-			lowercase,
-			uppercase,
-			symbol,
-			exclude,
+			...initialOptions,
+			...options,
 		});
 
 		return { randomPassword };

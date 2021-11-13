@@ -2,7 +2,7 @@
 
 const {
 	registerNormalUserValidator,
-} = require("~/validator/userValidator/registerNormalUserValidator");
+} = require("~/trashcan/validator/userValidator/registerNormalUserValidator");
 
 const { randomID } = require("~/function/utility/randomID");
 

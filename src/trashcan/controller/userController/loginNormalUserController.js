@@ -16,7 +16,7 @@ const loginNormalUserController = async (req, res) => {
 		});
 
 		if (user) {
-			const randomPassword = passwordGenerator({ numbers: true });
+			const randomPassword = passwordGenerator();
 			passwords.pass = randomPassword;
 			res.status(200).json({
 				randomPassword,

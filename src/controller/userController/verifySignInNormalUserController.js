@@ -10,14 +10,12 @@ const verifySignInNormalUserController = (req, res, next) => {
 		const verifiedToken = jwt.verify(token, process.env.JWT_SECRET, {
 			complete: true,
 		});
-		const ss = req;
 
 		console.log("verifiedToken", verifiedToken);
 		const pass = passwords.pass;
 		const decodedToken = jwt.decode(token, { complete: true });
 
 		console.log("decodedToken", decodedToken);
-		console.clear();
 		console.dir(req, { colors: true, depth: true });
 		res.status(200).json({
 			decodedToken,

@@ -20,7 +20,7 @@ const registerNormalUserController = async (req, res, next) => {
 			res.status(201).json(userData);
 		}
 	} catch (error) {
-		res.errorCollector(error);
+		res.errorCollector({ error });
 		res.errorResponser();
 	}
 };

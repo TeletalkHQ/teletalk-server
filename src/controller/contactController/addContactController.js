@@ -1,10 +1,18 @@
-const { UserModel } = require("~/model/userModel/UserModel");
+const { userFinder } = require("~/function/helper/userFinder");
 
-const addContactController = async (req, res, next) => {
+const addContactController = async (req, res) => {
 	try {
-		const { cellphone } = req.body;
+		const { cellphone } = req.body.authData.data.payload;
+		console.log("cellphone", cellphone);
 
-		const user = await UserModel.findOne({ cellphone });
+		const { user } = await userFinder({ cellphone });
+
+		//TODO Check for duplicates
+		user.contact.push(cellphone);
+		user.save();
+
+		console.log(user);
+
 		if (user) {
 			res.status(200).json({ cellphone, user });
 		} else {
@@ -12,8 +20,8 @@ const addContactController = async (req, res, next) => {
 			throw error;
 		}
 	} catch (error) {
-		res.errorCollector(error);
-		res.errorResponse();
+		res.errorCollector({ error });
+		res.errorResponser();
 	}
 };
 

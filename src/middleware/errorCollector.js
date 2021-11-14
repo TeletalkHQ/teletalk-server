@@ -7,13 +7,14 @@ const errorCollector = (req, res, next) => {
 		uncategorized: [],
 	};
 
-	res.errorCollector = (error, statusCode) => {
-		if (error) {
-			if (typeof error === "object") {
-				res.errors.categorizedLength = res.errors.categorized.push(error);
+	res.errorCollector = ({ error, err, ex, statusCode }) => {
+		const er = error || err || ex;
+		if (er) {
+			if (typeof er === "object") {
+				res.errors.categorizedLength = res.errors.categorized.push(er);
 			} else {
 				//* Handle non-object error, write log into log files=>
-				res.errors.uncategorizedLength = res.errors.uncategorized.push(error);
+				res.errors.uncategorizedLength = res.errors.uncategorized.push(er);
 			}
 		} else {
 			//* Handle errorless call here, write log into log files =>

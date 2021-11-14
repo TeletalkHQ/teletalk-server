@@ -1,23 +1,19 @@
-const {
-	authenticationMiddleware,
-} = require("~/middleware/authenticationMiddleware");
+const { authDefaultMDW } = require("~/middleware/authDefaultMDW");
 const { bodyClarify } = require("~/middleware/bodyClarify");
 
+const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 const {
-	cellphoneValidatorMiddleware,
-} = require("~/middleware/cellphoneValidatorMiddleware");
-const {
-	registerNormalUserValidatorMiddleware,
-} = require("~/middleware/userMiddleware/registerNormalUserValidatorMiddleware");
+	registerNormalUserValidatorMDW,
+} = require("~/middleware/userMiddleware/registerNormalUserValidatorMDW");
 
 const { errorCollector } = require("~/middleware/errorCollector");
 const { errorResponser } = require("~/middleware/errorResponser");
 
 module.exports = {
-	authenticationMiddleware,
+	authDefaultMDW,
 	bodyClarify,
-	cellphoneValidatorMiddleware,
+	cellphoneValidatorMDW,
 	errorCollector,
 	errorResponser,
-	registerNormalUserValidatorMiddleware,
+	registerNormalUserValidatorMDW,
 };

@@ -16,7 +16,7 @@ const verifyLoginNormalUserValidatorMiddleware = async (req, res, next) => {
 			throw verified;
 		}
 	} catch (error) {
-		res.errorCollector(error);
+		res.errorCollector({ error });
 	} finally {
 		next();
 	}

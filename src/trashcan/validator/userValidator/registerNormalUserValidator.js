@@ -8,7 +8,7 @@ const {
 	// createdAtValidation,
 	firstNameValidation,
 	lastNameValidation,
-	macAddressValidation,
+	// macAddressValidation,
 	privateIDValidation,
 	usernameValidation,
 } = require("~/validator/userPartValidator/indexUserPartValidator");
@@ -23,7 +23,7 @@ const registerUserValidation = {
 	// ...createdAtValidation,
 	...firstNameValidation,
 	...lastNameValidation,
-	...macAddressValidation,
+	// ...macAddressValidation,
 	...privateIDValidation,
 	...usernameValidation,
 };

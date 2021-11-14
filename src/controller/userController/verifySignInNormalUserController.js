@@ -1,32 +1,58 @@
-const jwt = require("jsonwebtoken");
-const { passwords } = require("~/function/utility/passwordGenerator");
+const { userFinder } = require("~/function/helper/userFinder");
+const { randomID } = require("~/function/utility/randomID");
+const { tokenSigner } = require("~/function/utility/tokenSigner");
+const { tokenVerifier } = require("~/function/utility/tokenVerifier");
 
-const verifySignInNormalUserController = (req, res, next) => {
+const { UserModel } = require("~/model/userModel/UserModel");
+
+const { userError } = require("~/constant/error/userError/userError");
+
+const verifySignInNormalUserController = async (req, res) => {
 	try {
-		console.log("req.headers", req.headers);
+		const token = req.headers.authorization;
 
-		const token = req.headers["authorization"];
-
-		const verifiedToken = jwt.verify(token, process.env.JWT_SECRET, {
-			complete: true,
-		});
-
-		console.log("verifiedToken", verifiedToken);
-		const pass = passwords.pass;
-		const decodedToken = jwt.decode(token, { complete: true });
-
-		console.log("decodedToken", decodedToken);
-		console.dir(req, { colors: true, depth: true });
-		res.status(200).json({
-			decodedToken,
+		const verifiedToken = await tokenVerifier({
 			token,
-			verifiedToken,
-			reqHeaders: req.headers,
-			pass,
+			secret: process.env.JWT_SIGN_IN_SECRET,
 		});
-	} catch (err) {
-		res.errorCollector(err);
-		res.status(401).json({ err });
+
+		const userData = verifiedToken.data.payload;
+
+		const mainToken = await tokenSigner({ data: userData });
+
+		const { user } = await userFinder({ cellphone: userData.cellphone });
+
+		if (user === null) {
+			const data = {
+				...userData,
+				privateID: randomID(),
+				firstName: "DEFAULT NAME",
+				cellphone: userData.cellphone,
+				countryCode: userData.countryCode,
+				countryName: userData.countryName,
+			};
+
+			const user = new UserModel(data);
+
+			user.save();
+
+			res.status(200).json({
+				userData: user,
+				token: mainToken,
+			});
+		} else {
+			const error = {
+				cellphone: userError.CELLPHONE_NOT_EXIST,
+				statusCode: 400,
+			};
+			throw error;
+		}
+	} catch (ex) {
+		res.errorCollector({
+			error: ex.cellphone || ex,
+			statusCode: ex.statusCode,
+		});
+		res.errorResponser();
 	}
 };
 

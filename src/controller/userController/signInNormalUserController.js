@@ -1,46 +1,37 @@
 const { userFinder } = require("~/function/helper/userFinder");
-const {
-	passwordGenerator,
-	passwords,
-} = require("~/function/utility/passwordGenerator");
-const { tokenMaker } = require("~/function/utility/tokenMaker");
+const { passwordGenerator } = require("~/function/utility/passwordGenerator");
+const { tokenSigner } = require("~/function/utility/tokenSigner");
 
-const signInNormalUserController = async (req, res, next) => {
+const signInNormalUserController = async (req, res) => {
 	try {
 		const { cellphone, countryCode, countryName } = req.body;
 
 		const { user } = await userFinder({ cellphone });
 
 		if (user === null) {
-			console.log("user", user);
-			// const { randomPassword } = passwordGenerator();
+			const { randomPassword } = passwordGenerator();
 
-			passwords.pass = 123456;
-			// passwords.pass = randomPassword;
-
-			console.log("pass", passwords.pass);
-
-			const { token } = await tokenMaker({
+			const data = {
 				cellphone,
 				countryCode,
 				countryName,
-				pass: passwords.pass,
+				pass: randomPassword,
+			};
+
+			const { token } = await tokenSigner({
+				data,
+				secret: process.env.JWT_SIGN_IN_SECRET,
 			});
 
-			console.log("token", token);
-
 			res.status(200).json({
+				...data,
 				token,
-				cellphone,
-				countryCode,
-				countryName,
-				pass: passwords.pass,
 			});
 		} else {
 			throw user;
 		}
 	} catch (error) {
-		res.errorCollector(error);
+		res.errorCollector({ error });
 		res.errorResponser();
 	}
 };

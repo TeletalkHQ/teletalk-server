@@ -10,11 +10,13 @@ const errorResponser = ({ req, res, next, statusCode }) => {
 			statusCode: statusCodeFromCollector,
 		} = res.errors;
 		if (categorizedLength || uncategorizedLength) {
-			myConsole.redBright(statusCode, "red").log();
+			myConsole.redBright(statusCode | statusCodeFromCollector, "red").log();
 
 			const code = statusCode || statusCodeFromCollector || 400;
 
-			res.status(code).json({ errors: { categorized, uncategorized, code } });
+			res
+				.status(code)
+				.json({ errors: { categorized, uncategorized, statusCode: code } });
 		} else {
 			next();
 		}

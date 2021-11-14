@@ -7,7 +7,7 @@ const express = require("express");
 const helmet = require("helmet");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
-// const serveFavicon = require("serve-favicon");
+const serveFavicon = require("serve-favicon");
 
 const prettyError = require("pretty-error");
 
@@ -18,7 +18,7 @@ const { lifeLine } = require("~/route/lifeLine");
 const { bodyClarify } = require("~/middleware/bodyClarify");
 
 const { errorCollector } = require("~/middleware/errorCollector");
-const { errorResponser } = require("./middleware/errorResponser");
+const { errorResponser } = require("~/middleware/errorResponser");
 
 dotenv.config({ path: "./src/config/environment/main.env" });
 
@@ -33,7 +33,6 @@ prettyError.start();
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
-// app.use(serveFavicon(path.join(__dirname, "../", "public")));
 
 app.use(bodyClarify);
 app.use(errorCollector);
@@ -44,7 +43,12 @@ app.use((req, res, next) => {
 });
 
 //* Your statics is here =>
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(
+	serveFavicon(
+		path.join(__dirname, "..", "public", "app_favicon", "favicon.ico")
+	)
+);
 
 //* All stuff for response to routes is in lifeLine =>
 app.use(lifeLine);
@@ -57,6 +61,5 @@ const serverListenerCB = () => {
 
 //* Control your error here =>
 
-const server = app.listen(PORT, serverListenerCB);
-
-console.log(server);
+// const server =
+app.listen(PORT, serverListenerCB);

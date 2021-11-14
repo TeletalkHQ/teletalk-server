@@ -1,8 +1,8 @@
 const { Router } = require("express");
 
 const {
-	signInNormalValidatorUserMiddleware,
-} = require("~/middleware/userMiddleware/signInNormalValidatorUserMiddleware");
+	signInNormalValidatorUserMDW,
+} = require("~/middleware/userMiddleware/signInNormalValidatorUserMDW");
 
 const { errorResponser } = require("~/middleware/errorResponser");
 
@@ -27,7 +27,7 @@ const {
 	template,
 } = routeUserTemplate;
 
-userRoute.use(signInNormal.route, signInNormalValidatorUserMiddleware);
+userRoute.use(signInNormal.route, signInNormalValidatorUserMDW);
 
 //? comment: middleware: danger: errorResponser
 userRoute.use(errorResponser);

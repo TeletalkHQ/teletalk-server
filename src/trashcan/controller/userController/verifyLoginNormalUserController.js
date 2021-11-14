@@ -1,6 +1,6 @@
 // const { verificationCodeValidator } = require("~/function/tool/SMSClient");
 
-// const { tokenMaker } = require("~/function/utility/tokenMaker");
+// const { tokenSigner } = require("~/function/utility/tokenSigner");
 // const { UserModel } = require("~/model/userModel/UserModel");
 
 // const verifyLoginNormalUserController = async (req, res) => {
@@ -15,9 +15,9 @@
 // 		);
 
 // 		if (isValid) {
-// 			const { tokenMaker } = require("~/function/utility/tokenMaker");
+// 			const { tokenSigner } = require("~/function/utility/tokenSigner");
 
-// 			const token = await tokenMaker(userData);
+// 			const token = await tokenSigner(userData);
 // 			userData.tokens = [token];
 
 // 			const user = new UserModel(userData);

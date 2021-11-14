@@ -8,7 +8,7 @@ const existenceCheckerUserController = async (req, res, next) => {
 
 		res.status(200).json({ userExist: user ? true : false });
 	} catch (error) {
-		res.errorCollector(error);
+		res.errorCollector({ error });
 		res.errorResponser();
 	}
 };

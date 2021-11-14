@@ -17,7 +17,7 @@ const {
 		countryCode,
 		countryName,
 		bio,
-		macAddress,
+		// macAddress,
 		createdAt,
 	},
 } = require("~/template/userTemplate/schemaUserTemplate");
@@ -70,14 +70,14 @@ const UserSchema = new mongoose.Schema({
 		maxlength: lastName.maxlength,
 		trim: lastName.trim[0],
 	},
-	macAddress: {
-		type: macAddress.Type[0],
-		unique: macAddress.unique[0],
-		required: macAddress.required,
-		minlength: macAddress.minlength,
-		maxlength: macAddress.maxlength,
-		trim: macAddress.trim[0],
-	},
+	// macAddress: {
+	// 	type: macAddress.Type[0],
+	// 	unique: macAddress.unique[0],
+	// 	required: macAddress.required,
+	// 	minlength: macAddress.minlength,
+	// 	maxlength: macAddress.maxlength,
+	// 	trim: macAddress.trim[0],
+	// },
 	privateID: {
 		type: privateID.Type[0],
 		unique: privateID.unique[0],

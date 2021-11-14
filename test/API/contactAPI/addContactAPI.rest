@@ -5,7 +5,10 @@
 
 GET {{baseUrl}}/contact/add/  HTTP/1.1
 content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOiI5MDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIiLCJwYXNzIjoiMTkxMjIwIiwiaWF0IjoxNjM2OTE4ODYwfQ.BNMX82YU54z4epwUzGaNVpkv4PReVU80K-wEGknUKYc
 
 {
-  "cellphone" : "9012700470"
+  "cellphone" : "9012700470",
+  "countryCode": "98",
+  "countryName": "ir"
 }

@@ -1,14 +1,12 @@
 const { Router } = require("express");
 
+const { authDefaultMDW } = require("~/middleware/authDefaultMDW");
+const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
+const { errorResponser } = require("~/middleware/errorResponser");
+
 const {
 	addContactController,
 } = require("~/controller/contactController/indexContactController");
-
-const {
-	cellphoneValidatorMiddleware,
-} = require("~/middleware/cellphoneValidatorMiddleware");
-
-const { errorResponser } = require("~/middleware/errorResponser");
 
 const {
 	routeContactTemplate: {
@@ -19,7 +17,9 @@ const {
 
 const contactRoute = Router();
 
-contactRoute.use(cellphoneValidatorMiddleware);
+contactRoute.use(authDefaultMDW);
+
+contactRoute.use(cellphoneValidatorMDW);
 
 //? comment : danger : errorResponser
 contactRoute.use(errorResponser);

@@ -2,7 +2,7 @@ const {
 	cellphoneValidator,
 } = require("~/validator/userPartValidator/indexUserPartValidator");
 
-const cellphoneValidatorMiddleware = async (req, res, next) => {
+const cellphoneValidatorMDW = async (req, res, next) => {
 	try {
 		const { cellphone } = req.body;
 		const cellphoneValidate = await cellphoneValidator({ cellphone });
@@ -16,4 +16,4 @@ const cellphoneValidatorMiddleware = async (req, res, next) => {
 	}
 };
 
-module.exports = { cellphoneValidatorMiddleware };
+module.exports = { cellphoneValidatorMDW };

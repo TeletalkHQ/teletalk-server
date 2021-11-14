@@ -6,7 +6,7 @@ const {
 
 const { randomID } = require("~/function/utility/randomID");
 
-const registerNormalUserValidatorMiddleware = async (req, res, next) => {
+const registerNormalUserValidatorMDW = async (req, res, next) => {
 	try {
 		const userData = req.body;
 
@@ -20,10 +20,10 @@ const registerNormalUserValidatorMiddleware = async (req, res, next) => {
 			throw validationResult;
 		}
 	} catch (error) {
-		res.errorCollector(error);
+		res.errorCollector({ error });
 	} finally {
 		next();
 	}
 };
 
-module.exports = { registerNormalUserValidatorMiddleware };
+module.exports = { registerNormalUserValidatorMDW };

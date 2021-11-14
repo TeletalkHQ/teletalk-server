@@ -15,7 +15,7 @@ const existenceCheckerUserValidatorMiddleware = async (req, res, next) => {
 			throw validationResult;
 		}
 	} catch (error) {
-		res.errorCollector(error);
+		res.errorCollector({ error });
 	} finally {
 		next();
 	}

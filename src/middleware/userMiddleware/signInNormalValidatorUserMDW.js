@@ -2,7 +2,7 @@ const {
 	signInNormalUserValidator,
 } = require("~/validator/userValidator/signInNormalUserValidator");
 
-const signInNormalValidatorUserMiddleware = async (req, res, next) => {
+const signInNormalValidatorUserMDW = async (req, res, next) => {
 	try {
 		const { cellphone, countryCode, countryName } = req.body;
 
@@ -16,11 +16,10 @@ const signInNormalValidatorUserMiddleware = async (req, res, next) => {
 			throw validationResult;
 		}
 	} catch (error) {
-		res.errorCollector(error);
+		res.errorCollector({ error });
 	} finally {
-		console.log("middleware signIn");
 		next();
 	}
 };
 
-module.exports = { signInNormalValidatorUserMiddleware };
+module.exports = { signInNormalValidatorUserMDW };

@@ -1,24 +1,27 @@
-const { userFinder } = require("~/function/helper/userFinder");
+const { userError } = require("~/constant/error/userError/userError");
 
 const addContactController = async (req, res) => {
 	try {
-		const { cellphone } = req.body.authData.data.payload;
-		console.log("cellphone", cellphone);
+		const {
+			DB: { user },
+			cellphone,
+		} = req.body;
 
-		const { user } = await userFinder({ cellphone });
+		const isDuplicate = user.contact.find((cp) => cp === cellphone);
 
-		//TODO Check for duplicates
-		user.contact.push(cellphone);
-		user.save();
-
-		console.log(user);
-
-		if (user) {
-			res.status(200).json({ cellphone, user });
+		if (isDuplicate === undefined) {
+			if (user.cellphone === cellphone) {
+				const error = userError.SELF_STUFF;
+				throw error;
+			} else {
+				await user.update({ contact: [...user.contact, cellphone] });
+			}
 		} else {
-			const error = { cellphone, error: "cellphone not exist" };
+			const error = userError.CELLPHONE_EXIST;
 			throw error;
 		}
+
+		res.status(200).json({ cellphone, user });
 	} catch (error) {
 		res.errorCollector({ error });
 		res.errorResponser();

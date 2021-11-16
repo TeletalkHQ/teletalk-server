@@ -18,11 +18,11 @@ const verifySignInNormalUserController = async (req, res) => {
 
 		const userData = verifiedToken.data.payload;
 
-		const mainToken = await tokenSigner({ data: userData });
-
 		const { user } = await userFinder({ cellphone: userData.cellphone });
 
 		if (user === null) {
+			const { token } = await tokenSigner({ data: userData });
+
 			const data = {
 				...userData,
 				privateID: randomID(),
@@ -30,19 +30,19 @@ const verifySignInNormalUserController = async (req, res) => {
 				cellphone: userData.cellphone,
 				countryCode: userData.countryCode,
 				countryName: userData.countryName,
+				tokens: [token],
 			};
 
 			const user = new UserModel(data);
 
-			user.save();
+			await user.save();
 
 			res.status(200).json({
 				userData: user,
-				token: mainToken,
 			});
 		} else {
 			const error = {
-				cellphone: userError.CELLPHONE_NOT_EXIST,
+				cellphone: userError.CELLPHONE_EXIST,
 				statusCode: 400,
 			};
 			throw error;

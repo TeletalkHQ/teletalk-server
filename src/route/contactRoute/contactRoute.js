@@ -3,6 +3,10 @@ const { Router } = require("express");
 const { authDefaultMDW } = require("~/middleware/authDefaultMDW");
 const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 const { errorResponser } = require("~/middleware/errorResponser");
+const { findUserFromDB } = require("~/middleware/findUserFromDB");
+const {
+	targetUserFinderByCellphone,
+} = require("~/middleware/contactMiddleware/targetUserFinderByCellphone");
 
 const {
 	addContactController,
@@ -11,19 +15,27 @@ const {
 const {
 	routeContactTemplate: {
 		add,
-		// block, edit, error, remove, share, template
+		block,
+		// edit, error, remove, share, template
 	},
 } = require("~/template/contactTemplate/routeContactTemplate");
+const {
+	blockContactController,
+} = require("~/controller/contactController/blockContactController");
 
 const contactRoute = Router();
 
 contactRoute.use(authDefaultMDW);
+contactRoute.use(findUserFromDB);
 
 contactRoute.use(cellphoneValidatorMDW);
 
-//? comment : danger : errorResponser
+contactRoute.use(targetUserFinderByCellphone);
+
+//? comment :  middleware: danger : errorResponser
 contactRoute.use(errorResponser);
 
-contactRoute.get(add.route, addContactController);
+contactRoute.post(add.route, addContactController);
+contactRoute.post(block.route, blockContactController);
 
 module.exports = { contactRoute };

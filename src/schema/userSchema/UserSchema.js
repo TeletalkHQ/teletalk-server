@@ -7,18 +7,19 @@ const {
 
 const {
 	schemaUserTemplate: {
-		privateID,
-		tokens,
-		username,
-		firstName,
-		lastName,
+		bio,
+		blacklist,
 		cellphone,
 		contact,
 		countryCode,
 		countryName,
-		bio,
-		// macAddress,
 		createdAt,
+		firstName,
+		lastName,
+		// macAddress,
+		privateID,
+		tokens,
+		username,
 	},
 } = require("~/template/userTemplate/schemaUserTemplate");
 
@@ -31,6 +32,9 @@ const UserSchema = new mongoose.Schema({
 		type: bio.Type[0],
 		// minlength: bio.minlength,
 		maxlength: bio.maxlength,
+	},
+	blacklist: {
+		type: blacklist.Type[0],
 	},
 	cellphone: {
 		type: cellphone.Type[0],
@@ -93,11 +97,12 @@ const UserSchema = new mongoose.Schema({
 	},
 	username: {
 		type: username.Type[0],
-		unique: username.unique[0],
+		// unique: username.unique[0],
 		// minlength: username.minlength,
 		maxlength: username.maxlength,
 		trim: username.trim[0],
 		lowercase: username.lowercase[0],
+		default: "",
 		// validate: {
 		// 	validator: function (value) {
 		// 		return /^[a-z\s]{0,255}$/i.test(value);

@@ -5,12 +5,12 @@ const {
 		BIO_INVALID_TYPE,
 		BIO_MAXLENGTH_REACH,
 		BIO_MINLENGTH_REACH,
+		BLACKLIST_INVALID_TYPE,
 		CELLPHONE_EXIST,
 		CELLPHONE_INVALID_TYPE,
 		CELLPHONE_MAXLENGTH_REACH,
 		CELLPHONE_MINLENGTH_REACH,
 		CELLPHONE_REQUIRED,
-		CONTACT_EXIST,
 		CONTACT_INVALID_TYPE,
 		COUNTRY_CODE_INVALID_TYPE,
 		COUNTRY_CODE_MAXLENGTH_REACH,
@@ -57,6 +57,10 @@ const schemaUserTemplate = {
 		minlength: [1, BIO_MINLENGTH_REACH],
 		maxlength: [255, BIO_MAXLENGTH_REACH],
 	},
+	blacklist: {
+		type: ["array", BLACKLIST_INVALID_TYPE],
+		Type: [Array, BLACKLIST_INVALID_TYPE],
+	},
 	cellphone: {
 		type: ["string", CELLPHONE_INVALID_TYPE],
 		Type: [String, CELLPHONE_INVALID_TYPE],
@@ -68,7 +72,7 @@ const schemaUserTemplate = {
 	contact: {
 		type: ["array", CONTACT_INVALID_TYPE],
 		Type: [Array, CONTACT_INVALID_TYPE],
-		unique: [true, CONTACT_EXIST],
+		// unique: [true, CONTACT_EXIST],
 		minlength: [
 			10,
 			// CONTACT_MINLENGTH_REACH

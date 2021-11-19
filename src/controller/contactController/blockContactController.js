@@ -1,6 +1,6 @@
 const { userError } = require("~/constant/error/userError/userError");
 
-const blockContactController = (req, res) => {
+const blockContactController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
@@ -14,8 +14,8 @@ const blockContactController = (req, res) => {
 				const error = userError.SELF_STUFF;
 				throw error;
 			} else {
-				user.blacklist.push(cellphone);
-				user.save();
+				await user.updateOne({ blacklist: [...user.blacklist, cellphone] });
+				res.status(200).json({ blockPhone: cellphone, blacklist: user.blacklist });
 			}
 		} else {
 			const error = userError.CELLPHONE_EXIST;

@@ -37,18 +37,13 @@ app.use(express.json());
 app.use(bodyClarify);
 app.use(errorCollector);
 app.use((req, res, next) => {
-	res.errorResponser = (statusCode) =>
-		errorResponser({ req, res, next, statusCode });
+	res.errorResponser = (statusCode) => errorResponser({ req, res, next, statusCode });
 	next();
 });
 
 //* Your statics is here =>
 app.use(express.static(path.join(__dirname, "..", "public")));
-app.use(
-	serveFavicon(
-		path.join(__dirname, "..", "public", "app_favicon", "favicon.ico")
-	)
-);
+app.use(serveFavicon(path.join(__dirname, "..", "public", "app_favicon", "favicon.ico")));
 
 //* All stuff for response to routes is in lifeLine =>
 app.use(lifeLine);

@@ -38,8 +38,9 @@ const {
 		PRIVATE_ID_MAX_LENGTH_REACH,
 		PRIVATE_ID_MIN_LENGTH_REACH,
 		PRIVATE_ID_REQUIRED,
-		TOKENS_EXIST,
-		TOKENS_INVALID_TYPE,
+		TOKEN_EXIST,
+		TOKEN_REQUIRED,
+		TOKEN_INVALID_TYPE,
 		USERNAME_EXIST,
 		USERNAME_INVALID_TYPE,
 		USERNAME_MAXLENGTH_REACH,
@@ -56,10 +57,12 @@ const schemaUserTemplate = {
 		Type: [String, BIO_INVALID_TYPE],
 		minlength: [1, BIO_MINLENGTH_REACH],
 		maxlength: [255, BIO_MAXLENGTH_REACH],
+		default: [""],
 	},
 	blacklist: {
 		type: ["array", BLACKLIST_INVALID_TYPE],
 		Type: [Array, BLACKLIST_INVALID_TYPE],
+		default: [[]],
 	},
 	cellphone: {
 		type: ["string", CELLPHONE_INVALID_TYPE],
@@ -69,19 +72,13 @@ const schemaUserTemplate = {
 		minlength: [10, CELLPHONE_MINLENGTH_REACH],
 		maxlength: [14, CELLPHONE_MAXLENGTH_REACH],
 	},
-	contact: {
+	contacts: {
 		type: ["array", CONTACT_INVALID_TYPE],
 		Type: [Array, CONTACT_INVALID_TYPE],
-		// unique: [true, CONTACT_EXIST],
-		minlength: [
-			10,
-			// CONTACT_MINLENGTH_REACH
-		],
-		maxlength: [
-			14,
-			// CONTACT_MAXLENGTH_REACH
-		],
+		minlength: [10],
+		maxlength: [14],
 		required: [false],
+		default: [[]],
 	},
 	countryCode: {
 		type: ["string", COUNTRY_CODE_INVALID_TYPE],
@@ -119,6 +116,7 @@ const schemaUserTemplate = {
 		minlength: [1, LAST_NAME_MINLENGTH_REACH],
 		maxlength: [18, LAST_NAME_MAXLENGTH_REACH],
 		trim: [false],
+		default: [""],
 	},
 	macAddress: {
 		type: ["string", MAC_ADDRESS_INVALID_TYPE],
@@ -139,20 +137,21 @@ const schemaUserTemplate = {
 		trim: [true],
 	},
 	tokens: {
-		type: ["array", TOKENS_INVALID_TYPE],
-		Type: [Array, TOKENS_INVALID_TYPE],
-		unique: [true, TOKENS_EXIST],
-		required: [true],
+		type: ["array", TOKEN_INVALID_TYPE],
+		Type: [Array, TOKEN_INVALID_TYPE],
+		unique: [true, TOKEN_EXIST],
+		required: [true, TOKEN_REQUIRED],
 	},
 	username: {
 		type: ["string", USERNAME_INVALID_TYPE],
 		Type: [String, USERNAME_INVALID_TYPE],
-		unique: [true, USERNAME_EXIST],
+		unique: [false, USERNAME_EXIST],
 		required: [false],
 		minlength: [4, USERNAME_MINLENGTH_REACH],
 		maxlength: [12, USERNAME_MAXLENGTH_REACH],
 		trim: [true],
 		lowercase: [true],
+		default: [""],
 	},
 	verificationCode: {
 		type: ["string", VERIFICATION_CODE_INVALID_TYPE],

@@ -14,13 +14,12 @@ const errorResponser = ({ req, res, next, statusCode }) => {
 
 			const code = statusCode || statusCodeFromCollector || 400;
 
-			res
-				.status(code)
-				.json({ errors: { categorized, uncategorized, statusCode: code } });
+			res.status(code).json({ errors: { categorized, uncategorized, statusCode: code } });
 		} else {
 			next();
 		}
 	} catch (error) {
+		console.log("$#*&(#@&$(*@$&*(@#&$#@(*$@&#$*(@#", error);
 		myConsole.redBright("BAD ERROR!!!").log();
 	}
 };

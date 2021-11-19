@@ -1,6 +1,4 @@
-const {
-	cellphoneValidator,
-} = require("~/validator/userPartValidator/indexUserPartValidator");
+const { cellphoneValidator } = require("~/validator/userPartValidator/indexUserPartValidator");
 
 const cellphoneValidatorMDW = async (req, res, next) => {
 	try {

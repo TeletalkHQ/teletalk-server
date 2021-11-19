@@ -7,7 +7,7 @@ const blockContactController = (req, res) => {
 			cellphone,
 		} = req.body;
 
-		const isDuplicate = user.contact.find((cp) => cp === cellphone);
+		const isDuplicate = user.blacklist.find((cp) => cp === cellphone);
 
 		if (isDuplicate === undefined) {
 			if (user.cellphone === cellphone) {

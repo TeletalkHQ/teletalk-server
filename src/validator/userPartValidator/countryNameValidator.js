@@ -1,8 +1,8 @@
 const Validator = require("fastest-validator");
 
 const {
-	schemaUserTemplate: { countryName },
-} = require("~/template/userTemplate/schemaUserTemplate");
+	userSchemaTemplate: { countryName },
+} = require("~/template/schemaTemplate/userSchemaTemplate");
 
 const v = new Validator();
 

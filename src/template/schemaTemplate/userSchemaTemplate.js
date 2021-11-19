@@ -50,7 +50,7 @@ const {
 	},
 } = require("~/constant/error/userError/userError");
 
-const schemaUserTemplate = {
+const userSchemaTemplate = {
 	bio: {
 		type: ["string", BIO_INVALID_TYPE],
 		required: [false],
@@ -161,4 +161,4 @@ const schemaUserTemplate = {
 	},
 };
 
-module.exports = { schemaUserTemplate };
+module.exports = { userSchemaTemplate };

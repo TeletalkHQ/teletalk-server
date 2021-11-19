@@ -13,12 +13,11 @@ const {
 } = require("~/controller/contactController/indexContactController");
 
 const {
-	routeContactTemplate: {
-		add,
-		block,
-		// edit, error, remove, share, template
+	cellphoneRouteTemplate: {
+		addContact,
+		addBlacklist, // edit, error, remove, share, template
 	},
-} = require("~/template/contactTemplate/routeContactTemplate");
+} = require("~/template/routeTemplate/cellphoneRouteTemplate");
 const {
 	blockContactController,
 } = require("~/controller/contactController/blockContactController");
@@ -35,7 +34,7 @@ contactRoute.use(targetUserFinderByCellphone);
 //? comment :  middleware: danger : errorResponser
 contactRoute.use(errorResponser);
 
-contactRoute.post(add.route, addContactController);
-contactRoute.post(block.route, blockContactController);
+contactRoute.post(addContact.route, addContactController);
+contactRoute.post(addBlacklist.route, blockContactController);
 
 module.exports = { contactRoute };

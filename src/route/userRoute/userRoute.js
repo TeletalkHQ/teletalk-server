@@ -7,7 +7,7 @@ const {
 const { errorResponser } = require("~/middleware/errorResponser");
 
 const {
-	routeUserTemplate,
+	userRouteTemplate,
 	signInNormalUserController,
 
 	errorUserController,
@@ -25,7 +25,7 @@ const {
 
 	error,
 	template,
-} = routeUserTemplate;
+} = userRouteTemplate;
 
 userRoute.use(signInNormal.route, signInNormalValidatorUserMDW);
 

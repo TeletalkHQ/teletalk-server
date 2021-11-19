@@ -48,12 +48,11 @@ function ConsoleBuilder() {
 	this.bgRedBright = (text) => chalkMaker("bgRedBright", text);
 	this.bgWhite = (text) => chalkMaker("bgWhite", text);
 	this.bgWhiteBright = (text) => chalkMaker("bgWhiteBright", text);
-	this.bgYellow = (text, color = "white") =>
-		chalkMakerWithBG("bgYellowBright", text, color);
+	this.bgYellow = (text, color = "white") => chalkMakerWithBG("bgYellowBright", text, color);
 	this.bgYellowBright = (text) => chalkMaker("bgYellow", text);
 
-	this.log = () => {
-		console.log(...this.logs);
+	this.log = (text) => {
+		console.log(...this.logs, text);
 		this.logs = [];
 	};
 }

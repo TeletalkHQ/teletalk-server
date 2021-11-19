@@ -13,10 +13,7 @@ const {
 } = require("~/controller/contactController/indexContactController");
 
 const {
-	cellphoneRouteTemplate: {
-		addContact,
-		addBlacklist, // edit, error, remove, share, template
-	},
+	cellphoneRouteTemplate: { addContact, addBlock },
 } = require("~/template/routeTemplate/cellphoneRouteTemplate");
 const {
 	blockContactController,
@@ -35,6 +32,6 @@ contactRoute.use(targetUserFinderByCellphone);
 contactRoute.use(errorResponser);
 
 contactRoute.post(addContact.route, addContactController);
-contactRoute.post(addBlacklist.route, blockContactController);
+contactRoute.post(addBlock.route, blockContactController);
 
 module.exports = { contactRoute };

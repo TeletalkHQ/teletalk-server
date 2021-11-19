@@ -6,16 +6,10 @@ const { userRoute } = require("~/route/userRoute/userRoute");
 const { contactRoute } = require("~/route/contactRoute/contactRoute");
 const { otherRoute } = require("~/route/otherRoute/otherRoute");
 
-const {
-	routeUserTemplate,
-} = require("~/template/userTemplate/routeUserTemplate");
+const { userRouteTemplate } = require("~/template/routeTemplate/userRouteTemplate");
 
-const {
-	routeContactTemplate,
-} = require("~/template/contactTemplate/routeContactTemplate");
-const {
-	routeOtherTemplate,
-} = require("~/template/otherTemplate/routeOtherTemplate");
+const { cellphoneRouteTemplate } = require("~/template/routeTemplate/cellphoneRouteTemplate");
+const { otherRouteTemplate } = require("~/template/otherTemplate/otherRouteTemplate");
 
 const lifeLine = Router();
 
@@ -23,10 +17,10 @@ lifeLine.get("/", (req, res) => {
 	res.send("Hey! Welcome to teletalk <3");
 });
 
-lifeLine.use(routeUserTemplate.baseRoute, userRoute);
+lifeLine.use(userRouteTemplate.baseRoute, userRoute);
 
-lifeLine.use(routeContactTemplate.baseRoute, contactRoute);
+lifeLine.use(cellphoneRouteTemplate.baseRoute, contactRoute);
 
-lifeLine.use(routeOtherTemplate.baseRoute, otherRoute);
+lifeLine.use(otherRouteTemplate.baseRoute, otherRoute);
 
 module.exports = { lifeLine };

@@ -1,4 +1,4 @@
-const routeOtherTemplate = {
+const otherRouteTemplate = {
 	baseRoute: "/other",
 
 	error: {
@@ -7,4 +7,4 @@ const routeOtherTemplate = {
 	},
 };
 
-module.exports = { routeOtherTemplate };
+module.exports = { otherRouteTemplate };

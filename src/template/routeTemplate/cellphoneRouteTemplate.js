@@ -1,12 +1,12 @@
-const routeContactTemplate = {
-	baseRoute: "/contact",
+const cellphoneRouteTemplate = {
+	baseRoute: "/cellphone",
 
-	add: {
-		route: "/add/",
+	addContact: {
+		route: "/add/contact",
 		description: "Use for add single contact to current user contacts list",
 	},
-	block: {
-		route: "/block/",
+	addBlacklist: {
+		route: "add/blacklist/",
 		description: "Use for block single contact on user contacts list",
 	},
 	edit: {
@@ -32,4 +32,4 @@ const routeContactTemplate = {
 	},
 };
 
-module.exports = { routeContactTemplate };
+module.exports = { cellphoneRouteTemplate };

@@ -1,6 +1,6 @@
 //* Using in routers, controllers and client-side
 
-const routeUserTemplate = {
+const userRouteTemplate = {
 	baseRoute: "/user",
 
 	signInNormal: {
@@ -9,8 +9,7 @@ const routeUserTemplate = {
 	},
 	verifyLoginNormal: {
 		route: "/verify/login/normal",
-		description:
-			"Use for verify login (normal account) and register (both mode)",
+		description: "Use for verify login (normal account) and register (both mode)",
 	},
 	verifySignInNormal: {
 		route: "/verify/signIn/normal",
@@ -27,4 +26,4 @@ const routeUserTemplate = {
 	},
 };
 
-module.exports = { routeUserTemplate };
+module.exports = { userRouteTemplate };

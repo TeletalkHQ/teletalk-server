@@ -20,7 +20,7 @@ const {
 		macAddress,
 		createdAt,
 	},
-} = require("~/template/userTemplate/schemaUserTemplate");
+} = require("~/template/schemaTemplate/userSchemaTemplate");
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 

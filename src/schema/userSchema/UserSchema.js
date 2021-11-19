@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
 const {
-	registerNormalUserValidator,
-} = require("~/trashcan/validator/userValidator/registerNormalUserValidator");
+	signInNormalUserValidator,
+} = require("~/validator/userValidator/signInNormalUserValidator");
 
 const {
-	schemaUserTemplate: {
+	userSchemaTemplate: {
 		bio,
 		blacklist,
 		cellphone,
@@ -20,7 +20,7 @@ const {
 		tokens,
 		username,
 	},
-} = require("~/template/userTemplate/schemaUserTemplate");
+} = require("~/template/schemaTemplate/userSchemaTemplate");
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
@@ -110,7 +110,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.statics.userRegisterValidator = async function (data) {
-	return registerNormalUserValidator(data);
+	return signInNormalUserValidator(data);
 };
 
 // UserRegisterSchema.post("save", function (error, doc, next) {

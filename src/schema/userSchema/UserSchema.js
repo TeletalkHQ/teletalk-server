@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-var uniqueValidator = require("mongoose-unique-validator");
+const uniqueValidator = require("mongoose-unique-validator");
 
 const {
 	registerNormalUserValidator,
@@ -10,31 +10,29 @@ const {
 		bio,
 		blacklist,
 		cellphone,
-		contact,
+		contacts,
 		countryCode,
 		countryName,
 		createdAt,
 		firstName,
 		lastName,
-		// macAddress,
 		privateID,
 		tokens,
 		username,
 	},
 } = require("~/template/userTemplate/schemaUserTemplate");
 
-// uniqueValidator.defaults.type = "mongoose-unique-validator";
-
 uniqueValidator.defaults.message = "{PATH}_exist";
+// uniqueValidator.defaults.type = "mongoose-unique-validator";
 
 const UserSchema = new mongoose.Schema({
 	bio: {
 		type: bio.Type[0],
-		// minlength: bio.minlength,
 		maxlength: bio.maxlength,
 	},
 	blacklist: {
 		type: blacklist.Type[0],
+		default: blacklist.default[0],
 	},
 	cellphone: {
 		type: cellphone.Type[0],
@@ -43,8 +41,9 @@ const UserSchema = new mongoose.Schema({
 		minlength: cellphone.minlength,
 		maxlength: cellphone.maxlength,
 	},
-	contact: {
-		type: contact.Type[0],
+	contacts: {
+		type: contacts.Type[0],
+		default: contacts.default[0],
 	},
 	countryCode: {
 		type: countryCode.Type[0],
@@ -70,9 +69,9 @@ const UserSchema = new mongoose.Schema({
 	},
 	lastName: {
 		type: lastName.Type[0],
-		// minlength: lastName.minlength,
 		maxlength: lastName.maxlength,
 		trim: lastName.trim[0],
+		defaults: lastName.default[0],
 	},
 	// macAddress: {
 	// 	type: macAddress.Type[0],
@@ -97,12 +96,10 @@ const UserSchema = new mongoose.Schema({
 	},
 	username: {
 		type: username.Type[0],
-		// unique: username.unique[0],
-		// minlength: username.minlength,
 		maxlength: username.maxlength,
 		trim: username.trim[0],
 		lowercase: username.lowercase[0],
-		default: "",
+		default: username.default[0],
 		// validate: {
 		// 	validator: function (value) {
 		// 		return /^[a-z\s]{0,255}$/i.test(value);
@@ -115,19 +112,6 @@ const UserSchema = new mongoose.Schema({
 UserSchema.statics.userRegisterValidator = async function (data) {
 	return registerNormalUserValidator(data);
 };
-
-//* bcrypt
-// UserRegisterSchema.pre("save", function (next) {
-// let user = this;
-
-// if (!user.isModified("password")) return next();
-
-// bcrypt.hash(user.password, 10, (err, hash) => {
-// 	if (err) return next(err);
-// 	user.password = hash;
-// 	next();
-// });
-// });
 
 // UserRegisterSchema.post("save", function (error, doc, next) {
 // 	const keys = {};

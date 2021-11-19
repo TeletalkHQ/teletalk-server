@@ -6,15 +6,15 @@ const addContactController = async (req, res) => {
 			DB: { user },
 			cellphone,
 		} = req.body;
-
-		const isDuplicate = user.contact.find((cp) => cp === cellphone);
-
+		console.log(user);
+		const isDuplicate = user.contacts.find((cp) => cp === cellphone);
+		console.log(isDuplicate);
 		if (isDuplicate === undefined) {
 			if (user.cellphone === cellphone) {
 				const error = userError.SELF_STUFF;
 				throw error;
 			} else {
-				await user.update({ contact: [...user.contact, cellphone] });
+				await user.update({ contacts: [...user.contacts, cellphone] });
 			}
 		} else {
 			const error = userError.CELLPHONE_EXIST;

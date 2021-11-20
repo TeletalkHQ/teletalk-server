@@ -1,20 +1,15 @@
 const Validator = require("fastest-validator");
 
-const {
-	userSchemaTemplate: { contact },
-} = require("~/template/schemaTemplate/userSchemaTemplate");
+const { cellphoneValidation } = require("./cellphoneValidator");
+const { firstNameValidation } = require("./firstNameValidator");
+const { lastNameValidation } = require("./lastNameValidator");
 
 const v = new Validator();
 
 const contactValidation = {
-	contact: {
-		type: contact.type[0],
-		unique: contact.unique[0],
-		messages: {
-			unique: contact.unique[1],
-			required: contact.required[1],
-		},
-	},
+	...cellphoneValidation,
+	...firstNameValidation,
+	...lastNameValidation,
 };
 
 const contactValidator = v.compile(contactValidation);

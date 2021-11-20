@@ -3,12 +3,14 @@
 @baseUrl = {{url}}{{port}}
 
 
-POST {{baseUrl}}/contact/add/  HTTP/1.1
+POST {{baseUrl}}/cellphone/add/contact  HTTP/1.1
 content-type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOiIxMDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIiLCJwYXNzIjoiNzg5MDA2IiwiaWF0IjoxNjM3MzE2Mjk0fQ.lDccbwf5TFrifNcaaO_ll0oqSplsDnQ7ytH1dwOK2yE
 
 {
   "cellphone" : "9012700470",
   "countryCode": "98",
-  "countryName": "ir"
+  "countryName": "ir",
+  "firstName": "Soheil_SS74",
+  "lastName": "SS"
 }

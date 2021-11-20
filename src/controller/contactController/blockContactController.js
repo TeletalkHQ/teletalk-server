@@ -14,6 +14,7 @@ const blockContactController = async (req, res) => {
 				const error = userError.SELF_STUFF;
 				throw error;
 			} else {
+				//FIXME //! Change updateOne to save ASAP!
 				await user.updateOne({ blacklist: [...user.blacklist, cellphone] });
 				res.status(200).json({ blockPhone: cellphone, blacklist: user.blacklist });
 			}

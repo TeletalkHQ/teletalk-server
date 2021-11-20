@@ -51,7 +51,7 @@ function ConsoleBuilder() {
 	this.bgYellow = (text, color = "white") => chalkMakerWithBG("bgYellowBright", text, color);
 	this.bgYellowBright = (text) => chalkMaker("bgYellow", text);
 
-	this.log = (text) => {
+	this.log = (text = "") => {
 		console.log(...this.logs, text);
 		this.logs = [];
 	};

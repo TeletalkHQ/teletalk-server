@@ -2,6 +2,7 @@ const { Router } = require("express");
 
 const { authDefaultMDW } = require("~/middleware/authDefaultMDW");
 const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
+// const { contactValidatorMDW } = require("~/middleware/contactValidatorMDW");
 const { errorResponser } = require("~/middleware/errorResponser");
 const { findUserFromDB } = require("~/middleware/findUserFromDB");
 const {
@@ -11,27 +12,27 @@ const {
 const {
 	addContactController,
 } = require("~/controller/contactController/indexContactController");
-
-const {
-	cellphoneRouteTemplate: { addContact, addBlock },
-} = require("~/template/routeTemplate/cellphoneRouteTemplate");
 const {
 	blockContactController,
 } = require("~/controller/contactController/blockContactController");
 
-const contactRoute = Router();
+const {
+	cellphoneRouteTemplate: { addContact, addBlock },
+} = require("~/template/routeTemplate/cellphoneRouteTemplate");
+const cellphoneRoute = Router();
 
-contactRoute.use(authDefaultMDW);
-contactRoute.use(findUserFromDB);
+cellphoneRoute.use(authDefaultMDW);
+cellphoneRoute.use(cellphoneValidatorMDW);
+// cellphoneRoute.use(contactValidatorMDW);
 
-contactRoute.use(cellphoneValidatorMDW);
+cellphoneRoute.use(findUserFromDB);
 
-contactRoute.use(targetUserFinderByCellphone);
+cellphoneRoute.use(targetUserFinderByCellphone);
 
 //? comment :  middleware: danger : errorResponser
-contactRoute.use(errorResponser);
+cellphoneRoute.use(errorResponser);
 
-contactRoute.post(addContact.route, addContactController);
-contactRoute.post(addBlock.route, blockContactController);
+cellphoneRoute.post(addContact.route, addContactController);
+cellphoneRoute.post(addBlock.route, blockContactController);
 
-module.exports = { contactRoute };
+module.exports = { cellphoneRoute };

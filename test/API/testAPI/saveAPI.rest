@@ -1,0 +1,6 @@
+@url = http://localhost:
+@port = 8080
+@baseUrl = {{url}}{{port}}
+
+GET {{baseUrl}}/test/save  HTTP/1.1
+

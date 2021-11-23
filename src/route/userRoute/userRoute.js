@@ -1,8 +1,6 @@
 const { Router } = require("express");
 
-const {
-	signInNormalValidatorUserMDW,
-} = require("~/middleware/userMiddleware/signInNormalValidatorUserMDW");
+const { contactValidatorMDW } = require("~/middleware/contactValidatorMDW");
 
 const { errorResponser } = require("~/middleware/errorResponser");
 
@@ -27,12 +25,12 @@ const {
 	template,
 } = userRouteTemplate;
 
-userRoute.use(signInNormal.route, signInNormalValidatorUserMDW);
-
+userRoute.use(signInNormal.route, contactValidatorMDW);
 //? comment: middleware: danger: errorResponser
 userRoute.use(errorResponser);
 
 userRoute.post(signInNormal.route, signInNormalUserController);
+//TODO Add MDW for verify controller
 userRoute.post(verifySignInNormal.route, verifySignInNormalUserController);
 
 userRoute.get(error.route, errorUserController);

@@ -2,7 +2,7 @@ const {
 	signInNormalUserValidator,
 } = require("~/validator/userValidator/signInNormalUserValidator");
 
-const signInNormalValidatorUserMDW = async (req, res, next) => {
+const contactValidatorMDW = async (req, res, next) => {
 	try {
 		const { cellphone, countryCode, countryName } = req.body;
 
@@ -22,4 +22,4 @@ const signInNormalValidatorUserMDW = async (req, res, next) => {
 	}
 };
 
-module.exports = { signInNormalValidatorUserMDW };
+module.exports = { contactValidatorMDW };

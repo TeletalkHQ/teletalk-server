@@ -1,7 +1,7 @@
 const { userError } = require("~/constant/error/userError/userError");
 const { contactValidator } = require("~/validator/userPartValidator/contactValidator");
 
-const addContactController = async (req, res) => {
+const addContactCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
@@ -32,11 +32,12 @@ const addContactController = async (req, res) => {
 			contacts: [...user.contacts, { cellphone, firstName, lastName }],
 		});
 
-		res.status(200).json({ cellphone, user });
+		res.status(200).json({ cellphone });
 	} catch (error) {
+		console.log("addContactCellphoneController", error);
 		res.errorCollector({ error });
 		res.errorResponser();
 	}
 };
 
-module.exports = { addContactController };
+module.exports = { addContactCellphoneController };

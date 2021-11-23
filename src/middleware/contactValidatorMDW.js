@@ -1,12 +1,10 @@
-const {
-	signInNormalUserValidator,
-} = require("~/validator/userValidator/signInNormalUserValidator");
+const { contactValidator } = require("~/validator/userValidator/contactValidator");
 
 const contactValidatorMDW = async (req, res, next) => {
 	try {
 		const { cellphone, countryCode, countryName } = req.body;
 
-		const validationResult = await signInNormalUserValidator({
+		const validationResult = await contactValidator({
 			cellphone,
 			countryCode,
 			countryName,

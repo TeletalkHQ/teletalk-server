@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
-const {
-	signInNormalUserValidator,
-} = require("~/validator/userValidator/signInNormalUserValidator");
+const { contactValidator } = require("~/validator/userValidator/contactValidator");
 
 const {
 	userSchemaTemplate: {
@@ -110,7 +108,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.statics.userRegisterValidator = async function (data) {
-	return signInNormalUserValidator(data);
+	return contactValidator(data);
 };
 
 // UserRegisterSchema.post("save", function (error, doc, next) {

@@ -6,12 +6,12 @@ const { countryNameValidation } = require("../userPartValidator/countryNameValid
 
 const v = new Validator();
 
-const signInNormalUserValidation = {
+const contactValidation = {
 	...cellphoneValidation,
 	...countryCodeValidation,
 	...countryNameValidation,
 };
 
-const signInNormalUserValidator = v.compile(signInNormalUserValidation);
+const contactValidator = v.compile(contactValidation);
 
-module.exports = { signInNormalUserValidator };
+module.exports = { contactValidator };

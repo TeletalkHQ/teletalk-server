@@ -2,5 +2,16 @@
 @port = 8080
 @baseUrl = {{url}}{{port}}
 
-GET {{baseUrl}}/test/save  HTTP/1.1
+GET {{baseUrl}}/cellphone/test/save  HTTP/1.1
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOiI5MDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIiLCJwYXNzIjoiNzkyNzUyIiwiaWF0IjoxNjM3MzE2NTMwfQ.bZeW40BgdHUBqdTMEKvpY6sqiCtcqwCvhQ8pETAUYqo
 
+{
+  "cellphone" : "2012700470",
+  "countryCode": "98",
+  "countryName": "ir",
+  "firstName": "21ss3",
+  "lastName": "SS",
+  "countryName":"iran",
+  "countryCode":"98"
+}

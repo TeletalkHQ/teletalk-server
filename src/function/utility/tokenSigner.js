@@ -6,13 +6,13 @@ const initialOptions = initialValue.JWTOptions;
 
 const tokenSigner = async ({ data, secret, options = initialOptions }) => {
 	try {
-		console.log(options);
+		// console.log(options);
 		const token = JWT.sign(data, secret || process.env.JWT_MAIN_SECRET, {
 			...initialOptions,
 			...options,
 		});
 
-		console.log(token);
+		// console.log(token);
 
 		return { token };
 	} catch (err) {

@@ -11,6 +11,7 @@ const targetUserFinderByCellphone = async (req, res, next) => {
 			throw error;
 		}
 	} catch (error) {
+		console.log("targetUserFinderByCellphone catch", error);
 		res.errorCollector({ error });
 	} finally {
 		next();

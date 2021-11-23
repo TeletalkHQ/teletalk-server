@@ -21,7 +21,7 @@ const errorResponser = ({ req, res, next, statusCode }) => {
 			next();
 		}
 	} catch (error) {
-		console.log("$#*&(#@&$(*@$&*(@#&$#@(*$@&#$*(@#", error);
+		console.log("errorResponser catch ", error);
 		myConsole.redBright("BAD ERROR!!!").log();
 	}
 };

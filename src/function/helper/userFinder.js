@@ -4,7 +4,7 @@ const userFinder = async (data) => {
 	try {
 		const user = await UserModel.findOne({
 			...data,
-		}).exec();
+		});
 
 		return { user };
 	} catch (error) {

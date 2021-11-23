@@ -19,6 +19,7 @@ const {
 const {
 	cellphoneRouteTemplate: { addContact, addBlock },
 } = require("~/template/routeTemplate/cellphoneRouteTemplate");
+
 const cellphoneRoute = Router();
 
 cellphoneRoute.use(authDefaultMDW);

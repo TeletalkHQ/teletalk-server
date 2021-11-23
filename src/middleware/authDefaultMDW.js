@@ -6,10 +6,11 @@ const authDefaultMDW = async (req, res, next) => {
 
 		req.body.authData = await tokenVerifier({ token });
 	} catch (error) {
+		console.log("authDefaultMDW  catch ");
 		res.errorCollector({ error, statusCode: 401 });
+	} finally {
+		next();
 	}
-
-	next();
 };
 
 module.exports = { authDefaultMDW };

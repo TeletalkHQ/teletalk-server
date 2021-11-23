@@ -18,6 +18,8 @@ const verifySignInNormalUserController = async (req, res) => {
 
 		const userData = verifiedToken.data.payload;
 
+		console.log(userData);
+
 		const { user } = await userFinder({ cellphone: userData.cellphone });
 
 		if (user === null) {

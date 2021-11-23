@@ -1,5 +1,4 @@
 const { userError } = require("~/constant/error/userError/userError");
-const { contactValidator } = require("~/validator/userPartValidator/contactValidator");
 
 const addContactCellphoneController = async (req, res) => {
 	try {
@@ -9,12 +8,6 @@ const addContactCellphoneController = async (req, res) => {
 			firstName,
 			lastName,
 		} = req.body;
-
-		const validatedContact = await contactValidator({ cellphone, firstName, lastName });
-
-		if (validatedContact !== true) {
-			throw validatedContact;
-		}
 
 		if (user.cellphone === cellphone) {
 			const error = userError.SELF_STUFF;

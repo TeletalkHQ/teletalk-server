@@ -20,16 +20,16 @@ const {
 
 const cellphoneRoute = Router();
 
-// cellphoneRoute.use(authDefaultMDW);
-// cellphoneRoute.use(contactValidatorMDW);
-// cellphoneRoute.use(selfStuffControllerMDW);
+cellphoneRoute.use(authDefaultMDW);
+cellphoneRoute.use(contactValidatorMDW);
+cellphoneRoute.use(selfStuffControllerMDW);
 
-// cellphoneRoute.use(findUserFromDB);
+cellphoneRoute.use(findUserFromDB);
 
-// cellphoneRoute.use(targetUserFinderByCellphone);
+cellphoneRoute.use(targetUserFinderByCellphone);
 
-// //? comment :  middleware: danger : errorResponser
-// cellphoneRoute.use(errorResponser);
+//? comment :  middleware: danger : errorResponser
+cellphoneRoute.use(errorResponser);
 
 cellphoneRoute.post(addContact.route, addContactCellphoneController);
 cellphoneRoute.post(addBlock.route, addBlockCellphoneController);

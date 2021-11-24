@@ -1,8 +1,7 @@
 const { userError } = require("~/constant/error/userError/userError");
 
-const selfStuffControllerMDW = (req, res) => {
+const selfStuffControllerMDW = (req, res, next) => {
 	try {
-		console.log("selfStuffControllerMDW");
 		const user = req.body.authData.data.payload;
 		const { cellphone } = req.body;
 
@@ -13,6 +12,8 @@ const selfStuffControllerMDW = (req, res) => {
 	} catch (error) {
 		console.log("selfStuffControllerMDW catch", error);
 		res.errorCollector({ error });
+	} finally {
+		next();
 	}
 };
 

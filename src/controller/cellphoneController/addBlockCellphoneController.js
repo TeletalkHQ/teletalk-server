@@ -1,32 +1,31 @@
 const { userError } = require("~/constant/error/userError/userError");
+const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
 const addBlockCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			phoneNumber,
-			countryCode,
-			countryName,
+			cellphone,
 		} = req.body;
 
-		//FIXME //! Useless find! check countryCode and countryName too.
-		const duplicateBlacklistItem = user.blacklist.find(
-			(user) => user.phoneNumber === phoneNumber,
-		);
+		const { cellphone: blacklistItem } = cellphoneFinder({
+			cellphones: user.blacklist,
+			targetCell: cellphone,
+		});
 
-		if (duplicateBlacklistItem !== undefined) {
+		if (blacklistItem !== undefined) {
 			const error = userError.CELLPHONE_EXIST;
 			throw error;
 		}
 
-		user.blacklist.push({ phoneNumber });
+		user.blacklist.push(cellphone);
 
 		await user.updateOne({
 			blacklist: user.blacklist,
 		});
 
 		res.status(200).json({
-			blockedCellphone: { phoneNumber, countryCode, countryName },
+			blockedCellphone: cellphone,
 			blacklist: user.blacklist,
 		});
 	} catch (error) {

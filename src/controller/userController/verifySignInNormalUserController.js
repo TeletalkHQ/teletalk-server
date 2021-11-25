@@ -20,7 +20,6 @@ const verifySignInNormalUserController = async (req, res) => {
 		const data = verifiedToken.data.payload;
 
 		delete data.iat;
-		console.log(data.cellphone);
 
 		const cellphoneValidation = cellphoneValidator({ ...data.cellphone });
 
@@ -30,7 +29,7 @@ const verifySignInNormalUserController = async (req, res) => {
 
 		const { user: foundUser } = await userFinder({ ...data.cellphone });
 
-		//FIXME //! ?!?!?!
+		//FIXME
 		if (foundUser !== null) {
 			const error = {
 				cellphone: data.cellphone,

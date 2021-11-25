@@ -7,7 +7,7 @@ const selfStuffControllerMDW = (req, res, next) => {
 
 		const { cellphone } = req.body;
 
-		const userCellphone = cellphoneFinder({
+		const { cellphone: userCellphone } = cellphoneFinder({
 			cellphones: [
 				{
 					...user.cellphone,

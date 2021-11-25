@@ -4,16 +4,16 @@ const {
 
 const usernameValidationSchema = {
 	username: {
-		type: username.type[0],
-		optional: !username.required[0],
-		unique: username.unique[0],
-		max: username.maxlength[0],
-		trim: username.trim[0],
-		lowercase: username.lowercase[0],
+		type: username.type.value,
+		optional: !username.required.value,
+		unique: username.unique.value,
+		max: username.maxlength.value,
+		trim: username.trim.value,
+		lowercase: username.lowercase.value,
 		messages: {
-			string: username.type[1],
-			unique: username.unique[1],
-			stringMax: username.maxlength[1],
+			string: username.type.error.message,
+			unique: username.unique.error.message,
+			stringMax: username.maxlength.error.message,
 		},
 	},
 };

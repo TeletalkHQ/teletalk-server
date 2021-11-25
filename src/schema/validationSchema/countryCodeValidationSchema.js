@@ -4,15 +4,15 @@ const {
 
 const countryCodeValidationSchema = {
 	countryCode: {
-		type: countryCode.type[0],
-		min: countryCode.minlength[0],
-		max: countryCode.maxlength[0],
-		trim: countryCode.trim[0],
+		type: countryCode.type.value,
+		min: countryCode.minlength.value,
+		max: countryCode.maxlength.value,
+		trim: countryCode.trim.value,
 		messages: {
-			string: countryCode.type[1],
-			required: countryCode.required[1],
-			stringMin: countryCode.minlength[1],
-			stringMax: countryCode.maxlength[1],
+			string: countryCode.type.error.message,
+			required: countryCode.required.error.message,
+			stringMin: countryCode.minlength.error.message,
+			stringMax: countryCode.maxlength.error.message,
 		},
 	},
 };

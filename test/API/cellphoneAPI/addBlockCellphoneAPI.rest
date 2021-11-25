@@ -8,7 +8,9 @@ content-type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOiIxMDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIiLCJwYXNzIjoiNzg5MDA2IiwiaWF0IjoxNjM3MzE2Mjk0fQ.lDccbwf5TFrifNcaaO_ll0oqSplsDnQ7ytH1dwOK2yE
 
 {
-  "phoneNumber" : "9012700470",
-  "countryCode": "98",
-  "countryName": "ir"
+  "cellphone": {
+    "countryCode": "98",
+    "countryName": "ir",
+    "phoneNumber" : "9012700470"
+  } 
 }

@@ -1,5 +1,6 @@
 const cellphoneFinder = ({ cellphones, targetCell }) => {
 	let cellphoneIndex = null;
+
 	try {
 		const cellphone = cellphones.find((cellphone, index) => {
 			if (
@@ -10,6 +11,7 @@ const cellphoneFinder = ({ cellphones, targetCell }) => {
 				cellphoneIndex = index;
 				return true;
 			}
+
 			return false;
 		});
 

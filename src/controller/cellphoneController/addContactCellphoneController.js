@@ -10,12 +10,12 @@ const addContactCellphoneController = async (req, res) => {
 			cellphone,
 		} = req.body;
 
-		const { cellphone: duplicateContact } = cellphoneFinder({
+		const { cellphone: contactItem } = cellphoneFinder({
 			cellphones: user.contacts,
 			targetCell: cellphone,
 		});
 
-		if (duplicateContact !== undefined) {
+		if (contactItem !== undefined) {
 			const error = userError.CELLPHONE_EXIST;
 			throw error;
 		}

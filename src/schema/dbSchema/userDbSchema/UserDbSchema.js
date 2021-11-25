@@ -7,7 +7,7 @@ const {
 	userSchemaTemplate: {
 		bio,
 		blacklist,
-		cellphone,
+		phoneNumber,
 		contacts,
 		countryCode,
 		countryName,
@@ -32,12 +32,12 @@ const UserSchema = new mongoose.Schema({
 		type: blacklist.Type[0],
 		default: blacklist.default[0],
 	},
-	cellphone: {
-		type: cellphone.Type[0],
-		unique: cellphone.unique[0],
-		required: cellphone.required,
-		minlength: cellphone.minlength,
-		maxlength: cellphone.maxlength,
+	phoneNumber: {
+		type: phoneNumber.Type[0],
+		unique: phoneNumber.unique[0],
+		required: phoneNumber.required,
+		minlength: phoneNumber.minlength,
+		maxlength: phoneNumber.maxlength,
 	},
 	contacts: {
 		type: contacts.Type[0],

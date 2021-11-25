@@ -8,7 +8,7 @@ content-type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOiI5MDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIiLCJwYXNzIjoiNjQ4Nzc5IiwiaWF0IjoxNjM3Njg0ODk1fQ.lvRRcm12ba1LOp_4UhTQk_f1d5dc9oKkLIZfaSeKFTA
 
 {
-  "cellphone" : "1012700470",
+  "phoneNumber" : "1012700470",
   "countryCode": "98",
   "countryName": "ir",
   "firstName": "Soheil_SS74",

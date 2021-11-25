@@ -1,8 +1,8 @@
 const Validator = require("fastest-validator");
 
 const {
-	cellphoneValidationSchema,
-} = require("~/schema/validationSchema/cellphoneValidationSchema");
+	phoneNumberValidationSchema,
+} = require("~/schema/validationSchema/phoneNumberValidationSchema");
 
 const {
 	countryCodeValidationSchema,
@@ -14,7 +14,7 @@ const {
 const v = new Validator();
 
 const cellphoneValidation = {
-	...cellphoneValidationSchema,
+	...phoneNumberValidationSchema,
 	...countryCodeValidationSchema,
 	...countryNameValidationSchema,
 };

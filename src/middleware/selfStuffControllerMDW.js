@@ -3,10 +3,16 @@ const { userError } = require("~/constant/error/userError/userError");
 const selfStuffControllerMDW = (req, res, next) => {
 	try {
 		const user = req.body.authData.data.payload;
-		const { cellphone } = req.body;
+		const { countryCode, countryName, phoneNumber } = req.body;
 
-		if (user.cellphone === cellphone) {
-			const error = userError.SELF_STUFF;
+		const cellphone = { countryCode, countryName, phoneNumber };
+
+		//FIXME //! Check countryCode and countryName too.
+		if (user.phoneNumber === phoneNumber) {
+			const error = {
+				cellphone,
+				message: userError.SELF_STUFF,
+			};
 			throw error;
 		}
 	} catch (error) {

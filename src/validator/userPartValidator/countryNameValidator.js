@@ -1,23 +1,13 @@
 const Validator = require("fastest-validator");
 
 const {
-	userSchemaTemplate: { countryName },
-} = require("~/template/schemaTemplate/userSchemaTemplate");
+	countryNameValidationSchema,
+} = require("~/schema/validationSchema/countryNameValidationSchema");
 
 const v = new Validator();
 
 const countryNameValidation = {
-	countryName: {
-		type: countryName.type[0],
-		min: countryName.minlength[0],
-		max: countryName.maxlength[0],
-		messages: {
-			string: countryName.type[1],
-			required: countryName.required[1],
-			stringMin: countryName.minlength[1],
-			stringMax: countryName.maxlength[1],
-		},
-	},
+	...countryNameValidationSchema,
 };
 
 const countryNameValidator = v.compile(countryNameValidation);

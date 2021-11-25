@@ -1,21 +1,13 @@
 const Validator = require("fastest-validator");
 
 const {
-	userSchemaTemplate: { verificationCode },
-} = require("~/template/schemaTemplate/userSchemaTemplate");
+	verificationCodeValidationSchema,
+} = require("~/schema/validationSchema/verificationCodeValidationSchema");
 
 const v = new Validator();
 
 const verificationCodeValidation = {
-	verificationCode: {
-		type: verificationCode.type[0],
-		length: verificationCode.length[0],
-		trim: verificationCode.trim[0],
-		messages: {
-			string: verificationCode.type[1],
-			length: verificationCode.length[1],
-		},
-	},
+	...verificationCodeValidationSchema,
 };
 
 const verificationCodeValidator = v.compile(verificationCodeValidation);

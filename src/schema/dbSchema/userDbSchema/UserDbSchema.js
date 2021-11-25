@@ -32,13 +32,6 @@ const UserSchema = new mongoose.Schema({
 		type: blacklist.Type.value,
 		default: blacklist.default.value,
 	},
-	phoneNumber: {
-		type: phoneNumber.Type.value,
-		unique: phoneNumber.unique.value,
-		required: [phoneNumber.required.value, phoneNumber.required.error.message],
-		minlength: [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
-		maxlength: [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],
-	},
 	contacts: {
 		type: contacts.Type.value,
 		default: contacts.default.value,
@@ -62,8 +55,8 @@ const UserSchema = new mongoose.Schema({
 	firstName: {
 		type: firstName.Type.value,
 		required: [firstName.required.value, firstName.required.error.message],
-		minlength: [firstName.required.value, firstName.required.error.message],
-		maxlength: [firstName.required.value, firstName.required.error.message],
+		minlength: [firstName.minlength.value, firstName.minlength.error.message],
+		maxlength: [firstName.maxlength.value, firstName.maxlength.error.message],
 	},
 	lastName: {
 		type: lastName.Type.value,
@@ -79,6 +72,13 @@ const UserSchema = new mongoose.Schema({
 	// 	maxlength: macAddress.maxlength,
 	// 	trim: macAddress.trim.value,
 	// },
+	phoneNumber: {
+		type: phoneNumber.Type.value,
+		unique: phoneNumber.unique.value,
+		required: [phoneNumber.required.value, phoneNumber.required.error.message],
+		minlength: [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
+		maxlength: [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],
+	},
 	privateID: {
 		type: privateID.Type.value,
 		unique: privateID.unique.value,

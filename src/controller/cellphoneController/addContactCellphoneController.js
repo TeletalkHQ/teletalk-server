@@ -1,4 +1,5 @@
 const { userError } = require("~/constant/error/userError/userError");
+const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
 const addContactCellphoneController = async (req, res) => {
 	try {
@@ -7,18 +8,12 @@ const addContactCellphoneController = async (req, res) => {
 			firstName,
 			lastName,
 			cellphone,
-			cellphone: { phoneNumber },
 		} = req.body;
 
-		//FIXME //! countryName and countryCode should check
-		if (user.phoneNumber === phoneNumber) {
-			const error = userError.SELF_STUFF;
-			throw error;
-		}
-
-		const duplicateContact = user.contacts.find(
-			(contact) => contact.phoneNumber === phoneNumber,
-		);
+		const duplicateContact = cellphoneFinder({
+			cellphones: user.contacts,
+			targetCell: cellphone,
+		});
 
 		if (duplicateContact !== undefined) {
 			const error = userError.CELLPHONE_EXIST;

@@ -15,5 +15,3 @@ const bioValidationsSchema = {
 };
 
 module.exports = { bioValidationsSchema };
-
-console.log(bio.minlength.error);

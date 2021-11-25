@@ -14,6 +14,7 @@ const {
 const {
 	verifySignInNormalUserController,
 } = require("~/controller/userController/verifySignInNormalUserController");
+const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 
 const userRoute = Router();
 
@@ -25,7 +26,7 @@ const {
 	template,
 } = userRouteTemplate;
 
-userRoute.use(signInNormal.route, contactValidatorMDW);
+userRoute.use(signInNormal.route, cellphoneValidatorMDW);
 //? comment: middleware: danger: errorResponser
 userRoute.use(errorResponser);
 

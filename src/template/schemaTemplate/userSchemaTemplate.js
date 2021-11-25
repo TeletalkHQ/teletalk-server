@@ -50,12 +50,15 @@ const {
 	},
 } = require("~/constant/error/userError/userError");
 
-const fn = (value, error) => ({ value, error });
+const fn = (value, error = { reason: "undefined", message: "undefined" }) => ({
+	value,
+	error,
+});
 
 const userSchemaTemplate = {
 	bio: {
 		type: fn("string", BIO_INVALID_TYPE),
-		required: [false],
+		required: fn(false, "undefined"),
 		Type: fn(String, BIO_INVALID_TYPE),
 		minlength: fn(1, BIO_MINLENGTH_REACH),
 		maxlength: fn(255, BIO_MAXLENGTH_REACH),
@@ -148,7 +151,7 @@ const userSchemaTemplate = {
 		type: fn("string", USERNAME_INVALID_TYPE),
 		Type: fn(String, USERNAME_INVALID_TYPE),
 		unique: fn(false, USERNAME_EXIST),
-		required: [false],
+		required: fn(false, "undefined"),
 		minlength: fn(4, USERNAME_MINLENGTH_REACH),
 		maxlength: fn(12, USERNAME_MAXLENGTH_REACH),
 		trim: fn(true, "undefined"),

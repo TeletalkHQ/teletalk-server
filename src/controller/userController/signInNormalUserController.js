@@ -9,20 +9,15 @@ const signInNormalUserController = async (req, res) => {
 		const { user } = await userFinder({ ...cellphone });
 
 		if (user === null) {
-			const { randomPassword } = passwordGenerator();
-
-			const data = {
-				cellphone,
-				pass: randomPassword,
-			};
+			// const { randomPassword } = passwordGenerator();
 
 			const { token } = await tokenSigner({
-				data,
+				data: { cellphone },
 				secret: process.env.JWT_SIGN_IN_SECRET,
 			});
 
 			res.status(200).json({
-				...data,
+				cellphone,
 				token,
 			});
 		} else {

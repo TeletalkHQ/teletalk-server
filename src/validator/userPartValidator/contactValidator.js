@@ -1,8 +1,8 @@
 const Validator = require("fastest-validator");
 
-const { cellphoneValidation } = require("./cellphoneValidator");
-const { firstNameValidation } = require("./firstNameValidator");
-const { lastNameValidation } = require("./lastNameValidator");
+const { cellphoneValidation } = require("~/validator/userPartValidator/cellphoneValidator");
+const { firstNameValidation } = require("~/validator/userPartValidator/firstNameValidator");
+const { lastNameValidation } = require("~/validator/userPartValidator/lastNameValidator");
 
 const v = new Validator();
 

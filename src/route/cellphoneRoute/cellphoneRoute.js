@@ -17,18 +17,20 @@ const {
 const {
 	cellphoneRouteTemplate: { addContact, addBlock },
 } = require("~/template/routeTemplate/cellphoneRouteTemplate");
+const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 
 const cellphoneRoute = Router();
 
 cellphoneRoute.use(authDefaultMDW);
-cellphoneRoute.use(contactValidatorMDW);
+cellphoneRoute.use(cellphoneValidatorMDW);
 cellphoneRoute.use(selfStuffControllerMDW);
 
 cellphoneRoute.use(findUserFromDB);
 
 cellphoneRoute.use(targetUserFinderByCellphone);
 
-//? comment :  middleware: danger : errorResponser
+cellphoneRoute.use(addContact.route, contactValidatorMDW);
+// ? comment :  middleware: danger : errorResponser
 cellphoneRoute.use(errorResponser);
 
 cellphoneRoute.post(addContact.route, addContactCellphoneController);

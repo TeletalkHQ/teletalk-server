@@ -10,11 +10,11 @@ const cellphoneRouteTemplate = {
 		description: "Use for add single contact to current user contacts list",
 	},
 	addBlock: {
-		route: "add/block",
+		route: "/add/block",
 		description: "Use for block single contact on user contacts list",
 	},
 	addBlocks: {
-		route: "add/blocks",
+		route: "/add/blocks",
 		description: "Use for block single contact on user contacts list",
 	},
 	editContact: {

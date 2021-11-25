@@ -5,29 +5,25 @@ const addBlockCellphoneController = async (req, res) => {
 		const {
 			DB: { user },
 			cellphone,
-			firstName,
-			lastName,
 		} = req.body;
 
 		const duplicateBlacklistItem = user.blacklist.find((user) => user.cellphone === cellphone);
-
-		if (user.cellphone === cellphone) {
-			const error = userError.SELF_STUFF;
-			throw error;
-		}
 
 		if (duplicateBlacklistItem !== undefined) {
 			const error = userError.CELLPHONE_EXIST;
 			throw error;
 		}
 
+		user.blacklist.push({ cellphone });
+
 		await user.updateOne({
-			blacklist: [...user.blacklist, { cellphone, firstName, lastName }],
+			blacklist: user.blacklist,
 		});
 
-		res.status(200).json({ blockPhone: cellphone, blacklist: user.blacklist });
-	} catch (err) {
-		res.errorCollector({ err });
+		res.status(200).json({ blockedCellphone: cellphone, blacklist: user.blacklist });
+	} catch (error) {
+		console.log("addBlockCellphoneController", error);
+		res.errorCollector({ error });
 		res.errorResponser();
 	}
 };

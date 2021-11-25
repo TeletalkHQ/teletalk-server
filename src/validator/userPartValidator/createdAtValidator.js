@@ -1,16 +1,13 @@
 const Validator = require("fastest-validator");
 
 const {
-	userSchemaTemplate: { createdAt },
-} = require("~/template/schemaTemplate/userSchemaTemplate");
+	createdAtValidationSchema,
+} = require("~/schema/validationSchema/createdAtValidationSchema");
 
 const v = new Validator();
 
 const createdAtValidation = {
-	createdAt: {
-		type: createdAt.type[0],
-		optimal: !createdAt.required[0],
-	},
+	...createdAtValidationSchema,
 };
 
 const createdAtValidator = v.compile(createdAtValidation);

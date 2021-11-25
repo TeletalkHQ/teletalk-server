@@ -2,12 +2,14 @@ const { contactValidator } = require("~/validator/userValidator/contactValidator
 
 const contactValidatorMDW = async (req, res, next) => {
 	try {
-		const { cellphone, countryCode, countryName } = req.body;
+		const { countryCode, countryName, phoneNumber, firstName, lastName } = req.body;
 
 		const validationResult = await contactValidator({
-			cellphone,
 			countryCode,
 			countryName,
+			phoneNumber,
+			firstName,
+			lastName,
 		});
 
 		if (validationResult !== true) {

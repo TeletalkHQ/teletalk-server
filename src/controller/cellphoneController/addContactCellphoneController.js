@@ -4,25 +4,36 @@ const addContactCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			cellphone,
+			phoneNumber,
 			firstName,
 			lastName,
+			countryCode,
+			countryName,
 		} = req.body;
 
-		if (user.cellphone === cellphone) {
+		//FIXME //! countryName and countryCode should check
+		if (user.phoneNumber === phoneNumber) {
 			const error = userError.SELF_STUFF;
 			throw error;
 		}
 
-		const duplicateContact = user.contacts.find((contact) => contact.cellphone === cellphone);
+		const duplicateContact = user.contacts.find(
+			(contact) => contact.phoneNumber === phoneNumber,
+		);
 
 		if (duplicateContact !== undefined) {
 			const error = userError.CELLPHONE_EXIST;
 			throw error;
 		}
 
+		const cellphone = {
+			phoneNumber,
+			countryCode,
+			countryName,
+		};
+
 		await user.updateOne({
-			contacts: [...user.contacts, { cellphone, firstName, lastName }],
+			contacts: [...user.contacts, { ...cellphone, firstName, lastName }],
 		});
 
 		res.status(200).json({ cellphone });

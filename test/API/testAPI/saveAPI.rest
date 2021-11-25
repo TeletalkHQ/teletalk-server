@@ -7,7 +7,7 @@ content-type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOiI5MDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIiLCJwYXNzIjoiNzkyNzUyIiwiaWF0IjoxNjM3MzE2NTMwfQ.bZeW40BgdHUBqdTMEKvpY6sqiCtcqwCvhQ8pETAUYqo
 
 {
-  "cellphone" : "2012700470",
+  "phoneNumber" : "2012700470",
   "countryCode": "98",
   "countryName": "ir",
   "firstName": "21ss3",

@@ -6,6 +6,7 @@ const { tokenVerifier } = require("~/function/utility/tokenVerifier");
 const { UserModel } = require("~/model/userModel/UserModel");
 
 const { userError } = require("~/constant/error/userError/userError");
+const { cellphoneValidator } = require("~/validator/userPartValidator/cellphoneValidator");
 
 const verifySignInNormalUserController = async (req, res) => {
 	try {
@@ -18,46 +19,50 @@ const verifySignInNormalUserController = async (req, res) => {
 
 		const userData = verifiedToken.data.payload;
 
-		console.log(userData);
+		const cellphone = {
+			phoneNumber: userData.phoneNumber,
+			countryCode: userData.countryCode,
+			countryName: userData.countryName,
+		};
 
-		const { user } = await userFinder({ cellphone: userData.cellphone });
+		const cellphoneValidation = cellphoneValidator({ ...cellphone });
 
-		if (user === null) {
-			const { token } = await tokenSigner({ data: userData });
+		if (cellphoneValidation !== true) {
+			throw cellphoneValidation;
+		}
 
-			const data = {
-				...userData,
-				privateID: randomID(),
-				firstName: "DEFAULT NAME",
-				cellphone: userData.cellphone,
-				countryCode: userData.countryCode,
-				countryName: userData.countryName,
-				tokens: [token],
-			};
+		const { user } = await userFinder({ phoneNumber: userData.phoneNumber });
 
-			const user = new UserModel(data);
-
-			await user.save();
-
-			res.status(200).json({
-				userData: user,
-			});
-		} else {
+		//FIXME //! ?!?!?!
+		if (user !== null) {
 			const error = {
-				cellphone: userError.CELLPHONE_EXIST,
-				statusCode: 400,
+				cellphone,
+				message: userError.CELLPHONE_EXIST,
 			};
 			throw error;
 		}
-	} catch (ex) {
-		res.errorCollector({
-			error: ex.cellphone || ex,
-			statusCode: ex.statusCode,
+
+		const { token: mainToken } = await tokenSigner({ data: userData });
+
+		const data = {
+			...userData,
+			...cellphone,
+			privateID: randomID(),
+			firstName: "DEFAULT NAME",
+			tokens: [mainToken],
+		};
+
+		const finalUser = new UserModel(data);
+
+		await finalUser.save();
+
+		res.status(200).json({
+			user: finalUser,
 		});
+	} catch (error) {
+		res.errorCollector({ error });
 		res.errorResponser();
 	}
 };
 
-module.exports = {
-	verifySignInNormalUserController,
-};
+module.exports = { verifySignInNormalUserController };

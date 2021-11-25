@@ -4,12 +4,17 @@ const { userError } = require("~/constant/error/userError/userError");
 
 const targetUserFinderByCellphone = async (req, res, next) => {
 	try {
-		const { cellphone, countryCode, countryName } = req.body;
+		const { phoneNumber, countryCode, countryName } = req.body;
 
-		const { user: targeUser } = await userFinder({ cellphone, countryCode, countryName });
+		const cellphone = { countryCode, countryName, phoneNumber };
+
+		const { user: targeUser } = await userFinder({ ...cellphone });
 
 		if (targeUser === null) {
-			const error = userError.CELLPHONE_NOT_EXIST;
+			const error = {
+				cellphone,
+				message: userError.CELLPHONE_NOT_EXIST,
+			};
 			throw error;
 		}
 	} catch (error) {

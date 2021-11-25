@@ -4,15 +4,15 @@ const { tokenSigner } = require("~/function/utility/tokenSigner");
 
 const signInNormalUserController = async (req, res) => {
 	try {
-		const { cellphone, countryCode, countryName } = req.body;
+		const { phoneNumber, countryCode, countryName } = req.body;
 
-		const { user } = await userFinder({ cellphone });
+		const { user } = await userFinder({ phoneNumber });
 
 		if (user === null) {
 			const { randomPassword } = passwordGenerator();
 
 			const data = {
-				cellphone,
+				phoneNumber,
 				countryCode,
 				countryName,
 				pass: randomPassword,

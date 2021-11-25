@@ -8,7 +8,7 @@ Content-Type: application/json
 {
   "firstName":"ss",
   "lastName":"ss",
-  "cellphone":"6012700470",
+  "phoneNumber":"6012700470",
   "countryName":"iran",
   "countryCode":"11",
   "macAddress":"2200004189012",

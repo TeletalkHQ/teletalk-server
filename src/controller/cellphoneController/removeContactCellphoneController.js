@@ -3,8 +3,6 @@ const removeContactCellphoneController = (req, res) => {
 		const {
 			DB: { user },
 			cellphone,
-			firstName,
-			lastName,
 		} = req.body;
 	} catch (error) {
 		res.errorCollector({ error });

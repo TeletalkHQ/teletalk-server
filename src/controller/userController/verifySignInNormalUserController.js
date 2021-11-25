@@ -17,42 +17,45 @@ const verifySignInNormalUserController = async (req, res) => {
 			secret: process.env.JWT_SIGN_IN_SECRET,
 		});
 
-		const userData = verifiedToken.data.payload;
+		const data = verifiedToken.data.payload;
 
-		const cellphone = userData.cellphone;
+		delete data.iat;
+		console.log(data.cellphone);
 
-		const cellphoneValidation = cellphoneValidator({ ...cellphone });
+		const cellphoneValidation = cellphoneValidator({ ...data.cellphone });
 
 		if (cellphoneValidation !== true) {
 			throw cellphoneValidation;
 		}
 
-		const { user } = await userFinder({ phoneNumber: userData.phoneNumber });
+		const { user: foundUser } = await userFinder({ ...data.cellphone });
 
 		//FIXME //! ?!?!?!
-		if (user !== null) {
+		if (foundUser !== null) {
 			const error = {
-				cellphone,
+				cellphone: data.cellphone,
 				...userError.CELLPHONE_EXIST,
 			};
 			throw error;
 		}
 
-		const { token: mainToken } = await tokenSigner({ data: userData });
+		const dataForSign = { cellphone: data.cellphone, privateID: randomID() };
 
-		const data = {
-			...userData,
-			...cellphone,
-			privateID: randomID(),
+		const { token: mainToken } = await tokenSigner({ data: dataForSign });
+
+		const dataForDB = {
+			...data.cellphone,
+			privateID: dataForSign.privateID,
 			firstName: "DEFAULT NAME",
 			tokens: [mainToken],
 		};
 
-		const finalUser = new UserModel(data);
+		const finalUser = new UserModel(dataForDB);
 
 		await finalUser.save();
 
 		res.status(200).json({
+			//TODO Change it to data =>
 			user: finalUser,
 		});
 	} catch (error) {

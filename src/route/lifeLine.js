@@ -9,7 +9,7 @@ const { otherRoute } = require("~/route/otherRoute/otherRoute");
 const { userRouteTemplate } = require("~/template/routeTemplate/userRouteTemplate");
 
 const { cellphoneRouteTemplate } = require("~/template/routeTemplate/cellphoneRouteTemplate");
-const { otherRouteTemplate } = require("~/template/otherTemplate/otherRouteTemplate");
+const { otherRouteTemplate } = require("~/template/routeTemplate/otherRouteTemplate");
 
 const lifeLine = Router();
 

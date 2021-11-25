@@ -1,7 +1,5 @@
 const { Router } = require("express");
 
-const { contactValidatorMDW } = require("~/middleware/contactValidatorMDW");
-
 const { errorResponser } = require("~/middleware/errorResponser");
 
 const {

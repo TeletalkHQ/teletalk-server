@@ -13,9 +13,12 @@ const {
 const {
 	addBlockCellphoneController,
 } = require("~/controller/cellphoneController/addBlockCellphoneController");
+const {
+	removeBlockCellphoneController,
+} = require("~/controller/cellphoneController/removeBlockCellphoneController");
 
 const {
-	cellphoneRouteTemplate: { addContact, addBlock },
+	cellphoneRouteTemplate: { addContact, addBlock, removeBlock },
 } = require("~/template/routeTemplate/cellphoneRouteTemplate");
 const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 
@@ -35,5 +38,6 @@ cellphoneRoute.use(errorResponser);
 
 cellphoneRoute.post(addContact.route, addContactCellphoneController);
 cellphoneRoute.post(addBlock.route, addBlockCellphoneController);
+cellphoneRoute.post(removeBlock.route, removeBlockCellphoneController);
 
 module.exports = { cellphoneRoute };

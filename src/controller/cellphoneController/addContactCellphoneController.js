@@ -10,7 +10,7 @@ const addContactCellphoneController = async (req, res) => {
 			cellphone,
 		} = req.body;
 
-		const duplicateContact = cellphoneFinder({
+		const { cellphone: duplicateContact } = cellphoneFinder({
 			cellphones: user.contacts,
 			targetCell: cellphone,
 		});

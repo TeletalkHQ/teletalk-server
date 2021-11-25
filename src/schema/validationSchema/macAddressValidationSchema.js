@@ -4,17 +4,17 @@ const {
 
 const macAddressValidationSchema = {
 	macAddress: {
-		type: macAddress.type[0],
-		unique: macAddress.unique[0],
-		min: macAddress.minlength[0],
-		max: macAddress.maxlength[0],
-		trim: macAddress.trim[0],
+		type: macAddress.type.value,
+		unique: macAddress.unique.value,
+		min: macAddress.minlength.value,
+		max: macAddress.maxlength.value,
+		trim: macAddress.trim.value,
 		messages: {
-			string: macAddress.type[1],
-			unique: macAddress.unique[1],
-			required: macAddress.required[1],
-			stringMin: macAddress.minlength[1],
-			stringMax: macAddress.maxlength[1],
+			string: macAddress.type.error.message,
+			unique: macAddress.unique.error.message,
+			required: macAddress.required.error.message,
+			stringMin: macAddress.minlength.error.message,
+			stringMax: macAddress.maxlength.error.message,
 		},
 	},
 };

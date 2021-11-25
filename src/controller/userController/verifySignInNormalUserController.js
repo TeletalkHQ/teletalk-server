@@ -19,11 +19,7 @@ const verifySignInNormalUserController = async (req, res) => {
 
 		const userData = verifiedToken.data.payload;
 
-		const cellphone = {
-			phoneNumber: userData.phoneNumber,
-			countryCode: userData.countryCode,
-			countryName: userData.countryName,
-		};
+		const cellphone = userData.cellphone;
 
 		const cellphoneValidation = cellphoneValidator({ ...cellphone });
 
@@ -37,7 +33,7 @@ const verifySignInNormalUserController = async (req, res) => {
 		if (user !== null) {
 			const error = {
 				cellphone,
-				message: userError.CELLPHONE_EXIST,
+				...userError.CELLPHONE_EXIST,
 			};
 			throw error;
 		}

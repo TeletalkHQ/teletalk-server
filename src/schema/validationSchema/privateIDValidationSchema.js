@@ -4,17 +4,17 @@ const {
 
 const privateIDValidationSchema = {
 	privateID: {
-		type: privateID.type[0],
-		unique: privateID.unique[0],
-		min: privateID.minlength[0],
-		max: privateID.maxlength[0],
-		trim: privateID.trim[0],
+		type: privateID.type.value,
+		unique: privateID.unique.value,
+		min: privateID.minlength.value,
+		max: privateID.maxlength.value,
+		trim: privateID.trim.value,
 		messages: {
-			string: privateID.type[1],
-			required: privateID.required[1],
-			unique: privateID.unique[1],
-			stringMin: privateID.minlength[1],
-			stringMax: privateID.maxlength[1],
+			string: privateID.type.error.message,
+			required: privateID.required.error.message,
+			unique: privateID.unique.error.message,
+			stringMin: privateID.minlength.error.message,
+			stringMax: privateID.maxlength.error.message,
 		},
 	},
 };

@@ -4,12 +4,12 @@ const {
 
 const verificationCodeValidationSchema = {
 	verificationCode: {
-		type: verificationCode.type[0],
-		length: verificationCode.length[0],
-		trim: verificationCode.trim[0],
+		type: verificationCode.type.value,
+		length: verificationCode.length.value,
+		trim: verificationCode.trim.value,
 		messages: {
-			string: verificationCode.type[1],
-			length: verificationCode.length[1],
+			string: verificationCode.type.error.message,
+			length: verificationCode.length.error.message,
 		},
 	},
 };

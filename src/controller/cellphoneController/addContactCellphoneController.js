@@ -4,11 +4,10 @@ const addContactCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			phoneNumber,
 			firstName,
 			lastName,
-			countryCode,
-			countryName,
+			cellphone,
+			cellphone: { phoneNumber },
 		} = req.body;
 
 		//FIXME //! countryName and countryCode should check
@@ -25,12 +24,6 @@ const addContactCellphoneController = async (req, res) => {
 			const error = userError.CELLPHONE_EXIST;
 			throw error;
 		}
-
-		const cellphone = {
-			phoneNumber,
-			countryCode,
-			countryName,
-		};
 
 		await user.updateOne({
 			contacts: [...user.contacts, { ...cellphone, firstName, lastName }],

@@ -4,8 +4,8 @@ const {
 
 const createdAtValidationSchema = {
 	createdAt: {
-		type: createdAt.type[0],
-		optimal: !createdAt.required[0],
+		type: createdAt.type.value,
+		optimal: !createdAt.required.value,
 	},
 };
 

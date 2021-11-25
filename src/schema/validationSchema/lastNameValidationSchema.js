@@ -4,13 +4,13 @@ const {
 
 const lastNameValidationSchema = {
 	lastName: {
-		type: lastName.type[0],
-		optional: !lastName.required[0],
-		max: lastName.maxlength[0],
-		trim: lastName.trim[0],
+		type: lastName.type.value,
+		optional: !lastName.required.value,
+		max: lastName.maxlength.value,
+		trim: lastName.trim.value,
 		messages: {
-			string: lastName.type[1],
-			stringMax: lastName.maxlength[1],
+			string: lastName.type.error.message,
+			stringMax: lastName.maxlength.error.message,
 		},
 	},
 };

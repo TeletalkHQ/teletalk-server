@@ -4,15 +4,15 @@ const {
 
 const firstNameValidationSchema = {
 	firstName: {
-		type: firstName.type[0],
-		min: firstName.minlength[0],
-		max: firstName.maxlength[0],
-		trim: firstName.trim[0],
+		type: firstName.type.value,
+		min: firstName.minlength.value,
+		max: firstName.maxlength.value,
+		trim: firstName.trim.value,
 		messages: {
-			string: firstName.type[1],
-			required: firstName.required[1],
-			stringMin: firstName.minlength[1],
-			stringMax: firstName.maxlength[1],
+			string: firstName.type.error.message,
+			required: firstName.required.error.message,
+			stringMin: firstName.minlength.error.message,
+			stringMax: firstName.maxlength.error.message,
 		},
 	},
 };

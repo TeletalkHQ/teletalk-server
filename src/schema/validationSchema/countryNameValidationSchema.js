@@ -4,14 +4,14 @@ const {
 
 const countryNameValidationSchema = {
 	countryName: {
-		type: countryName.type[0],
-		min: countryName.minlength[0],
-		max: countryName.maxlength[0],
+		type: countryName.type.value,
+		min: countryName.minlength.value,
+		max: countryName.maxlength.value,
 		messages: {
-			string: countryName.type[1],
-			required: countryName.required[1],
-			stringMin: countryName.minlength[1],
-			stringMax: countryName.maxlength[1],
+			string: countryName.type.error.message,
+			required: countryName.required.error.message,
+			stringMin: countryName.minlength.error.message,
+			stringMax: countryName.maxlength.error.message,
 		},
 	},
 };

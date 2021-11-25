@@ -4,14 +4,16 @@ const {
 
 const bioValidationsSchema = {
 	bio: {
-		type: bio.type[0],
-		optional: !bio.required[0],
-		max: bio.maxlength[0],
+		type: bio.type.value,
+		optional: !bio.required.value,
+		max: bio.maxlength.value,
 		messages: {
-			string: bio.type[1],
-			stringMax: bio.maxlength[1],
+			string: bio.type.error.message,
+			stringMax: bio.maxlength.error.message,
 		},
 	},
 };
 
 module.exports = { bioValidationsSchema };
+
+console.log(bio.minlength.error);

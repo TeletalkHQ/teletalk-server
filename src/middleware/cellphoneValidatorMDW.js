@@ -2,12 +2,10 @@ const { cellphoneValidator } = require("~/validator/userPartValidator/indexUserP
 
 const cellphoneValidatorMDW = async (req, res, next) => {
 	try {
-		const { countryCode, countryName, phoneNumber } = req.body;
+		const { cellphone } = req.body;
 
 		const cellphoneValidate = await cellphoneValidator({
-			countryCode,
-			countryName,
-			phoneNumber,
+			...cellphone,
 		});
 
 		if (cellphoneValidate !== true) {

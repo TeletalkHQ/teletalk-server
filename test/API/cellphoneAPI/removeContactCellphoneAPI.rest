@@ -5,7 +5,7 @@
 
 POST {{baseUrl}}/cellphone/remove/contact HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOnsicGhvbmVOdW1iZXIiOiIxMDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIifSwicHJpdmF0ZUlEIjoiSVBablpKcmFQb0JkM09vcHhpRmhJN1lLd3hURjRDIiwiaWF0IjoxNjM3ODU5MTM2fQ.7u2hKnV8Su74m7R7C57XzcY5g_Lui7_fVRJLFF1lnFA
+Authorization: {{$dotenv user1}}
 
 {
   "cellphone": {

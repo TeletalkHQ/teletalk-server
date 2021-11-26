@@ -5,7 +5,7 @@
 
 POST {{baseUrl}}/cellphone/add/contact  HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOnsicGhvbmVOdW1iZXIiOiIxMDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIifSwicHJpdmF0ZUlEIjoibF96cHpVREdsY2tSbHV1d2VKaHJPdzluMm5LaWllIiwiaWF0IjoxNjM3OTIzMTUyfQ.B9HkFpmxoVuDKBu9qmugLSHnUC0_xepkv1N55nGwyPY
+Authorization: {{$dotenv user1}}
 
 {
   "cellphone": {

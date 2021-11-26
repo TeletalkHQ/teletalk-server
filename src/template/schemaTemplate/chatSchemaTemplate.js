@@ -1,5 +1,5 @@
 const {
-	messageError: {
+	chatError: {
 		CHAT_ID_INVALID_TYPE,
 		CHAT_ID_EXIST,
 		CHAT_ID_REQUIRED,
@@ -12,14 +12,14 @@ const {
 		MESSAGE_ID_MIN_LENGTH_REACH,
 		MESSAGE_ID_MAX_LENGTH_REACH,
 	},
-} = require("~/constant/error/messageError/messageError");
+} = require("~/constant/error/chatError/chatError");
 
 const fn = (value, error = { reason: "undefined", message: "undefined" }) => ({
 	value,
 	error,
 });
 
-const messageSchemaTemplate = {
+const chatSchemaTemplate = {
 	chatID: {
 		type: fn("string", CHAT_ID_INVALID_TYPE),
 		Type: fn(String, CHAT_ID_INVALID_TYPE),
@@ -51,4 +51,4 @@ const messageSchemaTemplate = {
 	],
 };
 
-module.exports = { messageSchemaTemplate };
+module.exports = { chatSchemaTemplate };

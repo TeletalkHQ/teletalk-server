@@ -1,4 +1,4 @@
-const messageError = {
+const chatError = {
 	CHAT_ID_INVALID_TYPE: {
 		reason: "CHAT_ID_INVALID_TYPE",
 	},
@@ -16,4 +16,4 @@ const messageError = {
 	},
 };
 
-module.exports = { messageError };
+module.exports = { chatError };

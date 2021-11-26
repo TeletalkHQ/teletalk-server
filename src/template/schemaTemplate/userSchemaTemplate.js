@@ -141,9 +141,9 @@ const userSchemaTemplate = {
 		maxlength: fn(35, PRIVATE_ID_MAX_LENGTH_REACH),
 		trim: fn(true, "undefined"),
 	},
-	tokens: {
-		type: fn("array", TOKEN_INVALID_TYPE),
-		Type: fn(Array, TOKEN_INVALID_TYPE),
+	token: {
+		type: fn("string", TOKEN_INVALID_TYPE),
+		Type: fn(String, TOKEN_INVALID_TYPE),
 		unique: fn(true, TOKEN_EXIST),
 		required: fn(true, TOKEN_REQUIRED),
 	},

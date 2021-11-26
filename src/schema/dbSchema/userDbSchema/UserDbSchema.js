@@ -4,35 +4,26 @@ const uniqueValidator = require("mongoose-unique-validator");
 const {
 	userSchemaTemplate: {
 		bio,
-		blacklist,
+		// blacklist,
 		phoneNumber,
-		contacts,
+		// contacts,
 		countryCode,
 		countryName,
 		createdAt,
 		firstName,
 		lastName,
 		privateID,
-		tokens,
+		token,
 		username,
 	},
 } = require("~/template/schemaTemplate/userSchemaTemplate");
 
 uniqueValidator.defaults.message = "{PATH}_exist";
-// uniqueValidator.defaults.type = "mongoose-unique-validator";
 
-const UserSchema = new mongoose.Schema({
+const user = {
 	bio: {
 		type: bio.Type.value,
 		maxlength: [bio.maxlength.value, bio.maxlength.error.message],
-	},
-	blacklist: {
-		type: blacklist.Type.value,
-		default: blacklist.default.value,
-	},
-	contacts: {
-		type: contacts.Type.value,
-		default: contacts.default.value,
 	},
 	countryCode: {
 		type: countryCode.Type.value,
@@ -76,6 +67,7 @@ const UserSchema = new mongoose.Schema({
 		required: [phoneNumber.required.value, phoneNumber.required.error.message],
 		minlength: [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
 		maxlength: [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],
+		// default: "",
 	},
 	privateID: {
 		type: privateID.Type.value,
@@ -85,10 +77,10 @@ const UserSchema = new mongoose.Schema({
 		maxlength: [privateID.maxlength.value, privateID.maxlength.error.message],
 		trim: privateID.trim.value,
 	},
-	tokens: {
-		type: tokens.Type.value,
-		// unique: tokens.unique.value,
-		required: [tokens.required.value, tokens.required.error.message],
+	token: {
+		type: token.Type.value,
+		unique: token.unique.value,
+		required: [token.required.value, token.required.error.message],
 	},
 	username: {
 		type: username.Type.value,
@@ -103,6 +95,53 @@ const UserSchema = new mongoose.Schema({
 		// 	message: "{VALUE} is not a valid string!",
 		// },
 	},
+};
+
+// uniqueValidator.defaults.type = "mongoose-unique-validator";
+//TODO Add type check =>
+const UserSchema = new mongoose.Schema({
+	bio: {
+		type: bio.Type.value,
+		maxlength: [bio.maxlength.value, bio.maxlength.error.message],
+	},
+	blacklist: [
+		{
+			// type: blacklist.Type.value,
+			// default: blacklist.default.value,
+
+			countryCode: user.countryCode,
+			countryName: user.countryName,
+			// firstName: user.firstName,
+			// lastName: user.lastName,
+			phoneNumber: user.phoneNumber,
+		},
+	],
+	contacts: [
+		//FIXME Unique not checking! fix it
+		{
+			countryCode: user.countryCode,
+			countryName: user.countryName,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			phoneNumber: user.phoneNumber,
+		},
+	],
+	countryCode: user.countryCode,
+	countryName: user.countryName,
+	createdAt: user.createdAt,
+	firstName: user.firstName,
+	lastName: user.lastName,
+
+	phoneNumber: user.phoneNumber,
+	privateID: user.privateID,
+	tokens: [
+		{
+			token: user.token,
+		},
+	],
+	username: user.username,
+
+	//TODO Status here =>
 });
 
 // UserRegisterSchema.post("save", function (error, doc, next) {

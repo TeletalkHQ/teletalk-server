@@ -11,6 +11,6 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOnsicGhvbmVO
   "cellphone": {
     "countryCode": "98",
     "countryName": "ir",
-    "phoneNumber" : "9012700470"
+    "phoneNumber" : "2012700470"
   } 
 }

@@ -15,12 +15,24 @@ const editContactCellphoneController = async (req, res) => {
 			targetCell: cellphone,
 		});
 
+		console.log("contactItem", contactItem);
+
 		if (contactItem === undefined) {
 			const error = userError.CELLPHONE_NOT_EXIST;
 			throw error;
 		}
 
-		user.contacts.splice(cellphoneIndex, 1, { ...contactItem, lastName, firstName });
+		const editedContact = {
+			countryCode: contactItem.countryCode,
+			countryName: contactItem.countryName,
+			firstName,
+			lastName,
+			phoneNumber: contactItem.phoneNumber,
+		};
+
+		user.contacts.splice(cellphoneIndex, 1, editedContact);
+
+		console.log("user.contacts", user.contacts);
 
 		await user.updateOne({
 			contacts: user.contacts,

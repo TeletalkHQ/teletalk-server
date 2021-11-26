@@ -1,6 +1,7 @@
 const { userError } = require("~/constant/error/userError/userError");
 const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
+//TODO Add user status into contact and user schema
 const addContactCellphoneController = async (req, res) => {
 	try {
 		const {
@@ -20,8 +21,10 @@ const addContactCellphoneController = async (req, res) => {
 			throw error;
 		}
 
+		user.contacts.push({ ...cellphone, firstName, lastName });
+
 		await user.updateOne({
-			contacts: [...user.contacts, { ...cellphone, firstName, lastName }],
+			contacts: user.contacts,
 		});
 
 		res.status(200).json({ cellphone });

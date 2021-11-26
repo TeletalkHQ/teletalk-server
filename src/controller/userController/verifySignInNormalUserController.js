@@ -46,11 +46,11 @@ const verifySignInNormalUserController = async (req, res) => {
 			...data.cellphone,
 			privateID: dataForSign.privateID,
 			firstName: "DEFAULT NAME",
-			tokens: [mainToken],
+			tokens: [{ token: mainToken }],
 		};
 
 		const finalUser = new UserModel(dataForDB);
-
+		console.log("finalUser", finalUser);
 		await finalUser.save();
 
 		res.status(200).json({

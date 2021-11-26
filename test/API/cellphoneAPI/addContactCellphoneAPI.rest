@@ -5,13 +5,13 @@
 
 POST {{baseUrl}}/cellphone/add/contact  HTTP/1.1
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOnsicGhvbmVOdW1iZXIiOiIxMDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIifSwicHJpdmF0ZUlEIjoiSVBablpKcmFQb0JkM09vcHhpRmhJN1lLd3hURjRDIiwiaWF0IjoxNjM3ODU5MTM2fQ.7u2hKnV8Su74m7R7C57XzcY5g_Lui7_fVRJLFF1lnFA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOnsicGhvbmVOdW1iZXIiOiIxMDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIifSwicHJpdmF0ZUlEIjoibF96cHpVREdsY2tSbHV1d2VKaHJPdzluMm5LaWllIiwiaWF0IjoxNjM3OTIzMTUyfQ.B9HkFpmxoVuDKBu9qmugLSHnUC0_xepkv1N55nGwyPY
 
 {
   "cellphone": {
     "countryCode": "98",
     "countryName": "ir",
-    "phoneNumber" : "9012700470"
+    "phoneNumber" : "2012700470"
   },
   "firstName": "Soheil_SS74",
   "lastName": "SS"

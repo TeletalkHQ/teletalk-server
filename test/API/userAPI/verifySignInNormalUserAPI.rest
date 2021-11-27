@@ -5,4 +5,4 @@
 
 POST {{baseUrl}}/user/verify/signIn/normal HTTP/1.1
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOnsicGhvbmVOdW1iZXIiOiIzMDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXIifSwiaWF0IjoxNjM3OTMxODIwfQ.E_-Gp8oe-fATziBcVwq5v-zZhignQzqmSV49fFov9nw
+Authorization: {{$dotenv user9v}}

@@ -12,6 +12,7 @@
 		"bcryptjs",
 		"camelcase",
 		"codestream",
+		"dotenv",
 		"esbenp",
 		"fileupload",
 		"flowtype",
@@ -44,5 +45,5 @@
 		"**/.trashcan": true,
 		".trashcan": true
 	},
-	"explorerExclude.backup": null
+	"explorerExclude.backup": {}
 }

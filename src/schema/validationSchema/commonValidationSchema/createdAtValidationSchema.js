@@ -1,6 +1,6 @@
 const {
-	userSchemaTemplate: { createdAt },
-} = require("~/template/schemaTemplate/userSchemaTemplate");
+	commonSchemaTemplate: { createdAt },
+} = require("~/template/schemaTemplate/commonSchemaTemplate");
 
 const createdAtValidationSchema = {
 	createdAt: {

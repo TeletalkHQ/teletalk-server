@@ -1,6 +1,8 @@
 const Validator = require("fastest-validator");
 
-const { bioValidationsSchema } = require("~/schema/validationSchema/bioValidationsSchema");
+const {
+	bioValidationsSchema,
+} = require("~/schema/validationSchema/userValidationSchema/bioValidationsSchema");
 
 const v = new Validator();
 

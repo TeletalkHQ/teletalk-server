@@ -2,14 +2,14 @@ const Validator = require("fastest-validator");
 
 const {
 	phoneNumberValidationSchema,
-} = require("~/schema/validationSchema/phoneNumberValidationSchema");
+} = require("~/schema/validationSchema/userValidationSchema/phoneNumberValidationSchema");
 
 const {
 	countryCodeValidationSchema,
-} = require("~/schema/validationSchema/countryCodeValidationSchema");
+} = require("~/schema/validationSchema/userValidationSchema/countryCodeValidationSchema");
 const {
 	countryNameValidationSchema,
-} = require("~/schema/validationSchema/countryNameValidationSchema");
+} = require("~/schema/validationSchema/userValidationSchema/countryNameValidationSchema");
 
 const v = new Validator();
 

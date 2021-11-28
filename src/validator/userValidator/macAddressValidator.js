@@ -2,7 +2,7 @@ const Validator = require("fastest-validator");
 
 const {
 	macAddressValidationSchema,
-} = require("~/schema/validationSchema/macAddressValidationSchema");
+} = require("~/schema/validationSchema/userValidationSchema/macAddressValidationSchema");
 
 const v = new Validator();
 

@@ -2,7 +2,7 @@ const Validator = require("fastest-validator");
 
 const {
 	countryNameValidationSchema,
-} = require("~/schema/validationSchema/countryNameValidationSchema");
+} = require("~/schema/validationSchema/userValidationSchema/countryNameValidationSchema");
 
 const v = new Validator();
 

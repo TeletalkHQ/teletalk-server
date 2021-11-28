@@ -2,7 +2,7 @@ const Validator = require("fastest-validator");
 
 const {
 	privateIDValidationSchema,
-} = require("~/schema/validationSchema/privateIDValidationSchema");
+} = require("~/schema/validationSchema/userValidationSchema/privateIDValidationSchema");
 
 const v = new Validator();
 

@@ -9,7 +9,6 @@ const {
 		CHAT_ID_MAX_LENGTH_REACH,
 		CHAT_ID_MIN_LENGTH_REACH,
 		CHAT_ID_REQUIRED,
-		CREATED_AT_INVALID_TYPE,
 		MESSAGE_ID_EXIST,
 		MESSAGE_ID_INVALID_TYPE,
 		MESSAGE_ID_MAX_LENGTH_REACH,
@@ -25,55 +24,65 @@ const {
 		PARTICIPANT_ID_REQUIRED,
 	},
 } = require("~/constant/error/chatError/chatError");
+const { commonSchemaTemplate } = require("./commonSchemaTemplate");
 
 const fn = (value, error = { reason: "undefined", message: "undefined" }) => ({
 	value,
 	error,
 });
 
+const chatID = {
+	maxlength: fn(35, CHAT_ID_MAX_LENGTH_REACH),
+	minlength: fn(30, CHAT_ID_MIN_LENGTH_REACH),
+	required: fn(true, CHAT_ID_REQUIRED),
+	trim: fn(true, "undefined"),
+	type: fn("string", CHAT_ID_INVALID_TYPE),
+	unique: fn(true, CHAT_ID_EXIST),
+};
+
+const createdAt = commonSchemaTemplate.createdAt;
+
+const messageID = {
+	maxlength: fn(45, MESSAGE_ID_MAX_LENGTH_REACH),
+	minlength: fn(40, MESSAGE_ID_MIN_LENGTH_REACH),
+	required: fn(true, MESSAGE_ID_REQUIRED),
+	trim: fn(true, "undefined"),
+	type: fn("string", MESSAGE_ID_INVALID_TYPE),
+	unique: fn(true, MESSAGE_ID_EXIST),
+};
+const messageSender = {};
+
+const messageStatus = {};
+
+const messageText = {
+	maxlength: fn(10, MESSAGE_TEXT_MAX_LENGTH_REACH),
+	minlength: fn(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
+	type: fn("string", MESSAGE_TEXT_INVALID_TYPE),
+};
+
+const participantID = {
+	maxlength: fn(privateID.maxlength.value, PARTICIPANT_ID_MAX_LENGTH_REACH),
+	minlength: fn(privateID.minlength.value, PARTICIPANT_ID_MIN_LENGTH_REACH),
+	required: fn(privateID.required.value, PARTICIPANT_ID_REQUIRED),
+	trim: fn(privateID.trim.value, "undefined"),
+	type: fn(privateID.type.value, PARTICIPANT_ID_INVALID_TYPE),
+	unique: fn(privateID.unique.value, PARTICIPANT_ID_EXIST),
+};
+
+const participantStatus = {};
+
+const participantVisibility = {};
+
 const chatSchemaTemplate = {
-	chatID: {
-		maxlength: fn(35, CHAT_ID_MAX_LENGTH_REACH),
-		minlength: fn(30, CHAT_ID_MIN_LENGTH_REACH),
-		required: fn(true, CHAT_ID_REQUIRED),
-		trim: fn(true, "undefined"),
-		type: fn("string", CHAT_ID_INVALID_TYPE),
-		unique: fn(true, CHAT_ID_EXIST),
-	},
-	chatParticipants: {
-		participantID: {
-			maxlength: fn(privateID.maxlength.value, PARTICIPANT_ID_MAX_LENGTH_REACH),
-			minlength: fn(privateID.minlength.value, PARTICIPANT_ID_MIN_LENGTH_REACH),
-			required: fn(privateID.required.value, PARTICIPANT_ID_REQUIRED),
-			trim: fn(privateID.trim.value, "undefined"),
-			type: fn(privateID.type.value, PARTICIPANT_ID_INVALID_TYPE),
-			unique: fn(privateID.unique.value, PARTICIPANT_ID_EXIST),
-		},
-		participantStatus: {},
-		participantVisibility: {},
-	},
-	messages: {
-		createdAt: {
-			default: fn(Date.now, "undefined"),
-			required: fn(true, "undefined"),
-			type: fn("date", CREATED_AT_INVALID_TYPE),
-		},
-		messageID: {
-			maxlength: fn(45, MESSAGE_ID_MAX_LENGTH_REACH),
-			minlength: fn(40, MESSAGE_ID_MIN_LENGTH_REACH),
-			required: fn(true, MESSAGE_ID_REQUIRED),
-			trim: fn(true, "undefined"),
-			type: fn("string", MESSAGE_ID_INVALID_TYPE),
-			unique: fn(true, MESSAGE_ID_EXIST),
-		},
-		messageSender: {},
-		messageStatus: {},
-		messageText: {
-			maxlength: fn(10, MESSAGE_TEXT_MAX_LENGTH_REACH),
-			minlength: fn(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
-			type: fn("string", MESSAGE_TEXT_INVALID_TYPE),
-		},
-	},
+	chatID,
+	createdAt,
+	messageID,
+	messageSender,
+	messageStatus,
+	messageText,
+	participantID,
+	participantStatus,
+	participantVisibility,
 };
 
 module.exports = { chatSchemaTemplate };

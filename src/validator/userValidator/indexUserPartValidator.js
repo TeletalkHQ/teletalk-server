@@ -1,54 +1,54 @@
-const { bioValidator, bioValidation } = require("~/validator/userPartValidator/bioValidator");
+const { bioValidator, bioValidation } = require("~/validator/userValidator/bioValidator");
 
 const {
 	cellphoneValidator,
 	cellphoneValidation,
-} = require("~/validator/userPartValidator/cellphoneValidator");
+} = require("~/validator/userValidator/cellphoneValidator");
 
 const {
 	countryCodeValidator,
 	countryCodeValidation,
-} = require("~/validator/userPartValidator/countryCodeValidator");
+} = require("~/validator/userValidator/countryCodeValidator");
 
 const {
 	countryNameValidator,
 	countryNameValidation,
-} = require("~/validator/userPartValidator/countryNameValidator");
+} = require("~/validator/userValidator/countryNameValidator");
 
 const {
 	createdAtValidator,
 	createdAtValidation,
-} = require("~/validator/userPartValidator/createdAtValidator");
+} = require("~/validator/userValidator/createdAtValidator");
 
 const {
 	firstNameValidator,
 	firstNameValidation,
-} = require("~/validator/userPartValidator/firstNameValidator");
+} = require("~/validator/userValidator/firstNameValidator");
 
 const {
 	lastNameValidator,
 	lastNameValidation,
-} = require("~/validator/userPartValidator/lastNameValidator");
+} = require("~/validator/userValidator/lastNameValidator");
 
 const {
 	macAddressValidator,
 	macAddressValidation,
-} = require("~/validator/userPartValidator/macAddressValidator");
+} = require("~/validator/userValidator/macAddressValidator");
 
 const {
 	privateIDValidator,
 	privateIDValidation,
-} = require("~/validator/userPartValidator/privateIDValidator");
+} = require("~/validator/userValidator/privateIDValidator");
 
 const {
 	usernameValidator,
 	usernameValidation,
-} = require("~/validator/userPartValidator/usernameValidator");
+} = require("~/validator/userValidator/usernameValidator");
 
 const {
 	verificationCodeValidator,
 	verificationCodeValidation,
-} = require("~/validator/userPartValidator/verificationCodeValidator");
+} = require("~/validator/userValidator/verificationCodeValidator");
 
 module.exports = {
 	bioValidation,

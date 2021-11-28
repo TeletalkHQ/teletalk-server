@@ -6,7 +6,7 @@ const { tokenVerifier } = require("~/function/utility/tokenVerifier");
 const { UserModel } = require("~/model/userModel/UserModel");
 
 const { userError } = require("~/constant/error/userError/userError");
-const { cellphoneValidator } = require("~/validator/userPartValidator/cellphoneValidator");
+const { cellphoneValidator } = require("~/validator/userValidator/cellphoneValidator");
 
 const verifySignInNormalUserController = async (req, res) => {
 	try {

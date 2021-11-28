@@ -55,101 +55,129 @@ const fn = (value, error = { reason: "undefined", message: "undefined" }) => ({
 	error,
 });
 
+const bio = {
+	default: fn("", "undefined"),
+	maxlength: fn(255, BIO_MAXLENGTH_REACH),
+	minlength: fn(1, BIO_MINLENGTH_REACH),
+	required: fn(false, "undefined"),
+	type: fn("string", BIO_INVALID_TYPE),
+};
+
+const blacklist = {
+	default: fn([], "undefined"),
+	type: fn("array", BLACKLIST_INVALID_TYPE),
+};
+
+const contacts = {
+	default: fn([], "undefined"),
+	maxlength: fn(14, "undefined"),
+	minlength: fn(10, "undefined"),
+	required: fn(false, "undefined"),
+	type: fn("array", CONTACT_INVALID_TYPE),
+};
+
+const countryCode = {
+	maxlength: fn(8, COUNTRY_CODE_MAXLENGTH_REACH),
+	minlength: fn(2, COUNTRY_CODE_MINLENGTH_REACH),
+	required: fn(true, COUNTRY_CODE_REQUIRED),
+	trim: fn(true, "undefined"),
+	type: fn("string", COUNTRY_CODE_INVALID_TYPE),
+};
+
+const countryName = {
+	maxlength: fn(32, COUNTRY_NAME_MAXLENGTH_REACH),
+	minlength: fn(2, COUNTRY_NAME_MINLENGTH_REACH),
+	required: fn(true, COUNTRY_NAME_REQUIRED),
+	type: fn("string", COUNTRY_NAME_INVALID_TYPE),
+};
+
+const createdAt = {
+	default: fn(Date.now, "undefined"),
+	required: fn(true, "undefined"),
+	type: fn("date", CREATED_AT_INVALID_TYPE),
+};
+
+const firstName = {
+	maxlength: fn(18, FIRST_NAME_MAXLENGTH_REACH),
+	minlength: fn(1, FIRST_NAME_MINLENGTH_REACH),
+	required: fn(true, FIRST_NAME_REQUIRED),
+	trim: fn(false, "undefined"),
+	type: fn("string", FIRST_NAME_INVALID_TYPE),
+};
+
+const lastName = {
+	default: fn("", "undefined"),
+	maxlength: fn(18, LAST_NAME_MAXLENGTH_REACH),
+	minlength: fn(1, LAST_NAME_MINLENGTH_REACH),
+	required: [false],
+	trim: fn(false, "undefined"),
+	type: fn("string", LAST_NAME_INVALID_TYPE),
+};
+
+const macAddress = {
+	maxlength: fn(16, MAC_ADDRESS_MAXLENGTH_REACH),
+	minlength: fn(12, MAC_ADDRESS_MINLENGTH_REACH),
+	required: fn(true, MAC_ADDRESS_REQUIRED),
+	trim: fn(true, "undefined"),
+	type: fn("string", MAC_ADDRESS_INVALID_TYPE),
+	unique: fn(true, MAC_ADDRESS_EXIST),
+};
+
+const phoneNumber = {
+	maxlength: fn(14, PHONE_NUMBER_MAXLENGTH_REACH),
+	minlength: fn(10, PHONE_NUMBER_MINLENGTH_REACH),
+	required: fn(true, PHONE_NUMBER_REQUIRED),
+	type: fn("string", PHONE_NUMBER_INVALID_TYPE),
+	unique: fn(true, PHONE_NUMBER_EXIST),
+};
+
+const privateID = {
+	maxlength: fn(35, PRIVATE_ID_MAX_LENGTH_REACH),
+	minlength: fn(30, PRIVATE_ID_MIN_LENGTH_REACH),
+	required: fn(true, PRIVATE_ID_REQUIRED),
+	trim: fn(true, "undefined"),
+	type: fn("string", PRIVATE_ID_INVALID_TYPE),
+	unique: fn(true, PRIVATE_ID_EXIST),
+};
+
+const token = {
+	required: fn(true, TOKEN_REQUIRED),
+	type: fn("string", TOKEN_INVALID_TYPE),
+	unique: fn(true, TOKEN_EXIST),
+};
+
+const username = {
+	default: fn("", "undefined"),
+	lowercase: fn(true, "undefined"),
+	maxlength: fn(12, USERNAME_MAXLENGTH_REACH),
+	minlength: fn(4, USERNAME_MINLENGTH_REACH),
+	required: fn(false, "undefined"),
+	trim: fn(true, "undefined"),
+	type: fn("string", USERNAME_INVALID_TYPE),
+	unique: fn(false, USERNAME_EXIST),
+};
+
+const verificationCode = {
+	length: fn(6, VERIFICATION_CODE_INVALID_LENGTH),
+	trim: fn(true, "undefined"),
+	type: fn("string", VERIFICATION_CODE_INVALID_TYPE),
+};
+
 const userSchemaTemplate = {
-	bio: {
-		default: fn("", "undefined"),
-		maxlength: fn(255, BIO_MAXLENGTH_REACH),
-		minlength: fn(1, BIO_MINLENGTH_REACH),
-		required: fn(false, "undefined"),
-		type: fn("string", BIO_INVALID_TYPE),
-	},
-	blacklist: {
-		default: fn([], "undefined"),
-		type: fn("array", BLACKLIST_INVALID_TYPE),
-	},
-	contacts: {
-		default: fn([], "undefined"),
-		maxlength: fn(14, "undefined"),
-		minlength: fn(10, "undefined"),
-		required: fn(false, "undefined"),
-		type: fn("array", CONTACT_INVALID_TYPE),
-	},
-	countryCode: {
-		maxlength: fn(8, COUNTRY_CODE_MAXLENGTH_REACH),
-		minlength: fn(2, COUNTRY_CODE_MINLENGTH_REACH),
-		required: fn(true, COUNTRY_CODE_REQUIRED),
-		trim: fn(true, "undefined"),
-		type: fn("string", COUNTRY_CODE_INVALID_TYPE),
-	},
-	countryName: {
-		maxlength: fn(32, COUNTRY_NAME_MAXLENGTH_REACH),
-		minlength: fn(2, COUNTRY_NAME_MINLENGTH_REACH),
-		required: fn(true, COUNTRY_NAME_REQUIRED),
-		type: fn("string", COUNTRY_NAME_INVALID_TYPE),
-	},
-	createdAt: {
-		default: fn(Date.now, "undefined"),
-		required: fn(true, "undefined"),
-		type: fn("date", CREATED_AT_INVALID_TYPE),
-	},
-	firstName: {
-		maxlength: fn(18, FIRST_NAME_MAXLENGTH_REACH),
-		minlength: fn(1, FIRST_NAME_MINLENGTH_REACH),
-		required: fn(true, FIRST_NAME_REQUIRED),
-		trim: fn(false, "undefined"),
-		type: fn("string", FIRST_NAME_INVALID_TYPE),
-	},
-	lastName: {
-		default: fn("", "undefined"),
-		maxlength: fn(18, LAST_NAME_MAXLENGTH_REACH),
-		minlength: fn(1, LAST_NAME_MINLENGTH_REACH),
-		required: [false],
-		trim: fn(false, "undefined"),
-		type: fn("string", LAST_NAME_INVALID_TYPE),
-	},
-	macAddress: {
-		maxlength: fn(16, MAC_ADDRESS_MAXLENGTH_REACH),
-		minlength: fn(12, MAC_ADDRESS_MINLENGTH_REACH),
-		required: fn(true, MAC_ADDRESS_REQUIRED),
-		trim: fn(true, "undefined"),
-		type: fn("string", MAC_ADDRESS_INVALID_TYPE),
-		unique: fn(true, MAC_ADDRESS_EXIST),
-	},
-	phoneNumber: {
-		maxlength: fn(14, PHONE_NUMBER_MAXLENGTH_REACH),
-		minlength: fn(10, PHONE_NUMBER_MINLENGTH_REACH),
-		required: fn(true, PHONE_NUMBER_REQUIRED),
-		type: fn("string", PHONE_NUMBER_INVALID_TYPE),
-		unique: fn(true, PHONE_NUMBER_EXIST),
-	},
-	privateID: {
-		maxlength: fn(35, PRIVATE_ID_MAX_LENGTH_REACH),
-		minlength: fn(30, PRIVATE_ID_MIN_LENGTH_REACH),
-		required: fn(true, PRIVATE_ID_REQUIRED),
-		trim: fn(true, "undefined"),
-		type: fn("string", PRIVATE_ID_INVALID_TYPE),
-		unique: fn(true, PRIVATE_ID_EXIST),
-	},
-	token: {
-		required: fn(true, TOKEN_REQUIRED),
-		type: fn("string", TOKEN_INVALID_TYPE),
-		unique: fn(true, TOKEN_EXIST),
-	},
-	username: {
-		default: fn("", "undefined"),
-		lowercase: fn(true, "undefined"),
-		maxlength: fn(12, USERNAME_MAXLENGTH_REACH),
-		minlength: fn(4, USERNAME_MINLENGTH_REACH),
-		required: fn(false, "undefined"),
-		trim: fn(true, "undefined"),
-		type: fn("string", USERNAME_INVALID_TYPE),
-		unique: fn(false, USERNAME_EXIST),
-	},
-	verificationCode: {
-		length: fn(6, VERIFICATION_CODE_INVALID_LENGTH),
-		trim: fn(true, "undefined"),
-		type: fn("string", VERIFICATION_CODE_INVALID_TYPE),
-	},
+	bio,
+	blacklist,
+	contacts,
+	countryCode,
+	countryName,
+	createdAt,
+	firstName,
+	lastName,
+	macAddress,
+	phoneNumber,
+	privateID,
+	token,
+	username,
+	verificationCode,
 };
 
 module.exports = { userSchemaTemplate };

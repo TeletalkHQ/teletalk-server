@@ -4,25 +4,25 @@ const userRouteTemplate = {
 	baseRoute: "/user",
 
 	signInNormal: {
-		route: "/signIn/normal",
 		description: "Use for sign in client as a normal account",
+		route: "/signIn/normal",
 	},
 	verifyLoginNormal: {
-		route: "/verify/login/normal",
 		description: "Use for verify login (normal account) and register (both mode)",
+		route: "/verify/login/normal",
 	},
 	verifySignInNormal: {
-		route: "/verify/signIn/normal",
 		description: "Use for verify sign in (normal account) as normal account",
+		route: "/verify/signIn/normal",
 	},
 
 	error: {
-		route: "/error",
 		description: "Use for get all auth errors",
+		route: "/error",
 	},
 	template: {
-		route: "/template",
 		description: "Use for get all user properties and value structure",
+		route: "/template",
 	},
 };
 

@@ -5,13 +5,13 @@ const {
 	userSchemaTemplate: {
 		bio,
 		// blacklist,
-		phoneNumber,
 		// contacts,
 		countryCode,
 		countryName,
 		createdAt,
 		firstName,
 		lastName,
+		phoneNumber,
 		privateID,
 		token,
 		username,
@@ -22,36 +22,36 @@ uniqueValidator.defaults.message = "{PATH}_exist";
 
 const user = {
 	bio: {
-		type: bio.type.value,
 		maxlength: [bio.maxlength.value, bio.maxlength.error.message],
+		type: bio.type.value,
 	},
 	countryCode: {
-		type: countryCode.type.value,
-		required: [countryCode.required.value, countryCode.required.error.message],
-		minlength: [countryCode.minlength.value, countryCode.minlength.error.message],
 		maxlength: [countryCode.maxlength.value, countryCode.maxlength.error.message],
+		minlength: [countryCode.minlength.value, countryCode.minlength.error.message],
+		required: [countryCode.required.value, countryCode.required.error.message],
+		type: countryCode.type.value,
 	},
 	countryName: {
-		type: countryName.type.value,
-		required: [countryName.required.value, countryName.required.error.message],
-		minlength: [countryName.minlength.value, countryName.minlength.error.message],
 		maxlength: [countryName.maxlength.value, countryName.maxlength.error.message],
+		minlength: [countryName.minlength.value, countryName.minlength.error.message],
+		required: [countryName.required.value, countryName.required.error.message],
+		type: countryName.type.value,
 	},
 	createdAt: {
-		type: createdAt.type.value,
 		default: createdAt.default.value,
+		type: createdAt.type.value,
 	},
 	firstName: {
-		type: firstName.type.value,
-		required: [firstName.required.value, firstName.required.error.message],
-		minlength: [firstName.minlength.value, firstName.minlength.error.message],
 		maxlength: [firstName.maxlength.value, firstName.maxlength.error.message],
+		minlength: [firstName.minlength.value, firstName.minlength.error.message],
+		required: [firstName.required.value, firstName.required.error.message],
+		type: firstName.type.value,
 	},
 	lastName: {
-		type: lastName.type.value,
+		defaults: lastName.default.value,
 		maxlength: [lastName.maxlength.value, lastName.maxlength.error.message],
 		trim: lastName.trim.value,
-		defaults: lastName.default.value,
+		type: lastName.type.value,
 	},
 	// macAddress: {
 	// 	type: macAddress.type.value,
@@ -62,38 +62,36 @@ const user = {
 	// 	trim: macAddress.trim.value,
 	// },
 	phoneNumber: {
+		maxlength: [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message], // default: "",
+		minlength: [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
+		required: [phoneNumber.required.value, phoneNumber.required.error.message],
 		type: phoneNumber.type.value,
 		unique: phoneNumber.unique.value,
-		required: [phoneNumber.required.value, phoneNumber.required.error.message],
-		minlength: [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
-		maxlength: [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],
-		// default: "",
 	},
 	privateID: {
+		maxlength: [privateID.maxlength.value, privateID.maxlength.error.message],
+		minlength: [privateID.minlength.value, privateID.minlength.error.message],
+		required: [privateID.required.value, privateID.required.error.message],
+		trim: privateID.trim.value,
 		type: privateID.type.value,
 		unique: privateID.unique.value,
-		required: [privateID.required.value, privateID.required.error.message],
-		minlength: [privateID.minlength.value, privateID.minlength.error.message],
-		maxlength: [privateID.maxlength.value, privateID.maxlength.error.message],
-		trim: privateID.trim.value,
 	},
 	token: {
+		required: [token.required.value, token.required.error.message],
 		type: token.type.value,
 		unique: token.unique.value,
-		required: [token.required.value, token.required.error.message],
 	},
 	username: {
-		type: username.type.value,
-		maxlength: [username.maxlength.value, username.maxlength.error.message],
-		trim: username.trim.value,
-		lowercase: username.lowercase.value,
-		default: username.default.value,
-		// validate: {
+		default: username.default.value, // validate: {
 		// 	validator: function (value) {
 		// 		return /^[a-z\s]{0,255}$/i.test(value);
 		// 	},
 		// 	message: "{VALUE} is not a valid string!",
 		// },
+		lowercase: username.lowercase.value,
+		maxlength: [username.maxlength.value, username.maxlength.error.message],
+		trim: username.trim.value,
+		type: username.type.value,
 	},
 };
 
@@ -101,14 +99,13 @@ const user = {
 //TODO Add type check =>
 const UserSchema = new mongoose.Schema({
 	bio: {
-		type: bio.type.value,
 		maxlength: [bio.maxlength.value, bio.maxlength.error.message],
+		type: bio.type.value,
 	},
 	blacklist: [
 		{
 			// type: blacklist.type.value,
 			// default: blacklist.default.value,
-
 			countryCode: user.countryCode,
 			countryName: user.countryName,
 			// firstName: user.firstName,
@@ -131,7 +128,6 @@ const UserSchema = new mongoose.Schema({
 	createdAt: user.createdAt,
 	firstName: user.firstName,
 	lastName: user.lastName,
-
 	phoneNumber: user.phoneNumber,
 	privateID: user.privateID,
 	tokens: [
@@ -139,9 +135,7 @@ const UserSchema = new mongoose.Schema({
 			token: user.token,
 		},
 	],
-	username: user.username,
-
-	//TODO Status here =>
+	username: user.username, //TODO Status here =>
 });
 
 // UserRegisterSchema.post("save", function (error, doc, next) {

@@ -50,7 +50,9 @@ const messageID = {
 	type: fn("string", MESSAGE_ID_INVALID_TYPE),
 	unique: fn(true, MESSAGE_ID_EXIST),
 };
-const messageSender = {};
+const messageSender = {
+
+};
 
 const messageStatus = {};
 

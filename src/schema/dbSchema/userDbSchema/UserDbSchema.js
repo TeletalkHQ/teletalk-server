@@ -114,7 +114,6 @@ const UserSchema = new mongoose.Schema({
 		},
 	],
 	contacts: [
-		//FIXME Unique not checking! fix it
 		{
 			countryCode: user.countryCode,
 			countryName: user.countryName,
@@ -135,7 +134,7 @@ const UserSchema = new mongoose.Schema({
 			token: user.token,
 		},
 	],
-	username: user.username, //TODO Status here =>
+	username: user.username, //TODO UserStatus here =>
 });
 
 // UserRegisterSchema.post("save", function (error, doc, next) {

@@ -67,13 +67,13 @@ const privateMessage = {
 	],
 };
 
-const PrivateMessageSchema = new mongoose.Schema({
+const PrivateChatSchema = new mongoose.Schema({
 	chatID: privateMessage.chatID,
 	createdAt: privateMessage.createdAt,
 	messages: privateMessage.messages,
 	participants: privateMessage.participants,
 });
 
-PrivateMessageSchema.plugin(uniqueValidator);
+PrivateChatSchema.plugin(uniqueValidator);
 
-module.exports = { PrivateMessageSchema };
+module.exports = { PrivateChatSchema };

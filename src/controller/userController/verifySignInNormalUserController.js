@@ -3,10 +3,13 @@ const { randomID } = require("~/function/utility/randomID");
 const { tokenSigner } = require("~/function/utility/tokenSigner");
 const { tokenVerifier } = require("~/function/utility/tokenVerifier");
 
+const { cellphoneValidator } = require("~/validator/userValidator/cellphoneValidator");
+
 const { UserModel } = require("~/model/userModel/UserModel");
 
+const { userSchemaTemplate } = require("~/template/schemaTemplate/userSchemaTemplate");
+
 const { userError } = require("~/constant/error/userError/userError");
-const { cellphoneValidator } = require("~/validator/userValidator/cellphoneValidator");
 
 const verifySignInNormalUserController = async (req, res) => {
 	try {
@@ -38,7 +41,10 @@ const verifySignInNormalUserController = async (req, res) => {
 			throw error;
 		}
 
-		const dataForSign = { cellphone: data.cellphone, privateID: randomID() };
+		const dataForSign = {
+			cellphone: data.cellphone,
+			privateID: randomID(userSchemaTemplate.privateID.maxlength.value),
+		};
 
 		const { token: mainToken } = await tokenSigner({ data: dataForSign });
 

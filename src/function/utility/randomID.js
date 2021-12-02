@@ -1,5 +1,5 @@
 const { nanoid } = require("nanoid");
 
-const randomID = () => nanoid(30);
+const randomID = (size = 30) => nanoid(size);
 
 module.exports = { randomID };

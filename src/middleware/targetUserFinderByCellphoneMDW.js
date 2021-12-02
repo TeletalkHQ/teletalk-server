@@ -2,7 +2,7 @@ const { userFinder } = require("~/function/helper/userFinder");
 
 const { userError } = require("~/constant/error/userError/userError");
 
-const targetUserFinderByCellphone = async (req, res, next) => {
+const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 	try {
 		const { cellphone } = req.body;
 
@@ -24,4 +24,4 @@ const targetUserFinderByCellphone = async (req, res, next) => {
 	}
 };
 
-module.exports = { targetUserFinderByCellphone };
+module.exports = { targetUserFinderByCellphoneMDW };

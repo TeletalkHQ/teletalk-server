@@ -27,7 +27,7 @@ const participantIDTemplate = {
 	unique: participantID.unique.value,
 };
 
-const privateMessage = {
+const privateChat = {
 	chatID: {
 		maxlength: [chatID.maxlength.value, chatID.maxlength.error.message],
 		minlength: [chatID.minlength.value, chatID.minlength.error.message],
@@ -68,10 +68,10 @@ const privateMessage = {
 };
 
 const PrivateChatSchema = new mongoose.Schema({
-	chatID: privateMessage.chatID,
-	createdAt: privateMessage.createdAt,
-	messages: privateMessage.messages,
-	participants: privateMessage.participants,
+	chatID: privateChat.chatID,
+	createdAt: privateChat.createdAt,
+	messages: privateChat.messages,
+	participants: privateChat.participants,
 });
 
 PrivateChatSchema.plugin(uniqueValidator);

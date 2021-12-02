@@ -5,7 +5,9 @@ const { contactValidatorMDW } = require("~/middleware/contactValidatorMDW");
 const { errorResponser } = require("~/middleware/errorResponser");
 const { findUserFromDB } = require("~/middleware/findUserFromDB");
 const { selfStuffControllerMDW } = require("~/middleware/selfStuffControllerMDW");
-const { targetUserFinderByCellphone } = require("~/middleware/targetUserFinderByCellphone");
+const {
+	targetUserFinderByCellphoneMDW,
+} = require("~/middleware/targetUserFinderByCellphoneMDW");
 
 const {
 	addContactCellphoneController,
@@ -33,10 +35,9 @@ const cellphoneRoute = Router();
 cellphoneRoute.use(authDefaultMDW);
 cellphoneRoute.use(cellphoneValidatorMDW);
 cellphoneRoute.use(selfStuffControllerMDW);
-
 cellphoneRoute.use(findUserFromDB);
 
-cellphoneRoute.use(targetUserFinderByCellphone);
+cellphoneRoute.use(targetUserFinderByCellphoneMDW);
 
 cellphoneRoute.use(addContact.route, contactValidatorMDW);
 // ? comment :  middleware: danger : errorResponser

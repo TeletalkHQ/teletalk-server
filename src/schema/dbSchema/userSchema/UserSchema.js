@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
+const { chatSchemaTemplate } = require("~/template/schemaTemplate/chatSchemaTemplate");
 
 const {
 	userSchemaTemplate: {
@@ -18,12 +19,22 @@ const {
 	},
 } = require("~/template/schemaTemplate/userSchemaTemplate");
 
+const { chatID } = chatSchemaTemplate;
+
 uniqueValidator.defaults.message = "{PATH}_exist";
 
 const user = {
 	bio: {
 		maxlength: [bio.maxlength.value, bio.maxlength.error.message],
 		type: bio.type.value,
+	},
+	chatID: {
+		maxlength: [chatID.maxlength.value, chatID.maxlength.error.message],
+		minlength: [chatID.minlength.value, chatID.minlength.error.message],
+		required: [chatID.required.value, chatID.required.error.message],
+		trim: chatID.trim.value,
+		type: chatID.type.value,
+		unique: chatID.unique.value,
 	},
 	countryCode: {
 		maxlength: [countryCode.maxlength.value, countryCode.maxlength.error.message],
@@ -102,6 +113,7 @@ const UserSchema = new mongoose.Schema({
 		maxlength: [bio.maxlength.value, bio.maxlength.error.message],
 		type: bio.type.value,
 	},
+
 	blacklist: [
 		{
 			// type: blacklist.type.value,
@@ -113,6 +125,9 @@ const UserSchema = new mongoose.Schema({
 			phoneNumber: user.phoneNumber,
 		},
 	],
+
+	chats: [{ chatID: user.chatID }],
+
 	contacts: [
 		{
 			countryCode: user.countryCode,
@@ -122,18 +137,27 @@ const UserSchema = new mongoose.Schema({
 			phoneNumber: user.phoneNumber,
 		},
 	],
+
 	countryCode: user.countryCode,
+
 	countryName: user.countryName,
+
 	createdAt: user.createdAt,
+
 	firstName: user.firstName,
+
 	lastName: user.lastName,
+
 	phoneNumber: user.phoneNumber,
+
 	privateID: user.privateID,
+
 	tokens: [
 		{
 			token: user.token,
 		},
 	],
+
 	username: user.username, //TODO UserStatus here =>
 });
 

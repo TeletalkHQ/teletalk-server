@@ -48,6 +48,8 @@ app.use(serveFavicon(path.join(__dirname, "..", "public", "app_favicon", "favico
 //* All stuff for response to routes is in lifeLine =>
 app.use(lifeLine);
 
+app.use(errorResponser);
+
 const { PORT, NODE_ENV: MODE } = process.env;
 
 const serverListenerCB = () => {

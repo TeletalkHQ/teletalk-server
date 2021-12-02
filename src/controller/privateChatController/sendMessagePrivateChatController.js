@@ -1,3 +1,5 @@
+const { PrivateChatModel } = require("~/model/chatModel/privateChatModel");
+
 const sendMessagePrivateChatController = (req, res) => {
 	try {
 	} catch (error) {
@@ -7,3 +9,10 @@ const sendMessagePrivateChatController = (req, res) => {
 };
 
 module.exports = { sendMessagePrivateChatController };
+
+const user = {
+	chats: {
+		privateChats: [{ chatID: "" }],
+		// ...
+	},
+};

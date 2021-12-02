@@ -4,7 +4,14 @@ const { authDefaultMDW } = require("~/middleware/authDefaultMDW");
 const { errorResponser } = require("~/middleware/errorResponser");
 
 const {
-	privateChatRouteTemplate,
+	sendMessagePrivateChatController,
+} = require("~/controller/privateChatController/sendMessagePrivateChatController");
+const {
+	startChatPrivateChatController,
+} = require("~/controller/privateChatController/startChatPrivateChatController");
+
+const {
+	privateChatRouteTemplate: { sendMessage, startChat },
 } = require("~/template/routeTemplate/privateChatRouteTemplate");
 
 const privateChatRoute = Router();
@@ -13,8 +20,7 @@ privateChatRoute.use(authDefaultMDW);
 
 privateChatRoute.use(errorResponser);
 
-const { sendMessage } = privateChatRouteTemplate;
-
-privateChatRoute.post(sendMessage.route);
+privateChatRoute.post(sendMessage.route, sendMessagePrivateChatController);
+privateChatRoute.post(startChat.route, startChatPrivateChatController);
 
 module.exports = { privateChatRoute };

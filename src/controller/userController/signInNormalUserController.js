@@ -1,5 +1,5 @@
 const { userFinder } = require("~/function/helper/userFinder");
-const { passwordGenerator } = require("~/function/utility/passwordGenerator");
+// const { passwordGenerator } = require("~/function/utility/passwordGenerator");
 const { tokenSigner } = require("~/function/utility/tokenSigner");
 
 const signInNormalUserController = async (req, res) => {

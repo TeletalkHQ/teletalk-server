@@ -2,6 +2,8 @@
 
 const { Router } = require("express");
 
+const { errorResponser } = require("~/middleware/errorResponser");
+
 const { cellphoneRoute } = require("~/route/cellphoneRoute/cellphoneRoute");
 const { otherRoute } = require("~/route/otherRoute/otherRoute");
 const { privateChatRoute } = require("~/route/chatRoute/privateChatRoute");
@@ -16,9 +18,17 @@ const { userRouteTemplate } = require("~/template/routeTemplate/userRouteTemplat
 
 const lifeLine = Router();
 
-lifeLine.get("/", (req, res) => {
-	res.send("Hey! Welcome to teletalk <3");
+lifeLine.get("/", (req, res, next) => {
+	try {
+		res.send("Hey! Welcome to teletalk <3");
+	} catch (error) {
+		console.log("welcome route", error);
+		res.errorCollector({ error });
+		next();
+	}
 });
+
+lifeLine.use(errorResponser);
 
 lifeLine.use(cellphoneRouteTemplate.baseRoute, cellphoneRoute);
 

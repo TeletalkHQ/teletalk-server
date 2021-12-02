@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
+
 const {
 	chatSchemaTemplate: {
 		chatID,
 		createdAt,
 		messageID,
-		messageSender,
-		messageStatus,
+		// messageSender,
+		// messageStatus,
 		messageText,
 		participantID,
-		participantStatus,
-		participantVisibility,
+		// participantStatus,
+		// participantVisibility,
 	},
 } = require("~/template/schemaTemplate/chatSchemaTemplate");
 
@@ -55,8 +56,7 @@ const privateMessage = {
 				type: messageText.type.value,
 			},
 			messageSender: {
-        senderID: participantIDTemplate,
-        
+				senderID: participantIDTemplate,
 			},
 		},
 	],
@@ -67,7 +67,12 @@ const privateMessage = {
 	],
 };
 
-const PrivateMessageSchema = new mongoose.Model({});
+const PrivateMessageSchema = new mongoose.Schema({
+	chatID: privateMessage.chatID,
+	createdAt: privateMessage.createdAt,
+	messages: privateMessage.messages,
+	participants: privateMessage.participants,
+});
 
 PrivateMessageSchema.plugin(uniqueValidator);
 

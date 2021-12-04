@@ -116,12 +116,8 @@ const UserSchema = new mongoose.Schema({
 
 	blacklist: [
 		{
-			// type: blacklist.type.value,
-			// default: blacklist.default.value,
 			countryCode: user.countryCode,
 			countryName: user.countryName,
-			// firstName: user.firstName,
-			// lastName: user.lastName,
 			phoneNumber: user.phoneNumber,
 		},
 	],

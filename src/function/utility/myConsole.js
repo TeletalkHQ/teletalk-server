@@ -5,6 +5,11 @@ function ConsoleBuilder() {
 
 	this.chalk = chalk;
 
+	this.clear = () => {
+		console.clear();
+		return this;
+	};
+
 	const chalkMaker = (key, value) => {
 		this.logs.push(chalk[key](value));
 		return this;

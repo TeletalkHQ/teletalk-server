@@ -13,10 +13,13 @@ const {
 const {
 	privateChatRouteTemplate: { sendMessage, startChat },
 } = require("~/template/routeTemplate/privateChatRouteTemplate");
+const { findUserFromDB } = require("~/middleware/findUserFromDB");
 
 const privateChatRoute = Router();
 
 privateChatRoute.use(authDefaultMDW);
+
+privateChatRoute.use(findUserFromDB);
 
 privateChatRoute.use(errorResponser);
 

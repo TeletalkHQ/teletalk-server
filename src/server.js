@@ -13,6 +13,9 @@ const prettyError = require("pretty-error");
 
 const { connectDB } = require("~/config/database/connectDB");
 
+const { myConsole } = require("./function/utility/myConsole");
+global.myConsole = myConsole;
+
 const { lifeLine } = require("~/route/lifeLine");
 
 const { bodyClarify } = require("~/middleware/bodyClarify");
@@ -26,6 +29,12 @@ dotenv.config({ path: "./src/config/environment/main.env" });
 connectDB();
 
 const app = express();
+
+app.use((req, res, next) => {
+	console.clear();
+	console.log("Console cleared");
+	next();
+});
 
 //* Pretty error makes nodeJS error pretty in console, use it before express call
 prettyError.start();

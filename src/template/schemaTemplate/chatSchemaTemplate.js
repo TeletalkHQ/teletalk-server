@@ -25,6 +25,7 @@ const {
 	},
 } = require("~/constant/error/chatError/chatError");
 const { commonSchemaTemplate } = require("./commonSchemaTemplate");
+const { randomID } = require("~/function/utility/randomID");
 
 const fn = (value, error = { reason: "undefined", message: "undefined" }) => ({
 	value,
@@ -49,10 +50,10 @@ const messageID = {
 	trim: fn(true, "undefined"),
 	type: fn("string", MESSAGE_ID_INVALID_TYPE),
 	unique: fn(true, MESSAGE_ID_EXIST),
+	default: fn(randomID(40), "undefined"),
 };
-const messageSender = {
 
-};
+const messageSender = {};
 
 const messageStatus = {};
 

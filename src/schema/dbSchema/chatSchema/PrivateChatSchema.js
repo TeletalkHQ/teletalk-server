@@ -43,6 +43,7 @@ const privateChat = {
 	messages: [
 		{
 			messageID: {
+				default: messageID.default.value,
 				maxlength: [messageID.maxlength.value, messageID.maxlength.error.message],
 				minlength: [messageID.minlength.value, messageID.minlength.error.message],
 				required: [messageID.required.value, messageID.required.error.message],

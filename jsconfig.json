@@ -1,5 +1,7 @@
 {
 	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es5",
 		"baseUrl": ".",
 		"paths": {
 			"~/*": ["./src/*"],
@@ -8,6 +10,7 @@
 	},
 	"exclude": ["./node_modules"],
 	"typeAcquisition": {
-		"exclude": ["defer-to-connect", "safe-stable-stringify", "source-map"]
+		"exclude": ["defer-to-connect", "safe-stable-stringify", "source-map"],
+		"include": ["./src/function/utility/myConsole.js"]
 	}
 }

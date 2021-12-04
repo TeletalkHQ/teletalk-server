@@ -1,5 +1,8 @@
 const { userFinder } = require("~/function/helper/userFinder");
 const { randomID } = require("~/function/utility/randomID");
+
+const { PrivateChatModel } = require("~/model/chatModel/privateChatModel");
+
 const { chatSchemaTemplate } = require("~/template/schemaTemplate/chatSchemaTemplate");
 
 const startChatPrivateChatController = (req, res) => {
@@ -8,13 +11,22 @@ const startChatPrivateChatController = (req, res) => {
 			privateID: targetUserID,
 			DB: { user: client },
 		} = req.body;
-
-		const privateChatID = randomID(chatSchemaTemplate.chatID.maxlength.value);
-
-		client.updateOne({ chats: { chatID: privateChatID } });
-
 		const { user: targetUser } = userFinder({ privateID: targetUserID });
-		targetUser.updateOne({ chats: { chatID: privateChatID } });
+
+		const chatID = randomID(chatSchemaTemplate.chatID.maxlength.value);
+
+		const privateChat = new PrivateChatModel({
+			chatID,
+			participants: [
+				{ participantID: client.privateID },
+				{ participantID: targetUser.privateID },
+			],
+		});
+
+		privateChat.save();
+
+		client.updateOne({ chats: { chatID } });
+		targetUser.updateOne({ chats: { chatID } });
 	} catch (error) {
 		res.errorCollector({ error });
 		res.errorResponser();

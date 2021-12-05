@@ -24,7 +24,7 @@ const participantIDTemplate = {
 	required: [participantID.required.value, participantID.required.error.message],
 	trim: participantID.trim.value,
 	type: participantID.type.value,
-	unique: participantID.unique.value,
+	// unique: participantID.unique.value,
 };
 
 const privateChat = {

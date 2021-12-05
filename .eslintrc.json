@@ -5,5 +5,5 @@
 		"node": true,
 		"jasmine": true
 	},
-	"globals": { "myConsole": true }
+	"globals": { "myConsole": true, "logger": true }
 }

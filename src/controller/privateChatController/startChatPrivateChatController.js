@@ -13,10 +13,19 @@ const startChatPrivateChatController = async (req, res) => {
 		} = req.body;
 
 		const { user: targetUser } = await userFinder({ privateID: targetUserID });
-		console.log(targetUser);
+
+		const chat = await PrivateChatModel.findOne({
+			"participants.participantID": client.privateID,
+			// "participants.participantID": targetUser.privateID,
+		});
+
+		if (chat) {
+			logger.log(chat);
+			res.status(200).json(chat);
+		}
 
 		const chatID = randomID(chatSchemaTemplate.chatID.maxlength.value);
-		console.log(chatID);
+
 		const privateChat = new PrivateChatModel({
 			chatID,
 			participants: [

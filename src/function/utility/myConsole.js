@@ -36,6 +36,7 @@ function ConsoleBuilder() {
 	this.log = (text = "") => {
 		console.log(...this.logs, text);
 		this.logs = [];
+		return this;
 	};
 
 	//* Colors =>

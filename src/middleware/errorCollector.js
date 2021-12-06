@@ -1,26 +1,46 @@
 const errorCollector = (req, res, next) => {
 	res.errors = {
-		statusCode: 400,
-		categorizedLength: 0,
-		uncategorizedLength: 0,
 		categorized: [],
+		categorizedLength: 0,
+		server: [],
+		serverLength: 0,
+		statusCode: 400,
 		uncategorized: [],
+		uncategorizedLength: 0,
 	};
 
-	res.errorCollector = ({ error, err, ex, statusCode }) => {
-		const er = error || err || ex;
-		if (er) {
+	res.errorCollector = (data) => {
+		try {
+			if (!data) {
+				const error =
+					"Report to your back-end: Yo! you forgot to send me data - errorCollector";
+				throw error;
+			}
+
+			const { statusCode, err, ex, error } = data;
+
+			const er = err || ex || error;
+
+			if (!er) {
+				const error =
+					"Report to your back-end: Yo! you forgot to send me error - errorCollector";
+				throw error;
+			}
+
 			if (typeof er === "object") {
 				res.errors.categorizedLength = res.errors.categorized.push(er);
 			} else {
-				//* Handle non-object error, write log into log files=>
+				//? unhandled (non-object) error, write log into log files=>
 				res.errors.uncategorizedLength = res.errors.uncategorized.push(er);
 			}
-		} else {
-			//* Handle errorless call here, write log into log files =>
-		}
-		if (statusCode && !isNaN(+statusCode)) {
-			res.errors.statusCode = statusCode;
+
+			if (statusCode && !isNaN(+statusCode)) {
+				res.errors.statusCode = statusCode;
+			}
+		} catch (error) {
+			logger.redBright("errorCollector catch! its critical!!!").log(error);
+			res.errors.serverLength = res.errors.server.push(error);
+			res.errorResponser({ statusCode: 500 });
 		}
 	};
 

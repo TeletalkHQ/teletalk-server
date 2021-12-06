@@ -17,11 +17,11 @@ const { findUserFromDB } = require("~/middleware/findUserFromDB");
 
 const privateChatRoute = Router();
 
-// privateChatRoute.use(authDefaultMDW);
+privateChatRoute.use(authDefaultMDW);
 
-// privateChatRoute.use(findUserFromDB);
+privateChatRoute.use(findUserFromDB);
 
-// privateChatRoute.use(errorResponser);
+privateChatRoute.use(errorResponser);
 
 privateChatRoute.post(sendMessage.route, sendMessagePrivateChatController);
 privateChatRoute.post(startChat.route, startChatPrivateChatController);

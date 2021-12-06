@@ -1,79 +1,83 @@
 const chatError = {
-	CHAT_ID_INVALID_TYPE: {
-		reason: "CHAT_ID_INVALID_TYPE",
-		message: "",
+	CHAT_EXIST: {
+		message: "chat is already initialized",
+		reason: "CHAT_EXIST",
 	},
 	CHAT_ID_EXIST: {
+		message: "",
 		reason: "CHAT_ID_EXIST",
-		message: "",
 	},
-	CHAT_ID_REQUIRED: {
-		reason: "CHAT_ID_REQUIRED",
+	CHAT_ID_INVALID_TYPE: {
 		message: "",
-	},
-	CHAT_ID_MIN_LENGTH_REACH: {
-		reason: "CHAT_ID_MIN_LENGTH_REACH",
-		message: "",
+		reason: "CHAT_ID_INVALID_TYPE",
 	},
 	CHAT_ID_MAX_LENGTH_REACH: {
-		reason: "CHAT_ID_MAX_LENGTH_REACH",
 		message: "",
+		reason: "CHAT_ID_MAX_LENGTH_REACH",
+	},
+	CHAT_ID_MIN_LENGTH_REACH: {
+		message: "",
+		reason: "CHAT_ID_MIN_LENGTH_REACH",
+	},
+	CHAT_ID_REQUIRED: {
+		message: "",
+		reason: "CHAT_ID_REQUIRED",
 	},
 	CREATED_AT_INVALID_TYPE: {
-		reason: "CREATED_AT_INVALID_TYPE",
 		message: "",
+		reason: "CREATED_AT_INVALID_TYPE",
 	},
 	MESSAGE_ID_EXIST: {
-		reason: "		MESSAGE_ID_EXIST",
 		message: "",
+		reason: "		MESSAGE_ID_EXIST",
 	},
 	MESSAGE_ID_INVALID_TYPE: {
-		reason: "		MESSAGE_ID_INVALID_TYPE",
 		message: "",
+		reason: "		MESSAGE_ID_INVALID_TYPE",
 	},
 	MESSAGE_ID_MAX_LENGTH_REACH: {
-		reason: "		MESSAGE_ID_MAX_LENGTH_REACH",
 		message: "",
+		reason: "		MESSAGE_ID_MAX_LENGTH_REACH",
 	},
 	MESSAGE_ID_MIN_LENGTH_REACH: {
-		reason: "		MESSAGE_ID_MIN_LENGTH_REACH",
 		message: "",
+		reason: "		MESSAGE_ID_MIN_LENGTH_REACH",
 	},
 	MESSAGE_ID_REQUIRED: {
-		reason: "		MESSAGE_ID_REQUIRED",
 		message: "",
+		reason: "		MESSAGE_ID_REQUIRED",
 	},
 	MESSAGE_TEXT_INVALID_TYPE: {
-		reason: "		MESSAGE_TEXT_INVALID_TYPE",
 		message: "",
+		reason: "		MESSAGE_TEXT_INVALID_TYPE",
 	},
 	MESSAGE_TEXT_MAX_LENGTH_REACH: {
-		reason: "		MESSAGE_TEXT_MAX_LENGTH_REACH",
 		message: "",
+		reason: "		MESSAGE_TEXT_MAX_LENGTH_REACH",
 	},
 	MESSAGE_TEXT_MIN_LENGTH_REACH: {
+		message: "",
 		reason: "		MESSAGE_TEXT_MIN_LENGTH_REACH",
-		message: "",
-	},
-	PARTICIPANT_ID_INVALID_TYPE: {
-		reason: "		PARTICIPANT_ID_INVALID_TYPE",
-		message: "",
 	},
 	PARTICIPANT_ID_EXIST: {
+		message: "",
 		reason: "		PARTICIPANT_ID_EXIST",
-		message: "",
 	},
-	PARTICIPANT_ID_REQUIRED: {
-		reason: "		PARTICIPANT_ID_REQUIRED",
+	PARTICIPANT_ID_INVALID_TYPE: {
 		message: "",
-	},
-	PARTICIPANT_ID_MIN_LENGTH_REACH: {
-		reason: "		PARTICIPANT_ID_MIN_LENGTH_REACH",
-		message: "",
+		reason: "		PARTICIPANT_ID_INVALID_TYPE",
 	},
 	PARTICIPANT_ID_MAX_LENGTH_REACH: {
-		reason: "		PARTICIPANT_ID_MAX_LENGTH_REACH",
 		message: "",
+		reason: "		PARTICIPANT_ID_MAX_LENGTH_REACH",
+	},
+	PARTICIPANT_ID_MIN_LENGTH_REACH: {
+		message: "",
+		reason: "		PARTICIPANT_ID_MIN_LENGTH_REACH",
+	},
+	PARTICIPANT_ID_REQUIRED: {
+		message: "",
+		reason: "		PARTICIPANT_ID_REQUIRED",
 	},
 };
 

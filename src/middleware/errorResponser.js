@@ -1,29 +1,38 @@
-const { myConsole } = require("~/function/utility/myConsole");
+const errorResponser = (req, res, next) => {
+	const initialValue = { statusCode: "" };
 
-const errorResponser = ({ req, res, next, statusCode }) => {
-	try {
-		const {
-			categorizedLength,
-			uncategorizedLength,
-			categorized,
-			uncategorized,
-			statusCode: statusCodeFromCollector,
-		} = res.errors;
-		if (categorizedLength || uncategorizedLength) {
-			myConsole.redBright(statusCode | statusCodeFromCollector).log();
+	res.errorResponser = (data = initialValue) => {
+		const { statusCode } = data;
 
-			const resCode = statusCode || statusCodeFromCollector || 400;
+		try {
+			const {
+				categorized,
+				categorizedLength,
+				server,
+				serverLength,
+				statusCode: statusCodeFromCollector,
+				uncategorized,
+				uncategorizedLength,
+			} = res.errors;
 
-			res
-				.status(resCode)
-				.json({ errors: { categorized, uncategorized, statusCode: resCode } });
-		} else {
-			next();
+			if (categorizedLength || serverLength || uncategorizedLength) {
+				const resCode = statusCode || statusCodeFromCollector || 400;
+
+				logger.redBright(resCode).log(17);
+
+				res
+					.status(resCode)
+					.json({ errors: { categorized, uncategorized, statusCode: resCode, server } });
+			} else {
+				next();
+			}
+		} catch (error) {
+			logger.redBright("BAD ERROR!!!").log();
+			console.log("errorResponser catch ", error);
 		}
-	} catch (error) {
-		console.log("errorResponser catch ", error);
-		myConsole.redBright("BAD ERROR!!!").log();
-	}
+	};
+
+	next();
 };
 
 module.exports = { errorResponser };

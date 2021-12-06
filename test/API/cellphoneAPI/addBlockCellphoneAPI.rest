@@ -1,9 +1,4 @@
-@url = http://localhost:
-@port = 8080
-@baseUrl = {{url}}{{port}}
-
-
-POST {{baseUrl}}/cellphone/add/block HTTP/1.1
+POST {{$dotenv baseUrl}}/cellphone/add/block HTTP/1.1
 content-type: application/json
 Authorization: {{$dotenv user1}}
 

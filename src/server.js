@@ -15,6 +15,7 @@ const { connectDB } = require("~/config/database/connectDB");
 
 const { myConsole } = require("./function/utility/myConsole");
 global.myConsole = myConsole;
+global.logger = myConsole;
 
 const { lifeLine } = require("~/route/lifeLine");
 
@@ -31,7 +32,6 @@ connectDB();
 const app = express();
 
 app.use((req, res, next) => {
-	console.clear();
 	console.log("Console cleared");
 	next();
 });
@@ -45,8 +45,11 @@ app.use(express.json());
 
 app.use(bodyClarify);
 app.use(errorCollector);
+app.use(errorResponser);
+
 app.use((req, res, next) => {
-	res.errorResponser = (statusCode) => errorResponser({ req, res, next, statusCode });
+	logger.bgBlue("Request arrived").bgCyan(req.url);
+
 	next();
 });
 

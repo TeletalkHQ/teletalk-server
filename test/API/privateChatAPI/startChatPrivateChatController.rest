@@ -1,7 +1,7 @@
 POST {{$dotenv baseUrl}}/chat/private/start/chat HTTP/1.1
 content-type: application/json
-Authorization: {{$dotenv user3}}
+Authorization: {{$dotenv user1}}
 
 {
-"privateID": "Y7c-bR-vH916G9o9_4HywPSt3tpTvkhv9yo"
+"privateID": "Ct5EViJCh4t0EH7KZHP2pHLTQ3-7euYdM9o"
 }

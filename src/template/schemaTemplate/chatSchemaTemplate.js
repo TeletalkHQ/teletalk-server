@@ -50,7 +50,7 @@ const messageID = {
 	trim: fn(true, "undefined"),
 	type: fn("string", MESSAGE_ID_INVALID_TYPE),
 	unique: fn(true, MESSAGE_ID_EXIST),
-	default: fn(randomID(40), "undefined"),
+	default: fn(randomID, "undefined"),
 };
 
 const messageSender = {};

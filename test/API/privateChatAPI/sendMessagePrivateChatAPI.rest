@@ -1,7 +1,9 @@
 POST {{$dotenv baseUrl}}/chat/private/send/message HTTP/1.1 
 content-type: application/json
-Authorization: {{$dotenv user1}}
+Authorization: {{$dotenv user2}}
 
 {
-
+  "chatID":"-5uP5luMTTlONVYXnDVlw_cAqCFMGSr9nbx",
+  "participantID":"Ct5EViJCh4t0EH7KZHP2pHLTQ3-7euYdM9o",
+  "messageText":"Yes!!!"
 }

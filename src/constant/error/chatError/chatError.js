@@ -23,6 +23,10 @@ const chatError = {
 		message: "",
 		reason: "CHAT_ID_REQUIRED",
 	},
+	CHAT_NOT_EXIST: {
+		message: "chat not exist, maybe deleted or something :)",
+		reason: "CHAT_NOT_EXIST",
+	},
 	CREATED_AT_INVALID_TYPE: {
 		message: "",
 		reason: "CREATED_AT_INVALID_TYPE",
@@ -78,6 +82,16 @@ const chatError = {
 	PARTICIPANT_ID_REQUIRED: {
 		message: "",
 		reason: "		PARTICIPANT_ID_REQUIRED",
+	},
+
+	PARTICIPANT_NOT_EXIST: {
+		message: "",
+		reason: "		PARTICIPANT_NOT_EXIST",
+	},
+
+	USER_NO_LONGER_PARTICIPANT: {
+		message: "",
+		reason: "		USER_NO_LONGER_PARTICIPANT",
 	},
 };
 

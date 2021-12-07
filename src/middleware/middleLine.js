@@ -30,7 +30,7 @@ const middleLine = ({ app, express }) => {
 	app.use(serveFavicon(path.join("~/../public/appFavicon/favicon.ico")));
 
 	app.use((req, res, next) => {
-		logger.bgBlue({ text: "Request arrived" }).bgCyan(req.url);
+		logger.bgBlue({ text: "Request arrived" }).bgCyan(req.url).log();
 
 		next();
 	});

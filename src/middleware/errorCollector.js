@@ -38,7 +38,7 @@ const errorCollector = (req, res, next) => {
 				res.errors.statusCode = statusCode;
 			}
 		} catch (error) {
-			logger.redBright("errorCollector catch! its critical!!!").log(error);
+			// logger.redBright("errorCollector catch! its critical!!!").log(error);
 			res.errors.serverLength = res.errors.server.push(error);
 			res.errorResponser({ statusCode: 500 });
 		}

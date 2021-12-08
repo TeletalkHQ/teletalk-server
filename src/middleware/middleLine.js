@@ -2,7 +2,7 @@ const path = require("path");
 
 const helmet = require("helmet");
 const morgan = require("morgan");
-const prettyError = require("pretty-error");
+// const prettyError = require("pretty-error");
 const serveFavicon = require("serve-favicon");
 
 const { bodyClarify } = require("~/middleware/bodyClarify");
@@ -10,7 +10,7 @@ const { errorCollector } = require("~/middleware/errorCollector");
 const { errorResponser } = require("~/middleware/errorResponser");
 
 const middleLine = ({ app, express }) => {
-	prettyError.start();
+	// prettyError.start();
 
 	app.use((req, res, next) => {
 		console.log("Console cleared");

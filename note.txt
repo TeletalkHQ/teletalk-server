@@ -1,3 +1,22 @@
 npm i validator for client-side;
 nest-js for build swagger doc;
 what is differences between patch and put;
+
+	  "sharp": "^0.29.3",
+		"app-root-path": "^3.0.0",
+		"bcryptjs": "^2.4.3",
+		"cookie-parser": "^1.4.6",
+		"defer-to-connect": "^2.0.1",
+		"express-session": "^1.17.2",
+		"fs-extra": "^10.0.0",
+		"jose": "^4.3.7",
+		"morgan": "^1.10.0",
+		"node-fetch": "^3.1.0",
+		"nodemailer": "^6.7.2",
+		"nodemailer-smtp-transport": "^2.7.4",
+		"passport": "^0.5.0",
+		"redis": "^4.0.0",
+		"socket.io": "^4.4.0",
+		"winston": "^3.3.3",
+		"yargs": "^17.3.0"
+		"axios": "^0.24.0",

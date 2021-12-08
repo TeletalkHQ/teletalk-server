@@ -5,7 +5,6 @@ require("module-alias/register");
 require("~/other/globals");
 
 const express = require("express");
-
 const dotenv = require("dotenv");
 dotenv.config({ path: "./src/config/environment/main.env" });
 
@@ -24,7 +23,6 @@ middleLine({ app, express });
 
 //* Your statics is here =>
 app.use(express.static("~/../public"));
-
 //* All stuff for routes is in lifeLine =>
 app.use(lifeLine);
 

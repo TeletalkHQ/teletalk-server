@@ -33,7 +33,6 @@ const sendMessagePrivateChatController = async (req, res) => {
 			(participant) => participant.participantID === participantID,
 		);
 
-		logger.log(chat);
 		if (!checkParticipant) {
 			const error = chatError.PARTICIPANT_NOT_EXIST;
 			throw error;

@@ -8,7 +8,7 @@ const authDefaultMDW = async (req, res, next) => {
 
 		next();
 	} catch (error) {
-		console.log("🚀 ~ file: authDefaultMDW.js ~ line 11 ~ authDefaultMDW ~ error", error);
+		// console.log("🚀 ~ file: authDefaultMDW.js ~ line 11 ~ authDefaultMDW ~ error", error);
 		res.errorCollector({ error, statusCode: 401 });
 		res.errorResponser();
 	} finally {

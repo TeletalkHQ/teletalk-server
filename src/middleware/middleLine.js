@@ -1,5 +1,6 @@
 const path = require("path");
 
+const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 // const prettyError = require("pretty-error");
@@ -19,6 +20,7 @@ const middleLine = ({ app, express }) => {
 
 	//* Pretty error makes nodeJS error pretty in console, use it before express call
 
+	app.use(cors());
 	app.use(helmet());
 	app.use(morgan("dev"));
 	app.use(express.json());

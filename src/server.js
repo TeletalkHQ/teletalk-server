@@ -7,18 +7,16 @@ require("~/other/globals");
 const express = require("express");
 
 const dotenv = require("dotenv");
+dotenv.config({ path: "./src/config/environment/main.env" });
 
-// const { connectDB } = require("~/config/database/connectDB");
+const { connectDB } = require("~/config/database/connectDB");
 
-// const { middleLine } = require("~/middleware/middleLine");
-const { middleLine } = require("./middleware/middleLine");
+const { middleLine } = require("~/middleware/middleLine");
 
 const { lifeLine } = require("~/route/lifeLine");
 
-dotenv.config({ path: "./src/config/environment/main.env" });
-
 //? Connect to database =>
-// connectDB();
+connectDB();
 
 const app = express();
 

@@ -10,7 +10,8 @@ const dotenv = require("dotenv");
 
 const { connectDB } = require("~/config/database/connectDB");
 
-const { middleLine } = require("~/middleware/middleLine");
+// const { middleLine } = require("~/middleware/middleLine");
+const { middleLine } = require("./middleware/middleLine");
 
 const { lifeLine } = require("~/route/lifeLine");
 

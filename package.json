@@ -35,6 +35,7 @@
 		"module-alias": "^2.2.2",
 		"mongoose": "^6.0.14",
 		"mongoose-unique-validator": "^3.0.0",
+		"morgan": "^1.10.0",
 		"nanoid": "^3.1.30",
 		"serve-favicon": "^2.5.0",
 		"teletalk-utils": "^1.0.4"

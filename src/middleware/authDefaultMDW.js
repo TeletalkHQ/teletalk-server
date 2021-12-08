@@ -1,4 +1,3 @@
-const { myConsole } = require("~/function/utility/myConsole");
 const { tokenVerifier } = require("~/function/utility/tokenVerifier");
 
 const authDefaultMDW = async (req, res, next) => {
@@ -20,10 +19,10 @@ const authDefaultMDW = async (req, res, next) => {
 module.exports = { authDefaultMDW };
 
 //TODO Add me in function!
-myConsole
-	.bgRed("🚀")
-	.bgGreen("~ file: authDefaultMDW.js")
-	.bgYellow("~ line 11")
-	.bgMagenta("~ authDefaultMDW")
-	.bgCyan("error\n")
-	.log("#)((@#)()(#(@(#@#(()@)@#@)()@#()#()(@#()@()");
+// myConsole
+// 	.bgRed("🚀")
+// 	.bgGreen("~ file: authDefaultMDW.js")
+// 	.bgYellow("~ line 11")
+// 	.bgMagenta("~ authDefaultMDW")
+// 	.bgCyan("error\n")
+// 	.log("#)((@#)()(#(@(#@#(()@)@#@)()@#()#()(@#()@()");

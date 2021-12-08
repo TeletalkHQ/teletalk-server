@@ -48,5 +48,3 @@ const errorCollector = (req, res, next) => {
 };
 
 module.exports = { errorCollector };
-
-logger.bgBlack([1, 2, 3, 4, 5, 6, 7, 8, 9], logger.colors.red).log("");

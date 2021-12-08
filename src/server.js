@@ -29,13 +29,15 @@ app.use(express.static("~/../public"));
 //* All stuff for routes is in lifeLine =>
 app.use(lifeLine);
 
-const { PORT, NODE_ENV } = process.env;
+const { LOCAL_PORT, PORT, NODE_ENV } = process.env;
+
+const EXACT_PORT = PORT || LOCAL_PORT || 8080;
 
 const serverListenerCB = () => {
-	console.log(`Server is running in ${NODE_ENV} mode on port ${PORT}`);
+	console.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
 };
 
 //* Control your error here =>
 
 // const server =
-app.listen(PORT, serverListenerCB);
+app.listen(EXACT_PORT, serverListenerCB);

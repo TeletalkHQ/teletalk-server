@@ -20,7 +20,7 @@ const lifeLine = Router();
 
 lifeLine.get("/", (req, res, next) => {
 	try {
-		res.send("Hey! Welcome to teletalk <3");
+		res.status(200).json({ welcome: "Hey! Welcome to teletalk <3" });
 	} catch (error) {
 		console.log("welcome route", error);
 		res.errorCollector({ error });

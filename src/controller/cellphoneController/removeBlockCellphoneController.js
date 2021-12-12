@@ -30,7 +30,7 @@ const removeBlockCellphoneController = async (req, res) => {
 			blacklist: user.blacklist,
 		});
 	} catch (error) {
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		res.errorResponser();
 	}
 };

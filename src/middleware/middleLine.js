@@ -26,8 +26,32 @@ const middleLine = ({ app, express }) => {
 	app.use(express.json());
 
 	app.use(bodyClarify);
-	app.use(errorCollector);
-	app.use(errorResponser);
+
+	app.use((req, res, next) => {
+		res.errors = {
+			categorized: [],
+			categorizedLength: 0,
+			server: [],
+			serverLength: 0,
+			statusCode: 400,
+			uncategorized: [],
+			uncategorizedLength: 0,
+		};
+
+		res.errorCollector = (data) => {
+			errorCollector({ req, res, next, data });
+		};
+
+		next();
+	});
+
+	app.use((req, res, next) => {
+		res.errorResponser = () => {
+			errorResponser(req, res, next);
+		};
+
+		next();
+	});
 
 	app.use(serveFavicon(path.join("~/../public/appFavicon/favicon.ico")));
 

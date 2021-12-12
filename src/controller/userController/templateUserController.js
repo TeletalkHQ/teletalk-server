@@ -4,7 +4,7 @@ const templateUserController = (req, res) => {
 	try {
 		res.status(200).json(userSchemaTemplate);
 	} catch (error) {
-		res.errorCollector({ message: "Unexpected server error" });
+		res.errorCollector({ data: { error: "Unexpected server error" } });
 		res.errorResponser();
 	}
 };

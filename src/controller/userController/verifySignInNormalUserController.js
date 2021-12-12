@@ -64,7 +64,7 @@ const verifySignInNormalUserController = async (req, res) => {
 			user: finalUser,
 		});
 	} catch (error) {
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		res.errorResponser();
 	}
 };

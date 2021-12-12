@@ -1,4 +1,4 @@
-//* Using in routers, controllers and client-side
+//* Using in routers, controllers and client
 
 const userRouteTemplate = {
 	baseRoute: "/user",

@@ -16,7 +16,7 @@ const findUserFromDB = async (req, res, next) => {
 		req.body.DB = { user };
 	} catch (error) {
 		console.log("findUserFromDB catch: " + error);
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 	} finally {
 		next();
 	}

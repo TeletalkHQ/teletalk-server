@@ -38,3 +38,5 @@
 39. Using ms for convert time to ms and reverse 
 40. ClipboardJS documentation
 Make api for log server errors
+Add success statusCode for each route
+Add statusCode to each error

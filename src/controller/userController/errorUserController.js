@@ -4,8 +4,10 @@ const errorUserController = (req, res) => {
 	try {
 		res.status(200).json(userError);
 	} catch (error) {
-		res.errorCollector({ error: { message: "Unexpected server error" } });
-		res.errorResponser({ statusCode: 500 });
+		res.errorCollector({
+			data: { error: { message: "Unexpected server error", statusCode: 500 } },
+		});
+		res.errorResponser();
 	}
 };
 

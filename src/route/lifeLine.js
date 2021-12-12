@@ -23,7 +23,7 @@ lifeLine.get("/", (req, res, next) => {
 		res.status(200).json({ welcome: "Hey! Welcome to teletalk <3" });
 	} catch (error) {
 		console.log("welcome route", error);
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		next();
 	}
 });

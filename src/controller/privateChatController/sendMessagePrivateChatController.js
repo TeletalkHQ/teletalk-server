@@ -57,7 +57,7 @@ const sendMessagePrivateChatController = async (req, res) => {
 
 		res.status(200).send({ chat });
 	} catch (error) {
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		res.errorResponser();
 	}
 };

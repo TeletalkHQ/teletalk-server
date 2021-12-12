@@ -28,7 +28,7 @@ const removeContactCellphoneController = async (req, res) => {
 
 		res.status(200).json({ contactItem });
 	} catch (error) {
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		res.errorResponser();
 	}
 };

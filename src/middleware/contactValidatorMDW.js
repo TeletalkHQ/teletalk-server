@@ -14,7 +14,7 @@ const contactValidatorMDW = async (req, res, next) => {
 			throw validationResult;
 		}
 	} catch (error) {
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 	} finally {
 		next();
 	}

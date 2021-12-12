@@ -1,38 +1,32 @@
 const errorResponser = (req, res, next) => {
-	const initialValue = { statusCode: "" };
+	try {
+		const {
+			categorized,
+			categorizedLength,
+			server,
+			serverLength,
+			statusCode: statusCodeFromCollector,
+			uncategorized,
+			uncategorizedLength,
+		} = res.errors;
 
-	res.errorResponser = (data = initialValue) => {
-		const { statusCode } = data;
+		console.log(categorizedLength || serverLength || uncategorizedLength);
 
-		try {
-			const {
-				categorized,
-				categorizedLength,
-				server,
-				serverLength,
-				statusCode: statusCodeFromCollector,
-				uncategorized,
-				uncategorizedLength,
-			} = res.errors;
+		if (categorizedLength || serverLength || uncategorizedLength) {
+			const resCode = statusCodeFromCollector || 400;
 
-			if (categorizedLength || serverLength || uncategorizedLength) {
-				const resCode = statusCode || statusCodeFromCollector || 400;
+			// logger.redBright(resCode).log(17);
 
-				// logger.redBright(resCode).log(17);
-
-				res
-					.status(resCode)
-					.json({ errors: { categorized, uncategorized, statusCode: resCode, server } });
-			} else {
-				next();
-			}
-		} catch (error) {
-			// logger.redBright("BAD ERROR!!!").log();
-			console.log("errorResponser catch ", error);
+			res
+				.status(resCode)
+				.json({ errors: { categorized, uncategorized, statusCode: resCode, server } });
+		} else {
+			next();
 		}
-	};
-
-	next();
+	} catch (error) {
+		// logger.redBright("BAD ERROR!!!").log();
+		logger.log("errorResponser catch ", error);
+	}
 };
 
 module.exports = { errorResponser };

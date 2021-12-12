@@ -24,7 +24,7 @@ const signInNormalUserController = async (req, res) => {
 			throw user;
 		}
 	} catch (error) {
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		res.errorResponser();
 	}
 };

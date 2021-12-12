@@ -30,7 +30,7 @@ const addContactCellphoneController = async (req, res) => {
 		res.status(200).json({ cellphone });
 	} catch (error) {
 		console.log("addContactCellphoneController", error);
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		res.errorResponser();
 	}
 };

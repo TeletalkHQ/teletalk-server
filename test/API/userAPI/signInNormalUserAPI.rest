@@ -8,7 +8,7 @@ Content-Type: application/json
 
 {
   "cellphone": {
-    "phoneNumber":"9012700470",
+    "phoneNumber":"",
     "countryCode": "98",
     "countryName":"ir"
   }

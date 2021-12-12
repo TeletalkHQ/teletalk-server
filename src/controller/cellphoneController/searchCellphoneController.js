@@ -1,7 +1,7 @@
 const searchCellphoneController = (req, res) => {
 	try {
 	} catch (error) {
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		res.errorResponser();
 	}
 };

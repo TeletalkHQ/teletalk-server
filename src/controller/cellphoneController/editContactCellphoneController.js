@@ -40,7 +40,7 @@ const editContactCellphoneController = async (req, res) => {
 
 		res.status(200).json({ ...contactItem, lastName, firstName });
 	} catch (error) {
-		res.errorCollector({ error });
+		res.errorCollector({ data: { error } });
 		res.errorResponser();
 	}
 };

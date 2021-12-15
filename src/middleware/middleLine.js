@@ -38,7 +38,7 @@ const middleLine = ({ app, express }) => {
 			uncategorizedLength: 0,
 		};
 
-		res.errorCollector = (data) => {
+		res.errorCollector = ({ data }) => {
 			errorCollector({ req, res, next, data });
 		};
 

@@ -22,6 +22,7 @@
 		"messenger"
 	],
 	"dependencies": {
+		"@reduxjs/toolkit": "^1.7.0",
 		"assert-plus": "^1.0.0",
 		"boxen": "^6.2.1",
 		"chalk": "^5.0.0",

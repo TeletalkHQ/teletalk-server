@@ -1,42 +1,42 @@
-1. NodeJS website, process
-2. Create console app for server management
-3. Mongoose documentation 
-4. Use redis for cache data and fast response 
-5. Use express-session for login 
-6. cross-env documentation
-7. Mongoose schema, .pre method,
-8. Use Yup for client-side verification 
-9. Use ajv or fastest-validator for server-side verification
-10. Use i18n online for translation
-11. Node-gyp-build documentation
-12. Bcryptjs or bcrypt ?
-13. PassportJS for multi login, local or jwt ? , part 76
-14. Connect-mongo connect-redis for remember me
-15. App-root-path ? Is it useful?
-16. Morgan ,part 82
-17. Google reCaptcha
-18. Node-fetch or axios ? 
-19. Jalali-moment , moment , or ?
-20. Use multer or express-fileupload for get multi-data, part 96
-21. Upload progress-bar, part 98
-22. Use sharp for compress images and ...
-23. NodeMailer, nodemailer-smtp-transport for send email in NodeJS , part 119
-24. Use cPanel for nodeJS host 
-25. Use jsonwebtoken for auth
-26. Use captchaPNG for validating contact-us page
-27. Use pars web server for host, part 127, 128
-28. Browser back control, part 129
-29. Handle error part 134
-30. Set headers part 135,
-31. Restify part 136
-32. AuthMiddleware part 139
-33. Use snyk vulnerability scanner for sec reason
-34. Use helmet for security headers 
-35. Use firewall part 146
-36. PM2 for nodeJS process manager part 149
-37. FTP part 150, nginx part 149 
-39. Using ms for convert time to ms and reverse 
-40. ClipboardJS documentation
+NodeJS website, process
+Create console app for server management
+Mongoose documentation 
+Use redis for cache data and fast response 
+Use express-session for login 
+cross-env documentation
+Mongoose schema, .pre method,
+Use Yup for client-side verification 
+Use ajv or fastest-validator for server-side verification
+Use i18n online for translation
+Node-gyp-build documentation
+Bcryptjs or bcrypt ?
+PassportJS for multi login, local or jwt ? , part 76
+Connect-mongo connect-redis for remember me
+App-root-path ? Is it useful?
+Morgan ,part 82
+Google reCaptcha
+Node-fetch or axios ? 
+Jalali-moment , moment , or ?
+Use multer or express-fileupload for get multi-data, part 96
+Upload progress-bar, part 98
+Use sharp for compress images and ...
+NodeMailer, nodemailer-smtp-transport for send email in NodeJS , part 119
+Use cPanel for nodeJS host 
+Use jsonwebtoken for auth
+Use captchaPNG for validating contact-us page
+Use pars web server for host, part 127, 128
+Browser back control, part 129
+Handle error part 134
+Set headers part 135,
+Restify part 136
+AuthMiddleware part 139
+Use snyk vulnerability scanner for sec reason
+Use helmet for security headers 
+Use firewall part 146
+PM2 for nodeJS process manager part 149
+FTP part 150, nginx part 149 
+Using ms for convert time to ms and reverse 
+ClipboardJS documentation
 Make api for log server errors
 Add success statusCode for each route
-Add statusCode to each error
+Add method to each route

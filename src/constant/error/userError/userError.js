@@ -199,6 +199,10 @@ const userError = {
 		reason: "USERNAME_MINLENGTH_REACH",
 		message: "",
 	},
+	VERIFICATION_CODE_INVALID: {
+		reason: "VERIFICATION_CODE_INVALID",
+		message: "Wrong verification code",
+	},
 	VERIFICATION_CODE_INVALID_TYPE: {
 		reason: "VERIFICATION_CODE_INVALID_TYPE",
 		message: "",

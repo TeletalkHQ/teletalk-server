@@ -1,4 +1,4 @@
-// const { myConsole } = require("~/function/utility/myConsole");
+const { myConsole } = require("~/function/utility/myConsole");
 
-// global.myConsole = myConsole;
-// global.logger = myConsole;
+global.myConsole = myConsole;
+global.logger = myConsole;

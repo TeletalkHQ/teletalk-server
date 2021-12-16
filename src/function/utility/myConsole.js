@@ -33,8 +33,6 @@ function ConsoleBuilder() {
 	const chalkMakerWithBG = (bgColor, data, textColor) => {
 		const defaultColor = colors.white;
 
-		console.log(data);
-
 		if (typeof data === "string") {
 			this.logs.push(chalk[bgColor](chalk[defaultColor](data)));
 		}

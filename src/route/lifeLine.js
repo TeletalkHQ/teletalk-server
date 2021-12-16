@@ -18,16 +18,6 @@ const { userRouteTemplate } = require("~/template/routeTemplate/userRouteTemplat
 
 const lifeLine = Router();
 
-lifeLine.get("/", (req, res, next) => {
-	try {
-		res.status(999).json({ welcome: "Hey! Welcome to teletalk <3" });
-	} catch (error) {
-		console.log("welcome route", error);
-		res.errorCollector({ data: { error } });
-		next();
-	}
-});
-
 lifeLine.use(errorResponser);
 
 lifeLine.use(cellphoneRouteTemplate.baseRoute, cellphoneRoute);

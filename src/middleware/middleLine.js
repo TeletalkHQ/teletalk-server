@@ -14,7 +14,7 @@ const middleLine = ({ app, express }) => {
 	// prettyError.start();
 
 	app.use((req, res, next) => {
-		console.log("Console cleared");
+		// console.log("Console cleared");
 		next();
 	});
 
@@ -56,7 +56,12 @@ const middleLine = ({ app, express }) => {
 	app.use(serveFavicon(path.join("~/../public/appFavicon/favicon.ico")));
 
 	app.use((req, res, next) => {
-		// logger.bgBlue({ text: "Request arrived" }).bgCyan(req.url).log();
+		logger
+			.blue("----------------")
+			.bgBlue({ text: "Request arrived: " })
+			.bgCyan(req.url)
+			.blue("----------------")
+			.log();
 
 		next();
 	});

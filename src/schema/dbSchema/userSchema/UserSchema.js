@@ -34,7 +34,7 @@ const user = {
 		required: [chatID.required.value, chatID.required.error.message],
 		trim: chatID.trim.value,
 		type: chatID.type.value,
-		unique: chatID.unique.value,
+		// unique: chatID.unique.value,
 	},
 	countryCode: {
 		maxlength: [countryCode.maxlength.value, countryCode.maxlength.error.message],
@@ -77,7 +77,7 @@ const user = {
 		minlength: [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
 		required: [phoneNumber.required.value, phoneNumber.required.error.message],
 		type: phoneNumber.type.value,
-		unique: phoneNumber.unique.value,
+		// unique: phoneNumber.unique.value,
 	},
 	privateID: {
 		maxlength: [privateID.maxlength.value, privateID.maxlength.error.message],

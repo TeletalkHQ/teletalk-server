@@ -17,27 +17,24 @@ const verifySignInNormalUserController = async (req, res) => {
 			body: { verifyCode },
 		} = req;
 
-		const token = req.headers.authorization?.split("Bearer ")[1];
+		const verifyToken = req.headers.authorization?.split("Bearer ")[1];
 
-		console.log(token, "token");
-
-		//TODO Verify token existence before verify
-		const verifiedToken = await tokenVerifier({
-			token,
-			secret: process.env.JWT_SIGN_IN_SECRET,
-		});
-
-		const data = verifiedToken.data.payload;
-
-		if (data.pass !== verifyCode) {
-			const error = userError.VERIFICATION_CODE_INVALID;
-
+		if (!verifyToken) {
+			const error = userError.TOKEN_REQUIRED;
 			throw error;
 		}
 
-		const { cellphone } = data;
+		const verifiedToken = await tokenVerifier({
+			token: verifyToken,
+			secret: process.env.JWT_SIGN_IN_SECRET,
+		});
 
-		delete data.iat;
+		const { cellphone, pass } = verifiedToken.data.payload;
+
+		if (pass && pass !== verifyCode) {
+			const error = userError.VERIFICATION_CODE_INVALID;
+			throw error;
+		}
 
 		const cellphoneValidation = cellphoneValidator({ ...cellphone });
 
@@ -46,41 +43,65 @@ const verifySignInNormalUserController = async (req, res) => {
 			throw error;
 		}
 
-		const { user: foundUser } = await userFinder({ ...cellphone });
+		const { user } = await userFinder({ ...cellphone });
 
-		console.log("foundUser", foundUser);
+		if (user) {
+			const fn = ({
+				user: {
+					privateID,
+					firstName,
+					lastName,
+					bio,
+					contacts,
+					blacklist,
+					username,
+					phoneNumber,
+					countryCode,
+					countryName,
+					chats,
+				},
+			}) => ({
+				privateID,
+				firstName,
+				lastName,
+				bio,
+				contacts,
+				blacklist,
+				username,
+				phoneNumber,
+				countryCode,
+				countryName,
+				chats,
+			});
+			const copyUsers = fn();
 
-		//FIXME
-		if (foundUser !== null) {
-			const error = {
+			const { token } = await tokenSigner({
+				data: { cellphone, privateID: copyUsers.privateID },
+			});
+
+			user.updateOne({ tokens: [...user.tokens, { token }] });
+
+			res.status(200).json({ user: copyUsers });
+		} else if (!user) {
+			const firstName = "DEFAULT NAME";
+			const privateID = randomID(userSchemaTemplate.privateID.maxlength.value);
+
+			const { token } = await tokenSigner({ data: { cellphone, privateID } });
+
+			const data = {
 				...cellphone,
-				...userError.CELLPHONE_EXIST,
+				firstName,
+				privateID,
+				tokens: [{ token }],
 			};
-			throw error;
+
+			const newUser = new UserModel(data);
+			await newUser.save();
+
+			res.status(200).json({
+				user: { cellphone, privateID, firstName, token },
+			});
 		}
-
-		const dataForSign = {
-			...cellphone,
-			privateID: randomID(userSchemaTemplate.privateID.maxlength.value),
-		};
-
-		const { token: mainToken } = await tokenSigner({ data: dataForSign });
-
-		const dataForDB = {
-			...cellphone,
-			privateID: dataForSign.privateID,
-			firstName: "DEFAULT NAME",
-			tokens: [{ token: mainToken }],
-		};
-
-		const finalUser = new UserModel(dataForDB);
-		console.log("finalUser", { ...finalUser, token: mainToken });
-		await finalUser.save();
-
-		res.status(200).json({
-			//TODO Change it to data =>
-			user: finalUser,
-		});
 	} catch (error) {
 		console.log("verifySignInNormalUserController", error);
 		res.errorCollector({ data: { error } });

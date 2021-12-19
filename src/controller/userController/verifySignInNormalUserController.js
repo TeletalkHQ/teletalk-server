@@ -73,15 +73,17 @@ const verifySignInNormalUserController = async (req, res) => {
 				countryName,
 				chats,
 			});
-			const copyUsers = fn();
+			const copyUser = fn({ user });
 
 			const { token } = await tokenSigner({
-				data: { cellphone, privateID: copyUsers.privateID },
+				data: { cellphone, privateID: copyUser.privateID },
 			});
 
-			user.updateOne({ tokens: [...user.tokens, { token }] });
+			user.tokens.push({ token });
 
-			res.status(200).json({ user: copyUsers });
+			await user.updateOne({ tokens: user.token });
+
+			res.status(200).json({ user: { ...copyUser, token } });
 		} else if (!user) {
 			const firstName = "DEFAULT NAME";
 			const privateID = randomID(userSchemaTemplate.privateID.maxlength.value);

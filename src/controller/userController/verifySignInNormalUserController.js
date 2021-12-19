@@ -75,15 +75,15 @@ const verifySignInNormalUserController = async (req, res) => {
 			});
 			const copyUser = fn({ user });
 
-			const { token } = await tokenSigner({
-				data: { cellphone, privateID: copyUser.privateID },
-			});
+			// const { token } = await tokenSigner({
+			// 	data: { cellphone, privateID: copyUser.privateID },
+			// });
 
-			user.tokens.push({ token });
+			// user.tokens.push({ token });
 
-			await user.updateOne({ tokens: user.token });
+			// await UserModel.findOneAndUpdate({ privateID: user.privateID }, { tokens: user.token });
 
-			res.status(200).json({ user: { ...copyUser, token } });
+			res.status(200).json({ user: { ...copyUser, token: user.tokens[0].token } });
 		} else if (!user) {
 			const firstName = "DEFAULT NAME";
 			const privateID = randomID(userSchemaTemplate.privateID.maxlength.value);

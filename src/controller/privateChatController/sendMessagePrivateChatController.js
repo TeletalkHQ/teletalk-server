@@ -50,7 +50,7 @@ const sendMessagePrivateChatController = async (req, res) => {
 		chat.messages.push({
 			messageText,
 			messageID: randomID(chatSchemaTemplate.messageID.maxlength.value),
-			senderID: participantID,
+			messageSender: { senderID: participantID },
 		});
 
 		await chat.updateOne({ messages: chat.messages });

@@ -1,4 +1,5 @@
 const { chatError } = require("~/constant/error/chatError/chatError");
+const { userError } = require("~/constant/error/userError/userError");
 const { userFinder } = require("~/function/helper/userFinder");
 const { randomID } = require("~/function/utility/randomID");
 
@@ -15,14 +16,19 @@ const startChatPrivateChatController = async (req, res) => {
 
 		const { user: targetUser } = await userFinder({ privateID: targetUserID });
 
+		if (!targetUser) {
+			const error = userError.USER_NOT_EXIST;
+			throw error;
+		}
+
+		//TODO Use $and for test 
 		const chat = await PrivateChatModel.findOne({
 			"participants.participantID": { $all: [client.privateID, targetUser.privateID] },
 		});
 
 		if (chat) {
-			const { CHAT_EXIST } = chatError;
-
-			throw CHAT_EXIST;
+			const error = chatError.CHAT_EXIST;
+			throw error;
 		}
 
 		const chatID = randomID(chatSchemaTemplate.chatID.maxlength.value);
@@ -43,7 +49,7 @@ const startChatPrivateChatController = async (req, res) => {
 		res.status(200).json({ client, targetUser });
 	} catch (error) {
 		res.errorCollector({ data: { error } });
-		// logger.log("startChatPrivateChatController catch").log(error);
+		logger.log("startChatPrivateChatController catch", error).log();
 
 		res.errorResponser();
 	}

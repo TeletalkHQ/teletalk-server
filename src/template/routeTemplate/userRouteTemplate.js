@@ -7,6 +7,10 @@ const userRouteTemplate = {
 		description: "Use for sign in client as a normal account",
 		route: "/signIn/normal",
 	},
+	statusCheck: {
+		description: "Use for check client availability as a normal account",
+		route: "/status/check",
+	},
 	verifyLoginNormal: {
 		description: "Use for verify login (normal account) and register (both mode)",
 		route: "/verify/login/normal",

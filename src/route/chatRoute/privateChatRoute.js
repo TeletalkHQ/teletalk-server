@@ -9,9 +9,12 @@ const {
 const {
 	startChatPrivateChatController,
 } = require("~/controller/privateChatController/startChatPrivateChatController");
+const {
+	getMessagesPrivateChatController,
+} = require("~/controller/privateChatController/getMessagesPrivateChatController");
 
 const {
-	privateChatRouteTemplate: { sendMessage, startChat },
+	privateChatRouteTemplate: { sendMessage, startChat, getMessages },
 } = require("~/template/routeTemplate/privateChatRouteTemplate");
 const { findUserFromDB } = require("~/middleware/findUserFromDB");
 
@@ -24,6 +27,7 @@ privateChatRoute.use(findUserFromDB);
 privateChatRoute.use(errorResponser);
 
 privateChatRoute.post(sendMessage.route, sendMessagePrivateChatController);
+privateChatRoute.post(getMessages.route, getMessagesPrivateChatController);
 privateChatRoute.post(startChat.route, startChatPrivateChatController);
 
 module.exports = { privateChatRoute };

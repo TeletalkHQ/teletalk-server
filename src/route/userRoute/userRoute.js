@@ -11,12 +11,16 @@ const {
 const {
 	verifySignInNormalUserController,
 } = require("~/controller/userController/verifySignInNormalUserController");
+const {
+	statusCheckUserController,
+} = require("~/controller/userController/statusCheckUserController");
 
 const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 
 const userRoute = Router();
 
 const {
+	statusCheck,
 	signInNormal,
 	verifySignInNormal,
 
@@ -30,8 +34,8 @@ userRoute.use(signInNormal.route, cellphoneValidatorMDW);
 userRoute.use(errorResponser);
 
 userRoute.post(signInNormal.route, signInNormalUserController);
-//TODO Add MDW for verify controller
 userRoute.post(verifySignInNormal.route, verifySignInNormalUserController);
+userRoute.get(statusCheck.route, statusCheckUserController);
 
 userRoute.get(error.route, errorUserController);
 userRoute.get(template.route, templateUserController);

@@ -1,1 +1,1 @@
-1. If you want to use eslint with this configuration do NOT upgrade eslint packages to major version 
+If you want to use eslint with this configuration do NOT upgrade eslint packages to major version 

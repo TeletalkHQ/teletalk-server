@@ -1,5 +1,4 @@
-npm i validator for client-side;
-nest-js for build swagger doc;
-what is differences between patch and put;
-Use redux as tempo state management!;
+validator for client-side;
+nest-js, swagger doc;
+Use redux as tempo state management;
 

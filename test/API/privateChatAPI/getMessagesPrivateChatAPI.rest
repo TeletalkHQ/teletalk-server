@@ -1,0 +1,7 @@
+POST {{$dotenv baseUrl}}/chat/private/get/messages HTTP/1.1 
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZWxscGhvbmUiOnsicGhvbmVOdW1iZXIiOiI5MDEyNzAwNDcwIiwiY291bnRyeUNvZGUiOiI5OCIsImNvdW50cnlOYW1lIjoiaXJhbiJ9LCJwcml2YXRlSUQiOiJhUGtqNlUwN1hpOXpVOW5jNTZIdDRmZUdxVFF0b0tYUmdMdyIsImlhdCI6MTY0MDEyNjI2MH0.P1Ar47BFzXGcYik5pKQMqXKRumyyIZeTxvo2PKp7QIw
+
+{
+  "chatID":"Xfl0OHSW-4FrHgX7fUrXHUKGr_jhIqaZApb"
+}

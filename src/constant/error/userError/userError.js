@@ -183,6 +183,10 @@ const userError = {
 		reason: "TOKEN_INVALID_TYPE",
 		message: "",
 	},
+	USER_NOT_EXIST: {
+		reason: "USER_NOT_EXIST",
+		message: "user not exist, maybe privateID is incorrect",
+	},
 	USERNAME_EXIST: {
 		reason: "USERNAME_EXIST",
 		message: "",

@@ -1,11 +1,14 @@
 const privateChatRouteTemplate = {
 	baseRoute: "/chat/private",
 
+	getMessages: {
+		description: "Use for Start new chat",
+		route: "/get/messages",
+	},
 	startChat: {
 		description: "Use for Start new chat",
 		route: "/start/chat",
 	},
-
 	sendMessage: {
 		description: "Use for send private messages",
 		route: "/send/message",

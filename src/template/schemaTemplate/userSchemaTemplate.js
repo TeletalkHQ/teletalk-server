@@ -1,5 +1,7 @@
 //* Using in mongoose schema and validators
 
+const { commonSchemaTemplate } = require("~/template/schemaTemplate/commonSchemaTemplate");
+
 const {
 	userError: {
 		BIO_INVALID_TYPE,
@@ -15,7 +17,6 @@ const {
 		COUNTRY_NAME_MAXLENGTH_REACH,
 		COUNTRY_NAME_MINLENGTH_REACH,
 		COUNTRY_NAME_REQUIRED,
-		CREATED_AT_INVALID_TYPE,
 		FIRST_NAME_INVALID_TYPE,
 		FIRST_NAME_MAXLENGTH_REACH,
 		FIRST_NAME_MINLENGTH_REACH,
@@ -61,11 +62,13 @@ const bio = {
 	minlength: fn(1, BIO_MINLENGTH_REACH),
 	required: fn(false, "undefined"),
 	type: fn("string", BIO_INVALID_TYPE),
+	version: "1.0.0",
 };
 
 const blacklist = {
 	default: fn([], "undefined"),
 	type: fn("array", BLACKLIST_INVALID_TYPE),
+	version: "1.0.0",
 };
 
 const contacts = {
@@ -74,6 +77,7 @@ const contacts = {
 	minlength: fn(10, "undefined"),
 	required: fn(false, "undefined"),
 	type: fn("array", CONTACT_INVALID_TYPE),
+	version: "1.0.0",
 };
 
 const countryCode = {
@@ -82,6 +86,7 @@ const countryCode = {
 	required: fn(true, COUNTRY_CODE_REQUIRED),
 	trim: fn(true, "undefined"),
 	type: fn("string", COUNTRY_CODE_INVALID_TYPE),
+	version: "1.0.0",
 };
 
 const countryName = {
@@ -89,13 +94,10 @@ const countryName = {
 	minlength: fn(2, COUNTRY_NAME_MINLENGTH_REACH),
 	required: fn(true, COUNTRY_NAME_REQUIRED),
 	type: fn("string", COUNTRY_NAME_INVALID_TYPE),
+	version: "1.0.0",
 };
 
-const createdAt = {
-	default: fn(Date.now, "undefined"),
-	required: fn(true, "undefined"),
-	type: fn("date", CREATED_AT_INVALID_TYPE),
-};
+const createdAt = commonSchemaTemplate.createdAt;
 
 const firstName = {
 	maxlength: fn(18, FIRST_NAME_MAXLENGTH_REACH),
@@ -103,6 +105,7 @@ const firstName = {
 	required: fn(true, FIRST_NAME_REQUIRED),
 	trim: fn(false, "undefined"),
 	type: fn("string", FIRST_NAME_INVALID_TYPE),
+	version: "1.0.0",
 };
 
 const lastName = {
@@ -112,6 +115,7 @@ const lastName = {
 	required: [false],
 	trim: fn(false, "undefined"),
 	type: fn("string", LAST_NAME_INVALID_TYPE),
+	version: "1.0.0",
 };
 
 const macAddress = {
@@ -121,6 +125,7 @@ const macAddress = {
 	trim: fn(true, "undefined"),
 	type: fn("string", MAC_ADDRESS_INVALID_TYPE),
 	unique: fn(true, MAC_ADDRESS_EXIST),
+	version: "1.0.0",
 };
 
 const phoneNumber = {
@@ -129,6 +134,7 @@ const phoneNumber = {
 	required: fn(true, PHONE_NUMBER_REQUIRED),
 	type: fn("string", PHONE_NUMBER_INVALID_TYPE),
 	unique: fn(true, PHONE_NUMBER_EXIST),
+	version: "1.0.0",
 };
 
 const privateID = {
@@ -138,12 +144,14 @@ const privateID = {
 	trim: fn(true, "undefined"),
 	type: fn("string", PRIVATE_ID_INVALID_TYPE),
 	unique: fn(true, PRIVATE_ID_EXIST),
+	version: "1.0.0",
 };
 
 const token = {
 	required: fn(true, TOKEN_REQUIRED),
 	type: fn("string", TOKEN_INVALID_TYPE),
 	unique: fn(true, TOKEN_EXIST),
+	version: "1.0.0",
 };
 
 const username = {
@@ -155,12 +163,14 @@ const username = {
 	trim: fn(true, "undefined"),
 	type: fn("string", USERNAME_INVALID_TYPE),
 	unique: fn(false, USERNAME_EXIST),
+	version: "1.0.0",
 };
 
 const verificationCode = {
 	length: fn(6, VERIFICATION_CODE_INVALID_LENGTH),
 	trim: fn(true, "undefined"),
 	type: fn("string", VERIFICATION_CODE_INVALID_TYPE),
+	version: "1.0.0",
 };
 
 const userSchemaTemplate = {
@@ -178,6 +188,7 @@ const userSchemaTemplate = {
 	token,
 	username,
 	verificationCode,
+	version: "1.0.0",
 };
 
 module.exports = { userSchemaTemplate };

@@ -39,28 +39,35 @@ const chatID = {
 	trim: fn(true, "undefined"),
 	type: fn("string", CHAT_ID_INVALID_TYPE),
 	unique: fn(true, CHAT_ID_EXIST),
+	version: "1.0.0",
 };
 
 const createdAt = commonSchemaTemplate.createdAt;
 
 const messageID = {
+	default: fn(randomID, "undefined"),
 	maxlength: fn(45, MESSAGE_ID_MAX_LENGTH_REACH),
 	minlength: fn(40, MESSAGE_ID_MIN_LENGTH_REACH),
 	required: fn(true, MESSAGE_ID_REQUIRED),
 	trim: fn(true, "undefined"),
 	type: fn("string", MESSAGE_ID_INVALID_TYPE),
 	unique: fn(true, MESSAGE_ID_EXIST),
-	default: fn(randomID, "undefined"),
+	version: "1.0.0",
 };
 
-const messageSender = {};
+const messageSender = {
+	version: "1.0.0",
+};
 
-const messageStatus = {};
+const messageStatus = {
+	version: "1.0.0",
+};
 
 const messageText = {
 	maxlength: fn(10, MESSAGE_TEXT_MAX_LENGTH_REACH),
 	minlength: fn(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
 	type: fn("string", MESSAGE_TEXT_INVALID_TYPE),
+	version: "1.0.0",
 };
 
 const participantID = {
@@ -70,11 +77,16 @@ const participantID = {
 	trim: fn(privateID.trim.value, "undefined"),
 	type: fn(privateID.type.value, PARTICIPANT_ID_INVALID_TYPE),
 	unique: fn(privateID.unique.value, PARTICIPANT_ID_EXIST),
+	version: "1.0.0",
 };
 
-const participantStatus = {};
+const participantStatus = {
+	version: "1.0.0",
+};
 
-const participantVisibility = {};
+const participantVisibility = {
+	version: "1.0.0",
+};
 
 const chatSchemaTemplate = {
 	chatID,
@@ -86,6 +98,7 @@ const chatSchemaTemplate = {
 	participantID,
 	participantStatus,
 	participantVisibility,
+	version: "1.0.0",
 };
 
 module.exports = { chatSchemaTemplate };

@@ -3,14 +3,14 @@ const { tokenVerifier } = require("~/function/utility/tokenVerifier");
 
 const { cellphoneValidator } = require("~/validator/userValidator/cellphoneValidator");
 
-const { userError } = require("~/constant/error/userError/userError");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 
 const statusCheckUserController = async (req, res) => {
 	try {
 		const mainToken = req.headers.authorization?.split("Bearer ")[1];
 
 		if (!mainToken) {
-			const error = userError.TOKEN_REQUIRED;
+			const error = userErrorTemplate.TOKEN_REQUIRED;
 			throw error;
 		}
 
@@ -29,7 +29,7 @@ const statusCheckUserController = async (req, res) => {
 		const { user } = await userFinder(cellphone);
 
 		if (!user) {
-			const error = userError.USER_NOT_EXIST;
+			const error = userErrorTemplate.USER_NOT_EXIST;
 			throw error;
 		}
 

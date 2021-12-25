@@ -1,5 +1,5 @@
-const { chatError } = require("~/constant/error/chatError/chatError");
-const { userError } = require("~/constant/error/userError/userError");
+const { chatErrorTemplate } = require("~/template/errorTemplate/chatErrorTemplate");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 const { userFinder } = require("~/function/helper/userFinder");
 const { randomID } = require("~/function/utility/randomID");
 
@@ -17,17 +17,17 @@ const startChatPrivateChatController = async (req, res) => {
 		const { user: targetUser } = await userFinder({ privateID: targetUserID });
 
 		if (!targetUser) {
-			const error = userError.USER_NOT_EXIST;
+			const error = userErrorTemplate.USER_NOT_EXIST;
 			throw error;
 		}
 
-		//TODO Use $and for test 
+		//TODO Use $and for test
 		const chat = await PrivateChatModel.findOne({
 			"participants.participantID": { $all: [client.privateID, targetUser.privateID] },
 		});
 
 		if (chat) {
-			const error = chatError.CHAT_EXIST;
+			const error = chatErrorTemplate.CHAT_EXIST;
 			throw error;
 		}
 

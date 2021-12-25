@@ -1,6 +1,6 @@
 const { userFinder } = require("~/function/helper/userFinder");
 
-const { userError } = require("~/constant/error/userError/userError");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 
 const findUserFromDB = async (req, res, next) => {
 	try {
@@ -9,7 +9,7 @@ const findUserFromDB = async (req, res, next) => {
 		const { user } = await userFinder({ ...cellphone });
 
 		if (user === null) {
-			const error = { cellphone, ...userError.CELLPHONE_NOT_EXIST };
+			const error = { cellphone, ...userErrorTemplate.CELLPHONE_NOT_EXIST };
 			throw error;
 		}
 

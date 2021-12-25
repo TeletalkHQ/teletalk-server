@@ -4,7 +4,7 @@ const { PrivateChatModel } = require("~/model/chatModel/privateChatModel");
 
 const { chatSchemaTemplate } = require("~/template/schemaTemplate/chatSchemaTemplate");
 
-const { chatError } = require("~/constant/error/chatError/chatError");
+const { chatErrorTemplate } = require("~/template/errorTemplate/chatErrorTemplate");
 
 const sendMessagePrivateChatController = async (req, res) => {
 	try {
@@ -18,14 +18,14 @@ const sendMessagePrivateChatController = async (req, res) => {
 		const chatFromUser = user.chats.find((chat) => chat.chatID === chatID);
 
 		if (!chatFromUser) {
-			const error = chatError.CHAT_NOT_EXIST;
+			const error = chatErrorTemplate.CHAT_NOT_EXIST;
 			throw error;
 		}
 
 		const chat = await PrivateChatModel.findOne({ chatID });
 
 		if (!chat) {
-			const error = chatError.CHAT_NOT_EXIST;
+			const error = chatErrorTemplate.CHAT_NOT_EXIST;
 			throw error;
 		}
 
@@ -34,7 +34,7 @@ const sendMessagePrivateChatController = async (req, res) => {
 		);
 
 		if (!checkParticipant) {
-			const error = chatError.PARTICIPANT_NOT_EXIST;
+			const error = chatErrorTemplate.PARTICIPANT_NOT_EXIST;
 			throw error;
 		}
 
@@ -43,7 +43,7 @@ const sendMessagePrivateChatController = async (req, res) => {
 		);
 
 		if (!checkUserParticipation) {
-			const error = chatError.USER_NO_LONGER_PARTICIPANT;
+			const error = chatErrorTemplate.USER_NO_LONGER_PARTICIPANT;
 			throw error;
 		}
 

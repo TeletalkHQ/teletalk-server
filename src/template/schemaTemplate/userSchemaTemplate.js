@@ -3,7 +3,7 @@
 const { commonSchemaTemplate } = require("~/template/schemaTemplate/commonSchemaTemplate");
 
 const {
-	userError: {
+	userErrorTemplate: {
 		BIO_INVALID_TYPE,
 		BIO_MAXLENGTH_REACH,
 		BIO_MINLENGTH_REACH,
@@ -49,7 +49,7 @@ const {
 		VERIFICATION_CODE_INVALID_LENGTH,
 		VERIFICATION_CODE_INVALID_TYPE,
 	},
-} = require("~/constant/error/userError/userError");
+} = require("~/template/errorTemplate/userErrorTemplate");
 
 const fn = (value, error = { reason: "undefined", message: "undefined" }) => ({
 	value,

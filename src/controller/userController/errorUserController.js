@@ -1,8 +1,8 @@
-const { userError } = require("~/constant/error/userError/userError");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 
 const errorUserController = (req, res) => {
 	try {
-		res.status(200).json(userError);
+		res.status(200).json(userErrorTemplate);
 	} catch (error) {
 		res.errorCollector({
 			data: { error: { message: "Unexpected server error", statusCode: 500 } },

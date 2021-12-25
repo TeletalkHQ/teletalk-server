@@ -1,4 +1,4 @@
-const { userError } = require("~/constant/error/userError/userError");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
 const addBlockCellphoneController = async (req, res) => {
@@ -14,7 +14,7 @@ const addBlockCellphoneController = async (req, res) => {
 		});
 
 		if (blacklistItem !== undefined) {
-			const error = userError.CELLPHONE_EXIST;
+			const error = userErrorTemplate.CELLPHONE_EXIST;
 			throw error;
 		}
 

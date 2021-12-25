@@ -3,7 +3,7 @@ const {
 } = require("./userSchemaTemplate");
 
 const {
-	chatError: {
+	chatErrorTemplate: {
 		CHAT_ID_EXIST,
 		CHAT_ID_INVALID_TYPE,
 		CHAT_ID_MAX_LENGTH_REACH,
@@ -23,7 +23,7 @@ const {
 		PARTICIPANT_ID_MIN_LENGTH_REACH,
 		PARTICIPANT_ID_REQUIRED,
 	},
-} = require("~/constant/error/chatError/chatError");
+} = require("~/template/errorTemplate/chatErrorTemplate");
 const { commonSchemaTemplate } = require("./commonSchemaTemplate");
 const { randomID } = require("~/function/utility/randomID");
 

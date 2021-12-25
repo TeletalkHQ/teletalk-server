@@ -1,4 +1,4 @@
-const { userError } = require("~/constant/error/userError/userError");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
 const editContactCellphoneController = async (req, res) => {
@@ -18,7 +18,7 @@ const editContactCellphoneController = async (req, res) => {
 		console.log("contactItem", contactItem);
 
 		if (contactItem === undefined) {
-			const error = userError.CELLPHONE_NOT_EXIST;
+			const error = userErrorTemplate.CELLPHONE_NOT_EXIST;
 			throw error;
 		}
 

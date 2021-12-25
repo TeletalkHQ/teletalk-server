@@ -1,4 +1,4 @@
-const { userError } = require("~/constant/error/userError/userError");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
 //TODO Add user status into contact and user schema
@@ -17,7 +17,7 @@ const addContactCellphoneController = async (req, res) => {
 		});
 
 		if (contactItem !== undefined) {
-			const error = userError.CELLPHONE_EXIST;
+			const error = userErrorTemplate.CELLPHONE_EXIST;
 			throw error;
 		}
 

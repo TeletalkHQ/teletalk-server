@@ -1,4 +1,4 @@
-const { userError } = require("~/constant/error/userError/userError");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
 const selfStuffControllerMDW = (req, res, next) => {
@@ -19,7 +19,7 @@ const selfStuffControllerMDW = (req, res, next) => {
 		if (userCellphone) {
 			const error = {
 				cellphone,
-				...userError.SELF_STUFF,
+				...userErrorTemplate.SELF_STUFF,
 			};
 
 			throw error;

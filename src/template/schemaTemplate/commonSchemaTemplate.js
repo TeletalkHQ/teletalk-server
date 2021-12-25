@@ -1,6 +1,6 @@
 const {
-	userError: { CREATED_AT_INVALID_TYPE },
-} = require("~/constant/error/userError/userError");
+	userErrorTemplate: { CREATED_AT_INVALID_TYPE },
+} = require("~/template/errorTemplate/userErrorTemplate");
 
 const fn = (value, error = { reason: "undefined", message: "undefined" }) => ({
 	value,

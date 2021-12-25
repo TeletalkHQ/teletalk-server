@@ -9,7 +9,7 @@ const { UserModel } = require("~/model/userModel/UserModel");
 
 const { userSchemaTemplate } = require("~/template/schemaTemplate/userSchemaTemplate");
 
-const { userError } = require("~/constant/error/userError/userError");
+const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 
 const verifySignInNormalUserController = async (req, res) => {
 	try {
@@ -20,7 +20,7 @@ const verifySignInNormalUserController = async (req, res) => {
 		const verifyToken = req.headers.authorization?.split("Bearer ")[1];
 
 		if (!verifyToken) {
-			const error = userError.TOKEN_REQUIRED;
+			const error = userErrorTemplate.TOKEN_REQUIRED;
 			throw error;
 		}
 
@@ -32,7 +32,7 @@ const verifySignInNormalUserController = async (req, res) => {
 		const { cellphone, pass } = verifiedToken.data.payload;
 
 		if (pass && pass !== verifyCode) {
-			const error = userError.VERIFICATION_CODE_INVALID;
+			const error = userErrorTemplate.VERIFICATION_CODE_INVALID;
 			throw error;
 		}
 

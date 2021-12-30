@@ -21,6 +21,4 @@ const SMSClient = async () => {
 	console.log(result);
 };
 
-SMSClient();
-
 module.exports = { SMSClient };

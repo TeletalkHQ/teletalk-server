@@ -1,7 +1,10 @@
 const MelipayamakApi = require("melipayamak");
 const { SMS_CLIENT_PASSWORD, SMS_CLIENT_USERNAME } = require("~/config/secret/secret");
 
-const api = new MelipayamakApi(SMS_CLIENT_USERNAME, SMS_CLIENT_PASSWORD);
+const api = new MelipayamakApi(
+	process.env.SMS_CLIENT_USERNAME,
+	process.env.SMS_CLIENT_PASSWORD,
+);
 
 const sms = api.sms();
 const from = "50004001700470";

@@ -13,9 +13,6 @@ const { connectDB } = require("~/config/database/connectDB");
 const { middleLine } = require("~/middleware/middleLine");
 
 const { lifeLine } = require("~/route/lifeLine");
-const { SMSClient } = require("~/function/tool/SMSClient");
-
-SMSClient();
 
 //? Connect to database =>
 connectDB();

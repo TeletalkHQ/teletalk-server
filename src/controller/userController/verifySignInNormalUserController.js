@@ -10,6 +10,7 @@ const { UserModel } = require("~/model/userModel/UserModel");
 const { userSchemaTemplate } = require("~/template/schemaTemplate/userSchemaTemplate");
 
 const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
+const { clients } = require("~/temp/Clients");
 
 const verifySignInNormalUserController = async (req, res) => {
 	try {
@@ -29,9 +30,20 @@ const verifySignInNormalUserController = async (req, res) => {
 			secret: process.env.JWT_SIGN_IN_SECRET,
 		});
 
-		const { cellphone, pass } = verifiedToken.data.payload;
+		const { cellphone } = verifiedToken.data.payload;
 
-		if (pass && pass !== verifyCode) {
+		const client = clients.clients.find((client) => {
+			if (
+				client.cellphone.phoneNumber === cellphone.phoneNumber &&
+				client.cellphone.countryCode === cellphone.countryCode
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+
+		if (client && client.verifyCode !== verifyCode) {
 			const error = userErrorTemplate.VERIFICATION_CODE_INVALID;
 			throw error;
 		}

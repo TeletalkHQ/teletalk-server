@@ -1,5 +1,6 @@
-const MelipayamakApi = require("melipayamak");
+// const MelipayamakApi = require("melipayamak");
 const { SMS_CLIENT_PASSWORD, SMS_CLIENT_USERNAME } = require("~/config/secret/secret");
+const MelipayamakApi = require("./melipayamak");
 
 const api = new MelipayamakApi(
 	// process.env.SMS_CLIENT_USERNAME |

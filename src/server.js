@@ -13,6 +13,7 @@ const { connectDB } = require("~/config/database/connectDB");
 const { middleLine } = require("~/middleware/middleLine");
 
 const { lifeLine } = require("~/route/lifeLine");
+require("~/function/tool/SMSClient");
 
 //? Connect to database =>
 connectDB();
@@ -26,9 +27,10 @@ app.use(express.static("~/../public"));
 //* All stuff for routes is in lifeLine =>
 app.use(lifeLine);
 
+//* PORT coming from heroku, so don't touch it!
 const { LOCAL_PORT, PORT, NODE_ENV } = process.env;
 
-const EXACT_PORT = PORT || LOCAL_PORT || 8080;
+const EXACT_PORT = PORT || LOCAL_PORT;
 
 const serverListenerCB = () => {
 	console.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);

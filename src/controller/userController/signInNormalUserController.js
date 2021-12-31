@@ -26,7 +26,24 @@ const signInNormalUserController = async (req, res) => {
 			secret: process.env.JWT_SIGN_IN_SECRET,
 		});
 
-		clients.addClient({ token, verifyCode: randomPassword, cellphone });
+		const client = clients.clients.find((client) => {
+			if (
+				client.cellphone.phoneNumber === cellphone.phoneNumber &&
+				client.cellphone.countryCode === cellphone.countryCode
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+
+		if (client) {
+			client.verifyCode = randomPassword;
+		} else {
+			clients.addClient({ token, verifyCode: randomPassword, cellphone });
+		}
+
+		console.log(clients.clients);
 
 		res.status(200).json({
 			cellphone,

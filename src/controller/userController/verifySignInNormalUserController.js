@@ -1,15 +1,16 @@
-const { userFinder } = require("~/function/helper/userFinder");
 const { randomID } = require("~/function/utility/randomID");
+const { userFinder } = require("~/function/helper/userFinder");
 const { tokenSigner } = require("~/function/utility/tokenSigner");
 const { tokenVerifier } = require("~/function/utility/tokenVerifier");
+const { sendableUserData } = require("~/function/utility/sendableUserData");
 
 const { cellphoneValidator } = require("~/validator/userValidator/cellphoneValidator");
 
 const { UserModel } = require("~/model/userModel/UserModel");
 
 const { userSchemaTemplate } = require("~/template/schemaTemplate/userSchemaTemplate");
-
 const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
+
 const { clients } = require("~/temp/Clients");
 
 const verifySignInNormalUserController = async (req, res) => {
@@ -58,34 +59,7 @@ const verifySignInNormalUserController = async (req, res) => {
 		const { user } = await userFinder({ ...cellphone });
 
 		if (user) {
-			const fn = ({
-				user: {
-					privateID,
-					firstName,
-					lastName,
-					bio,
-					contacts,
-					blacklist,
-					username,
-					phoneNumber,
-					countryCode,
-					countryName,
-					chats,
-				},
-			}) => ({
-				privateID,
-				firstName,
-				lastName,
-				bio,
-				contacts,
-				blacklist,
-				username,
-				phoneNumber,
-				countryCode,
-				countryName,
-				chats,
-			});
-			const copyUser = fn({ user });
+			const { userData } = sendableUserData({ user });
 
 			// const { token } = await tokenSigner({
 			// 	data: { cellphone, privateID: copyUser.privateID },
@@ -95,9 +69,9 @@ const verifySignInNormalUserController = async (req, res) => {
 
 			// await UserModel.findOneAndUpdate({ privateID: user.privateID }, { tokens: user.token });
 
-			res.status(200).json({ user: { ...copyUser, token: user.tokens[0].token } });
+			res.status(200).json({ user: { ...userData, token: user.tokens[0].token } });
 		} else if (!user) {
-			const firstName = "DEFAULT NAME";
+			const firstName = "DEFAULT FIRST_NAME";
 			const privateID = randomID(userSchemaTemplate.privateID.maxlength.value);
 
 			const { token } = await tokenSigner({ data: { cellphone, privateID } });

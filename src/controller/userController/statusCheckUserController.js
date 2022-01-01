@@ -4,6 +4,7 @@ const { tokenVerifier } = require("~/function/utility/tokenVerifier");
 const { cellphoneValidator } = require("~/validator/userValidator/cellphoneValidator");
 
 const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
+const { sendableUserData } = require("~/function/utility/sendableUserData");
 
 const statusCheckUserController = async (req, res) => {
 	try {
@@ -33,10 +34,9 @@ const statusCheckUserController = async (req, res) => {
 			throw error;
 		}
 
-		//! Unnecessary data sending
-		res
-			.status(200)
-			.json({ user: { privateID: user.privateID, cellphone, chats: user.chats } });
+		const { userData } = sendableUserData({ user });
+
+		res.status(200).json({ user: userData });
 	} catch (error) {
 		console.log("statusCheckUserController", error);
 		res.errorCollector({ data: { error } });

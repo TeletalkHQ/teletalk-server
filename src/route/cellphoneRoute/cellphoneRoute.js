@@ -5,6 +5,7 @@ const { contactValidatorMDW } = require("~/middleware/contactValidatorMDW");
 const { errorResponser } = require("~/middleware/errorResponser");
 const { findUserFromDB } = require("~/middleware/findUserFromDB");
 const { selfStuffControllerMDW } = require("~/middleware/selfStuffControllerMDW");
+const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 const {
 	targetUserFinderByCellphoneMDW,
 } = require("~/middleware/targetUserFinderByCellphoneMDW");
@@ -21,18 +22,30 @@ const {
 const {
 	removeContactCellphoneController,
 } = require("~/controller/cellphoneController/removeContactCellphoneController");
-
-const {
-	cellphoneRouteTemplate: { addContact, addBlock, editContact, removeBlock, removeContact },
-} = require("~/template/routeTemplate/cellphoneRouteTemplate");
-const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 const {
 	editContactCellphoneController,
 } = require("~/controller/cellphoneController/editContactCellphoneController");
+const {
+	getContactsCellphoneController,
+} = require("~/controller/cellphoneController/getContactsCellphoneController");
+
+const {
+	cellphoneRouteTemplate: {
+		addContact,
+		addBlock,
+		editContact,
+		removeBlock,
+		removeContact,
+		getContacts,
+	},
+} = require("~/template/routeTemplate/cellphoneRouteTemplate");
 
 const cellphoneRoute = Router();
 
 cellphoneRoute.use(authDefaultMDW);
+
+cellphoneRoute.get(getContacts.route, findUserFromDB, getContactsCellphoneController);
+
 cellphoneRoute.use(cellphoneValidatorMDW);
 cellphoneRoute.use(selfStuffControllerMDW);
 cellphoneRoute.use(findUserFromDB);

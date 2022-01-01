@@ -34,6 +34,11 @@ const cellphoneRouteTemplate = {
 		route: "/edit/contact",
 		version: "1.0.0",
 	},
+	getContacts: {
+		description: "User for edit single contact on user contacts list",
+		route: "/get/contacts",
+		version: "1.0.0",
+	},
 	removeBlock: {
 		description: "Use for remove single contact on user contacts list",
 		route: "/remove/block",

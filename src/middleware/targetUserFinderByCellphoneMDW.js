@@ -15,6 +15,8 @@ const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 			};
 			throw error;
 		}
+
+		req.body.targetUser = targeUser;
 	} catch (error) {
 		console.log("targetUserFinderByCellphone catch", error);
 

@@ -5,7 +5,7 @@ const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 const addContactCellphoneController = async (req, res) => {
 	try {
 		const {
-			DB: { user,targetUser },
+			DB: { user, targetUser },
 			firstName,
 			lastName,
 			cellphone,
@@ -27,7 +27,7 @@ const addContactCellphoneController = async (req, res) => {
 			contacts: user.contacts,
 		});
 
-		res.status(200).json({ cellphone,firstName,lastName,privateID:targetUser.privateID });
+		res.status(200).json({ cellphone, firstName, lastName, privateID: targetUser.privateID });
 	} catch (error) {
 		console.log("addContactCellphoneController", error);
 		res.errorCollector({ data: { error } });

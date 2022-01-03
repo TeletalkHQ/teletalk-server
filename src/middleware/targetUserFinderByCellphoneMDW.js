@@ -6,9 +6,9 @@ const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 	try {
 		const { cellphone } = req.body;
 
-		const { user: targeUser } = await userFinder({ ...cellphone });
+		const { user: targetUser } = await userFinder({ ...cellphone });
 
-		if (targeUser === null) {
+		if (targetUser === null) {
 			const error = {
 				cellphone,
 				...userErrorTemplate.CELLPHONE_NOT_EXIST,
@@ -16,7 +16,7 @@ const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 			throw error;
 		}
 
-		req.body.targetUser = targeUser;
+		req.body.DB = { ...req.body.DB, targetUser };
 	} catch (error) {
 		console.log("targetUserFinderByCellphone catch", error);
 

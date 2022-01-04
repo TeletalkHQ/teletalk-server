@@ -10,10 +10,8 @@ const sendMessagePrivateChatController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			chatID,
-			participantID,
-			messageText,
-		} = req.body;
+			body: { chatID, participantID, messageText },
+		} = req;
 
 		const chatFromUser = user.chats.find((chat) => chat.chatID === chatID);
 

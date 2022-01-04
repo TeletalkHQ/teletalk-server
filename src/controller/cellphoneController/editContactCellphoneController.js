@@ -5,10 +5,8 @@ const editContactCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			firstName,
-			lastName,
-			cellphone,
-		} = req.body;
+			body: { firstName, lastName, cellphone },
+		} = req;
 
 		const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder({
 			cellphones: user.contacts,

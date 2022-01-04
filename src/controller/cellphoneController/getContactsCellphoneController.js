@@ -4,7 +4,7 @@ const getContactsCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-		} = req.body;
+		} = req;
 
 		const { userData } = sendableUserData({ user });
 

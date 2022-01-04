@@ -4,7 +4,7 @@ const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplat
 
 const findUserFromDB = async (req, res, next) => {
 	try {
-		const { cellphone } = req.body.authData.data.payload;
+		const { cellphone } = req.authData.data.payload;
 
 		const { user } = await userFinder({ ...cellphone });
 
@@ -13,7 +13,7 @@ const findUserFromDB = async (req, res, next) => {
 			throw error;
 		}
 
-		req.body.DB = { user };
+		req.DB = { ...req.DB, user };
 	} catch (error) {
 		console.log("findUserFromDB catch: " + error);
 		res.errorCollector({ data: { error } });

@@ -3,7 +3,7 @@ const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
 const selfStuffControllerMDW = (req, res, next) => {
 	try {
-		const user = req.body.authData.data.payload;
+		const user = req.authData.data.payload;
 
 		const { cellphone } = req.body;
 

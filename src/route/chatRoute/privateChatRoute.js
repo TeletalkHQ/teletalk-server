@@ -1,7 +1,6 @@
 const { Router } = require("express");
 
 const { authDefaultMDW } = require("~/middleware/authDefaultMDW");
-const { errorResponser } = require("~/middleware/errorResponser");
 
 const {
 	sendMessagePrivateChatController,
@@ -23,8 +22,6 @@ const privateChatRoute = Router();
 privateChatRoute.use(authDefaultMDW);
 
 privateChatRoute.use(findUserFromDB);
-
-privateChatRoute.use(errorResponser);
 
 privateChatRoute.post(sendMessage.properties.route, sendMessagePrivateChatController);
 privateChatRoute.post(getMessages.properties.route, getMessagesPrivateChatController);

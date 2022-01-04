@@ -11,8 +11,6 @@ const authDefaultMDW = async (req, res, next) => {
 		console.log("🚀 ~ file: authDefaultMDW.js ~ line 11 ~ authDefaultMDW ~ error", error);
 		res.errorCollector({ data: { error, statusCode: 401 } });
 		res.errorResponser();
-	} finally {
-		// next();
 	}
 };
 

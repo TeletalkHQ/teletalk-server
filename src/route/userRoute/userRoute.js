@@ -1,7 +1,5 @@
 const { Router } = require("express");
 
-const { errorResponser } = require("~/middleware/errorResponser");
-
 const {
 	userRouteTemplate,
 	signInNormalUserController,
@@ -29,9 +27,6 @@ const {
 } = userRouteTemplate;
 
 userRoute.use(signInNormal.properties.route, cellphoneValidatorMDW);
-
-//? comment: middleware: danger: errorResponser
-userRoute.use(errorResponser);
 
 userRoute.post(signInNormal.properties.route, signInNormalUserController);
 userRoute.post(verifySignInNormal.properties.route, verifySignInNormalUserController);

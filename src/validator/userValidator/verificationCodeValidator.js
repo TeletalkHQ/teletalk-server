@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const verificationCodeValidation = {
-	...verificationCodeValidationSchema,
+	properties: { ...verificationCodeValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const verificationCodeValidator = v.compile(verificationCodeValidation);
+const verificationCodeValidator = v.compile(verificationCodeValidation.properties);
 
 module.exports = { verificationCodeValidator, verificationCodeValidation };

@@ -44,7 +44,11 @@ const cellphoneRoute = Router();
 
 cellphoneRoute.use(authDefaultMDW);
 
-cellphoneRoute.get(getContacts.route, findUserFromDB, getContactsCellphoneController);
+cellphoneRoute.get(
+	getContacts.properties.route,
+	findUserFromDB,
+	getContactsCellphoneController,
+);
 
 cellphoneRoute.use(cellphoneValidatorMDW);
 cellphoneRoute.use(selfStuffControllerMDW);
@@ -52,14 +56,14 @@ cellphoneRoute.use(findUserFromDB);
 
 cellphoneRoute.use(targetUserFinderByCellphoneMDW);
 
-cellphoneRoute.use(addContact.route, contactValidatorMDW);
+cellphoneRoute.use(addContact.properties.route, contactValidatorMDW);
 // ? comment :  middleware: danger : errorResponser
 cellphoneRoute.use(errorResponser);
 
-cellphoneRoute.post(addContact.route, addContactCellphoneController);
-cellphoneRoute.post(addBlock.route, addBlockCellphoneController);
-cellphoneRoute.post(removeBlock.route, removeBlockCellphoneController);
-cellphoneRoute.post(removeContact.route, removeContactCellphoneController);
-cellphoneRoute.post(editContact.route, editContactCellphoneController);
+cellphoneRoute.post(addContact.properties.route, addContactCellphoneController);
+cellphoneRoute.post(addBlock.properties.route, addBlockCellphoneController);
+cellphoneRoute.post(removeBlock.properties.route, removeBlockCellphoneController);
+cellphoneRoute.post(removeContact.properties.route, removeContactCellphoneController);
+cellphoneRoute.post(editContact.properties.route, editContactCellphoneController);
 
 module.exports = { cellphoneRoute };

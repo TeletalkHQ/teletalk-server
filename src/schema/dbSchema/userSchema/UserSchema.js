@@ -4,18 +4,18 @@ const { chatSchemaTemplate } = require("~/template/schemaTemplate/chatSchemaTemp
 
 const {
 	userSchemaTemplate: {
-		bio,
-		// blacklist,
-		// contacts,
-		countryCode,
-		countryName,
-		createdAt,
-		firstName,
-		lastName,
-		phoneNumber,
-		privateID,
-		token,
-		username,
+		bio: { properties: bio },
+		// blacklist:{properties:blacklist},
+		// contacts:{properties:contacts},
+		countryCode: { properties: countryCode },
+		countryName: { properties: countryName },
+		createdAt: { properties: createdAt },
+		firstName: { properties: firstName },
+		lastName: { properties: lastName },
+		phoneNumber: { properties: phoneNumber },
+		privateID: { properties: privateID },
+		token: { properties: token },
+		username: { properties: username },
 	},
 } = require("~/template/schemaTemplate/userSchemaTemplate");
 

@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const usernameValidation = {
-	...usernameValidationSchema,
+	properties: { ...usernameValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const usernameValidator = v.compile(usernameValidation);
+const usernameValidator = v.compile(usernameValidation.properties);
 
 module.exports = { usernameValidator, usernameValidation };

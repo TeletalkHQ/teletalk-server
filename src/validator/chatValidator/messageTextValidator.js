@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const messageTextValidation = {
-	...messageTextValidationSchema,
+	properties: { ...messageTextValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const messageTextValidator = v.compile(messageTextValidation);
+const messageTextValidator = v.compile(messageTextValidation.properties);
 
 module.exports = { messageTextValidator, messageTextValidation };

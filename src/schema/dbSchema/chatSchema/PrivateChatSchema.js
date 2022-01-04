@@ -3,15 +3,15 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const {
 	chatSchemaTemplate: {
-		chatID,
-		createdAt,
-		messageID,
-		// messageSender,
-		// messageStatus,
-		messageText,
-		participantID,
-		// participantStatus,
-		// participantVisibility,
+		chatID: { properties: chatID },
+		createdAt: { properties: createdAt },
+		messageID: { properties: messageID },
+		// messageSender:{properties:messageSender},
+		// messageStatus:{properties:messageStatus},
+		messageText: { properties: messageText },
+		participantID: { properties: participantID },
+		// participantStatus:{properties:participantStatus},
+		// participantVisibility:{properties:participantVisibility},
 	},
 } = require("~/template/schemaTemplate/chatSchemaTemplate");
 

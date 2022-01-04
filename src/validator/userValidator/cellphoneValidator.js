@@ -14,11 +14,17 @@ const {
 const v = new Validator();
 
 const cellphoneValidation = {
-	...phoneNumberValidationSchema,
-	...countryCodeValidationSchema,
-	...countryNameValidationSchema,
+	properties: {
+		...phoneNumberValidationSchema.properties,
+		...countryCodeValidationSchema.properties,
+		...countryNameValidationSchema.properties,
+	},
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const cellphoneValidator = v.compile(cellphoneValidation);
+const cellphoneValidator = v.compile(cellphoneValidation.properties);
 
 module.exports = { cellphoneValidator, cellphoneValidation };

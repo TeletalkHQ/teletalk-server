@@ -7,11 +7,17 @@ const { lastNameValidation } = require("~/validator/userValidator/lastNameValida
 const v = new Validator();
 
 const contactValidation = {
-	...cellphoneValidation,
-	...firstNameValidation,
-	...lastNameValidation,
+	properties: {
+		...cellphoneValidation.properties,
+		...firstNameValidation.properties,
+		...lastNameValidation.properties,
+	},
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const contactValidator = v.compile(contactValidation);
+const contactValidator = v.compile(contactValidation.properties);
 
 module.exports = { contactValidator, contactValidation };

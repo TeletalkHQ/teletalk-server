@@ -17,6 +17,10 @@ const chatIDValidationSchema = {
 			stringMax: chatID.maxlength.error.message,
 		},
 	},
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
 module.exports = { chatIDValidationSchema };

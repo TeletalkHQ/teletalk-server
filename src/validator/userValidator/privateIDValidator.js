@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const privateIDValidation = {
-	...privateIDValidationSchema,
+	properties: { ...privateIDValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const privateIDValidator = v.compile(privateIDValidation);
+const privateIDValidator = v.compile(privateIDValidation.properties);
 
 module.exports = { privateIDValidator, privateIDValidation };

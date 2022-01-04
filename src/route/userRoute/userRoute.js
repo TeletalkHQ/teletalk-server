@@ -28,17 +28,17 @@ const {
 	template,
 } = userRouteTemplate;
 
-userRoute.use(signInNormal.route, cellphoneValidatorMDW);
+userRoute.use(signInNormal.properties.route, cellphoneValidatorMDW);
 
 //? comment: middleware: danger: errorResponser
 userRoute.use(errorResponser);
 
-userRoute.post(signInNormal.route, signInNormalUserController);
-userRoute.post(verifySignInNormal.route, verifySignInNormalUserController);
-userRoute.get(statusCheck.route, statusCheckUserController);
+userRoute.post(signInNormal.properties.route, signInNormalUserController);
+userRoute.post(verifySignInNormal.properties.route, verifySignInNormalUserController);
+userRoute.get(statusCheck.properties.route, statusCheckUserController);
 
-userRoute.get(error.route, errorUserController);
-userRoute.get(template.route, templateUserController);
+userRoute.get(error.properties.route, errorUserController);
+userRoute.get(template.properties.route, templateUserController);
 
 //* sign out normal =>
 //

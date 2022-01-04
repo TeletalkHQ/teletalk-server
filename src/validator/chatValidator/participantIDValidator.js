@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const participantIDValidation = {
-	...participantIDValidationSchema,
+	properties: { ...participantIDValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const participantIDValidator = v.compile(participantIDValidation);
+const participantIDValidator = v.compile(participantIDValidation.properties);
 
 module.exports = { participantIDValidator, participantIDValidation };

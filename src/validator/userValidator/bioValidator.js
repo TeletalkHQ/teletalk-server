@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const bioValidation = {
-	...bioValidationsSchema,
+	properties: { ...bioValidationsSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const bioValidator = v.compile(bioValidation);
+const bioValidator = v.compile(bioValidation.properties);
 
 module.exports = { bioValidator, bioValidation };

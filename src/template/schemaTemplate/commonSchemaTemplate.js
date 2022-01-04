@@ -15,8 +15,13 @@ const createdAt = {
 };
 
 const commonSchemaTemplate = {
-	createdAt,
 	version: "1.0.0",
+
+	createdAt,
 };
 
-module.exports = { commonSchemaTemplate };
+module.exports = {
+	commonSchemaTemplate,
+
+	createdAt,
+};

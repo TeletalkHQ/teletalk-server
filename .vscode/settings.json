@@ -44,8 +44,19 @@
 		"**/.DS_Store": true,
 		"**/Thumbs.db": true,
 		"**/.trashcan": true,
-		".trashcan": true
+		".trashcan": true,
+		".eslintignore": true,
+		"yarn.lock": true,
+		"yarn-error.log": true,
+		"Procfile": true,
+		"README.md": true,
+		"globals.d.ts": true,
+		".eslintrc.json": true,
+		".gitignore": true,
+		"package.json": true,
+		"node_modules": true,
+		".idea": true
 	},
-	"explorerExclude.backup": {},
+	"explorerExclude.backup": null,
 	"cSpell.words": ["Melipayamak"]
 }

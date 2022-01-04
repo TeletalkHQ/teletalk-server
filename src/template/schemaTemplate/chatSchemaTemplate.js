@@ -1,7 +1,9 @@
 const { randomID } = require("~/function/utility/randomID");
 
 const {
-	userSchemaTemplate: { privateID },
+	userSchemaTemplate: {
+		privateID: { properties: privateID },
+	},
 } = require("~/template/schemaTemplate/userSchemaTemplate");
 
 const { commonSchemaTemplate } = require("~/template/schemaTemplate/commonSchemaTemplate");

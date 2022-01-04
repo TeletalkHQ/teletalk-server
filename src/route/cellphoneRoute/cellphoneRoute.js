@@ -53,12 +53,8 @@ cellphoneRoute.get(
 cellphoneRoute.use(cellphoneValidatorMDW);
 cellphoneRoute.use(selfStuffControllerMDW);
 cellphoneRoute.use(findUserFromDB);
-
 cellphoneRoute.use(targetUserFinderByCellphoneMDW);
-
 cellphoneRoute.use(addContact.properties.route, contactValidatorMDW);
-// ? comment :  middleware: danger : errorResponser
-cellphoneRoute.use(errorResponser);
 
 cellphoneRoute.post(addContact.properties.route, addContactCellphoneController);
 cellphoneRoute.post(addBlock.properties.route, addBlockCellphoneController);

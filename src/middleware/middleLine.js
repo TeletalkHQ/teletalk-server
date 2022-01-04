@@ -10,6 +10,7 @@ const { bodyClarify } = require("~/middleware/bodyClarify");
 const { errorCollector } = require("~/middleware/errorCollector");
 const { errorResponser } = require("~/middleware/errorResponser");
 
+//TODO Use try/catch, Use NODE_ENV
 const middleLine = ({ app, express }) => {
 	// prettyError.start();
 

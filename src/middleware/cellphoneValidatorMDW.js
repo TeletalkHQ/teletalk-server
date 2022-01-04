@@ -14,8 +14,7 @@ const cellphoneValidatorMDW = async (req, res, next) => {
 	} catch (error) {
 		console.log("cellphoneValidatorMDW catch", error);
 		res.errorCollector({ data: { error } });
-	} finally {
-		next();
+		res.errorResponser();
 	}
 };
 

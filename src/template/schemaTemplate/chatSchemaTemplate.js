@@ -1,6 +1,10 @@
+const { randomID } = require("~/function/utility/randomID");
+
 const {
 	userSchemaTemplate: { privateID },
-} = require("./userSchemaTemplate");
+} = require("~/template/schemaTemplate/userSchemaTemplate");
+
+const { commonSchemaTemplate } = require("~/template/schemaTemplate/commonSchemaTemplate");
 
 const {
 	chatErrorTemplate: {
@@ -24,8 +28,6 @@ const {
 		PARTICIPANT_ID_REQUIRED,
 	},
 } = require("~/template/errorTemplate/chatErrorTemplate");
-const { commonSchemaTemplate } = require("./commonSchemaTemplate");
-const { randomID } = require("~/function/utility/randomID");
 
 const fn = (value, error = { reason: "undefined", message: "undefined" }) => ({
 	value,
@@ -89,6 +91,8 @@ const participantVisibility = {
 };
 
 const chatSchemaTemplate = {
+	version: "1.0.0",
+
 	chatID,
 	createdAt,
 	messageID,
@@ -98,7 +102,18 @@ const chatSchemaTemplate = {
 	participantID,
 	participantStatus,
 	participantVisibility,
-	version: "1.0.0",
 };
 
-module.exports = { chatSchemaTemplate };
+module.exports = {
+	chatSchemaTemplate,
+
+	chatID,
+	createdAt,
+	messageID,
+	messageSender,
+	messageStatus,
+	messageText,
+	participantID,
+	participantStatus,
+	participantVisibility,
+};

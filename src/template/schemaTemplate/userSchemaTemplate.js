@@ -174,6 +174,8 @@ const verificationCode = {
 };
 
 const userSchemaTemplate = {
+	version: "1.0.0",
+
 	bio,
 	blacklist,
 	contacts,
@@ -188,7 +190,23 @@ const userSchemaTemplate = {
 	token,
 	username,
 	verificationCode,
-	version: "1.0.0",
 };
 
-module.exports = { userSchemaTemplate };
+module.exports = {
+	userSchemaTemplate,
+
+	bio,
+	blacklist,
+	contacts,
+	countryCode,
+	countryName,
+	createdAt,
+	firstName,
+	lastName,
+	macAddress,
+	phoneNumber,
+	privateID,
+	token,
+	username,
+	verificationCode,
+};

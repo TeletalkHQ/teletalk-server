@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const macAddressValidation = {
-	...macAddressValidationSchema,
+	properties: { ...macAddressValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const macAddressValidator = v.compile(macAddressValidation);
+const macAddressValidator = v.compile(macAddressValidation.properties);
 
 module.exports = { macAddressValidator, macAddressValidation };

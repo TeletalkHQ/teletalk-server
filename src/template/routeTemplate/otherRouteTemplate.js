@@ -1,22 +1,28 @@
 const baseRoute = {
-	route: "/other",
-	version: "1.0.0",
+	properties: { description: "", route: "/other" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const welcome = {
-	description: "Use to get welcome message for client",
-	route: "/welcome",
-	version: "1.0.0",
+	properties: { description: "Use to get welcome message for client", route: "/welcome" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const error = {
-	description: "Use for get all errors messages",
-	route: "/error",
-	version: "1.0.0",
+	properties: { description: "Use for get all errors messages", route: "/error" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const otherRouteTemplate = {
-	version: "1.0.0",
+	info: {
+		version: "1.0.0",
+	},
 
 	baseRoute,
 	welcome,

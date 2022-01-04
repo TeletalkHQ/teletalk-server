@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const messageIDValidation = {
-	...messageIDValidationSchema,
+	properties: { ...messageIDValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const messageIDValidator = v.compile(messageIDValidation);
+const messageIDValidator = v.compile(messageIDValidation.properties);
 
 module.exports = { messageIDValidator, messageIDValidation };

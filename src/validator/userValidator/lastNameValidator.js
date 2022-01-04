@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const lastNameValidation = {
-	...lastNameValidationSchema,
+	properties: { ...lastNameValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const lastNameValidator = v.compile(lastNameValidation);
+const lastNameValidator = v.compile(lastNameValidation.properties);
 
 module.exports = { lastNameValidator, lastNameValidation };

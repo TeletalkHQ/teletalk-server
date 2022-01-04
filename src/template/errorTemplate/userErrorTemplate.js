@@ -1,329 +1,388 @@
 const BIO_INVALID_TYPE = {
-	message: "",
-	reason: "BIO_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "BIO_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const BIO_MAXLENGTH_REACH = {
-	message: "",
-	reason: "BIO_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "BIO_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const BIO_MINLENGTH_REACH = {
-	message: "",
-	reason: "BIO_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "BIO_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CELLPHONE_EXIST = {
-	message: "",
-	reason: "CELLPHONE_EXIST",
-	version: "1.0.0",
+	properties: { message: "", reason: "CELLPHONE_EXIST" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CELLPHONE_INVALID_TYPE = {
-	message: "",
-	reason: "CELLPHONE_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "CELLPHONE_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CELLPHONE_MAXLENGTH_REACH = {
-	message: "",
-	reason: "CELLPHONE_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "CELLPHONE_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CELLPHONE_MINLENGTH_REACH = {
-	message: "",
-	reason: "CELLPHONE_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "CELLPHONE_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CELLPHONE_NOT_EXIST = {
-	message: "",
-	reason: "CELLPHONE_NOT_EXIST",
-	version: "1.0.0",
+	properties: { message: "", reason: "CELLPHONE_NOT_EXIST" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CELLPHONE_REQUIRED = {
-	message: "",
-	reason: "CELLPHONE_REQUIRED",
-	version: "1.0.0",
+	properties: { message: "", reason: "CELLPHONE_REQUIRED" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CELLPHONE_EXIST_IN_CONTACT = {
-	message: "",
-	reason: "CELLPHONE_EXIST_IN_CONTACT",
-	version: "1.0.0",
+	properties: { message: "", reason: "CELLPHONE_EXIST_IN_CONTACT" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CONTACT_INVALID_TYPE = {
-	message: "",
-	reason: "CONTACT_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "CONTACT_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const COUNTRY_CODE_INVALID_TYPE = {
-	message: "",
-	reason: "COUNTRY_CODE_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "COUNTRY_CODE_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const COUNTRY_CODE_MAXLENGTH_REACH = {
-	message: "",
-	reason: "COUNTRY_CODE_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "COUNTRY_CODE_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const COUNTRY_CODE_MINLENGTH_REACH = {
-	message: "",
-	reason: "COUNTRY_CODE_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "COUNTRY_CODE_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const COUNTRY_CODE_REQUIRED = {
-	message: "",
-	reason: "COUNTRY_CODE_REQUIRED",
-	version: "1.0.0",
+	properties: { message: "", reason: "COUNTRY_CODE_REQUIRED" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const COUNTRY_NAME_INVALID_TYPE = {
-	message: "",
-	reason: "COUNTRY_NAME_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "COUNTRY_NAME_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const COUNTRY_NAME_MAXLENGTH_REACH = {
-	message: "",
-	reason: "COUNTRY_NAME_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "COUNTRY_NAME_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const COUNTRY_NAME_MINLENGTH_REACH = {
-	message: "",
-	reason: "COUNTRY_NAME_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "COUNTRY_NAME_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const COUNTRY_NAME_REQUIRED = {
-	message: "",
-	reason: "COUNTRY_NAME_REQUIRED",
-	version: "1.0.0",
+	properties: { message: "", reason: "COUNTRY_NAME_REQUIRED" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const CREATED_AT_INVALID_TYPE = {
-	message: "",
-	reason: "CREATED_AT_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "CREATED_AT_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const FIRST_NAME_INVALID_TYPE = {
-	message: "",
-	reason: "FIRST_NAME_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "FIRST_NAME_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const FIRST_NAME_MAXLENGTH_REACH = {
-	message: "",
-	reason: "FIRST_NAME_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "FIRST_NAME_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const FIRST_NAME_MINLENGTH_REACH = {
-	message: "",
-	reason: "FIRST_NAME_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "FIRST_NAME_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const FIRST_NAME_REQUIRED = {
-	message: "",
-	reason: "FIRST_NAME_REQUIRED",
-	version: "1.0.0",
+	properties: { message: "", reason: "FIRST_NAME_REQUIRED" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const LAST_NAME_INVALID_TYPE = {
-	message: "",
-	reason: "LAST_NAME_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "LAST_NAME_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const LAST_NAME_MAXLENGTH_REACH = {
-	message: "",
-	reason: "LAST_NAME_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "LAST_NAME_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const LAST_NAME_MINLENGTH_REACH = {
-	message: "",
-	reason: "LAST_NAME_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "LAST_NAME_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const MAC_ADDRESS_EXIST = {
-	message: "",
-	reason: "MAC_ADDRESS_EXIST",
-	version: "1.0.0",
+	properties: { message: "", reason: "MAC_ADDRESS_EXIST" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const MAC_ADDRESS_INVALID_TYPE = {
-	message: "",
-	reason: "MAC_ADDRESS_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "MAC_ADDRESS_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const MAC_ADDRESS_MAXLENGTH_REACH = {
-	message: "",
-	reason: "MAC_ADDRESS_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "MAC_ADDRESS_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const MAC_ADDRESS_MINLENGTH_REACH = {
-	message: "",
-	reason: "MAC_ADDRESS_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "MAC_ADDRESS_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const MAC_ADDRESS_REQUIRED = {
-	message: "",
-	reason: "MAC_ADDRESS_REQUIRED",
-	version: "1.0.0",
+	properties: { message: "", reason: "MAC_ADDRESS_REQUIRED" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PHONE_NUMBER_INVALID_TYPE = {
-	message: "",
-	reason: "PHONE_NUMBER_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "PHONE_NUMBER_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PHONE_NUMBER_EXIST = {
-	message: "",
-	reason: "PHONE_NUMBER_EXIST",
-	version: "1.0.0",
+	properties: { message: "", reason: "PHONE_NUMBER_EXIST" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PHONE_NUMBER_REQUIRED = {
-	message: "",
-	reason: "PHONE_NUMBER_REQUIRED",
-	version: "1.0.0",
+	properties: { message: "", reason: "PHONE_NUMBER_REQUIRED" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PHONE_NUMBER_MINLENGTH_REACH = {
-	message: "",
-	reason: "PHONE_NUMBER_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "PHONE_NUMBER_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PHONE_NUMBER_MAXLENGTH_REACH = {
-	message: "",
-	reason: "PHONE_NUMBER_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "PHONE_NUMBER_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PRIVATE_ID_EXIST = {
-	message: "",
-	reason: "PRIVATE_ID_EXIST",
-	version: "1.0.0",
+	properties: { message: "", reason: "PRIVATE_ID_EXIST" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PRIVATE_ID_INVALID_TYPE = {
-	message: "",
-	reason: "PRIVATE_ID_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "PRIVATE_ID_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PRIVATE_ID_MAX_LENGTH_REACH = {
-	message: "",
-	reason: "PRIVATE_ID_MAX_LENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "PRIVATE_ID_MAX_LENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PRIVATE_ID_MIN_LENGTH_REACH = {
-	message: "",
-	reason: "PRIVATE_ID_MIN_LENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "PRIVATE_ID_MIN_LENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const PRIVATE_ID_REQUIRED = {
-	message: "",
-	reason: "PRIVATE_ID_REQUIRED",
-	version: "1.0.0",
+	properties: { message: "", reason: "PRIVATE_ID_REQUIRED" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const SELF_STUFF = {
-	message: "",
-	reason: "SELF_STUFF",
-	version: "1.0.0",
+	properties: { message: "", reason: "SELF_STUFF" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const TOKEN_EXIST = {
-	message: "",
-	reason: "TOKEN_EXIST",
-	version: "1.0.0",
+	properties: { message: "", reason: "TOKEN_EXIST" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const TOKEN_REQUIRED = {
-	message: "",
-	reason: "TOKEN_REQUIRED",
-	version: "1.0.0",
+	properties: { message: "", reason: "TOKEN_REQUIRED" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const TOKEN_INVALID_TYPE = {
-	message: "",
-	reason: "TOKEN_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "TOKEN_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const USER_NOT_EXIST = {
-	message: "user not exist, maybe privateID is incorrect",
-	reason: "USER_NOT_EXIST",
-	version: "1.0.0",
+	properties: {
+		message: "user not exist, maybe privateID is incorrect",
+		reason: "USER_NOT_EXIST",
+	},
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const USERNAME_EXIST = {
-	message: "",
-	reason: "USERNAME_EXIST",
-	version: "1.0.0",
+	properties: { message: "", reason: "USERNAME_EXIST" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const USERNAME_INVALID_TYPE = {
-	message: "",
-	reason: "USERNAME_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "USERNAME_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const USERNAME_MAXLENGTH_REACH = {
-	message: "",
-	reason: "USERNAME_MAXLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "USERNAME_MAXLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const USERNAME_MINLENGTH_REACH = {
-	message: "",
-	reason: "USERNAME_MINLENGTH_REACH",
-	version: "1.0.0",
+	properties: { message: "", reason: "USERNAME_MINLENGTH_REACH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const VERIFICATION_CODE_INVALID = {
-	message: "Wrong verification code",
-	reason: "VERIFICATION_CODE_INVALID",
-	version: "1.0.0",
+	properties: { message: "Wrong verification code", reason: "VERIFICATION_CODE_INVALID" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const VERIFICATION_CODE_INVALID_TYPE = {
-	message: "",
-	reason: "VERIFICATION_CODE_INVALID_TYPE",
-	version: "1.0.0",
+	properties: { message: "", reason: "VERIFICATION_CODE_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const VERIFICATION_CODE_INVALID_LENGTH = {
-	message: "",
-	reason: "VERIFICATION_CODE_INVALID_LENGTH",
-	version: "1.0.0",
+	properties: { message: "", reason: "VERIFICATION_CODE_INVALID_LENGTH" },
+	info: {
+		version: "1.0.0",
+	},
 };
 
 const userErrorTemplate = {
-	version: "1.0.0",
+	info: {
+		version: "1.0.0",
+	},
 
 	BIO_INVALID_TYPE,
 	BIO_MAXLENGTH_REACH,

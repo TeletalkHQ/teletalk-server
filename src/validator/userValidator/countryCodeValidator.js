@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const countryCodeValidation = {
-	...countryCodeValidationSchema,
+	properties: { ...countryCodeValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const countryCodeValidator = v.compile(countryCodeValidation);
+const countryCodeValidator = v.compile(countryCodeValidation.properties);
 
 module.exports = { countryCodeValidator, countryCodeValidation };

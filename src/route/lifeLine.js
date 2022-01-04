@@ -20,12 +20,12 @@ const lifeLine = Router();
 
 lifeLine.use(errorResponser);
 
-lifeLine.use(cellphoneRouteTemplate.baseRoute.route, cellphoneRoute);
+lifeLine.use(cellphoneRouteTemplate.baseRoute.properties.route, cellphoneRoute);
 
-lifeLine.use(otherRouteTemplate.baseRoute.route, otherRoute);
+lifeLine.use(otherRouteTemplate.baseRoute.properties.route, otherRoute);
 
-lifeLine.use(privateChatRouteTemplate.baseRoute.route, privateChatRoute);
+lifeLine.use(privateChatRouteTemplate.baseRoute.properties.route, privateChatRoute);
 
-lifeLine.use(userRouteTemplate.baseRoute.route, userRoute);
+lifeLine.use(userRouteTemplate.baseRoute.properties.route, userRoute);
 
 module.exports = { lifeLine };

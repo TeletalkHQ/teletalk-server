@@ -7,9 +7,13 @@ const {
 const v = new Validator();
 
 const chatIDValidation = {
-	...chatIDValidationSchema,
+	properties: { ...chatIDValidationSchema.properties },
+
+	info: {
+		version: "1.0.0",
+	},
 };
 
-const chatIDValidator = v.compile(chatIDValidation);
+const chatIDValidator = v.compile(chatIDValidation.properties);
 
 module.exports = { chatIDValidator, chatIDValidation };

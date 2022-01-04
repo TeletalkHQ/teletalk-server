@@ -6,10 +6,8 @@ const addContactCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user, targetUser },
-			firstName,
-			lastName,
-			cellphone,
-		} = req.body;
+			body: { firstName, lastName, cellphone },
+		} = req;
 
 		const { cellphone: contactItem } = cellphoneFinder({
 			cellphones: user.contacts,

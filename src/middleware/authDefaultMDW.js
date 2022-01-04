@@ -4,8 +4,7 @@ const authDefaultMDW = async (req, res, next) => {
 	try {
 		const token = req.headers.authorization?.split("Bearer ")[1];
 
-		console.log("authDefaultMDW", token);
-		req.body.authData = await tokenVerifier({ token });
+		req.authData = await tokenVerifier({ token });
 
 		next();
 	} catch (error) {

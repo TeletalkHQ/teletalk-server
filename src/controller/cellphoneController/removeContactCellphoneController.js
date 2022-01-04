@@ -5,8 +5,8 @@ const removeContactCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			cellphone,
-		} = req.body;
+			body: { cellphone },
+		} = req;
 
 		const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder({
 			cellphones: user.contacts,

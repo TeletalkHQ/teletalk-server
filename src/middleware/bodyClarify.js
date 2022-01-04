@@ -10,9 +10,14 @@ const { objectClarify } = require("~/function/utility/objectClarify");
  * @return req.body without undefined values
  */
 const bodyClarify = (req, res, next) => {
-	const { object } = objectClarify(req.body);
-	req.body = object;
-	next();
+	try {
+		const { object } = objectClarify(req.body);
+		req.body = object;
+		next();
+	} catch (error) {
+		logger.log("bodyClarify catch", error);
+		throw error;
+	}
 };
 
 module.exports = { bodyClarify };

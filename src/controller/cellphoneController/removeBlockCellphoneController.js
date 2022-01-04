@@ -5,8 +5,8 @@ const removeBlockCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			cellphone,
-		} = req.body;
+			body: { cellphone },
+		} = req;
 
 		const { cellphone: blacklistItem, cellphoneIndex } = cellphoneFinder({
 			cellphones: user.blacklist,

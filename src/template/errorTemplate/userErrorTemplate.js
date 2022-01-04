@@ -1,3 +1,10 @@
+const BLACKLIST_INVALID_TYPE = {
+	properties: { message: "", reason: "BLACKLIST_INVALID_TYPE" },
+	info: {
+		version: "1.0.0",
+	},
+};
+
 const BIO_INVALID_TYPE = {
 	properties: { message: "", reason: "BIO_INVALID_TYPE" },
 	info: {
@@ -384,6 +391,7 @@ const userErrorTemplate = {
 		version: "1.0.0",
 	},
 
+	BLACKLIST_INVALID_TYPE,
 	BIO_INVALID_TYPE,
 	BIO_MAXLENGTH_REACH,
 	BIO_MINLENGTH_REACH,
@@ -443,6 +451,7 @@ const userErrorTemplate = {
 module.exports = {
 	userErrorTemplate,
 
+	BLACKLIST_INVALID_TYPE,
 	BIO_INVALID_TYPE,
 	BIO_MAXLENGTH_REACH,
 	BIO_MINLENGTH_REACH,

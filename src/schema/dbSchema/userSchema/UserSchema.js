@@ -19,7 +19,9 @@ const {
 	},
 } = require("~/template/schemaTemplate/userSchemaTemplate");
 
-const { chatID } = chatSchemaTemplate;
+const {
+	chatID: { properties: chatID },
+} = chatSchemaTemplate;
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 

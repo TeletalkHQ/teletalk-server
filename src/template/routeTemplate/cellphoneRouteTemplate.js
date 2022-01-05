@@ -8,6 +8,7 @@ const baseRoute = {
 const addBlock = {
 	properties: {
 		description: "Use for block single contact on user contacts list",
+		method: "post",
 		route: "/add/block",
 	},
 	info: {
@@ -18,6 +19,7 @@ const addBlock = {
 const addBlocks = {
 	properties: {
 		description: "Use for block single contact on user contacts list",
+		method: "post",
 		route: "/add/blocks",
 	},
 	info: {
@@ -28,6 +30,7 @@ const addBlocks = {
 const addContact = {
 	properties: {
 		description: "Use for add single contact to current user contacts list",
+		method: "post",
 		route: "/add/contact",
 	},
 	info: {
@@ -38,6 +41,7 @@ const addContact = {
 const addContacts = {
 	properties: {
 		description: "Use for add single contact to current user contacts list",
+		method: "post",
 		route: "/add/contacts",
 	},
 	info: {
@@ -48,6 +52,7 @@ const addContacts = {
 const editBlock = {
 	properties: {
 		description: "User for edit single contact on user contacts list",
+		method: "post",
 		route: "/edit/block",
 	},
 	info: {
@@ -58,6 +63,7 @@ const editBlock = {
 const editContact = {
 	properties: {
 		description: "User for edit single contact on user contacts list",
+		method: "post",
 		route: "/edit/contact",
 	},
 	info: {
@@ -68,6 +74,7 @@ const editContact = {
 const getContacts = {
 	properties: {
 		description: "User for edit single contact on user contacts list",
+		method: "get",
 		route: "/get/contacts",
 	},
 	info: {
@@ -78,6 +85,7 @@ const getContacts = {
 const removeBlock = {
 	properties: {
 		description: "Use for remove single contact on user contacts list",
+		method: "post",
 		route: "/remove/block",
 	},
 	info: {
@@ -88,6 +96,7 @@ const removeBlock = {
 const removeBlocks = {
 	properties: {
 		description: "Use for remove single contact on user contacts list",
+		method: "post",
 		route: "/remove/blocks",
 	},
 	info: {
@@ -98,6 +107,7 @@ const removeBlocks = {
 const removeContact = {
 	properties: {
 		description: "Use for remove single contact on user contacts list",
+		method: "post",
 		route: "/remove/contact",
 	},
 	info: {
@@ -108,6 +118,7 @@ const removeContact = {
 const removeContacts = {
 	properties: {
 		description: "Use for remove single contact on user contacts list",
+		method: "post",
 		route: "/remove/contacts",
 	},
 	info: {
@@ -118,6 +129,7 @@ const removeContacts = {
 const shareContact = {
 	properties: {
 		description: "Use for share single contact on user contacts list",
+		method: "post",
 		route: "/share/contact",
 	},
 	info: {
@@ -128,6 +140,7 @@ const shareContact = {
 const shareContacts = {
 	properties: {
 		description: "Use for share single contact on user contacts list",
+		method: "post",
 		route: "/share/contacts",
 	},
 	info: {
@@ -136,7 +149,11 @@ const shareContacts = {
 };
 
 const error = {
-	properties: { description: "Use for get all contact errors", route: "/error" },
+	properties: {
+		description: "Use for get all contact errors",
+		method: "get",
+		route: "/error",
+	},
 	info: {
 		version: "1.0.0",
 	},
@@ -145,6 +162,7 @@ const error = {
 const template = {
 	properties: {
 		description: "Use for get all contact properties and value structure",
+		method: "get",
 		route: "/template",
 	},
 	info: {

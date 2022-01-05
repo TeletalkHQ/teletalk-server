@@ -44,7 +44,7 @@ const cellphoneRoute = Router();
 
 cellphoneRoute.use(authDefaultMDW);
 
-cellphoneRoute.get(
+cellphoneRoute[getContacts.properties.method](
 	getContacts.properties.route,
 	findUserFromDB,
 	getContactsCellphoneController,
@@ -56,10 +56,25 @@ cellphoneRoute.use(findUserFromDB);
 cellphoneRoute.use(targetUserFinderByCellphoneMDW);
 cellphoneRoute.use(addContact.properties.route, contactValidatorMDW);
 
-cellphoneRoute.post(addContact.properties.route, addContactCellphoneController);
-cellphoneRoute.post(addBlock.properties.route, addBlockCellphoneController);
-cellphoneRoute.post(removeBlock.properties.route, removeBlockCellphoneController);
-cellphoneRoute.post(removeContact.properties.route, removeContactCellphoneController);
-cellphoneRoute.post(editContact.properties.route, editContactCellphoneController);
+cellphoneRoute[addContact.properties.method](
+	addContact.properties.route,
+	addContactCellphoneController,
+);
+cellphoneRoute[addBlock.properties.method](
+	addBlock.properties.route,
+	addBlockCellphoneController,
+);
+cellphoneRoute[removeBlock.properties.method](
+	removeBlock.properties.route,
+	removeBlockCellphoneController,
+);
+cellphoneRoute[removeContact.properties.method](
+	removeContact.properties.route,
+	removeContactCellphoneController,
+);
+cellphoneRoute[editContact.properties.method](
+	editContact.properties.route,
+	editContactCellphoneController,
+);
 
 module.exports = { cellphoneRoute };

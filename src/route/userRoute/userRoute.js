@@ -28,12 +28,21 @@ const {
 
 userRoute.use(signInNormal.properties.route, cellphoneValidatorMDW);
 
-userRoute.post(signInNormal.properties.route, signInNormalUserController);
-userRoute.post(verifySignInNormal.properties.route, verifySignInNormalUserController);
-userRoute.get(statusCheck.properties.route, statusCheckUserController);
+userRoute[signInNormal.properties.method](
+	signInNormal.properties.route,
+	signInNormalUserController,
+);
+userRoute[verifySignInNormal.properties.method](
+	verifySignInNormal.properties.route,
+	verifySignInNormalUserController,
+);
+userRoute[statusCheck.properties.method](
+	statusCheck.properties.route,
+	statusCheckUserController,
+);
 
-userRoute.get(error.properties.route, errorUserController);
-userRoute.get(template.properties.route, templateUserController);
+userRoute[error.properties.method](error.properties.route, errorUserController);
+userRoute[template.properties.method](template.properties.route, templateUserController);
 
 //* sign out normal =>
 //

@@ -23,8 +23,17 @@ privateChatRoute.use(authDefaultMDW);
 
 privateChatRoute.use(findUserFromDB);
 
-privateChatRoute.post(sendMessage.properties.route, sendMessagePrivateChatController);
-privateChatRoute.get(getMessages.properties.route, getMessagesPrivateChatController);
-privateChatRoute.post(startChat.properties.route, startChatPrivateChatController);
+privateChatRoute[sendMessage.properties.method](
+	sendMessage.properties.route,
+	sendMessagePrivateChatController,
+);
+privateChatRoute[getMessages.properties.method](
+	getMessages.properties.route,
+	getMessagesPrivateChatController,
+);
+privateChatRoute[startChat.properties.method](
+	startChat.properties.route,
+	startChatPrivateChatController,
+);
 
 module.exports = { privateChatRoute };

@@ -13,6 +13,8 @@ const contactValidatorMDW = async (req, res, next) => {
 		if (validationResult !== true) {
 			throw validationResult;
 		}
+
+		next();
 	} catch (error) {
 		res.errorCollector({ data: { error } });
 		res.errorResponser();

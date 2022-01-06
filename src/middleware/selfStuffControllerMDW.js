@@ -3,20 +3,20 @@ const { cellphoneFinder } = require("~/function/utility/cellphoneFinder");
 
 const selfStuffControllerMDW = (req, res, next) => {
 	try {
-		const user = req.authData.data.payload;
+		const { phoneNumber, countryCode, countryName } = req.authData.data.payload;
 
-		const { phoneNumber, countryCode, countryName } = req.body;
+		const { ...targetCellphone } = req.body;
 
 		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const { cellphone: userCellphone } = cellphoneFinder({
-			cellphones: [user.cellphone],
-			targetCell: cellphone,
+			cellphones: [cellphone],
+			targetCell: targetCellphone,
 		});
 
 		if (userCellphone) {
 			const error = {
-				...cellphone,
+				...targetCellphone,
 				...userErrorTemplate.SELF_STUFF,
 			};
 

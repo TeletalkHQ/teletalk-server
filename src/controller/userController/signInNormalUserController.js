@@ -42,6 +42,8 @@ const signInNormalUserController = async (req, res) => {
 			clients.addClient({ token, verifyCode: randomPassword, ...cellphone });
 		}
 
+		console.log(randomPassword);
+
 		res.status(200).json({
 			...cellphone,
 			token,

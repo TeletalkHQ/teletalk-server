@@ -5,7 +5,6 @@ const getContactsCellphoneController = async (req, res) => {
 		const {
 			DB: { user },
 		} = req;
-		console.log("getContactsCellphoneController");
 
 		const { userData } = sendableUserData({ user });
 

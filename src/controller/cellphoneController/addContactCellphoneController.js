@@ -19,13 +19,17 @@ const addContactCellphoneController = async (req, res) => {
 			throw error;
 		}
 
-		user.contacts.push({ ...cellphone, firstName, lastName });
+		user.contacts.push({ ...cellphone, firstName, lastName, privateID: targetUser.privateID });
+
+		console.log(user.contacts);
 
 		await user.updateOne({
 			contacts: user.contacts,
 		});
 
-		res.status(200).json({ cellphone, firstName, lastName, privateID: targetUser.privateID });
+		res
+			.status(200)
+			.json({ ...cellphone, firstName, lastName, privateID: targetUser.privateID });
 	} catch (error) {
 		console.log("addContactCellphoneController", error);
 		res.errorCollector({ data: { error } });

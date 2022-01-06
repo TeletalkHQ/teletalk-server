@@ -5,28 +5,28 @@ const removeContactCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			body: { cellphone },
+			body: { phoneNumber, countryCode, countryName },
 		} = req;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder({
 			cellphones: user.contacts,
 			targetCell: cellphone,
 		});
 
-		console.log("contactItem", contactItem);
 		if (contactItem === undefined) {
 			const error = userErrorTemplate.CELLPHONE_NOT_EXIST;
 			throw error;
 		}
 
-		console.log("cellphoneIndex", cellphoneIndex);
 		user.contacts.splice(cellphoneIndex, 1);
 
 		await user.updateOne({
 			contacts: user.contacts,
 		});
 
-		res.status(200).json({ contactItem });
+		res.status(200).json({ removedContact: contactItem });
 	} catch (error) {
 		res.errorCollector({ data: { error } });
 		res.errorResponser();

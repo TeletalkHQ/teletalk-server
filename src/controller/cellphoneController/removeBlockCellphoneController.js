@@ -5,8 +5,10 @@ const removeBlockCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			body: { cellphone },
+			body: { phoneNumber, countryCode, countryName },
 		} = req;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const { cellphone: blacklistItem, cellphoneIndex } = cellphoneFinder({
 			cellphones: user.blacklist,
@@ -18,7 +20,6 @@ const removeBlockCellphoneController = async (req, res) => {
 			throw error;
 		}
 
-		console.log("cellphoneIndex", cellphoneIndex);
 		user.blacklist.splice(cellphoneIndex, 1);
 
 		await user.updateOne({
@@ -27,7 +28,6 @@ const removeBlockCellphoneController = async (req, res) => {
 
 		res.status(200).json({
 			removedBlockedCellphone: cellphone,
-			blacklist: user.blacklist,
 		});
 	} catch (error) {
 		res.errorCollector({ data: { error } });

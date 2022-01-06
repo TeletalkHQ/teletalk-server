@@ -5,20 +5,18 @@ const selfStuffControllerMDW = (req, res, next) => {
 	try {
 		const user = req.authData.data.payload;
 
-		const { cellphone } = req.body;
+		const { phoneNumber, countryCode, countryName } = req.body;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const { cellphone: userCellphone } = cellphoneFinder({
-			cellphones: [
-				{
-					...user.cellphone,
-				},
-			],
+			cellphones: [user.cellphone],
 			targetCell: cellphone,
 		});
 
 		if (userCellphone) {
 			const error = {
-				cellphone,
+				...cellphone,
 				...userErrorTemplate.SELF_STUFF,
 			};
 

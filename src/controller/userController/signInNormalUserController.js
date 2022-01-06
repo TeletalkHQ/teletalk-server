@@ -6,12 +6,14 @@ const { clients } = require("~/temp/Clients");
 
 const signInNormalUserController = async (req, res) => {
 	try {
-		const { cellphone } = req.body;
+		const { phoneNumber, countryCode, countryName } = req.body;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const { randomPassword } = passwordGenerator();
 
 		const from = "50004001700470";
-		const to = `0${cellphone.phoneNumber}`;
+		const to = `0${phoneNumber}`;
 		const text = `Hi! this sms is from teletalk! Your verify code is: ${randomPassword}`;
 
 		const smsResult = await SMSClient({ from, to, text });
@@ -22,15 +24,12 @@ const signInNormalUserController = async (req, res) => {
 
 		const { token } = await tokenSigner({
 			//! Pass is temporary!
-			data: { cellphone },
+			data: cellphone,
 			secret: process.env.JWT_SIGN_IN_SECRET,
 		});
 
 		const client = clients.clients.find((client) => {
-			if (
-				client.cellphone.phoneNumber === cellphone.phoneNumber &&
-				client.cellphone.countryCode === cellphone.countryCode
-			) {
+			if (client.phoneNumber === phoneNumber && client.countryCode === countryCode) {
 				return true;
 			} else {
 				return false;
@@ -40,13 +39,11 @@ const signInNormalUserController = async (req, res) => {
 		if (client) {
 			client.verifyCode = randomPassword;
 		} else {
-			clients.addClient({ token, verifyCode: randomPassword, cellphone });
+			clients.addClient({ token, verifyCode: randomPassword, ...cellphone });
 		}
 
-		console.log(clients.clients);
-
 		res.status(200).json({
-			cellphone,
+			...cellphone,
 			token,
 		});
 	} catch (error) {

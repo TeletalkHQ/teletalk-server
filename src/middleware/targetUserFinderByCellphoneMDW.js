@@ -17,6 +17,8 @@ const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 		}
 
 		req.DB = { ...req.DB, targetUser };
+
+		next();
 	} catch (error) {
 		console.log("targetUserFinderByCellphone catch", error);
 

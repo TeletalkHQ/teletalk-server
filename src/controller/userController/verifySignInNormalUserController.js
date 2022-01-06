@@ -72,7 +72,7 @@ const verifySignInNormalUserController = async (req, res) => {
 			res.status(200).json({ user: { ...userData, token: user.tokens[0].token } });
 		} else if (!user) {
 			const firstName = "DEFAULT FIRST_NAME";
-			const privateID = randomID(userSchemaTemplate.privateID.maxlength.value);
+			const privateID = randomID(userSchemaTemplate.privateID.properties.maxlength.value);
 
 			const { token } = await tokenSigner({ data: { cellphone, privateID } });
 

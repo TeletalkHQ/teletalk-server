@@ -133,7 +133,13 @@ const UserSchema = new mongoose.Schema({
 			firstName: user.firstName,
 			lastName: user.lastName,
 			phoneNumber: user.phoneNumber,
-			privateID: user.privateID,
+			privateID: {
+				...(() => {
+					const { unique, ...rest } = user.privateID;
+
+					return rest;
+				})(),
+			},
 		},
 	],
 

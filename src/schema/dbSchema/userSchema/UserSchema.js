@@ -133,6 +133,7 @@ const UserSchema = new mongoose.Schema({
 			firstName: user.firstName,
 			lastName: user.lastName,
 			phoneNumber: user.phoneNumber,
+			privateID: user.privateID,
 		},
 	],
 

@@ -31,13 +31,12 @@ const verifySignInNormalUserController = async (req, res) => {
 			secret: process.env.JWT_SIGN_IN_SECRET,
 		});
 
-		const { cellphone } = verifiedToken.data.payload;
+		const { phoneNumber, countryCode, countryName } = verifiedToken.data.payload;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const client = clients.clients.find((client) => {
-			if (
-				client.cellphone.phoneNumber === cellphone.phoneNumber &&
-				client.cellphone.countryCode === cellphone.countryCode
-			) {
+			if (client.phoneNumber === phoneNumber && client.countryCode === countryCode) {
 				return true;
 			} else {
 				return false;
@@ -74,7 +73,7 @@ const verifySignInNormalUserController = async (req, res) => {
 			const firstName = "DEFAULT FIRST_NAME";
 			const privateID = randomID(userSchemaTemplate.privateID.properties.maxlength.value);
 
-			const { token } = await tokenSigner({ data: { cellphone, privateID } });
+			const { token } = await tokenSigner({ data: { ...cellphone, privateID } });
 
 			const data = {
 				...cellphone,
@@ -87,7 +86,7 @@ const verifySignInNormalUserController = async (req, res) => {
 			await newUser.save();
 
 			res.status(200).json({
-				user: { cellphone, privateID, firstName, token },
+				user: { ...cellphone, privateID, firstName, token },
 			});
 		}
 	} catch (error) {

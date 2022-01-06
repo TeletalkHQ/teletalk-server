@@ -5,8 +5,10 @@ const addBlockCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user },
-			body: { cellphone },
+			body: { phoneNumber, countryCode, countryName },
 		} = req;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const { cellphone: blacklistItem } = cellphoneFinder({
 			cellphones: user.blacklist,
@@ -26,7 +28,6 @@ const addBlockCellphoneController = async (req, res) => {
 
 		res.status(200).json({
 			blockedCellphone: cellphone,
-			blacklist: user.blacklist,
 		});
 	} catch (error) {
 		console.log("addBlockCellphoneController", error);

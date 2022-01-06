@@ -4,13 +4,15 @@ const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplat
 
 const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 	try {
-		const { cellphone } = req.body;
+		const { phoneNumber, countryCode, countryName } = req.body;
 
-		const { user: targetUser } = await userFinder({ ...cellphone });
+		const cellphone = { phoneNumber, countryCode, countryName };
+
+		const { user: targetUser } = await userFinder(cellphone);
 
 		if (targetUser === null) {
 			const error = {
-				cellphone,
+				...cellphone,
 				...userErrorTemplate.CELLPHONE_NOT_EXIST,
 			};
 			throw error;

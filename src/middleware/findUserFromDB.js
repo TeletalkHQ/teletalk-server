@@ -4,12 +4,14 @@ const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplat
 
 const findUserFromDB = async (req, res, next) => {
 	try {
-		const { cellphone } = req.authData.data.payload;
+		const { phoneNumber, countryCode, countryName } = req.authData.data.payload;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const { user } = await userFinder({ ...cellphone });
 
 		if (user === null) {
-			const error = { cellphone, ...userErrorTemplate.CELLPHONE_NOT_EXIST };
+			const error = { ...cellphone, ...userErrorTemplate.CELLPHONE_NOT_EXIST };
 			throw error;
 		}
 

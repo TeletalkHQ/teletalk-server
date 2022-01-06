@@ -19,7 +19,9 @@ const statusCheckUserController = async (req, res) => {
 			token: mainToken,
 		});
 
-		const { cellphone } = verifiedToken.data.payload;
+		const { phoneNumber, countryCode, countryName } = verifiedToken.data.payload;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const validatedCellphone = await cellphoneValidator(cellphone);
 

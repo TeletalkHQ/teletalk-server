@@ -6,8 +6,10 @@ const addContactCellphoneController = async (req, res) => {
 	try {
 		const {
 			DB: { user, targetUser },
-			body: { firstName, lastName, cellphone },
+			body: { firstName, lastName, phoneNumber, countryCode, countryName },
 		} = req;
+
+		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const { cellphone: contactItem } = cellphoneFinder({
 			cellphones: user.contacts,
@@ -20,8 +22,6 @@ const addContactCellphoneController = async (req, res) => {
 		}
 
 		user.contacts.push({ ...cellphone, firstName, lastName, privateID: targetUser.privateID });
-
-		console.log(user.contacts);
 
 		await user.updateOne({
 			contacts: user.contacts,

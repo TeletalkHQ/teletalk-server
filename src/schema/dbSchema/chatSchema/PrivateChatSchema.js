@@ -8,7 +8,7 @@ const {
 		messageID: { properties: messageID },
 		// messageSender:{properties:messageSender},
 		// messageStatus:{properties:messageStatus},
-		messageText: { properties: messageText },
+		message: { properties: message },
 		participantID: { properties: participantID },
 		// participantStatus:{properties:participantStatus},
 		// participantVisibility:{properties:participantVisibility},
@@ -51,10 +51,10 @@ const privateChat = {
 				type: messageID.type.value,
 				unique: messageID.unique.value,
 			},
-			messageText: {
-				maxlength: [messageText.maxlength.value, messageText.maxlength.error.message],
-				minlength: [messageText.minlength.value, messageText.minlength.error.message],
-				type: messageText.type.value,
+			message: {
+				maxlength: [message.maxlength.value, message.maxlength.error.message],
+				minlength: [message.minlength.value, message.minlength.error.message],
+				type: message.type.value,
 			},
 			messageSender: {
 				senderID: participantIDTemplate,

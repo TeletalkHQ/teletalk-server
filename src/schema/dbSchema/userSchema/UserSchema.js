@@ -5,8 +5,6 @@ const { chatSchemaTemplate } = require("~/template/schemaTemplate/chatSchemaTemp
 const {
 	userSchemaTemplate: {
 		bio: { properties: bio },
-		// blacklist:{properties:blacklist},
-		// contacts:{properties:contacts},
 		countryCode: { properties: countryCode },
 		countryName: { properties: countryName },
 		createdAt: { properties: createdAt },
@@ -21,6 +19,7 @@ const {
 
 const {
 	chatID: { properties: chatID },
+	message: { properties: message },
 } = chatSchemaTemplate;
 
 uniqueValidator.defaults.message = "{PATH}_exist";
@@ -66,20 +65,16 @@ const user = {
 		trim: lastName.trim.value,
 		type: lastName.type.value,
 	},
-	// macAddress: {
-	// 	type: macAddress.type.value,
-	// 	unique: macAddress.unique.value,
-	// 	required: macAddress.required,
-	// 	minlength: macAddress.minlength,
-	// 	maxlength: macAddress.maxlength,
-	// 	trim: macAddress.trim.value,
-	// },
+	lastMessage: {
+		minlength: [message.minlength.value, firstName.minlength.error.message],
+		maxlength: [message.maxlength.value, message.maxlength.error.message],
+		type: message.type.value,
+	},
 	phoneNumber: {
-		maxlength: [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message], // default: "",
+		maxlength: [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],
 		minlength: [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
 		required: [phoneNumber.required.value, phoneNumber.required.error.message],
 		type: phoneNumber.type.value,
-		// unique: phoneNumber.unique.value,
 	},
 	privateID: {
 		maxlength: [privateID.maxlength.value, privateID.maxlength.error.message],
@@ -109,7 +104,7 @@ const user = {
 };
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
-//TODO Add type check =>
+
 const UserSchema = new mongoose.Schema({
 	bio: {
 		maxlength: [bio.maxlength.value, bio.maxlength.error.message],

@@ -38,7 +38,6 @@ const statusCheckUserController = async (req, res) => {
 
 		const { userData } = sendableUserData({ user });
 
-		console.log(userData);
 		res.status(200).json({ user: userData });
 	} catch (error) {
 		console.log("statusCheckUserController", error);

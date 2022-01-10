@@ -79,7 +79,7 @@ const messageStatus = {
 	},
 };
 
-const messageText = {
+const message = {
 	properties: {
 		maxlength: fn(10, MESSAGE_TEXT_MAX_LENGTH_REACH),
 		minlength: fn(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
@@ -126,7 +126,7 @@ const chatSchemaTemplate = {
 	messageID,
 	messageSender,
 	messageStatus,
-	messageText,
+	message,
 	participantID,
 	participantStatus,
 	participantVisibility,
@@ -140,7 +140,7 @@ module.exports = {
 	messageID,
 	messageSender,
 	messageStatus,
-	messageText,
+	message,
 	participantID,
 	participantStatus,
 	participantVisibility,

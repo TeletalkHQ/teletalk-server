@@ -1,19 +1,19 @@
 const {
 	chatSchemaTemplate: {
-		messageText: { properties: messageText },
+		message: { properties: message },
 	},
 } = require("~/template/schemaTemplate/chatSchemaTemplate");
 
 const messageTextValidationSchema = {
 	properties: {
-		messageText: {
-			type: messageText.type.value,
-			min: messageText.minlength.value,
-			max: messageText.maxlength.value,
+		message: {
+			type: message.type.value,
+			min: message.minlength.value,
+			max: message.maxlength.value,
 			messages: {
-				string: messageText.type.error.message,
-				stringMin: messageText.minlength.error.message,
-				stringMax: messageText.maxlength.error.message,
+				string: message.type.error.message,
+				stringMin: message.minlength.error.message,
+				stringMax: message.maxlength.error.message,
 			},
 		},
 	},

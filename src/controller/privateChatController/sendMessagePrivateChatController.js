@@ -73,10 +73,12 @@ const sendMessagePrivateChatController = async (req, res) => {
 		// 	throw error;
 		// }
 
+		console.log(message);
+
 		const newMessage = {
 			message,
 			messageID: randomID(chatSchemaTemplate.messageID.properties.maxlength.value),
-			messageSender: { senderID: participantID },
+			messageSender: { senderID: user.privateID },
 		};
 
 		chat.messages.push(newMessage);

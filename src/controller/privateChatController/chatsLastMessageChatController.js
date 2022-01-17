@@ -10,9 +10,10 @@ const chatsLastMessageChatController = async (req, res) => {
 		for (const chat of user.chats) {
 			const chatWithMessages = await PrivateChatModel.findOne({ chatID: chat.chatID });
 			if (chatWithMessages) {
+				console.log(chatWithMessages);
 				const { messages, participants, chatID } = chatWithMessages;
-				console.log(messages);
 				const lastMessage = messages[messages.length - 1];
+				console.log(lastMessage);
 				chats.push({ participants, chatID, messages: [lastMessage] });
 			}
 		}

@@ -1,5 +1,5 @@
 const sendableUserData = ({ user }) => {
-	let {
+	const {
 		privateID,
 		firstName,
 		lastName,
@@ -13,12 +13,7 @@ const sendableUserData = ({ user }) => {
 		chats,
 	} = user;
 
-	contacts = contacts.map((contact) => {
-		if (contact._id) {
-			const deleteResult = delete contact._id;
-			console.log(deleteResult);
-		}
-
+	const sendingContacts = contacts.map((contact) => {
 		const { firstName, lastName, phoneNumber, privateID } = contact;
 
 		return { firstName, lastName, phoneNumber, privateID };
@@ -29,7 +24,7 @@ const sendableUserData = ({ user }) => {
 		firstName,
 		lastName,
 		bio,
-		contacts,
+		contacts: sendingContacts,
 		blacklist,
 		username,
 		phoneNumber,

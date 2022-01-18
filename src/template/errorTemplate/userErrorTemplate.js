@@ -507,5 +507,3 @@ module.exports = {
 	VERIFICATION_CODE_INVALID_TYPE,
 	VERIFICATION_CODE_INVALID,
 };
-
-const ss = require("./chatErrorTemplate");

@@ -14,9 +14,6 @@
 		"dev": "cross-env NODE_ENV=development nodemon --trace-warnings ./src/server.js",
 		"test": ""
 	},
-	"engines": {
-		"node": "14.18.3"
-	},
 	"keywords": [
 		"teletalk",
 		"messenger"

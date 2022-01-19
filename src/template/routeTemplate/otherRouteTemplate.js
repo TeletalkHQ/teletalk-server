@@ -1,4 +1,4 @@
-const baseRoute = {
+const baseUrl = {
 	properties: { description: "", route: "/other" },
 	info: {
 		version: "1.0.0",
@@ -32,7 +32,7 @@ const otherRouteTemplate = {
 		version: "1.0.0",
 	},
 
-	baseRoute,
+	baseUrl,
 	welcome,
 	error,
 };
@@ -40,7 +40,7 @@ const otherRouteTemplate = {
 module.exports = {
 	otherRouteTemplate,
 
-	baseRoute,
+	baseUrl,
 	welcome,
 	error,
 };

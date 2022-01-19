@@ -15,16 +15,17 @@ const { middleLine } = require("~/middleware/middleLine");
 const { lifeLine } = require("~/route/lifeLine");
 
 //? Connect to database =>
-connectDB();
+// connectDB();
 
-const app = express();
+const server = express();
 
-middleLine({ app, express });
+middleLine({ server, express });
 
 //* Your statics is here =>
-app.use(express.static("~/../public"));
+server.use(express.static("~/../public"));
 //* All stuff for routes is in lifeLine =>
-app.use(lifeLine);
+
+server.use(lifeLine);
 
 //* PORT coming from heroku, so don't touch it!
 const { LOCAL_PORT, PORT, NODE_ENV } = process.env;
@@ -38,4 +39,4 @@ const serverListenerCB = () => {
 //* Control your error here =>
 
 // const server =
-app.listen(EXACT_PORT, serverListenerCB);
+server.listen(EXACT_PORT, serverListenerCB);

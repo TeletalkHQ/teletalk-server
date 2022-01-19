@@ -1,4 +1,4 @@
-const baseRoute = {
+const baseUrl = {
 	properties: {
 		description: "",
 		route: "/user",
@@ -68,7 +68,7 @@ const userRouteTemplate = {
 		version: "1.0.0",
 	},
 
-	baseRoute,
+	baseUrl,
 	signInNormal,
 	statusCheck,
 	verifySignInNormal,
@@ -79,7 +79,7 @@ const userRouteTemplate = {
 module.exports = {
 	userRouteTemplate,
 
-	baseRoute,
+	baseUrl,
 	signInNormal,
 	statusCheck,
 	verifySignInNormal,

@@ -11,24 +11,24 @@ const { errorCollector } = require("~/middleware/errorCollector");
 const { errorResponser } = require("~/middleware/errorResponser");
 
 //TODO Use try/catch, Use NODE_ENV
-const middleLine = ({ app, express }) => {
+const middleLine = ({ server, express }) => {
 	// prettyError.start();
 
-	app.use((req, res, next) => {
+	server.use((req, res, next) => {
 		// console.log("Console cleared");
 		next();
 	});
 
 	//* Pretty error makes nodeJS error pretty in console, use it before express call
 
-	app.use(cors());
-	app.use(helmet());
-	app.use(morgan("dev"));
-	app.use(express.json());
+	server.use(cors());
+	server.use(helmet());
+	server.use(morgan("dev"));
+	server.use(express.json());
 
-	app.use(bodyClarify);
+	server.use(bodyClarify);
 
-	app.use((req, res, next) => {
+	server.use((req, res, next) => {
 		res.errors = {
 			categorized: [],
 			categorizedLength: 0,
@@ -46,7 +46,7 @@ const middleLine = ({ app, express }) => {
 		next();
 	});
 
-	app.use((req, res, next) => {
+	server.use((req, res, next) => {
 		res.errorResponser = () => {
 			errorResponser(req, res, next);
 		};
@@ -54,9 +54,9 @@ const middleLine = ({ app, express }) => {
 		next();
 	});
 
-	app.use(serveFavicon(path.join("~/../public/appFavicon/favicon.ico")));
+	server.use(serveFavicon(path.join("~/../public/appFavicon/favicon.ico")));
 
-	app.use((req, res, next) => {
+	server.use((req, res, next) => {
 		logger
 			.blue("----------------")
 			.bgBlue({ text: "Request arrived: " })

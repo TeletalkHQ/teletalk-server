@@ -1,4 +1,4 @@
-const baseRoute = {
+const baseUrl = {
 	properties: { description: "", route: "/cellphone" },
 	info: {
 		version: "1.0.0",
@@ -175,7 +175,7 @@ const cellphoneRouteTemplate = {
 		version: "1.0.0",
 	},
 
-	baseRoute,
+	baseUrl,
 	addBlock,
 	addBlocks,
 	addContact,
@@ -196,7 +196,7 @@ const cellphoneRouteTemplate = {
 module.exports = {
 	cellphoneRouteTemplate,
 
-	baseRoute,
+	baseUrl,
 	addBlock,
 	addBlocks,
 	addContact,

@@ -1,4 +1,4 @@
-const baseRoute = {
+const baseUrl = {
 	properties: {
 		description: "",
 		route: "/chat/private",
@@ -90,7 +90,7 @@ const privateChatRouteTemplate = {
 		version: "1.0.0",
 	},
 
-	baseRoute,
+	baseUrl,
 	getAllChats,
 	chatsLastMessage,
 	getMessages,
@@ -103,7 +103,7 @@ const privateChatRouteTemplate = {
 module.exports = {
 	privateChatRouteTemplate,
 
-	baseRoute,
+	baseUrl,
 	getAllChats,
 	chatsLastMessage,
 	getMessages,

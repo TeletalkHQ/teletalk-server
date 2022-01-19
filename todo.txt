@@ -1,5 +1,4 @@
 Mongoose schema, .pre method,
-Use ajv or fastest-validator for server-side verification
 Use i18n online for translation
 Node-gyp-build documentation
 Bcryptjs or bcrypt ?
@@ -18,7 +17,6 @@ Set headers part 135
 Restify part 136
 AuthMiddleware part 139
 Use snyk vulnerability scanner for sec reason
-Use helmet for security headers 
 Use firewall part 146
 PM2 for nodeJS process manager part 149
 FTP part 150, nginx part 149 
@@ -26,4 +24,6 @@ Using ms for convert time to ms and reverse
 ClipboardJS documentation
 Make api for log server errors
 Add success statusCode for each route, also for errors
-Add method to each route
+	"engines": {
+		"node": "14.18.3"
+	},

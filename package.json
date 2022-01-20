@@ -20,6 +20,7 @@
 	],
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.7.1",
+		"@types/socket.io": "^3.0.2",
 		"assert-plus": "^1.0.0",
 		"boxen": "^6.2.1",
 		"chalk": "^4.1.2",
@@ -41,7 +42,9 @@
 		"morgan": "^1.10.0",
 		"nanoid": "^3.1.30",
 		"ora": "^6.0.1",
+		"pretty-error": "^4.0.0",
 		"serve-favicon": "^2.5.0",
+		"socket.io": "^4.4.1",
 		"validator": "^13.7.0"
 	},
 	"devDependencies": {
@@ -64,12 +67,9 @@
 		"eslint-plugin-react-hooks": "^4.0.8",
 		"mocha": "^9.1.3",
 		"nodemon": "^2.0.15",
-		"pretty-error": "^4.0.0",
 		"rewire": "^5.0.0"
 	},
 	"_moduleAliases": {
-		"~": "./src",
-		"#": "./public",
-		"~fn": "./src/scripts/functions/"
+		"~": "./src"
 	}
 }

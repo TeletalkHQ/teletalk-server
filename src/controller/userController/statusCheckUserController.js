@@ -41,7 +41,7 @@ const statusCheckUserController = async (req, res) => {
 		res.status(200).json({ user: userData });
 	} catch (error) {
 		console.log("statusCheckUserController", error);
-		res.errorCollector({ data: { error } });
+		res.errorCollector({ data: { error, statusCode: 401 } });
 		res.errorResponser();
 	}
 };

@@ -34,6 +34,13 @@ const sendMessagePrivateChatController = async (req, res) => {
 
 		let isNewChat = false;
 		let chatID = chat?.chatID;
+
+		const newMessage = {
+			message,
+			messageID: randomID(chatSchemaTemplate.messageID.properties.maxlength.value),
+			messageSender: { senderID: user.privateID },
+		};
+
 		if (!chat) {
 			// const error = chatErrorTemplate.CHAT_NOT_EXIST;
 			// throw error;
@@ -47,12 +54,20 @@ const sendMessagePrivateChatController = async (req, res) => {
 					{ participantID: user.privateID },
 					{ participantID: targetUser.privateID },
 				],
+				messages: [newMessage],
 			});
 
 			await privateChat.save();
 
 			await user.updateOne({ chats: { chatID } });
 			await targetUser.updateOne({ chats: { chatID } });
+			res.status(200).send({ newMessage, isNewChat, chatID });
+		} else if (chat) {
+			chat.messages.push(newMessage);
+
+			await chat.updateOne({ messages: chat.messages });
+
+			res.status(200).send({ newMessage, chatID });
 		}
 
 		// const checkParticipant = chat.participants.find(
@@ -72,20 +87,6 @@ const sendMessagePrivateChatController = async (req, res) => {
 		// 	const error = chatErrorTemplate.USER_NO_LONGER_PARTICIPANT;
 		// 	throw error;
 		// }
-
-		console.log(message);
-
-		const newMessage = {
-			message,
-			messageID: randomID(chatSchemaTemplate.messageID.properties.maxlength.value),
-			messageSender: { senderID: user.privateID },
-		};
-
-		chat.messages.push(newMessage);
-
-		await chat.updateOne({ messages: chat.messages });
-
-		res.status(200).send({ newMessage, isNewChat, chatID });
 	} catch (error) {
 		logger.log("sendMessagePrivateChatController catch", error);
 		res.errorCollector({ data: { error } });

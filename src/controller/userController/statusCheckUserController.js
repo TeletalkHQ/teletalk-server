@@ -6,6 +6,8 @@ const { cellphoneValidator } = require("~/validator/userValidator/cellphoneValid
 const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 const { sendableUserData } = require("~/function/utility/sendableUserData");
 
+const { ioFunctions } = require("~/socket/io");
+
 const statusCheckUserController = async (req, res) => {
 	try {
 		const mainToken = req.headers.authorization?.split("Bearer ")[1];
@@ -37,6 +39,8 @@ const statusCheckUserController = async (req, res) => {
 		}
 
 		const { userData } = sendableUserData({ user });
+
+		console.log(ioFunctions.io.on);
 
 		res.status(200).json({ user: userData });
 	} catch (error) {

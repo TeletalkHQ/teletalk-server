@@ -1,3 +1,5 @@
+//!DEPRECATED
+
 const { chatErrorTemplate } = require("~/template/errorTemplate/chatErrorTemplate");
 const { userErrorTemplate } = require("~/template/errorTemplate/userErrorTemplate");
 const { userFinder } = require("~/function/helper/userFinder");

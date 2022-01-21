@@ -32,7 +32,6 @@ const sendMessagePrivateChatController = async (req, res) => {
 			"participants.participantID": { $all: [user.privateID, targetUser.privateID] },
 		});
 
-		let isNewChat = false;
 		let chatID = chat?.chatID;
 
 		const newMessage = {
@@ -44,7 +43,6 @@ const sendMessagePrivateChatController = async (req, res) => {
 		if (!chat) {
 			// const error = chatErrorTemplate.CHAT_NOT_EXIST;
 			// throw error;
-			isNewChat = true;
 
 			chatID = randomID(chatSchemaTemplate.chatID.properties.maxlength.value);
 
@@ -61,7 +59,7 @@ const sendMessagePrivateChatController = async (req, res) => {
 
 			await user.updateOne({ chats: { chatID } });
 			await targetUser.updateOne({ chats: { chatID } });
-			res.status(200).send({ newMessage, isNewChat, chatID });
+			res.status(200).send({ newMessage, chatID });
 		} else if (chat) {
 			chat.messages.push(newMessage);
 

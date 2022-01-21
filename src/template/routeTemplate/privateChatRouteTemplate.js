@@ -33,7 +33,7 @@ const chatsLastMessage = {
 const getMessages = {
 	properties: {
 		description: "Use for get all messages",
-		method: "get",
+		method: "post",
 		route: "/get/messages",
 	},
 	info: {

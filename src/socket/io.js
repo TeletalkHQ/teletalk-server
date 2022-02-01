@@ -5,12 +5,11 @@ let io = () => {};
 const ioFunctions = {
 	io,
 	sio: (httpServer) => {
-		const ioInstance = sio(httpServer, {
+		ioFunctions.io = sio(httpServer, {
 			cors: {
 				origin: "*",
 			},
 		});
-		ioFunctions.io = ioInstance;
 	},
 };
 

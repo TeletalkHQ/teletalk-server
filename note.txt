@@ -1,3 +1,0 @@
- nest-js, swagger doc;
-Use redux as tempo state management;
-

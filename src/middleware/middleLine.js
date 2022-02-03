@@ -3,7 +3,7 @@ const path = require("path");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-// const prettyError = require("pretty-error");
+const prettyError = require("pretty-error");
 const serveFavicon = require("serve-favicon");
 
 const { bodyClarify } = require("~/middleware/bodyClarify");
@@ -12,14 +12,8 @@ const { errorResponser } = require("~/middleware/errorResponser");
 
 //TODO Use try/catch, Use NODE_ENV
 const middleLine = ({ server, express }) => {
-	// prettyError.start();
-
-	server.use((req, res, next) => {
-		// console.log("Console cleared");
-		next();
-	});
-
-	//* Pretty error makes nodeJS error pretty in console, use it before express call
+	//* PrettyError is prettier for nodeJS errors in console.
+	prettyError.start();
 
 	server.use(cors());
 	server.use(helmet());

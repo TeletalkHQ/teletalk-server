@@ -59,6 +59,6 @@
 		"rewire": "^6.0.0"
 	},
 	"_moduleAliases": {
-		"~": "./src",
+		"~": "./src"
 	}
 }

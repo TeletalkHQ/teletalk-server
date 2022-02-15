@@ -12,13 +12,17 @@ const {
 const {
 	statusCheckUserController,
 } = require("~/controller/userController/statusCheckUserController");
+const {
+	logoutNormalUserController,
+} = require("~/controller/userController/logoutNormalUserController");
 
 const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 
 const userRoute = Router();
 
 const {
-	statusCheck,
+	logoutNormal,
+	statusCheck, //UNUSED
 	signInNormal,
 	verifySignInNormal,
 
@@ -28,6 +32,10 @@ const {
 
 userRoute.use(signInNormal.properties.route, cellphoneValidatorMDW);
 
+userRoute[logoutNormal.properties.method](
+	logoutNormal.properties.route,
+	logoutNormalUserController,
+);
 userRoute[signInNormal.properties.method](
 	signInNormal.properties.route,
 	signInNormalUserController,

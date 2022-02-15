@@ -8,6 +8,17 @@ const baseUrl = {
 	},
 };
 
+const logoutNormal = {
+	properties: {
+		description: "Use for logout client as a normal account",
+		method: "post",
+		route: "/logout/normal",
+	},
+	info: {
+		version: "1.0.0",
+	},
+};
+
 const signInNormal = {
 	properties: {
 		description: "Use for sign in client as a normal account",
@@ -69,6 +80,7 @@ const userRouteTemplate = {
 	},
 
 	baseUrl,
+	logoutNormal,
 	signInNormal,
 	statusCheck,
 	verifySignInNormal,
@@ -80,6 +92,7 @@ module.exports = {
 	userRouteTemplate,
 
 	baseUrl,
+	logoutNormal,
 	signInNormal,
 	statusCheck,
 	verifySignInNormal,

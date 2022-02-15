@@ -5,5 +5,10 @@
 		"node": true,
 		"jasmine": true
 	},
-	"globals": { "myConsole": true, "logger": true }
+	"globals": {
+		"myConsole": true,
+		"logger": true,
+		"expressRequest": true,
+		"expressResponse": true
+	}
 }

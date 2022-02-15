@@ -51,7 +51,7 @@
 		"yarn-error.log": true,
 		"Procfile": true,
 		"README.md": true,
-		"globals.d.ts": true,
+		"globals.d.ts": false,
 		".eslintrc.json": false,
 		".gitignore": true,
 		"package.json": false,

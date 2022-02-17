@@ -15,12 +15,16 @@ const {
 const {
 	logoutNormalUserController,
 } = require("~/controller/userController/logoutNormalUserController");
+const {
+	countriesUserController,
+} = require("~/controller/userController/countriesUserController");
 
 const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
 
 const userRoute = Router();
 
 const {
+	countries,
 	logoutNormal,
 	statusCheck, //UNUSED
 	signInNormal,
@@ -48,6 +52,8 @@ userRoute[statusCheck.properties.method](
 	statusCheck.properties.route,
 	statusCheckUserController,
 );
+
+userRoute[countries.properties.method](countries.properties.route, countriesUserController);
 
 userRoute[error.properties.method](error.properties.route, errorUserController);
 userRoute[template.properties.method](template.properties.route, templateUserController);

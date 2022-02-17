@@ -24,3 +24,4 @@ Using ms for convert time to ms and reverse
 ClipboardJS documentation
 Make api for log server errors
 Add success statusCode for each route, also for errors
+Add versioning system for static data

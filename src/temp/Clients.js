@@ -1,10 +1,10 @@
 class Clients {
 	constructor() {
-		this.clients = [];
+		this.aliveClients = [];
 	}
 
 	addClient(client) {
-		this.clients.push(client);
+		this.aliveClients.push(client);
 	}
 }
 

@@ -28,7 +28,7 @@ const signInNormalUserController = async (req, res) => {
 			secret: process.env.JWT_SIGN_IN_SECRET,
 		});
 
-		const client = clients.clients.find((client) => {
+		const client = clients.aliveClients.find((client) => {
 			if (client.phoneNumber === phoneNumber && client.countryCode === countryCode) {
 				return true;
 			} else {

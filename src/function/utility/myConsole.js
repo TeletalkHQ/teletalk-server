@@ -57,9 +57,6 @@ function ConsoleBuilder() {
 			});
 		}
 
-		//
-		//
-		//
 		return this;
 	};
 

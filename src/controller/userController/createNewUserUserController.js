@@ -84,6 +84,7 @@ const createNewUserUserController = async (req = expressRequest, res = expressRe
 			const userData = {
 				...cellphone,
 				firstName,
+				lastName,
 				privateID,
 				tokens: [{ token }],
 			};

@@ -19,6 +19,18 @@ const countries = {
 	},
 };
 
+//CLEANME Cleanup this shits ASAP!
+const createNewUser = {
+	properties: {
+		description: "Use for create new user for normal account",
+		method: "post",
+		route: "/createNewUser/normal",
+	},
+	info: {
+		version: "1.0.0",
+	},
+};
+
 const logoutNormal = {
 	properties: {
 		description: "Use for logout client as a normal account",
@@ -91,6 +103,7 @@ const userRouteTemplate = {
 	},
 
 	baseUrl,
+	createNewUser,
 	countries,
 	logoutNormal,
 	signInNormal,
@@ -104,6 +117,7 @@ module.exports = {
 	userRouteTemplate,
 
 	baseUrl,
+	createNewUser,
 	countries,
 	logoutNormal,
 	signInNormal,

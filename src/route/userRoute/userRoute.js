@@ -20,11 +20,15 @@ const {
 } = require("~/controller/userController/countriesUserController");
 
 const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
+const {
+	createNewUserUserController,
+} = require("~/controller/userController/createNewUserUserController");
 
 const userRoute = Router();
 
 const {
 	countries,
+	createNewUser,
 	logoutNormal,
 	statusCheck, //UNUSED
 	signInNormal,
@@ -53,6 +57,12 @@ userRoute[statusCheck.properties.method](
 	statusCheckUserController,
 );
 
+userRoute[createNewUser.properties.method](
+	createNewUser.properties.route,
+	createNewUserUserController,
+);
+
+//TODO Move it to otherRoute
 userRoute[countries.properties.method](countries.properties.route, countriesUserController);
 
 userRoute[error.properties.method](error.properties.route, errorUserController);

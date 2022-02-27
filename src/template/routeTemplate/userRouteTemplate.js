@@ -1,128 +1,70 @@
-const baseUrl = {
-	properties: {
-		description: "",
-		route: "/user",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const { routeTemplateGenerator } = require("~/function/utility/generators");
 
-const countries = {
-	properties: {
-		description: "Use for get countries for normal account",
-		method: "get",
-		route: "/countries/normal",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const baseUrl = routeTemplateGenerator(true, "/user", "1.0.0");
 
-//CLEANME Cleanup this shits ASAP!
-const createNewUser = {
-	properties: {
-		description: "Use for create new user for normal account",
-		method: "post",
-		route: "/createNewUser/normal",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const countries = routeTemplateGenerator(
+	"get",
+	"/countries/normal",
+	"1.0.0",
+	"Use for get countries for normal account",
+);
 
-const logoutNormal = {
-	properties: {
-		description: "Use for logout client as a normal account",
-		method: "post",
-		route: "/logout/normal",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const createNewUser = routeTemplateGenerator(
+	"post",
+	"/createNewUser/normal",
+	"1.0.0",
+	"Use for create new user for normal account",
+);
 
-const signInNormal = {
-	properties: {
-		description: "Use for sign in client as a normal account",
-		method: "post",
-		route: "/signIn/normal",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const logoutNormal = routeTemplateGenerator(
+	"post",
+	"/logout/normal",
+	"1.0.0",
+	"Use for logout client as a normal account",
+);
+const signInNormal = routeTemplateGenerator(
+	"post",
+	"/signIn/normal",
+	"1.0.0",
+	"Use for sign in client as a normal account",
+);
 
-const statusCheck = {
-	properties: {
-		description: "Use for check client availability as a normal account",
-		method: "get",
-		route: "/status/check",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const statusCheck = routeTemplateGenerator(
+	"get",
+	"/status/check",
+	"1.0.0",
+	"Use for check client availability as a normal account",
+);
 
-const verifySignInNormal = {
-	properties: {
-		description: "Use for verify sign in (normal account) as normal account",
-		method: "post",
-		route: "/verify/signIn/normal",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const verifySignInNormal = routeTemplateGenerator(
+	"post",
+	"/verify/signIn/normal",
+	"1.0.0",
+	"Use for verify sign in (normal account) as normal account",
+);
 
-const error = {
-	properties: {
-		description: "Use for get all auth errors",
-		method: "get",
-		route: "/error",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const error = routeTemplateGenerator("get", "/error", "1.0.0", "Use for get all auth errors");
 
-const template = {
-	properties: {
-		description: "Use for get all user properties and value structure",
-		method: "get",
-		route: "/template",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const template = routeTemplateGenerator(
+	"get",
+	"/template",
+	"1.0.0",
+	"Use for get all user properties and value structure",
+);
 
 const userRouteTemplate = {
-	info: {
-		version: "1.0.0",
-	},
-
 	baseUrl,
-	createNewUser,
 	countries,
+	createNewUser,
+	error,
 	logoutNormal,
 	signInNormal,
 	statusCheck,
-	verifySignInNormal,
-	error,
 	template,
+	verifySignInNormal,
+	version: "1.0.0",
 };
 
 module.exports = {
 	userRouteTemplate,
-
-	baseUrl,
-	createNewUser,
-	countries,
-	logoutNormal,
-	signInNormal,
-	statusCheck,
-	verifySignInNormal,
-	error,
-	template,
 };

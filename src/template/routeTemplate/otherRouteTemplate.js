@@ -1,46 +1,26 @@
-const baseUrl = {
-	properties: { description: "", route: "/other" },
-	info: {
-		version: "1.0.0",
-	},
-};
+const { routeTemplateGenerator } = require("~/function/utility/generators");
 
-const welcome = {
-	properties: {
-		description: "Use to get welcome message for client",
-		method: "get",
-		route: "/welcome",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const baseUrl = routeTemplateGenerator(true, "/other", "1.0.0");
 
-const error = {
-	properties: {
-		description: "Use for get all errors messages",
-		method: "get",
-		route: "/error",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const welcome = routeTemplateGenerator(
+	"get",
+	"/welcome",
+	"1.0.0",
+	"Use to get welcome message for client",
+);
+
+const error = routeTemplateGenerator(
+	"get",
+	"/error",
+	"1.0.0",
+	"Use for get all errors messages",
+);
 
 const otherRouteTemplate = {
-	info: {
-		version: "1.0.0",
-	},
-
 	baseUrl,
-	welcome,
 	error,
+	version: "1.0.0",
+	welcome,
 };
 
-module.exports = {
-	otherRouteTemplate,
-
-	baseUrl,
-	welcome,
-	error,
-};
+module.exports = { otherRouteTemplate };

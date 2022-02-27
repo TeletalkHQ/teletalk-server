@@ -1,187 +1,121 @@
-const baseUrl = {
-	properties: { description: "", route: "/cellphone" },
-	info: {
-		version: "1.0.0",
-	},
-};
+const { routeTemplateGenerator } = require("~/function/utility/generators");
 
-const addBlock = {
-	properties: {
-		description: "Use for block single contact on user contacts list",
-		method: "post",
-		route: "/add/block",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const baseUrl = routeTemplateGenerator(true, "/cellphone", "1.0.0");
 
-const addBlocks = {
-	properties: {
-		description: "Use for block single contact on user contacts list",
-		method: "post",
-		route: "/add/blocks",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const addBlock = routeTemplateGenerator(
+	"post",
+	"/add/block",
+	"1.0.0",
+	"Use for block single contact on user contacts list",
+);
 
-const addContact = {
-	properties: {
-		description: "Use for add single contact to current user contacts list",
-		method: "post",
-		route: "/add/contact",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const addBlocks = routeTemplateGenerator(
+	"post",
+	"/add/blocks",
+	"1.0.0",
+	"Use for block single contact on user contacts list",
+);
 
-const addContacts = {
-	properties: {
-		description: "Use for add single contact to current user contacts list",
-		method: "post",
-		route: "/add/contacts",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const addContact = routeTemplateGenerator(
+	"post",
+	"/add/contact",
+	"1.0.0",
+	"Use for add single contact to current user contacts list",
+);
 
-const editBlock = {
-	properties: {
-		description: "User for edit single contact on user contacts list",
-		method: "post",
-		route: "/edit/block",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const addContacts = routeTemplateGenerator(
+	"post",
+	"/add/contacts",
+	"1.0.0",
+	"Use for add single contact to current user contacts list",
+);
 
-const editContact = {
-	properties: {
-		description: "User for edit single contact on user contacts list",
-		method: "post",
-		route: "/edit/contact",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const editBlock = routeTemplateGenerator(
+	"post",
+	"/edit/block",
+	"1.0.0",
+	"User for edit single contact on user contacts list",
+);
 
-const getContacts = {
-	properties: {
-		description: "User for edit single contact on user contacts list",
-		method: "get",
-		route: "/get/contacts",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const editContact = routeTemplateGenerator(
+	"post",
+	"/edit/contact",
+	"1.0.0",
+	"User for edit single contact on user contacts list",
+);
 
-const removeBlock = {
-	properties: {
-		description: "Use for remove single contact on user contacts list",
-		method: "post",
-		route: "/remove/block",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const getContacts = routeTemplateGenerator(
+	"get",
+	"/get/contacts",
+	"1.0.0",
+	"User for edit single contact on user contacts list",
+);
 
-const removeBlocks = {
-	properties: {
-		description: "Use for remove single contact on user contacts list",
-		method: "post",
-		route: "/remove/blocks",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const removeBlock = routeTemplateGenerator(
+	"post",
+	"/remove/block",
+	"1.0.0",
+	"Use for remove single contact on user contacts list",
+);
 
-const removeContact = {
-	properties: {
-		description: "Use for remove single contact on user contacts list",
-		method: "post",
-		route: "/remove/contact",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const removeBlocks = routeTemplateGenerator(
+	"post",
+	"/remove/blocks",
+	"1.0.0",
+	"Use for remove single contact on user contacts list",
+);
 
-const removeContacts = {
-	properties: {
-		description: "Use for remove single contact on user contacts list",
-		method: "post",
-		route: "/remove/contacts",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const removeContact = routeTemplateGenerator(
+	"post",
+	"/remove/contact",
+	"1.0.0",
+	"Use for remove single contact on user contacts list",
+);
 
-const shareContact = {
-	properties: {
-		description: "Use for share single contact on user contacts list",
-		method: "post",
-		route: "/share/contact",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const removeContacts = routeTemplateGenerator(
+	"post",
+	"/remove/contacts",
+	"1.0.0",
+	"Use for remove single contact on user contacts list",
+);
 
-const shareContacts = {
-	properties: {
-		description: "Use for share single contact on user contacts list",
-		method: "post",
-		route: "/share/contacts",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const shareContact = routeTemplateGenerator(
+	"post",
+	"/share/contact",
+	"1.0.0",
+	"Use for share single contact on user contacts list",
+);
 
-const error = {
-	properties: {
-		description: "Use for get all contact errors",
-		method: "get",
-		route: "/error",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const shareContacts = routeTemplateGenerator(
+	"post",
+	"/share/contacts",
+	"1.0.0",
+	"Use for share single contact on user contacts list",
+);
 
-const template = {
-	properties: {
-		description: "Use for get all contact properties and value structure",
-		method: "get",
-		route: "/template",
-	},
-	info: {
-		version: "1.0.0",
-	},
-};
+const error = routeTemplateGenerator(
+	"get",
+	"/error",
+	"1.0.0",
+	"Use for get all contact errors",
+);
+
+const template = routeTemplateGenerator(
+	"get",
+	"/template",
+	"1.0.0",
+	"Use for get all contact properties and value structure",
+);
 
 const cellphoneRouteTemplate = {
-	info: {
-		version: "1.0.0",
-	},
-
-	baseUrl,
 	addBlock,
 	addBlocks,
 	addContact,
 	addContacts,
+	baseUrl,
 	editBlock,
 	editContact,
+	error,
 	getContacts,
 	removeBlock,
 	removeBlocks,
@@ -189,27 +123,10 @@ const cellphoneRouteTemplate = {
 	removeContacts,
 	shareContact,
 	shareContacts,
-	error,
 	template,
+	version: "1.0.0",
 };
 
 module.exports = {
 	cellphoneRouteTemplate,
-
-	baseUrl,
-	addBlock,
-	addBlocks,
-	addContact,
-	addContacts,
-	editBlock,
-	editContact,
-	getContacts,
-	removeBlock,
-	removeBlocks,
-	removeContact,
-	removeContacts,
-	shareContact,
-	shareContacts,
-	error,
-	template,
 };

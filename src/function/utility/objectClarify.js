@@ -1,4 +1,4 @@
-const objectClarify = (object = {}) => {
+const objectClarify = (object = { dirtyObject: {} }) => {
 	const filteredObject = {};
 	Object.entries(object)?.forEach(([key, value]) => {
 		if (value !== undefined) {
@@ -6,7 +6,7 @@ const objectClarify = (object = {}) => {
 		}
 	});
 
-	return { object: filteredObject };
+	return { cleanObject: filteredObject };
 };
 
 module.exports = { objectClarify };

@@ -11,8 +11,8 @@ const { objectClarify } = require("~/function/utility/objectClarify");
  */
 const bodyClarify = (req, res, next) => {
 	try {
-		const { object } = objectClarify(req.body);
-		req.body = object;
+		const { cleanObject } = objectClarify({ dirtyObject: req.body });
+		req.body = cleanObject;
 		next();
 	} catch (error) {
 		logger.log("bodyClarify catch", error);

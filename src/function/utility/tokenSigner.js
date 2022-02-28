@@ -2,7 +2,7 @@ const JWT = require("jsonwebtoken");
 
 const { initialValue } = require("~/constant/initialValue/initialValue");
 
-const initialOptions = initialValue.JWTOptions;
+const initialOptions = initialValue.jwtOptions;
 
 const tokenSigner = async ({ data, secret, options = initialOptions }) => {
 	try {

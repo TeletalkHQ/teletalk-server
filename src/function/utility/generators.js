@@ -1,3 +1,8 @@
+const { initialValue } = require("~/constant/initialValue/initialValue");
+const { objectClarify } = require("~/function/utility/objectClarify");
+
+const { initialSchemaPropertyKey } = initialValue;
+
 const errorTemplateGenerator = (code, message, reason, version) => {
 	try {
 		if (!code || message || reason || version) {
@@ -35,19 +40,47 @@ const routeTemplateGenerator = (method, route, version, description = "") => {
 	}
 };
 
-const mongooseSchemaGenerator = () => {};
-
-const schemaTemplateGenerator = (
+const mongooseSchemaGenerator = (
+	type,
 	maxlength,
 	minlength,
 	required,
-	trim,
-	type,
 	unique,
+	trim,
 	defaultValue,
-	version,
 	lowercase,
-	length,
+) => {
+	try {
+		const schema = {
+			defaultValue,
+			maxlength,
+			minlength,
+			required,
+			trim,
+			type,
+			unique,
+			lowercase,
+		};
+
+		const cleanSchema = objectClarify({ dirtyObject: schema })?.cleanObject;
+
+		return cleanSchema;
+	} catch (error) {
+		logger.log("mongooseSchemaGenerator catch, error:", error);
+	}
+};
+
+const schemaTemplateGenerator = (
+	maxlength = initialSchemaPropertyKey,
+	minlength = initialSchemaPropertyKey,
+	required = initialSchemaPropertyKey,
+	trim = initialSchemaPropertyKey,
+	type = initialSchemaPropertyKey,
+	unique = initialSchemaPropertyKey,
+	defaultValue = initialSchemaPropertyKey,
+	version = initialSchemaPropertyKey,
+	lowercase = initialSchemaPropertyKey,
+	length = initialSchemaPropertyKey,
 ) => {
 	try {
 		return {

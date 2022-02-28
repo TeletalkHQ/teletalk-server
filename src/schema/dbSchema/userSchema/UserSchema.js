@@ -1,115 +1,127 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
+
+const { mongooseSchemaGenerator } = require("~/function/utility/generators");
+
 const { chatSchemaTemplate } = require("~/template/schemaTemplate/chatSchemaTemplate");
 
 const {
 	userSchemaTemplate: {
-		bio: { properties: bio },
-		countryCode: { properties: countryCode },
-		countryName: { properties: countryName },
-		createdAt: { properties: createdAt },
-		firstName: { properties: firstName },
-		lastName: { properties: lastName },
-		phoneNumber: { properties: phoneNumber },
-		privateID: { properties: privateID },
-		token: { properties: token },
-		username: { properties: username },
+		bio,
+		countryCode,
+		countryName,
+		createdAt,
+		firstName,
+		lastName,
+		phoneNumber,
+		privateID,
+		token,
+		username,
 	},
 } = require("~/template/schemaTemplate/userSchemaTemplate");
 
-const {
-	chatID: { properties: chatID },
-	message: { properties: message },
-} = chatSchemaTemplate;
+const { chatID, message } = chatSchemaTemplate;
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 
 const user = {
-	bio: {
-		maxlength: [bio.maxlength.value, bio.maxlength.error.message],
-		type: bio.type.value,
-	},
-	chatID: {
-		maxlength: [chatID.maxlength.value, chatID.maxlength.error.message],
-		minlength: [chatID.minlength.value, chatID.minlength.error.message],
-		required: [chatID.required.value, chatID.required.error.message],
-		trim: chatID.trim.value,
-		type: chatID.type.value,
-		// unique: chatID.unique.value,
-	},
-	countryCode: {
-		maxlength: [countryCode.maxlength.value, countryCode.maxlength.error.message],
-		minlength: [countryCode.minlength.value, countryCode.minlength.error.message],
-		required: [countryCode.required.value, countryCode.required.error.message],
-		type: countryCode.type.value,
-	},
-	countryName: {
-		maxlength: [countryName.maxlength.value, countryName.maxlength.error.message],
-		minlength: [countryName.minlength.value, countryName.minlength.error.message],
-		required: [countryName.required.value, countryName.required.error.message],
-		type: countryName.type.value,
-	},
-	createdAt: {
-		default: createdAt.default.value,
-		type: createdAt.type.value,
-	},
-	firstName: {
-		maxlength: [firstName.maxlength.value, firstName.maxlength.error.message],
-		minlength: [firstName.minlength.value, firstName.minlength.error.message],
-		required: [firstName.required.value, firstName.required.error.message],
-		type: firstName.type.value,
-	},
-	lastName: {
-		defaults: lastName.default.value,
-		maxlength: [lastName.maxlength.value, lastName.maxlength.error.message],
-		trim: lastName.trim.value,
-		type: lastName.type.value,
-	},
-	lastMessage: {
-		minlength: [message.minlength.value, firstName.minlength.error.message],
-		maxlength: [message.maxlength.value, message.maxlength.error.message],
-		type: message.type.value,
-	},
-	phoneNumber: {
-		maxlength: [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],
-		minlength: [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
-		required: [phoneNumber.required.value, phoneNumber.required.error.message],
-		type: phoneNumber.type.value,
-	},
-	privateID: {
-		maxlength: [privateID.maxlength.value, privateID.maxlength.error.message],
-		minlength: [privateID.minlength.value, privateID.minlength.error.message],
-		required: [privateID.required.value, privateID.required.error.message],
-		trim: privateID.trim.value,
-		type: privateID.type.value,
-		unique: privateID.unique.value,
-	},
-	token: {
-		required: [token.required.value, token.required.error.message],
-		type: token.type.value,
-		unique: token.unique.value,
-	},
-	username: {
-		default: username.default.value, // validate: {
+	bio: mongooseSchemaGenerator(bio.type.value, [
+		bio.maxlength.value,
+		bio.maxlength.error.message,
+	]),
+
+	chatID: mongooseSchemaGenerator(
+		chatID.type.value,
+		[chatID.maxlength.value, chatID.maxlength.error.message],
+		[chatID.minlength.value, chatID.minlength.error.message],
+		[chatID.required.value, chatID.required.error.message],
+		null,
+		chatID.trim.value,
+	),
+	countryCode: mongooseSchemaGenerator(
+		countryCode.type.value,
+		[countryCode.maxlength.value, countryCode.maxlength.error.message],
+		[countryCode.minlength.value, countryCode.minlength.error.message],
+		[countryCode.required.value, countryCode.required.error.message],
+	),
+	countryName: mongooseSchemaGenerator(
+		countryName.type.value,
+		[countryName.maxlength.value, countryName.maxlength.error.message],
+		[countryName.minlength.value, countryName.minlength.error.message],
+		[countryName.required.value, countryName.required.error.message],
+	),
+	createdAt: mongooseSchemaGenerator(
+		createdAt.type.value,
+		null,
+		null,
+		null,
+		null,
+		null,
+		createdAt.default.value,
+	),
+	firstName: mongooseSchemaGenerator(
+		firstName.type.value,
+		[firstName.maxlength.value, firstName.maxlength.error.message],
+		[firstName.minlength.value, firstName.minlength.error.message],
+		[firstName.required.value, firstName.required.error.message],
+	),
+	lastName: mongooseSchemaGenerator(
+		lastName.type.value,
+		[lastName.maxlength.value, lastName.maxlength.error.message],
+		null,
+		null,
+		null,
+		lastName.trim.value,
+		lastName.default.value,
+	),
+	lastMessage: mongooseSchemaGenerator(
+		message.type.value,
+		[message.minlength.value, firstName.minlength.error.message],
+		[message.maxlength.value, message.maxlength.error.message],
+	),
+	phoneNumber: mongooseSchemaGenerator(
+		phoneNumber.type.value,
+		[phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],
+		[phoneNumber.minlength.value, phoneNumber.minlength.error.message],
+		[phoneNumber.required.value, phoneNumber.required.error.message],
+	),
+	privateID: mongooseSchemaGenerator(
+		privateID.type.value,
+		[privateID.maxlength.value, privateID.maxlength.error.message],
+		[privateID.minlength.value, privateID.minlength.error.message],
+		[privateID.required.value, privateID.required.error.message],
+		privateID.unique.value,
+		privateID.trim.value,
+	),
+	token: mongooseSchemaGenerator(
+		token.type.value,
+		null,
+		null,
+		[token.required.value, token.required.error.message],
+		token.unique.value,
+	),
+	username: mongooseSchemaGenerator(
+		username.type.value,
+		[username.maxlength.value, username.maxlength.error.message],
+		null,
+		null,
+		null,
+		username.trim.value,
+		username.default.value,
+		username.lowercase.value,
+		// validate: {
 		// 	validator: function (value) {
 		// 		return /^[a-z\s]{0,255}$/i.test(value);
 		// 	},
 		// 	message: "{VALUE} is not a valid string!",
 		// },
-		lowercase: username.lowercase.value,
-		maxlength: [username.maxlength.value, username.maxlength.error.message],
-		trim: username.trim.value,
-		type: username.type.value,
-	},
+	),
 };
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
 const UserSchema = new mongoose.Schema({
-	bio: {
-		maxlength: [bio.maxlength.value, bio.maxlength.error.message],
-		type: bio.type.value,
-	},
+	bio: user.bio,
 
 	blacklist: [
 		{

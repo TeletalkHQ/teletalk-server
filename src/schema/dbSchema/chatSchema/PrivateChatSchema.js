@@ -1,61 +1,57 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
+const { mongooseSchemaGenerator } = require("~/function/utility/generators");
+
 const {
-	chatSchemaTemplate: {
-		chatID: { properties: chatID },
-		createdAt: { properties: createdAt },
-		messageID: { properties: messageID },
-		// messageSender:{properties:messageSender},
-		// messageStatus:{properties:messageStatus},
-		message: { properties: message },
-		participantID: { properties: participantID },
-		// participantStatus:{properties:participantStatus},
-		// participantVisibility:{properties:participantVisibility},
-	},
+	chatSchemaTemplate: { chatID, createdAt, messageID, message, participantID },
 } = require("~/template/schemaTemplate/chatSchemaTemplate");
 
 // uniqueValidator.defaults.message = "{PATH}_exist";
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
-const participantIDTemplate = {
-	maxlength: [participantID.maxlength.value, participantID.maxlength.error.message],
-	minlength: [participantID.minlength.value, participantID.minlength.error.message],
-	required: [participantID.required.value, participantID.required.error.message],
-	trim: participantID.trim.value,
-	type: participantID.type.value,
-	// unique: participantID.unique.value,
-};
+const participantIDTemplate = mongooseSchemaGenerator(
+	participantID.type.value,
+	[participantID.maxlength.value, participantID.maxlength.error.message],
+	[participantID.minlength.value, participantID.minlength.error.message],
+	[participantID.required.value, participantID.required.error.message],
+	null,
+	participantID.trim.value,
+);
 
 const privateChat = {
-	chatID: {
-		maxlength: [chatID.maxlength.value, chatID.maxlength.error.message],
-		minlength: [chatID.minlength.value, chatID.minlength.error.message],
-		required: [chatID.required.value, chatID.required.error.message],
-		type: chatID.type.value,
-		unique: chatID.unique.value,
-	},
-	createdAt: {
-		default: createdAt.default.value,
-		required: [createdAt.required.value, createdAt.required.error.message],
-		type: createdAt.type.value,
-	},
+	chatID: mongooseSchemaGenerator(
+		chatID.type.value,
+		[chatID.maxlength.value, chatID.maxlength.error.message],
+		[chatID.minlength.value, chatID.minlength.error.message],
+		[chatID.required.value, chatID.required.error.message],
+		chatID.unique.value,
+	),
+	createdAt: mongooseSchemaGenerator(
+		createdAt.type.value,
+		null,
+		null,
+		[createdAt.required.value, createdAt.required.error.message],
+		null,
+		null,
+		createdAt.default.value,
+	),
 	messages: [
 		{
-			messageID: {
-				default: messageID.default.value(messageID.maxlength.value),
-				maxlength: [messageID.maxlength.value, messageID.maxlength.error.message],
-				minlength: [messageID.minlength.value, messageID.minlength.error.message],
-				required: [messageID.required.value, messageID.required.error.message],
-				trim: messageID.trim.value,
-				type: messageID.type.value,
-				unique: messageID.unique.value,
-			},
-			message: {
-				maxlength: [message.maxlength.value, message.maxlength.error.message],
-				minlength: [message.minlength.value, message.minlength.error.message],
-				type: message.type.value,
-			},
+			messageID: mongooseSchemaGenerator(
+				messageID.type.value,
+				[messageID.maxlength.value, messageID.maxlength.error.message],
+				[messageID.minlength.value, messageID.minlength.error.message],
+				[messageID.required.value, messageID.required.error.message],
+				messageID.unique.value,
+				messageID.trim.value,
+				messageID.default.value(messageID.maxlength.value),
+			),
+			message: mongooseSchemaGenerator(
+				message.type.value,
+				[message.maxlength.value, message.maxlength.error.message],
+				[message.minlength.value, message.minlength.error.message],
+			),
 			messageSender: {
 				senderID: participantIDTemplate,
 			},

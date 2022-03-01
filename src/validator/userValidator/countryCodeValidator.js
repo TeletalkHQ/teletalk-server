@@ -1,10 +1,8 @@
-const Validator = require("fastest-validator");
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const {
 	countryCodeValidationSchema,
 } = require("~/schema/validationSchema/userValidationSchema/countryCodeValidationSchema");
-
-const v = new Validator();
 
 const countryCodeValidation = {
 	properties: { ...countryCodeValidationSchema.properties },
@@ -14,6 +12,6 @@ const countryCodeValidation = {
 	},
 };
 
-const countryCodeValidator = v.compile(countryCodeValidation.properties);
+const countryCodeValidator = validatorCompiler(countryCodeValidation.properties);
 
 module.exports = { countryCodeValidator, countryCodeValidation };

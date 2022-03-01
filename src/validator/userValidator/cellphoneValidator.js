@@ -1,5 +1,3 @@
-const Validator = require("fastest-validator");
-
 const {
 	phoneNumberValidationSchema,
 } = require("~/schema/validationSchema/userValidationSchema/phoneNumberValidationSchema");
@@ -10,8 +8,7 @@ const {
 const {
 	countryNameValidationSchema,
 } = require("~/schema/validationSchema/userValidationSchema/countryNameValidationSchema");
-
-const v = new Validator();
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const cellphoneValidation = {
 	properties: {
@@ -25,6 +22,6 @@ const cellphoneValidation = {
 	},
 };
 
-const cellphoneValidator = v.compile(cellphoneValidation.properties);
+const cellphoneValidator = validatorCompiler(cellphoneValidation.properties);
 
 module.exports = { cellphoneValidator, cellphoneValidation };

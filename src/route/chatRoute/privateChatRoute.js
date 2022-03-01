@@ -21,11 +21,11 @@ const {
 
 const {
 	privateChatRouteTemplate: {
-		sendMessage,
-		startChat,
-		getMessages,
-		getAllChats,
-		chatsLastMessage,
+		sendMessage: { properties: sendMessage },
+		startChat: { properties: startChat },
+		getMessages: { properties: getMessages },
+		getAllChats: { properties: getAllChats },
+		chatsLastMessage: { properties: chatsLastMessage },
 	},
 } = require("~/template/routeTemplate/privateChatRouteTemplate");
 
@@ -35,27 +35,15 @@ privateChatRoute.use(authDefaultMDW);
 
 privateChatRoute.use(findUserFromDB);
 
-privateChatRoute[getAllChats.properties.method](
-	getAllChats.properties.route,
-	getAllChatsUserController,
-);
+privateChatRoute[getAllChats.method](getAllChats.route, getAllChatsUserController);
 
-privateChatRoute[chatsLastMessage.properties.method](
-	chatsLastMessage.properties.route,
+privateChatRoute[chatsLastMessage.method](
+	chatsLastMessage.route,
 	chatsLastMessageChatController,
 );
 
-privateChatRoute[sendMessage.properties.method](
-	sendMessage.properties.route,
-	sendMessagePrivateChatController,
-);
-privateChatRoute[getMessages.properties.method](
-	getMessages.properties.route,
-	getMessagesPrivateChatController,
-);
-privateChatRoute[startChat.properties.method](
-	startChat.properties.route,
-	startChatPrivateChatController,
-);
+privateChatRoute[sendMessage.method](sendMessage.route, sendMessagePrivateChatController);
+privateChatRoute[getMessages.method](getMessages.route, getMessagesPrivateChatController);
+privateChatRoute[startChat.method](startChat.route, startChatPrivateChatController);
 
 module.exports = { privateChatRoute };

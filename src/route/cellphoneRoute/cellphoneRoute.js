@@ -2,7 +2,6 @@ const { Router } = require("express");
 
 const { authDefaultMDW } = require("~/middleware/authDefaultMDW");
 const { contactValidatorMDW } = require("~/middleware/contactValidatorMDW");
-const { errorResponser } = require("~/middleware/errorResponser");
 const { findUserFromDB } = require("~/middleware/findUserFromDB");
 const { selfStuffControllerMDW } = require("~/middleware/selfStuffControllerMDW");
 const { cellphoneValidatorMDW } = require("~/middleware/cellphoneValidatorMDW");
@@ -31,12 +30,12 @@ const {
 
 const {
 	cellphoneRouteTemplate: {
-		addContact,
-		addBlock,
-		editContact,
-		removeBlock,
-		removeContact,
-		getContacts,
+		addContact: { properties: addContact },
+		addBlock: { properties: addBlock },
+		editContact: { properties: editContact },
+		removeBlock: { properties: removeBlock },
+		removeContact: { properties: removeContact },
+		getContacts: { properties: getContacts },
 	},
 } = require("~/template/routeTemplate/cellphoneRouteTemplate");
 
@@ -44,8 +43,8 @@ const cellphoneRoute = Router();
 
 cellphoneRoute.use(authDefaultMDW);
 
-cellphoneRoute[getContacts.properties.method](
-	getContacts.properties.route,
+cellphoneRoute[getContacts.method](
+	getContacts.route,
 	findUserFromDB,
 	getContactsCellphoneController,
 );
@@ -54,27 +53,12 @@ cellphoneRoute.use(cellphoneValidatorMDW);
 cellphoneRoute.use(selfStuffControllerMDW);
 cellphoneRoute.use(findUserFromDB);
 cellphoneRoute.use(targetUserFinderByCellphoneMDW);
-cellphoneRoute.use(addContact.properties.route, contactValidatorMDW);
+cellphoneRoute.use(addContact.route, contactValidatorMDW);
 
-cellphoneRoute[addContact.properties.method](
-	addContact.properties.route,
-	addContactCellphoneController,
-);
-cellphoneRoute[addBlock.properties.method](
-	addBlock.properties.route,
-	addBlockCellphoneController,
-);
-cellphoneRoute[removeBlock.properties.method](
-	removeBlock.properties.route,
-	removeBlockCellphoneController,
-);
-cellphoneRoute[removeContact.properties.method](
-	removeContact.properties.route,
-	removeContactCellphoneController,
-);
-cellphoneRoute[editContact.properties.method](
-	editContact.properties.route,
-	editContactCellphoneController,
-);
+cellphoneRoute[addContact.method](addContact.route, addContactCellphoneController);
+cellphoneRoute[addBlock.method](addBlock.route, addBlockCellphoneController);
+cellphoneRoute[removeBlock.method](removeBlock.route, removeBlockCellphoneController);
+cellphoneRoute[removeContact.method](removeContact.route, removeContactCellphoneController);
+cellphoneRoute[editContact.method](editContact.route, editContactCellphoneController);
 
 module.exports = { cellphoneRoute };

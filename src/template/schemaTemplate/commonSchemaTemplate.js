@@ -4,7 +4,9 @@ const {
 } = require("~/function/utility/generators");
 
 const {
-	userErrorTemplate: { CREATED_AT_INVALID_TYPE },
+	userErrorTemplate: {
+		CREATED_AT_INVALID_TYPE: { properties: CREATED_AT_INVALID_TYPE },
+	},
 } = require("~/template/errorTemplate/userErrorTemplate");
 
 const createdAt = schemaTemplateGenerator(

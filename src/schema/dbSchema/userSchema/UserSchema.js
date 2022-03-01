@@ -7,20 +7,23 @@ const { chatSchemaTemplate } = require("~/template/schemaTemplate/chatSchemaTemp
 
 const {
 	userSchemaTemplate: {
-		bio,
-		countryCode,
-		countryName,
-		createdAt,
-		firstName,
-		lastName,
-		phoneNumber,
-		privateID,
-		token,
-		username,
+		bio: { properties: bio },
+		countryCode: { properties: countryCode },
+		countryName: { properties: countryName },
+		createdAt: { properties: createdAt },
+		firstName: { properties: firstName },
+		lastName: { properties: lastName },
+		phoneNumber: { properties: phoneNumber },
+		privateID: { properties: privateID },
+		token: { properties: token },
+		username: { properties: username },
 	},
 } = require("~/template/schemaTemplate/userSchemaTemplate");
 
-const { chatID, message } = chatSchemaTemplate;
+const {
+	chatID: { properties: chatID },
+	message: { properties: message },
+} = chatSchemaTemplate;
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 

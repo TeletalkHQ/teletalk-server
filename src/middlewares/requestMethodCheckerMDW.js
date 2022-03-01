@@ -1,11 +1,11 @@
-const { userRouteTemplate } = require("~/templates/routeTemplates/userRouteTemplate");
+const { userRouteTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
 const {
 	cellphoneRouteTemplate,
-} = require("~/templates/routeTemplates/cellphoneRouteTemplate");
-const { otherRouteTemplate } = require("~/templates/routeTemplates/otherRouteTemplate");
+} = require("~/templates/routerTemplates/cellphoneRouterTemplate");
+const { otherRouteTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
 const {
 	privateChatRouteTemplate,
-} = require("~/templates/routeTemplates/privateChatRouteTemplate");
+} = require("~/templates/routerTemplates/privateChatRouterTemplate");
 
 const templates = [
 	userRouteTemplate,

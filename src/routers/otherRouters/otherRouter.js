@@ -7,7 +7,7 @@ const {
 	otherRouteTemplate: {
 		welcome: { properties: welcome },
 	},
-} = require("~/templates/routeTemplates/otherRouteTemplate");
+} = require("~/templates/routerTemplates/otherRouterTemplate");
 
 const otherRoute = Router();
 

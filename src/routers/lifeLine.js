@@ -11,12 +11,12 @@ const { userRoute } = require("~/routers/userRouters/userRouter");
 
 const {
 	cellphoneRouteTemplate,
-} = require("~/templates/routeTemplates/cellphoneRouteTemplate");
-const { otherRouteTemplate } = require("~/templates/routeTemplates/otherRouteTemplate");
+} = require("~/templates/routerTemplates/cellphoneRouterTemplate");
+const { otherRouteTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
 const {
 	privateChatRouteTemplate,
-} = require("~/templates/routeTemplates/privateChatRouteTemplate");
-const { userRouteTemplate } = require("~/templates/routeTemplates/userRouteTemplate");
+} = require("~/templates/routerTemplates/privateChatRouterTemplate");
+const { userRouteTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
 
 const lifeLine = Router();
 

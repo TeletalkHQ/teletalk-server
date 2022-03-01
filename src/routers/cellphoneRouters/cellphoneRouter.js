@@ -37,7 +37,7 @@ const {
 		removeContact: { properties: removeContact },
 		getContacts: { properties: getContacts },
 	},
-} = require("~/templates/routeTemplates/cellphoneRouteTemplate");
+} = require("~/templates/routerTemplates/cellphoneRouterTemplate");
 
 const cellphoneRoute = Router();
 

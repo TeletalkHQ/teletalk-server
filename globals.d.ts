@@ -1,6 +1,6 @@
 import { request, response } from "express";
 
-import console from "~/function/utility/myConsole";
+import console from "~/functions/utilities/myConsole";
 
 declare global {
 	var myConsole = console.myConsole;

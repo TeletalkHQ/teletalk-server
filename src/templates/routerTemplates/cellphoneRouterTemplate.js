@@ -107,7 +107,7 @@ const template = routeTemplateGenerator(
 	"Use for get all contact properties and value structure",
 );
 
-const cellphoneRouteTemplate = {
+const cellphoneRouterTemplate = {
 	addBlock,
 	addBlocks,
 	addContact,
@@ -128,5 +128,5 @@ const cellphoneRouteTemplate = {
 };
 
 module.exports = {
-	cellphoneRouteTemplate,
+	cellphoneRouterTemplate,
 };

@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 const {
-	userRouteTemplate,
+	userRouterTemplate,
 	signInNormalUserController,
 	errorUserController,
 	templateUserController,
@@ -35,7 +35,7 @@ const {
 	verifySignInNormal: { properties: verifySignInNormal },
 	error: { properties: error },
 	template: { properties: template },
-} = userRouteTemplate;
+} = userRouterTemplate;
 
 userRoute.use(signInNormal.route, cellphoneValidatorMDW);
 

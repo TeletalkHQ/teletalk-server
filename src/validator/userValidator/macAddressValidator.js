@@ -1,10 +1,8 @@
-const Validator = require("fastest-validator");
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const {
 	macAddressValidationSchema,
 } = require("~/schema/validationSchema/userValidationSchema/macAddressValidationSchema");
-
-const v = new Validator();
 
 const macAddressValidation = {
 	properties: { ...macAddressValidationSchema.properties },
@@ -14,6 +12,6 @@ const macAddressValidation = {
 	},
 };
 
-const macAddressValidator = v.compile(macAddressValidation.properties);
+const macAddressValidator = validatorCompiler(macAddressValidation.properties);
 
 module.exports = { macAddressValidator, macAddressValidation };

@@ -1,10 +1,8 @@
-const Validator = require("fastest-validator");
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const {
 	bioValidationsSchema,
 } = require("~/schema/validationSchema/userValidationSchema/bioValidationsSchema");
-
-const v = new Validator();
 
 const bioValidation = {
 	properties: { ...bioValidationsSchema.properties },
@@ -14,6 +12,6 @@ const bioValidation = {
 	},
 };
 
-const bioValidator = v.compile(bioValidation.properties);
+const bioValidator = validatorCompiler(bioValidation.properties);
 
 module.exports = { bioValidator, bioValidation };

@@ -1,10 +1,8 @@
-const Validator = require("fastest-validator");
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const {
 	messageIDValidationSchema,
 } = require("~/schema/validationSchema/chatValidationSchema/messageIDValidationSchema");
-
-const v = new Validator();
 
 const messageIDValidation = {
 	properties: { ...messageIDValidationSchema.properties },
@@ -14,6 +12,6 @@ const messageIDValidation = {
 	},
 };
 
-const messageIDValidator = v.compile(messageIDValidation.properties);
+const messageIDValidator = validatorCompiler(messageIDValidation.properties);
 
 module.exports = { messageIDValidator, messageIDValidation };

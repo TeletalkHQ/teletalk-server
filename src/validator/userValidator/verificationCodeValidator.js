@@ -1,10 +1,8 @@
-const Validator = require("fastest-validator");
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const {
 	verificationCodeValidationSchema,
 } = require("~/schema/validationSchema/userValidationSchema/verificationCodeValidationSchema");
-
-const v = new Validator();
 
 const verificationCodeValidation = {
 	properties: { ...verificationCodeValidationSchema.properties },
@@ -14,6 +12,6 @@ const verificationCodeValidation = {
 	},
 };
 
-const verificationCodeValidator = v.compile(verificationCodeValidation.properties);
+const verificationCodeValidator = validatorCompiler(verificationCodeValidation.properties);
 
 module.exports = { verificationCodeValidator, verificationCodeValidation };

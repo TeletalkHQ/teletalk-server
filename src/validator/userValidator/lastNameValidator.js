@@ -1,10 +1,8 @@
-const Validator = require("fastest-validator");
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const {
 	lastNameValidationSchema,
 } = require("~/schema/validationSchema/userValidationSchema/lastNameValidationSchema");
-
-const v = new Validator();
 
 const lastNameValidation = {
 	properties: { ...lastNameValidationSchema.properties },
@@ -14,6 +12,6 @@ const lastNameValidation = {
 	},
 };
 
-const lastNameValidator = v.compile(lastNameValidation.properties);
+const lastNameValidator = validatorCompiler(lastNameValidation.properties);
 
 module.exports = { lastNameValidator, lastNameValidation };

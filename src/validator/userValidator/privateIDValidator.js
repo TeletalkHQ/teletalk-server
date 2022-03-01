@@ -1,10 +1,8 @@
-const Validator = require("fastest-validator");
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const {
 	privateIDValidationSchema,
 } = require("~/schema/validationSchema/userValidationSchema/privateIDValidationSchema");
-
-const v = new Validator();
 
 const privateIDValidation = {
 	properties: { ...privateIDValidationSchema.properties },
@@ -14,6 +12,6 @@ const privateIDValidation = {
 	},
 };
 
-const privateIDValidator = v.compile(privateIDValidation.properties);
+const privateIDValidator = validatorCompiler(privateIDValidation.properties);
 
 module.exports = { privateIDValidator, privateIDValidation };

@@ -1,10 +1,8 @@
-const Validator = require("fastest-validator");
+const { validatorCompiler } = require("~/function/utility/validatorCompiler");
 
 const {
 	createdAtValidationSchema,
 } = require("~/schema/validationSchema/commonValidationSchema/createdAtValidationSchema");
-
-const v = new Validator();
 
 const createdAtValidation = {
 	properties: { ...createdAtValidationSchema.properties },
@@ -14,6 +12,6 @@ const createdAtValidation = {
 	},
 };
 
-const createdAtValidator = v.compile(createdAtValidation.properties);
+const createdAtValidator = validatorCompiler(createdAtValidation.properties);
 
 module.exports = { createdAtValidator, createdAtValidation };

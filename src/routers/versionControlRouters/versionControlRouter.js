@@ -1,4 +1,9 @@
 const { Router } = require("express");
+
+const {
+	getAllStuffVersionControlController,
+} = require("~/controllers/versionControlControllers/getAllStuffVersionControlController");
+
 const {
 	versionControlRouterTemplate,
 } = require("~/templates/routerTemplates/versionControlRouterTemplate");

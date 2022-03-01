@@ -1,6 +1,6 @@
 const { errorUserController } = require("~/controllers/userControllers/errorUserController");
 
-const { userRouteTemplate } = require("~/templates/routeTemplates/userRouteTemplate");
+const { userRouteTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
 
 const {
 	signInNormalUserController,

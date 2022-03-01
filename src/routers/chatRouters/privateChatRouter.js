@@ -27,7 +27,7 @@ const {
 		getAllChats: { properties: getAllChats },
 		chatsLastMessage: { properties: chatsLastMessage },
 	},
-} = require("~/templates/routeTemplates/privateChatRouteTemplate");
+} = require("~/templates/routerTemplates/privateChatRouterTemplate");
 
 const privateChatRoute = Router();
 

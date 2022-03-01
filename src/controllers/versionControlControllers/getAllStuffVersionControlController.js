@@ -1,20 +1,11 @@
-const {
-	cellphoneRouterTemplate,
-} = require("~/templates/routerTemplates/cellphoneRouterTemplate");
-const { otherRouterTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
-const {
-	privateChatRouterTemplate,
-} = require("~/templates/routerTemplates/privateChatRouterTemplate");
-const {
-	versionControlRouterTemplate,
-} = require("~/templates/routerTemplates/versionControlRouterTemplate");
-const { userRouterTemplate } = require("../userControllers/indexUserController");
+const { allStuff } = require("~/variables/otherVariables");
 
 const getAllStuffVersionControlController = async (
 	req = expressRequest,
 	res = expressResponse,
 ) => {
 	try {
+		res.status(200).json({ allStuff });
 	} catch (error) {
 		console.log("getAllStuffVersionControlController", error);
 		res.errorCollector({ data: { error } });

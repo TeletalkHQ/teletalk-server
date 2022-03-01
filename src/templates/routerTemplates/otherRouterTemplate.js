@@ -16,11 +16,11 @@ const error = routeTemplateGenerator(
 	"Use for get all errors messages",
 );
 
-const otherRouteTemplate = {
+const otherRouterTemplate = {
 	baseUrl,
 	error,
 	version: "1.0.0",
 	welcome,
 };
 
-module.exports = { otherRouteTemplate };
+module.exports = { otherRouterTemplate };

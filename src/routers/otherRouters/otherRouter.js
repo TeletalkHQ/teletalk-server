@@ -4,7 +4,7 @@ const {
 	welcomeOtherController,
 } = require("~/controllers/otherControllers/welcomeOtherController");
 const {
-	otherRouteTemplate: {
+	otherRouterTemplate: {
 		welcome: { properties: welcome },
 	},
 } = require("~/templates/routerTemplates/otherRouterTemplate");

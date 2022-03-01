@@ -20,7 +20,7 @@ const {
 } = require("~/controllers/privateChatControllers/getAllChatsUserController");
 
 const {
-	privateChatRouteTemplate: {
+	privateChatRouterTemplate: {
 		sendMessage: { properties: sendMessage },
 		startChat: { properties: startChat },
 		getMessages: { properties: getMessages },

@@ -52,7 +52,7 @@ const template = routeTemplateGenerator(
 	"Use for get all user properties and value structure",
 );
 
-const userRouteTemplate = {
+const userRouterTemplate = {
 	baseUrl,
 	countries,
 	createNewUser,
@@ -66,5 +66,5 @@ const userRouteTemplate = {
 };
 
 module.exports = {
-	userRouteTemplate,
+	userRouterTemplate,
 };

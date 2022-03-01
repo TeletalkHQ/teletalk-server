@@ -1,17 +1,17 @@
-const { userRouteTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
+const { userRouterTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
 const {
-	cellphoneRouteTemplate,
+	cellphoneRouterTemplate,
 } = require("~/templates/routerTemplates/cellphoneRouterTemplate");
-const { otherRouteTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
+const { otherRouterTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
 const {
-	privateChatRouteTemplate,
+	privateChatRouterTemplate,
 } = require("~/templates/routerTemplates/privateChatRouterTemplate");
 
 const templates = [
-	userRouteTemplate,
-	cellphoneRouteTemplate,
-	otherRouteTemplate,
-	privateChatRouteTemplate,
+	userRouterTemplate,
+	cellphoneRouterTemplate,
+	otherRouterTemplate,
+	privateChatRouterTemplate,
 ];
 
 const requestMethodCheckerMDW = async (req, res, next) => {

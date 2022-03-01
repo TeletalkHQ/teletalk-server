@@ -46,7 +46,7 @@ const template = routeTemplateGenerator(
 	"Use for get all user properties and value structure",
 );
 
-const privateChatRouteTemplate = {
+const privateChatRouterTemplate = {
 	baseUrl,
 	chatsLastMessage,
 	error,
@@ -59,5 +59,5 @@ const privateChatRouteTemplate = {
 };
 
 module.exports = {
-	privateChatRouteTemplate,
+	privateChatRouterTemplate,
 };

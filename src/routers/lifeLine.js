@@ -8,26 +8,37 @@ const { cellphoneRoute } = require("~/routers/cellphoneRouters/cellphoneRouter")
 const { otherRoute } = require("~/routers/otherRouters/otherRouter");
 const { privateChatRoute } = require("~/routers/chatRouters/privateChatRouter");
 const { userRoute } = require("~/routers/userRouters/userRouter");
+const {
+	versionControlRouter,
+} = require("~/routers/versionControlRouters/versionControlRouter");
 
 const {
-	cellphoneRouteTemplate,
+	cellphoneRouterTemplate,
 } = require("~/templates/routerTemplates/cellphoneRouterTemplate");
-const { otherRouteTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
+const { otherRouterTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
 const {
-	privateChatRouteTemplate,
+	privateChatRouterTemplate,
 } = require("~/templates/routerTemplates/privateChatRouterTemplate");
-const { userRouteTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
+const { userRouterTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
+const {
+	versionControlRouterTemplate,
+} = require("~/templates/routerTemplates/versionControlRouterTemplate");
 
 const lifeLine = Router();
 
 lifeLine.use(errorResponser);
 
-lifeLine.use(cellphoneRouteTemplate.baseUrl.properties.route, cellphoneRoute);
+lifeLine.use(cellphoneRouterTemplate.baseUrl.properties.route, cellphoneRoute);
 
-lifeLine.use(otherRouteTemplate.baseUrl.properties.route, otherRoute);
+lifeLine.use(otherRouterTemplate.baseUrl.properties.route, otherRoute);
 
-lifeLine.use(privateChatRouteTemplate.baseUrl.properties.route, privateChatRoute);
+lifeLine.use(privateChatRouterTemplate.baseUrl.properties.route, privateChatRoute);
 
-lifeLine.use(userRouteTemplate.baseUrl.properties.route, userRoute);
+lifeLine.use(userRouterTemplate.baseUrl.properties.route, userRoute);
+
+lifeLine.use(
+	versionControlRouterTemplate.properties.baseUrl.properties.route,
+	versionControlRouter,
+);
 
 module.exports = { lifeLine };

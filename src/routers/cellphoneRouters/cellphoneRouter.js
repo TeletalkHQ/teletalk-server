@@ -29,7 +29,7 @@ const {
 } = require("~/controllers/cellphoneControllers/getContactsCellphoneController");
 
 const {
-	cellphoneRouteTemplate: {
+	cellphoneRouterTemplate: {
 		addContact: { properties: addContact },
 		addBlock: { properties: addBlock },
 		editContact: { properties: editContact },

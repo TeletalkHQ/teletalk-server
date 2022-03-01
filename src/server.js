@@ -2,19 +2,19 @@
 //! Require before anyone!
 require("module-alias/register");
 
-require("~/other/globals");
+require("~/variables/globalVariables");
 
 const express = require("express");
 const dotenv = require("dotenv");
 const http = require("http");
 
-dotenv.config({ path: "./src/config/environment/main.env" });
+dotenv.config({ path: "./environments/main.env" });
 
-const { connectDB } = require("~/config/database/connectDB");
+const { connectDB } = require("~/variables/configs/databaseConfigs/connectDB");
 
-const { middleLine } = require("~/middleware/middleLine");
+const { middleLine } = require("~/middlewares/middleLine");
 
-const { lifeLine } = require("~/route/lifeLine");
+const { lifeLine } = require("~/routers/lifeLine");
 const { ioFunctions } = require("./socket/io");
 
 //? Connect to database =>

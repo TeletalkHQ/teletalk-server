@@ -27,46 +27,33 @@ const {
 const userRoute = Router();
 
 const {
-	countries,
-	createNewUser,
-	logoutNormal,
-	statusCheck, //UNUSED
-	signInNormal,
-	verifySignInNormal,
-
-	error,
-	template,
+	countries: { properties: countries },
+	createNewUser: { properties: createNewUser },
+	logoutNormal: { properties: logoutNormal },
+	statusCheck: { properties: statusCheck }, //UNUSED
+	signInNormal: { properties: signInNormal },
+	verifySignInNormal: { properties: verifySignInNormal },
+	error: { properties: error },
+	template: { properties: template },
 } = userRouteTemplate;
 
-userRoute.use(signInNormal.properties.route, cellphoneValidatorMDW);
+userRoute.use(signInNormal.route, cellphoneValidatorMDW);
 
-userRoute[logoutNormal.properties.method](
-	logoutNormal.properties.route,
-	logoutNormalUserController,
-);
-userRoute[signInNormal.properties.method](
-	signInNormal.properties.route,
-	signInNormalUserController,
-);
-userRoute[verifySignInNormal.properties.method](
-	verifySignInNormal.properties.route,
+userRoute[logoutNormal.method](logoutNormal.route, logoutNormalUserController);
+userRoute[signInNormal.method](signInNormal.route, signInNormalUserController);
+userRoute[verifySignInNormal.method](
+	verifySignInNormal.route,
 	verifySignInNormalUserController,
 );
-userRoute[statusCheck.properties.method](
-	statusCheck.properties.route,
-	statusCheckUserController,
-);
+userRoute[statusCheck.method](statusCheck.route, statusCheckUserController);
 
-userRoute[createNewUser.properties.method](
-	createNewUser.properties.route,
-	createNewUserUserController,
-);
+userRoute[createNewUser.method](createNewUser.route, createNewUserUserController);
 
 //TODO Move it to otherRoute
-userRoute[countries.properties.method](countries.properties.route, countriesUserController);
+userRoute[countries.method](countries.route, countriesUserController);
 
-userRoute[error.properties.method](error.properties.route, errorUserController);
-userRoute[template.properties.method](template.properties.route, templateUserController);
+userRoute[error.method](error.route, errorUserController);
+userRoute[template.method](template.route, templateUserController);
 
 //* sign out normal =>
 //

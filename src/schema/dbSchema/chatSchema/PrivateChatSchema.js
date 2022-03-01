@@ -4,7 +4,13 @@ const uniqueValidator = require("mongoose-unique-validator");
 const { mongooseSchemaGenerator } = require("~/function/utility/generators");
 
 const {
-	chatSchemaTemplate: { chatID, createdAt, messageID, message, participantID },
+	chatSchemaTemplate: {
+		chatID: { properties: chatID },
+		createdAt: { properties: createdAt },
+		messageID: { properties: messageID },
+		message: { properties: message },
+		participantID: { properties: participantID },
+	},
 } = require("~/template/schemaTemplate/chatSchemaTemplate");
 
 // uniqueValidator.defaults.message = "{PATH}_exist";

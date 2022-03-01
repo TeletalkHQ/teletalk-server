@@ -5,7 +5,7 @@ const { initialSchemaPropertyKey } = initialValue;
 
 const errorTemplateGenerator = (code, message, reason, version) => {
 	try {
-		if (!code || message || reason || version) {
+		if (!code || !reason || !version) {
 			const error = {
 				errorMessage: `required arguments should passed`,
 				code,
@@ -16,7 +16,7 @@ const errorTemplateGenerator = (code, message, reason, version) => {
 
 			throw error;
 		}
-		return { code, message, reason, version };
+		return { properties: { code, message, reason }, info: { version } };
 	} catch (error) {
 		console.log("templateGenerator catch, error:", error);
 	}
@@ -34,7 +34,7 @@ const routeTemplateGenerator = (method, route, version, description = "") => {
 
 			throw error;
 		}
-		return { method, route, version, description };
+		return { properties: { method, route }, info: { version, description } };
 	} catch (error) {
 		console.log("templateGenerator catch, error:", error);
 	}
@@ -84,16 +84,18 @@ const schemaTemplateGenerator = (
 ) => {
 	try {
 		return {
-			maxlength,
-			minlength,
-			required,
-			trim,
-			type,
-			unique,
-			default: defaultValue,
-			version,
-			lowercase,
-			length,
+			properties: {
+				maxlength,
+				minlength,
+				required,
+				trim,
+				type,
+				unique,
+				default: defaultValue,
+				lowercase,
+				length,
+			},
+			info: { version },
 		};
 	} catch (error) {
 		logger.log("schemaTemplateGenerator catch, error:", error);

@@ -1,100 +1,115 @@
 const {
-	chatIDValidationSchema,
+  chatIDValidationSchema,
 } = require("~/schemas/validationSchemas/chatValidationSchemas/chatIDValidationSchema");
 const {
-	messageIDValidationSchema,
+  messageIDValidationSchema,
 } = require("~/schemas/validationSchemas/chatValidationSchemas/messageIDValidationSchema");
 const {
-	messageTextValidationSchema,
+  messageTextValidationSchema,
 } = require("~/schemas/validationSchemas/chatValidationSchemas/messageTextValidationSchema");
 const {
-	participantIDValidationSchema,
+  participantIDValidationSchema,
 } = require("~/schemas/validationSchemas/chatValidationSchemas/participantIDValidationSchema");
 const {
-	createdAtValidationSchema,
+  createdAtValidationSchema,
 } = require("~/schemas/validationSchemas/commonValidationSchemas/createdAtValidationSchema");
 const {
-	bioValidationsSchema,
+  bioValidationsSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/bioValidationsSchema");
 const {
-	countryCodeValidationSchema,
+  countryCodeValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/countryCodeValidationSchema");
 const {
-	countryNameValidationSchema,
+  countryNameValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/countryNameValidationSchema");
 const {
-	firstNameValidationSchema,
+  firstNameValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/firstNameValidationSchema");
 const {
-	lastNameValidationSchema,
+  lastNameValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/lastNameValidationSchema");
 const {
-	macAddressValidationSchema,
+  macAddressValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/macAddressValidationSchema");
 const {
-	phoneNumberValidationSchema,
+  phoneNumberValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/phoneNumberValidationSchema");
 const {
-	privateIDValidationSchema,
+  privateIDValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/privateIDValidationSchema");
 const {
-	usernameValidationSchema,
+  usernameValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/usernameValidationSchema");
 const {
-	verificationCodeValidationSchema,
+  verificationCodeValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/verificationCodeValidationSchema");
 const {
-	cellphoneRouterTemplate,
+  cellphoneRouterTemplate,
 } = require("~/templates/routerTemplates/cellphoneRouterTemplate");
-const { otherRouterTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
 const {
-	privateChatRouterTemplate,
+  otherRouterTemplate,
+} = require("~/templates/routerTemplates/otherRouterTemplate");
+const {
+  privateChatRouterTemplate,
 } = require("~/templates/routerTemplates/privateChatRouterTemplate");
-const { userRouterTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
 const {
-	versionControlRouterTemplate,
+  userRouterTemplate,
+} = require("~/templates/routerTemplates/userRouterTemplate");
+const {
+  versionControlRouterTemplate,
 } = require("~/templates/routerTemplates/versionControlRouterTemplate");
 
-const { chatSchemaTemplate } = require("~/templates/schemaTemplates/chatSchemaTemplate");
-const { commonSchemaTemplate } = require("~/templates/schemaTemplates/commonSchemaTemplate");
-const { userSchemaTemplate } = require("~/templates/schemaTemplates/userSchemaTemplate");
+const {
+  chatSchemaTemplate,
+} = require("~/templates/schemaTemplates/chatSchemaTemplate");
+const {
+  commonSchemaTemplate,
+} = require("~/templates/schemaTemplates/commonSchemaTemplate");
+const {
+  userSchemaTemplate,
+} = require("~/templates/schemaTemplates/userSchemaTemplate");
 
 const routerTemplates = {
-	cellphoneRouterTemplate,
-	otherRouterTemplate,
-	privateChatRouterTemplate,
-	userRouterTemplate,
-	versionControlRouterTemplate,
+  cellphoneRouterTemplate,
+  otherRouterTemplate,
+  privateChatRouterTemplate,
+  userRouterTemplate,
+  versionControlRouterTemplate,
 };
 
 const schemaTemplates = {
-	chatSchemaTemplate,
-	commonSchemaTemplate,
-	userSchemaTemplate,
+  chatSchemaTemplate,
+  commonSchemaTemplate,
+  userSchemaTemplate,
 };
 
 const validationSchemas = {
-	bioValidationsSchema,
-	chatIDValidationSchema,
-	countryCodeValidationSchema,
-	countryNameValidationSchema,
-	createdAtValidationSchema,
-	firstNameValidationSchema,
-	lastNameValidationSchema,
-	macAddressValidationSchema,
-	messageIDValidationSchema,
-	messageTextValidationSchema,
-	participantIDValidationSchema,
-	phoneNumberValidationSchema,
-	privateIDValidationSchema,
-	usernameValidationSchema,
-	verificationCodeValidationSchema,
+  bioValidationsSchema,
+  chatIDValidationSchema,
+  countryCodeValidationSchema,
+  countryNameValidationSchema,
+  createdAtValidationSchema,
+  firstNameValidationSchema,
+  lastNameValidationSchema,
+  macAddressValidationSchema,
+  messageIDValidationSchema,
+  messageTextValidationSchema,
+  participantIDValidationSchema,
+  phoneNumberValidationSchema,
+  privateIDValidationSchema,
+  usernameValidationSchema,
+  verificationCodeValidationSchema,
 };
 
 const allStuff = {
-	schemaTemplates,
-	routerTemplates,
-	validationSchemas,
+  schemaTemplates,
+  routerTemplates,
+  validationSchemas,
 };
 
-module.exports = { allStuff, schemaTemplates, routerTemplates, validationSchemas };
+module.exports = {
+  allStuff,
+  schemaTemplates,
+  routerTemplates,
+  validationSchemas,
+};

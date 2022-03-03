@@ -1,15 +1,17 @@
-const { validatorCompiler } = require("~/functions/utilities/validatorCompiler");
+const {
+  validatorCompiler,
+} = require("~/functions/utilities/validatorCompiler");
 
 const {
-	chatIDValidationSchema,
+  chatIDValidationSchema,
 } = require("~/schemas/validationSchemas/chatValidationSchemas/chatIDValidationSchema");
 
 const chatIDValidation = {
-	properties: { ...chatIDValidationSchema.properties },
+  properties: { ...chatIDValidationSchema.properties },
 
-	info: {
-		version: "1.0.0",
-	},
+  info: {
+    version: "1.0.0",
+  },
 };
 
 const chatIDValidator = validatorCompiler(chatIDValidation.properties);

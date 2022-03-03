@@ -1,17 +1,21 @@
-const { validatorCompiler } = require("~/functions/utilities/validatorCompiler");
+const {
+  validatorCompiler,
+} = require("~/functions/utilities/validatorCompiler");
 
 const {
-	verificationCodeValidationSchema,
+  verificationCodeValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/verificationCodeValidationSchema");
 
 const verificationCodeValidation = {
-	properties: { ...verificationCodeValidationSchema.properties },
+  properties: { ...verificationCodeValidationSchema.properties },
 
-	info: {
-		version: "1.0.0",
-	},
+  info: {
+    version: "1.0.0",
+  },
 };
 
-const verificationCodeValidator = validatorCompiler(verificationCodeValidation.properties);
+const verificationCodeValidator = validatorCompiler(
+  verificationCodeValidation.properties
+);
 
 module.exports = { verificationCodeValidator, verificationCodeValidation };

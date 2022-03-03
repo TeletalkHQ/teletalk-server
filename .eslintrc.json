@@ -1,16 +1,16 @@
 {
-	"extends": "react-app",
-	"env": {
-		"browser": true,
-		"node": true,
-		"jasmine": true
-		// "commonjs": true,
-		// "es6": false
-	},
-	"globals": {
-		"myConsole": true,
-		"logger": true,
-		"expressRequest": true,
-		"expressResponse": true
-	}
+  "extends": "react-app",
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+    // "commonjs": true,
+    // "es6": false
+  },
+  "globals": {
+    "myConsole": true,
+    "logger": true,
+    "expressRequest": true,
+    "expressResponse": true
+  }
 }

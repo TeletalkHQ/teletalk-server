@@ -1,23 +1,27 @@
-const { errorUserController } = require("~/controllers/userControllers/errorUserController");
-
-const { userRouterTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
+const {
+  errorUserController,
+} = require("~/controllers/userControllers/errorUserController");
 
 const {
-	signInNormalUserController,
+  userRouterTemplate,
+} = require("~/templates/routerTemplates/userRouterTemplate");
+
+const {
+  signInNormalUserController,
 } = require("~/controllers/userControllers/signInNormalUserController");
 
 const {
-	verifySignInNormalUserController,
+  verifySignInNormalUserController,
 } = require("~/controllers/userControllers/verifySignInNormalUserController");
 
 const {
-	templateUserController,
+  templateUserController,
 } = require("~/controllers/userControllers/templateUserController");
 
 module.exports = {
-	errorUserController,
-	userRouterTemplate,
-	signInNormalUserController,
-	templateUserController,
-	verifySignInNormalUserController,
+  errorUserController,
+  userRouterTemplate,
+  signInNormalUserController,
+  templateUserController,
+  verifySignInNormalUserController,
 };

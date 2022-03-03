@@ -4,24 +4,30 @@ const { Router } = require("express");
 
 const { errorResponser } = require("~/middlewares/errorResponser");
 
-const { cellphoneRoute } = require("~/routers/cellphoneRouters/cellphoneRouter");
+const {
+  cellphoneRoute,
+} = require("~/routers/cellphoneRouters/cellphoneRouter");
 const { otherRoute } = require("~/routers/otherRouters/otherRouter");
 const { privateChatRoute } = require("~/routers/chatRouters/privateChatRouter");
 const { userRoute } = require("~/routers/userRouters/userRouter");
 const {
-	versionControlRouter,
+  versionControlRouter,
 } = require("~/routers/versionControlRouters/versionControlRouter");
 
 const {
-	cellphoneRouterTemplate,
+  cellphoneRouterTemplate,
 } = require("~/templates/routerTemplates/cellphoneRouterTemplate");
-const { otherRouterTemplate } = require("~/templates/routerTemplates/otherRouterTemplate");
 const {
-	privateChatRouterTemplate,
+  otherRouterTemplate,
+} = require("~/templates/routerTemplates/otherRouterTemplate");
+const {
+  privateChatRouterTemplate,
 } = require("~/templates/routerTemplates/privateChatRouterTemplate");
-const { userRouterTemplate } = require("~/templates/routerTemplates/userRouterTemplate");
 const {
-	versionControlRouterTemplate,
+  userRouterTemplate,
+} = require("~/templates/routerTemplates/userRouterTemplate");
+const {
+  versionControlRouterTemplate,
 } = require("~/templates/routerTemplates/versionControlRouterTemplate");
 
 const lifeLine = Router();
@@ -32,13 +38,16 @@ lifeLine.use(cellphoneRouterTemplate.baseUrl.properties.route, cellphoneRoute);
 
 lifeLine.use(otherRouterTemplate.baseUrl.properties.route, otherRoute);
 
-lifeLine.use(privateChatRouterTemplate.baseUrl.properties.route, privateChatRoute);
+lifeLine.use(
+  privateChatRouterTemplate.baseUrl.properties.route,
+  privateChatRoute
+);
 
 lifeLine.use(userRouterTemplate.baseUrl.properties.route, userRoute);
 
 lifeLine.use(
-	versionControlRouterTemplate.properties.baseUrl.properties.route,
-	versionControlRouter,
+  versionControlRouterTemplate.properties.baseUrl.properties.route,
+  versionControlRouter
 );
 
 module.exports = { lifeLine };

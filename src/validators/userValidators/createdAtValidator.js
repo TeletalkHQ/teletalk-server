@@ -1,15 +1,17 @@
-const { validatorCompiler } = require("~/functions/utilities/validatorCompiler");
+const {
+  validatorCompiler,
+} = require("~/functions/utilities/validatorCompiler");
 
 const {
-	createdAtValidationSchema,
+  createdAtValidationSchema,
 } = require("~/schemas/validationSchemas/commonValidationSchemas/createdAtValidationSchema");
 
 const createdAtValidation = {
-	properties: { ...createdAtValidationSchema.properties },
+  properties: { ...createdAtValidationSchema.properties },
 
-	info: {
-		version: "1.0.0",
-	},
+  info: {
+    version: "1.0.0",
+  },
 };
 
 const createdAtValidator = validatorCompiler(createdAtValidation.properties);

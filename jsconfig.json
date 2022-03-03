@@ -1,16 +1,16 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es5",
-		"baseUrl": ".",
-		"paths": {
-			"~/*": ["./src/*"],
-			"#/*": ["./public/*"]
-		}
-	},
-	"exclude": ["./node_modules"],
-	"typeAcquisition": {
-		"exclude": ["defer-to-connect", "safe-stable-stringify", "source-map"],
-		"include": ["./src/function/utility/myConsole.js"]
-	}
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+      "#/*": ["./public/*"]
+    }
+  },
+  "exclude": ["./node_modules"],
+  "typeAcquisition": {
+    "exclude": ["defer-to-connect", "safe-stable-stringify", "source-map"],
+    "include": ["./src/function/utility/myConsole.js"]
+  }
 }

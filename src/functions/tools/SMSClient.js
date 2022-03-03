@@ -8,13 +8,13 @@ const api = new MelipayamakApi(USERNAME, PASSWORD);
 const sms = api.sms();
 
 const SMSClient = async ({ from, to, text, isFlash = false }) => {
-	try {
-		const result = await sms.send(to, from, text, isFlash);
+  try {
+    const result = await sms.send(to, from, text, isFlash);
 
-		return result;
-	} catch (error) {
-		throw error;
-	}
+    return result;
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = { SMSClient };

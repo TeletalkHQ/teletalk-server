@@ -1,15 +1,17 @@
-const { validatorCompiler } = require("~/functions/utilities/validatorCompiler");
+const {
+  validatorCompiler,
+} = require("~/functions/utilities/validatorCompiler");
 
 const {
-	usernameValidationSchema,
+  usernameValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/usernameValidationSchema");
 
 const usernameValidation = {
-	properties: { ...usernameValidationSchema.properties },
+  properties: { ...usernameValidationSchema.properties },
 
-	info: {
-		version: "1.0.0",
-	},
+  info: {
+    version: "1.0.0",
+  },
 };
 
 const usernameValidator = validatorCompiler(usernameValidation.properties);

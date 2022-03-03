@@ -1,24 +1,24 @@
 const { Router } = require("express");
 
 const {
-	getAllStuffVersionControlController,
+  getAllStuffVersionControlController,
 } = require("~/controllers/versionControlControllers/getAllStuffVersionControlController");
 
 const {
-	versionControlRouterTemplate,
+  versionControlRouterTemplate,
 } = require("~/templates/routerTemplates/versionControlRouterTemplate");
 
 const versionControlRouter = Router();
 
 const {
-	properties: {
-		getAllStuffs: { properties: getAllStuffs },
-	},
+  properties: {
+    getAllStuffs: { properties: getAllStuffs },
+  },
 } = versionControlRouterTemplate;
 
 versionControlRouter[getAllStuffs.method](
-	getAllStuffs.route,
-	getAllStuffVersionControlController,
+  getAllStuffs.route,
+  getAllStuffVersionControlController
 );
 
 module.exports = { versionControlRouter };

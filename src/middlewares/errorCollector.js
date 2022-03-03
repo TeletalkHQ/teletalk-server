@@ -1,37 +1,38 @@
 const errorCollector = ({ req, res, next, data }) => {
-	try {
-		if (!data) {
-			const error = "Report to your back-end: Yo! you forgot to send me data - errorCollector";
-			throw error;
-		}
+  try {
+    if (!data) {
+      const error =
+        "Report to your back-end: Yo! you forgot to send me data - errorCollector";
+      throw error;
+    }
 
-		const { statusCode, err, ex, error } = data;
+    const { statusCode, err, ex, error } = data;
 
-		const er = err || ex || error;
+    const er = err || ex || error;
 
-		if (!er) {
-			const error =
-				"Report to your back-end: Yo! you forgot to send me error - errorCollector";
-			throw error;
-		}
+    if (!er) {
+      const error =
+        "Report to your back-end: Yo! you forgot to send me error - errorCollector";
+      throw error;
+    }
 
-		if (typeof er === "object") {
-			res.errors.categorizedLength = res.errors.categorized.push(er);
-		} else {
-			//? unhandled (non-object) error, write log into log files=>
-			res.errors.uncategorizedLength = res.errors.uncategorized.push(er);
-		}
+    if (typeof er === "object") {
+      res.errors.categorizedLength = res.errors.categorized.push(er);
+    } else {
+      //? unhandled (non-object) error, write log into log files=>
+      res.errors.uncategorizedLength = res.errors.uncategorized.push(er);
+    }
 
-		if (statusCode && !isNaN(+statusCode)) {
-			res.errors.statusCode = statusCode;
-		}
-	} catch (error) {
-		// logger.redBright("errorCollector catch! its critical!!!").log(error);
-		res.errors.serverLength = res.errors.server.push(error);
-		res.errors.statusCode = 500;
+    if (statusCode && !isNaN(+statusCode)) {
+      res.errors.statusCode = statusCode;
+    }
+  } catch (error) {
+    // logger.redBright("errorCollector catch! its critical!!!").log(error);
+    res.errors.serverLength = res.errors.server.push(error);
+    res.errors.statusCode = 500;
 
-		res.errorResponser();
-	}
+    res.errorResponser();
+  }
 };
 
 module.exports = { errorCollector };

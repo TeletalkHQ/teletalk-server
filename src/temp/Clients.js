@@ -1,11 +1,11 @@
 class Clients {
-	constructor() {
-		this.aliveClients = [];
-	}
+  constructor() {
+    this.aliveClients = [];
+  }
 
-	addClient(client) {
-		this.aliveClients.push(client);
-	}
+  addClient(client) {
+    this.aliveClients.push(client);
+  }
 }
 
 const clients = new Clients();

@@ -1,15 +1,17 @@
-const { validatorCompiler } = require("~/functions/utilities/validatorCompiler");
+const {
+  validatorCompiler,
+} = require("~/functions/utilities/validatorCompiler");
 
 const {
-	bioValidationsSchema,
+  bioValidationsSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/bioValidationsSchema");
 
 const bioValidation = {
-	properties: { ...bioValidationsSchema.properties },
+  properties: { ...bioValidationsSchema.properties },
 
-	info: {
-		version: "1.0.0",
-	},
+  info: {
+    version: "1.0.0",
+  },
 };
 
 const bioValidator = validatorCompiler(bioValidation.properties);

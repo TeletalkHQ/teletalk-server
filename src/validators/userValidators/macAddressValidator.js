@@ -1,15 +1,17 @@
-const { validatorCompiler } = require("~/functions/utilities/validatorCompiler");
+const {
+  validatorCompiler,
+} = require("~/functions/utilities/validatorCompiler");
 
 const {
-	macAddressValidationSchema,
+  macAddressValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/macAddressValidationSchema");
 
 const macAddressValidation = {
-	properties: { ...macAddressValidationSchema.properties },
+  properties: { ...macAddressValidationSchema.properties },
 
-	info: {
-		version: "1.0.0",
-	},
+  info: {
+    version: "1.0.0",
+  },
 };
 
 const macAddressValidator = validatorCompiler(macAddressValidation.properties);

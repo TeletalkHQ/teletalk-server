@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const {
-	UserSchema,
+  UserSchema,
 } = require("~/schemas/databaseSchemas/userDatabaseSchemas/UserDatabaseSchema");
 
 const UserModel = mongoose.model("User", UserSchema, "users");

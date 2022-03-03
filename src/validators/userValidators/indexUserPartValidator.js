@@ -1,76 +1,79 @@
-const { bioValidator, bioValidation } = require("~/validators/userValidators/bioValidator");
+const {
+  bioValidator,
+  bioValidation,
+} = require("~/validators/userValidators/bioValidator");
 
 const {
-	cellphoneValidator,
-	cellphoneValidation,
+  cellphoneValidator,
+  cellphoneValidation,
 } = require("~/validators/userValidators/cellphoneValidator");
 
 const {
-	countryCodeValidator,
-	countryCodeValidation,
+  countryCodeValidator,
+  countryCodeValidation,
 } = require("~/validators/userValidators/countryCodeValidator");
 
 const {
-	countryNameValidator,
-	countryNameValidation,
+  countryNameValidator,
+  countryNameValidation,
 } = require("~/validators/userValidators/countryNameValidator");
 
 const {
-	createdAtValidator,
-	createdAtValidation,
+  createdAtValidator,
+  createdAtValidation,
 } = require("~/validators/userValidators/createdAtValidator");
 
 const {
-	firstNameValidator,
-	firstNameValidation,
+  firstNameValidator,
+  firstNameValidation,
 } = require("~/validators/userValidators/firstNameValidator");
 
 const {
-	lastNameValidator,
-	lastNameValidation,
+  lastNameValidator,
+  lastNameValidation,
 } = require("~/validators/userValidators/lastNameValidator");
 
 const {
-	macAddressValidator,
-	macAddressValidation,
+  macAddressValidator,
+  macAddressValidation,
 } = require("~/validators/userValidators/macAddressValidator");
 
 const {
-	privateIDValidator,
-	privateIDValidation,
+  privateIDValidator,
+  privateIDValidation,
 } = require("~/validators/userValidators/privateIDValidator");
 
 const {
-	usernameValidator,
-	usernameValidation,
+  usernameValidator,
+  usernameValidation,
 } = require("~/validators/userValidators/usernameValidator");
 
 const {
-	verificationCodeValidator,
-	verificationCodeValidation,
+  verificationCodeValidator,
+  verificationCodeValidation,
 } = require("~/validators/userValidators/verificationCodeValidator");
 
 module.exports = {
-	bioValidation,
-	bioValidator,
-	cellphoneValidation,
-	cellphoneValidator,
-	countryCodeValidation,
-	countryCodeValidator,
-	countryNameValidation,
-	countryNameValidator,
-	createdAtValidation,
-	createdAtValidator,
-	firstNameValidation,
-	firstNameValidator,
-	lastNameValidation,
-	lastNameValidator,
-	macAddressValidation,
-	macAddressValidator,
-	privateIDValidation,
-	privateIDValidator,
-	usernameValidation,
-	usernameValidator,
-	verificationCodeValidation,
-	verificationCodeValidator,
+  bioValidation,
+  bioValidator,
+  cellphoneValidation,
+  cellphoneValidator,
+  countryCodeValidation,
+  countryCodeValidator,
+  countryNameValidation,
+  countryNameValidator,
+  createdAtValidation,
+  createdAtValidator,
+  firstNameValidation,
+  firstNameValidator,
+  lastNameValidation,
+  lastNameValidator,
+  macAddressValidation,
+  macAddressValidator,
+  privateIDValidation,
+  privateIDValidator,
+  usernameValidation,
+  usernameValidator,
+  verificationCodeValidation,
+  verificationCodeValidator,
 };

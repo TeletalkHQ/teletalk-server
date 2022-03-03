@@ -1,40 +1,42 @@
 const { Router } = require("express");
 
 const {
-	userRouterTemplate,
-	signInNormalUserController,
-	errorUserController,
-	templateUserController,
+  userRouterTemplate,
+  signInNormalUserController,
+  errorUserController,
+  templateUserController,
 } = require("~/controllers/userControllers/indexUserController");
 const {
-	verifySignInNormalUserController,
+  verifySignInNormalUserController,
 } = require("~/controllers/userControllers/verifySignInNormalUserController");
 const {
-	statusCheckUserController,
+  statusCheckUserController,
 } = require("~/controllers/userControllers/statusCheckUserController");
 const {
-	logoutNormalUserController,
+  logoutNormalUserController,
 } = require("~/controllers/userControllers/logoutNormalUserController");
 const {
-	countriesUserController,
+  countriesUserController,
 } = require("~/controllers/userControllers/countriesUserController");
 
-const { cellphoneValidatorMDW } = require("~/middlewares/cellphoneValidatorMDW");
 const {
-	createNewUserUserController,
+  cellphoneValidatorMDW,
+} = require("~/middlewares/cellphoneValidatorMDW");
+const {
+  createNewUserUserController,
 } = require("~/controllers/userControllers/createNewUserUserController");
 
 const userRoute = Router();
 
 const {
-	countries: { properties: countries },
-	createNewUser: { properties: createNewUser },
-	logoutNormal: { properties: logoutNormal },
-	statusCheck: { properties: statusCheck }, //UNUSED
-	signInNormal: { properties: signInNormal },
-	verifySignInNormal: { properties: verifySignInNormal },
-	error: { properties: error },
-	template: { properties: template },
+  countries: { properties: countries },
+  createNewUser: { properties: createNewUser },
+  logoutNormal: { properties: logoutNormal },
+  statusCheck: { properties: statusCheck }, //UNUSED
+  signInNormal: { properties: signInNormal },
+  verifySignInNormal: { properties: verifySignInNormal },
+  error: { properties: error },
+  template: { properties: template },
 } = userRouterTemplate;
 
 userRoute.use(signInNormal.route, cellphoneValidatorMDW);
@@ -42,12 +44,15 @@ userRoute.use(signInNormal.route, cellphoneValidatorMDW);
 userRoute[logoutNormal.method](logoutNormal.route, logoutNormalUserController);
 userRoute[signInNormal.method](signInNormal.route, signInNormalUserController);
 userRoute[verifySignInNormal.method](
-	verifySignInNormal.route,
-	verifySignInNormalUserController,
+  verifySignInNormal.route,
+  verifySignInNormalUserController
 );
 userRoute[statusCheck.method](statusCheck.route, statusCheckUserController);
 
-userRoute[createNewUser.method](createNewUser.route, createNewUserUserController);
+userRoute[createNewUser.method](
+  createNewUser.route,
+  createNewUserUserController
+);
 
 //TODO Move it to otherRoute
 userRoute[countries.method](countries.route, countriesUserController);

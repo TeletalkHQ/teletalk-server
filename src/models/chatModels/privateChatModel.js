@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
 const {
-	PrivateChatSchema,
+  PrivateChatSchema,
 } = require("~/schemas/databaseSchemas/chatsDatabaseSchemas/PrivateChatDatabaseSchema");
 
-const PrivateChatModel = mongoose.model("PrivateChat", PrivateChatSchema, "privateChats");
+const PrivateChatModel = mongoose.model(
+  "PrivateChat",
+  PrivateChatSchema,
+  "privateChats"
+);
 
 module.exports = { PrivateChatModel };

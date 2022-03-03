@@ -1,17 +1,21 @@
-const { validatorCompiler } = require("~/functions/utilities/validatorCompiler");
+const {
+  validatorCompiler,
+} = require("~/functions/utilities/validatorCompiler");
 
 const {
-	participantIDValidationSchema,
+  participantIDValidationSchema,
 } = require("~/schemas/validationSchemas/chatValidationSchemas/participantIDValidationSchema");
 
 const participantIDValidation = {
-	properties: { ...participantIDValidationSchema.properties },
+  properties: { ...participantIDValidationSchema.properties },
 
-	info: {
-		version: "1.0.0",
-	},
+  info: {
+    version: "1.0.0",
+  },
 };
 
-const participantIDValidator = validatorCompiler(participantIDValidation.properties);
+const participantIDValidator = validatorCompiler(
+  participantIDValidation.properties
+);
 
 module.exports = { participantIDValidator, participantIDValidation };

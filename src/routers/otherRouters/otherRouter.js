@@ -1,12 +1,12 @@
 const { Router } = require("express");
 
 const {
-	welcomeOtherController,
+  welcomeOtherController,
 } = require("~/controllers/otherControllers/welcomeOtherController");
 const {
-	otherRouterTemplate: {
-		welcome: { properties: welcome },
-	},
+  otherRouterTemplate: {
+    welcome: { properties: welcome },
+  },
 } = require("~/templates/routerTemplates/otherRouterTemplate");
 
 const otherRoute = Router();

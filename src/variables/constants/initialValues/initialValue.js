@@ -1,11 +1,11 @@
 const initialSchemaPropertyKey = {
-	value: null,
-	error: {
-		code: 0,
-		message: "",
-		reason: "",
-		version: "",
-	},
+  value: null,
+  error: {
+    code: 0,
+    message: "",
+    reason: "",
+    version: "",
+  },
 };
 
 const jwtOptions = { algorithm: "HS256" };

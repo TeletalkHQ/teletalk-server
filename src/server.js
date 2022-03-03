@@ -44,19 +44,19 @@ const { LOCAL_PORT, PORT, NODE_ENV } = process.env;
 const EXACT_PORT = PORT || LOCAL_PORT;
 
 const serverListenerCB = () => {
-	console.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
+  console.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
 };
 
 ioFunctions.io.on("connection", (socket) => {
-	console.log("User connected.");
+  console.log("User connected.");
 
-	console.log(socket.id);
+  console.log(socket.id);
 
-	socket.on("disconnect", (...params) => {
-		console.log(`${socket.id} disconnected`);
+  socket.on("disconnect", (...params) => {
+    console.log(`${socket.id} disconnected`);
 
-		console.log(params);
-	});
+    console.log(params);
+  });
 });
 
 httpServer.listen(EXACT_PORT, serverListenerCB);

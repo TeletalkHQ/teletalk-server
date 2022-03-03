@@ -1,21 +1,25 @@
 //* No more need attention to make absolute path
-//! Require before anyone!
+//! Require this module before anyone!
 require("module-alias/register");
 
 require("~/variables/globalVariables");
+
+const path = require("path");
 
 const express = require("express");
 const dotenv = require("dotenv");
 const http = require("http");
 
-dotenv.config({ path: "./environments/main.env" });
+//* Example of path.join usage
+dotenv.config({ path: path.join(__dirname, "..", "environments", "main.env") });
 
 const { connectDB } = require("~/variables/configs/databaseConfigs/connectDB");
 
 const { middleLine } = require("~/middlewares/middleLine");
 
 const { lifeLine } = require("~/routers/lifeLine");
-const { ioFunctions } = require("./socket/io");
+
+const { ioFunctions } = require("~/socket/io");
 
 //? Connect to database =>
 connectDB();

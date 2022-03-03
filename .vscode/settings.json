@@ -28,6 +28,7 @@
 		"nodemailer",
 		"onum",
 		"restclient",
+		"sindresorhus",
 		"snyk",
 		"soheil",
 		"strikethrough",

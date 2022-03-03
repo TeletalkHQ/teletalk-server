@@ -31,14 +31,14 @@ const addContacts = routeTemplateGenerator(
 );
 
 const editBlock = routeTemplateGenerator(
-	"post",
+	"patch",
 	"/edit/block",
 	"1.0.0",
 	"User for edit single contact on user contacts list",
 );
 
 const editContact = routeTemplateGenerator(
-	"post",
+	"patch",
 	"/edit/contact",
 	"1.0.0",
 	"User for edit single contact on user contacts list",
@@ -52,28 +52,28 @@ const getContacts = routeTemplateGenerator(
 );
 
 const removeBlock = routeTemplateGenerator(
-	"post",
+	"delete",
 	"/remove/block",
 	"1.0.0",
 	"Use for remove single contact on user contacts list",
 );
 
 const removeBlocks = routeTemplateGenerator(
-	"post",
+	"delete",
 	"/remove/blocks",
 	"1.0.0",
 	"Use for remove single contact on user contacts list",
 );
 
 const removeContact = routeTemplateGenerator(
-	"post",
+	"delete",
 	"/remove/contact",
 	"1.0.0",
 	"Use for remove single contact on user contacts list",
 );
 
 const removeContacts = routeTemplateGenerator(
-	"post",
+	"delete",
 	"/remove/contacts",
 	"1.0.0",
 	"Use for remove single contact on user contacts list",

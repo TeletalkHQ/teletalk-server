@@ -1,5 +1,0 @@
-@url = http://localhost:
-@port = 8080
-@baseUrl = {{url}}{{port}}
-
-GET {{baseUrl}}/user/template/ HTTP/1.1

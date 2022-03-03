@@ -4,6 +4,7 @@ const cellphoneValidatorMDW = async (req, res, next) => {
 	try {
 		const { phoneNumber, countryCode, countryName } = req.body;
 
+		console.log(req.body);
 		const cellphone = { phoneNumber, countryCode, countryName };
 
 		const cellphoneValidate = await cellphoneValidator({

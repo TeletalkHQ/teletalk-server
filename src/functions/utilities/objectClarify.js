@@ -1,6 +1,6 @@
-const objectClarify = (object = { dirtyObject: {} }) => {
+const objectClarify = (obj = { dirtyObject: {} }) => {
 	const filteredObject = {};
-	Object.entries(object)?.forEach(([key, value]) => {
+	Object.entries(obj.dirtyObject)?.forEach(([key, value]) => {
 		if (value !== undefined) {
 			filteredObject[key] = value;
 		}

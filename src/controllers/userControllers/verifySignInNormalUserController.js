@@ -13,6 +13,8 @@ const verifySignInNormalUserController = async (req, res) => {
 			body: { verifyCode },
 		} = req;
 
+		console.log(req.headers.authorization, "req.headers.authorization");
+
 		const verifyToken = req.headers.authorization?.split("Bearer ")[1];
 
 		if (!verifyToken) {

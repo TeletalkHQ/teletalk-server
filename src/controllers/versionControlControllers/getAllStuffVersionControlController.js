@@ -5,7 +5,9 @@ const getAllStuffVersionControlController = async (
 	res = expressResponse,
 ) => {
 	try {
-		res.status(200).json({ allStuff });
+		res.status(200).json({
+			allStuff,
+		});
 	} catch (error) {
 		console.log("getAllStuffVersionControlController", error);
 		res.errorCollector({ data: { error } });

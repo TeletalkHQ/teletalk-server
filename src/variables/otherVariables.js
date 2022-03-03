@@ -54,7 +54,6 @@ const { userRouterTemplate } = require("~/templates/routerTemplates/userRouterTe
 const {
 	versionControlRouterTemplate,
 } = require("~/templates/routerTemplates/versionControlRouterTemplate");
-// const { userRouterTemplate } = require("../userControllers/indexUserController");
 
 const { chatSchemaTemplate } = require("~/templates/schemaTemplates/chatSchemaTemplate");
 const { commonSchemaTemplate } = require("~/templates/schemaTemplates/commonSchemaTemplate");

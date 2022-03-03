@@ -10,7 +10,7 @@ const { bodyClarify } = require("~/middlewares/bodyClarify");
 const { errorCollector } = require("~/middlewares/errorCollector");
 const { errorResponser } = require("~/middlewares/errorResponser");
 
-//TODO Use try/catch, Use NODE_ENV
+//TODO Use NODE_ENV for dev&prod modes
 const middleLine = ({ server, express }) => {
 	try {
 		//* PrettyError is prettier for nodeJS errors in console.
@@ -49,7 +49,20 @@ const middleLine = ({ server, express }) => {
 			next();
 		});
 
-		server.use(serveFavicon(path.join("./public/assets/icons/favicon/favicon.ico")));
+		server.use(
+			serveFavicon(
+				path.join(
+					__dirname,
+					"..",
+					"..",
+					"public",
+					"assets",
+					"icons",
+					"favicon",
+					"favicon.ico",
+				),
+			),
+		);
 
 		server.use((req, res, next) => {
 			logger

@@ -23,7 +23,6 @@ FTP part 150, nginx part 149
 Using ms for convert time to ms and reverse 
 ClipboardJS documentation
 Make api for log server errors
-Add success statusCode for each route, also for errors
 Add versioning system for static data
 Add system, functions and stable structure for errors 
 Use lokiJS for frontend db in-memory

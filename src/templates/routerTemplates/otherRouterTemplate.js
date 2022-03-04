@@ -1,10 +1,11 @@
 const { routeTemplateGenerator } = require("~/functions/utilities/generators");
 
-const baseUrl = routeTemplateGenerator(true, "/other", "1.0.0");
+const baseUrl = routeTemplateGenerator(true, "/other", true, "1.0.0");
 
 const welcome = routeTemplateGenerator(
   "get",
   "/welcome",
+  200,
   "1.0.0",
   "Use to get welcome message for client"
 );
@@ -12,6 +13,7 @@ const welcome = routeTemplateGenerator(
 const error = routeTemplateGenerator(
   "get",
   "/error",
+  200,
   "1.0.0",
   "Use for get all errors messages"
 );

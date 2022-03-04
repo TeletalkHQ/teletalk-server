@@ -4,8 +4,6 @@
     "browser": true,
     "node": true,
     "jasmine": true
-    // "commonjs": true,
-    // "es6": false
   },
   "globals": {
     "myConsole": true,

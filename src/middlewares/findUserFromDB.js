@@ -17,7 +17,7 @@ const findUserFromDB = async (req, res, next) => {
       throw error;
     }
 
-    req.DB = { ...req.DB, user };
+    req.db = { ...req.db, user };
 
     next();
   } catch (error) {

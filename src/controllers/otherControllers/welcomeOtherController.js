@@ -1,4 +1,7 @@
-const welcomeOtherController = (req, res) => {
+const welcomeOtherController = (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     res.status(200).json({
       message: "Hey! Welcome to teletalk <3",

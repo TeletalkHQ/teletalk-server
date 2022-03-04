@@ -1,7 +1,10 @@
-const getAllChatsUserController = async (req, res) => {
+const getAllChatsUserController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
-      DB: { user },
+      db: { user },
     } = req;
 
     res.status(200).json({ chats: user.chats });

@@ -12,7 +12,10 @@ const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 
 const { ioFunctions } = require("~/socket/io");
 
-const statusCheckUserController = async (req, res) => {
+const statusCheckUserController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const mainToken = req.headers.authorization?.split("Bearer ")[1];
 

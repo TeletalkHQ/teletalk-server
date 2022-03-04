@@ -11,10 +11,13 @@ const {
   userErrorTemplate,
 } = require("~/templates/errorTemplates/userErrorTemplate");
 
-const sendMessagePrivateChatController = async (req, res) => {
+const sendMessagePrivateChatController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
-      DB: { user },
+      db: { user },
       body: { participantID, message },
     } = req;
 

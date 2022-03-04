@@ -1,9 +1,12 @@
 const { PrivateChatModel } = require("~/models/chatModels/privateChatModel");
 
-const chatsLastMessageChatController = async (req, res) => {
+const chatsLastMessageChatController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
-      DB: { user },
+      db: { user },
     } = req;
 
     const chats = [];

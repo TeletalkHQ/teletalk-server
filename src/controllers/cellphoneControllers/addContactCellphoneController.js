@@ -3,11 +3,13 @@ const {
 } = require("~/templates/errorTemplates/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
 
-//TODO Add user status into contact and user schema
-const addContactCellphoneController = async (req, res) => {
+const addContactCellphoneController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
-      DB: { user, targetUser },
+      db: { user, targetUser },
       body: { firstName, lastName, phoneNumber, countryCode, countryName },
     } = req;
 

@@ -1,4 +1,7 @@
-const getAllChatMessagesPrivateChatCRL = async (req, res) => {
+const getAllChatMessagesPrivateChatCRL = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
   } catch (error) {
     console.log("getAllChatMessagesPrivateChatCRL", error);

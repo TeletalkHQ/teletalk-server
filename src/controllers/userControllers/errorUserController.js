@@ -2,7 +2,7 @@ const {
   userErrorTemplate,
 } = require("~/templates/errorTemplates/userErrorTemplate");
 
-const errorUserController = (req, res) => {
+const errorUserController = (req = expressRequest, res = expressResponse) => {
   try {
     res.status(200).json(userErrorTemplate);
   } catch (error) {

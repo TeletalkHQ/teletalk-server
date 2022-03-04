@@ -11,20 +11,20 @@ const addContactCellphoneController = async (req, res) => {
       body: { firstName, lastName, phoneNumber, countryCode, countryName },
     } = req;
 
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const cellphoneFromClient = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: contactItem } = cellphoneFinder({
+    const { cellphone: cellphoneInClientContacts } = cellphoneFinder({
       cellphones: user.contacts,
-      targetCell: cellphone,
+      targetCell: cellphoneFromClient,
     });
 
-    if (contactItem !== undefined) {
+    if (cellphoneInClientContacts !== undefined) {
       const error = userErrorTemplate.CELLPHONE_EXIST;
       throw error;
     }
 
     user.contacts.push({
-      ...cellphone,
+      ...cellphoneFromClient,
       firstName,
       lastName,
       privateID: targetUser.privateID,
@@ -36,7 +36,7 @@ const addContactCellphoneController = async (req, res) => {
 
     res.status(200).json({
       contact: {
-        ...cellphone,
+        ...cellphoneFromClient,
         firstName,
         lastName,
         privateID: targetUser.privateID,

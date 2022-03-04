@@ -63,15 +63,19 @@ cellphoneRoute[addContact.method](
   addContact.route,
   addContactCellphoneController
 );
+
 cellphoneRoute[addBlock.method](addBlock.route, addBlockCellphoneController);
+
 cellphoneRoute[removeBlock.method](
   removeBlock.route,
   removeBlockCellphoneController
 );
+
 cellphoneRoute[removeContact.method](
   removeContact.route,
   removeContactCellphoneController
 );
+
 cellphoneRoute[editContact.method](
   editContact.route,
   editContactCellphoneController

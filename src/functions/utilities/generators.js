@@ -5,12 +5,18 @@ const { objectClarify } = require("~/functions/utilities/objectClarify");
 
 const { initialSchemaPropertyKey } = initialValue;
 
-const errorTemplateGenerator = (code, message, reason, version) => {
+const errorTemplateGenerator = (
+  errorCode,
+  statusCode,
+  message,
+  reason,
+  version
+) => {
   try {
-    if (!code || !reason || !version) {
+    if (!errorCode || !statusCode || !reason || !version) {
       const error = {
-        errorMessage: `required arguments should passed`,
-        code,
+        errorMessage: `required arguments should be passed`,
+        code: errorCode,
         message,
         reason,
         version,
@@ -18,15 +24,24 @@ const errorTemplateGenerator = (code, message, reason, version) => {
 
       throw error;
     }
-    return { properties: { code, message, reason }, info: { version } };
+    return {
+      properties: { errorCode, statusCode, message, reason },
+      info: { version },
+    };
   } catch (error) {
-    console.log("templateGenerator catch, error:", error);
+    console.log("errorTemplateGenerator catch, error:", error);
   }
 };
 
-const routeTemplateGenerator = (method, route, version, description = "") => {
+const routeTemplateGenerator = (
+  method,
+  route,
+  statusCode,
+  version,
+  description = ""
+) => {
   try {
-    if (!method || !route || !version) {
+    if (!method || !route || !statusCode || !version) {
       const error = {
         errorMessage: `required arguments should passed`,
         method,
@@ -36,9 +51,12 @@ const routeTemplateGenerator = (method, route, version, description = "") => {
 
       throw error;
     }
-    return { properties: { method, route }, info: { version, description } };
+    return {
+      properties: { method, route, statusCode },
+      info: { version, description },
+    };
   } catch (error) {
-    console.log("templateGenerator catch, error:", error);
+    console.log("routeTemplateGenerator catch, error:", error);
   }
 };
 

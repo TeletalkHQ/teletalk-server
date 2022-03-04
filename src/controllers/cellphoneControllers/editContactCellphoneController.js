@@ -3,10 +3,13 @@ const {
 } = require("~/templates/errorTemplates/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
 
-const editContactCellphoneController = async (req, res) => {
+const editContactCellphoneController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
-      DB: { user },
+      db: { user },
       body: { firstName, lastName, phoneNumber, countryCode, countryName },
     } = req;
 

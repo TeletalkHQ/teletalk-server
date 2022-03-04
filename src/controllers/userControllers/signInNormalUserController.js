@@ -6,7 +6,10 @@ const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { SMSClient } = require("~/functions/tools/SMSClient");
 const { clients } = require("~/temp/Clients");
 
-const signInNormalUserController = async (req, res) => {
+const signInNormalUserController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const { phoneNumber, countryCode, countryName } = req.body;
 
@@ -25,7 +28,6 @@ const signInNormalUserController = async (req, res) => {
     }
 
     const { token } = await tokenSigner({
-      //! Pass is temporary!
       data: cellphone,
       secret: process.env.JWT_SIGN_IN_SECRET,
     });

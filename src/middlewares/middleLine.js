@@ -26,11 +26,11 @@ const middleLine = ({ server, express }) => {
     server.use((req, res, next) => {
       res.errors = {
         categorized: [],
-        categorizedLength: 0,
-        server: [],
-        serverLength: 0,
-        statusCode: 400,
         uncategorized: [],
+        server: [],
+        statusCode: 400,
+        serverLength: 0,
+        categorizedLength: 0,
         uncategorizedLength: 0,
       };
 

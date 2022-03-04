@@ -1,4 +1,7 @@
-const searchCellphoneController = (req, res) => {
+const searchCellphoneController = (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
   } catch (error) {
     res.errorCollector({ data: { error } });

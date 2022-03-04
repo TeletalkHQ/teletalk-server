@@ -3,8 +3,6 @@ const logoutNormalUserController = async (
   res = expressResponse
 ) => {
   try {
-    //TODO Remove user session and ...
-
     res.status(200).json({ ok: true });
   } catch (error) {
     console.log("logoutNormalUserController", error);

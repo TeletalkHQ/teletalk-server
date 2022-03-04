@@ -4,11 +4,14 @@ const {
   chatErrorTemplate,
 } = require("~/templates/errorTemplates/chatErrorTemplate");
 
-const getMessagesPrivateChatController = async (req, res) => {
+const getMessagesPrivateChatController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
       body: { chatID },
-      DB: { user },
+      db: { user },
     } = req;
 
     if (!chatID) {

@@ -12,7 +12,7 @@ const errorCollector = ({ req, res, next, data }) => {
 
     if (!er) {
       const error =
-        "Report to your back-end: Yo! you forgot to send me error - errorCollector";
+        "Report to your back-end, your backend should send error data to errorCollector";
       throw error;
     }
 
@@ -23,11 +23,11 @@ const errorCollector = ({ req, res, next, data }) => {
       res.errors.uncategorizedLength = res.errors.uncategorized.push(er);
     }
 
-    if (statusCode && !isNaN(+statusCode)) {
-      res.errors.statusCode = statusCode;
+    if ((statusCode || er.statusCode) && !isNaN(er.statusCode || +statusCode)) {
+      res.errors.statusCode = er.statusCode || statusCode;
     }
   } catch (error) {
-    // logger.redBright("errorCollector catch! its critical!!!").log(error);
+    logger.redBright("errorCollector catch! its critical!!!").log(error);
     res.errors.serverLength = res.errors.server.push(error);
     res.errors.statusCode = 500;
 

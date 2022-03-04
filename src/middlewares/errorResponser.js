@@ -1,30 +1,26 @@
-const errorResponser = (req, res, next) => {
+const errorResponser = (req = expressRequest, res = expressResponse, next) => {
   try {
     const {
       categorized,
       categorizedLength,
       server,
       serverLength,
-      statusCode: statusCodeFromCollector,
+      statusCode: statusCodeFromErrorCollector,
       uncategorized,
       uncategorizedLength,
     } = res.errors;
 
-    console.log(categorizedLength || serverLength || uncategorizedLength);
-
     if (categorizedLength || serverLength || uncategorizedLength) {
-      const resCode = statusCodeFromCollector || 400;
+      const statusCode = statusCodeFromErrorCollector || 400;
 
-      // logger.redBright(resCode).log(17);
-
-      res.status(resCode).json({
-        errors: { categorized, uncategorized, statusCode: resCode, server },
+      res.status(statusCode).json({
+        errors: { categorized, uncategorized, server, statusCode },
       });
     } else {
       next();
     }
   } catch (error) {
-    // logger.redBright("BAD ERROR!!!").log();
+    logger.redBright("BAD ERROR!!!").log();
     logger.log("errorResponser catch ", error);
   }
 };

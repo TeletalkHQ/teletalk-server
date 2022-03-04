@@ -1,9 +1,12 @@
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 
-const getContactsCellphoneController = async (req, res) => {
+const getContactsCellphoneController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
-      DB: { user },
+      db: { user },
     } = req;
 
     const { userData } = sendableUserData({ user });

@@ -9,7 +9,10 @@ const {
 const { clients } = require("~/temp/Clients");
 const { UserModel } = require("~/models/userModels/UserModel");
 
-const verifySignInNormalUserController = async (req, res) => {
+const verifySignInNormalUserController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
       body: { verifyCode },

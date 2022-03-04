@@ -26,3 +26,4 @@ Make api for log server errors
 Add versioning system for static data
 Add system, functions and stable structure for errors 
 Use lokiJS for frontend db in-memory
+Add user status into contact and user schema

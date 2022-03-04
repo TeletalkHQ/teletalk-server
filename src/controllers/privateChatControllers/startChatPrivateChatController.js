@@ -15,11 +15,14 @@ const {
   chatSchemaTemplate,
 } = require("~/templates/schemaTemplates/chatSchemaTemplate");
 
-const startChatPrivateChatController = async (req, res) => {
+const startChatPrivateChatController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
       body: { privateID: targetUserID },
-      DB: { user: client },
+      db: { user: client },
     } = req;
 
     const { user: targetUser } = await userFinder({ privateID: targetUserID });

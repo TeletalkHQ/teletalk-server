@@ -3,10 +3,13 @@ const {
 } = require("~/templates/errorTemplates/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
 
-const addBlockCellphoneController = async (req, res) => {
+const addBlockCellphoneController = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   try {
     const {
-      DB: { user },
+      db: { user },
       body: { phoneNumber, countryCode, countryName },
     } = req;
 
@@ -18,7 +21,7 @@ const addBlockCellphoneController = async (req, res) => {
     });
 
     if (blacklistItem !== undefined) {
-      const error = userErrorTemplate.CELLPHONE_EXIST;
+      const error = userErrorTemplate.CELLPHONE_EXIST.properties;
       throw error;
     }
 

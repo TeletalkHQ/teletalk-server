@@ -77,7 +77,7 @@
       "params": [],
       "body": {
         "type": "json",
-        "raw": "{\n  \"verifyCode\": \"569333\"\n}",
+        "raw": "{\n  \"verificationCode\": \"569333\"\n}",
         "form": []
       },
       "auth": { "type": "bearer", "bearer": "{{verifyToken}}" },

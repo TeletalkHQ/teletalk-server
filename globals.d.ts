@@ -1,9 +1,9 @@
 import { request, response } from "express";
 
-import { myConsole } from "~/functions/utilities/myConsole";
+import { Logger as LoggerInstance } from "~/functions/utilities/Logger";
 
 declare global {
-  var logger = myConsole;
+  var logger = LoggerInstance;
   var expressResponse = response;
   var expressRequest = request;
 }

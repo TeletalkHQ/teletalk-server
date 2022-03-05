@@ -1,9 +1,13 @@
 const { UserModel } = require("~/models/userModels/UserModel");
 
-const userFinder = async (data) => {
+const {
+  initialOptions,
+} = require("~/variables/constants/initialOptions/initialOptions");
+
+const userFinder = async (data = initialOptions.userInitialOptions) => {
   try {
     if (!data) {
-      const error = "Yo, send data to find your target :| ";
+      const error = "You should send me data to find your target";
 
       throw error;
     }

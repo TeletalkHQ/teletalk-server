@@ -15,7 +15,7 @@ const verifySignInNormalUserController = async (
 ) => {
   try {
     const {
-      body: { verifyCode },
+      body: { verificationCode },
     } = req;
 
     console.log(req.headers.authorization, "req.headers.authorization");
@@ -54,7 +54,7 @@ const verifySignInNormalUserController = async (
       throw error;
     }
 
-    if (client?.verifyCode !== verifyCode) {
+    if (client?.verificationCode !== verificationCode) {
       const error = userErrorTemplate.VERIFICATION_CODE_INVALID;
       throw error;
     }

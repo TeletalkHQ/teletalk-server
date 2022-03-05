@@ -1,4 +1,4 @@
-const { myConsole } = require("~/functions/utilities/myConsole");
+const { myConsole } = require("~/functions/utilities/Logger");
 const { objectClarify } = require("~/functions/utilities/objectClarify");
 const {
   passwordGenerator,

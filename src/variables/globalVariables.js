@@ -1,8 +1,7 @@
-const { myConsole } = require("~/functions/utilities/myConsole");
+const { Logger } = require("~/functions/utilities/Logger");
 
 const { response, request } = require("express");
 
-global.myConsole = myConsole;
-global.logger = myConsole;
+global.logger = Logger;
 global.expressRequest = request;
 global.expressResponse = response;

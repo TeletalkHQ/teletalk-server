@@ -9,8 +9,10 @@ const serveFavicon = require("serve-favicon");
 const { bodyClarify } = require("~/middlewares/bodyClarify");
 const { errorCollector } = require("~/middlewares/errorCollector");
 const { errorResponser } = require("~/middlewares/errorResponser");
+const { lifeLine } = require("~/routers/lifeLine");
 
 //TODO Use NODE_ENV for dev&prod modes
+
 const middleLine = ({ server, express }) => {
   try {
     //* PrettyError is prettier for nodeJS errors in console.
@@ -74,6 +76,12 @@ const middleLine = ({ server, express }) => {
 
       next();
     });
+
+    //* Your statics is here =>
+    server.use(express.static("~/../public"));
+    //* All stuff for routes is in lifeLine =>
+
+    server.use(lifeLine);
   } catch (error) {
     console.log("middleLine catch", error);
   }

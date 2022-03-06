@@ -35,12 +35,35 @@ const bgColors = {
 
 const defaultTextColorOption = { text: "", textColor: colors.white };
 
-function LoggerBuilder() {
+let _level = undefined;
+
+function LoggerBuilder(level) {
+  this.levels = ["error", "warn", "info", "debug"];
   this.logs = [];
 
   this.chalk = chalk;
   this.colors = colors;
   this.bgColors = bgColors;
+
+  if (!_level) {
+    this.setLevel(level || "debug");
+  }
+
+  this.setLevel = (lvl) => {
+    _level = lvl;
+  };
+
+  this.removeLevel = () => {
+    this.setLevel(undefined);
+  };
+
+  /**
+   * @param level {string}
+   * @returns {boolean}
+   */
+  this.canSend = (level) => {
+    return this.levels.indexOf(_level) >= this.levels.indexOf(level);
+  };
 
   const chalkMaker = (key, values) => {
     values.forEach((value) => {
@@ -82,12 +105,18 @@ function LoggerBuilder() {
   };
 
   this.log = (...text) => {
-    const textToLog = text.filter((item) =>
-      item instanceof LoggerBuilder ? false : true
-    );
-    console.log(...this.logs, ...textToLog);
-    this.logs = [];
-    return this;
+    if (!_level) {
+      return;
+    }
+
+    if (this.canSend(level)) {
+      const textToLog = text.filter((item) =>
+        item instanceof LoggerBuilder ? false : true
+      );
+      console.log(...this.logs, ...textToLog);
+      this.logs = [];
+      return this;
+    }
   };
 
   //* Colors =>
@@ -108,6 +137,7 @@ function LoggerBuilder() {
   this.yellow = (...text) => chalkMaker(colors.yellow, text);
   this.yellowBright = (...text) => chalkMaker(colors.yellowBright, text);
 
+  //* BG Colors =>
   this.bgBlack = (data = defaultTextColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgBlack, data, textColor);
 

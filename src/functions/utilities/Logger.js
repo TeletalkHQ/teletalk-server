@@ -45,16 +45,16 @@ function LoggerBuilder(level) {
   this.colors = colors;
   this.bgColors = bgColors;
 
-  if (!_level) {
-    this.setLevel(level || "debug");
-  }
-
   this.setLevel = (lvl) => {
     _level = lvl;
   };
 
+  if (!_level) {
+    this.setLevel(level || "debug");
+  }
+
   this.removeLevel = () => {
-    this.setLevel(undefined);
+    this.setLevel();
   };
 
   /**

@@ -4,7 +4,7 @@ const baseUrl = routeTemplateGenerator(true, "/cellphone", true, "1.0.0");
 
 const addBlock = routeTemplateGenerator(
   "post",
-  "/add/block",
+  "/addBlock",
   200,
   "1.0.0",
   "Use for block single contact on user contacts list"
@@ -12,7 +12,7 @@ const addBlock = routeTemplateGenerator(
 
 const addBlocks = routeTemplateGenerator(
   "post",
-  "/add/blocks",
+  "/addBlocks",
   200,
   "1.0.0",
   "Use for block single contact on user contacts list"
@@ -20,7 +20,7 @@ const addBlocks = routeTemplateGenerator(
 
 const addContact = routeTemplateGenerator(
   "post",
-  "/add/contact",
+  "/addContact",
   200,
   "1.0.0",
   "Use for add single contact to current user contacts list"
@@ -28,7 +28,7 @@ const addContact = routeTemplateGenerator(
 
 const addContacts = routeTemplateGenerator(
   "post",
-  "/add/contacts",
+  "/addContacts",
   200,
   "1.0.0",
   "Use for add single contact to current user contacts list"
@@ -36,7 +36,7 @@ const addContacts = routeTemplateGenerator(
 
 const editBlock = routeTemplateGenerator(
   "patch",
-  "/edit/block",
+  "/editBlock",
   200,
   "1.0.0",
   "User for edit single contact on user contacts list"
@@ -44,7 +44,7 @@ const editBlock = routeTemplateGenerator(
 
 const editContact = routeTemplateGenerator(
   "patch",
-  "/edit/contact",
+  "/editContact",
   200,
   "1.0.0",
   "User for edit single contact on user contacts list"
@@ -52,7 +52,7 @@ const editContact = routeTemplateGenerator(
 
 const getContacts = routeTemplateGenerator(
   "get",
-  "/get/contacts",
+  "/getContacts",
   200,
   "1.0.0",
   "User for edit single contact on user contacts list"
@@ -60,7 +60,7 @@ const getContacts = routeTemplateGenerator(
 
 const removeBlock = routeTemplateGenerator(
   "delete",
-  "/remove/block",
+  "/removeBlock",
   200,
   "1.0.0",
   "Use for remove single contact on user contacts list"
@@ -68,7 +68,7 @@ const removeBlock = routeTemplateGenerator(
 
 const removeBlocks = routeTemplateGenerator(
   "delete",
-  "/remove/blocks",
+  "/removeBlocks",
   200,
   "1.0.0",
   "Use for remove single contact on user contacts list"
@@ -76,7 +76,7 @@ const removeBlocks = routeTemplateGenerator(
 
 const removeContact = routeTemplateGenerator(
   "delete",
-  "/remove/contact",
+  "/removeContact",
   200,
   "1.0.0",
   "Use for remove single contact on user contacts list"
@@ -84,7 +84,7 @@ const removeContact = routeTemplateGenerator(
 
 const removeContacts = routeTemplateGenerator(
   "delete",
-  "/remove/contacts",
+  "/removeContacts",
   200,
   "1.0.0",
   "Use for remove single contact on user contacts list"
@@ -92,7 +92,7 @@ const removeContacts = routeTemplateGenerator(
 
 const shareContact = routeTemplateGenerator(
   "post",
-  "/share/contact",
+  "/shareContact",
   200,
   "1.0.0",
   "Use for share single contact on user contacts list"
@@ -100,26 +100,10 @@ const shareContact = routeTemplateGenerator(
 
 const shareContacts = routeTemplateGenerator(
   "post",
-  "/share/contacts",
+  "/shareContacts",
   200,
   "1.0.0",
   "Use for share single contact on user contacts list"
-);
-
-const error = routeTemplateGenerator(
-  "get",
-  "/error",
-  200,
-  "1.0.0",
-  "Use for get all contact errors"
-);
-
-const template = routeTemplateGenerator(
-  "get",
-  "/template",
-  200,
-  "1.0.0",
-  "Use for get all contact properties and value structure"
 );
 
 const cellphoneRouterTemplate = {
@@ -130,7 +114,6 @@ const cellphoneRouterTemplate = {
   baseUrl,
   editBlock,
   editContact,
-  error,
   getContacts,
   removeBlock,
   removeBlocks,
@@ -138,7 +121,6 @@ const cellphoneRouterTemplate = {
   removeContacts,
   shareContact,
   shareContacts,
-  template,
   version: "1.0.0",
 };
 

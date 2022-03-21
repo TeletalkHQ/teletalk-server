@@ -4,7 +4,7 @@ const baseUrl = routeTemplateGenerator(true, "/user", true, "1.0.0");
 
 const countries = routeTemplateGenerator(
   "get",
-  "/countries/normal",
+  "/countries",
   200,
   "1.0.0",
   "Use for get countries for normal account"
@@ -12,7 +12,7 @@ const countries = routeTemplateGenerator(
 
 const createNewUser = routeTemplateGenerator(
   "post",
-  "/createNewUser/normal",
+  "/normalUser/createNewNormalUser",
   200,
   "1.0.0",
   "Use for create new user for normal account"
@@ -20,14 +20,14 @@ const createNewUser = routeTemplateGenerator(
 
 const logoutNormal = routeTemplateGenerator(
   "post",
-  "/logout/normal",
+  "/normalUser/logoutNormalUser",
   200,
   "1.0.0",
   "Use for logout client as a normal account"
 );
 const signInNormal = routeTemplateGenerator(
   "post",
-  "/signIn/normal",
+  "/normalUser/signInNormalUser",
   200,
   "1.0.0",
   "Use for sign in client as a normal account"
@@ -35,7 +35,7 @@ const signInNormal = routeTemplateGenerator(
 
 const statusCheck = routeTemplateGenerator(
   "get",
-  "/status/check",
+  "/normalUser/statusCheck",
   200,
   "1.0.0",
   "Use for check client availability as a normal account"
@@ -43,37 +43,19 @@ const statusCheck = routeTemplateGenerator(
 
 const verifySignInNormal = routeTemplateGenerator(
   "post",
-  "/verify/signIn/normal",
+  "/normalUser/verifySignInNormalUser",
   200,
   "1.0.0",
   "Use for verify sign in (normal account) as normal account"
-);
-
-const error = routeTemplateGenerator(
-  "get",
-  "/error",
-  200,
-  "1.0.0",
-  "Use for get all auth errors"
-);
-
-const template = routeTemplateGenerator(
-  "get",
-  "/template",
-  200,
-  "1.0.0",
-  "Use for get all user properties and value structure"
 );
 
 const userRouterTemplate = {
   baseUrl,
   countries,
   createNewUser,
-  error,
   logoutNormal,
   signInNormal,
   statusCheck,
-  template,
   verifySignInNormal,
   version: "1.0.0",
 };

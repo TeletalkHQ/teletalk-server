@@ -79,8 +79,8 @@ const middleLine = ({ server, express }) => {
 
     //* Your statics is here =>
     server.use(express.static("~/../public"));
-    //* All stuff for routes is in lifeLine =>
 
+    //* All routers is in lifeLine =>
     server.use(lifeLine);
   } catch (error) {
     console.log("middleLine catch", error);

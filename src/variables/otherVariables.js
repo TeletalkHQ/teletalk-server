@@ -43,6 +43,7 @@ const {
 const {
   verificationCodeValidationSchema,
 } = require("~/schemas/validationSchemas/userValidationSchemas/verificationCodeValidationSchema");
+
 const {
   cellphoneRouterTemplate,
 } = require("~/templates/routerTemplates/cellphoneRouterTemplate");
@@ -68,6 +69,12 @@ const {
 const {
   userSchemaTemplate,
 } = require("~/templates/schemaTemplates/userSchemaTemplate");
+const {
+  userErrorTemplate,
+} = require("~/templates/errorTemplates/userErrorTemplate");
+const {
+  chatErrorTemplate,
+} = require("~/templates/errorTemplates/chatErrorTemplate");
 
 const routerTemplates = {
   cellphoneRouterTemplate,
@@ -81,6 +88,11 @@ const schemaTemplates = {
   chatSchemaTemplate,
   commonSchemaTemplate,
   userSchemaTemplate,
+};
+
+const errorTemplates = {
+  chatErrorTemplate,
+  userErrorTemplate,
 };
 
 const validationSchemas = {
@@ -102,9 +114,10 @@ const validationSchemas = {
 };
 
 const allStuff = {
-  schemaTemplates,
-  routerTemplates,
-  validationSchemas,
+  templates: { schemaTemplates, routerTemplates, errorTemplates },
+  schemas: {
+    validationSchemas,
+  },
 };
 
 module.exports = {

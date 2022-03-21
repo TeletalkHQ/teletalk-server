@@ -35,8 +35,6 @@ const {
   statusCheck: { properties: statusCheck }, //UNUSED
   signInNormal: { properties: signInNormal },
   verifySignInNormal: { properties: verifySignInNormal },
-  error: { properties: error },
-  template: { properties: template },
 } = userRouterTemplate;
 
 userRoute.use(signInNormal.route, cellphoneValidatorMDW);
@@ -56,9 +54,6 @@ userRoute[createNewUser.method](
 
 //TODO Move it to otherRoute
 userRoute[countries.method](countries.route, countriesUserController);
-
-userRoute[error.method](error.route, errorUserController);
-userRoute[template.method](template.route, templateUserController);
 
 //* sign out normal =>
 //

@@ -2,7 +2,7 @@ const { routeTemplateGenerator } = require("~/functions/utilities/generators");
 
 const baseUrl = routeTemplateGenerator(
   true,
-  "/chat/private",
+  "/chat/privateChat",
   true,
   "1.0.0",
   ""
@@ -10,7 +10,7 @@ const baseUrl = routeTemplateGenerator(
 
 const getAllChats = routeTemplateGenerator(
   "get",
-  "/get/all/chats",
+  "/getAllPrivateChats",
   200,
   "1.0.0",
   "Use for Start new chat"
@@ -18,7 +18,7 @@ const getAllChats = routeTemplateGenerator(
 
 const chatsLastMessage = routeTemplateGenerator(
   "post",
-  "/chats/last/message",
+  "/privateChatsLastMessages",
   200,
   "1.0.0",
   "Use for Get chats last message"
@@ -26,7 +26,7 @@ const chatsLastMessage = routeTemplateGenerator(
 
 const getMessages = routeTemplateGenerator(
   "post",
-  "/get/messages",
+  "/getPrivateMessages",
   200,
   "1.0.0",
   "Use for get all messages"
@@ -34,7 +34,7 @@ const getMessages = routeTemplateGenerator(
 
 const startChat = routeTemplateGenerator(
   "post",
-  "/start/chat",
+  "/startNewPrivateChat",
   200,
   "1.0.0",
   "Use for Start new chat"
@@ -42,37 +42,19 @@ const startChat = routeTemplateGenerator(
 
 const sendMessage = routeTemplateGenerator(
   "post",
-  "/send/message",
+  "/sendPrivateMessage",
   200,
   "1.0.0",
   "Use for send private messages"
 );
 
-const error = routeTemplateGenerator(
-  "get",
-  "/error",
-  200,
-  "1.0.0",
-  "Use for get all auth errors"
-);
-
-const template = routeTemplateGenerator(
-  "get",
-  "/template",
-  200,
-  "1.0.0",
-  "Use for get all user properties and value structure"
-);
-
 const privateChatRouterTemplate = {
   baseUrl,
   chatsLastMessage,
-  error,
   getAllChats,
   getMessages,
   sendMessage,
   startChat,
-  template,
   version: "1.0.0",
 };
 

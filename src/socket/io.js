@@ -4,8 +4,8 @@ let io = () => {};
 
 const ioFunctions = {
   io,
-  sio: (httpServer) => {
-    ioFunctions.io = sio(httpServer, {
+  sio: (server) => {
+    ioFunctions.io = sio(server, {
       cors: {
         origin: "*",
       },

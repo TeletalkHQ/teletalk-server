@@ -1,54 +1,57 @@
-//* No more need attention to make absolute path
-//! Require this module before anyone!
-require("module-alias/register");
-
-require("~/variables/globalVariables");
-
+const http = require("http");
 const path = require("path");
 
-const express = require("express");
-const dotenv = require("dotenv");
-const http = require("http");
+require("dotenv").config({
+  path: path.join(__dirname, "..", "environments", "main.env"),
+});
 
-//* Example of path.join usage
-dotenv.config({ path: path.join(__dirname, "..", "environments", "main.env") });
+//* No more relative path!
+//! Require this package before requiring internal modules!
+require("module-alias/register");
 
-const { connectDB } = require("~/variables/configs/databaseConfigs/connectDB");
+//! Require this module before requiring internal modules!
+require("~/variables/globalVariables");
 
-const { middleLine } = require("~/middlewares/middleLine");
+const {
+  connectDatabase,
+} = require("~/variables/configs/databaseConfigs/connectDatabase");
 
+const { app } = require("~/app");
 const { ioFunctions } = require("~/socket/io");
 
-//? Connect to database =>
-connectDB();
-
-const expressServer = express();
-
-const httpServer = http.createServer(expressServer);
-
-ioFunctions.sio(httpServer);
-
-middleLine({ server: expressServer, express });
+const server = http.createServer(app);
 
 //* PORT coming from heroku, so don't touch it!
 const { LOCAL_PORT, PORT, NODE_ENV } = process.env;
 
 const EXACT_PORT = PORT || LOCAL_PORT;
 
-const serverListenerCB = () => {
+const serverListenerCb = () => {
   logger.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
 };
 
-ioFunctions.io.on("connection", (socket) => {
-  logger.log("User connected.");
+const startServer = async () => {
+  try {
+    await connectDatabase();
 
-  logger.log(socket.id);
+    ioFunctions.sio(server);
 
-  socket.on("disconnect", (...params) => {
-    logger.log(`${socket.id} disconnected`);
+    ioFunctions.io.on("connection", (socket) => {
+      logger.log("User connected.");
 
-    logger.log(params);
-  });
-});
+      logger.log(socket.id);
 
-httpServer.listen(EXACT_PORT, serverListenerCB);
+      socket.on("disconnect", (...params) => {
+        logger.log(`${socket.id} disconnected`);
+
+        logger.log(params);
+      });
+    });
+
+    server.listen(EXACT_PORT, serverListenerCb);
+  } catch (error) {
+    process.exit(1);
+  }
+};
+
+startServer();

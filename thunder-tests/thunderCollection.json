@@ -1,0 +1,47 @@
+[
+  {
+    "_id": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "colName": "teletalk-server",
+    "created": "2022-04-10T19:07:05.801Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "912ee1d7-89bc-46ef-aa23-c40e3498d032",
+        "name": "Authentication (user apis)",
+        "containerId": "",
+        "created": "2022-04-10T19:07:05.851Z",
+        "sortNum": 10000,
+        "settings": {
+          "headers": [],
+          "auth": {
+            "type": "bearer",
+            "bearer": "{{verifyToken}}"
+          },
+          "tests": []
+        }
+      },
+      {
+        "_id": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
+        "name": "cellponeApis",
+        "containerId": "",
+        "created": "2022-04-10T19:07:05.852Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "8173ef98-530a-4efe-9fae-176242f805be",
+        "name": "privateChat",
+        "containerId": "",
+        "created": "2022-04-10T19:07:05.853Z",
+        "sortNum": 30000
+      }
+    ],
+    "settings": {
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": []
+    }
+  }
+]

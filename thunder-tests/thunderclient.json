@@ -1,0 +1,158 @@
+[
+  {
+    "_id": "8487f295-e64b-433b-91b5-48135a8b4729",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "912ee1d7-89bc-46ef-aa23-c40e3498d032",
+    "name": "signInNormalUser",
+    "url": "{{baseUrl}}/user/signIn/normal",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-04-10T19:07:05.854Z",
+    "modified": "2022-04-10T19:07:05.854Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"phoneNumber\": \"9012700470\",\n  \"countryCode\": \"98\",\n  \"countryName\": \"iran\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "64f71f9d-5049-4c27-8e0c-8cdf43c2e0c0",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "912ee1d7-89bc-46ef-aa23-c40e3498d032",
+    "name": "verifySignInNormalUser",
+    "url": "{{baseUrl}}/user/verify/signIn/normal",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-04-10T19:07:05.855Z",
+    "modified": "2022-04-10T19:07:05.855Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"verificationCode\": \"569333\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{verifyToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "b7d99c8f-7a3c-47a9-9ea7-972f9d75bb84",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
+    "name": "removeContact",
+    "url": "{{baseUrl}}/cellphone/remove/contact",
+    "method": "DELETE",
+    "sortNum": 30000,
+    "created": "2022-04-10T19:07:05.856Z",
+    "modified": "2022-04-10T19:07:05.856Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  } \n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "7203ee20-cf09-4fde-9886-11fb3e1ce5de",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
+    "name": "removeBlock",
+    "url": "{{baseUrl}}/cellphone/remove/block",
+    "method": "DELETE",
+    "sortNum": 40000,
+    "created": "2022-04-10T19:07:05.857Z",
+    "modified": "2022-04-10T19:07:05.857Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  } \n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "03426795-3696-4ddc-8d09-2f56af9d01d3",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
+    "name": "editContact",
+    "url": "{{baseUrl}}/cellphone/edit/contact",
+    "method": "PATCH",
+    "sortNum": 50000,
+    "created": "2022-04-10T19:07:05.858Z",
+    "modified": "2022-04-10T19:07:05.858Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  },\n  \"firstName\": \"\",\n  \"lastName\": \"\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "c686a306-4a2e-4a06-9001-e591e40b7868",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
+    "name": "addContact",
+    "url": "{{baseUrl}}/cellphone/add/contact",
+    "method": "POST",
+    "sortNum": 60000,
+    "created": "2022-04-10T19:07:05.859Z",
+    "modified": "2022-04-10T19:07:05.859Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  },\n  \"firstName\": \"\",\n  \"lastName\": \"\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "1276103c-75dd-4d0f-a986-f1c74359fdec",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
+    "name": "addBlock",
+    "url": "{{baseUrl}}/cellphone/add/block",
+    "method": "POST",
+    "sortNum": 70000,
+    "created": "2022-04-10T19:07:05.867Z",
+    "modified": "2022-04-10T19:07:05.867Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  } \n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "d426dcd0-2810-47c3-a3cf-8c8498fdedb5",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "8173ef98-530a-4efe-9fae-176242f805be",
+    "name": "sendMessage",
+    "url": "{{baseUrl}}/chat/private/send/message",
+    "method": "POST",
+    "sortNum": 80000,
+    "created": "2022-04-10T19:07:05.868Z",
+    "modified": "2022-04-10T19:07:05.868Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"chatID\":\"\",\n  \"participantID\":\"\",\n  \"messageText\":\"\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

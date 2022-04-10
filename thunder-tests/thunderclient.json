@@ -154,5 +154,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "d2cd420c-9ff2-4beb-b3d4-641c6ec60793",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "ce68116e-d26c-4cec-be4b-a976e34b7b39",
+    "name": "getAllStuff",
+    "url": "localhost:8080/versionControl/getAllStuff",
+    "method": "GET",
+    "sortNum": 90000,
+    "created": "2022-04-10T19:24:50.497Z",
+    "modified": "2022-04-10T19:25:47.900Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

@@ -49,17 +49,18 @@
     "**/.trashcan": true,
     ".trashcan": true,
     ".eslintignore": true,
-    "yarn.lock": false,
+    "yarn.lock": true,
     "yarn-error.log": true,
     "Procfile": true,
     "README.md": true,
     "globals.d.ts": false,
     ".eslintrc.json": false,
-    ".gitignore": true,
+    ".gitignore": false,
     "package.json": false,
     "node_modules": false,
-    ".idea": true
+    ".idea": true,
+    "**/yarn-error.log": true
   },
-  "explorerExclude.backup": {},
+  "explorerExclude.backup": null,
   "cSpell.words": [""]
 }

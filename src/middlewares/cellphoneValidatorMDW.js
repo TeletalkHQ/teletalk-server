@@ -1,7 +1,8 @@
 const { errorThrower } = require("~/functions/utilities/utils");
+
 const {
   cellphoneValidator,
-} = require("~/validators/userValidators/indexUserPartValidator");
+} = require("~/validators/userValidators/cellphoneValidator");
 
 const cellphoneValidatorMDW = async (req, res, next) => {
   try {

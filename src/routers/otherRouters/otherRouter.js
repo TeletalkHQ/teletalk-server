@@ -11,6 +11,6 @@ const {
 
 const otherRoute = Router();
 
-otherRoute[welcome.method](welcome.route, welcomeOtherController);
+otherRoute[welcome.method](welcome.url, welcomeOtherController);
 
 module.exports = { otherRoute };

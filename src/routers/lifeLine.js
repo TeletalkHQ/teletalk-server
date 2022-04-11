@@ -34,19 +34,19 @@ const lifeLine = Router();
 
 lifeLine.use(errorResponser);
 
-lifeLine.use(cellphoneRouterTemplate.baseUrl.properties.route, cellphoneRoute);
+lifeLine.use(cellphoneRouterTemplate.baseUrl.properties.url, cellphoneRoute);
 
-lifeLine.use(otherRouterTemplate.baseUrl.properties.route, otherRoute);
+lifeLine.use(otherRouterTemplate.baseUrl.properties.url, otherRoute);
 
 lifeLine.use(
-  privateChatRouterTemplate.baseUrl.properties.route,
+  privateChatRouterTemplate.baseUrl.properties.url,
   privateChatRoute
 );
 
-lifeLine.use(userRouterTemplate.baseUrl.properties.route, userRoute);
+lifeLine.use(userRouterTemplate.baseUrl.properties.url, userRoute);
 
 lifeLine.use(
-  versionControlRouterTemplate.properties.baseUrl.properties.route,
+  versionControlRouterTemplate.properties.baseUrl.properties.url,
   versionControlRouter
 );
 

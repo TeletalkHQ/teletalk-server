@@ -17,7 +17,7 @@ const {
 } = versionControlRouterTemplate;
 
 versionControlRouter[getAllStuffs.method](
-  getAllStuffs.route,
+  getAllStuffs.url,
   getAllStuffVersionControlController
 );
 

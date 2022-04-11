@@ -1,14 +1,11 @@
 const { Router } = require("express");
 
 const {
-  userRouterTemplate,
-  signInNormalUserController,
-  errorUserController,
-  templateUserController,
-} = require("~/controllers/userControllers/indexUserController");
-const {
   verifySignInNormalUserController,
 } = require("~/controllers/userControllers/verifySignInNormalUserController");
+const {
+  signInNormalUserController,
+} = require("~/controllers/userControllers/signInNormalUserController");
 const {
   statusCheckUserController,
 } = require("~/controllers/userControllers/statusCheckUserController");
@@ -18,13 +15,17 @@ const {
 const {
   countriesUserController,
 } = require("~/controllers/userControllers/countriesUserController");
+const {
+  createNewUserUserController,
+} = require("~/controllers/userControllers/createNewUserUserController");
 
 const {
   cellphoneValidatorMDW,
 } = require("~/middlewares/cellphoneValidatorMDW");
+
 const {
-  createNewUserUserController,
-} = require("~/controllers/userControllers/createNewUserUserController");
+  userRouterTemplate,
+} = require("~/templates/routerTemplates/userRouterTemplate");
 
 const userRoute = Router();
 
@@ -37,23 +38,20 @@ const {
   verifySignInNormal: { properties: verifySignInNormal },
 } = userRouterTemplate;
 
-userRoute.use(signInNormal.route, cellphoneValidatorMDW);
+userRoute.use(signInNormal.url, cellphoneValidatorMDW);
 
-userRoute[logoutNormal.method](logoutNormal.route, logoutNormalUserController);
-userRoute[signInNormal.method](signInNormal.route, signInNormalUserController);
+userRoute[logoutNormal.method](logoutNormal.url, logoutNormalUserController);
+userRoute[signInNormal.method](signInNormal.url, signInNormalUserController);
 userRoute[verifySignInNormal.method](
-  verifySignInNormal.route,
+  verifySignInNormal.url,
   verifySignInNormalUserController
 );
-userRoute[statusCheck.method](statusCheck.route, statusCheckUserController);
+userRoute[statusCheck.method](statusCheck.url, statusCheckUserController);
 
-userRoute[createNewUser.method](
-  createNewUser.route,
-  createNewUserUserController
-);
+userRoute[createNewUser.method](createNewUser.url, createNewUserUserController);
 
 //TODO Move it to otherRoute
-userRoute[countries.method](countries.route, countriesUserController);
+userRoute[countries.method](countries.url, countriesUserController);
 
 //* sign out normal =>
 //

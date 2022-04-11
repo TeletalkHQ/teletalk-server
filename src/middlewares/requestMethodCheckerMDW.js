@@ -20,8 +20,6 @@ const templates = [
 
 const requestMethodCheckerMDW = async (req, res, next) => {
   try {
-    logger.log(req);
-
     const targetTemplate = templates.find(
       (template) => template.baseUrl === req.baseUrl
     );
@@ -32,10 +30,9 @@ const requestMethodCheckerMDW = async (req, res, next) => {
     }
 
     if (targetTemplate) {
-      const { baseUrl, info, ...routes } = targetTemplate;
+      const { baseUrl, info, ...urls } = targetTemplate;
 
-      const routesArray = Object.entries(routes).map((route) => ({ ...route }));
-      logger.log(routesArray);
+      const routesArray = Object.entries(urls).map((url) => ({ ...url }));
     }
   } catch (error) {
     logger.log("requestMethodCheckerMDW", error);

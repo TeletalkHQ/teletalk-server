@@ -36,25 +36,25 @@ privateChatRoute.use(authDefaultMDW);
 privateChatRoute.use(findUserFromDB);
 
 privateChatRoute[getAllChats.method](
-  getAllChats.route,
+  getAllChats.url,
   getAllChatsUserController
 );
 
 privateChatRoute[chatsLastMessage.method](
-  chatsLastMessage.route,
+  chatsLastMessage.url,
   chatsLastMessageChatController
 );
 
 privateChatRoute[sendMessage.method](
-  sendMessage.route,
+  sendMessage.url,
   sendMessagePrivateChatController
 );
 privateChatRoute[getMessages.method](
-  getMessages.route,
+  getMessages.url,
   getMessagesPrivateChatController
 );
 privateChatRoute[startChat.method](
-  startChat.route,
+  startChat.url,
   startChatPrivateChatController
 );
 

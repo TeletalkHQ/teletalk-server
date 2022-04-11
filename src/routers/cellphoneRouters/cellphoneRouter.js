@@ -14,9 +14,6 @@ const {
 } = require("~/middlewares/targetUserFinderByCellphoneMDW");
 
 const {
-  addContactCellphoneController,
-} = require("~/controllers/cellphoneControllers/indexCellphoneController");
-const {
   addBlockCellphoneController,
 } = require("~/controllers/cellphoneControllers/addBlockCellphoneController");
 const {
@@ -31,6 +28,9 @@ const {
 const {
   getContactsCellphoneController,
 } = require("~/controllers/cellphoneControllers/getContactsCellphoneController");
+const {
+  addContactCellphoneController,
+} = require("~/controllers/cellphoneControllers/addContactCellphoneController");
 
 const {
   cellphoneRouterTemplate: {
@@ -48,7 +48,7 @@ const cellphoneRoute = Router();
 cellphoneRoute.use(authDefaultMDW);
 
 cellphoneRoute[getContacts.method](
-  getContacts.route,
+  getContacts.url,
   findUserFromDB,
   getContactsCellphoneController
 );
@@ -57,27 +57,27 @@ cellphoneRoute.use(cellphoneValidatorMDW);
 cellphoneRoute.use(selfStuffControllerMDW);
 cellphoneRoute.use(findUserFromDB);
 cellphoneRoute.use(targetUserFinderByCellphoneMDW);
-cellphoneRoute.use(addContact.route, contactValidatorMDW);
+cellphoneRoute.use(addContact.url, contactValidatorMDW);
 
 cellphoneRoute[addContact.method](
-  addContact.route,
+  addContact.url,
   addContactCellphoneController
 );
 
-cellphoneRoute[addBlock.method](addBlock.route, addBlockCellphoneController);
+cellphoneRoute[addBlock.method](addBlock.url, addBlockCellphoneController);
 
 cellphoneRoute[removeBlock.method](
-  removeBlock.route,
+  removeBlock.url,
   removeBlockCellphoneController
 );
 
 cellphoneRoute[removeContact.method](
-  removeContact.route,
+  removeContact.url,
   removeContactCellphoneController
 );
 
 cellphoneRoute[editContact.method](
-  editContact.route,
+  editContact.url,
   editContactCellphoneController
 );
 

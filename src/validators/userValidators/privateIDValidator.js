@@ -3,11 +3,11 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  privateIDValidationSchema,
-} = require("~/schemas/validationSchemas/userValidationSchemas/privateIDValidationSchema");
+  privateIDValidationModel,
+} = require("~/models/validationModels/userValidationModels/privateIDValidationModel");
 
 const privateIDValidation = {
-  properties: { ...privateIDValidationSchema.properties },
+  properties: { ...privateIDValidationModel.properties },
 
   info: {
     version: "1.0.0",

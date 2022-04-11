@@ -3,11 +3,11 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  bioValidationsSchema,
-} = require("~/schemas/validationSchemas/userValidationSchemas/bioValidationsSchema");
+  bioValidationsModel,
+} = require("~/models/validationModels/userValidationModels/bioValidationsModel");
 
 const bioValidation = {
-  properties: { ...bioValidationsSchema.properties },
+  properties: { ...bioValidationsModel.properties },
 
   info: {
     version: "1.0.0",

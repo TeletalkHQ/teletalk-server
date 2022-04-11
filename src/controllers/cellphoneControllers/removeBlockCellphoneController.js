@@ -1,6 +1,4 @@
-const {
-  userErrorTemplate,
-} = require("~/templates/errorTemplates/userErrorTemplate");
+const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
 const { errorThrower } = require("~/functions/utilities/utils");
 

@@ -3,11 +3,11 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  countryNameValidationSchema,
-} = require("~/schemas/validationSchemas/userValidationSchemas/countryNameValidationSchema");
+  countryNameValidationModel,
+} = require("~/models/validationModels/userValidationModels/countryNameValidationModel");
 
 const countryNameValidation = {
-  properties: { ...countryNameValidationSchema.properties },
+  properties: { ...countryNameValidationModel.properties },
 
   info: {
     version: "1.0.0",

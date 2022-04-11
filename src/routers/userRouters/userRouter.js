@@ -20,12 +20,10 @@ const {
 } = require("~/controllers/userControllers/createNewUserUserController");
 
 const {
-  cellphoneValidatorMDW,
-} = require("~/middlewares/cellphoneValidatorMDW");
+  cellphoneValidatorMiddleware,
+} = require("~/middlewares/cellphoneValidatorMiddleware");
 
-const {
-  userRouterTemplate,
-} = require("~/templates/routerTemplates/userRouterTemplate");
+const { userRoutes } = require("~/variables/routes/userRoutes");
 
 const userRoute = Router();
 
@@ -36,9 +34,9 @@ const {
   statusCheck: { properties: statusCheck }, //UNUSED
   signInNormal: { properties: signInNormal },
   verifySignInNormal: { properties: verifySignInNormal },
-} = userRouterTemplate;
+} = userRoutes;
 
-userRoute.use(signInNormal.url, cellphoneValidatorMDW);
+userRoute.use(signInNormal.url, cellphoneValidatorMiddleware);
 
 userRoute[logoutNormal.method](logoutNormal.url, logoutNormalUserController);
 userRoute[signInNormal.method](signInNormal.url, signInNormalUserController);

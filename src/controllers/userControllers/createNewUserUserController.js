@@ -5,15 +5,11 @@ const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { errorThrower } = require("~/functions/utilities/utils");
 
-const { UserModel } = require("~/models/userModels/UserModel");
-const { clients } = require("~/temp/Clients");
-const {
-  userErrorTemplate,
-} = require("~/templates/errorTemplates/userErrorTemplate");
+const { UserModel } = require("~/models/userModels/user.mongo");
+const { clients } = require("~/functions/tools/Clients");
+const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 
-const {
-  userSchemaTemplate,
-} = require("~/templates/schemaTemplates/userSchemaTemplate");
+const { userModel } = require("~/models/userModels/user.model");
 const {
   firstNameValidator,
 } = require("~/validators/userValidators/firstNameValidator");
@@ -82,7 +78,7 @@ const createNewUserUserController = async (
       });
     } else if (!user) {
       const privateID = randomID(
-        userSchemaTemplate.privateID.properties.maxlength.value
+        userModel.privateID.properties.maxlength.value
       );
 
       const token = await tokenSigner({

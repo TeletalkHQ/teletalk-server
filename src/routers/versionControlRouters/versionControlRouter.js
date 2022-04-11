@@ -5,8 +5,8 @@ const {
 } = require("~/controllers/versionControlControllers/getAllStuffVersionControlController");
 
 const {
-  versionControlRouterTemplate,
-} = require("~/templates/routerTemplates/versionControlRouterTemplate");
+  versionControlRoutes,
+} = require("~/variables/routes/versionControlRoutes");
 
 const versionControlRouter = Router();
 
@@ -14,7 +14,7 @@ const {
   properties: {
     getAllStuffs: { properties: getAllStuffs },
   },
-} = versionControlRouterTemplate;
+} = versionControlRoutes;
 
 versionControlRouter[getAllStuffs.method](
   getAllStuffs.url,

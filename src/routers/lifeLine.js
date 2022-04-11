@@ -2,8 +2,6 @@
 
 const { Router } = require("express");
 
-const { errorResponser } = require("~/middlewares/errorResponser");
-
 const {
   cellphoneRoute,
 } = require("~/routers/cellphoneRouters/cellphoneRouter");
@@ -14,39 +12,26 @@ const {
   versionControlRouter,
 } = require("~/routers/versionControlRouters/versionControlRouter");
 
+const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
+const { otherRoutes } = require("~/variables/routes/otherRoutes");
+const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
+const { userRoutes } = require("~/variables/routes/userRoutes");
 const {
-  cellphoneRouterTemplate,
-} = require("~/templates/routerTemplates/cellphoneRouterTemplate");
-const {
-  otherRouterTemplate,
-} = require("~/templates/routerTemplates/otherRouterTemplate");
-const {
-  privateChatRouterTemplate,
-} = require("~/templates/routerTemplates/privateChatRouterTemplate");
-const {
-  userRouterTemplate,
-} = require("~/templates/routerTemplates/userRouterTemplate");
-const {
-  versionControlRouterTemplate,
-} = require("~/templates/routerTemplates/versionControlRouterTemplate");
+  versionControlRoutes,
+} = require("~/variables/routes/versionControlRoutes");
 
 const lifeLine = Router();
 
-lifeLine.use(errorResponser);
+lifeLine.use(cellphoneRoutes.baseUrl.properties.url, cellphoneRoute);
 
-lifeLine.use(cellphoneRouterTemplate.baseUrl.properties.url, cellphoneRoute);
+lifeLine.use(otherRoutes.baseUrl.properties.url, otherRoute);
 
-lifeLine.use(otherRouterTemplate.baseUrl.properties.url, otherRoute);
+lifeLine.use(privateChatRoutes.baseUrl.properties.url, privateChatRoute);
 
-lifeLine.use(
-  privateChatRouterTemplate.baseUrl.properties.url,
-  privateChatRoute
-);
-
-lifeLine.use(userRouterTemplate.baseUrl.properties.url, userRoute);
+lifeLine.use(userRoutes.baseUrl.properties.url, userRoute);
 
 lifeLine.use(
-  versionControlRouterTemplate.properties.baseUrl.properties.url,
+  versionControlRoutes.properties.baseUrl.properties.url,
   versionControlRouter
 );
 

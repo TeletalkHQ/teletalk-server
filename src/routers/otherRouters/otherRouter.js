@@ -4,10 +4,10 @@ const {
   welcomeOtherController,
 } = require("~/controllers/otherControllers/welcomeOtherController");
 const {
-  otherRouterTemplate: {
+  otherRoutes: {
     welcome: { properties: welcome },
   },
-} = require("~/templates/routerTemplates/otherRouterTemplate");
+} = require("~/variables/routes/otherRoutes");
 
 const otherRoute = Router();
 

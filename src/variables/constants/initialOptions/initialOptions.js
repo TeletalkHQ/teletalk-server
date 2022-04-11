@@ -1,6 +1,4 @@
-const {
-  userSchemaTemplate,
-} = require("~/templates/schemaTemplates/userSchemaTemplate");
+const { userModel } = require("~/models/userModels/user.model");
 
 const {
   bio: {
@@ -68,7 +66,7 @@ const {
       type: { value: username },
     },
   },
-} = userSchemaTemplate;
+} = userModel;
 
 const userInitialOptions = {
   bio,

@@ -2,12 +2,10 @@ const { userFinder } = require("~/functions/helpers/userFinder");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 
-const {
-  userErrorTemplate,
-} = require("~/templates/errorTemplates/userErrorTemplate");
+const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 
-const { clients } = require("~/temp/Clients");
-const { UserModel } = require("~/models/userModels/UserModel");
+const { clients } = require("~/functions/tools/Clients");
+const { UserModel } = require("~/models/userModels/user.mongo");
 const { errorThrower } = require("~/functions/utilities/utils");
 
 const verifySignInNormalUserController = async (
@@ -32,6 +30,7 @@ const verifySignInNormalUserController = async (
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
+    console.log(clients.aliveClients);
     const client = clients.aliveClients.find((client) => {
       if (
         client.phoneNumber === phoneNumber &&

@@ -1,19 +1,13 @@
 //!DEPRECATED
 
-const {
-  chatErrorTemplate,
-} = require("~/templates/errorTemplates/chatErrorTemplate");
-const {
-  userErrorTemplate,
-} = require("~/templates/errorTemplates/userErrorTemplate");
+const { chatErrorTemplate } = require("~/variables/errors/chatErrorTemplate");
+const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 const { userFinder } = require("~/functions/helpers/userFinder");
 const { randomID } = require("~/functions/utilities/randomID");
 
-const { PrivateChatModel } = require("~/models/chatModels/privateChatModel");
+const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
 
-const {
-  chatSchemaTemplate,
-} = require("~/templates/schemaTemplates/chatSchemaTemplate");
+const { chatModel } = require("~/models/chatModels/chat.model");
 const { errorThrower } = require("~/functions/utilities/utils");
 
 const startChatPrivateChatController = async (
@@ -39,7 +33,7 @@ const startChatPrivateChatController = async (
 
     errorThrower(chat, chatErrorTemplate.CHAT_EXIST);
 
-    const chatID = randomID(chatSchemaTemplate.chatID.maxlength.value);
+    const chatID = randomID(chatModel.chatID.maxlength.value);
 
     const privateChat = new PrivateChatModel({
       chatID,

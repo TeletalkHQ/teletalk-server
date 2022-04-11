@@ -28,6 +28,10 @@ const isEqualWithTargetCellphone = (cellphone, targetCell) => {
   return false;
 };
 
+const skipParams = (count) => {
+  return Array.from({ length: count });
+};
+
 // const mongoose = require("mongoose");
 
 // function NoCastString(key, options) {
@@ -45,7 +49,8 @@ const isEqualWithTargetCellphone = (cellphone, targetCell) => {
 // mongoose.Schema.Types.NoCastString = NoCastString;
 
 module.exports = {
-  objectInitializer,
   errorThrower,
   isEqualWithTargetCellphone,
+  objectInitializer,
+  skipParams,
 };

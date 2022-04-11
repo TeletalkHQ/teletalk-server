@@ -4,8 +4,12 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const serveFavicon = require("serve-favicon");
 
-const { errorCollector } = require("~/middlewares/errorCollector");
-const { errorResponser } = require("~/middlewares/errorResponser");
+const {
+  errorCollectorMiddleware,
+} = require("~/middlewares/errorCollectorMiddleware");
+const {
+  errorResponserMiddleware,
+} = require("~/middlewares/errorResponserMiddleware");
 
 const { lifeLine } = require("~/routers/lifeLine");
 
@@ -48,7 +52,7 @@ app.use((req, res, next) => {
   };
 
   res.errorCollector = ({ data }) => {
-    errorCollector({ req, res, next, data });
+    errorCollectorMiddleware({ req, res, next, data });
   };
 
   next();
@@ -56,7 +60,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   res.errorResponser = () => {
-    errorResponser(req, res, next);
+    errorResponserMiddleware(req, res, next);
   };
 
   next();

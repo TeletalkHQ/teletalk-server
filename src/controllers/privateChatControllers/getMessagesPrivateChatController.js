@@ -1,9 +1,7 @@
 const { errorThrower } = require("~/functions/utilities/utils");
-const { PrivateChatModel } = require("~/models/chatModels/privateChatModel");
+const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
 
-const {
-  chatErrorTemplate,
-} = require("~/templates/errorTemplates/chatErrorTemplate");
+const { chatErrorTemplate } = require("~/variables/errors/chatErrorTemplate");
 
 const getMessagesPrivateChatController = async (
   req = expressRequest,

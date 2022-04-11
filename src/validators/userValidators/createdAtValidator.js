@@ -3,11 +3,11 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  createdAtValidationSchema,
-} = require("~/schemas/validationSchemas/commonValidationSchemas/createdAtValidationSchema");
+  createdAtValidationModel,
+} = require("~/models/validationModels/commonValidationModels/createdAtValidationModel");
 
 const createdAtValidation = {
-  properties: { ...createdAtValidationSchema.properties },
+  properties: { ...createdAtValidationModel.properties },
 
   info: {
     version: "1.0.0",

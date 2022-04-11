@@ -1,17 +1,23 @@
 const { Router } = require("express");
 
-const { authDefaultMDW } = require("~/middlewares/authDefaultMDW");
-const { contactValidatorMDW } = require("~/middlewares/contactValidatorMDW");
-const { findUserFromDB } = require("~/middlewares/findUserFromDB");
 const {
-  selfStuffControllerMDW,
-} = require("~/middlewares/selfStuffControllerMDW");
+  authDefaultMiddleware,
+} = require("~/middlewares/authDefaultMiddleware");
 const {
-  cellphoneValidatorMDW,
-} = require("~/middlewares/cellphoneValidatorMDW");
+  contactValidatorMiddleware,
+} = require("~/middlewares/contactValidatorMiddleware");
 const {
-  targetUserFinderByCellphoneMDW,
-} = require("~/middlewares/targetUserFinderByCellphoneMDW");
+  findUserFromDbMiddleware,
+} = require("~/middlewares/findUserFromDbMiddleware");
+const {
+  selfStuffControllerMiddleware,
+} = require("~/middlewares/selfStuffControllerMiddleware");
+const {
+  cellphoneValidatorMiddleware,
+} = require("~/middlewares/cellphoneValidatorMiddleware");
+const {
+  targetUserFinderByCellphoneMiddleware,
+} = require("~/middlewares/targetUserFinderByCellphoneMiddleware");
 
 const {
   addBlockCellphoneController,
@@ -33,7 +39,7 @@ const {
 } = require("~/controllers/cellphoneControllers/addContactCellphoneController");
 
 const {
-  cellphoneRouterTemplate: {
+  cellphoneRoutes: {
     addContact: { properties: addContact },
     addBlock: { properties: addBlock },
     editContact: { properties: editContact },
@@ -41,23 +47,23 @@ const {
     removeContact: { properties: removeContact },
     getContacts: { properties: getContacts },
   },
-} = require("~/templates/routerTemplates/cellphoneRouterTemplate");
+} = require("~/variables/routes/cellphoneRoutes");
 
 const cellphoneRoute = Router();
 
-cellphoneRoute.use(authDefaultMDW);
+cellphoneRoute.use(authDefaultMiddleware);
 
 cellphoneRoute[getContacts.method](
   getContacts.url,
-  findUserFromDB,
+  findUserFromDbMiddleware,
   getContactsCellphoneController
 );
 
-cellphoneRoute.use(cellphoneValidatorMDW);
-cellphoneRoute.use(selfStuffControllerMDW);
-cellphoneRoute.use(findUserFromDB);
-cellphoneRoute.use(targetUserFinderByCellphoneMDW);
-cellphoneRoute.use(addContact.url, contactValidatorMDW);
+cellphoneRoute.use(cellphoneValidatorMiddleware);
+cellphoneRoute.use(selfStuffControllerMiddleware);
+cellphoneRoute.use(findUserFromDbMiddleware);
+cellphoneRoute.use(targetUserFinderByCellphoneMiddleware);
+cellphoneRoute.use(addContact.url, contactValidatorMiddleware);
 
 cellphoneRoute[addContact.method](
   addContact.url,

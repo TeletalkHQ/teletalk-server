@@ -4,14 +4,14 @@ const { errorThrower } = require("~/functions/utilities/utils");
 
 const v = new Validator();
 
-const validatorCompiler = (validationSchema) => {
+const validatorCompiler = (validationModel) => {
   try {
     errorThrower(
-      typeof validationSchema !== "object",
-      "You must pass validationSchema as a object"
+      typeof validationModel !== "object",
+      "You must pass validationModel as a object"
     );
 
-    const validator = v.compile(validationSchema);
+    const validator = v.compile(validationModel);
 
     return validator;
   } catch (error) {

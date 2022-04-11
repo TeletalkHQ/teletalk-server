@@ -1,8 +1,11 @@
 const {
+  errorThrower,
+  isEqualWithTargetCellphone,
+} = require("~/functions/utilities/utils");
+
+const {
   userErrorTemplate,
 } = require("~/templates/errorTemplates/userErrorTemplate");
-const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
-const { errorThrower } = require("~/functions/utilities/utils");
 
 const selfStuffControllerMDW = (req, res, next) => {
   try {
@@ -12,12 +15,7 @@ const selfStuffControllerMDW = (req, res, next) => {
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: userCellphone } = cellphoneFinder({
-      cellphones: [cellphone],
-      targetCell: targetCellphone,
-    });
-
-    errorThrower(userCellphone, {
+    errorThrower(isEqualWithTargetCellphone(cellphone, targetCellphone), {
       ...targetCellphone,
       ...userErrorTemplate.SELF_STUFF,
     });

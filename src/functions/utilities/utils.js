@@ -16,6 +16,18 @@ const errorThrower = (condition, error) => {
   if (condition) throw error;
 };
 
+const isEqualWithTargetCellphone = (cellphone, targetCell) => {
+  if (
+    cellphone.phoneNumber === targetCell.phoneNumber &&
+    cellphone.countryCode === targetCell.countryCode &&
+    cellphone.countryName === targetCell.countryName
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
 // const mongoose = require("mongoose");
 
 // function NoCastString(key, options) {
@@ -32,4 +44,8 @@ const errorThrower = (condition, error) => {
 
 // mongoose.Schema.Types.NoCastString = NoCastString;
 
-module.exports = { objectInitializer, errorThrower };
+module.exports = {
+  objectInitializer,
+  errorThrower,
+  isEqualWithTargetCellphone,
+};

@@ -16,10 +16,10 @@ const removeContactCellphoneController = async (
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder({
-      cellphones: user.contacts,
-      targetCell: cellphone,
-    });
+    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
+      user.contacts,
+      cellphone
+    );
 
     errorThrower(
       contactItem === undefined,

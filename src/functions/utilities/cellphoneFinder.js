@@ -1,22 +1,13 @@
-const { errorThrower } = require("./utils");
+const { errorThrower, isEqualWithTargetCellphone } = require("./utils");
 
-const cellphoneFinder = ({ cellphones, targetCell }) => {
-  let cellphoneIndex = null;
+const cellphoneFinder = (cellphones, targetCellphone) => {
+  let cellphoneIndex = -1;
 
   try {
     const cellphone = cellphones.find((cellphone, index) => {
-      if (
-        cellphone.phoneNumber === targetCell.phoneNumber &&
-        cellphone.countryCode === targetCell.countryCode &&
-        cellphone.countryName === targetCell.countryName
-      ) {
-        cellphoneIndex = index;
-        return true;
-      }
-
-      return false;
+      cellphoneIndex = index;
+      return isEqualWithTargetCellphone(cellphone, targetCellphone);
     });
-
     return { cellphone, cellphoneIndex };
   } catch (error) {
     errorThrower(error, error);

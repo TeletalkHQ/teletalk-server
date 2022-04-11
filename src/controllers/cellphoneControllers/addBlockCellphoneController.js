@@ -16,10 +16,10 @@ const addBlockCellphoneController = async (
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: blacklistItem } = cellphoneFinder({
-      cellphones: user.blacklist,
-      targetCell: cellphone,
-    });
+    const { cellphone: blacklistItem } = cellphoneFinder(
+      user.blacklist,
+      cellphone
+    );
 
     errorThrower(
       blacklistItem !== undefined,

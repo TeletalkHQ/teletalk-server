@@ -27,7 +27,7 @@ const selfStuffControllerMDW = (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log("selfStuffControllerMDW catch", error);
+    logger.log("selfStuffControllerMDW catch", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

@@ -7,7 +7,7 @@ const welcomeOtherController = (
       message: "Hey! Welcome to teletalk <3",
     });
   } catch (error) {
-    console.log("welcome route catch", error);
+    logger.log("welcome route catch", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

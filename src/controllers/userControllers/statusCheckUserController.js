@@ -48,11 +48,11 @@ const statusCheckUserController = async (
 
     const { userData } = sendableUserData({ user });
 
-    console.log(ioFunctions.io.on);
+    logger.log(ioFunctions.io.on);
 
     res.status(200).json({ user: userData });
   } catch (error) {
-    console.log("statusCheckUserController", error);
+    logger.log("statusCheckUserController", error);
     res.errorCollector({ data: { error, statusCode: 401 } });
     res.errorResponser();
   }

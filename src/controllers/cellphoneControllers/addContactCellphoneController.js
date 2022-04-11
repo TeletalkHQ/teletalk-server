@@ -45,7 +45,7 @@ const addContactCellphoneController = async (
       },
     });
   } catch (error) {
-    console.log("addContactCellphoneController", error);
+    logger.log("addContactCellphoneController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

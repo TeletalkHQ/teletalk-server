@@ -7,7 +7,7 @@ const countriesUserController = async (
   try {
     res.status(200).json({ countries });
   } catch (error) {
-    console.log("countriesUserController", error);
+    logger.log("countriesUserController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

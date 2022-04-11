@@ -28,7 +28,7 @@ const targetFinder = async (data = initialOptions) => {
 
     return { target };
   } catch (error) {
-    console.log("userFinder catch", error);
+    logger.log("userFinder catch", error);
     throw error;
   }
 };

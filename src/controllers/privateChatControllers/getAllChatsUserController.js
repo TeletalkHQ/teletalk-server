@@ -9,7 +9,7 @@ const getAllChatsUserController = async (
 
     res.status(200).json({ chats: user.chats });
   } catch (error) {
-    console.log("getAllChatsUserController", error);
+    logger.log("getAllChatsUserController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

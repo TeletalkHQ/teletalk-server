@@ -6,7 +6,7 @@ const cellphoneValidatorMDW = async (req, res, next) => {
   try {
     const { phoneNumber, countryCode, countryName } = req.body;
 
-    console.log(req.body);
+    logger.log(req.body);
     const cellphone = { phoneNumber, countryCode, countryName };
 
     const cellphoneValidate = await cellphoneValidator({
@@ -19,7 +19,7 @@ const cellphoneValidatorMDW = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log("cellphoneValidatorMDW catch", error);
+    logger.log("cellphoneValidatorMDW catch", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

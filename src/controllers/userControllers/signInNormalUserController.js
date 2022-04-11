@@ -53,7 +53,7 @@ const signInNormalUserController = async (
       });
     }
 
-    console.log(randomPassword);
+    logger.log(randomPassword);
 
     res.status(200).json({
       ...cellphone,

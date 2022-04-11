@@ -15,17 +15,17 @@ const chatsLastMessageChatController = async (
         chatID: chat.chatID,
       });
       if (chatWithMessages) {
-        console.log(chatWithMessages);
+        logger.log(chatWithMessages);
         const { messages, participants, chatID } = chatWithMessages;
         const lastMessage = messages[messages.length - 1];
-        console.log(lastMessage);
+        logger.log(lastMessage);
         chats.push({ participants, chatID, messages: [lastMessage] });
       }
     }
 
     res.status(200).json({ chats });
   } catch (error) {
-    console.log("chatsLastMessageChatController", error);
+    logger.log("chatsLastMessageChatController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

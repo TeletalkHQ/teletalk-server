@@ -2,6 +2,7 @@ const {
   userErrorTemplate,
 } = require("~/templates/errorTemplates/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const selfStuffControllerMDW = (req, res, next) => {
   try {
@@ -16,14 +17,10 @@ const selfStuffControllerMDW = (req, res, next) => {
       targetCell: targetCellphone,
     });
 
-    if (userCellphone) {
-      const error = {
-        ...targetCellphone,
-        ...userErrorTemplate.SELF_STUFF,
-      };
-
-      throw error;
-    }
+    errorThrower(userCellphone, {
+      ...targetCellphone,
+      ...userErrorTemplate.SELF_STUFF,
+    });
 
     next();
   } catch (error) {

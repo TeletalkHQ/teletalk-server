@@ -1,8 +1,7 @@
 const { objectClarify } = require("~/functions/utilities/objectClarify");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 /**
- *
- *
  * @param {object} req
  * @param {object} res
  * @param {function} next
@@ -18,7 +17,7 @@ const bodyClarify = (req, _, next) => {
     next();
   } catch (error) {
     logger.log("bodyClarify catch", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 

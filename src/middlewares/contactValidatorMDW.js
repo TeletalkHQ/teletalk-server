@@ -1,3 +1,4 @@
+const { errorThrower } = require("~/functions/utilities/utils");
 const {
   contactValidator,
 } = require("~/validators/userValidators/contactValidator");
@@ -15,9 +16,7 @@ const contactValidatorMDW = async (req, res, next) => {
       lastName,
     });
 
-    if (validationResult !== true) {
-      throw validationResult;
-    }
+    errorThrower(validationResult !== true, validationResult);
 
     next();
   } catch (error) {

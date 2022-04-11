@@ -3,6 +3,7 @@ const { randomID } = require("~/functions/utilities/randomID");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const { UserModel } = require("~/models/userModels/UserModel");
 const { clients } = require("~/temp/Clients");
@@ -31,11 +32,7 @@ const createNewUserUserController = async (
 
     const verifyToken = req.headers.authorization?.split("Bearer ")[1];
 
-    if (!verifyToken) {
-      const error = userErrorTemplate.TOKEN_REQUIRED;
-      throw error;
-    }
-
+    errorThrower(!verifyToken, userErrorTemplate.TOKEN_REQUIRED);
     const verifiedToken = await tokenVerifier({
       token: verifyToken,
       secret: process.env.JWT_SIGN_IN_SECRET,
@@ -49,10 +46,7 @@ const createNewUserUserController = async (
     if (isFirstNameValid !== true) errors.push(isFirstNameValid);
     if (isLastNameValid !== true) errors.push(isLastNameValid);
 
-    if (errors.length) {
-      throw errors;
-    }
-
+    errorThrower(errors.length, errors);
     const { phoneNumber, countryCode, countryName } =
       verifiedToken.data.payload;
 
@@ -69,11 +63,7 @@ const createNewUserUserController = async (
       }
     });
 
-    if (!client) {
-      //TODO Handle dead clients here =>
-      const error = userErrorTemplate.USER_NOT_EXIST;
-      throw error;
-    }
+    errorThrower(!client, userErrorTemplate.USER_NOT_EXIST);
 
     const { user } = await userFinder({ ...cellphone });
 

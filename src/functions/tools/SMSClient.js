@@ -1,4 +1,5 @@
 const MelipayamakApi = require("melipayamak");
+const { errorThrower } = require("../utilities/utils");
 
 const USERNAME = process.env.SMS_CLIENT_USERNAME;
 const PASSWORD = process.env.SMS_CLIENT_PASSWORD;
@@ -13,7 +14,7 @@ const SMSClient = async ({ from, to, text, isFlash = false }) => {
 
     return result;
   } catch (error) {
-    throw error;
+    errorThrower(error, error);
   }
 };
 

@@ -1,3 +1,5 @@
+const { errorThrower } = require("./utils");
+
 const cellphoneFinder = ({ cellphones, targetCell }) => {
   let cellphoneIndex = null;
 
@@ -17,7 +19,7 @@ const cellphoneFinder = ({ cellphones, targetCell }) => {
 
     return { cellphone, cellphoneIndex };
   } catch (error) {
-    throw error;
+    errorThrower(error, error);
   }
 };
 

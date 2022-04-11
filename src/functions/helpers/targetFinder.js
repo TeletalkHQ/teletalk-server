@@ -1,5 +1,6 @@
 const { PrivateChatModel } = require("~/models/chatModels/privateChatModel");
 const { UserModel } = require("~/models/userModels/UserModel");
+const { errorThrower } = require("../utilities/utils");
 
 const models = { UserModel, PrivateChatModel };
 
@@ -11,12 +12,7 @@ const initialOptions = {
 
 const targetFinder = async (data = initialOptions) => {
   try {
-    if (!data) {
-      const error = "Yo, send data to find your target :| ";
-
-      throw error;
-    }
-
+    errorThrower(!data, "Yo, send data to find your target :| ");
     const parameters = {
       ...initialOptions,
       ...data,
@@ -29,7 +25,7 @@ const targetFinder = async (data = initialOptions) => {
     return { target };
   } catch (error) {
     logger.log("userFinder catch", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 

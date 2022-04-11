@@ -10,6 +10,7 @@ const { userFinder } = require("~/functions/helpers/userFinder");
 const {
   userErrorTemplate,
 } = require("~/templates/errorTemplates/userErrorTemplate");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const sendMessagePrivateChatController = async (
   req = expressRequest,
@@ -30,10 +31,7 @@ const sendMessagePrivateChatController = async (
 
     const { user: targetUser } = await userFinder({ privateID: participantID });
 
-    if (!targetUser) {
-      const error = userErrorTemplate.USER_NOT_EXIST;
-      throw error;
-    }
+    errorThrower(!targetUser, userErrorTemplate.USER_NOT_EXIST);
 
     const chat = await PrivateChatModel.findOne({
       "participants.participantID": {

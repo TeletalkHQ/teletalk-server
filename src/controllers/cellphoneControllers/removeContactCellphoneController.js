@@ -2,6 +2,7 @@ const {
   userErrorTemplate,
 } = require("~/templates/errorTemplates/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const removeContactCellphoneController = async (
   req = expressRequest,
@@ -20,10 +21,10 @@ const removeContactCellphoneController = async (
       targetCell: cellphone,
     });
 
-    if (contactItem === undefined) {
-      const error = userErrorTemplate.CELLPHONE_NOT_EXIST;
-      throw error;
-    }
+    errorThrower(
+      contactItem === undefined,
+      userErrorTemplate.CELLPHONE_NOT_EXIST
+    );
 
     user.contacts.splice(cellphoneIndex, 1);
 

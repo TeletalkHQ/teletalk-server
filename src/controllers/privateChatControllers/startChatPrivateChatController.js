@@ -14,6 +14,7 @@ const { PrivateChatModel } = require("~/models/chatModels/privateChatModel");
 const {
   chatSchemaTemplate,
 } = require("~/templates/schemaTemplates/chatSchemaTemplate");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const startChatPrivateChatController = async (
   req = expressRequest,
@@ -27,10 +28,7 @@ const startChatPrivateChatController = async (
 
     const { user: targetUser } = await userFinder({ privateID: targetUserID });
 
-    if (!targetUser) {
-      const error = userErrorTemplate.USER_NOT_EXIST;
-      throw error;
-    }
+    errorThrower(!targetUser, userErrorTemplate.USER_NOT_EXIST);
 
     //TODO Use $and for test
     const chat = await PrivateChatModel.findOne({
@@ -39,10 +37,7 @@ const startChatPrivateChatController = async (
       },
     });
 
-    if (chat) {
-      const error = chatErrorTemplate.CHAT_EXIST;
-      throw error;
-    }
+    errorThrower(chat, chatErrorTemplate.CHAT_EXIST);
 
     const chatID = randomID(chatSchemaTemplate.chatID.maxlength.value);
 

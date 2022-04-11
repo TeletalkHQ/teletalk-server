@@ -8,6 +8,7 @@ const {
 
 const { clients } = require("~/temp/Clients");
 const { UserModel } = require("~/models/userModels/UserModel");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,
@@ -18,14 +19,9 @@ const verifySignInNormalUserController = async (
       body: { verificationCode },
     } = req;
 
-    logger.log(req.headers.authorization, "req.headers.authorization");
-
     const verifyToken = req.headers.authorization?.split("Bearer ")[1];
 
-    if (!verifyToken) {
-      const error = userErrorTemplate.TOKEN_REQUIRED;
-      throw error;
-    }
+    errorThrower(!verifyToken, userErrorTemplate.TOKEN_REQUIRED);
 
     const verifiedToken = await tokenVerifier({
       token: verifyToken,
@@ -48,16 +44,12 @@ const verifySignInNormalUserController = async (
       }
     });
 
-    if (!client) {
-      //TODO Handle dead clients here =>
-      const error = userErrorTemplate.USER_NOT_EXIST;
-      throw error;
-    }
+    errorThrower(!client, userErrorTemplate.USER_NOT_EXIST);
 
-    if (client?.verificationCode !== verificationCode) {
-      const error = userErrorTemplate.VERIFICATION_CODE_INVALID;
-      throw error;
-    }
+    errorThrower(
+      client?.verificationCode !== verificationCode,
+      userErrorTemplate.VERIFICATION_CODE_INVALID
+    );
 
     const { user } = await userFinder({ ...cellphone });
 

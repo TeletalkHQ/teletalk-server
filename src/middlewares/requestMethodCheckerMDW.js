@@ -30,6 +30,7 @@ const requestMethodCheckerMDW = async (req, res, next) => {
       //TODO ...
       // throw undefined;
     }
+
     if (targetTemplate) {
       const { baseUrl, info, ...routes } = targetTemplate;
 

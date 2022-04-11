@@ -2,6 +2,7 @@ const {
   userErrorTemplate,
 } = require("~/templates/errorTemplates/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const addBlockCellphoneController = async (
   req = expressRequest,
@@ -20,10 +21,10 @@ const addBlockCellphoneController = async (
       targetCell: cellphone,
     });
 
-    if (blacklistItem !== undefined) {
-      const error = userErrorTemplate.CELLPHONE_EXIST.properties;
-      throw error;
-    }
+    errorThrower(
+      blacklistItem !== undefined,
+      userErrorTemplate.CELLPHONE_EXIST.properties
+    );
 
     user.blacklist.push(cellphone);
 

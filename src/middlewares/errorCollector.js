@@ -1,20 +1,20 @@
+const { errorThrower } = require("~/functions/utilities/utils");
+
 const errorCollector = ({ req, res, next, data }) => {
   try {
-    if (!data) {
-      const error =
-        "Report to your back-end: Yo! you forgot to send me data - errorCollector";
-      throw error;
-    }
+    errorThrower(
+      !data,
+      "Report to your back-end: Yo! you forgot to send me data - errorCollector"
+    );
 
     const { statusCode, err, ex, error } = data;
 
     const er = err || ex || error;
 
-    if (!er) {
-      const error =
-        "Report to your back-end, your backend should send error data to errorCollector";
-      throw error;
-    }
+    errorThrower(
+      !er,
+      "Report to your back-end, your backend should send error data to errorCollector"
+    );
 
     if (typeof er === "object") {
       res.errors.categorizedErrorsLength =

@@ -1,4 +1,5 @@
 const { userFinder } = require("~/functions/helpers/userFinder");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const {
   userErrorTemplate,
@@ -12,13 +13,10 @@ const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 
     const { user: targetUser } = await userFinder(cellphone);
 
-    if (targetUser === null) {
-      const error = {
-        ...cellphone,
-        ...userErrorTemplate.CELLPHONE_NOT_EXIST,
-      };
-      throw error;
-    }
+    errorThrower(targetUser === null, {
+      ...cellphone,
+      ...userErrorTemplate.CELLPHONE_NOT_EXIST,
+    });
 
     req.db = { ...req.db, targetUser };
 

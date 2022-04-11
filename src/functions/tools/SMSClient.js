@@ -1,5 +1,5 @@
 const MelipayamakApi = require("melipayamak");
-const { errorThrower } = require("../utilities/utils");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const USERNAME = process.env.SMS_CLIENT_USERNAME;
 const PASSWORD = process.env.SMS_CLIENT_PASSWORD;

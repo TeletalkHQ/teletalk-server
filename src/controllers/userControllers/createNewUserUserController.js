@@ -64,7 +64,7 @@ const createNewUserUserController = async (
 
     errorThrower(!client, userErrorTemplate.USER_NOT_EXIST);
 
-    const { user } = await userFinder({ ...cellphone });
+    const user = await userFinder({ ...cellphone });
 
     if (user) {
       await UserModel.findOneAndUpdate(

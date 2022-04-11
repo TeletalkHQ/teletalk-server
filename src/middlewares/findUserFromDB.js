@@ -11,7 +11,7 @@ const findUserFromDB = async (req, res, next) => {
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
-    const { user } = await userFinder({ ...cellphone });
+    const user = await userFinder({ ...cellphone });
 
     errorThrower(user === null, {
       ...cellphone,

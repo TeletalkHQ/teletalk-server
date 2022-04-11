@@ -1,9 +1,10 @@
 const JWT = require("jsonwebtoken");
 
+const { errorThrower } = require("~/functions/utilities/utils");
+
 const {
   initialValue,
 } = require("~/variables/constants/initialValues/initialValue");
-const { errorThrower } = require("./utils");
 
 const initialOptions = initialValue.jwtOptions;
 

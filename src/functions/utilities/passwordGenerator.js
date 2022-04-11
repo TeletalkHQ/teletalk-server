@@ -1,5 +1,6 @@
 const generatePassword = require("generate-password");
-const { errorThrower } = require("./utils");
+
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const initialOptions = {
   length: 6,

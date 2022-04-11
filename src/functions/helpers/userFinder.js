@@ -3,7 +3,7 @@ const { UserModel } = require("~/models/userModels/UserModel");
 const {
   initialOptions,
 } = require("~/variables/constants/initialOptions/initialOptions");
-const { errorThrower } = require("../utilities/utils");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const userFinder = async (
   userData = initialOptions.userInitialOptions,
@@ -12,11 +12,9 @@ const userFinder = async (
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    const user = await UserModel[findMethod]({
+    return await UserModel[findMethod]({
       ...userData,
     });
-
-    return { user };
   } catch (error) {
     logger.log("userFinder catch", error);
     errorThrower(error, error);

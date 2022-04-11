@@ -1,6 +1,6 @@
 const { PrivateChatModel } = require("~/models/chatModels/privateChatModel");
 const { UserModel } = require("~/models/userModels/UserModel");
-const { errorThrower } = require("../utilities/utils");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const models = { UserModel, PrivateChatModel };
 
@@ -18,11 +18,9 @@ const targetFinder = async (data = initialOptions) => {
       ...data,
     };
 
-    const target = await models[parameters.model][parameters.findMethod]({
+    return await models[parameters.model][parameters.findMethod]({
       ...parameters.findParameters,
     });
-
-    return { target };
   } catch (error) {
     logger.log("userFinder catch", error);
     errorThrower(error, error);

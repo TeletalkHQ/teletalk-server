@@ -29,7 +29,7 @@ const sendMessagePrivateChatController = async (
     // 	throw error;
     // }
 
-    const { user: targetUser } = await userFinder({ privateID: participantID });
+    const targetUser = await userFinder({ privateID: participantID });
 
     errorThrower(!targetUser, userErrorTemplate.USER_NOT_EXIST);
 

@@ -9,8 +9,6 @@ Use multer or express-fileupload for get multi-data, part 96
 Upload progress-bar, part 98
 Use sharp for compress images and ...
 NodeMailer, nodemailer-smtp-transport for send email in NodeJS, part 119
-Use cPanel for nodeJS host
-Use pars web server for host, part 127, 128
 Browser back control, part 129
 Handle error part 134
 Set headers part 135

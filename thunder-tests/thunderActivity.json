@@ -8,7 +8,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-04-10T19:25:28.375Z",
-    "modified": "2022-04-10T19:25:28.407Z",
+    "modified": "2022-04-11T05:50:43.192Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -22,9 +22,28 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-04-10T19:25:47.734Z",
-    "modified": "2022-04-10T19:25:47.909Z",
+    "modified": "2022-04-11T05:50:46.289Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "39952445-8186-499c-92c1-a44c6518e530",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/user/signIn/normal",
+    "url": "{{baseUrl}}/user/signIn/normal",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-04-11T05:57:46.369Z",
+    "modified": "2022-04-11T05:58:07.812Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"phoneNumber\": \"9012700470\",\n  \"countryCode\": \"98\",\n  \"countryName\": \"iran\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

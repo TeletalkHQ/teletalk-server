@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "_id": "057f4387-0a0a-4900-a20e-890e0db4283e",
+    "name": "(Global Env)",
+    "default": false,
+    "global": true,
+    "sortNum": -1,
+    "created": "2022-03-07T18:53:28.053Z",
+    "modified": "2022-03-07T19:04:35.215Z",
+    "data": [
+      {
+        "name": "url",
+        "value": "localhost"
+      },
+      {
+        "name": "port",
+        "value": "8080"
+      },
+      {
+        "name": "baseUrl",
+        "value": "localhost:8080"
+      },
+      {
+        "name": "verifyToken",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkwMTI3MDA0NzAiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJpcmFuIiwiaWF0IjoxNjQ2Njc5ODIwfQ.hpSVdUqvQgXwe4I5WCXU3NJpCHrc2CDLW4VtAneeL8Y"
+      },
+      {
+        "name": "token",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "af61fd2e-9fa5-4b2e-afc1-de702136c8ed",
+    "name": "(Local Env)",
+    "default": false,
+    "global": true,
+    "local": true,
+    "sortNum": -2,
+    "created": "2022-03-07T18:53:30.860Z",
+    "modified": "2022-03-07T18:53:30.860Z",
+    "data": []
+  }
+]

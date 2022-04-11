@@ -1,13 +1,16 @@
 const http = require("http");
 const path = require("path");
 
+//* No more relative path!
+//! Require this package before requiring internal modules
+require("module-alias/register");
+
 require("dotenv").config({
   path: path.join(__dirname, "..", "environments", "main.env"),
 });
 
-//* No more relative path!
-//! Require this package before requiring internal modules
-require("module-alias/register");
+//* PrettyError is error prettier in terminal.
+require("pretty-error").start();
 
 //! Require this module before requiring internal modules
 require("~/variables/globalVariables");

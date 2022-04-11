@@ -1,6 +1,6 @@
 {
   "errors": {
-    "categorized": [
+    "categorizedErrors": [
       [
         {
           "type": "stringMax",
@@ -39,12 +39,12 @@
         }
       ]
     ],
-    "uncategorized": [],
+    "uncategorizedErrors": [],
     "statusCode": 400
   },
 
   "errors": {
-    "categorized": [
+    "categorizedErrors": [
       [
         {
           "type": "required",
@@ -58,7 +58,7 @@
         }
       ]
     ],
-    "uncategorized": [],
+    "uncategorizedErrors": [],
     "statusCode": 400
   }
 }

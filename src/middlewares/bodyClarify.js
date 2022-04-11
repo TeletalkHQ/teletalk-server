@@ -9,11 +9,12 @@ const { objectClarify } = require("~/functions/utilities/objectClarify");
  *
  * @return req.body without undefined values
  */
-const bodyClarify = (req, res, next) => {
+const bodyClarify = (req, _, next) => {
   try {
-    logger.log(req.body);
     const { cleanObject } = objectClarify({ dirtyObject: req.body });
+
     req.body = cleanObject;
+
     next();
   } catch (error) {
     logger.log("bodyClarify catch", error);

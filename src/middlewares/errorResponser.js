@@ -1,20 +1,24 @@
 const errorResponser = (req = expressRequest, res = expressResponse, next) => {
   try {
     const {
-      categorized,
-      categorizedLength,
+      categorizedErrors,
+      categorizedErrorsLength,
       server,
-      serverLength,
+      serverErrorsLength,
       statusCode: statusCodeFromErrorCollector,
-      uncategorized,
-      uncategorizedLength,
+      uncategorizedErrors,
+      uncategorizedErrorsLength,
     } = res.errors;
 
-    if (categorizedLength || serverLength || uncategorizedLength) {
+    if (
+      categorizedErrorsLength ||
+      serverErrorsLength ||
+      uncategorizedErrorsLength
+    ) {
       const statusCode = statusCodeFromErrorCollector || 400;
 
       res.status(statusCode).json({
-        errors: { categorized, uncategorized, server, statusCode },
+        errors: { categorizedErrors, uncategorizedErrors, server, statusCode },
       });
     } else {
       next();

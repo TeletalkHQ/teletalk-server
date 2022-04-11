@@ -36,7 +36,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-04-11T05:57:46.369Z",
-    "modified": "2022-04-11T05:58:07.812Z",
+    "modified": "2022-04-11T07:16:11.211Z",
     "headers": [],
     "params": [],
     "body": {
@@ -44,6 +44,20 @@
       "raw": "{\n  \"phoneNumber\": \"9012700470\",\n  \"countryCode\": \"98\",\n  \"countryName\": \"iran\"\n}",
       "form": []
     },
+    "tests": []
+  },
+  {
+    "_id": "d6f0d454-f878-4afb-801a-7ebb8f7560cd",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/assets/icons/favicon/favicon.ico",
+    "url": "{{baseUrl}}/assets/icons/favicon/favicon.ico",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-04-11T07:21:20.370Z",
+    "modified": "2022-04-11T07:21:20.413Z",
+    "headers": [],
+    "params": [],
     "tests": []
   }
 ]

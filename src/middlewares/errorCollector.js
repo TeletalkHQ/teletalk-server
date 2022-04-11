@@ -17,10 +17,12 @@ const errorCollector = ({ req, res, next, data }) => {
     }
 
     if (typeof er === "object") {
-      res.errors.categorizedLength = res.errors.categorized.push(er);
+      res.errors.categorizedErrorsLength =
+        res.errors.categorizedErrors.push(er);
     } else {
       //? unhandled (non-object) error, write log into log files=>
-      res.errors.uncategorizedLength = res.errors.uncategorized.push(er);
+      res.errors.uncategorizedErrorsLength =
+        res.errors.uncategorizedErrors.push(er);
     }
 
     if ((statusCode || er.statusCode) && !isNaN(er.statusCode || +statusCode)) {
@@ -28,7 +30,7 @@ const errorCollector = ({ req, res, next, data }) => {
     }
   } catch (error) {
     logger.redBright("errorCollector catch! its critical!!!").log(error);
-    res.errors.serverLength = res.errors.server.push(error);
+    res.errors.serverErrorsLength = res.errors.server.push(error);
     res.errors.statusCode = 500;
 
     res.errorResponser();

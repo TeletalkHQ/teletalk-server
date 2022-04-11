@@ -50,7 +50,7 @@ const verifySignInNormalUserController = async (
       userErrorTemplate.VERIFICATION_CODE_INVALID
     );
 
-    const { user } = await userFinder({ ...cellphone });
+    const user = await userFinder({ ...cellphone });
 
     if (user) {
       const { userData } = sendableUserData({ user });

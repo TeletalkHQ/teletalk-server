@@ -1,4 +1,7 @@
-const { errorThrower, isEqualWithTargetCellphone } = require("./utils");
+const {
+  errorThrower,
+  isEqualWithTargetCellphone,
+} = require("~/functions/utilities/utils");
 
 const cellphoneFinder = (cellphones, targetCellphone) => {
   let cellphoneIndex = -1;

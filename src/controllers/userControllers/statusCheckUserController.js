@@ -31,7 +31,7 @@ const statusCheckUserController = async (
     const validatedCellphone = await cellphoneValidator(cellphone);
 
     errorThrower(!validatedCellphone, validatedCellphone);
-    const { user } = await userFinder(cellphone);
+    const user = await userFinder(cellphone);
 
     errorThrower(!user, userErrorTemplate.USER_NOT_EXIST);
 

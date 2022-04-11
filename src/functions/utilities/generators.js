@@ -1,8 +1,9 @@
+const { objectClarify } = require("~/functions/utilities/objectClarify");
+const { errorThrower } = require("~/functions/utilities/utils");
+
 const {
   initialValue,
 } = require("~/variables/constants/initialValues/initialValue");
-const { objectClarify } = require("~/functions/utilities/objectClarify");
-const { errorThrower } = require("./utils");
 
 const { initialSchemaPropertyKey } = initialValue;
 

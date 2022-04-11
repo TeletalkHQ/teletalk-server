@@ -11,7 +11,7 @@ const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
-    const { user: targetUser } = await userFinder(cellphone);
+    const targetUser = await userFinder(cellphone);
 
     errorThrower(targetUser === null, {
       ...cellphone,

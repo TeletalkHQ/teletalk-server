@@ -26,7 +26,7 @@ const startChatPrivateChatController = async (
       db: { user: client },
     } = req;
 
-    const { user: targetUser } = await userFinder({ privateID: targetUserID });
+    const targetUser = await userFinder({ privateID: targetUserID });
 
     errorThrower(!targetUser, userErrorTemplate.USER_NOT_EXIST);
 

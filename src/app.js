@@ -1,12 +1,9 @@
-const path = require("path");
-
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const serveFavicon = require("serve-favicon");
 
-const { bodyClarify } = require("~/middlewares/bodyClarify");
 const { errorCollector } = require("~/middlewares/errorCollector");
 const { errorResponser } = require("~/middlewares/errorResponser");
 
@@ -37,7 +34,6 @@ app.use((req, _, next) => {
 app.use(morgan("dev"));
 
 app.use(express.json());
-app.use(bodyClarify);
 
 //* Add errorCollector and errorResponser to "response object"
 app.use((req, res, next) => {

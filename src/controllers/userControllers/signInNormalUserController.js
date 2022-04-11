@@ -16,7 +16,7 @@ const signInNormalUserController = async (
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
-    const { randomPassword } = passwordGenerator();
+    const randomPassword = passwordGenerator();
 
     const from = "50004001700470";
     const to = `0${phoneNumber}`;
@@ -29,7 +29,7 @@ const signInNormalUserController = async (
       smsResult
     );
 
-    const { token } = await tokenSigner({
+    const token = await tokenSigner({
       data: cellphone,
       secret: process.env.JWT_SIGN_IN_SECRET,
     });

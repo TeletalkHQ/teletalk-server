@@ -17,7 +17,7 @@ const passwordGenerator = (options = initialOptions) => {
       ...options,
     });
 
-    return { randomPassword };
+    return randomPassword;
   } catch (error) {
     errorThrower(error, error);
   }

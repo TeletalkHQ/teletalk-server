@@ -78,7 +78,7 @@ const mongooseSchemaGenerator = (
       lowercase,
     };
 
-    const cleanSchema = objectClarify({ dirtyObject: schema })?.cleanObject;
+    const cleanSchema = objectClarify(schema);
 
     return cleanSchema;
   } catch (error) {
@@ -127,15 +127,16 @@ const schemaPropertyKeyGenerator = (
     version: "Not set!",
   }
 ) => {
-  errorThrower(typeof value === "undefined", "Value need to be set!");
-
   try {
+    errorThrower(typeof value === "undefined", "Value need to be set!");
+
     return {
       value,
       error,
     };
   } catch (error) {
     logger.log("schemaPropertyKeyGenerator catch, error:", error);
+    errorThrower(error, error);
   }
 };
 

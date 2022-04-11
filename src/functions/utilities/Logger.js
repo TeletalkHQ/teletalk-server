@@ -33,7 +33,7 @@ const bgColors = {
   bgYellowBright: "bgYellowBright",
 };
 
-const defaultTextColorOption = { text: "", textColor: colors.white };
+const defaultTextAndColorOption = { text: "", textColor: colors.white };
 
 let _level = undefined;
 
@@ -138,52 +138,52 @@ function LoggerBuilder(level) {
   this.yellowBright = (...text) => chalkMaker(colors.yellowBright, text);
 
   //* BG Colors =>
-  this.bgBlack = (data = defaultTextColorOption, textColor) =>
+  this.bgBlack = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgBlack, data, textColor);
 
-  this.bgBlackBright = (data = defaultTextColorOption, textColor) =>
+  this.bgBlackBright = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgBlackBright, data, textColor);
 
-  this.bgBlue = (data = defaultTextColorOption, textColor) =>
+  this.bgBlue = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgBlue, data, textColor);
 
-  this.bgBlueBright = (data = defaultTextColorOption, textColor) =>
+  this.bgBlueBright = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgBlueBright, data, textColor);
 
-  this.bgCyan = (data = defaultTextColorOption, textColor) =>
+  this.bgCyan = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgCyan, data, textColor);
 
-  this.bgCyanBright = (data = defaultTextColorOption, textColor) =>
+  this.bgCyanBright = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgCyanBright, data, textColor);
 
-  this.bgGreen = (data = defaultTextColorOption, textColor) =>
+  this.bgGreen = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgGreen, data, textColor);
 
-  this.bgGreenBright = (data = defaultTextColorOption, textColor) =>
+  this.bgGreenBright = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgGreenBright, data, textColor);
 
-  this.bgMagenta = (data = defaultTextColorOption, textColor) =>
+  this.bgMagenta = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgMagenta, data, textColor);
 
-  this.bgMagentaBright = (data = defaultTextColorOption, textColor) =>
+  this.bgMagentaBright = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgMagentaBright, data, textColor);
 
-  this.bgRed = (data = defaultTextColorOption, textColor) =>
+  this.bgRed = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgRed, data, textColor);
 
-  this.bgRedBright = (data = defaultTextColorOption, textColor) =>
+  this.bgRedBright = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgRedBright, data, textColor);
 
-  this.bgWhite = (data = defaultTextColorOption, textColor) =>
+  this.bgWhite = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgWhite, data, textColor);
 
-  this.bgWhiteBright = (data = defaultTextColorOption, textColor) =>
+  this.bgWhiteBright = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgWhiteBright, data, textColor);
 
-  this.bgYellow = (data = defaultTextColorOption, textColor) =>
+  this.bgYellow = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgYellowBright, data, textColor);
 
-  this.bgYellowBright = (data = defaultTextColorOption, textColor) =>
+  this.bgYellowBright = (data = defaultTextAndColorOption, textColor) =>
     chalkMakerWithBG(bgColors.bgYellow, data, textColor);
 }
 

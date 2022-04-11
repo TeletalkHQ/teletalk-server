@@ -6,14 +6,18 @@ const {
 
 const initialOptions = initialValue.jwtOptions;
 
-const tokenVerifier = async ({ token, secret, options = initialOptions }) => {
-  const data = JWT.verify(token, secret || process.env.JWT_MAIN_SECRET, {
+const tokenVerifier = async (
+  token,
+  secret = process.env.JWT_MAIN_SECRET,
+  options = initialOptions
+) => {
+  const data = JWT.verify(token, secret, {
     complete: true,
     ...initialOptions,
     ...options,
   });
 
-  return { data };
+  return data;
 };
 
 module.exports = { tokenVerifier };

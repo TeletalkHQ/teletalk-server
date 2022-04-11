@@ -33,10 +33,10 @@ const createNewUserUserController = async (
     const verifyToken = req.headers.authorization?.split("Bearer ")[1];
 
     errorThrower(!verifyToken, userErrorTemplate.TOKEN_REQUIRED);
-    const verifiedToken = await tokenVerifier({
-      token: verifyToken,
-      secret: process.env.JWT_SIGN_IN_SECRET,
-    });
+    const tokenData = await tokenVerifier(
+      verifyToken,
+      process.env.JWT_SIGN_IN_SECRET
+    );
 
     const errors = [];
 
@@ -47,8 +47,7 @@ const createNewUserUserController = async (
     if (isLastNameValid !== true) errors.push(isLastNameValid);
 
     errorThrower(errors.length, errors);
-    const { phoneNumber, countryCode, countryName } =
-      verifiedToken.data.payload;
+    const { phoneNumber, countryCode, countryName } = tokenData.payload;
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
@@ -86,7 +85,7 @@ const createNewUserUserController = async (
         userSchemaTemplate.privateID.properties.maxlength.value
       );
 
-      const { token } = await tokenSigner({
+      const token = await tokenSigner({
         data: { ...cellphone, privateID },
       });
 

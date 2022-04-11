@@ -23,13 +23,12 @@ const verifySignInNormalUserController = async (
 
     errorThrower(!verifyToken, userErrorTemplate.TOKEN_REQUIRED);
 
-    const verifiedToken = await tokenVerifier({
-      token: verifyToken,
-      secret: process.env.JWT_SIGN_IN_SECRET,
-    });
+    const tokenData = await tokenVerifier(
+      verifyToken,
+      process.env.JWT_SIGN_IN_SECRET
+    );
 
-    const { phoneNumber, countryCode, countryName } =
-      verifiedToken.data.payload;
+    const { phoneNumber, countryCode, countryName } = tokenData.payload;
 
     const cellphone = { phoneNumber, countryCode, countryName };
 

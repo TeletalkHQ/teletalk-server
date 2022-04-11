@@ -22,12 +22,9 @@ const statusCheckUserController = async (
 
     errorThrower(!mainToken, userErrorTemplate.TOKEN_REQUIRED);
 
-    const verifiedToken = await tokenVerifier({
-      token: mainToken,
-    });
+    const tokenData = await tokenVerifier(mainToken);
 
-    const { phoneNumber, countryCode, countryName } =
-      verifiedToken.data.payload;
+    const { phoneNumber, countryCode, countryName } = tokenData.payload;
 
     const cellphone = { phoneNumber, countryCode, countryName };
 

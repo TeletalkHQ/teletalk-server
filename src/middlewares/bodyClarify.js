@@ -10,9 +10,7 @@ const { errorThrower } = require("~/functions/utilities/utils");
  */
 const bodyClarify = (req, _, next) => {
   try {
-    const { cleanObject } = objectClarify({ dirtyObject: req.body });
-
-    req.body = cleanObject;
+    req.body = objectClarify(req.body);
 
     next();
   } catch (error) {

@@ -9,7 +9,7 @@ const {
 
 const selfStuffControllerMDW = (req, res, next) => {
   try {
-    const { phoneNumber, countryCode, countryName } = req.authData.data.payload;
+    const { phoneNumber, countryCode, countryName } = req.authData.payload;
 
     const { ...targetCellphone } = req.body;
 

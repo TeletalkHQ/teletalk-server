@@ -7,7 +7,7 @@ const {
 
 const findUserFromDB = async (req, res, next) => {
   try {
-    const { phoneNumber, countryCode, countryName } = req.authData.data.payload;
+    const { phoneNumber, countryCode, countryName } = req.authData.payload;
 
     const cellphone = { phoneNumber, countryCode, countryName };
 

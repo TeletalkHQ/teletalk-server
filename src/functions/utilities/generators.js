@@ -2,6 +2,7 @@ const {
   initialValue,
 } = require("~/variables/constants/initialValues/initialValue");
 const { objectClarify } = require("~/functions/utilities/objectClarify");
+const { errorThrower } = require("./utils");
 
 const { initialSchemaPropertyKey } = initialValue;
 
@@ -13,17 +14,14 @@ const errorTemplateGenerator = (
   version
 ) => {
   try {
-    if (!errorCode || !statusCode || !reason || !version) {
-      const error = {
-        errorMessage: `required arguments should be passed`,
-        code: errorCode,
-        message,
-        reason,
-        version,
-      };
+    errorThrower(!errorCode || !statusCode || !reason || !version, {
+      errorMessage: `required arguments should be passed`,
+      code: errorCode,
+      message,
+      reason,
+      version,
+    });
 
-      throw error;
-    }
     return {
       properties: { errorCode, statusCode, message, reason },
       info: { version },
@@ -41,22 +39,20 @@ const routeTemplateGenerator = (
   description = ""
 ) => {
   try {
-    if (!method || !route || !statusCode || !version) {
-      const error = {
-        errorMessage: `required arguments should passed`,
-        method,
-        route,
-        version,
-      };
+    errorThrower(!method || !route || !statusCode || !version, {
+      errorMessage: `required arguments should passed`,
+      method,
+      route,
+      version,
+    });
 
-      throw error;
-    }
     return {
       properties: { method, route, statusCode },
       info: { version, description },
     };
   } catch (error) {
     logger.log("routeTemplateGenerator catch, error:", error);
+    errorThrower(error, error);
   }
 };
 
@@ -131,10 +127,7 @@ const schemaPropertyKeyGenerator = (
     version: "Not set!",
   }
 ) => {
-  if (typeof value === "undefined") {
-    const error = "Value need to be set!";
-    throw error;
-  }
+  errorThrower(typeof value === "undefined", "Value need to be set!");
 
   try {
     return {

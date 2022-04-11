@@ -1,19 +1,21 @@
 const Validator = require("fastest-validator");
+const { errorThrower } = require("./utils");
 
 const v = new Validator();
 
 const validatorCompiler = (validationSchema) => {
   try {
-    if (typeof validationSchema !== "object") {
-      const error = "You must pass validationSchema as a object";
-      throw error;
-    }
+    errorThrower(
+      typeof validationSchema !== "object",
+      "You must pass validationSchema as a object"
+    );
 
     const validator = v.compile(validationSchema);
 
     return validator;
   } catch (error) {
     logger.log("validatorCompiler catch, error:", error);
+    errorThrower(error, error);
   }
 };
 

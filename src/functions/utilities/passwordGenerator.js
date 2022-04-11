@@ -1,4 +1,5 @@
 const generatePassword = require("generate-password");
+const { errorThrower } = require("./utils");
 
 const initialOptions = {
   length: 6,
@@ -18,7 +19,7 @@ const passwordGenerator = (options = initialOptions) => {
 
     return { randomPassword };
   } catch (error) {
-    throw error;
+    errorThrower(error, error);
   }
 };
 

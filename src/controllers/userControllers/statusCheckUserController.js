@@ -11,6 +11,7 @@ const {
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 
 const { ioFunctions } = require("~/socket/io");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const statusCheckUserController = async (
   req = expressRequest,
@@ -19,10 +20,7 @@ const statusCheckUserController = async (
   try {
     const mainToken = req.headers.authorization?.split("Bearer ")[1];
 
-    if (!mainToken) {
-      const error = userErrorTemplate.TOKEN_REQUIRED;
-      throw error;
-    }
+    errorThrower(!mainToken, userErrorTemplate.TOKEN_REQUIRED);
 
     const verifiedToken = await tokenVerifier({
       token: mainToken,
@@ -35,16 +33,10 @@ const statusCheckUserController = async (
 
     const validatedCellphone = await cellphoneValidator(cellphone);
 
-    if (!validatedCellphone) {
-      throw validatedCellphone;
-    }
-
+    errorThrower(!validatedCellphone, validatedCellphone);
     const { user } = await userFinder(cellphone);
 
-    if (!user) {
-      const error = userErrorTemplate.USER_NOT_EXIST;
-      throw error;
-    }
+    errorThrower(!user, userErrorTemplate.USER_NOT_EXIST);
 
     const { userData } = sendableUserData({ user });
 

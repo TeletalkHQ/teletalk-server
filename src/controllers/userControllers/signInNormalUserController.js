@@ -5,6 +5,7 @@ const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 
 const { SMSClient } = require("~/functions/tools/SMSClient");
 const { clients } = require("~/temp/Clients");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const signInNormalUserController = async (
   req = expressRequest,
@@ -23,9 +24,10 @@ const signInNormalUserController = async (
 
     const smsResult = await SMSClient({ from, to, text });
 
-    if (!smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1) {
-      throw smsResult;
-    }
+    errorThrower(
+      !smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1,
+      smsResult
+    );
 
     const { token } = await tokenSigner({
       data: cellphone,

@@ -2,6 +2,7 @@ const {
   userErrorTemplate,
 } = require("~/templates/errorTemplates/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const editContactCellphoneController = async (
   req = expressRequest,
@@ -20,10 +21,10 @@ const editContactCellphoneController = async (
       targetCell: cellphone,
     });
 
-    if (contactItem === undefined) {
-      const error = userErrorTemplate.CELLPHONE_NOT_EXIST;
-      throw error;
-    }
+    errorThrower(
+      contactItem === undefined,
+      userErrorTemplate.CELLPHONE_NOT_EXIST
+    );
 
     const editedContact = { ...cellphone, firstName, lastName };
 

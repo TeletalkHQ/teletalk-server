@@ -34,21 +34,21 @@ const errorTemplateGenerator = (
 
 const routeTemplateGenerator = (
   method,
-  route,
+  url,
   statusCode,
   version,
   description = ""
 ) => {
   try {
-    errorThrower(!method || !route || !statusCode || !version, {
+    errorThrower(!method || !url || !statusCode || !version, {
       errorMessage: `required arguments should passed`,
       method,
-      route,
+      url,
       version,
     });
 
     return {
-      properties: { method, route, statusCode },
+      properties: { method, url, statusCode },
       info: { version, description },
     };
   } catch (error) {

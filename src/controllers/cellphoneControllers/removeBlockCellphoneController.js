@@ -16,10 +16,10 @@ const removeBlockCellphoneController = async (
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: blacklistItem, cellphoneIndex } = cellphoneFinder({
-      cellphones: user.blacklist,
-      targetCell: cellphone,
-    });
+    const { cellphone: blacklistItem, cellphoneIndex } = cellphoneFinder(
+      user.blacklist,
+      cellphone
+    );
 
     errorThrower(
       blacklistItem === undefined,

@@ -16,10 +16,10 @@ const addContactCellphoneController = async (
 
     const cellphoneFromClient = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: cellphoneInClientContacts } = cellphoneFinder({
-      cellphones: user.contacts,
-      targetCell: cellphoneFromClient,
-    });
+    const { cellphone: cellphoneInClientContacts } = cellphoneFinder(
+      user.contacts,
+      cellphoneFromClient
+    );
 
     errorThrower(
       cellphoneInClientContacts !== undefined,

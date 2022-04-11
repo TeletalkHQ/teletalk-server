@@ -1,4 +1,4 @@
-const { PrivateChatModel } = require("~/models/chatModels/privateChatModel");
+const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
 
 const chatsLastMessageChatController = async (
   req = expressRequest,

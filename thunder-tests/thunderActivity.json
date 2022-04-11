@@ -36,7 +36,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-04-11T05:57:46.369Z",
-    "modified": "2022-04-11T07:16:11.211Z",
+    "modified": "2022-04-11T16:06:01.461Z",
     "headers": [],
     "params": [],
     "body": {
@@ -58,6 +58,85 @@
     "modified": "2022-04-11T07:21:20.413Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "bf426353-cf1e-451c-963f-8225a50f73bd",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/user/normalUser/signInNormalUser",
+    "url": "{{baseUrl}}/user/normalUser/signInNormalUser",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-04-11T16:06:54.836Z",
+    "modified": "2022-04-11T16:40:13.124Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "1dfc9930-27bb-4e07-b7f3-8bf385dea8cb",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/user/verify/signIn/normal",
+    "url": "{{baseUrl}}/user/verify/signIn/normal",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-04-11T16:08:07.692Z",
+    "modified": "2022-04-11T16:08:07.785Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"verificationCode\": \"365674\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{verifyToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "c3a70aa8-00be-4217-b6e5-bcfcc192de06",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/user/normalUser/verifySignInNormalUser",
+    "url": "{{baseUrl}}/user/normalUser/verifySignInNormalUser",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-04-11T16:08:24.958Z",
+    "modified": "2022-04-11T16:18:31.097Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"verificationCode\": \"132336\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkwMTI3MDA0NzAiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJpcmFuIiwiaWF0IjoxNjQ5NjkzODg3fQ.GvIT3qmgEs5Pd010nyMP4qwJr4pyhDlCcIlct7-vX4o"
+    },
+    "tests": []
+  },
+  {
+    "_id": "8dad9aed-d12b-462a-9d76-6e611bc2b7cc",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/cellphone/add/contact",
+    "url": "{{baseUrl}}/cellphone/add/contact",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-04-11T16:32:15.715Z",
+    "modified": "2022-04-11T16:32:15.838Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  },\n  \"firstName\": \"\",\n  \"lastName\": \"\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

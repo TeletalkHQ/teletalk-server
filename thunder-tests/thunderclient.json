@@ -4,18 +4,13 @@
     "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
     "containerId": "912ee1d7-89bc-46ef-aa23-c40e3498d032",
     "name": "signInNormalUser",
-    "url": "{{baseUrl}}/user/signIn/normal",
+    "url": "{{baseUrl}}/user/normalUser/signInNormalUser",
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-04-10T19:07:05.854Z",
-    "modified": "2022-04-10T19:07:05.854Z",
+    "modified": "2022-04-11T16:40:13.117Z",
     "headers": [],
     "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"phoneNumber\": \"9012700470\",\n  \"countryCode\": \"98\",\n  \"countryName\": \"iran\"\n}",
-      "form": []
-    },
     "tests": []
   },
   {
@@ -23,21 +18,21 @@
     "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
     "containerId": "912ee1d7-89bc-46ef-aa23-c40e3498d032",
     "name": "verifySignInNormalUser",
-    "url": "{{baseUrl}}/user/verify/signIn/normal",
+    "url": "{{baseUrl}}/user/normalUser/verifySignInNormalUser",
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-04-10T19:07:05.855Z",
-    "modified": "2022-04-10T19:07:05.855Z",
+    "modified": "2022-04-11T16:18:31.091Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"verificationCode\": \"569333\"\n}",
+      "raw": "{\n  \"verificationCode\": \"132336\"\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "{{verifyToken}}"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkwMTI3MDA0NzAiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJpcmFuIiwiaWF0IjoxNjQ5NjkzODg3fQ.GvIT3qmgEs5Pd010nyMP4qwJr4pyhDlCcIlct7-vX4o"
     },
     "tests": []
   },

@@ -1,7 +1,11 @@
 const { Router } = require("express");
 
-const { authDefaultMDW } = require("~/middlewares/authDefaultMDW");
-const { findUserFromDB } = require("~/middlewares/findUserFromDB");
+const {
+  authDefaultMiddleware,
+} = require("~/middlewares/authDefaultMiddleware");
+const {
+  findUserFromDbMiddleware,
+} = require("~/middlewares/findUserFromDbMiddleware");
 
 const {
   sendMessagePrivateChatController,
@@ -20,20 +24,20 @@ const {
 } = require("~/controllers/privateChatControllers/getAllChatsUserController");
 
 const {
-  privateChatRouterTemplate: {
+  privateChatRoutes: {
     sendMessage: { properties: sendMessage },
     startChat: { properties: startChat },
     getMessages: { properties: getMessages },
     getAllChats: { properties: getAllChats },
     chatsLastMessage: { properties: chatsLastMessage },
   },
-} = require("~/templates/routerTemplates/privateChatRouterTemplate");
+} = require("~/variables/routes/privateChatRoutes");
 
 const privateChatRoute = Router();
 
-privateChatRoute.use(authDefaultMDW);
+privateChatRoute.use(authDefaultMiddleware);
 
-privateChatRoute.use(findUserFromDB);
+privateChatRoute.use(findUserFromDbMiddleware);
 
 privateChatRoute[getAllChats.method](
   getAllChats.url,

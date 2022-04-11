@@ -3,11 +3,11 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  lastNameValidationSchema,
-} = require("~/schemas/validationSchemas/userValidationSchemas/lastNameValidationSchema");
+  lastNameValidationModel,
+} = require("~/models/validationModels/userValidationModels/lastNameValidationModel");
 
 const lastNameValidation = {
-  properties: { ...lastNameValidationSchema.properties },
+  properties: { ...lastNameValidationModel.properties },
 
   info: {
     version: "1.0.0",

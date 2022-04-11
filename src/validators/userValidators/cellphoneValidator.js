@@ -1,22 +1,22 @@
 const {
-  phoneNumberValidationSchema,
-} = require("~/schemas/validationSchemas/userValidationSchemas/phoneNumberValidationSchema");
+  phoneNumberValidationModel,
+} = require("~/models/validationModels/userValidationModels/phoneNumberValidationModel");
 
 const {
-  countryCodeValidationSchema,
-} = require("~/schemas/validationSchemas/userValidationSchemas/countryCodeValidationSchema");
+  countryCodeValidationModel,
+} = require("~/models/validationModels/userValidationModels/countryCodeValidationModel");
 const {
-  countryNameValidationSchema,
-} = require("~/schemas/validationSchemas/userValidationSchemas/countryNameValidationSchema");
+  countryNameValidationModel,
+} = require("~/models/validationModels/userValidationModels/countryNameValidationModel");
 const {
   validatorCompiler,
 } = require("~/functions/utilities/validatorCompiler");
 
 const cellphoneValidation = {
   properties: {
-    ...phoneNumberValidationSchema.properties,
-    ...countryCodeValidationSchema.properties,
-    ...countryNameValidationSchema.properties,
+    ...phoneNumberValidationModel.properties,
+    ...countryCodeValidationModel.properties,
+    ...countryNameValidationModel.properties,
   },
 
   info: {

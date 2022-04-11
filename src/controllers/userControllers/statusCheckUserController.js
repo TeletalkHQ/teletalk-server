@@ -5,9 +5,7 @@ const {
   cellphoneValidator,
 } = require("~/validators/userValidators/cellphoneValidator");
 
-const {
-  userErrorTemplate,
-} = require("~/templates/errorTemplates/userErrorTemplate");
+const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 
 const { ioFunctions } = require("~/socket/io");

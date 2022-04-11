@@ -5,15 +5,10 @@ const {
   initialValue,
 } = require("~/variables/constants/initialValues/initialValue");
 
-const { initialSchemaPropertyKey } = initialValue;
+const { modelGeneratorInitialProperties, errorGeneratorInitialProperties } =
+  initialValue;
 
-const errorTemplateGenerator = (
-  errorCode,
-  statusCode,
-  message,
-  reason,
-  version
-) => {
+const errorGenerator = (errorCode, statusCode, message, reason, version) => {
   try {
     errorThrower(!errorCode || !statusCode || !reason || !version, {
       errorMessage: `required arguments should be passed`,
@@ -28,17 +23,11 @@ const errorTemplateGenerator = (
       info: { version },
     };
   } catch (error) {
-    logger.log("errorTemplateGenerator catch, error:", error);
+    logger.log("errorGenerator catch, error:", error);
   }
 };
 
-const routeTemplateGenerator = (
-  method,
-  url,
-  statusCode,
-  version,
-  description = ""
-) => {
+const routeGenerator = (method, url, statusCode, version, description = "") => {
   try {
     errorThrower(!method || !url || !statusCode || !version, {
       errorMessage: `required arguments should passed`,
@@ -52,12 +41,12 @@ const routeTemplateGenerator = (
       info: { version, description },
     };
   } catch (error) {
-    logger.log("routeTemplateGenerator catch, error:", error);
+    logger.log("routeGenerator catch, error:", error);
     errorThrower(error, error);
   }
 };
 
-const mongooseSchemaGenerator = (
+const mongooseSchemaPropertyGenerator = (
   type,
   maxlength,
   minlength,
@@ -83,21 +72,21 @@ const mongooseSchemaGenerator = (
 
     return cleanSchema;
   } catch (error) {
-    logger.log("mongooseSchemaGenerator catch, error:", error);
+    logger.log("mongooseSchemaPropertyGenerator catch, error:", error);
   }
 };
 
-const schemaTemplateGenerator = (
-  maxlength = initialSchemaPropertyKey,
-  minlength = initialSchemaPropertyKey,
-  required = initialSchemaPropertyKey,
-  trim = initialSchemaPropertyKey,
-  type = initialSchemaPropertyKey,
-  unique = initialSchemaPropertyKey,
-  defaultValue = initialSchemaPropertyKey,
-  version = initialSchemaPropertyKey,
-  lowercase = initialSchemaPropertyKey,
-  length = initialSchemaPropertyKey
+const modelGenerator = (
+  maxlength = modelGeneratorInitialProperties,
+  minlength = modelGeneratorInitialProperties,
+  required = modelGeneratorInitialProperties,
+  trim = modelGeneratorInitialProperties,
+  type = modelGeneratorInitialProperties,
+  unique = modelGeneratorInitialProperties,
+  defaultValue = modelGeneratorInitialProperties,
+  version = modelGeneratorInitialProperties,
+  lowercase = modelGeneratorInitialProperties,
+  length = modelGeneratorInitialProperties
 ) => {
   try {
     return {
@@ -115,18 +104,13 @@ const schemaTemplateGenerator = (
       info: { version },
     };
   } catch (error) {
-    logger.log("schemaTemplateGenerator catch, error:", error);
+    logger.log("modelGenerator catch, error:", error);
   }
 };
 
-const schemaPropertyKeyGenerator = (
+const modelPropertyGenerator = (
   value,
-  error = {
-    reason: "Not set!",
-    message: "Not set!",
-    code: "Not set!",
-    version: "Not set!",
-  }
+  error = errorGeneratorInitialProperties
 ) => {
   try {
     errorThrower(typeof value === "undefined", "Value need to be set!");
@@ -136,15 +120,15 @@ const schemaPropertyKeyGenerator = (
       error,
     };
   } catch (error) {
-    logger.log("schemaPropertyKeyGenerator catch, error:", error);
+    logger.log("modelPropertyGenerator catch, error:", error);
     errorThrower(error, error);
   }
 };
 
 module.exports = {
-  errorTemplateGenerator,
-  mongooseSchemaGenerator,
-  routeTemplateGenerator,
-  schemaPropertyKeyGenerator,
-  schemaTemplateGenerator,
+  errorGenerator,
+  mongooseSchemaPropertyGenerator,
+  routeGenerator,
+  modelPropertyGenerator,
+  modelGenerator,
 };

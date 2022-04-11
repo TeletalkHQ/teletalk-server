@@ -1,4 +1,4 @@
-const { UserModel } = require("~/models/userModels/UserModel");
+const { UserModel } = require("~/models/userModels/user.mongo");
 
 const {
   initialOptions,

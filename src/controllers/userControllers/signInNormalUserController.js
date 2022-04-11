@@ -4,7 +4,7 @@ const {
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 
 const { SMSClient } = require("~/functions/tools/SMSClient");
-const { clients } = require("~/temp/Clients");
+const { clients } = require("~/functions/tools/Clients");
 const { errorThrower } = require("~/functions/utilities/utils");
 
 const signInNormalUserController = async (
@@ -48,11 +48,11 @@ const signInNormalUserController = async (
     if (client) {
       client.verificationCode = randomPassword;
     } else {
-      clients.addClient({
-        token,
-        verificationCode: randomPassword,
-        ...cellphone,
-      });
+      // clients.addClient({
+      //   token,
+      //   verificationCode: randomPassword,
+      //   ...cellphone,
+      // });
     }
 
     logger.log(randomPassword);

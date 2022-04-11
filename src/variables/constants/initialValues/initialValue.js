@@ -1,15 +1,18 @@
-const initialSchemaPropertyKey = {
-  value: null,
-  error: {
-    code: 0,
-    message: "",
-    reason: "",
-    version: "",
-  },
+const errorGeneratorInitialProperties = {
+  code: 0,
+  message: "",
+  reason: "",
+  version: "",
 };
 
-const jwtOptions = { algorithm: "HS256" };
+const modelGeneratorInitialProperties = {
+  value: null,
+  error: errorGeneratorInitialProperties,
+};
 
-const initialValue = { initialSchemaPropertyKey, jwtOptions };
+const initialValue = {
+  modelGeneratorInitialProperties,
+  errorGeneratorInitialProperties,
+};
 
 module.exports = { initialValue };

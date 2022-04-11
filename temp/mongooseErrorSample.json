@@ -1,6 +1,6 @@
 {
   "errors": {
-    "categorized": [
+    "categorizedErrors": [
       {
         "errors": {
           "macAddress": {
@@ -33,7 +33,7 @@
         "message": "User validation failed: macAddress: MAC_ADDRESS_REQUIRED, username: username_exist"
       }
     ],
-    "uncategorized": [],
+    "uncategorizedErrors": [],
     "statusCode": 400
   }
 }

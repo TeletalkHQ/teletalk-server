@@ -29,7 +29,7 @@ const errorTemplateGenerator = (
       info: { version },
     };
   } catch (error) {
-    console.log("errorTemplateGenerator catch, error:", error);
+    logger.log("errorTemplateGenerator catch, error:", error);
   }
 };
 
@@ -56,7 +56,7 @@ const routeTemplateGenerator = (
       info: { version, description },
     };
   } catch (error) {
-    console.log("routeTemplateGenerator catch, error:", error);
+    logger.log("routeTemplateGenerator catch, error:", error);
   }
 };
 

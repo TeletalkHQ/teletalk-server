@@ -5,7 +5,7 @@ const logoutNormalUserController = async (
   try {
     res.status(200).json({ ok: true });
   } catch (error) {
-    console.log("logoutNormalUserController", error);
+    logger.log("logoutNormalUserController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

@@ -4,7 +4,7 @@ const shareContactCellphoneController = async (
 ) => {
   try {
   } catch (error) {
-    console.log("shareContactCellphoneController", error);
+    logger.log("shareContactCellphoneController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

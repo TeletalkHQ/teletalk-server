@@ -18,7 +18,7 @@ const verifySignInNormalUserController = async (
       body: { verificationCode },
     } = req;
 
-    console.log(req.headers.authorization, "req.headers.authorization");
+    logger.log(req.headers.authorization, "req.headers.authorization");
 
     const verifyToken = req.headers.authorization?.split("Bearer ")[1];
 
@@ -78,7 +78,7 @@ const verifySignInNormalUserController = async (
       });
     }
   } catch (error) {
-    console.log("verifySignInNormalUserController", error);
+    logger.log("verifySignInNormalUserController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

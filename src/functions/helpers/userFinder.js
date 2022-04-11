@@ -18,7 +18,7 @@ const userFinder = async (data = initialOptions.userInitialOptions) => {
 
     return { user };
   } catch (error) {
-    console.log("userFinder catch", error);
+    logger.log("userFinder catch", error);
     throw error;
   }
 };

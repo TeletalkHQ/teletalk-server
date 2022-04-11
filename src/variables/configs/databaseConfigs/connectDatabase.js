@@ -15,12 +15,12 @@ const connectDatabase = async () => {
     });
     return { database };
   } catch (error) {
-    console.log(error);
+    logger.log(error);
   }
 };
 
 module.exports = { connectDatabase };
 
 mongoose.connection.once("connected", () => {
-  console.log(`MongoDB connected: ${mongoose.connection.host}`);
+  logger.log(`MongoDB connected: ${mongoose.connection.host}`);
 });

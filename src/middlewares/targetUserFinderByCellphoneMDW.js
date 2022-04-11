@@ -24,7 +24,7 @@ const targetUserFinderByCellphoneMDW = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log("targetUserFinderByCellphone catch", error);
+    logger.log("targetUserFinderByCellphone catch", error);
 
     res.errorCollector({ data: { error } });
     res.errorResponser();

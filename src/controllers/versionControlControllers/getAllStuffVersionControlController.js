@@ -7,7 +7,7 @@ const getAllStuffVersionControlController = async (
   try {
     res.status(200).json(allStuff);
   } catch (error) {
-    console.log("getAllStuffVersionControlController", error);
+    logger.log("getAllStuffVersionControlController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

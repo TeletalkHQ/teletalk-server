@@ -13,7 +13,7 @@ const getContactsCellphoneController = async (
 
     res.status(200).json({ contacts: userData.contacts });
   } catch (error) {
-    console.log("getContactsCellphoneController", error);
+    logger.log("getContactsCellphoneController", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

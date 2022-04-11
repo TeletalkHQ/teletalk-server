@@ -83,7 +83,7 @@ const middleLine = ({ app, express }) => {
     //* All routers is in lifeLine =>
     app.use(lifeLine);
   } catch (error) {
-    console.log("middleLine catch", error);
+    logger.log("middleLine catch", error);
   }
 };
 

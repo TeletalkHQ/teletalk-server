@@ -6,18 +6,17 @@ require("dotenv").config({
 });
 
 //* No more relative path!
-//! Require this package before requiring internal modules!
+//! Require this package before requiring internal modules
 require("module-alias/register");
 
-//! Require this module before requiring internal modules!
+//! Require this module before requiring internal modules
 require("~/variables/globalVariables");
-
-const {
-  connectDatabase,
-} = require("~/variables/configs/databaseConfigs/connectDatabase");
 
 const { app } = require("~/app");
 const { ioFunctions } = require("~/socket/io");
+const {
+  connectDatabase,
+} = require("~/variables/configs/databaseConfigs/connectDatabase");
 
 const server = http.createServer(app);
 

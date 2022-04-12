@@ -3,9 +3,6 @@ const { Router } = require("express");
 const {
   authDefaultMiddleware,
 } = require("~/middlewares/authDefaultMiddleware");
-const {
-  findUserFromDbMiddleware,
-} = require("~/middlewares/findUserFromDbMiddleware");
 
 const {
   sendMessagePrivateChatController,
@@ -36,8 +33,6 @@ const {
 const privateChatRoute = Router();
 
 privateChatRoute.use(authDefaultMiddleware);
-
-privateChatRoute.use(findUserFromDbMiddleware);
 
 privateChatRoute[getAllChats.method](
   getAllChats.url,

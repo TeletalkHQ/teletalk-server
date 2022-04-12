@@ -3,8 +3,15 @@ const {
   modelGenerator,
 } = require("~/functions/utilities/generators");
 const { skipParams } = require("~/functions/utilities/utils");
+const { errorThrower } = require("~/functions/utilities/utils");
 
 const { commonModel } = require("~/models/commonModels/common.model");
+
+const { UserModel } = require("~/models/userModels/user.mongo");
+
+const {
+  initialOptions,
+} = require("~/variables/constants/initialOptions/initialOptions");
 
 const {
   userErrorTemplate: {
@@ -57,7 +64,10 @@ const {
       properties: VERIFICATION_CODE_INVALID_TYPE,
     },
   },
+  userErrorTemplate,
 } = require("~/variables/errors/userErrorTemplate");
+
+const { userInitialOptions } = initialOptions;
 
 const bio = modelGenerator(
   modelPropertyGenerator(255, BIO_MAXLENGTH_REACH),
@@ -198,6 +208,53 @@ const verificationCode = modelGenerator(
   modelPropertyGenerator(6, VERIFICATION_CODE_INVALID_LENGTH)
 );
 
+const userFinder = async (
+  userData = initialOptions,
+  findMethod = "findOne"
+) => {
+  try {
+    errorThrower(!userData, "You should send me data to find your target");
+
+    return await UserModel[findMethod]({
+      ...userData,
+    });
+  } catch (error) {
+    logger.log("userFinder catch", error);
+    errorThrower(error, error);
+  }
+};
+
+module.exports = { userFinder };
+
+const updateUserBlacklist = async (
+  currentUserData = userInitialOptions,
+  targetUserData = userInitialOptions
+) => {
+  const currentUser = await userFinder(currentUserData);
+  errorThrower(currentUser === null, {
+    ...targetUserData,
+    ...userErrorTemplate.USER_NOT_EXIST,
+  });
+
+  const targetUser = await userFinder(targetUserData);
+  errorThrower(targetUser === null, {
+    ...targetUserData,
+    ...userErrorTemplate.TARGET_USER_NOT_EXIST,
+  });
+
+  const blacklistItem = {
+    phoneNumber: targetUserData.phoneNumber,
+    countryCode: targetUserData.countryCode,
+    countryName: targetUserData.countryName,
+  };
+
+  currentUser.blacklist.push(blacklistItem);
+
+  await UserModel.updateOne({
+    blacklist: currentUser.blacklist,
+  });
+};
+
 const userModel = {
   version: "1.0.0",
 
@@ -219,4 +276,6 @@ const userModel = {
 
 module.exports = {
   userModel,
+
+  updateUserBlacklist,
 };

@@ -1,6 +1,7 @@
 const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
 const { errorThrower } = require("~/functions/utilities/utils");
+const { updateUserBlacklist } = require("~/models/userModels/user.model");
 
 const addBlockCellphoneController = async (
   req = expressRequest,
@@ -24,11 +25,7 @@ const addBlockCellphoneController = async (
       userErrorTemplate.CELLPHONE_EXIST.properties
     );
 
-    user.blacklist.push(cellphone);
-
-    await user.updateOne({
-      blacklist: user.blacklist,
-    });
+    await updateUserBlacklist(user);
 
     res.status(200).json({
       blockedCellphone: cellphone,

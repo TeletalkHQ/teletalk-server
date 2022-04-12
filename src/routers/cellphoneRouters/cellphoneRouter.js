@@ -7,9 +7,6 @@ const {
   contactValidatorMiddleware,
 } = require("~/middlewares/contactValidatorMiddleware");
 const {
-  findUserFromDbMiddleware,
-} = require("~/middlewares/findUserFromDbMiddleware");
-const {
   selfStuffControllerMiddleware,
 } = require("~/middlewares/selfStuffControllerMiddleware");
 const {
@@ -48,6 +45,7 @@ const {
     getContacts: { properties: getContacts },
   },
 } = require("~/variables/routes/cellphoneRoutes");
+const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utils");
 
 const cellphoneRoute = Router();
 
@@ -55,14 +53,18 @@ cellphoneRoute.use(authDefaultMiddleware);
 
 cellphoneRoute[getContacts.method](
   getContacts.url,
-  findUserFromDbMiddleware,
   getContactsCellphoneController
 );
 
-cellphoneRoute.use(cellphoneValidatorMiddleware);
-cellphoneRoute.use(selfStuffControllerMiddleware);
-cellphoneRoute.use(findUserFromDbMiddleware);
-cellphoneRoute.use(targetUserFinderByCellphoneMiddleware);
+cellphoneRoute.use(
+  ignoreMiddlewaresByUrl(
+    getContacts.url,
+    cellphoneValidatorMiddleware,
+    selfStuffControllerMiddleware,
+    targetUserFinderByCellphoneMiddleware
+  )
+);
+
 cellphoneRoute.use(addContact.url, contactValidatorMiddleware);
 
 cellphoneRoute[addContact.method](

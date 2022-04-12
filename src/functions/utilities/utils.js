@@ -32,6 +32,44 @@ const skipParams = (count) => {
   return Array.from({ length: count });
 };
 
+const isFunction = (...items) => {
+  return items.some((i) => typeof i === "function");
+};
+
+const ignoreMiddlewaresByUrl = async (url, ...middlewares) => {
+  try {
+    errorThrower(
+      typeof url !== "string" && !Array.isArray(url),
+      "url must be string or an array"
+    );
+
+    errorThrower(
+      !middlewares.length,
+      "You need to pass at least one middleware"
+    );
+
+    return async (req, res, next) => {
+      errorThrower(
+        isFunction(req, res, next),
+        "You need to pass this tree item: [req, res, next]"
+      );
+
+      if (
+        (Array.isArray(url) && url.some((u) => u === req.url)) ||
+        url === req.url
+      ) {
+        return next();
+      }
+
+      for await (const md of middlewares) {
+        await md(req, res, next);
+      }
+    };
+  } catch (error) {
+    logger.log("ignoreMiddlewaresByUrl catch, error:", error);
+  }
+};
+
 // const mongoose = require("mongoose");
 
 // function NoCastString(key, options) {
@@ -51,6 +89,7 @@ const skipParams = (count) => {
 module.exports = {
   errorThrower,
   isEqualWithTargetCellphone,
+  ignoreMiddlewaresByUrl,
   objectInitializer,
   skipParams,
 };

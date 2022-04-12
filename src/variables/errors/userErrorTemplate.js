@@ -346,6 +346,14 @@ const PRIVATE_ID_REQUIRED = errorGenerator(
 
 const SELF_STUFF = errorGenerator(4066, 400, "", "SELF_STUFF", "1.0.0");
 
+const TARGET_USER_NOT_EXIST = errorGenerator(
+  4070,
+  400,
+  "target user not exist",
+  "TARGET_USER_NOT_EXIST",
+  "1.0.0"
+);
+
 const TOKEN_EXIST = errorGenerator(4067, 400, "", "TOKEN_EXIST", "1.0.0");
 
 const TOKEN_REQUIRED = errorGenerator(4068, 400, "", "TOKEN_REQUIRED", "1.0.0");
@@ -361,7 +369,7 @@ const TOKEN_INVALID_TYPE = errorGenerator(
 const USER_NOT_EXIST = errorGenerator(
   4070,
   400,
-  "user not exist, maybe privateID is incorrect",
+  "user not exist",
   "USER_NOT_EXIST",
   "1.0.0"
 );
@@ -463,6 +471,7 @@ const userErrorTemplate = {
   PRIVATE_ID_MIN_LENGTH_REACH,
   PRIVATE_ID_REQUIRED,
   SELF_STUFF,
+  TARGET_USER_NOT_EXIST,
   TOKEN_EXIST,
   TOKEN_INVALID_TYPE,
   TOKEN_REQUIRED,

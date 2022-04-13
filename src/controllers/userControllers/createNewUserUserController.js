@@ -78,7 +78,7 @@ const createNewUserUserController = async (
       });
     } else if (!user) {
       const privateID = randomID(
-        userModel.privateID.properties.maxlength.value
+        userModel.privateIDModel.properties.maxlength.value
       );
 
       const token = await tokenSigner({

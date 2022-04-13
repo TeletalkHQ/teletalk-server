@@ -1,5 +1,5 @@
 const { getMethodFromRoute } = require("~/functions/utilities/utils");
-const { updateUserBlacklist } = require("~/models/userModels/user.model");
+const { addContactToUserBlacklist } = require("~/models/userModels/user.model");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
 const addBlockCellphoneController = async (
@@ -14,7 +14,7 @@ const addBlockCellphoneController = async (
 
     const targetUser = { phoneNumber, countryCode, countryName };
 
-    await updateUserBlacklist(authData, targetUser);
+    await addContactToUserBlacklist(authData, targetUser);
 
     res.status(getMethodFromRoute(cellphoneRoutes.addBlock)).json({
       blockedCellphone: targetUser,

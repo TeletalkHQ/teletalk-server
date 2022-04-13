@@ -1,6 +1,6 @@
 const {
   userModel: {
-    privateID: { properties: privateID },
+    privateIDModel: { properties: privateID },
   },
 } = require("~/models/userModels/user.model");
 

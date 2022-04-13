@@ -16,6 +16,12 @@ const errorThrower = (condition, error) => {
   if (condition) throw error;
 };
 
+const getMethodFromRoute = (route) => {
+  const method = route?.properties?.method;
+
+  errorThrower(!method, "You need to pass correct route object");
+};
+
 const isEqualWithTargetCellphone = (cellphone, targetCell) => {
   if (
     cellphone.phoneNumber === targetCell.phoneNumber &&
@@ -92,4 +98,5 @@ module.exports = {
   ignoreMiddlewaresByUrl,
   objectInitializer,
   skipParams,
+  getMethodFromRoute,
 };

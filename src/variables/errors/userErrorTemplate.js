@@ -32,6 +32,14 @@ const BIO_MINLENGTH_REACH = errorGenerator(
   "1.0.0"
 );
 
+const BLACKLIST_ITEM_EXIST = errorGenerator(
+  4000,
+  400,
+  "blacklist item is already exist",
+  "BLACKLIST_ITEM_EXIST",
+  "1.0.0"
+);
+
 const CELLPHONE_EXIST = errorGenerator(
   4027,
   400,
@@ -431,6 +439,7 @@ const userErrorTemplate = {
   BIO_MAXLENGTH_REACH,
   BIO_MINLENGTH_REACH,
   BLACKLIST_INVALID_TYPE,
+  BLACKLIST_ITEM_EXIST,
   CELLPHONE_EXIST_IN_CONTACT,
   CELLPHONE_EXIST,
   CELLPHONE_INVALID_TYPE,

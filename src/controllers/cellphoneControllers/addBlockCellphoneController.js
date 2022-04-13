@@ -1,7 +1,6 @@
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
-const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
-const { errorThrower } = require("~/functions/utilities/utils");
+const { getMethodFromRoute } = require("~/functions/utilities/utils");
 const { updateUserBlacklist } = require("~/models/userModels/user.model");
+const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
 const addBlockCellphoneController = async (
   req = expressRequest,
@@ -9,26 +8,16 @@ const addBlockCellphoneController = async (
 ) => {
   try {
     const {
-      db: { user },
       body: { phoneNumber, countryCode, countryName },
+      authData,
     } = req;
 
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const targetUser = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: blacklistItem } = cellphoneFinder(
-      user.blacklist,
-      cellphone
-    );
+    await updateUserBlacklist(authData, targetUser);
 
-    errorThrower(
-      blacklistItem !== undefined,
-      userErrorTemplate.CELLPHONE_EXIST.properties
-    );
-
-    await updateUserBlacklist(user);
-
-    res.status(200).json({
-      blockedCellphone: cellphone,
+    res.status(getMethodFromRoute(cellphoneRoutes.addBlock)).json({
+      blockedCellphone: targetUser,
     });
   } catch (error) {
     logger.log("addBlockCellphoneController", error);

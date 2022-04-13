@@ -47,16 +47,16 @@ const {
 } = require("~/variables/routes/cellphoneRoutes");
 const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utils");
 
-const cellphoneRoute = Router();
+const cellphoneRouter = Router();
 
-cellphoneRoute.use(authDefaultMiddleware);
+cellphoneRouter.use(authDefaultMiddleware);
 
-cellphoneRoute[getContacts.method](
+cellphoneRouter[getContacts.method](
   getContacts.url,
   getContactsCellphoneController
 );
 
-cellphoneRoute.use(
+cellphoneRouter.use(
   ignoreMiddlewaresByUrl(
     getContacts.url,
     cellphoneValidatorMiddleware,
@@ -65,28 +65,28 @@ cellphoneRoute.use(
   )
 );
 
-cellphoneRoute.use(addContact.url, contactValidatorMiddleware);
+cellphoneRouter.use(addContact.url, contactValidatorMiddleware);
 
-cellphoneRoute[addContact.method](
+cellphoneRouter[addContact.method](
   addContact.url,
   addContactCellphoneController
 );
 
-cellphoneRoute[addBlock.method](addBlock.url, addBlockCellphoneController);
+cellphoneRouter[addBlock.method](addBlock.url, addBlockCellphoneController);
 
-cellphoneRoute[removeBlock.method](
+cellphoneRouter[removeBlock.method](
   removeBlock.url,
   removeBlockCellphoneController
 );
 
-cellphoneRoute[removeContact.method](
+cellphoneRouter[removeContact.method](
   removeContact.url,
   removeContactCellphoneController
 );
 
-cellphoneRoute[editContact.method](
+cellphoneRouter[editContact.method](
   editContact.url,
   editContactCellphoneController
 );
 
-module.exports = { cellphoneRoute };
+module.exports = { cellphoneRouter };

@@ -1,6 +1,6 @@
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
-const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
-const { errorThrower } = require("~/functions/utilities/utils");
+const { getMethodFromRoute } = require("~/functions/utilities/utils");
+const { removeContactItem } = require("~/models/userModels/user.model");
+const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
 const removeContactCellphoneController = async (
   req = expressRequest,
@@ -8,29 +8,17 @@ const removeContactCellphoneController = async (
 ) => {
   try {
     const {
-      db: { user },
+      authData,
       body: { phoneNumber, countryCode, countryName },
     } = req;
 
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const targetUserData = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
-      user.contacts,
-      cellphone
-    );
+    await removeContactItem(authData, targetUserData);
 
-    errorThrower(
-      contactItem === undefined,
-      userErrorTemplate.CELLPHONE_NOT_EXIST
-    );
-
-    user.contacts.splice(cellphoneIndex, 1);
-
-    await user.updateOne({
-      contacts: user.contacts,
-    });
-
-    res.status(200).json({ removedContact: contactItem });
+    res
+      .status(getMethodFromRoute(cellphoneRoutes.removeContact))
+      .json({ removedContact: targetUserData });
   } catch (error) {
     res.errorCollector({ data: { error } });
     res.errorResponser();

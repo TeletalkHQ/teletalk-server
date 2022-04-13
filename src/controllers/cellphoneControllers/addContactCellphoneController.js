@@ -1,6 +1,4 @@
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
-const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
-const { errorThrower } = require("~/functions/utilities/utils");
+const { updateUserContacts } = require("~/models/userModels/user.model");
 
 const addContactCellphoneController = async (
   req = expressRequest,
@@ -8,36 +6,17 @@ const addContactCellphoneController = async (
 ) => {
   try {
     const {
-      db: { user, targetUser },
       body: { firstName, lastName, phoneNumber, countryCode, countryName },
+      authData,
     } = req;
 
-    const cellphoneFromClient = { phoneNumber, countryCode, countryName };
+    const targetUserData = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: cellphoneInClientContacts } = cellphoneFinder(
-      user.contacts,
-      cellphoneFromClient
-    );
-
-    errorThrower(
-      cellphoneInClientContacts !== undefined,
-      userErrorTemplate.CELLPHONE_EXIST
-    );
-
-    user.contacts.push({
-      ...cellphoneFromClient,
-      firstName,
-      lastName,
-      privateID: targetUser.privateID,
-    });
-
-    await user.updateOne({
-      contacts: user.contacts,
-    });
+    const { targetUser } = await updateUserContacts(authData, targetUserData);
 
     res.status(200).json({
       contact: {
-        ...cellphoneFromClient,
+        ...targetUserData,
         firstName,
         lastName,
         privateID: targetUser.privateID,

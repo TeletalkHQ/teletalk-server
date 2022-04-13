@@ -264,7 +264,46 @@ const updateUserBlacklist = async (
     });
   } catch (error) {
     logger.log("updateUserBlacklist catch, error", error);
+    throw error;
   }
+};
+
+const updateUserContacts = async (currentUserData, targetUserData) => {
+  const currentUser = await userFinder(currentUserData);
+  errorThrower(currentUser === null, {
+    ...targetUserData,
+    ...userErrorTemplate.USER_NOT_EXIST,
+  });
+
+  const { cellphone: existContactItem } = cellphoneFinder(
+    currentUser.contacts,
+    targetUserData
+  );
+  errorThrower(existContactItem, {
+    ...targetUserData,
+    ...userErrorTemplate.CONTACT_ITEM_EXIST,
+  });
+
+  const targetUser = await userFinder(targetUserData);
+  errorThrower(targetUser === null, {
+    ...targetUserData,
+    ...userErrorTemplate.TARGET_USER_NOT_EXIST,
+  });
+
+  currentUser.contacts.push({
+    countryCode: targetUserData.countryCode,
+    countryName: targetUserData.countryName,
+    firstName: targetUserData.firstName,
+    lastName: targetUserData.lastName,
+    phoneNumber: targetUserData.phoneNumber,
+    privateID: targetUser.privateID,
+  });
+
+  await currentUser.updateOne({
+    contacts: currentUser.contacts,
+  });
+
+  return { targetUser };
 };
 
 const userModel = {
@@ -290,4 +329,5 @@ module.exports = {
   userModel,
 
   updateUserBlacklist,
+  updateUserContacts,
 };

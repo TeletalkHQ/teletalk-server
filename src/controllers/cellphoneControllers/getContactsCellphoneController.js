@@ -1,17 +1,19 @@
-const { sendableUserData } = require("~/functions/utilities/sendableUserData");
+const { getMethodFromRoute } = require("~/functions/utilities/utils");
+const { getUserContacts } = require("~/models/userModels/user.model");
+const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
 const getContactsCellphoneController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
   try {
-    const {
-      db: { user },
-    } = req;
+    const { authData } = req;
 
-    const { userData } = sendableUserData({ user });
+    const contacts = await getUserContacts(authData);
 
-    res.status(200).json({ contacts: userData.contacts });
+    res
+      .status(getMethodFromRoute(cellphoneRoutes.getContacts))
+      .json({ contacts });
   } catch (error) {
     logger.log("getContactsCellphoneController", error);
     res.errorCollector({ data: { error } });

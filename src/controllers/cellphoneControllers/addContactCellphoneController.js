@@ -1,4 +1,6 @@
-const { updateUserContacts } = require("~/models/userModels/user.model");
+const { getMethodFromRoute } = require("~/functions/utilities/utils");
+const { addContactToUserContacts } = require("~/models/userModels/user.model");
+const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
 const addContactCellphoneController = async (
   req = expressRequest,
@@ -12,9 +14,12 @@ const addContactCellphoneController = async (
 
     const targetUserData = { phoneNumber, countryCode, countryName };
 
-    const { targetUser } = await updateUserContacts(authData, targetUserData);
+    const { targetUser } = await addContactToUserContacts(
+      authData,
+      targetUserData
+    );
 
-    res.status(200).json({
+    res.status(getMethodFromRoute(cellphoneRoutes.addContact)).json({
       contact: {
         ...targetUserData,
         firstName,

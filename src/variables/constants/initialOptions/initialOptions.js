@@ -1,67 +1,67 @@
 const { userModel } = require("~/models/userModels/user.model");
 
 const {
-  bio: {
+  bioModel: {
     properties: {
       type: { value: bio },
     },
   },
-  blacklist: {
+  blacklistModel: {
     properties: {
       type: { value: blacklist },
     },
   },
-  contacts: {
+  contactsModel: {
     properties: {
       type: { value: contacts },
     },
   },
-  countryCode: {
+  countryCodeModel: {
     properties: {
       type: { value: countryCode },
     },
   },
-  countryName: {
+  countryNameModel: {
     properties: {
       type: { value: countryName },
     },
   },
-  createdAt: {
+  createdAtModel: {
     properties: {
       type: { value: createdAt },
     },
   },
-  firstName: {
+  firstNameModel: {
     properties: {
       type: { value: firstName },
     },
   },
-  lastName: {
+  lastNameModel: {
     properties: {
       type: { value: lastName },
     },
   },
-  macAddress: {
+  macAddressModel: {
     properties: {
       type: { value: macAddress },
     },
   },
-  phoneNumber: {
+  phoneNumberModel: {
     properties: {
       type: { value: phoneNumber },
     },
   },
-  privateID: {
+  privateIDModel: {
     properties: {
       type: { value: privateID },
     },
   },
-  token: {
+  tokenModel: {
     properties: {
       type: { value: token },
     },
   },
-  username: {
+  usernameModel: {
     properties: {
       type: { value: username },
     },

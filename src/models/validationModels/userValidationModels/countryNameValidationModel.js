@@ -1,6 +1,6 @@
 const {
   userModel: {
-    countryName: { properties: countryName },
+    countryNameModel: { properties: countryName },
   },
 } = require("~/models/userModels/user.model");
 

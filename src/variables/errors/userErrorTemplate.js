@@ -112,6 +112,14 @@ const CONTACT_ITEM_EXIST = errorGenerator(
   "1.0.0"
 );
 
+const CONTACT_ITEM_NOT_EXIST = errorGenerator(
+  4000,
+  400,
+  "Contact item is not exist",
+  "CONTACT_ITEM_NOT_EXIST",
+  "1.0.0"
+);
+
 const COUNTRY_CODE_INVALID_TYPE = errorGenerator(
   4035,
   400,
@@ -457,6 +465,7 @@ const userErrorTemplate = {
   CELLPHONE_REQUIRED,
   CONTACT_INVALID_TYPE,
   CONTACT_ITEM_EXIST,
+  CONTACT_ITEM_NOT_EXIST,
   COUNTRY_CODE_INVALID_TYPE,
   COUNTRY_CODE_MAXLENGTH_REACH,
   COUNTRY_CODE_MINLENGTH_REACH,

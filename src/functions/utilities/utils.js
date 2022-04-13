@@ -17,9 +17,15 @@ const errorThrower = (condition, error) => {
 };
 
 const getMethodFromRoute = (route) => {
-  const method = route?.properties?.method;
+  try {
+    const method = route?.properties?.method;
 
-  errorThrower(!method, "You need to pass correct route object");
+    errorThrower(!method, "You need to pass correct route object");
+
+    return method;
+  } catch (error) {
+    logger.log("getMethodFromRoute catch, error:", error);
+  }
 };
 
 const isEqualWithTargetCellphone = (cellphone, targetCell) => {

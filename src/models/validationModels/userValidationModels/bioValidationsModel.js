@@ -1,6 +1,6 @@
 const {
   userModel: {
-    bio: { properties: bio },
+    bioModel: { properties: bio },
   },
 } = require("~/models/userModels/user.model");
 

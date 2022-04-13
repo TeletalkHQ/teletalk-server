@@ -70,7 +70,7 @@ const {
 
 const { userInitialOptions } = initialOptions;
 
-const bio = modelGenerator(
+const bioModel = modelGenerator(
   modelPropertyGenerator(255, BIO_MAXLENGTH_REACH),
   modelPropertyGenerator(1, BIO_MINLENGTH_REACH),
   modelPropertyGenerator(false),
@@ -81,7 +81,7 @@ const bio = modelGenerator(
   "1.0.0"
 );
 
-const blacklist = modelGenerator(
+const blacklistModel = modelGenerator(
   ...skipParams(4),
   modelPropertyGenerator("array", BLACKLIST_INVALID_TYPE),
   null,
@@ -89,7 +89,7 @@ const blacklist = modelGenerator(
   "1.0.0"
 );
 
-const contacts = modelGenerator(
+const contactsModel = modelGenerator(
   modelPropertyGenerator(14),
   modelPropertyGenerator(10),
   modelPropertyGenerator(false),
@@ -100,7 +100,7 @@ const contacts = modelGenerator(
   "1.0.0"
 );
 
-const countryCode = modelGenerator(
+const countryCodeModel = modelGenerator(
   modelPropertyGenerator(8, COUNTRY_CODE_MAXLENGTH_REACH),
   modelPropertyGenerator(2, COUNTRY_CODE_MINLENGTH_REACH),
   modelPropertyGenerator(true, COUNTRY_CODE_REQUIRED),
@@ -110,7 +110,7 @@ const countryCode = modelGenerator(
   "1.0.0"
 );
 
-const countryName = modelGenerator(
+const countryNameModel = modelGenerator(
   modelPropertyGenerator(32, COUNTRY_NAME_MAXLENGTH_REACH),
   modelPropertyGenerator(2, COUNTRY_NAME_MINLENGTH_REACH),
   modelPropertyGenerator(true, COUNTRY_NAME_REQUIRED),
@@ -120,9 +120,9 @@ const countryName = modelGenerator(
   "1.0.0"
 );
 
-const createdAt = commonModel.createdAt;
+const createdAtModel = commonModel.createdAt;
 
-const firstName = modelGenerator(
+const firstNameModel = modelGenerator(
   modelPropertyGenerator(18, FIRST_NAME_MAXLENGTH_REACH),
   modelPropertyGenerator(1, FIRST_NAME_MINLENGTH_REACH),
   modelPropertyGenerator(true, FIRST_NAME_REQUIRED),
@@ -133,7 +133,7 @@ const firstName = modelGenerator(
   "1.0.0"
 );
 
-const lastName = modelGenerator(
+const lastNameModel = modelGenerator(
   modelPropertyGenerator(18, LAST_NAME_MAXLENGTH_REACH),
   modelPropertyGenerator(1, LAST_NAME_MINLENGTH_REACH),
   [false],
@@ -144,7 +144,7 @@ const lastName = modelGenerator(
   "1.0.0"
 );
 
-const macAddress = modelGenerator(
+const macAddressModel = modelGenerator(
   modelPropertyGenerator(16, MAC_ADDRESS_MAXLENGTH_REACH),
   modelPropertyGenerator(12, MAC_ADDRESS_MINLENGTH_REACH),
   modelPropertyGenerator(true, MAC_ADDRESS_REQUIRED),
@@ -155,7 +155,7 @@ const macAddress = modelGenerator(
   "1.0.0"
 );
 
-const phoneNumber = modelGenerator(
+const phoneNumberModel = modelGenerator(
   modelPropertyGenerator(14, PHONE_NUMBER_MAXLENGTH_REACH),
   modelPropertyGenerator(10, PHONE_NUMBER_MINLENGTH_REACH),
   modelPropertyGenerator(true, PHONE_NUMBER_REQUIRED),
@@ -166,7 +166,7 @@ const phoneNumber = modelGenerator(
   "1.0.0"
 );
 
-const privateID = modelGenerator(
+const privateIDModel = modelGenerator(
   modelPropertyGenerator(35, PRIVATE_ID_MAX_LENGTH_REACH),
   modelPropertyGenerator(30, PRIVATE_ID_MIN_LENGTH_REACH),
   modelPropertyGenerator(true, PRIVATE_ID_REQUIRED),
@@ -177,7 +177,7 @@ const privateID = modelGenerator(
   "1.0.0"
 );
 
-const token = modelGenerator(
+const tokenModel = modelGenerator(
   ...skipParams(2),
   modelPropertyGenerator(true, TOKEN_REQUIRED),
   null,
@@ -187,7 +187,7 @@ const token = modelGenerator(
   "1.0.0"
 );
 
-const username = modelGenerator(
+const usernameModel = modelGenerator(
   modelPropertyGenerator(12, USERNAME_MAXLENGTH_REACH),
   modelPropertyGenerator(4, USERNAME_MINLENGTH_REACH),
   modelPropertyGenerator(false),
@@ -199,7 +199,7 @@ const username = modelGenerator(
   modelPropertyGenerator(true)
 );
 
-const verificationCode = modelGenerator(
+const verificationCodeModel = modelGenerator(
   ...skipParams(3),
   modelPropertyGenerator(true),
   modelPropertyGenerator("string", VERIFICATION_CODE_INVALID_TYPE),
@@ -227,7 +227,7 @@ const userFinder = async (
 
 module.exports = { userFinder };
 
-const updateUserBlacklist = async (
+const addContactToUserBlacklist = async (
   currentUserData = userInitialOptions,
   targetUserData = userInitialOptions
 ) => {
@@ -263,12 +263,15 @@ const updateUserBlacklist = async (
       blacklist: currentUser.blacklist,
     });
   } catch (error) {
-    logger.log("updateUserBlacklist catch, error", error);
+    logger.log("addContactToUserBlacklist catch, error", error);
     throw error;
   }
 };
 
-const updateUserContacts = async (currentUserData, targetUserData) => {
+const addContactToUserContacts = async (
+  currentUserData = userInitialOptions,
+  targetUserData = userInitialOptions
+) => {
   const currentUser = await userFinder(currentUserData);
   errorThrower(currentUser === null, {
     ...targetUserData,
@@ -306,28 +309,60 @@ const updateUserContacts = async (currentUserData, targetUserData) => {
   return { targetUser };
 };
 
+const updateOneContact = async (
+  currentUserData = userInitialOptions,
+  targetUserData = userInitialOptions,
+  editedValues
+) => {
+  try {
+    const currentUser = userFinder(currentUserData);
+    errorThrower(!currentUser, userErrorTemplate.USER_NOT_EXIST);
+
+    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
+      currentUser.contacts,
+      targetUserData
+    );
+    errorThrower(!contactItem, userErrorTemplate.CONTACT_ITEM_NOT_EXIST);
+
+    currentUser.contacts.splice(cellphoneIndex, 1, {
+      ...targetUserData,
+      firstName: editedValues.firstName,
+      lastName: editedValues.lastName,
+    });
+    await currentUser.updateOne({
+      contacts: currentUserData.contacts,
+    });
+
+    return { currentUser };
+  } catch (error) {
+    logger.log("updateOneContact catch, error:", error);
+    throw error;
+  }
+};
+
 const userModel = {
   version: "1.0.0",
 
-  bio,
-  blacklist,
-  contacts,
-  countryCode,
-  countryName,
-  createdAt,
-  firstName,
-  lastName,
-  macAddress,
-  phoneNumber,
-  privateID,
-  token,
-  username,
-  verificationCode,
+  bioModel,
+  blacklistModel,
+  contactsModel,
+  countryCodeModel,
+  countryNameModel,
+  createdAtModel,
+  firstNameModel,
+  lastNameModel,
+  macAddressModel,
+  phoneNumberModel,
+  privateIDModel,
+  tokenModel,
+  usernameModel,
+  verificationCodeModel,
 };
 
 module.exports = {
   userModel,
 
-  updateUserBlacklist,
-  updateUserContacts,
+  addContactToUserBlacklist,
+  addContactToUserContacts,
+  updateOneContact,
 };

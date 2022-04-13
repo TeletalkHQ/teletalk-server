@@ -1,3 +1,4 @@
+const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
 const {
   modelPropertyGenerator,
   modelGenerator,
@@ -230,29 +231,40 @@ const updateUserBlacklist = async (
   currentUserData = userInitialOptions,
   targetUserData = userInitialOptions
 ) => {
-  const currentUser = await userFinder(currentUserData);
-  errorThrower(currentUser === null, {
-    ...targetUserData,
-    ...userErrorTemplate.USER_NOT_EXIST,
-  });
+  try {
+    const currentUser = await userFinder(currentUserData);
+    errorThrower(currentUser === null, {
+      ...targetUserData,
+      ...userErrorTemplate.USER_NOT_EXIST,
+    });
 
-  const targetUser = await userFinder(targetUserData);
-  errorThrower(targetUser === null, {
-    ...targetUserData,
-    ...userErrorTemplate.TARGET_USER_NOT_EXIST,
-  });
+    const { cellphone: existBlacklistItem } = cellphoneFinder(
+      currentUser.blacklist,
+      targetUserData
+    );
+    errorThrower(existBlacklistItem, {
+      ...targetUserData,
+      ...userErrorTemplate.BLACKLIST_ITEM_EXIST,
+    });
 
-  const blacklistItem = {
-    phoneNumber: targetUserData.phoneNumber,
-    countryCode: targetUserData.countryCode,
-    countryName: targetUserData.countryName,
-  };
+    const targetUser = await userFinder(targetUserData);
+    errorThrower(targetUser === null, {
+      ...targetUserData,
+      ...userErrorTemplate.TARGET_USER_NOT_EXIST,
+    });
 
-  currentUser.blacklist.push(blacklistItem);
-
-  await UserModel.updateOne({
-    blacklist: currentUser.blacklist,
-  });
+    const blacklistItem = {
+      phoneNumber: targetUserData.phoneNumber,
+      countryCode: targetUserData.countryCode,
+      countryName: targetUserData.countryName,
+    };
+    currentUser.blacklist.push(blacklistItem);
+    await UserModel.updateOne({
+      blacklist: currentUser.blacklist,
+    });
+  } catch (error) {
+    logger.log("updateUserBlacklist catch, error", error);
+  }
 };
 
 const userModel = {

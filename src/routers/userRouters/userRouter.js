@@ -25,7 +25,7 @@ const {
 
 const { userRoutes } = require("~/variables/routes/userRoutes");
 
-const userRoute = Router();
+const userRouter = Router();
 
 const {
   countries: { properties: countries },
@@ -36,23 +36,26 @@ const {
   verifySignInNormal: { properties: verifySignInNormal },
 } = userRoutes;
 
-userRoute.use(signInNormal.url, cellphoneValidatorMiddleware);
+userRouter.use(signInNormal.url, cellphoneValidatorMiddleware);
 
-userRoute[logoutNormal.method](logoutNormal.url, logoutNormalUserController);
-userRoute[signInNormal.method](signInNormal.url, signInNormalUserController);
-userRoute[verifySignInNormal.method](
+userRouter[logoutNormal.method](logoutNormal.url, logoutNormalUserController);
+userRouter[signInNormal.method](signInNormal.url, signInNormalUserController);
+userRouter[verifySignInNormal.method](
   verifySignInNormal.url,
   verifySignInNormalUserController
 );
-userRoute[statusCheck.method](statusCheck.url, statusCheckUserController);
+userRouter[statusCheck.method](statusCheck.url, statusCheckUserController);
 
-userRoute[createNewUser.method](createNewUser.url, createNewUserUserController);
+userRouter[createNewUser.method](
+  createNewUser.url,
+  createNewUserUserController
+);
 
 //TODO Move it to otherRoute
-userRoute[countries.method](countries.url, countriesUserController);
+userRouter[countries.method](countries.url, countriesUserController);
 
 //* sign out normal =>
 //
 //* sign out anonymous =>
 //
-module.exports = { userRoute };
+module.exports = { userRouter };

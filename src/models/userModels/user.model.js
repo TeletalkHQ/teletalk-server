@@ -366,6 +366,30 @@ const deleteBlacklistItem = async (currentUserData, targetUserData) => {
   });
 };
 
+const removeContactItem = async (
+  currentUserData = userInitialOptions,
+  targetUserData = userInitialOptions
+) => {
+  try {
+    const currentUser = userFinder(currentUserData);
+    errorThrower(!currentUser, userErrorTemplate.USER_NOT_EXIST);
+
+    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
+      currentUser.contacts,
+      targetUserData
+    );
+    errorThrower(!contactItem, userErrorTemplate.CELLPHONE_NOT_EXIST);
+
+    currentUser.contacts.splice(cellphoneIndex, 1);
+    await currentUser.updateOne({
+      contacts: currentUser.contacts,
+    });
+  } catch (error) {
+    logger.log("removeContactItem catch, error:", error);
+    throw error;
+  }
+};
+
 const userModel = {
   version: "1.0.0",
 
@@ -393,4 +417,5 @@ module.exports = {
   updateOneContact,
   getUserContacts,
   deleteBlacklistItem,
+  removeContactItem,
 };

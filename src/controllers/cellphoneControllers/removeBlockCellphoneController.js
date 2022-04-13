@@ -1,6 +1,4 @@
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
-const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
-const { errorThrower } = require("~/functions/utilities/utils");
+const { deleteBlacklistItem } = require("~/models/userModels/user.model");
 
 const removeBlockCellphoneController = async (
   req = expressRequest,
@@ -8,30 +6,16 @@ const removeBlockCellphoneController = async (
 ) => {
   try {
     const {
-      db: { user },
+      authData,
       body: { phoneNumber, countryCode, countryName },
     } = req;
 
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const targetUserData = { phoneNumber, countryCode, countryName };
 
-    const { cellphone: blacklistItem, cellphoneIndex } = cellphoneFinder(
-      user.blacklist,
-      cellphone
-    );
-
-    errorThrower(
-      blacklistItem === undefined,
-      userErrorTemplate.CELLPHONE_NOT_EXIST
-    );
-
-    user.blacklist.splice(cellphoneIndex, 1);
-
-    await user.updateOne({
-      blacklist: user.blacklist,
-    });
+    await deleteBlacklistItem(authData, targetUserData);
 
     res.status(200).json({
-      removedBlockedCellphone: cellphone,
+      removedBlockedCellphone: targetUserData,
     });
   } catch (error) {
     res.errorCollector({ data: { error } });

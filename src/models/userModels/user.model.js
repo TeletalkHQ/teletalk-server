@@ -391,23 +391,29 @@ const removeContactItem = async (
 };
 
 const userModel = {
-  version: "1.0.0",
+  info: {
+    version: "1.0.0",
+  },
 
-  bioModel,
-  blacklistModel,
-  contactsModel,
-  countryCodeModel,
-  countryNameModel,
-  createdAtModel,
-  firstNameModel,
-  lastNameModel,
-  macAddressModel,
-  phoneNumberModel,
-  privateIDModel,
-  tokenModel,
-  usernameModel,
-  verificationCodeModel,
+  properties: {
+    bioModel,
+    blacklistModel,
+    contactsModel,
+    countryCodeModel,
+    countryNameModel,
+    createdAtModel,
+    firstNameModel,
+    lastNameModel,
+    macAddressModel,
+    phoneNumberModel,
+    privateIDModel,
+    tokenModel,
+    usernameModel,
+    verificationCodeModel,
+  },
 };
+
+console.log(userModel);
 
 module.exports = {
   userModel,

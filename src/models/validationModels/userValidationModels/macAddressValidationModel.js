@@ -1,6 +1,8 @@
 const {
   userModel: {
-    macAddressModel: { properties: macAddress },
+    properties: {
+      macAddressModel: { properties: macAddress },
+    },
   },
 } = require("~/models/userModels/user.model");
 

@@ -6,9 +6,12 @@ const {
 
 const {
   userModel: {
-    privateIDModel: { properties: privateID },
+    properties: {
+      privateIDModel: { properties: privateID },
+    },
   },
 } = require("~/models/userModels/user.model");
+
 const { commonModel } = require("~/models/commonModels/common.model");
 
 const {

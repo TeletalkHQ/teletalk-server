@@ -1,6 +1,8 @@
 const {
   userModel: {
-    phoneNumberModel: { properties: phoneNumber },
+    properties: {
+      phoneNumberModel: { properties: phoneNumber },
+    },
   },
 } = require("~/models/userModels/user.model");
 

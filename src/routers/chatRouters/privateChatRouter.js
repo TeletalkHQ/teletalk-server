@@ -1,10 +1,6 @@
 const { Router } = require("express");
 
 const {
-  authDefaultMiddleware,
-} = require("~/middlewares/authDefaultMiddleware");
-
-const {
   sendMessagePrivateChatController,
 } = require("~/controllers/privateChatControllers/sendMessagePrivateChatController");
 const {
@@ -31,8 +27,6 @@ const {
 } = require("~/variables/routes/privateChatRoutes");
 
 const privateChatRoute = Router();
-
-privateChatRoute.use(authDefaultMiddleware);
 
 privateChatRoute[getAllChats.method](
   getAllChats.url,

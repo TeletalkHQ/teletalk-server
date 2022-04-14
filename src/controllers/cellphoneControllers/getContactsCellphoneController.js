@@ -9,7 +9,7 @@ const getContactsCellphoneController = async (
   try {
     const { authData } = req;
 
-    const contacts = await getUserContacts(authData);
+    const contacts = await getUserContacts(authData.payload);
 
     res
       .status(getMethodFromRoute(cellphoneRoutes.getContacts))

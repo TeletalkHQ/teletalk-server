@@ -9,9 +9,6 @@ const {
 const {
   cellphoneValidatorMiddleware,
 } = require("~/middlewares/cellphoneValidatorMiddleware");
-const {
-  targetUserFinderByCellphoneMiddleware,
-} = require("~/middlewares/targetUserFinderByCellphoneMiddleware");
 
 const {
   addBlockCellphoneController,
@@ -55,8 +52,7 @@ cellphoneRouter.use(
   ignoreMiddlewaresByUrl(
     getContacts.url,
     cellphoneValidatorMiddleware,
-    selfStuffControllerMiddleware,
-    targetUserFinderByCellphoneMiddleware
+    selfStuffControllerMiddleware
   )
 );
 

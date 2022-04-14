@@ -9,8 +9,8 @@ const {
   },
 } = require("~/variables/routes/otherRoutes");
 
-const otherRoute = Router();
+const otherRouter = Router();
 
-otherRoute[welcome.method](welcome.url, welcomeOtherController);
+otherRouter[welcome.method](welcome.url, welcomeOtherController);
 
-module.exports = { otherRoute };
+module.exports = { otherRouter };

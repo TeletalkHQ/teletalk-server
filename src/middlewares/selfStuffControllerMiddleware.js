@@ -9,7 +9,7 @@ const selfStuffControllerMiddleware = (req, res, next) => {
   try {
     const { phoneNumber, countryCode, countryName } = req.authData.payload;
 
-    const { ...targetCellphone } = req.body;
+    const targetCellphone = req.body;
 
     const cellphone = { phoneNumber, countryCode, countryName };
 

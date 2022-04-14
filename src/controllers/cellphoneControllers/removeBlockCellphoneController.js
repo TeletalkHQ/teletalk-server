@@ -12,7 +12,7 @@ const removeBlockCellphoneController = async (
 
     const targetUserData = { phoneNumber, countryCode, countryName };
 
-    await deleteBlacklistItem(authData, targetUserData);
+    await deleteBlacklistItem(authData.payload, targetUserData);
 
     res.status(200).json({
       removedBlockedCellphone: targetUserData,

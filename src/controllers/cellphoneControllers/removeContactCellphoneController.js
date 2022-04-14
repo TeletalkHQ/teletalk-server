@@ -14,7 +14,7 @@ const removeContactCellphoneController = async (
 
     const targetUserData = { phoneNumber, countryCode, countryName };
 
-    await removeContactItem(authData, targetUserData);
+    await removeContactItem(authData.payload, targetUserData);
 
     res
       .status(getMethodFromRoute(cellphoneRoutes.removeContact))

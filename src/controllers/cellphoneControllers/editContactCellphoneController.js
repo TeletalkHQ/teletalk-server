@@ -20,7 +20,7 @@ const editContactCellphoneController = async (
 
     const editedValues = { firstName, lastName };
 
-    await updateOneContact(authData, targetUserData, editedValues);
+    await updateOneContact(authData.payload, targetUserData, editedValues);
 
     res
       .status(getMethodFromRoute(cellphoneRoutes.editContact))

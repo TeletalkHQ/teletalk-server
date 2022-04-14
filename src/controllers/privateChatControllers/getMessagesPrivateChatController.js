@@ -1,5 +1,7 @@
 const { errorThrower } = require("~/functions/utilities/utils");
-const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
+const {
+  PrivateChatModel,
+} = require("~/models/chatModels/privateChatMongoModel");
 
 const { chatErrorTemplate } = require("~/variables/errors/chatErrorTemplate");
 
@@ -9,19 +11,19 @@ const getMessagesPrivateChatController = async (
 ) => {
   try {
     const {
-      body: { chatID },
+      body: { chatId },
       db: { user },
     } = req;
 
-    errorThrower(!chatID, chatErrorTemplate.CHAT_ID_REQUIRED);
+    errorThrower(!chatId, chatErrorTemplate.CHAT_ID_REQUIRED);
 
-    const chatFromUser = user.chats.find((chat) => chat.chatID === chatID);
+    const chatFromUser = user.chats.find((chat) => chat.chatId === chatId);
 
     const { CHAT_NOT_EXIST } = chatErrorTemplate;
 
     errorThrower(!chatFromUser, CHAT_NOT_EXIST);
 
-    const chat = await PrivateChatModel.findOne({ chatID });
+    const chat = await PrivateChatModel.findOne({ chatId });
 
     errorThrower(!chat, CHAT_NOT_EXIST);
 

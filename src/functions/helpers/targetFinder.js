@@ -1,11 +1,13 @@
-const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
-const { UserModel } = require("~/models/userModels/userMongoModel");
+const {
+  PrivateChatModel,
+} = require("~/models/chatModels/privateChatMongoModel");
+const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 const { errorThrower } = require("~/functions/utilities/utils");
 
-const models = { UserModel, PrivateChatModel };
+const models = { UserMongoModel, PrivateChatModel };
 
 const initialOptions = {
-  model: "UserModel",
+  model: "UserMongoModel",
   findMethod: "findOne",
   findParameters: {},
 };

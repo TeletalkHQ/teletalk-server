@@ -5,9 +5,15 @@ const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 const { userFinder } = require("~/functions/helpers/userFinder");
 const { randomID } = require("~/functions/utilities/randomID");
 
-const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
+const {
+  PrivateChatMongoModel,
+} = require("~/models/chatModels/privateChatMongoModel");
 
-const { chatModel } = require("~/models/chatModels/chatModel");
+const {
+  chatModel: {
+    properties: { chatIdModel },
+  },
+} = require("~/models/chatModels/chatModel");
 const { errorThrower } = require("~/functions/utilities/utils");
 
 const startChatPrivateChatController = async (
@@ -25,7 +31,7 @@ const startChatPrivateChatController = async (
     errorThrower(!targetUser, userErrorTemplate.USER_NOT_EXIST);
 
     //TODO Use $and for test
-    const chat = await PrivateChatModel.findOne({
+    const chat = await PrivateChatMongoModel.findOne({
       "participants.participantID": {
         $all: [client.privateID, targetUser.privateID],
       },
@@ -33,10 +39,10 @@ const startChatPrivateChatController = async (
 
     errorThrower(chat, chatErrorTemplate.CHAT_EXIST);
 
-    const chatID = randomID(chatModel.chatIdModel.maxlength.value);
+    const chatId = randomID(chatIdModel.properties.maxlength.value);
 
-    const privateChat = new PrivateChatModel({
-      chatID,
+    const privateChat = new PrivateChatMongoModel({
+      chatId,
       participants: [
         { participantID: client.privateID },
         { participantID: targetUser.privateID },
@@ -45,8 +51,8 @@ const startChatPrivateChatController = async (
 
     await privateChat.save();
 
-    await client.updateOne({ chats: { chatID } });
-    await targetUser.updateOne({ chats: { chatID } });
+    await client.updateOne({ chats: { chatId } });
+    await targetUser.updateOne({ chats: { chatId } });
 
     res.status(200).json({ client, targetUser });
   } catch (error) {

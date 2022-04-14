@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      firstNameModel: { properties: firstName },
+      firstNameModel: { properties: firstNameModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,15 +9,15 @@ const {
 const firstNameValidationModel = {
   properties: {
     firstName: {
-      type: firstName.type.value,
-      min: firstName.minlength.value,
-      max: firstName.maxlength.value,
-      trim: firstName.trim.value,
+      type: firstNameModel.type.value,
+      min: firstNameModel.minlength.value,
+      max: firstNameModel.maxlength.value,
+      trim: firstNameModel.trim.value,
       messages: {
-        string: firstName.type.error.message,
-        required: firstName.required.error.message,
-        stringMin: firstName.minlength.error.message,
-        stringMax: firstName.maxlength.error.message,
+        string: firstNameModel.type.error.message,
+        required: firstNameModel.required.error.message,
+        stringMin: firstNameModel.minlength.error.message,
+        stringMax: firstNameModel.maxlength.error.message,
       },
     },
   },

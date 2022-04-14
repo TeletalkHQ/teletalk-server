@@ -3,7 +3,7 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  messageIDValidationModel,
+  messageIdValidationModel: messageIDValidationModel,
 } = require("~/models/validationModels/chatValidationModels/messageIDValidationModel");
 
 const messageIDValidation = {

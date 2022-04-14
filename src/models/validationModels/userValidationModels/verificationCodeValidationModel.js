@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      verificationCodeModel: { properties: verificationCode },
+      verificationCodeModel: { properties: verificationCodeModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,12 +9,12 @@ const {
 const verificationCodeValidationModel = {
   properties: {
     verificationCode: {
-      type: verificationCode.type.value,
-      length: verificationCode.length.value,
-      trim: verificationCode.trim.value,
+      type: verificationCodeModel.type.value,
+      length: verificationCodeModel.length.value,
+      trim: verificationCodeModel.trim.value,
       messages: {
-        string: verificationCode.type.error.message,
-        length: verificationCode.length.error.message,
+        string: verificationCodeModel.type.error.message,
+        length: verificationCodeModel.length.error.message,
       },
     },
   },

@@ -4,7 +4,11 @@ const {
 } = require("~/functions/utilities/generators");
 const { skipParams } = require("~/functions/utilities/utils");
 
-const { commonModel } = require("~/models/commonModels/commonModel");
+const {
+  commonModel: {
+    properties: { commonCreatedAtModel, commonPrivateIdModel },
+  },
+} = require("~/models/commonModels/commonModel");
 
 const {
   userErrorTemplate: {
@@ -105,8 +109,8 @@ const countryNameModel = modelGenerator(
   "1.0.0"
 );
 
-const createdAtModel = commonModel.properties.commonCreatedAtModel;
-const privateIdModel = commonModel.properties.commonPrivateIDModel;
+const createdAtModel = commonCreatedAtModel;
+const privateIdModel = commonPrivateIdModel;
 
 const firstNameModel = modelGenerator(
   modelPropertyGenerator(18, FIRST_NAME_MAXLENGTH_REACH),

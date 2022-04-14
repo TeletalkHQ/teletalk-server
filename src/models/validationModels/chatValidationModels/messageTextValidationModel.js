@@ -1,19 +1,21 @@
 const {
   chatModel: {
-    message: { properties: message },
+    properties: {
+      messageModel: { properties: messageModel },
+    },
   },
 } = require("~/models/chatModels/chatModel");
 
 const messageTextValidationModel = {
   properties: {
     message: {
-      type: message.type.value,
-      min: message.minlength.value,
-      max: message.maxlength.value,
+      type: messageModel.type.value,
+      min: messageModel.minlength.value,
+      max: messageModel.maxlength.value,
       messages: {
-        string: message.type.error.message,
-        stringMin: message.minlength.error.message,
-        stringMax: message.maxlength.error.message,
+        string: messageModel.type.error.message,
+        stringMin: messageModel.minlength.error.message,
+        stringMax: messageModel.maxlength.error.message,
       },
     },
   },

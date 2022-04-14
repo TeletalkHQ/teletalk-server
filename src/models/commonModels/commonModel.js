@@ -41,7 +41,7 @@ const commonCreatedAtModel = modelGenerator(
   "1.0.0"
 );
 
-const commonPrivateIDModel = modelGenerator(
+const commonPrivateIdModel = modelGenerator(
   modelPropertyGenerator(35, PRIVATE_ID_MAX_LENGTH_REACH),
   modelPropertyGenerator(30, PRIVATE_ID_MIN_LENGTH_REACH),
   modelPropertyGenerator(true, PRIVATE_ID_REQUIRED),
@@ -52,7 +52,7 @@ const commonPrivateIDModel = modelGenerator(
   "1.0.0"
 );
 
-const commonChatIDModel = modelGenerator(
+const commonChatIdModel = modelGenerator(
   modelPropertyGenerator(35, CHAT_ID_MAX_LENGTH_REACH),
   modelPropertyGenerator(30, CHAT_ID_MIN_LENGTH_REACH),
   modelPropertyGenerator(true, CHAT_ID_REQUIRED),
@@ -77,8 +77,8 @@ const commonModel = {
 
   properties: {
     commonCreatedAtModel,
-    commonPrivateIDModel,
-    commonChatIDModel,
+    commonPrivateIdModel,
+    commonChatIdModel,
     commonMessageIdModel,
   },
 };

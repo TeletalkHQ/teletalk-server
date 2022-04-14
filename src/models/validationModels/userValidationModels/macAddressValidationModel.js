@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      macAddressModel: { properties: macAddress },
+      macAddressModel: { properties: macAddressModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,17 +9,17 @@ const {
 const macAddressValidationModel = {
   properties: {
     macAddress: {
-      type: macAddress.type.value,
-      unique: macAddress.unique.value,
-      min: macAddress.minlength.value,
-      max: macAddress.maxlength.value,
-      trim: macAddress.trim.value,
+      type: macAddressModel.type.value,
+      unique: macAddressModel.unique.value,
+      min: macAddressModel.minlength.value,
+      max: macAddressModel.maxlength.value,
+      trim: macAddressModel.trim.value,
       messages: {
-        string: macAddress.type.error.message,
-        unique: macAddress.unique.error.message,
-        required: macAddress.required.error.message,
-        stringMin: macAddress.minlength.error.message,
-        stringMax: macAddress.maxlength.error.message,
+        string: macAddressModel.type.error.message,
+        unique: macAddressModel.unique.error.message,
+        required: macAddressModel.required.error.message,
+        stringMin: macAddressModel.minlength.error.message,
+        stringMax: macAddressModel.maxlength.error.message,
       },
     },
   },

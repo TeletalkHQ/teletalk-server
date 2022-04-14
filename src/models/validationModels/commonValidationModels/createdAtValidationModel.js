@@ -1,14 +1,16 @@
 const {
   commonModel: {
-    createdAt: { properties: createdAt },
+    properties: {
+      commonCreatedAtModel: { properties: commonCreatedAtModel },
+    },
   },
 } = require("~/models/commonModels/commonModel");
 
 const createdAtValidationModel = {
   properties: {
     createdAt: {
-      type: createdAt.type.value,
-      optimal: !createdAt.required.value,
+      type: commonCreatedAtModel.type.value,
+      optimal: !commonCreatedAtModel.required.value,
     },
   },
 

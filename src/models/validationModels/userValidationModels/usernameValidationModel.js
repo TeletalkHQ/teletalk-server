@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      usernameModel: { properties: username },
+      usernameModel: { properties: usernameModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,16 +9,16 @@ const {
 const usernameValidationModel = {
   properties: {
     username: {
-      type: username.type.value,
-      optional: !username.required.value,
-      unique: username.unique.value,
-      max: username.maxlength.value,
-      trim: username.trim.value,
-      lowercase: username.lowercase.value,
+      type: usernameModel.type.value,
+      optional: !usernameModel.required.value,
+      unique: usernameModel.unique.value,
+      max: usernameModel.maxlength.value,
+      trim: usernameModel.trim.value,
+      lowercase: usernameModel.lowercase.value,
       messages: {
-        string: username.type.error.message,
-        unique: username.unique.error.message,
-        stringMax: username.maxlength.error.message,
+        string: usernameModel.type.error.message,
+        unique: usernameModel.unique.error.message,
+        stringMax: usernameModel.maxlength.error.message,
       },
     },
   },

@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      privateIDModel: { properties: privateID },
+      privateIdModel: { properties: privateIdModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,17 +9,17 @@ const {
 const privateIDValidationModel = {
   properties: {
     privateID: {
-      type: privateID.type.value,
-      unique: privateID.unique.value,
-      min: privateID.minlength.value,
-      max: privateID.maxlength.value,
-      trim: privateID.trim.value,
+      type: privateIdModel.type.value,
+      unique: privateIdModel.unique.value,
+      min: privateIdModel.minlength.value,
+      max: privateIdModel.maxlength.value,
+      trim: privateIdModel.trim.value,
       messages: {
-        string: privateID.type.error.message,
-        required: privateID.required.error.message,
-        unique: privateID.unique.error.message,
-        stringMin: privateID.minlength.error.message,
-        stringMax: privateID.maxlength.error.message,
+        string: privateIdModel.type.error.message,
+        required: privateIdModel.required.error.message,
+        unique: privateIdModel.unique.error.message,
+        stringMin: privateIdModel.minlength.error.message,
+        stringMax: privateIdModel.maxlength.error.message,
       },
     },
   },

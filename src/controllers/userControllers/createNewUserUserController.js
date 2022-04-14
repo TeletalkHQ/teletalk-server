@@ -4,7 +4,7 @@ const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { errorThrower } = require("~/functions/utilities/utils");
 
-const { UserModel } = require("~/models/userModels/userMongoModel");
+const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 const { clients } = require("~/functions/tools/Clients");
 const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 
@@ -63,7 +63,7 @@ const createNewUserUserController = async (
     const user = await userFinder({ ...cellphone });
 
     if (user) {
-      await UserModel.findOneAndUpdate(
+      await UserMongoModel.findOneAndUpdate(
         { privateID: user.privateID },
         { tokens: user.token, firstName, lastName }
       );
@@ -78,7 +78,7 @@ const createNewUserUserController = async (
       });
     } else if (!user) {
       const privateID = randomID(
-        commonModel.properties.commonPrivateIDModel.properties.maxlength.value
+        commonModel.properties.commonPrivateIdModel.properties.maxlength.value
       );
 
       const token = await tokenSigner({
@@ -93,7 +93,7 @@ const createNewUserUserController = async (
         tokens: [{ token }],
       };
 
-      const newUser = new UserModel(userData);
+      const newUser = new UserMongoModel(userData);
       await newUser.save();
 
       res.status(200).json({

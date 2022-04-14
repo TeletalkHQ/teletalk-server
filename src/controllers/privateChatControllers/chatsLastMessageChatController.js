@@ -1,4 +1,6 @@
-const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
+const {
+  PrivateChatModel,
+} = require("~/models/chatModels/privateChatMongoModel");
 
 const chatsLastMessageChatController = async (
   req = expressRequest,
@@ -12,14 +14,14 @@ const chatsLastMessageChatController = async (
     const chats = [];
     for (const chat of user.chats) {
       const chatWithMessages = await PrivateChatModel.findOne({
-        chatID: chat.chatID,
+        chatId: chat.chatId,
       });
       if (chatWithMessages) {
         logger.log(chatWithMessages);
-        const { messages, participants, chatID } = chatWithMessages;
+        const { messages, participants, chatId } = chatWithMessages;
         const lastMessage = messages[messages.length - 1];
         logger.log(lastMessage);
-        chats.push({ participants, chatID, messages: [lastMessage] });
+        chats.push({ participants, chatId, messages: [lastMessage] });
       }
     }
 

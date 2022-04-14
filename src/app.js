@@ -71,6 +71,6 @@ app.use(express.static("~/../public"));
 app.use(serveFavicon("~/../public/assets/icons/favicon/favicon.ico"));
 
 //* All routers is in lifeLine =>
-// app.use(lifeLine);
+app.use(lifeLine);
 
 module.exports = { app };

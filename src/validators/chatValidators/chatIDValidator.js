@@ -4,7 +4,7 @@ const {
 
 const {
   chatIdValidationModel: chatIDValidationModel,
-} = require("~/models/validationModels/chatValidationModels/chatIDValidationModel");
+} = require("~/models/validationModels/chatValidationModels/chatIdValidationModel");
 
 const chatIDValidation = {
   properties: { ...chatIDValidationModel.properties },

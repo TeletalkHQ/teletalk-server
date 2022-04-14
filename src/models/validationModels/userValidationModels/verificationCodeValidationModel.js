@@ -1,6 +1,8 @@
 const {
   userModel: {
-    verificationCodeModel: { properties: verificationCode },
+    properties: {
+      verificationCodeModel: { properties: verificationCode },
+    },
   },
 } = require("~/models/userModels/user.model");
 

@@ -10,16 +10,18 @@ const { chatModel } = require("~/models/chatModels/chat.model");
 
 const {
   userModel: {
-    bioModel: { properties: bio },
-    countryCodeModel: { properties: countryCode },
-    countryNameModel: { properties: countryName },
-    createdAtModel: { properties: createdAt },
-    firstNameModel: { properties: firstName },
-    lastNameModel: { properties: lastName },
-    phoneNumberModel: { properties: phoneNumber },
-    privateIDModel: { properties: privateID },
-    tokenModel: { properties: token },
-    usernameModel: { properties: username },
+    properties: {
+      bioModel: { properties: bio },
+      countryCodeModel: { properties: countryCode },
+      countryNameModel: { properties: countryName },
+      createdAtModel: { properties: createdAt },
+      firstNameModel: { properties: firstName },
+      lastNameModel: { properties: lastName },
+      phoneNumberModel: { properties: phoneNumber },
+      privateIDModel: { properties: privateID },
+      tokenModel: { properties: token },
+      usernameModel: { properties: username },
+    },
   },
 } = require("~/models/userModels/user.model");
 const { skipParams } = require("~/functions/utilities/utils");

@@ -48,7 +48,7 @@ const isFunction = (...items) => {
   return items.some((i) => typeof i === "function");
 };
 
-const ignoreMiddlewaresByUrl = async (url, ...middlewares) => {
+const ignoreMiddlewaresByUrl = (url, ...middlewares) => {
   try {
     errorThrower(
       typeof url !== "string" && !Array.isArray(url),

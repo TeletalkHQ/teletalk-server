@@ -14,7 +14,7 @@ const addBlockCellphoneController = async (
 
     const targetUser = { phoneNumber, countryCode, countryName };
 
-    await addContactToUserBlacklist(authData, targetUser);
+    await addContactToUserBlacklist(authData.payload, targetUser);
 
     res.status(getMethodFromRoute(cellphoneRoutes.addBlock)).json({
       blockedCellphone: targetUser,

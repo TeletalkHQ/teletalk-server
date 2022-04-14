@@ -15,7 +15,7 @@ const addContactCellphoneController = async (
     const targetUserData = { phoneNumber, countryCode, countryName };
 
     const { targetUser } = await addContactToUserContacts(
-      authData,
+      authData.payload,
       targetUserData
     );
 

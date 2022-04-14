@@ -26,29 +26,29 @@ const {
   },
 } = require("~/variables/routes/privateChatRoutes");
 
-const privateChatRoute = Router();
+const privateChatRouter = Router();
 
-privateChatRoute[getAllChats.method](
+privateChatRouter[getAllChats.method](
   getAllChats.url,
   getAllChatsUserController
 );
 
-privateChatRoute[chatsLastMessage.method](
+privateChatRouter[chatsLastMessage.method](
   chatsLastMessage.url,
   chatsLastMessageChatController
 );
 
-privateChatRoute[sendMessage.method](
+privateChatRouter[sendMessage.method](
   sendMessage.url,
   sendMessagePrivateChatController
 );
-privateChatRoute[getMessages.method](
+privateChatRouter[getMessages.method](
   getMessages.url,
   getMessagesPrivateChatController
 );
-privateChatRoute[startChat.method](
+privateChatRouter[startChat.method](
   startChat.url,
   startChatPrivateChatController
 );
 
-module.exports = { privateChatRoute };
+module.exports = { privateChatRouter };

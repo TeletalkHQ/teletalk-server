@@ -5,8 +5,10 @@ const { Router } = require("express");
 const {
   cellphoneRouter,
 } = require("~/routers/cellphoneRouters/cellphoneRouter");
-const { otherRoute } = require("~/routers/otherRouters/otherRouter");
-const { privateChatRoute } = require("~/routers/chatRouters/privateChatRouter");
+const { otherRouter } = require("~/routers/otherRouters/otherRouter");
+const {
+  privateChatRouter,
+} = require("~/routers/chatRouters/privateChatRouter");
 const { userRouter } = require("~/routers/userRouters/userRouter");
 const {
   versionControlRouter,
@@ -34,6 +36,7 @@ const {
 
 const lifeLine = Router();
 
+//? Add your global middleware here, in special cases you can ignore middleware by url;
 lifeLine.use(
   ignoreMiddlewaresByUrl(
     [signInNormal.url, verifySignInNormal.url],
@@ -43,9 +46,9 @@ lifeLine.use(
 
 lifeLine.use(cellphoneRoutes.baseUrl.properties.url, cellphoneRouter);
 
-lifeLine.use(otherRoutes.baseUrl.properties.url, otherRoute);
+lifeLine.use(otherRoutes.baseUrl.properties.url, otherRouter);
 
-lifeLine.use(privateChatRoutes.baseUrl.properties.url, privateChatRoute);
+lifeLine.use(privateChatRoutes.baseUrl.properties.url, privateChatRouter);
 
 lifeLine.use(userRoutes.baseUrl.properties.url, userRouter);
 

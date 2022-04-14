@@ -4,7 +4,7 @@ const {
       privateIDModel: { properties: privateID },
     },
   },
-} = require("~/models/userModels/user.model");
+} = require("~/models/userModels/userModel");
 
 const privateIDValidationModel = {
   properties: {

@@ -4,7 +4,7 @@ const {
       lastNameModel: { properties: lastName },
     },
   },
-} = require("~/models/userModels/user.model");
+} = require("~/models/userModels/userModel");
 
 const lastNameValidationModel = {
   properties: {

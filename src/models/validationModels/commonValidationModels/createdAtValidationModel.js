@@ -2,7 +2,7 @@ const {
   commonModel: {
     createdAt: { properties: createdAt },
   },
-} = require("~/models/commonModels/common.model");
+} = require("~/models/commonModels/commonModel");
 
 const createdAtValidationModel = {
   properties: {

@@ -1,8 +1,8 @@
 const {
   chatModel: {
-    messageID: { properties: messageID },
+    messageIdModel: { properties: messageID },
   },
-} = require("~/models/chatModels/chat.model");
+} = require("~/models/chatModels/chatModel");
 
 const messageIDValidationModel = {
   properties: {

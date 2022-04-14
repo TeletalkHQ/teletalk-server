@@ -2,7 +2,7 @@ const { randomID } = require("~/functions/utilities/randomID");
 
 const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
 
-const { chatModel } = require("~/models/chatModels/chat.model");
+const { chatModel } = require("~/models/chatModels/chatModel");
 
 const { userFinder } = require("~/functions/helpers/userFinder");
 const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
@@ -39,7 +39,7 @@ const sendMessagePrivateChatController = async (
 
     const newMessage = {
       message,
-      messageID: randomID(chatModel.messageID.properties.maxlength.value),
+      messageID: randomID(chatModel.messageIdModel.properties.maxlength.value),
       messageSender: { senderID: user.privateID },
     };
 
@@ -47,7 +47,7 @@ const sendMessagePrivateChatController = async (
       // const error = chatErrorTemplate.CHAT_NOT_EXIST;
       // throw error;
 
-      chatID = randomID(chatModel.chatID.properties.maxlength.value);
+      chatID = randomID(chatModel.chatIdModel.properties.maxlength.value);
 
       const privateChat = new PrivateChatModel({
         chatID,

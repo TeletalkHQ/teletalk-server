@@ -52,9 +52,9 @@ const {
   versionControlRoutes,
 } = require("~/variables/routes/versionControlRoutes");
 
-const { chatModel } = require("~/models/chatModels/chat.model");
-const { commonModel } = require("~/models/commonModels/common.model");
-const { userModel } = require("~/models/userModels/user.model");
+const { chatModel } = require("~/models/chatModels/chatModel");
+const { commonModel } = require("~/models/commonModels/commonModel");
+const { userModel } = require("~/models/userModels/userModel");
 const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 const { chatErrorTemplate } = require("~/variables/errors/chatErrorTemplate");
 

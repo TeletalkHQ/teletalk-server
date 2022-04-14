@@ -2,7 +2,7 @@ const {
   chatModel: {
     message: { properties: message },
   },
-} = require("~/models/chatModels/chat.model");
+} = require("~/models/chatModels/chatModel");
 
 const messageTextValidationModel = {
   properties: {

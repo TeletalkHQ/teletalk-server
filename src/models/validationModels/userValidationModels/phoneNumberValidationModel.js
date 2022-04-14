@@ -4,7 +4,7 @@ const {
       phoneNumberModel: { properties: phoneNumber },
     },
   },
-} = require("~/models/userModels/user.model");
+} = require("~/models/userModels/userModel");
 
 const phoneNumberValidationModel = {
   properties: {

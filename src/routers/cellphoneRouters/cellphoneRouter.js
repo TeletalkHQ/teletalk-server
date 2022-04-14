@@ -1,9 +1,6 @@
 const { Router } = require("express");
 
 const {
-  authDefaultMiddleware,
-} = require("~/middlewares/authDefaultMiddleware");
-const {
   contactValidatorMiddleware,
 } = require("~/middlewares/contactValidatorMiddleware");
 const {
@@ -48,8 +45,6 @@ const {
 const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utils");
 
 const cellphoneRouter = Router();
-
-cellphoneRouter.use(authDefaultMiddleware);
 
 cellphoneRouter[getContacts.method](
   getContacts.url,

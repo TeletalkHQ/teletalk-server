@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
-
 const uniqueValidator = require("mongoose-unique-validator");
 
 const {
   mongooseSchemaPropertyGenerator,
 } = require("~/functions/utilities/generators");
-
-const { chatModel } = require("~/models/chatModels/chat.model");
+const { skipParams } = require("~/functions/utilities/utils");
 
 const {
   userModel: {
@@ -18,18 +16,21 @@ const {
       firstNameModel: { properties: firstName },
       lastNameModel: { properties: lastName },
       phoneNumberModel: { properties: phoneNumber },
-      privateIDModel: { properties: privateID },
       tokenModel: { properties: token },
       usernameModel: { properties: username },
     },
   },
-} = require("~/models/userModels/user.model");
-const { skipParams } = require("~/functions/utilities/utils");
+} = require("~/models/userModels/userModel");
 
 const {
-  chatID: { properties: chatID },
-  message: { properties: message },
-} = chatModel;
+  commonModel: {
+    properties: {
+      commonPrivateIDModel: { properties: privateID },
+      commonChatIDModel: { properties: commonChatIDModel },
+      // commonMessageIdModel: { properties: commonMessageIdModel },
+    },
+  },
+} = require("~/models/commonModels/commonModel");
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 
@@ -40,12 +41,21 @@ const user = {
   ]),
 
   chatID: mongooseSchemaPropertyGenerator(
-    chatID.type.value,
-    [chatID.maxlength.value, chatID.maxlength.error.message],
-    [chatID.minlength.value, chatID.minlength.error.message],
-    [chatID.required.value, chatID.required.error.message],
+    commonChatIDModel.type.value,
+    [
+      commonChatIDModel.maxlength.value,
+      commonChatIDModel.maxlength.error.message,
+    ],
+    [
+      commonChatIDModel.minlength.value,
+      commonChatIDModel.minlength.error.message,
+    ],
+    [
+      commonChatIDModel.required.value,
+      commonChatIDModel.required.error.message,
+    ],
     null,
-    chatID.trim.value
+    commonChatIDModel.trim.value
   ),
   countryCode: mongooseSchemaPropertyGenerator(
     countryCode.type.value,
@@ -77,11 +87,14 @@ const user = {
     lastName.trim.value,
     lastName.default.value
   ),
-  lastMessage: mongooseSchemaPropertyGenerator(
-    message.type.value,
-    [message.minlength.value, firstName.minlength.error.message],
-    [message.maxlength.value, message.maxlength.error.message]
-  ),
+  // lastMessage: mongooseSchemaPropertyGenerator(
+  //   commonMessageIdModel.type.value,
+  //   [commonMessageIdModel.minlength.value, firstName.minlength.error.message],
+  //   [
+  //     commonMessageIdModel.maxlength.value,
+  //     commonMessageIdModel.maxlength.error.message,
+  //   ]
+  // ),
   phoneNumber: mongooseSchemaPropertyGenerator(
     phoneNumber.type.value,
     [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],

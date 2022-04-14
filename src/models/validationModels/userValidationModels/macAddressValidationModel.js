@@ -4,7 +4,7 @@ const {
       macAddressModel: { properties: macAddress },
     },
   },
-} = require("~/models/userModels/user.model");
+} = require("~/models/userModels/userModel");
 
 const macAddressValidationModel = {
   properties: {

@@ -2,7 +2,7 @@ const {
   chatModel: {
     participantID: { properties: participantID },
   },
-} = require("~/models/chatModels/chat.model");
+} = require("~/models/chatModels/chatModel");
 
 const participantIDValidationModel = {
   properties: {

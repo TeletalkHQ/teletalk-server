@@ -1,21 +1,21 @@
-const { userFinder } = require("~/functions/helpers/userFinder");
 const { randomID } = require("~/functions/utilities/randomID");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { errorThrower } = require("~/functions/utilities/utils");
 
-const { UserModel } = require("~/models/userModels/user.mongo");
+const { UserModel } = require("~/models/userModels/userMongoModel");
 const { clients } = require("~/functions/tools/Clients");
 const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 
-const { userModel } = require("~/models/userModels/user.model");
 const {
   firstNameValidator,
 } = require("~/validators/userValidators/firstNameValidator");
 const {
   lastNameValidator,
 } = require("~/validators/userValidators/lastNameValidator");
+const { commonModel } = require("~/models/commonModels/commonModel");
+const { userFinder } = require("~/models/userModels/userModelFunctions");
 
 const createNewUserUserController = async (
   req = expressRequest,
@@ -78,7 +78,7 @@ const createNewUserUserController = async (
       });
     } else if (!user) {
       const privateID = randomID(
-        userModel.privateIDModel.properties.maxlength.value
+        commonModel.properties.commonPrivateIDModel.properties.maxlength.value
       );
 
       const token = await tokenSigner({

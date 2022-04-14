@@ -7,7 +7,7 @@ const { randomID } = require("~/functions/utilities/randomID");
 
 const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
 
-const { chatModel } = require("~/models/chatModels/chat.model");
+const { chatModel } = require("~/models/chatModels/chatModel");
 const { errorThrower } = require("~/functions/utilities/utils");
 
 const startChatPrivateChatController = async (
@@ -33,7 +33,7 @@ const startChatPrivateChatController = async (
 
     errorThrower(chat, chatErrorTemplate.CHAT_EXIST);
 
-    const chatID = randomID(chatModel.chatID.maxlength.value);
+    const chatID = randomID(chatModel.chatIdModel.maxlength.value);
 
     const privateChat = new PrivateChatModel({
       chatID,

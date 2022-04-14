@@ -1,5 +1,7 @@
 const { getMethodFromRoute } = require("~/functions/utilities/utils");
-const { addContactToUserBlacklist } = require("~/models/userModels/user.model");
+const {
+  addContactToUserBlacklist,
+} = require("~/models/userModels/userModelFunctions");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
 const addBlockCellphoneController = async (

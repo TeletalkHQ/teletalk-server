@@ -4,7 +4,7 @@ const {
       bioModel: { properties: bio },
     },
   },
-} = require("~/models/userModels/user.model");
+} = require("~/models/userModels/userModel");
 
 const bioValidationsModel = {
   properties: {

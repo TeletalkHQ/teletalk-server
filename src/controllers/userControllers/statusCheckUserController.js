@@ -1,4 +1,3 @@
-const { userFinder } = require("~/functions/helpers/userFinder");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 
 const {
@@ -10,6 +9,7 @@ const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 
 const { ioFunctions } = require("~/socket/io");
 const { errorThrower } = require("~/functions/utilities/utils");
+const { userFinder } = require("~/models/userModels/userModelFunctions");
 
 const statusCheckUserController = async (
   req = expressRequest,

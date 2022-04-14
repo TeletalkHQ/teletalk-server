@@ -1,18 +1,10 @@
-const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
 const {
   modelPropertyGenerator,
   modelGenerator,
 } = require("~/functions/utilities/generators");
 const { skipParams } = require("~/functions/utilities/utils");
-const { errorThrower } = require("~/functions/utilities/utils");
 
-const { commonModel } = require("~/models/commonModels/common.model");
-
-const { UserModel } = require("~/models/userModels/user.mongo");
-
-const {
-  initialOptions,
-} = require("~/variables/constants/initialOptions/initialOptions");
+const { commonModel } = require("~/models/commonModels/commonModel");
 
 const {
   userErrorTemplate: {
@@ -46,11 +38,7 @@ const {
     PHONE_NUMBER_MAXLENGTH_REACH: { properties: PHONE_NUMBER_MAXLENGTH_REACH },
     PHONE_NUMBER_MINLENGTH_REACH: { properties: PHONE_NUMBER_MINLENGTH_REACH },
     PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
-    PRIVATE_ID_EXIST: { properties: PRIVATE_ID_EXIST },
-    PRIVATE_ID_INVALID_TYPE: { properties: PRIVATE_ID_INVALID_TYPE },
-    PRIVATE_ID_MAX_LENGTH_REACH: { properties: PRIVATE_ID_MAX_LENGTH_REACH },
-    PRIVATE_ID_MIN_LENGTH_REACH: { properties: PRIVATE_ID_MIN_LENGTH_REACH },
-    PRIVATE_ID_REQUIRED: { properties: PRIVATE_ID_REQUIRED },
+
     TOKEN_EXIST: { properties: TOKEN_EXIST },
     TOKEN_INVALID_TYPE: { properties: TOKEN_INVALID_TYPE },
     TOKEN_REQUIRED: { properties: TOKEN_REQUIRED },
@@ -65,10 +53,7 @@ const {
       properties: VERIFICATION_CODE_INVALID_TYPE,
     },
   },
-  userErrorTemplate,
 } = require("~/variables/errors/userErrorTemplate");
-
-const { userInitialOptions } = initialOptions;
 
 const bioModel = modelGenerator(
   modelPropertyGenerator(255, BIO_MAXLENGTH_REACH),
@@ -120,7 +105,8 @@ const countryNameModel = modelGenerator(
   "1.0.0"
 );
 
-const createdAtModel = commonModel.createdAt;
+const createdAtModel = commonModel.properties.commonCreatedAtModel;
+const privateIdModel = commonModel.properties.commonPrivateIDModel;
 
 const firstNameModel = modelGenerator(
   modelPropertyGenerator(18, FIRST_NAME_MAXLENGTH_REACH),
@@ -166,17 +152,6 @@ const phoneNumberModel = modelGenerator(
   "1.0.0"
 );
 
-const privateIDModel = modelGenerator(
-  modelPropertyGenerator(35, PRIVATE_ID_MAX_LENGTH_REACH),
-  modelPropertyGenerator(30, PRIVATE_ID_MIN_LENGTH_REACH),
-  modelPropertyGenerator(true, PRIVATE_ID_REQUIRED),
-  modelPropertyGenerator(true),
-  modelPropertyGenerator("string", PRIVATE_ID_INVALID_TYPE),
-  modelPropertyGenerator(true, PRIVATE_ID_EXIST),
-  null,
-  "1.0.0"
-);
-
 const tokenModel = modelGenerator(
   ...skipParams(2),
   modelPropertyGenerator(true, TOKEN_REQUIRED),
@@ -209,187 +184,6 @@ const verificationCodeModel = modelGenerator(
   modelPropertyGenerator(6, VERIFICATION_CODE_INVALID_LENGTH)
 );
 
-const userFinder = async (
-  userData = initialOptions,
-  findMethod = "findOne"
-) => {
-  try {
-    errorThrower(!userData, "You should send me data to find your target");
-
-    return await UserModel[findMethod]({
-      ...userData,
-    });
-  } catch (error) {
-    logger.log("userFinder catch", error);
-    errorThrower(error, error);
-  }
-};
-
-const addContactToUserBlacklist = async (
-  currentUserData = userInitialOptions,
-  targetUserData = userInitialOptions
-) => {
-  try {
-    const currentUser = await userFinder(currentUserData);
-    errorThrower(currentUser === null, {
-      ...targetUserData,
-      ...userErrorTemplate.USER_NOT_EXIST,
-    });
-
-    const { cellphone: existBlacklistItem } = cellphoneFinder(
-      currentUser.blacklist,
-      targetUserData
-    );
-    errorThrower(existBlacklistItem, {
-      ...targetUserData,
-      ...userErrorTemplate.BLACKLIST_ITEM_EXIST,
-    });
-
-    const targetUser = await userFinder(targetUserData);
-    errorThrower(targetUser === null, {
-      ...targetUserData,
-      ...userErrorTemplate.TARGET_USER_NOT_EXIST,
-    });
-
-    const blacklistItem = {
-      phoneNumber: targetUserData.phoneNumber,
-      countryCode: targetUserData.countryCode,
-      countryName: targetUserData.countryName,
-    };
-    currentUser.blacklist.push(blacklistItem);
-    await UserModel.updateOne({
-      blacklist: currentUser.blacklist,
-    });
-  } catch (error) {
-    logger.log("addContactToUserBlacklist catch, error", error);
-    throw error;
-  }
-};
-
-const addContactToUserContacts = async (
-  currentUserData = userInitialOptions,
-  targetUserData = userInitialOptions
-) => {
-  const currentUser = await userFinder(currentUserData);
-  errorThrower(currentUser === null, {
-    ...targetUserData,
-    ...userErrorTemplate.USER_NOT_EXIST,
-  });
-
-  const { cellphone: existContactItem } = cellphoneFinder(
-    currentUser.contacts,
-    targetUserData
-  );
-  errorThrower(existContactItem, {
-    ...targetUserData,
-    ...userErrorTemplate.CONTACT_ITEM_EXIST,
-  });
-
-  const targetUser = await userFinder(targetUserData);
-  errorThrower(targetUser === null, {
-    ...targetUserData,
-    ...userErrorTemplate.TARGET_USER_NOT_EXIST,
-  });
-
-  currentUser.contacts.push({
-    countryCode: targetUserData.countryCode,
-    countryName: targetUserData.countryName,
-    firstName: targetUserData.firstName,
-    lastName: targetUserData.lastName,
-    phoneNumber: targetUserData.phoneNumber,
-    privateID: targetUser.privateID,
-  });
-
-  await currentUser.updateOne({
-    contacts: currentUser.contacts,
-  });
-
-  return { targetUser };
-};
-
-const updateOneContact = async (
-  currentUserData = userInitialOptions,
-  targetUserData = userInitialOptions,
-  editedValues
-) => {
-  try {
-    const currentUser = await userFinder(currentUserData);
-    errorThrower(!currentUser, userErrorTemplate.USER_NOT_EXIST);
-
-    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
-      currentUser.contacts,
-      targetUserData
-    );
-    errorThrower(!contactItem, userErrorTemplate.CONTACT_ITEM_NOT_EXIST);
-
-    currentUser.contacts.splice(cellphoneIndex, 1, {
-      ...targetUserData,
-      firstName: editedValues.firstName,
-      lastName: editedValues.lastName,
-    });
-    await currentUser.updateOne({
-      contacts: currentUserData.contacts,
-    });
-
-    return { currentUser };
-  } catch (error) {
-    logger.log("updateOneContact catch, error:", error);
-    throw error;
-  }
-};
-
-const getUserContacts = async (currentUserData = userInitialOptions) => {
-  try {
-    const currentUser = await userFinder(currentUserData);
-    errorThrower(!currentUser, userErrorTemplate.USER_NOT_EXIST);
-
-    return currentUser.contacts;
-  } catch (error) {
-    logger.log("getUserContacts catch, error:", error);
-  }
-};
-
-const deleteBlacklistItem = async (currentUserData, targetUserData) => {
-  const currentUser = userFinder(currentUserData);
-  errorThrower(!currentUser, userErrorTemplate.USER_NOT_EXIST);
-
-  const { cellphone: blacklistItem, cellphoneIndex } = cellphoneFinder(
-    currentUser.blacklist,
-    targetUserData
-  );
-  errorThrower(!blacklistItem, userErrorTemplate.BLACKLIST_ITEM_NOT_EXIST);
-
-  currentUser.blacklist.splice(cellphoneIndex, 1);
-
-  await currentUser.updateOne({
-    blacklist: currentUser.blacklist,
-  });
-};
-
-const removeContactItem = async (
-  currentUserData = userInitialOptions,
-  targetUserData = userInitialOptions
-) => {
-  try {
-    const currentUser = userFinder(currentUserData);
-    errorThrower(!currentUser, userErrorTemplate.USER_NOT_EXIST);
-
-    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
-      currentUser.contacts,
-      targetUserData
-    );
-    errorThrower(!contactItem, userErrorTemplate.CELLPHONE_NOT_EXIST);
-
-    currentUser.contacts.splice(cellphoneIndex, 1);
-    await currentUser.updateOne({
-      contacts: currentUser.contacts,
-    });
-  } catch (error) {
-    logger.log("removeContactItem catch, error:", error);
-    throw error;
-  }
-};
-
 const userModel = {
   info: {
     version: "1.0.0",
@@ -406,22 +200,13 @@ const userModel = {
     lastNameModel,
     macAddressModel,
     phoneNumberModel,
-    privateIDModel,
+    privateIdModel,
     tokenModel,
     usernameModel,
     verificationCodeModel,
   },
 };
 
-console.log(userModel);
-
 module.exports = {
   userModel,
-
-  addContactToUserBlacklist,
-  addContactToUserContacts,
-  updateOneContact,
-  getUserContacts,
-  deleteBlacklistItem,
-  removeContactItem,
 };

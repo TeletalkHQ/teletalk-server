@@ -1,5 +1,5 @@
 const { getMethodFromRoute } = require("~/functions/utilities/utils");
-const { updateOneContact } = require("~/models/userModels/user.model");
+const { updateOneContact } = require("~/models/userModels/userModelFunctions");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
 const editContactCellphoneController = async (

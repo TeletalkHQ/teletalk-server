@@ -4,7 +4,7 @@ const {
       countryCodeModel: { properties: countryCode },
     },
   },
-} = require("~/models/userModels/user.model");
+} = require("~/models/userModels/userModel");
 
 const countryCodeValidationModel = {
   properties: {

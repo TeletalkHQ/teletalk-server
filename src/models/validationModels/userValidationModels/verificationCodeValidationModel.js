@@ -4,7 +4,7 @@ const {
       verificationCodeModel: { properties: verificationCode },
     },
   },
-} = require("~/models/userModels/user.model");
+} = require("~/models/userModels/userModel");
 
 const verificationCodeValidationModel = {
   properties: {

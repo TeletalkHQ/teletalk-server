@@ -7,13 +7,13 @@ const {
 
 const {
   chatModel: {
-    chatID: { properties: chatID },
-    createdAt: { properties: createdAt },
-    messageID: { properties: messageID },
+    chatIdModel: { properties: chatID },
+    createdAtModel: { properties: createdAt },
+    messageIdModel: { properties: messageID },
     message: { properties: message },
     participantID: { properties: participantID },
   },
-} = require("~/models/chatModels/chat.model");
+} = require("~/models/chatModels/chatModel");
 
 // uniqueValidator.defaults.message = "{PATH}_exist";
 // uniqueValidator.defaults.type = "mongoose-unique-validator";

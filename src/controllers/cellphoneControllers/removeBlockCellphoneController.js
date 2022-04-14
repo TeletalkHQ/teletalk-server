@@ -1,4 +1,6 @@
-const { deleteBlacklistItem } = require("~/models/userModels/user.model");
+const {
+  deleteBlacklistItem,
+} = require("~/models/userModels/userModelFunctions");
 
 const removeBlockCellphoneController = async (
   req = expressRequest,

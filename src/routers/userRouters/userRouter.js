@@ -51,7 +51,7 @@ userRouter[createNewUser.method](
   createNewUserUserController
 );
 
-//TODO Move it to otherRoute
+// //TODO Move it to otherRouter
 userRouter[countries.method](countries.url, countriesUserController);
 
 //* sign out normal =>

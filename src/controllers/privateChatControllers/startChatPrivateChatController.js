@@ -1,9 +1,9 @@
 //!DEPRECATED
 
+const { randomID } = require("~/functions/utilities/randomID");
+
 const { chatErrorTemplate } = require("~/variables/errors/chatErrorTemplate");
 const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
-const { userFinder } = require("~/functions/helpers/userFinder");
-const { randomID } = require("~/functions/utilities/randomID");
 
 const {
   PrivateChatMongoModel,
@@ -15,6 +15,7 @@ const {
   },
 } = require("~/models/chatModels/chatModel");
 const { errorThrower } = require("~/functions/utilities/utils");
+const { userFinder } = require("~/models/userModels/userModelFunctions");
 
 const startChatPrivateChatController = async (
   req = expressRequest,

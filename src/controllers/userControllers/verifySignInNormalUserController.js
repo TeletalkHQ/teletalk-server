@@ -16,6 +16,8 @@ const verifySignInNormalUserController = async (
     const {
       body: { verificationCode },
     } = req;
+
+    console.log(clients.aliveClients);
     const verifyToken = req.headers.authorization?.split("Bearer ")[1];
     errorThrower(!verifyToken, userErrorTemplate.TOKEN_REQUIRED);
     const tokenData = await tokenVerifier(

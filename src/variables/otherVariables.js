@@ -1,9 +1,9 @@
 const {
   chatIdValidationModel: chatIDValidationModel,
-} = require("~/models/validationModels/chatValidationModels/chatIDValidationModel");
+} = require("~/models/validationModels/chatValidationModels/chatIdValidationModel");
 const {
   messageIdValidationModel: messageIDValidationModel,
-} = require("~/models/validationModels/chatValidationModels/messageIDValidationModel");
+} = require("~/models/validationModels/chatValidationModels/messageIdValidationModel");
 const {
   messageTextValidationModel,
 } = require("~/models/validationModels/chatValidationModels/messageTextValidationModel");

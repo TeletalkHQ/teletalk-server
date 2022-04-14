@@ -62,7 +62,7 @@ const ignoreMiddlewaresByUrl = (url, ...middlewares) => {
 
     return async (req, res, next) => {
       errorThrower(
-        isFunction(req, res, next),
+        !isFunction(res?.json, next),
         "You need to pass this tree item: [req, res, next]"
       );
 

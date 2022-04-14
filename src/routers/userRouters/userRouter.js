@@ -38,7 +38,6 @@ const {
 
 userRouter.use(signInNormal.url, cellphoneValidatorMiddleware);
 
-userRouter[logoutNormal.method](logoutNormal.url, logoutNormalUserController);
 userRouter[signInNormal.method](signInNormal.url, signInNormalUserController);
 userRouter[verifySignInNormal.method](
   verifySignInNormal.url,
@@ -54,8 +53,7 @@ userRouter[createNewUser.method](
 // //TODO Move it to otherRouter
 userRouter[countries.method](countries.url, countriesUserController);
 
-//* sign out normal =>
-//
-//* sign out anonymous =>
-//
+userRouter[logoutNormal.method](logoutNormal.url, logoutNormalUserController);
+//* logout anonymous =>
+
 module.exports = { userRouter };

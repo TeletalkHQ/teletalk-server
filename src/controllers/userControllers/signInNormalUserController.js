@@ -48,11 +48,11 @@ const signInNormalUserController = async (
     if (client) {
       client.verificationCode = randomPassword;
     } else {
-      // clients.addClient({
-      //   token,
-      //   verificationCode: randomPassword,
-      //   ...cellphone,
-      // });
+      clients.addClient({
+        token,
+        verificationCode: randomPassword,
+        ...cellphone,
+      });
     }
 
     logger.log(randomPassword);

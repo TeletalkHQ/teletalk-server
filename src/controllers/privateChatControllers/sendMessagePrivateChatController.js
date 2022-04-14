@@ -13,9 +13,9 @@ const {
   },
 } = require("~/models/chatModels/chatModel");
 
-const { userFinder } = require("~/functions/helpers/userFinder");
 const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
 const { errorThrower } = require("~/functions/utilities/utils");
+const { userFinder } = require("~/models/userModels/userModelFunctions");
 
 const sendMessagePrivateChatController = async (
   req = expressRequest,

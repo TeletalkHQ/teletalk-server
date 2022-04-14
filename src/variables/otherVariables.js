@@ -1,15 +1,15 @@
 const {
-  chatIDValidationModel,
+  chatIdValidationModel: chatIDValidationModel,
 } = require("~/models/validationModels/chatValidationModels/chatIDValidationModel");
 const {
-  messageIDValidationModel,
+  messageIdValidationModel: messageIDValidationModel,
 } = require("~/models/validationModels/chatValidationModels/messageIDValidationModel");
 const {
   messageTextValidationModel,
 } = require("~/models/validationModels/chatValidationModels/messageTextValidationModel");
 const {
-  participantIDValidationModel,
-} = require("~/models/validationModels/chatValidationModels/participantIDValidationModel");
+  participantIdValidationModel,
+} = require("~/models/validationModels/chatValidationModels/participantIdValidationModel");
 const {
   createdAtValidationModel,
 } = require("~/models/validationModels/commonValidationModels/createdAtValidationModel");
@@ -88,7 +88,7 @@ const validationSchemas = {
   macAddressValidationModel,
   messageIDValidationModel,
   messageTextValidationModel,
-  participantIDValidationModel,
+  participantIdValidationModel,
   phoneNumberValidationModel,
   privateIDValidationModel,
   usernameValidationModel,

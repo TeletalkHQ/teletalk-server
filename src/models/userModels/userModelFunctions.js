@@ -1,7 +1,7 @@
 const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
 const { errorThrower } = require("~/functions/utilities/utils");
 
-const { UserModel } = require("~/models/userModels/userMongoModel");
+const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 
 const {
   initialOptions: { userInitialOptions },
@@ -25,7 +25,7 @@ const userFinder = async (
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    return await UserModel[findMethod]({
+    return await UserMongoModel[findMethod]({
       ...userData,
     });
   } catch (error) {
@@ -66,7 +66,7 @@ const addContactToUserBlacklist = async (
       countryName: targetUserData.countryName,
     };
     currentUser.blacklist.push(blacklistItem);
-    await UserModel.updateOne({
+    await UserMongoModel.updateOne({
       blacklist: currentUser.blacklist,
     });
   } catch (error) {

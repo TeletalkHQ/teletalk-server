@@ -1,8 +1,17 @@
 const { randomID } = require("~/functions/utilities/randomID");
 
-const { PrivateChatModel } = require("~/models/chatModels/privateChat.mongo");
+const {
+  PrivateChatModel,
+} = require("~/models/chatModels/privateChatMongoModel");
 
-const { chatModel } = require("~/models/chatModels/chatModel");
+const {
+  chatModel: {
+    properties: {
+      messageIdModel: { properties: messageIdModel },
+      chatIdModel: { properties: chatIdModel },
+    },
+  },
+} = require("~/models/chatModels/chatModel");
 
 const { userFinder } = require("~/functions/helpers/userFinder");
 const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
@@ -18,7 +27,7 @@ const sendMessagePrivateChatController = async (
       body: { participantID, message },
     } = req;
 
-    // const chatFromUser = user.chats.find((chat) => chat.chatID === chatID);
+    // const chatFromUser = user.chats.find((chat) => chat.chatId === chatId);
 
     // if (!chatFromUser) {
     // 	const error = chatErrorTemplate.CHAT_NOT_EXIST;
@@ -35,11 +44,11 @@ const sendMessagePrivateChatController = async (
       },
     });
 
-    let chatID = chat?.chatID;
+    let chatId = chat?.chatId;
 
     const newMessage = {
       message,
-      messageID: randomID(chatModel.messageIdModel.properties.maxlength.value),
+      messageId: randomID(messageIdModel.maxlength.value),
       messageSender: { senderID: user.privateID },
     };
 
@@ -47,10 +56,10 @@ const sendMessagePrivateChatController = async (
       // const error = chatErrorTemplate.CHAT_NOT_EXIST;
       // throw error;
 
-      chatID = randomID(chatModel.chatIdModel.properties.maxlength.value);
+      chatId = randomID(chatIdModel.maxlength.value);
 
       const privateChat = new PrivateChatModel({
-        chatID,
+        chatId,
         participants: [
           { participantID: user.privateID },
           { participantID: targetUser.privateID },
@@ -60,15 +69,15 @@ const sendMessagePrivateChatController = async (
 
       await privateChat.save();
 
-      await user.updateOne({ chats: { chatID } });
-      await targetUser.updateOne({ chats: { chatID } });
-      res.status(200).send({ newMessage, chatID });
+      await user.updateOne({ chats: { chatId } });
+      await targetUser.updateOne({ chats: { chatId } });
+      res.status(200).send({ newMessage, chatId });
     } else if (chat) {
       chat.messages.push(newMessage);
 
       await chat.updateOne({ messages: chat.messages });
 
-      res.status(200).send({ newMessage, chatID });
+      res.status(200).send({ newMessage, chatId });
     }
 
     // const checkParticipant = chat.participants.find(

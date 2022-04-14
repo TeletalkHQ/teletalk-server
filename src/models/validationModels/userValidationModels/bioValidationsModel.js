@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      bioModel: { properties: bio },
+      bioModel: { properties: bioModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,12 +9,12 @@ const {
 const bioValidationsModel = {
   properties: {
     bio: {
-      type: bio.type.value,
-      optional: !bio.required.value,
-      max: bio.maxlength.value,
+      type: bioModel.type.value,
+      optional: !bioModel.required.value,
+      max: bioModel.maxlength.value,
       messages: {
-        string: bio.type.error.message,
-        stringMax: bio.maxlength.error.message,
+        string: bioModel.type.error.message,
+        stringMax: bioModel.maxlength.error.message,
       },
     },
   },

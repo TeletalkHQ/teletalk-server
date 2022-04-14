@@ -9,15 +9,15 @@ const { skipParams } = require("~/functions/utilities/utils");
 const {
   userModel: {
     properties: {
-      bioModel: { properties: bio },
-      countryCodeModel: { properties: countryCode },
-      countryNameModel: { properties: countryName },
-      createdAtModel: { properties: createdAt },
-      firstNameModel: { properties: firstName },
-      lastNameModel: { properties: lastName },
-      phoneNumberModel: { properties: phoneNumber },
-      tokenModel: { properties: token },
-      usernameModel: { properties: username },
+      bioModel: { properties: bioModel },
+      countryCodeModel: { properties: countryCodeModel },
+      countryNameModel: { properties: countryNameModel },
+      createdAtModel: { properties: createdAtModel },
+      firstNameModel: { properties: firstNameModel },
+      lastNameModel: { properties: lastNameModel },
+      phoneNumberModel: { properties: phoneNumberModel },
+      tokenModel: { properties: tokenModel },
+      usernameModel: { properties: usernameModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -25,9 +25,9 @@ const {
 const {
   commonModel: {
     properties: {
-      commonPrivateIDModel: { properties: privateID },
-      commonChatIDModel: { properties: commonChatIDModel },
-      // commonMessageIdModel: { properties: commonMessageIdModel },
+      commonPrivateIdModel: { properties: commonPrivateIdModel },
+      commonChatIdModel: { properties: commonChatIdModel },
+      commonMessageIdModel: { properties: commonMessageIdModel },
     },
   },
 } = require("~/models/commonModels/commonModel");
@@ -35,93 +35,123 @@ const {
 uniqueValidator.defaults.message = "{PATH}_exist";
 
 const user = {
-  bio: mongooseSchemaPropertyGenerator(bio.type.value, [
-    bio.maxlength.value,
-    bio.maxlength.error.message,
+  bio: mongooseSchemaPropertyGenerator(bioModel.type.value, [
+    bioModel.maxlength.value,
+    bioModel.maxlength.error.message,
   ]),
 
-  chatID: mongooseSchemaPropertyGenerator(
-    commonChatIDModel.type.value,
+  chatId: mongooseSchemaPropertyGenerator(
+    commonChatIdModel.type.value,
     [
-      commonChatIDModel.maxlength.value,
-      commonChatIDModel.maxlength.error.message,
+      commonChatIdModel.maxlength.value,
+      commonChatIdModel.maxlength.error.message,
     ],
     [
-      commonChatIDModel.minlength.value,
-      commonChatIDModel.minlength.error.message,
+      commonChatIdModel.minlength.value,
+      commonChatIdModel.minlength.error.message,
     ],
     [
-      commonChatIDModel.required.value,
-      commonChatIDModel.required.error.message,
+      commonChatIdModel.required.value,
+      commonChatIdModel.required.error.message,
     ],
     null,
-    commonChatIDModel.trim.value
+    commonChatIdModel.trim.value
   ),
   countryCode: mongooseSchemaPropertyGenerator(
-    countryCode.type.value,
-    [countryCode.maxlength.value, countryCode.maxlength.error.message],
-    [countryCode.minlength.value, countryCode.minlength.error.message],
-    [countryCode.required.value, countryCode.required.error.message]
+    countryCodeModel.type.value,
+    [
+      countryCodeModel.maxlength.value,
+      countryCodeModel.maxlength.error.message,
+    ],
+    [
+      countryCodeModel.minlength.value,
+      countryCodeModel.minlength.error.message,
+    ],
+    [countryCodeModel.required.value, countryCodeModel.required.error.message]
   ),
   countryName: mongooseSchemaPropertyGenerator(
-    countryName.type.value,
-    [countryName.maxlength.value, countryName.maxlength.error.message],
-    [countryName.minlength.value, countryName.minlength.error.message],
-    [countryName.required.value, countryName.required.error.message]
+    countryNameModel.type.value,
+    [
+      countryNameModel.maxlength.value,
+      countryNameModel.maxlength.error.message,
+    ],
+    [
+      countryNameModel.minlength.value,
+      countryNameModel.minlength.error.message,
+    ],
+    [countryNameModel.required.value, countryNameModel.required.error.message]
   ),
   createdAt: mongooseSchemaPropertyGenerator(
-    createdAt.type.value,
+    createdAtModel.type.value,
     ...skipParams(5),
-    createdAt.default.value
+    createdAtModel.default.value
   ),
   firstName: mongooseSchemaPropertyGenerator(
-    firstName.type.value,
-    [firstName.maxlength.value, firstName.maxlength.error.message],
-    [firstName.minlength.value, firstName.minlength.error.message],
-    [firstName.required.value, firstName.required.error.message]
+    firstNameModel.type.value,
+    [firstNameModel.maxlength.value, firstNameModel.maxlength.error.message],
+    [firstNameModel.minlength.value, firstNameModel.minlength.error.message],
+    [firstNameModel.required.value, firstNameModel.required.error.message]
   ),
   lastName: mongooseSchemaPropertyGenerator(
-    lastName.type.value,
-    [lastName.maxlength.value, lastName.maxlength.error.message],
+    lastNameModel.type.value,
+    [lastNameModel.maxlength.value, lastNameModel.maxlength.error.message],
     ...skipParams(3),
-    lastName.trim.value,
-    lastName.default.value
+    lastNameModel.trim.value,
+    lastNameModel.default.value
   ),
-  // lastMessage: mongooseSchemaPropertyGenerator(
-  //   commonMessageIdModel.type.value,
-  //   [commonMessageIdModel.minlength.value, firstName.minlength.error.message],
-  //   [
-  //     commonMessageIdModel.maxlength.value,
-  //     commonMessageIdModel.maxlength.error.message,
-  //   ]
-  // ),
+  lastMessage: mongooseSchemaPropertyGenerator(
+    commonMessageIdModel.type.value,
+    [
+      commonMessageIdModel.minlength.value,
+      commonMessageIdModel.minlength.error.message,
+    ],
+    [
+      commonMessageIdModel.maxlength.value,
+      commonMessageIdModel.maxlength.error.message,
+    ]
+  ),
   phoneNumber: mongooseSchemaPropertyGenerator(
-    phoneNumber.type.value,
-    [phoneNumber.maxlength.value, phoneNumber.maxlength.error.message],
-    [phoneNumber.minlength.value, phoneNumber.minlength.error.message],
-    [phoneNumber.required.value, phoneNumber.required.error.message]
+    phoneNumberModel.type.value,
+    [
+      phoneNumberModel.maxlength.value,
+      phoneNumberModel.maxlength.error.message,
+    ],
+    [
+      phoneNumberModel.minlength.value,
+      phoneNumberModel.minlength.error.message,
+    ],
+    [phoneNumberModel.required.value, phoneNumberModel.required.error.message]
   ),
   privateID: mongooseSchemaPropertyGenerator(
-    privateID.type.value,
-    [privateID.maxlength.value, privateID.maxlength.error.message],
-    [privateID.minlength.value, privateID.minlength.error.message],
-    [privateID.required.value, privateID.required.error.message],
-    privateID.unique.value,
-    privateID.trim.value
+    commonPrivateIdModel.type.value,
+    [
+      commonPrivateIdModel.maxlength.value,
+      commonPrivateIdModel.maxlength.error.message,
+    ],
+    [
+      commonPrivateIdModel.minlength.value,
+      commonPrivateIdModel.minlength.error.message,
+    ],
+    [
+      commonPrivateIdModel.required.value,
+      commonPrivateIdModel.required.error.message,
+    ],
+    commonPrivateIdModel.unique.value,
+    commonPrivateIdModel.trim.value
   ),
   token: mongooseSchemaPropertyGenerator(
-    token.type.value,
+    tokenModel.type.value,
     ...skipParams(2),
-    [token.required.value, token.required.error.message],
-    token.unique.value
+    [tokenModel.required.value, tokenModel.required.error.message],
+    tokenModel.unique.value
   ),
   username: mongooseSchemaPropertyGenerator(
-    username.type.value,
-    [username.maxlength.value, username.maxlength.error.message],
+    usernameModel.type.value,
+    [usernameModel.maxlength.value, usernameModel.maxlength.error.message],
     ...skipParams(3),
-    username.trim.value,
-    username.default.value,
-    username.lowercase.value
+    usernameModel.trim.value,
+    usernameModel.default.value,
+    usernameModel.lowercase.value
     // validate: {
     // 	validator: function (value) {
     // 		return /^[a-z\s]{0,255}$/i.test(value);
@@ -144,7 +174,7 @@ const UserSchema = new mongoose.Schema({
     },
   ],
 
-  chats: [{ chatID: user.chatID }],
+  chats: [{ chatId: user.chatId }],
 
   contacts: [
     {
@@ -200,6 +230,6 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(uniqueValidator);
 
-const UserModel = mongoose.model("User", UserSchema, "users");
+const UserMongoModel = mongoose.model("User", UserSchema, "users");
 
-module.exports = { UserModel };
+module.exports = { UserMongoModel };

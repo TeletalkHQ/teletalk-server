@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      phoneNumberModel: { properties: phoneNumber },
+      phoneNumberModel: { properties: phoneNumberModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,16 +9,16 @@ const {
 const phoneNumberValidationModel = {
   properties: {
     phoneNumber: {
-      type: phoneNumber.type.value,
+      type: phoneNumberModel.type.value,
       // unique: phoneNumber.unique.value,
-      min: phoneNumber.minlength.value,
-      max: phoneNumber.maxlength.value,
+      min: phoneNumberModel.minlength.value,
+      max: phoneNumberModel.maxlength.value,
       messages: {
-        string: phoneNumber.type.error.message,
+        string: phoneNumberModel.type.error.message,
         // unique: phoneNumber.unique.error.message,
-        required: phoneNumber.required.error.message,
-        stringMin: phoneNumber.minlength.error.message,
-        stringMax: phoneNumber.maxlength.error.message,
+        required: phoneNumberModel.required.error.message,
+        stringMin: phoneNumberModel.minlength.error.message,
+        stringMax: phoneNumberModel.maxlength.error.message,
       },
     },
   },

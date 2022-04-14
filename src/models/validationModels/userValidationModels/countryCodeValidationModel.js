@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      countryCodeModel: { properties: countryCode },
+      countryCodeModel: { properties: countryCodeModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,15 +9,15 @@ const {
 const countryCodeValidationModel = {
   properties: {
     countryCode: {
-      type: countryCode.type.value,
-      min: countryCode.minlength.value,
-      max: countryCode.maxlength.value,
-      trim: countryCode.trim.value,
+      type: countryCodeModel.type.value,
+      min: countryCodeModel.minlength.value,
+      max: countryCodeModel.maxlength.value,
+      trim: countryCodeModel.trim.value,
       messages: {
-        string: countryCode.type.error.message,
-        required: countryCode.required.error.message,
-        stringMin: countryCode.minlength.error.message,
-        stringMax: countryCode.maxlength.error.message,
+        string: countryCodeModel.type.error.message,
+        required: countryCodeModel.required.error.message,
+        stringMin: countryCodeModel.minlength.error.message,
+        stringMax: countryCodeModel.maxlength.error.message,
       },
     },
   },

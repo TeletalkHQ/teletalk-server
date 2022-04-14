@@ -1,23 +1,25 @@
 const {
   chatModel: {
-    participantID: { properties: participantID },
+    properties: {
+      participantIdModel: { properties: participantIdModel },
+    },
   },
 } = require("~/models/chatModels/chatModel");
 
-const participantIDValidationModel = {
+const participantIdValidationModel = {
   properties: {
-    participantID: {
-      type: participantID.type.value,
-      unique: participantID.unique.value,
-      min: participantID.minlength.value,
-      max: participantID.maxlength.value,
-      trim: participantID.trim.value,
+    participantId: {
+      type: participantIdModel.type.value,
+      unique: participantIdModel.unique.value,
+      min: participantIdModel.minlength.value,
+      max: participantIdModel.maxlength.value,
+      trim: participantIdModel.trim.value,
       messages: {
-        string: participantID.type.error.message,
-        required: participantID.required.error.message,
-        unique: participantID.unique.error.message,
-        stringMin: participantID.minlength.error.message,
-        stringMax: participantID.maxlength.error.message,
+        string: participantIdModel.type.error.message,
+        required: participantIdModel.required.error.message,
+        unique: participantIdModel.unique.error.message,
+        stringMin: participantIdModel.minlength.error.message,
+        stringMax: participantIdModel.maxlength.error.message,
       },
     },
   },
@@ -27,4 +29,4 @@ const participantIDValidationModel = {
   },
 };
 
-module.exports = { participantIDValidationModel };
+module.exports = { participantIdValidationModel };

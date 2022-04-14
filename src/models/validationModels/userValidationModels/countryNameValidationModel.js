@@ -1,7 +1,7 @@
 const {
   userModel: {
     properties: {
-      countryNameModel: { properties: countryName },
+      countryNameModel: { properties: countryNameModel },
     },
   },
 } = require("~/models/userModels/userModel");
@@ -9,14 +9,14 @@ const {
 const countryNameValidationModel = {
   properties: {
     countryName: {
-      type: countryName.type.value,
-      min: countryName.minlength.value,
-      max: countryName.maxlength.value,
+      type: countryNameModel.type.value,
+      min: countryNameModel.minlength.value,
+      max: countryNameModel.maxlength.value,
       messages: {
-        string: countryName.type.error.message,
-        required: countryName.required.error.message,
-        stringMin: countryName.minlength.error.message,
-        stringMax: countryName.maxlength.error.message,
+        string: countryNameModel.type.error.message,
+        required: countryNameModel.required.error.message,
+        stringMin: countryNameModel.minlength.error.message,
+        stringMax: countryNameModel.maxlength.error.message,
       },
     },
   },

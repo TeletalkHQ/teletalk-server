@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./src/server.js",
-    "dev": "cross-env NODE_ENV=development nodemon --trace-warnings ./src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
     "test": "jest test",
     "prepare": "husky install"
   },
@@ -62,6 +62,9 @@
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.0",
+    "eslint-plugin-mocha": "^10.0.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-security": "^1.4.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7",
     "mocha": "^9.2.2",
@@ -73,6 +76,10 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "type": "commonjs",
+  "engines": {
+    "node": ">=14.10.0"
   },
   "_moduleAliases": {
     "~": "./src"

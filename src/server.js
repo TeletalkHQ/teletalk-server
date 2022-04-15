@@ -52,7 +52,7 @@ const startServer = async () => {
 
     server.listen(EXACT_PORT, serverListenerCb);
   } catch (error) {
-    process.exit(1);
+    if (error) throw error;
   }
 };
 

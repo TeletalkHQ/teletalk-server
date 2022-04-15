@@ -55,8 +55,8 @@ const {
 const { chatModel } = require("~/models/chatModels/chatModel");
 const { commonModel } = require("~/models/commonModels/commonModel");
 const { userModel } = require("~/models/userModels/userModel");
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
-const { chatErrorTemplate } = require("~/variables/errors/chatErrorTemplate");
+const { userErrors } = require("~/variables/errors/userErrors");
+const { chatErrors } = require("~/variables/errors/chatErrors");
 
 const routerTemplates = {
   cellphoneRoutes,
@@ -73,8 +73,8 @@ const models = {
 };
 
 const errorTemplates = {
-  chatErrorTemplate,
-  userErrorTemplate,
+  chatErrors,
+  userErrors,
 };
 
 const validationSchemas = {

@@ -1,9 +1,12 @@
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
+const { otherRoutes } = require("~/variables/routes/otherRoutes");
+
 const welcomeOtherController = (
   req = expressRequest,
   res = expressResponse
 ) => {
   try {
-    res.status(200).json({
+    res.status(getStatusCodeFromRoute(otherRoutes.properties.welcome)).json({
       message: "Hey! Welcome to teletalk <3",
     });
   } catch (error) {

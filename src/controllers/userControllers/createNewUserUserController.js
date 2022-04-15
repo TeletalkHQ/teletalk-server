@@ -1,4 +1,4 @@
-const { randomID } = require("~/functions/utilities/randomID");
+const { randomId } = require("~/functions/utilities/randomId");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
@@ -6,7 +6,11 @@ const { errorThrower } = require("~/functions/utilities/utils");
 
 const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 const { clients } = require("~/functions/tools/Clients");
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
+const {
+  userErrors: {
+    properties: { TOKEN_REQUIRED, USER_NOT_EXIST },
+  },
+} = require("~/variables/errors/userErrors");
 
 const {
   firstNameValidator,
@@ -28,7 +32,7 @@ const createNewUserUserController = async (
 
     const verifyToken = req.headers.authorization?.split("Bearer ")[1];
 
-    errorThrower(!verifyToken, userErrorTemplate.TOKEN_REQUIRED);
+    errorThrower(!verifyToken, TOKEN_REQUIRED);
     const tokenData = await tokenVerifier(
       verifyToken,
       process.env.JWT_SIGN_IN_SECRET
@@ -58,7 +62,7 @@ const createNewUserUserController = async (
       }
     });
 
-    errorThrower(!client, userErrorTemplate.USER_NOT_EXIST);
+    errorThrower(!client, USER_NOT_EXIST);
 
     const user = await userFinder({ ...cellphone });
 
@@ -77,7 +81,7 @@ const createNewUserUserController = async (
         },
       });
     } else if (!user) {
-      const privateID = randomID(
+      const privateID = randomId(
         commonModel.properties.commonPrivateIdModel.properties.maxlength.value
       );
 

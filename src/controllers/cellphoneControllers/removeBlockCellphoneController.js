@@ -1,6 +1,8 @@
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
 const {
   deleteBlacklistItem,
 } = require("~/models/userModels/userModelFunctions");
+const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
 const removeBlockCellphoneController = async (
   req = expressRequest,
@@ -8,17 +10,19 @@ const removeBlockCellphoneController = async (
 ) => {
   try {
     const {
-      authData,
+      currentUser,
       body: { phoneNumber, countryCode, countryName },
     } = req;
 
     const targetUserData = { phoneNumber, countryCode, countryName };
 
-    await deleteBlacklistItem(authData.payload, targetUserData);
+    await deleteBlacklistItem(currentUser, targetUserData);
 
-    res.status(200).json({
-      removedBlockedCellphone: targetUserData,
-    });
+    res
+      .status(getStatusCodeFromRoute(cellphoneRoutes.properties.removeBlock))
+      .json({
+        removedBlockedCellphone: targetUserData,
+      });
   } catch (error) {
     res.errorCollector({ data: { error } });
     res.errorResponser();

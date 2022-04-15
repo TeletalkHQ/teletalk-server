@@ -3,7 +3,11 @@ const {
   isEqualWithTargetCellphone,
 } = require("~/functions/utilities/utils");
 
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
+const {
+  userErrors: {
+    properties: { SELF_STUFF },
+  },
+} = require("~/variables/errors/userErrors");
 
 const selfStuffControllerMiddleware = (req, res, next) => {
   try {
@@ -15,7 +19,7 @@ const selfStuffControllerMiddleware = (req, res, next) => {
 
     errorThrower(isEqualWithTargetCellphone(cellphone, targetCellphone), {
       ...targetCellphone,
-      ...userErrorTemplate.SELF_STUFF,
+      ...SELF_STUFF,
     });
 
     next();

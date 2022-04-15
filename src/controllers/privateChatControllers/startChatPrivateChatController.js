@@ -1,9 +1,19 @@
 //!DEPRECATED
+//!DEPRECATED
+//!DEPRECATED
 
-const { randomID } = require("~/functions/utilities/randomID");
+const { randomId } = require("~/functions/utilities/randomId");
 
-const { chatErrorTemplate } = require("~/variables/errors/chatErrorTemplate");
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
+const {
+  chatErrors: {
+    properties: { CHAT_EXIST },
+  },
+} = require("~/variables/errors/chatErrors");
+const {
+  userErrors: {
+    properties: { USER_NOT_EXIST },
+  },
+} = require("~/variables/errors/userErrors");
 
 const {
   PrivateChatMongoModel,
@@ -29,7 +39,7 @@ const startChatPrivateChatController = async (
 
     const targetUser = await userFinder({ privateID: targetUserID });
 
-    errorThrower(!targetUser, userErrorTemplate.USER_NOT_EXIST);
+    errorThrower(!targetUser, USER_NOT_EXIST);
 
     //TODO Use $and for test
     const chat = await PrivateChatMongoModel.findOne({
@@ -38,9 +48,9 @@ const startChatPrivateChatController = async (
       },
     });
 
-    errorThrower(chat, chatErrorTemplate.CHAT_EXIST);
+    errorThrower(chat, CHAT_EXIST);
 
-    const chatId = randomID(chatIdModel.properties.maxlength.value);
+    const chatId = randomId(chatIdModel.properties.maxlength.value);
 
     const privateChat = new PrivateChatMongoModel({
       chatId,

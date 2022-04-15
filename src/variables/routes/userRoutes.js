@@ -2,14 +2,6 @@ const { routeGenerator } = require("~/functions/utilities/generators");
 
 const baseUrl = routeGenerator(true, "/user", true, "1.0.0");
 
-const countries = routeGenerator(
-  "get",
-  "/countries",
-  200,
-  "1.0.0",
-  "Use for get countries for normal account"
-);
-
 const createNewUser = routeGenerator(
   "post",
   "/normalUser/createNewNormalUser",
@@ -50,14 +42,18 @@ const verifySignInNormal = routeGenerator(
 );
 
 const userRoutes = {
-  baseUrl,
-  countries,
-  createNewUser,
-  logoutNormal,
-  signInNormal,
-  statusCheck,
-  verifySignInNormal,
-  version: "1.0.0",
+  info: {
+    version: "1.0.0",
+  },
+
+  properties: {
+    baseUrl,
+    createNewUser,
+    logoutNormal,
+    signInNormal,
+    statusCheck,
+    verifySignInNormal,
+  },
 };
 
 module.exports = {

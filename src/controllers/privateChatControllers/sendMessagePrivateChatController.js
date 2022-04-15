@@ -1,21 +1,18 @@
-const { randomID } = require("~/functions/utilities/randomID");
+const {
+  errorThrower,
+  getStatusCodeFromRoute,
+} = require("~/functions/utilities/utils");
 
 const {
-  PrivateChatModel,
-} = require("~/models/chatModels/privateChatMongoModel");
+  sendPrivateMessage,
+} = require("~/models/chatModels/chatModelFunctions");
 
 const {
-  chatModel: {
-    properties: {
-      messageIdModel: { properties: messageIdModel },
-      chatIdModel: { properties: chatIdModel },
-    },
+  chatErrors: {
+    properties: { PARTICIPANT_ID_REQUIRED, MESSAGE_TEXT_REQUIRED },
   },
-} = require("~/models/chatModels/chatModel");
-
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
-const { errorThrower } = require("~/functions/utilities/utils");
-const { userFinder } = require("~/models/userModels/userModelFunctions");
+} = require("~/variables/errors/chatErrors");
+const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
 
 const sendMessagePrivateChatController = async (
   req = expressRequest,
@@ -23,80 +20,21 @@ const sendMessagePrivateChatController = async (
 ) => {
   try {
     const {
-      db: { user },
-      body: { participantID, message },
+      currentUser,
+      body: { participantId, message },
     } = req;
+    errorThrower(!participantId, PARTICIPANT_ID_REQUIRED);
+    errorThrower(!message, MESSAGE_TEXT_REQUIRED);
 
-    // const chatFromUser = user.chats.find((chat) => chat.chatId === chatId);
+    const { chatId, newMessage } = await sendPrivateMessage(
+      currentUser,
+      participantId,
+      message
+    );
 
-    // if (!chatFromUser) {
-    // 	const error = chatErrorTemplate.CHAT_NOT_EXIST;
-    // 	throw error;
-    // }
-
-    const targetUser = await userFinder({ privateID: participantID });
-
-    errorThrower(!targetUser, userErrorTemplate.USER_NOT_EXIST);
-
-    const chat = await PrivateChatModel.findOne({
-      "participants.participantID": {
-        $all: [user.privateID, targetUser.privateID],
-      },
-    });
-
-    let chatId = chat?.chatId;
-
-    const newMessage = {
-      message,
-      messageId: randomID(messageIdModel.maxlength.value),
-      messageSender: { senderID: user.privateID },
-    };
-
-    if (!chat) {
-      // const error = chatErrorTemplate.CHAT_NOT_EXIST;
-      // throw error;
-
-      chatId = randomID(chatIdModel.maxlength.value);
-
-      const privateChat = new PrivateChatModel({
-        chatId,
-        participants: [
-          { participantID: user.privateID },
-          { participantID: targetUser.privateID },
-        ],
-        messages: [newMessage],
-      });
-
-      await privateChat.save();
-
-      await user.updateOne({ chats: { chatId } });
-      await targetUser.updateOne({ chats: { chatId } });
-      res.status(200).send({ newMessage, chatId });
-    } else if (chat) {
-      chat.messages.push(newMessage);
-
-      await chat.updateOne({ messages: chat.messages });
-
-      res.status(200).send({ newMessage, chatId });
-    }
-
-    // const checkParticipant = chat.participants.find(
-    // 	(participant) => participant.participantID === participantID,
-    // );
-
-    // if (!checkParticipant) {
-    // 	const error = chatErrorTemplate.PARTICIPANT_NOT_EXIST;
-    // 	throw error;
-    // }
-
-    // const checkUserParticipation = chat.participants.find(
-    // 	(participant) => participant.participantID === user.privateID,
-    // );
-
-    // if (!checkUserParticipation) {
-    // 	const error = chatErrorTemplate.USER_NO_LONGER_PARTICIPANT;
-    // 	throw error;
-    // }
+    res
+      .status(getStatusCodeFromRoute(privateChatRoutes.properties.sendMessage))
+      .send({ chatId, newMessage });
   } catch (error) {
     logger.log("sendMessagePrivateChatController catch", error);
     res.errorCollector({ data: { error } });

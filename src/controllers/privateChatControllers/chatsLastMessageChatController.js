@@ -1,31 +1,25 @@
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
+
 const {
-  PrivateChatModel,
-} = require("~/models/chatModels/privateChatMongoModel");
+  getChatsLastMessages,
+} = require("~/models/chatModels/chatModelFunctions");
+
+const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
 
 const chatsLastMessageChatController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
   try {
-    const {
-      db: { user },
-    } = req;
+    const { currentUser } = req;
 
-    const chats = [];
-    for (const chat of user.chats) {
-      const chatWithMessages = await PrivateChatModel.findOne({
-        chatId: chat.chatId,
-      });
-      if (chatWithMessages) {
-        logger.log(chatWithMessages);
-        const { messages, participants, chatId } = chatWithMessages;
-        const lastMessage = messages[messages.length - 1];
-        logger.log(lastMessage);
-        chats.push({ participants, chatId, messages: [lastMessage] });
-      }
-    }
+    const chatsWithLastMessages = await getChatsLastMessages(currentUser);
 
-    res.status(200).json({ chats });
+    res
+      .status(
+        getStatusCodeFromRoute(privateChatRoutes.properties.chatsLastMessage)
+      )
+      .json({ chatsWithLastMessages });
   } catch (error) {
     logger.log("chatsLastMessageChatController", error);
     res.errorCollector({ data: { error } });

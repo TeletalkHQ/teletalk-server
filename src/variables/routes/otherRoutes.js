@@ -2,6 +2,14 @@ const { routeGenerator } = require("~/functions/utilities/generators");
 
 const baseUrl = routeGenerator(true, "/other", true, "1.0.0");
 
+const countries = routeGenerator(
+  "get",
+  "/countries",
+  200,
+  "1.0.0",
+  "Use for get countries for normal account"
+);
+
 const welcome = routeGenerator(
   "get",
   "/welcomeMessage",
@@ -11,9 +19,10 @@ const welcome = routeGenerator(
 );
 
 const otherRoutes = {
-  baseUrl,
-  version: "1.0.0",
-  welcome,
+  info: {
+    version: "1.0.0",
+  },
+  properties: { baseUrl, countries, welcome },
 };
 
 module.exports = { otherRoutes };

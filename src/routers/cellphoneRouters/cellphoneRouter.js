@@ -29,17 +29,20 @@ const {
   addContactCellphoneController,
 } = require("~/controllers/cellphoneControllers/addContactCellphoneController");
 
+const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utils");
+
 const {
   cellphoneRoutes: {
-    addContact: { properties: addContact },
-    addBlock: { properties: addBlock },
-    editContact: { properties: editContact },
-    removeBlock: { properties: removeBlock },
-    removeContact: { properties: removeContact },
-    getContacts: { properties: getContacts },
+    properties: {
+      addContact: { properties: addContact },
+      addBlock: { properties: addBlock },
+      editContact: { properties: editContact },
+      removeBlock: { properties: removeBlock },
+      removeContact: { properties: removeContact },
+      getContacts: { properties: getContacts },
+    },
   },
 } = require("~/variables/routes/cellphoneRoutes");
-const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utils");
 
 const cellphoneRouter = Router();
 

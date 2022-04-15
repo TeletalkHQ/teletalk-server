@@ -1,4 +1,4 @@
-const { getMethodFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
 const {
   addContactToUserContacts,
 } = require("~/models/userModels/userModelFunctions");
@@ -11,24 +11,26 @@ const addContactCellphoneController = async (
   try {
     const {
       body: { firstName, lastName, phoneNumber, countryCode, countryName },
-      authData,
+      currentUser,
     } = req;
 
     const targetUserData = { phoneNumber, countryCode, countryName };
 
     const { targetUser } = await addContactToUserContacts(
-      authData.payload,
+      currentUser,
       targetUserData
     );
 
-    res.status(getMethodFromRoute(cellphoneRoutes.addContact)).json({
-      contact: {
-        ...targetUserData,
-        firstName,
-        lastName,
-        privateID: targetUser.privateID,
-      },
-    });
+    res
+      .status(getStatusCodeFromRoute(cellphoneRoutes.properties.addContact))
+      .json({
+        contact: {
+          ...targetUserData,
+          firstName,
+          lastName,
+          privateID: targetUser.privateID,
+        },
+      });
   } catch (error) {
     logger.log("addContactCellphoneController", error);
     res.errorCollector({ data: { error } });

@@ -12,25 +12,27 @@ const {
 } = commonModel;
 
 const {
-  chatErrorTemplate: {
-    MESSAGE_TEXT_INVALID_TYPE: { properties: MESSAGE_TEXT_INVALID_TYPE },
-    MESSAGE_TEXT_MAX_LENGTH_REACH: {
-      properties: MESSAGE_TEXT_MAX_LENGTH_REACH,
+  chatErrors: {
+    properties: {
+      MESSAGE_TEXT_INVALID_TYPE: { properties: MESSAGE_TEXT_INVALID_TYPE },
+      MESSAGE_TEXT_MAX_LENGTH_REACH: {
+        properties: MESSAGE_TEXT_MAX_LENGTH_REACH,
+      },
+      MESSAGE_TEXT_MIN_LENGTH_REACH: {
+        properties: MESSAGE_TEXT_MIN_LENGTH_REACH,
+      },
+      PARTICIPANT_ID_EXIST: { properties: PARTICIPANT_ID_EXIST },
+      PARTICIPANT_ID_INVALID_TYPE: { properties: PARTICIPANT_ID_INVALID_TYPE },
+      PARTICIPANT_ID_MAX_LENGTH_REACH: {
+        properties: PARTICIPANT_ID_MAX_LENGTH_REACH,
+      },
+      PARTICIPANT_ID_MIN_LENGTH_REACH: {
+        properties: PARTICIPANT_ID_MIN_LENGTH_REACH,
+      },
+      PARTICIPANT_ID_REQUIRED: { properties: PARTICIPANT_ID_REQUIRED },
     },
-    MESSAGE_TEXT_MIN_LENGTH_REACH: {
-      properties: MESSAGE_TEXT_MIN_LENGTH_REACH,
-    },
-    PARTICIPANT_ID_EXIST: { properties: PARTICIPANT_ID_EXIST },
-    PARTICIPANT_ID_INVALID_TYPE: { properties: PARTICIPANT_ID_INVALID_TYPE },
-    PARTICIPANT_ID_MAX_LENGTH_REACH: {
-      properties: PARTICIPANT_ID_MAX_LENGTH_REACH,
-    },
-    PARTICIPANT_ID_MIN_LENGTH_REACH: {
-      properties: PARTICIPANT_ID_MIN_LENGTH_REACH,
-    },
-    PARTICIPANT_ID_REQUIRED: { properties: PARTICIPANT_ID_REQUIRED },
   },
-} = require("~/variables/errors/chatErrorTemplate");
+} = require("~/variables/errors/chatErrors");
 
 const {
   properties: { commonCreatedAtModel, commonChatIdModel, commonMessageIdModel },

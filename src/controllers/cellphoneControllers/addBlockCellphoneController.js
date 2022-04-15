@@ -1,4 +1,4 @@
-const { getMethodFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
 const {
   addContactToUserBlacklist,
 } = require("~/models/userModels/userModelFunctions");
@@ -11,16 +11,18 @@ const addBlockCellphoneController = async (
   try {
     const {
       body: { phoneNumber, countryCode, countryName },
-      authData,
+      currentUser,
     } = req;
 
     const targetUser = { phoneNumber, countryCode, countryName };
 
-    await addContactToUserBlacklist(authData.payload, targetUser);
+    await addContactToUserBlacklist(currentUser, targetUser);
 
-    res.status(getMethodFromRoute(cellphoneRoutes.addBlock)).json({
-      blockedCellphone: targetUser,
-    });
+    res
+      .status(getStatusCodeFromRoute(cellphoneRoutes.properties.addBlock))
+      .json({
+        blockedCellphone: targetUser,
+      });
   } catch (error) {
     logger.log("addBlockCellphoneController", error);
     res.errorCollector({ data: { error } });

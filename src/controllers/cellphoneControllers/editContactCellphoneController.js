@@ -1,4 +1,4 @@
-const { getMethodFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
 const { updateOneContact } = require("~/models/userModels/userModelFunctions");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
@@ -9,7 +9,7 @@ const editContactCellphoneController = async (
   try {
     const {
       body: { firstName, lastName, phoneNumber, countryCode, countryName },
-      authData,
+      currentUser,
     } = req;
 
     const targetUserData = {
@@ -20,10 +20,10 @@ const editContactCellphoneController = async (
 
     const editedValues = { firstName, lastName };
 
-    await updateOneContact(authData.payload, targetUserData, editedValues);
+    await updateOneContact(currentUser, targetUserData, editedValues);
 
     res
-      .status(getMethodFromRoute(cellphoneRoutes.editContact))
+      .status(getStatusCodeFromRoute(cellphoneRoutes.properties.editContact))
       .json({ phoneNumber, countryCode, countryName, ...editedValues });
   } catch (error) {
     res.errorCollector({ data: { error } });

@@ -107,21 +107,24 @@ const shareContacts = routeGenerator(
 );
 
 const cellphoneRoutes = {
-  addBlock,
-  addBlocks,
-  addContact,
-  addContacts,
-  baseUrl,
-  editBlock,
-  editContact,
-  getContacts,
-  removeBlock,
-  removeBlocks,
-  removeContact,
-  removeContacts,
-  shareContact,
-  shareContacts,
-  version: "1.0.0",
+  info: { version: "1.0.0" },
+
+  properties: {
+    addBlock,
+    addBlocks,
+    addContact,
+    addContacts,
+    baseUrl,
+    editBlock,
+    editContact,
+    getContacts,
+    removeBlock,
+    removeBlocks,
+    removeContact,
+    removeContacts,
+    shareContact,
+    shareContacts,
+  },
 };
 
 module.exports = {

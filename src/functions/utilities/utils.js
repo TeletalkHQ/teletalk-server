@@ -16,6 +16,18 @@ const errorThrower = (condition, error) => {
   if (condition) throw error;
 };
 
+const getStatusCodeFromRoute = (route) => {
+  try {
+    const statusCode = route?.properties?.method;
+
+    errorThrower(!statusCode, "You need to pass correct route object");
+
+    return statusCode;
+  } catch (error) {
+    logger.log("getStatusCodeFromRoute catch, error:", error);
+  }
+};
+
 const getMethodFromRoute = (route) => {
   try {
     const method = route?.properties?.method;
@@ -82,6 +94,8 @@ const ignoreMiddlewaresByUrl = (url, ...middlewares) => {
   }
 };
 
+const versionCalculator = () => {};
+
 // const mongoose = require("mongoose");
 
 // function NoCastString(key, options) {
@@ -100,9 +114,11 @@ const ignoreMiddlewaresByUrl = (url, ...middlewares) => {
 
 module.exports = {
   errorThrower,
-  isEqualWithTargetCellphone,
+  getMethodFromRoute,
+  getStatusCodeFromRoute,
   ignoreMiddlewaresByUrl,
+  isEqualWithTargetCellphone,
   objectInitializer,
   skipParams,
-  getMethodFromRoute,
+  versionCalculator,
 };

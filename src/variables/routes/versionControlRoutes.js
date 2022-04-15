@@ -12,6 +12,7 @@ const getAllStuffs = routeGenerator(
 
 const versionControlRoutes = {
   properties: { baseUrl, getAllStuffs },
+
   info: { version: "1.0.0" },
 };
 

@@ -6,17 +6,18 @@ const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 const {
   initialOptions: { userInitialOptions },
 } = require("~/variables/constants/initialOptions/initialOptions");
-const { userErrorTemplate } = require("~/variables/errors/userErrorTemplate");
-
 const {
-  BLACKLIST_ITEM_EXIST,
-  BLACKLIST_ITEM_NOT_EXIST,
-  CELLPHONE_NOT_EXIST,
-  CONTACT_ITEM_EXIST,
-  CONTACT_ITEM_NOT_EXIST,
-  TARGET_USER_NOT_EXIST,
-  USER_NOT_EXIST,
-} = userErrorTemplate;
+  userErrors: {
+    properties: {
+      BLACKLIST_ITEM_EXIST,
+      BLACKLIST_ITEM_NOT_EXIST,
+      CELLPHONE_NOT_EXIST,
+      CONTACT_ITEM_EXIST,
+      CONTACT_ITEM_NOT_EXIST,
+      TARGET_USER_NOT_EXIST,
+    },
+  },
+} = require("~/variables/errors/userErrors");
 
 const userFinder = async (
   userData = userInitialOptions,
@@ -35,16 +36,10 @@ const userFinder = async (
 };
 
 const addContactToUserBlacklist = async (
-  currentUserData = userInitialOptions,
+  currentUser = userInitialOptions,
   targetUserData = userInitialOptions
 ) => {
   try {
-    const currentUser = await userFinder(currentUserData);
-    errorThrower(currentUser === null, {
-      ...targetUserData,
-      ...USER_NOT_EXIST,
-    });
-
     const { cellphone: existBlacklistItem } = cellphoneFinder(
       currentUser.blacklist,
       targetUserData
@@ -76,15 +71,9 @@ const addContactToUserBlacklist = async (
 };
 
 const addContactToUserContacts = async (
-  currentUserData = userInitialOptions,
+  currentUser = userInitialOptions,
   targetUserData = userInitialOptions
 ) => {
-  const currentUser = await userFinder(currentUserData);
-  errorThrower(currentUser === null, {
-    ...targetUserData,
-    ...USER_NOT_EXIST,
-  });
-
   const { cellphone: existContactItem } = cellphoneFinder(
     currentUser.contacts,
     targetUserData
@@ -117,14 +106,11 @@ const addContactToUserContacts = async (
 };
 
 const updateOneContact = async (
-  currentUserData = userInitialOptions,
+  currentUser = userInitialOptions,
   targetUserData = userInitialOptions,
   editedValues
 ) => {
   try {
-    const currentUser = await userFinder(currentUserData);
-    errorThrower(!currentUser, USER_NOT_EXIST);
-
     const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
       currentUser.contacts,
       targetUserData
@@ -137,7 +123,7 @@ const updateOneContact = async (
       lastName: editedValues.lastName,
     });
     await currentUser.updateOne({
-      contacts: currentUserData.contacts,
+      contacts: currentUser.contacts,
     });
 
     return { currentUser };
@@ -147,21 +133,15 @@ const updateOneContact = async (
   }
 };
 
-const getUserContacts = async (currentUserData = userInitialOptions) => {
+const getUserContacts = async (currentUser = userInitialOptions) => {
   try {
-    const currentUser = await userFinder(currentUserData);
-    errorThrower(!currentUser, USER_NOT_EXIST);
-
     return currentUser.contacts;
   } catch (error) {
     logger.log("getUserContacts catch, error:", error);
   }
 };
 
-const deleteBlacklistItem = async (currentUserData, targetUserData) => {
-  const currentUser = userFinder(currentUserData);
-  errorThrower(!currentUser, USER_NOT_EXIST);
-
+const deleteBlacklistItem = async (currentUser, targetUserData) => {
   const { cellphone: blacklistItem, cellphoneIndex } = cellphoneFinder(
     currentUser.blacklist,
     targetUserData
@@ -176,13 +156,10 @@ const deleteBlacklistItem = async (currentUserData, targetUserData) => {
 };
 
 const removeContactItem = async (
-  currentUserData = userInitialOptions,
+  currentUser = userInitialOptions,
   targetUserData = userInitialOptions
 ) => {
   try {
-    const currentUser = userFinder(currentUserData);
-    errorThrower(!currentUser, USER_NOT_EXIST);
-
     const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
       currentUser.contacts,
       targetUserData

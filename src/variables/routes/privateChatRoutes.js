@@ -43,13 +43,16 @@ const sendMessage = routeGenerator(
 );
 
 const privateChatRoutes = {
-  baseUrl,
-  chatsLastMessage,
-  getAllChats,
-  getMessages,
-  sendMessage,
-  startChat,
-  version: "1.0.0",
+  info: { version: "1.0.0" },
+
+  properties: {
+    baseUrl,
+    chatsLastMessage,
+    getAllChats,
+    getMessages,
+    sendMessage,
+    startChat,
+  },
 };
 
 module.exports = {

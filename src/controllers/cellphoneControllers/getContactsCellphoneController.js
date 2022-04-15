@@ -1,4 +1,4 @@
-const { getMethodFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
 const { getUserContacts } = require("~/models/userModels/userModelFunctions");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
@@ -7,12 +7,12 @@ const getContactsCellphoneController = async (
   res = expressResponse
 ) => {
   try {
-    const { authData } = req;
+    const { currentUser } = req;
 
-    const contacts = await getUserContacts(authData.payload);
+    const contacts = await getUserContacts(currentUser);
 
     res
-      .status(getMethodFromRoute(cellphoneRoutes.getContacts))
+      .status(getStatusCodeFromRoute(cellphoneRoutes.properties.getContacts))
       .json({ contacts });
   } catch (error) {
     logger.log("getContactsCellphoneController", error);

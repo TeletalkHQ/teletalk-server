@@ -3,9 +3,7 @@ const { Router } = require("express");
 const {
   sendMessagePrivateChatController,
 } = require("~/controllers/privateChatControllers/sendMessagePrivateChatController");
-const {
-  startChatPrivateChatController,
-} = require("~/controllers/privateChatControllers/startChatPrivateChatController");
+
 const {
   getMessagesPrivateChatController,
 } = require("~/controllers/privateChatControllers/getMessagesPrivateChatController");
@@ -18,11 +16,12 @@ const {
 
 const {
   privateChatRoutes: {
-    sendMessage: { properties: sendMessage },
-    startChat: { properties: startChat },
-    getMessages: { properties: getMessages },
-    getAllChats: { properties: getAllChats },
-    chatsLastMessage: { properties: chatsLastMessage },
+    properties: {
+      sendMessage: { properties: sendMessage },
+      getMessages: { properties: getMessages },
+      getAllChats: { properties: getAllChats },
+      chatsLastMessage: { properties: chatsLastMessage },
+    },
   },
 } = require("~/variables/routes/privateChatRoutes");
 
@@ -45,10 +44,6 @@ privateChatRouter[sendMessage.method](
 privateChatRouter[getMessages.method](
   getMessages.url,
   getMessagesPrivateChatController
-);
-privateChatRouter[startChat.method](
-  startChat.url,
-  startChatPrivateChatController
 );
 
 module.exports = { privateChatRouter };

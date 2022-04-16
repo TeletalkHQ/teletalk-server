@@ -12,7 +12,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
-    "test": "jest test",
+    "test": "mocha",
     "prepare": "husky install"
   },
   "keywords": [
@@ -46,7 +46,7 @@
     "morgan": "^1.10.0",
     "nanoid": "^3.3.2",
     "nodemailer": "^6.7.3",
-    "nodemailer-smtp-transport": "^2.7.4",
+    "nodemailer-smtp-transport": "^2.4.2",
     "npm": "^8.7.0",
     "redis": "^4.0.6",
     "serve-favicon": "^2.5.0",
@@ -75,6 +75,7 @@
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
     "pretty-error": "^4.0.0",
+    "supertest": "^6.2.2",
     "yargs": "^17.4.1"
   },
   "lint-staged": {

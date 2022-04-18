@@ -25,3 +25,5 @@ Add versioning system for static data
 Add system, functions and stable structure for errors 
 Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
+version calculator
+useless routes cleanup

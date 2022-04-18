@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const MONGO_URI =
   process.env.NODE_ENV === "production"
     ? process.env.MONGO_URI_ATLAS
-    : process.env.MONGO_URI_ATLAS; //MONGO_URI_LOCAL;
+    : process.env.MONGO_URI_LOCAL;
 
 const connectDatabase = async () => {
   try {

@@ -96,6 +96,37 @@ const ignoreMiddlewaresByUrl = (url, ...middlewares) => {
 
 const versionCalculator = () => {};
 
+const getEnvironment = (envName) => {
+  return process.env[envName];
+};
+
+const setEnvironment = (envName, value) => {
+  process.env[envName] = value;
+};
+
+const getTestToken = () => {
+  return getEnvironment("TEST_TOKEN");
+};
+
+const setTestToken = (token) => {
+  setEnvironment("TEST_TOKEN", token);
+};
+
+module.exports = {
+  errorThrower,
+  getMethodFromRoute,
+  getStatusCodeFromRoute,
+  ignoreMiddlewaresByUrl,
+  isEqualWithTargetCellphone,
+  objectInitializer,
+  skipParams,
+  versionCalculator,
+  getEnvironment,
+  setEnvironment,
+  getTestToken,
+  setTestToken,
+};
+
 // const mongoose = require("mongoose");
 
 // function NoCastString(key, options) {
@@ -111,14 +142,3 @@ const versionCalculator = () => {};
 // };
 
 // mongoose.Schema.Types.NoCastString = NoCastString;
-
-module.exports = {
-  errorThrower,
-  getMethodFromRoute,
-  getStatusCodeFromRoute,
-  ignoreMiddlewaresByUrl,
-  isEqualWithTargetCellphone,
-  objectInitializer,
-  skipParams,
-  versionCalculator,
-};

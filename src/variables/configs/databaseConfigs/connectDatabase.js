@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
+const { getEnvironment } = require("~/functions/utilities/utils");
+const { environmentsKey } = require("~/variables/constants/environmentsKey");
 
 const MONGO_URI =
-  process.env.NODE_ENV === "production"
-    ? process.env.MONGO_URI_ATLAS
-    : process.env.MONGO_URI_LOCAL;
+  getEnvironment(environmentsKey.NODE_ENV) === "production"
+    ? getEnvironment(environmentsKey.MONGO_URI_ATLAS)
+    : getEnvironment(environmentsKey.MONGO_URI_LOCAL);
 
 const connectDatabase = async () => {
   try {

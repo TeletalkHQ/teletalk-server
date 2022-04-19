@@ -5,7 +5,8 @@ const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 
 const { SMSClient } = require("~/functions/tools/SMSClient");
 const { clients } = require("~/functions/tools/Clients");
-const { errorThrower } = require("~/functions/utilities/utils");
+const { errorThrower, getEnvironment } = require("~/functions/utilities/utils");
+const { environmentsKey } = require("~/variables/constants/environmentsKey");
 
 const signInNormalUserController = async (
   req = expressRequest,
@@ -31,7 +32,7 @@ const signInNormalUserController = async (
 
     const token = await tokenSigner({
       data: cellphone,
-      secret: process.env.JWT_SIGN_IN_SECRET,
+      secret: getEnvironment(environmentsKey.JWT_SIGN_IN_SECRET),
     });
 
     const client = clients.aliveClients.find((client) => {

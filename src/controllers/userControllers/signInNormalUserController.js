@@ -17,11 +17,11 @@ const signInNormalUserController = async (
 
     const cellphone = { phoneNumber, countryCode, countryName };
 
-    const randomPassword = passwordGenerator();
+    const verificationCode = passwordGenerator();
 
     const from = "50004001700470";
     const to = `0${phoneNumber}`;
-    const text = `Hi! this sms is from teletalk! Your verify code is: ${randomPassword}`;
+    const text = `Hi! this sms is from teletalk! Your verify code is: ${verificationCode}`;
 
     const smsResult = await SMSClient({ from, to, text });
 
@@ -47,20 +47,24 @@ const signInNormalUserController = async (
     });
 
     if (client) {
-      client.verificationCode = randomPassword;
+      client.verificationCode = verificationCode;
     } else {
       clients.addClient({
         token,
-        verificationCode: randomPassword,
+        verificationCode: verificationCode,
         ...cellphone,
       });
     }
 
-    logger.log(randomPassword);
+    logger.log(verificationCode);
 
     res.status(200).json({
       ...cellphone,
       token,
+      ...(() => {
+        if (getEnvironment(environmentsKey.NODE_ENV) === "test")
+          return { verificationCode };
+      })(),
     });
   } catch (error) {
     res.errorCollector({ data: { error } });

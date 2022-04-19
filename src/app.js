@@ -1,8 +1,28 @@
+const path = require("path");
+
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const serveFavicon = require("serve-favicon");
+
+const { getEnvironment } = require("~/functions/utilities/utils");
+
+const { environmentsKey } = require("~/variables/constants/environmentsKey");
+
+if (getEnvironment(environmentsKey.NODE_ENV) === "test") {
+  require("module-alias/register");
+}
+
+//* PrettyError is error prettier in terminal.
+require("pretty-error").start();
+
+require("dotenv").config({
+  path: path.join(__dirname, "..", "environments", "main.env"),
+});
+
+//! Require this module before requiring internal modules
+require("~/variables/globalVariables");
 
 const {
   errorCollectorMiddleware,

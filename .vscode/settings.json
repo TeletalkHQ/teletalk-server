@@ -56,7 +56,7 @@
     "globals.d.ts": true,
     ".eslintrc.json": true,
     ".gitignore": true,
-    "package.json": true,
+    "package.json": false,
     "node_modules": true,
     ".idea": true,
     "**/yarn-error.log": true,

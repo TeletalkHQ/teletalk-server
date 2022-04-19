@@ -1,8 +1,9 @@
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
+const { getTokenFromRequest } = require("~/functions/utilities/utils");
 
 const authDefaultMiddleware = async (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split("Bearer ")[1];
+    const token = getTokenFromRequest(req);
 
     req.authData = await tokenVerifier(token);
 

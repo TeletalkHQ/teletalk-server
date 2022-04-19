@@ -20,11 +20,12 @@ const { ioFunctions } = require("~/socket/io");
 const {
   connectDatabase,
 } = require("~/variables/configs/databaseConfigs/connectDatabase");
+const { getAllEnvironments } = require("./functions/utilities/utils");
 
 const server = http.createServer(app);
 
 //* PORT coming from heroku, so don't touch it!
-const { LOCAL_PORT, PORT, NODE_ENV } = process.env;
+const { LOCAL_PORT, PORT, NODE_ENV } = getAllEnvironments();
 
 const EXACT_PORT = PORT || LOCAL_PORT;
 

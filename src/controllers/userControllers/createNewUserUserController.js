@@ -2,7 +2,11 @@ const { randomId } = require("~/functions/utilities/randomId");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
-const { errorThrower } = require("~/functions/utilities/utils");
+const {
+  errorThrower,
+  getEnvironment,
+  getTokenFromRequest,
+} = require("~/functions/utilities/utils");
 
 const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 const { clients } = require("~/functions/tools/Clients");
@@ -20,6 +24,7 @@ const {
 } = require("~/validators/userValidators/lastNameValidator");
 const { commonModel } = require("~/models/commonModels/commonModel");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
+const { environmentsKey } = require("~/variables/constants/environmentsKey");
 
 const createNewUserUserController = async (
   req = expressRequest,
@@ -30,12 +35,12 @@ const createNewUserUserController = async (
       body: { firstName, lastName },
     } = req;
 
-    const verifyToken = req.headers.authorization?.split("Bearer ")[1];
+    const verifyToken = getTokenFromRequest(req);
 
     errorThrower(!verifyToken, TOKEN_REQUIRED);
     const tokenData = await tokenVerifier(
       verifyToken,
-      process.env.JWT_SIGN_IN_SECRET
+      getEnvironment(environmentsKey.JWT_SIGN_IN_SECRET)
     );
 
     const errors = [];

@@ -12,7 +12,10 @@ const {
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 
 const { ioFunctions } = require("~/socket/io");
-const { errorThrower } = require("~/functions/utilities/utils");
+const {
+  errorThrower,
+  getTokenFromRequest,
+} = require("~/functions/utilities/utils");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
 
 const statusCheckUserController = async (
@@ -20,7 +23,7 @@ const statusCheckUserController = async (
   res = expressResponse
 ) => {
   try {
-    const mainToken = req.headers.authorization?.split("Bearer ")[1];
+    const mainToken = getTokenFromRequest(req);
 
     errorThrower(!mainToken, TOKEN_REQUIRED);
 

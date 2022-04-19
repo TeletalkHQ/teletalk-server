@@ -9,8 +9,13 @@ const {
 
 const { clients } = require("~/functions/tools/Clients");
 const { UserMongoModel } = require("~/models/userModels/userMongoModel");
-const { errorThrower } = require("~/functions/utilities/utils");
+const {
+  errorThrower,
+  getEnvironment,
+  getTokenFromRequest,
+} = require("~/functions/utilities/utils");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
+const { environmentsKey } = require("~/variables/constants/environmentsKey");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,
@@ -22,11 +27,11 @@ const verifySignInNormalUserController = async (
     } = req;
 
     console.log(clients.aliveClients);
-    const verifyToken = req.headers.authorization?.split("Bearer ")[1];
+    const verifyToken = getTokenFromRequest(req);
     errorThrower(!verifyToken, TOKEN_REQUIRED);
     const tokenData = await tokenVerifier(
       verifyToken,
-      process.env.JWT_SIGN_IN_SECRET
+      getEnvironment(environmentsKey.JWT_SIGN_IN_SECRET)
     );
     const { phoneNumber, countryCode, countryName } = tokenData.payload;
     const cellphone = { phoneNumber, countryCode, countryName };

@@ -1,3 +1,5 @@
+const { environmentsKey } = require("~/variables/constants/environmentsKey");
+
 const objectInitializer = (values, props) => {
   try {
     const tempObj = {};
@@ -100,6 +102,16 @@ const getEnvironment = (envName) => {
   return process.env[envName];
 };
 
+const getAllEnvironments = () => {
+  const environments = {};
+
+  for (const key in environmentsKey) {
+    environments[key] = getEnvironment(key);
+  }
+
+  return environments;
+};
+
 const setEnvironment = (envName, value) => {
   process.env[envName] = value;
 };
@@ -112,19 +124,24 @@ const setTestToken = (token) => {
   setEnvironment("TEST_TOKEN", token);
 };
 
+const getTokenFromRequest = (request) =>
+  request.headers.authorization?.split("Bearer ")[1];
+
 module.exports = {
   errorThrower,
+  getAllEnvironments,
+  getEnvironment,
   getMethodFromRoute,
   getStatusCodeFromRoute,
+  getTestToken,
+  getTokenFromRequest,
   ignoreMiddlewaresByUrl,
   isEqualWithTargetCellphone,
   objectInitializer,
+  setEnvironment,
+  setTestToken,
   skipParams,
   versionCalculator,
-  getEnvironment,
-  setEnvironment,
-  getTestToken,
-  setTestToken,
 };
 
 // const mongoose = require("mongoose");

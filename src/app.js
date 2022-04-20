@@ -89,27 +89,22 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 //* Add errorCollector and errorResponser to "response object"
-app.use((req, res, next) => {
+app.use((_, res, next) => {
   res.errors = {
-    categorizedErrors: [],
-    uncategorizedErrors: [],
-    server: [],
-    statusCode: 400,
-    serverErrorsLength: 0,
-    categorizedErrorsLength: 0,
-    uncategorizedErrorsLength: 0,
+    errors: {},
+    statusCode: 500, //? Default error status code
   };
 
-  res.errorCollector = ({ data }) => {
-    errorCollectorMiddleware({ req, res, next, data });
+  res.errorCollector = (errorObject) => {
+    errorCollectorMiddleware({ res, errorObject });
   };
 
   next();
 });
 
-app.use((req, res, next) => {
+app.use((_, res, next) => {
   res.errorResponser = () => {
-    errorResponserMiddleware(req, res, next);
+    errorResponserMiddleware(res);
   };
 
   next();

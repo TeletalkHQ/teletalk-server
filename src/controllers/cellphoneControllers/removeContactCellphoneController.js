@@ -20,7 +20,7 @@ const removeContactCellphoneController = async (
       .status(getStatusCodeFromRoute(cellphoneRoutes.properties.removeContact))
       .json({ removedContact: targetUserData });
   } catch (error) {
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

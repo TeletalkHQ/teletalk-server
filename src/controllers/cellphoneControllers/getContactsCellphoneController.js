@@ -16,7 +16,7 @@ const getContactsCellphoneController = async (
       .json({ contacts });
   } catch (error) {
     logger.log("getContactsCellphoneController", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

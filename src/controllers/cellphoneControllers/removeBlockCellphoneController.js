@@ -24,7 +24,7 @@ const removeBlockCellphoneController = async (
         removedBlockedCellphone: targetUserData,
       });
   } catch (error) {
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

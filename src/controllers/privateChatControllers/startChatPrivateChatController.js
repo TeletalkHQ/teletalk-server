@@ -67,7 +67,7 @@ const startChatPrivateChatController = async (
 
     res.status(200).json({ client, targetUser });
   } catch (error) {
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     logger.log("startChatPrivateChatController catch", error).log();
 
     res.errorResponser();

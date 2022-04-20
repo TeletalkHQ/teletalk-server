@@ -1,8 +1,12 @@
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+const {
+  errorThrower,
+  getErrorObject,
+} = require("~/functions/utilities/utilsNoDeps");
 
 const {
   cellphoneValidator,
 } = require("~/validators/userValidators/cellphoneValidator");
+const { userErrors } = require("~/variables/errors/userErrors");
 
 const cellphoneValidatorMiddleware = async (req, res, next) => {
   try {
@@ -14,12 +18,21 @@ const cellphoneValidatorMiddleware = async (req, res, next) => {
       ...cellphone,
     });
 
-    errorThrower(cellphoneValidate !== true, cellphoneValidate);
+    const { statusCode, ...error } = getErrorObject(
+      userErrors.properties.CELLPHONE_INVALID_TYPE
+    );
+    errorThrower(cellphoneValidate !== true, {
+      cellphoneValidation: {
+        validatedCellphoneErrors: cellphoneValidate,
+        ...error,
+      },
+      statusCode,
+    });
 
     next();
   } catch (error) {
     logger.log("cellphoneValidatorMiddleware catch", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

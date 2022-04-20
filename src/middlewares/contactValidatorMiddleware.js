@@ -21,7 +21,7 @@ const contactValidatorMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     logger.log("contactValidatorMiddleware catch: error" + error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

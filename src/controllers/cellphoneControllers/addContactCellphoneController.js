@@ -33,7 +33,7 @@ const addContactCellphoneController = async (
       });
   } catch (error) {
     logger.log("addContactCellphoneController", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

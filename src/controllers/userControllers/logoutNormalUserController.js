@@ -6,7 +6,7 @@ const logoutNormalUserController = async (
     res.status(200).json({ ok: true });
   } catch (error) {
     logger.log("logoutNormalUserController", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

@@ -28,16 +28,21 @@ const signInNormalUserController = async (
 
     const verificationCode = passwordGenerator();
 
-    const from = "50004001700470";
-    const to = `0${phoneNumber}`;
-    const text = `Hi! this sms is from teletalk! Your verify code is: ${verificationCode}`;
+    if (
+      getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) !==
+      ENVIRONMENT_VALUES.NODE_ENV.test
+    ) {
+      const from = "50004001700470";
+      const to = `${countryCode}${phoneNumber}`;
+      const text = `Hi! this sms is from teletalk! Your verify code is: ${verificationCode}`;
 
-    const smsResult = await SMSClient({ from, to, text });
+      const smsResult = await SMSClient({ from, to, text });
 
-    errorThrower(
-      !smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1,
-      smsResult
-    );
+      errorThrower(
+        !smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1,
+        smsResult
+      );
+    }
 
     const token = await tokenSigner({
       data: cellphone,
@@ -82,7 +87,7 @@ const signInNormalUserController = async (
       });
   } catch (error) {
     logger.log("signInNormalUserController catch, error: ", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

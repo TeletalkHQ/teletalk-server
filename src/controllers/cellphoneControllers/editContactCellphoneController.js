@@ -26,7 +26,7 @@ const editContactCellphoneController = async (
       .status(getStatusCodeFromRoute(cellphoneRoutes.properties.editContact))
       .json({ phoneNumber, countryCode, countryName, ...editedValues });
   } catch (error) {
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

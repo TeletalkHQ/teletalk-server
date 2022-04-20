@@ -69,12 +69,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-04-11T16:06:54.836Z",
-    "modified": "2022-04-20T12:40:57.921Z",
+    "modified": "2022-04-20T18:20:46.079Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"phoneNumber\": \"9119119111\",\n  \"countryName\": \"iran\",\n  \"countryCode\": \"98\"\n}",
+      "raw": "{\n  \"phoneNumber\": \"9012700470\",\n  \"countryName\": \"iran\",\n  \"countryCode\": \"98\"\n}",
       "form": []
     },
     "tests": []
@@ -170,6 +170,25 @@
     "modified": "2022-04-15T08:10:20.202Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "fb218109-535c-4535-a9cb-2cbe25eec931",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/cellphone/remove/contact",
+    "url": "{{baseUrl}}/cellphone/remove/contact",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2022-04-20T20:14:01.700Z",
+    "modified": "2022-04-20T20:14:17.893Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  } \n}",
+      "form": []
+    },
     "tests": []
   }
 ]

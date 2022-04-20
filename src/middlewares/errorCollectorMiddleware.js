@@ -1,38 +1,26 @@
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
-
-const errorCollectorMiddleware = ({ req, res, next, data }) => {
+const errorCollectorMiddleware = ({ res, errorObject }) => {
   try {
-    errorThrower(
-      !data,
-      "Report to your back-end: Yo! you forgot to send me data - errorCollector"
-    );
-
-    const { statusCode, err, ex, error } = data;
-
-    const er = err || ex || error;
-
-    errorThrower(
-      !er,
-      "Report to your back-end, your backend should send error data to errorCollector"
-    );
-
-    if (typeof er === "object") {
-      res.errors.categorizedErrorsLength =
-        res.errors.categorizedErrors.push(er);
-    } else {
-      //? unhandled (non-object) error, write log into log files=>
-      res.errors.uncategorizedErrorsLength =
-        res.errors.uncategorizedErrors.push(er);
+    if (!errorObject || typeof errorObject !== "object") {
+      //TODO Other errors
+      errorObject = {
+        errorCode: "UNKNOWN_ERROR_CODE",
+        message: "Call your service",
+        statusCode: 500,
+        reason: "UNKNOWN_ERROR",
+        unacceptableError: errorObject,
+      };
     }
 
-    if ((statusCode || er.statusCode) && !isNaN(er.statusCode || +statusCode)) {
-      res.errors.statusCode = er.statusCode || statusCode;
+    res.errors = errorObject;
+
+    if (isNaN(+res.errors.statusCode)) {
+      res.errors.statusCode = 500;
     }
   } catch (error) {
     logger
       .redBright("errorCollectorMiddleware catch! its critical!!!")
       .log(error);
-    res.errors.serverErrorsLength = res.errors.server.push(error);
+
     res.errors.statusCode = 500;
 
     res.errorResponser();

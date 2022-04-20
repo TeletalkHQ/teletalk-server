@@ -114,7 +114,7 @@ const createNewUserUserController = async (
     }
   } catch (error) {
     logger.log("createNewUserUserController", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

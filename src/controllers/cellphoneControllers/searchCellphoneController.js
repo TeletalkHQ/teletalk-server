@@ -4,7 +4,7 @@ const searchCellphoneController = (
 ) => {
   try {
   } catch (error) {
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

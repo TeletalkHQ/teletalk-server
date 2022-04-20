@@ -11,7 +11,7 @@ const welcomeOtherController = (
     });
   } catch (error) {
     logger.log("welcome url catch", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

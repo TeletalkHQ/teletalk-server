@@ -12,7 +12,7 @@ const countriesOtherController = async (
       .json({ countries });
   } catch (error) {
     logger.log("countriesUserController", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

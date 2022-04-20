@@ -26,7 +26,7 @@ const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
   } catch (error) {
     logger.log("targetUserFinderByCellphone catch", error);
 
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

@@ -34,7 +34,7 @@ const getMessagesPrivateChatController = async (
       .json({ messages: privateChatMessages.messages });
   } catch (error) {
     logger.log("getMessagesPrivateChatController", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

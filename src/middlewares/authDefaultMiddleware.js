@@ -1,9 +1,16 @@
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { getTokenFromRequest } = require("~/functions/utilities/utils");
+const {
+  errorThrower,
+  getErrorObject,
+} = require("~/functions/utilities/utilsNoDeps");
+const { userErrors } = require("~/variables/errors/userErrors");
 
 const authDefaultMiddleware = async (req, res, next) => {
   try {
     const token = getTokenFromRequest(req);
+
+    errorThrower(!token, getErrorObject(userErrors.properties.TOKEN_REQUIRED));
 
     req.authData = await tokenVerifier(token);
 
@@ -13,7 +20,8 @@ const authDefaultMiddleware = async (req, res, next) => {
       "🚀 ~ file: authDefaultMiddleware.js ~ line 11 ~ authDefaultMiddleware ~ error",
       error
     );
-    res.errorCollector({ data: { error, statusCode: 401 } });
+
+    res.errorCollector({ authenticationError: error, statusCode: 401 });
     res.errorResponser();
   }
 };

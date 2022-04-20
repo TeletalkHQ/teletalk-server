@@ -8,7 +8,7 @@ const getAllStuffVersionControlController = async (
     res.status(200).json(allStuff);
   } catch (error) {
     logger.log("getAllStuffVersionControlController", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

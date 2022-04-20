@@ -114,10 +114,15 @@ const skipParams = (count) => {
   return Array.from({ length: count });
 };
 
+const getErrorObject = (errorObject) => {
+  return errorObject.properties;
+};
+
 module.exports = {
   errorThrower,
   getAllEnvironments,
   getEnvironment,
+  getErrorObject,
   getMethodFromRoute,
   getStatusCodeFromRoute,
   getTestToken,

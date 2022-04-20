@@ -25,7 +25,7 @@ const addBlockCellphoneController = async (
       });
   } catch (error) {
     logger.log("addBlockCellphoneController", error);
-    res.errorCollector({ data: { error } });
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

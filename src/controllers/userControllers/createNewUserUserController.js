@@ -24,7 +24,9 @@ const {
 } = require("~/validators/userValidators/lastNameValidator");
 const { commonModel } = require("~/models/commonModels/commonModel");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
-const { environmentsKey } = require("~/variables/constants/environmentsKey");
+const {
+  ENVIRONMENT_KEYS,
+} = require("~/variables/constants/environmentInitialValues");
 
 const createNewUserUserController = async (
   req = expressRequest,
@@ -40,7 +42,7 @@ const createNewUserUserController = async (
     errorThrower(!verifyToken, TOKEN_REQUIRED);
     const tokenData = await tokenVerifier(
       verifyToken,
-      getEnvironment(environmentsKey.JWT_SIGN_IN_SECRET)
+      getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
 
     const errors = [];

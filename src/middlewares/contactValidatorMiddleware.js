@@ -1,4 +1,4 @@
-const { errorThrower } = require("~/functions/utilities/utils");
+const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
 const {
   contactValidator,
 } = require("~/validators/userValidators/contactValidator");

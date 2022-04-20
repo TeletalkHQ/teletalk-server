@@ -5,14 +5,7 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const serveFavicon = require("serve-favicon");
-
-const { getEnvironment } = require("~/functions/utilities/utils");
-
-const { environmentsKey } = require("~/variables/constants/environmentsKey");
-
-if (getEnvironment(environmentsKey.NODE_ENV) === "test") {
-  require("module-alias/register");
-}
+// const madge = require("madge");
 
 //* PrettyError is error prettier in terminal.
 require("pretty-error").start();
@@ -21,8 +14,37 @@ require("dotenv").config({
   path: path.join(__dirname, "..", "environments", "main.env"),
 });
 
+// madge(path.join(__dirname, "server.js"))
+//   .then((res) => {
+//     console.log(res.circularGraph());
+//     console.log(res.circular());
+//     console.log(res.warnings());
+//     console.log(res.obj());
+//     console.log(res.orphans());
+//     // console.log(res.depends(""));
+//     console.log(res.leaves());
+
+//     return res.dot();
+//   })
+//   .then((output) => {
+//     console.log(output);
+//   });
+
 //! Require this module before requiring internal modules
 require("~/variables/globalVariables");
+
+const { getEnvironment } = require("~/functions/utilities/utils");
+
+const {
+  ENVIRONMENT_KEYS,
+  ENVIRONMENT_VALUES,
+} = require("~/variables/constants/environmentInitialValues");
+
+if (
+  getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) === ENVIRONMENT_VALUES.NODE_ENV.test
+) {
+  require("module-alias/register");
+}
 
 const {
   errorCollectorMiddleware,

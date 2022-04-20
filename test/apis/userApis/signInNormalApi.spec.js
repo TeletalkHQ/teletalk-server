@@ -1,4 +1,8 @@
 const { request } = require("~/functions/utilities/testUtils");
+const { setEnvironment } = require("~/functions/utilities/utils");
+const {
+  ENVIRONMENT_KEYS,
+} = require("~/variables/constants/environmentInitialValues");
 
 const {
   userErrors: {
@@ -31,6 +35,8 @@ describe("signInNormalApi test", () => {
       },
       CELLPHONE_REQUIRED
     );
+
+    setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, response.token);
 
     return response;
   });

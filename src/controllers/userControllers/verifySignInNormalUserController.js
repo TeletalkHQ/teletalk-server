@@ -15,7 +15,9 @@ const {
   getTokenFromRequest,
 } = require("~/functions/utilities/utils");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
-const { environmentsKey } = require("~/variables/constants/environmentsKey");
+const {
+  ENVIRONMENT_KEYS,
+} = require("~/variables/constants/environmentInitialValues");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,
@@ -31,7 +33,7 @@ const verifySignInNormalUserController = async (
     errorThrower(!verifyToken, TOKEN_REQUIRED);
     const tokenData = await tokenVerifier(
       verifyToken,
-      getEnvironment(environmentsKey.JWT_SIGN_IN_SECRET)
+      getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
     const { phoneNumber, countryCode, countryName } = tokenData.payload;
     const cellphone = { phoneNumber, countryCode, countryName };

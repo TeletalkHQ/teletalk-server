@@ -29,7 +29,7 @@ const {
   addContactCellphoneController,
 } = require("~/controllers/cellphoneControllers/addContactCellphoneController");
 
-const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utils");
+const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   cellphoneRoutes: {

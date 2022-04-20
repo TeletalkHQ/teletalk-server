@@ -1,5 +1,7 @@
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
+const { clients } = require("~/functions/tools/Clients");
+const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
@@ -7,17 +9,16 @@ const {
   },
 } = require("~/variables/errors/userErrors");
 
-const { clients } = require("~/functions/tools/Clients");
-const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 const {
   errorThrower,
-  getEnvironment,
   getTokenFromRequest,
 } = require("~/functions/utilities/utils");
-const { userFinder } = require("~/models/userModels/userModelFunctions");
 const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");
+
+const { UserMongoModel } = require("~/models/userModels/userMongoModel");
+const { userFinder } = require("~/models/userModels/userModelFunctions");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,

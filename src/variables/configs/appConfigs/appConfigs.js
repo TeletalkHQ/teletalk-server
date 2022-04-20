@@ -1,6 +1,6 @@
 const jwtOptions = { algorithm: "HS256" };
 
-const { getEnvironment } = require("~/functions/utilities/utils");
+const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
 const {
   ENVIRONMENT_KEYS,
   ENVIRONMENT_VALUES,

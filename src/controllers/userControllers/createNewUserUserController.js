@@ -2,9 +2,10 @@ const { randomId } = require("~/functions/utilities/randomId");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
+const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
+
 const {
   errorThrower,
-  getEnvironment,
   getTokenFromRequest,
 } = require("~/functions/utilities/utils");
 

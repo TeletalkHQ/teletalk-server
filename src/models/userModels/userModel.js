@@ -2,7 +2,7 @@ const {
   modelPropertyGenerator,
   modelGenerator,
 } = require("~/functions/utilities/generators");
-const { skipParams } = require("~/functions/utilities/utils");
+const { skipParams } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   commonModel: {

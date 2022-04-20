@@ -1,4 +1,4 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const { countries } = require("~/variables/constants/countries");
 const { otherRoutes } = require("~/variables/routes/otherRoutes");
 

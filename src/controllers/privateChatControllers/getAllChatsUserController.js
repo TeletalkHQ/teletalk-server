@@ -1,4 +1,4 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const { getAllChats } = require("~/models/chatModels/chatModelFunctions");
 const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
 

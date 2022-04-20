@@ -4,7 +4,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 const {
   mongooseSchemaPropertyGenerator,
 } = require("~/functions/utilities/generators");
-const { skipParams } = require("~/functions/utilities/utils");
+const { skipParams } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userModel: {

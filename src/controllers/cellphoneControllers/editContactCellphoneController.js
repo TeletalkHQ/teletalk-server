@@ -1,4 +1,4 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const { updateOneContact } = require("~/models/userModels/userModelFunctions");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 

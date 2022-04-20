@@ -2,11 +2,11 @@ const {
   passwordGenerator,
 } = require("~/functions/utilities/passwordGenerator");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const {
+  errorThrower,
   getEnvironment,
-  getStatusCodeFromRoute,
-} = require("~/functions/utilities/utils");
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+} = require("~/functions/utilities/utilsNoDeps");
 
 const { SMSClient } = require("~/functions/tools/SMSClient");
 const { clients } = require("~/functions/tools/Clients");

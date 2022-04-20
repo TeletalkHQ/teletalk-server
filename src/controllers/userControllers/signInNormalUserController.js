@@ -2,14 +2,15 @@ const {
   passwordGenerator,
 } = require("~/functions/utilities/passwordGenerator");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
-
-const { SMSClient } = require("~/functions/tools/SMSClient");
-const { clients } = require("~/functions/tools/Clients");
 const {
-  errorThrower,
   getEnvironment,
   getStatusCodeFromRoute,
 } = require("~/functions/utilities/utils");
+const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+
+const { SMSClient } = require("~/functions/tools/SMSClient");
+const { clients } = require("~/functions/tools/Clients");
+
 const {
   ENVIRONMENT_KEYS,
   ENVIRONMENT_VALUES,
@@ -80,6 +81,7 @@ const signInNormalUserController = async (
         })(),
       });
   } catch (error) {
+    logger.log("signInNormalUserController catch, error: ", error);
     res.errorCollector({ data: { error } });
     res.errorResponser();
   }

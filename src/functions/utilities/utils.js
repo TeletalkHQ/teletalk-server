@@ -113,7 +113,9 @@ const setTestToken = (token) => {
 
 const getTokenFromRequest = (request) => {
   const NODE_ENV = getEnvironment(ENVIRONMENT_KEYS.NODE_ENV);
+
   if (NODE_ENV === ENVIRONMENT_VALUES.NODE_ENV.test) {
+    logger.log(request.url);
     if (
       request.url.includes(
         userRoutes.properties.verifySignInNormal.properties.url

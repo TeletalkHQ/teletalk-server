@@ -22,9 +22,7 @@ const {
 } = require("~/variables/routes/userRoutes");
 
 describe("signInNormalApi test", () => {
-  describe("sign in as normal user", () => {});
-
-  it(`It should get success code ${signInNormal.properties.statusCode}`, async () => {
+  it(`It should get sign in data like token and verify code`, async () => {
     const response = await request(
       userRoutesBaseUrl,
       signInNormal,
@@ -41,7 +39,7 @@ describe("signInNormalApi test", () => {
     return response;
   });
 
-  it(`It should get all countries`, async () => {
-    const response = await request(otherRoutesBaseUrl, countries);
-  });
+  // it(`It should get all countries`, async () => {
+  //   const response = await request(otherRoutesBaseUrl, countries);
+  // });
 });

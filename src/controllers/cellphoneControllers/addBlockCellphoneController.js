@@ -1,4 +1,4 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const {
   addContactToUserBlacklist,
 } = require("~/models/userModels/userModelFunctions");

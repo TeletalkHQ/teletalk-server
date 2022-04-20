@@ -6,7 +6,7 @@ const {
 const {
   initialValue,
 } = require("~/variables/constants/initialValues/initialValue");
-const { getEnvironment } = require("~/functions/utilities/utils");
+const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
 
 const initialOptions = initialValue.jwtOptions;
 

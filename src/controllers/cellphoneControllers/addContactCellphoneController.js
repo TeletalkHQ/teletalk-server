@@ -1,4 +1,4 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utils");
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const {
   addContactToUserContacts,
 } = require("~/models/userModels/userModelFunctions");

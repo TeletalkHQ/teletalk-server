@@ -18,7 +18,7 @@ const {
   authDefaultMiddleware,
 } = require("~/middlewares/authDefaultMiddleware");
 
-const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utils");
+const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   cellphoneRoutes: { properties: cellphoneRoutes },

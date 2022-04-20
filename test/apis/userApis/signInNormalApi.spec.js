@@ -1,5 +1,5 @@
 const { request } = require("~/functions/utilities/testUtils");
-const { setEnvironment } = require("~/functions/utilities/utils");
+const { setEnvironment } = require("~/functions/utilities/utilsNoDeps");
 const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");
@@ -21,7 +21,7 @@ const {
   },
 } = require("~/variables/routes/userRoutes");
 
-describe("signInNormalApi test", () => {
+describe("signInNormalApi test", (done) => {
   it(`It should get sign in data like token and verify code`, async () => {
     const response = await request(
       userRoutesBaseUrl,
@@ -36,10 +36,10 @@ describe("signInNormalApi test", () => {
 
     setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, response.token);
 
-    return response;
+    done();
   });
 
-  // it(`It should get all countries`, async () => {
-  //   const response = await request(otherRoutesBaseUrl, countries);
-  // });
+  it(`It should get all countries`, async () => {
+    const response = await request(otherRoutesBaseUrl, countries);
+  });
 });

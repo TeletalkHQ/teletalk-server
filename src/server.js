@@ -9,7 +9,7 @@ const { ioFunctions } = require("~/socket/io");
 const {
   connectDatabase,
 } = require("~/variables/configs/databaseConfigs/connectDatabase");
-const { getAllEnvironments } = require("./functions/utilities/utils");
+const { getAllEnvironments } = require("./functions/utilities/utilsNoDeps");
 
 const server = http.createServer(app);
 

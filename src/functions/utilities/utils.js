@@ -1,26 +1,13 @@
-const { environmentsKey } = require("~/variables/constants/environmentsKey");
-
-const objectInitializer = (values, props) => {
-  try {
-    const tempObj = {};
-
-    props.forEach((prop, index) => {
-      tempObj[prop] = values[index];
-    });
-
-    return tempObj;
-  } catch (error) {
-    logger.log("objectInitializer catch", error);
-  }
-};
-
-const errorThrower = (condition, error) => {
-  if (condition) throw error;
-};
+const {
+  ENVIRONMENT_KEYS,
+  ENVIRONMENT_VALUES,
+} = require("~/variables/constants/environmentInitialValues");
+const { userRoutes } = require("~/variables/routes/userRoutes");
+const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
 
 const getStatusCodeFromRoute = (route) => {
   try {
-    const statusCode = route?.properties?.method;
+    const statusCode = route?.properties?.method || route?.method;
 
     errorThrower(!statusCode, "You need to pass correct route object");
 
@@ -105,7 +92,7 @@ const getEnvironment = (envName) => {
 const getAllEnvironments = () => {
   const environments = {};
 
-  for (const key in environmentsKey) {
+  for (const key in ENVIRONMENT_KEYS) {
     environments[key] = getEnvironment(key);
   }
 
@@ -124,11 +111,23 @@ const setTestToken = (token) => {
   setEnvironment("TEST_TOKEN", token);
 };
 
-const getTokenFromRequest = (request) =>
-  request.headers.authorization?.split("Bearer ")[1];
+const getTokenFromRequest = (request) => {
+  const NODE_ENV = getEnvironment(ENVIRONMENT_KEYS.NODE_ENV);
+  if (NODE_ENV === ENVIRONMENT_VALUES.NODE_ENV.test) {
+    if (
+      request.url.includes(
+        userRoutes.properties.verifySignInNormal.properties.url
+      )
+    ) {
+      return getEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN);
+    }
+
+    return getEnvironment(ENVIRONMENT_KEYS.TEST_MAIN_TOKEN);
+  }
+  return request.headers.authorization?.split("Bearer ")[1];
+};
 
 module.exports = {
-  errorThrower,
   getAllEnvironments,
   getEnvironment,
   getMethodFromRoute,
@@ -137,7 +136,6 @@ module.exports = {
   getTokenFromRequest,
   ignoreMiddlewaresByUrl,
   isEqualWithTargetCellphone,
-  objectInitializer,
   setEnvironment,
   setTestToken,
   skipParams,

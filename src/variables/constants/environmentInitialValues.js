@@ -1,4 +1,4 @@
-const environmentsKey = {
+const ENVIRONMENT_KEYS = {
   JWT_MAIN_SECRET: "JWT_MAIN_SECRET",
   JWT_SIGN_IN_SECRET: "JWT_SIGN_IN_SECRET",
   LOCAL_PORT: "LOCAL_PORT",
@@ -8,6 +8,16 @@ const environmentsKey = {
   PORT: "PORT",
   SMS_CLIENT_PASSWORD: "SMS_CLIENT_PASSWORD",
   SMS_CLIENT_USERNAME: "SMS_CLIENT_USERNAME",
+  TEST_MAIN_TOKEN: "TEST_MAIN_TOKEN",
+  TEST_VERIFY_TOKEN: "TEST_VERIFY_TOKEN",
 };
 
-module.exports = { environmentsKey };
+const ENVIRONMENT_VALUES = {
+  NODE_ENV: {
+    test: "test",
+    production: "production",
+    development: "development",
+  },
+};
+
+module.exports = { ENVIRONMENT_KEYS, ENVIRONMENT_VALUES };

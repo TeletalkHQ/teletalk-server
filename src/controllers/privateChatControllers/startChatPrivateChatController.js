@@ -24,7 +24,7 @@ const {
     properties: { chatIdModel },
   },
 } = require("~/models/chatModels/chatModel");
-const { errorThrower } = require("~/functions/utilities/utils");
+const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
 
 const startChatPrivateChatController = async (

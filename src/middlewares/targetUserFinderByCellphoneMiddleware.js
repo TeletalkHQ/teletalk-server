@@ -1,5 +1,5 @@
 const { userFinder } = require("~/functions/helpers/userFinder");
-const { errorThrower } = require("~/functions/utilities/utils");
+const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {

@@ -1,5 +1,7 @@
 const JWT = require("jsonwebtoken");
-const { environmentsKey } = require("~/variables/constants/environmentsKey");
+const {
+  ENVIRONMENT_KEYS,
+} = require("~/variables/constants/environmentInitialValues");
 
 const {
   initialValue,
@@ -10,7 +12,7 @@ const initialOptions = initialValue.jwtOptions;
 
 const tokenVerifier = async (
   token,
-  secret = getEnvironment(environmentsKey.JWT_MAIN_SECRET),
+  secret = getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET),
   options = initialOptions
 ) => {
   const data = JWT.verify(token, secret, {

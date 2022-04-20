@@ -1,9 +1,11 @@
 const MelipayamakApi = require("melipayamak");
 const { errorThrower, getEnvironment } = require("~/functions/utilities/utils");
-const { environmentsKey } = require("~/variables/constants/environmentsKey");
+const {
+  ENVIRONMENT_KEYS,
+} = require("~/variables/constants/environmentInitialValues");
 
-const USERNAME = getEnvironment(environmentsKey.SMS_CLIENT_USERNAME);
-const PASSWORD = getEnvironment(environmentsKey.SMS_CLIENT_PASSWORD);
+const USERNAME = getEnvironment(ENVIRONMENT_KEYS.SMS_CLIENT_USERNAME);
+const PASSWORD = getEnvironment(ENVIRONMENT_KEYS.SMS_CLIENT_PASSWORD);
 
 const api = new MelipayamakApi(USERNAME, PASSWORD);
 

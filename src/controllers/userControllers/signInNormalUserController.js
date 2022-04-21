@@ -3,12 +3,8 @@ const {
 } = require("~/functions/utilities/passwordGenerator");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
-const {
-  errorThrower,
-  getEnvironment,
-} = require("~/functions/utilities/utilsNoDeps");
+const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
 
-const { SMSClient } = require("~/functions/tools/SMSClient");
 const { clients } = require("~/functions/tools/Clients");
 
 const {
@@ -16,6 +12,10 @@ const {
   ENVIRONMENT_VALUES,
 } = require("~/variables/constants/environmentInitialValues");
 const { userRoutes } = require("~/variables/routes/userRoutes");
+const {
+  verificationCodeValidator,
+} = require("~/validators/userValidators/verificationCodeValidator");
+const { sendSms } = require("~/functions/tools/smsClient");
 
 const signInNormalUserController = async (
   req = expressRequest,
@@ -28,19 +28,19 @@ const signInNormalUserController = async (
 
     const verificationCode = passwordGenerator();
 
+    await verificationCodeValidator(verificationCode);
+
     if (
       getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) !==
       ENVIRONMENT_VALUES.NODE_ENV.test
     ) {
-      const from = "50004001700470";
-      const to = `${countryCode}${phoneNumber}`;
-      const text = `Hi! this sms is from teletalk! Your verify code is: ${verificationCode}`;
-
-      const smsResult = await SMSClient({ from, to, text });
-
-      errorThrower(
-        !smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1,
-        smsResult
+      sendSms(
+        countryCode,
+        phoneNumber,
+        `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${req.get(
+          "host"
+        )}        
+        `
       );
     }
 

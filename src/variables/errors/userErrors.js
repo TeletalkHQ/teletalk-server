@@ -56,6 +56,14 @@ const CELLPHONE_EXIST = errorGenerator(
   "1.0.0"
 );
 
+const CELLPHONE_INVALID = errorGenerator(
+  4028,
+  400,
+  "",
+  "CELLPHONE_INVALID",
+  "1.0.0"
+);
+
 const CELLPHONE_INVALID_TYPE = errorGenerator(
   4028,
   400,
@@ -136,6 +144,22 @@ const COUNTRY_CODE_INVALID_TYPE = errorGenerator(
   "1.0.0"
 );
 
+const COUNTRY_CODE_INVALID = errorGenerator(
+  4035,
+  400,
+  "",
+  "COUNTRY_CODE_INVALID",
+  "1.0.0"
+);
+
+const COUNTRY_NOT_SUPPORTED = errorGenerator(
+  4035,
+  400,
+  "",
+  "COUNTRY_NOT_SUPPORTED",
+  "1.0.0"
+);
+
 const COUNTRY_CODE_MAXLENGTH_REACH = errorGenerator(
   4036,
   400,
@@ -157,6 +181,14 @@ const COUNTRY_CODE_REQUIRED = errorGenerator(
   400,
   "",
   "COUNTRY_CODE_REQUIRED",
+  "1.0.0"
+);
+
+const COUNTRY_NAME_INVALID = errorGenerator(
+  4039,
+  400,
+  "",
+  "COUNTRY_NAME_INVALID",
   "1.0.0"
 );
 
@@ -304,6 +336,14 @@ const PHONE_NUMBER_INVALID_TYPE = errorGenerator(
   "1.0.0"
 );
 
+const PHONE_NUMBER_INVALID = errorGenerator(
+  4000,
+  400,
+  "",
+  "PHONE_NUMBER_INVALID",
+  "1.0.0"
+);
+
 const PHONE_NUMBER_EXIST = errorGenerator(
   4057,
   400,
@@ -440,6 +480,14 @@ const VERIFICATION_CODE_INVALID = errorGenerator(
   "1.0.0"
 );
 
+const VERIFICATION_CODE_REQUIRED = errorGenerator(
+  4075,
+  400,
+  "Wrong verification code",
+  "VERIFICATION_CODE_REQUIRED",
+  "1.0.0"
+);
+
 const VERIFICATION_CODE_INVALID_TYPE = errorGenerator(
   4076,
   400,
@@ -473,13 +521,17 @@ const userErrors = {
     CELLPHONE_MINLENGTH_REACH,
     CELLPHONE_NOT_EXIST,
     CELLPHONE_REQUIRED,
+    CELLPHONE_INVALID,
     CONTACT_INVALID_TYPE,
     CONTACT_ITEM_EXIST,
     CONTACT_ITEM_NOT_EXIST,
     COUNTRY_CODE_INVALID_TYPE,
+    COUNTRY_CODE_INVALID,
+    COUNTRY_NOT_SUPPORTED,
     COUNTRY_CODE_MAXLENGTH_REACH,
     COUNTRY_CODE_MINLENGTH_REACH,
     COUNTRY_CODE_REQUIRED,
+    COUNTRY_NAME_INVALID,
     COUNTRY_NAME_INVALID_TYPE,
     COUNTRY_NAME_MAXLENGTH_REACH,
     COUNTRY_NAME_MINLENGTH_REACH,
@@ -520,6 +572,8 @@ const userErrors = {
     VERIFICATION_CODE_INVALID_LENGTH,
     VERIFICATION_CODE_INVALID_TYPE,
     VERIFICATION_CODE_INVALID,
+    VERIFICATION_CODE_REQUIRED,
+    PHONE_NUMBER_INVALID,
   },
 };
 

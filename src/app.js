@@ -66,6 +66,8 @@ const app = express();
 
 app.use(cors());
 app.use(helmet());
+app.use(morgan("dev"));
+app.use(express.json());
 
 app.use((req, _, next) => {
   logger
@@ -73,6 +75,16 @@ app.use((req, _, next) => {
     .bgBlue({ text: "Request arrived: ", textColor: logger.colors.black })
     .bgCyan({ text: req.url, textColor: logger.colors.black })
     .blue("----------------")
+    .log();
+
+  logger
+    .red("----------------------------------------------------------------")
+    .log();
+
+  logger.log(req.body);
+
+  logger
+    .red("----------------------------------------------------------------")
     .log();
 
   next();
@@ -84,9 +96,6 @@ app.use((req, _, next) => {
   //   .blue("----------------")
   //   .log();
 });
-app.use(morgan("dev"));
-
-app.use(express.json());
 
 //* Add errorCollector and errorResponser to "response object"
 app.use((_, res, next) => {

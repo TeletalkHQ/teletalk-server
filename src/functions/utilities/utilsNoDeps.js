@@ -3,7 +3,11 @@ const {
 } = require("~/variables/constants/environmentInitialValues");
 
 const errorThrower = (condition, error) => {
-  if (condition) throw error;
+  if (condition) {
+    if (typeof error === "function") throw error();
+
+    throw error;
+  }
 };
 
 const objectInitializer = (values, props) => {

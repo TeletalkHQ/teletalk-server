@@ -13,7 +13,7 @@ const api = new MelipayamakApi(USERNAME, PASSWORD);
 
 const sms = api.sms();
 
-const SMSClient = async ({ from, to, text, isFlash = false }) => {
+const smsClient = async ({ from, to, text, isFlash = false }) => {
   try {
     const result = await sms.send(to, from, text, isFlash);
 
@@ -23,4 +23,16 @@ const SMSClient = async ({ from, to, text, isFlash = false }) => {
   }
 };
 
-module.exports = { SMSClient };
+const sendSms = async (countryCode, phoneNumber, text) => {
+  const from = "50004001700470";
+  const to = `+${countryCode}${phoneNumber}`;
+
+  const smsResult = await smsClient({ from, to, text });
+
+  errorThrower(
+    !smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1,
+    smsResult
+  );
+};
+
+module.exports = { smsClient, sendSms };

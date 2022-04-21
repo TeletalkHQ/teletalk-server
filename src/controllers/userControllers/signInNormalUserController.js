@@ -72,19 +72,20 @@ const signInNormalUserController = async (
 
     logger.log(verificationCode);
 
+    const responseData = {
+      ...cellphone,
+      token,
+    };
+
+    if (
+      getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) ===
+      ENVIRONMENT_VALUES.NODE_ENV.test
+    )
+      responseData.verificationCode = verificationCode;
+
     res
       .status(getStatusCodeFromRoute(userRoutes.properties.signInNormal))
-      .json({
-        ...cellphone,
-        token,
-        ...(() => {
-          if (
-            getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) ===
-            ENVIRONMENT_VALUES.NODE_ENV.test
-          )
-            return { verificationCode };
-        })(),
-      });
+      .json(responseData);
   } catch (error) {
     logger.log("signInNormalUserController catch, error: ", error);
     res.errorCollector(error);

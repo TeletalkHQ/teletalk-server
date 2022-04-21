@@ -24,16 +24,36 @@ const {
   },
 } = require("~/variables/errors/userErrors");
 const { countries } = require("~/variables/constants/countries");
+const { userModel } = require("~/models/userModels/userModel");
 
 const country = countries[0];
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {
-    const response = await request(userRoutesBaseUrl, signInNormal, {
+    const requestBody = {
       phoneNumber: "9012700470",
       countryName: "Iran, Islamic Republic of" || country.countryName,
       countryCode: "98" || country.countryCode,
-    });
+    };
+
+    const response = await request(
+      userRoutesBaseUrl,
+      signInNormal,
+      requestBody
+    );
+
+    const { countryCode, countryName, phoneNumber, verificationCode, token } =
+      response.body;
+
+    expect(countryCode).equal(requestBody.countryCode);
+    expect(countryName).equal(requestBody.countryName);
+    expect(phoneNumber).equal(requestBody.phoneNumber);
+    expect(verificationCode)
+      .length(
+        userModel.properties.verificationCodeModel.properties.length.value
+      )
+      .and.be.true("string");
+
     setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, response.token);
   });
 });

@@ -1,3 +1,5 @@
+//TODO Logout functionality is not completed
+
 const logoutNormalUserController = async (
   req = expressRequest,
   res = expressResponse

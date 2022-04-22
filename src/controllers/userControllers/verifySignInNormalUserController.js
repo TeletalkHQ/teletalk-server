@@ -41,16 +41,8 @@ const verifySignInNormalUserController = async (
 
     const cellphone = getCellphone(tokenData.payload);
 
-    const client = clients.aliveClients.find((client) => {
-      if (
-        client.phoneNumber === cellphone.phoneNumber &&
-        client.countryCode === cellphone.countryCode
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const client = clients.findClient(cellphone);
+
     errorThrower(!client, USER_NOT_EXIST);
     errorThrower(
       client?.verificationCode !== verificationCode,

@@ -1,5 +1,3 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
-
 const {
   getChatsLastMessages,
 } = require("~/models/chatModels/chatModelFunctions");
@@ -15,13 +13,9 @@ const chatsLastMessageChatController = async (
 
     const chatsWithLastMessages = await getChatsLastMessages(currentUser);
 
-    res
-      .status(
-        getStatusCodeFromRoute(
-          privateChatRoutes.properties.chatsLastMessageRoute
-        )
-      )
-      .json({ chatsWithLastMessages });
+    res.sendJsonResponse(privateChatRoutes.properties.chatsLastMessageRoute, {
+      chatsWithLastMessages,
+    });
   } catch (error) {
     logger.log("chatsLastMessageChatController", error);
     res.errorCollector(error);

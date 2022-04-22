@@ -1,4 +1,3 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const { updateOneContact } = require("~/models/userModels/userModelFunctions");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
@@ -22,11 +21,12 @@ const editContactCellphoneController = async (
 
     await updateOneContact(currentUser, targetUserData, editedValues);
 
-    res
-      .status(
-        getStatusCodeFromRoute(cellphoneRoutes.properties.editContactRoute)
-      )
-      .json({ phoneNumber, countryCode, countryName, ...editedValues });
+    res.sendJsonResponse(cellphoneRoutes.properties.editContactRoute, {
+      phoneNumber,
+      countryCode,
+      countryName,
+      ...editedValues,
+    });
   } catch (error) {
     res.errorCollector(error);
     res.errorResponser();

@@ -1,7 +1,4 @@
-const {
-  getStatusCodeFromRoute,
-  getCellphone,
-} = require("~/functions/utilities/utilsNoDeps");
+const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 const { removeContactItem } = require("~/models/userModels/userModelFunctions");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
@@ -16,11 +13,9 @@ const removeContactCellphoneController = async (
 
     await removeContactItem(currentUser, targetUserData);
 
-    res
-      .status(
-        getStatusCodeFromRoute(cellphoneRoutes.properties.removeContactRoute)
-      )
-      .json({ removedContact: targetUserData });
+    res.sendJsonResponse(cellphoneRoutes.properties.removeContactRoute, {
+      removedContact: targetUserData,
+    });
   } catch (error) {
     res.errorCollector(error);
     res.errorResponser();

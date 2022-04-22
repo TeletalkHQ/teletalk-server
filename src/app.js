@@ -40,7 +40,10 @@ require("dotenv").config({
 //! Require this module before requiring internal modules
 require("~/variables/globalVariables");
 
-const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getEnvironment,
+  getStatusCodeFromRoute,
+} = require("~/functions/utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,
@@ -106,6 +109,14 @@ app.use((_, res, next) => {
 
   res.errorCollector = (errorObject) => {
     errorCollectorMiddleware({ res, errorObject });
+  };
+
+  next();
+});
+
+app.use((_, res, next) => {
+  res.sendJsonResponse = (routeObject, data) => {
+    res.status(getStatusCodeFromRoute(routeObject)).json(data);
   };
 
   next();

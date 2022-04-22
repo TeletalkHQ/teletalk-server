@@ -1,7 +1,4 @@
-const {
-  getStatusCodeFromRoute,
-  getCellphone,
-} = require("~/functions/utilities/utilsNoDeps");
+const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 const {
   addContactToUserContacts,
 } = require("~/models/userModels/userModelFunctions");
@@ -24,18 +21,14 @@ const addContactCellphoneController = async (
       targetUserData
     );
 
-    res
-      .status(
-        getStatusCodeFromRoute(cellphoneRoutes.properties.addContactRoute)
-      )
-      .json({
-        contact: {
-          ...targetUserData,
-          firstName,
-          lastName,
-          privateId: targetUser.privateId,
-        },
-      });
+    res.sendJsonResponse(cellphoneRoutes.properties.addContactRoute, {
+      contact: {
+        ...targetUserData,
+        firstName,
+        lastName,
+        privateId: targetUser.privateId,
+      },
+    });
   } catch (error) {
     logger.log("addContactCellphoneController", error);
     res.errorCollector(error);

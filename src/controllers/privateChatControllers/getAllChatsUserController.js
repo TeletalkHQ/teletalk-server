@@ -1,4 +1,3 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const { getAllChats } = require("~/models/chatModels/chatModelFunctions");
 const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
 
@@ -11,11 +10,9 @@ const getAllChatsUserController = async (
 
     const chats = await getAllChats(currentUser);
 
-    res
-      .status(
-        getStatusCodeFromRoute(privateChatRoutes.properties.getAllChatsRoute)
-      )
-      .json({ chats });
+    res.sendJsonResponse(privateChatRoutes.properties.getAllChatsRoute, {
+      chats,
+    });
   } catch (error) {
     logger.log("getAllChatsUserController", error);
     res.errorCollector(error);

@@ -17,7 +17,7 @@ const {
 } = require("~/variables/constants/environmentInitialValues");
 const {
   userRoutes: {
-    properties: { signInNormalRoute: signInNormal },
+    properties: { signInNormalRoute },
   },
 } = require("~/variables/routes/userRoutes");
 const {
@@ -76,7 +76,7 @@ const signInNormalUserController = async (
     )
       responseData.verificationCode = verificationCode;
 
-    res.status(getStatusCodeFromRoute(signInNormal)).json(responseData);
+    res.sendJsonResponse(signInNormalRoute, responseData);
   } catch (error) {
     logger.log("signInNormalUserController catch, error: ", error);
     res.errorCollector(error);

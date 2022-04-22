@@ -1,7 +1,4 @@
-const {
-  getStatusCodeFromRoute,
-  getCellphone,
-} = require("~/functions/utilities/utilsNoDeps");
+const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 const {
   addContactToUserBlacklist,
 } = require("~/models/userModels/userModelFunctions");
@@ -18,11 +15,9 @@ const addBlockCellphoneController = async (
 
     await addContactToUserBlacklist(currentUser, targetUser);
 
-    res
-      .status(getStatusCodeFromRoute(cellphoneRoutes.properties.addBlockRoute))
-      .json({
-        blockedCellphone: targetUser,
-      });
+    res.sendJsonResponse(cellphoneRoutes.properties.addBlockRoute, {
+      blockedCellphone: targetUser,
+    });
   } catch (error) {
     logger.log("addBlockCellphoneController", error);
     res.errorCollector(error);

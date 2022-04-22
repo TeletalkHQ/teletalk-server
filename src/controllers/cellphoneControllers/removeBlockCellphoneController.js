@@ -19,7 +19,9 @@ const removeBlockCellphoneController = async (
     await deleteBlacklistItem(currentUser, targetUserData);
 
     res
-      .status(getStatusCodeFromRoute(cellphoneRoutes.properties.removeBlock))
+      .status(
+        getStatusCodeFromRoute(cellphoneRoutes.properties.removeBlockRoute)
+      )
       .json({
         removedBlockedCellphone: targetUserData,
       });

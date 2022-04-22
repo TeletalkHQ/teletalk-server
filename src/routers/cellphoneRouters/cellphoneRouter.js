@@ -34,12 +34,12 @@ const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utilsNoDeps");
 const {
   cellphoneRoutes: {
     properties: {
-      addContact: { properties: addContact },
-      addBlock: { properties: addBlock },
-      editContact: { properties: editContact },
-      removeBlock: { properties: removeBlock },
-      removeContact: { properties: removeContact },
-      getContacts: { properties: getContacts },
+      addContactRoute: { properties: addContact },
+      addBlockRoute: { properties: addBlock },
+      editContactRoute: { properties: editContact },
+      removeBlockRoute: { properties: removeBlock },
+      removeContactRoute: { properties: removeContact },
+      getContactsRoute: { properties: getContacts },
     },
   },
 } = require("~/variables/routes/cellphoneRoutes");

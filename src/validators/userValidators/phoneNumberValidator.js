@@ -53,8 +53,6 @@ const phoneNumberValidator = async (phoneNumber) => {
   });
 
   const result = await v({ phoneNumber });
-  logger.log("phoneNumber", phoneNumber);
-  logger.log("result", result);
 
   errorThrower(result !== true, () => {
     const { statusCode, ...error } = getErrorObject(PHONE_NUMBER_INVALID);

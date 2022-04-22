@@ -5,20 +5,24 @@ const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const {
   getStatusCodeFromRoute,
   getCellphone,
+  getHostFromRequest,
 } = require("~/functions/utilities/utilsNoDeps");
 const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
-
+const { sendSms, smsTexts } = require("~/functions/tools/smsClient");
 const { clients } = require("~/functions/tools/Clients");
 
 const {
   ENVIRONMENT_KEYS,
   ENVIRONMENT_VALUES,
 } = require("~/variables/constants/environmentInitialValues");
-const { userRoutes } = require("~/variables/routes/userRoutes");
+const {
+  userRoutes: {
+    properties: { signInNormalRoute: signInNormal },
+  },
+} = require("~/variables/routes/userRoutes");
 const {
   verificationCodeValidator,
 } = require("~/validators/userValidators/verificationCodeValidator");
-const { sendSms } = require("~/functions/tools/smsClient");
 
 const signInNormalUserController = async (
   req = expressRequest,
@@ -38,10 +42,7 @@ const signInNormalUserController = async (
       sendSms(
         cellphone.countryCode,
         cellphone.phoneNumber,
-        `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${req.get(
-          "host"
-        )}        
-        `
+        smsTexts.sendVerificationCode(verificationCode, getHostFromRequest(req))
       );
     }
 
@@ -53,7 +54,7 @@ const signInNormalUserController = async (
     const client = clients.findClient(cellphone);
 
     if (client) {
-      client.verificationCode = verificationCode;
+      clients.updateClient(client, { verificationCode, token });
     } else {
       clients.addClient({
         token,
@@ -75,9 +76,7 @@ const signInNormalUserController = async (
     )
       responseData.verificationCode = verificationCode;
 
-    res
-      .status(getStatusCodeFromRoute(userRoutes.properties.signInNormal))
-      .json(responseData);
+    res.status(getStatusCodeFromRoute(signInNormal)).json(responseData);
   } catch (error) {
     logger.log("signInNormalUserController catch, error: ", error);
     res.errorCollector(error);

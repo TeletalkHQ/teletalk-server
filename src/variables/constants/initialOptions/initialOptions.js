@@ -52,9 +52,9 @@
 //         type: { value: phoneNumber },
 //       },
 //     },
-//     privateIDModel: {
+//     privateIdModel: {
 //       properties: {
-//         type: { value: privateID },
+//         type: { value: privateId },
 //       },
 //     },
 //     tokenModel: {
@@ -81,7 +81,7 @@ const userInitialOptions = {
   lastName: "",
   macAddress: "",
   phoneNumber: "",
-  privateID: "",
+  privateId: "",
   token: "",
   username: "",
 };

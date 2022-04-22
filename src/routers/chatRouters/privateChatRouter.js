@@ -17,10 +17,10 @@ const {
 const {
   privateChatRoutes: {
     properties: {
-      sendMessage: { properties: sendMessage },
-      getMessages: { properties: getMessages },
-      getAllChats: { properties: getAllChats },
-      chatsLastMessage: { properties: chatsLastMessage },
+      sendMessageRoute: { properties: sendMessage },
+      getMessagesRoute: { properties: getMessages },
+      getAllChatsRoute: { properties: getAllChats },
+      chatsLastMessageRoute: { properties: chatsLastMessage },
     },
   },
 } = require("~/variables/routes/privateChatRoutes");

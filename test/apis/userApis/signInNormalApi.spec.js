@@ -8,7 +8,10 @@ const {
 } = require("~/variables/constants/environmentInitialValues");
 const {
   userRoutes: {
-    properties: { baseUrl: userRoutesBaseUrl, signInNormal },
+    properties: {
+      userRouteBaseUrl: userRoutesBaseUrl,
+      signInNormalRoute: signInNormal,
+    },
   },
 } = require("~/variables/routes/userRoutes");
 const {

@@ -30,7 +30,9 @@ const sendMessagePrivateChatController = async (
     );
 
     res
-      .status(getStatusCodeFromRoute(privateChatRoutes.properties.sendMessage))
+      .status(
+        getStatusCodeFromRoute(privateChatRoutes.properties.sendMessageRoute)
+      )
       .send({ chatId, newMessage });
   } catch (error) {
     logger.log("sendMessagePrivateChatController catch", error);

@@ -30,7 +30,9 @@ const getMessagesPrivateChatController = async (
     );
 
     res
-      .status(getStatusCodeFromRoute(privateChatRoutes.properties.getMessages))
+      .status(
+        getStatusCodeFromRoute(privateChatRoutes.properties.getMessagesRoute)
+      )
       .json({ messages: privateChatMessages.messages });
   } catch (error) {
     logger.log("getMessagesPrivateChatController", error);

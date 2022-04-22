@@ -95,7 +95,7 @@ const addContactToUserContacts = async (
     firstName: targetUserData.firstName,
     lastName: targetUserData.lastName,
     phoneNumber: targetUserData.phoneNumber,
-    privateID: targetUser.privateID,
+    privateId: targetUser.privateId,
   });
 
   await currentUser.updateOne({

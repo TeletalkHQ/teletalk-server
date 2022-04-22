@@ -25,13 +25,15 @@ const addContactCellphoneController = async (
     );
 
     res
-      .status(getStatusCodeFromRoute(cellphoneRoutes.properties.addContact))
+      .status(
+        getStatusCodeFromRoute(cellphoneRoutes.properties.addContactRoute)
+      )
       .json({
         contact: {
           ...targetUserData,
           firstName,
           lastName,
-          privateID: targetUser.privateID,
+          privateId: targetUser.privateId,
         },
       });
   } catch (error) {

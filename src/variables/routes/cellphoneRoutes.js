@@ -1,8 +1,8 @@
 const { routeGenerator } = require("~/functions/utilities/generators");
 
-const baseUrl = routeGenerator(true, "/cellphone", true, "1.0.0");
+const cellphoneRouteBaseUrl = routeGenerator(true, "/cellphone", true, "1.0.0");
 
-const addBlock = routeGenerator(
+const addBlockRoute = routeGenerator(
   "post",
   "/addBlock",
   200,
@@ -10,7 +10,7 @@ const addBlock = routeGenerator(
   "Use for block single contact on user contacts list"
 );
 
-const addBlocks = routeGenerator(
+const addBlocksRoute = routeGenerator(
   "post",
   "/addBlocks",
   200,
@@ -18,7 +18,7 @@ const addBlocks = routeGenerator(
   "Use for block single contact on user contacts list"
 );
 
-const addContact = routeGenerator(
+const addContactRoute = routeGenerator(
   "post",
   "/addContact",
   200,
@@ -26,7 +26,7 @@ const addContact = routeGenerator(
   "Use for add single contact to current user contacts list"
 );
 
-const addContacts = routeGenerator(
+const addContactsRoute = routeGenerator(
   "post",
   "/addContacts",
   200,
@@ -34,7 +34,7 @@ const addContacts = routeGenerator(
   "Use for add single contact to current user contacts list"
 );
 
-const editBlock = routeGenerator(
+const editBlockRoute = routeGenerator(
   "patch",
   "/editBlock",
   200,
@@ -42,7 +42,7 @@ const editBlock = routeGenerator(
   "User for edit single contact on user contacts list"
 );
 
-const editContact = routeGenerator(
+const editContactRoute = routeGenerator(
   "patch",
   "/editContact",
   200,
@@ -50,7 +50,7 @@ const editContact = routeGenerator(
   "User for edit single contact on user contacts list"
 );
 
-const getContacts = routeGenerator(
+const getContactsRoute = routeGenerator(
   "get",
   "/getContacts",
   200,
@@ -58,7 +58,7 @@ const getContacts = routeGenerator(
   "User for edit single contact on user contacts list"
 );
 
-const removeBlock = routeGenerator(
+const removeBlockRoute = routeGenerator(
   "delete",
   "/removeBlock",
   200,
@@ -66,7 +66,7 @@ const removeBlock = routeGenerator(
   "Use for remove single contact on user contacts list"
 );
 
-const removeBlocks = routeGenerator(
+const removeBlocksRoute = routeGenerator(
   "delete",
   "/removeBlocks",
   200,
@@ -74,7 +74,7 @@ const removeBlocks = routeGenerator(
   "Use for remove single contact on user contacts list"
 );
 
-const removeContact = routeGenerator(
+const removeContactRoute = routeGenerator(
   "delete",
   "/removeContact",
   200,
@@ -82,7 +82,7 @@ const removeContact = routeGenerator(
   "Use for remove single contact on user contacts list"
 );
 
-const removeContacts = routeGenerator(
+const removeContactsRoute = routeGenerator(
   "delete",
   "/removeContacts",
   200,
@@ -90,7 +90,7 @@ const removeContacts = routeGenerator(
   "Use for remove single contact on user contacts list"
 );
 
-const shareContact = routeGenerator(
+const shareContactRoute = routeGenerator(
   "post",
   "/shareContact",
   200,
@@ -98,7 +98,7 @@ const shareContact = routeGenerator(
   "Use for share single contact on user contacts list"
 );
 
-const shareContacts = routeGenerator(
+const shareContactsRoute = routeGenerator(
   "post",
   "/shareContacts",
   200,
@@ -110,20 +110,20 @@ const cellphoneRoutes = {
   info: { version: "1.0.0" },
 
   properties: {
-    addBlock,
-    addBlocks,
-    addContact,
-    addContacts,
-    baseUrl,
-    editBlock,
-    editContact,
-    getContacts,
-    removeBlock,
-    removeBlocks,
-    removeContact,
-    removeContacts,
-    shareContact,
-    shareContacts,
+    addBlockRoute,
+    addBlocksRoute,
+    addContactRoute,
+    addContactsRoute,
+    cellphoneRouteBaseUrl,
+    editBlockRoute,
+    editContactRoute,
+    getContactsRoute,
+    removeBlockRoute,
+    removeBlocksRoute,
+    removeContactRoute,
+    removeContactsRoute,
+    shareContactRoute,
+    shareContactsRoute,
   },
 };
 

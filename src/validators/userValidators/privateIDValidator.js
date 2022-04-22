@@ -3,17 +3,17 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  privateIDValidationModel,
-} = require("~/models/validationModels/userValidationModels/privateIDValidationModel");
+  privateIdValidationModel: privateIdValidationModel,
+} = require("~/models/validationModels/userValidationModels/privateIdValidationModel");
 
-const privateIDValidation = {
-  properties: { ...privateIDValidationModel.properties },
+const privateIdValidation = {
+  properties: { ...privateIdValidationModel.properties },
 
   info: {
     version: "1.0.0",
   },
 };
 
-const privateIDValidator = validatorCompiler(privateIDValidation.properties);
+const privateIdValidator = validatorCompiler(privateIdValidation.properties);
 
-module.exports = { privateIDValidator, privateIDValidation };
+module.exports = { privateIdValidator, privateIdValidation };

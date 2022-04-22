@@ -63,12 +63,12 @@ const getAllChats = (currentUser) => {
 };
 
 const sendPrivateMessage = async (currentUser, participantId, message) => {
-  const targetUser = await userFinder({ privateID: participantId });
+  const targetUser = await userFinder({ privateId: participantId });
   errorThrower(!targetUser, TARGET_USER_NOT_EXIST);
 
   const chat = await PrivateChatMongoModel.findOne({
     "participants.participantID": {
-      $all: [currentUser.privateID, targetUser.privateID],
+      $all: [currentUser.privateId, targetUser.privateId],
     },
   });
 
@@ -77,7 +77,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
   const newMessage = {
     message,
     messageId: randomId(messageIdModel.maxlength.value),
-    messageSender: { senderID: currentUser.privateID },
+    messageSender: { senderID: currentUser.privateId },
   };
 
   if (!chat) {
@@ -86,8 +86,8 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
     const privateChat = new PrivateChatMongoModel({
       chatId,
       participants: [
-        { participantID: currentUser.privateID },
-        { participantID: targetUser.privateID },
+        { participantID: currentUser.privateId },
+        { participantID: targetUser.privateId },
       ],
       messages: [newMessage],
     });

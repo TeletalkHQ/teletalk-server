@@ -122,7 +122,7 @@ const user = {
     ],
     [phoneNumberModel.required.value, phoneNumberModel.required.error.message]
   ),
-  privateID: mongooseSchemaPropertyGenerator(
+  privateId: mongooseSchemaPropertyGenerator(
     commonPrivateIdModel.type.value,
     [
       commonPrivateIdModel.maxlength.value,
@@ -183,9 +183,9 @@ const UserSchema = new mongoose.Schema({
       firstName: user.firstName,
       lastName: user.lastName,
       phoneNumber: user.phoneNumber,
-      privateID: {
+      privateId: {
         ...(() => {
-          const { unique, ...rest } = user.privateID;
+          const { unique, ...rest } = user.privateId;
 
           return rest;
         })(),
@@ -205,7 +205,7 @@ const UserSchema = new mongoose.Schema({
 
   phoneNumber: user.phoneNumber,
 
-  privateID: user.privateID,
+  privateId: user.privateId,
 
   tokens: [
     {

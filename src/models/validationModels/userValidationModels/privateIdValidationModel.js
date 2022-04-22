@@ -6,9 +6,9 @@ const {
   },
 } = require("~/models/userModels/userModel");
 
-const privateIDValidationModel = {
+const privateIdValidationModel = {
   properties: {
-    privateID: {
+    privateId: {
       type: privateIdModel.type.value,
       unique: privateIdModel.unique.value,
       min: privateIdModel.minlength.value,
@@ -29,4 +29,4 @@ const privateIDValidationModel = {
   },
 };
 
-module.exports = { privateIDValidationModel };
+module.exports = { privateIdValidationModel };

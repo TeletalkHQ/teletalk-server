@@ -1,4 +1,7 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getStatusCodeFromRoute,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 const {
   deleteBlacklistItem,
 } = require("~/models/userModels/userModelFunctions");
@@ -9,12 +12,9 @@ const removeBlockCellphoneController = async (
   res = expressResponse
 ) => {
   try {
-    const {
-      currentUser,
-      body: { phoneNumber, countryCode, countryName },
-    } = req;
+    const { currentUser, body } = req;
 
-    const targetUserData = { phoneNumber, countryCode, countryName };
+    const targetUserData = getCellphone(body);
 
     await deleteBlacklistItem(currentUser, targetUserData);
 

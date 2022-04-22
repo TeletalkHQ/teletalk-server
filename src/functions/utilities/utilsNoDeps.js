@@ -122,9 +122,18 @@ const getErrorObject = (errorObject) => {
   return errorObject.properties;
 };
 
+const getCellphone = (object = {}) => {
+  return {
+    phoneNumber: object.phoneNumber,
+    countryCode: object.countryCode,
+    countryName: object.countryName,
+  };
+};
+
 module.exports = {
   errorThrower,
   getAllEnvironments,
+  getCellphone,
   getEnvironment,
   getErrorObject,
   getMethodFromRoute,

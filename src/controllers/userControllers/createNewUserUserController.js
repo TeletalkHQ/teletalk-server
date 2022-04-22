@@ -2,7 +2,10 @@ const { randomId } = require("~/functions/utilities/randomId");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
-const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getEnvironment,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 
 const {
   errorThrower,
@@ -55,14 +58,12 @@ const createNewUserUserController = async (
     if (isLastNameValid !== true) errors.push(isLastNameValid);
 
     errorThrower(errors.length, errors);
-    const { phoneNumber, countryCode, countryName } = tokenData.payload;
-
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const cellphone = getCellphone(tokenData.payload);
 
     const client = clients.aliveClients.find((client) => {
       if (
-        client.phoneNumber === phoneNumber &&
-        client.countryCode === countryCode
+        client.phoneNumber === cellphone.phoneNumber &&
+        client.countryCode === cellphone.countryCode
       ) {
         return true;
       } else {
@@ -72,7 +73,7 @@ const createNewUserUserController = async (
 
     errorThrower(!client, USER_NOT_EXIST);
 
-    const user = await userFinder({ ...cellphone });
+    const user = await userFinder(cellphone);
 
     if (user) {
       await UserMongoModel.findOneAndUpdate(

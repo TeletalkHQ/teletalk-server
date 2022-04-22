@@ -17,6 +17,7 @@ const {
   getTokenFromRequest,
 } = require("~/functions/utilities/utils");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
+const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 
 const statusCheckUserController = async (
   req = expressRequest,
@@ -29,9 +30,7 @@ const statusCheckUserController = async (
 
     const tokenData = await tokenVerifier(mainToken);
 
-    const { phoneNumber, countryCode, countryName } = tokenData.payload;
-
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const cellphone = getCellphone(tokenData.payload);
 
     const validatedCellphone = await cellphoneValidator(cellphone);
 

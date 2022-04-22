@@ -2,7 +2,10 @@ const {
   passwordGenerator,
 } = require("~/functions/utilities/passwordGenerator");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getStatusCodeFromRoute,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
 
 const { clients } = require("~/functions/tools/Clients");
@@ -22,10 +25,8 @@ const signInNormalUserController = async (
   res = expressResponse
 ) => {
   try {
-    const { phoneNumber, countryCode, countryName } = req.body;
-
-    const cellphone = { phoneNumber, countryCode, countryName };
-
+    const cellphone = getCellphone(req.body);
+    const { countryCode, phoneNumber } = cellphone;
     const verificationCode = passwordGenerator();
 
     await verificationCodeValidator(verificationCode);

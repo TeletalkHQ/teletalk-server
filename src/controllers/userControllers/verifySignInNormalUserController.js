@@ -20,8 +20,12 @@ const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");
 
-const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
+const {
+  userRoutes: {
+    properties: { verifySignInNormalRoute },
+  },
+} = require("~/variables/routes/userRoutes");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,
@@ -40,30 +44,21 @@ const verifySignInNormalUserController = async (
     );
 
     const cellphone = getCellphone(tokenData.payload);
-
     const client = clients.findClient(cellphone);
-
     errorThrower(!client, USER_NOT_EXIST);
+
     errorThrower(
       client?.verificationCode !== verificationCode,
       VERIFICATION_CODE_INVALID
     );
 
     const user = await userFinder(cellphone);
-    if (user) {
-      const { userData } = sendableUserData({ user });
-      await UserMongoModel.findOneAndUpdate(
-        { privateId: user.privateId },
-        { tokens: user.token }
-      );
-      res
-        .status(200)
-        .json({ user: { ...userData, token: user.tokens[0].token } });
-    } else if (!user) {
-      res.status(200).json({
-        user: { newUser: true },
-      });
-    }
+
+    res.sendJsonResponse(verifySignInNormalRoute, {
+      user: user
+        ? { ...sendableUserData(user), token: user.tokens[0].token }
+        : { newUser: true },
+    });
   } catch (error) {
     logger.log("verifySignInNormalUserController", error);
     res.errorCollector(error);

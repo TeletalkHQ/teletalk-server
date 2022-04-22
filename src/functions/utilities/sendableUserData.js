@@ -1,4 +1,4 @@
-const sendableUserData = ({ user }) => {
+const sendableUserData = (user) => {
   const {
     privateId,
     firstName,

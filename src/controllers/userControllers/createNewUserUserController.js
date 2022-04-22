@@ -2,23 +2,16 @@ const { randomId } = require("~/functions/utilities/randomId");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
+const { clients } = require("~/functions/tools/Clients");
 const {
   getEnvironment,
   getCellphone,
+  getErrorObject,
 } = require("~/functions/utilities/utilsNoDeps");
-
 const {
   errorThrower,
   getTokenFromRequest,
 } = require("~/functions/utilities/utils");
-
-const { UserMongoModel } = require("~/models/userModels/userMongoModel");
-const { clients } = require("~/functions/tools/Clients");
-const {
-  userErrors: {
-    properties: { TOKEN_REQUIRED, USER_NOT_EXIST },
-  },
-} = require("~/variables/errors/userErrors");
 
 const {
   firstNameValidator,
@@ -26,11 +19,28 @@ const {
 const {
   lastNameValidator,
 } = require("~/validators/userValidators/lastNameValidator");
+
+const { UserMongoModel } = require("~/models/userModels/userMongoModel");
 const { commonModel } = require("~/models/commonModels/commonModel");
-const { userFinder } = require("~/models/userModels/userModelFunctions");
+const {
+  userFinder,
+  createNewNormalUser,
+  updateUserDataByPrivateId,
+} = require("~/models/userModels/userModelFunctions");
+
 const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");
+const {
+  userErrors: {
+    properties: { TOKEN_REQUIRED, USER_NOT_EXIST, FULL_NAME_INVALID },
+  },
+} = require("~/variables/errors/userErrors");
+const {
+  userRoutes: {
+    properties: { createNewUserRoute },
+  },
+} = require("~/variables/routes/userRoutes");
 
 const createNewUserUserController = async (
   req = expressRequest,
@@ -42,39 +52,46 @@ const createNewUserUserController = async (
     } = req;
 
     const verifyToken = getTokenFromRequest(req);
-
     errorThrower(!verifyToken, TOKEN_REQUIRED);
+
     const tokenData = await tokenVerifier(
       verifyToken,
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
 
-    const errors = [];
+    const validatedFirstName = firstNameValidator({ firstName });
+    const validatedLastName = lastNameValidator({ lastName });
+    errorThrower(
+      validatedFirstName !== true || validatedLastName !== true,
+      () => {
+        const { statusCode, ...error } = getErrorObject(FULL_NAME_INVALID);
+        return {
+          fullNameValidation: {
+            ...error,
+            validatedFullName: { validatedFirstName, validatedLastName },
+          },
+          statusCode,
+        };
+      }
+    );
 
-    const isFirstNameValid = firstNameValidator({ firstName });
-    const isLastNameValid = lastNameValidator({ lastName });
-
-    if (isFirstNameValid !== true) errors.push(isFirstNameValid);
-    if (isLastNameValid !== true) errors.push(isLastNameValid);
-
-    errorThrower(errors.length, errors);
     const cellphone = getCellphone(tokenData.payload);
-
     const client = clients.findClient(cellphone);
-
     errorThrower(!client, USER_NOT_EXIST);
 
     const user = await userFinder(cellphone);
 
     if (user) {
-      await UserMongoModel.findOneAndUpdate(
-        { privateId: user.privateId },
-        { tokens: user.token, firstName, lastName }
-      );
+      await updateUserDataByPrivateId({
+        tokens: user.token,
+        firstName,
+        lastName,
+        privateId: user.privateId,
+      });
 
-      res.status(200).json({
+      res.sendJsonResponse(createNewUserRoute, {
         user: {
-          ...sendableUserData({ user }).userData,
+          ...sendableUserData(user),
           firstName,
           lastName,
           token: user.tokens[0],
@@ -97,10 +114,9 @@ const createNewUserUserController = async (
         tokens: [{ token }],
       };
 
-      const newUser = new UserMongoModel(userData);
-      await newUser.save();
+      await createNewNormalUser(userData);
 
-      res.status(200).json({
+      res.sendJsonResponse(createNewUserRoute, {
         user: { ...cellphone, privateId, firstName, lastName, token },
       });
     }

@@ -1,14 +1,16 @@
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+const {
+  errorThrower,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 const {
   contactValidator,
 } = require("~/validators/userValidators/contactValidator");
 
 const contactValidatorMiddleware = async (req, res, next) => {
   try {
-    const { phoneNumber, countryCode, countryName, firstName, lastName } =
-      req.body;
+    const { firstName, lastName } = req.body;
 
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const cellphone = getCellphone(req.body);
 
     const validationResult = await contactValidator({
       ...cellphone,

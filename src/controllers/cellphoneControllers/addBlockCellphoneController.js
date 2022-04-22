@@ -1,4 +1,7 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getStatusCodeFromRoute,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 const {
   addContactToUserBlacklist,
 } = require("~/models/userModels/userModelFunctions");
@@ -9,12 +12,9 @@ const addBlockCellphoneController = async (
   res = expressResponse
 ) => {
   try {
-    const {
-      body: { phoneNumber, countryCode, countryName },
-      currentUser,
-    } = req;
+    const { body, currentUser } = req;
 
-    const targetUser = { phoneNumber, countryCode, countryName };
+    const targetUser = getCellphone(body);
 
     await addContactToUserBlacklist(currentUser, targetUser);
 

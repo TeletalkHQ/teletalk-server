@@ -1,5 +1,8 @@
 const { userFinder } = require("~/functions/helpers/userFinder");
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+const {
+  errorThrower,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
@@ -9,9 +12,7 @@ const {
 
 const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
   try {
-    const { phoneNumber, countryCode, countryName } = req.body;
-
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const cellphone = getCellphone(req.body);
 
     const targetUser = await userFinder(cellphone);
 

@@ -2,6 +2,7 @@ const {
   errorThrower,
   isEqualWithTargetCellphone,
 } = require("~/functions/utilities/utils");
+const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
@@ -11,11 +12,9 @@ const {
 
 const selfStuffControllerMiddleware = (req, res, next) => {
   try {
-    const { phoneNumber, countryCode, countryName } = req.authData.payload;
-
     const targetCellphone = req.body;
 
-    const cellphone = { phoneNumber, countryCode, countryName };
+    const cellphone = getCellphone(req.authData.payload);
 
     errorThrower(isEqualWithTargetCellphone(cellphone, targetCellphone), {
       ...targetCellphone,

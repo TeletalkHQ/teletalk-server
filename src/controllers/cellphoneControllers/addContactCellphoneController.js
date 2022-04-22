@@ -1,4 +1,7 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getStatusCodeFromRoute,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 const {
   addContactToUserContacts,
 } = require("~/models/userModels/userModelFunctions");
@@ -10,11 +13,11 @@ const addContactCellphoneController = async (
 ) => {
   try {
     const {
-      body: { firstName, lastName, phoneNumber, countryCode, countryName },
+      body: { firstName, lastName },
       currentUser,
     } = req;
 
-    const targetUserData = { phoneNumber, countryCode, countryName };
+    const targetUserData = getCellphone(req.body);
 
     const { targetUser } = await addContactToUserContacts(
       currentUser,

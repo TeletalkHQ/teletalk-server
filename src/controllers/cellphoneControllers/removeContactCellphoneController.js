@@ -1,4 +1,7 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getStatusCodeFromRoute,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 const { removeContactItem } = require("~/models/userModels/userModelFunctions");
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 
@@ -7,12 +10,9 @@ const removeContactCellphoneController = async (
   res = expressResponse
 ) => {
   try {
-    const {
-      currentUser,
-      body: { phoneNumber, countryCode, countryName },
-    } = req;
+    const { currentUser, body } = req;
 
-    const targetUserData = { phoneNumber, countryCode, countryName };
+    const targetUserData = getCellphone(body);
 
     await removeContactItem(currentUser, targetUserData);
 

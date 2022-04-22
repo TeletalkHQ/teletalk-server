@@ -1,7 +1,10 @@
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { clients } = require("~/functions/tools/Clients");
-const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getEnvironment,
+  getCellphone,
+} = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
@@ -29,19 +32,19 @@ const verifySignInNormalUserController = async (
       body: { verificationCode },
     } = req;
 
-    console.log(clients.aliveClients);
     const verifyToken = getTokenFromRequest(req);
     errorThrower(!verifyToken, TOKEN_REQUIRED);
     const tokenData = await tokenVerifier(
       verifyToken,
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
-    const { phoneNumber, countryCode, countryName } = tokenData.payload;
-    const cellphone = { phoneNumber, countryCode, countryName };
+
+    const cellphone = getCellphone(tokenData.payload);
+
     const client = clients.aliveClients.find((client) => {
       if (
-        client.phoneNumber === phoneNumber &&
-        client.countryCode === countryCode
+        client.phoneNumber === cellphone.phoneNumber &&
+        client.countryCode === cellphone.countryCode
       ) {
         return true;
       } else {
@@ -53,7 +56,8 @@ const verifySignInNormalUserController = async (
       client?.verificationCode !== verificationCode,
       VERIFICATION_CODE_INVALID
     );
-    const user = await userFinder({ ...cellphone });
+
+    const user = await userFinder(cellphone);
     if (user) {
       const { userData } = sendableUserData({ user });
       await UserMongoModel.findOneAndUpdate(

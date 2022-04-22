@@ -15,7 +15,7 @@ const {
   userErrors: {
     properties: {
       COUNTRY_NAME_REQUIRED,
-      COUNTRY_NOT_SUPPORTED,
+      COUNTRY_NAME_NOT_SUPPORTED,
       COUNTRY_NAME_INVALID,
     },
   },
@@ -60,7 +60,7 @@ const countryNameValidator = async (countryName) => {
   const country = countries.find((c) => c.countryName === countryName);
 
   errorThrower(!country, () => {
-    const { statusCode, ...error } = getErrorObject(COUNTRY_NOT_SUPPORTED);
+    const { statusCode, ...error } = getErrorObject(COUNTRY_NAME_NOT_SUPPORTED);
 
     return {
       countryNameValidation: {

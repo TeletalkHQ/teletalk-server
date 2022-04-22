@@ -15,7 +15,7 @@ const {
     properties: {
       COUNTRY_CODE_REQUIRED,
       COUNTRY_CODE_INVALID,
-      COUNTRY_NOT_SUPPORTED,
+      COUNTRY_CODE_NOT_SUPPORTED,
       COUNTRY_CODE_INVALID_TYPE,
     },
   },
@@ -71,7 +71,7 @@ const countryCodeValidator = async (countryCode) => {
   const country = countries.find((c) => c.countryCode === countryCode);
 
   errorThrower(!country, () => {
-    const { statusCode, ...error } = getErrorObject(COUNTRY_NOT_SUPPORTED);
+    const { statusCode, ...error } = getErrorObject(COUNTRY_CODE_NOT_SUPPORTED);
 
     return {
       countryCodeValidation: {

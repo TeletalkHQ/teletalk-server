@@ -41,7 +41,7 @@ const statusCheckUserController = async (
 
     errorThrower(!user, USER_NOT_EXIST);
 
-    const { userData } = sendableUserData({ user });
+    const userData = sendableUserData(user);
 
     logger.log(ioFunctions.io.on);
 

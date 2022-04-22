@@ -176,12 +176,39 @@ const removeContactItem = async (
   }
 };
 
+const updateUserDataByPrivateId = async (userData) => {
+  try {
+    await UserMongoModel.findOneAndUpdate(
+      { privateId: userData.privateId },
+      userData
+    );
+  } catch (error) {
+    logger.log("updateUserTokens catch, error:", error);
+
+    throw error;
+  }
+};
+
+const createNewNormalUser = async (userData) => {
+  try {
+    const newUser = new UserMongoModel(userData);
+    await newUser.save();
+
+    return true;
+  } catch (error) {
+    logger.log("createNewNormalUser catch, error:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   addContactToUserBlacklist,
   addContactToUserContacts,
-  updateOneContact,
-  getUserContacts,
+  createNewNormalUser,
   deleteBlacklistItem,
+  getUserContacts,
   removeContactItem,
+  updateOneContact,
+  updateUserDataByPrivateId,
   userFinder,
 };

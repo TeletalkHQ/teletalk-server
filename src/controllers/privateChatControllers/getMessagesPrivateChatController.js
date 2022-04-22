@@ -1,4 +1,3 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
 
 const {
@@ -29,11 +28,9 @@ const getMessagesPrivateChatController = async (
       chatId
     );
 
-    res
-      .status(
-        getStatusCodeFromRoute(privateChatRoutes.properties.getMessagesRoute)
-      )
-      .json({ messages: privateChatMessages.messages });
+    res.sendJsonResponse(privateChatRoutes.properties.getMessagesRoute, {
+      messages: privateChatMessages.messages,
+    });
   } catch (error) {
     logger.log("getMessagesPrivateChatController", error);
     res.errorCollector(error);

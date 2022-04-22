@@ -1,4 +1,3 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const { otherRoutes } = require("~/variables/routes/otherRoutes");
 
 const welcomeOtherController = (
@@ -6,11 +5,9 @@ const welcomeOtherController = (
   res = expressResponse
 ) => {
   try {
-    res
-      .status(getStatusCodeFromRoute(otherRoutes.properties.welcomeRoute))
-      .json({
-        message: "Hey! Welcome to teletalk <3",
-      });
+    res.sendJsonResponse(otherRoutes.properties.welcomeRoute, {
+      message: "Hey! Welcome to teletalk <3",
+    });
   } catch (error) {
     logger.log("welcome url catch", error);
     res.errorCollector(error);

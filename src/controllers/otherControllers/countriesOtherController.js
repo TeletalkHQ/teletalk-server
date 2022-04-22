@@ -1,4 +1,3 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 const { countries } = require("~/variables/constants/countries");
 const { otherRoutes } = require("~/variables/routes/otherRoutes");
 
@@ -7,9 +6,7 @@ const countriesOtherController = async (
   res = expressResponse
 ) => {
   try {
-    res
-      .status(getStatusCodeFromRoute(otherRoutes.properties.countriesRoute))
-      .json({ countries });
+    res.sendJsonResponse(otherRoutes.properties.countriesRoute, { countries });
   } catch (error) {
     logger.log("countriesUserController", error);
     res.errorCollector(error);

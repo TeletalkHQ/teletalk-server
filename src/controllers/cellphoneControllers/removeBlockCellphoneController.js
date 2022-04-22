@@ -1,7 +1,4 @@
-const {
-  getStatusCodeFromRoute,
-  getCellphone,
-} = require("~/functions/utilities/utilsNoDeps");
+const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 const {
   deleteBlacklistItem,
 } = require("~/models/userModels/userModelFunctions");
@@ -18,13 +15,9 @@ const removeBlockCellphoneController = async (
 
     await deleteBlacklistItem(currentUser, targetUserData);
 
-    res
-      .status(
-        getStatusCodeFromRoute(cellphoneRoutes.properties.removeBlockRoute)
-      )
-      .json({
-        removedBlockedCellphone: targetUserData,
-      });
+    res.sendJsonResponse(cellphoneRoutes.properties.removeBlockRoute, {
+      removedBlockedCellphone: targetUserData,
+    });
   } catch (error) {
     res.errorCollector(error);
     res.errorResponser();

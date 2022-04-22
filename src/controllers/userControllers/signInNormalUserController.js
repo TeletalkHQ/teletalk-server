@@ -26,7 +26,7 @@ const signInNormalUserController = async (
 ) => {
   try {
     const cellphone = getCellphone(req.body);
-    const { countryCode, phoneNumber } = cellphone;
+
     const verificationCode = passwordGenerator();
 
     await verificationCodeValidator(verificationCode);
@@ -36,8 +36,8 @@ const signInNormalUserController = async (
       ENVIRONMENT_VALUES.NODE_ENV.test
     ) {
       sendSms(
-        countryCode,
-        phoneNumber,
+        cellphone.countryCode,
+        cellphone.phoneNumber,
         `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${req.get(
           "host"
         )}        
@@ -50,16 +50,7 @@ const signInNormalUserController = async (
       secret: getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET),
     });
 
-    const client = clients.aliveClients.find((client) => {
-      if (
-        client.phoneNumber === phoneNumber &&
-        client.countryCode === countryCode
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const client = clients.findClient(cellphone);
 
     if (client) {
       client.verificationCode = verificationCode;

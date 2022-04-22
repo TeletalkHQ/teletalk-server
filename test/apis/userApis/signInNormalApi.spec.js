@@ -1,4 +1,4 @@
-const expect = require("chai").expect;
+const { expect } = require("chai");
 
 const { request } = require("~/functions/utilities/testUtils");
 const { setEnvironment } = require("~/functions/utilities/utilsNoDeps");
@@ -15,25 +15,28 @@ const {
   userErrors: {
     properties: {
       CELLPHONE_REQUIRED,
-      PHONE_NUMBER_REQUIRED,
-      COUNTRY_CODE_REQUIRED,
-      COUNTRY_NAME_REQUIRED,
       COUNTRY_CODE_INVALID_TYPE,
+      COUNTRY_CODE_NOT_SUPPORTED,
+      COUNTRY_CODE_REQUIRED,
+      COUNTRY_NAME_NOT_SUPPORTED,
+      COUNTRY_NAME_REQUIRED,
       PHONE_NUMBER_INVALID_TYPE,
+      PHONE_NUMBER_REQUIRED,
     },
   },
 } = require("~/variables/errors/userErrors");
 const { countries } = require("~/variables/constants/countries");
 const { userModel } = require("~/models/userModels/userModel");
 
-const country = countries[0];
+const cellphone = countries[0];
+cellphone.phoneNumber = "9119119191";
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {
     const requestBody = {
-      phoneNumber: "9012700470",
-      countryName: "Iran, Islamic Republic of" || country.countryName,
-      countryCode: "98" || country.countryCode,
+      phoneNumber: cellphone.phoneNumber,
+      countryName: cellphone.countryName,
+      countryCode: cellphone.countryCode,
     };
 
     const response = await request(
@@ -42,7 +45,7 @@ describe("signInNormalApi test success requests", () => {
       requestBody
     );
 
-    const { countryCode, countryName, phoneNumber, verificationCode, token } =
+    const { countryCode, countryName, phoneNumber, verificationCode } =
       response.body;
 
     expect(countryCode).equal(requestBody.countryCode);
@@ -71,7 +74,10 @@ describe("signInNormalApi test failure requests", () => {
     await request(
       userRoutesBaseUrl,
       signInNormal,
-      { countryCode: country.countryCode, countryName: country.countryName },
+      {
+        countryCode: cellphone.countryCode,
+        countryName: cellphone.countryName,
+      },
       PHONE_NUMBER_REQUIRED,
       "phoneNumberValidation"
     );
@@ -81,8 +87,8 @@ describe("signInNormalApi test failure requests", () => {
       userRoutesBaseUrl,
       signInNormal,
       {
-        countryCode: country.countryCode,
-        countryName: country.countryName,
+        countryCode: cellphone.countryCode,
+        countryName: cellphone.countryName,
         phoneNumber: "101270047!",
       },
       PHONE_NUMBER_INVALID_TYPE,
@@ -94,7 +100,10 @@ describe("signInNormalApi test failure requests", () => {
     await request(
       userRoutesBaseUrl,
       signInNormal,
-      { phoneNumber: "9119119191", countryName: country.countryName },
+      {
+        phoneNumber: cellphone.phoneNumber,
+        countryName: cellphone.countryName,
+      },
       COUNTRY_CODE_REQUIRED,
       "countryCodeValidation"
     );
@@ -104,11 +113,23 @@ describe("signInNormalApi test failure requests", () => {
       userRoutesBaseUrl,
       signInNormal,
       {
-        phoneNumber: "9119119191",
-        countryName: country.countryName,
+        phoneNumber: cellphone.phoneNumber,
+        countryName: cellphone.countryName,
         countryCode: "zoot!",
       },
       COUNTRY_CODE_INVALID_TYPE,
+      "countryCodeValidation"
+    );
+  });
+  it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
+    await request(
+      userRoutesBaseUrl,
+      signInNormal,
+      {
+        phoneNumber: cellphone.phoneNumber,
+        countryCode: "010101",
+      },
+      COUNTRY_CODE_NOT_SUPPORTED,
       "countryCodeValidation"
     );
   });
@@ -117,8 +138,25 @@ describe("signInNormalApi test failure requests", () => {
     await request(
       userRoutesBaseUrl,
       signInNormal,
-      { phoneNumber: "9119119191", countryCode: country.countryCode },
+      {
+        phoneNumber: cellphone.phoneNumber,
+        countryCode: cellphone.countryCode,
+      },
       COUNTRY_NAME_REQUIRED,
+      "countryNameValidation"
+    );
+  });
+
+  it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
+    await request(
+      userRoutesBaseUrl,
+      signInNormal,
+      {
+        phoneNumber: cellphone.phoneNumber,
+        countryCode: cellphone.countryCode,
+        countryName: "Something wrong!",
+      },
+      COUNTRY_NAME_NOT_SUPPORTED,
       "countryNameValidation"
     );
   });

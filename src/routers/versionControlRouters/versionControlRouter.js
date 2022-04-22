@@ -12,7 +12,7 @@ const versionControlRouter = Router();
 
 const {
   properties: {
-    getAllStuffs: { properties: getAllStuffs },
+    getAllStuffsRoute: { properties: getAllStuffs },
   },
 } = versionControlRoutes;
 

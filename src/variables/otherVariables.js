@@ -1,8 +1,8 @@
 const {
-  chatIdValidationModel: chatIDValidationModel,
+  chatIdValidationModel,
 } = require("~/models/validationModels/chatValidationModels/chatIdValidationModel");
 const {
-  messageIdValidationModel: messageIDValidationModel,
+  messageIdValidationModel,
 } = require("~/models/validationModels/chatValidationModels/messageIdValidationModel");
 const {
   messageTextValidationModel,
@@ -35,8 +35,8 @@ const {
   phoneNumberValidationModel,
 } = require("~/models/validationModels/userValidationModels/phoneNumberValidationModel");
 const {
-  privateIDValidationModel,
-} = require("~/models/validationModels/userValidationModels/privateIDValidationModel");
+  privateIdValidationModel,
+} = require("~/models/validationModels/userValidationModels/privateIdValidationModel");
 const {
   usernameValidationModel,
 } = require("~/models/validationModels/userValidationModels/usernameValidationModel");
@@ -79,18 +79,18 @@ const errorTemplates = {
 
 const validationSchemas = {
   bioValidationsModel,
-  chatIDValidationModel,
+  chatIdValidationModel,
   countryCodeValidationModel,
   countryNameValidationModel,
   createdAtValidationModel,
   firstNameValidationModel,
   lastNameValidationModel,
   macAddressValidationModel,
-  messageIDValidationModel,
+  messageIdValidationModel,
   messageTextValidationModel,
   participantIdValidationModel,
   phoneNumberValidationModel,
-  privateIDValidationModel,
+  privateIdValidationModel,
   usernameValidationModel,
   verificationCodeValidationModel,
 };

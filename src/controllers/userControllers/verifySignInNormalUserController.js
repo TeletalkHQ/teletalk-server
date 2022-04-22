@@ -53,7 +53,7 @@ const verifySignInNormalUserController = async (
     if (user) {
       const { userData } = sendableUserData({ user });
       await UserMongoModel.findOneAndUpdate(
-        { privateID: user.privateID },
+        { privateId: user.privateId },
         { tokens: user.token }
       );
       res

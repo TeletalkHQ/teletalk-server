@@ -68,7 +68,7 @@ const createNewUserUserController = async (
 
     if (user) {
       await UserMongoModel.findOneAndUpdate(
-        { privateID: user.privateID },
+        { privateId: user.privateId },
         { tokens: user.token, firstName, lastName }
       );
 
@@ -81,19 +81,19 @@ const createNewUserUserController = async (
         },
       });
     } else if (!user) {
-      const privateID = randomId(
+      const privateId = randomId(
         commonModel.properties.commonPrivateIdModel.properties.maxlength.value
       );
 
       const token = await tokenSigner({
-        data: { ...cellphone, privateID },
+        data: { ...cellphone, privateId },
       });
 
       const userData = {
         ...cellphone,
         firstName,
         lastName,
-        privateID,
+        privateId,
         tokens: [{ token }],
       };
 
@@ -101,7 +101,7 @@ const createNewUserUserController = async (
       await newUser.save();
 
       res.status(200).json({
-        user: { ...cellphone, privateID, firstName, lastName, token },
+        user: { ...cellphone, privateId, firstName, lastName, token },
       });
     }
   } catch (error) {

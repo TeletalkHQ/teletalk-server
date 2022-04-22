@@ -33,8 +33,8 @@ const {
   userRoutes: { properties: userRoutes },
   userRoutes: {
     properties: {
-      signInNormal: { properties: signInNormal },
-      verifySignInNormal: { properties: verifySignInNormal },
+      signInNormalRoute: { properties: signInNormal },
+      verifySignInNormalRoute: { properties: verifySignInNormal },
     },
   },
 } = require("~/variables/routes/userRoutes");
@@ -48,21 +48,30 @@ const lifeLine = Router();
 lifeLine.use(
   ignoreMiddlewaresByUrl(
     [
-      `${userRoutes.baseUrl.properties.url}${signInNormal.url}`,
-      `${userRoutes.baseUrl.properties.url}${verifySignInNormal.url}`,
+      `${userRoutes.userRouteBaseUrl.properties.url}${signInNormal.url}`,
+      `${userRoutes.userRouteBaseUrl.properties.url}${verifySignInNormal.url}`,
     ],
     authDefaultMiddleware
   )
 );
 
-lifeLine.use(cellphoneRoutes.baseUrl.properties.url, cellphoneRouter);
+lifeLine.use(
+  cellphoneRoutes.cellphoneRouteBaseUrl.properties.url,
+  cellphoneRouter
+);
 
-lifeLine.use(otherRoutes.baseUrl.properties.url, otherRouter);
+lifeLine.use(otherRoutes.otherRouteBaseUrl.properties.url, otherRouter);
 
-lifeLine.use(privateChatRoutes.baseUrl.properties.url, privateChatRouter);
+lifeLine.use(
+  privateChatRoutes.privateChatRouteBaseUrl.properties.url,
+  privateChatRouter
+);
 
-lifeLine.use(userRoutes.baseUrl.properties.url, userRouter);
+lifeLine.use(userRoutes.userRouteBaseUrl.properties.url, userRouter);
 
-lifeLine.use(versionControlRoutes.baseUrl.properties.url, versionControlRouter);
+lifeLine.use(
+  versionControlRoutes.versionControlBaseUrl.properties.url,
+  versionControlRouter
+);
 
 module.exports = { lifeLine };

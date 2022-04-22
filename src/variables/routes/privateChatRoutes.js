@@ -1,8 +1,14 @@
 const { routeGenerator } = require("~/functions/utilities/generators");
 
-const baseUrl = routeGenerator(true, "/chat/privateChat", true, "1.0.0", "");
+const privateChatRouteBaseUrl = routeGenerator(
+  true,
+  "/chat/privateChat",
+  true,
+  "1.0.0",
+  ""
+);
 
-const getAllChats = routeGenerator(
+const getAllChatsRoute = routeGenerator(
   "get",
   "/getAllPrivateChats",
   200,
@@ -10,7 +16,7 @@ const getAllChats = routeGenerator(
   "Use for Start new chat"
 );
 
-const chatsLastMessage = routeGenerator(
+const chatsLastMessageRoute = routeGenerator(
   "post",
   "/privateChatsLastMessages",
   200,
@@ -18,7 +24,7 @@ const chatsLastMessage = routeGenerator(
   "Use for Get chats last message"
 );
 
-const getMessages = routeGenerator(
+const getMessagesRoute = routeGenerator(
   "post",
   "/getPrivateMessages",
   200,
@@ -26,7 +32,7 @@ const getMessages = routeGenerator(
   "Use for get all messages"
 );
 
-const startChat = routeGenerator(
+const startChatRoute = routeGenerator(
   "post",
   "/startNewPrivateChat",
   200,
@@ -34,7 +40,7 @@ const startChat = routeGenerator(
   "Use for Start new chat"
 );
 
-const sendMessage = routeGenerator(
+const sendMessageRoute = routeGenerator(
   "post",
   "/sendPrivateMessage",
   200,
@@ -46,12 +52,12 @@ const privateChatRoutes = {
   info: { version: "1.0.0" },
 
   properties: {
-    baseUrl,
-    chatsLastMessage,
-    getAllChats,
-    getMessages,
-    sendMessage,
-    startChat,
+    privateChatRouteBaseUrl,
+    chatsLastMessageRoute,
+    getAllChatsRoute,
+    getMessagesRoute,
+    sendMessageRoute,
+    startChatRoute,
   },
 };
 

@@ -17,7 +17,9 @@ const chatsLastMessageChatController = async (
 
     res
       .status(
-        getStatusCodeFromRoute(privateChatRoutes.properties.chatsLastMessage)
+        getStatusCodeFromRoute(
+          privateChatRoutes.properties.chatsLastMessageRoute
+        )
       )
       .json({ chatsWithLastMessages });
   } catch (error) {

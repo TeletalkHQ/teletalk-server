@@ -12,7 +12,9 @@ const getAllChatsUserController = async (
     const chats = await getAllChats(currentUser);
 
     res
-      .status(getStatusCodeFromRoute(privateChatRoutes.properties.getAllChats))
+      .status(
+        getStatusCodeFromRoute(privateChatRoutes.properties.getAllChatsRoute)
+      )
       .json({ chats });
   } catch (error) {
     logger.log("getAllChatsUserController", error);

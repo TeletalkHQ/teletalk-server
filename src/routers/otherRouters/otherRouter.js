@@ -10,8 +10,8 @@ const {
 const {
   otherRoutes: {
     properties: {
-      welcome: { properties: welcome },
-      countries: { properties: countries },
+      welcomeRoute: { properties: welcome },
+      countriesRoute: { properties: countries },
     },
   },
 } = require("~/variables/routes/otherRoutes");

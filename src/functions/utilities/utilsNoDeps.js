@@ -130,12 +130,15 @@ const getCellphone = (object = {}) => {
   };
 };
 
+const getHostFromRequest = (request) => request.get("host");
+
 module.exports = {
   errorThrower,
   getAllEnvironments,
   getCellphone,
   getEnvironment,
   getErrorObject,
+  getHostFromRequest,
   getMethodFromRoute,
   getStatusCodeFromRoute,
   getTestToken,

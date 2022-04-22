@@ -25,7 +25,7 @@ const getTokenFromRequest = (request) => {
     logger.log("getTokenFromRequest request.url", request.url);
     if (
       request.url.includes(
-        userRoutes.properties.verifySignInNormal.properties.url
+        userRoutes.properties.verifySignInNormalRoute.properties.url
       )
     ) {
       return getEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN);

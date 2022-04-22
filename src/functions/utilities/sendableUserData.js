@@ -1,6 +1,6 @@
 const sendableUserData = ({ user }) => {
   const {
-    privateID,
+    privateId,
     firstName,
     lastName,
     bio,
@@ -14,13 +14,13 @@ const sendableUserData = ({ user }) => {
   } = user;
 
   const sendingContacts = contacts.map((contact) => {
-    const { firstName, lastName, phoneNumber, privateID } = contact;
+    const { firstName, lastName, phoneNumber, privateId } = contact;
 
-    return { firstName, lastName, phoneNumber, privateID };
+    return { firstName, lastName, phoneNumber, privateId };
   });
 
   const userData = {
-    privateID,
+    privateId,
     firstName,
     lastName,
     bio,

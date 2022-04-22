@@ -10,11 +10,32 @@ class Clients {
   }
 
   findClient(client) {
-    const aliveClient = this.aliveClients.find(
+    return this.aliveClients.find(
       (aliveClient) => !!isEqualWithTargetCellphone(aliveClient, client)
     );
+  }
 
-    return aliveClient;
+  findIndexClient(client) {
+    return this.aliveClients.findIndex(
+      (aliveClient) => !!isEqualWithTargetCellphone(aliveClient, client)
+    );
+  }
+
+  updateClient(client, updateProps) {
+    const aliveClientIndex = this.findClient(client);
+
+    if (aliveClientIndex !== -1) {
+      const aliveClient = this.aliveClients[aliveClientIndex];
+
+      this.aliveClients.splice(aliveClientIndex, 1, {
+        ...aliveClient,
+        ...updateProps,
+      });
+
+      return true;
+    }
+
+    return false;
   }
 }
 

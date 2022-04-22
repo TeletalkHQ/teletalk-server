@@ -8,7 +8,7 @@ const countriesOtherController = async (
 ) => {
   try {
     res
-      .status(getStatusCodeFromRoute(otherRoutes.properties.countries))
+      .status(getStatusCodeFromRoute(otherRoutes.properties.countriesRoute))
       .json({ countries });
   } catch (error) {
     logger.log("countriesUserController", error);

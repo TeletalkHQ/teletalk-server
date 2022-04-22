@@ -23,11 +23,11 @@ const {
 const {
   userRoutes: {
     properties: {
-      createNewUser: { properties: createNewUser },
-      logoutNormal: { properties: logoutNormal },
-      statusCheck: { properties: statusCheck }, //UNUSED
-      signInNormal: { properties: signInNormal },
-      verifySignInNormal: { properties: verifySignInNormal },
+      createNewUserRoute: { properties: createNewUser },
+      logoutNormalRoute: { properties: logoutNormal },
+      statusCheckRoute: { properties: statusCheck }, //UNUSED
+      signInNormalRoute: { properties: signInNormal },
+      verifySignInNormalRoute: { properties: verifySignInNormal },
     },
   },
 } = require("~/variables/routes/userRoutes");

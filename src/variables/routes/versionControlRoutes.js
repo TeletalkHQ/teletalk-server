@@ -1,8 +1,13 @@
 const { routeGenerator } = require("~/functions/utilities/generators");
 
-const baseUrl = routeGenerator(true, "/versionControl", true, "1.0.0");
+const versionControlBaseUrl = routeGenerator(
+  true,
+  "/versionControl",
+  true,
+  "1.0.0"
+);
 
-const getAllStuffs = routeGenerator(
+const getAllStuffsRoute = routeGenerator(
   "get",
   "/getAllStuff",
   200,
@@ -11,7 +16,7 @@ const getAllStuffs = routeGenerator(
 );
 
 const versionControlRoutes = {
-  properties: { baseUrl, getAllStuffs },
+  properties: { versionControlBaseUrl, getAllStuffsRoute },
 
   info: { version: "1.0.0" },
 };

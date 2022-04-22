@@ -35,4 +35,12 @@ const sendSms = async (countryCode, phoneNumber, text) => {
   );
 };
 
-module.exports = { smsClient, sendSms };
+const smsTexts = {
+  sendVerificationCode: (
+    verificationCode,
+    host
+  ) => `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${host}        
+        `,
+};
+
+module.exports = { smsClient, sendSms, smsTexts };

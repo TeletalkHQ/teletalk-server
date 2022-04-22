@@ -1,8 +1,8 @@
 const { routeGenerator } = require("~/functions/utilities/generators");
 
-const baseUrl = routeGenerator(true, "/user", true, "1.0.0");
+const userRouteBaseUrl = routeGenerator(true, "/user", true, "1.0.0");
 
-const createNewUser = routeGenerator(
+const createNewUserRoute = routeGenerator(
   "post",
   "/normalUser/createNewNormalUser",
   200,
@@ -10,14 +10,14 @@ const createNewUser = routeGenerator(
   "Use for create new user for normal account"
 );
 
-const logoutNormal = routeGenerator(
+const logoutNormalRoute = routeGenerator(
   "post",
   "/normalUser/logoutNormalUser",
   200,
   "1.0.0",
   "Use for logout client as a normal account"
 );
-const signInNormal = routeGenerator(
+const signInNormalRoute = routeGenerator(
   "post",
   "/normalUser/signInNormalUser",
   200,
@@ -25,7 +25,7 @@ const signInNormal = routeGenerator(
   "Use for sign in client as a normal account"
 );
 
-const statusCheck = routeGenerator(
+const statusCheckRoute = routeGenerator(
   "get",
   "/normalUser/statusCheck",
   200,
@@ -33,7 +33,7 @@ const statusCheck = routeGenerator(
   "Use for check client availability as a normal account"
 );
 
-const verifySignInNormal = routeGenerator(
+const verifySignInNormalRoute = routeGenerator(
   "post",
   "/normalUser/verifySignInNormalUser",
   200,
@@ -47,12 +47,12 @@ const userRoutes = {
   },
 
   properties: {
-    baseUrl,
-    createNewUser,
-    logoutNormal,
-    signInNormal,
-    statusCheck,
-    verifySignInNormal,
+    userRouteBaseUrl,
+    createNewUserRoute,
+    logoutNormalRoute,
+    signInNormalRoute,
+    statusCheckRoute,
+    verifySignInNormalRoute,
   },
 };
 

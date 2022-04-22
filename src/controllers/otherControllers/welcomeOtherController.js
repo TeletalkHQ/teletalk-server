@@ -6,9 +6,11 @@ const welcomeOtherController = (
   res = expressResponse
 ) => {
   try {
-    res.status(getStatusCodeFromRoute(otherRoutes.properties.welcome)).json({
-      message: "Hey! Welcome to teletalk <3",
-    });
+    res
+      .status(getStatusCodeFromRoute(otherRoutes.properties.welcomeRoute))
+      .json({
+        message: "Hey! Welcome to teletalk <3",
+      });
   } catch (error) {
     logger.log("welcome url catch", error);
     res.errorCollector(error);

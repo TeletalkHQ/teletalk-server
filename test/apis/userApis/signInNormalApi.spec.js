@@ -48,11 +48,9 @@ describe("signInNormalApi test success requests", () => {
     expect(countryCode).equal(requestBody.countryCode);
     expect(countryName).equal(requestBody.countryName);
     expect(phoneNumber).equal(requestBody.phoneNumber);
-    expect(verificationCode)
-      .length(
-        userModel.properties.verificationCodeModel.properties.length.value
-      )
-      .and.be.true("string");
+    expect(verificationCode).length(
+      userModel.properties.verificationCodeModel.properties.length.value
+    );
 
     setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, response.token);
   });

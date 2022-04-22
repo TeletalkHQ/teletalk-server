@@ -28,5 +28,11 @@
     "thunder-tests": true
   },
   "explorerExclude.backup": null,
-  "cSpell.words": [""]
+  "cSpell.words": [""],
+  "mocha.enabled": true,
+  "mocha.requires": ["module-alias/register"],
+  "mocha.showInExplorer": true,
+  "mochaExplorer.require": "module-alias/register",
+  "mochaExplorer.timeout": 4000,
+  "mochaExplorer.logpanel": true
 }

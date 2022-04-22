@@ -1,0 +1,10 @@
+{
+  "extension": ["js", "cjs", "mjs"],
+  "timeout": "2000",
+  "ui": "bdd",
+  "watch-files": ["lib/**/*.js", "test/**/*.js"],
+  "watch-ignore": "",
+  "reporter": "spec",
+  "package": "./package.json",
+  "require": "module-alias/register"
+}

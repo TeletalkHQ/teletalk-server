@@ -4,6 +4,7 @@ const { getEnvironment, errorThrower } = require("../utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,
+  ENVIRONMENT_VALUES,
 } = require("~/variables/constants/environmentInitialValues");
 
 const USERNAME = getEnvironment(ENVIRONMENT_KEYS.SMS_CLIENT_USERNAME);
@@ -24,15 +25,21 @@ const smsClient = async ({ from, to, text, isFlash = false }) => {
 };
 
 const sendSms = async (countryCode, phoneNumber, text) => {
-  const from = "50004001700470";
-  const to = `+${countryCode}${phoneNumber}`;
+  const NODE_ENV = getEnvironment(ENVIRONMENT_KEYS.NODE_ENV);
+  const { test, development } = ENVIRONMENT_VALUES.NODE_ENV;
 
-  const smsResult = await smsClient({ from, to, text });
+  const condition = NODE_ENV === test || NODE_ENV === development;
+  if (condition) {
+    const from = "50004001700470";
+    const to = `+${countryCode}${phoneNumber}`;
 
-  errorThrower(
-    !smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1,
-    smsResult
-  );
+    const smsResult = await smsClient({ from, to, text });
+
+    errorThrower(
+      !smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1,
+      smsResult
+    );
+  }
 };
 
 const smsTexts = {

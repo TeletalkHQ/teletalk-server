@@ -1,6 +1,4 @@
-const { expect } = require("chai");
-
-const { request } = require("~/functions/utilities/testUtils");
+const { request, expect } = require("~/functions/utilities/testUtils");
 const { setEnvironment } = require("~/functions/utilities/utilsNoDeps");
 
 const {
@@ -29,10 +27,13 @@ const {
   },
 } = require("~/variables/errors/userErrors");
 const { countries } = require("~/variables/constants/countries");
-const { userModel } = require("~/models/userModels/userModel");
+const {
+  userModel: {
+    properties: { verificationCodeModel },
+  },
+} = require("~/models/userModels/userModel");
 
-const cellphone = countries[0];
-cellphone.phoneNumber = "9119119191";
+const cellphone = { ...countries[0], phoneNumber: "9119119191" };
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {
@@ -48,17 +49,18 @@ describe("signInNormalApi test success requests", () => {
       requestBody
     );
 
-    const { countryCode, countryName, phoneNumber, verificationCode } =
+    const { countryCode, countryName, phoneNumber, verificationCode, token } =
       response.body;
 
     expect(countryCode).equal(requestBody.countryCode);
     expect(countryName).equal(requestBody.countryName);
     expect(phoneNumber).equal(requestBody.phoneNumber);
     expect(verificationCode).length(
-      userModel.properties.verificationCodeModel.properties.length.value
+      verificationCodeModel.properties.length.value
     );
 
-    setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, response.token);
+    setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE, verificationCode);
+    setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, token);
   });
 });
 

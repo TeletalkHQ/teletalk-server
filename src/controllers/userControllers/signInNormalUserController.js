@@ -3,7 +3,6 @@ const {
 } = require("~/functions/utilities/passwordGenerator");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
 const {
-  getStatusCodeFromRoute,
   getCellphone,
   getHostFromRequest,
 } = require("~/functions/utilities/utilsNoDeps");
@@ -35,16 +34,11 @@ const signInNormalUserController = async (
 
     await verificationCodeValidator(verificationCode);
 
-    if (
-      getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) !==
-      ENVIRONMENT_VALUES.NODE_ENV.test
-    ) {
-      sendSms(
-        cellphone.countryCode,
-        cellphone.phoneNumber,
-        smsTexts.sendVerificationCode(verificationCode, getHostFromRequest(req))
-      );
-    }
+    sendSms(
+      cellphone.countryCode,
+      cellphone.phoneNumber,
+      smsTexts.sendVerificationCode(verificationCode, getHostFromRequest(req))
+    );
 
     const token = await tokenSigner({
       data: cellphone,

@@ -8,7 +8,7 @@ const { app } = require("~/app");
 const { ioFunctions } = require("~/socket/io");
 const {
   connectDatabase,
-} = require("~/variables/configs/databaseConfigs/connectDatabase");
+} = require("~/configs/databaseConfigs/connectDatabase");
 const { getAllEnvironments } = require("./functions/utilities/utilsNoDeps");
 
 const server = http.createServer(app);
@@ -42,7 +42,7 @@ const startServer = async () => {
 
     server.listen(EXACT_PORT, serverListenerCb);
   } catch (error) {
-    if (error) throw error;
+    process.exit(1);
   }
 };
 

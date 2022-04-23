@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const { MONGO_URI } = require("../appConfigs/appConfigs");
+
+const { MONGO_URI } = require("~/configs/appConfigs/appConfigs");
 
 const connectDatabase = async () => {
   try {
     const database = await mongoose.connect(MONGO_URI, {
-      // useFindAndModify: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       keepAlive: true,

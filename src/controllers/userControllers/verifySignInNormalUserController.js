@@ -4,6 +4,7 @@ const { clients } = require("~/functions/tools/Clients");
 const {
   getEnvironment,
   getCellphone,
+  errorThrower,
 } = require("~/functions/utilities/utilsNoDeps");
 
 const {
@@ -12,10 +13,7 @@ const {
   },
 } = require("~/variables/errors/userErrors");
 
-const {
-  errorThrower,
-  getTokenFromRequest,
-} = require("~/functions/utilities/utils");
+const { getTokenFromRequest } = require("~/functions/utilities/utils");
 const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");

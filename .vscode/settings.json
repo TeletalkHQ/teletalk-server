@@ -25,7 +25,8 @@
     "**/package-lock.json": true,
     ".husky": true,
     ".vscode": true,
-    "thunder-tests": true
+    "thunder-tests": true,
+    "coverage": true
   },
   "explorerExclude.backup": null,
   "cSpell.words": [""],

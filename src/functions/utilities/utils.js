@@ -1,11 +1,3 @@
-const {
-  ENVIRONMENT_KEYS,
-  ENVIRONMENT_VALUES,
-} = require("~/variables/constants/environmentInitialValues");
-
-const { userRoutes } = require("~/variables/routes/userRoutes");
-const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
-
 const isEqualWithTargetCellphone = (cellphone, targetCell) => {
   if (
     cellphone.phoneNumber === targetCell.phoneNumber &&
@@ -19,21 +11,9 @@ const isEqualWithTargetCellphone = (cellphone, targetCell) => {
 };
 
 const getTokenFromRequest = (request) => {
-  const NODE_ENV = getEnvironment(ENVIRONMENT_KEYS.NODE_ENV);
+  const { authorization, Authorization } = request.headers;
 
-  if (NODE_ENV === ENVIRONMENT_VALUES.NODE_ENV.test) {
-    logger.log("getTokenFromRequest request.url", request.url);
-    if (
-      request.url.includes(
-        userRoutes.properties.verifySignInNormalRoute.properties.url
-      )
-    ) {
-      return getEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN);
-    }
-
-    return getEnvironment(ENVIRONMENT_KEYS.TEST_MAIN_TOKEN);
-  }
-  return request.headers.authorization?.split("Bearer ")[1];
+  return (authorization || Authorization)?.split("Bearer ")[1];
 };
 
 module.exports = {

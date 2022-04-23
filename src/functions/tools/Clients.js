@@ -15,7 +15,7 @@ class Clients {
     );
   }
 
-  findIndexClient(client) {
+  findClientIndex(client) {
     return this.aliveClients.findIndex(
       (aliveClient) => !!isEqualWithTargetCellphone(aliveClient, client)
     );

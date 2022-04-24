@@ -1,15 +1,28 @@
 const { request, expect } = require("~/functions/utilities/testUtils");
-const {
-  setEnvironment,
-  getEnvironment,
-} = require("~/functions/utilities/utilsNoDeps");
+const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");
 const {
+  userErrors: {
+    properties: {
+      VERIFICATION_CODE_REQUIRED: { properties: VERIFICATION_CODE_REQUIRED },
+      // VERIFICATION_CODE_INVALID_TYPE: {
+      //   properties: VERIFICATION_CODE_INVALID_TYPE,
+      // },
+      // VERIFICATION_CODE_INVALID_LENGTH: {
+      //   properties: VERIFICATION_CODE_INVALID_LENGTH,
+      // },
+    },
+  },
+} = require("~/variables/errors/userErrors");
+const {
   userRoutes: {
-    properties: { userRouteBaseUrl, verifySignInNormalRoute },
+    properties: {
+      userRouteBaseUrl: { properties: userRouteBaseUrl },
+      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
+    },
   },
 } = require("~/variables/routes/userRoutes");
 
@@ -25,4 +38,54 @@ describe("verifySignInNormalApi success test", () => {
 
     expect(response.body.user.newUser).equal(true);
   });
+});
+
+describe("verifySignInNormalApi failure tests", () => {
+  it("it should get error, VERIFICATION_CODE_REQUIRED", async () => {
+    await request(
+      userRouteBaseUrl,
+      verifySignInNormalRoute,
+      {
+        verificationCode: "",
+      },
+      VERIFICATION_CODE_REQUIRED,
+      "verificationCodeValidation"
+    );
+  });
+
+  // it("it should get error, VERIFICATION_CODE_INVALID_TYPE", async () => {
+  //   await request(
+  //     userRouteBaseUrl,
+  //     verifySignInNormalRoute,
+  //     {
+  //       verificationCode: "wrong type!",
+  //     },
+  //     VERIFICATION_CODE_INVALID_TYPE,
+  //     "verificationCodeValidation"
+  //   );
+  // });
+
+  // it("it should get error, VERIFICATION_CODE_INVALID_TYPE", async () => {
+  //   await request(
+  //     userRouteBaseUrl,
+  //     verifySignInNormalRoute,
+  //     {
+  //       verificationCode: "000000",
+  //     },
+  //     VERIFICATION_CODE_INVALID_TYPE,
+  //     "verificationCodeValidation"
+  //   );
+  // });
+
+  // it("it should get error, VERIFICATION_CODE_INVALID_LENGTH", async () => {
+  //   await request(
+  //     userRouteBaseUrl,
+  //     verifySignInNormalRoute,
+  //     {
+  //       verificationCode: "00000000000",
+  //     },
+  //     VERIFICATION_CODE_INVALID_LENGTH,
+  //     "verificationCodeValidation"
+  //   );
+  // });
 });

@@ -6,10 +6,14 @@ const {
 
 const {
   chatErrors: {
-    properties: { CHAT_ID_REQUIRED },
+    properties: {
+      CHAT_ID_REQUIRED: { properties: CHAT_ID_REQUIRED },
+    },
   },
 } = require("~/variables/errors/chatErrors");
-const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
+const {
+  privateChatRoutes: { properties: getMessagesRoute },
+} = require("~/variables/routes/privateChatRoutes");
 
 const getMessagesPrivateChatController = async (
   req = expressRequest,
@@ -28,7 +32,7 @@ const getMessagesPrivateChatController = async (
       chatId
     );
 
-    res.sendJsonResponse(privateChatRoutes.properties.getMessagesRoute, {
+    res.sendJsonResponse(getMessagesRoute, {
       messages: privateChatMessages.messages,
     });
   } catch (error) {

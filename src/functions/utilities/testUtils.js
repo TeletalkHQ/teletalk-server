@@ -5,15 +5,17 @@ const { getAllEnvironments } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userRoutes: {
-    properties: { verifySignInNormalRoute },
+    properties: {
+      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
+    },
   },
 } = require("~/variables/routes/userRoutes");
 
 const myRequest = async (
-  { properties: baseUrl },
-  { properties: routeObject },
+  baseUrl,
+  routeObject,
   data,
-  { properties: errorObject } = {},
+  errorObject = {},
   errorKey,
   withoutToken
 ) => {
@@ -44,6 +46,7 @@ const myRequest = async (
     return response;
   } catch (error) {
     logger.log("myRequest catch, error:", error);
+    throw error;
   }
 };
 
@@ -57,7 +60,7 @@ const testRequest = (requestObject, data, withoutToken) => {
       .set("Content-Type", "application/json");
 
     if (!withoutToken) {
-      if (requestObject.url.includes(verifySignInNormalRoute.properties.url)) {
+      if (requestObject.url.includes(verifySignInNormalRoute.url)) {
         response.set(...setTestToken(TEST_VERIFY_TOKEN));
       } else {
         response.set(...setTestToken(TEST_MAIN_TOKEN));

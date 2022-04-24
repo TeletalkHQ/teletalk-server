@@ -54,7 +54,7 @@ const setTestToken = (token) => {
 
 const getStatusCodeFromRoute = (route) => {
   try {
-    const statusCode = route?.properties?.statusCode || route?.statusCode;
+    const statusCode = route?.statusCode;
 
     errorThrower(!statusCode, "You need to pass correct route object");
 
@@ -66,7 +66,7 @@ const getStatusCodeFromRoute = (route) => {
 
 const getMethodFromRoute = (route) => {
   try {
-    const method = route?.properties?.method || route?.method;
+    const method = route?.method;
 
     errorThrower(!method, "You need to pass correct route object");
 
@@ -118,8 +118,13 @@ const skipParams = (count) => {
   return Array.from({ length: count });
 };
 
-const getErrorObject = (errorObject) => {
-  return errorObject.properties;
+const getErrorObject = (errorObject, extraData = {}, statusCode) => {
+  const { errorKey, ...error } = errorObject;
+
+  return {
+    [errorKey]: { ...error, ...extraData },
+    statusCode: statusCode || errorObject.statusCode,
+  };
 };
 
 const getCellphone = (object = {}) => {

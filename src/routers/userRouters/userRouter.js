@@ -23,32 +23,41 @@ const {
 const {
   userRoutes: {
     properties: {
-      createNewUserRoute: { properties: createNewUser },
-      logoutNormalRoute: { properties: logoutNormal },
-      statusCheckRoute: { properties: statusCheck }, //UNUSED
-      signInNormalRoute: { properties: signInNormal },
-      verifySignInNormalRoute: { properties: verifySignInNormal },
+      createNewUserRoute: { properties: createNewUserRoute },
+      logoutNormalRoute: { properties: logoutNormalRoute },
+      statusCheckRoute: { properties: statusCheckRoute }, //UNUSED
+      signInNormalRoute: { properties: signInNormalRoute },
+      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
     },
   },
 } = require("~/variables/routes/userRoutes");
 
 const userRouter = Router();
 
-userRouter.use(signInNormal.url, cellphoneValidatorMiddleware);
+userRouter.use(signInNormalRoute.url, cellphoneValidatorMiddleware);
 
-userRouter[signInNormal.method](signInNormal.url, signInNormalUserController);
-userRouter[verifySignInNormal.method](
-  verifySignInNormal.url,
+userRouter[signInNormalRoute.method](
+  signInNormalRoute.url,
+  signInNormalUserController
+);
+userRouter[verifySignInNormalRoute.method](
+  verifySignInNormalRoute.url,
   verifySignInNormalUserController
 );
 
-userRouter[statusCheck.method](statusCheck.url, statusCheckUserController);
+userRouter[statusCheckRoute.method](
+  statusCheckRoute.url,
+  statusCheckUserController
+);
 
-userRouter[createNewUser.method](
-  createNewUser.url,
+userRouter[createNewUserRoute.method](
+  createNewUserRoute.url,
   createNewUserUserController
 );
 
-userRouter[logoutNormal.method](logoutNormal.url, logoutNormalUserController);
+userRouter[logoutNormalRoute.method](
+  logoutNormalRoute.url,
+  logoutNormalUserController
+);
 
 module.exports = { userRouter };

@@ -17,27 +17,30 @@ const {
 } = require("~/validators/userValidators/countryNameValidator");
 
 const {
-  phoneNumberValidationModel,
+  phoneNumberValidationModel: { properties: phoneNumberValidationModel },
 } = require("~/models/validationModels/userValidationModels/phoneNumberValidationModel");
 
 const {
-  countryCodeValidationModel,
+  countryCodeValidationModel: { properties: countryCodeValidationModel },
 } = require("~/models/validationModels/userValidationModels/countryCodeValidationModel");
 const {
-  countryNameValidationModel,
+  countryNameValidationModel: { properties: countryNameValidationModel },
 } = require("~/models/validationModels/userValidationModels/countryNameValidationModel");
 
 const {
   userErrors: {
-    properties: { CELLPHONE_REQUIRED, CELLPHONE_INVALID },
+    properties: {
+      CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
+      CELLPHONE_INVALID: { properties: CELLPHONE_INVALID },
+    },
   },
 } = require("~/variables/errors/userErrors");
 
 const cellphoneValidation = {
   properties: {
-    ...phoneNumberValidationModel.properties,
-    ...countryCodeValidationModel.properties,
-    ...countryNameValidationModel.properties,
+    ...phoneNumberValidationModel,
+    ...countryCodeValidationModel,
+    ...countryNameValidationModel,
   },
 
   info: {
@@ -51,14 +54,7 @@ const cellphoneValidator = async (cellphone = {}) => {
   const { countryCode, countryName, phoneNumber } = cellphone;
 
   errorThrower(!phoneNumber && !countryCode && !countryName, () => {
-    const { statusCode, ...error } = getErrorObject(CELLPHONE_REQUIRED);
-
-    return {
-      cellphoneValidation: {
-        ...error,
-      },
-      statusCode,
-    };
+    return getErrorObject(CELLPHONE_REQUIRED);
   });
 
   await phoneNumberValidator(phoneNumber);
@@ -68,15 +64,9 @@ const cellphoneValidator = async (cellphone = {}) => {
   const result = await v(cellphone);
 
   errorThrower(result !== true, () => {
-    const { statusCode, ...error } = getErrorObject(CELLPHONE_INVALID);
-
-    return {
-      cellphoneValidation: {
-        validatedCellphoneErrors: result,
-        ...error,
-      },
-      statusCode,
-    };
+    return getErrorObject(CELLPHONE_INVALID, {
+      validatedCellphoneErrors: result,
+    });
   });
 
   return true;

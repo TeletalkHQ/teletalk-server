@@ -2,7 +2,9 @@ const {
   getChatsLastMessages,
 } = require("~/models/chatModels/chatModelFunctions");
 
-const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
+const {
+  privateChatRoutes: { properties: chatsLastMessageRoute },
+} = require("~/variables/routes/privateChatRoutes");
 
 const chatsLastMessageChatController = async (
   req = expressRequest,
@@ -13,7 +15,7 @@ const chatsLastMessageChatController = async (
 
     const chatsWithLastMessages = await getChatsLastMessages(currentUser);
 
-    res.sendJsonResponse(privateChatRoutes.properties.chatsLastMessageRoute, {
+    res.sendJsonResponse(chatsLastMessageRoute, {
       chatsWithLastMessages,
     });
   } catch (error) {

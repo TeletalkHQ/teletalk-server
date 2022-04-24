@@ -16,7 +16,9 @@ const {
 } = require("~/variables/constants/environmentInitialValues");
 const {
   userRoutes: {
-    properties: { signInNormalRoute },
+    properties: {
+      signInNormalRoute: { properties: signInNormalRoute },
+    },
   },
 } = require("~/variables/routes/userRoutes");
 const {
@@ -67,8 +69,9 @@ const signInNormalUserController = async (
     if (
       getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) ===
       ENVIRONMENT_VALUES.NODE_ENV.test
-    )
+    ) {
       responseData.verificationCode = verificationCode;
+    }
 
     res.sendJsonResponse(signInNormalRoute, responseData);
   } catch (error) {

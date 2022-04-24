@@ -1,6 +1,8 @@
 const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 const { removeContactItem } = require("~/models/userModels/userModelFunctions");
-const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
+const {
+  cellphoneRoutes: { properties: removeContactRoute },
+} = require("~/variables/routes/cellphoneRoutes");
 
 const removeContactCellphoneController = async (
   req = expressRequest,
@@ -13,7 +15,7 @@ const removeContactCellphoneController = async (
 
     await removeContactItem(currentUser, targetUserData);
 
-    res.sendJsonResponse(cellphoneRoutes.properties.removeContactRoute, {
+    res.sendJsonResponse(removeContactRoute, {
       removedContact: targetUserData,
     });
   } catch (error) {

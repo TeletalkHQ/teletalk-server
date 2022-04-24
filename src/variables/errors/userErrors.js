@@ -1,19 +1,60 @@
 const { errorGenerator } = require("~/functions/utilities/generators");
 
-const BLACKLIST_INVALID_TYPE = errorGenerator(
-  4023,
-  400,
-  "",
-  "BLACKLIST_INVALID_TYPE",
-  "1.0.0"
-);
+const USER_ERROR_KEYS = {
+  BIO_VALIDATION: "BIO_VALIDATION",
+  BLACKLIST_VALIDATION: "BLACKLIST_VALIDATION",
+  CELLPHONE_VALIDATION: "CELLPHONE_VALIDATION",
+  CONTACT_VALIDATION: "CONTACT_VALIDATION",
+  CONTACT_ITEM_VALIDATION: "CONTACT_ITEM_VALIDATION",
+  COUNTRY_CODE_VALIDATION: "COUNTRY_CODE_VALIDATION",
+  COUNTRY_NAME_VALIDATION: "COUNTRY_NAME_VALIDATION",
+  COUNTRY_NOT_SUPPORTED_VALIDATION: "COUNTRY_NOT_SUPPORTED_VALIDATION",
+  CREATED_AT_VALIDATION: "CREATED_AT_VALIDATION",
+  FIRST_NAME_VALIDATION: "FIRST_NAME_VALIDATION",
+  FULL_NAME_VALIDATION: "FULL_NAME_VALIDATION",
+  LAST_NAME_VALIDATION: "LAST_NAME_VALIDATION",
+  MAC_ADDRESS_VALIDATION: "MAC_ADDRESS_VALIDATION",
+  PHONE_NUMBER_VALIDATION: "PHONE_NUMBER_VALIDATION",
+  PRIVATE_ID_VALIDATION: "PRIVATE_ID_VALIDATION",
+  SELF_STUFF_VALIDATION: "SELF_STUFF_VALIDATION",
+  TARGET_USER_VALIDATION: "TARGET_USER_VALIDATION",
+  TOKEN_VALIDATION: "TOKEN_VALIDATION",
+  USER_VALIDATION: "USER_VALIDATION",
+  USERNAME_VALIDATION: "USERNAME_VALIDATION",
+  VERIFICATION_CODE_VALIDATION: "VERIFICATION_CODE_VALIDATION",
+};
+
+const {
+  BIO_VALIDATION,
+  BLACKLIST_VALIDATION,
+  CELLPHONE_VALIDATION,
+  CONTACT_VALIDATION,
+  CONTACT_ITEM_VALIDATION,
+  COUNTRY_CODE_VALIDATION,
+  COUNTRY_NAME_VALIDATION,
+  COUNTRY_NOT_SUPPORTED_VALIDATION,
+  CREATED_AT_VALIDATION,
+  FIRST_NAME_VALIDATION,
+  FULL_NAME_VALIDATION,
+  LAST_NAME_VALIDATION,
+  MAC_ADDRESS_VALIDATION,
+  PHONE_NUMBER_VALIDATION,
+  PRIVATE_ID_VALIDATION,
+  SELF_STUFF_VALIDATION,
+  TARGET_USER_VALIDATION,
+  TOKEN_VALIDATION,
+  USER_VALIDATION,
+  USERNAME_VALIDATION,
+  VERIFICATION_CODE_VALIDATION,
+} = USER_ERROR_KEYS;
 
 const BIO_INVALID_TYPE = errorGenerator(
   4024,
   400,
   "",
   "BIO_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  BIO_VALIDATION
 );
 
 const BIO_MAXLENGTH_REACH = errorGenerator(
@@ -21,7 +62,8 @@ const BIO_MAXLENGTH_REACH = errorGenerator(
   400,
   "",
   "BIO_MAXLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  BIO_VALIDATION
 );
 
 const BIO_MINLENGTH_REACH = errorGenerator(
@@ -29,7 +71,8 @@ const BIO_MINLENGTH_REACH = errorGenerator(
   400,
   "",
   "BIO_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  BIO_VALIDATION
 );
 
 const BLACKLIST_ITEM_EXIST = errorGenerator(
@@ -37,7 +80,17 @@ const BLACKLIST_ITEM_EXIST = errorGenerator(
   400,
   "blacklist item is already exist",
   "BLACKLIST_ITEM_EXIST",
-  "1.0.0"
+  "1.0.0",
+  BLACKLIST_VALIDATION
+);
+
+const BLACKLIST_INVALID_TYPE = errorGenerator(
+  4023,
+  400,
+  "",
+  "BLACKLIST_INVALID_TYPE",
+  "1.0.0",
+  BLACKLIST_VALIDATION
 );
 
 const BLACKLIST_ITEM_NOT_EXIST = errorGenerator(
@@ -45,7 +98,8 @@ const BLACKLIST_ITEM_NOT_EXIST = errorGenerator(
   400,
   "blacklist item is not exist",
   "BLACKLIST_ITEM_NOT_EXIST",
-  "1.0.0"
+  "1.0.0",
+  BLACKLIST_VALIDATION
 );
 
 const CELLPHONE_EXIST = errorGenerator(
@@ -53,7 +107,8 @@ const CELLPHONE_EXIST = errorGenerator(
   400,
   "",
   "CELLPHONE_EXIST",
-  "1.0.0"
+  "1.0.0",
+  CELLPHONE_VALIDATION
 );
 
 const CELLPHONE_INVALID = errorGenerator(
@@ -61,31 +116,8 @@ const CELLPHONE_INVALID = errorGenerator(
   400,
   "",
   "CELLPHONE_INVALID",
-  "1.0.0"
-);
-
-const CELLPHONE_INVALID_TYPE = errorGenerator(
-  4028,
-  400,
-  "",
-  "CELLPHONE_INVALID_TYPE",
-  "1.0.0"
-);
-
-const CELLPHONE_MAXLENGTH_REACH = errorGenerator(
-  4029,
-  400,
-  "",
-  "CELLPHONE_MAXLENGTH_REACH",
-  "1.0.0"
-);
-
-const CELLPHONE_MINLENGTH_REACH = errorGenerator(
-  4030,
-  400,
-  "",
-  "CELLPHONE_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  CELLPHONE_VALIDATION
 );
 
 const CELLPHONE_NOT_EXIST = errorGenerator(
@@ -93,7 +125,8 @@ const CELLPHONE_NOT_EXIST = errorGenerator(
   400,
   "",
   "CELLPHONE_NOT_EXIST",
-  "1.0.0"
+  "1.0.0",
+  CELLPHONE_VALIDATION
 );
 
 const CELLPHONE_REQUIRED = errorGenerator(
@@ -101,7 +134,8 @@ const CELLPHONE_REQUIRED = errorGenerator(
   400,
   "",
   "CELLPHONE_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  CELLPHONE_VALIDATION
 );
 
 const CELLPHONE_EXIST_IN_CONTACT = errorGenerator(
@@ -109,7 +143,8 @@ const CELLPHONE_EXIST_IN_CONTACT = errorGenerator(
   400,
   "",
   "CELLPHONE_EXIST_IN_CONTACT",
-  "1.0.0"
+  "1.0.0",
+  CELLPHONE_VALIDATION
 );
 
 const CONTACT_INVALID_TYPE = errorGenerator(
@@ -117,7 +152,8 @@ const CONTACT_INVALID_TYPE = errorGenerator(
   400,
   "",
   "CONTACT_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  CONTACT_VALIDATION
 );
 
 const CONTACT_ITEM_EXIST = errorGenerator(
@@ -125,7 +161,8 @@ const CONTACT_ITEM_EXIST = errorGenerator(
   400,
   "Contact item is already exist",
   "CONTACT_ITEM_EXIST",
-  "1.0.0"
+  "1.0.0",
+  CONTACT_VALIDATION
 );
 
 const CONTACT_ITEM_NOT_EXIST = errorGenerator(
@@ -133,7 +170,8 @@ const CONTACT_ITEM_NOT_EXIST = errorGenerator(
   400,
   "Contact item is not exist",
   "CONTACT_ITEM_NOT_EXIST",
-  "1.0.0"
+  "1.0.0",
+  CONTACT_VALIDATION
 );
 
 const COUNTRY_CODE_INVALID_TYPE = errorGenerator(
@@ -141,7 +179,8 @@ const COUNTRY_CODE_INVALID_TYPE = errorGenerator(
   400,
   "",
   "COUNTRY_CODE_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_CODE_VALIDATION
 );
 
 const COUNTRY_CODE_INVALID = errorGenerator(
@@ -149,23 +188,8 @@ const COUNTRY_CODE_INVALID = errorGenerator(
   400,
   "",
   "COUNTRY_CODE_INVALID",
-  "1.0.0"
-);
-
-const COUNTRY_NOT_SUPPORTED = errorGenerator(
-  4035,
-  400,
-  "",
-  "COUNTRY_NOT_SUPPORTED",
-  "1.0.0"
-);
-
-const COUNTRY_NAME_NOT_SUPPORTED = errorGenerator(
-  4035,
-  400,
-  "",
-  "COUNTRY_NAME_NOT_SUPPORTED",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_CODE_VALIDATION
 );
 
 const COUNTRY_CODE_NOT_SUPPORTED = errorGenerator(
@@ -173,7 +197,8 @@ const COUNTRY_CODE_NOT_SUPPORTED = errorGenerator(
   400,
   "",
   "COUNTRY_CODE_NOT_SUPPORTED",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_CODE_VALIDATION
 );
 
 const COUNTRY_CODE_MAXLENGTH_REACH = errorGenerator(
@@ -181,7 +206,8 @@ const COUNTRY_CODE_MAXLENGTH_REACH = errorGenerator(
   400,
   "",
   "COUNTRY_CODE_MAXLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_CODE_VALIDATION
 );
 
 const COUNTRY_CODE_MINLENGTH_REACH = errorGenerator(
@@ -189,7 +215,8 @@ const COUNTRY_CODE_MINLENGTH_REACH = errorGenerator(
   400,
   "",
   "COUNTRY_CODE_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_CODE_VALIDATION
 );
 
 const COUNTRY_CODE_REQUIRED = errorGenerator(
@@ -197,7 +224,26 @@ const COUNTRY_CODE_REQUIRED = errorGenerator(
   400,
   "",
   "COUNTRY_CODE_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_CODE_VALIDATION
+);
+
+const COUNTRY_NOT_SUPPORTED = errorGenerator(
+  4035,
+  400,
+  "",
+  "COUNTRY_NOT_SUPPORTED",
+  "1.0.0",
+  COUNTRY_NOT_SUPPORTED_VALIDATION
+);
+
+const COUNTRY_NAME_NOT_SUPPORTED = errorGenerator(
+  4035,
+  400,
+  "",
+  "COUNTRY_NAME_NOT_SUPPORTED",
+  "1.0.0",
+  COUNTRY_NAME_VALIDATION
 );
 
 const COUNTRY_NAME_INVALID = errorGenerator(
@@ -205,7 +251,8 @@ const COUNTRY_NAME_INVALID = errorGenerator(
   400,
   "",
   "COUNTRY_NAME_INVALID",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_NAME_VALIDATION
 );
 
 const COUNTRY_NAME_INVALID_TYPE = errorGenerator(
@@ -213,7 +260,8 @@ const COUNTRY_NAME_INVALID_TYPE = errorGenerator(
   400,
   "",
   "COUNTRY_NAME_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_NAME_VALIDATION
 );
 
 const COUNTRY_NAME_MAXLENGTH_REACH = errorGenerator(
@@ -221,7 +269,8 @@ const COUNTRY_NAME_MAXLENGTH_REACH = errorGenerator(
   400,
   "",
   "COUNTRY_NAME_MAXLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_NAME_VALIDATION
 );
 
 const COUNTRY_NAME_MINLENGTH_REACH = errorGenerator(
@@ -229,7 +278,8 @@ const COUNTRY_NAME_MINLENGTH_REACH = errorGenerator(
   400,
   "",
   "COUNTRY_NAME_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_NAME_VALIDATION
 );
 
 const COUNTRY_NAME_REQUIRED = errorGenerator(
@@ -237,7 +287,8 @@ const COUNTRY_NAME_REQUIRED = errorGenerator(
   400,
   "",
   "COUNTRY_NAME_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  COUNTRY_NAME_VALIDATION
 );
 
 const CREATED_AT_INVALID_TYPE = errorGenerator(
@@ -245,7 +296,8 @@ const CREATED_AT_INVALID_TYPE = errorGenerator(
   400,
   "",
   "CREATED_AT_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  CREATED_AT_VALIDATION
 );
 
 const FIRST_NAME_INVALID_TYPE = errorGenerator(
@@ -253,7 +305,8 @@ const FIRST_NAME_INVALID_TYPE = errorGenerator(
   400,
   "",
   "FIRST_NAME_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  FIRST_NAME_VALIDATION
 );
 
 const FIRST_NAME_MAXLENGTH_REACH = errorGenerator(
@@ -261,7 +314,8 @@ const FIRST_NAME_MAXLENGTH_REACH = errorGenerator(
   400,
   "",
   "FIRST_NAME_MAXLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  FIRST_NAME_VALIDATION
 );
 
 const FIRST_NAME_MINLENGTH_REACH = errorGenerator(
@@ -269,7 +323,8 @@ const FIRST_NAME_MINLENGTH_REACH = errorGenerator(
   400,
   "",
   "FIRST_NAME_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  FIRST_NAME_VALIDATION
 );
 
 const FIRST_NAME_REQUIRED = errorGenerator(
@@ -277,7 +332,8 @@ const FIRST_NAME_REQUIRED = errorGenerator(
   400,
   "",
   "FIRST_NAME_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  FIRST_NAME_VALIDATION
 );
 
 const LAST_NAME_INVALID_TYPE = errorGenerator(
@@ -285,7 +341,8 @@ const LAST_NAME_INVALID_TYPE = errorGenerator(
   400,
   "",
   "LAST_NAME_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  LAST_NAME_VALIDATION
 );
 
 const LAST_NAME_MAXLENGTH_REACH = errorGenerator(
@@ -293,7 +350,8 @@ const LAST_NAME_MAXLENGTH_REACH = errorGenerator(
   400,
   "",
   "LAST_NAME_MAXLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  LAST_NAME_VALIDATION
 );
 
 const LAST_NAME_MINLENGTH_REACH = errorGenerator(
@@ -301,7 +359,8 @@ const LAST_NAME_MINLENGTH_REACH = errorGenerator(
   400,
   "",
   "LAST_NAME_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  LAST_NAME_VALIDATION
 );
 
 const MAC_ADDRESS_EXIST = errorGenerator(
@@ -309,7 +368,8 @@ const MAC_ADDRESS_EXIST = errorGenerator(
   400,
   "",
   "MAC_ADDRESS_EXIST",
-  "1.0.0"
+  "1.0.0",
+  MAC_ADDRESS_VALIDATION
 );
 
 const MAC_ADDRESS_INVALID_TYPE = errorGenerator(
@@ -317,7 +377,8 @@ const MAC_ADDRESS_INVALID_TYPE = errorGenerator(
   400,
   "",
   "MAC_ADDRESS_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  MAC_ADDRESS_VALIDATION
 );
 
 const MAC_ADDRESS_MAXLENGTH_REACH = errorGenerator(
@@ -325,7 +386,8 @@ const MAC_ADDRESS_MAXLENGTH_REACH = errorGenerator(
   400,
   "",
   "MAC_ADDRESS_MAXLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  MAC_ADDRESS_VALIDATION
 );
 
 const MAC_ADDRESS_MINLENGTH_REACH = errorGenerator(
@@ -333,7 +395,8 @@ const MAC_ADDRESS_MINLENGTH_REACH = errorGenerator(
   400,
   "",
   "MAC_ADDRESS_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  MAC_ADDRESS_VALIDATION
 );
 
 const MAC_ADDRESS_REQUIRED = errorGenerator(
@@ -341,7 +404,8 @@ const MAC_ADDRESS_REQUIRED = errorGenerator(
   400,
   "",
   "MAC_ADDRESS_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  MAC_ADDRESS_VALIDATION
 );
 
 const FULL_NAME_INVALID = errorGenerator(
@@ -349,7 +413,8 @@ const FULL_NAME_INVALID = errorGenerator(
   400,
   "",
   "FULL_NAME_INVALID",
-  "1.0.0"
+  "1.0.0",
+  FULL_NAME_VALIDATION
 );
 
 const PHONE_NUMBER_INVALID_TYPE = errorGenerator(
@@ -357,7 +422,8 @@ const PHONE_NUMBER_INVALID_TYPE = errorGenerator(
   400,
   "",
   "PHONE_NUMBER_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  PHONE_NUMBER_VALIDATION
 );
 
 const PHONE_NUMBER_INVALID = errorGenerator(
@@ -365,7 +431,8 @@ const PHONE_NUMBER_INVALID = errorGenerator(
   400,
   "",
   "PHONE_NUMBER_INVALID",
-  "1.0.0"
+  "1.0.0",
+  PHONE_NUMBER_VALIDATION
 );
 
 const PHONE_NUMBER_EXIST = errorGenerator(
@@ -373,7 +440,8 @@ const PHONE_NUMBER_EXIST = errorGenerator(
   400,
   "",
   "PHONE_NUMBER_EXIST",
-  "1.0.0"
+  "1.0.0",
+  PHONE_NUMBER_VALIDATION
 );
 
 const PHONE_NUMBER_REQUIRED = errorGenerator(
@@ -381,7 +449,8 @@ const PHONE_NUMBER_REQUIRED = errorGenerator(
   400,
   "",
   "PHONE_NUMBER_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  PHONE_NUMBER_VALIDATION
 );
 
 const PHONE_NUMBER_MINLENGTH_REACH = errorGenerator(
@@ -389,7 +458,8 @@ const PHONE_NUMBER_MINLENGTH_REACH = errorGenerator(
   400,
   "",
   "PHONE_NUMBER_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  PHONE_NUMBER_VALIDATION
 );
 
 const PHONE_NUMBER_MAXLENGTH_REACH = errorGenerator(
@@ -397,7 +467,8 @@ const PHONE_NUMBER_MAXLENGTH_REACH = errorGenerator(
   400,
   "",
   "PHONE_NUMBER_MAXLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  PHONE_NUMBER_VALIDATION
 );
 
 const PRIVATE_ID_EXIST = errorGenerator(
@@ -405,7 +476,8 @@ const PRIVATE_ID_EXIST = errorGenerator(
   400,
   "",
   "PRIVATE_ID_EXIST",
-  "1.0.0"
+  "1.0.0",
+  PRIVATE_ID_VALIDATION
 );
 
 const PRIVATE_ID_INVALID_TYPE = errorGenerator(
@@ -413,7 +485,8 @@ const PRIVATE_ID_INVALID_TYPE = errorGenerator(
   400,
   "",
   "PRIVATE_ID_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  PRIVATE_ID_VALIDATION
 );
 
 const PRIVATE_ID_MAX_LENGTH_REACH = errorGenerator(
@@ -421,7 +494,8 @@ const PRIVATE_ID_MAX_LENGTH_REACH = errorGenerator(
   400,
   "",
   "PRIVATE_ID_MAX_LENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  PRIVATE_ID_VALIDATION
 );
 
 const PRIVATE_ID_MIN_LENGTH_REACH = errorGenerator(
@@ -429,7 +503,8 @@ const PRIVATE_ID_MIN_LENGTH_REACH = errorGenerator(
   400,
   "",
   "PRIVATE_ID_MIN_LENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  PRIVATE_ID_VALIDATION
 );
 
 const PRIVATE_ID_REQUIRED = errorGenerator(
@@ -437,29 +512,53 @@ const PRIVATE_ID_REQUIRED = errorGenerator(
   400,
   "",
   "PRIVATE_ID_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  PRIVATE_ID_VALIDATION
 );
 
-const SELF_STUFF = errorGenerator(4066, 400, "", "SELF_STUFF", "1.0.0");
+const SELF_STUFF = errorGenerator(
+  4066,
+  400,
+  "",
+  "SELF_STUFF",
+  "1.0.0",
+  SELF_STUFF_VALIDATION
+);
 
 const TARGET_USER_NOT_EXIST = errorGenerator(
   4070,
   400,
   "target user not exist",
   "TARGET_USER_NOT_EXIST",
-  "1.0.0"
+  "1.0.0",
+  TARGET_USER_VALIDATION
 );
 
-const TOKEN_EXIST = errorGenerator(4067, 400, "", "TOKEN_EXIST", "1.0.0");
+const TOKEN_EXIST = errorGenerator(
+  4067,
+  400,
+  "",
+  "TOKEN_EXIST",
+  "1.0.0",
+  TOKEN_VALIDATION
+);
 
-const TOKEN_REQUIRED = errorGenerator(4068, 400, "", "TOKEN_REQUIRED", "1.0.0");
+const TOKEN_REQUIRED = errorGenerator(
+  4068,
+  400,
+  "",
+  "TOKEN_REQUIRED",
+  "1.0.0",
+  TOKEN_VALIDATION
+);
 
 const TOKEN_INVALID_TYPE = errorGenerator(
   4069,
   400,
   "",
   "TOKEN_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  TOKEN_VALIDATION
 );
 
 const USER_NOT_EXIST = errorGenerator(
@@ -467,17 +566,26 @@ const USER_NOT_EXIST = errorGenerator(
   400,
   "user not exist",
   "USER_NOT_EXIST",
-  "1.0.0"
+  "1.0.0",
+  USER_VALIDATION
 );
 
-const USERNAME_EXIST = errorGenerator(4071, 400, "", "USERNAME_EXIST", "1.0.0");
+const USERNAME_EXIST = errorGenerator(
+  4071,
+  400,
+  "",
+  "USERNAME_EXIST",
+  "1.0.0",
+  USERNAME_VALIDATION
+);
 
 const USERNAME_INVALID_TYPE = errorGenerator(
   4072,
   400,
   "",
   "USERNAME_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  USERNAME_VALIDATION
 );
 
 const USERNAME_MAXLENGTH_REACH = errorGenerator(
@@ -485,7 +593,8 @@ const USERNAME_MAXLENGTH_REACH = errorGenerator(
   400,
   "",
   "USERNAME_MAXLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  USERNAME_VALIDATION
 );
 
 const USERNAME_MINLENGTH_REACH = errorGenerator(
@@ -493,7 +602,8 @@ const USERNAME_MINLENGTH_REACH = errorGenerator(
   400,
   "",
   "USERNAME_MINLENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  USERNAME_VALIDATION
 );
 
 const VERIFICATION_CODE_INVALID = errorGenerator(
@@ -501,7 +611,8 @@ const VERIFICATION_CODE_INVALID = errorGenerator(
   400,
   "Wrong verification code",
   "VERIFICATION_CODE_INVALID",
-  "1.0.0"
+  "1.0.0",
+  VERIFICATION_CODE_VALIDATION
 );
 
 const VERIFICATION_CODE_REQUIRED = errorGenerator(
@@ -509,7 +620,8 @@ const VERIFICATION_CODE_REQUIRED = errorGenerator(
   400,
   "Wrong verification code",
   "VERIFICATION_CODE_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  VERIFICATION_CODE_VALIDATION
 );
 
 const VERIFICATION_CODE_INVALID_TYPE = errorGenerator(
@@ -517,7 +629,8 @@ const VERIFICATION_CODE_INVALID_TYPE = errorGenerator(
   400,
   "",
   "VERIFICATION_CODE_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  VERIFICATION_CODE_VALIDATION
 );
 
 const VERIFICATION_CODE_INVALID_LENGTH = errorGenerator(
@@ -525,7 +638,8 @@ const VERIFICATION_CODE_INVALID_LENGTH = errorGenerator(
   400,
   "",
   "VERIFICATION_CODE_INVALID_LENGTH",
-  "1.0.0"
+  "1.0.0",
+  VERIFICATION_CODE_VALIDATION
 );
 
 const userErrors = {
@@ -541,9 +655,6 @@ const userErrors = {
     CELLPHONE_EXIST,
     CELLPHONE_EXIST_IN_CONTACT,
     CELLPHONE_INVALID,
-    CELLPHONE_INVALID_TYPE,
-    CELLPHONE_MAXLENGTH_REACH,
-    CELLPHONE_MINLENGTH_REACH,
     CELLPHONE_NOT_EXIST,
     CELLPHONE_REQUIRED,
     CONTACT_INVALID_TYPE,

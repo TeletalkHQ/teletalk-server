@@ -3,11 +3,11 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  macAddressValidationModel,
+  macAddressValidationModel: { properties: macAddressValidationModel },
 } = require("~/models/validationModels/userValidationModels/macAddressValidationModel");
 
 const macAddressValidation = {
-  properties: { ...macAddressValidationModel.properties },
+  properties: macAddressValidationModel,
 
   info: {
     version: "1.0.0",

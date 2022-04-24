@@ -3,11 +3,11 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  privateIdValidationModel: privateIdValidationModel,
+  privateIdValidationModel: { properties: privateIdValidationModel },
 } = require("~/models/validationModels/userValidationModels/privateIdValidationModel");
 
 const privateIdValidation = {
-  properties: { ...privateIdValidationModel.properties },
+  properties: privateIdValidationModel,
 
   info: {
     version: "1.0.0",

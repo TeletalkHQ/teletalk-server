@@ -20,8 +20,13 @@ const {
   lastNameValidator,
 } = require("~/validators/userValidators/lastNameValidator");
 
-const { UserMongoModel } = require("~/models/userModels/userMongoModel");
-const { commonModel } = require("~/models/commonModels/commonModel");
+const {
+  commonModel: {
+    properties: {
+      commonPrivateIdModel: { properties: commonPrivateIdModel },
+    },
+  },
+} = require("~/models/commonModels/commonModel");
 const {
   userFinder,
   createNewNormalUser,
@@ -33,7 +38,11 @@ const {
 } = require("~/variables/constants/environmentInitialValues");
 const {
   userErrors: {
-    properties: { TOKEN_REQUIRED, USER_NOT_EXIST, FULL_NAME_INVALID },
+    properties: {
+      TOKEN_REQUIRED: { properties: TOKEN_REQUIRED },
+      USER_NOT_EXIST: { properties: USER_NOT_EXIST },
+      FULL_NAME_INVALID: { properties: FULL_NAME_INVALID },
+    },
   },
 } = require("~/variables/errors/userErrors");
 const {
@@ -64,14 +73,9 @@ const createNewUserUserController = async (
     errorThrower(
       validatedFirstName !== true || validatedLastName !== true,
       () => {
-        const { statusCode, ...error } = getErrorObject(FULL_NAME_INVALID);
-        return {
-          fullNameValidation: {
-            ...error,
-            validatedFullName: { validatedFirstName, validatedLastName },
-          },
-          statusCode,
-        };
+        return getErrorObject(FULL_NAME_INVALID, {
+          validatedFullName: { validatedFirstName, validatedLastName },
+        });
       }
     );
 
@@ -98,9 +102,7 @@ const createNewUserUserController = async (
         },
       });
     } else if (!user) {
-      const privateId = randomId(
-        commonModel.properties.commonPrivateIdModel.properties.maxlength.value
-      );
+      const privateId = randomId(commonPrivateIdModel.maxlength.value);
 
       const token = await tokenSigner({
         data: { ...cellphone, privateId },

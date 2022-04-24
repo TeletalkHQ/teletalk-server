@@ -86,7 +86,14 @@ app.use((_, res, next) => {
   };
 
   res.errorCollector = (errorObject) => {
-    errorCollectorMiddleware({ res, errorObject });
+    errorCollectorMiddleware(res, errorObject);
+  };
+
+  next();
+});
+app.use((_, res, next) => {
+  res.errorResponser = () => {
+    errorResponserMiddleware(res);
   };
 
   next();
@@ -95,14 +102,6 @@ app.use((_, res, next) => {
 app.use((_, res, next) => {
   res.sendJsonResponse = (routeObject, data) => {
     res.status(getStatusCodeFromRoute(routeObject)).json(data);
-  };
-
-  next();
-});
-
-app.use((_, res, next) => {
-  res.errorResponser = () => {
-    errorResponserMiddleware(res);
   };
 
   next();

@@ -7,29 +7,31 @@ const {
 const {
   userRoutes: {
     properties: {
-      userRouteBaseUrl: userRoutesBaseUrl,
-      signInNormalRoute: signInNormal,
+      userRouteBaseUrl: { properties: userRouteBaseUrl },
+      signInNormalRoute: { properties: signInNormalRoute },
     },
   },
 } = require("~/variables/routes/userRoutes");
 const {
   userErrors: {
     properties: {
-      CELLPHONE_REQUIRED,
-      COUNTRY_CODE_INVALID_TYPE,
-      COUNTRY_CODE_NOT_SUPPORTED,
-      COUNTRY_CODE_REQUIRED,
-      COUNTRY_NAME_NOT_SUPPORTED,
-      COUNTRY_NAME_REQUIRED,
-      PHONE_NUMBER_INVALID_TYPE,
-      PHONE_NUMBER_REQUIRED,
+      CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
+      COUNTRY_CODE_INVALID_TYPE: { properties: COUNTRY_CODE_INVALID_TYPE },
+      COUNTRY_CODE_NOT_SUPPORTED: { properties: COUNTRY_CODE_NOT_SUPPORTED },
+      COUNTRY_CODE_REQUIRED: { properties: COUNTRY_CODE_REQUIRED },
+      COUNTRY_NAME_NOT_SUPPORTED: { properties: COUNTRY_NAME_NOT_SUPPORTED },
+      COUNTRY_NAME_REQUIRED: { properties: COUNTRY_NAME_REQUIRED },
+      PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
+      PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
     },
   },
 } = require("~/variables/errors/userErrors");
 const { countries } = require("~/variables/constants/countries");
 const {
   userModel: {
-    properties: { verificationCodeModel },
+    properties: {
+      verificationCodeModel: { properties: verificationCodeModel },
+    },
   },
 } = require("~/models/userModels/userModel");
 
@@ -44,8 +46,8 @@ describe("signInNormalApi test success requests", () => {
     };
 
     const response = await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       requestBody
     );
 
@@ -55,9 +57,7 @@ describe("signInNormalApi test success requests", () => {
     expect(countryCode).equal(requestBody.countryCode);
     expect(countryName).equal(requestBody.countryName);
     expect(phoneNumber).equal(requestBody.phoneNumber);
-    expect(verificationCode).length(
-      verificationCodeModel.properties.length.value
-    );
+    expect(verificationCode).length(verificationCodeModel.length.value);
 
     setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE, verificationCode);
     setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, token);
@@ -67,8 +67,8 @@ describe("signInNormalApi test success requests", () => {
 describe("signInNormalApi test failure requests", () => {
   it(`It should get error, CELLPHONE_REQUIRED`, async () => {
     await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       {},
       CELLPHONE_REQUIRED,
       "cellphoneValidation"
@@ -77,8 +77,8 @@ describe("signInNormalApi test failure requests", () => {
 
   it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
     await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       {
         countryCode: cellphone.countryCode,
         countryName: cellphone.countryName,
@@ -89,8 +89,8 @@ describe("signInNormalApi test failure requests", () => {
   });
   it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
     await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       {
         countryCode: cellphone.countryCode,
         countryName: cellphone.countryName,
@@ -103,8 +103,8 @@ describe("signInNormalApi test failure requests", () => {
 
   it(`It should get error, COUNTRY_CODE_REQUIRED`, async () => {
     await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       {
         phoneNumber: cellphone.phoneNumber,
         countryName: cellphone.countryName,
@@ -115,8 +115,8 @@ describe("signInNormalApi test failure requests", () => {
   });
   it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
     await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       {
         phoneNumber: cellphone.phoneNumber,
         countryName: cellphone.countryName,
@@ -128,8 +128,8 @@ describe("signInNormalApi test failure requests", () => {
   });
   it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
     await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       {
         phoneNumber: cellphone.phoneNumber,
         countryCode: "010101",
@@ -141,8 +141,8 @@ describe("signInNormalApi test failure requests", () => {
 
   it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
     await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       {
         phoneNumber: cellphone.phoneNumber,
         countryCode: cellphone.countryCode,
@@ -154,8 +154,8 @@ describe("signInNormalApi test failure requests", () => {
 
   it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
     await request(
-      userRoutesBaseUrl,
-      signInNormal,
+      userRouteBaseUrl,
+      signInNormalRoute,
       {
         phoneNumber: cellphone.phoneNumber,
         countryCode: cellphone.countryCode,

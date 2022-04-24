@@ -9,7 +9,9 @@ const {
     properties: { PARTICIPANT_ID_REQUIRED, MESSAGE_TEXT_REQUIRED },
   },
 } = require("~/variables/errors/chatErrors");
-const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
+const {
+  privateChatRoutes: { properties: sendMessageRoute },
+} = require("~/variables/routes/privateChatRoutes");
 
 const sendMessagePrivateChatController = async (
   req = expressRequest,
@@ -30,9 +32,7 @@ const sendMessagePrivateChatController = async (
     );
 
     res
-      .status(
-        getStatusCodeFromRoute(privateChatRoutes.properties.sendMessageRoute)
-      )
+      .status(getStatusCodeFromRoute(sendMessageRoute))
       .send({ chatId, newMessage });
   } catch (error) {
     logger.log("sendMessagePrivateChatController catch", error);

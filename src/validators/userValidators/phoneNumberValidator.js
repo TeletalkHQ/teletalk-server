@@ -7,20 +7,20 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  phoneNumberValidationModel,
+  phoneNumberValidationModel: { properties: phoneNumberValidationModel },
 } = require("~/models/validationModels/userValidationModels/phoneNumberValidationModel");
 const {
   userErrors: {
     properties: {
-      PHONE_NUMBER_REQUIRED,
-      PHONE_NUMBER_INVALID,
-      PHONE_NUMBER_INVALID_TYPE,
+      PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
+      PHONE_NUMBER_INVALID: { properties: PHONE_NUMBER_INVALID },
+      PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
     },
   },
 } = require("~/variables/errors/userErrors");
 
 const phoneNumberValidation = {
-  properties: { ...phoneNumberValidationModel.properties },
+  properties: phoneNumberValidationModel,
 
   info: {
     version: "1.0.0",
@@ -31,39 +31,19 @@ const v = validatorCompiler(phoneNumberValidation.properties);
 
 const phoneNumberValidator = async (phoneNumber) => {
   errorThrower(!phoneNumber, () => {
-    const { statusCode, ...error } = getErrorObject(PHONE_NUMBER_REQUIRED);
-
-    return {
-      phoneNumberValidation: {
-        ...error,
-      },
-      statusCode,
-    };
+    return getErrorObject(PHONE_NUMBER_REQUIRED);
   });
 
   errorThrower(isNaN(+phoneNumber), () => {
-    const { statusCode, ...error } = getErrorObject(PHONE_NUMBER_INVALID_TYPE);
-
-    return {
-      phoneNumberValidation: {
-        ...error,
-      },
-      statusCode,
-    };
+    return getErrorObject(PHONE_NUMBER_INVALID_TYPE);
   });
 
   const result = await v({ phoneNumber });
 
   errorThrower(result !== true, () => {
-    const { statusCode, ...error } = getErrorObject(PHONE_NUMBER_INVALID);
-
-    return {
-      phoneNumberValidation: {
-        ...error,
-        validatedPhoneNumber: result,
-      },
-      statusCode,
-    };
+    return getErrorObject(PHONE_NUMBER_INVALID, {
+      validatedPhoneNumber: result,
+    });
   });
 
   return true;

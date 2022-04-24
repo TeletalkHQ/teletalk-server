@@ -3,20 +3,20 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  cellphoneValidation,
+  cellphoneValidation: { properties: cellphoneValidation },
 } = require("~/validators/userValidators/cellphoneValidator");
 const {
-  firstNameValidation,
+  firstNameValidation: { properties: firstNameValidation },
 } = require("~/validators/userValidators/firstNameValidator");
 const {
-  lastNameValidation,
+  lastNameValidation: { properties: lastNameValidation },
 } = require("~/validators/userValidators/lastNameValidator");
 
 const contactValidation = {
   properties: {
-    ...cellphoneValidation.properties,
-    ...firstNameValidation.properties,
-    ...lastNameValidation.properties,
+    ...cellphoneValidation,
+    ...firstNameValidation,
+    ...lastNameValidation,
   },
 
   info: {

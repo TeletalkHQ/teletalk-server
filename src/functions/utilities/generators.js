@@ -8,7 +8,14 @@ const {
 const { modelGeneratorInitialProperties, errorGeneratorInitialProperties } =
   initialValue;
 
-const errorGenerator = (errorCode, statusCode, message, reason, version) => {
+const errorGenerator = (
+  errorCode,
+  statusCode,
+  message,
+  reason,
+  version,
+  errorKey
+) => {
   try {
     errorThrower(!errorCode || !statusCode || !reason || !version, {
       errorMessage: `required arguments should be passed`,
@@ -19,7 +26,7 @@ const errorGenerator = (errorCode, statusCode, message, reason, version) => {
     });
 
     return {
-      properties: { errorCode, statusCode, message, reason },
+      properties: { errorCode, statusCode, message, reason, errorKey },
       info: { version },
     };
   } catch (error) {

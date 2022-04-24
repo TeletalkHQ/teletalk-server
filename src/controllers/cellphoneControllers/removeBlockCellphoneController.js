@@ -2,7 +2,13 @@ const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 const {
   deleteBlacklistItem,
 } = require("~/models/userModels/userModelFunctions");
-const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
+const {
+  cellphoneRoutes: {
+    properties: {
+      removeBlockRoute: { properties: removeBlockRoute },
+    },
+  },
+} = require("~/variables/routes/cellphoneRoutes");
 
 const removeBlockCellphoneController = async (
   req = expressRequest,
@@ -15,7 +21,7 @@ const removeBlockCellphoneController = async (
 
     await deleteBlacklistItem(currentUser, targetUserData);
 
-    res.sendJsonResponse(cellphoneRoutes.properties.removeBlockRoute, {
+    res.sendJsonResponse(removeBlockRoute, {
       removedBlockedCellphone: targetUserData,
     });
   } catch (error) {

@@ -1,5 +1,7 @@
 const { getAllChats } = require("~/models/chatModels/chatModelFunctions");
-const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
+const {
+  privateChatRoutes: { properties: getAllChatsRoute },
+} = require("~/variables/routes/privateChatRoutes");
 
 const getAllChatsUserController = async (
   req = expressRequest,
@@ -10,7 +12,7 @@ const getAllChatsUserController = async (
 
     const chats = await getAllChats(currentUser);
 
-    res.sendJsonResponse(privateChatRoutes.properties.getAllChatsRoute, {
+    res.sendJsonResponse(getAllChatsRoute, {
       chats,
     });
   } catch (error) {

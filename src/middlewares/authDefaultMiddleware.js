@@ -4,13 +4,19 @@ const {
   errorThrower,
   getErrorObject,
 } = require("~/functions/utilities/utilsNoDeps");
-const { userErrors } = require("~/variables/errors/userErrors");
+const {
+  userErrors: {
+    properties: {
+      TOKEN_REQUIRED: { properties: TOKEN_REQUIRED },
+    },
+  },
+} = require("~/variables/errors/userErrors");
 
 const authDefaultMiddleware = async (req, res, next) => {
   try {
     const token = getTokenFromRequest(req);
 
-    errorThrower(!token, getErrorObject(userErrors.properties.TOKEN_REQUIRED));
+    errorThrower(!token, getErrorObject(TOKEN_REQUIRED));
 
     req.authData = await tokenVerifier(token);
 

@@ -2,7 +2,13 @@ const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 const {
   addContactToUserBlacklist,
 } = require("~/models/userModels/userModelFunctions");
-const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
+const {
+  cellphoneRoutes: {
+    properties: {
+      addBlockRoute: { properties: addBlockRoute },
+    },
+  },
+} = require("~/variables/routes/cellphoneRoutes");
 
 const addBlockCellphoneController = async (
   req = expressRequest,
@@ -15,7 +21,7 @@ const addBlockCellphoneController = async (
 
     await addContactToUserBlacklist(currentUser, targetUser);
 
-    res.sendJsonResponse(cellphoneRoutes.properties.addBlockRoute, {
+    res.sendJsonResponse(addBlockRoute, {
       blockedCellphone: targetUser,
     });
   } catch (error) {

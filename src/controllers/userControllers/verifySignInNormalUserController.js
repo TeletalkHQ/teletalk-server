@@ -9,7 +9,12 @@ const {
 
 const {
   userErrors: {
-    properties: { VERIFICATION_CODE_INVALID, TOKEN_REQUIRED, USER_NOT_EXIST },
+    properties: {
+      VERIFICATION_CODE_INVALID: { properties: VERIFICATION_CODE_INVALID },
+      VERIFICATION_CODE_REQUIRED: { properties: VERIFICATION_CODE_REQUIRED },
+      TOKEN_REQUIRED: { properties: TOKEN_REQUIRED },
+      USER_NOT_EXIST: { properties: USER_NOT_EXIST },
+    },
   },
 } = require("~/variables/errors/userErrors");
 
@@ -24,6 +29,9 @@ const {
     properties: { verifySignInNormalRoute },
   },
 } = require("~/variables/routes/userRoutes");
+const {
+  verificationCodeValidator,
+} = require("~/validators/userValidators/verificationCodeValidator");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,
@@ -33,6 +41,8 @@ const verifySignInNormalUserController = async (
     const {
       body: { verificationCode },
     } = req;
+
+    // await verificationCodeValidator(verificationCode);
 
     const verifyToken = getTokenFromRequest(req);
     errorThrower(!verifyToken, TOKEN_REQUIRED);
@@ -47,7 +57,7 @@ const verifySignInNormalUserController = async (
 
     errorThrower(
       client?.verificationCode !== verificationCode,
-      VERIFICATION_CODE_INVALID
+      VERIFICATION_CODE_REQUIRED
     );
 
     const user = await userFinder(cellphone);

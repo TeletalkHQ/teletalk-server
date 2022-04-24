@@ -3,11 +3,11 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  messageIdValidationModel: messageIDValidationModel,
+  messageIdValidationModel: { properties: messageIdValidationModel },
 } = require("~/models/validationModels/chatValidationModels/messageIdValidationModel");
 
 const messageIDValidation = {
-  properties: { ...messageIDValidationModel.properties },
+  properties: messageIdValidationModel,
 
   info: {
     version: "1.0.0",

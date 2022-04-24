@@ -1,11 +1,17 @@
-const { otherRoutes } = require("~/variables/routes/otherRoutes");
+const {
+  otherRoutes: {
+    properties: {
+      welcomeRoute: { properties: welcomeRoute },
+    },
+  },
+} = require("~/variables/routes/otherRoutes");
 
 const welcomeOtherController = (
   req = expressRequest,
   res = expressResponse
 ) => {
   try {
-    res.sendJsonResponse(otherRoutes.properties.welcomeRoute, {
+    res.sendJsonResponse(welcomeRoute, {
       message: "Hey! Welcome to teletalk <3",
     });
   } catch (error) {

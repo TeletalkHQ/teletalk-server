@@ -7,20 +7,24 @@ const {
 } = require("~/functions/utilities/validatorCompiler");
 
 const {
-  verificationCodeValidationModel,
+  verificationCodeValidationModel: {
+    properties: verificationCodeValidationModel,
+  },
 } = require("~/models/validationModels/userValidationModels/verificationCodeValidationModel");
 const {
   userErrors: {
     properties: {
-      VERIFICATION_CODE_INVALID,
-      VERIFICATION_CODE_INVALID_TYPE,
-      VERIFICATION_CODE_REQUIRED,
+      VERIFICATION_CODE_INVALID: { properties: VERIFICATION_CODE_INVALID },
+      VERIFICATION_CODE_INVALID_TYPE: {
+        properties: VERIFICATION_CODE_INVALID_TYPE,
+      },
+      VERIFICATION_CODE_REQUIRED: { properties: VERIFICATION_CODE_REQUIRED },
     },
   },
 } = require("~/variables/errors/userErrors");
 
 const verificationCodeValidation = {
-  properties: { ...verificationCodeValidationModel.properties },
+  properties: verificationCodeValidationModel,
 
   info: {
     version: "1.0.0",
@@ -31,41 +35,19 @@ const v = validatorCompiler(verificationCodeValidation.properties);
 
 const verificationCodeValidator = async (verificationCode) => {
   errorThrower(!verificationCode, () => {
-    const { statusCode, ...error } = getErrorObject(VERIFICATION_CODE_REQUIRED);
-
-    return {
-      verificationCodeValidation: {
-        ...error,
-      },
-      statusCode,
-    };
+    return getErrorObject(VERIFICATION_CODE_REQUIRED);
   });
 
   errorThrower(isNaN(+verificationCode), () => {
-    const { statusCode, ...error } = getErrorObject(
-      VERIFICATION_CODE_INVALID_TYPE
-    );
-
-    return {
-      verificationCodeValidation: {
-        ...error,
-      },
-      statusCode,
-    };
+    return getErrorObject(VERIFICATION_CODE_INVALID_TYPE);
   });
 
   const result = await v({ verificationCode });
 
   errorThrower(result !== true, () => {
-    const { statusCode, ...error } = getErrorObject(VERIFICATION_CODE_INVALID);
-
-    return {
-      verificationCodeValidation: {
-        ...error,
-        validatedVerificationCode: result,
-      },
-      statusCode,
-    };
+    return getErrorObject(VERIFICATION_CODE_INVALID, {
+      validatedVerificationCode: result,
+    });
   });
 };
 

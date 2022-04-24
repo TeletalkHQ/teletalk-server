@@ -2,7 +2,13 @@ const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
 const {
   addContactToUserContacts,
 } = require("~/models/userModels/userModelFunctions");
-const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
+const {
+  cellphoneRoutes: {
+    properties: {
+      addContactRoute: { properties: addContactRoute },
+    },
+  },
+} = require("~/variables/routes/cellphoneRoutes");
 
 const addContactCellphoneController = async (
   req = expressRequest,
@@ -21,7 +27,7 @@ const addContactCellphoneController = async (
       targetUserData
     );
 
-    res.sendJsonResponse(cellphoneRoutes.properties.addContactRoute, {
+    res.sendJsonResponse(addContactRoute, {
       contact: {
         ...targetUserData,
         firstName,

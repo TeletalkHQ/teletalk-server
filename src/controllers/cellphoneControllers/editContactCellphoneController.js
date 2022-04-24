@@ -1,5 +1,11 @@
 const { updateOneContact } = require("~/models/userModels/userModelFunctions");
-const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
+const {
+  cellphoneRoutes: {
+    properties: {
+      editContactRoute: { properties: editContactRoute },
+    },
+  },
+} = require("~/variables/routes/cellphoneRoutes");
 
 const editContactCellphoneController = async (
   req = expressRequest,
@@ -21,7 +27,7 @@ const editContactCellphoneController = async (
 
     await updateOneContact(currentUser, targetUserData, editedValues);
 
-    res.sendJsonResponse(cellphoneRoutes.properties.editContactRoute, {
+    res.sendJsonResponse(editContactRoute, {
       phoneNumber,
       countryCode,
       countryName,

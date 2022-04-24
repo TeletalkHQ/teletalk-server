@@ -1,5 +1,7 @@
 const { getUserContacts } = require("~/models/userModels/userModelFunctions");
-const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
+const {
+  cellphoneRoutes: { properties: getContactsRoute },
+} = require("~/variables/routes/cellphoneRoutes");
 
 const getContactsCellphoneController = async (
   req = expressRequest,
@@ -10,7 +12,7 @@ const getContactsCellphoneController = async (
 
     const contacts = await getUserContacts(currentUser);
 
-    res.sendJsonResponse(cellphoneRoutes.properties.getContactsRoute, {
+    res.sendJsonResponse(getContactsRoute, {
       contacts,
     });
   } catch (error) {

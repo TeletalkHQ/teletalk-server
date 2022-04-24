@@ -14,7 +14,7 @@ const {
 } = require("~/variables/routes/userRoutes");
 
 describe("verifySignInNormalApi success test", () => {
-  it("should get newUser === true if there is no user with test verify token in db", async (done) => {
+  it("should get newUser === true if there is no user with test verify token in db", async () => {
     const verificationCode = getEnvironment(
       ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE
     );

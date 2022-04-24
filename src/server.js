@@ -6,17 +6,15 @@ require("module-alias/register");
 
 const { app } = require("~/app");
 const { ioFunctions } = require("~/socket/io");
-const {
-  connectDatabase,
-} = require("~/configs/databaseConfigs/connectDatabase");
+const { connectDatabase } = require("~/configs/connectDatabase");
 const { getAllEnvironments } = require("./functions/utilities/utilsNoDeps");
 
 const server = http.createServer(app);
 
 //* PORT coming from heroku, so don't touch it!
-const { LOCAL_PORT, PORT, NODE_ENV } = getAllEnvironments();
+const { DEVELOPMENT_PORT, PORT, NODE_ENV } = getAllEnvironments();
 
-const EXACT_PORT = PORT || LOCAL_PORT;
+const EXACT_PORT = PORT || DEVELOPMENT_PORT;
 
 const serverListenerCb = () => {
   logger.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);

@@ -16,7 +16,7 @@ require("dotenv").config({
 //! Require this module before requiring internal modules
 require("~/variables/globalVariables");
 
-// require("~/configs/databaseConfigs/connectDatabase").connectDatabase();
+require("~/configs/connectDatabase").connectDatabase();
 
 const {
   getEnvironment,

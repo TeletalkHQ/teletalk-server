@@ -71,7 +71,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-security": "^1.4.0",
     "husky": "^7.0.4",
-    "lint-staged": "^12.3.7",
+    "lint-staged": "^12.4.0",
     "madge": "^5.0.1",
     "mocha": "^9.2.2",
     "nodemon": "^2.0.15",
@@ -84,6 +84,10 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
+
+
+
+
   "type": "commonjs",
   "engines": {
     "node": ">=14.10.0"

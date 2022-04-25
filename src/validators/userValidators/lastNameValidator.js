@@ -14,6 +14,12 @@ const lastNameValidation = {
   },
 };
 
-const lastNameValidator = validatorCompiler(lastNameValidation.properties);
+const v = validatorCompiler(lastNameValidation.properties);
+
+const lastNameValidator = async (lastName) => {
+  const result = await v({ lastName });
+
+  return result;
+};
 
 module.exports = { lastNameValidator, lastNameValidation };

@@ -34,29 +34,35 @@ const tokenValidation = {
 };
 
 const tokenValidator = async (token, secret) => {
-  errorThrower(!token, () => getErrorObject(TOKEN_REQUIRED));
+  try {
+    errorThrower(!token, () => getErrorObject(TOKEN_REQUIRED));
 
-  errorThrower(typeof token !== "string", () =>
-    getErrorObject(TOKEN_INVALID_TYPE)
-  );
+    errorThrower(typeof token !== "string", () =>
+      getErrorObject(TOKEN_INVALID_TYPE)
+    );
 
-  const result = await v({ token });
+    const result = await v({ token });
 
-  errorThrower(result !== true, () => getErrorObject(TOKEN_INVALID));
+    errorThrower(result !== true, () => getErrorObject(TOKEN_INVALID));
 
-  const verifiedToken = await tokenVerifier(
-    token,
-    secret || getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET)
-  );
+    const verifiedToken = await tokenVerifier(
+      token,
+      secret || getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET)
+    );
 
-  errorThrower(verifiedToken.error, () =>
-    getErrorObject(TOKEN_CAN_NOT_VERIFIED, {
-      verifiedToken: token,
-      error: verifiedToken.error,
-    })
-  );
+    errorThrower(verifiedToken.error, () =>
+      getErrorObject(TOKEN_CAN_NOT_VERIFIED, {
+        verifiedToken: token,
+        error: verifiedToken.error,
+        tokenSecret: secret,
+      })
+    );
 
-  return verifiedToken;
+    return verifiedToken;
+  } catch (error) {
+    logger.log("tokenValidator catch, error:", error);
+    return { error: true };
+  }
 };
 
 const v = validatorCompiler(tokenValidation.properties);

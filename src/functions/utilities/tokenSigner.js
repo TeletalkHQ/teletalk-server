@@ -14,7 +14,7 @@ const {
 
 const initialOptions = initialValue.jwtOptions;
 
-const tokenSigner = async ({ data, secret, options = initialOptions }) => {
+const tokenSigner = async (data, secret, options = initialOptions) => {
   try {
     return JWT.sign(
       data,

@@ -42,10 +42,10 @@ const signInNormalUserController = async (
       smsTexts.sendVerificationCode(verificationCode, getHostFromRequest(req))
     );
 
-    const token = await tokenSigner({
-      data: cellphone,
-      secret: getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET),
-    });
+    const token = await tokenSigner(
+      cellphone,
+      getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
+    );
 
     const client = clients.findClient(cellphone);
 

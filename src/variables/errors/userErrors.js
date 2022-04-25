@@ -544,7 +544,7 @@ const TOKEN_EXIST = errorGenerator(
 
 const TOKEN_REQUIRED = errorGenerator(
   4068,
-  400,
+  401,
   "",
   "TOKEN_REQUIRED",
   "1.0.0",
@@ -553,7 +553,7 @@ const TOKEN_REQUIRED = errorGenerator(
 
 const TOKEN_INVALID = errorGenerator(
   4069,
-  400,
+  401,
   "",
   "TOKEN_INVALID",
   "1.0.0",
@@ -562,7 +562,7 @@ const TOKEN_INVALID = errorGenerator(
 
 const TOKEN_CAN_NOT_VERIFIED = errorGenerator(
   4069,
-  400,
+  401,
   "",
   "TOKEN_CAN_NOT_VERIFIED",
   "1.0.0",
@@ -571,7 +571,7 @@ const TOKEN_CAN_NOT_VERIFIED = errorGenerator(
 
 const TOKEN_INVALID_TYPE = errorGenerator(
   4069,
-  400,
+  401,
   "",
   "TOKEN_INVALID_TYPE",
   "1.0.0",

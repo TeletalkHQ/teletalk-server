@@ -12,21 +12,27 @@ const errorGenerator = (
   errorCode,
   statusCode,
   message,
-  reason,
+  errorReason,
   version,
   errorKey
 ) => {
   try {
-    errorThrower(!errorCode || !statusCode || !reason || !version, {
+    errorThrower(!errorCode || !statusCode || !errorReason || !version, {
       errorMessage: `required arguments should be passed`,
       code: errorCode,
       message,
-      reason,
+      reason: errorReason,
       version,
     });
 
     return {
-      properties: { errorCode, statusCode, message, reason, errorKey },
+      properties: {
+        errorCode,
+        statusCode,
+        message,
+        reason: errorReason,
+        errorKey,
+      },
       info: { version },
     };
   } catch (error) {

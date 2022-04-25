@@ -20,6 +20,11 @@ const serverListenerCb = () => {
   logger.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
 };
 
+
+
+
+
+
 const startServer = async () => {
   try {
     await connectDatabase();

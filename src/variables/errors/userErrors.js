@@ -551,6 +551,24 @@ const TOKEN_REQUIRED = errorGenerator(
   TOKEN_VALIDATION
 );
 
+const TOKEN_INVALID = errorGenerator(
+  4069,
+  400,
+  "",
+  "TOKEN_INVALID",
+  "1.0.0",
+  TOKEN_VALIDATION
+);
+
+const TOKEN_CAN_NOT_VERIFIED = errorGenerator(
+  4069,
+  400,
+  "",
+  "TOKEN_CAN_NOT_VERIFIED",
+  "1.0.0",
+  TOKEN_VALIDATION
+);
+
 const TOKEN_INVALID_TYPE = errorGenerator(
   4069,
   400,
@@ -699,7 +717,9 @@ const userErrors = {
     PRIVATE_ID_REQUIRED,
     SELF_STUFF,
     TARGET_USER_NOT_EXIST,
+    TOKEN_CAN_NOT_VERIFIED,
     TOKEN_EXIST,
+    TOKEN_INVALID,
     TOKEN_INVALID_TYPE,
     TOKEN_REQUIRED,
     USER_NOT_EXIST,

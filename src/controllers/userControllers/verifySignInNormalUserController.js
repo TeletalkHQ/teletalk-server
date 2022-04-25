@@ -1,4 +1,3 @@
-const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { clients } = require("~/functions/tools/Clients");
 const {
@@ -11,9 +10,7 @@ const {
 const {
   userErrors: {
     properties: {
-      VERIFICATION_CODE_INVALID: { properties: VERIFICATION_CODE_INVALID },
       VERIFICATION_CODE_REQUIRED: { properties: VERIFICATION_CODE_REQUIRED },
-      TOKEN_REQUIRED: { properties: TOKEN_REQUIRED },
       USER_NOT_EXIST: { properties: USER_NOT_EXIST },
     },
   },
@@ -35,6 +32,9 @@ const {
 const {
   verificationCodeValidator,
 } = require("~/validators/userValidators/verificationCodeValidator");
+const {
+  tokenValidator,
+} = require("~/validators/userValidators/tokenValidator");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,
@@ -48,13 +48,13 @@ const verifySignInNormalUserController = async (
     await verificationCodeValidator(verificationCode);
 
     const verifyToken = getTokenFromRequest(req);
-    errorThrower(!verifyToken, TOKEN_REQUIRED);
-    const tokenData = await tokenVerifier(
+
+    const verifiedToken = await tokenValidator(
       verifyToken,
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
 
-    const cellphone = getCellphone(tokenData.payload);
+    const cellphone = getCellphone(verifiedToken.payload);
     const client = clients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 

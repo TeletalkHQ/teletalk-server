@@ -15,13 +15,20 @@ const tokenVerifier = async (
   secret = getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET),
   options = initialOptions
 ) => {
-  const data = JWT.verify(token, secret, {
-    complete: true,
-    ...initialOptions,
-    ...options,
-  });
+  try {
+    const data = JWT.verify(token, secret, {
+      complete: true,
+      ...initialOptions,
+      ...options,
+    });
 
-  return data;
+    return data;
+  } catch (error) {
+    logger.log("tokenVerifier catch, error:", error);
+    return {
+      error,
+    };
+  }
 };
 
 module.exports = { tokenVerifier };

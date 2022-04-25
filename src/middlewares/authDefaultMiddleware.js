@@ -1,24 +1,14 @@
-const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { getTokenFromRequest } = require("~/functions/utilities/utils");
+
 const {
-  errorThrower,
-  getErrorObject,
-} = require("~/functions/utilities/utilsNoDeps");
-const {
-  userErrors: {
-    properties: {
-      TOKEN_REQUIRED: { properties: TOKEN_REQUIRED },
-    },
-  },
-} = require("~/variables/errors/userErrors");
+  tokenValidator,
+} = require("~/validators/userValidators/tokenValidator");
 
 const authDefaultMiddleware = async (req, res, next) => {
   try {
     const token = getTokenFromRequest(req);
 
-    errorThrower(!token, getErrorObject(TOKEN_REQUIRED));
-
-    req.authData = await tokenVerifier(token);
+    req.authData = await tokenValidator(token);
 
     next();
   } catch (error) {

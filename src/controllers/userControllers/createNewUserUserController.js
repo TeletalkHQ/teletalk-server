@@ -1,7 +1,6 @@
 const { randomId } = require("~/functions/utilities/randomId");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
-const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 const { clients } = require("~/functions/tools/Clients");
 const {
   getEnvironment,
@@ -39,7 +38,6 @@ const {
 const {
   userErrors: {
     properties: {
-      TOKEN_REQUIRED: { properties: TOKEN_REQUIRED },
       USER_NOT_EXIST: { properties: USER_NOT_EXIST },
       FULL_NAME_INVALID: { properties: FULL_NAME_INVALID },
     },
@@ -50,6 +48,9 @@ const {
     properties: { createNewUserRoute },
   },
 } = require("~/variables/routes/userRoutes");
+const {
+  tokenValidator,
+} = require("~/validators/userValidators/tokenValidator");
 
 const createNewUserUserController = async (
   req = expressRequest,
@@ -61,9 +62,8 @@ const createNewUserUserController = async (
     } = req;
 
     const verifyToken = getTokenFromRequest(req);
-    errorThrower(!verifyToken, TOKEN_REQUIRED);
 
-    const tokenData = await tokenVerifier(
+    const verifiedToken = await tokenValidator(
       verifyToken,
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
@@ -79,7 +79,7 @@ const createNewUserUserController = async (
       }
     );
 
-    const cellphone = getCellphone(tokenData.payload);
+    const cellphone = getCellphone(verifiedToken.payload);
     const client = clients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 

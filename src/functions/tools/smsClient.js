@@ -36,10 +36,12 @@ const sendSms = async (countryCode, phoneNumber, text) => {
     const smsResult = await smsClient({ from, to, text });
 
     errorThrower(
-      !smsResult.StrRetStatus === "ok" && !smsResult.RetStatus === 1,
+      smsResult.StrRetStatus !== "ok" && smsResult.RetStatus !== 1,
       smsResult
     );
   }
+
+  return { done: true };
 };
 
 const smsTexts = {

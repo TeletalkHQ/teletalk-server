@@ -1,6 +1,6 @@
 const request = require("supertest")(require("~/app").app);
-
 const { expect } = require("chai");
+
 const {
   getAllEnvironments,
   errorThrower,
@@ -32,7 +32,6 @@ const myRequest = async (
       withoutToken
     );
 
-    logger.log("errorObject", errorObject);
     const statusCode = errorObject?.statusCode || routeObject?.statusCode;
     expect(response.statusCode).to.equal(statusCode);
     if (response.body?.statusCode) {

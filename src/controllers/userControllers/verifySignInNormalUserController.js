@@ -66,7 +66,11 @@ const verifySignInNormalUserController = async (
 
     res.sendJsonResponse(verifySignInNormalRoute, {
       user: user
-        ? { ...sendableUserData(user), token: user.tokens[0].token }
+        ? {
+            ...sendableUserData(user),
+            token: user.tokens[0].token,
+            newUser: false,
+          }
         : { newUser: true },
     });
   } catch (error) {

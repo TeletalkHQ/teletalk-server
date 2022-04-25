@@ -13,6 +13,7 @@
     "Restify",
     "Teletalk",
     "Trez",
+    "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890",
     "autofetch",
     "autopep",
     "axios",

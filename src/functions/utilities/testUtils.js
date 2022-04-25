@@ -1,7 +1,10 @@
 const request = require("supertest")(require("~/app").app);
 
 const { expect } = require("chai");
-const { getAllEnvironments } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getAllEnvironments,
+  errorThrower,
+} = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userRoutes: {
@@ -16,7 +19,6 @@ const myRequest = async (
   routeObject,
   data,
   errorObject = {},
-  errorKey,
   withoutToken
 ) => {
   try {
@@ -31,16 +33,23 @@ const myRequest = async (
 
     const statusCode = errorObject?.statusCode || routeObject?.statusCode;
     expect(response.statusCode).to.equal(statusCode);
-    if (response.body?.statusCode)
+    if (response.body?.statusCode) {
       expect(response.body.statusCode).to.equal(statusCode);
+    }
 
     if (statusCode > 299) {
+      errorThrower(
+        Object.keys(errorObject).length < 4,
+        "UnknownError, you need to send me correct error object"
+      );
+
       logger.log(response.body);
-      const errorCode = errorObject?.errorCode;
-      const errorReason = errorObject?.reason;
+
+      const { errorKey, errorCode, errorReason } = errorObject;
+
       expect(response.body.errors[errorKey]?.errorCode).to.equal(errorCode);
 
-      expect(response.body.errors[errorKey]?.reason).to.equal(errorReason);
+      expect(response.body.errors[errorKey]?.errorReason).to.equal(errorReason);
     }
 
     return response;

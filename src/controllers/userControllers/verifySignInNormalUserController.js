@@ -5,6 +5,7 @@ const {
   getEnvironment,
   getCellphone,
   errorThrower,
+  getErrorObject,
 } = require("~/functions/utilities/utilsNoDeps");
 
 const {
@@ -26,7 +27,9 @@ const {
 const { userFinder } = require("~/models/userModels/userModelFunctions");
 const {
   userRoutes: {
-    properties: { verifySignInNormalRoute },
+    properties: {
+      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
+    },
   },
 } = require("~/variables/routes/userRoutes");
 const {
@@ -42,7 +45,7 @@ const verifySignInNormalUserController = async (
       body: { verificationCode },
     } = req;
 
-    // await verificationCodeValidator(verificationCode);
+    await verificationCodeValidator(verificationCode);
 
     const verifyToken = getTokenFromRequest(req);
     errorThrower(!verifyToken, TOKEN_REQUIRED);
@@ -55,9 +58,8 @@ const verifySignInNormalUserController = async (
     const client = clients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 
-    errorThrower(
-      client?.verificationCode !== verificationCode,
-      VERIFICATION_CODE_REQUIRED
+    errorThrower(client?.verificationCode !== verificationCode, () =>
+      getErrorObject(VERIFICATION_CODE_REQUIRED)
     );
 
     const user = await userFinder(cellphone);

@@ -66,13 +66,7 @@ describe("signInNormalApi test success requests", () => {
 
 describe("signInNormalApi test failure requests", () => {
   it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await request(
-      userRouteBaseUrl,
-      signInNormalRoute,
-      {},
-      CELLPHONE_REQUIRED,
-      "cellphoneValidation"
-    );
+    await request(userRouteBaseUrl, signInNormalRoute, {}, CELLPHONE_REQUIRED);
   });
 
   it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
@@ -83,8 +77,7 @@ describe("signInNormalApi test failure requests", () => {
         countryCode: cellphone.countryCode,
         countryName: cellphone.countryName,
       },
-      PHONE_NUMBER_REQUIRED,
-      "phoneNumberValidation"
+      PHONE_NUMBER_REQUIRED
     );
   });
   it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
@@ -96,8 +89,7 @@ describe("signInNormalApi test failure requests", () => {
         countryName: cellphone.countryName,
         phoneNumber: "101270047!",
       },
-      PHONE_NUMBER_INVALID_TYPE,
-      "phoneNumberValidation"
+      PHONE_NUMBER_INVALID_TYPE
     );
   });
 
@@ -109,8 +101,7 @@ describe("signInNormalApi test failure requests", () => {
         phoneNumber: cellphone.phoneNumber,
         countryName: cellphone.countryName,
       },
-      COUNTRY_CODE_REQUIRED,
-      "countryCodeValidation"
+      COUNTRY_CODE_REQUIRED
     );
   });
   it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
@@ -122,8 +113,7 @@ describe("signInNormalApi test failure requests", () => {
         countryName: cellphone.countryName,
         countryCode: "zoot!",
       },
-      COUNTRY_CODE_INVALID_TYPE,
-      "countryCodeValidation"
+      COUNTRY_CODE_INVALID_TYPE
     );
   });
   it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
@@ -134,8 +124,7 @@ describe("signInNormalApi test failure requests", () => {
         phoneNumber: cellphone.phoneNumber,
         countryCode: "010101",
       },
-      COUNTRY_CODE_NOT_SUPPORTED,
-      "countryCodeValidation"
+      COUNTRY_CODE_NOT_SUPPORTED
     );
   });
 
@@ -147,8 +136,7 @@ describe("signInNormalApi test failure requests", () => {
         phoneNumber: cellphone.phoneNumber,
         countryCode: cellphone.countryCode,
       },
-      COUNTRY_NAME_REQUIRED,
-      "countryNameValidation"
+      COUNTRY_NAME_REQUIRED
     );
   });
 
@@ -161,8 +149,7 @@ describe("signInNormalApi test failure requests", () => {
         countryCode: cellphone.countryCode,
         countryName: "Something wrong!",
       },
-      COUNTRY_NAME_NOT_SUPPORTED,
-      "countryNameValidation"
+      COUNTRY_NAME_NOT_SUPPORTED
     );
   });
 });

@@ -5,6 +5,13 @@ const {
 const {
   validatorCompiler,
 } = require("~/functions/utilities/validatorCompiler");
+const {
+  userModel: {
+    properties: {
+      verificationCodeModel: { properties: verificationCodeModel },
+    },
+  },
+} = require("~/models/userModels/userModel");
 
 const {
   verificationCodeValidationModel: {
@@ -19,6 +26,9 @@ const {
         properties: VERIFICATION_CODE_INVALID_TYPE,
       },
       VERIFICATION_CODE_REQUIRED: { properties: VERIFICATION_CODE_REQUIRED },
+      VERIFICATION_CODE_INVALID_LENGTH: {
+        properties: VERIFICATION_CODE_INVALID_LENGTH,
+      },
     },
   },
 } = require("~/variables/errors/userErrors");
@@ -39,14 +49,25 @@ const verificationCodeValidator = async (verificationCode) => {
   });
 
   errorThrower(isNaN(+verificationCode), () => {
-    return getErrorObject(VERIFICATION_CODE_INVALID_TYPE);
+    return getErrorObject(VERIFICATION_CODE_INVALID_TYPE, {
+      validatedVerificationCode: verificationCode,
+    });
   });
 
   const result = await v({ verificationCode });
 
+  errorThrower(
+    verificationCode.length !== verificationCodeModel.length.value,
+    () =>
+      getErrorObject(VERIFICATION_CODE_INVALID_LENGTH, {
+        validatedVerificationCode: verificationCode,
+      })
+  );
+
   errorThrower(result !== true, () => {
     return getErrorObject(VERIFICATION_CODE_INVALID, {
-      validatedVerificationCode: result,
+      validatedVerificationCode: verificationCode,
+      error: result,
     });
   });
 };

@@ -10,7 +10,7 @@ const {
 const {
   userErrors: {
     properties: {
-      VERIFICATION_CODE_REQUIRED: { properties: VERIFICATION_CODE_REQUIRED },
+      VERIFICATION_CODE_INVALID: { properties: VERIFICATION_CODE_INVALID },
       USER_NOT_EXIST: { properties: USER_NOT_EXIST },
     },
   },
@@ -59,7 +59,7 @@ const verifySignInNormalUserController = async (
     errorThrower(!client, USER_NOT_EXIST);
 
     errorThrower(client?.verificationCode !== verificationCode, () =>
-      getErrorObject(VERIFICATION_CODE_REQUIRED)
+      getErrorObject(VERIFICATION_CODE_INVALID)
     );
 
     const user = await userFinder(cellphone);

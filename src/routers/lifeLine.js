@@ -44,8 +44,9 @@ const {
 const {
   userRoutes: {
     properties: {
-      signInNormalRoute: { properties: signInNormal },
-      verifySignInNormalRoute: { properties: verifySignInNormal },
+      signInNormalRoute: { properties: signInNormalRoute },
+      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
+      createNewUserRoute: { properties: createNewUserRoute },
       userRouteBaseUrl: { properties: userRouteBaseUrl },
     },
   },
@@ -63,8 +64,9 @@ const lifeLine = Router();
 lifeLine.use(
   ignoreMiddlewaresByUrl(
     [
-      `${userRouteBaseUrl.url}${signInNormal.url}`,
-      `${userRouteBaseUrl.url}${verifySignInNormal.url}`,
+      `${userRouteBaseUrl.url}${signInNormalRoute.url}`,
+      `${userRouteBaseUrl.url}${verifySignInNormalRoute.url}`,
+      `${userRouteBaseUrl.url}${createNewUserRoute.url}`,
     ],
     authDefaultMiddleware
   )

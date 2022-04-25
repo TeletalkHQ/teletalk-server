@@ -6,12 +6,13 @@ const {
   getEnvironment,
   getCellphone,
   getErrorObject,
-} = require("~/functions/utilities/utilsNoDeps");
-const {
   errorThrower,
-  getTokenFromRequest,
-} = require("~/functions/utilities/utils");
+} = require("~/functions/utilities/utilsNoDeps");
+const { getTokenFromRequest } = require("~/functions/utilities/utils");
 
+const {
+  tokenValidator,
+} = require("~/validators/userValidators/tokenValidator");
 const {
   firstNameValidator,
 } = require("~/validators/userValidators/firstNameValidator");
@@ -20,17 +21,17 @@ const {
 } = require("~/validators/userValidators/lastNameValidator");
 
 const {
+  userFinder,
+  createNewNormalUser,
+  updateUserDataByPrivateId,
+} = require("~/models/userModels/userModelFunctions");
+const {
   commonModel: {
     properties: {
       commonPrivateIdModel: { properties: commonPrivateIdModel },
     },
   },
 } = require("~/models/commonModels/commonModel");
-const {
-  userFinder,
-  createNewNormalUser,
-  updateUserDataByPrivateId,
-} = require("~/models/userModels/userModelFunctions");
 
 const {
   ENVIRONMENT_KEYS,
@@ -45,12 +46,11 @@ const {
 } = require("~/variables/errors/userErrors");
 const {
   userRoutes: {
-    properties: { createNewUserRoute },
+    properties: {
+      createNewUserRoute: { properties: createNewUserRoute },
+    },
   },
 } = require("~/variables/routes/userRoutes");
-const {
-  tokenValidator,
-} = require("~/validators/userValidators/tokenValidator");
 
 const createNewUserUserController = async (
   req = expressRequest,
@@ -68,8 +68,8 @@ const createNewUserUserController = async (
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
 
-    const validatedFirstName = firstNameValidator({ firstName });
-    const validatedLastName = lastNameValidator({ lastName });
+    const validatedFirstName = await firstNameValidator(firstName);
+    const validatedLastName = await lastNameValidator(lastName);
     errorThrower(
       validatedFirstName !== true || validatedLastName !== true,
       () => {
@@ -104,9 +104,7 @@ const createNewUserUserController = async (
     } else if (!user) {
       const privateId = randomId(commonPrivateIdModel.maxlength.value);
 
-      const token = await tokenSigner({
-        data: { ...cellphone, privateId },
-      });
+      const token = await tokenSigner({ ...cellphone, privateId });
 
       const userData = {
         ...cellphone,

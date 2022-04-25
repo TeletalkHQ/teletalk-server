@@ -10,6 +10,7 @@ const {
   userRoutes: {
     properties: {
       verifySignInNormalRoute: { properties: verifySignInNormalRoute },
+      createNewUserRoute: { properties: createNewUserRoute },
     },
   },
 } = require("~/variables/routes/userRoutes");
@@ -31,6 +32,7 @@ const myRequest = async (
       withoutToken
     );
 
+    logger.log("errorObject", errorObject);
     const statusCode = errorObject?.statusCode || routeObject?.statusCode;
     expect(response.statusCode).to.equal(statusCode);
     if (response.body?.statusCode) {
@@ -69,7 +71,10 @@ const testRequest = (requestObject, data, withoutToken) => {
       .set("Content-Type", "application/json");
 
     if (!withoutToken) {
-      if (requestObject.url.includes(verifySignInNormalRoute.url)) {
+      if (
+        requestObject.url.includes(verifySignInNormalRoute.url) ||
+        requestObject.url.includes(createNewUserRoute.url)
+      ) {
         response.set(...setTestToken(TEST_VERIFY_TOKEN));
       } else {
         response.set(...setTestToken(TEST_MAIN_TOKEN));

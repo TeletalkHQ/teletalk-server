@@ -1,6 +1,7 @@
 const {
   getErrorObject,
   errorThrower,
+  validatorErrorFinder,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -32,6 +33,12 @@ const countryCodeValidation = {
 const v = validatorCompiler(countryCodeValidation.properties);
 
 const countryCodeValidator = async (countryCode) => {
+  const result = await v({ countryCode });
+
+  const finder = (value) => validatorErrorFinder(result, value);
+
+  if (result === true) return { done: true };
+
   errorThrower(!countryCode, () => {
     return getErrorObject(COUNTRY_CODE_REQUIRED);
   });
@@ -39,8 +46,6 @@ const countryCodeValidator = async (countryCode) => {
   errorThrower(isNaN(+countryCode), () => {
     return getErrorObject(COUNTRY_CODE_INVALID_TYPE);
   });
-
-  const result = await v({ countryCode });
 
   errorThrower(result !== true, () => {
     return getErrorObject(COUNTRY_CODE_INVALID, {

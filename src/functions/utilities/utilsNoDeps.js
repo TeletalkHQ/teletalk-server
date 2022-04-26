@@ -123,6 +123,8 @@ const skipParams = (count) => {
 const getErrorObject = (errorObject, extraData = {}, statusCode) => {
   const { errorKey, ...error } = errorObject;
 
+  console.log("errorObject", errorObject);
+
   return {
     [errorKey]: { ...error, ...extraData },
     statusCode: statusCode || errorObject.statusCode,
@@ -149,9 +151,12 @@ const validatorErrorTypes = (errorArray) => {
 
 const randomString = (length) => {
   var chars = "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
-  var pwd = _.sampleSize(chars, length || 12); // lodash v4: use _.sampleSize
+  var pwd = _.sampleSize(chars, length ?? 12);
   return pwd.join("");
 };
+
+const validatorErrorFinder = (errors, value, prop = "type") =>
+  errors.find((r) => r[prop] === value);
 
 const getHostFromRequest = (request) => request.get("host");
 
@@ -173,4 +178,5 @@ module.exports = {
   skipParams,
   validatorErrorTypes,
   versionCalculator,
+  validatorErrorFinder,
 };

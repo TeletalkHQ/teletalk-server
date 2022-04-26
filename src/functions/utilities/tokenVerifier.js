@@ -22,11 +22,12 @@ const tokenVerifier = async (
       ...options,
     });
 
-    return data;
+    return { data, done: true };
   } catch (error) {
     logger.log("tokenVerifier catch, error:", error);
     return {
       error,
+      done: false,
     };
   }
 };

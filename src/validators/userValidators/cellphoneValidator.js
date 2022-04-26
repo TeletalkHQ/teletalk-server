@@ -50,6 +50,7 @@ const cellphoneValidation = {
 
 const v = validatorCompiler(cellphoneValidation.properties);
 
+//FIXME cellphoneValidator
 const cellphoneValidator = async (cellphone = {}) => {
   const { countryCode, countryName, phoneNumber } = cellphone;
 

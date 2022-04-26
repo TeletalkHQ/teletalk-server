@@ -145,6 +145,9 @@ const randomString = (length) => {
   return pwd.join("");
 };
 
+const validatorErrorFinder = (errors, value, prop = "type") =>
+  errors.find((r) => r[prop] === value);
+
 const getHostFromRequest = (request) => request.get("host");
 
 module.exports = {
@@ -164,4 +167,5 @@ module.exports = {
   setTestToken,
   skipParams,
   versionCalculator,
+  validatorErrorFinder,
 };

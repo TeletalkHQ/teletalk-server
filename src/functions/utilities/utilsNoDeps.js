@@ -137,6 +137,16 @@ const getCellphone = (object = {}) => {
   };
 };
 
+const validatorErrorTypes = (errorArray) => {
+  const errorTypes = {};
+
+  errorArray.forEach((error) => {
+    errorTypes[error.type] = true;
+  });
+
+  return errorTypes;
+};
+
 const randomString = (length) => {
   var chars = "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
   var pwd = _.sampleSize(chars, length || 12); // lodash v4: use _.sampleSize
@@ -161,5 +171,6 @@ module.exports = {
   setEnvironment,
   setTestToken,
   skipParams,
+  validatorErrorTypes,
   versionCalculator,
 };

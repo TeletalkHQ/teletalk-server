@@ -35,7 +35,14 @@ const {
   },
 } = require("~/models/userModels/userModel");
 
-const cellphone = { ...countries[0], phoneNumber: "9119119191" };
+const theRandomNumber = () =>
+  Math.floor(Math.random() * 100 * Math.random()) +
+  Math.floor(Math.random() * 10);
+
+const cellphone = {
+  ...countries[theRandomNumber()],
+  phoneNumber: "9119119191",
+};
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {

@@ -70,8 +70,11 @@ const createNewUserUserController = async (
 
     const validatedFirstName = await firstNameValidator(firstName);
     const validatedLastName = await lastNameValidator(lastName);
+
+    console.log(validatedFirstName);
+
     errorThrower(
-      validatedFirstName !== true || validatedLastName !== true,
+      validatedFirstName.done !== true || validatedLastName.done !== true,
       () => {
         return getErrorObject(FULL_NAME_INVALID, {
           validatedFullName: { validatedFirstName, validatedLastName },

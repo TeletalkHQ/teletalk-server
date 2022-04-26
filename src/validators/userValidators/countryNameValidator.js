@@ -1,6 +1,7 @@
 const {
   getErrorObject,
   errorThrower,
+  validatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -16,6 +17,13 @@ const {
     properties: {
       COUNTRY_NAME_REQUIRED: { properties: COUNTRY_NAME_REQUIRED },
       COUNTRY_NAME_NOT_SUPPORTED: { properties: COUNTRY_NAME_NOT_SUPPORTED },
+      COUNTRY_NAME_INVALID_TYPE: { properties: COUNTRY_NAME_INVALID_TYPE },
+      COUNTRY_NAME_MINLENGTH_REACH: {
+        properties: COUNTRY_NAME_MINLENGTH_REACH,
+      },
+      COUNTRY_NAME_MAXLENGTH_REACH: {
+        properties: COUNTRY_NAME_MAXLENGTH_REACH,
+      },
       COUNTRY_NAME_INVALID: { properties: COUNTRY_NAME_INVALID },
     },
   },
@@ -32,27 +40,36 @@ const countryNameValidation = {
 const v = validatorCompiler(countryNameValidation.properties);
 
 const countryNameValidator = async (countryName) => {
-  errorThrower(!countryName, () => {
-    return getErrorObject(COUNTRY_NAME_REQUIRED);
-  });
-
   const result = await v({ countryName });
 
-  errorThrower(result !== true, () => {
-    return getErrorObject(COUNTRY_NAME_INVALID, {
-      validatedCountryName: result,
+  if (result === true) return { done: true };
+
+  const { string, stringMax, stringMin, required } =
+    validatorErrorTypes(result);
+
+  const errorObject = (errorObject) =>
+    getErrorObject(errorObject, {
+      validatedCountryName: countryName,
+      validationResult: result,
     });
-  });
+
+  errorThrower(required, () => errorObject(COUNTRY_NAME_REQUIRED));
+
+  errorThrower(string, () => errorObject(COUNTRY_NAME_INVALID_TYPE));
+
+  errorThrower(stringMin, () => errorObject(COUNTRY_NAME_MINLENGTH_REACH));
+
+  errorThrower(stringMax, () => errorObject(COUNTRY_NAME_MAXLENGTH_REACH));
 
   const country = countries.find((c) => c.countryName === countryName);
 
-  errorThrower(!country, () => {
-    return getErrorObject(COUNTRY_NAME_NOT_SUPPORTED, {
-      validatedCountryName: countryName,
-    });
-  });
+  errorThrower(country === undefined, () =>
+    errorObject(COUNTRY_NAME_NOT_SUPPORTED)
+  );
 
-  return true;
+  errorThrower(result !== true, () => errorObject(COUNTRY_NAME_INVALID));
+
+  return { done: false };
 };
 
 module.exports = { countryNameValidator, countryNameValidation };

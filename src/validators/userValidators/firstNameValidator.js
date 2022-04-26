@@ -1,7 +1,7 @@
 const {
   errorThrower,
   getErrorObject,
-  validatorErrorFinder,
+  validatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -10,14 +10,6 @@ const {
 const {
   firstNameValidationModel: { properties: firstNameValidationModel },
 } = require("~/models/validationModels/userValidationModels/firstNameValidationModel");
-
-const {
-  initialValue: {
-    initialValidatorPropValues: {
-      type: { values },
-    },
-  },
-} = require("~/variables/constants/initialValues/initialValue");
 
 const {
   userErrors: {
@@ -43,39 +35,26 @@ const v = validatorCompiler(firstNameValidation.properties);
 const firstNameValidator = async (firstName) => {
   const result = await v({ firstName });
 
-  const finder = (value) => validatorErrorFinder(result, value);
-
   if (result === true) return { done: true };
 
-  errorThrower(finder(values.required), () =>
-    getErrorObject(FIRST_NAME_REQUIRED, {
+  const { string, stringMax, stringMin, required } =
+    validatorErrorTypes(result);
+
+  const errorObject = (errorObject) =>
+    getErrorObject(errorObject, {
       validatedFirstName: firstName,
       validationResult: result,
-    })
-  );
+    });
 
-  errorThrower(finder(values.string), () =>
-    getErrorObject(FIRST_NAME_INVALID_TYPE, {
-      validatedFirstName: firstName,
-      validationResult: result,
-    })
-  );
+  errorThrower(required, () => errorObject(FIRST_NAME_REQUIRED));
 
-  errorThrower(finder(values.minlength), () =>
-    getErrorObject(FIRST_NAME_MINLENGTH_REACH, {
-      validatedFirstName: firstName,
-      validationResult: result,
-    })
-  );
+  errorThrower(string, () => errorObject(FIRST_NAME_INVALID_TYPE));
 
-  errorThrower(finder(values.maxlength), () =>
-    getErrorObject(FIRST_NAME_MAXLENGTH_REACH, {
-      validatedFirstName: firstName,
-      validationResult: result,
-    })
-  );
+  errorThrower(stringMin, () => errorObject(FIRST_NAME_MINLENGTH_REACH));
 
-  return result;
+  errorThrower(stringMax, () => errorObject(FIRST_NAME_MAXLENGTH_REACH));
+
+  return { done: false };
 };
 
 module.exports = { firstNameValidator, firstNameValidation };

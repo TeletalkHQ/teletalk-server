@@ -2,6 +2,7 @@ const {
   errorThrower,
   getErrorObject,
   validatorErrorFinder,
+  validatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -40,19 +41,21 @@ const v = validatorCompiler(lastNameValidation.properties);
 const lastNameValidator = async (lastName) => {
   const result = await v({ lastName });
 
-  const finder = (prop, value) => validatorErrorFinder(result, prop, value);
-
   if (result === true) return { done: true };
 
-  errorThrower(finder(values.string), () =>
-    getErrorObject(LAST_NAME_INVALID_TYPE)
-  );
+  const { string, stringMax } = validatorErrorTypes(result);
 
-  errorThrower(finder(values.maxlength), () =>
-    getErrorObject(LAST_NAME_MAXLENGTH_REACH)
-  );
+  const errorObject = (errorObject) =>
+    getErrorObject(errorObject, {
+      validatedLastName: lastName,
+      validationResult: result,
+    });
 
-  return result;
+  errorThrower(string, () => errorObject(LAST_NAME_INVALID_TYPE));
+
+  errorThrower(stringMax, () => errorObject(LAST_NAME_MAXLENGTH_REACH));
+
+  return { done: false };
 };
 
 module.exports = { lastNameValidator, lastNameValidation };

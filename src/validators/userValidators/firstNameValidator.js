@@ -1,6 +1,7 @@
 const {
   errorThrower,
   getErrorObject,
+  validatorErrorFinder,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -9,6 +10,15 @@ const {
 const {
   firstNameValidationModel: { properties: firstNameValidationModel },
 } = require("~/models/validationModels/userValidationModels/firstNameValidationModel");
+
+const {
+  initialValue: {
+    initialValidatorPropValues: {
+      type: { values },
+    },
+  },
+} = require("~/variables/constants/initialValues/initialValue");
+
 const {
   userErrors: {
     properties: {
@@ -32,32 +42,33 @@ const v = validatorCompiler(firstNameValidation.properties);
 
 const firstNameValidator = async (firstName) => {
   const result = await v({ firstName });
-  const finder = (prop, value) => result.find((r) => r[prop] === value);
+
+  const finder = (value) => validatorErrorFinder(result, value);
 
   if (result === true) return { done: true };
 
-  errorThrower(finder("type", "required"), () =>
+  errorThrower(finder(values.required), () =>
     getErrorObject(FIRST_NAME_REQUIRED, {
       validatedFirstName: firstName,
       validationResult: result,
     })
   );
 
-  errorThrower(finder("type", "string"), () =>
+  errorThrower(finder(values.string), () =>
     getErrorObject(FIRST_NAME_INVALID_TYPE, {
       validatedFirstName: firstName,
       validationResult: result,
     })
   );
 
-  errorThrower(finder("type", "stringMin"), () =>
+  errorThrower(finder(values.minlength), () =>
     getErrorObject(FIRST_NAME_MINLENGTH_REACH, {
       validatedFirstName: firstName,
       validationResult: result,
     })
   );
 
-  errorThrower(finder("type", "stringMax"), () =>
+  errorThrower(finder(values.maxlength), () =>
     getErrorObject(FIRST_NAME_MAXLENGTH_REACH, {
       validatedFirstName: firstName,
       validationResult: result,

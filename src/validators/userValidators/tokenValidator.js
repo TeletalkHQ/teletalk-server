@@ -64,7 +64,7 @@ const tokenValidator = async (token, secret) => {
 
     errorThrower(result !== true, () => errorObject(TOKEN_INVALID));
 
-    return { done: false };
+    return { done: false, error: result };
   } catch (error) {
     logger.log("tokenValidator catch, error:", error);
     return { error: true };

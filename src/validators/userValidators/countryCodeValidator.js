@@ -71,7 +71,7 @@ const countryCodeValidator = async (countryCode) => {
 
   errorThrower(result !== true, () => errorObject(COUNTRY_CODE_INVALID));
 
-  return { done: false };
+  return { done: false, error: result };
 };
 
 module.exports = { countryCodeValidator, countryCodeValidation };

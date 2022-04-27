@@ -69,7 +69,7 @@ const countryNameValidator = async (countryName) => {
 
   errorThrower(result !== true, () => errorObject(COUNTRY_NAME_INVALID));
 
-  return { done: false };
+  return { done: false, error: result };
 };
 
 module.exports = { countryNameValidator, countryNameValidation };

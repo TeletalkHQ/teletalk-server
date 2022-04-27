@@ -1,17 +1,11 @@
 const {
   errorThrower,
   getErrorObject,
+  validatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
 } = require("~/functions/utilities/validatorCompiler");
-const {
-  userModel: {
-    properties: {
-      verificationCodeModel: { properties: verificationCodeModel },
-    },
-  },
-} = require("~/models/userModels/userModel");
 
 const {
   verificationCodeValidationModel: {
@@ -44,32 +38,29 @@ const verificationCodeValidation = {
 const v = validatorCompiler(verificationCodeValidation.properties);
 
 const verificationCodeValidator = async (verificationCode) => {
-  errorThrower(!verificationCode, () => {
-    return getErrorObject(VERIFICATION_CODE_REQUIRED);
-  });
-
-  errorThrower(isNaN(+verificationCode), () => {
-    return getErrorObject(VERIFICATION_CODE_INVALID_TYPE, {
-      validatedVerificationCode: verificationCode,
-    });
-  });
-
   const result = await v({ verificationCode });
 
-  errorThrower(
-    verificationCode.length !== verificationCodeModel.length.value,
-    () =>
-      getErrorObject(VERIFICATION_CODE_INVALID_LENGTH, {
-        validatedVerificationCode: verificationCode,
-      })
+  if (result === true) return { done: true };
+
+  const { string, required, length } = validatorErrorTypes(result);
+
+  const errorObject = (errorObject) =>
+    getErrorObject(errorObject, {
+      validatedVerificationCode: verificationCode,
+      validationResult: result,
+    });
+
+  errorThrower(required, () => errorObject(VERIFICATION_CODE_REQUIRED));
+
+  errorThrower(string || isNaN(+verificationCode), () =>
+    errorObject(VERIFICATION_CODE_INVALID_TYPE)
   );
 
-  errorThrower(result !== true, () => {
-    return getErrorObject(VERIFICATION_CODE_INVALID, {
-      validatedVerificationCode: verificationCode,
-      error: result,
-    });
-  });
+  errorThrower(length, () => errorObject(VERIFICATION_CODE_INVALID_LENGTH));
+
+  errorThrower(result !== true, () => errorObject(VERIFICATION_CODE_INVALID));
+
+  return { done: false, error: result };
 };
 
 module.exports = { verificationCodeValidator, verificationCodeValidation };

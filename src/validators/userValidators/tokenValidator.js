@@ -38,7 +38,9 @@ const tokenValidator = async (token, secret) => {
   try {
     const result = await v({ token });
 
-    const { string, required } = validatorErrorTypes(result);
+    const { string, required } = validatorErrorTypes(
+      result === true ? [] : result
+    );
 
     const errorObject = (errorObject) =>
       getErrorObject(errorObject, {

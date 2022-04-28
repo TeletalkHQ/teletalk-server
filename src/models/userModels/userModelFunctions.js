@@ -201,6 +201,12 @@ const createNewNormalUser = async (userData) => {
   }
 };
 
+const getAllUsers = async () => {
+  const users = await UserMongoModel.find();
+
+  return users;
+};
+
 module.exports = {
   addContactToUserBlacklist,
   addContactToUserContacts,
@@ -211,4 +217,5 @@ module.exports = {
   updateOneContact,
   updateUserDataByPrivateId,
   userFinder,
+  getAllUsers,
 };

@@ -1,7 +1,7 @@
 const errorCollectorMiddleware = (res, errorObject) => {
   try {
     if (!errorObject || typeof errorObject !== "object") {
-      //TODO Other errors
+      //TODO Move to otherErrors
       errorObject = {
         errorCode: "UNKNOWN_ERROR_CODE",
         message: "Call your service",
@@ -13,7 +13,6 @@ const errorCollectorMiddleware = (res, errorObject) => {
 
     res.errors = errorObject;
 
-    logger.log("res.errors", res.errors);
     if (isNaN(+res.errors.statusCode)) {
       res.errors.statusCode = 500;
     }

@@ -1,7 +1,7 @@
 const {
   getErrorObject,
   errorThrower,
-  validatorErrorTypes,
+  getValidatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -16,6 +16,7 @@ const {
       PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
       PHONE_NUMBER_INVALID: { properties: PHONE_NUMBER_INVALID },
       PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
+      PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
       PHONE_NUMBER_MINLENGTH_REACH: {
         properties: PHONE_NUMBER_MINLENGTH_REACH,
       },
@@ -41,8 +42,8 @@ const phoneNumberValidator = async (phoneNumber) => {
 
   if (result === true) return { done: true };
 
-  const { string, stringMax, stringMin, required } =
-    validatorErrorTypes(result);
+  const { stringNumeric, string, stringMax, stringMin, required } =
+    getValidatorErrorTypes(result);
 
   const errorObject = (errorObject) =>
     getErrorObject(errorObject, {
@@ -52,13 +53,13 @@ const phoneNumberValidator = async (phoneNumber) => {
 
   errorThrower(required, () => errorObject(PHONE_NUMBER_REQUIRED));
 
+  errorThrower(string, () => errorObject(PHONE_NUMBER_INVALID_TYPE));
+
+  errorThrower(stringNumeric, () => errorObject(PHONE_NUMBER_NUMERIC));
+
   errorThrower(stringMin, () => errorObject(PHONE_NUMBER_MINLENGTH_REACH));
 
   errorThrower(stringMax, () => errorObject(PHONE_NUMBER_MAXLENGTH_REACH));
-
-  errorThrower(string || isNaN(+phoneNumber), () =>
-    errorObject(PHONE_NUMBER_INVALID_TYPE)
-  );
 
   errorThrower(result !== true, () => errorObject(PHONE_NUMBER_INVALID));
 

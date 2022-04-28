@@ -19,6 +19,7 @@ const {
       BLACKLIST_INVALID_TYPE: { properties: BLACKLIST_INVALID_TYPE },
       CONTACT_INVALID_TYPE: { properties: CONTACT_INVALID_TYPE },
       COUNTRY_CODE_INVALID_TYPE: { properties: COUNTRY_CODE_INVALID_TYPE },
+      COUNTRY_CODE_NUMERIC: { properties: COUNTRY_CODE_NUMERIC },
       COUNTRY_CODE_MAXLENGTH_REACH: {
         properties: COUNTRY_CODE_MAXLENGTH_REACH,
       },
@@ -54,8 +55,8 @@ const {
       PHONE_NUMBER_MINLENGTH_REACH: {
         properties: PHONE_NUMBER_MINLENGTH_REACH,
       },
+      PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
       PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
-
       TOKEN_EXIST: { properties: TOKEN_EXIST },
       TOKEN_INVALID_TYPE: { properties: TOKEN_INVALID_TYPE },
       TOKEN_REQUIRED: { properties: TOKEN_REQUIRED },
@@ -69,6 +70,8 @@ const {
       VERIFICATION_CODE_INVALID_TYPE: {
         properties: VERIFICATION_CODE_INVALID_TYPE,
       },
+      VERIFICATION_CODE_NUMERIC: { properties: VERIFICATION_CODE_NUMERIC },
+      VERIFICATION_CODE_EMPTY: { properties: VERIFICATION_CODE_EMPTY },
     },
   },
 } = require("~/variables/errors/userErrors");
@@ -110,7 +113,9 @@ const countryCodeModel = modelGenerator(
   modelPropertyGenerator(true),
   modelPropertyGenerator("string", COUNTRY_CODE_INVALID_TYPE),
   ...skipParams(2),
-  "1.0.0"
+  "1.0.0",
+  ...skipParams(2),
+  modelPropertyGenerator(true, COUNTRY_CODE_NUMERIC)
 );
 
 const countryNameModel = modelGenerator(
@@ -133,14 +138,13 @@ const firstNameModel = modelGenerator(
   modelPropertyGenerator(false),
   modelPropertyGenerator("string", FIRST_NAME_INVALID_TYPE),
   skipParams(2),
-
   "1.0.0"
 );
 
 const lastNameModel = modelGenerator(
   modelPropertyGenerator(18, LAST_NAME_MAXLENGTH_REACH),
   modelPropertyGenerator(1, LAST_NAME_MINLENGTH_REACH),
-  [false],
+  modelPropertyGenerator(false, {}),
   modelPropertyGenerator(false),
   modelPropertyGenerator("string", LAST_NAME_INVALID_TYPE),
   null,
@@ -167,7 +171,10 @@ const phoneNumberModel = modelGenerator(
   modelPropertyGenerator("string", PHONE_NUMBER_INVALID_TYPE),
   modelPropertyGenerator(true, PHONE_NUMBER_EXIST),
   null,
-  "1.0.0"
+  "1.0.0",
+  null,
+  null,
+  modelPropertyGenerator(true, PHONE_NUMBER_NUMERIC)
 );
 
 const tokenModel = modelGenerator(
@@ -193,13 +200,18 @@ const usernameModel = modelGenerator(
 );
 
 const verificationCodeModel = modelGenerator(
-  ...skipParams(3),
+  null,
+  null,
+  null,
   modelPropertyGenerator(true),
   modelPropertyGenerator("string", VERIFICATION_CODE_INVALID_TYPE),
-  ...skipParams(2),
+  null,
+  null,
   "1.0.0",
   null,
-  modelPropertyGenerator(6, VERIFICATION_CODE_INVALID_LENGTH)
+  modelPropertyGenerator(6, VERIFICATION_CODE_INVALID_LENGTH),
+  modelPropertyGenerator(true, VERIFICATION_CODE_NUMERIC),
+  modelPropertyGenerator(false, VERIFICATION_CODE_EMPTY)
 );
 
 const userModel = {

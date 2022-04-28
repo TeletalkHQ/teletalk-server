@@ -99,7 +99,9 @@ const modelGenerator = (
   defaultValue = modelGeneratorInitialProperties,
   version = modelGeneratorInitialProperties,
   lowercase = modelGeneratorInitialProperties,
-  length = modelGeneratorInitialProperties
+  length = modelGeneratorInitialProperties,
+  numeric = modelGeneratorInitialProperties,
+  empty = modelGeneratorInitialProperties
 ) => {
   try {
     return {
@@ -113,6 +115,8 @@ const modelGenerator = (
         default: defaultValue,
         lowercase,
         length,
+        numeric,
+        empty,
       },
       info: { version },
     };

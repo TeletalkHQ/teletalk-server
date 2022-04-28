@@ -13,11 +13,13 @@ const countryCodeValidationModel = {
       min: countryCodeModel.minlength.value,
       max: countryCodeModel.maxlength.value,
       trim: countryCodeModel.trim.value,
+      numeric: countryCodeModel.numeric.value,
       messages: {
         string: countryCodeModel.type.error.message,
         required: countryCodeModel.required.error.message,
         stringMin: countryCodeModel.minlength.error.message,
         stringMax: countryCodeModel.maxlength.error.message,
+        stringNumeric: countryCodeModel.numeric.error.message,
       },
     },
   },

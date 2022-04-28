@@ -44,13 +44,14 @@ const myRequest = async (
         "UnknownError, you need to send me correct error object"
       );
 
-      logger.log(response.body);
+      logger.log("response.body:", response.body);
 
       const { errorKey, errorCode, errorReason } = errorObject;
 
-      expect(response.body.errors[errorKey]?.errorCode).to.equal(errorCode);
+      logger.log("errorKey", errorKey);
 
       expect(response.body.errors[errorKey]?.errorReason).to.equal(errorReason);
+      expect(response.body.errors[errorKey]?.errorCode).to.equal(errorCode);
     }
 
     return response;

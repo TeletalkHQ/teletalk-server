@@ -4,28 +4,8 @@ const {
 const {
   getErrorObject,
   errorThrower,
+  getValidatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
-
-const {
-  phoneNumberValidator,
-} = require("~/validators/userValidators/phoneNumberValidator");
-const {
-  countryCodeValidator,
-} = require("~/validators/userValidators/countryCodeValidator");
-const {
-  countryNameValidator,
-} = require("~/validators/userValidators/countryNameValidator");
-
-const {
-  phoneNumberValidationModel: { properties: phoneNumberValidationModel },
-} = require("~/models/validationModels/userValidationModels/phoneNumberValidationModel");
-
-const {
-  countryCodeValidationModel: { properties: countryCodeValidationModel },
-} = require("~/models/validationModels/userValidationModels/countryCodeValidationModel");
-const {
-  countryNameValidationModel: { properties: countryNameValidationModel },
-} = require("~/models/validationModels/userValidationModels/countryNameValidationModel");
 
 const {
   userErrors: {
@@ -35,42 +15,39 @@ const {
     },
   },
 } = require("~/variables/errors/userErrors");
+const {
+  cellphoneValidationModel: { properties: cellphoneValidationModel },
+} = require("~/models/validationModels/userValidationModels/cellphoneValidationModel");
+const { phoneNumberValidator } = require("./phoneNumberValidator");
+const { countryCodeValidator } = require("./countryCodeValidator");
+const { countryNameValidator } = require("./countryNameValidator");
 
 const cellphoneValidation = {
-  properties: {
-    ...phoneNumberValidationModel,
-    ...countryCodeValidationModel,
-    ...countryNameValidationModel,
-  },
+  properties: cellphoneValidationModel,
 
   info: {
     version: "1.0.0",
   },
 };
 
-const v = validatorCompiler(cellphoneValidation.properties);
+// const v = validatorCompiler(cellphoneValidation.properties);
 
 //FIXME cellphoneValidator
 const cellphoneValidator = async (cellphone = {}) => {
-  const { countryCode, countryName, phoneNumber } = cellphone;
+  try {
+    const { countryCode, countryName, phoneNumber } = cellphone;
 
-  errorThrower(!phoneNumber && !countryCode && !countryName, () => {
-    return getErrorObject(CELLPHONE_REQUIRED);
-  });
-
-  await phoneNumberValidator(phoneNumber);
-  await countryCodeValidator(countryCode);
-  await countryNameValidator(countryName);
-
-  const result = await v(cellphone);
-
-  errorThrower(result !== true, () => {
-    return getErrorObject(CELLPHONE_INVALID, {
-      validatedCellphoneErrors: result,
+    errorThrower(!phoneNumber && !countryCode && !countryName, () => {
+      return getErrorObject(CELLPHONE_REQUIRED);
     });
-  });
 
-  return true;
+    await countryCodeValidator(countryCode);
+    await countryNameValidator(countryName);
+    await phoneNumberValidator(phoneNumber);
+  } catch (error) {
+    logger.log("cellphoneValidator catch, error:", error);
+    throw error;
+  }
 };
 
 module.exports = { cellphoneValidator, cellphoneValidation };

@@ -1,7 +1,7 @@
 const {
   errorThrower,
   getErrorObject,
-  validatorErrorTypes,
+  getValidatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -38,7 +38,7 @@ const firstNameValidator = async (firstName) => {
   if (result === true) return { done: true };
 
   const { string, stringMax, stringMin, required } =
-    validatorErrorTypes(result);
+    getValidatorErrorTypes(result);
 
   const errorObject = (errorObject) =>
     getErrorObject(errorObject, {

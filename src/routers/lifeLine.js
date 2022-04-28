@@ -13,6 +13,7 @@ const { userRouter } = require("~/routers/userRouters/userRouter");
 const {
   versionControlRouter,
 } = require("~/routers/versionControlRouters/versionControlRouter");
+const { testRouter } = require("~/routers/otherRouters/testRouter");
 
 const {
   authDefaultMiddleware,
@@ -58,8 +59,16 @@ const {
     },
   },
 } = require("~/variables/routes/versionControlRoutes");
+const {
+  testRoutes: {
+    properties: {
+      testBaseUrl: { properties: testBaseUrl },
+    },
+  },
+} = require("~/variables/routes/testRoutes");
 
 const lifeLine = Router();
+
 //? Add your global middleware here, in special cases you can ignore middleware by url;
 lifeLine.use(
   ignoreMiddlewaresByUrl(
@@ -81,5 +90,7 @@ lifeLine.use(privateChatRouteBaseUrl.url, privateChatRouter);
 lifeLine.use(userRouteBaseUrl.url, userRouter);
 
 lifeLine.use(versionControlBaseUrl.url, versionControlRouter);
+
+lifeLine.use(testBaseUrl.url, testRouter);
 
 module.exports = { lifeLine };

@@ -1,5 +1,8 @@
 const { request, expect } = require("~/functions/utilities/testUtils");
-const { setEnvironment } = require("~/functions/utilities/utilsNoDeps");
+const {
+  setEnvironment,
+  randomNumber,
+} = require("~/functions/utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,
@@ -19,9 +22,11 @@ const {
       COUNTRY_CODE_INVALID_TYPE: { properties: COUNTRY_CODE_INVALID_TYPE },
       COUNTRY_CODE_NOT_SUPPORTED: { properties: COUNTRY_CODE_NOT_SUPPORTED },
       COUNTRY_CODE_REQUIRED: { properties: COUNTRY_CODE_REQUIRED },
+      COUNTRY_CODE_NUMERIC: { properties: COUNTRY_CODE_NUMERIC },
       COUNTRY_NAME_NOT_SUPPORTED: { properties: COUNTRY_NAME_NOT_SUPPORTED },
       COUNTRY_NAME_REQUIRED: { properties: COUNTRY_NAME_REQUIRED },
       PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
+      PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
       PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
     },
   },
@@ -35,13 +40,13 @@ const {
   },
 } = require("~/models/userModels/userModel");
 
-const theRandomNumber = () =>
+const randomCountryCode = () =>
   Math.floor(Math.random() * 100 * Math.random()) +
   Math.floor(Math.random() * 10);
 
 const cellphone = {
-  ...countries[theRandomNumber()],
-  phoneNumber: "9119119191",
+  ...countries[randomCountryCode()],
+  phoneNumber: randomNumber(10),
 };
 
 describe("signInNormalApi test success requests", () => {
@@ -94,9 +99,21 @@ describe("signInNormalApi test failure requests", () => {
       {
         countryCode: cellphone.countryCode,
         countryName: cellphone.countryName,
-        phoneNumber: "101270047!",
+        phoneNumber: 9119119191,
       },
       PHONE_NUMBER_INVALID_TYPE
+    );
+  });
+  it(`It should get error, PHONE_NUMBER_NUMERIC`, async () => {
+    await request(
+      userRouteBaseUrl,
+      signInNormalRoute,
+      {
+        countryCode: cellphone.countryCode,
+        countryName: cellphone.countryName,
+        phoneNumber: "9119119191!",
+      },
+      PHONE_NUMBER_NUMERIC
     );
   });
 
@@ -111,6 +128,18 @@ describe("signInNormalApi test failure requests", () => {
       COUNTRY_CODE_REQUIRED
     );
   });
+  it(`It should get error, COUNTRY_CODE_NUMERIC`, async () => {
+    await request(
+      userRouteBaseUrl,
+      signInNormalRoute,
+      {
+        phoneNumber: cellphone.phoneNumber,
+        countryName: cellphone.countryName,
+        countryCode: "98!",
+      },
+      COUNTRY_CODE_NUMERIC
+    );
+  });
   it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
     await request(
       userRouteBaseUrl,
@@ -118,7 +147,7 @@ describe("signInNormalApi test failure requests", () => {
       {
         phoneNumber: cellphone.phoneNumber,
         countryName: cellphone.countryName,
-        countryCode: "zoot!",
+        countryCode: 98,
       },
       COUNTRY_CODE_INVALID_TYPE
     );
@@ -129,6 +158,7 @@ describe("signInNormalApi test failure requests", () => {
       signInNormalRoute,
       {
         phoneNumber: cellphone.phoneNumber,
+        countryName: cellphone.countryName,
         countryCode: "010101",
       },
       COUNTRY_CODE_NOT_SUPPORTED

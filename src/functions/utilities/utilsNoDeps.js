@@ -1,4 +1,4 @@
-const _ = require("lodash");
+const lodash = require("lodash");
 
 const {
   ENVIRONMENT_KEYS,
@@ -139,19 +139,82 @@ const getCellphone = (object = {}) => {
   };
 };
 
-const validatorErrorTypes = (errorArray) => {
-  const errorTypes = {};
+const getValidatorErrorTypes = (errorArray) => {
+  const validatorErrorTypes = {
+    array: false,
+    arrayContains: false,
+    arrayEmpty: false,
+    arrayEnum: false,
+    arrayLength: false,
+    arrayMax: false,
+    arrayMin: false,
+    arrayUnique: false,
+    boolean: false,
+    date: false,
+    dateMax: false,
+    dateMin: false,
+    email: false,
+    emailEmpty: false,
+    emailMax: false,
+    emailMin: false,
+    enumValue: false,
+    equalField: false,
+    equalValue: false,
+    forbidden: false,
+    function: false,
+    luhn: false,
+    mac: false,
+    number: false,
+    numberEqual: false,
+    numberInteger: false,
+    numberMax: false,
+    numberMin: false,
+    numberNegative: false,
+    numberNotEqual: false,
+    numberPositive: false,
+    object: false,
+    objectMaxProps: false,
+    objectMinProps: false,
+    objectStrict: false,
+    string: false,
+    stringAlpha: false,
+    stringAlphadash: false,
+    stringAlphanum: false,
+    stringBase64: false,
+    stringContains: false,
+    stringEmpty: false,
+    stringEnum: false,
+    stringHex: false,
+    stringLength: false,
+    stringMax: false,
+    stringMin: false,
+    stringNumeric: false,
+    stringPattern: false,
+    stringSingleLine: false,
+    tuple: false,
+    tupleEmpty: false,
+    tupleLength: false,
+    url: false,
+    uuid: false,
+    uuidVersion: false,
+  };
 
   errorArray.forEach((error) => {
-    errorTypes[error.type] = true;
+    validatorErrorTypes[error.type] = true;
   });
 
-  return errorTypes;
+  return validatorErrorTypes;
 };
 
 const randomString = (length) => {
   var chars = "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
-  var pwd = _.sampleSize(chars, length ?? 12);
+  var pwd = lodash.sampleSize(chars, length ?? 12);
+  return pwd.join("");
+};
+
+const randomNumber = (length) => {
+  var chars = "1234567890";
+  var pwd = lodash.sampleSize(chars, length ?? 10);
   return pwd.join("");
 };
 
@@ -170,13 +233,14 @@ module.exports = {
   getMethodFromRoute,
   getStatusCodeFromRoute,
   getTestToken,
+  getValidatorErrorTypes,
   ignoreMiddlewaresByUrl,
   objectInitializer,
+  randomNumber,
   randomString,
   setEnvironment,
   setTestToken,
   skipParams,
-  validatorErrorTypes,
-  versionCalculator,
   validatorErrorFinder,
+  versionCalculator,
 };

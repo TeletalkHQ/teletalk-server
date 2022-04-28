@@ -68,10 +68,10 @@ const createNewUserUserController = async (
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
 
+    errorThrower(verifiedToken.done === false, verifiedToken.error);
+
     const validatedFirstName = await firstNameValidator(firstName);
     const validatedLastName = await lastNameValidator(lastName);
-
-    console.log(validatedFirstName);
 
     errorThrower(
       validatedFirstName.done !== true || validatedLastName.done !== true,

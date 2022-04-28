@@ -54,6 +54,8 @@ const verifySignInNormalUserController = async (
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
 
+    errorThrower(verifiedToken.done === false, verifiedToken.error);
+
     const cellphone = getCellphone(verifiedToken.payload);
     const client = clients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);

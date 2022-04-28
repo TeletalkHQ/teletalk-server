@@ -1,8 +1,7 @@
 const {
   errorThrower,
   getErrorObject,
-  validatorErrorFinder,
-  validatorErrorTypes,
+  getValidatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -12,13 +11,6 @@ const {
   lastNameValidationModel: { properties: lastNameValidationModel },
 } = require("~/models/validationModels/userValidationModels/lastNameValidationModel");
 
-const {
-  initialValue: {
-    initialValidatorPropValues: {
-      type: { values },
-    },
-  },
-} = require("~/variables/constants/initialValues/initialValue");
 const {
   userErrors: {
     properties: {
@@ -43,7 +35,7 @@ const lastNameValidator = async (lastName) => {
 
   if (result === true) return { done: true };
 
-  const { string, stringMax } = validatorErrorTypes(result);
+  const { string, stringMax } = getValidatorErrorTypes(result);
 
   const errorObject = (errorObject) =>
     getErrorObject(errorObject, {

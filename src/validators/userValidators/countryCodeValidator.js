@@ -1,8 +1,7 @@
 const {
   getErrorObject,
   errorThrower,
-  validatorErrorFinder,
-  validatorErrorTypes,
+  getValidatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -19,6 +18,7 @@ const {
       COUNTRY_CODE_NOT_SUPPORTED: { properties: COUNTRY_CODE_NOT_SUPPORTED },
       COUNTRY_CODE_INVALID: { properties: COUNTRY_CODE_INVALID },
       COUNTRY_CODE_INVALID_TYPE: { properties: COUNTRY_CODE_INVALID_TYPE },
+      COUNTRY_CODE_NUMERIC: { properties: COUNTRY_CODE_NUMERIC },
       COUNTRY_CODE_MINLENGTH_REACH: {
         properties: COUNTRY_CODE_MINLENGTH_REACH,
       },
@@ -42,32 +42,35 @@ const v = validatorCompiler(countryCodeValidation.properties);
 const countryCodeValidator = async (countryCode) => {
   const result = await v({ countryCode });
 
-  if (result === true) return { done: true };
+  if (result === true) {
+    const country = countries.find((c) => c.countryCode === countryCode);
 
-  const { string, stringMax, stringMin, required } =
-    validatorErrorTypes(result);
+    errorThrower(country === undefined, () =>
+      errorObject(COUNTRY_CODE_NOT_SUPPORTED)
+    );
 
-  const errorObject = (errorObject) =>
-    getErrorObject(errorObject, {
+    return { done: true };
+  }
+
+  const { string, stringNumeric, stringMax, stringMin, required } =
+    getValidatorErrorTypes(result);
+
+  function errorObject(errorObject) {
+    return getErrorObject(errorObject, {
       validatedCountryCode: countryCode,
       validationResult: result,
     });
+  }
 
   errorThrower(required, () => errorObject(COUNTRY_CODE_REQUIRED));
+
+  errorThrower(string, () => errorObject(COUNTRY_CODE_INVALID_TYPE));
+
+  errorThrower(stringNumeric, () => errorObject(COUNTRY_CODE_NUMERIC));
 
   errorThrower(stringMin, () => errorObject(COUNTRY_CODE_MINLENGTH_REACH));
 
   errorThrower(stringMax, () => errorObject(COUNTRY_CODE_MAXLENGTH_REACH));
-
-  errorThrower(string || isNaN(+countryCode), () =>
-    errorObject(COUNTRY_CODE_INVALID_TYPE)
-  );
-
-  const country = countries.find((c) => c.countryCode === countryCode);
-
-  errorThrower(country === undefined, () =>
-    errorObject(COUNTRY_CODE_NOT_SUPPORTED)
-  );
 
   errorThrower(result !== true, () => errorObject(COUNTRY_CODE_INVALID));
 

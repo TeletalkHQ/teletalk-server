@@ -1,7 +1,7 @@
 const {
   getErrorObject,
   errorThrower,
-  validatorErrorTypes,
+  getValidatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -42,16 +42,25 @@ const v = validatorCompiler(countryNameValidation.properties);
 const countryNameValidator = async (countryName) => {
   const result = await v({ countryName });
 
-  if (result === true) return { done: true };
+  if (result === true) {
+    const country = countries.find((c) => c.countryName === countryName);
+
+    errorThrower(country === undefined, () =>
+      errorObject(COUNTRY_NAME_NOT_SUPPORTED)
+    );
+
+    return { done: true };
+  }
 
   const { string, stringMax, stringMin, required } =
-    validatorErrorTypes(result);
+    getValidatorErrorTypes(result);
 
-  const errorObject = (errorObject) =>
-    getErrorObject(errorObject, {
+  function errorObject(errorObject) {
+    return getErrorObject(errorObject, {
       validatedCountryName: countryName,
       validationResult: result,
     });
+  }
 
   errorThrower(required, () => errorObject(COUNTRY_NAME_REQUIRED));
 
@@ -60,12 +69,6 @@ const countryNameValidator = async (countryName) => {
   errorThrower(stringMin, () => errorObject(COUNTRY_NAME_MINLENGTH_REACH));
 
   errorThrower(stringMax, () => errorObject(COUNTRY_NAME_MAXLENGTH_REACH));
-
-  const country = countries.find((c) => c.countryName === countryName);
-
-  errorThrower(country === undefined, () =>
-    errorObject(COUNTRY_NAME_NOT_SUPPORTED)
-  );
 
   errorThrower(result !== true, () => errorObject(COUNTRY_NAME_INVALID));
 

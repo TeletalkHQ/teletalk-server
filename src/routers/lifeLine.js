@@ -2,18 +2,12 @@
 
 const { Router } = require("express");
 
-const {
-  cellphoneRouter,
-} = require("~/routers/cellphoneRouters/cellphoneRouter");
-const { otherRouter } = require("~/routers/otherRouters/otherRouter");
-const {
-  privateChatRouter,
-} = require("~/routers/chatRouters/privateChatRouter");
-const { userRouter } = require("~/routers/userRouters/userRouter");
-const {
-  versionControlRouter,
-} = require("~/routers/versionControlRouters/versionControlRouter");
-const { testRouter } = require("~/routers/otherRouters/testRouter");
+const { cellphoneRouter } = require("~/routers/cellphoneRouter");
+const { otherRouter } = require("~/routers/otherRouter");
+const { privateChatRouter } = require("~/routers/privateChatRouter");
+const { userRouter } = require("~/routers/userRouter");
+const { versionControlRouter } = require("~/routers/versionControlRouter");
+const { testRouter } = require("~/routers/testRouter");
 
 const {
   authDefaultMiddleware,

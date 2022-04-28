@@ -54,7 +54,7 @@ const firstNameValidator = async (firstName) => {
 
   errorThrower(stringMax, () => errorObject(FIRST_NAME_MAXLENGTH_REACH));
 
-  return { done: false };
+  return { done: false, error: result };
 };
 
 module.exports = { firstNameValidator, firstNameValidation };

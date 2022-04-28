@@ -47,7 +47,7 @@ const lastNameValidator = async (lastName) => {
 
   errorThrower(stringMax, () => errorObject(LAST_NAME_MAXLENGTH_REACH));
 
-  return { done: false };
+  return { done: false, error: result };
 };
 
 module.exports = { lastNameValidator, lastNameValidation };

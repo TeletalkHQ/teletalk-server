@@ -63,7 +63,7 @@ const phoneNumberValidator = async (phoneNumber) => {
 
   errorThrower(result !== true, () => errorObject(PHONE_NUMBER_INVALID));
 
-  return { done: false };
+  return { done: false, error: result };
 };
 
 module.exports = { phoneNumberValidator, phoneNumberValidation };

@@ -33,7 +33,7 @@ const getEnvironment = (envName) => {
 };
 
 const getAllEnvironments = () => {
-  const environments = {};
+  const environments = { ...ENVIRONMENT_KEYS };
 
   for (const key in ENVIRONMENT_KEYS) {
     environments[key] = getEnvironment(key);

@@ -12,9 +12,10 @@ const { getAllEnvironments } = require("./functions/utilities/utilsNoDeps");
 const server = http.createServer(app);
 
 //* PORT coming from heroku, so don't touch it!
-const { DEVELOPMENT_PORT, PORT, NODE_ENV } = getAllEnvironments();
+const { DEVELOPMENT_PORT, NODE_ENV, PORT, PRODUCTION_PORT, TEST_PORT } =
+  getAllEnvironments();
 
-const EXACT_PORT = PORT || DEVELOPMENT_PORT;
+const EXACT_PORT = PORT || PRODUCTION_PORT || TEST_PORT || DEVELOPMENT_PORT;
 
 const serverListenerCb = () => {
   logger.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);

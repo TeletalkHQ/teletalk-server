@@ -1,3 +1,6 @@
+//! Require this module before requiring anything!
+require("~/variables/globalVariables");
+
 const path = require("path");
 
 const cors = require("cors");
@@ -10,29 +13,17 @@ const serveFavicon = require("serve-favicon");
 require("pretty-error").start();
 
 require("dotenv").config({
-  path: path.join(__dirname, "..", "environments", "main.env"),
+  path: path.join(
+    __dirname,
+    "..",
+    "environments",
+    `${process.env.NODE_ENV}.env`
+  ),
 });
-
-//! Require this module before requiring internal modules
-require("~/variables/globalVariables");
 
 require("~/configs/connectDatabase").connectDatabase();
 
-const {
-  getEnvironment,
-  getStatusCodeFromRoute,
-} = require("~/functions/utilities/utilsNoDeps");
-
-const {
-  ENVIRONMENT_KEYS,
-  ENVIRONMENT_VALUES,
-} = require("~/variables/constants/environmentInitialValues");
-
-if (
-  getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) === ENVIRONMENT_VALUES.NODE_ENV.test
-) {
-  require("module-alias/register");
-}
+const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   errorCollectorMiddleware,

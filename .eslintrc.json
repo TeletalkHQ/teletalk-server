@@ -17,17 +17,22 @@
     "logger": true,
     "expressRequest": true,
     "expressResponse": true
-  }
-  // "rules": {
-  //   "node/exports-style": ["error", "module.exports"],
-  //   "node/file-extension-in-import": ["error", "always"],
-  //   "node/prefer-global/buffer": ["error", "always"],
-  //   "node/prefer-global/console": ["error", "always"],
-  //   "node/prefer-global/process": ["error", "always"],
-  //   "node/prefer-global/url-search-params": ["error", "always"],
-  //   "node/prefer-global/url": ["error", "always"],
-  //   "node/prefer-promises/dns": "error",
-  //   "node/prefer-promises/fs": "error"
-  // },
-  // "plugins": ["security"]
+  },
+  "rules": {
+    "no-unused-expressions": 0,
+    "chai-friendly/no-unused-expressions": 2
+    //   "node/exports-style": ["error", "module.exports"],
+    //   "node/file-extension-in-import": ["error", "always"],
+    //   "node/prefer-global/buffer": ["error", "always"],
+    //   "node/prefer-global/console": ["error", "always"],
+    //   "node/prefer-global/process": ["error", "always"],
+    //   "node/prefer-global/url-search-params": ["error", "always"],
+    //   "node/prefer-global/url": ["error", "always"],
+    //   "node/prefer-promises/dns": "error",
+    //   "node/prefer-promises/fs": "error"
+  },
+  "plugins": [
+    "chai-friendly"
+    //  "security"
+  ]
 }

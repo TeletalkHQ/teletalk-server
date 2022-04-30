@@ -13,6 +13,7 @@
     "Restify",
     "Teletalk",
     "Trez",
+    "WITHSCORES",
     "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890",
     "autofetch",
     "autopep",
@@ -35,6 +36,7 @@
     "multer",
     "nodemailer",
     "onum",
+    "quatro",
     "restclient",
     "sindresorhus",
     "snyk",
@@ -47,7 +49,9 @@
     "teletalk",
     "uncategorizedErrors",
     "vsintellicode",
-    "zoot"
+    "zadd",
+    "zoot",
+    "zrange"
   ],
   "import": []
 }

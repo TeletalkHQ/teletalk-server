@@ -57,7 +57,7 @@ const verifySignInNormalUserController = async (
     errorThrower(verifiedToken.done === false, verifiedToken.error);
 
     const cellphone = getCellphone(verifiedToken.payload);
-    const client = clients.findClient(cellphone);
+    const client = await clients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 
     errorThrower(client?.verificationCode !== verificationCode, () =>

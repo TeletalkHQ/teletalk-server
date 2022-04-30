@@ -74,10 +74,17 @@ const initialValidatorPropValues = {
   },
 };
 
+const stateKeys = {
+  clients: {
+    aliveClients: "aliveClients",
+  },
+};
+
 const initialValue = {
   modelGeneratorInitialProperties,
   errorGeneratorInitialProperties,
   initialValidatorPropValues,
+  stateKeys,
 };
 
 module.exports = { initialValue };

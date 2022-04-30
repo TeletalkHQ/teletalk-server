@@ -1,5 +1,5 @@
 // * Test api's
-// require("@/database/userData.spec");
+require("@/database/userData.spec");
 
 // * User api's
 require("@/apis/userApis/signInNormalApi.spec");

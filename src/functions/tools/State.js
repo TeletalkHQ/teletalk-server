@@ -18,8 +18,25 @@ class State {
     }
   }
 
+  async getStateObject(key) {
+    try {
+      const value = await redis.get(key);
+
+      return JSON.parse(value);
+    } catch (error) {
+      logger.log("State catch, error", error);
+      throw error;
+    }
+  }
+
   async setState(key, value) {
     await redis.set(key, value);
+
+    return { done: true };
+  }
+
+  async setStateObject(key, value) {
+    await redis.set(key, JSON.stringify(value));
 
     return { done: true };
   }

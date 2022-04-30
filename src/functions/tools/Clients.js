@@ -1,6 +1,6 @@
 const { isEqualWithTargetCellphone } = require("~/functions/utilities/utils");
 const {
-  state: { getState, setState },
+  state: { getStateObject, setStateObject },
 } = require("~/functions/tools/State");
 
 const {
@@ -17,20 +17,20 @@ class Clients {
   }
 
   async setAliveClients(aliveClients) {
-    const clients = JSON.parse(await getState(stateKeys.clients));
+    const clients = await getStateObject(stateKeys.clients);
 
     const newClients = {
       ...clients,
       aliveClients,
     };
 
-    await setState(stateKeys.clients, JSON.stringify(newClients));
+    await setStateObject(stateKeys.clients, newClients);
   }
 
   async getAliveClients() {
-    const clients = await getState(stateKeys.clients);
+    const clients = await getStateObject(stateKeys.clients);
 
-    return JSON.parse(clients).aliveClients || [];
+    return clients.aliveClients || [];
   }
 
   async findClient(client) {

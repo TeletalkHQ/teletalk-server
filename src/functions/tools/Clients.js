@@ -30,9 +30,7 @@ class Clients {
   async getAliveClients() {
     const clients = await getState(stateKeys.clients);
 
-    console.log("clients", clients);
-
-    return JSON.parse(clients).aliveClients;
+    return JSON.parse(clients).aliveClients || [];
   }
 
   async findClient(client) {
@@ -73,12 +71,5 @@ class Clients {
 }
 
 const clients = new Clients();
-
-setState(
-  stateKeys.clients,
-  JSON.stringify({
-    [stateKeys.clients.aliveClients]: [],
-  })
-);
 
 module.exports = { clients };

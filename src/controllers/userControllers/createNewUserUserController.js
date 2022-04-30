@@ -83,7 +83,7 @@ const createNewUserUserController = async (
     );
 
     const cellphone = getCellphone(verifiedToken.payload);
-    const client = clients.findClient(cellphone);
+    const client = await clients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 
     const user = await userFinder(cellphone);

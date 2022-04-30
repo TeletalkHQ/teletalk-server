@@ -47,12 +47,12 @@ const signInNormalUserController = async (
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
 
-    const client = clients.findClient(cellphone);
+    const client = await clients.findClient(cellphone);
 
     if (client) {
-      clients.updateClient(client, { verificationCode, token });
+      await clients.updateClient(client, { verificationCode, token });
     } else {
-      clients.addClient({
+      await clients.addClient({
         token,
         verificationCode: verificationCode,
         ...cellphone,

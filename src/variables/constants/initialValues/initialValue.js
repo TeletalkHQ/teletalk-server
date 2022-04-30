@@ -75,9 +75,8 @@ const initialValidatorPropValues = {
 };
 
 const stateKeys = {
-  clients: {
-    aliveClients: "aliveClients",
-  },
+  clients: "clients",
+  aliveClients: "aliveClients",
 };
 
 const initialValue = {

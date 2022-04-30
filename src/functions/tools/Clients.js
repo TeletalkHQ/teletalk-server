@@ -8,6 +8,9 @@ const {
 } = require("~/variables/constants/initialValues/initialValue");
 
 class Clients {
+  constructor(clients) {
+    this.initializeClients();
+  }
   async addClient(client) {
     const aliveClients = await this.getAliveClients();
 
@@ -68,8 +71,21 @@ class Clients {
 
     return false;
   }
+
+  async getClients() {
+    const clients = await getStateObject(stateKeys.clients);
+
+    return clients;
+  }
+
+  async initializeClients(clients = {}) {
+    const oldClients = await this.getClients();
+    if (!oldClients) {
+      setStateObject(stateKeys.clients, clients);
+    }
+  }
 }
 
-const clients = new Clients();
+const clients = new Clients({});
 
 module.exports = { clients };

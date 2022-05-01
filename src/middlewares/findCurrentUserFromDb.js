@@ -15,7 +15,7 @@ const findCurrentUserFromDb = async (req, res, next) => {
   try {
     const cellphone = getCellphone(req.authData.payload);
 
-    const currentUser = await userFinder({ ...cellphone });
+    const currentUser = await userFinder(cellphone);
 
     errorThrower(currentUser === null, {
       ...cellphone,

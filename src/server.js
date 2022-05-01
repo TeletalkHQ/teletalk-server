@@ -1,13 +1,14 @@
-const http = require("http");
-
 //* No more relative path!
-//! Require this package before requiring internal modules
+//! Require this module before requiring anything!
 require("module-alias/register");
+
+const http = require("http");
 
 const { app } = require("~/app");
 const { ioFunctions } = require("~/socket/io");
+
 const { connectDatabase } = require("~/configs/connectDatabase");
-const { getAllEnvironments } = require("./functions/utilities/utilsNoDeps");
+const { getAllEnvironments } = require("~/functions/utilities/utilsNoDeps");
 
 const server = http.createServer(app);
 

@@ -4,6 +4,10 @@ const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");
 
+// const {
+//   appErrors: { NO_ROUTE_OBJECT },
+// } = require("~/variables/errors/appErrors");
+
 const errorThrower = (condition, error) => {
   if (condition) {
     if (typeof error === "function") throw error();
@@ -58,11 +62,12 @@ const getStatusCodeFromRoute = (route) => {
   try {
     const statusCode = route?.statusCode;
 
-    errorThrower(!statusCode, "You need to pass correct route object");
+    // errorThrower(!statusCode, NO_ROUTE_OBJECT);
 
     return statusCode;
   } catch (error) {
     logger.log("getStatusCodeFromRoute catch, error:", error);
+    throw error;
   }
 };
 
@@ -122,8 +127,6 @@ const skipParams = (count) => {
 
 const getErrorObject = (errorObject, extraData = {}, statusCode) => {
   const { errorKey, ...error } = errorObject;
-
-  console.log("errorObject", errorObject);
 
   return {
     [errorKey]: { ...error, ...extraData },

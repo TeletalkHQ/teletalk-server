@@ -1,4 +1,6 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getStatusCodeFromRoute,
+} = require("~/functions/utilities/getStatusCodeFromRoute");
 const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
 const {
   sendPrivateMessage,

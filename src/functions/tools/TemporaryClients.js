@@ -7,8 +7,8 @@ const {
   initialValue: { stateKeys },
 } = require("~/variables/constants/initialValues/initialValue");
 
-class Clients {
-  constructor(clients) {
+class TemporaryClients {
+  constructor(temporaryClients) {
     this.initializeClients();
   }
   async addClient(client) {
@@ -20,20 +20,20 @@ class Clients {
   }
 
   async setAliveClients(aliveClients) {
-    const clients = await getStateObject(stateKeys.clients);
+    const temporaryClients = await getStateObject(stateKeys.temporaryClients);
 
     const newClients = {
-      ...clients,
+      ...temporaryClients,
       aliveClients,
     };
 
-    await setStateObject(stateKeys.clients, newClients);
+    await setStateObject(stateKeys.temporaryClients, newClients);
   }
 
   async getAliveClients() {
-    const clients = await getStateObject(stateKeys.clients);
+    const temporaryClients = await getStateObject(stateKeys.temporaryClients);
 
-    return clients.aliveClients || [];
+    return temporaryClients.aliveClients || [];
   }
 
   async findClient(client) {
@@ -73,19 +73,19 @@ class Clients {
   }
 
   async getClients() {
-    const clients = await getStateObject(stateKeys.clients);
+    const temporaryClients = await getStateObject(stateKeys.temporaryClients);
 
-    return clients;
+    return temporaryClients;
   }
 
-  async initializeClients(clients = {}) {
+  async initializeClients(temporaryClients = {}) {
     const oldClients = await this.getClients();
     if (!oldClients) {
-      setStateObject(stateKeys.clients, clients);
+      setStateObject(stateKeys.temporaryClients, temporaryClients);
     }
   }
 }
 
-const clients = new Clients({});
+const temporaryClients = new TemporaryClients({});
 
-module.exports = { clients };
+module.exports = { temporaryClients };

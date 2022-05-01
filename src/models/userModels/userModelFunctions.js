@@ -20,13 +20,13 @@ const {
 } = require("~/variables/errors/userErrors");
 
 const userFinder = async (
-  userData = userInitialOptions,
-  findMethod = "findOne"
+  userData = userInitialOptions
+  // findMethod = "findOne"
 ) => {
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    return await UserMongoModel[findMethod]({
+    return await UserMongoModel.findOne({
       ...userData,
     });
   } catch (error) {

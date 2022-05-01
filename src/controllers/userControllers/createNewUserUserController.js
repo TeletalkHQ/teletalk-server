@@ -1,7 +1,7 @@
 const { randomId } = require("~/functions/utilities/randomId");
 const { sendableUserData } = require("~/functions/utilities/sendableUserData");
 const { tokenSigner } = require("~/functions/utilities/tokenSigner");
-const { clients } = require("~/functions/tools/Clients");
+const { temporaryClients } = require("~/functions/tools/TemporaryClients");
 const {
   getEnvironment,
   getCellphone,
@@ -83,7 +83,7 @@ const createNewUserUserController = async (
     );
 
     const cellphone = getCellphone(verifiedToken.payload);
-    const client = await clients.findClient(cellphone);
+    const client = await temporaryClients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 
     const user = await userFinder(cellphone);

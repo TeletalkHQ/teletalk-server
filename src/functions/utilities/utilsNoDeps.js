@@ -4,10 +4,6 @@ const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");
 
-// const {
-//   appErrors: { NO_ROUTE_OBJECT },
-// } = require("~/variables/errors/appErrors");
-
 const errorThrower = (condition, error) => {
   if (condition) {
     if (typeof error === "function") throw error();
@@ -56,19 +52,6 @@ const getTestToken = () => {
 
 const setTestToken = (token) => {
   setEnvironment("TEST_TOKEN", token);
-};
-
-const getStatusCodeFromRoute = (route) => {
-  try {
-    const statusCode = route?.statusCode;
-
-    // errorThrower(!statusCode, NO_ROUTE_OBJECT);
-
-    return statusCode;
-  } catch (error) {
-    logger.log("getStatusCodeFromRoute catch, error:", error);
-    throw error;
-  }
 };
 
 const getMethodFromRoute = (route) => {
@@ -234,7 +217,6 @@ module.exports = {
   getErrorObject,
   getHostFromRequest,
   getMethodFromRoute,
-  getStatusCodeFromRoute,
   getTestToken,
   getValidatorErrorTypes,
   ignoreMiddlewaresByUrl,

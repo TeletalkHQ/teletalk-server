@@ -1,6 +1,8 @@
-const { getStatusCodeFromRoute } = require("~/functions/utilities/utilsNoDeps");
+const {
+  getStatusCodeFromRoute,
+} = require("~/functions/utilities/getStatusCodeFromRoute");
 
-const sendJsonResponse = (_, res, next) => {
+const sendJsonResponseMiddleware = (_, res, next) => {
   try {
     res.sendJsonResponse = (routeObject, data) => {
       res.status(getStatusCodeFromRoute(routeObject)).json(data);
@@ -13,4 +15,4 @@ const sendJsonResponse = (_, res, next) => {
   next();
 };
 
-module.exports = { sendJsonResponse };
+module.exports = { sendJsonResponseMiddleware };

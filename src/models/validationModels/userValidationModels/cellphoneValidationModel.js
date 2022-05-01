@@ -2,17 +2,17 @@ const {
   countryCodeValidationModel: {
     properties: { countryCode },
   },
-} = require("./countryCodeValidationModel");
+} = require("~/models/validationModels/userValidationModels/countryCodeValidationModel");
 const {
   countryNameValidationModel: {
     properties: { countryName },
   },
-} = require("./countryNameValidationModel");
+} = require("~/models/validationModels/userValidationModels/countryNameValidationModel");
 const {
   phoneNumberValidationModel: {
     properties: { phoneNumber },
   },
-} = require("./phoneNumberValidationModel");
+} = require("~/models/validationModels/userValidationModels/phoneNumberValidationModel");
 
 const cellphoneValidationModel = {
   properties: {

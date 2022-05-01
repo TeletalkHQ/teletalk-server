@@ -1,6 +1,9 @@
 const MelipayamakApi = require("melipayamak");
 
-const { getEnvironment, errorThrower } = require("../utilities/utilsNoDeps");
+const {
+  getEnvironment,
+  errorThrower,
+} = require("~/functions/utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,

@@ -1,26 +1,27 @@
 const {
-  validatorCompiler,
-} = require("~/functions/utilities/validatorCompiler");
-const {
   getErrorObject,
   errorThrower,
-  getValidatorErrorTypes,
 } = require("~/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
     properties: {
       CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
-      CELLPHONE_INVALID: { properties: CELLPHONE_INVALID },
     },
   },
 } = require("~/variables/errors/userErrors");
 const {
   cellphoneValidationModel: { properties: cellphoneValidationModel },
 } = require("~/models/validationModels/userValidationModels/cellphoneValidationModel");
-const { phoneNumberValidator } = require("./phoneNumberValidator");
-const { countryCodeValidator } = require("./countryCodeValidator");
-const { countryNameValidator } = require("./countryNameValidator");
+const {
+  phoneNumberValidator,
+} = require("~/validators/userValidators/phoneNumberValidator");
+const {
+  countryCodeValidator,
+} = require("~/validators/userValidators/countryCodeValidator");
+const {
+  countryNameValidator,
+} = require("~/validators/userValidators/countryNameValidator");
 
 const cellphoneValidation = {
   properties: cellphoneValidationModel,

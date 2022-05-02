@@ -24,7 +24,7 @@ const {
 const {
   commonModels: {
     properties: {
-      privateIdCommonModel: { properties: commonPrivateIdModel },
+      privateIdCommonModel: { properties: privateIdCommonModel },
     },
   },
 } = require("@/models/commonModels/commonModels");
@@ -101,7 +101,7 @@ const createNewUserUserController = async (
         },
       });
     } else if (!user) {
-      const privateId = randomId(commonPrivateIdModel.maxlength.value);
+      const privateId = randomId(privateIdCommonModel.maxlength.value);
 
       const token = await tokenSigner({ ...cellphone, privateId });
 

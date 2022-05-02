@@ -9,6 +9,9 @@ const {
 const {
   cellphoneValidatorMiddleware,
 } = require("@/middlewares/cellphoneValidatorMiddleware");
+const {
+  findCurrentUserFromDb,
+} = require("@/middlewares/findCurrentUserFromDb");
 
 const {
   addBlockCellphoneController,
@@ -46,10 +49,7 @@ const {
 
 const cellphoneRouter = Router();
 
-cellphoneRouter[getContactsRoute.method](
-  getContactsRoute.url,
-  getContactsCellphoneController
-);
+cellphoneRouter.use(findCurrentUserFromDb);
 
 cellphoneRouter.use(
   ignoreMiddlewaresByUrl(
@@ -60,6 +60,11 @@ cellphoneRouter.use(
 );
 
 cellphoneRouter.use(addContactRoute.url, contactValidatorMiddleware);
+
+cellphoneRouter[getContactsRoute.method](
+  getContactsRoute.url,
+  getContactsCellphoneController
+);
 
 cellphoneRouter[addContactRoute.method](
   addContactRoute.url,

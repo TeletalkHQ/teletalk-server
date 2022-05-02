@@ -3,7 +3,7 @@
 const generalComments = {
   danger: {},
   info: {},
-  warnings: {},
+  warning: {},
 };
 
 module.exports = { generalComments };

@@ -9,12 +9,12 @@ const {
 const {
   userErrors: {
     properties: {
-      BLACKLIST_ITEM_EXIST,
-      BLACKLIST_ITEM_NOT_EXIST,
-      CELLPHONE_NOT_EXIST,
-      CONTACT_ITEM_EXIST,
-      CONTACT_ITEM_NOT_EXIST,
-      TARGET_USER_NOT_EXIST,
+      BLACKLIST_ITEM_EXIST: { properties: BLACKLIST_ITEM_EXIST },
+      BLACKLIST_ITEM_NOT_EXIST: { properties: BLACKLIST_ITEM_NOT_EXIST },
+      CELLPHONE_NOT_EXIST: { properties: CELLPHONE_NOT_EXIST },
+      CONTACT_ITEM_EXIST: { properties: CONTACT_ITEM_EXIST },
+      CONTACT_ITEM_NOT_EXIST: { properties: CONTACT_ITEM_NOT_EXIST },
+      TARGET_USER_NOT_EXIST: { properties: TARGET_USER_NOT_EXIST },
     },
   },
 } = require("@/variables/errors/userErrors");
@@ -26,12 +26,10 @@ const userFinder = async (
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    return await UserMongoModel.findOne({
-      ...userData,
-    });
+    return await UserMongoModel.findOne(userData);
   } catch (error) {
     logger.log("userFinder catch", error);
-    errorThrower(error, error);
+    throw error;
   }
 };
 
@@ -74,35 +72,40 @@ const addContactToUserContacts = async (
   currentUser = userInitialOptions,
   targetUserData = userInitialOptions
 ) => {
-  const { cellphone: existContactItem } = cellphoneFinder(
-    currentUser.contacts,
-    targetUserData
-  );
-  errorThrower(existContactItem, {
-    ...targetUserData,
-    ...CONTACT_ITEM_EXIST,
-  });
+  try {
+    const { cellphone: existContactItem } = cellphoneFinder(
+      currentUser.contacts,
+      targetUserData
+    );
+    errorThrower(existContactItem, {
+      ...targetUserData,
+      ...CONTACT_ITEM_EXIST,
+    });
 
-  const targetUser = await userFinder(targetUserData);
-  errorThrower(targetUser === null, {
-    ...targetUserData,
-    ...TARGET_USER_NOT_EXIST,
-  });
+    const targetUser = await userFinder(targetUserData);
+    errorThrower(targetUser === null, {
+      ...targetUserData,
+      ...TARGET_USER_NOT_EXIST,
+    });
 
-  currentUser.contacts.push({
-    countryCode: targetUserData.countryCode,
-    countryName: targetUserData.countryName,
-    firstName: targetUserData.firstName,
-    lastName: targetUserData.lastName,
-    phoneNumber: targetUserData.phoneNumber,
-    privateId: targetUser.privateId,
-  });
+    currentUser.contacts.push({
+      countryCode: targetUserData.countryCode,
+      countryName: targetUserData.countryName,
+      firstName: targetUserData.firstName,
+      lastName: targetUserData.lastName,
+      phoneNumber: targetUserData.phoneNumber,
+      privateId: targetUser.privateId,
+    });
 
-  await currentUser.updateOne({
-    contacts: currentUser.contacts,
-  });
+    await currentUser.updateOne({
+      contacts: currentUser.contacts,
+    });
 
-  return { targetUser };
+    return { targetUser };
+  } catch (error) {
+    logger.log("addContactToUserContacts catch, error:", error);
+    throw error;
+  }
 };
 
 const updateOneContact = async (
@@ -205,13 +208,15 @@ const addTestUser = async (
   countryCode,
   countryName,
   phoneNumber,
+  firstName,
+  lastName,
   privateId,
   token
 ) => {
   try {
     await UserMongoModel.updateOne(
       { countryCode, countryName, phoneNumber },
-      { tokens: [{ token }], privateId, firstName: "User", lastName: "Test" },
+      { tokens: [{ token }], privateId, firstName, lastName },
       {
         upsert: true,
       }

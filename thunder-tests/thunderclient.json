@@ -103,11 +103,11 @@
     "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
     "containerId": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
     "name": "addContact",
-    "url": "{{baseUrl}}/cellphone/add/contact",
+    "url": "{{baseUrl}}/cellphone/addContact",
     "method": "POST",
     "sortNum": 60000,
     "created": "2022-04-10T19:07:05.859Z",
-    "modified": "2022-04-10T19:07:05.859Z",
+    "modified": "2022-05-02T15:09:29.738Z",
     "headers": [],
     "params": [],
     "body": {

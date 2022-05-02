@@ -1,7 +1,13 @@
-// * Database
-require("$/database/userData.spec");
+//* Requirements ==>
+require("$/requirements.spec");
 
-// * User api's
+// * Database ==>
+// require("$/database/user.spec");
+
+// * User api's ==>
 // require("$/api/userApis/signInNormalApi.spec");
 // require("$/api/userApis/verifySignInNormalApi.spec");
 // require("$/api/userApis/createNewUserApi.spec");
+
+//* Cellphone api's ==>
+// require("$/api/cellphoneApis/addContact.spec");

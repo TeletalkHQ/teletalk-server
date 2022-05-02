@@ -134,7 +134,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-04-11T16:32:15.715Z",
-    "modified": "2022-04-11T16:32:15.838Z",
+    "modified": "2022-05-02T15:09:23.819Z",
     "headers": [],
     "params": [],
     "body": {
@@ -187,6 +187,25 @@
     "body": {
       "type": "json",
       "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  } \n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "99b46f76-d1f4-4c4a-afd3-b0425631d3cf",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/cellphone/addContact",
+    "url": "{{baseUrl}}/cellphone/addContact",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-05-02T15:08:10.694Z",
+    "modified": "2022-05-02T15:09:34.653Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  },\n  \"firstName\": \"\",\n  \"lastName\": \"\"\n}",
       "form": []
     },
     "tests": []

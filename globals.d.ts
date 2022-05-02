@@ -1,6 +1,6 @@
 import { request, response } from "express";
 
-import { Logger as LoggerInstance } from "~/functions/utilities/Logger";
+import { Logger as LoggerInstance } from "@/functions/utilities/Logger";
 
 declare global {
   var logger = LoggerInstance;

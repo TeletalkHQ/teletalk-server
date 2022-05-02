@@ -9,4 +9,6 @@ const { NODE_ENV } = getAllEnvironments();
 
 const MONGO_URL = getEnvironment(`MONGO_URL_${NODE_ENV.toUpperCase()}`);
 
-module.exports = { jwtOptions, MONGO_URL };
+const appConfigs = { jwtOptions, MONGO_URL };
+
+module.exports = { appConfigs };

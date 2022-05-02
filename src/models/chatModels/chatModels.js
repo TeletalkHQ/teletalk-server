@@ -3,13 +3,16 @@ const {
   modelGenerator,
 } = require("~/functions/utilities/generators");
 
-const { commonModel } = require("~/models/commonModels/commonModel");
-
 const {
-  properties: {
-    commonPrivateIdModel: { properties: commonPrivateIdModel },
+  commonModels: {
+    properties: {
+      createdAtCommonModel,
+      chatIdCommonModel,
+      messageIdCommonModel,
+      privateIdCommonModel: { properties: privateIdCommonModel },
+    },
   },
-} = commonModel;
+} = require("~/models/commonModels/commonModels");
 
 const {
   chatErrors: {
@@ -34,13 +37,9 @@ const {
   },
 } = require("~/variables/errors/chatErrors");
 
-const {
-  properties: { commonCreatedAtModel, commonChatIdModel, commonMessageIdModel },
-} = commonModel;
-
-const chatIdModel = commonChatIdModel;
-const createdAtModel = commonCreatedAtModel;
-const messageIdModel = commonMessageIdModel;
+const chatIdModel = chatIdCommonModel;
+const createdAtModel = createdAtCommonModel;
+const messageIdModel = messageIdCommonModel;
 
 const messageSenderModel = modelGenerator("1.0.0");
 
@@ -59,24 +58,24 @@ const messageModel = modelGenerator(
 
 const participantIdModel = modelGenerator(
   modelPropertyGenerator(
-    commonPrivateIdModel.maxlength.value,
+    privateIdCommonModel.maxlength.value,
     PARTICIPANT_ID_MAX_LENGTH_REACH
   ),
   modelPropertyGenerator(
-    commonPrivateIdModel.minlength.value,
+    privateIdCommonModel.minlength.value,
     PARTICIPANT_ID_MIN_LENGTH_REACH
   ),
   modelPropertyGenerator(
-    commonPrivateIdModel.required.value,
+    privateIdCommonModel.required.value,
     PARTICIPANT_ID_REQUIRED
   ),
-  modelPropertyGenerator(commonPrivateIdModel.trim.value),
+  modelPropertyGenerator(privateIdCommonModel.trim.value),
   modelPropertyGenerator(
-    commonPrivateIdModel.type.value,
+    privateIdCommonModel.type.value,
     PARTICIPANT_ID_INVALID_TYPE
   ),
   modelPropertyGenerator(
-    commonPrivateIdModel.unique.value,
+    privateIdCommonModel.unique.value,
     PARTICIPANT_ID_EXIST
   ),
   null,
@@ -87,7 +86,7 @@ const participantStatusModel = modelGenerator("1.0.0");
 
 const participantVisibilityModel = modelGenerator("1.0.0");
 
-const chatModel = {
+const chatModels = {
   info: { version: "1.0.0" },
   properties: {
     chatIdModel,
@@ -103,5 +102,5 @@ const chatModel = {
 };
 
 module.exports = {
-  chatModel,
+  chatModels,
 };

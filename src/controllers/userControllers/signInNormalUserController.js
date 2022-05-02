@@ -21,9 +21,7 @@ const {
     },
   },
 } = require("~/variables/routes/userRoutes");
-const {
-  verificationCodeValidator,
-} = require("~/validators/userValidators/verificationCodeValidator");
+const { verificationCodeValidator } = require("~/validators/userValidators");
 
 const signInNormalUserController = async (
   req = expressRequest,

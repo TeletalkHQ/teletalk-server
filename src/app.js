@@ -21,7 +21,7 @@ require("dotenv").config({
   ),
 });
 
-require("~/configs/connectDatabase").connectDatabase();
+require("~/configs/databaseConnecter").databaseConnecter();
 
 const {
   sendJsonResponseMiddleware,

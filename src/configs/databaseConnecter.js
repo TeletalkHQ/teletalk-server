@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
-const { MONGO_URL } = require("~/configs/appConfigs");
+const {
+  appConfigs: { MONGO_URL },
+} = require("~/configs/appConfigs");
 
-const connectDatabase = async () => {
+const databaseConnecter = async () => {
   try {
     const database = await mongoose.connect(MONGO_URL, {
       useNewUrlParser: true,
@@ -20,4 +22,4 @@ mongoose.connection.once("connected", () => {
   logger.log(`MongoDB connected: ${mongoose.connection.host}`);
 });
 
-module.exports = { connectDatabase };
+module.exports = { databaseConnecter };

@@ -30,11 +30,9 @@ const {
   },
 } = require("~/variables/routes/userRoutes");
 const {
-  verificationCodeValidator,
-} = require("~/validators/userValidators/verificationCodeValidator");
-const {
   tokenValidator,
-} = require("~/validators/userValidators/tokenValidator");
+  verificationCodeValidator,
+} = require("~/validators/userValidators");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,

@@ -34,52 +34,55 @@ const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utilsNoDeps");
 const {
   cellphoneRoutes: {
     properties: {
-      addContactRoute: { properties: addContact },
-      addBlockRoute: { properties: addBlock },
-      editContactRoute: { properties: editContact },
-      removeBlockRoute: { properties: removeBlock },
-      removeContactRoute: { properties: removeContact },
-      getContactsRoute: { properties: getContacts },
+      addContactRoute: { properties: addContactRoute },
+      addBlockRoute: { properties: addBlockRoute },
+      editContactRoute: { properties: editContactRoute },
+      removeBlockRoute: { properties: removeBlockRoute },
+      removeContactRoute: { properties: removeContactRoute },
+      getContactsRoute: { properties: getContactsRoute },
     },
   },
 } = require("~/variables/routes/cellphoneRoutes");
 
 const cellphoneRouter = Router();
 
-cellphoneRouter[getContacts.method](
-  getContacts.url,
+cellphoneRouter[getContactsRoute.method](
+  getContactsRoute.url,
   getContactsCellphoneController
 );
 
 cellphoneRouter.use(
   ignoreMiddlewaresByUrl(
-    getContacts.url,
+    getContactsRoute.url,
     cellphoneValidatorMiddleware,
     selfStuffControllerMiddleware
   )
 );
 
-cellphoneRouter.use(addContact.url, contactValidatorMiddleware);
+cellphoneRouter.use(addContactRoute.url, contactValidatorMiddleware);
 
-cellphoneRouter[addContact.method](
-  addContact.url,
+cellphoneRouter[addContactRoute.method](
+  addContactRoute.url,
   addContactCellphoneController
 );
 
-cellphoneRouter[addBlock.method](addBlock.url, addBlockCellphoneController);
+cellphoneRouter[addBlockRoute.method](
+  addBlockRoute.url,
+  addBlockCellphoneController
+);
 
-cellphoneRouter[removeBlock.method](
-  removeBlock.url,
+cellphoneRouter[removeBlockRoute.method](
+  removeBlockRoute.url,
   removeBlockCellphoneController
 );
 
-cellphoneRouter[removeContact.method](
-  removeContact.url,
+cellphoneRouter[removeContactRoute.method](
+  removeContactRoute.url,
   removeContactCellphoneController
 );
 
-cellphoneRouter[editContact.method](
-  editContact.url,
+cellphoneRouter[editContactRoute.method](
+  editContactRoute.url,
   editContactCellphoneController
 );
 

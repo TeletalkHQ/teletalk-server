@@ -1,7 +1,5 @@
 const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
-const {
-  cellphoneValidator,
-} = require("~/validators/userValidators/cellphoneValidator");
+const { cellphoneValidator } = require("~/validators/userValidators");
 
 const cellphoneValidatorMiddleware = async (req, res, next) => {
   try {

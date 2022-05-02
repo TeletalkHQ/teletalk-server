@@ -7,13 +7,13 @@ const {
 
 const { userFinder } = require("~/models/userModels/userModelFunctions");
 const {
-  chatModel: {
+  chatModels: {
     properties: {
       messageIdModel: { properties: messageIdModel },
       chatIdModel: { properties: chatIdModel },
     },
   },
-} = require("~/models/chatModels/chatModel");
+} = require("~/models/chatModels/chatModels");
 
 const {
   chatErrors: {

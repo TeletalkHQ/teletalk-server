@@ -33,12 +33,12 @@ const {
 } = require("~/variables/errors/userErrors");
 const { countries } = require("~/variables/constants/countries");
 const {
-  userModel: {
+  userModels: {
     properties: {
       verificationCodeModel: { properties: verificationCodeModel },
     },
   },
-} = require("~/models/userModels/userModel");
+} = require("~/models/userModels/userModels");
 
 const randomCountryCode = () =>
   Math.floor(Math.random() * 100 * Math.random()) +

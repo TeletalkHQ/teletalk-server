@@ -5,10 +5,13 @@ const {
 const { skipParams } = require("~/functions/utilities/utilsNoDeps");
 
 const {
-  commonModel: {
-    properties: { commonCreatedAtModel, commonPrivateIdModel },
+  commonModels: {
+    properties: {
+      createdAtCommonModel: commonCreatedAtModel,
+      privateIdCommonModel: commonPrivateIdModel,
+    },
   },
-} = require("~/models/commonModels/commonModel");
+} = require("~/models/commonModels/commonModels");
 
 const {
   userErrors: {
@@ -214,7 +217,7 @@ const verificationCodeModel = modelGenerator(
   modelPropertyGenerator(false, VERIFICATION_CODE_EMPTY)
 );
 
-const userModel = {
+const userModels = {
   info: {
     version: "1.0.0",
   },
@@ -238,5 +241,5 @@ const userModel = {
 };
 
 module.exports = {
-  userModel,
+  userModels,
 };

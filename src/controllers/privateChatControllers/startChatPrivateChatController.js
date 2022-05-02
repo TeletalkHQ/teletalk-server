@@ -20,12 +20,12 @@ const {
 } = require("~/models/chatModels/privateChatMongoModel");
 
 const {
-  chatModel: {
+  chatModels: {
     properties: {
       chatIdModel: { properties: chatIdModel },
     },
   },
-} = require("~/models/chatModels/chatModel");
+} = require("~/models/chatModels/chatModels");
 const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
 const { userFinder } = require("~/models/userModels/userModelFunctions");
 

@@ -34,7 +34,7 @@ const {
   },
 } = require("~/variables/errors/userErrors");
 
-const commonCreatedAtModel = modelGenerator(
+const createdAtCommonModel = modelGenerator(
   null,
   null,
   modelPropertyGenerator(true),
@@ -45,7 +45,7 @@ const commonCreatedAtModel = modelGenerator(
   "1.0.0"
 );
 
-const commonPrivateIdModel = modelGenerator(
+const privateIdCommonModel = modelGenerator(
   modelPropertyGenerator(35, PRIVATE_ID_MAX_LENGTH_REACH),
   modelPropertyGenerator(30, PRIVATE_ID_MIN_LENGTH_REACH),
   modelPropertyGenerator(true, PRIVATE_ID_REQUIRED),
@@ -56,7 +56,7 @@ const commonPrivateIdModel = modelGenerator(
   "1.0.0"
 );
 
-const commonChatIdModel = modelGenerator(
+const chatIdCommonModel = modelGenerator(
   modelPropertyGenerator(35, CHAT_ID_MAX_LENGTH_REACH),
   modelPropertyGenerator(30, CHAT_ID_MIN_LENGTH_REACH),
   modelPropertyGenerator(true, CHAT_ID_REQUIRED),
@@ -65,7 +65,7 @@ const commonChatIdModel = modelGenerator(
   modelPropertyGenerator(true, CHAT_ID_EXIST),
   "1.0.0"
 );
-const commonMessageIdModel = modelGenerator(
+const messageIdCommonModel = modelGenerator(
   modelPropertyGenerator(45, MESSAGE_ID_MAX_LENGTH_REACH),
   modelPropertyGenerator(40, MESSAGE_ID_MIN_LENGTH_REACH),
   modelPropertyGenerator(true, MESSAGE_ID_REQUIRED),
@@ -76,17 +76,17 @@ const commonMessageIdModel = modelGenerator(
   "1.0.0"
 );
 
-const commonModel = {
+const commonModels = {
   info: { version: "1.0.0" },
 
   properties: {
-    commonCreatedAtModel,
-    commonPrivateIdModel,
-    commonChatIdModel,
-    commonMessageIdModel,
+    createdAtCommonModel,
+    privateIdCommonModel,
+    chatIdCommonModel,
+    messageIdCommonModel,
   },
 };
 
 module.exports = {
-  commonModel,
+  commonModels,
 };

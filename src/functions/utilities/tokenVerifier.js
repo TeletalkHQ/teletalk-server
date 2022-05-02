@@ -1,14 +1,14 @@
 const JWT = require("jsonwebtoken");
+
+const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
+
 const {
   ENVIRONMENT_KEYS,
 } = require("~/variables/constants/environmentInitialValues");
 
-const {
-  initialValue,
-} = require("~/variables/constants/initialValues/initialValue");
-const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
+const { appConfigs } = require("~/configs/appConfigs");
 
-const initialOptions = initialValue.jwtOptions;
+const initialOptions = appConfigs.jwtOptions;
 
 const tokenVerifier = async (
   token,

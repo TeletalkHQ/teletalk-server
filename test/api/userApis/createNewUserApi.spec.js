@@ -5,13 +5,13 @@ const {
 } = require("~/functions/utilities/utilsNoDeps");
 
 const {
-  userModel: {
+  userModels: {
     properties: {
       firstNameModel: { properties: firstNameModel },
       lastNameModel: { properties: lastNameModel },
     },
   },
-} = require("~/models/userModels/userModel");
+} = require("~/models/userModels/userModels");
 
 const {
   ENVIRONMENT_KEYS,

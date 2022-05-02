@@ -10,16 +10,19 @@ const {
 const {
   otherRoutes: {
     properties: {
-      welcomeRoute: { properties: welcome },
-      countriesRoute: { properties: countries },
+      welcomeRoute: { properties: welcomeRoute },
+      countriesRoute: { properties: countriesRoute },
     },
   },
 } = require("~/variables/routes/otherRoutes");
 
 const otherRouter = Router();
 
-otherRouter[welcome.method](welcome.url, welcomeOtherController);
+otherRouter[welcomeRoute.method](welcomeRoute.url, welcomeOtherController);
 
-otherRouter[countries.method](countries.url, countriesOtherController);
+otherRouter[countriesRoute.method](
+  countriesRoute.url,
+  countriesOtherController
+);
 
 module.exports = { otherRouter };

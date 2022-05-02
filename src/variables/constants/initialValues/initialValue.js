@@ -78,6 +78,7 @@ const stateKeys = {
   temporaryClients: "temporaryClients",
   aliveClients: "aliveClients",
   users: "users",
+  testUser: "testUser",
 };
 
 const initialValue = {

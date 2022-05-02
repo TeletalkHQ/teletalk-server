@@ -51,6 +51,16 @@ const cellphone = {
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {
+    // const country = countries.find((c) =>
+    //   c.countryName.toLowerCase().includes("iran")
+    // );
+
+    // const cellphone = {
+    //   phoneNumber: "9119119191",
+    //   countryName: country.countryName,
+    //   countryCode: country.countryCode,
+    // };
+
     const requestBody = {
       phoneNumber: cellphone.phoneNumber,
       countryName: cellphone.countryName,

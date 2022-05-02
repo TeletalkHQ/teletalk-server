@@ -201,6 +201,30 @@ const createNewNormalUser = async (userData) => {
   }
 };
 
+const addTestUser = async (
+  countryCode,
+  countryName,
+  phoneNumber,
+  privateId,
+  token
+) => {
+  try {
+    await UserMongoModel.updateOne(
+      { countryCode, countryName, phoneNumber },
+      { tokens: [{ token }], privateId, firstName: "User", lastName: "Test" },
+      {
+        upsert: true,
+      }
+    );
+
+    const user = await userFinder({ countryCode, countryName, phoneNumber });
+    return user;
+  } catch (error) {
+    logger.log("addTestUser catch, error:", error);
+    throw error;
+  }
+};
+
 const getAllUsers = async () => {
   const users = await UserMongoModel.find();
 
@@ -218,4 +242,5 @@ module.exports = {
   updateUserDataByPrivateId,
   userFinder,
   getAllUsers,
+  addTestUser,
 };

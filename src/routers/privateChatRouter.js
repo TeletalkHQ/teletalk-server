@@ -17,32 +17,32 @@ const {
 const {
   privateChatRoutes: {
     properties: {
-      sendMessageRoute: { properties: sendMessage },
-      getMessagesRoute: { properties: getMessages },
-      getAllChatsRoute: { properties: getAllChats },
-      chatsLastMessageRoute: { properties: chatsLastMessage },
+      sendMessageRoute: { properties: sendMessageRoute },
+      getMessagesRoute: { properties: getMessagesRoute },
+      getAllChatsRoute: { properties: getAllChatsRoute },
+      chatsLastMessageRoute: { properties: chatsLastMessageRoute },
     },
   },
 } = require("~/variables/routes/privateChatRoutes");
 
 const privateChatRouter = Router();
 
-privateChatRouter[getAllChats.method](
-  getAllChats.url,
+privateChatRouter[getAllChatsRoute.method](
+  getAllChatsRoute.url,
   getAllChatsUserController
 );
 
-privateChatRouter[chatsLastMessage.method](
-  chatsLastMessage.url,
+privateChatRouter[chatsLastMessageRoute.method](
+  chatsLastMessageRoute.url,
   chatsLastMessageChatController
 );
 
-privateChatRouter[sendMessage.method](
-  sendMessage.url,
+privateChatRouter[sendMessageRoute.method](
+  sendMessageRoute.url,
   sendMessagePrivateChatController
 );
-privateChatRouter[getMessages.method](
-  getMessages.url,
+privateChatRouter[getMessagesRoute.method](
+  getMessagesRoute.url,
   getMessagesPrivateChatController
 );
 

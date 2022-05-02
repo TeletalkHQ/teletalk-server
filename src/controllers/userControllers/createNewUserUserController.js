@@ -12,13 +12,9 @@ const { getTokenFromRequest } = require("~/functions/utilities/utils");
 
 const {
   tokenValidator,
-} = require("~/validators/userValidators/tokenValidator");
-const {
   firstNameValidator,
-} = require("~/validators/userValidators/firstNameValidator");
-const {
   lastNameValidator,
-} = require("~/validators/userValidators/lastNameValidator");
+} = require("~/validators/userValidators");
 
 const {
   userFinder,
@@ -26,12 +22,12 @@ const {
   updateUserDataByPrivateId,
 } = require("~/models/userModels/userModelFunctions");
 const {
-  commonModel: {
+  commonModels: {
     properties: {
-      commonPrivateIdModel: { properties: commonPrivateIdModel },
+      privateIdCommonModel: { properties: commonPrivateIdModel },
     },
   },
-} = require("~/models/commonModels/commonModel");
+} = require("~/models/commonModels/commonModels");
 
 const {
   ENVIRONMENT_KEYS,

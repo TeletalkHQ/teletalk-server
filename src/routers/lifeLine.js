@@ -63,7 +63,7 @@ const {
 
 const lifeLine = Router();
 
-//? Add your global middleware here, in special cases you can ignore middleware by url;
+//? Add your global middleware for routes here, in special cases you can ignore middleware by url
 lifeLine.use(
   ignoreMiddlewaresByUrl(
     [

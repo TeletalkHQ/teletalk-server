@@ -1,49 +1,3 @@
-const {
-  chatIdValidationModel,
-} = require("~/models/validationModels/chatValidationModels/chatIdValidationModel");
-const {
-  messageIdValidationModel,
-} = require("~/models/validationModels/chatValidationModels/messageIdValidationModel");
-const {
-  messageTextValidationModel,
-} = require("~/models/validationModels/chatValidationModels/messageTextValidationModel");
-const {
-  participantIdValidationModel,
-} = require("~/models/validationModels/chatValidationModels/participantIdValidationModel");
-const {
-  createdAtValidationModel,
-} = require("~/models/validationModels/commonValidationModels/createdAtValidationModel");
-const {
-  bioValidationsModel,
-} = require("~/models/validationModels/userValidationModels/bioValidationsModel");
-const {
-  countryCodeValidationModel,
-} = require("~/models/validationModels/userValidationModels/countryCodeValidationModel");
-const {
-  countryNameValidationModel,
-} = require("~/models/validationModels/userValidationModels/countryNameValidationModel");
-const {
-  firstNameValidationModel,
-} = require("~/models/validationModels/userValidationModels/firstNameValidationModel");
-const {
-  lastNameValidationModel,
-} = require("~/models/validationModels/userValidationModels/lastNameValidationModel");
-const {
-  macAddressValidationModel,
-} = require("~/models/validationModels/userValidationModels/macAddressValidationModel");
-const {
-  phoneNumberValidationModel,
-} = require("~/models/validationModels/userValidationModels/phoneNumberValidationModel");
-const {
-  privateIdValidationModel,
-} = require("~/models/validationModels/userValidationModels/privateIdValidationModel");
-const {
-  usernameValidationModel,
-} = require("~/models/validationModels/userValidationModels/usernameValidationModel");
-const {
-  verificationCodeValidationModel,
-} = require("~/models/validationModels/userValidationModels/verificationCodeValidationModel");
-
 const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
 const { otherRoutes } = require("~/variables/routes/otherRoutes");
 const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
@@ -52,13 +6,20 @@ const {
   versionControlRoutes,
 } = require("~/variables/routes/versionControlRoutes");
 
-const { chatModel } = require("~/models/chatModels/chatModel");
-const { commonModel } = require("~/models/commonModels/commonModel");
-const { userModel } = require("~/models/userModels/userModel");
 const { userErrors } = require("~/variables/errors/userErrors");
 const { chatErrors } = require("~/variables/errors/chatErrors");
 
-const routerTemplates = {
+const { chatModels } = require("~/models/chatModels/chatModels");
+const { commonModels } = require("~/models/commonModels/commonModels");
+const { userModels } = require("~/models/userModels/userModels");
+const {
+  userValidationModels,
+} = require("~/models/validationModels/userValidationModels");
+const {
+  chatValidationModels,
+} = require("~/models/validationModels/chatValidationModels");
+
+const routes = {
   cellphoneRoutes,
   otherRoutes,
   privateChatRoutes,
@@ -67,44 +28,24 @@ const routerTemplates = {
 };
 
 const models = {
-  chatModel,
-  commonModel,
-  userModel,
+  chatModels,
+  commonModels,
+  userModels,
+  chatValidationModels,
+  userValidationModels,
 };
 
-const errorTemplates = {
+const errors = {
   chatErrors,
   userErrors,
 };
 
-const validationSchemas = {
-  bioValidationsModel,
-  chatIdValidationModel,
-  countryCodeValidationModel,
-  countryNameValidationModel,
-  createdAtValidationModel,
-  firstNameValidationModel,
-  lastNameValidationModel,
-  macAddressValidationModel,
-  messageIdValidationModel,
-  messageTextValidationModel,
-  participantIdValidationModel,
-  phoneNumberValidationModel,
-  privateIdValidationModel,
-  usernameValidationModel,
-  verificationCodeValidationModel,
-};
-
 const allStuff = {
-  templates: { models, routerTemplates, errorTemplates },
-  schemas: {
-    validationSchemas,
-  },
+  models,
+  errors,
+  routes,
 };
 
 module.exports = {
   allStuff,
-  models,
-  routerTemplates,
-  validationSchemas,
 };

@@ -2,9 +2,7 @@
 
 const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
 
-const {
-  cellphoneValidator,
-} = require("~/validators/userValidators/cellphoneValidator");
+const { cellphoneValidator } = require("~/validators/userValidators");
 
 const {
   userErrors: {

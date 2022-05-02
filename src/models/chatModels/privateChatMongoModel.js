@@ -6,7 +6,7 @@ const {
 } = require("~/functions/utilities/generators");
 
 const {
-  chatModel: {
+  chatModels: {
     properties: {
       chatIdModel: { properties: chatIdModel },
       createdAtModel: { properties: createdAtModel },
@@ -15,7 +15,7 @@ const {
       participantIdModel: { properties: participantIdModel },
     },
   },
-} = require("~/models/chatModels/chatModel");
+} = require("~/models/chatModels/chatModels");
 
 // uniqueValidator.defaults.message = "{PATH}_exist";
 // uniqueValidator.defaults.type = "mongoose-unique-validator";

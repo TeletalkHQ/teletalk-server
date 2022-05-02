@@ -7,7 +7,9 @@ const http = require("http");
 const { app } = require("~/app");
 const { ioFunctions } = require("~/socket/io");
 
-const { connectDatabase } = require("~/configs/connectDatabase");
+const {
+  databaseConnecter: connectDatabase,
+} = require("~/configs/databaseConnecter");
 const { getAllEnvironments } = require("~/functions/utilities/utilsNoDeps");
 
 const server = http.createServer(app);

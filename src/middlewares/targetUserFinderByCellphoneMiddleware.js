@@ -1,3 +1,7 @@
+//!DEPRECATED
+//!DEPRECATED
+//!DEPRECATED
+
 const { userFinder } = require("~/functions/helpers/userFinder");
 const {
   errorThrower,
@@ -6,7 +10,9 @@ const {
 
 const {
   userErrors: {
-    properties: { CELLPHONE_NOT_EXIST },
+    properties: {
+      CELLPHONE_NOT_EXIST: { properties: CELLPHONE_NOT_EXIST },
+    },
   },
 } = require("~/variables/errors/userErrors");
 

@@ -1,7 +1,7 @@
-const { userRoutes } = require("~/templates/routerTemplates/userRoutes");
-const { cellphoneRoutes } = require("~/variables/routes/cellphoneRoutes");
-const { otherRoutes } = require("~/templates/routerTemplates/otherRoutes");
-const { privateChatRoutes } = require("~/variables/routes/privateChatRoutes");
+const { userRoutes } = require("@/templates/routerTemplates/userRoutes");
+const { cellphoneRoutes } = require("@/variables/routes/cellphoneRoutes");
+const { otherRoutes } = require("@/templates/routerTemplates/otherRoutes");
+const { privateChatRoutes } = require("@/variables/routes/privateChatRoutes");
 
 const templates = [userRoutes, cellphoneRoutes, otherRoutes, privateChatRoutes];
 

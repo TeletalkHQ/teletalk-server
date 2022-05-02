@@ -1,11 +1,11 @@
-const { isEqualWithTargetCellphone } = require("~/functions/utilities/utils");
+const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
 const {
   state: { getStateObject, setStateObject },
-} = require("~/functions/tools/State");
+} = require("@/functions/tools/State");
 
 const {
   initialValue: { stateKeys },
-} = require("~/variables/constants/initialValues/initialValue");
+} = require("@/variables/constants/initialValues/initialValue");
 
 class TemporaryClients {
   constructor(temporaryClients) {

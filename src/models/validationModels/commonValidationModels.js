@@ -4,7 +4,7 @@ const {
       createdAtCommonModel: { properties: commonCreatedAtModel },
     },
   },
-} = require("~/models/commonModels/commonModels");
+} = require("@/models/commonModels/commonModels");
 
 const createdAtValidationModel = {
   properties: {

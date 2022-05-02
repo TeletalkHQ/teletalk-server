@@ -1,8 +1,8 @@
 const {
   PrivateChatModel,
-} = require("~/models/chatModels/privateChatMongoModel");
-const { UserMongoModel } = require("~/models/userModels/userMongoModel");
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+} = require("@/models/chatModels/privateChatMongoModel");
+const { UserMongoModel } = require("@/models/userModels/userMongoModel");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
 
 const models = { UserMongoModel, PrivateChatModel };
 

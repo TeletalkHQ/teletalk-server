@@ -2,11 +2,11 @@
 //!DEPRECATED
 //!DEPRECATED
 
-const { userFinder } = require("~/functions/helpers/userFinder");
+const { userFinder } = require("@/functions/helpers/userFinder");
 const {
   errorThrower,
   getCellphone,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
@@ -14,7 +14,7 @@ const {
       CELLPHONE_NOT_EXIST: { properties: CELLPHONE_NOT_EXIST },
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
   try {

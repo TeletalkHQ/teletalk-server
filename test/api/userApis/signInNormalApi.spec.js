@@ -1,12 +1,12 @@
-const { request, expect } = require("~/functions/utilities/testUtils");
+const { request, expect } = require("@/functions/utilities/testUtils");
 const {
   setEnvironment,
   randomNumber,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 const {
   userRoutes: {
     properties: {
@@ -14,7 +14,7 @@ const {
       signInNormalRoute: { properties: signInNormalRoute },
     },
   },
-} = require("~/variables/routes/userRoutes");
+} = require("@/variables/routes/userRoutes");
 const {
   userErrors: {
     properties: {
@@ -30,15 +30,15 @@ const {
       PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
     },
   },
-} = require("~/variables/errors/userErrors");
-const { countries } = require("~/variables/constants/countries");
+} = require("@/variables/errors/userErrors");
+const { countries } = require("@/variables/constants/countries");
 const {
   userModels: {
     properties: {
       verificationCodeModel: { properties: verificationCodeModel },
     },
   },
-} = require("~/models/userModels/userModels");
+} = require("@/models/userModels/userModels");
 
 const randomCountryCode = () =>
   Math.floor(Math.random() * 100 * Math.random()) +

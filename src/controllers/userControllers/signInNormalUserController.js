@@ -1,27 +1,27 @@
 const {
   passwordGenerator,
-} = require("~/functions/utilities/passwordGenerator");
-const { tokenSigner } = require("~/functions/utilities/tokenSigner");
+} = require("@/functions/utilities/passwordGenerator");
+const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const {
   getCellphone,
   getHostFromRequest,
-} = require("~/functions/utilities/utilsNoDeps");
-const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
-const { sendSms, smsTexts } = require("~/functions/tools/smsClient");
-const { temporaryClients } = require("~/functions/tools/TemporaryClients");
+} = require("@/functions/utilities/utilsNoDeps");
+const { getEnvironment } = require("@/functions/utilities/utilsNoDeps");
+const { sendSms, smsTexts } = require("@/functions/tools/smsClient");
+const { temporaryClients } = require("@/functions/tools/TemporaryClients");
 
 const {
   ENVIRONMENT_KEYS,
   ENVIRONMENT_VALUES,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 const {
   userRoutes: {
     properties: {
       signInNormalRoute: { properties: signInNormalRoute },
     },
   },
-} = require("~/variables/routes/userRoutes");
-const { verificationCodeValidator } = require("~/validators/userValidators");
+} = require("@/variables/routes/userRoutes");
+const { verificationCodeValidator } = require("@/validators/userValidators");
 
 const signInNormalUserController = async (
   req = expressRequest,

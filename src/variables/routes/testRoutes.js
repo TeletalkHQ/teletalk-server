@@ -1,4 +1,4 @@
-const { routeGenerator } = require("~/functions/utilities/generators");
+const { routeGenerator } = require("@/functions/utilities/generators");
 
 const testBaseUrl = routeGenerator(true, "/test", true, "1.0.0");
 

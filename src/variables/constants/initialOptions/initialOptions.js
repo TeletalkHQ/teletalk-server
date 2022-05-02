@@ -1,4 +1,4 @@
-// const { userModel } = require("~/models/userModels/userModel");
+// const { userModel } = require("@/models/userModels/userModel");
 
 // const {
 //   properties: {

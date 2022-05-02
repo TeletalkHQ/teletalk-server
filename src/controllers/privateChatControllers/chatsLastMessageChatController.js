@@ -1,10 +1,10 @@
 const {
   getChatsLastMessages,
-} = require("~/models/chatModels/chatModelFunctions");
+} = require("@/models/chatModels/chatModelFunctions");
 
 const {
   privateChatRoutes: { properties: chatsLastMessageRoute },
-} = require("~/variables/routes/privateChatRoutes");
+} = require("@/variables/routes/privateChatRoutes");
 
 const chatsLastMessageChatController = async (
   req = expressRequest,

@@ -3,7 +3,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const {
   mongooseSchemaPropertyGenerator,
-} = require("~/functions/utilities/generators");
+} = require("@/functions/utilities/generators");
 
 const {
   chatModels: {
@@ -15,7 +15,7 @@ const {
       participantIdModel: { properties: participantIdModel },
     },
   },
-} = require("~/models/chatModels/chatModels");
+} = require("@/models/chatModels/chatModels");
 
 // uniqueValidator.defaults.message = "{PATH}_exist";
 // uniqueValidator.defaults.type = "mongoose-unique-validator";

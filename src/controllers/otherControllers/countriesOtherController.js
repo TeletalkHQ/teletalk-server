@@ -1,11 +1,11 @@
-const { countries } = require("~/variables/constants/countries");
+const { countries } = require("@/variables/constants/countries");
 const {
   otherRoutes: {
     properties: {
       countriesRoute: { properties: countriesRoute },
     },
   },
-} = require("~/variables/routes/otherRoutes");
+} = require("@/variables/routes/otherRoutes");
 
 const countriesOtherController = async (
   req = expressRequest,

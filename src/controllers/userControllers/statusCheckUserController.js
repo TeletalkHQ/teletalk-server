@@ -1,23 +1,23 @@
 //UNUSED
 
-const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
+const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
 
-const { cellphoneValidator } = require("~/validators/userValidators");
+const { cellphoneValidator } = require("@/validators/userValidators");
 
 const {
   userErrors: {
     properties: { TOKEN_REQUIRED, USER_NOT_EXIST },
   },
-} = require("~/variables/errors/userErrors");
-const { sendableUserData } = require("~/functions/utilities/sendableUserData");
+} = require("@/variables/errors/userErrors");
+const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 
-const { ioFunctions } = require("~/socket/io");
+const { ioFunctions } = require("@/socket/io");
 const {
   errorThrower,
   getTokenFromRequest,
-} = require("~/functions/utilities/utils");
-const { userFinder } = require("~/models/userModels/userModelFunctions");
-const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
+const { userFinder } = require("@/models/userModels/userModelFunctions");
+const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
 
 const statusCheckUserController = async (
   req = expressRequest,

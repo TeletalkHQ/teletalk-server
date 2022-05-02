@@ -2,10 +2,10 @@ const { Router } = require("express");
 
 const {
   countriesOtherController,
-} = require("~/controllers/otherControllers/countriesOtherController");
+} = require("@/controllers/otherControllers/countriesOtherController");
 const {
   welcomeOtherController,
-} = require("~/controllers/otherControllers/welcomeOtherController");
+} = require("@/controllers/otherControllers/welcomeOtherController");
 
 const {
   otherRoutes: {
@@ -14,7 +14,7 @@ const {
       countriesRoute: { properties: countriesRoute },
     },
   },
-} = require("~/variables/routes/otherRoutes");
+} = require("@/variables/routes/otherRoutes");
 
 const otherRouter = Router();
 

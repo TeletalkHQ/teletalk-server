@@ -1,6 +1,6 @@
-const { getTokenFromRequest } = require("~/functions/utilities/utils");
+const { getTokenFromRequest } = require("@/functions/utilities/utils");
 
-const { tokenValidator } = require("~/validators/userValidators");
+const { tokenValidator } = require("@/validators/userValidators");
 
 const authDefaultMiddleware = async (req, res, next) => {
   try {

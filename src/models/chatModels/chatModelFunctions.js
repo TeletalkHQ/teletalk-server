@@ -1,11 +1,11 @@
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
-const { randomId } = require("~/functions/utilities/randomId");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { randomId } = require("@/functions/utilities/randomId");
 
 const {
   PrivateChatMongoModel,
-} = require("~/models/chatModels/privateChatMongoModel");
+} = require("@/models/chatModels/privateChatMongoModel");
 
-const { userFinder } = require("~/models/userModels/userModelFunctions");
+const { userFinder } = require("@/models/userModels/userModelFunctions");
 const {
   chatModels: {
     properties: {
@@ -13,18 +13,18 @@ const {
       chatIdModel: { properties: chatIdModel },
     },
   },
-} = require("~/models/chatModels/chatModels");
+} = require("@/models/chatModels/chatModels");
 
 const {
   chatErrors: {
     properties: { CHAT_NOT_EXIST },
   },
-} = require("~/variables/errors/chatErrors");
+} = require("@/variables/errors/chatErrors");
 const {
   userErrors: {
     properties: { TARGET_USER_NOT_EXIST },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 const getChatsLastMessages = async (currentUser) => {
   try {

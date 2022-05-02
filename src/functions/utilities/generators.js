@@ -1,9 +1,9 @@
-const { objectClarify } = require("~/functions/utilities/objectClarify");
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+const { objectClarify } = require("@/functions/utilities/objectClarify");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   initialValue,
-} = require("~/variables/constants/initialValues/initialValue");
+} = require("@/variables/constants/initialValues/initialValue");
 
 const { modelGeneratorInitialProperties, errorGeneratorInitialProperties } =
   initialValue;

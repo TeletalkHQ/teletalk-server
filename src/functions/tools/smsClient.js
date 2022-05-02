@@ -3,12 +3,12 @@ const MelipayamakApi = require("melipayamak");
 const {
   getEnvironment,
   errorThrower,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,
   ENVIRONMENT_VALUES,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 
 const USERNAME = getEnvironment(ENVIRONMENT_KEYS.SMS_CLIENT_USERNAME);
 const PASSWORD = getEnvironment(ENVIRONMENT_KEYS.SMS_CLIENT_PASSWORD);

@@ -4,13 +4,13 @@ require("module-alias/register");
 
 const http = require("http");
 
-const { app } = require("~/app");
-const { ioFunctions } = require("~/socket/io");
+const { app } = require("@/app");
+const { ioFunctions } = require("@/socket/io");
 
 const {
   databaseConnecter: connectDatabase,
-} = require("~/configs/databaseConnecter");
-const { getAllEnvironments } = require("~/functions/utilities/utilsNoDeps");
+} = require("@/configs/databaseConnecter");
+const { getAllEnvironments } = require("@/functions/utilities/utilsNoDeps");
 
 const server = http.createServer(app);
 

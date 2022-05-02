@@ -1,11 +1,11 @@
-const { updateOneContact } = require("~/models/userModels/userModelFunctions");
+const { updateOneContact } = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: {
     properties: {
       editContactRoute: { properties: editContactRoute },
     },
   },
-} = require("~/variables/routes/cellphoneRoutes");
+} = require("@/variables/routes/cellphoneRoutes");
 
 const editContactCellphoneController = async (
   req = expressRequest,

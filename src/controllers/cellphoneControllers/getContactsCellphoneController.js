@@ -1,7 +1,7 @@
-const { getUserContacts } = require("~/models/userModels/userModelFunctions");
+const { getUserContacts } = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: { properties: getContactsRoute },
-} = require("~/variables/routes/cellphoneRoutes");
+} = require("@/variables/routes/cellphoneRoutes");
 
 const getContactsCellphoneController = async (
   req = expressRequest,

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const {
   appConfigs: { MONGO_URL },
-} = require("~/configs/appConfigs");
+} = require("@/configs/appConfigs");
 
 const databaseConnecter = async () => {
   try {

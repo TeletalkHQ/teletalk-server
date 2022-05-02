@@ -1,13 +1,13 @@
-const { tokenVerifier } = require("~/functions/utilities/tokenVerifier");
+const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
 const {
   errorThrower,
   getErrorObject,
   getValidatorErrorTypes,
   getEnvironment,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
-} = require("~/functions/utilities/validatorCompiler");
+} = require("@/functions/utilities/validatorCompiler");
 
 const {
   commonValidationModels: {
@@ -15,7 +15,7 @@ const {
       createdAtValidationModel: { properties: createdAtValidationModel },
     },
   },
-} = require("~/models/validationModels/commonValidationModels");
+} = require("@/models/validationModels/commonValidationModels");
 const {
   userValidationModels: {
     properties: {
@@ -35,12 +35,12 @@ const {
       },
     },
   },
-} = require("~/models/validationModels/userValidationModels");
+} = require("@/models/validationModels/userValidationModels");
 
-const { countries } = require("~/variables/constants/countries");
+const { countries } = require("@/variables/constants/countries");
 const {
   ENVIRONMENT_KEYS,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 const {
   userErrors: {
     properties: {
@@ -106,7 +106,7 @@ const {
       VERIFICATION_CODE_REQUIRED: { properties: VERIFICATION_CODE_REQUIRED },
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 // const v = validatorCompiler(cellphoneValidationModel);
 const bioValidator = validatorCompiler(bioValidationsModel);

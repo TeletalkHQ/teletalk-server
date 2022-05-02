@@ -1,6 +1,6 @@
 const {
   validatorCompiler,
-} = require("~/functions/utilities/validatorCompiler");
+} = require("@/functions/utilities/validatorCompiler");
 
 const {
   chatValidationModels: {
@@ -13,7 +13,7 @@ const {
       messageTextValidationModel: { properties: messageTextValidationModel },
     },
   },
-} = require("~/models/validationModels/chatValidationModels");
+} = require("@/models/validationModels/chatValidationModels");
 
 const chatIDValidator = validatorCompiler(chatIdValidationModel);
 

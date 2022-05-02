@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const {
   getAllUsersTestController,
-} = require("~/controllers/testControllers/getAllUsersTestController");
+} = require("@/controllers/testControllers/getAllUsersTestController");
 
 const {
   testRoutes: {
@@ -10,7 +10,7 @@ const {
       getAllUsersRoute: { properties: getAllUsersRoute },
     },
   },
-} = require("~/variables/routes/testRoutes");
+} = require("@/variables/routes/testRoutes");
 
 const testRouter = Router();
 

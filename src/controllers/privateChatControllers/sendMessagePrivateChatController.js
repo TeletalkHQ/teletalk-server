@@ -1,19 +1,19 @@
 const {
   getStatusCodeFromRoute,
-} = require("~/functions/utilities/getStatusCodeFromRoute");
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/getStatusCodeFromRoute");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
 const {
   sendPrivateMessage,
-} = require("~/models/chatModels/chatModelFunctions");
+} = require("@/models/chatModels/chatModelFunctions");
 
 const {
   chatErrors: {
     properties: { PARTICIPANT_ID_REQUIRED, MESSAGE_TEXT_REQUIRED },
   },
-} = require("~/variables/errors/chatErrors");
+} = require("@/variables/errors/chatErrors");
 const {
   privateChatRoutes: { properties: sendMessageRoute },
-} = require("~/variables/routes/privateChatRoutes");
+} = require("@/variables/routes/privateChatRoutes");
 
 const sendMessagePrivateChatController = async (
   req = expressRequest,

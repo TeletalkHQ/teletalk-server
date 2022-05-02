@@ -3,14 +3,14 @@ const JWT = require("jsonwebtoken");
 const {
   errorThrower,
   getEnvironment,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 const {
   ENVIRONMENT_KEYS,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 
 const {
   initialValue,
-} = require("~/variables/constants/initialValues/initialValue");
+} = require("@/variables/constants/initialValues/initialValue");
 
 const initialOptions = initialValue.jwtOptions;
 

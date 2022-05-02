@@ -1,14 +1,14 @@
-const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
+const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
 const {
   addContactToUserBlacklist,
-} = require("~/models/userModels/userModelFunctions");
+} = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: {
     properties: {
       addBlockRoute: { properties: addBlockRoute },
     },
   },
-} = require("~/variables/routes/cellphoneRoutes");
+} = require("@/variables/routes/cellphoneRoutes");
 
 const addBlockCellphoneController = async (
   req = expressRequest,

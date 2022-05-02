@@ -1,14 +1,14 @@
-const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
+const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
 const {
   addContactToUserContacts,
-} = require("~/models/userModels/userModelFunctions");
+} = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: {
     properties: {
       addContactRoute: { properties: addContactRoute },
     },
   },
-} = require("~/variables/routes/cellphoneRoutes");
+} = require("@/variables/routes/cellphoneRoutes");
 
 const addContactCellphoneController = async (
   req = expressRequest,

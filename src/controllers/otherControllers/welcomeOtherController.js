@@ -4,7 +4,7 @@ const {
       welcomeRoute: { properties: welcomeRoute },
     },
   },
-} = require("~/variables/routes/otherRoutes");
+} = require("@/variables/routes/otherRoutes");
 
 const welcomeOtherController = (
   req = expressRequest,

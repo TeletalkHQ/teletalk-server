@@ -2,23 +2,23 @@ const { Router } = require("express");
 
 const {
   cellphoneValidatorMiddleware,
-} = require("~/middlewares/cellphoneValidatorMiddleware");
+} = require("@/middlewares/cellphoneValidatorMiddleware");
 
 const {
   verifySignInNormalUserController,
-} = require("~/controllers/userControllers/verifySignInNormalUserController");
+} = require("@/controllers/userControllers/verifySignInNormalUserController");
 const {
   signInNormalUserController,
-} = require("~/controllers/userControllers/signInNormalUserController");
+} = require("@/controllers/userControllers/signInNormalUserController");
 const {
   statusCheckUserController,
-} = require("~/controllers/userControllers/statusCheckUserController");
+} = require("@/controllers/userControllers/statusCheckUserController");
 const {
   logoutNormalUserController,
-} = require("~/controllers/userControllers/logoutNormalUserController");
+} = require("@/controllers/userControllers/logoutNormalUserController");
 const {
   createNewUserUserController,
-} = require("~/controllers/userControllers/createNewUserUserController");
+} = require("@/controllers/userControllers/createNewUserUserController");
 
 const {
   userRoutes: {
@@ -30,7 +30,7 @@ const {
       verifySignInNormalRoute: { properties: verifySignInNormalRoute },
     },
   },
-} = require("~/variables/routes/userRoutes");
+} = require("@/variables/routes/userRoutes");
 
 const userRouter = Router();
 

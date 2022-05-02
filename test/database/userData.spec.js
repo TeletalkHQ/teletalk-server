@@ -1,16 +1,16 @@
 const {
   state: { setStateObject, getStateObject },
-} = require("~/functions/tools/State");
-const { expect } = require("~/functions/utilities/testUtils");
+} = require("@/functions/tools/State");
+const { expect } = require("@/functions/utilities/testUtils");
 
 const {
   getAllUsers,
   userFinder,
-} = require("~/models/userModels/userModelFunctions");
+} = require("@/models/userModels/userModelFunctions");
 
 const {
   initialValue: { stateKeys },
-} = require("~/variables/constants/initialValues/initialValue");
+} = require("@/variables/constants/initialValues/initialValue");
 
 describe("test and save user data in environments", () => {
   it("should get all users data", async () => {

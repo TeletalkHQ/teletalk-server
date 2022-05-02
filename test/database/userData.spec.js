@@ -15,6 +15,7 @@ const {
 describe("test and save user data in environments", () => {
   it("should get all users data", async () => {
     const users = await getAllUsers();
+
     expect(users).to.be.a("array");
 
     await setStateObject(stateKeys.users, users);

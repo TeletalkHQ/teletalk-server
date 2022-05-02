@@ -12,9 +12,9 @@ const getAllUsersTestController = async (
   res = expressResponse
 ) => {
   try {
-    const users = await getAllUsers();
+    const { users } = await getAllUsers();
 
-    res.sendJsonResponse(getAllUsersRoute, users);
+    res.sendJsonResponse(getAllUsersRoute, { users });
   } catch (error) {
     logger.log("getAllUsersTestController", error);
     res.errorCollector(error);

@@ -11,12 +11,13 @@ const connectDatabase = async () => {
     });
     return { database };
   } catch (error) {
-    logger.log(error);
+    logger.log("connectDatabase catch, error:", error);
+    throw error;
   }
 };
-
-module.exports = { connectDatabase };
 
 mongoose.connection.once("connected", () => {
   logger.log(`MongoDB connected: ${mongoose.connection.host}`);
 });
+
+module.exports = { connectDatabase };

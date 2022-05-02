@@ -26,7 +26,7 @@ require("@/configs/databaseConnecter").databaseConnecter();
 const {
   sendJsonResponseMiddleware,
 } = require("@/middlewares/sendJsonResponseMiddleware");
-const { notFoundMiddleware } = require("@/middlewares/notFoundMiddleware");
+// const { notFoundMiddleware } = require("@/middlewares/notFoundMiddleware");
 const {
   requestDetailsLoggerMiddleware,
 } = require("@/middlewares/requestDetailsLoggerMiddleware");
@@ -56,6 +56,6 @@ app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));
 
 //* All routers is in lifeLine =>
 app.use(lifeLine);
-app.use(notFoundMiddleware);
+// app.use(notFoundMiddleware);
 
 module.exports = { app };

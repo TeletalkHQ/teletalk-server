@@ -1,8 +1,8 @@
+const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
 const {
+  getCellphone,
   errorThrower,
-  isEqualWithTargetCellphone,
-} = require("@/functions/utilities/utils");
-const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {

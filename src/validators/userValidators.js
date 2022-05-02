@@ -332,6 +332,12 @@ const tokenValidator = async (token, secret) => {
   try {
     const result = await compiledTokenValidator({ token });
 
+    const errorObject = (errorObject) =>
+      getErrorObject(errorObject, {
+        validatedToken: token,
+        validationResult: result,
+      });
+
     if (result === true) {
       const verifiedToken = await tokenVerifier(
         token,
@@ -350,12 +356,6 @@ const tokenValidator = async (token, secret) => {
     }
 
     const { string, required } = getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedToken: token,
-        validationResult: result,
-      });
 
     errorThrower(required, () => errorObject(TOKEN_REQUIRED));
 

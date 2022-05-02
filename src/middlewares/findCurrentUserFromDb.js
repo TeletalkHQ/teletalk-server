@@ -7,7 +7,9 @@ const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const {
   userErrors: {
-    properties: { USER_NOT_EXIST },
+    properties: {
+      USER_NOT_EXIST: { properties: USER_NOT_EXIST },
+    },
   },
 } = require("@/variables/errors/userErrors");
 

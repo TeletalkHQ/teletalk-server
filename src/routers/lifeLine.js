@@ -2,18 +2,18 @@
 
 const { Router } = require("express");
 
-const { cellphoneRouter } = require("~/routers/cellphoneRouter");
-const { otherRouter } = require("~/routers/otherRouter");
-const { privateChatRouter } = require("~/routers/privateChatRouter");
-const { userRouter } = require("~/routers/userRouter");
-const { versionControlRouter } = require("~/routers/versionControlRouter");
-const { testRouter } = require("~/routers/testRouter");
+const { cellphoneRouter } = require("@/routers/cellphoneRouter");
+const { otherRouter } = require("@/routers/otherRouter");
+const { privateChatRouter } = require("@/routers/privateChatRouter");
+const { userRouter } = require("@/routers/userRouter");
+const { versionControlRouter } = require("@/routers/versionControlRouter");
+const { testRouter } = require("@/routers/testRouter");
 
 const {
   authDefaultMiddleware,
-} = require("~/middlewares/authDefaultMiddleware");
+} = require("@/middlewares/authDefaultMiddleware");
 
-const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utilsNoDeps");
+const { ignoreMiddlewaresByUrl } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   cellphoneRoutes: {
@@ -21,21 +21,21 @@ const {
       cellphoneRouteBaseUrl: { properties: cellphoneRouteBaseUrl },
     },
   },
-} = require("~/variables/routes/cellphoneRoutes");
+} = require("@/variables/routes/cellphoneRoutes");
 const {
   otherRoutes: {
     properties: {
       otherRouteBaseUrl: { properties: otherRouteBaseUrl },
     },
   },
-} = require("~/variables/routes/otherRoutes");
+} = require("@/variables/routes/otherRoutes");
 const {
   privateChatRoutes: {
     properties: {
       privateChatRouteBaseUrl: { properties: privateChatRouteBaseUrl },
     },
   },
-} = require("~/variables/routes/privateChatRoutes");
+} = require("@/variables/routes/privateChatRoutes");
 const {
   userRoutes: {
     properties: {
@@ -45,21 +45,21 @@ const {
       userRouteBaseUrl: { properties: userRouteBaseUrl },
     },
   },
-} = require("~/variables/routes/userRoutes");
+} = require("@/variables/routes/userRoutes");
 const {
   versionControlRoutes: {
     properties: {
       versionControlBaseUrl: { properties: versionControlBaseUrl },
     },
   },
-} = require("~/variables/routes/versionControlRoutes");
+} = require("@/variables/routes/versionControlRoutes");
 const {
   testRoutes: {
     properties: {
       testBaseUrl: { properties: testBaseUrl },
     },
   },
-} = require("~/variables/routes/testRoutes");
+} = require("@/variables/routes/testRoutes");
 
 const lifeLine = Router();
 

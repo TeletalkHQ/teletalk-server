@@ -2,7 +2,7 @@ const lodash = require("lodash");
 
 const {
   ENVIRONMENT_KEYS,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 
 const errorThrower = (condition, error) => {
   if (condition) {

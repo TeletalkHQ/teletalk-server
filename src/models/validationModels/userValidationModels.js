@@ -14,7 +14,7 @@ const {
       verificationCodeModel: { properties: verificationCodeModel },
     },
   },
-} = require("~/models/userModels/userModels");
+} = require("@/models/userModels/userModels");
 
 const bioValidationsModel = {
   properties: {

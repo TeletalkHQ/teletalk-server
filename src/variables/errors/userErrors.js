@@ -1,4 +1,4 @@
-const { errorGenerator } = require("~/functions/utilities/generators");
+const { errorGenerator } = require("@/functions/utilities/generators");
 
 const USER_ERROR_KEYS = {
   BIO_VALIDATION: "BIO_VALIDATION",

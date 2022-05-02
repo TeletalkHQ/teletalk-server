@@ -1,8 +1,8 @@
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   getPrivateChatMessages,
-} = require("~/models/chatModels/chatModelFunctions");
+} = require("@/models/chatModels/chatModelFunctions");
 
 const {
   chatErrors: {
@@ -10,10 +10,10 @@ const {
       CHAT_ID_REQUIRED: { properties: CHAT_ID_REQUIRED },
     },
   },
-} = require("~/variables/errors/chatErrors");
+} = require("@/variables/errors/chatErrors");
 const {
   privateChatRoutes: { properties: getMessagesRoute },
-} = require("~/variables/routes/privateChatRoutes");
+} = require("@/variables/routes/privateChatRoutes");
 
 const getMessagesPrivateChatController = async (
   req = expressRequest,

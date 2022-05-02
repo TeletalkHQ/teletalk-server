@@ -1,9 +1,9 @@
 const {
   errorCollectorMiddleware,
-} = require("~/middlewares/errorCollectorMiddleware");
+} = require("@/middlewares/errorCollectorMiddleware");
 const {
   errorResponserMiddleware,
-} = require("~/middlewares/errorResponserMiddleware");
+} = require("@/middlewares/errorResponserMiddleware");
 
 const responseErrorHandlers = (_, res, next) => {
   res.errors = {

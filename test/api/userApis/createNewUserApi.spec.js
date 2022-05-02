@@ -1,8 +1,8 @@
-const { request, expect } = require("~/functions/utilities/testUtils");
+const { request, expect } = require("@/functions/utilities/testUtils");
 const {
   getEnvironment,
   randomString,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: {
@@ -11,11 +11,11 @@ const {
       lastNameModel: { properties: lastNameModel },
     },
   },
-} = require("~/models/userModels/userModels");
+} = require("@/models/userModels/userModels");
 
 const {
   ENVIRONMENT_KEYS,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 const {
   userErrors: {
     properties: {
@@ -26,7 +26,7 @@ const {
       LAST_NAME_MAXLENGTH_REACH: { properties: LAST_NAME_MAXLENGTH_REACH },
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 const {
   userRoutes: {
     properties: {
@@ -34,7 +34,7 @@ const {
       createNewUserRoute: { properties: createNewUserRoute },
     },
   },
-} = require("~/variables/routes/userRoutes");
+} = require("@/variables/routes/userRoutes");
 
 const userFullName = (firstName, lastName) => ({ firstName, lastName });
 

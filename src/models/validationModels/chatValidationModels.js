@@ -7,7 +7,7 @@ const {
       participantIdModel: { properties: participantIdModel },
     },
   },
-} = require("~/models/chatModels/chatModels");
+} = require("@/models/chatModels/chatModels");
 
 const messageIdValidationModel = {
   properties: {

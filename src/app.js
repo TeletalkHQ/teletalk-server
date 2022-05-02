@@ -1,5 +1,5 @@
 //! Require this module before requiring anything!
-require("~/variables/globalVariables");
+require("@/variables/globalVariables");
 
 const path = require("path");
 
@@ -21,20 +21,20 @@ require("dotenv").config({
   ),
 });
 
-require("~/configs/databaseConnecter").databaseConnecter();
+require("@/configs/databaseConnecter").databaseConnecter();
 
 const {
   sendJsonResponseMiddleware,
-} = require("~/middlewares/sendJsonResponseMiddleware");
-const { notFoundMiddleware } = require("~/middlewares/notFoundMiddleware");
+} = require("@/middlewares/sendJsonResponseMiddleware");
+const { notFoundMiddleware } = require("@/middlewares/notFoundMiddleware");
 const {
   requestDetailsLoggerMiddleware,
-} = require("~/middlewares/requestDetailsLoggerMiddleware");
+} = require("@/middlewares/requestDetailsLoggerMiddleware");
 const {
   responseErrorHandlers,
-} = require("~/middlewares/responseErrorHandlersMiddleware");
+} = require("@/middlewares/responseErrorHandlersMiddleware");
 
-const { lifeLine } = require("~/routers/lifeLine");
+const { lifeLine } = require("@/routers/lifeLine");
 
 const app = express();
 
@@ -50,9 +50,9 @@ app.use(responseErrorHandlers);
 
 app.use(sendJsonResponseMiddleware);
 
-app.use(express.static("~/../public"));
+app.use(express.static("@/../public"));
 
-app.use(serveFavicon("~/../public/assets/icons/favicon/favicon.ico"));
+app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));
 
 //* All routers is in lifeLine =>
 app.use(lifeLine);

@@ -1,11 +1,11 @@
-const { cellphoneFinder } = require("~/functions/utilities/cellphoneFinder");
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
+const { cellphoneFinder } = require("@/functions/utilities/cellphoneFinder");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
 
-const { UserMongoModel } = require("~/models/userModels/userMongoModel");
+const { UserMongoModel } = require("@/models/userModels/userMongoModel");
 
 const {
   initialOptions: { userInitialOptions },
-} = require("~/variables/constants/initialOptions/initialOptions");
+} = require("@/variables/constants/initialOptions/initialOptions");
 const {
   userErrors: {
     properties: {
@@ -17,7 +17,7 @@ const {
       TARGET_USER_NOT_EXIST,
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 const userFinder = async (
   userData = userInitialOptions

@@ -1,8 +1,8 @@
 const {
   modelPropertyGenerator,
   modelGenerator,
-} = require("~/functions/utilities/generators");
-const { randomId } = require("~/functions/utilities/randomId");
+} = require("@/functions/utilities/generators");
+const { randomId } = require("@/functions/utilities/randomId");
 
 const {
   chatErrors: {
@@ -19,7 +19,7 @@ const {
       MESSAGE_ID_REQUIRED: { properties: MESSAGE_ID_REQUIRED },
     },
   },
-} = require("~/variables/errors/chatErrors");
+} = require("@/variables/errors/chatErrors");
 
 const {
   userErrors: {
@@ -32,7 +32,7 @@ const {
       PRIVATE_ID_REQUIRED: { properties: PRIVATE_ID_REQUIRED },
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 const createdAtCommonModel = modelGenerator(
   null,

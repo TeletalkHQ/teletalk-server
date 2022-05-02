@@ -3,8 +3,8 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const {
   mongooseSchemaPropertyGenerator,
-} = require("~/functions/utilities/generators");
-const { skipParams } = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/generators");
+const { skipParams } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: {
@@ -20,7 +20,7 @@ const {
       usernameModel: { properties: usernameModel },
     },
   },
-} = require("~/models/userModels/userModels");
+} = require("@/models/userModels/userModels");
 
 const {
   commonModels: {
@@ -30,7 +30,7 @@ const {
       messageIdCommonModel: { properties: messageIdCommonModel },
     },
   },
-} = require("~/models/commonModels/commonModels");
+} = require("@/models/commonModels/commonModels");
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 

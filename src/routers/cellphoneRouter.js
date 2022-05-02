@@ -2,34 +2,34 @@ const { Router } = require("express");
 
 const {
   contactValidatorMiddleware,
-} = require("~/middlewares/contactValidatorMiddleware");
+} = require("@/middlewares/contactValidatorMiddleware");
 const {
   selfStuffControllerMiddleware,
-} = require("~/middlewares/selfStuffControllerMiddleware");
+} = require("@/middlewares/selfStuffControllerMiddleware");
 const {
   cellphoneValidatorMiddleware,
-} = require("~/middlewares/cellphoneValidatorMiddleware");
+} = require("@/middlewares/cellphoneValidatorMiddleware");
 
 const {
   addBlockCellphoneController,
-} = require("~/controllers/cellphoneControllers/addBlockCellphoneController");
+} = require("@/controllers/cellphoneControllers/addBlockCellphoneController");
 const {
   removeBlockCellphoneController,
-} = require("~/controllers/cellphoneControllers/removeBlockCellphoneController");
+} = require("@/controllers/cellphoneControllers/removeBlockCellphoneController");
 const {
   removeContactCellphoneController,
-} = require("~/controllers/cellphoneControllers/removeContactCellphoneController");
+} = require("@/controllers/cellphoneControllers/removeContactCellphoneController");
 const {
   editContactCellphoneController,
-} = require("~/controllers/cellphoneControllers/editContactCellphoneController");
+} = require("@/controllers/cellphoneControllers/editContactCellphoneController");
 const {
   getContactsCellphoneController,
-} = require("~/controllers/cellphoneControllers/getContactsCellphoneController");
+} = require("@/controllers/cellphoneControllers/getContactsCellphoneController");
 const {
   addContactCellphoneController,
-} = require("~/controllers/cellphoneControllers/addContactCellphoneController");
+} = require("@/controllers/cellphoneControllers/addContactCellphoneController");
 
-const { ignoreMiddlewaresByUrl } = require("~/functions/utilities/utilsNoDeps");
+const { ignoreMiddlewaresByUrl } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   cellphoneRoutes: {
@@ -42,7 +42,7 @@ const {
       getContactsRoute: { properties: getContactsRoute },
     },
   },
-} = require("~/variables/routes/cellphoneRoutes");
+} = require("@/variables/routes/cellphoneRoutes");
 
 const cellphoneRouter = Router();
 

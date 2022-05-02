@@ -1,14 +1,14 @@
-const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
+const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
 const {
   deleteBlacklistItem,
-} = require("~/models/userModels/userModelFunctions");
+} = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: {
     properties: {
       removeBlockRoute: { properties: removeBlockRoute },
     },
   },
-} = require("~/variables/routes/cellphoneRoutes");
+} = require("@/variables/routes/cellphoneRoutes");
 
 const removeBlockCellphoneController = async (
   req = expressRequest,

@@ -1,7 +1,7 @@
 const {
   modelPropertyGenerator,
   modelGenerator,
-} = require("~/functions/utilities/generators");
+} = require("@/functions/utilities/generators");
 
 const {
   commonModels: {
@@ -12,7 +12,7 @@ const {
       privateIdCommonModel: { properties: privateIdCommonModel },
     },
   },
-} = require("~/models/commonModels/commonModels");
+} = require("@/models/commonModels/commonModels");
 
 const {
   chatErrors: {
@@ -35,7 +35,7 @@ const {
       PARTICIPANT_ID_REQUIRED: { properties: PARTICIPANT_ID_REQUIRED },
     },
   },
-} = require("~/variables/errors/chatErrors");
+} = require("@/variables/errors/chatErrors");
 
 const chatIdModel = chatIdCommonModel;
 const createdAtModel = createdAtCommonModel;

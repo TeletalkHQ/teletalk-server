@@ -1,8 +1,8 @@
 const {
   errorThrower,
   getCellphone,
-} = require("~/functions/utilities/utilsNoDeps");
-const { contactValidator } = require("~/validators/userValidators");
+} = require("@/functions/utilities/utilsNoDeps");
+const { contactValidator } = require("@/validators/userValidators");
 
 const contactValidatorMiddleware = async (req, res, next) => {
   try {

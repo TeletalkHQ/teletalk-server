@@ -2,17 +2,17 @@ const { Router } = require("express");
 
 const {
   sendMessagePrivateChatController,
-} = require("~/controllers/privateChatControllers/sendMessagePrivateChatController");
+} = require("@/controllers/privateChatControllers/sendMessagePrivateChatController");
 
 const {
   getMessagesPrivateChatController,
-} = require("~/controllers/privateChatControllers/getMessagesPrivateChatController");
+} = require("@/controllers/privateChatControllers/getMessagesPrivateChatController");
 const {
   chatsLastMessageChatController,
-} = require("~/controllers/privateChatControllers/chatsLastMessageChatController");
+} = require("@/controllers/privateChatControllers/chatsLastMessageChatController");
 const {
   getAllChatsUserController,
-} = require("~/controllers/privateChatControllers/getAllChatsUserController");
+} = require("@/controllers/privateChatControllers/getAllChatsUserController");
 
 const {
   privateChatRoutes: {
@@ -23,7 +23,7 @@ const {
       chatsLastMessageRoute: { properties: chatsLastMessageRoute },
     },
   },
-} = require("~/variables/routes/privateChatRoutes");
+} = require("@/variables/routes/privateChatRoutes");
 
 const privateChatRouter = Router();
 

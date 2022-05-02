@@ -2,22 +2,22 @@
 //!DEPRECATED
 //!DEPRECATED
 
-const { randomId } = require("~/functions/utilities/randomId");
+const { randomId } = require("@/functions/utilities/randomId");
 
 const {
   chatErrors: {
     properties: { CHAT_EXIST },
   },
-} = require("~/variables/errors/chatErrors");
+} = require("@/variables/errors/chatErrors");
 const {
   userErrors: {
     properties: { USER_NOT_EXIST },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 const {
   PrivateChatMongoModel,
-} = require("~/models/chatModels/privateChatMongoModel");
+} = require("@/models/chatModels/privateChatMongoModel");
 
 const {
   chatModels: {
@@ -25,9 +25,9 @@ const {
       chatIdModel: { properties: chatIdModel },
     },
   },
-} = require("~/models/chatModels/chatModels");
-const { errorThrower } = require("~/functions/utilities/utilsNoDeps");
-const { userFinder } = require("~/models/userModels/userModelFunctions");
+} = require("@/models/chatModels/chatModels");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const startChatPrivateChatController = async (
   req = expressRequest,

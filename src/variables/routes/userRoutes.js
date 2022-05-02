@@ -1,5 +1,5 @@
-const { routeGenerator } = require("~/functions/utilities/generators");
-const { versionCalculator } = require("~/functions/utilities/utilsNoDeps");
+const { routeGenerator } = require("@/functions/utilities/generators");
+const { versionCalculator } = require("@/functions/utilities/utilsNoDeps");
 
 const userRouteBaseUrl = routeGenerator(true, "/user", true, "1.0.0");
 

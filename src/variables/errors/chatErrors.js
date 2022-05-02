@@ -1,4 +1,4 @@
-const { errorGenerator } = require("~/functions/utilities/generators");
+const { errorGenerator } = require("@/functions/utilities/generators");
 
 const CHAT_EXIST = errorGenerator(
   4000,

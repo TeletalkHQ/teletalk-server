@@ -1,15 +1,15 @@
 const {
   errorThrower,
   getCellphone,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 
-const { userFinder } = require("~/models/userModels/userModelFunctions");
+const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const {
   userErrors: {
     properties: { USER_NOT_EXIST },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 const findCurrentUserFromDb = async (req, res, next) => {
   try {

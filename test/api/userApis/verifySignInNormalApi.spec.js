@@ -1,9 +1,9 @@
-const { request, expect } = require("~/functions/utilities/testUtils");
-const { getEnvironment } = require("~/functions/utilities/utilsNoDeps");
+const { request, expect } = require("@/functions/utilities/testUtils");
+const { getEnvironment } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 const {
   userErrors: {
     properties: {
@@ -17,7 +17,7 @@ const {
       VERIFICATION_CODE_INVALID: { properties: VERIFICATION_CODE_INVALID },
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 const {
   userRoutes: {
     properties: {
@@ -25,7 +25,7 @@ const {
       verifySignInNormalRoute: { properties: verifySignInNormalRoute },
     },
   },
-} = require("~/variables/routes/userRoutes");
+} = require("@/variables/routes/userRoutes");
 
 describe("verifySignInNormalApi success test", () => {
   it("should get newUser === true if there is no user with test verify token in db", async () => {

@@ -1,8 +1,8 @@
-const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
-const { removeContactItem } = require("~/models/userModels/userModelFunctions");
+const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
+const { removeContactItem } = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: { properties: removeContactRoute },
-} = require("~/variables/routes/cellphoneRoutes");
+} = require("@/variables/routes/cellphoneRoutes");
 
 const removeContactCellphoneController = async (
   req = expressRequest,

@@ -1,8 +1,8 @@
 const {
   modelPropertyGenerator,
   modelGenerator,
-} = require("~/functions/utilities/generators");
-const { skipParams } = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/generators");
+const { skipParams } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   commonModels: {
@@ -11,7 +11,7 @@ const {
       privateIdCommonModel: commonPrivateIdModel,
     },
   },
-} = require("~/models/commonModels/commonModels");
+} = require("@/models/commonModels/commonModels");
 
 const {
   userErrors: {
@@ -77,7 +77,7 @@ const {
       VERIFICATION_CODE_EMPTY: { properties: VERIFICATION_CODE_EMPTY },
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 const bioModel = modelGenerator(
   modelPropertyGenerator(255, BIO_MAXLENGTH_REACH),

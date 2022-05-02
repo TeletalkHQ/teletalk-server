@@ -1,37 +1,37 @@
-const { randomId } = require("~/functions/utilities/randomId");
-const { sendableUserData } = require("~/functions/utilities/sendableUserData");
-const { tokenSigner } = require("~/functions/utilities/tokenSigner");
-const { temporaryClients } = require("~/functions/tools/TemporaryClients");
+const { randomId } = require("@/functions/utilities/randomId");
+const { sendableUserData } = require("@/functions/utilities/sendableUserData");
+const { tokenSigner } = require("@/functions/utilities/tokenSigner");
+const { temporaryClients } = require("@/functions/tools/TemporaryClients");
 const {
   getEnvironment,
   getCellphone,
   getErrorObject,
   errorThrower,
-} = require("~/functions/utilities/utilsNoDeps");
-const { getTokenFromRequest } = require("~/functions/utilities/utils");
+} = require("@/functions/utilities/utilsNoDeps");
+const { getTokenFromRequest } = require("@/functions/utilities/utils");
 
 const {
   tokenValidator,
   firstNameValidator,
   lastNameValidator,
-} = require("~/validators/userValidators");
+} = require("@/validators/userValidators");
 
 const {
   userFinder,
   createNewNormalUser,
   updateUserDataByPrivateId,
-} = require("~/models/userModels/userModelFunctions");
+} = require("@/models/userModels/userModelFunctions");
 const {
   commonModels: {
     properties: {
       privateIdCommonModel: { properties: commonPrivateIdModel },
     },
   },
-} = require("~/models/commonModels/commonModels");
+} = require("@/models/commonModels/commonModels");
 
 const {
   ENVIRONMENT_KEYS,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 const {
   userErrors: {
     properties: {
@@ -39,14 +39,14 @@ const {
       FULL_NAME_INVALID: { properties: FULL_NAME_INVALID },
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 const {
   userRoutes: {
     properties: {
       createNewUserRoute: { properties: createNewUserRoute },
     },
   },
-} = require("~/variables/routes/userRoutes");
+} = require("@/variables/routes/userRoutes");
 
 const createNewUserUserController = async (
   req = expressRequest,

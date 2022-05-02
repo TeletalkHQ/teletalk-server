@@ -1,10 +1,10 @@
-const request = require("supertest")(require("~/app").app);
+const request = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 
 const {
   getAllEnvironments,
   errorThrower,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userRoutes: {
@@ -13,7 +13,7 @@ const {
       createNewUserRoute: { properties: createNewUserRoute },
     },
   },
-} = require("~/variables/routes/userRoutes");
+} = require("@/variables/routes/userRoutes");
 
 const myRequest = async (
   baseUrl,

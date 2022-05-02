@@ -1,4 +1,4 @@
-const { errorGenerator } = require("~/functions/utilities/generators");
+const { errorGenerator } = require("@/functions/utilities/generators");
 
 const APP_ERROR_KEYS = {
   INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",

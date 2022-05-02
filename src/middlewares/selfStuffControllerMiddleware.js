@@ -1,14 +1,14 @@
 const {
   errorThrower,
   isEqualWithTargetCellphone,
-} = require("~/functions/utilities/utils");
-const { getCellphone } = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
+const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
     properties: { SELF_STUFF },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
 const selfStuffControllerMiddleware = (req, res, next) => {
   try {

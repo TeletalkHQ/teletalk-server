@@ -1,4 +1,4 @@
-const { routeGenerator } = require("~/functions/utilities/generators");
+const { routeGenerator } = require("@/functions/utilities/generators");
 
 const versionControlBaseUrl = routeGenerator(
   true,

@@ -1,11 +1,11 @@
-const { sendableUserData } = require("~/functions/utilities/sendableUserData");
-const { temporaryClients } = require("~/functions/tools/TemporaryClients");
+const { sendableUserData } = require("@/functions/utilities/sendableUserData");
+const { temporaryClients } = require("@/functions/tools/TemporaryClients");
 const {
   getEnvironment,
   getCellphone,
   errorThrower,
   getErrorObject,
-} = require("~/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
@@ -14,25 +14,25 @@ const {
       USER_NOT_EXIST: { properties: USER_NOT_EXIST },
     },
   },
-} = require("~/variables/errors/userErrors");
+} = require("@/variables/errors/userErrors");
 
-const { getTokenFromRequest } = require("~/functions/utilities/utils");
+const { getTokenFromRequest } = require("@/functions/utilities/utils");
 const {
   ENVIRONMENT_KEYS,
-} = require("~/variables/constants/environmentInitialValues");
+} = require("@/variables/constants/environmentInitialValues");
 
-const { userFinder } = require("~/models/userModels/userModelFunctions");
+const { userFinder } = require("@/models/userModels/userModelFunctions");
 const {
   userRoutes: {
     properties: {
       verifySignInNormalRoute: { properties: verifySignInNormalRoute },
     },
   },
-} = require("~/variables/routes/userRoutes");
+} = require("@/variables/routes/userRoutes");
 const {
   tokenValidator,
   verificationCodeValidator,
-} = require("~/validators/userValidators");
+} = require("@/validators/userValidators");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,

@@ -1,4 +1,4 @@
-const { Logger } = require("~/functions/utilities/Logger");
+const { Logger } = require("@/functions/utilities/Logger");
 
 const { response, request } = require("express");
 

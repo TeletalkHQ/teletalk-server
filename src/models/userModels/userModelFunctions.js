@@ -223,6 +223,7 @@ const addTestUser = async (
     );
 
     const user = await userFinder({ countryCode, countryName, phoneNumber });
+
     return user;
   } catch (error) {
     logger.log("addTestUser catch, error:", error);

@@ -1,8 +1,6 @@
 //! Require this module before requiring anything!
 require("@/variables/globalVariables");
 
-const path = require("path");
-
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
@@ -12,14 +10,7 @@ const serveFavicon = require("serve-favicon");
 //* PrettyError is error prettier in terminal.
 require("pretty-error").start();
 
-require("dotenv").config({
-  path: path.join(
-    __dirname,
-    "..",
-    "environments",
-    `${process.env.NODE_ENV}.env`
-  ),
-});
+require("@/functions/helpers/requireDotenv").requireDotenv();
 
 require("@/configs/databaseConnecter").databaseConnecter();
 

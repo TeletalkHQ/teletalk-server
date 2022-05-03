@@ -12,7 +12,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
-    "test": "cross-env NODE_ENV=test mocha ./test/test.js --require module-alias/register --recursive --exit",
+    "test": "cross-env NODE_ENV=test mocha ./test/test.js --recursive --exit",
     "prepare": "husky install",
     "coverage": "nyc npm run test"
   },

@@ -12,11 +12,11 @@ const {
   initialValue: { stateKeys },
 } = require("@/variables/constants/initialValues/initialValue");
 
-describe("save user data in state", async () => {
+describe("save user data in state", () => {
   it("should get all users data", async () => {
     const users = await getAllUsers();
 
-    expect(users).to.be.a("array");
+    expect(users).to.be.an("array");
 
     await setStateObject(stateKeys.users, users);
   });

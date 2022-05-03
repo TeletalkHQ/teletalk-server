@@ -1,3 +1,7 @@
+require("@/functions/helpers/requireDotenv").requireDotenv();
+require("@/configs/databaseConnecter").databaseConnecter();
+require("@/variables/globalVariables");
+
 const {
   state: { setStateObject },
 } = require("@/functions/tools/State");
@@ -25,35 +29,39 @@ describe("Add requirements to application state", () => {
       c.countryName.toLowerCase().includes("iran")
     );
 
-    const users = Array.from({ length: 5 });
+    const users = Array.from({ length: 100 });
 
+    const testUsers = {};
     for (let i = 0; i < users.length; i++) {
-      const phoneNumber = `000000000${i}`;
+      try {
+        const phoneNumber = `000000000${i}`;
 
-      const privateId = randomId(privateIdCommonModel.maxlength.value);
+        const privateId = randomId(privateIdCommonModel.maxlength.value);
 
-      const token = await tokenSigner({
-        countryName,
-        countryCode,
-        phoneNumber,
-        privateId,
-      });
+        const token = await tokenSigner({
+          countryName,
+          countryCode,
+          phoneNumber,
+          privateId,
+        });
 
-      const testUser = await addTestUser(
-        countryCode,
-        countryName,
-        phoneNumber,
-        "test",
-        `user_${i}`,
-        privateId,
-        token
-      );
+        const testUser = await addTestUser(
+          countryCode,
+          countryName,
+          phoneNumber,
+          "test",
+          `user_${i}`,
+          privateId,
+          token
+        );
 
-      const key = [`testUser${i}`];
-
-      stateKeys[key] = key;
-
-      await setStateObject(key, testUser);
+        testUsers[`testUser_${i}`] = testUser;
+      } catch (error) {
+        logger.log("requirements.spec adding users catch, error:", error);
+        throw error;
+      }
     }
+
+    await setStateObject(stateKeys.testUsers, testUsers);
   });
 });

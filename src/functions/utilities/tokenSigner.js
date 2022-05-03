@@ -1,31 +1,28 @@
 const JWT = require("jsonwebtoken");
 
-const {
-  errorThrower,
-  getEnvironment,
-} = require("@/functions/utilities/utilsNoDeps");
+const { getEnvironment } = require("@/functions/utilities/utilsNoDeps");
+
 const {
   ENVIRONMENT_KEYS,
 } = require("@/variables/constants/environmentInitialValues");
 
 const {
-  initialValue,
-} = require("@/variables/constants/initialValues/initialValue");
+  appConfigs: { jwtOptions },
+} = require("@/configs/appConfigs");
 
-const initialOptions = initialValue.jwtOptions;
-
-const tokenSigner = async (data, secret, options = initialOptions) => {
+const tokenSigner = async (data, secret, options = jwtOptions) => {
   try {
     return JWT.sign(
       data,
       secret || getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET),
       {
-        ...initialOptions,
+        ...jwtOptions,
         ...options,
       }
     );
   } catch (error) {
-    errorThrower(error, error);
+    console.log("tokenSigner catch, error:", error);
+    throw error;
   }
 };
 

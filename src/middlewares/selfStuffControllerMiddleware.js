@@ -28,6 +28,8 @@ const selfStuffControllerMiddleware = (req, res, next) => {
     logger.log("selfStuffControllerMiddleware catch", error);
     res.errorCollector(error);
     res.errorResponser();
+
+    return { done: false };
   }
 };
 

@@ -21,11 +21,18 @@ const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
       return next();
     }
 
+    let noErrorOnMiddlewares = true;
     for await (const md of middlewares) {
-      await md(req, res, () => {});
-    }
+      const result = await md(req, res, () => {});
 
-    next();
+      if (result?.done === false) {
+        noErrorOnMiddlewares = false;
+        break;
+      }
+    }
+    if (noErrorOnMiddlewares) {
+      next();
+    }
   };
 };
 

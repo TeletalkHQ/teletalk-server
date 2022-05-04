@@ -49,11 +49,11 @@ const myRequest = async (
         "UnknownError, you need to send me correct error object"
       );
 
-      logger.log("response.body:", response.body);
+      // logger.log("response.body:", response.body);
 
       const { errorKey, errorCode, errorReason } = errorObject;
 
-      logger.log("errorKey", errorKey);
+      logger.log(`errorKey ${routeObject.url} ${errorObject.reason}`, errorKey);
 
       expect(response.body.errors[errorKey]?.errorReason).to.equal(errorReason);
       expect(response.body.errors[errorKey]?.errorCode).to.equal(errorCode);

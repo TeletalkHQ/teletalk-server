@@ -29,6 +29,7 @@ const {
       PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
       PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
       PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
+      TARGET_USER_NOT_EXIST: { properties: TARGET_USER_NOT_EXIST },
     },
   },
 } = require("@/variables/errors/userErrors");
@@ -104,7 +105,27 @@ describe("addContact failure tests", () => {
     await myRequest(testUser_2, CONTACT_ITEM_EXIST);
   });
 
-  //! Copied from signInNormalApi.spec !//
+  it("should get error, USER_NOT_EXIST", async () => {
+    const { countryCode, countryName } = countries[0];
+
+    const response = await myRequest(
+      {
+        phoneNumber: "1234567890",
+        countryCode,
+        countryName,
+        firstName: "Stalwart",
+        lastName: "SS!",
+      },
+      TARGET_USER_NOT_EXIST
+    );
+
+    logger.log(
+      "response response response response response response ",
+      response
+    );
+  });
+
+  //#region //! Copied from signInNormalApi.spec  !//
   it(`It should get error, CELLPHONE_REQUIRED`, async () => {
     await myRequest({}, CELLPHONE_REQUIRED);
   });
@@ -198,4 +219,5 @@ describe("addContact failure tests", () => {
       COUNTRY_NAME_NOT_SUPPORTED
     );
   });
+  //#endregion
 });

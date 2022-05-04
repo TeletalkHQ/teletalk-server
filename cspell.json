@@ -23,6 +23,7 @@
     "camelcase",
     "codestream",
     "dotenv",
+    "endregion",
     "esbenp",
     "fileupload",
     "flowtype",

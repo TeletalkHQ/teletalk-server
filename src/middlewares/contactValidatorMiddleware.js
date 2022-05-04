@@ -8,19 +8,17 @@ const contactValidatorMiddleware = async (req, res, next) => {
   try {
     const { firstName, lastName } = req.body;
 
-    const cellphone = getCellphone(req.body);
-
     const validationResult = await contactValidator({
-      ...cellphone,
+      ...getCellphone(req.body),
       firstName,
       lastName,
     });
 
-    errorThrower(validationResult !== true, validationResult);
+    errorThrower(validationResult.done !== true, validationResult);
 
     next();
   } catch (error) {
-    logger.log("contactValidatorMiddleware catch: error" + error);
+    logger.log("contactValidatorMiddleware catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
   }

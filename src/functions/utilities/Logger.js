@@ -73,7 +73,7 @@ function LoggerBuilder(level) {
   };
 
   this.clear = (condition) => {
-    condition && (this.logs = []);
+    if (condition) this.logs = [];
     console.clear();
     return this;
   };

@@ -2,11 +2,14 @@ const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
 const {
   getCellphone,
   errorThrower,
+  getErrorObject,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userErrors: {
-    properties: { SELF_STUFF },
+    properties: {
+      SELF_STUFF: { properties: SELF_STUFF },
+    },
   },
 } = require("@/variables/errors/userErrors");
 
@@ -16,10 +19,9 @@ const selfStuffControllerMiddleware = (req, res, next) => {
 
     const cellphone = getCellphone(req.authData.payload);
 
-    errorThrower(isEqualWithTargetCellphone(cellphone, targetCellphone), {
-      ...targetCellphone,
-      ...SELF_STUFF,
-    });
+    errorThrower(isEqualWithTargetCellphone(cellphone, targetCellphone), () =>
+      getErrorObject(SELF_STUFF, { targetCellphone })
+    );
 
     next();
   } catch (error) {

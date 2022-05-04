@@ -4,6 +4,8 @@ const { expect } = require("chai");
 const {
   getAllEnvironments,
   errorThrower,
+  getEnvironment,
+  setEnvironment,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
@@ -14,6 +16,9 @@ const {
     },
   },
 } = require("@/variables/routes/userRoutes");
+const {
+  ENVIRONMENT_KEYS,
+} = require("@/variables/constants/environmentInitialValues");
 
 const myRequest = async (
   baseUrl,
@@ -75,9 +80,9 @@ const testRequest = (requestObject, data, withoutToken) => {
         requestObject.url.includes(verifySignInNormalRoute.url) ||
         requestObject.url.includes(createNewUserRoute.url)
       ) {
-        response.set(...setTestToken(TEST_VERIFY_TOKEN));
+        response.set(...setTestRequestToken(TEST_VERIFY_TOKEN));
       } else {
-        response.set(...setTestToken(TEST_MAIN_TOKEN));
+        response.set(...setTestRequestToken(TEST_MAIN_TOKEN));
       }
     }
 
@@ -87,6 +92,28 @@ const testRequest = (requestObject, data, withoutToken) => {
   }
 };
 
-const setTestToken = (token) => ["Authorization", `Bearer ${token}`];
+const setTestRequestToken = (token) => ["Authorization", `Bearer ${token}`];
 
-module.exports = { request: myRequest, testRequest, expect };
+const getTestMainToken = () => {
+  return getEnvironment(ENVIRONMENT_KEYS.TEST_MAIN_TOKEN);
+};
+
+const setTestMainToken = (token) => {
+  setEnvironment(ENVIRONMENT_KEYS.TEST_MAIN_TOKEN, token);
+};
+
+const setTestUser = (user) => setEnvironment(ENVIRONMENT_KEYS.TEST_USER, user);
+
+const setTestUserAndTestToken = (user) => {
+  setTestUser(user);
+  setTestMainToken(user.tokens[0].token);
+};
+
+module.exports = {
+  expect,
+  getTestMainToken,
+  request: myRequest,
+  setTestMainToken,
+  setTestUserAndTestToken,
+  testRequest,
+};

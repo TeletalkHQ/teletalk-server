@@ -69,12 +69,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-04-11T16:06:54.836Z",
-    "modified": "2022-04-23T12:37:36.718Z",
+    "modified": "2022-05-03T15:50:59.810Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"phoneNumber\": \"1012700470\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
+      "raw": "{\n  \"phoneNumber\": \"9119119191\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
       "form": []
     },
     "tests": []
@@ -111,17 +111,17 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-04-11T16:08:24.958Z",
-    "modified": "2022-04-23T12:38:36.266Z",
+    "modified": "2022-05-03T15:51:52.686Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"verificationCode\":\"719921\"\n}",
+      "raw": "{\n    \"verificationCode\":\"266320\"\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjEwMTI3MDA0NzAiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUwNzE3NDU2fQ.WOX930_Up12Jj35zLgWrkjK8hTA5BKsslpa-yHtkkC0"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxOTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUxNTkzMDU5fQ.DvVNhOfz7nG16BKTFhtfVdnmv9BxT1evtRcvPSidWGk"
     },
     "tests": []
   },
@@ -200,13 +200,82 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-05-02T15:08:10.694Z",
-    "modified": "2022-05-02T15:09:34.653Z",
+    "modified": "2022-05-03T16:01:16.829Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  },\n  \"firstName\": \"\",\n  \"lastName\": \"\"\n}",
+      "raw": "{\n  \"countryCode\": \"98\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"phoneNumber\": \"9119119191\",\n  \"firstName\": \"sasan\",\n  \"lastName\": \"\"\n}",
       "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "45db1111-1f92-422b-8bf8-9f5375d8b34d",
+    "colId": "history",
+    "containerId": "",
+    "name": "",
+    "url": "",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-05-03T15:37:00.385Z",
+    "modified": "2022-05-03T15:37:00.390Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "af5d85ec-f94c-4c28-a5d7-1e091425037d",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/user/createNewUser",
+    "url": "{{baseUrl}}/user/createNewUser",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-05-03T15:37:16.460Z",
+    "modified": "2022-05-03T15:37:16.530Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "fd62d6bd-f546-442b-ae28-a8c921b905b2",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/normalUser/createNewNormalUser",
+    "url": "{{baseUrl}}/normalUser/createNewNormalUser",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-05-03T15:37:53.565Z",
+    "modified": "2022-05-03T15:52:25.809Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxOTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUxNTkzMDU5fQ.DvVNhOfz7nG16BKTFhtfVdnmv9BxT1evtRcvPSidWGk"
+    },
+    "tests": []
+  },
+  {
+    "_id": "9b057f14-0d37-40bc-af72-b2a1d3466292",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/user/normalUser/createNewNormalUser",
+    "url": "{{baseUrl}}/user/normalUser/createNewNormalUser",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-05-03T15:52:58.159Z",
+    "modified": "2022-05-03T15:53:31.208Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"firstName\": \"testUser01\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxOTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUxNTkzMDU5fQ.DvVNhOfz7nG16BKTFhtfVdnmv9BxT1evtRcvPSidWGk"
     },
     "tests": []
   }

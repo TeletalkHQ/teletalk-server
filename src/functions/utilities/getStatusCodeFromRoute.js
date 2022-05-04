@@ -1,5 +1,9 @@
 const {
-  appErrors: { NO_ROUTE_OBJECT },
+  appErrors: {
+    properties: {
+      NO_ROUTE_OBJECT: { properties: NO_ROUTE_OBJECT },
+    },
+  },
 } = require("@/variables/errors/appErrors");
 
 const { errorThrower } = require("@/functions/utilities/utilsNoDeps");

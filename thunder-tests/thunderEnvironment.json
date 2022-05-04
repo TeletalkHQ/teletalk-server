@@ -6,7 +6,7 @@
     "global": true,
     "sortNum": -1,
     "created": "2022-03-07T18:53:28.053Z",
-    "modified": "2022-04-14T18:54:37.237Z",
+    "modified": "2022-05-03T15:54:07.752Z",
     "data": [
       {
         "name": "url",
@@ -22,11 +22,11 @@
       },
       {
         "name": "token",
-        "value": ""
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxOTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwicHJpdmF0ZUlkIjoiRlM1ODJnd3ZQQlUyX3VidkczcWtDVjBNeEpPZVZMbjRoTzAiLCJpYXQiOjE2NTE1OTMyMTF9.WoTf5JX7xwG_bYtLngoc3eFHMVM8lgelwXaciv3hwj8"
       },
       {
         "name": "verifyToken",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxMTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJpcmFuIiwiaWF0IjoxNjQ5OTYyMzkxfQ.JRsq-NfFUXYBUVvOn4_96rMINiLO5xQS8B28z7VtGik"
+        "value": ""
       }
     ]
   },

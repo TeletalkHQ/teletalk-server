@@ -19,7 +19,6 @@ const addContactCellphoneController = async (
       body: { firstName, lastName },
       currentUser,
     } = req;
-
     const targetUserData = getCellphone(req.body);
 
     const { targetUser } = await addContactToUserContacts(
@@ -29,14 +28,13 @@ const addContactCellphoneController = async (
 
     res.sendJsonResponse(addContactRoute, {
       contact: {
-        ...targetUserData,
         firstName,
         lastName,
         privateId: targetUser.privateId,
       },
     });
   } catch (error) {
-    logger.log("addContactCellphoneController", error);
+    logger.log("addContactCellphoneController catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
   }

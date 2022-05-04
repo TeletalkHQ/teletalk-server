@@ -27,3 +27,5 @@ Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
 version calculator
 useless routes cleanup
+
+Add input/output properties on routes

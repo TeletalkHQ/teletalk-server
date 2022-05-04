@@ -10,4 +10,4 @@ require("$/api/userApis/verifySignInNormalApi.spec");
 require("$/api/userApis/createNewUserApi.spec");
 
 //* Cellphone api's ==>
-require("$/api/cellphoneApis/addContact.spec");
+require("$/api/cellphoneApis/addContactApi.spec");

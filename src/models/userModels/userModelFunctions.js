@@ -50,10 +50,9 @@ const addContactToUserBlacklist = async (
     });
 
     const targetUser = await userFinder(targetUserData);
-    errorThrower(targetUser === null, {
-      ...targetUserData,
-      ...TARGET_USER_NOT_EXIST,
-    });
+    errorThrower(targetUser === null, () =>
+      getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
+    );
 
     const blacklistItem = {
       phoneNumber: targetUserData.phoneNumber,

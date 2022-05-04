@@ -24,7 +24,7 @@ const {
 } = require("@/variables/constants/initialValues/initialValue");
 
 describe("Add requirements to application state", () => {
-  it("should make test user and save into state", async () => {
+  it("should make test users and save into state", async () => {
     const { countryName, countryCode } = countries.find((c) =>
       c.countryName.toLowerCase().includes("iran")
     );

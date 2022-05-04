@@ -162,6 +162,10 @@ const randomNumber = (length) => {
   return pwd.join("");
 };
 
+const randomCountryCode = () =>
+  Math.floor(Math.random() * 100 * Math.random()) +
+  Math.floor(Math.random() * 10);
+
 const validatorErrorFinder = (errors, value, prop = "type") =>
   errors.find((r) => r[prop] === value);
 
@@ -182,6 +186,7 @@ module.exports = {
   isFunction,
   isUrlShouldIgnore,
   objectInitializer,
+  randomCountryCode,
   randomNumber,
   randomString,
   setEnvironment,

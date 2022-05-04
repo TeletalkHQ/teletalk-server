@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
 const {
   errorThrower,
@@ -108,13 +109,28 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-// const v = validatorCompiler(cellphoneValidationModel);
+const checkReturnCondition = (returnCondition, error) => {
+  if (returnCondition) {
+    return error;
+  }
+
+  throw error;
+};
+
 const bioValidator = validatorCompiler(bioValidationsModel);
-const contactValidator = validatorCompiler({
-  ...cellphoneValidationModel,
-  ...firstNameValidationModel,
-  ...lastNameValidationModel,
-});
+
+const contactValidator = async (contact, returnCondition) => {
+  try {
+    await cellphoneValidator(contact);
+    await firstNameValidator(contact.firstName);
+    await lastNameValidator(contact.lastName);
+
+    return { done: true };
+  } catch (error) {
+    logger.log("contactValidator catch, error:", error);
+    return checkReturnCondition(returnCondition, error);
+  }
+};
 const compiledCountryCodeValidator = validatorCompiler(
   countryCodeValidationModel
 );
@@ -144,87 +160,101 @@ const cellphoneValidator = async (cellphone = {}) => {
       return getErrorObject(CELLPHONE_REQUIRED);
     });
 
-    await countryCodeValidator(countryCode);
-    await countryNameValidator(countryName);
-    await phoneNumberValidator(phoneNumber);
+    // const countryCodeValidationError =
+    await countryCodeValidator(countryCode, false);
+    // const countryNameValidationError =
+    await countryNameValidator(countryName, false);
+    // const phoneNumberValidationError =
+    await phoneNumberValidator(phoneNumber, false);
   } catch (error) {
     logger.log("cellphoneValidator catch, error:", error);
     throw error;
   }
 };
 
-const countryCodeValidator = async (countryCode) => {
-  const result = await compiledCountryCodeValidator({ countryCode });
+const countryCodeValidator = async (countryCode, returnCondition) => {
+  try {
+    const result = await compiledCountryCodeValidator({ countryCode });
 
-  if (result === true) {
-    const country = countries.find((c) => c.countryCode === countryCode);
+    if (result === true) {
+      const country = countries.find((c) => c.countryCode === countryCode);
 
-    errorThrower(country === undefined, () =>
-      errorObject(COUNTRY_CODE_NOT_SUPPORTED)
-    );
+      errorThrower(country === undefined, () =>
+        errorObject(COUNTRY_CODE_NOT_SUPPORTED)
+      );
 
-    return { done: true };
+      return { done: true };
+    }
+
+    const { string, stringNumeric, stringMax, stringMin, required } =
+      getValidatorErrorTypes(result);
+
+    // eslint-disable-next-line no-inner-declarations
+    function errorObject(errorObject) {
+      return getErrorObject(errorObject, {
+        validatedCountryCode: countryCode,
+        validationResult: result,
+      });
+    }
+
+    errorThrower(required, () => errorObject(COUNTRY_CODE_REQUIRED));
+
+    errorThrower(string, () => errorObject(COUNTRY_CODE_INVALID_TYPE));
+
+    errorThrower(stringNumeric, () => errorObject(COUNTRY_CODE_NUMERIC));
+
+    errorThrower(stringMin, () => errorObject(COUNTRY_CODE_MINLENGTH_REACH));
+
+    errorThrower(stringMax, () => errorObject(COUNTRY_CODE_MAXLENGTH_REACH));
+
+    errorThrower(result !== true, () => errorObject(COUNTRY_CODE_INVALID));
+
+    return { done: false, error: result };
+  } catch (error) {
+    logger.log("countryCodeValidator catch, error:", error);
+    return checkReturnCondition(returnCondition, error);
   }
-
-  const { string, stringNumeric, stringMax, stringMin, required } =
-    getValidatorErrorTypes(result);
-
-  function errorObject(errorObject) {
-    return getErrorObject(errorObject, {
-      validatedCountryCode: countryCode,
-      validationResult: result,
-    });
-  }
-
-  errorThrower(required, () => errorObject(COUNTRY_CODE_REQUIRED));
-
-  errorThrower(string, () => errorObject(COUNTRY_CODE_INVALID_TYPE));
-
-  errorThrower(stringNumeric, () => errorObject(COUNTRY_CODE_NUMERIC));
-
-  errorThrower(stringMin, () => errorObject(COUNTRY_CODE_MINLENGTH_REACH));
-
-  errorThrower(stringMax, () => errorObject(COUNTRY_CODE_MAXLENGTH_REACH));
-
-  errorThrower(result !== true, () => errorObject(COUNTRY_CODE_INVALID));
-
-  return { done: false, error: result };
 };
 
-const countryNameValidator = async (countryName) => {
-  const result = await compiledCountryNameValidator({ countryName });
+const countryNameValidator = async (countryName, returnCondition) => {
+  try {
+    const result = await compiledCountryNameValidator({ countryName });
 
-  if (result === true) {
-    const country = countries.find((c) => c.countryName === countryName);
+    if (result === true) {
+      const country = countries.find((c) => c.countryName === countryName);
 
-    errorThrower(country === undefined, () =>
-      errorObject(COUNTRY_NAME_NOT_SUPPORTED)
-    );
+      errorThrower(country === undefined, () =>
+        errorObject(COUNTRY_NAME_NOT_SUPPORTED)
+      );
 
-    return { done: true };
+      return { done: true };
+    }
+
+    const { string, stringMax, stringMin, required } =
+      getValidatorErrorTypes(result);
+
+    function errorObject(errorObject) {
+      return getErrorObject(errorObject, {
+        validatedCountryName: countryName,
+        validationResult: result,
+      });
+    }
+
+    errorThrower(required, () => errorObject(COUNTRY_NAME_REQUIRED));
+
+    errorThrower(string, () => errorObject(COUNTRY_NAME_INVALID_TYPE));
+
+    errorThrower(stringMin, () => errorObject(COUNTRY_NAME_MINLENGTH_REACH));
+
+    errorThrower(stringMax, () => errorObject(COUNTRY_NAME_MAXLENGTH_REACH));
+
+    errorThrower(result !== true, () => errorObject(COUNTRY_NAME_INVALID));
+
+    return { done: false, error: result };
+  } catch (error) {
+    logger.log("countryNameValidator catch, error:", error);
+    return checkReturnCondition(returnCondition, error);
   }
-
-  const { string, stringMax, stringMin, required } =
-    getValidatorErrorTypes(result);
-
-  function errorObject(errorObject) {
-    return getErrorObject(errorObject, {
-      validatedCountryName: countryName,
-      validationResult: result,
-    });
-  }
-
-  errorThrower(required, () => errorObject(COUNTRY_NAME_REQUIRED));
-
-  errorThrower(string, () => errorObject(COUNTRY_NAME_INVALID_TYPE));
-
-  errorThrower(stringMin, () => errorObject(COUNTRY_NAME_MINLENGTH_REACH));
-
-  errorThrower(stringMax, () => errorObject(COUNTRY_NAME_MAXLENGTH_REACH));
-
-  errorThrower(result !== true, () => errorObject(COUNTRY_NAME_INVALID));
-
-  return { done: false, error: result };
 };
 
 const firstNameValidator = async (firstName) => {
@@ -272,33 +302,38 @@ const lastNameValidator = async (lastName) => {
   return { done: false, error: result };
 };
 
-const phoneNumberValidator = async (phoneNumber) => {
-  const result = await compiledPhoneNumberValidator({ phoneNumber });
+const phoneNumberValidator = async (phoneNumber, returnCondition) => {
+  try {
+    const result = await compiledPhoneNumberValidator({ phoneNumber });
 
-  if (result === true) return { done: true };
+    if (result === true) return { done: true };
 
-  const { stringNumeric, string, stringMax, stringMin, required } =
-    getValidatorErrorTypes(result);
+    const { stringNumeric, string, stringMax, stringMin, required } =
+      getValidatorErrorTypes(result);
 
-  const errorObject = (errorObject) =>
-    getErrorObject(errorObject, {
-      validatedPhoneNumber: phoneNumber,
-      validationResult: result,
-    });
+    const errorObject = (errorObject) =>
+      getErrorObject(errorObject, {
+        validatedPhoneNumber: phoneNumber,
+        validationResult: result,
+      });
 
-  errorThrower(required, () => errorObject(PHONE_NUMBER_REQUIRED));
+    errorThrower(required, () => errorObject(PHONE_NUMBER_REQUIRED));
 
-  errorThrower(string, () => errorObject(PHONE_NUMBER_INVALID_TYPE));
+    errorThrower(string, () => errorObject(PHONE_NUMBER_INVALID_TYPE));
 
-  errorThrower(stringNumeric, () => errorObject(PHONE_NUMBER_NUMERIC));
+    errorThrower(stringNumeric, () => errorObject(PHONE_NUMBER_NUMERIC));
 
-  errorThrower(stringMin, () => errorObject(PHONE_NUMBER_MINLENGTH_REACH));
+    errorThrower(stringMin, () => errorObject(PHONE_NUMBER_MINLENGTH_REACH));
 
-  errorThrower(stringMax, () => errorObject(PHONE_NUMBER_MAXLENGTH_REACH));
+    errorThrower(stringMax, () => errorObject(PHONE_NUMBER_MAXLENGTH_REACH));
 
-  errorThrower(result !== true, () => errorObject(PHONE_NUMBER_INVALID));
+    errorThrower(result !== true, () => errorObject(PHONE_NUMBER_INVALID));
 
-  return { done: false, error: result };
+    return { done: false, error: result };
+  } catch (error) {
+    logger.log("countryNameValidator catch, error:", error);
+    return checkReturnCondition(returnCondition, error);
+  }
 };
 
 const privateIdValidator = async (privateId) => {

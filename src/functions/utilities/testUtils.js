@@ -53,7 +53,11 @@ const myRequest = async (
 
       const { errorKey, errorCode, errorReason } = errorObject;
 
-      logger.log(`errorKey ${routeObject.url} ${errorObject.reason}`, errorKey);
+      logger.log(
+        `errorKey ${routeObject.url} ${errorObject.reason}`,
+        errorKey,
+        response.body
+      );
 
       expect(response.body.errors[errorKey]?.errorReason).to.equal(errorReason);
       expect(response.body.errors[errorKey]?.errorCode).to.equal(errorCode);

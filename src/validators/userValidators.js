@@ -21,7 +21,6 @@ const {
   userValidationModels: {
     properties: {
       bioValidationsModel: { properties: bioValidationsModel },
-      cellphoneValidationModel: { properties: cellphoneValidationModel },
       countryCodeValidationModel: { properties: countryCodeValidationModel },
       countryNameValidationModel: { properties: countryNameValidationModel },
       firstNameValidationModel: { properties: firstNameValidationModel },
@@ -257,29 +256,34 @@ const countryNameValidator = async (countryName, returnCondition) => {
   }
 };
 
-const firstNameValidator = async (firstName) => {
-  const result = await compiledFirstNameValidator({ firstName });
+const firstNameValidator = async (firstName, returnCondition) => {
+  try {
+    const result = await compiledFirstNameValidator({ firstName });
 
-  if (result === true) return { done: true };
+    if (result === true) return { done: true };
 
-  const { string, stringMax, stringMin, required } =
-    getValidatorErrorTypes(result);
+    const { string, stringMax, stringMin, required } =
+      getValidatorErrorTypes(result);
 
-  const errorObject = (errorObject) =>
-    getErrorObject(errorObject, {
-      validatedFirstName: firstName,
-      validationResult: result,
-    });
+    const errorObject = (errorObject) =>
+      getErrorObject(errorObject, {
+        validatedFirstName: firstName,
+        validationResult: result,
+      });
 
-  errorThrower(required, () => errorObject(FIRST_NAME_REQUIRED));
+    errorThrower(required, () => errorObject(FIRST_NAME_REQUIRED));
 
-  errorThrower(string, () => errorObject(FIRST_NAME_INVALID_TYPE));
+    errorThrower(string, () => errorObject(FIRST_NAME_INVALID_TYPE));
 
-  errorThrower(stringMin, () => errorObject(FIRST_NAME_MINLENGTH_REACH));
+    errorThrower(stringMin, () => errorObject(FIRST_NAME_MINLENGTH_REACH));
 
-  errorThrower(stringMax, () => errorObject(FIRST_NAME_MAXLENGTH_REACH));
+    errorThrower(stringMax, () => errorObject(FIRST_NAME_MAXLENGTH_REACH));
 
-  return { done: false, error: result };
+    return { done: false, error: result };
+  } catch (error) {
+    logger.log("firstNameValidator catch, error:", error);
+    return checkReturnCondition(returnCondition, error);
+  }
 };
 
 const lastNameValidator = async (lastName) => {

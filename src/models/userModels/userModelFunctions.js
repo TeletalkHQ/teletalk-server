@@ -44,10 +44,9 @@ const addContactToUserBlacklist = async (
       currentUser.blacklist,
       targetUserData
     );
-    errorThrower(existBlacklistItem, {
-      ...targetUserData,
-      ...BLACKLIST_ITEM_EXIST,
-    });
+    errorThrower(existBlacklistItem, () =>
+      getErrorObject(BLACKLIST_ITEM_EXIST, { targetUserData })
+    );
 
     const targetUser = await userFinder(targetUserData);
     errorThrower(targetUser === null, () =>

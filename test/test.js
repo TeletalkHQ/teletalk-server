@@ -11,3 +11,4 @@ require("$/api/userApis/createNewUserApi.spec");
 
 //* Cellphone api's ==>
 require("$/api/cellphoneApis/addContactApi.spec");
+require("$/api/cellphoneApis/addBlockApi.spec");

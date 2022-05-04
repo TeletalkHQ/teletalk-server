@@ -1,11 +1,7 @@
+const { setTestUserAndTestToken } = require("@/functions/utilities/testUtils");
+const { getTestUsers } = require("@/functions/utilities/utils");
 const { request, expect } = require("@/functions/utilities/testUtils");
-const {
-  state: { getStateObject },
-} = require("@/functions/tools/State");
 
-const {
-  initialValue: { stateKeys },
-} = require("@/variables/constants/initialValues/initialValue");
 const {
   cellphoneRoutes: {
     properties: {
@@ -14,34 +10,41 @@ const {
     },
   },
 } = require("@/variables/routes/cellphoneRoutes");
-const { setEnvironment } = require("@/functions/utilities/utilsNoDeps");
 const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
+  userErrors: {
+    properties: {
+      SELF_STUFF,
+      CONTACT_ITEM_EXIST,
+      CONTACT_ITEM_NOT_EXIST,
+      CONTACT_INVALID_TYPE,
+    },
+  },
+} = require("@/variables/errors/userErrors");
+
+const {
+  userModels: {
+    properties: {
+      privateIdModel: { properties: privateIdModel },
+    },
+  },
+} = require("@/models/userModels/userModels");
 
 describe("add contact successfully", () => {
-  it(`should add  to testUser contact list`, async () => {
-    const testUser = await getStateObject(stateKeys.testUser);
+  it(`should add testUser_1 to testUser_0 contact list`, async () => {
+    const { testUser_0, testUser_1 } = await getTestUsers();
+    setTestUserAndTestToken(testUser_0);
 
-    setEnvironment(ENVIRONMENT_KEYS.TEST_MAIN_TOKEN, testUser.tokens[0].token);
+    const {
+      body: {
+        contact: { firstName, lastName, privateId },
+      },
+    } = await request(cellphoneRouteBaseUrl, addContactRoute, testUser_1);
 
-    const [user1, user2, user3] = (await getStateObject(stateKeys.users))
-      .filter((u) => u.phoneNumber !== testUser.phoneNumber)
-      .slice(0, 5);
-
-    const result = await request(cellphoneRouteBaseUrl, addContactRoute, user1);
-
-    logger.log(result);
-
-    // users.forEach(async (user) => {
-    // const result = await request(
-    // cellphoneRouteBaseUrl,
-    // addContactRoute,
-    // user
-    // );
-    // logger.log(user, result);
-    // });
+    expect(firstName).equal(testUser_1.firstName);
+    expect(lastName).equal(testUser_1.lastName);
+    expect(privateId).to.be.a(privateIdModel.type.value);
+    expect(privateId.length)
+      .greaterThanOrEqual(privateIdModel.minlength.value)
+      .lessThanOrEqual(privateIdModel.maxlength.value);
   });
 });
-
-/* ${user.countryCode}:${user.phoneNumber}:${user.countryName} */

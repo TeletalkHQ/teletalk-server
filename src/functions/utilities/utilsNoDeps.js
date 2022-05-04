@@ -46,14 +46,6 @@ const setEnvironment = (envName, value) => {
   process.env[envName] = value;
 };
 
-const getTestToken = () => {
-  return getEnvironment("TEST_TOKEN");
-};
-
-const setTestToken = (token) => {
-  setEnvironment("TEST_TOKEN", token);
-};
-
 const getMethodFromRoute = (route) => {
   try {
     const method = route?.method;
@@ -67,41 +59,7 @@ const getMethodFromRoute = (route) => {
 };
 
 const isFunction = (...items) => {
-  return items.some((i) => typeof i === "function");
-};
-
-const ignoreMiddlewaresByUrl = (url, ...middlewares) => {
-  try {
-    errorThrower(
-      typeof url !== "string" && !Array.isArray(url),
-      "url must be string or an array"
-    );
-
-    errorThrower(
-      !middlewares.length,
-      "You need to pass at least one middleware"
-    );
-
-    return async (req, res, next) => {
-      errorThrower(
-        !isFunction(res?.json, next),
-        "You need to pass this tree item: [req, res, next]"
-      );
-
-      if (
-        (Array.isArray(url) && url.some((u) => u === req.url)) ||
-        url === req.url
-      ) {
-        return next();
-      }
-
-      for await (const md of middlewares) {
-        await md(req, res, next);
-      }
-    };
-  } catch (error) {
-    logger.log("ignoreMiddlewaresByUrl catch, error:", error);
-  }
+  return items.every((i) => typeof i === "function");
 };
 
 const skipParams = (count) => {
@@ -209,6 +167,9 @@ const validatorErrorFinder = (errors, value, prop = "type") =>
 
 const getHostFromRequest = (request) => request.get("host");
 
+const isUrlShouldIgnore = (url, reqUrl) =>
+  (Array.isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
+
 module.exports = {
   errorThrower,
   getAllEnvironments,
@@ -217,14 +178,13 @@ module.exports = {
   getErrorObject,
   getHostFromRequest,
   getMethodFromRoute,
-  getTestToken,
   getValidatorErrorTypes,
-  ignoreMiddlewaresByUrl,
+  isFunction,
+  isUrlShouldIgnore,
   objectInitializer,
   randomNumber,
   randomString,
   setEnvironment,
-  setTestToken,
   skipParams,
   validatorErrorFinder,
   versionCalculator,

@@ -14,7 +14,6 @@ const authDefaultMiddleware = async (req, res, next) => {
       "🚀 ~ file: authDefaultMiddleware.js ~ line 11 ~ authDefaultMiddleware ~ error",
       error
     );
-
     res.errorCollector({ authenticationError: error, statusCode: 401 });
     res.errorResponser();
   }

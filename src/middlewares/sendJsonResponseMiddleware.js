@@ -5,7 +5,9 @@ const {
 const sendJsonResponseMiddleware = (_, res, next) => {
   try {
     res.sendJsonResponse = (routeObject, data) => {
-      res.status(getStatusCodeFromRoute(routeObject)).json(data);
+      const statusCode = getStatusCodeFromRoute(routeObject);
+
+      res.status(statusCode).json(data);
     };
   } catch (error) {
     logger.log("sendJsonResponse catch, error:", error);

@@ -1,5 +1,8 @@
 const { cellphoneFinder } = require("@/functions/utilities/cellphoneFinder");
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const {
+  errorThrower,
+  getErrorObject,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");
 
@@ -19,14 +22,13 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-const userFinder = async (
-  userData = userInitialOptions
-  // findMethod = "findOne"
-) => {
+const userFinder = async (userData = userInitialOptions) => {
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    return await UserMongoModel.findOne(userData);
+    const currentUser = await UserMongoModel.findOne(userData);
+
+    return currentUser;
   } catch (error) {
     logger.log("userFinder catch", error);
     throw error;
@@ -77,16 +79,14 @@ const addContactToUserContacts = async (
       currentUser.contacts,
       targetUserData
     );
-    errorThrower(existContactItem, {
-      ...targetUserData,
-      ...CONTACT_ITEM_EXIST,
-    });
+    errorThrower(existContactItem, () =>
+      getErrorObject(CONTACT_ITEM_EXIST, { targetUserData })
+    );
 
     const targetUser = await userFinder(targetUserData);
-    errorThrower(targetUser === null, {
-      ...targetUserData,
-      ...TARGET_USER_NOT_EXIST,
-    });
+    errorThrower(targetUser === null, () =>
+      getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
+    );
 
     currentUser.contacts.push({
       countryCode: targetUserData.countryCode,
@@ -96,12 +96,11 @@ const addContactToUserContacts = async (
       phoneNumber: targetUserData.phoneNumber,
       privateId: targetUser.privateId,
     });
-
     await currentUser.updateOne({
       contacts: currentUser.contacts,
     });
 
-    return { targetUser };
+    return { targetUser, currentUser };
   } catch (error) {
     logger.log("addContactToUserContacts catch, error:", error);
     throw error;
@@ -216,7 +215,15 @@ const addTestUser = async (
   try {
     await UserMongoModel.updateOne(
       { countryCode, countryName, phoneNumber },
-      { tokens: [{ token }], privateId, firstName, lastName },
+      {
+        tokens: [{ token }],
+        privateId,
+        firstName,
+        lastName,
+        contacts: [],
+        blacklist: [],
+        chats: [],
+      },
       {
         upsert: true,
       }
@@ -237,16 +244,23 @@ const getAllUsers = async () => {
   return users;
 };
 
+const removeTestUsers = async (length) => {
+  for (let i = 0; i < length; i++) {
+    await UserMongoModel.remove();
+  }
+};
+
 module.exports = {
   addContactToUserBlacklist,
   addContactToUserContacts,
+  addTestUser,
   createNewNormalUser,
   deleteBlacklistItem,
+  getAllUsers,
   getUserContacts,
   removeContactItem,
+  removeTestUsers,
   updateOneContact,
   updateUserDataByPrivateId,
   userFinder,
-  getAllUsers,
-  addTestUser,
 };

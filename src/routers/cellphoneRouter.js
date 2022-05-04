@@ -32,7 +32,9 @@ const {
   addContactCellphoneController,
 } = require("@/controllers/cellphoneControllers/addContactCellphoneController");
 
-const { ignoreMiddlewaresByUrl } = require("@/functions/utilities/utilsNoDeps");
+const {
+  ignoreMiddlewaresByUrlMiddleware,
+} = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
 
 const {
   cellphoneRoutes: {
@@ -52,12 +54,14 @@ const cellphoneRouter = Router();
 cellphoneRouter.use(findCurrentUserFromDb);
 
 cellphoneRouter.use(
-  ignoreMiddlewaresByUrl(
+  ignoreMiddlewaresByUrlMiddleware(
     getContactsRoute.url,
     cellphoneValidatorMiddleware,
     selfStuffControllerMiddleware
   )
 );
+
+cellphoneRouter.use(selfStuffControllerMiddleware);
 
 cellphoneRouter.use(addContactRoute.url, contactValidatorMiddleware);
 

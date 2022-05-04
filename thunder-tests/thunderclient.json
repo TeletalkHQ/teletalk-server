@@ -8,12 +8,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-04-10T19:07:05.854Z",
-    "modified": "2022-04-23T11:54:30.101Z",
+    "modified": "2022-05-03T15:50:59.804Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"phoneNumber\": \"1012700470\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
+      "raw": "{\n  \"phoneNumber\": \"9119119191\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
       "form": []
     },
     "tests": []
@@ -27,17 +27,17 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-04-10T19:07:05.855Z",
-    "modified": "2022-04-23T12:38:15.462Z",
+    "modified": "2022-05-03T15:51:52.683Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"verificationCode\":\"719921\"\n}",
+      "raw": "{\n    \"verificationCode\":\"266320\"\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjEwMTI3MDA0NzAiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUwNzE3NDU2fQ.WOX930_Up12Jj35zLgWrkjK8hTA5BKsslpa-yHtkkC0"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxOTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUxNTkzMDU5fQ.DvVNhOfz7nG16BKTFhtfVdnmv9BxT1evtRcvPSidWGk"
     },
     "tests": []
   },
@@ -107,12 +107,12 @@
     "method": "POST",
     "sortNum": 60000,
     "created": "2022-04-10T19:07:05.859Z",
-    "modified": "2022-05-02T15:09:29.738Z",
+    "modified": "2022-05-03T15:56:15.697Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"cellphone\": {\n    \"countryCode\": \"\",\n    \"countryName\": \"\",\n    \"phoneNumber\" : \"\"\n  },\n  \"firstName\": \"\",\n  \"lastName\": \"\"\n}",
+      "raw": "{\n  \"countryCode\": \"98\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"phoneNumber\": \"9119119191\",\n  \"firstName\": \"sasan\",\n  \"lastName\": \"\"\n}",
       "form": []
     },
     "tests": []
@@ -167,6 +167,29 @@
     "modified": "2022-04-10T19:25:47.900Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "4d3b95b8-a0e6-4f66-8674-8bc55dd5ad7f",
+    "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
+    "containerId": "912ee1d7-89bc-46ef-aa23-c40e3498d032",
+    "name": "createNewUserUser",
+    "url": "{{baseUrl}}/user/normalUser/createNewNormalUser",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2022-05-03T15:36:53.163Z",
+    "modified": "2022-05-03T15:53:28.548Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"firstName\": \"testUser01\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxOTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUxNTkzMDU5fQ.DvVNhOfz7nG16BKTFhtfVdnmv9BxT1evtRcvPSidWGk"
+    },
     "tests": []
   }
 ]

@@ -6,10 +6,7 @@ const { skipParams } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   commonModels: {
-    properties: {
-      createdAtCommonModel: commonCreatedAtModel,
-      privateIdCommonModel: commonPrivateIdModel,
-    },
+    properties: { createdAtCommonModel, privateIdCommonModel },
   },
 } = require("@/models/commonModels/commonModels");
 
@@ -131,8 +128,8 @@ const countryNameModel = modelGenerator(
   "1.0.0"
 );
 
-const createdAtModel = commonCreatedAtModel;
-const privateIdModel = commonPrivateIdModel;
+const createdAtModel = createdAtCommonModel;
+const privateIdModel = privateIdCommonModel;
 
 const firstNameModel = modelGenerator(
   modelPropertyGenerator(18, FIRST_NAME_MAXLENGTH_REACH),

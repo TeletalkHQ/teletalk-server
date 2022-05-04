@@ -12,8 +12,9 @@ const { testRouter } = require("@/routers/testRouter");
 const {
   authDefaultMiddleware,
 } = require("@/middlewares/authDefaultMiddleware");
-
-const { ignoreMiddlewaresByUrl } = require("@/functions/utilities/utilsNoDeps");
+const {
+  ignoreMiddlewaresByUrlMiddleware,
+} = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
 
 const {
   cellphoneRoutes: {
@@ -65,7 +66,7 @@ const lifeLine = Router();
 
 //? Add your global middleware for routes here, in special cases you can ignore middleware by url
 lifeLine.use(
-  ignoreMiddlewaresByUrl(
+  ignoreMiddlewaresByUrlMiddleware(
     [
       `${userRouteBaseUrl.url}${signInNormalRoute.url}`,
       `${userRouteBaseUrl.url}${verifySignInNormalRoute.url}`,

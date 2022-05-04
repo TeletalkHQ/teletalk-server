@@ -29,11 +29,16 @@ const {
   },
 } = require("@/models/userModels/userModels");
 
+let testUsers = {};
+
+before(async () => {
+  const testUsers = await getTestUsers();
+  setTestUserAndTestToken(testUsers.testUser_0);
+});
+
 describe("add contact successfully", () => {
   it(`should add testUser_1 to testUser_0 contact list`, async () => {
-    const { testUser_0, testUser_1 } = await getTestUsers();
-    setTestUserAndTestToken(testUser_0);
-
+    const { testUser_1 } = testUsers;
     const {
       body: {
         contact: { firstName, lastName, privateId },
@@ -47,4 +52,8 @@ describe("add contact successfully", () => {
       .greaterThanOrEqual(privateIdModel.minlength.value)
       .lessThanOrEqual(privateIdModel.maxlength.value);
   });
+});
+
+describe("addContact failure", () => {
+  it("should get error, SELF_STUFF", () => {});
 });

@@ -1,6 +1,10 @@
-const { setTestUserAndTestToken } = require("@/functions/utilities/testUtils");
+const {
+  setTestUserAndTestToken,
+  request,
+  expect,
+} = require("@/functions/utilities/testUtils");
+const { randomString } = require("@/functions/utilities/utilsNoDeps");
 const { getTestUsers } = require("@/functions/utilities/utils");
-const { request, expect } = require("@/functions/utilities/testUtils");
 const {
   randomNumber,
   randomCountryCode,
@@ -30,6 +34,10 @@ const {
       PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
       PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
       TARGET_USER_NOT_EXIST: { properties: TARGET_USER_NOT_EXIST },
+      FIRST_NAME_REQUIRED: { properties: FIRST_NAME_REQUIRED },
+      FIRST_NAME_MINLENGTH_REACH: { properties: FIRST_NAME_MINLENGTH_REACH },
+      FIRST_NAME_MAXLENGTH_REACH: { properties: FIRST_NAME_MAXLENGTH_REACH },
+      LAST_NAME_MAXLENGTH_REACH: { properties: LAST_NAME_MAXLENGTH_REACH },
     },
   },
 } = require("@/variables/errors/userErrors");
@@ -51,6 +59,16 @@ const cellphone = {
   ...countries[randomCountryCode()],
   phoneNumber: randomNumber(10),
 };
+
+const userFullContact = (firstName, lastName) => ({
+  firstName,
+  lastName,
+  ...cellphone,
+});
+
+const lastNameMaxLength = lastNameModel.maxlength.value;
+const firstNameMaxLength = firstNameModel.maxlength.value;
+const firstNameMinLength = firstNameModel.minlength.value;
 
 const myRequest = (data, errorObject) => {
   return request(cellphoneRouteBaseUrl, addContactRoute, data, errorObject);
@@ -100,7 +118,7 @@ describe("addContact failure tests", () => {
   it("should get error, CONTACT_ITEM_EXIST", async () => {
     const { testUser_2 } = testUsers;
 
-    //* First one get succeed, but second one is duplicate
+    //* First one get succeed, but second one is duplicate &_&
     await myRequest(testUser_2);
     await myRequest(testUser_2, CONTACT_ITEM_EXIST);
   });
@@ -219,5 +237,38 @@ describe("addContact failure tests", () => {
       COUNTRY_NAME_NOT_SUPPORTED
     );
   });
+  //#endregion
+
+  //#region //! Copied from createNewUserApi.spec  !//
+  it("should get error, FIRST_NAME_REQUIRED", async () => {
+    await myRequest(
+      userFullContact(null, randomString(randomString(lastNameMaxLength))),
+      FIRST_NAME_REQUIRED
+    );
+  });
+  it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
+    await myRequest(
+      userFullContact(randomString(+firstNameMinLength - 1)),
+      FIRST_NAME_MINLENGTH_REACH
+    );
+  });
+
+  it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
+    await myRequest(
+      userFullContact(randomString(+firstNameMaxLength + 1)),
+      FIRST_NAME_MAXLENGTH_REACH
+    );
+  });
+
+  it("should get error, LAST_NAME_MAXLENGTH_REACH", async () => {
+    await myRequest(
+      userFullContact(
+        randomString(firstNameMaxLength),
+        randomString(lastNameMaxLength + 1)
+      ),
+      LAST_NAME_MAXLENGTH_REACH
+    );
+  });
+
   //#endregion
 });

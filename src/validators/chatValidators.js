@@ -15,7 +15,7 @@ const {
   },
 } = require("@/models/validationModels/chatValidationModels");
 
-const chatIDValidator = validatorCompiler(chatIdValidationModel);
+const chatIdValidator = validatorCompiler(chatIdValidationModel);
 
 const messageIDValidator = validatorCompiler(messageIdValidationModel);
 
@@ -24,7 +24,7 @@ const messageTextValidator = validatorCompiler(messageTextValidationModel);
 const participantIDValidator = validatorCompiler(participantIdValidationModel);
 
 const chatValidators = {
-  chatIDValidator,
+  chatIdValidator,
   messageTextValidator,
   participantIDValidator,
   messageIDValidator,

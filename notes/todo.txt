@@ -28,5 +28,5 @@ Add user status into contact and user schema
 version calculator
 useless routes cleanup
 
-Add input/output properties on routes
+Add input/output properties to routes
 Add not exist to cellTests

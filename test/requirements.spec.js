@@ -2,12 +2,18 @@ require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnecter").databaseConnecter();
 require("@/variables/globalVariables");
 
-const {
-  state: { setStateObject },
-} = require("@/functions/tools/State");
-
+const { setEnvironment } = require("@/functions/utilities/utilsNoDeps");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { randomId } = require("@/functions/utilities/randomId");
+const {
+  setTestUserAndTestToken,
+  setTestUsersIntoState,
+} = require("@/functions/utilities/testUtils");
+
+const { countries } = require("@/variables/constants/countries");
+const {
+  ENVIRONMENT_KEYS,
+} = require("@/variables/constants/environmentInitialValues");
 
 const {
   commonModels: {
@@ -17,11 +23,6 @@ const {
   },
 } = require("@/models/commonModels/commonModels");
 const { addTestUser } = require("@/models/userModels/userModelFunctions");
-
-const { countries } = require("@/variables/constants/countries");
-const {
-  initialValue: { stateKeys },
-} = require("@/variables/constants/initialValues/initialValue");
 
 describe("Add requirements to application state", () => {
   it("should make test users and save into state", async () => {
@@ -62,6 +63,8 @@ describe("Add requirements to application state", () => {
       }
     }
 
-    await setStateObject(stateKeys.testUsers, testUsers);
+    setEnvironment(ENVIRONMENT_KEYS.TEST_USERS, testUsers);
+    setTestUserAndTestToken(testUsers.testUser_0);
+    await setTestUsersIntoState(testUsers);
   });
 });

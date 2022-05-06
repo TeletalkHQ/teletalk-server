@@ -1,7 +1,7 @@
 const { request, expect } = require("@/functions/utilities/testUtils");
 const {
   setEnvironment,
-  randomNumber,
+  randomStringNumber,
   randomCountryCode,
 } = require("@/functions/utilities/utilsNoDeps");
 
@@ -44,7 +44,7 @@ const {
 
 const cellphone = {
   ...countries[randomCountryCode()],
-  phoneNumber: randomNumber(10),
+  phoneNumber: randomStringNumber(10),
 };
 
 const myRequest = (data, errorObject) => {

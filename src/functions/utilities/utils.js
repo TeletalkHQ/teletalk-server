@@ -1,15 +1,3 @@
-const {
-  state: { getStateObject },
-} = require("@/functions/tools/State");
-
-const {
-  initialValue: { stateKeys },
-} = require("@/variables/constants/initialValues/initialValue");
-
-const getTestUsers = async () => {
-  return await getStateObject(stateKeys.testUsers);
-};
-
 const isEqualWithTargetCellphone = (cellphone, targetCell) => {
   if (
     cellphone.phoneNumber === targetCell.phoneNumber &&
@@ -31,7 +19,6 @@ const getTokenFromRequest = (request) => {
 module.exports = {
   getTokenFromRequest,
   isEqualWithTargetCellphone,
-  getTestUsers,
 };
 
 // const mongoose = require("mongoose");

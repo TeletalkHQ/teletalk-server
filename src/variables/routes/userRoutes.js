@@ -1,5 +1,9 @@
 const { routeGenerator } = require("@/functions/utilities/generators");
-const { versionCalculator } = require("@/functions/utilities/utilsNoDeps");
+const {
+  versionCalculator,
+  extractVersions,
+  extractFromInfo,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const userRouteBaseUrl = routeGenerator(true, "/user", true, "1.0.0");
 
@@ -42,19 +46,21 @@ const verifySignInNormalRoute = routeGenerator(
   "Use for verify sign in (normal account) as normal account"
 );
 
+const routes = {
+  userRouteBaseUrl,
+  createNewUserRoute,
+  logoutNormalRoute,
+  signInNormalRoute,
+  statusCheckRoute,
+  verifySignInNormalRoute,
+};
+
 const userRoutes = {
   info: {
-    version: "1.0.0",
+    version: versionCalculator(extractVersions(extractFromInfo(routes))),
   },
 
-  properties: {
-    userRouteBaseUrl,
-    createNewUserRoute,
-    logoutNormalRoute,
-    signInNormalRoute,
-    statusCheckRoute,
-    verifySignInNormalRoute,
-  },
+  properties: routes,
 };
 
 versionCalculator();

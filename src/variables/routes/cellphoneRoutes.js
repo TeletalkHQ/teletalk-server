@@ -1,4 +1,9 @@
 const { routeGenerator } = require("@/functions/utilities/generators");
+const {
+  versionCalculator,
+  extractVersions,
+  extractFromInfo,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const cellphoneRouteBaseUrl = routeGenerator(true, "/cellphone", true, "1.0.0");
 
@@ -106,25 +111,29 @@ const shareContactsRoute = routeGenerator(
   "Use for share single contact on user contacts list"
 );
 
-const cellphoneRoutes = {
-  info: { version: "1.0.0" },
+const routes = {
+  addBlockRoute,
+  addBlocksRoute,
+  addContactRoute,
+  addContactsRoute,
+  cellphoneRouteBaseUrl,
+  editBlockRoute,
+  editContactRoute,
+  getContactsRoute,
+  removeBlockRoute,
+  removeBlocksRoute,
+  removeContactRoute,
+  removeContactsRoute,
+  shareContactRoute,
+  shareContactsRoute,
+};
 
-  properties: {
-    addBlockRoute,
-    addBlocksRoute,
-    addContactRoute,
-    addContactsRoute,
-    cellphoneRouteBaseUrl,
-    editBlockRoute,
-    editContactRoute,
-    getContactsRoute,
-    removeBlockRoute,
-    removeBlocksRoute,
-    removeContactRoute,
-    removeContactsRoute,
-    shareContactRoute,
-    shareContactsRoute,
+const cellphoneRoutes = {
+  info: {
+    version: versionCalculator(extractVersions(extractFromInfo(routes))),
   },
+
+  properties: routes,
 };
 
 module.exports = {

@@ -200,9 +200,31 @@ const extractFromProperties = (object) => {
   return tempObject;
 };
 
+const extractFromInfo = (object) => {
+  const tempObject = {};
+
+  for (const key in object) {
+    tempObject[key] = object[key].info;
+  }
+
+  return tempObject;
+};
+
+const extractVersions = (object) => {
+  const tempArray = [];
+
+  for (const key in object) {
+    tempArray.push(object[key].version);
+  }
+
+  return tempArray;
+};
+
 module.exports = {
   errorThrower,
+  extractFromInfo,
   extractFromProperties,
+  extractVersions,
   getAllEnvironments,
   getCellphone,
   getEnvironment,

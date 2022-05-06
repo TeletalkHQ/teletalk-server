@@ -2,7 +2,12 @@ const {
   modelPropertyGenerator,
   modelGenerator,
 } = require("@/functions/utilities/generators");
-const { skipParams } = require("@/functions/utilities/utilsNoDeps");
+const {
+  skipParams,
+  versionCalculator,
+  extractFromInfo,
+  extractVersions,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   commonModels: {
@@ -137,7 +142,7 @@ const firstNameModel = modelGenerator(
   modelPropertyGenerator(true, FIRST_NAME_REQUIRED),
   modelPropertyGenerator(false),
   modelPropertyGenerator("string", FIRST_NAME_INVALID_TYPE),
-  skipParams(2),
+  ...skipParams(2),
   "1.0.0"
 );
 
@@ -214,27 +219,29 @@ const verificationCodeModel = modelGenerator(
   modelPropertyGenerator(false, VERIFICATION_CODE_EMPTY)
 );
 
+const models = {
+  bioModel,
+  blacklistModel,
+  contactsModel,
+  countryCodeModel,
+  countryNameModel,
+  createdAtModel,
+  firstNameModel,
+  lastNameModel,
+  macAddressModel,
+  phoneNumberModel,
+  privateIdModel,
+  tokenModel,
+  usernameModel,
+  verificationCodeModel,
+};
+
 const userModels = {
   info: {
-    version: "1.0.0",
+    version: versionCalculator(extractVersions(extractFromInfo(models))),
   },
 
-  properties: {
-    bioModel,
-    blacklistModel,
-    contactsModel,
-    countryCodeModel,
-    countryNameModel,
-    createdAtModel,
-    firstNameModel,
-    lastNameModel,
-    macAddressModel,
-    phoneNumberModel,
-    privateIdModel,
-    tokenModel,
-    usernameModel,
-    verificationCodeModel,
-  },
+  properties: models,
 };
 
 module.exports = {

@@ -1,4 +1,9 @@
 const {
+  versionCalculator,
+  extractVersions,
+  extractFromInfo,
+} = require("@/functions/utilities/utilsNoDeps");
+const {
   commonModels: {
     properties: {
       createdAtCommonModel: { properties: commonCreatedAtModel },
@@ -19,10 +24,14 @@ const createdAtValidationModel = {
   },
 };
 
-const commonValidationModels = {
-  properties: { createdAtValidationModel },
+const models = { createdAtValidationModel };
 
-  info: { version: "1.0.0" },
+const commonValidationModels = {
+  properties: models,
+
+  info: {
+    version: versionCalculator(extractVersions(extractFromInfo(models))),
+  },
 };
 
 module.exports = { commonValidationModels };

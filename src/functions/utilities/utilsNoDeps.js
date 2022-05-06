@@ -26,8 +26,6 @@ const objectInitializer = (values, props) => {
   }
 };
 
-const versionCalculator = () => {};
-
 const getEnvironment = (envName) => {
   return process.env[envName];
 };
@@ -174,8 +172,37 @@ const getHostFromRequest = (request) => request.get("host");
 const isUrlShouldIgnore = (url, reqUrl) =>
   (Array.isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
 
+const versionCalculator = (versions = []) => {
+  let [parentMajor, parentMinor, parentPatch] = returnNumberFromArrayOfString(
+    "1.0.0".split(".")
+  );
+
+  versions.forEach((v) => {
+    const [major, minor, patch] = returnNumberFromArrayOfString(v.split("."));
+
+    parentMajor += major - 1;
+    parentMinor += minor;
+    parentPatch += patch;
+  });
+
+  return `${parentMajor}.${parentMinor}.${parentPatch}`;
+};
+
+const returnNumberFromArrayOfString = (items) => items.map((item) => +item);
+
+const extractFromProperties = (object) => {
+  const tempObject = {};
+
+  for (const key in object) {
+    tempObject[key] = object[key].properties;
+  }
+
+  return tempObject;
+};
+
 module.exports = {
   errorThrower,
+  extractFromProperties,
   getAllEnvironments,
   getCellphone,
   getEnvironment,
@@ -187,8 +214,9 @@ module.exports = {
   isUrlShouldIgnore,
   objectInitializer,
   randomCountryCode,
-  randomStringNumber,
   randomString,
+  randomStringNumber,
+  returnNumberFromArrayOfString,
   setEnvironment,
   skipParams,
   validatorErrorFinder,

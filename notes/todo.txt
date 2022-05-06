@@ -13,7 +13,6 @@ Browser back control, part 129
 Handle error part 134
 Set headers part 135
 Restify part 136
-AuthMiddleware part 139
 Use snyk vulnerability scanner for sec reason
 Use firewall part 146
 PM2 for nodeJS process manager part 149
@@ -22,11 +21,8 @@ Using ms for convert time to ms and reverse
 ClipboardJS documentation
 Make api for log server errors
 Add versioning system for static data
-Add system, functions and stable structure for errors 
 Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
-version calculator
 useless routes cleanup
 
 Add input/output properties to routes
-Add not exist to cellTests

@@ -1,4 +1,9 @@
 const {
+  versionCalculator,
+  extractVersions,
+  extractFromInfo,
+} = require("@/functions/utilities/utilsNoDeps");
+const {
   userModels: {
     properties: {
       bioModel: { properties: bioModel },
@@ -253,23 +258,27 @@ const usernameValidationModel = {
   },
 };
 
-const userValidationModels = {
-  properties: {
-    bioValidationsModel,
-    cellphoneValidationModel,
-    countryCodeValidationModel,
-    countryNameValidationModel,
-    firstNameValidationModel,
-    lastNameValidationModel,
-    macAddressValidationModel,
-    phoneNumberValidationModel,
-    privateIdValidationModel,
-    tokenValidationModel,
-    usernameValidationModel,
-    verificationCodeValidationModel,
-  },
+const models = {
+  bioValidationsModel,
+  cellphoneValidationModel,
+  countryCodeValidationModel,
+  countryNameValidationModel,
+  firstNameValidationModel,
+  lastNameValidationModel,
+  macAddressValidationModel,
+  phoneNumberValidationModel,
+  privateIdValidationModel,
+  tokenValidationModel,
+  usernameValidationModel,
+  verificationCodeValidationModel,
+};
 
-  info: { version: "1.0.0" },
+const userValidationModels = {
+  properties: models,
+
+  info: {
+    version: versionCalculator(extractVersions(extractFromInfo(models))),
+  },
 };
 
 module.exports = {

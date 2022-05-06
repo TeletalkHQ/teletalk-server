@@ -1,4 +1,9 @@
 const { routeGenerator } = require("@/functions/utilities/generators");
+const {
+  versionCalculator,
+  extractVersions,
+  extractFromInfo,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const versionControlBaseUrl = routeGenerator(
   true,
@@ -15,10 +20,14 @@ const getAllStuffsRoute = routeGenerator(
   "Use for get all templates schemas and validators"
 );
 
-const versionControlRoutes = {
-  properties: { versionControlBaseUrl, getAllStuffsRoute },
+const routes = { versionControlBaseUrl, getAllStuffsRoute };
 
-  info: { version: "1.0.0" },
+const versionControlRoutes = {
+  properties: routes,
+
+  info: {
+    version: versionCalculator(extractVersions(extractFromInfo(routes))),
+  },
 };
 
 module.exports = { versionControlRoutes };

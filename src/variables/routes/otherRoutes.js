@@ -1,4 +1,9 @@
 const { routeGenerator } = require("@/functions/utilities/generators");
+const {
+  versionCalculator,
+  extractVersions,
+  extractFromInfo,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const otherRouteBaseUrl = routeGenerator(true, "/other", true, "1.0.0");
 
@@ -18,11 +23,13 @@ const welcomeRoute = routeGenerator(
   "Use to get welcome message for client"
 );
 
+const routes = { otherRouteBaseUrl, countriesRoute, welcomeRoute };
+
 const otherRoutes = {
   info: {
-    version: "1.0.0",
+    version: versionCalculator(extractVersions(extractFromInfo(routes))),
   },
-  properties: { otherRouteBaseUrl, countriesRoute, welcomeRoute },
+  properties: routes,
 };
 
 module.exports = { otherRoutes };

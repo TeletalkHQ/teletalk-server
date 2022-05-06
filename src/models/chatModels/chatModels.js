@@ -2,6 +2,11 @@ const {
   modelPropertyGenerator,
   modelGenerator,
 } = require("@/functions/utilities/generators");
+const {
+  versionCalculator,
+  extractVersions,
+  extractFromInfo,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   commonModels: {
@@ -41,9 +46,9 @@ const chatIdModel = chatIdCommonModel;
 const createdAtModel = createdAtCommonModel;
 const messageIdModel = messageIdCommonModel;
 
-const messageSenderModel = modelGenerator("1.0.0");
+// const messageSenderModel = modelGenerator("1.0.0");
 
-const messageStatusModel = modelGenerator("1.0.0");
+// const messageStatusModel = modelGenerator("1.0.0");
 
 const messageModel = modelGenerator(
   modelPropertyGenerator(10, MESSAGE_TEXT_MAX_LENGTH_REACH),
@@ -82,23 +87,27 @@ const participantIdModel = modelGenerator(
   "1.0.0"
 );
 
-const participantStatusModel = modelGenerator("1.0.0");
+// const participantStatusModel = modelGenerator("1.0.0");
 
-const participantVisibilityModel = modelGenerator("1.0.0");
+// const participantVisibilityModel = modelGenerator("1.0.0");
+
+const models = {
+  chatIdModel,
+  createdAtModel,
+  messageModel,
+  messageIdModel,
+  // messageSenderModel,
+  // messageStatusModel,
+  participantIdModel,
+  // participantStatusModel,
+  // participantVisibilityModel,
+};
 
 const chatModels = {
-  info: { version: "1.0.0" },
-  properties: {
-    chatIdModel,
-    createdAtModel,
-    messageModel,
-    messageIdModel,
-    messageSenderModel,
-    messageStatusModel,
-    participantIdModel,
-    participantStatusModel,
-    participantVisibilityModel,
+  info: {
+    version: versionCalculator(extractVersions(extractFromInfo(models))),
   },
+  properties: models,
 };
 
 module.exports = {

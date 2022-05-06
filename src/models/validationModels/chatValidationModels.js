@@ -1,4 +1,10 @@
 const {
+  versionCalculator,
+  extractVersions,
+  extractFromInfo,
+} = require("@/functions/utilities/utilsNoDeps");
+
+const {
   chatModels: {
     properties: {
       chatIdModel: { properties: chatIdModel },
@@ -97,15 +103,19 @@ const participantIdValidationModel = {
   },
 };
 
-const chatValidationModels = {
-  properties: {
-    messageIdValidationModel,
-    participantIdValidationModel,
-    messageTextValidationModel,
-    chatIdValidationModel,
-  },
+const models = {
+  messageIdValidationModel,
+  participantIdValidationModel,
+  messageTextValidationModel,
+  chatIdValidationModel,
+};
 
-  info: { version: "1.0.0" },
+const chatValidationModels = {
+  properties: models,
+
+  info: {
+    version: versionCalculator(extractVersions(extractFromInfo(models))),
+  },
 };
 
 module.exports = { chatValidationModels };

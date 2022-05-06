@@ -3,6 +3,11 @@ const {
   modelGenerator,
 } = require("@/functions/utilities/generators");
 const { randomId } = require("@/functions/utilities/randomId");
+const {
+  versionCalculator,
+  extractFromInfo,
+  extractVersions,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   chatErrors: {
@@ -63,6 +68,7 @@ const chatIdCommonModel = modelGenerator(
   modelPropertyGenerator(true),
   modelPropertyGenerator("string", CHAT_ID_INVALID_TYPE),
   modelPropertyGenerator(true, CHAT_ID_EXIST),
+  null,
   "1.0.0"
 );
 const messageIdCommonModel = modelGenerator(
@@ -76,15 +82,19 @@ const messageIdCommonModel = modelGenerator(
   "1.0.0"
 );
 
-const commonModels = {
-  info: { version: "1.0.0" },
+const models = {
+  createdAtCommonModel,
+  privateIdCommonModel,
+  chatIdCommonModel,
+  messageIdCommonModel,
+};
 
-  properties: {
-    createdAtCommonModel,
-    privateIdCommonModel,
-    chatIdCommonModel,
-    messageIdCommonModel,
+const commonModels = {
+  info: {
+    version: versionCalculator(extractVersions(extractFromInfo(models))),
   },
+
+  properties: models,
 };
 
 module.exports = {

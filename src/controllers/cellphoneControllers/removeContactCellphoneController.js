@@ -1,7 +1,11 @@
 const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
 const { removeContactItem } = require("@/models/userModels/userModelFunctions");
 const {
-  cellphoneRoutes: { properties: removeContactRoute },
+  cellphoneRoutes: {
+    properties: {
+      removeContactRoute: { properties: removeContactRoute },
+    },
+  },
 } = require("@/variables/routes/cellphoneRoutes");
 
 const removeContactCellphoneController = async (

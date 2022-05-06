@@ -14,7 +14,6 @@ const {
     properties: {
       BLACKLIST_ITEM_EXIST: { properties: BLACKLIST_ITEM_EXIST },
       BLACKLIST_ITEM_NOT_EXIST: { properties: BLACKLIST_ITEM_NOT_EXIST },
-      CELLPHONE_NOT_EXIST: { properties: CELLPHONE_NOT_EXIST },
       CONTACT_ITEM_EXIST: { properties: CONTACT_ITEM_EXIST },
       CONTACT_ITEM_NOT_EXIST: { properties: CONTACT_ITEM_NOT_EXIST },
       TARGET_USER_NOT_EXIST: { properties: TARGET_USER_NOT_EXIST },
@@ -164,7 +163,9 @@ const removeContactItem = async (
       currentUser.contacts,
       targetUserData
     );
-    errorThrower(!contactItem, CELLPHONE_NOT_EXIST);
+    errorThrower(!contactItem, () =>
+      getErrorObject(CONTACT_ITEM_NOT_EXIST, { targetUserData })
+    );
 
     currentUser.contacts.splice(cellphoneIndex, 1);
     await currentUser.updateOne({

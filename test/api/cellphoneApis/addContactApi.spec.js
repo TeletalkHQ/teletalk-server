@@ -126,7 +126,7 @@ describe("addContact failure tests", () => {
   it("should get error, USER_NOT_EXIST", async () => {
     const { countryCode, countryName } = countries[0];
 
-    const response = await myRequest(
+    await myRequest(
       {
         phoneNumber: "1234567890",
         countryCode,
@@ -135,11 +135,6 @@ describe("addContact failure tests", () => {
         lastName: "SS!",
       },
       TARGET_USER_NOT_EXIST
-    );
-
-    logger.log(
-      "response response response response response response ",
-      response
     );
   });
 

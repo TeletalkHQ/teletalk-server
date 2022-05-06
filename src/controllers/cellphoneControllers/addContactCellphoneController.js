@@ -27,7 +27,7 @@ const addContactCellphoneController = async (
     );
 
     res.sendJsonResponse(addContactRoute, {
-      contact: {
+      addedContact: {
         firstName,
         lastName,
         privateId: targetUser.privateId,

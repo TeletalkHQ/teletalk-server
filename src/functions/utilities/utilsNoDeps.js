@@ -156,8 +156,8 @@ const randomString = (length) => {
   return pwd.join("");
 };
 
-const randomNumber = (length) => {
-  var chars = "1234567890";
+const randomStringNumber = (length) => {
+  var chars = "12345678901234567890123456789012345678901234567890";
   var pwd = lodash.sampleSize(chars, length ?? 10);
   return pwd.join("");
 };
@@ -187,7 +187,7 @@ module.exports = {
   isUrlShouldIgnore,
   objectInitializer,
   randomCountryCode,
-  randomNumber,
+  randomStringNumber,
   randomString,
   setEnvironment,
   skipParams,

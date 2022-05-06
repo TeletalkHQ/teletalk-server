@@ -1,12 +1,13 @@
 const {
-  setTestUserAndTestToken,
   request,
   expect,
+  getTestUsersFromState,
+  setTestUserAndTestToken,
 } = require("@/functions/utilities/testUtils");
-const { getTestUsers } = require("@/functions/utilities/utils");
 const {
-  randomNumber,
+  randomStringNumber,
   randomCountryCode,
+  randomString,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
@@ -23,12 +24,31 @@ const {
       BLACKLIST_ITEM_EXIST: { properties: BLACKLIST_ITEM_EXIST },
       CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
       COUNTRY_CODE_INVALID_TYPE: { properties: COUNTRY_CODE_INVALID_TYPE },
+      COUNTRY_CODE_MAXLENGTH_REACH: {
+        properties: COUNTRY_CODE_MAXLENGTH_REACH,
+      },
+      COUNTRY_CODE_MINLENGTH_REACH: {
+        properties: COUNTRY_CODE_MINLENGTH_REACH,
+      },
       COUNTRY_CODE_NOT_SUPPORTED: { properties: COUNTRY_CODE_NOT_SUPPORTED },
       COUNTRY_CODE_NUMERIC: { properties: COUNTRY_CODE_NUMERIC },
       COUNTRY_CODE_REQUIRED: { properties: COUNTRY_CODE_REQUIRED },
+      COUNTRY_NAME_INVALID_TYPE: { properties: COUNTRY_NAME_INVALID_TYPE },
+      COUNTRY_NAME_MAXLENGTH_REACH: {
+        properties: COUNTRY_NAME_MAXLENGTH_REACH,
+      },
+      COUNTRY_NAME_MINLENGTH_REACH: {
+        properties: COUNTRY_NAME_MINLENGTH_REACH,
+      },
       COUNTRY_NAME_NOT_SUPPORTED: { properties: COUNTRY_NAME_NOT_SUPPORTED },
       COUNTRY_NAME_REQUIRED: { properties: COUNTRY_NAME_REQUIRED },
       PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
+      PHONE_NUMBER_MAXLENGTH_REACH: {
+        properties: PHONE_NUMBER_MAXLENGTH_REACH,
+      },
+      PHONE_NUMBER_MINLENGTH_REACH: {
+        properties: PHONE_NUMBER_MINLENGTH_REACH,
+      },
       PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
       PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
       SELF_STUFF: { properties: SELF_STUFF },
@@ -49,9 +69,22 @@ const {
 
 let testUsers = {};
 
+const makeCellphone = (countryCode, countryName, phoneNumber) => ({
+  countryCode,
+  countryName,
+  phoneNumber,
+});
+
+const countryCodeMaxlength = countryCodeModel.maxlength.value;
+const countryCodeMinlength = countryCodeModel.minlength.value;
+const countryNameMaxlength = countryNameModel.maxlength.value;
+const countryNameMinlength = countryNameModel.minlength.value;
+const phoneNumberMaxlength = phoneNumberModel.maxlength.value;
+const phoneNumberMinlength = phoneNumberModel.minlength.value;
+
 const cellphone = {
   ...countries[randomCountryCode()],
-  phoneNumber: randomNumber(10),
+  phoneNumber: randomStringNumber(10),
 };
 
 const myRequest = (data, errorObject) => {
@@ -60,7 +93,7 @@ const myRequest = (data, errorObject) => {
 
 describe("", () => {
   it("should fill testUsers object", async () => {
-    testUsers = await getTestUsers();
+    testUsers = await getTestUsersFromState();
 
     setTestUserAndTestToken(testUsers.testUser_0);
   });
@@ -141,12 +174,32 @@ describe("addBlock failure tests", () => {
       PHONE_NUMBER_NUMERIC
     );
   });
+  it(`It should get error, PHONE_NUMBER_MINLENGTH_REACH`, async () => {
+    await myRequest(
+      makeCellphone(
+        cellphone.countryCode,
+        cellphone.countryName,
+        randomStringNumber(phoneNumberMinlength - 1)
+      ),
+      PHONE_NUMBER_MINLENGTH_REACH
+    );
+  });
+  it(`It should get error, PHONE_NUMBER_MAXLENGTH_REACH`, async () => {
+    await myRequest(
+      makeCellphone(
+        cellphone.countryCode,
+        cellphone.countryName,
+        randomStringNumber(phoneNumberMaxlength + 1)
+      ),
+      PHONE_NUMBER_MAXLENGTH_REACH
+    );
+  });
 
   it(`It should get error, COUNTRY_CODE_REQUIRED`, async () => {
     await myRequest(
       {
-        phoneNumber: cellphone.phoneNumber,
         countryName: cellphone.countryName,
+        phoneNumber: cellphone.phoneNumber,
       },
       COUNTRY_CODE_REQUIRED
     );
@@ -154,9 +207,9 @@ describe("addBlock failure tests", () => {
   it(`It should get error, COUNTRY_CODE_NUMERIC`, async () => {
     await myRequest(
       {
-        phoneNumber: cellphone.phoneNumber,
-        countryName: cellphone.countryName,
         countryCode: "98!",
+        countryName: cellphone.countryName,
+        phoneNumber: cellphone.phoneNumber,
       },
       COUNTRY_CODE_NUMERIC
     );
@@ -164,9 +217,9 @@ describe("addBlock failure tests", () => {
   it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
     await myRequest(
       {
-        phoneNumber: cellphone.phoneNumber,
-        countryName: cellphone.countryName,
         countryCode: 98,
+        countryName: cellphone.countryName,
+        phoneNumber: cellphone.phoneNumber,
       },
       COUNTRY_CODE_INVALID_TYPE
     );
@@ -174,19 +227,39 @@ describe("addBlock failure tests", () => {
   it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
     await myRequest(
       {
-        phoneNumber: cellphone.phoneNumber,
-        countryName: cellphone.countryName,
         countryCode: "010101",
+        countryName: cellphone.countryName,
+        phoneNumber: cellphone.phoneNumber,
       },
       COUNTRY_CODE_NOT_SUPPORTED
+    );
+  });
+  it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
+    await myRequest(
+      {
+        countryCode: randomStringNumber(countryCodeMinlength - 1),
+        countryName: cellphone.countryName,
+        phoneNumber: cellphone.phoneNumber,
+      },
+      COUNTRY_CODE_MINLENGTH_REACH
+    );
+  });
+  it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
+    await myRequest(
+      {
+        countryCode: randomStringNumber(countryCodeMaxlength + 1),
+        countryName: cellphone.countryName,
+        phoneNumber: cellphone.phoneNumber,
+      },
+      COUNTRY_CODE_MAXLENGTH_REACH
     );
   });
 
   it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
     await myRequest(
       {
-        phoneNumber: cellphone.phoneNumber,
         countryCode: cellphone.countryCode,
+        phoneNumber: cellphone.phoneNumber,
       },
       COUNTRY_NAME_REQUIRED
     );
@@ -194,11 +267,41 @@ describe("addBlock failure tests", () => {
   it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
     await myRequest(
       {
-        phoneNumber: cellphone.phoneNumber,
         countryCode: cellphone.countryCode,
         countryName: "Something wrong!",
+        phoneNumber: cellphone.phoneNumber,
       },
       COUNTRY_NAME_NOT_SUPPORTED
+    );
+  });
+  it(`It should get error, COUNTRY_NAME_INVALID_TYPE`, async () => {
+    await myRequest(
+      {
+        countryCode: cellphone.countryCode,
+        countryName: 1235468, //* Invalid type!
+        phoneNumber: cellphone.phoneNumber,
+      },
+      COUNTRY_NAME_INVALID_TYPE
+    );
+  });
+  it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
+    await myRequest(
+      {
+        countryCode: cellphone.countryCode,
+        countryName: randomString(countryNameMinlength - 1),
+        phoneNumber: cellphone.phoneNumber,
+      },
+      COUNTRY_NAME_MINLENGTH_REACH
+    );
+  });
+  it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
+    await myRequest(
+      {
+        countryCode: cellphone.countryCode,
+        countryName: randomString(countryNameMaxlength + 1),
+        phoneNumber: cellphone.phoneNumber,
+      },
+      COUNTRY_NAME_MAXLENGTH_REACH
     );
   });
   //#endregion

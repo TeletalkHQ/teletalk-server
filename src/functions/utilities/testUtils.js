@@ -2,6 +2,9 @@ const request = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 
 const {
+  state: { getStateObject, setStateObject },
+} = require("@/functions/tools/State");
+const {
   getAllEnvironments,
   errorThrower,
   getEnvironment,
@@ -19,6 +22,9 @@ const {
 const {
   ENVIRONMENT_KEYS,
 } = require("@/variables/constants/environmentInitialValues");
+const {
+  initialValue: { stateKeys },
+} = require("@/variables/constants/initialValues/initialValue");
 
 const myRequest = async (
   baseUrl,
@@ -113,11 +119,21 @@ const setTestUserAndTestToken = (user) => {
   setTestMainToken(user.tokens[0].token);
 };
 
+const getTestUsersFromState = async () => {
+  return await getStateObject(stateKeys.testUsers);
+};
+
+const setTestUsersIntoState = async (testUsers) => {
+  return await setStateObject(stateKeys.testUsers, testUsers);
+};
+
 module.exports = {
   expect,
   getTestMainToken,
+  getTestUsersFromState,
   request: myRequest,
   setTestMainToken,
   setTestUserAndTestToken,
   testRequest,
+  setTestUsersIntoState,
 };

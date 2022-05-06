@@ -61,8 +61,6 @@ cellphoneRouter.use(
   )
 );
 
-cellphoneRouter.use(selfStuffControllerMiddleware);
-
 cellphoneRouter.use(addContactRoute.url, contactValidatorMiddleware);
 
 cellphoneRouter[getContactsRoute.method](

@@ -2,13 +2,9 @@ const {
   expect,
   setTestUserAndTestToken,
   getTestUsersFromState,
+  makeTestCellphone,
 } = require("@/functions/utilities/testUtils");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { makeCellphone } = require("@/functions/utilities/utilsNoDeps");
-const {
-  randomStringNumber,
-  randomCountryCode,
-} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: {
@@ -31,7 +27,6 @@ const {
 const {
   userErrors: {
     properties: {
-      CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
       CONTACT_ITEM_EXIST: { properties: CONTACT_ITEM_EXIST },
       SELF_STUFF: { properties: SELF_STUFF },
       TARGET_USER_NOT_EXIST: { properties: TARGET_USER_NOT_EXIST },
@@ -40,30 +35,16 @@ const {
 } = require("@/variables/errors/userErrors");
 const { countries } = require("@/variables/constants/countries");
 
-const {
-  countryCodeFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/countryCodeTests");
-const {
-  phoneNumberFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/phoneNumberTests");
-const {
-  countryNameFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/countryNameTests");
-const {
-  firstNameFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/firstNameTests");
-const {
-  lastNameFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/lastNameTests");
+const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
+const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
+const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
+const { firstNameFailureTests } = require("$/api/userTests/firstNameTests");
+const { lastNameFailureTests } = require("$/api/userTests/lastNameTests");
+const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
 let testUsers = {};
 
-const country = countries[randomCountryCode()];
-const cellphone = makeCellphone(
-  country.countryCode,
-  country.countryName,
-  randomStringNumber(10)
-);
+const cellphone = makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
@@ -112,7 +93,7 @@ describe("addContact failure tests", () => {
   it("should get error, CONTACT_ITEM_EXIST", async () => {
     const { testUser_2 } = testUsers;
 
-    //* First one get succeed, but second one is duplicate &_&
+    //* First one get succeed, but second one is duplicate
     await customRequest.sendRequest(testUser_2);
     await customRequest.sendRequest(testUser_2, CONTACT_ITEM_EXIST);
   });
@@ -132,12 +113,7 @@ describe("addContact failure tests", () => {
     );
   });
 
-  //#region //! Copied from signInNormalApi.spec  !//
-  it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await customRequest.sendRequest({}, CELLPHONE_REQUIRED);
-  });
-
-  //* after countryCode:countryName:phoneNumber get passed, its time to validate firstName:lastName
+  cellphoneFailureTests();
   countryCodeFailureTests(cellphone);
   countryNameFailureTests(cellphone);
   phoneNumberFailureTests(cellphone);

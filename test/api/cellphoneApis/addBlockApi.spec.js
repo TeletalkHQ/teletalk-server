@@ -2,11 +2,8 @@ const {
   expect,
   getTestUsersFromState,
   setTestUserAndTestToken,
+  makeTestCellphone,
 } = require("@/functions/utilities/testUtils");
-const {
-  randomStringNumber,
-  randomCountryCode,
-} = require("@/functions/utilities/utilsNoDeps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
@@ -18,26 +15,19 @@ const {
   },
 } = require("@/variables/routes/cellphoneRoutes");
 
-const {
-  countryCodeFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/countryCodeTests");
-const {
-  phoneNumberFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/phoneNumberTests");
-const {
-  countryNameFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/countryNameTests");
+const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
+const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
+const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
+const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
 const {
   userErrors: {
     properties: {
       BLACKLIST_ITEM_EXIST: { properties: BLACKLIST_ITEM_EXIST },
-      CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
       SELF_STUFF: { properties: SELF_STUFF },
     },
   },
 } = require("@/variables/errors/userErrors");
-const { countries } = require("@/variables/constants/countries");
 
 const {
   userModels: {
@@ -51,18 +41,7 @@ const {
 
 let testUsers = {};
 
-const makeCellphone = (countryCode, countryName, phoneNumber) => ({
-  countryCode,
-  countryName,
-  phoneNumber,
-});
-
-const country = countries[randomCountryCode()];
-const cellphone = makeCellphone(
-  country.countryCode,
-  country.countryName,
-  randomStringNumber(10)
-);
+const cellphone = makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
@@ -116,10 +95,7 @@ describe("addBlock failure tests", () => {
     await customRequest.sendRequest(testUser_2, BLACKLIST_ITEM_EXIST);
   });
 
-  it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await customRequest.sendRequest({}, CELLPHONE_REQUIRED);
-  });
-
+  cellphoneFailureTests();
   countryCodeFailureTests(cellphone);
   countryNameFailureTests(cellphone);
   phoneNumberFailureTests(cellphone);

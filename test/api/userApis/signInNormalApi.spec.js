@@ -1,9 +1,9 @@
-const { request, expect } = require("@/functions/utilities/testUtils");
 const {
-  setEnvironment,
-  randomStringNumber,
-  randomCountryCode,
-} = require("@/functions/utilities/utilsNoDeps");
+  expect,
+  makeTestCellphone,
+} = require("@/functions/utilities/testUtils");
+const { setEnvironment } = require("@/functions/utilities/utilsNoDeps");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
   ENVIRONMENT_KEYS,
@@ -16,23 +16,6 @@ const {
     },
   },
 } = require("@/variables/routes/userRoutes");
-const {
-  userErrors: {
-    properties: {
-      CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
-      COUNTRY_CODE_INVALID_TYPE: { properties: COUNTRY_CODE_INVALID_TYPE },
-      COUNTRY_CODE_NOT_SUPPORTED: { properties: COUNTRY_CODE_NOT_SUPPORTED },
-      COUNTRY_CODE_REQUIRED: { properties: COUNTRY_CODE_REQUIRED },
-      COUNTRY_CODE_NUMERIC: { properties: COUNTRY_CODE_NUMERIC },
-      COUNTRY_NAME_NOT_SUPPORTED: { properties: COUNTRY_NAME_NOT_SUPPORTED },
-      COUNTRY_NAME_REQUIRED: { properties: COUNTRY_NAME_REQUIRED },
-      PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
-      PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
-      PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
-    },
-  },
-} = require("@/variables/errors/userErrors");
-const { countries } = require("@/variables/constants/countries");
 
 const {
   userModels: {
@@ -42,35 +25,30 @@ const {
   },
 } = require("@/models/userModels/userModels");
 
-const cellphone = {
-  ...countries[randomCountryCode()],
-  phoneNumber: randomStringNumber(10),
-};
+const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
+const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
+const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
+const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
-const myRequest = (data, errorObject) => {
-  return request(userRouteBaseUrl, signInNormalRoute, data, errorObject);
-};
+const cellphone = makeTestCellphone();
+
+describe("", () => {
+  it("should set routes properties", async () => {
+    customRequest.setBaseUrl(userRouteBaseUrl);
+    customRequest.setRouteObject(signInNormalRoute);
+  });
+});
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {
-    const requestBody = {
-      phoneNumber: cellphone.phoneNumber,
-      countryName: cellphone.countryName,
-      countryCode: cellphone.countryCode,
-    };
-
-    const response = await request(
-      userRouteBaseUrl,
-      signInNormalRoute,
-      requestBody
-    );
+    const response = await customRequest.sendRequest(cellphone);
 
     const { countryCode, countryName, phoneNumber, verificationCode, token } =
       response.body;
 
-    expect(countryCode).equal(requestBody.countryCode);
-    expect(countryName).equal(requestBody.countryName);
-    expect(phoneNumber).equal(requestBody.phoneNumber);
+    expect(countryCode).equal(cellphone.countryCode);
+    expect(countryName).equal(cellphone.countryName);
+    expect(phoneNumber).equal(cellphone.phoneNumber);
     expect(verificationCode).length(verificationCodeModel.length.value);
 
     setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE, verificationCode);
@@ -79,98 +57,8 @@ describe("signInNormalApi test success requests", () => {
 });
 
 describe("signInNormalApi test failure requests", () => {
-  it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await myRequest({}, CELLPHONE_REQUIRED);
-  });
-
-  it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
-    await myRequest(
-      {
-        countryCode: cellphone.countryCode,
-        countryName: cellphone.countryName,
-      },
-      PHONE_NUMBER_REQUIRED
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
-    await myRequest(
-      {
-        countryCode: cellphone.countryCode,
-        countryName: cellphone.countryName,
-        phoneNumber: 9119119191,
-      },
-      PHONE_NUMBER_INVALID_TYPE
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_NUMERIC`, async () => {
-    await myRequest(
-      {
-        countryCode: cellphone.countryCode,
-        countryName: cellphone.countryName,
-        phoneNumber: "9119119191!",
-      },
-      PHONE_NUMBER_NUMERIC
-    );
-  });
-
-  it(`It should get error, COUNTRY_CODE_REQUIRED`, async () => {
-    await myRequest(
-      {
-        phoneNumber: cellphone.phoneNumber,
-        countryName: cellphone.countryName,
-      },
-      COUNTRY_CODE_REQUIRED
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_NUMERIC`, async () => {
-    await myRequest(
-      {
-        phoneNumber: cellphone.phoneNumber,
-        countryName: cellphone.countryName,
-        countryCode: "98!",
-      },
-      COUNTRY_CODE_NUMERIC
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
-    await myRequest(
-      {
-        phoneNumber: cellphone.phoneNumber,
-        countryName: cellphone.countryName,
-        countryCode: 98,
-      },
-      COUNTRY_CODE_INVALID_TYPE
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
-    await myRequest(
-      {
-        phoneNumber: cellphone.phoneNumber,
-        countryName: cellphone.countryName,
-        countryCode: "010101",
-      },
-      COUNTRY_CODE_NOT_SUPPORTED
-    );
-  });
-
-  it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
-    await myRequest(
-      {
-        phoneNumber: cellphone.phoneNumber,
-        countryCode: cellphone.countryCode,
-      },
-      COUNTRY_NAME_REQUIRED
-    );
-  });
-
-  it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
-    await myRequest(
-      {
-        phoneNumber: cellphone.phoneNumber,
-        countryCode: cellphone.countryCode,
-        countryName: "Something wrong!",
-      },
-      COUNTRY_NAME_NOT_SUPPORTED
-    );
-  });
+  cellphoneFailureTests();
+  countryCodeFailureTests(cellphone);
+  countryNameFailureTests(cellphone);
+  phoneNumberFailureTests(cellphone);
 });

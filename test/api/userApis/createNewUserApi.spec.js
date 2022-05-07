@@ -13,12 +13,8 @@ const {
   },
 } = require("@/models/userModels/userModels");
 
-const {
-  firstNameFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/firstNameTests");
-const {
-  lastNameFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/lastNameTests");
+const { firstNameFailureTests } = require("$/api/userTests/firstNameTests");
+const { lastNameFailureTests } = require("$/api/userTests/lastNameTests");
 
 const {
   userRoutes: {

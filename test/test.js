@@ -2,7 +2,7 @@
 require("$/requirements.spec");
 
 // * Database ==>
-// require("$/database/userDb.spec");
+require("$/database/userDb.spec");
 
 // * User api's ==>
 require("$/api/userApis/signInNormalApi.spec");

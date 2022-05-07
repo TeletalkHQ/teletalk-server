@@ -2,6 +2,8 @@ const { cellphoneFinder } = require("@/functions/utilities/cellphoneFinder");
 const {
   errorThrower,
   getErrorObject,
+  getContact,
+  getCellphone,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");
@@ -34,35 +36,33 @@ const userFinder = async (userData = userInitialOptions) => {
   }
 };
 
-const addContactToUserBlacklist = async (
+const addCellphoneToUserBlacklist = async (
   currentUser = userInitialOptions,
-  targetUserData = userInitialOptions
+  cellphone
 ) => {
   try {
     const { cellphone: existBlacklistItem } = cellphoneFinder(
       currentUser.blacklist,
-      targetUserData
+      cellphone
     );
+
     errorThrower(existBlacklistItem, () =>
-      getErrorObject(BLACKLIST_ITEM_EXIST, { targetUserData })
+      getErrorObject(BLACKLIST_ITEM_EXIST, { targetUserData: cellphone })
     );
 
-    const targetUser = await userFinder(targetUserData);
+    const targetUser = await userFinder(cellphone);
     errorThrower(targetUser === null, () =>
-      getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
+      getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData: cellphone })
     );
 
-    const blacklistItem = {
-      phoneNumber: targetUserData.phoneNumber,
-      countryCode: targetUserData.countryCode,
-      countryName: targetUserData.countryName,
-    };
+    const blacklistItem = getCellphone(cellphone);
+
     currentUser.blacklist.push(blacklistItem);
-    await UserMongoModel.updateOne({
+    await currentUser.updateOne({
       blacklist: currentUser.blacklist,
     });
   } catch (error) {
-    logger.log("addContactToUserBlacklist catch, error", error);
+    logger.log("addCellphoneToUserBlacklist catch, error", error);
     throw error;
   }
 };
@@ -85,14 +85,7 @@ const addContactToUserContacts = async (
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
     );
 
-    currentUser.contacts.push({
-      countryCode: targetUserData.countryCode,
-      countryName: targetUserData.countryName,
-      firstName: targetUserData.firstName,
-      lastName: targetUserData.lastName,
-      phoneNumber: targetUserData.phoneNumber,
-      privateId: targetUser.privateId,
-    });
+    currentUser.contacts.push(getContact(targetUserData));
     await currentUser.updateOne({
       contacts: currentUser.contacts,
     });
@@ -117,7 +110,7 @@ const updateOneContact = async (
     errorThrower(!contactItem, CONTACT_ITEM_NOT_EXIST);
 
     currentUser.contacts.splice(cellphoneIndex, 1, {
-      ...targetUserData,
+      ...getContact(targetUserData),
       firstName: editedValues.firstName,
       lastName: editedValues.lastName,
     });
@@ -250,7 +243,7 @@ const removeTestUsers = async (length) => {
 };
 
 module.exports = {
-  addContactToUserBlacklist,
+  addCellphoneToUserBlacklist,
   addContactToUserContacts,
   addTestUser,
   createNewNormalUser,

@@ -2,14 +2,11 @@ const {
   setTestUserAndTestToken,
   request,
   expect,
+  makeTestCellphone,
 } = require("@/functions/utilities/testUtils");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
-const {
-  randomStringNumber,
-  randomCountryCode,
-  makeCellphone,
-} = require("@/functions/utilities/utilsNoDeps");
+const { makeCellphone } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: {
@@ -31,20 +28,13 @@ const {
   },
 } = require("@/variables/routes/cellphoneRoutes");
 
-const {
-  countryCodeFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/countryCodeTests");
-const {
-  phoneNumberFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/phoneNumberTests");
-const {
-  countryNameFailureTests,
-} = require("$/api/cellphoneApis/cellphoneTests/countryNameTests");
+const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
+const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
+const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
 
 const {
   userErrors: {
     properties: {
-      CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
       CONTACT_ITEM_NOT_EXIST: { properties: CONTACT_ITEM_NOT_EXIST },
       SELF_STUFF: { properties: SELF_STUFF },
     },
@@ -52,14 +42,11 @@ const {
 } = require("@/variables/errors/userErrors");
 const { countries } = require("@/variables/constants/countries");
 
+const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
+
 let testUsers = {};
 
-const country = countries[randomCountryCode()];
-const cellphone = makeCellphone(
-  country.countryCode,
-  country.countryName,
-  randomStringNumber(10)
-);
+const cellphone = makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
@@ -122,10 +109,7 @@ describe("removeContact failure tests", () => {
     );
   });
 
-  it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await customRequest.sendRequest(makeCellphone(), CELLPHONE_REQUIRED);
-  });
-
+  cellphoneFailureTests();
   countryCodeFailureTests(cellphone);
   countryNameFailureTests(cellphone);
   phoneNumberFailureTests(cellphone);

@@ -13,4 +13,4 @@ require("$/api/userApis/createNewUserApi.spec");
 require("$/api/cellphoneApis/addContactApi.spec");
 require("$/api/cellphoneApis/removeContactApi.spec");
 require("$/api/cellphoneApis/addBlockApi.spec");
-// require("$/api/cellphoneApis/removeBlockApi.spec");
+require("$/api/cellphoneApis/removeBlockApi.spec");

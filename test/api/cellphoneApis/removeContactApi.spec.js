@@ -3,11 +3,12 @@ const {
   request,
   expect,
 } = require("@/functions/utilities/testUtils");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
 const {
   randomStringNumber,
   randomCountryCode,
-  randomString,
+  makeCellphone,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
@@ -29,39 +30,23 @@ const {
     },
   },
 } = require("@/variables/routes/cellphoneRoutes");
+
+const {
+  countryCodeFailureTests,
+} = require("$/api/cellphoneApis/cellphoneTests/countryCodeTests");
+const {
+  phoneNumberFailureTests,
+} = require("$/api/cellphoneApis/cellphoneTests/phoneNumberTests");
+const {
+  countryNameFailureTests,
+} = require("$/api/cellphoneApis/cellphoneTests/countryNameTests");
+
 const {
   userErrors: {
     properties: {
       CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
       CONTACT_ITEM_NOT_EXIST: { properties: CONTACT_ITEM_NOT_EXIST },
-      COUNTRY_CODE_INVALID_TYPE: { properties: COUNTRY_CODE_INVALID_TYPE },
-      COUNTRY_CODE_MAXLENGTH_REACH: {
-        properties: COUNTRY_CODE_MAXLENGTH_REACH,
-      },
-      COUNTRY_CODE_MINLENGTH_REACH: {
-        properties: COUNTRY_CODE_MINLENGTH_REACH,
-      },
-      COUNTRY_CODE_NOT_SUPPORTED: { properties: COUNTRY_CODE_NOT_SUPPORTED },
-      COUNTRY_CODE_NUMERIC: { properties: COUNTRY_CODE_NUMERIC },
-      COUNTRY_CODE_REQUIRED: { properties: COUNTRY_CODE_REQUIRED },
-      COUNTRY_NAME_MAXLENGTH_REACH: {
-        properties: COUNTRY_NAME_MAXLENGTH_REACH,
-      },
-      COUNTRY_NAME_MINLENGTH_REACH: {
-        properties: COUNTRY_NAME_MINLENGTH_REACH,
-      },
-      COUNTRY_NAME_NOT_SUPPORTED: { properties: COUNTRY_NAME_NOT_SUPPORTED },
-      COUNTRY_NAME_REQUIRED: { properties: COUNTRY_NAME_REQUIRED },
-      PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
-      PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
-      PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
       SELF_STUFF: { properties: SELF_STUFF },
-      PHONE_NUMBER_MINLENGTH_REACH: {
-        properties: PHONE_NUMBER_MINLENGTH_REACH,
-      },
-      PHONE_NUMBER_MAXLENGTH_REACH: {
-        properties: PHONE_NUMBER_MAXLENGTH_REACH,
-      },
     },
   },
 } = require("@/variables/errors/userErrors");
@@ -69,23 +54,18 @@ const { countries } = require("@/variables/constants/countries");
 
 let testUsers = {};
 
-const cellphone = {
-  ...countries[randomCountryCode()],
-  phoneNumber: randomStringNumber(10),
-};
-
-const myRequest = (data, errorObject) => {
-  return request(cellphoneRouteBaseUrl, removeContactRoute, data, errorObject);
-};
-
-const makeCellphone = (countryCode, countryName, phoneNumber) => ({
-  countryCode,
-  countryName,
-  phoneNumber,
-});
+const country = countries[randomCountryCode()];
+const cellphone = makeCellphone(
+  country.countryCode,
+  country.countryName,
+  randomStringNumber(10)
+);
 
 describe("", () => {
   it("should fill testUsers object", async () => {
+    customRequest.setBaseUrl(cellphoneRouteBaseUrl);
+    customRequest.setRouteObject(removeContactRoute);
+
     testUsers = await getTestUsersFromState();
 
     setTestUserAndTestToken(testUsers.testUser_0);
@@ -108,7 +88,7 @@ describe("removeContact successful test", () => {
       body: {
         removedContact: { phoneNumber, countryCode, countryName },
       },
-    } = await myRequest(testUser_3);
+    } = await customRequest.sendRequest(testUser_3);
 
     expect(phoneNumber).equal(testUser_3.phoneNumber);
     expect(phoneNumber.length)
@@ -130,146 +110,23 @@ describe("removeContact successful test", () => {
 describe("removeContact failure tests", () => {
   it("should get error, SELF_STUFF", async () => {
     const { testUser_0 } = testUsers;
-    await myRequest(testUser_0, SELF_STUFF);
+    await customRequest.sendRequest(testUser_0, SELF_STUFF);
   });
 
   it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
     const { countryCode, countryName } = countries[0];
 
-    await myRequest(
+    await customRequest.sendRequest(
       makeCellphone(countryCode, countryName, "1234567890"),
       CONTACT_ITEM_NOT_EXIST
     );
   });
 
-  //#region //! Copied from signInNormalApi.spec  !//
   it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await myRequest(makeCellphone(), CELLPHONE_REQUIRED);
+    await customRequest.sendRequest(makeCellphone(), CELLPHONE_REQUIRED);
   });
 
-  it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
-    await myRequest(
-      makeCellphone(cellphone.countryCode, cellphone.countryName),
-      PHONE_NUMBER_REQUIRED
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
-    await myRequest(
-      makeCellphone(cellphone.countryCode, cellphone.countryName, 9119119191),
-      PHONE_NUMBER_INVALID_TYPE
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_NUMERIC`, async () => {
-    await myRequest(
-      makeCellphone(
-        cellphone.countryCode,
-        cellphone.countryName,
-        "9119119191!"
-      ),
-      PHONE_NUMBER_NUMERIC
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_MINLENGTH_REACH`, async () => {
-    await myRequest(
-      makeCellphone(
-        cellphone.countryCode,
-        cellphone.countryName,
-        randomStringNumber(phoneNumberMinlength - 1)
-      ),
-      PHONE_NUMBER_MINLENGTH_REACH
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_MAXLENGTH_REACH`, async () => {
-    await myRequest(
-      makeCellphone(
-        cellphone.countryCode,
-        cellphone.countryName,
-        randomStringNumber(phoneNumberMaxlength + 1)
-      ),
-      PHONE_NUMBER_MAXLENGTH_REACH
-    );
-  });
-
-  it(`It should get error, COUNTRY_CODE_REQUIRED`, async () => {
-    await myRequest(
-      makeCellphone(undefined, cellphone.countryName, cellphone.phoneNumber),
-      COUNTRY_CODE_REQUIRED
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_NUMERIC`, async () => {
-    await myRequest(
-      makeCellphone("98!", cellphone.countryName, cellphone.phoneNumber),
-      COUNTRY_CODE_NUMERIC
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
-    await myRequest(
-      makeCellphone(98, cellphone.countryName, cellphone.phoneNumber),
-      COUNTRY_CODE_INVALID_TYPE
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-    await myRequest(
-      makeCellphone(
-        randomStringNumber(countryCodeMinlength - 1),
-        cellphone.countryName,
-        cellphone.phoneNumber
-      ),
-      COUNTRY_CODE_MINLENGTH_REACH
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
-    await myRequest(
-      makeCellphone(
-        randomStringNumber(countryCodeMaxlength + 1),
-        cellphone.countryName,
-        cellphone.phoneNumber
-      ),
-      COUNTRY_CODE_MAXLENGTH_REACH
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
-    await myRequest(
-      makeCellphone("010101", cellphone.countryName, cellphone.phoneNumber),
-      COUNTRY_CODE_NOT_SUPPORTED
-    );
-  });
-
-  it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
-    await myRequest(
-      makeCellphone(cellphone.countryCode, undefined, cellphone.phoneNumber),
-      COUNTRY_NAME_REQUIRED
-    );
-  });
-  it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
-    await myRequest(
-      makeCellphone(
-        cellphone.countryCode,
-        "Something wrong!",
-        cellphone.phoneNumber
-      ),
-      COUNTRY_NAME_NOT_SUPPORTED
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-    await myRequest(
-      makeCellphone(
-        cellphone.countryCode,
-        randomString(countryNameMinlength - 1),
-        cellphone.phoneNumber
-      ),
-      COUNTRY_NAME_MINLENGTH_REACH
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
-    await myRequest(
-      makeCellphone(
-        cellphone.countryCode,
-        randomString(countryNameMaxlength + 1),
-        cellphone.phoneNumber
-      ),
-      COUNTRY_NAME_MAXLENGTH_REACH
-    );
-  });
-  //#endregion
+  countryCodeFailureTests(cellphone);
+  countryNameFailureTests(cellphone);
+  phoneNumberFailureTests(cellphone);
 });

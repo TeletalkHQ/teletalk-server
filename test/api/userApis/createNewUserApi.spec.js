@@ -1,5 +1,8 @@
 const { request } = require("@/functions/utilities/testUtils");
-const { randomString } = require("@/functions/utilities/utilsNoDeps");
+const {
+  randomString,
+  makeFullName,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: {
@@ -11,15 +14,12 @@ const {
 } = require("@/models/userModels/userModels");
 
 const {
-  userErrors: {
-    properties: {
-      FIRST_NAME_REQUIRED: { properties: FIRST_NAME_REQUIRED },
-      FIRST_NAME_MINLENGTH_REACH: { properties: FIRST_NAME_MINLENGTH_REACH },
-      FIRST_NAME_MAXLENGTH_REACH: { properties: FIRST_NAME_MAXLENGTH_REACH },
-      LAST_NAME_MAXLENGTH_REACH: { properties: LAST_NAME_MAXLENGTH_REACH },
-    },
-  },
-} = require("@/variables/errors/userErrors");
+  firstNameFailureTests,
+} = require("$/api/cellphoneApis/cellphoneTests/firstNameTests");
+const {
+  lastNameFailureTests,
+} = require("$/api/cellphoneApis/cellphoneTests/lastNameTests");
+
 const {
   userRoutes: {
     properties: {
@@ -28,23 +28,24 @@ const {
     },
   },
 } = require("@/variables/routes/userRoutes");
-
-const userFullName = (firstName, lastName) => ({ firstName, lastName });
-
-const myRequest = (data, errorObject) => {
-  return request(userRouteBaseUrl, createNewUserRoute, data, errorObject);
-};
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const lastNameMaxLength = lastNameModel.maxlength.value;
 const firstNameMaxLength = firstNameModel.maxlength.value;
-const firstNameMinLength = firstNameModel.minlength.value;
+
+describe("", () => {
+  it("should test routes properties for customRequest", async () => {
+    customRequest.setBaseUrl(userRouteBaseUrl);
+    customRequest.setRouteObject(createNewUserRoute);
+  });
+});
 
 describe("success create new normal user", () => {
   it("should create new user in db", async () => {
     await request(
       userRouteBaseUrl,
       createNewUserRoute,
-      userFullName(
+      makeFullName(
         randomString(firstNameMaxLength),
         randomString(lastNameMaxLength)
       )
@@ -53,43 +54,6 @@ describe("success create new normal user", () => {
 });
 
 describe("failure tests for create new normal user", () => {
-  it("should get error, FIRST_NAME_REQUIRED", async () => {
-    await myRequest(
-      userFullName(null, randomString(randomString(lastNameMaxLength))),
-      FIRST_NAME_REQUIRED
-    );
-  });
-  it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
-    await myRequest(
-      userFullName(randomString(+firstNameMinLength - 1)),
-      FIRST_NAME_MINLENGTH_REACH
-    );
-  });
-
-  it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
-    await myRequest(
-      userFullName(randomString(+firstNameMaxLength + 1)),
-      FIRST_NAME_MAXLENGTH_REACH
-    );
-  });
-
-  // it("should get error, LAST_NAME_MINLENGTH_REACH", async () => {
-  //   await myRequest(
-  //     userFullName(
-  //       randomString(firstNameMaxLength),
-  //       randomString(lastNameMinLength - 1)
-  //     ),
-  //     LAST_NAME_MINLENGTH_REACH
-  //   );
-  // });
-
-  it("should get error, LAST_NAME_MAXLENGTH_REACH", async () => {
-    await myRequest(
-      userFullName(
-        randomString(firstNameMaxLength),
-        randomString(lastNameMaxLength + 1)
-      ),
-      LAST_NAME_MAXLENGTH_REACH
-    );
-  });
+  firstNameFailureTests({});
+  lastNameFailureTests({});
 });

@@ -231,6 +231,20 @@ const extractVersions = (object) => {
   return tempArray;
 };
 
+const makeCellphone = (countryCode, countryName, phoneNumber) => ({
+  countryCode,
+  countryName,
+  phoneNumber,
+});
+
+const makeContact = (cellphone, firstName, lastName) => ({
+  ...cellphone,
+  firstName,
+  lastName,
+});
+
+const makeFullName = (firstName, lastName) => ({ firstName, lastName });
+
 module.exports = {
   errorThrower,
   extractFromInfo,
@@ -246,6 +260,9 @@ module.exports = {
   getValidatorErrorTypes,
   isFunction,
   isUrlShouldIgnore,
+  makeCellphone,
+  makeContact,
+  makeFullName,
   objectInitializer,
   randomCountryCode,
   randomString,

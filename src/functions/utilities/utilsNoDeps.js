@@ -75,9 +75,20 @@ const getErrorObject = (errorObject, extraData = {}, statusCode) => {
 
 const getCellphone = (object = {}) => {
   return {
-    phoneNumber: object.phoneNumber,
     countryCode: object.countryCode,
     countryName: object.countryName,
+    phoneNumber: object.phoneNumber,
+  };
+};
+
+const getContact = (object = {}) => {
+  return {
+    countryCode: object.countryCode,
+    countryName: object.countryName,
+    firstName: object.firstName,
+    lastName: object.lastName,
+    phoneNumber: object.phoneNumber,
+    privateId: object.privateId,
   };
 };
 
@@ -227,6 +238,7 @@ module.exports = {
   extractVersions,
   getAllEnvironments,
   getCellphone,
+  getContact,
   getEnvironment,
   getErrorObject,
   getHostFromRequest,

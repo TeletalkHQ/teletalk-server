@@ -17,12 +17,12 @@ const {
 const {
   verificationCodeFailureTests,
 } = require("$/api/userTests/verificationCodeTests");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 describe("", () => {
   it("should set routes properties", async () => {
-    customRequest.setBaseUrl(userRouteBaseUrl);
-    customRequest.setRouteObject(verifySignInNormalRoute);
+    CustomRequest.setBaseUrl(userRouteBaseUrl);
+    CustomRequest.setRouteObject(verifySignInNormalRoute);
   });
 });
 
@@ -32,7 +32,7 @@ describe("verifySignInNormalApi success test", () => {
       ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE
     );
 
-    const response = await customRequest.sendRequest({
+    const response = await CustomRequest.sendRequest({
       verificationCode,
     });
 

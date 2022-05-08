@@ -22,8 +22,6 @@ class CustomRequest {
   }
 }
 
-const customRequest = new CustomRequest();
-
 module.exports = {
-  customRequest,
+  CustomRequest: new CustomRequest(),
 };

@@ -7,8 +7,8 @@ const {
   getHostFromRequest,
 } = require("@/functions/utilities/utilsNoDeps");
 const { getEnvironment } = require("@/functions/utilities/utilsNoDeps");
-const { sendSms, smsTexts } = require("@/functions/tools/smsClient");
-const { temporaryClients } = require("@/functions/tools/TemporaryClients");
+const { sendSms, smsTexts } = require("@/functions/tools/SmsClient");
+const { TemporaryClients } = require("@/functions/tools/TemporaryClients");
 
 const {
   ENVIRONMENT_KEYS,
@@ -45,12 +45,12 @@ const signInNormalUserController = async (
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
 
-    const client = await temporaryClients.findClient(cellphone);
+    const client = await TemporaryClients.findClient(cellphone);
 
     if (client) {
-      await temporaryClients.updateClient(client, { verificationCode, token });
+      await TemporaryClients.updateClient(client, { verificationCode, token });
     } else {
-      await temporaryClients.addClient({
+      await TemporaryClients.addClient({
         token,
         verificationCode: verificationCode,
         ...cellphone,

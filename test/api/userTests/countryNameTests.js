@@ -1,4 +1,4 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 const {
   randomString,
   makeCellphone,
@@ -33,13 +33,13 @@ const countryNameMinlength = countryNameModel.minlength.value;
 
 const countryNameFailureTests = (cellphone) => {
   it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
-    await customRequest.sendRequest(
+    await CustomRequest.sendRequest(
       makeCellphone(cellphone.countryCode, undefined, cellphone.phoneNumber),
       COUNTRY_NAME_REQUIRED
     );
   });
   it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
-    await customRequest.sendRequest(
+    await CustomRequest.sendRequest(
       makeCellphone(
         cellphone.countryCode,
         "Something wrong!",
@@ -49,7 +49,7 @@ const countryNameFailureTests = (cellphone) => {
     );
   });
   it(`It should get error, COUNTRY_NAME_INVALID_TYPE`, async () => {
-    await customRequest.sendRequest(
+    await CustomRequest.sendRequest(
       makeCellphone(
         cellphone.countryCode,
         1235468, //* Invalid type!
@@ -59,7 +59,7 @@ const countryNameFailureTests = (cellphone) => {
     );
   });
   it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-    await customRequest.sendRequest(
+    await CustomRequest.sendRequest(
       makeCellphone(
         cellphone.countryCode,
         randomString(countryNameMinlength - 1),
@@ -69,7 +69,7 @@ const countryNameFailureTests = (cellphone) => {
     );
   });
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
-    await customRequest.sendRequest(
+    await CustomRequest.sendRequest(
       makeCellphone(
         cellphone.countryCode,
         randomString(countryNameMaxlength + 1),

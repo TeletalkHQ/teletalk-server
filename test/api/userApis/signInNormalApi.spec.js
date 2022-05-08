@@ -3,7 +3,7 @@ const {
   makeTestCellphone,
 } = require("@/functions/utilities/testUtils");
 const { setEnvironment } = require("@/functions/utilities/utilsNoDeps");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
   ENVIRONMENT_KEYS,
@@ -34,14 +34,14 @@ const cellphone = makeTestCellphone();
 
 describe("", () => {
   it("should set routes properties", async () => {
-    customRequest.setBaseUrl(userRouteBaseUrl);
-    customRequest.setRouteObject(signInNormalRoute);
+    CustomRequest.setBaseUrl(userRouteBaseUrl);
+    CustomRequest.setRouteObject(signInNormalRoute);
   });
 });
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {
-    const response = await customRequest.sendRequest(cellphone);
+    const response = await CustomRequest.sendRequest(cellphone);
 
     const { countryCode, countryName, phoneNumber, verificationCode, token } =
       response.body;

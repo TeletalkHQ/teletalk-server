@@ -20,7 +20,7 @@ const getStatusCodeFromRoute = (routeObject) => {
     return statusCode;
   } catch (error) {
     logger.log("getStatusCodeFromRoute catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 

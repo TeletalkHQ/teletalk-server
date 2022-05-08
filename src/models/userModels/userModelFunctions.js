@@ -32,7 +32,7 @@ const userFinder = async (userData = userInitialOptions) => {
     return currentUser;
   } catch (error) {
     logger.log("userFinder catch", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 
@@ -63,7 +63,7 @@ const addCellphoneToUserBlacklist = async (
     });
   } catch (error) {
     logger.log("addCellphoneToUserBlacklist catch, error", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 
@@ -95,7 +95,7 @@ const addContactToUserContacts = async (
     return { targetUser, currentUser };
   } catch (error) {
     logger.log("addContactToUserContacts catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 
@@ -125,7 +125,7 @@ const updateOneContact = async (
     return { currentUser };
   } catch (error) {
     logger.log("updateOneContact catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 
@@ -170,7 +170,7 @@ const removeContactItem = async (
     });
   } catch (error) {
     logger.log("removeContactItem catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 
@@ -183,7 +183,7 @@ const updateUserDataByPrivateId = async (userData) => {
   } catch (error) {
     logger.log("updateUserTokens catch, error:", error);
 
-    throw error;
+    errorThrower(error, error);
   }
 };
 
@@ -195,7 +195,7 @@ const createNewNormalUser = async (userData) => {
     return true;
   } catch (error) {
     logger.log("createNewNormalUser catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 
@@ -230,7 +230,7 @@ const addTestUser = async (
     return user;
   } catch (error) {
     logger.log("addTestUser catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 

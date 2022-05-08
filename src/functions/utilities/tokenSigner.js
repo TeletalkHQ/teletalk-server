@@ -1,6 +1,9 @@
 const JWT = require("jsonwebtoken");
 
-const { getEnvironment } = require("@/functions/utilities/utilsNoDeps");
+const {
+  getEnvironment,
+  errorThrower,
+} = require("@/functions/utilities/utilsNoDeps");
 
 const {
   ENVIRONMENT_KEYS,
@@ -22,7 +25,7 @@ const tokenSigner = async (data, secret, options = jwtOptions) => {
     );
   } catch (error) {
     logger.log("tokenSigner catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 

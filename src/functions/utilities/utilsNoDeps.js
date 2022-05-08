@@ -6,6 +6,7 @@ const {
 
 const errorThrower = (condition, error) => {
   if (condition) {
+    //TODO Write errors into log file;
     if (typeof error === "function") throw error();
 
     throw error;

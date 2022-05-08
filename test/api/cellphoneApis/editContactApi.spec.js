@@ -59,20 +59,20 @@ describe("", () => {
 
 describe("edit contact success tests", () => {
   it(`should add and edit testUser_1 on testUser_0 contact list`, async () => {
-    const { testUser_1 } = testUsers;
+    const { testUser_4 } = testUsers;
 
     const {
       body: {
         addedContact: { firstName, lastName, privateId },
       },
-    } = await request(cellphoneRouteBaseUrl, addContactRoute, testUser_1);
+    } = await request(cellphoneRouteBaseUrl, addContactRoute, testUser_4);
 
-    expect(firstName).equal(testUser_1.firstName);
+    expect(firstName).equal(testUser_4.firstName);
     expect(firstName.length)
       .greaterThanOrEqual(firstNameModel.minlength.value)
       .lessThanOrEqual(firstNameModel.maxlength.value);
 
-    expect(lastName).equal(testUser_1.lastName);
+    expect(lastName).equal(testUser_4.lastName);
     expect(lastName.length)
       .greaterThanOrEqual(lastNameModel.minlength.value)
       .lessThanOrEqual(lastNameModel.maxlength.value);
@@ -87,46 +87,48 @@ describe("edit contact success tests", () => {
       lastName: "new lastName",
     };
     const {
-      editedContact: {
-        phoneNumber,
-        countryCode,
-        countryName,
-        firstName: newFirstName,
-        lastName: newLastName,
+      body: {
+        editedContact: {
+          phoneNumber,
+          countryCode,
+          countryName,
+          firstName: newFirstName,
+          lastName: newLastName,
+        },
       },
     } = await CustomRequest.sendRequest({
-      ...testUser_1,
+      ...testUser_4,
       ...editedFullName,
     });
 
-    // expect(editedFullName.firstName).equal(newFirstName);
-    // expect(newFirstName.length)
-    //   .greaterThanOrEqual(firstNameModel.minlength.value)
-    //   .lessThanOrEqual(firstNameModel.maxlength.value);
+    expect(editedFullName.firstName).equal(newFirstName);
+    expect(newFirstName.length)
+      .greaterThanOrEqual(firstNameModel.minlength.value)
+      .lessThanOrEqual(firstNameModel.maxlength.value);
 
-    // expect(newLastName).equal(editedFullName.lastName);
-    // expect(newLastName.length)
-    //   .greaterThanOrEqual(lastNameModel.minlength.value)
-    //   .lessThanOrEqual(lastNameModel.maxlength.value);
+    expect(newLastName).equal(editedFullName.lastName);
+    expect(newLastName.length)
+      .greaterThanOrEqual(lastNameModel.minlength.value)
+      .lessThanOrEqual(lastNameModel.maxlength.value);
   });
 });
 
-// describe("editContact failure tests", () => {
-//   it("should get error, SELF_STUFF", async () => {
-//     const { testUser_0 } = testUsers;
-//     await CustomRequest.sendRequest(testUser_0, SELF_STUFF);
-//   });
+describe("editContact failure tests", () => {
+  it("should get error, SELF_STUFF", async () => {
+    const { testUser_0 } = testUsers;
+    await CustomRequest.sendRequest(testUser_0, SELF_STUFF);
+  });
 
-//   it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
-//     const { testUser_10 } = testUsers;
+  it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
+    const { testUser_10 } = testUsers;
 
-//     await CustomRequest.sendRequest(testUser_10, CONTACT_ITEM_NOT_EXIST);
-//   });
+    await CustomRequest.sendRequest(testUser_10, CONTACT_ITEM_NOT_EXIST);
+  });
 
-// cellphoneFailureTests();
-// countryCodeFailureTests(cellphone);
-// countryNameFailureTests(cellphone);
-// phoneNumberFailureTests(cellphone);
-// firstNameFailureTests(cellphone);
-// lastNameFailureTests(cellphone);
-// });
+  cellphoneFailureTests();
+  countryCodeFailureTests(cellphone);
+  countryNameFailureTests(cellphone);
+  phoneNumberFailureTests(cellphone);
+  firstNameFailureTests(cellphone);
+  lastNameFailureTests(cellphone);
+});

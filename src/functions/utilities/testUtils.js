@@ -59,8 +59,6 @@ const myRequest = async (
         "UnknownError, you need to send me correct error object"
       );
 
-      // logger.log("response.body:", response.body);
-
       const { errorKey, errorCode, errorReason } = errorObject;
 
       logger.log(

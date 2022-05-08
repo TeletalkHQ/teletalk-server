@@ -111,7 +111,7 @@ const updateOneContact = async (
       currentUser.contacts,
       targetCellphone
     );
-    errorThrower(!contactItem, CONTACT_ITEM_NOT_EXIST);
+    errorThrower(!contactItem, () => getErrorObject(CONTACT_ITEM_NOT_EXIST));
 
     currentUser.contacts.splice(cellphoneIndex, 1, {
       ...getContact(targetCellphone),

@@ -1,3 +1,4 @@
+const { makeCellphone } = require("@/functions/utilities/utilsNoDeps");
 const { updateOneContact } = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: {
@@ -13,25 +14,19 @@ const editContactCellphoneController = async (
 ) => {
   try {
     const {
-      body: { firstName, lastName, phoneNumber, countryCode, countryName },
+      body,
+      body: { firstName, lastName },
       currentUser,
     } = req;
 
-    const targetUserData = {
-      phoneNumber,
-      countryCode,
-      countryName,
-    };
+    const targetCellphone = makeCellphone(body);
 
     const editedValues = { firstName, lastName };
 
-    await updateOneContact(currentUser, targetUserData, editedValues);
+    await updateOneContact(currentUser, targetCellphone, editedValues);
 
     res.sendJsonResponse(editContactRoute, {
-      phoneNumber,
-      countryCode,
-      countryName,
-      ...editedValues,
+      editedContact: { ...targetCellphone, ...editedValues },
     });
   } catch (error) {
     res.errorCollector(error);

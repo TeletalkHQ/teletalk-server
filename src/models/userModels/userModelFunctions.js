@@ -99,18 +99,20 @@ const addContactToUserContacts = async (
 
 const updateOneContact = async (
   currentUser = userInitialOptions,
-  targetUserData = userInitialOptions,
+  targetCellphone,
   editedValues
 ) => {
   try {
+    logger.log("currentUser.contacts", currentUser.contacts);
+
     const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
       currentUser.contacts,
-      targetUserData
+      targetCellphone
     );
     errorThrower(!contactItem, CONTACT_ITEM_NOT_EXIST);
 
     currentUser.contacts.splice(cellphoneIndex, 1, {
-      ...getContact(targetUserData),
+      ...getContact(targetCellphone),
       firstName: editedValues.firstName,
       lastName: editedValues.lastName,
     });

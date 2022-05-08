@@ -19,7 +19,7 @@ const chatsLastMessageChatController = async (
       chatsWithLastMessages,
     });
   } catch (error) {
-    logger.log("chatsLastMessageChatController", error);
+    logger.log("chatsLastMessageChatController catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
   }

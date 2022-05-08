@@ -11,7 +11,8 @@ const sendJsonResponseMiddleware = (_, res, next) => {
     };
   } catch (error) {
     logger.log("sendJsonResponse catch, error:", error);
-    res.status(getStatusCodeFromRoute(error)).json(error);
+    res.errorCollector(error);
+    res.errorResponser();
   }
 
   next();

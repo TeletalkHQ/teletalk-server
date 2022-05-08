@@ -62,8 +62,7 @@ const myRequest = async (
       const { errorKey, errorCode, errorReason } = errorObject;
 
       logger.log(
-        `errorKey ${routeObject.url} ${errorObject.reason}`,
-        errorKey,
+        `route specs=> url:${routeObject.url} reason:${errorObject.reason} errorKey:${errorKey}\n response.body:`,
         response.body
       );
 

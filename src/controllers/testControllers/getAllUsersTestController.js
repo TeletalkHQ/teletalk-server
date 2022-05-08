@@ -8,7 +8,7 @@ const {
 } = require("@/variables/routes/testRoutes");
 
 const getAllUsersTestController = async (
-  req = expressRequest,
+  _ = expressRequest,
   res = expressResponse
 ) => {
   try {

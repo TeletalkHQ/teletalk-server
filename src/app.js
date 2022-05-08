@@ -31,13 +31,12 @@ const app = express();
 
 app.use(cors());
 app.use(helmet());
+app.use(express.json());
 app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
-app.use(express.json());
 
 app.use(responseErrorHandlers);
-
-app.use(sendJsonResponseMiddleware);
+app.use(sendJsonResponseMiddleware); //* This is should be after 'responseErrorHandlers'
 
 app.use(express.static("@/../public"));
 
@@ -45,6 +44,6 @@ app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));
 
 //* All routers is in lifeLine =>
 app.use(lifeLine);
-app.use(notFoundMiddleware);
+app.use(notFoundMiddleware); //* 404
 
 module.exports = { app };

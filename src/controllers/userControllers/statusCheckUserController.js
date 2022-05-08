@@ -11,7 +11,6 @@ const {
 } = require("@/variables/errors/userErrors");
 const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 
-const { ioFunctions } = require("@/socket/io");
 const {
   errorThrower,
   getTokenFromRequest,
@@ -41,12 +40,10 @@ const statusCheckUserController = async (
 
     const userData = sendableUserData(user);
 
-    logger.log(ioFunctions.io.on);
-
     res.status(200).json({ user: userData });
   } catch (error) {
-    logger.log("statusCheckUserController", error);
-    res.errorCollector({ data: { error, statusCode: 401 } });
+    logger.log("statusCheckUserController catch, error:", error);
+    res.errorCollector(error);
     res.errorResponser();
   }
 };

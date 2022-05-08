@@ -115,7 +115,7 @@ function LoggerBuilder(level) {
       );
       console.log(...this.logs, ...textToLog);
       this.logs = [];
-      return this;
+      return text.toString();
     }
   };
 

@@ -17,7 +17,6 @@ class CustomRequest {
   }
 
   sendRequest(data, errorObject) {
-    logger.log(data);
     return request(this.baseUrl, this.routeObject, data, errorObject);
   }
 }

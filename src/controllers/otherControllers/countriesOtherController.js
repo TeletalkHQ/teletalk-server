@@ -14,7 +14,7 @@ const countriesOtherController = async (
   try {
     res.sendJsonResponse(countriesRoute, { countries });
   } catch (error) {
-    logger.log("countriesUserController", error);
+    logger.log("countriesUserController catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
   }

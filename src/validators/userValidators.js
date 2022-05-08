@@ -5,6 +5,7 @@ const {
   getErrorObject,
   getValidatorErrorTypes,
   getEnvironment,
+  getCellphone,
 } = require("@/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -121,7 +122,7 @@ const bioValidator = validatorCompiler(bioValidationsModel);
 
 const contactValidator = async (contact, returnCondition) => {
   try {
-    await cellphoneValidator(contact);
+    await cellphoneValidator(getCellphone(contact));
     await firstNameValidator(contact.firstName);
     await lastNameValidator(contact.lastName);
 
@@ -151,7 +152,7 @@ const compiledVerificationCodeValidator = validatorCompiler(
   verificationCodeValidationModel
 );
 
-const cellphoneValidator = async (cellphone = {}) => {
+const cellphoneValidator = async (cellphone = {}, returnCondition) => {
   try {
     const { countryCode, countryName, phoneNumber } = cellphone;
 
@@ -167,7 +168,7 @@ const cellphoneValidator = async (cellphone = {}) => {
     await phoneNumberValidator(phoneNumber, false);
   } catch (error) {
     logger.log("cellphoneValidator catch, error:", error);
-    throw error;
+    return checkReturnCondition(returnCondition, error);
   }
 };
 

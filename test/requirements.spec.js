@@ -2,7 +2,10 @@ require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnecter").databaseConnecter();
 require("@/variables/globalVariables");
 
-const { setEnvironment } = require("@/functions/utilities/utilsNoDeps");
+const {
+  setEnvironment,
+  errorThrower,
+} = require("@/functions/utilities/utilsNoDeps");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { randomId } = require("@/functions/utilities/randomId");
 const {
@@ -59,7 +62,7 @@ describe("Add requirements to application state", () => {
         testUsers[`testUser_${i}`] = testUser;
       } catch (error) {
         logger.log("requirements.spec adding users catch, error:", error);
-        throw error;
+        errorThrower(error, error);
       }
     }
 

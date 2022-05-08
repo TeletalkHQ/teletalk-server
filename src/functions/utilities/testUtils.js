@@ -73,7 +73,7 @@ const myRequest = async (
     return response;
   } catch (error) {
     logger.log("myRequest catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 

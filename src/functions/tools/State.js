@@ -1,4 +1,5 @@
 const Redis = require("ioredis");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
 
 const redis = new Redis();
 
@@ -14,7 +15,7 @@ class State {
       return value;
     } catch (error) {
       logger.log("getState catch, error", error);
-      throw error;
+      errorThrower(error, error);
     }
   }
 
@@ -25,7 +26,7 @@ class State {
       return JSON.parse(value);
     } catch (error) {
       logger.log("getStateObject catch, error", error);
-      throw error;
+      errorThrower(error, error);
     }
   }
 

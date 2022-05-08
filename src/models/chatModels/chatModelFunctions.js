@@ -44,7 +44,7 @@ const getChatsLastMessages = async (currentUser) => {
     return chats;
   } catch (error) {
     logger.log("getChatsLastMessages catch, error", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 

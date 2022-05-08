@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+
 const {
   appConfigs: { MONGO_URL },
 } = require("@/configs/appConfigs");
@@ -14,7 +16,7 @@ const databaseConnecter = async () => {
     return { database };
   } catch (error) {
     logger.log("connectDatabase catch, error:", error);
-    throw error;
+    errorThrower(error, error);
   }
 };
 

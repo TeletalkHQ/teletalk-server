@@ -115,7 +115,7 @@ const checkReturnCondition = (returnCondition, error) => {
     return error;
   }
 
-  throw error;
+  errorThrower(error, error);
 };
 
 const bioValidator = validatorCompiler(bioValidationsModel);

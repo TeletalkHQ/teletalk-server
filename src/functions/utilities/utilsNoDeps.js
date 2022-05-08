@@ -180,7 +180,7 @@ const validatorErrorFinder = (errors, value, prop = "type") =>
 
 const getHostFromRequest = (request) => request.get("host");
 
-const isUrlShouldIgnore = (url, reqUrl) =>
+const isUrlMatchWithReqUrl = (url, reqUrl) =>
   (Array.isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
 
 const versionCalculator = (versions = []) => {
@@ -259,7 +259,7 @@ module.exports = {
   getMethodFromRoute,
   getValidatorErrorTypes,
   isFunction,
-  isUrlShouldIgnore,
+  isUrlMatchWithReqUrl,
   makeCellphone,
   makeContact,
   makeFullName,

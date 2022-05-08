@@ -4,7 +4,7 @@ const {
   isUrlMatchWithReqUrl,
 } = require("@/functions/utilities/utilsNoDeps");
 
-const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
+const applyMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   errorThrower(
     typeof url !== "string" && !Array.isArray(url),
     "url must be string or an array"
@@ -18,22 +18,22 @@ const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
     );
 
     if (isUrlMatchWithReqUrl(url, req.url)) {
-      return next();
-    }
+      let noErrorOnMiddlewares = true;
+      for await (const md of middlewares) {
+        const result = await md(req, res, () => {});
 
-    let noErrorOnMiddlewares = true;
-    for await (const md of middlewares) {
-      const result = await md(req, res, () => {});
-
-      if (result?.done === false) {
-        noErrorOnMiddlewares = false;
-        break;
+        if (result?.done === false) {
+          noErrorOnMiddlewares = false;
+          break;
+        }
       }
-    }
-    if (noErrorOnMiddlewares) {
-      next();
+      if (noErrorOnMiddlewares) {
+        next();
+      }
+    } else {
+      return next();
     }
   };
 };
 
-module.exports = { ignoreMiddlewaresByUrlMiddleware };
+module.exports = { applyMiddlewaresByUrlMiddleware };

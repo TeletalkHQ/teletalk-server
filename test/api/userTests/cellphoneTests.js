@@ -1,4 +1,4 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
   userErrors: {
@@ -10,7 +10,7 @@ const {
 
 const cellphoneFailureTests = () => {
   it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await customRequest.sendRequest({}, CELLPHONE_REQUIRED);
+    await CustomRequest.sendRequest({}, CELLPHONE_REQUIRED);
   });
 };
 

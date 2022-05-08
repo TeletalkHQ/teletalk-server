@@ -4,7 +4,7 @@ const {
   setTestUserAndTestToken,
   makeTestCellphone,
 } = require("@/functions/utilities/testUtils");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
   cellphoneRoutes: {
@@ -45,8 +45,8 @@ const cellphone = makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
-    customRequest.setBaseUrl(cellphoneRouteBaseUrl);
-    customRequest.setRouteObject(addBlockRoute);
+    CustomRequest.setBaseUrl(cellphoneRouteBaseUrl);
+    CustomRequest.setRouteObject(addBlockRoute);
 
     testUsers = await getTestUsersFromState();
 
@@ -62,7 +62,7 @@ describe("addBlock successful tests", () => {
       body: {
         blockedCellphone: { phoneNumber, countryCode, countryName },
       },
-    } = await customRequest.sendRequest(testUser_1);
+    } = await CustomRequest.sendRequest(testUser_1);
 
     expect(phoneNumber).equal(testUser_1.phoneNumber);
     expect(phoneNumber.length)
@@ -84,15 +84,15 @@ describe("addBlock successful tests", () => {
 describe("addBlock failure tests", () => {
   it("should get error, SELF_STUFF", async () => {
     const { testUser_0 } = testUsers;
-    await customRequest.sendRequest(testUser_0, SELF_STUFF);
+    await CustomRequest.sendRequest(testUser_0, SELF_STUFF);
   });
 
   it("should get error, BLACKLIST_ITEM_EXIST", async () => {
     const { testUser_2 } = testUsers;
 
     //* First one get succeed, but second one is duplicate
-    await customRequest.sendRequest(testUser_2);
-    await customRequest.sendRequest(testUser_2, BLACKLIST_ITEM_EXIST);
+    await CustomRequest.sendRequest(testUser_2);
+    await CustomRequest.sendRequest(testUser_2, BLACKLIST_ITEM_EXIST);
   });
 
   cellphoneFailureTests();

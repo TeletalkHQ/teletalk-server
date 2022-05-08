@@ -1,5 +1,5 @@
 const { sendableUserData } = require("@/functions/utilities/sendableUserData");
-const { temporaryClients } = require("@/functions/tools/TemporaryClients");
+const { TemporaryClients } = require("@/functions/tools/TemporaryClients");
 const {
   getEnvironment,
   getCellphone,
@@ -55,7 +55,7 @@ const verifySignInNormalUserController = async (
     errorThrower(verifiedToken.done === false, verifiedToken.error);
 
     const cellphone = getCellphone(verifiedToken.payload);
-    const tempClient = await temporaryClients.findClient(cellphone);
+    const tempClient = await TemporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 
     errorThrower(tempClient?.verificationCode !== verificationCode, () =>

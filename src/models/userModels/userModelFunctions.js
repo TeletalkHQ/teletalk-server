@@ -138,7 +138,7 @@ const deleteBlacklistItem = async (currentUser, targetUserData) => {
     currentUser.blacklist,
     targetUserData
   );
-  errorThrower(!blacklistItem, BLACKLIST_ITEM_NOT_EXIST);
+  errorThrower(!blacklistItem, () => getErrorObject(BLACKLIST_ITEM_NOT_EXIST));
 
   currentUser.blacklist.splice(cellphoneIndex, 1);
 

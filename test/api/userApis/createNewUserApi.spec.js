@@ -24,15 +24,15 @@ const {
     },
   },
 } = require("@/variables/routes/userRoutes");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const lastNameMaxLength = lastNameModel.maxlength.value;
 const firstNameMaxLength = firstNameModel.maxlength.value;
 
 describe("", () => {
-  it("should test routes properties for customRequest", async () => {
-    customRequest.setBaseUrl(userRouteBaseUrl);
-    customRequest.setRouteObject(createNewUserRoute);
+  it("should test routes properties for CustomRequest", async () => {
+    CustomRequest.setBaseUrl(userRouteBaseUrl);
+    CustomRequest.setRouteObject(createNewUserRoute);
   });
 });
 

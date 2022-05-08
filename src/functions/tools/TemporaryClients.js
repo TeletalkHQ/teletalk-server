@@ -8,7 +8,7 @@ const {
 } = require("@/variables/constants/initialValues/initialValue");
 
 class TemporaryClients {
-  constructor(temporaryClients) {
+  constructor() {
     this.initializeClients();
   }
   async addClient(client) {
@@ -86,6 +86,4 @@ class TemporaryClients {
   }
 }
 
-const temporaryClients = new TemporaryClients({});
-
-module.exports = { temporaryClients };
+module.exports = { TemporaryClients: new TemporaryClients({}) };

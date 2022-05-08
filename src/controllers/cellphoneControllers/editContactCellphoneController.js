@@ -1,4 +1,4 @@
-const { makeCellphone } = require("@/functions/utilities/utilsNoDeps");
+const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
 const { updateOneContact } = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: {
@@ -19,7 +19,7 @@ const editContactCellphoneController = async (
       currentUser,
     } = req;
 
-    const targetCellphone = makeCellphone(body);
+    const targetCellphone = getCellphone(body);
 
     const editedValues = { firstName, lastName };
 

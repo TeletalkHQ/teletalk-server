@@ -122,6 +122,8 @@ const bioValidator = validatorCompiler(bioValidationsModel);
 
 const contactValidator = async (contact, returnCondition) => {
   try {
+    logger.log("contactcontact", contact);
+
     await cellphoneValidator(getCellphone(contact));
     await firstNameValidator(contact.firstName);
     await lastNameValidator(contact.lastName);

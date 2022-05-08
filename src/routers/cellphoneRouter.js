@@ -48,6 +48,9 @@ const {
     },
   },
 } = require("@/variables/routes/cellphoneRoutes");
+const {
+  applyMiddlewaresByUrlMiddleware,
+} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
 
 const cellphoneRouter = Router();
 
@@ -56,12 +59,21 @@ cellphoneRouter.use(findCurrentUserFromDb);
 cellphoneRouter.use(
   ignoreMiddlewaresByUrlMiddleware(
     getContactsRoute.url,
-    cellphoneValidatorMiddleware,
     selfStuffControllerMiddleware
   )
 );
-
-cellphoneRouter.use(addContactRoute.url, contactValidatorMiddleware);
+cellphoneRouter.use(
+  ignoreMiddlewaresByUrlMiddleware(
+    [getContactsRoute.url, addContactRoute.url],
+    cellphoneValidatorMiddleware
+  )
+);
+cellphoneRouter.use(
+  applyMiddlewaresByUrlMiddleware(
+    [editContactRoute.url, addContactRoute.url],
+    contactValidatorMiddleware
+  )
+);
 
 cellphoneRouter[getContactsRoute.method](
   getContactsRoute.url,

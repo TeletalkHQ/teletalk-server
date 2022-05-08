@@ -1,16 +1,9 @@
-const {
-  getCellphone,
-  getContact,
-} = require("@/functions/utilities/utilsNoDeps");
+const { getContact } = require("@/functions/utilities/utilsNoDeps");
 const {
   addContactToUserContacts,
 } = require("@/models/userModels/userModelFunctions");
 const {
-  cellphoneRoutes: {
-    properties: {
-      addContactRoute: { properties: addContactRoute },
-    },
-  },
+  cellphoneRoutes: { addContactRoute },
 } = require("@/variables/routes/cellphoneRoutes");
 
 const addContactCellphoneController = async (

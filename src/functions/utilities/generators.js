@@ -26,14 +26,12 @@ const errorGenerator = (
     });
 
     return {
-      properties: {
-        errorCode,
-        statusCode,
-        message,
-        reason: errorReason,
-        errorKey,
-      },
-      info: { version },
+      errorCode,
+      statusCode,
+      message,
+      reason: errorReason,
+      errorKey,
+      version,
     };
   } catch (error) {
     logger.log("errorGenerator catch, error:", error);
@@ -50,8 +48,11 @@ const routeGenerator = (method, url, statusCode, version, description = "") => {
     });
 
     return {
-      properties: { method, url, statusCode },
-      info: { version, description },
+      method,
+      url,
+      statusCode,
+      version,
+      description,
     };
   } catch (error) {
     logger.log("routeGenerator catch, error:", error);
@@ -105,20 +106,18 @@ const modelGenerator = (
 ) => {
   try {
     return {
-      properties: {
-        maxlength,
-        minlength,
-        required,
-        trim,
-        type,
-        unique,
-        default: defaultValue,
-        lowercase,
-        length,
-        numeric,
-        empty,
-      },
-      info: { version },
+      maxlength,
+      minlength,
+      required,
+      trim,
+      type,
+      unique,
+      default: defaultValue,
+      lowercase,
+      length,
+      numeric,
+      empty,
+      version,
     };
   } catch (error) {
     logger.log("modelGenerator catch, error:", error);

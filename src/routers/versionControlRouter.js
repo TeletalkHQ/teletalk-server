@@ -10,11 +10,7 @@ const {
 
 const versionControlRouter = Router();
 
-const {
-  properties: {
-    getAllStuffsRoute: { properties: getAllStuffsRoute },
-  },
-} = versionControlRoutes;
+const { getAllStuffsRoute } = versionControlRoutes;
 
 versionControlRouter[getAllStuffsRoute.method](
   getAllStuffsRoute.url,

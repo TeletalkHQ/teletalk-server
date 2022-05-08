@@ -15,11 +15,7 @@ const {
   ENVIRONMENT_VALUES,
 } = require("@/variables/constants/environmentInitialValues");
 const {
-  userRoutes: {
-    properties: {
-      signInNormalRoute: { properties: signInNormalRoute },
-    },
-  },
+  userRoutes: { signInNormalRoute },
 } = require("@/variables/routes/userRoutes");
 const { verificationCodeValidator } = require("@/validators/userValidators");
 

@@ -7,13 +7,11 @@ const {
 
 const {
   chatModels: {
-    properties: {
-      chatIdModel: { properties: chatIdModel },
-      createdAtModel: { properties: createdAtModel },
-      messageIdModel: { properties: messageIdModel },
-      messageModel: { properties: messageModel },
-      participantIdModel: { properties: participantIdModel },
-    },
+    chatIdModel,
+    createdAtModel,
+    messageIdModel,
+    messageModel,
+    participantIdModel,
   },
 } = require("@/models/chatModels/chatModels");
 

@@ -6,11 +6,7 @@ const {
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const {
-  userErrors: {
-    properties: {
-      USER_NOT_EXIST: { properties: USER_NOT_EXIST },
-    },
-  },
+  userErrors: { USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const findCurrentUserFromDb = async (req, res, next) => {

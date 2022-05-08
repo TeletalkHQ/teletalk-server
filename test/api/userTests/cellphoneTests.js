@@ -1,11 +1,7 @@
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
-  userErrors: {
-    properties: {
-      CELLPHONE_REQUIRED: { properties: CELLPHONE_REQUIRED },
-    },
-  },
+  userErrors: { CELLPHONE_REQUIRED },
 } = require("@/variables/errors/userErrors");
 
 const cellphoneFailureTests = () => {

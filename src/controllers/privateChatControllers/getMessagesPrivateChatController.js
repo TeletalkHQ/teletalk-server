@@ -5,14 +5,10 @@ const {
 } = require("@/models/chatModels/chatModelFunctions");
 
 const {
-  chatErrors: {
-    properties: {
-      CHAT_ID_REQUIRED: { properties: CHAT_ID_REQUIRED },
-    },
-  },
+  chatErrors: { CHAT_ID_REQUIRED },
 } = require("@/variables/errors/chatErrors");
 const {
-  privateChatRoutes: { properties: getMessagesRoute },
+  privateChatRoutes: { getMessagesRoute },
 } = require("@/variables/routes/privateChatRoutes");
 
 const getMessagesPrivateChatController = async (

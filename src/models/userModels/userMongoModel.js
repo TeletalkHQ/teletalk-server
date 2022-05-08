@@ -8,27 +8,23 @@ const { skipParams } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: {
-    properties: {
-      bioModel: { properties: bioModel },
-      countryCodeModel: { properties: countryCodeModel },
-      countryNameModel: { properties: countryNameModel },
-      createdAtModel: { properties: createdAtModel },
-      firstNameModel: { properties: firstNameModel },
-      lastNameModel: { properties: lastNameModel },
-      phoneNumberModel: { properties: phoneNumberModel },
-      tokenModel: { properties: tokenModel },
-      usernameModel: { properties: usernameModel },
-    },
+    bioModel,
+    countryCodeModel,
+    countryNameModel,
+    createdAtModel,
+    firstNameModel,
+    lastNameModel,
+    phoneNumberModel,
+    tokenModel,
+    usernameModel,
   },
 } = require("@/models/userModels/userModels");
 
 const {
   commonModels: {
-    properties: {
-      privateIdCommonModel: { properties: privateIdCommonModel },
-      chatIdCommonModel: { properties: chatIdCommonModel },
-      messageIdCommonModel: { properties: messageIdCommonModel },
-    },
+    privateIdCommonModel,
+    chatIdCommonModel,
+    messageIdCommonModel,
   },
 } = require("@/models/commonModels/commonModels");
 

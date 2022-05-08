@@ -3,11 +3,7 @@ const {
   addCellphoneToUserBlacklist,
 } = require("@/models/userModels/userModelFunctions");
 const {
-  cellphoneRoutes: {
-    properties: {
-      addBlockRoute: { properties: addBlockRoute },
-    },
-  },
+  cellphoneRoutes: { addBlockRoute },
 } = require("@/variables/routes/cellphoneRoutes");
 
 const addBlockCellphoneController = async (

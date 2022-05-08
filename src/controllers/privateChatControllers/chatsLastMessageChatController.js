@@ -3,7 +3,7 @@ const {
 } = require("@/models/chatModels/chatModelFunctions");
 
 const {
-  privateChatRoutes: { properties: chatsLastMessageRoute },
+  privateChatRoutes: { chatsLastMessageRoute },
 } = require("@/variables/routes/privateChatRoutes");
 
 const chatsLastMessageChatController = async (

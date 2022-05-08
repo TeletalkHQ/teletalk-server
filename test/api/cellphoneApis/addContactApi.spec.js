@@ -7,31 +7,14 @@ const {
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
-  userModels: {
-    properties: {
-      privateIdModel: { properties: privateIdModel },
-      firstNameModel: { properties: firstNameModel },
-      lastNameModel: { properties: lastNameModel },
-    },
-  },
+  userModels: { privateIdModel, firstNameModel, lastNameModel },
 } = require("@/models/userModels/userModels");
 
 const {
-  cellphoneRoutes: {
-    properties: {
-      addContactRoute: { properties: addContactRoute },
-      cellphoneRouteBaseUrl: { properties: cellphoneRouteBaseUrl },
-    },
-  },
+  cellphoneRoutes: { addContactRoute, cellphoneRouteBaseUrl },
 } = require("@/variables/routes/cellphoneRoutes");
 const {
-  userErrors: {
-    properties: {
-      CONTACT_ITEM_EXIST: { properties: CONTACT_ITEM_EXIST },
-      SELF_STUFF: { properties: SELF_STUFF },
-      TARGET_USER_NOT_EXIST: { properties: TARGET_USER_NOT_EXIST },
-    },
-  },
+  userErrors: { CONTACT_ITEM_EXIST, SELF_STUFF, TARGET_USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 const { countries } = require("@/variables/constants/countries");
 

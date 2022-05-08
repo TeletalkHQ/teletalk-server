@@ -4,21 +4,14 @@ const {
   makeContact,
 } = require("@/functions/utilities/utilsNoDeps");
 const {
-  userModels: {
-    properties: {
-      firstNameModel: { properties: firstNameModel },
-      lastNameModel: { properties: lastNameModel },
-    },
-  },
+  userModels: { firstNameModel, lastNameModel },
 } = require("@/models/userModels/userModels");
 const {
   userErrors: {
-    properties: {
-      FIRST_NAME_INVALID_TYPE: { properties: FIRST_NAME_INVALID_TYPE },
-      FIRST_NAME_MAXLENGTH_REACH: { properties: FIRST_NAME_MAXLENGTH_REACH },
-      FIRST_NAME_MINLENGTH_REACH: { properties: FIRST_NAME_MINLENGTH_REACH },
-      FIRST_NAME_REQUIRED: { properties: FIRST_NAME_REQUIRED },
-    },
+    FIRST_NAME_INVALID_TYPE,
+    FIRST_NAME_MAXLENGTH_REACH,
+    FIRST_NAME_MINLENGTH_REACH,
+    FIRST_NAME_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
 

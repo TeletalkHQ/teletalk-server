@@ -13,13 +13,11 @@ const {
 } = require("@/variables/constants/initialOptions/initialOptions");
 const {
   userErrors: {
-    properties: {
-      BLACKLIST_ITEM_EXIST: { properties: BLACKLIST_ITEM_EXIST },
-      BLACKLIST_ITEM_NOT_EXIST: { properties: BLACKLIST_ITEM_NOT_EXIST },
-      CONTACT_ITEM_EXIST: { properties: CONTACT_ITEM_EXIST },
-      CONTACT_ITEM_NOT_EXIST: { properties: CONTACT_ITEM_NOT_EXIST },
-      TARGET_USER_NOT_EXIST: { properties: TARGET_USER_NOT_EXIST },
-    },
+    BLACKLIST_ITEM_EXIST,
+    BLACKLIST_ITEM_NOT_EXIST,
+    CONTACT_ITEM_EXIST,
+    CONTACT_ITEM_NOT_EXIST,
+    TARGET_USER_NOT_EXIST,
   },
 } = require("@/variables/errors/userErrors");
 

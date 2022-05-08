@@ -22,30 +22,17 @@ const {
   updateUserDataByPrivateId,
 } = require("@/models/userModels/userModelFunctions");
 const {
-  commonModels: {
-    properties: {
-      privateIdCommonModel: { properties: privateIdCommonModel },
-    },
-  },
+  commonModels: { privateIdCommonModel },
 } = require("@/models/commonModels/commonModels");
 
 const {
   ENVIRONMENT_KEYS,
 } = require("@/variables/constants/environmentInitialValues");
 const {
-  userErrors: {
-    properties: {
-      USER_NOT_EXIST: { properties: USER_NOT_EXIST },
-      FULL_NAME_INVALID: { properties: FULL_NAME_INVALID },
-    },
-  },
+  userErrors: { USER_NOT_EXIST, FULL_NAME_INVALID },
 } = require("@/variables/errors/userErrors");
 const {
-  userRoutes: {
-    properties: {
-      createNewUserRoute: { properties: createNewUserRoute },
-    },
-  },
+  userRoutes: { createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
 
 const createNewUserUserController = async (

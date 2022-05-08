@@ -2,7 +2,6 @@ const { errorGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-  extractFromInfo,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const APP_ERROR_KEYS = {
@@ -33,11 +32,8 @@ const NOT_FOUND = errorGenerator(
 const errors = { NO_ROUTE_OBJECT, NOT_FOUND };
 
 const appErrors = {
-  properties: errors,
-
-  info: {
-    version: versionCalculator(extractVersions(extractFromInfo(errors))),
-  },
+  ...errors,
+  version: versionCalculator(extractVersions(errors)),
 };
 
 module.exports = { appErrors };

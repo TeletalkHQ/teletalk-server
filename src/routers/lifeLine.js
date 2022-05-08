@@ -17,49 +17,27 @@ const {
 } = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
 
 const {
-  cellphoneRoutes: {
-    properties: {
-      cellphoneRouteBaseUrl: { properties: cellphoneRouteBaseUrl },
-    },
-  },
+  cellphoneRoutes: { cellphoneRouteBaseUrl },
 } = require("@/variables/routes/cellphoneRoutes");
 const {
-  otherRoutes: {
-    properties: {
-      otherRouteBaseUrl: { properties: otherRouteBaseUrl },
-    },
-  },
+  otherRoutes: { otherRouteBaseUrl },
 } = require("@/variables/routes/otherRoutes");
 const {
-  privateChatRoutes: {
-    properties: {
-      privateChatRouteBaseUrl: { properties: privateChatRouteBaseUrl },
-    },
-  },
+  privateChatRoutes: { privateChatRouteBaseUrl },
 } = require("@/variables/routes/privateChatRoutes");
 const {
   userRoutes: {
-    properties: {
-      signInNormalRoute: { properties: signInNormalRoute },
-      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
-      createNewUserRoute: { properties: createNewUserRoute },
-      userRouteBaseUrl: { properties: userRouteBaseUrl },
-    },
+    signInNormalRoute,
+    verifySignInNormalRoute,
+    createNewUserRoute,
+    userRouteBaseUrl,
   },
 } = require("@/variables/routes/userRoutes");
 const {
-  versionControlRoutes: {
-    properties: {
-      versionControlBaseUrl: { properties: versionControlBaseUrl },
-    },
-  },
+  versionControlRoutes: { versionControlBaseUrl },
 } = require("@/variables/routes/versionControlRoutes");
 const {
-  testRoutes: {
-    properties: {
-      testBaseUrl: { properties: testBaseUrl },
-    },
-  },
+  testRoutes: { testBaseUrl },
 } = require("@/variables/routes/testRoutes");
 
 const lifeLine = Router();

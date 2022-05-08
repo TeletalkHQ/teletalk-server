@@ -8,12 +8,7 @@ const {
 } = require("@/controllers/otherControllers/welcomeOtherController");
 
 const {
-  otherRoutes: {
-    properties: {
-      welcomeRoute: { properties: welcomeRoute },
-      countriesRoute: { properties: countriesRoute },
-    },
-  },
+  otherRoutes: { welcomeRoute, countriesRoute },
 } = require("@/variables/routes/otherRoutes");
 
 const otherRouter = Router();

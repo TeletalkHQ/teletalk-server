@@ -5,9 +5,7 @@ const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
 const { cellphoneValidator } = require("@/validators/userValidators");
 
 const {
-  userErrors: {
-    properties: { TOKEN_REQUIRED, USER_NOT_EXIST },
-  },
+  userErrors: { TOKEN_REQUIRED, USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 

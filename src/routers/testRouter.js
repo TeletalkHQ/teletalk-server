@@ -5,11 +5,7 @@ const {
 } = require("@/controllers/testControllers/getAllUsersTestController");
 
 const {
-  testRoutes: {
-    properties: {
-      getAllUsersRoute: { properties: getAllUsersRoute },
-    },
-  },
+  testRoutes: { getAllUsersRoute },
 } = require("@/variables/routes/testRoutes");
 
 const testRouter = Router();

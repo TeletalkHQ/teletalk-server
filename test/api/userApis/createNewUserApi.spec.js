@@ -5,24 +5,14 @@ const {
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  userModels: {
-    properties: {
-      firstNameModel: { properties: firstNameModel },
-      lastNameModel: { properties: lastNameModel },
-    },
-  },
+  userModels: { firstNameModel, lastNameModel },
 } = require("@/models/userModels/userModels");
 
 const { firstNameFailureTests } = require("$/api/userTests/firstNameTests");
 const { lastNameFailureTests } = require("$/api/userTests/lastNameTests");
 
 const {
-  userRoutes: {
-    properties: {
-      userRouteBaseUrl: { properties: userRouteBaseUrl },
-      createNewUserRoute: { properties: createNewUserRoute },
-    },
-  },
+  userRoutes: { userRouteBaseUrl, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 

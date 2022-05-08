@@ -4,14 +4,10 @@ const {
 
 const {
   chatValidationModels: {
-    properties: {
-      chatIdValidationModel: { properties: chatIdValidationModel },
-      participantIdValidationModel: {
-        properties: participantIdValidationModel,
-      },
-      messageIdValidationModel: { properties: messageIdValidationModel },
-      messageTextValidationModel: { properties: messageTextValidationModel },
-    },
+    chatIdValidationModel,
+    participantIdValidationModel,
+    messageIdValidationModel,
+    messageTextValidationModel,
   },
 } = require("@/models/validationModels/chatValidationModels");
 

@@ -7,23 +7,14 @@ const {
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 const {
-  chatModels: {
-    properties: {
-      messageIdModel: { properties: messageIdModel },
-      chatIdModel: { properties: chatIdModel },
-    },
-  },
+  chatModels: { messageIdModel, chatIdModel },
 } = require("@/models/chatModels/chatModels");
 
 const {
-  chatErrors: {
-    properties: { CHAT_NOT_EXIST },
-  },
+  chatErrors: { CHAT_NOT_EXIST },
 } = require("@/variables/errors/chatErrors");
 const {
-  userErrors: {
-    properties: { TARGET_USER_NOT_EXIST },
-  },
+  userErrors: { TARGET_USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const getChatsLastMessages = async (currentUser) => {

@@ -2,7 +2,6 @@ const { routeGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-  extractFromInfo,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const versionControlBaseUrl = routeGenerator(
@@ -23,11 +22,8 @@ const getAllStuffsRoute = routeGenerator(
 const routes = { versionControlBaseUrl, getAllStuffsRoute };
 
 const versionControlRoutes = {
-  properties: routes,
-
-  info: {
-    version: versionCalculator(extractVersions(extractFromInfo(routes))),
-  },
+  ...routes,
+  version: versionCalculator(extractVersions(routes)),
 };
 
 module.exports = { versionControlRoutes };

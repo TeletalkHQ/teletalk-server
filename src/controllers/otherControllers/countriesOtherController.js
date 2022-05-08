@@ -1,10 +1,6 @@
 const { countries } = require("@/variables/constants/countries");
 const {
-  otherRoutes: {
-    properties: {
-      countriesRoute: { properties: countriesRoute },
-    },
-  },
+  otherRoutes: { countriesRoute },
 } = require("@/variables/routes/otherRoutes");
 
 const countriesOtherController = async (

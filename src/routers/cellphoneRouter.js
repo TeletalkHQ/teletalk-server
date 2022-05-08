@@ -38,14 +38,12 @@ const {
 
 const {
   cellphoneRoutes: {
-    properties: {
-      addContactRoute: { properties: addContactRoute },
-      addBlockRoute: { properties: addBlockRoute },
-      editContactRoute: { properties: editContactRoute },
-      removeBlockRoute: { properties: removeBlockRoute },
-      removeContactRoute: { properties: removeContactRoute },
-      getContactsRoute: { properties: getContactsRoute },
-    },
+    addContactRoute,
+    addBlockRoute,
+    editContactRoute,
+    removeBlockRoute,
+    removeContactRoute,
+    getContactsRoute,
   },
 } = require("@/variables/routes/cellphoneRoutes");
 const {

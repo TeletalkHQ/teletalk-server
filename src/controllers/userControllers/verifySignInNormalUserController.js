@@ -8,12 +8,7 @@ const {
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  userErrors: {
-    properties: {
-      VERIFICATION_CODE_INVALID: { properties: VERIFICATION_CODE_INVALID },
-      USER_NOT_EXIST: { properties: USER_NOT_EXIST },
-    },
-  },
+  userErrors: { VERIFICATION_CODE_INVALID, USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
@@ -23,11 +18,7 @@ const {
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 const {
-  userRoutes: {
-    properties: {
-      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
-    },
-  },
+  userRoutes: { verifySignInNormalRoute },
 } = require("@/variables/routes/userRoutes");
 const {
   tokenValidator,

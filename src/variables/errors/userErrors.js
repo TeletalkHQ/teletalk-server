@@ -2,7 +2,6 @@ const { errorGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-  extractFromInfo,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const USER_ERROR_KEYS = {
@@ -816,11 +815,8 @@ const errors = {
 };
 
 const userErrors = {
-  info: {
-    version: versionCalculator(extractVersions(extractFromInfo(errors))),
-  },
-
-  properties: errors,
+  version: versionCalculator(extractVersions(errors)),
+  ...errors,
 };
 
 module.exports = {

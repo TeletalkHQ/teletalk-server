@@ -2,7 +2,6 @@ const { errorGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-  extractFromInfo,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const CHAT_EXIST = errorGenerator(
@@ -219,10 +218,8 @@ const errors = {
 };
 
 const chatErrors = {
-  info: {
-    version: versionCalculator(extractVersions(extractFromInfo(errors))),
-  },
-  properties: errors,
+  version: versionCalculator(extractVersions(errors)),
+  ...errors,
 };
 
 module.exports = {

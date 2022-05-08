@@ -6,11 +6,7 @@ const {
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  userErrors: {
-    properties: {
-      SELF_STUFF: { properties: SELF_STUFF },
-    },
-  },
+  userErrors: { SELF_STUFF },
 } = require("@/variables/errors/userErrors");
 
 const selfStuffControllerMiddleware = (req, res, next) => {

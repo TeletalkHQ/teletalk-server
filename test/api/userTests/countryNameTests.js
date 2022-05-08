@@ -5,26 +5,16 @@ const {
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  userModels: {
-    properties: {
-      countryNameModel: { properties: countryNameModel },
-    },
-  },
+  userModels: { countryNameModel },
 } = require("@/models/userModels/userModels");
 
 const {
   userErrors: {
-    properties: {
-      COUNTRY_NAME_INVALID_TYPE: { properties: COUNTRY_NAME_INVALID_TYPE },
-      COUNTRY_NAME_MAXLENGTH_REACH: {
-        properties: COUNTRY_NAME_MAXLENGTH_REACH,
-      },
-      COUNTRY_NAME_MINLENGTH_REACH: {
-        properties: COUNTRY_NAME_MINLENGTH_REACH,
-      },
-      COUNTRY_NAME_NOT_SUPPORTED: { properties: COUNTRY_NAME_NOT_SUPPORTED },
-      COUNTRY_NAME_REQUIRED: { properties: COUNTRY_NAME_REQUIRED },
-    },
+    COUNTRY_NAME_MAXLENGTH_REACH,
+    COUNTRY_NAME_MINLENGTH_REACH,
+    COUNTRY_NAME_INVALID_TYPE,
+    COUNTRY_NAME_NOT_SUPPORTED,
+    COUNTRY_NAME_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
 

@@ -5,37 +5,33 @@ const {
 const { randomId } = require("@/functions/utilities/randomId");
 const {
   versionCalculator,
-  extractFromInfo,
+
   extractVersions,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   chatErrors: {
-    properties: {
-      CHAT_ID_EXIST: { properties: CHAT_ID_EXIST },
-      CHAT_ID_INVALID_TYPE: { properties: CHAT_ID_INVALID_TYPE },
-      CHAT_ID_MAX_LENGTH_REACH: { properties: CHAT_ID_MAX_LENGTH_REACH },
-      CHAT_ID_MIN_LENGTH_REACH: { properties: CHAT_ID_MIN_LENGTH_REACH },
-      CHAT_ID_REQUIRED: { properties: CHAT_ID_REQUIRED },
-      MESSAGE_ID_EXIST: { properties: MESSAGE_ID_EXIST },
-      MESSAGE_ID_INVALID_TYPE: { properties: MESSAGE_ID_INVALID_TYPE },
-      MESSAGE_ID_MAX_LENGTH_REACH: { properties: MESSAGE_ID_MAX_LENGTH_REACH },
-      MESSAGE_ID_MIN_LENGTH_REACH: { properties: MESSAGE_ID_MIN_LENGTH_REACH },
-      MESSAGE_ID_REQUIRED: { properties: MESSAGE_ID_REQUIRED },
-    },
+    CHAT_ID_EXIST,
+    CHAT_ID_INVALID_TYPE,
+    CHAT_ID_MAX_LENGTH_REACH,
+    CHAT_ID_MIN_LENGTH_REACH,
+    CHAT_ID_REQUIRED,
+    MESSAGE_ID_EXIST,
+    MESSAGE_ID_INVALID_TYPE,
+    MESSAGE_ID_MAX_LENGTH_REACH,
+    MESSAGE_ID_MIN_LENGTH_REACH,
+    MESSAGE_ID_REQUIRED,
   },
 } = require("@/variables/errors/chatErrors");
 
 const {
   userErrors: {
-    properties: {
-      CREATED_AT_INVALID_TYPE: { properties: CREATED_AT_INVALID_TYPE },
-      PRIVATE_ID_EXIST: { properties: PRIVATE_ID_EXIST },
-      PRIVATE_ID_INVALID_TYPE: { properties: PRIVATE_ID_INVALID_TYPE },
-      PRIVATE_ID_MAX_LENGTH_REACH: { properties: PRIVATE_ID_MAX_LENGTH_REACH },
-      PRIVATE_ID_MIN_LENGTH_REACH: { properties: PRIVATE_ID_MIN_LENGTH_REACH },
-      PRIVATE_ID_REQUIRED: { properties: PRIVATE_ID_REQUIRED },
-    },
+    CREATED_AT_INVALID_TYPE,
+    PRIVATE_ID_EXIST,
+    PRIVATE_ID_INVALID_TYPE,
+    PRIVATE_ID_MAX_LENGTH_REACH,
+    PRIVATE_ID_MIN_LENGTH_REACH,
+    PRIVATE_ID_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
 
@@ -90,11 +86,8 @@ const models = {
 };
 
 const commonModels = {
-  info: {
-    version: versionCalculator(extractVersions(extractFromInfo(models))),
-  },
-
-  properties: models,
+  version: versionCalculator(extractVersions(models)),
+  ...models,
 };
 
 module.exports = {

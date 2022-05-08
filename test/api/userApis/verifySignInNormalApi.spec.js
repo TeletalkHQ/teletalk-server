@@ -6,12 +6,7 @@ const {
 } = require("@/variables/constants/environmentInitialValues");
 
 const {
-  userRoutes: {
-    properties: {
-      userRouteBaseUrl: { properties: userRouteBaseUrl },
-      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
-    },
-  },
+  userRoutes: { userRouteBaseUrl, verifySignInNormalRoute },
 } = require("@/variables/routes/userRoutes");
 
 const {

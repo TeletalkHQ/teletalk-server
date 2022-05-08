@@ -4,11 +4,7 @@ const {
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  appErrors: {
-    properties: {
-      NO_ROUTE_OBJECT: { properties: NO_ROUTE_OBJECT },
-    },
-  },
+  appErrors: { NO_ROUTE_OBJECT },
 } = require("@/variables/errors/appErrors");
 
 const getStatusCodeFromRoute = (routeObject) => {

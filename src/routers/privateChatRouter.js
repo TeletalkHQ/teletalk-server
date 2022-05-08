@@ -16,12 +16,10 @@ const {
 
 const {
   privateChatRoutes: {
-    properties: {
-      sendMessageRoute: { properties: sendMessageRoute },
-      getMessagesRoute: { properties: getMessagesRoute },
-      getAllChatsRoute: { properties: getAllChatsRoute },
-      chatsLastMessageRoute: { properties: chatsLastMessageRoute },
-    },
+    sendMessageRoute,
+    getMessagesRoute,
+    getAllChatsRoute,
+    chatsLastMessageRoute,
   },
 } = require("@/variables/routes/privateChatRoutes");
 

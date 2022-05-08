@@ -5,40 +5,27 @@ const {
 const {
   versionCalculator,
   extractVersions,
-  extractFromInfo,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   commonModels: {
-    properties: {
-      createdAtCommonModel,
-      chatIdCommonModel,
-      messageIdCommonModel,
-      privateIdCommonModel: { properties: privateIdCommonModel },
-    },
+    createdAtCommonModel,
+    chatIdCommonModel,
+    messageIdCommonModel,
+    privateIdCommonModel,
   },
 } = require("@/models/commonModels/commonModels");
 
 const {
   chatErrors: {
-    properties: {
-      MESSAGE_TEXT_INVALID_TYPE: { properties: MESSAGE_TEXT_INVALID_TYPE },
-      MESSAGE_TEXT_MAX_LENGTH_REACH: {
-        properties: MESSAGE_TEXT_MAX_LENGTH_REACH,
-      },
-      MESSAGE_TEXT_MIN_LENGTH_REACH: {
-        properties: MESSAGE_TEXT_MIN_LENGTH_REACH,
-      },
-      PARTICIPANT_ID_EXIST: { properties: PARTICIPANT_ID_EXIST },
-      PARTICIPANT_ID_INVALID_TYPE: { properties: PARTICIPANT_ID_INVALID_TYPE },
-      PARTICIPANT_ID_MAX_LENGTH_REACH: {
-        properties: PARTICIPANT_ID_MAX_LENGTH_REACH,
-      },
-      PARTICIPANT_ID_MIN_LENGTH_REACH: {
-        properties: PARTICIPANT_ID_MIN_LENGTH_REACH,
-      },
-      PARTICIPANT_ID_REQUIRED: { properties: PARTICIPANT_ID_REQUIRED },
-    },
+    MESSAGE_TEXT_INVALID_TYPE,
+    MESSAGE_TEXT_MAX_LENGTH_REACH,
+    MESSAGE_TEXT_MIN_LENGTH_REACH,
+    PARTICIPANT_ID_EXIST,
+    PARTICIPANT_ID_INVALID_TYPE,
+    PARTICIPANT_ID_MAX_LENGTH_REACH,
+    PARTICIPANT_ID_MIN_LENGTH_REACH,
+    PARTICIPANT_ID_REQUIRED,
   },
 } = require("@/variables/errors/chatErrors");
 
@@ -104,10 +91,8 @@ const models = {
 };
 
 const chatModels = {
-  info: {
-    version: versionCalculator(extractVersions(extractFromInfo(models))),
-  },
-  properties: models,
+  version: versionCalculator(extractVersions(models)),
+  ...models,
 };
 
 module.exports = {

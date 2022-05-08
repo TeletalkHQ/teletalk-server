@@ -7,12 +7,7 @@ const {
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
-  cellphoneRoutes: {
-    properties: {
-      addBlockRoute: { properties: addBlockRoute },
-      cellphoneRouteBaseUrl: { properties: cellphoneRouteBaseUrl },
-    },
-  },
+  cellphoneRoutes: { cellphoneRouteBaseUrl, addBlockRoute },
 } = require("@/variables/routes/cellphoneRoutes");
 
 const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
@@ -21,22 +16,11 @@ const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
 const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
 const {
-  userErrors: {
-    properties: {
-      BLACKLIST_ITEM_EXIST: { properties: BLACKLIST_ITEM_EXIST },
-      SELF_STUFF: { properties: SELF_STUFF },
-    },
-  },
+  userErrors: { BLACKLIST_ITEM_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
 
 const {
-  userModels: {
-    properties: {
-      phoneNumberModel: { properties: phoneNumberModel },
-      countryNameModel: { properties: countryNameModel },
-      countryCodeModel: { properties: countryCodeModel },
-    },
-  },
+  userModels: { phoneNumberModel, countryNameModel, countryCodeModel },
 } = require("@/models/userModels/userModels");
 
 let testUsers = {};

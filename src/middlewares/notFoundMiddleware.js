@@ -1,9 +1,5 @@
 const {
-  appErrors: {
-    properties: {
-      NOT_FOUND: { properties: NOT_FOUND },
-    },
-  },
+  appErrors: { NOT_FOUND },
 } = require("@/variables/errors/appErrors");
 
 const notFoundMiddleware = (req, res) => {

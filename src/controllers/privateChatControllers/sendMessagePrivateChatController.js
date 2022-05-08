@@ -7,12 +7,10 @@ const {
 } = require("@/models/chatModels/chatModelFunctions");
 
 const {
-  chatErrors: {
-    properties: { PARTICIPANT_ID_REQUIRED, MESSAGE_TEXT_REQUIRED },
-  },
+  chatErrors: { PARTICIPANT_ID_REQUIRED, MESSAGE_TEXT_REQUIRED },
 } = require("@/variables/errors/chatErrors");
 const {
-  privateChatRoutes: { properties: sendMessageRoute },
+  privateChatRoutes: { sendMessageRoute },
 } = require("@/variables/routes/privateChatRoutes");
 
 const sendMessagePrivateChatController = async (

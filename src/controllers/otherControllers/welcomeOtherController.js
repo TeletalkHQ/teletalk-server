@@ -1,9 +1,5 @@
 const {
-  otherRoutes: {
-    properties: {
-      welcomeRoute: { properties: welcomeRoute },
-    },
-  },
+  otherRoutes: { welcomeRoute },
 } = require("@/variables/routes/otherRoutes");
 
 const welcomeOtherController = (

@@ -2,7 +2,6 @@ const { routeGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-  extractFromInfo,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const cellphoneRouteBaseUrl = routeGenerator(true, "/cellphone", true, "1.0.0");
@@ -129,11 +128,8 @@ const routes = {
 };
 
 const cellphoneRoutes = {
-  info: {
-    version: versionCalculator(extractVersions(extractFromInfo(routes))),
-  },
-
-  properties: routes,
+  version: versionCalculator(extractVersions(routes)),
+  ...routes,
 };
 
 module.exports = {

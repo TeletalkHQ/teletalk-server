@@ -2,7 +2,6 @@ const { routeGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-  extractFromInfo,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const privateChatRouteBaseUrl = routeGenerator(
@@ -63,11 +62,8 @@ const routes = {
 };
 
 const privateChatRoutes = {
-  info: {
-    version: versionCalculator(extractVersions(extractFromInfo(routes))),
-  },
-
-  properties: routes,
+  version: versionCalculator(extractVersions(routes)),
+  ...routes,
 };
 
 module.exports = {

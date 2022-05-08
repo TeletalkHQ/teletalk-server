@@ -3,11 +3,7 @@ const {
   deleteBlacklistItem,
 } = require("@/models/userModels/userModelFunctions");
 const {
-  cellphoneRoutes: {
-    properties: {
-      removeBlockRoute: { properties: removeBlockRoute },
-    },
-  },
+  cellphoneRoutes: { removeBlockRoute },
 } = require("@/variables/routes/cellphoneRoutes");
 
 const removeBlockCellphoneController = async (

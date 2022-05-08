@@ -5,21 +5,11 @@ const {
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  userModels: {
-    properties: {
-      lastNameModel: { properties: lastNameModel },
-      firstNameModel: { properties: firstNameModel },
-    },
-  },
+  userModels: { lastNameModel, firstNameModel },
 } = require("@/models/userModels/userModels");
 
 const {
-  userErrors: {
-    properties: {
-      LAST_NAME_INVALID_TYPE: { properties: LAST_NAME_INVALID_TYPE },
-      LAST_NAME_MAXLENGTH_REACH: { properties: LAST_NAME_MAXLENGTH_REACH },
-    },
-  },
+  userErrors: { LAST_NAME_INVALID_TYPE, LAST_NAME_MAXLENGTH_REACH },
 } = require("@/variables/errors/userErrors");
 
 const firstNameMaxLength = firstNameModel.maxlength.value;

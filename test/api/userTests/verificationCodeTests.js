@@ -1,16 +1,10 @@
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 const {
   userErrors: {
-    properties: {
-      VERIFICATION_CODE_REQUIRED: { properties: VERIFICATION_CODE_REQUIRED },
-      VERIFICATION_CODE_INVALID_TYPE: {
-        properties: VERIFICATION_CODE_INVALID_TYPE,
-      },
-      VERIFICATION_CODE_INVALID_LENGTH: {
-        properties: VERIFICATION_CODE_INVALID_LENGTH,
-      },
-      VERIFICATION_CODE_INVALID: { properties: VERIFICATION_CODE_INVALID },
-    },
+    VERIFICATION_CODE_REQUIRED,
+    VERIFICATION_CODE_INVALID_TYPE,
+    VERIFICATION_CODE_INVALID_LENGTH,
+    VERIFICATION_CODE_INVALID,
   },
 } = require("@/variables/errors/userErrors");
 

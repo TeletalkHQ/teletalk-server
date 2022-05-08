@@ -9,22 +9,14 @@ const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
 const { makeCellphone } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  userModels: {
-    properties: {
-      phoneNumberModel: { properties: phoneNumberModel },
-      countryNameModel: { properties: countryNameModel },
-      countryCodeModel: { properties: countryCodeModel },
-    },
-  },
+  userModels: { phoneNumberModel, countryNameModel, countryCodeModel },
 } = require("@/models/userModels/userModels");
 
 const {
   cellphoneRoutes: {
-    properties: {
-      removeContactRoute: { properties: removeContactRoute },
-      addContactRoute: { properties: addContactRoute },
-      cellphoneRouteBaseUrl: { properties: cellphoneRouteBaseUrl },
-    },
+    removeContactRoute,
+    addContactRoute,
+    cellphoneRouteBaseUrl,
   },
 } = require("@/variables/routes/cellphoneRoutes");
 
@@ -33,12 +25,7 @@ const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
 const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
 
 const {
-  userErrors: {
-    properties: {
-      CONTACT_ITEM_NOT_EXIST: { properties: CONTACT_ITEM_NOT_EXIST },
-      SELF_STUFF: { properties: SELF_STUFF },
-    },
-  },
+  userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
 const { countries } = require("@/variables/constants/countries");
 

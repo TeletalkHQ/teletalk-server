@@ -4,25 +4,15 @@ const {
   randomStringNumber,
 } = require("@/functions/utilities/utilsNoDeps");
 const {
-  userModels: {
-    properties: {
-      phoneNumberModel: { properties: phoneNumberModel },
-    },
-  },
+  userModels: { phoneNumberModel },
 } = require("@/models/userModels/userModels");
 const {
   userErrors: {
-    properties: {
-      PHONE_NUMBER_INVALID_TYPE: { properties: PHONE_NUMBER_INVALID_TYPE },
-      PHONE_NUMBER_MAXLENGTH_REACH: {
-        properties: PHONE_NUMBER_MAXLENGTH_REACH,
-      },
-      PHONE_NUMBER_MINLENGTH_REACH: {
-        properties: PHONE_NUMBER_MINLENGTH_REACH,
-      },
-      PHONE_NUMBER_NUMERIC: { properties: PHONE_NUMBER_NUMERIC },
-      PHONE_NUMBER_REQUIRED: { properties: PHONE_NUMBER_REQUIRED },
-    },
+    PHONE_NUMBER_INVALID_TYPE,
+    PHONE_NUMBER_MAXLENGTH_REACH,
+    PHONE_NUMBER_MINLENGTH_REACH,
+    PHONE_NUMBER_NUMERIC,
+    PHONE_NUMBER_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
 

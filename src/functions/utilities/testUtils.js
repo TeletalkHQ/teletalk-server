@@ -15,12 +15,7 @@ const {
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  userRoutes: {
-    properties: {
-      verifySignInNormalRoute: { properties: verifySignInNormalRoute },
-      createNewUserRoute: { properties: createNewUserRoute },
-    },
-  },
+  userRoutes: { verifySignInNormalRoute, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
 const {
   ENVIRONMENT_KEYS,
@@ -38,6 +33,7 @@ const myRequest = async (
   withoutToken
 ) => {
   try {
+    logger.log("routeObjectrouteObjectrouteObject", routeObject);
     const response = await testRequest(
       {
         ...routeObject,

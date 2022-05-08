@@ -4,7 +4,7 @@ const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
 
 const v = new Validator();
 
-const validatorCompiler = (validationModel) => {
+const validatorCompiler = ({ version, ...validationModel }) => {
   try {
     errorThrower(
       typeof validationModel !== "object",

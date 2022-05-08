@@ -19,11 +19,7 @@ const {
 } = require("@/variables/constants/environmentInitialValues");
 
 const {
-  commonModels: {
-    properties: {
-      privateIdCommonModel: { properties: privateIdCommonModel },
-    },
-  },
+  commonModels: { privateIdCommonModel },
 } = require("@/models/commonModels/commonModels");
 const { addTestUser } = require("@/models/userModels/userModelFunctions");
 

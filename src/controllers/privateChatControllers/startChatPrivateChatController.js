@@ -5,14 +5,10 @@
 const { randomId } = require("@/functions/utilities/randomId");
 
 const {
-  chatErrors: {
-    properties: { CHAT_EXIST },
-  },
+  chatErrors: { CHAT_EXIST },
 } = require("@/variables/errors/chatErrors");
 const {
-  userErrors: {
-    properties: { USER_NOT_EXIST },
-  },
+  userErrors: { USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const {
@@ -20,11 +16,7 @@ const {
 } = require("@/models/chatModels/privateChatMongoModel");
 
 const {
-  chatModels: {
-    properties: {
-      chatIdModel: { properties: chatIdModel },
-    },
-  },
+  chatModels: { chatIdModel },
 } = require("@/models/chatModels/chatModels");
 const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
 const { userFinder } = require("@/models/userModels/userModelFunctions");

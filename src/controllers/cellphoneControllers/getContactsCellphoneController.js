@@ -1,6 +1,6 @@
 const { getUserContacts } = require("@/models/userModels/userModelFunctions");
 const {
-  cellphoneRoutes: { properties: getContactsRoute },
+  cellphoneRoutes: { getContactsRoute },
 } = require("@/variables/routes/cellphoneRoutes");
 
 const getContactsCellphoneController = async (

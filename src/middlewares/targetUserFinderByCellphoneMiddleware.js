@@ -9,11 +9,7 @@ const {
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
-  userErrors: {
-    properties: {
-      CELLPHONE_NOT_EXIST: { properties: CELLPHONE_NOT_EXIST },
-    },
-  },
+  userErrors: { CELLPHONE_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {

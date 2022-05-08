@@ -9,20 +9,11 @@ const {
   ENVIRONMENT_KEYS,
 } = require("@/variables/constants/environmentInitialValues");
 const {
-  userRoutes: {
-    properties: {
-      userRouteBaseUrl: { properties: userRouteBaseUrl },
-      signInNormalRoute: { properties: signInNormalRoute },
-    },
-  },
+  userRoutes: { userRouteBaseUrl, signInNormalRoute },
 } = require("@/variables/routes/userRoutes");
 
 const {
-  userModels: {
-    properties: {
-      verificationCodeModel: { properties: verificationCodeModel },
-    },
-  },
+  userModels: { verificationCodeModel },
 } = require("@/models/userModels/userModels");
 
 const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");

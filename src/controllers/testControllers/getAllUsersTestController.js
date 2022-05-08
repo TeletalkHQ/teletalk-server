@@ -1,10 +1,6 @@
 const { getAllUsers } = require("@/models/userModels/userModelFunctions");
 const {
-  testRoutes: {
-    properties: {
-      getAllUsersRoute: { properties: getAllUsersRoute },
-    },
-  },
+  testRoutes: { getAllUsersRoute },
 } = require("@/variables/routes/testRoutes");
 
 const getAllUsersTestController = async (

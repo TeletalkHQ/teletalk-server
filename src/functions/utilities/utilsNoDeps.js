@@ -206,7 +206,7 @@ const extractFromProperties = (object) => {
   const tempObject = {};
 
   for (const key in object) {
-    tempObject[key] = object[key].properties;
+    tempObject[key] = object[key];
   }
 
   return tempObject;
@@ -248,7 +248,7 @@ const makeFullName = (firstName, lastName) => ({ firstName, lastName });
 
 module.exports = {
   errorThrower,
-  extractFromInfo,
+
   extractFromProperties,
   extractVersions,
   getAllEnvironments,

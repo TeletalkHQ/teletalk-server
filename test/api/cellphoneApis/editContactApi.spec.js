@@ -8,31 +8,14 @@ const {
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
-  userModels: {
-    properties: {
-      privateIdModel: { properties: privateIdModel },
-      firstNameModel: { properties: firstNameModel },
-      lastNameModel: { properties: lastNameModel },
-    },
-  },
+  userModels: { privateIdModel, firstNameModel, lastNameModel },
 } = require("@/models/userModels/userModels");
 
 const {
-  cellphoneRoutes: {
-    properties: {
-      addContactRoute: { properties: addContactRoute },
-      editContactRoute: { properties: editContactRoute },
-      cellphoneRouteBaseUrl: { properties: cellphoneRouteBaseUrl },
-    },
-  },
+  cellphoneRoutes: { addContactRoute, editContactRoute, cellphoneRouteBaseUrl },
 } = require("@/variables/routes/cellphoneRoutes");
 const {
-  userErrors: {
-    properties: {
-      CONTACT_ITEM_NOT_EXIST: { properties: CONTACT_ITEM_NOT_EXIST },
-      SELF_STUFF: { properties: SELF_STUFF },
-    },
-  },
+  userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
 
 const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");

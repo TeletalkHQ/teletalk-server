@@ -24,7 +24,7 @@ const targetFinder = async (data = initialOptions) => {
       ...parameters.findParameters,
     });
   } catch (error) {
-    logger.log("userFinder catch", error);
+    logger.log("userFinder catch, error:", error);
     errorThrower(error, error);
   }
 };

@@ -16,7 +16,7 @@ const getContactsCellphoneController = async (
       contacts,
     });
   } catch (error) {
-    logger.log("getContactsCellphoneController", error);
+    logger.log("getContactsCellphoneController catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
   }

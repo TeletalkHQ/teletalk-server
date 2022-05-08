@@ -20,7 +20,7 @@ const passwordGenerator = (options = initialOptions) => {
 
     return randomPassword;
   } catch (error) {
-    logger.log("passwordGenerator", error);
+    logger.log("passwordGenerator catch, error:", error);
     errorThrower(error, error);
   }
 };

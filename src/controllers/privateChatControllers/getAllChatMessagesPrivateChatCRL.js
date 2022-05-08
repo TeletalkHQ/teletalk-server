@@ -4,7 +4,7 @@ const getAllChatMessagesPrivateChatCRL = async (
 ) => {
   try {
   } catch (error) {
-    logger.log("getAllChatMessagesPrivateChatCRL", error);
+    logger.log("getAllChatMessagesPrivateChatCRL catch, error: ", error);
     res.errorCollector(error);
     res.errorResponser();
   }

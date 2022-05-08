@@ -97,7 +97,6 @@ describe("removeContact successful test", () => {
 describe("removeBlock failure tests", () => {
   it("should get error, SELF_STUFF", async () => {
     const { testUser_0 } = testUsers;
-    logger.log("testUser_0 testUser_0 testUser_0", testUser_0);
     await CustomRequest.sendRequest(testUser_0, SELF_STUFF);
   });
 

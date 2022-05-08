@@ -1,4 +1,9 @@
 const {
+  errorThrower,
+  getErrorObject,
+} = require("@/functions/utilities/utilsNoDeps");
+
+const {
   appErrors: {
     properties: {
       NO_ROUTE_OBJECT: { properties: NO_ROUTE_OBJECT },
@@ -6,13 +11,11 @@ const {
   },
 } = require("@/variables/errors/appErrors");
 
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
-
 const getStatusCodeFromRoute = (routeObject) => {
   try {
     const statusCode = routeObject?.statusCode;
 
-    errorThrower(!statusCode, NO_ROUTE_OBJECT);
+    errorThrower(!statusCode, () => getErrorObject(NO_ROUTE_OBJECT));
 
     return statusCode;
   } catch (error) {

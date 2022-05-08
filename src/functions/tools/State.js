@@ -13,7 +13,7 @@ class State {
 
       return value;
     } catch (error) {
-      logger.log("State catch, error", error);
+      logger.log("getState catch, error", error);
       throw error;
     }
   }
@@ -24,7 +24,7 @@ class State {
 
       return JSON.parse(value);
     } catch (error) {
-      logger.log("State catch, error", error);
+      logger.log("getStateObject catch, error", error);
       throw error;
     }
   }

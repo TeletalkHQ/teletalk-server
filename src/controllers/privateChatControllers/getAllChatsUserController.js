@@ -16,7 +16,7 @@ const getAllChatsUserController = async (
       chats,
     });
   } catch (error) {
-    logger.log("getAllChatsUserController", error);
+    logger.log("getAllChatsUserController catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
   }

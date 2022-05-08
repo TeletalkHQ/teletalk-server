@@ -219,7 +219,6 @@ const UserSchema = new mongoose.Schema({
 // UserRegisterSchema.post("save", function (error, doc, next) {
 // 	const keys = {};
 // 	Object.keys(error).forEach((key) => (keys[key] = error[key]));
-// 	logger.log(keys, "171474147414741474114741147414741474");
 // 	if (error.code === 11000) {
 // 		next(new Error(error));
 // 	} else {

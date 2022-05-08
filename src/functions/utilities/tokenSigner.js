@@ -21,7 +21,7 @@ const tokenSigner = async (data, secret, options = jwtOptions) => {
       }
     );
   } catch (error) {
-    console.log("tokenSigner catch, error:", error);
+    logger.log("tokenSigner catch, error:", error);
     throw error;
   }
 };

@@ -10,15 +10,17 @@ const { ioFunctions } = require("@/socket/io");
 const {
   databaseConnecter: connectDatabase,
 } = require("@/configs/databaseConnecter");
-const { getAllEnvironments } = require("@/functions/utilities/utils");
+const {
+  getAllEnvironments,
+  getEnvironment,
+} = require("@/functions/utilities/utils");
 
 const server = http.createServer(app);
 
 //* PORT coming from heroku, so don't touch it!
-const { DEVELOPMENT_PORT, NODE_ENV, PORT, PRODUCTION_PORT, TEST_PORT } =
-  getAllEnvironments();
+const { NODE_ENV, PORT } = getAllEnvironments();
 
-const EXACT_PORT = PORT || PRODUCTION_PORT || TEST_PORT || DEVELOPMENT_PORT;
+const EXACT_PORT = PORT || getEnvironment(`${NODE_ENV.toUpperCase()}_PORT`);
 
 const serverListenerCb = () => {
   logger.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);

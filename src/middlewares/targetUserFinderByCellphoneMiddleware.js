@@ -3,10 +3,8 @@
 //!DEPRECATED
 
 const { userFinder } = require("@/functions/helpers/userFinder");
-const {
-  errorThrower,
-  getCellphone,
-} = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 
 const {
   userErrors: { CELLPHONE_NOT_EXIST },
@@ -14,7 +12,7 @@ const {
 
 const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
   try {
-    const cellphone = getCellphone(req.body);
+    const cellphone = userProps.getCellphone(req.body);
 
     const targetUser = await userFinder(cellphone);
 

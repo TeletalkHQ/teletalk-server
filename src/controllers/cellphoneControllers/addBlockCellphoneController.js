@@ -1,4 +1,4 @@
-const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 const {
   addCellphoneToUserBlacklist,
 } = require("@/models/userModels/userModelFunctions");
@@ -13,7 +13,7 @@ const addBlockCellphoneController = async (
   try {
     const { body, currentUser } = req;
 
-    const targetUser = getCellphone(body);
+    const targetUser = userProps.getCellphone(body);
 
     await addCellphoneToUserBlacklist(currentUser, targetUser);
 

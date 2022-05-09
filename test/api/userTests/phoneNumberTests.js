@@ -1,8 +1,6 @@
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
-const {
-  makeCellphone,
-  randomStringNumber,
-} = require("@/functions/utilities/utilsNoDeps");
+const { randomStringNumber } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 const {
   userModels: { phoneNumberModel },
 } = require("@/models/userModels/userModels");
@@ -22,19 +20,23 @@ const phoneNumberMinlength = phoneNumberModel.minlength.value;
 const phoneNumberFailureTests = (cellphone) => {
   it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(cellphone.countryCode, cellphone.countryName),
+      userProps.makeCellphone(cellphone.countryCode, cellphone.countryName),
       PHONE_NUMBER_REQUIRED
     );
   });
   it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(cellphone.countryCode, cellphone.countryName, 9119119191),
+      userProps.makeCellphone(
+        cellphone.countryCode,
+        cellphone.countryName,
+        9119119191
+      ),
       PHONE_NUMBER_INVALID_TYPE
     );
   });
   it(`It should get error, PHONE_NUMBER_NUMERIC`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(
+      userProps.makeCellphone(
         cellphone.countryCode,
         cellphone.countryName,
         "9119119191!"
@@ -44,7 +46,7 @@ const phoneNumberFailureTests = (cellphone) => {
   });
   it(`It should get error, PHONE_NUMBER_MINLENGTH_REACH`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(
+      userProps.makeCellphone(
         cellphone.countryCode,
         cellphone.countryName,
         randomStringNumber(phoneNumberMinlength - 1)
@@ -54,7 +56,7 @@ const phoneNumberFailureTests = (cellphone) => {
   });
   it(`It should get error, PHONE_NUMBER_MAXLENGTH_REACH`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(
+      userProps.makeCellphone(
         cellphone.countryCode,
         cellphone.countryName,
         randomStringNumber(phoneNumberMaxlength + 1)

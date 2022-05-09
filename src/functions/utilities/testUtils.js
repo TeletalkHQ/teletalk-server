@@ -9,9 +9,6 @@ const {
   errorThrower,
   getEnvironment,
   setEnvironment,
-  randomStringNumber,
-  makeCellphone,
-  randomCountryCode,
 } = require("@/functions/utilities/utilsNoDeps");
 
 const {
@@ -23,7 +20,6 @@ const {
 const {
   initialValue: { stateKeys },
 } = require("@/variables/constants/initialValues/initialValue");
-const { countries } = require("@/variables/constants/countries");
 
 const myRequest = async (
   baseUrl,
@@ -33,7 +29,6 @@ const myRequest = async (
   withoutToken
 ) => {
   try {
-    logger.log("routeObjectrouteObjectrouteObject", routeObject);
     const response = await testRequest(
       {
         ...routeObject,
@@ -124,22 +119,10 @@ const setTestUsersIntoState = async (testUsers) => {
   return await setStateObject(stateKeys.testUsers, testUsers);
 };
 
-const makeTestCellphone = () => {
-  const country = countries[randomCountryCode()];
-  const cellphone = makeCellphone(
-    country.countryCode,
-    country.countryName,
-    randomStringNumber(10)
-  );
-
-  return cellphone;
-};
-
 module.exports = {
   expect,
   getTestMainToken,
   getTestUsersFromState,
-  makeTestCellphone,
   request: myRequest,
   setTestMainToken,
   setTestUserAndTestToken,

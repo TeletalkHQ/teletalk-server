@@ -2,11 +2,10 @@ const {
   setTestUserAndTestToken,
   request,
   expect,
-  makeTestCellphone,
 } = require("@/functions/utilities/testUtils");
+const { userProps } = require("@/functions/helpers/UserProps");
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
-const { makeCellphone } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: { phoneNumberModel, countryNameModel, countryCodeModel },
@@ -33,7 +32,7 @@ const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
 let testUsers = {};
 
-const cellphone = makeTestCellphone();
+const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
@@ -91,7 +90,7 @@ describe("removeContact failure tests", () => {
     const { countryCode, countryName } = countries[0];
 
     await CustomRequest.sendRequest(
-      makeCellphone(countryCode, countryName, "1234567890"),
+      userProps.makeCellphone(countryCode, countryName, "1234567890"),
       CONTACT_ITEM_NOT_EXIST
     );
   });

@@ -1,8 +1,7 @@
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
-const {
-  randomString,
-  makeContact,
-} = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
+const { randomString } = require("@/functions/utilities/utilsNoDeps");
+
 const {
   userModels: { firstNameModel, lastNameModel },
 } = require("@/models/userModels/userModels");
@@ -22,25 +21,37 @@ const lastNameMaxLength = lastNameModel.maxlength.value;
 const firstNameFailureTests = (cellphone) => {
   it("should get error, FIRST_NAME_REQUIRED", async () => {
     await CustomRequest.sendRequest(
-      makeContact(cellphone, undefined, randomString(lastNameMaxLength)),
+      userProps.makeContact(
+        cellphone,
+        undefined,
+        randomString(lastNameMaxLength)
+      ),
       FIRST_NAME_REQUIRED
     );
   });
   it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
     await CustomRequest.sendRequest(
-      makeContact(cellphone, randomString(+firstNameMinLength - 1), undefined),
+      userProps.makeContact(
+        cellphone,
+        randomString(+firstNameMinLength - 1),
+        undefined
+      ),
       FIRST_NAME_MINLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
     await CustomRequest.sendRequest(
-      makeContact(cellphone, randomString(+firstNameMaxLength + 1), undefined),
+      userProps.makeContact(
+        cellphone,
+        randomString(+firstNameMaxLength + 1),
+        undefined
+      ),
       FIRST_NAME_MAXLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_INVALID_TYPE", async () => {
     await CustomRequest.sendRequest(
-      makeContact(
+      userProps.makeContact(
         cellphone,
         123456789, //* Invalid type!
         undefined

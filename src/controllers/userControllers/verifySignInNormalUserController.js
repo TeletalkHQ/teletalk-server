@@ -2,10 +2,10 @@ const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 const { TemporaryClients } = require("@/functions/tools/TemporaryClients");
 const {
   getEnvironment,
-  getCellphone,
   errorThrower,
   getErrorObject,
 } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 
 const {
   userErrors: { VERIFICATION_CODE_INVALID, USER_NOT_EXIST },
@@ -45,7 +45,7 @@ const verifySignInNormalUserController = async (
 
     errorThrower(verifiedToken.done === false, verifiedToken.error);
 
-    const cellphone = getCellphone(verifiedToken.payload);
+    const cellphone = userProps.getCellphone(verifiedToken.payload);
     const tempClient = await TemporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 

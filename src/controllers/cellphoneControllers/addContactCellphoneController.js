@@ -1,4 +1,5 @@
-const { getContact } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
+
 const {
   addContactToUserContacts,
 } = require("@/models/userModels/userModelFunctions");
@@ -16,7 +17,7 @@ const addContactCellphoneController = async (
       body,
       currentUser,
     } = req;
-    const targetUserData = getContact(body);
+    const targetUserData = userProps.getContact(body);
 
     const { targetUser } = await addContactToUserContacts(
       currentUser,

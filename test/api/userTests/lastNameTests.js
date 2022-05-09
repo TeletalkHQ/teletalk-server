@@ -1,8 +1,6 @@
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
-const {
-  makeContact,
-  randomString,
-} = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
+const { randomString } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: { lastNameModel, firstNameModel },
@@ -20,7 +18,7 @@ const lastNameMaxLength = lastNameModel.maxlength.value;
 const lastNameFailureTests = (cellphone) => {
   it("should get error, LAST_NAME_MAXLENGTH_REACH", async () => {
     await CustomRequest.sendRequest(
-      makeContact(
+      userProps.makeContact(
         cellphone,
         randomString(firstNameMaxLength),
         randomString(lastNameMaxLength + 1)
@@ -30,7 +28,7 @@ const lastNameFailureTests = (cellphone) => {
   });
   it("should get error, LAST_NAME_INVALID_TYPE", async () => {
     await CustomRequest.sendRequest(
-      makeContact(
+      userProps.makeContact(
         cellphone,
         randomString(firstNameMaxLength),
         123456789 //* Invalid type!

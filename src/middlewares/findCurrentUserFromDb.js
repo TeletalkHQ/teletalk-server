@@ -1,7 +1,5 @@
-const {
-  errorThrower,
-  getCellphone,
-} = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
@@ -11,7 +9,7 @@ const {
 
 const findCurrentUserFromDb = async (req, res, next) => {
   try {
-    const cellphone = getCellphone(req.authData.payload);
+    const cellphone = userProps.getCellphone(req.authData.payload);
 
     const currentUser = await userFinder(cellphone);
 

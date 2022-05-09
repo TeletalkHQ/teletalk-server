@@ -1,9 +1,9 @@
-const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 const { cellphoneValidator } = require("@/validators/userValidators");
 
 const cellphoneValidatorMiddleware = async (req, res, next) => {
   try {
-    const cellphone = getCellphone(req.body);
+    const cellphone = userProps.getCellphone(req.body);
     await cellphoneValidator(cellphone);
 
     next();

@@ -6,7 +6,7 @@ const {
   getErrorObject,
   getValidatorErrorTypes,
   getEnvironment,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 const {
   validatorCompiler,
 } = require("@/functions/utilities/validatorCompiler");
@@ -96,8 +96,6 @@ const bioValidator = validatorCompiler(bioValidationsModel);
 
 const contactValidator = async (contact, returnCondition) => {
   try {
-    logger.log("contactcontact", contact);
-
     await cellphoneValidator(userProps.getCellphone(contact));
     await firstNameValidator(contact.firstName);
     await lastNameValidator(contact.lastName);

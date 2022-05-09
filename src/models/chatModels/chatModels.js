@@ -5,7 +5,7 @@ const {
 const {
   versionCalculator,
   extractVersions,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 
 const {
   commonModels: {

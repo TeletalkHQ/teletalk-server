@@ -9,6 +9,8 @@ const authDefaultMiddleware = async (req, res, next) => {
     req.authData = await tokenValidator(token);
 
     next();
+
+    return { done: true };
   } catch (error) {
     logger.log(
       "🚀 ~ file: authDefaultMiddleware.js ~ line 11 ~ authDefaultMiddleware ~ error",
@@ -16,6 +18,7 @@ const authDefaultMiddleware = async (req, res, next) => {
     );
     res.errorCollector({ authenticationError: error, statusCode: 401 });
     res.errorResponser();
+    return { done: false };
   }
 };
 

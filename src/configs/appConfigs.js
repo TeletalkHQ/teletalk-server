@@ -1,7 +1,7 @@
 const {
   getAllEnvironments,
   getEnvironment,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 
 const jwtOptions = { algorithm: "HS256" };
 

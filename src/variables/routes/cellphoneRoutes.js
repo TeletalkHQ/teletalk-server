@@ -2,7 +2,7 @@ const { routeGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 
 const cellphoneRouteBaseUrl = routeGenerator(true, "/cellphone", true, "1.0.0");
 

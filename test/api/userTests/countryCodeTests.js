@@ -1,5 +1,5 @@
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
-const { randomStringNumber } = require("@/functions/utilities/utilsNoDeps");
+const { randomStringNumber } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const {

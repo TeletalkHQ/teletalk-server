@@ -1,5 +1,5 @@
 const { userProps } = require("@/functions/helpers/UserProps");
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utils");
 const { contactValidator } = require("@/validators/userValidators");
 
 const contactValidatorMiddleware = async (req, res, next) => {
@@ -15,10 +15,13 @@ const contactValidatorMiddleware = async (req, res, next) => {
     errorThrower(validationResult.done !== true, validationResult);
 
     next();
+
+    return { done: true };
   } catch (error) {
     logger.log("contactValidatorMiddleware catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
+    return { done: false };
   }
 };
 

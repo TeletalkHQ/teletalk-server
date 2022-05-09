@@ -9,7 +9,7 @@ const {
   errorThrower,
   getEnvironment,
   setEnvironment,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 
 const {
   userRoutes: { verifySignInNormalRoute, createNewUserRoute },

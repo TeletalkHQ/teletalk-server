@@ -1,7 +1,7 @@
 const {
   getStatusCodeFromRoute,
 } = require("@/functions/utilities/getStatusCodeFromRoute");
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utils");
 const {
   sendPrivateMessage,
 } = require("@/models/chatModels/chatModelFunctions");

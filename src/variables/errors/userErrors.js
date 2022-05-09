@@ -2,7 +2,7 @@ const { errorGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 
 const USER_ERROR_KEYS = {
   BIO_VALIDATION: "BIO_VALIDATION",

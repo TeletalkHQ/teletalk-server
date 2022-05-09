@@ -1,6 +1,6 @@
 const Validator = require("fastest-validator");
 
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const v = new Validator();
 

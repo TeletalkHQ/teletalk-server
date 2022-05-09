@@ -3,7 +3,7 @@
 //!DEPRECATED
 
 const { userFinder } = require("@/functions/helpers/userFinder");
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const {

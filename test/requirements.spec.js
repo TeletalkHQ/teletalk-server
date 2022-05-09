@@ -2,10 +2,7 @@ require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnecter").databaseConnecter();
 require("@/variables/globalVariables");
 
-const {
-  setEnvironment,
-  errorThrower,
-} = require("@/functions/utilities/utilsNoDeps");
+const { setEnvironment, errorThrower } = require("@/functions/utilities/utils");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { randomId } = require("@/functions/utilities/randomId");
 const {

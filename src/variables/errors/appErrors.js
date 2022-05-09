@@ -2,7 +2,7 @@ const { errorGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 
 const APP_ERROR_KEYS = {
   INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",

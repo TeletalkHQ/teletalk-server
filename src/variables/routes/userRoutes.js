@@ -11,7 +11,8 @@ const createNewUserRoute = routeGenerator(
   "/normalUser/createNewNormalUser",
   200,
   "1.0.0",
-  "Use for create new user for normal account"
+  "Use for create new user for normal account",
+  []
 );
 
 const logoutNormalRoute = routeGenerator(

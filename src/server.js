@@ -10,7 +10,7 @@ const { ioFunctions } = require("@/socket/io");
 const {
   databaseConnecter: connectDatabase,
 } = require("@/configs/databaseConnecter");
-const { getAllEnvironments } = require("@/functions/utilities/utilsNoDeps");
+const { getAllEnvironments } = require("@/functions/utilities/utils");
 
 const server = http.createServer(app);
 

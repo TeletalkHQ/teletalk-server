@@ -1,8 +1,5 @@
 const { cellphoneFinder } = require("@/functions/utilities/cellphoneFinder");
-const {
-  errorThrower,
-  getErrorObject,
-} = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");

@@ -1,4 +1,4 @@
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");

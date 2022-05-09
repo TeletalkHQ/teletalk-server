@@ -2,7 +2,7 @@ const { errorGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 
 const CHAT_EXIST = errorGenerator(
   4000,

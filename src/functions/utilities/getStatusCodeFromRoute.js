@@ -1,7 +1,4 @@
-const {
-  errorThrower,
-  getErrorObject,
-} = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
 const {
   appErrors: { NO_ROUTE_OBJECT },

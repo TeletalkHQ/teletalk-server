@@ -7,7 +7,7 @@ const {
   getEnvironment,
   getErrorObject,
   errorThrower,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
 
 const {

@@ -1,5 +1,5 @@
 const { expect } = require("@/functions/utilities/testUtils");
-const { getEnvironment } = require("@/functions/utilities/utilsNoDeps");
+const { getEnvironment } = require("@/functions/utilities/utils");
 
 const {
   ENVIRONMENT_KEYS,

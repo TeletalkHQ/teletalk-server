@@ -1,5 +1,5 @@
 const { objectClarify } = require("@/functions/utilities/objectClarify");
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 /**
  * @param {object} req

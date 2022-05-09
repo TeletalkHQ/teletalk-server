@@ -4,7 +4,7 @@ const {
   getEnvironment,
   errorThrower,
   getErrorObject,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const {

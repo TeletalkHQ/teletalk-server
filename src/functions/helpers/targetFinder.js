@@ -2,7 +2,7 @@ const {
   PrivateChatModel,
 } = require("@/models/chatModels/privateChatMongoModel");
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const models = { UserMongoModel, PrivateChatModel };
 

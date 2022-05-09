@@ -1,8 +1,5 @@
 const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
-const {
-  errorThrower,
-  getErrorObject,
-} = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const {
@@ -20,6 +17,8 @@ const selfStuffControllerMiddleware = (req, res, next) => {
     );
 
     next();
+
+    return { done: true };
   } catch (error) {
     logger.log("selfStuffControllerMiddleware catch", error);
     res.errorCollector(error);

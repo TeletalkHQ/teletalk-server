@@ -1,6 +1,6 @@
 const { expect } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
-const { setEnvironment } = require("@/functions/utilities/utilsNoDeps");
+const { setEnvironment } = require("@/functions/utilities/utils");
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {

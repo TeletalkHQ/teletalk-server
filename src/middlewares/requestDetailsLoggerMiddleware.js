@@ -1,9 +1,15 @@
 const requestDetailsLoggerMiddleware = (req, _, next) => {
   logger
-    .blue("--------------------------------")
-    .bgBlue({ text: "Request arrived: ", textColor: logger.colors.black })
-    .bgCyan({ text: req.url, textColor: logger.colors.black })
-    .blue("--------------------------------")
+    .blue("--------------------------------------")
+    .bgBlue({
+      text: "Request arrived: ",
+      textColor: logger.colors.black,
+    })
+    .bgCyan({
+      text: `${req.url}`,
+      textColor: logger.colors.black,
+    })
+    .blue("--------------------------------------")
     .log();
 
   logger

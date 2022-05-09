@@ -3,8 +3,8 @@ const {
 } = require("@/functions/utilities/passwordGenerator");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { userProps } = require("@/functions/helpers/UserProps");
-const { getHostFromRequest } = require("@/functions/utilities/utilsNoDeps");
-const { getEnvironment } = require("@/functions/utilities/utilsNoDeps");
+const { getHostFromRequest } = require("@/functions/utilities/utils");
+const { getEnvironment } = require("@/functions/utilities/utils");
 const { sendSms, smsTexts } = require("@/functions/tools/SmsClient");
 const { TemporaryClients } = require("@/functions/tools/TemporaryClients");
 

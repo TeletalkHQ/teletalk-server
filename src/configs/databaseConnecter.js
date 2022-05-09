@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const { errorThrower } = require("@/functions/utilities/utilsNoDeps");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const {
   appConfigs: { MONGO_URL },

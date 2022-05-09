@@ -2,7 +2,7 @@ const { routeGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
-} = require("@/functions/utilities/utilsNoDeps");
+} = require("@/functions/utilities/utils");
 
 const userRouteBaseUrl = routeGenerator(true, "/user", true, "1.0.0");
 

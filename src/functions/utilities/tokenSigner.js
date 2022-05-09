@@ -1,9 +1,6 @@
 const JWT = require("jsonwebtoken");
 
-const {
-  getEnvironment,
-  errorThrower,
-} = require("@/functions/utilities/utilsNoDeps");
+const { getEnvironment, errorThrower } = require("@/functions/utilities/utils");
 
 const {
   ENVIRONMENT_KEYS,

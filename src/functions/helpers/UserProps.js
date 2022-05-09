@@ -1,8 +1,5 @@
 const { countries } = require("@/variables/constants/countries");
-const {
-  randomCountryCode,
-  randomStringNumber,
-} = require("../utilities/utilsNoDeps");
+const { randomCountryCode, randomStringNumber } = require("../utilities/utils");
 
 class UserProps {
   constructor(id) {

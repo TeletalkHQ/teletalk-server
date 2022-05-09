@@ -7,6 +7,8 @@ const cellphoneValidatorMiddleware = async (req, res, next) => {
     await cellphoneValidator(cellphone);
 
     next();
+
+    return { done: true };
   } catch (error) {
     logger.log("cellphoneValidatorMiddleware catch", error);
     res.errorCollector(error);

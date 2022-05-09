@@ -4,8 +4,8 @@ const errorResponserMiddleware = (res = expressResponse) => {
     res.status(statusCode || 500).json({ errors, statusCode });
   } catch (error) {
     logger.redBright("BAD ERROR!!!").log();
-    process.exit(1);
     logger.log("errorResponserMiddleware catch ", error);
+    process.exit(1);
   }
 };
 

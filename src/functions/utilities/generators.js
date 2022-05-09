@@ -38,7 +38,15 @@ const errorGenerator = (
   }
 };
 
-const routeGenerator = (method, url, statusCode, version, description = "") => {
+const routeGenerator = (
+  method,
+  url,
+  statusCode,
+  version,
+  description = "",
+  inputFields,
+  outputFields
+) => {
   try {
     errorThrower(!method || !url || !statusCode || !version, {
       errorMessage: `required arguments should passed`,
@@ -48,11 +56,13 @@ const routeGenerator = (method, url, statusCode, version, description = "") => {
     });
 
     return {
-      method,
-      url,
-      statusCode,
-      version,
       description,
+      inputFields,
+      method,
+      outputFields,
+      statusCode,
+      url,
+      version,
     };
   } catch (error) {
     logger.log("routeGenerator catch, error:", error);
@@ -73,13 +83,13 @@ const mongooseSchemaPropertyGenerator = (
   try {
     const schema = {
       defaultValue,
+      lowercase,
       maxlength,
       minlength,
       required,
       trim,
       type,
       unique,
-      lowercase,
     };
 
     const cleanSchema = objectClarify(schema);

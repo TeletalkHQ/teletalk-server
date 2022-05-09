@@ -5,6 +5,8 @@ const { privateChatRoutes } = require("@/variables/routes/privateChatRoutes");
 
 const templates = [userRoutes, cellphoneRoutes, otherRoutes, privateChatRoutes];
 
+//FIXME
+
 const requestMethodCheckerMiddleware = async (req, res, next) => {
   try {
     const targetTemplate = templates.find(
@@ -21,12 +23,12 @@ const requestMethodCheckerMiddleware = async (req, res, next) => {
 
       const routesArray = Object.entries(urls).map((url) => ({ ...url }));
     }
+    return { done: true };
   } catch (error) {
-    logger.log("requestMethodCheckerMiddleware", error);
+    logger.log("requestMethodCheckerMiddleware catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
-  } finally {
-    next();
+    return { done: false };
   }
 };
 

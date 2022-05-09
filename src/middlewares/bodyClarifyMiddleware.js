@@ -13,9 +13,11 @@ const bodyClarifyMiddleware = (req, _, next) => {
     req.body = objectClarify(req.body);
 
     next();
+    return { done: true };
   } catch (error) {
     logger.log("bodyClarifyMiddleware catch", error);
     errorThrower(error, error);
+    return { done: false };
   }
 };
 

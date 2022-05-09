@@ -20,9 +20,7 @@ const errorCollectorMiddleware = (res, errorObject) => {
     logger
       .redBright("errorCollectorMiddleware catch! its critical!!!")
       .log(error);
-
     res.errors.statusCode = 500;
-
     res.errorResponser();
   }
 };

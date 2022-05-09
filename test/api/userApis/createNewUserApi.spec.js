@@ -1,8 +1,6 @@
 const { request } = require("@/functions/utilities/testUtils");
-const {
-  randomString,
-  makeFullName,
-} = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
+const { randomString } = require("@/functions/utilities/utilsNoDeps");
 
 const {
   userModels: { firstNameModel, lastNameModel },
@@ -31,7 +29,7 @@ describe("success create new normal user", () => {
     await request(
       userRouteBaseUrl,
       createNewUserRoute,
-      makeFullName(
+      userProps.makeFullName(
         randomString(firstNameMaxLength),
         randomString(lastNameMaxLength)
       )

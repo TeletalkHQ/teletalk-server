@@ -2,8 +2,8 @@ const {
   expect,
   getTestUsersFromState,
   setTestUserAndTestToken,
-  makeTestCellphone,
 } = require("@/functions/utilities/testUtils");
+const { userProps } = require("@/functions/helpers/UserProps");
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
@@ -25,7 +25,7 @@ const {
 
 let testUsers = {};
 
-const cellphone = makeTestCellphone();
+const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {

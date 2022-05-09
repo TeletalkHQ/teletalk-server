@@ -2,9 +2,9 @@ const {
   expect,
   setTestUserAndTestToken,
   getTestUsersFromState,
-  makeTestCellphone,
   request,
 } = require("@/functions/utilities/testUtils");
+const { userProps } = require("@/functions/helpers/UserProps");
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
@@ -27,7 +27,7 @@ const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
 let testUsers = {};
 
-const cellphone = makeTestCellphone();
+const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
@@ -71,13 +71,7 @@ describe("edit contact success tests", () => {
     };
     const {
       body: {
-        editedContact: {
-          phoneNumber,
-          countryCode,
-          countryName,
-          firstName: newFirstName,
-          lastName: newLastName,
-        },
+        editedContact: { firstName: newFirstName, lastName: newLastName },
       },
     } = await CustomRequest.sendRequest({
       ...testUser_4,

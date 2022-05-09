@@ -1,4 +1,4 @@
-const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 const {
   deleteBlacklistItem,
 } = require("@/models/userModels/userModelFunctions");
@@ -13,7 +13,7 @@ const removeBlockCellphoneController = async (
   try {
     const { currentUser, body } = req;
 
-    const targetUserData = getCellphone(body);
+    const targetUserData = userProps.getCellphone(body);
 
     await deleteBlacklistItem(currentUser, targetUserData);
 

@@ -1,11 +1,11 @@
 /* eslint-disable no-inner-declarations */
+const { userProps } = require("@/functions/helpers/UserProps");
 const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
 const {
   errorThrower,
   getErrorObject,
   getValidatorErrorTypes,
   getEnvironment,
-  getCellphone,
 } = require("@/functions/utilities/utilsNoDeps");
 const {
   validatorCompiler,
@@ -98,7 +98,7 @@ const contactValidator = async (contact, returnCondition) => {
   try {
     logger.log("contactcontact", contact);
 
-    await cellphoneValidator(getCellphone(contact));
+    await cellphoneValidator(userProps.getCellphone(contact));
     await firstNameValidator(contact.firstName);
     await lastNameValidator(contact.lastName);
 

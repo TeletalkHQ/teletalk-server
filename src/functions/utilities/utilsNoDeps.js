@@ -74,25 +74,6 @@ const getErrorObject = (errorObject, extraData = {}, statusCode) => {
   };
 };
 
-const getCellphone = (object = {}) => {
-  return {
-    countryCode: object.countryCode,
-    countryName: object.countryName,
-    phoneNumber: object.phoneNumber,
-  };
-};
-
-const getContact = (object = {}) => {
-  return {
-    countryCode: object.countryCode,
-    countryName: object.countryName,
-    firstName: object.firstName,
-    lastName: object.lastName,
-    phoneNumber: object.phoneNumber,
-    privateId: object.privateId,
-  };
-};
-
 const getValidatorErrorTypes = (errorArray) => {
   const validatorErrorTypes = {
     array: false,
@@ -212,16 +193,6 @@ const extractFromProperties = (object) => {
   return tempObject;
 };
 
-const extractFromInfo = (object) => {
-  const tempObject = {};
-
-  for (const key in object) {
-    tempObject[key] = object[key].info;
-  }
-
-  return tempObject;
-};
-
 const extractVersions = (object) => {
   const tempArray = [];
 
@@ -232,28 +203,12 @@ const extractVersions = (object) => {
   return tempArray;
 };
 
-const makeCellphone = (countryCode, countryName, phoneNumber) => ({
-  countryCode,
-  countryName,
-  phoneNumber,
-});
-
-const makeContact = (cellphone, firstName, lastName) => ({
-  ...cellphone,
-  firstName,
-  lastName,
-});
-
-const makeFullName = (firstName, lastName) => ({ firstName, lastName });
-
 module.exports = {
   errorThrower,
 
   extractFromProperties,
   extractVersions,
   getAllEnvironments,
-  getCellphone,
-  getContact,
   getEnvironment,
   getErrorObject,
   getHostFromRequest,
@@ -261,9 +216,6 @@ module.exports = {
   getValidatorErrorTypes,
   isFunction,
   isUrlMatchWithReqUrl,
-  makeCellphone,
-  makeContact,
-  makeFullName,
   objectInitializer,
   randomCountryCode,
   randomString,
@@ -274,3 +226,13 @@ module.exports = {
   validatorErrorFinder,
   versionCalculator,
 };
+
+// const extractFromInfo = (object) => {
+//   const tempObject = {};
+
+//   for (const key in object) {
+//     tempObject[key] = object[key].info;
+//   }
+
+//   return tempObject;
+// };

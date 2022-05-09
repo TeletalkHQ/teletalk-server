@@ -1,9 +1,6 @@
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
-const {
-  randomString,
-  makeCellphone,
-} = require("@/functions/utilities/utilsNoDeps");
-
+const { randomString } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 const {
   userModels: { countryNameModel },
 } = require("@/models/userModels/userModels");
@@ -24,13 +21,17 @@ const countryNameMinlength = countryNameModel.minlength.value;
 const countryNameFailureTests = (cellphone) => {
   it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(cellphone.countryCode, undefined, cellphone.phoneNumber),
+      userProps.makeCellphone(
+        cellphone.countryCode,
+        undefined,
+        cellphone.phoneNumber
+      ),
       COUNTRY_NAME_REQUIRED
     );
   });
   it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(
+      userProps.makeCellphone(
         cellphone.countryCode,
         "Something wrong!",
         cellphone.phoneNumber
@@ -40,7 +41,7 @@ const countryNameFailureTests = (cellphone) => {
   });
   it(`It should get error, COUNTRY_NAME_INVALID_TYPE`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(
+      userProps.makeCellphone(
         cellphone.countryCode,
         1235468, //* Invalid type!
         cellphone.phoneNumber
@@ -50,7 +51,7 @@ const countryNameFailureTests = (cellphone) => {
   });
   it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(
+      userProps.makeCellphone(
         cellphone.countryCode,
         randomString(countryNameMinlength - 1),
         cellphone.phoneNumber
@@ -60,7 +61,7 @@ const countryNameFailureTests = (cellphone) => {
   });
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
     await CustomRequest.sendRequest(
-      makeCellphone(
+      userProps.makeCellphone(
         cellphone.countryCode,
         randomString(countryNameMaxlength + 1),
         cellphone.phoneNumber

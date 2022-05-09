@@ -1,7 +1,5 @@
-const {
-  expect,
-  makeTestCellphone,
-} = require("@/functions/utilities/testUtils");
+const { expect } = require("@/functions/utilities/testUtils");
+const { userProps } = require("@/functions/helpers/UserProps");
 const { setEnvironment } = require("@/functions/utilities/utilsNoDeps");
 const { CustomRequest } = require("@/functions/helpers/CustomRequest");
 
@@ -21,7 +19,7 @@ const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
 const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
 const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
-const cellphone = makeTestCellphone();
+const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should set routes properties", async () => {

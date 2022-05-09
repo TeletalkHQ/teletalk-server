@@ -2,9 +2,8 @@ const { cellphoneFinder } = require("@/functions/utilities/cellphoneFinder");
 const {
   errorThrower,
   getErrorObject,
-  getContact,
-  getCellphone,
 } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");
 
@@ -53,7 +52,7 @@ const addCellphoneToUserBlacklist = async (
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData: cellphone })
     );
 
-    const blacklistItem = getCellphone(cellphone);
+    const blacklistItem = userProps.getCellphone(cellphone);
 
     currentUser.blacklist.push(blacklistItem);
     await currentUser.updateOne({
@@ -84,7 +83,10 @@ const addContactToUserContacts = async (
     );
 
     currentUser.contacts.push(
-      getContact({ ...targetUserData, privateId: targetUser.privateId })
+      userProps.getContact({
+        ...targetUserData,
+        privateId: targetUser.privateId,
+      })
     );
     await currentUser.updateOne({
       contacts: currentUser.contacts,
@@ -112,7 +114,7 @@ const updateOneContact = async (
     errorThrower(!contactItem, () => getErrorObject(CONTACT_ITEM_NOT_EXIST));
 
     currentUser.contacts.splice(cellphoneIndex, 1, {
-      ...getContact(targetCellphone),
+      ...userProps.getContact(targetCellphone),
       firstName: editedValues.firstName,
       lastName: editedValues.lastName,
     });

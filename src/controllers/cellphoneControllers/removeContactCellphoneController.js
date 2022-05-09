@@ -1,4 +1,4 @@
-const { getCellphone } = require("@/functions/utilities/utilsNoDeps");
+const { userProps } = require("@/functions/helpers/UserProps");
 const { removeContactItem } = require("@/models/userModels/userModelFunctions");
 const {
   cellphoneRoutes: { removeContactRoute },
@@ -11,7 +11,7 @@ const removeContactCellphoneController = async (
   try {
     const { currentUser, body } = req;
 
-    const targetUserData = getCellphone(body);
+    const targetUserData = userProps.getCellphone(body);
 
     await removeContactItem(currentUser, targetUserData);
 

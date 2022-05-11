@@ -22,5 +22,5 @@ class CustomRequest {
 }
 
 module.exports = {
-  CustomRequest: new CustomRequest(),
+  customRequest: new CustomRequest(),
 };

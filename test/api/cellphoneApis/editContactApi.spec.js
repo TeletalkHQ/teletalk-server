@@ -5,7 +5,7 @@ const {
   request,
 } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
-const { CustomRequest } = require("@/functions/helpers/CustomRequest");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
   userModels: { privateIdModel, firstNameModel, lastNameModel },
@@ -31,8 +31,8 @@ const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
-    CustomRequest.setBaseUrl(cellphoneRouteBaseUrl);
-    CustomRequest.setRouteObject(editContactRoute);
+    customRequest.setBaseUrl(cellphoneRouteBaseUrl);
+    customRequest.setRouteObject(editContactRoute);
 
     testUsers = await getTestUsersFromState();
 
@@ -73,7 +73,7 @@ describe("edit contact success tests", () => {
       body: {
         editedContact: { firstName: newFirstName, lastName: newLastName },
       },
-    } = await CustomRequest.sendRequest({
+    } = await customRequest.sendRequest({
       ...testUser_4,
       ...editedFullName,
     });
@@ -93,13 +93,13 @@ describe("edit contact success tests", () => {
 describe("editContact failure tests", () => {
   it("should get error, SELF_STUFF", async () => {
     const { testUser_0 } = testUsers;
-    await CustomRequest.sendRequest(testUser_0, SELF_STUFF);
+    await customRequest.sendRequest(testUser_0, SELF_STUFF);
   });
 
   it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
     const { testUser_10 } = testUsers;
 
-    await CustomRequest.sendRequest(testUser_10, CONTACT_ITEM_NOT_EXIST);
+    await customRequest.sendRequest(testUser_10, CONTACT_ITEM_NOT_EXIST);
   });
 
   cellphoneFailureTests();

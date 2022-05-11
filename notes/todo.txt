@@ -27,3 +27,5 @@ useless routes cleanup
 
 Add input/output properties to routes
 Add auth check in all test files
+Add tests for createNewUserApi
+Add newUser:false test

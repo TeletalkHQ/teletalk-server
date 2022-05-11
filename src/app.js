@@ -17,13 +17,15 @@ const {
   sendJsonResponseMiddleware,
 } = require("@/middlewares/sendJsonResponseMiddleware");
 const { notFoundMiddleware } = require("@/middlewares/notFoundMiddleware");
-
 const {
   requestDetailsLoggerMiddleware,
 } = require("@/middlewares/requestDetailsLoggerMiddleware");
 const {
   responseErrorHandlers,
 } = require("@/middlewares/responseErrorHandlersMiddleware");
+const {
+  checkAndResponseMiddleware,
+} = require("@/middlewares/checkAndResponse");
 
 const { lifeLine } = require("@/routers/lifeLine");
 
@@ -36,7 +38,8 @@ app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
 
 app.use(responseErrorHandlers);
-app.use(sendJsonResponseMiddleware); //* This is should be after 'responseErrorHandlers'
+app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
+app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlers'
 
 app.use(express.static("@/../public"));
 

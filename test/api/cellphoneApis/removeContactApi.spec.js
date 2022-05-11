@@ -4,7 +4,7 @@ const {
   expect,
 } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
-const { CustomRequest } = require("@/functions/helpers/CustomRequest");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
 
 const {
@@ -36,8 +36,8 @@ const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
-    CustomRequest.setBaseUrl(cellphoneRouteBaseUrl);
-    CustomRequest.setRouteObject(removeContactRoute);
+    customRequest.setBaseUrl(cellphoneRouteBaseUrl);
+    customRequest.setRouteObject(removeContactRoute);
 
     testUsers = await getTestUsersFromState();
 
@@ -61,7 +61,7 @@ describe("removeContact successful test", () => {
       body: {
         removedContact: { phoneNumber, countryCode, countryName },
       },
-    } = await CustomRequest.sendRequest(testUser_3);
+    } = await customRequest.sendRequest(testUser_3);
 
     expect(phoneNumber).equal(testUser_3.phoneNumber);
     expect(phoneNumber.length)
@@ -83,13 +83,13 @@ describe("removeContact successful test", () => {
 describe("removeContact failure tests", () => {
   it("should get error, SELF_STUFF", async () => {
     const { testUser_0 } = testUsers;
-    await CustomRequest.sendRequest(testUser_0, SELF_STUFF);
+    await customRequest.sendRequest(testUser_0, SELF_STUFF);
   });
 
   it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
     const { countryCode, countryName } = countries[0];
 
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       userProps.makeCellphone(countryCode, countryName, "1234567890"),
       CONTACT_ITEM_NOT_EXIST
     );

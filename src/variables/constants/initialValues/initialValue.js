@@ -89,6 +89,26 @@ const stateKeys = {
    */
 };
 
+const inputOutputFields = {
+  bio: "bio",
+  blacklist: "blacklist",
+  chats: "chats",
+  contacts: "contacts",
+  countryCode: "countryCode",
+  countryName: "countryName",
+  firstName: "firstName",
+  lastName: "lastName",
+  macAddress: "macAddress",
+  mainToken: "mainToken",
+  newUser: "newUser",
+  phoneNumber: "phoneNumber",
+  privateId: "privateId",
+  user: "user",
+  username: "username",
+  verificationCode: "verificationCode",
+  verifyToken: "verifyToken",
+};
+
 const initialValue = {
   modelGeneratorInitialProperties,
   errorGeneratorInitialProperties,
@@ -96,4 +116,7 @@ const initialValue = {
   stateKeys,
 };
 
-module.exports = { initialValue };
+module.exports = {
+  initialValue,
+  inputOutputFields,
+};

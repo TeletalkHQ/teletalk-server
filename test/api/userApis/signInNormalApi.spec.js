@@ -1,7 +1,10 @@
 const { expect } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
-const { setEnvironment } = require("@/functions/utilities/utils");
-const { CustomRequest } = require("@/functions/helpers/CustomRequest");
+const {
+  setEnvironment,
+  getEnvironment,
+} = require("@/functions/utilities/utils");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
   ENVIRONMENT_KEYS,
@@ -23,25 +26,29 @@ const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should set routes properties", async () => {
-    CustomRequest.setBaseUrl(userRouteBaseUrl);
-    CustomRequest.setRouteObject(signInNormalRoute);
+    customRequest.setBaseUrl(userRouteBaseUrl);
+    customRequest.setRouteObject(signInNormalRoute);
   });
 });
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {
-    const response = await CustomRequest.sendRequest(cellphone);
+    const response = await customRequest.sendRequest(cellphone);
 
-    const { countryCode, countryName, phoneNumber, verificationCode, token } =
-      response.body;
+    const {
+      user: { countryCode, countryName, phoneNumber, verifyToken },
+    } = response.body;
+
+    const verificationCode = getEnvironment(
+      ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE
+    );
 
     expect(countryCode).equal(cellphone.countryCode);
     expect(countryName).equal(cellphone.countryName);
     expect(phoneNumber).equal(cellphone.phoneNumber);
     expect(verificationCode).length(verificationCodeModel.length.value);
 
-    setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE, verificationCode);
-    setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, token);
+    setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, verifyToken);
   });
 });
 

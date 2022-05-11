@@ -4,7 +4,10 @@ const {
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { getHostFromRequest } = require("@/functions/utilities/utils");
-const { getEnvironment } = require("@/functions/utilities/utils");
+const {
+  getEnvironment,
+  setEnvironment,
+} = require("@/functions/utilities/utils");
 const { sendSms, smsTexts } = require("@/functions/tools/SmsClient");
 const { TemporaryClients } = require("@/functions/tools/TemporaryClients");
 
@@ -34,7 +37,7 @@ const signInNormalUserController = async (
       smsTexts.sendVerificationCode(verificationCode, getHostFromRequest(req))
     );
 
-    const token = await tokenSigner(
+    const verifyToken = await tokenSigner(
       cellphone,
       getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
     );
@@ -42,10 +45,13 @@ const signInNormalUserController = async (
     const client = await TemporaryClients.findClient(cellphone);
 
     if (client) {
-      await TemporaryClients.updateClient(client, { verificationCode, token });
+      await TemporaryClients.updateClient(client, {
+        verificationCode,
+        mainToken: verifyToken,
+      });
     } else {
       await TemporaryClients.addClient({
-        token,
+        mainToken: verifyToken,
         verificationCode: verificationCode,
         ...cellphone,
       });
@@ -55,17 +61,17 @@ const signInNormalUserController = async (
 
     const responseData = {
       ...cellphone,
-      token,
+      verifyToken,
     };
 
     if (
       getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) ===
       ENVIRONMENT_VALUES.NODE_ENV.test
     ) {
-      responseData.verificationCode = verificationCode;
+      setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE, verificationCode);
     }
 
-    res.sendJsonResponse(signInNormalRoute, responseData);
+    res.sendJsonResponse(signInNormalRoute, { user: responseData });
   } catch (error) {
     logger.log("signInNormalUserController catch, error: ", error);
     res.errorCollector(error);

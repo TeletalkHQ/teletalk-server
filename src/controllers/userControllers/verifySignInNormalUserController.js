@@ -59,7 +59,7 @@ const verifySignInNormalUserController = async (
       user: user
         ? {
             ...sendableUserData(user),
-            token: user.tokens[0].token,
+            mainToken: user.tokens[0].mainToken,
             newUser: false,
           }
         : { newUser: true },

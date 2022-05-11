@@ -1,4 +1,3 @@
-const { request } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { randomString } = require("@/functions/utilities/utils");
 
@@ -12,23 +11,21 @@ const { lastNameFailureTests } = require("$/api/userTests/lastNameTests");
 const {
   userRoutes: { userRouteBaseUrl, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
-const { CustomRequest } = require("@/functions/helpers/CustomRequest");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const lastNameMaxLength = lastNameModel.maxlength.value;
 const firstNameMaxLength = firstNameModel.maxlength.value;
 
 describe("", () => {
   it("should test routes properties for CustomRequest", async () => {
-    CustomRequest.setBaseUrl(userRouteBaseUrl);
-    CustomRequest.setRouteObject(createNewUserRoute);
+    customRequest.setBaseUrl(userRouteBaseUrl);
+    customRequest.setRouteObject(createNewUserRoute);
   });
 });
 
 describe("success create new normal user", () => {
   it("should create new user in db", async () => {
-    await request(
-      userRouteBaseUrl,
-      createNewUserRoute,
+    await customRequest.sendRequest(
       userProps.makeFullName(
         randomString(firstNameMaxLength),
         randomString(lastNameMaxLength)

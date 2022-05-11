@@ -135,7 +135,7 @@ const user = {
     privateIdCommonModel.unique.value,
     privateIdCommonModel.trim.value
   ),
-  token: mongooseSchemaPropertyGenerator(
+  mainToken: mongooseSchemaPropertyGenerator(
     tokenModel.type.value,
     ...skipParams(2),
     [tokenModel.required.value, tokenModel.required.error.message],
@@ -205,7 +205,7 @@ const UserSchema = new mongoose.Schema({
 
   tokens: [
     {
-      token: user.token,
+      mainToken: user.mainToken,
     },
   ],
 

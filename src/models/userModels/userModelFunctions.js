@@ -203,13 +203,13 @@ const addTestUser = async (
   firstName,
   lastName,
   privateId,
-  token
+  mainToken
 ) => {
   try {
     await UserMongoModel.updateOne(
       { countryCode, countryName, phoneNumber },
       {
-        tokens: [{ token }],
+        tokens: [{ mainToken }],
         privateId,
         firstName,
         lastName,

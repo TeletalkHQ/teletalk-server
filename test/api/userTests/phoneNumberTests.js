@@ -1,4 +1,4 @@
-const { CustomRequest } = require("@/functions/helpers/CustomRequest");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomStringNumber } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const {
@@ -19,13 +19,13 @@ const phoneNumberMinlength = phoneNumberModel.minlength.value;
 
 const phoneNumberFailureTests = (cellphone) => {
   it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       userProps.makeCellphone(cellphone.countryCode, cellphone.countryName),
       PHONE_NUMBER_REQUIRED
     );
   });
   it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       userProps.makeCellphone(
         cellphone.countryCode,
         cellphone.countryName,
@@ -35,7 +35,7 @@ const phoneNumberFailureTests = (cellphone) => {
     );
   });
   it(`It should get error, PHONE_NUMBER_NUMERIC`, async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       userProps.makeCellphone(
         cellphone.countryCode,
         cellphone.countryName,
@@ -45,7 +45,7 @@ const phoneNumberFailureTests = (cellphone) => {
     );
   });
   it(`It should get error, PHONE_NUMBER_MINLENGTH_REACH`, async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       userProps.makeCellphone(
         cellphone.countryCode,
         cellphone.countryName,
@@ -55,7 +55,7 @@ const phoneNumberFailureTests = (cellphone) => {
     );
   });
   it(`It should get error, PHONE_NUMBER_MAXLENGTH_REACH`, async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       userProps.makeCellphone(
         cellphone.countryCode,
         cellphone.countryName,

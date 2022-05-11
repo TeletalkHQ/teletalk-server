@@ -1,4 +1,4 @@
-const { CustomRequest } = require("@/functions/helpers/CustomRequest");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 const {
   userErrors: {
     VERIFICATION_CODE_REQUIRED,
@@ -10,7 +10,7 @@ const {
 
 const verificationCodeFailureTests = () => {
   it("it should get error, VERIFICATION_CODE_REQUIRED", async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       {
         verificationCode: "",
       },
@@ -19,7 +19,7 @@ const verificationCodeFailureTests = () => {
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID_TYPE", async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       {
         verificationCode: "wrong type!",
       },
@@ -28,7 +28,7 @@ const verificationCodeFailureTests = () => {
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID_LENGTH", async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       {
         verificationCode: "00000000000",
       },
@@ -37,7 +37,7 @@ const verificationCodeFailureTests = () => {
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID", async () => {
-    await CustomRequest.sendRequest(
+    await customRequest.sendRequest(
       {
         verificationCode: "000000",
       },

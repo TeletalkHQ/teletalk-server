@@ -346,10 +346,11 @@ const tokenValidator = async (token, secret) => {
   try {
     const result = await compiledTokenValidator({ token });
 
-    const errorObject = (errorObject) =>
+    const errorObject = (errorObject, extraData = {}) =>
       getErrorObject(errorObject, {
         validatedToken: token,
         validationResult: result,
+        ...extraData,
       });
 
     if (result === true) {
@@ -361,10 +362,10 @@ const tokenValidator = async (token, secret) => {
       if (verifiedToken.done === true) return verifiedToken.data;
 
       errorThrower(verifiedToken.done === false, () =>
-        getErrorObject(errorObject, {
+        errorObject(TOKEN_INVALID, {
           validatedToken: token,
           validationResult: result,
-          error: verifiedToken.error,
+          tokenError: verifiedToken.error,
         })
       );
     }

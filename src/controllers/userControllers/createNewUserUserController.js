@@ -84,26 +84,26 @@ const createNewUserUserController = async (
           ...sendableUserData(user),
           firstName,
           lastName,
-          token: user.tokens[0],
+          mainToken: user.tokens[0],
         },
       });
     } else if (!user) {
       const privateId = randomId(privateIdCommonModel.maxlength.value);
 
-      const token = await tokenSigner({ ...cellphone, privateId });
+      const mainToken = await tokenSigner({ ...cellphone, privateId });
 
       const userData = {
         ...cellphone,
         firstName,
         lastName,
         privateId,
-        tokens: [{ token }],
+        tokens: [{ mainToken: mainToken }],
       };
 
       await createNewNormalUser(userData);
 
       res.sendJsonResponse(createNewUserRoute, {
-        user: { ...cellphone, privateId, firstName, lastName, token },
+        user: { ...cellphone, privateId, firstName, lastName, mainToken },
       });
     }
   } catch (error) {

@@ -3,6 +3,26 @@ const {
   versionCalculator,
   extractVersions,
 } = require("@/functions/utilities/utils");
+const {
+  inputOutputFields: {
+    bio,
+    countryCode,
+    countryName,
+    firstName,
+    lastName,
+    phoneNumber,
+    username,
+    verificationCode,
+    verifyToken,
+    privateId,
+    user,
+    mainToken,
+    contacts,
+    blacklist,
+    chats,
+    newUser,
+  },
+} = require("@/variables/constants/initialValues/initialValue");
 
 const userRouteBaseUrl = routeGenerator(true, "/user", true, "1.0.0");
 
@@ -12,7 +32,20 @@ const createNewUserRoute = routeGenerator(
   200,
   "1.0.0",
   "Use for create new user for normal account",
-  []
+  [{ firstName, lastName }],
+  [
+    {
+      [user]: {
+        countryCode,
+        countryName,
+        firstName,
+        lastName,
+        mainToken,
+        phoneNumber,
+        privateId,
+      },
+    },
+  ]
 );
 
 const logoutNormalRoute = routeGenerator(
@@ -27,7 +60,24 @@ const signInNormalRoute = routeGenerator(
   "/normalUser/signInNormalUser",
   200,
   "1.0.0",
-  "Use for sign in client as a normal account"
+  "Use for sign in client as a normal account",
+  [
+    {
+      countryCode,
+      countryName,
+      phoneNumber,
+    },
+  ],
+  [
+    {
+      [user]: {
+        countryCode,
+        countryName,
+        phoneNumber,
+        verifyToken,
+      },
+    },
+  ]
 );
 
 const statusCheckRoute = routeGenerator(
@@ -43,7 +93,32 @@ const verifySignInNormalRoute = routeGenerator(
   "/normalUser/verifySignInNormalUser",
   200,
   "1.0.0",
-  "Use for verify sign in (normal account) as normal account"
+  "Use for verify sign in (normal account) as normal account",
+  [
+    {
+      verificationCode,
+    },
+  ],
+  [
+    {
+      user: {
+        privateId,
+        firstName,
+        lastName,
+        bio,
+        contacts,
+        blacklist,
+        username,
+        phoneNumber,
+        countryCode,
+        countryName,
+        chats,
+        mainToken,
+        newUser,
+      },
+    },
+    { user: { [newUser]: newUser } },
+  ]
 );
 
 const routes = {

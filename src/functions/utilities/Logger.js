@@ -105,6 +105,18 @@ function LoggerBuilder(level) {
   };
 
   this.log = (...text) => {
+    this.stdOut(text, "log");
+  };
+
+  this.error = (...text) => {
+    this.stdOut(text, "error");
+  };
+
+  this.warn = (...text) => {
+    this.stdOut(text, "warn");
+  };
+
+  this.stdOut = (text, logType = "log") => {
     if (!_level) {
       return;
     }
@@ -113,7 +125,7 @@ function LoggerBuilder(level) {
       const textToLog = text.filter((item) =>
         item instanceof LoggerBuilder ? false : true
       );
-      console.log(...this.logs, ...textToLog);
+      console[logType](...this.logs, ...textToLog);
       this.logs = [];
       return text.toString();
     }

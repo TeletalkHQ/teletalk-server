@@ -35,7 +35,7 @@ describe("Add requirements to application state", () => {
 
         const privateId = randomId(privateIdCommonModel.maxlength.value);
 
-        const token = await tokenSigner({
+        const mainToken = await tokenSigner({
           countryName,
           countryCode,
           phoneNumber,
@@ -49,7 +49,7 @@ describe("Add requirements to application state", () => {
           "test",
           `user_${i}`,
           privateId,
-          token
+          mainToken
         );
 
         testUsers[`testUser_${i}`] = testUser;

@@ -7,9 +7,11 @@ const {
 const APP_ERROR_KEYS = {
   INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",
   UNKNOWN_ERROR: "UNKNOWN_ERROR",
+  INPUT_OUTPUT_FIELDS: "INPUT_OUTPUT_FIELDS",
 };
 
-const { INTERNAL_SERVER_ERROR, UNKNOWN_ERROR } = APP_ERROR_KEYS;
+const { INPUT_OUTPUT_FIELDS, INTERNAL_SERVER_ERROR, UNKNOWN_ERROR } =
+  APP_ERROR_KEYS;
 
 const NO_ROUTE_OBJECT = errorGenerator(
   5000,
@@ -29,7 +31,60 @@ const NOT_FOUND = errorGenerator(
   UNKNOWN_ERROR
 );
 
-const errors = { NO_ROUTE_OBJECT, NOT_FOUND };
+const INPUT_FIELDS_MISSING = errorGenerator(
+  5000,
+  400,
+  "Internal server error",
+  "INPUT_FIELDS_MISSING",
+  "1.0.0",
+  INPUT_OUTPUT_FIELDS
+);
+
+const INPUT_FIELDS_OVERLOAD = errorGenerator(
+  5000,
+  400,
+  "Internal server error",
+  "INPUT_FIELDS_OVERLOAD",
+  "1.0.0",
+  INPUT_OUTPUT_FIELDS
+);
+
+const OUTPUT_FIELDS_MISSING = errorGenerator(
+  5000,
+  500,
+  "Internal server error",
+  "OUTPUT_FIELDS_MISSING",
+  "1.0.0",
+  INPUT_OUTPUT_FIELDS
+);
+
+const OUTPUT_FIELDS_OVERLOAD = errorGenerator(
+  5000,
+  500,
+  "Internal server error",
+  "OUTPUT_FIELDS_OVERLOAD",
+  "1.0.0",
+  INPUT_OUTPUT_FIELDS
+);
+
+const SEND_JSON_RESPONSE_IS_NOT_FUNCTION = errorGenerator(
+  5000,
+  500,
+  "sendJsonResponse is not a function",
+  "INTERNAL_SERVER_ERROR",
+  "1.0.0",
+  INTERNAL_SERVER_ERROR
+);
+
+const errors = {
+  INPUT_FIELDS_MISSING,
+  INPUT_FIELDS_OVERLOAD,
+  NO_ROUTE_OBJECT,
+  NOT_FOUND,
+  OUTPUT_FIELDS_MISSING,
+  OUTPUT_FIELDS_OVERLOAD,
+  SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
+};
 
 const appErrors = {
   ...errors,

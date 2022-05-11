@@ -221,23 +221,48 @@ const getTokenFromRequest = (request) => {
   return (authorization || Authorization)?.split("Bearer ")[1];
 };
 
-// const mongoose = require("mongoose");
+const checkInputFields = (input, fields, fieldsIndex = 0) => {
+  const selectedFields = fields[fieldsIndex];
 
-// function NoCastString(key, options) {
-// 	mongoose.SchemaType.call(this, key, options, "NoCastString");
-// }
-// NoCastString.prototype = Object.create(mongoose.SchemaType.prototype);
+  const checkFields = (input, fields) => {
+    let flag = false;
 
-// NoCastString.prototype.cast = function (str) {
-// 	if (typeof str !== "string") {
-// 		throw new Error(`NoCastString: ${str} is not a string`);
-// 	}
-// 	return str;
-// };
+    for (const key in fields) {
+      if (typeof input[key] === "undefined") {
+        flag = true;
+        break;
+      }
 
-// mongoose.Schema.Types.NoCastString = NoCastString;
+      if (typeof fields[key] === "object") {
+        if (typeof input[key] !== "object") {
+          flag = true;
+          break;
+        }
+
+        flag = checkFields(input[key], fields[key]);
+      }
+    }
+
+    return flag;
+  };
+
+  checkFields(input, selectedFields);
+};
+
+const getObjectLength = (object) => Object.keys(object).length;
+
+const crashServer = (condition, errorObject) => {
+  if (condition) {
+    logger
+      .bgRed(errorObject.reason || errorObject.errorKey || errorObject.message)
+      .log();
+    process.exit(1);
+  }
+};
 
 module.exports = {
+  checkInputFields,
+  crashServer,
   errorThrower,
   extractFromProperties,
   extractVersions,
@@ -246,6 +271,7 @@ module.exports = {
   getErrorObject,
   getHostFromRequest,
   getMethodFromRoute,
+  getObjectLength,
   getTokenFromRequest,
   getValidatorErrorTypes,
   isEqualWithTargetCellphone,
@@ -271,3 +297,19 @@ module.exports = {
 
 //   return tempObject;
 // };
+
+// const mongoose = require("mongoose");
+
+// function NoCastString(key, options) {
+// 	mongoose.SchemaType.call(this, key, options, "NoCastString");
+// }
+// NoCastString.prototype = Object.create(mongoose.SchemaType.prototype);
+
+// NoCastString.prototype.cast = function (str) {
+// 	if (typeof str !== "string") {
+// 		throw new Error(`NoCastString: ${str} is not a string`);
+// 	}
+// 	return str;
+// };
+
+// mongoose.Schema.Types.NoCastString = NoCastString;

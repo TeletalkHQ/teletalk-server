@@ -1,4 +1,4 @@
-const request = require("supertest")(require("@/app").app);
+const supertest = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 
 const {
@@ -9,6 +9,7 @@ const {
   errorThrower,
   getEnvironment,
   setEnvironment,
+  getObjectLength,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -21,7 +22,7 @@ const {
   initialValue: { stateKeys },
 } = require("@/variables/constants/initialValues/initialValue");
 
-const myRequest = async (
+const request = async (
   baseUrl,
   routeObject,
   data,
@@ -46,7 +47,7 @@ const myRequest = async (
 
     if (statusCode > 299) {
       errorThrower(
-        Object.keys(errorObject).length < 4,
+        getObjectLength(errorObject) < 4,
         "UnknownError, you need to send me correct error object"
       );
 
@@ -73,7 +74,7 @@ const testRequest = (requestObject, data, withoutToken) => {
     const { method, url } = requestObject;
     const { TEST_VERIFY_TOKEN, TEST_MAIN_TOKEN } = getAllEnvironments();
 
-    const response = request[method](url)
+    const response = supertest[method](url)
       .send(data)
       .set("Content-Type", "application/json");
 
@@ -82,9 +83,9 @@ const testRequest = (requestObject, data, withoutToken) => {
         requestObject.url.includes(verifySignInNormalRoute.url) ||
         requestObject.url.includes(createNewUserRoute.url)
       ) {
-        response.set(...setTestRequestToken(TEST_VERIFY_TOKEN));
+        response.set(...makeTestRequestToken(TEST_VERIFY_TOKEN));
       } else {
-        response.set(...setTestRequestToken(TEST_MAIN_TOKEN));
+        response.set(...makeTestRequestToken(TEST_MAIN_TOKEN));
       }
     }
 
@@ -94,7 +95,7 @@ const testRequest = (requestObject, data, withoutToken) => {
   }
 };
 
-const setTestRequestToken = (token) => ["Authorization", `Bearer ${token}`];
+const makeTestRequestToken = (token) => ["Authorization", `Bearer ${token}`];
 
 const getTestMainToken = () => {
   return getEnvironment(ENVIRONMENT_KEYS.TEST_MAIN_TOKEN);
@@ -108,7 +109,7 @@ const setTestUser = (user) => setEnvironment(ENVIRONMENT_KEYS.TEST_USER, user);
 
 const setTestUserAndTestToken = (user) => {
   setTestUser(user);
-  setTestMainToken(user.tokens[0].token);
+  setTestMainToken(user.tokens[0].mainToken);
 };
 
 const getTestUsersFromState = async () => {
@@ -123,7 +124,7 @@ module.exports = {
   expect,
   getTestMainToken,
   getTestUsersFromState,
-  request: myRequest,
+  request,
   setTestMainToken,
   setTestUserAndTestToken,
   setTestUsersIntoState,

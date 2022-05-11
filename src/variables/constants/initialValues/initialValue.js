@@ -90,8 +90,10 @@ const stateKeys = {
 };
 
 const inputOutputFields = {
+  addedContact: "addedContact",
   bio: "bio",
   blacklist: "blacklist",
+  blockedCellphone: "blockedCellphone",
   chats: "chats",
   contacts: "contacts",
   countryCode: "countryCode",
@@ -107,6 +109,9 @@ const inputOutputFields = {
   username: "username",
   verificationCode: "verificationCode",
   verifyToken: "verifyToken",
+  editedContact: "editedContact",
+  removedBlockedCellphone: "removedBlockedCellphone",
+  removedContact: "removedContact",
 };
 
 const initialValue = {

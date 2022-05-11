@@ -6,7 +6,10 @@ const {
     OUTPUT_FIELDS_OVERLOAD,
   },
 } = require("@/variables/errors/appErrors");
-const { getObjectLength } = require("@/functions/utilities/utils");
+const {
+  getObjectLength,
+  getErrorObject,
+} = require("@/functions/utilities/utils");
 
 const checkInputFields = (input, fields, fieldsIndex = 0) => {
   const selectedFields = fields[fieldsIndex];

@@ -10,7 +10,7 @@ const getAllUsersTestController = async (
   try {
     const { users } = await getAllUsers();
 
-    res.sendJsonResponse(getAllUsersRoute, { users });
+    res.checkAndResponse(getAllUsersRoute, { users });
   } catch (error) {
     logger.log("getAllUsersTestController", error);
     res.errorCollector(error);

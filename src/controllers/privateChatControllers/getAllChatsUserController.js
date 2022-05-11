@@ -12,7 +12,7 @@ const getAllChatsUserController = async (
 
     const chats = await getAllChats(currentUser);
 
-    res.sendJsonResponse(getAllChatsRoute, {
+    res.checkAndResponse(getAllChatsRoute, {
       chats,
     });
   } catch (error) {

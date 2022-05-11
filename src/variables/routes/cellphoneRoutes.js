@@ -4,6 +4,22 @@ const {
   extractVersions,
 } = require("@/functions/utilities/utils");
 
+const {
+  inputOutputFields: {
+    addedContact,
+    blockedCellphone,
+    countryCode,
+    countryName,
+    editedContact,
+    firstName,
+    lastName,
+    phoneNumber,
+    privateId,
+    removedBlockedCellphone,
+    removedContact,
+  },
+} = require("@/variables/constants/initialValues/initialValue");
+
 const cellphoneRouteBaseUrl = routeGenerator(true, "/cellphone", true, "1.0.0");
 
 const addBlockRoute = routeGenerator(
@@ -11,7 +27,23 @@ const addBlockRoute = routeGenerator(
   "/addBlock",
   200,
   "1.0.0",
-  "Use for block single contact on user contacts list"
+  "Use for block single contact on user contacts list",
+  [
+    {
+      countryCode,
+      countryName,
+      phoneNumber,
+    },
+  ],
+  [
+    {
+      [blockedCellphone]: {
+        countryCode,
+        countryName,
+        phoneNumber,
+      },
+    },
+  ]
 );
 
 const addBlocksRoute = routeGenerator(
@@ -19,7 +51,9 @@ const addBlocksRoute = routeGenerator(
   "/addBlocks",
   200,
   "1.0.0",
-  "Use for block single contact on user contacts list"
+  "Use for block single contact on user contacts list",
+  [{}],
+  [{}]
 );
 
 const addContactRoute = routeGenerator(
@@ -27,7 +61,25 @@ const addContactRoute = routeGenerator(
   "/addContact",
   200,
   "1.0.0",
-  "Use for add single contact to current user contacts list"
+  "Use for add single contact to current user contacts list",
+  [
+    {
+      countryCode,
+      countryName,
+      firstName,
+      lastName,
+      phoneNumber,
+    },
+  ],
+  [
+    {
+      [addedContact]: {
+        firstName,
+        lastName,
+        privateId,
+      },
+    },
+  ]
 );
 
 const addContactsRoute = routeGenerator(
@@ -35,7 +87,9 @@ const addContactsRoute = routeGenerator(
   "/addContacts",
   200,
   "1.0.0",
-  "Use for add single contact to current user contacts list"
+  "Use for add single contact to current user contacts list",
+  [{}],
+  [{}]
 );
 
 // const editBlockRoute = routeGenerator(
@@ -51,7 +105,19 @@ const editContactRoute = routeGenerator(
   "/editContact",
   200,
   "1.0.0",
-  "User for edit single contact on user contacts list"
+  "User for edit single contact on user contacts list",
+  [{ countryCode, countryName, firstName, lastName, phoneNumber }],
+  [
+    {
+      [editedContact]: {
+        countryCode,
+        countryName,
+        firstName,
+        lastName,
+        phoneNumber,
+      },
+    },
+  ]
 );
 
 const getContactsRoute = routeGenerator(
@@ -59,7 +125,9 @@ const getContactsRoute = routeGenerator(
   "/getContacts",
   200,
   "1.0.0",
-  "User for edit single contact on user contacts list"
+  "User for edit single contact on user contacts list",
+  [{}],
+  [{}]
 );
 
 const removeBlockRoute = routeGenerator(
@@ -67,7 +135,23 @@ const removeBlockRoute = routeGenerator(
   "/removeBlock",
   200,
   "1.0.0",
-  "Use for remove single contact on user contacts list"
+  "Use for remove single contact on user contacts list",
+  [
+    {
+      countryCode,
+      countryName,
+      phoneNumber,
+    },
+  ],
+  [
+    {
+      [removedBlockedCellphone]: {
+        countryCode,
+        countryName,
+        phoneNumber,
+      },
+    },
+  ]
 );
 
 const removeBlocksRoute = routeGenerator(
@@ -75,7 +159,9 @@ const removeBlocksRoute = routeGenerator(
   "/removeBlocks",
   200,
   "1.0.0",
-  "Use for remove single contact on user contacts list"
+  "Use for remove single contact on user contacts list",
+  [{}],
+  [{}]
 );
 
 const removeContactRoute = routeGenerator(
@@ -83,7 +169,13 @@ const removeContactRoute = routeGenerator(
   "/removeContact",
   200,
   "1.0.0",
-  "Use for remove single contact on user contacts list"
+  "Use for remove single contact on user contacts list",
+  [{ countryCode, countryName, phoneNumber }],
+  [
+    {
+      [removedContact]: { countryCode, countryName, phoneNumber },
+    },
+  ]
 );
 
 const removeContactsRoute = routeGenerator(
@@ -91,7 +183,9 @@ const removeContactsRoute = routeGenerator(
   "/removeContacts",
   200,
   "1.0.0",
-  "Use for remove single contact on user contacts list"
+  "Use for remove single contact on user contacts list",
+  [{}],
+  [{}]
 );
 
 const shareContactRoute = routeGenerator(
@@ -99,7 +193,9 @@ const shareContactRoute = routeGenerator(
   "/shareContact",
   200,
   "1.0.0",
-  "Use for share single contact on user contacts list"
+  "Use for share single contact on user contacts list",
+  [{}],
+  [{}]
 );
 
 const shareContactsRoute = routeGenerator(
@@ -107,7 +203,9 @@ const shareContactsRoute = routeGenerator(
   "/shareContacts",
   200,
   "1.0.0",
-  "Use for share single contact on user contacts list"
+  "Use for share single contact on user contacts list",
+  [{}],
+  [{}]
 );
 
 const routes = {

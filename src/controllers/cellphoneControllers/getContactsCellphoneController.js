@@ -12,7 +12,7 @@ const getContactsCellphoneController = async (
 
     const contacts = await getUserContacts(currentUser);
 
-    res.sendJsonResponse(getContactsRoute, {
+    res.checkAndResponse(getContactsRoute, {
       contacts,
     });
   } catch (error) {

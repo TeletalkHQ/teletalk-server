@@ -17,7 +17,7 @@ const addBlockCellphoneController = async (
 
     await addCellphoneToUserBlacklist(currentUser, targetUser);
 
-    res.sendJsonResponse(addBlockRoute, {
+    res.checkAndResponse(addBlockRoute, {
       blockedCellphone: targetUser,
     });
   } catch (error) {

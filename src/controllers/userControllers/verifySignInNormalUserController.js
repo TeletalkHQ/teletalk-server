@@ -55,15 +55,21 @@ const verifySignInNormalUserController = async (
 
     const user = await userFinder(cellphone);
 
-    res.sendJsonResponse(verifySignInNormalRoute, {
-      user: user
-        ? {
-            ...sendableUserData(user),
-            mainToken: user.tokens[0].mainToken,
-            newUser: false,
-          }
-        : { newUser: true },
-    });
+    const outputIndex = user ? 0 : 1;
+
+    res.checkAndResponse(
+      verifySignInNormalRoute,
+      {
+        user: user
+          ? {
+              ...sendableUserData(user),
+              mainToken: user.tokens[0].mainToken,
+              newUser: false,
+            }
+          : { newUser: true },
+      },
+      outputIndex
+    );
   } catch (error) {
     logger.log("verifySignInNormalUserController catch, error:", error);
     res.errorCollector(error);

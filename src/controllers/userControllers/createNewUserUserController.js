@@ -79,7 +79,7 @@ const createNewUserUserController = async (
         privateId: user.privateId,
       });
 
-      res.sendJsonResponse(createNewUserRoute, {
+      res.checkAndResponse(createNewUserRoute, {
         user: {
           ...sendableUserData(user),
           firstName,
@@ -102,7 +102,7 @@ const createNewUserUserController = async (
 
       await createNewNormalUser(userData);
 
-      res.sendJsonResponse(createNewUserRoute, {
+      res.checkAndResponse(createNewUserRoute, {
         user: { ...cellphone, privateId, firstName, lastName, mainToken },
       });
     }

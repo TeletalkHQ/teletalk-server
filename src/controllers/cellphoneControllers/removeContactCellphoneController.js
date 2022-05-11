@@ -15,7 +15,7 @@ const removeContactCellphoneController = async (
 
     await removeContactItem(currentUser, targetUserData);
 
-    res.sendJsonResponse(removeContactRoute, {
+    res.checkAndResponse(removeContactRoute, {
       removedContact: targetUserData,
     });
   } catch (error) {

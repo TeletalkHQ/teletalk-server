@@ -21,7 +21,7 @@ const editContactCellphoneController = async (
 
     await updateOneContact(currentUser, targetCellphone, editedValues);
 
-    res.sendJsonResponse(editContactRoute, {
+    res.checkAndResponse(editContactRoute, {
       editedContact: { ...targetCellphone, ...editedValues },
     });
   } catch (error) {

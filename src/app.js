@@ -38,8 +38,8 @@ app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
 
 app.use(responseErrorHandlers);
-app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlers'
+app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
 
 app.use(express.static("@/../public"));
 

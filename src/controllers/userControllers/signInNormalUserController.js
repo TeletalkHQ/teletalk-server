@@ -71,7 +71,7 @@ const signInNormalUserController = async (
       setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE, verificationCode);
     }
 
-    res.sendJsonResponse(signInNormalRoute, { user: responseData });
+    res.checkAndResponse(signInNormalRoute, { user: responseData });
   } catch (error) {
     logger.log("signInNormalUserController catch, error: ", error);
     res.errorCollector(error);

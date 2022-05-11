@@ -8,7 +8,7 @@ const countriesOtherController = async (
   res = expressResponse
 ) => {
   try {
-    res.sendJsonResponse(countriesRoute, { countries });
+    res.checkAndResponse(countriesRoute, { countries });
   } catch (error) {
     logger.log("countriesUserController catch, error:", error);
     res.errorCollector(error);

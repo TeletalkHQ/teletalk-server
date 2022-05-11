@@ -15,7 +15,7 @@ const chatsLastMessageChatController = async (
 
     const chatsWithLastMessages = await getChatsLastMessages(currentUser);
 
-    res.sendJsonResponse(chatsLastMessageRoute, {
+    res.checkAndResponse(chatsLastMessageRoute, {
       chatsWithLastMessages,
     });
   } catch (error) {

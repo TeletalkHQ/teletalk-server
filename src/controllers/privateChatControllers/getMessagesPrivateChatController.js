@@ -28,7 +28,7 @@ const getMessagesPrivateChatController = async (
       chatId
     );
 
-    res.sendJsonResponse(getMessagesRoute, {
+    res.checkAndResponse(getMessagesRoute, {
       messages: privateChatMessages.messages,
     });
   } catch (error) {

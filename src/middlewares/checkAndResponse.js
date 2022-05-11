@@ -17,7 +17,7 @@ const checkAndResponseMiddleware = (_, res, next) => {
     SEND_JSON_RESPONSE_IS_NOT_FUNCTION
   );
 
-  res.checkAndResponse = (data, routeObject, outputIndex) => {
+  res.checkAndResponse = (routeObject, data, outputIndex) => {
     try {
       const checkResult = checkOutputFields(
         data,
@@ -26,10 +26,13 @@ const checkAndResponseMiddleware = (_, res, next) => {
       );
 
       errorThrower(checkResult.done === false, () =>
-        getErrorObject(checkResult.errorObject)
+        getErrorObject(checkResult.errorObject, {
+          outputFields: data,
+          fields: routeObject.outputFields,
+        })
       );
 
-      res.sendJsonResponse(data, routeObject);
+      res.sendJsonResponse(routeObject, data);
     } catch (error) {
       logger.log("checkAndResponse catch, error:", error);
       res.errorCollector(error);

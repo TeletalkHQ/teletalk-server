@@ -7,7 +7,7 @@ const welcomeOtherController = (
   res = expressResponse
 ) => {
   try {
-    res.sendJsonResponse(welcomeRoute, {
+    res.checkAndResponse(welcomeRoute, {
       message: "Hey! Welcome to teletalk <3",
     });
   } catch (error) {

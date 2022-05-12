@@ -21,13 +21,19 @@ const {
   requestDetailsLoggerMiddleware,
 } = require("@/middlewares/requestDetailsLoggerMiddleware");
 const {
-  responseErrorHandlers,
+  responseErrorHandlersMiddleware,
 } = require("@/middlewares/responseErrorHandlersMiddleware");
 const {
   checkAndResponseMiddleware,
-} = require("@/middlewares/checkAndResponse");
+} = require("@/middlewares/checkAndResponseMiddleware");
 
 const { lifeLine } = require("@/routers/lifeLine");
+const {
+  checkBodyFieldsMiddleware,
+} = require("@/middlewares/checkBodyFieldsMiddleware");
+const {
+  findRouteObjectMiddleware,
+} = require("@/middlewares/findRouteObjectMiddleware");
 
 const app = express();
 
@@ -37,16 +43,17 @@ app.use(express.json());
 app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
 
-app.use(responseErrorHandlers);
-app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlers'
+app.use(findRouteObjectMiddleware);
+app.use(responseErrorHandlersMiddleware);
+app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
 app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
+app.use(notFoundMiddleware); //* Should be after 'checkAndResponseMiddleware'
+app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
 
 app.use(express.static("@/../public"));
-
 app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));
 
 //* All routers is in lifeLine =>
 app.use(lifeLine);
-app.use(notFoundMiddleware); //* 404
 
 module.exports = { app };

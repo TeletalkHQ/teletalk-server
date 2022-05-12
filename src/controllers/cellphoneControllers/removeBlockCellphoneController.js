@@ -2,9 +2,6 @@ const { userProps } = require("@/functions/helpers/UserProps");
 const {
   deleteBlacklistItem,
 } = require("@/models/userModels/userModelFunctions");
-const {
-  cellphoneRoutes: { removeBlockRoute },
-} = require("@/variables/routes/cellphoneRoutes");
 
 const removeBlockCellphoneController = async (
   req = expressRequest,
@@ -17,7 +14,7 @@ const removeBlockCellphoneController = async (
 
     await deleteBlacklistItem(currentUser, targetUserData);
 
-    res.checkAndResponse(removeBlockRoute, {
+    res.checkAndResponse({
       removedBlockedCellphone: targetUserData,
     });
   } catch (error) {

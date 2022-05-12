@@ -1,13 +1,9 @@
-const {
-  otherRoutes: { welcomeRoute },
-} = require("@/variables/routes/otherRoutes");
-
 const welcomeOtherController = (
   req = expressRequest,
   res = expressResponse
 ) => {
   try {
-    res.checkAndResponse(welcomeRoute, {
+    res.checkAndResponse({
       message: "Hey! Welcome to teletalk <3",
     });
   } catch (error) {

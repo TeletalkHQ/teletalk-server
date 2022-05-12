@@ -15,9 +15,6 @@ const {
   ENVIRONMENT_KEYS,
   ENVIRONMENT_VALUES,
 } = require("@/variables/constants/environmentInitialValues");
-const {
-  userRoutes: { signInNormalRoute },
-} = require("@/variables/routes/userRoutes");
 const { verificationCodeValidator } = require("@/validators/userValidators");
 
 const signInNormalUserController = async (
@@ -71,7 +68,7 @@ const signInNormalUserController = async (
       setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE, verificationCode);
     }
 
-    res.checkAndResponse(signInNormalRoute, { user: responseData });
+    res.checkAndResponse({ user: responseData });
   } catch (error) {
     logger.log("signInNormalUserController catch, error: ", error);
     res.errorCollector(error);

@@ -1,8 +1,5 @@
 const { userProps } = require("@/functions/helpers/UserProps");
 const { updateOneContact } = require("@/models/userModels/userModelFunctions");
-const {
-  cellphoneRoutes: { editContactRoute },
-} = require("@/variables/routes/cellphoneRoutes");
 
 const editContactCellphoneController = async (
   req = expressRequest,
@@ -21,7 +18,7 @@ const editContactCellphoneController = async (
 
     await updateOneContact(currentUser, targetCellphone, editedValues);
 
-    res.checkAndResponse(editContactRoute, {
+    res.checkAndResponse({
       editedContact: { ...targetCellphone, ...editedValues },
     });
   } catch (error) {

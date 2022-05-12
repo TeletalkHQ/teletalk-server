@@ -71,7 +71,16 @@ const SEND_JSON_RESPONSE_IS_NOT_FUNCTION = errorGenerator(
   5000,
   500,
   "sendJsonResponse is not a function",
-  "INTERNAL_SERVER_ERROR",
+  "SEND_JSON_RESPONSE_IS_NOT_FUNCTION",
+  "1.0.0",
+  INTERNAL_SERVER_ERROR
+);
+
+const REQUEST_BODY_IS_UNDEFINED = errorGenerator(
+  5000,
+  500,
+  "sendJsonResponse is not a function",
+  "REQUEST_BODY_IS_UNDEFINED",
   "1.0.0",
   INTERNAL_SERVER_ERROR
 );
@@ -83,6 +92,7 @@ const errors = {
   NOT_FOUND,
   OUTPUT_FIELDS_MISSING,
   OUTPUT_FIELDS_OVERLOAD,
+  REQUEST_BODY_IS_UNDEFINED,
   SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
 };
 

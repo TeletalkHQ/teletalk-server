@@ -2,6 +2,7 @@ const {
   errorThrower,
   isFunction,
   isUrlMatchWithReqUrl,
+  crashServer,
 } = require("@/functions/utilities/utils");
 
 const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
@@ -36,7 +37,7 @@ const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
       }
     } catch (error) {
       logger.log("ignoreMiddlewaresByUrlMiddleware catch, error:", error);
-      process.exit(1);
+      crashServer();
     }
   };
 };

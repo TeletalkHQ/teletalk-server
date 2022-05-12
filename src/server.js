@@ -13,6 +13,7 @@ const {
 const {
   getAllEnvironments,
   getEnvironment,
+  crashServer,
 } = require("@/functions/utilities/utils");
 
 const server = http.createServer(app);
@@ -46,7 +47,7 @@ const startServer = async () => {
 
     server.listen(EXACT_PORT, serverListenerCb);
   } catch (error) {
-    process.exit(1);
+    crashServer(error);
   }
 };
 

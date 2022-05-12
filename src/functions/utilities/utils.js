@@ -221,48 +221,24 @@ const getTokenFromRequest = (request) => {
   return (authorization || Authorization)?.split("Bearer ")[1];
 };
 
-const checkInputFields = (input, fields, fieldsIndex = 0) => {
-  const selectedFields = fields[fieldsIndex];
-
-  const checkFields = (input, fields) => {
-    let flag = false;
-
-    for (const key in fields) {
-      if (typeof input[key] === "undefined") {
-        flag = true;
-        break;
-      }
-
-      if (typeof fields[key] === "object") {
-        if (typeof input[key] !== "object") {
-          flag = true;
-          break;
-        }
-
-        flag = checkFields(input[key], fields[key]);
-      }
-    }
-
-    return flag;
-  };
-
-  checkFields(input, selectedFields);
-};
-
 const getObjectLength = (object) => Object.keys(object).length;
 
-const crashServer = (condition, errorObject) => {
+const crashServer = (message) => {
+  logger.bgRed(message).log();
+  process.exit(1);
+};
+
+const crashServerWithCondition = (condition, errorObject) => {
   if (condition) {
-    logger
-      .bgRed(errorObject.reason || errorObject.errorKey || errorObject.message)
-      .log();
-    process.exit(1);
+    crashServer(
+      errorObject.reason || errorObject.errorKey || errorObject.message
+    );
   }
 };
 
 module.exports = {
-  checkInputFields,
   crashServer,
+  crashServerWithCondition,
   errorThrower,
   extractFromProperties,
   extractVersions,

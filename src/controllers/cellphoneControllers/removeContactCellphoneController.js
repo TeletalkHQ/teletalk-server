@@ -1,8 +1,5 @@
 const { userProps } = require("@/functions/helpers/UserProps");
 const { removeContactItem } = require("@/models/userModels/userModelFunctions");
-const {
-  cellphoneRoutes: { removeContactRoute },
-} = require("@/variables/routes/cellphoneRoutes");
 
 const removeContactCellphoneController = async (
   req = expressRequest,
@@ -15,7 +12,7 @@ const removeContactCellphoneController = async (
 
     await removeContactItem(currentUser, targetUserData);
 
-    res.checkAndResponse(removeContactRoute, {
+    res.checkAndResponse({
       removedContact: targetUserData,
     });
   } catch (error) {

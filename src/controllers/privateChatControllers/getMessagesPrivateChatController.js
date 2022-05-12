@@ -7,9 +7,6 @@ const {
 const {
   chatErrors: { CHAT_ID_REQUIRED },
 } = require("@/variables/errors/chatErrors");
-const {
-  privateChatRoutes: { getMessagesRoute },
-} = require("@/variables/routes/privateChatRoutes");
 
 const getMessagesPrivateChatController = async (
   req = expressRequest,
@@ -28,7 +25,7 @@ const getMessagesPrivateChatController = async (
       chatId
     );
 
-    res.checkAndResponse(getMessagesRoute, {
+    res.checkAndResponse({
       messages: privateChatMessages.messages,
     });
   } catch (error) {

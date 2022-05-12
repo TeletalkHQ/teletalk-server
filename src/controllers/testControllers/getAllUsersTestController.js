@@ -1,7 +1,4 @@
 const { getAllUsers } = require("@/models/userModels/userModelFunctions");
-const {
-  testRoutes: { getAllUsersRoute },
-} = require("@/variables/routes/testRoutes");
 
 const getAllUsersTestController = async (
   _ = expressRequest,
@@ -10,7 +7,7 @@ const getAllUsersTestController = async (
   try {
     const { users } = await getAllUsers();
 
-    res.checkAndResponse(getAllUsersRoute, { users });
+    res.checkAndResponse({ users });
   } catch (error) {
     logger.log("getAllUsersTestController", error);
     res.errorCollector(error);

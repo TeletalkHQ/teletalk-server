@@ -2,9 +2,6 @@ const { userProps } = require("@/functions/helpers/UserProps");
 const {
   addCellphoneToUserBlacklist,
 } = require("@/models/userModels/userModelFunctions");
-const {
-  cellphoneRoutes: { addBlockRoute },
-} = require("@/variables/routes/cellphoneRoutes");
 
 const addBlockCellphoneController = async (
   req = expressRequest,
@@ -17,7 +14,7 @@ const addBlockCellphoneController = async (
 
     await addCellphoneToUserBlacklist(currentUser, targetUser);
 
-    res.checkAndResponse(addBlockRoute, {
+    res.checkAndResponse({
       blockedCellphone: targetUser,
     });
   } catch (error) {

@@ -6,10 +6,7 @@ const {
     OUTPUT_FIELDS_OVERLOAD,
   },
 } = require("@/variables/errors/appErrors");
-const {
-  getObjectLength,
-  getErrorObject,
-} = require("@/functions/utilities/utils");
+const { getObjectLength } = require("@/functions/utilities/utils");
 
 const checkInputFields = (input, fields, fieldsIndex = 0) => {
   const selectedFields = fields[fieldsIndex];
@@ -40,13 +37,13 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
 
     for (const key in fields) {
       if (typeof input[key] === "undefined") {
-        fn();
+        fn(false, INPUT_FIELDS_MISSING);
         break;
       }
 
       if (typeof fields[key] === "object") {
         if (typeof input[key] !== "object") {
-          fn();
+          fn(false, INPUT_FIELDS_MISSING);
           break;
         }
 
@@ -91,13 +88,13 @@ const checkOutputFields = (output, fields, fieldsIndex = 0) => {
 
     for (const key in fields) {
       if (typeof output[key] === "undefined") {
-        fn();
+        fn(OUTPUT_FIELDS_MISSING);
         break;
       }
 
       if (typeof fields[key] === "object") {
         if (typeof output[key] !== "object") {
-          fn();
+          fn(OUTPUT_FIELDS_MISSING);
           break;
         }
 

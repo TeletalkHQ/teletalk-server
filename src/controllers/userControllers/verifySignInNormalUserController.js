@@ -17,9 +17,7 @@ const {
 } = require("@/variables/constants/environmentInitialValues");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
-const {
-  userRoutes: { verifySignInNormalRoute },
-} = require("@/variables/routes/userRoutes");
+
 const {
   tokenValidator,
   verificationCodeValidator,
@@ -58,7 +56,6 @@ const verifySignInNormalUserController = async (
     const outputIndex = user ? 0 : 1;
 
     res.checkAndResponse(
-      verifySignInNormalRoute,
       {
         user: user
           ? {

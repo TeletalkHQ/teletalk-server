@@ -25,7 +25,7 @@ Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
 useless routes cleanup
 
-Add input/output properties to routes
 Add auth check in all test files
 Add tests for createNewUserApi
 Add newUser:false test
+Add exclude props to utils

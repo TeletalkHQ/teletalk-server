@@ -1,3 +1,5 @@
+const { crashServer } = require("@/functions/utilities/utils");
+
 //TODO Update with getErrorObject and sendJsonResponse
 const errorResponserMiddleware = (res = expressResponse) => {
   try {
@@ -6,7 +8,7 @@ const errorResponserMiddleware = (res = expressResponse) => {
   } catch (error) {
     logger.redBright("BAD ERROR!!!").log();
     logger.log("errorResponserMiddleware catch ", error);
-    process.exit(1);
+    crashServer();
   }
 };
 

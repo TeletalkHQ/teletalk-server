@@ -31,9 +31,6 @@ const {
 const {
   userErrors: { USER_NOT_EXIST, FULL_NAME_INVALID },
 } = require("@/variables/errors/userErrors");
-const {
-  userRoutes: { createNewUserRoute },
-} = require("@/variables/routes/userRoutes");
 
 const createNewUserUserController = async (
   req = expressRequest,
@@ -79,7 +76,7 @@ const createNewUserUserController = async (
         privateId: user.privateId,
       });
 
-      res.checkAndResponse(createNewUserRoute, {
+      res.checkAndResponse({
         user: {
           ...sendableUserData(user),
           firstName,
@@ -102,7 +99,7 @@ const createNewUserUserController = async (
 
       await createNewNormalUser(userData);
 
-      res.checkAndResponse(createNewUserRoute, {
+      res.checkAndResponse({
         user: { ...cellphone, privateId, firstName, lastName, mainToken },
       });
     }

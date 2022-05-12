@@ -4,35 +4,35 @@ const {
 const {
   errorThrower,
   getErrorObject,
-  crashServer,
+  crashServerWithCondition,
 } = require("@/functions/utilities/utils");
 
 const {
   appErrors: { SEND_JSON_RESPONSE_IS_NOT_FUNCTION },
 } = require("@/variables/errors/appErrors");
 
-const checkAndResponseMiddleware = (_, res, next) => {
-  crashServer(
+const checkAndResponseMiddleware = (req, res, next) => {
+  crashServerWithCondition(
     typeof res.sendJsonResponse !== "function",
     SEND_JSON_RESPONSE_IS_NOT_FUNCTION
   );
 
-  res.checkAndResponse = (routeObject, data, outputIndex) => {
+  const {
+    routeObject: { outputFields },
+  } = req;
+
+  res.checkAndResponse = (data, outputIndex) => {
     try {
-      const checkResult = checkOutputFields(
-        data,
-        routeObject.outputFields,
-        outputIndex
-      );
+      const checkResult = checkOutputFields(data, outputFields, outputIndex);
 
       errorThrower(checkResult.done === false, () =>
         getErrorObject(checkResult.errorObject, {
           outputFields: data,
-          fields: routeObject.outputFields,
+          fields: outputFields,
         })
       );
 
-      res.sendJsonResponse(routeObject, data);
+      res.sendJsonResponse(data);
     } catch (error) {
       logger.log("checkAndResponse catch, error:", error);
       res.errorCollector(error);

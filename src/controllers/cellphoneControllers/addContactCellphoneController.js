@@ -3,9 +3,6 @@ const { userProps } = require("@/functions/helpers/UserProps");
 const {
   addContactToUserContacts,
 } = require("@/models/userModels/userModelFunctions");
-const {
-  cellphoneRoutes: { addContactRoute },
-} = require("@/variables/routes/cellphoneRoutes");
 
 const addContactCellphoneController = async (
   req = expressRequest,
@@ -24,7 +21,7 @@ const addContactCellphoneController = async (
       targetUserData
     );
 
-    res.checkAndResponse(addContactRoute, {
+    res.checkAndResponse({
       addedContact: {
         firstName,
         lastName,

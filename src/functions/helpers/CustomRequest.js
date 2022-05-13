@@ -16,11 +16,19 @@ class CustomRequest {
     this.baseUrl = baseUrl;
   }
 
-  sendRequest(data, errorObject) {
-    return request(this.baseUrl, this.routeObject, data, errorObject);
+  sendRequest(data, errorObject, withoutTokenCondition, filterDataCondition) {
+    return request(
+      this.baseUrl,
+      this.routeObject,
+      data,
+      errorObject,
+      withoutTokenCondition,
+      filterDataCondition
+    );
   }
 }
 
 module.exports = {
   customRequest: new CustomRequest(),
+  CustomRequest,
 };

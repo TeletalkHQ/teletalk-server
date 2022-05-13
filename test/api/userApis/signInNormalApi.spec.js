@@ -17,10 +17,16 @@ const {
   userModels: { verificationCodeModel },
 } = require("@/models/userModels/userModels");
 
-const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
-const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
-const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
-const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
+const {
+  countryCodeFailureTests,
+} = require("$/api/generalTests/countryCodeTests");
+const {
+  countryNameFailureTests,
+} = require("$/api/generalTests/countryNameTests");
+const {
+  phoneNumberFailureTests,
+} = require("$/api/generalTests/phoneNumberTests");
+const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 
 const cellphone = userProps.makeTestCellphone();
 

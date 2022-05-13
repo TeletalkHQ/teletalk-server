@@ -1,18 +1,20 @@
 const { expect } = require("@/functions/utilities/testUtils");
 const { getEnvironment } = require("@/functions/utilities/utils");
+const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
   ENVIRONMENT_KEYS,
 } = require("@/variables/constants/environmentInitialValues");
-
 const {
   userRoutes: { userRouteBaseUrl, verifySignInNormalRoute },
 } = require("@/variables/routes/userRoutes");
 
 const {
   verificationCodeFailureTests,
-} = require("$/api/userTests/verificationCodeTests");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+} = require("$/api/generalTests/verificationCodeTests");
+const {
+  authenticationFailureTests,
+} = require("$/api/generalTests/authenticationTests");
 
 describe("", () => {
   it("should set routes properties", async () => {
@@ -37,4 +39,5 @@ describe("verifySignInNormalApi success test", () => {
 
 describe("verifySignInNormalApi failure tests", () => {
   verificationCodeFailureTests();
+  authenticationFailureTests();
 });

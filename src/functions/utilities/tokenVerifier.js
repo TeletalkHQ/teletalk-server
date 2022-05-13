@@ -10,7 +10,7 @@ const { appConfigs } = require("@/configs/appConfigs");
 
 const initialOptions = appConfigs.jwtOptions;
 
-const tokenVerifier = async (
+const tokenVerifier = (
   token,
   secret = getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET),
   options = initialOptions

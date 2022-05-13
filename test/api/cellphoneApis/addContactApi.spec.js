@@ -18,12 +18,18 @@ const {
 } = require("@/variables/errors/userErrors");
 const { countries } = require("@/variables/constants/countries");
 
-const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
-const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
-const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
-const { firstNameFailureTests } = require("$/api/userTests/firstNameTests");
-const { lastNameFailureTests } = require("$/api/userTests/lastNameTests");
-const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
+const {
+  countryCodeFailureTests,
+} = require("$/api/generalTests/countryCodeTests");
+const {
+  phoneNumberFailureTests,
+} = require("$/api/generalTests/phoneNumberTests");
+const {
+  countryNameFailureTests,
+} = require("$/api/generalTests/countryNameTests");
+const { firstNameFailureTests } = require("$/api/generalTests/firstNameTests");
+const { lastNameFailureTests } = require("$/api/generalTests/lastNameTests");
+const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 
 let testUsers = {};
 
@@ -92,7 +98,7 @@ describe("addContact failure tests", () => {
     );
   });
 
-  cellphoneFailureTests();
+  cellphoneFailureTests(contact);
   countryCodeFailureTests(contact);
   countryNameFailureTests(contact);
   phoneNumberFailureTests(contact);

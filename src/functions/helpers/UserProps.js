@@ -56,10 +56,8 @@ class UserProps {
 
   makeTestFullName() {
     return this.makeFullName(
-      randomString(
-        firstNameModel.maxlength.value,
-        lastNameModel.maxlength.value
-      )
+      randomString(firstNameModel.maxlength.value),
+      randomString(lastNameModel.maxlength.value)
     );
   }
 

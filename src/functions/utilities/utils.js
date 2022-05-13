@@ -157,8 +157,8 @@ const randomCountryCode = () =>
   Math.floor(Math.random() * 100 * Math.random()) +
   Math.floor(Math.random() * 10);
 
-const validatorErrorFinder = (errors, value, prop = "type") =>
-  errors.find((r) => r[prop] === value);
+const findByProp = (items = [], value, prop) =>
+  items.find((item) => item[prop] === value);
 
 const getHostFromRequest = (request) => request.get("host");
 
@@ -166,12 +166,12 @@ const isUrlMatchWithReqUrl = (url, reqUrl) =>
   (Array.isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
 
 const versionCalculator = (versions = []) => {
-  let [parentMajor, parentMinor, parentPatch] = returnNumberFromArrayOfString(
+  let [parentMajor, parentMinor, parentPatch] = convertStringArrayToNumberArray(
     "1.0.0".split(".")
   );
 
   versions.forEach((v) => {
-    const [major, minor, patch] = returnNumberFromArrayOfString(v.split("."));
+    const [major, minor, patch] = convertStringArrayToNumberArray(v.split("."));
 
     parentMajor += major - 1;
     parentMinor += minor;
@@ -181,17 +181,7 @@ const versionCalculator = (versions = []) => {
   return `${parentMajor}.${parentMinor}.${parentPatch}`;
 };
 
-const returnNumberFromArrayOfString = (items) => items.map((item) => +item);
-
-const extractFromProperties = (object) => {
-  const tempObject = {};
-
-  for (const key in object) {
-    tempObject[key] = object[key];
-  }
-
-  return tempObject;
-};
+const convertStringArrayToNumberArray = (items) => items.map((item) => +item);
 
 const extractVersions = (object) => {
   const tempArray = [];
@@ -236,6 +226,9 @@ const crashServerWithCondition = (condition, errorObject) => {
   }
 };
 
+const concatBaseUrlWithUrl = (baseUrlObject, routeObject) =>
+  `${baseUrlObject.url}${routeObject.url}`;
+
 const filterObject = (object, filterFields) => {
   const filteredObject = {};
 
@@ -252,12 +245,14 @@ const filterObject = (object, filterFields) => {
 };
 
 module.exports = {
+  concatBaseUrlWithUrl,
+  convertStringArrayToNumberArray,
   crashServer,
   crashServerWithCondition,
   errorThrower,
-  extractFromProperties,
   extractVersions,
   filterObject,
+  findByProp,
   getAllEnvironments,
   getEnvironment,
   getErrorObject,
@@ -273,10 +268,8 @@ module.exports = {
   randomCountryCode,
   randomString,
   randomStringNumber,
-  returnNumberFromArrayOfString,
   setEnvironment,
   skipParams,
-  validatorErrorFinder,
   versionCalculator,
 };
 

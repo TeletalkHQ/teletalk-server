@@ -8,41 +8,29 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-const verificationCodeFailureTests = () => {
+const verificationCodeFailureTests = (data = {}) => {
+  const fn = (verificationCode) => ({ ...data, verificationCode });
+
   it("it should get error, VERIFICATION_CODE_REQUIRED", async () => {
-    await customRequest.sendRequest(
-      {
-        verificationCode: "",
-      },
-      VERIFICATION_CODE_REQUIRED
-    );
+    await customRequest.sendRequest(fn(""), VERIFICATION_CODE_REQUIRED);
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID_TYPE", async () => {
     await customRequest.sendRequest(
-      {
-        verificationCode: "wrong type!",
-      },
+      fn("wrong type!"),
       VERIFICATION_CODE_INVALID_TYPE
     );
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID_LENGTH", async () => {
     await customRequest.sendRequest(
-      {
-        verificationCode: "00000000000",
-      },
+      fn("00000000000"),
       VERIFICATION_CODE_INVALID_LENGTH
     );
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID", async () => {
-    await customRequest.sendRequest(
-      {
-        verificationCode: "000000",
-      },
-      VERIFICATION_CODE_INVALID
-    );
+    await customRequest.sendRequest(fn("000000"), VERIFICATION_CODE_INVALID);
   });
 };
 

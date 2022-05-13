@@ -13,6 +13,8 @@ require("pretty-error").start();
 require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnecter").databaseConnecter();
 
+const { concatBaseUrlWithUrl } = require("@/functions/utilities/utils");
+
 const {
   sendJsonResponseMiddleware,
 } = require("@/middlewares/sendJsonResponseMiddleware");
@@ -42,12 +44,7 @@ const {
 } = require("@/middlewares/authDefaultMiddleware");
 
 const {
-  userRoutes: {
-    signInNormalRoute,
-    verifySignInNormalRoute,
-    createNewUserRoute,
-    userRouteBaseUrl,
-  },
+  userRoutes: { signInNormalRoute, userRouteBaseUrl },
 } = require("@/variables/routes/userRoutes");
 
 const app = express();
@@ -59,23 +56,19 @@ app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
 
 //? Add your global middleware for routes here, in special cases you can ignore middleware by url
-app.use(
-  ignoreMiddlewaresByUrlMiddleware(
-    [
-      `${userRouteBaseUrl.url}${signInNormalRoute.url}`,
-      `${userRouteBaseUrl.url}${verifySignInNormalRoute.url}`,
-      `${userRouteBaseUrl.url}${createNewUserRoute.url}`,
-    ],
-    authDefaultMiddleware
-  )
-);
 
 app.use(findRouteObjectMiddleware);
 app.use(responseErrorHandlersMiddleware);
+app.use(
+  ignoreMiddlewaresByUrlMiddleware(
+    [concatBaseUrlWithUrl(userRouteBaseUrl, signInNormalRoute)],
+    authDefaultMiddleware
+  )
+); //* Should be after 'responseErrorHandlersMiddleware'
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
 app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
 app.use(notFoundMiddleware); //* Should be after 'checkAndResponseMiddleware'
-// app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
+app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
 
 app.use(express.static("@/../public"));
 app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));

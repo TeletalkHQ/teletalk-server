@@ -364,7 +364,11 @@ const privateIdValidator = async (privateId, returnCondition) => {
   }
 };
 
-const tokenValidator = async (token, secret) => {
+const tokenValidator = async (
+  token,
+  secret = getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET),
+  returnCondition
+) => {
   try {
     const result = await compiledTokenValidator({ token });
 
@@ -376,10 +380,7 @@ const tokenValidator = async (token, secret) => {
       });
 
     if (result === true) {
-      const verifiedToken = await tokenVerifier(
-        token,
-        secret || getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET)
-      );
+      const verifiedToken = tokenVerifier(token, secret);
 
       if (verifiedToken.done === true) return verifiedToken.data;
 
@@ -401,7 +402,7 @@ const tokenValidator = async (token, secret) => {
     errorThrower(result !== true, () => errorObject(TOKEN_INVALID));
   } catch (error) {
     logger.log("tokenValidator catch, error:", error);
-    return { done: false, error };
+    return checkReturnCondition(returnCondition, error);
   }
 };
 

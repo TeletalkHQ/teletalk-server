@@ -18,12 +18,18 @@ const {
   userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
 
-const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
-const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
-const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
-const { firstNameFailureTests } = require("$/api/userTests/firstNameTests");
-const { lastNameFailureTests } = require("$/api/userTests/lastNameTests");
-const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
+const {
+  countryCodeFailureTests,
+} = require("$/api/generalTests/countryCodeTests");
+const {
+  phoneNumberFailureTests,
+} = require("$/api/generalTests/phoneNumberTests");
+const {
+  countryNameFailureTests,
+} = require("$/api/generalTests/countryNameTests");
+const { firstNameFailureTests } = require("$/api/generalTests/firstNameTests");
+const { lastNameFailureTests } = require("$/api/generalTests/lastNameTests");
+const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 
 let testUsers = {};
 
@@ -102,7 +108,7 @@ describe("editContact failure tests", () => {
     await customRequest.sendRequest(testUser_10, CONTACT_ITEM_NOT_EXIST);
   });
 
-  cellphoneFailureTests();
+  cellphoneFailureTests(contact);
   countryCodeFailureTests(contact);
   countryNameFailureTests(contact);
   phoneNumberFailureTests(contact);

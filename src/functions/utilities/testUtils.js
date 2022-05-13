@@ -11,6 +11,7 @@ const {
   setEnvironment,
   getObjectLength,
   filterObject,
+  concatBaseUrlWithUrl,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -39,7 +40,7 @@ const request = async (
     const response = await testRequest(
       {
         ...routeObject,
-        url: `${baseUrl.url}${routeObject.url}`,
+        url: concatBaseUrlWithUrl(baseUrl, routeObject),
       },
       data,
       withoutTokenCondition

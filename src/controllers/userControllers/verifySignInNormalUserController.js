@@ -30,20 +30,14 @@ const verifySignInNormalUserController = async (
   try {
     const {
       body: { verificationCode },
+      authData,
     } = req;
 
     await verificationCodeValidator(verificationCode);
 
-    const verifyToken = getTokenFromRequest(req);
+    errorThrower(authData.done === false, authData.error);
 
-    const verifiedToken = await tokenValidator(
-      verifyToken,
-      getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
-    );
-
-    errorThrower(verifiedToken.done === false, verifiedToken.error);
-
-    const cellphone = userProps.getCellphone(verifiedToken.payload);
+    const cellphone = userProps.getCellphone(authData.payload);
     const tempClient = await TemporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 

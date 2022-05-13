@@ -1,3 +1,6 @@
+const {
+  getSecretWithUrlCondition,
+} = require("@/functions/utilities/getSecretWithUrlCondition");
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
 
 const { tokenValidator } = require("@/validators/userValidators");
@@ -5,8 +8,11 @@ const { tokenValidator } = require("@/validators/userValidators");
 const authDefaultMiddleware = async (req, res, next) => {
   try {
     const token = getTokenFromRequest(req);
+    const secret = getSecretWithUrlCondition(req.url);
 
-    req.authData = await tokenValidator(token);
+    const validationResult = await tokenValidator(token, secret);
+
+    req.authData = validationResult;
 
     next();
 
@@ -16,7 +22,7 @@ const authDefaultMiddleware = async (req, res, next) => {
       "🚀 ~ file: authDefaultMiddleware.js ~ line 11 ~ authDefaultMiddleware ~ error",
       error
     );
-    res.errorCollector({ authenticationError: error, statusCode: 401 });
+    res.errorCollector(error);
     res.errorResponser();
     return { done: false };
   }

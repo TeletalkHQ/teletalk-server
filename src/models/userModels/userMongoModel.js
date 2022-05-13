@@ -30,6 +30,7 @@ const {
 
 uniqueValidator.defaults.message = "{PATH}_exist";
 
+//TODO Remove mongooseSchemaPropertyGenerator
 const user = {
   bio: mongooseSchemaPropertyGenerator(bioModel.type.value, [
     bioModel.maxlength.value,

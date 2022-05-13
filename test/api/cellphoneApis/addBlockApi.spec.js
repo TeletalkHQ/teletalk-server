@@ -10,10 +10,16 @@ const {
   cellphoneRoutes: { cellphoneRouteBaseUrl, addBlockRoute },
 } = require("@/variables/routes/cellphoneRoutes");
 
-const { countryCodeFailureTests } = require("$/api/userTests/countryCodeTests");
-const { phoneNumberFailureTests } = require("$/api/userTests/phoneNumberTests");
-const { countryNameFailureTests } = require("$/api/userTests/countryNameTests");
-const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
+const {
+  countryCodeFailureTests,
+} = require("$/api/generalTests/countryCodeTests");
+const {
+  phoneNumberFailureTests,
+} = require("$/api/generalTests/phoneNumberTests");
+const {
+  countryNameFailureTests,
+} = require("$/api/generalTests/countryNameTests");
+const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 
 const {
   userErrors: { BLACKLIST_ITEM_EXIST, SELF_STUFF },

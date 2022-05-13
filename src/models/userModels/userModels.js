@@ -103,7 +103,7 @@ const countryCodeModel = {
 
 const countryNameModel = {
   empty: modelPropertyGenerator(false, COUNTRY_NAME_EMPTY),
-  maxlength: modelPropertyGenerator(32, COUNTRY_NAME_MAXLENGTH_REACH),
+  maxlength: modelPropertyGenerator(40, COUNTRY_NAME_MAXLENGTH_REACH),
   minlength: modelPropertyGenerator(2, COUNTRY_NAME_MINLENGTH_REACH),
   required: modelPropertyGenerator(true, COUNTRY_NAME_REQUIRED),
   type: modelPropertyGenerator("string", COUNTRY_NAME_INVALID_TYPE),

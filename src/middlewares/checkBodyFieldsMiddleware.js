@@ -32,6 +32,7 @@ const checkBodyFieldsMiddleware = (req, res, next) => {
     next();
   } catch (error) {
     logger.log("checkBodyFieldsMiddleware catch, error:", error);
+    logger.log("fields", error.INPUT_OUTPUT_FIELDS?.fields);
     res.errorCollector(error);
     res.errorResponser();
   }

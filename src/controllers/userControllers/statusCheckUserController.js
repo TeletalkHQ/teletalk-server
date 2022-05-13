@@ -24,7 +24,7 @@ const statusCheckUserController = async (
 
     errorThrower(!mainToken, TOKEN_REQUIRED);
 
-    const tokenData = await tokenVerifier(mainToken);
+    const tokenData = tokenVerifier(mainToken);
 
     const cellphone = userProps.getCellphone(tokenData.payload);
 

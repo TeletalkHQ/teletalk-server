@@ -51,7 +51,7 @@ const privateChat = {
     [createdAtModel.required.value, createdAtModel.required.error.message],
     null,
     null,
-    createdAtModel.default.value
+    createdAtModel.defaultValue.value
   ),
   messages: [
     {
@@ -68,7 +68,7 @@ const privateChat = {
         [messageIdModel.required.value, messageIdModel.required.error.message],
         messageIdModel.unique.value,
         messageIdModel.trim.value,
-        messageIdModel.default.value(messageIdModel.maxlength.value)
+        messageIdModel.defaultValue.value(messageIdModel.maxlength.value)
       ),
       message: mongooseSchemaPropertyGenerator(
         messageModel.type.value,

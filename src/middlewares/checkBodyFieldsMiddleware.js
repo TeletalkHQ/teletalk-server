@@ -12,23 +12,29 @@ const {
 } = require("@/variables/errors/appErrors");
 
 const checkBodyFieldsMiddleware = (req, res, next) => {
-  const { body, routeObject } = req;
+  try {
+    const { body, routeObject } = req;
 
-  crashServerWithCondition(
-    typeof body === "undefined",
-    REQUEST_BODY_IS_UNDEFINED
-  );
+    crashServerWithCondition(
+      typeof body === "undefined",
+      REQUEST_BODY_IS_UNDEFINED
+    );
 
-  const checkResult = checkInputFields(body, routeObject.inputFields);
+    const checkResult = checkInputFields(body, routeObject.inputFields);
 
-  errorThrower(checkResult.done === false, () =>
-    getErrorObject(checkResult.errorObject, {
-      inputFields: body,
-      fields: routeObject.inputFields,
-    })
-  );
+    errorThrower(checkResult.done === false, () =>
+      getErrorObject(checkResult.errorObject, {
+        inputFields: body,
+        fields: routeObject.inputFields,
+      })
+    );
 
-  next();
+    next();
+  } catch (error) {
+    logger.log("checkBodyFieldsMiddleware catch, error:", error);
+    res.errorCollector(error);
+    res.errorResponser();
+  }
 };
 
 module.exports = { checkBodyFieldsMiddleware };

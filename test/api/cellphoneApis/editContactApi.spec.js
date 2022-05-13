@@ -27,7 +27,7 @@ const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
 let testUsers = {};
 
-const cellphone = userProps.makeTestCellphone();
+const contact = userProps.makeTestContact();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
@@ -103,9 +103,9 @@ describe("editContact failure tests", () => {
   });
 
   cellphoneFailureTests();
-  countryCodeFailureTests(cellphone);
-  countryNameFailureTests(cellphone);
-  phoneNumberFailureTests(cellphone);
-  firstNameFailureTests(cellphone);
-  lastNameFailureTests(cellphone);
+  countryCodeFailureTests(contact);
+  countryNameFailureTests(contact);
+  phoneNumberFailureTests(contact);
+  firstNameFailureTests(contact);
+  lastNameFailureTests(contact);
 });

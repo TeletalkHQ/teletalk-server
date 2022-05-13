@@ -1,6 +1,6 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomString } = require("@/functions/utilities/utils");
-const { userProps } = require("@/functions/helpers/UserProps");
+
 const {
   userModels: { countryNameModel },
 } = require("@/models/userModels/userModels");
@@ -18,54 +18,30 @@ const {
 const countryNameMaxlength = countryNameModel.maxlength.value;
 const countryNameMinlength = countryNameModel.minlength.value;
 
-const countryNameFailureTests = (cellphone) => {
+const countryNameFailureTests = (data) => {
+  const fn = (countryName) => ({ ...data, countryName });
+
   it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
-    await customRequest.sendRequest(
-      userProps.makeCellphone(
-        cellphone.countryCode,
-        undefined,
-        cellphone.phoneNumber
-      ),
-      COUNTRY_NAME_REQUIRED
-    );
+    await customRequest.sendRequest(fn(""), COUNTRY_NAME_REQUIRED);
   });
   it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
     await customRequest.sendRequest(
-      userProps.makeCellphone(
-        cellphone.countryCode,
-        "Something wrong!",
-        cellphone.phoneNumber
-      ),
+      fn("Something wrong!"),
       COUNTRY_NAME_NOT_SUPPORTED
     );
   });
   it(`It should get error, COUNTRY_NAME_INVALID_TYPE`, async () => {
-    await customRequest.sendRequest(
-      userProps.makeCellphone(
-        cellphone.countryCode,
-        1235468, //* Invalid type!
-        cellphone.phoneNumber
-      ),
-      COUNTRY_NAME_INVALID_TYPE
-    );
+    await customRequest.sendRequest(fn(1235468), COUNTRY_NAME_INVALID_TYPE);
   });
   it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
     await customRequest.sendRequest(
-      userProps.makeCellphone(
-        cellphone.countryCode,
-        randomString(countryNameMinlength - 1),
-        cellphone.phoneNumber
-      ),
+      fn(randomString(countryNameMinlength - 1)),
       COUNTRY_NAME_MINLENGTH_REACH
     );
   });
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
     await customRequest.sendRequest(
-      userProps.makeCellphone(
-        cellphone.countryCode,
-        randomString(countryNameMaxlength + 1),
-        cellphone.phoneNumber
-      ),
+      fn(randomString(countryNameMaxlength + 1)),
       COUNTRY_NAME_MAXLENGTH_REACH
     );
   });

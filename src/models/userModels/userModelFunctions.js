@@ -74,7 +74,7 @@ const addContactToUserContacts = async (
       getErrorObject(CONTACT_ITEM_EXIST, { targetUserData })
     );
 
-    const targetUser = await userFinder(targetUserData);
+    const targetUser = await userFinder(userProps.getCellphone(targetUserData));
     errorThrower(targetUser === null, () =>
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
     );

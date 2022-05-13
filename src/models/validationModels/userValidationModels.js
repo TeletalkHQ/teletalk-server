@@ -18,13 +18,15 @@ const {
   },
 } = require("@/models/userModels/userModels");
 
-const bioValidationsModel = {
+const bioValidationModel = {
   bio: {
-    type: bioModel.type.value,
-    optional: !bioModel.required.value,
+    empty: bioModel.empty.value,
     max: bioModel.maxlength.value,
+    optional: !bioModel.required.value,
+    type: bioModel.type.value,
     messages: {
       string: bioModel.type.error.message,
+      stringEmpty: bioModel.empty.error.message,
       stringMax: bioModel.maxlength.error.message,
     },
   },
@@ -33,16 +35,18 @@ const bioValidationsModel = {
 
 const countryCodeValidationModel = {
   countryCode: {
-    type: countryCodeModel.type.value,
-    min: countryCodeModel.minlength.value,
+    empty: countryCodeModel.empty.value,
     max: countryCodeModel.maxlength.value,
-    trim: countryCodeModel.trim.value,
+    min: countryCodeModel.minlength.value,
     numeric: countryCodeModel.numeric.value,
+    trim: countryCodeModel.trim.value,
+    type: countryCodeModel.type.value,
     messages: {
-      string: countryCodeModel.type.error.message,
       required: countryCodeModel.required.error.message,
-      stringMin: countryCodeModel.minlength.error.message,
+      string: countryCodeModel.type.error.message,
+      stringEmpty: countryCodeModel.empty.error.message,
       stringMax: countryCodeModel.maxlength.error.message,
+      stringMin: countryCodeModel.minlength.error.message,
       stringNumeric: countryCodeModel.numeric.error.message,
     },
   },
@@ -51,14 +55,16 @@ const countryCodeValidationModel = {
 
 const countryNameValidationModel = {
   countryName: {
-    type: countryNameModel.type.value,
-    min: countryNameModel.minlength.value,
+    empty: countryNameModel.empty.value,
     max: countryNameModel.maxlength.value,
+    min: countryNameModel.minlength.value,
+    type: countryNameModel.type.value,
     messages: {
-      string: countryNameModel.type.error.message,
       required: countryNameModel.required.error.message,
-      stringMin: countryNameModel.minlength.error.message,
+      string: countryNameModel.type.error.message,
+      stringEmpty: countryNameModel.empty.error.message,
       stringMax: countryNameModel.maxlength.error.message,
+      stringMin: countryNameModel.minlength.error.message,
     },
   },
   version: "1.0.0",
@@ -66,15 +72,17 @@ const countryNameValidationModel = {
 
 const firstNameValidationModel = {
   firstName: {
-    type: firstNameModel.type.value,
-    min: firstNameModel.minlength.value,
+    empty: firstNameModel.empty.value,
     max: firstNameModel.maxlength.value,
+    min: firstNameModel.minlength.value,
     trim: firstNameModel.trim.value,
+    type: firstNameModel.type.value,
     messages: {
-      string: firstNameModel.type.error.message,
       required: firstNameModel.required.error.message,
-      stringMin: firstNameModel.minlength.error.message,
+      string: firstNameModel.type.error.message,
+      stringEmpty: firstNameModel.empty.error.message,
       stringMax: firstNameModel.maxlength.error.message,
+      stringMin: firstNameModel.minlength.error.message,
     },
   },
   version: "1.0.0",
@@ -82,12 +90,14 @@ const firstNameValidationModel = {
 
 const lastNameValidationModel = {
   lastName: {
-    type: lastNameModel.type.value,
-    optional: !lastNameModel.required.value,
+    empty: lastNameModel.empty.value,
     max: lastNameModel.maxlength.value,
+    optional: !lastNameModel.required.value,
     trim: lastNameModel.trim.value,
+    type: lastNameModel.type.value,
     messages: {
       string: lastNameModel.type.error.message,
+      stringEmpty: lastNameModel.empty.error.message,
       stringMax: lastNameModel.maxlength.error.message,
     },
   },
@@ -96,17 +106,19 @@ const lastNameValidationModel = {
 
 const macAddressValidationModel = {
   macAddress: {
+    empty: macAddressModel.empty.value,
+    max: macAddressModel.maxlength.value,
+    min: macAddressModel.minlength.value,
+    trim: macAddressModel.trim.value,
     type: macAddressModel.type.value,
     unique: macAddressModel.unique.value,
-    min: macAddressModel.minlength.value,
-    max: macAddressModel.maxlength.value,
-    trim: macAddressModel.trim.value,
     messages: {
-      string: macAddressModel.type.error.message,
-      unique: macAddressModel.unique.error.message,
       required: macAddressModel.required.error.message,
-      stringMin: macAddressModel.minlength.error.message,
+      string: macAddressModel.type.error.message,
+      stringEmpty: macAddressModel.empty.error.message,
       stringMax: macAddressModel.maxlength.error.message,
+      stringMin: macAddressModel.minlength.error.message,
+      unique: macAddressModel.unique.error.message,
     },
   },
   version: "1.0.0",
@@ -114,15 +126,17 @@ const macAddressValidationModel = {
 
 const phoneNumberValidationModel = {
   phoneNumber: {
-    type: phoneNumberModel.type.value,
-    min: phoneNumberModel.minlength.value,
+    empty: phoneNumberModel.empty.value,
     max: phoneNumberModel.maxlength.value,
+    min: phoneNumberModel.minlength.value,
     numeric: phoneNumberModel.numeric.value,
+    type: phoneNumberModel.type.value,
     messages: {
-      string: phoneNumberModel.type.error.message,
       required: phoneNumberModel.required.error.message,
-      stringMin: phoneNumberModel.minlength.error.message,
+      string: phoneNumberModel.type.error.message,
+      stringEmpty: phoneNumberModel.empty.error.message,
       stringMax: phoneNumberModel.maxlength.error.message,
+      stringMin: phoneNumberModel.minlength.error.message,
       stringNumeric: phoneNumberModel.numeric.error.message,
     },
   },
@@ -131,17 +145,17 @@ const phoneNumberValidationModel = {
 
 const privateIdValidationModel = {
   privateId: {
+    max: privateIdModel.maxlength.value,
+    min: privateIdModel.minlength.value,
+    trim: privateIdModel.trim.value,
     type: privateIdModel.type.value,
     unique: privateIdModel.unique.value,
-    min: privateIdModel.minlength.value,
-    max: privateIdModel.maxlength.value,
-    trim: privateIdModel.trim.value,
     messages: {
-      string: privateIdModel.type.error.message,
       required: privateIdModel.required.error.message,
-      unique: privateIdModel.unique.error.message,
-      stringMin: privateIdModel.minlength.error.message,
+      string: privateIdModel.type.error.message,
       stringMax: privateIdModel.maxlength.error.message,
+      stringMin: privateIdModel.minlength.error.message,
+      unique: privateIdModel.unique.error.message,
     },
   },
   version: "1.0.0",
@@ -151,8 +165,8 @@ const tokenValidationModel = {
   token: {
     type: tokenModel.type.value,
     messages: {
-      string: tokenModel.type.error.message,
       required: tokenModel.required.error.message,
+      string: tokenModel.type.error.message,
     },
   },
   version: "1.0.0",
@@ -160,14 +174,14 @@ const tokenValidationModel = {
 
 const verificationCodeValidationModel = {
   verificationCode: {
-    type: verificationCodeModel.type.value,
-    length: verificationCodeModel.length.value,
-    trim: verificationCodeModel.trim.value,
-    numeric: verificationCodeModel.numeric.value,
     empty: verificationCodeModel.empty.value,
+    length: verificationCodeModel.length.value,
+    numeric: verificationCodeModel.numeric.value,
+    trim: verificationCodeModel.trim.value,
+    type: verificationCodeModel.type.value,
     messages: {
-      string: verificationCodeModel.type.error.message,
       length: verificationCodeModel.length.error.message,
+      string: verificationCodeModel.type.error.message,
       stringEmpty: verificationCodeModel.empty.error.message,
       stringNumeric: verificationCodeModel.numeric.error.message,
     },
@@ -185,16 +199,18 @@ const cellphoneValidationModel = {
 
 const usernameValidationModel = {
   username: {
-    type: usernameModel.type.value,
-    optional: !usernameModel.required.value,
-    unique: usernameModel.unique.value,
-    max: usernameModel.maxlength.value,
-    trim: usernameModel.trim.value,
+    empty: usernameModel.empty.value,
     lowercase: usernameModel.lowercase.value,
+    max: usernameModel.maxlength.value,
+    optional: !usernameModel.required.value,
+    trim: usernameModel.trim.value,
+    type: usernameModel.type.value,
+    unique: usernameModel.unique.value,
     messages: {
       string: usernameModel.type.error.message,
-      unique: usernameModel.unique.error.message,
+      stringEmpty: usernameModel.empty.error.message,
       stringMax: usernameModel.maxlength.error.message,
+      unique: usernameModel.unique.error.message,
     },
   },
 
@@ -202,7 +218,7 @@ const usernameValidationModel = {
 };
 
 const models = {
-  bioValidationsModel,
+  bioValidationModel,
   cellphoneValidationModel,
   countryCodeValidationModel,
   countryNameValidationModel,

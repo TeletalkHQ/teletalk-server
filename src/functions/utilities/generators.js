@@ -100,6 +100,8 @@ const mongooseSchemaPropertyGenerator = (
   }
 };
 
+//!DEPRECATED
+// eslint-disable-next-line no-unused-vars
 const modelGenerator = (
   maxlength = modelGeneratorInitialProperties,
   minlength = modelGeneratorInitialProperties,
@@ -156,5 +158,4 @@ module.exports = {
   mongooseSchemaPropertyGenerator,
   routeGenerator,
   modelPropertyGenerator,
-  modelGenerator,
 };

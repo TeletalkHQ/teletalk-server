@@ -1,7 +1,4 @@
-const {
-  modelPropertyGenerator,
-  modelGenerator,
-} = require("@/functions/utilities/generators");
+const { modelPropertyGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
@@ -37,42 +34,37 @@ const messageIdModel = messageIdCommonModel;
 
 // const messageStatusModel = modelGenerator("1.0.0");
 
-const messageModel = modelGenerator(
-  modelPropertyGenerator(10, MESSAGE_TEXT_MAX_LENGTH_REACH),
-  modelPropertyGenerator(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
-  null,
-  null,
-  modelPropertyGenerator("string", MESSAGE_TEXT_INVALID_TYPE),
-  null,
-  null,
-  "1.0.0"
-);
+const messageModel = {
+  maxlength: modelPropertyGenerator(10, MESSAGE_TEXT_MAX_LENGTH_REACH),
+  minlength: modelPropertyGenerator(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
+  type: modelPropertyGenerator("string", MESSAGE_TEXT_INVALID_TYPE),
+  version: "1.0.0",
+};
 
-const participantIdModel = modelGenerator(
-  modelPropertyGenerator(
+const participantIdModel = {
+  maxlength: modelPropertyGenerator(
     privateIdCommonModel.maxlength.value,
     PARTICIPANT_ID_MAX_LENGTH_REACH
   ),
-  modelPropertyGenerator(
+  minlength: modelPropertyGenerator(
     privateIdCommonModel.minlength.value,
     PARTICIPANT_ID_MIN_LENGTH_REACH
   ),
-  modelPropertyGenerator(
+  required: modelPropertyGenerator(
     privateIdCommonModel.required.value,
     PARTICIPANT_ID_REQUIRED
   ),
-  modelPropertyGenerator(privateIdCommonModel.trim.value),
-  modelPropertyGenerator(
+  trim: modelPropertyGenerator(privateIdCommonModel.trim.value),
+  type: modelPropertyGenerator(
     privateIdCommonModel.type.value,
     PARTICIPANT_ID_INVALID_TYPE
   ),
-  modelPropertyGenerator(
+  unique: modelPropertyGenerator(
     privateIdCommonModel.unique.value,
     PARTICIPANT_ID_EXIST
   ),
-  null,
-  "1.0.0"
-);
+  version: "1.0.0",
+};
 
 // const participantStatusModel = modelGenerator("1.0.0");
 

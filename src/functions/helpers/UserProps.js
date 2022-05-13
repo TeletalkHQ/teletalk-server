@@ -1,5 +1,14 @@
+const {
+  randomCountryCode,
+  randomStringNumber,
+  randomString,
+} = require("@/functions/utilities/utils");
+
+const {
+  userModels: { firstNameModel, lastNameModel },
+} = require("@/models/userModels/userModels");
+
 const { countries } = require("@/variables/constants/countries");
-const { randomCountryCode, randomStringNumber } = require("../utilities/utils");
 
 class UserProps {
   constructor(id) {
@@ -25,6 +34,14 @@ class UserProps {
     };
   }
 
+  makeTestContact() {
+    return {
+      ...this.makeTestCellphone(),
+      firstName: randomString(firstNameModel.maxlength.value),
+      lastName: randomString(lastNameModel.maxlength.value),
+    };
+  }
+
   makeContact(cellphone, firstName, lastName) {
     return {
       ...cellphone,
@@ -35,6 +52,15 @@ class UserProps {
 
   makeFullName(firstName, lastName) {
     return { firstName, lastName };
+  }
+
+  makeTestFullName() {
+    return this.makeFullName(
+      randomString(
+        firstNameModel.maxlength.value,
+        lastNameModel.maxlength.value
+      )
+    );
   }
 
   getCellphone(object = {}) {
@@ -57,4 +83,4 @@ class UserProps {
 
 const userProps = new UserProps();
 
-module.exports = { userProps, UserProps: UserProps };
+module.exports = { userProps };

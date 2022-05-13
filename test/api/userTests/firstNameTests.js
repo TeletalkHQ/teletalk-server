@@ -1,9 +1,8 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { userProps } = require("@/functions/helpers/UserProps");
 const { randomString } = require("@/functions/utilities/utils");
 
 const {
-  userModels: { firstNameModel, lastNameModel },
+  userModels: { firstNameModel },
 } = require("@/models/userModels/userModels");
 const {
   userErrors: {
@@ -16,48 +15,27 @@ const {
 
 const firstNameMaxLength = firstNameModel.maxlength.value;
 const firstNameMinLength = firstNameModel.minlength.value;
-const lastNameMaxLength = lastNameModel.maxlength.value;
 
-const firstNameFailureTests = (cellphone) => {
+const firstNameFailureTests = (data) => {
+  const fn = (firstName) => ({ ...data, firstName });
+
   it("should get error, FIRST_NAME_REQUIRED", async () => {
-    await customRequest.sendRequest(
-      userProps.makeContact(
-        cellphone,
-        undefined,
-        randomString(lastNameMaxLength)
-      ),
-      FIRST_NAME_REQUIRED
-    );
+    await customRequest.sendRequest(fn(""), FIRST_NAME_REQUIRED);
   });
   it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
     await customRequest.sendRequest(
-      userProps.makeContact(
-        cellphone,
-        randomString(+firstNameMinLength - 1),
-        undefined
-      ),
+      fn(randomString(+firstNameMinLength - 1)),
       FIRST_NAME_MINLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
     await customRequest.sendRequest(
-      userProps.makeContact(
-        cellphone,
-        randomString(+firstNameMaxLength + 1),
-        undefined
-      ),
+      fn(randomString(+firstNameMaxLength + 1)),
       FIRST_NAME_MAXLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_INVALID_TYPE", async () => {
-    await customRequest.sendRequest(
-      userProps.makeContact(
-        cellphone,
-        123456789, //* Invalid type!
-        undefined
-      ),
-      FIRST_NAME_INVALID_TYPE
-    );
+    await customRequest.sendRequest(fn(123456789), FIRST_NAME_INVALID_TYPE);
   });
 };
 

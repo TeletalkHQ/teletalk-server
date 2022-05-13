@@ -80,7 +80,7 @@ const user = {
   createdAt: mongooseSchemaPropertyGenerator(
     createdAtModel.type.value,
     ...skipParams(5),
-    createdAtModel.default.value
+    createdAtModel.defaultValue.value
   ),
   firstName: mongooseSchemaPropertyGenerator(
     firstNameModel.type.value,
@@ -93,7 +93,7 @@ const user = {
     [lastNameModel.maxlength.value, lastNameModel.maxlength.error.message],
     ...skipParams(3),
     lastNameModel.trim.value,
-    lastNameModel.default.value
+    lastNameModel.defaultValue.value
   ),
   lastMessage: mongooseSchemaPropertyGenerator(
     messageIdCommonModel.type.value,
@@ -146,7 +146,7 @@ const user = {
     [usernameModel.maxlength.value, usernameModel.maxlength.error.message],
     ...skipParams(3),
     usernameModel.trim.value,
-    usernameModel.default.value,
+    usernameModel.defaultValue.value,
     usernameModel.lowercase.value
     // validate: {
     // 	validator: function (value) {

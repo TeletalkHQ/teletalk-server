@@ -27,7 +27,7 @@ const { cellphoneFailureTests } = require("$/api/userTests/cellphoneTests");
 
 let testUsers = {};
 
-const cellphone = userProps.makeTestCellphone();
+const contact = userProps.makeTestContact();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
@@ -43,23 +43,19 @@ describe("", () => {
 describe("add contact successfully", () => {
   it(`should add testUser_1 to testUser_0 contact list`, async () => {
     const { testUser_1 } = testUsers;
-
     const {
       body: {
         addedContact: { firstName, lastName, privateId },
       },
     } = await customRequest.sendRequest(testUser_1);
-
     expect(firstName).equal(testUser_1.firstName);
     expect(firstName.length)
       .greaterThanOrEqual(firstNameModel.minlength.value)
       .lessThanOrEqual(firstNameModel.maxlength.value);
-
     expect(lastName).equal(testUser_1.lastName);
     expect(lastName.length)
       .greaterThanOrEqual(lastNameModel.minlength.value)
       .lessThanOrEqual(lastNameModel.maxlength.value);
-
     expect(privateId).to.be.a(privateIdModel.type.value);
     expect(privateId.length)
       .greaterThanOrEqual(privateIdModel.minlength.value)
@@ -76,7 +72,7 @@ describe("addContact failure tests", () => {
   it("should get error, CONTACT_ITEM_EXIST", async () => {
     const { testUser_2 } = testUsers;
 
-    //* First one get succeed, but second one is duplicate
+    //   //* First one get succeed, but second one is duplicate
     await customRequest.sendRequest(testUser_2);
     await customRequest.sendRequest(testUser_2, CONTACT_ITEM_EXIST);
   });
@@ -97,9 +93,9 @@ describe("addContact failure tests", () => {
   });
 
   cellphoneFailureTests();
-  countryCodeFailureTests(cellphone);
-  countryNameFailureTests(cellphone);
-  phoneNumberFailureTests(cellphone);
-  firstNameFailureTests(cellphone);
-  lastNameFailureTests(cellphone);
+  countryCodeFailureTests(contact);
+  countryNameFailureTests(contact);
+  phoneNumberFailureTests(contact);
+  firstNameFailureTests(contact);
+  lastNameFailureTests(contact);
 });

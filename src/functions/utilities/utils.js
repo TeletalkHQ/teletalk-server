@@ -236,12 +236,28 @@ const crashServerWithCondition = (condition, errorObject) => {
   }
 };
 
+const filterObject = (object, filterFields) => {
+  const filteredObject = {};
+
+  for (const key in filterFields) {
+    if (typeof filterFields[key] === "object") {
+      filteredObject[key] = filterObject(object[key], filterFields[key]);
+      continue;
+    }
+
+    filteredObject[key] = object[key];
+  }
+
+  return filteredObject;
+};
+
 module.exports = {
   crashServer,
   crashServerWithCondition,
   errorThrower,
   extractFromProperties,
   extractVersions,
+  filterObject,
   getAllEnvironments,
   getEnvironment,
   getErrorObject,

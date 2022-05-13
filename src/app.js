@@ -34,6 +34,21 @@ const {
 const {
   findRouteObjectMiddleware,
 } = require("@/middlewares/findRouteObjectMiddleware");
+const {
+  ignoreMiddlewaresByUrlMiddleware,
+} = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
+const {
+  authDefaultMiddleware,
+} = require("@/middlewares/authDefaultMiddleware");
+
+const {
+  userRoutes: {
+    signInNormalRoute,
+    verifySignInNormalRoute,
+    createNewUserRoute,
+    userRouteBaseUrl,
+  },
+} = require("@/variables/routes/userRoutes");
 
 const app = express();
 
@@ -43,12 +58,24 @@ app.use(express.json());
 app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
 
+//? Add your global middleware for routes here, in special cases you can ignore middleware by url
+app.use(
+  ignoreMiddlewaresByUrlMiddleware(
+    [
+      `${userRouteBaseUrl.url}${signInNormalRoute.url}`,
+      `${userRouteBaseUrl.url}${verifySignInNormalRoute.url}`,
+      `${userRouteBaseUrl.url}${createNewUserRoute.url}`,
+    ],
+    authDefaultMiddleware
+  )
+);
+
 app.use(findRouteObjectMiddleware);
 app.use(responseErrorHandlersMiddleware);
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
 app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
 app.use(notFoundMiddleware); //* Should be after 'checkAndResponseMiddleware'
-app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
+// app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
 
 app.use(express.static("@/../public"));
 app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));

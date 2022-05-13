@@ -6,7 +6,10 @@ const {
 
 const cellphoneFailureTests = () => {
   it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await customRequest.sendRequest({}, CELLPHONE_REQUIRED);
+    await customRequest.sendRequest(
+      { countryCode: "", countryName: "", phoneNumber: "" },
+      CELLPHONE_REQUIRED
+    );
   });
 };
 

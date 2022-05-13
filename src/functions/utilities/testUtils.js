@@ -10,6 +10,7 @@ const {
   getEnvironment,
   setEnvironment,
   getObjectLength,
+  filterObject,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -27,16 +28,21 @@ const request = async (
   routeObject,
   data,
   errorObject = {},
-  withoutToken
+  withoutTokenCondition,
+  filterDataCondition = true
 ) => {
   try {
+    if (filterDataCondition) {
+      data = filterObject(data, routeObject.inputFields[0]);
+    }
+
     const response = await testRequest(
       {
         ...routeObject,
         url: `${baseUrl.url}${routeObject.url}`,
       },
       data,
-      withoutToken
+      withoutTokenCondition
     );
 
     const statusCode = errorObject?.statusCode || routeObject?.statusCode;
@@ -69,7 +75,7 @@ const request = async (
   }
 };
 
-const testRequest = (requestObject, data, withoutToken) => {
+const testRequest = (requestObject, data, withoutTokenCondition) => {
   try {
     const { method, url } = requestObject;
     const { TEST_VERIFY_TOKEN, TEST_MAIN_TOKEN } = getAllEnvironments();
@@ -78,7 +84,7 @@ const testRequest = (requestObject, data, withoutToken) => {
       .send(data)
       .set("Content-Type", "application/json");
 
-    if (!withoutToken) {
+    if (!withoutTokenCondition) {
       if (
         requestObject.url.includes(verifySignInNormalRoute.url) ||
         requestObject.url.includes(createNewUserRoute.url)

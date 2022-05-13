@@ -16,7 +16,7 @@ const {
 } = require("@/models/validationModels/commonValidationModels");
 const {
   userValidationModels: {
-    bioValidationsModel,
+    bioValidationModel,
     countryCodeValidationModel,
     countryNameValidationModel,
     firstNameValidationModel,
@@ -92,7 +92,7 @@ const checkReturnCondition = (returnCondition, error) => {
   errorThrower(error, error);
 };
 
-const bioValidator = validatorCompiler(bioValidationsModel);
+const bioValidator = validatorCompiler(bioValidationModel);
 
 const contactValidator = async (contact, returnCondition) => {
   try {
@@ -160,8 +160,14 @@ const countryCodeValidator = async (countryCode, returnCondition) => {
       return { done: true };
     }
 
-    const { string, stringNumeric, stringMax, stringMin, required } =
-      getValidatorErrorTypes(result);
+    const {
+      required,
+      string,
+      stringEmpty,
+      stringMax,
+      stringMin,
+      stringNumeric,
+    } = getValidatorErrorTypes(result);
 
     // eslint-disable-next-line no-inner-declarations
     function errorObject(errorObject) {
@@ -171,7 +177,9 @@ const countryCodeValidator = async (countryCode, returnCondition) => {
       });
     }
 
-    errorThrower(required, () => errorObject(COUNTRY_CODE_REQUIRED));
+    errorThrower(stringEmpty || required, () =>
+      errorObject(COUNTRY_CODE_REQUIRED)
+    );
 
     errorThrower(string, () => errorObject(COUNTRY_CODE_INVALID_TYPE));
 
@@ -202,7 +210,7 @@ const countryNameValidator = async (countryName, returnCondition) => {
       return { done: true };
     }
 
-    const { string, stringMax, stringMin, required } =
+    const { required, string, stringEmpty, stringMax, stringMin } =
       getValidatorErrorTypes(result);
 
     function errorObject(errorObject) {
@@ -212,7 +220,9 @@ const countryNameValidator = async (countryName, returnCondition) => {
       });
     }
 
-    errorThrower(required, () => errorObject(COUNTRY_NAME_REQUIRED));
+    errorThrower(stringEmpty || required, () =>
+      errorObject(COUNTRY_NAME_REQUIRED)
+    );
 
     errorThrower(string, () => errorObject(COUNTRY_NAME_INVALID_TYPE));
 
@@ -233,7 +243,7 @@ const firstNameValidator = async (firstName, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { string, stringMax, stringMin, required } =
+    const { required, string, stringEmpty, stringMax, stringMin } =
       getValidatorErrorTypes(result);
 
     const errorObject = (errorObject) =>
@@ -242,7 +252,9 @@ const firstNameValidator = async (firstName, returnCondition) => {
         validationResult: result,
       });
 
-    errorThrower(required, () => errorObject(FIRST_NAME_REQUIRED));
+    errorThrower(stringEmpty || required, () =>
+      errorObject(FIRST_NAME_REQUIRED)
+    );
 
     errorThrower(string, () => errorObject(FIRST_NAME_INVALID_TYPE));
 
@@ -286,8 +298,14 @@ const phoneNumberValidator = async (phoneNumber, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { stringNumeric, string, stringMax, stringMin, required } =
-      getValidatorErrorTypes(result);
+    const {
+      required,
+      string,
+      stringEmpty,
+      stringMax,
+      stringMin,
+      stringNumeric,
+    } = getValidatorErrorTypes(result);
 
     const errorObject = (errorObject) =>
       getErrorObject(errorObject, {
@@ -295,7 +313,9 @@ const phoneNumberValidator = async (phoneNumber, returnCondition) => {
         validationResult: result,
       });
 
-    errorThrower(required, () => errorObject(PHONE_NUMBER_REQUIRED));
+    errorThrower(stringEmpty || required, () =>
+      errorObject(PHONE_NUMBER_REQUIRED)
+    );
 
     errorThrower(string, () => errorObject(PHONE_NUMBER_INVALID_TYPE));
 
@@ -318,7 +338,7 @@ const privateIdValidator = async (privateId, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { string, stringMax, stringMin, required } =
+    const { required, string, stringEmpty, stringMax, stringMin } =
       getValidatorErrorTypes(result);
 
     const errorObject = (errorObject) =>
@@ -327,7 +347,9 @@ const privateIdValidator = async (privateId, returnCondition) => {
         validationResult: result,
       });
 
-    errorThrower(required, () => errorObject(PRIVATE_ID_REQUIRED));
+    errorThrower(stringEmpty || required, () =>
+      errorObject(PRIVATE_ID_REQUIRED)
+    );
 
     errorThrower(string, () => errorObject(PRIVATE_ID_INVALID_TYPE));
 
@@ -370,9 +392,9 @@ const tokenValidator = async (token, secret) => {
       );
     }
 
-    const { string, required } = getValidatorErrorTypes(result);
+    const { required, string, stringEmpty } = getValidatorErrorTypes(result);
 
-    errorThrower(required, () => errorObject(TOKEN_REQUIRED));
+    errorThrower(stringEmpty || required, () => errorObject(TOKEN_REQUIRED));
 
     errorThrower(string, () => errorObject(TOKEN_INVALID_TYPE));
 
@@ -389,7 +411,7 @@ const usernameValidator = async (username, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { string, stringMax, stringMin, required } =
+    const { required, string, stringEmpty, stringMax, stringMin } =
       getValidatorErrorTypes(result);
 
     const errorObject = (errorObject) =>
@@ -398,7 +420,7 @@ const usernameValidator = async (username, returnCondition) => {
         validationResult: result,
       });
 
-    errorThrower(required, () => errorObject(USERNAME_REQUIRED));
+    errorThrower(stringEmpty || required, () => errorObject(USERNAME_REQUIRED));
 
     errorThrower(string, () => errorObject(USERNAME_INVALID_TYPE));
 
@@ -421,7 +443,7 @@ const verificationCodeValidator = async (verificationCode, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { string, stringNumeric, stringEmpty, required, stringLength } =
+    const { required, string, stringEmpty, stringLength, stringNumeric } =
       getValidatorErrorTypes(result);
 
     const errorObject = (errorObject) =>

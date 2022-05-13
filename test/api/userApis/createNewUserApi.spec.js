@@ -35,6 +35,6 @@ describe("success create new normal user", () => {
 });
 
 describe("failure tests for create new normal user", () => {
-  firstNameFailureTests({});
-  lastNameFailureTests({});
+  firstNameFailureTests(userProps.makeTestFullName());
+  lastNameFailureTests(userProps.makeTestFullName());
 });

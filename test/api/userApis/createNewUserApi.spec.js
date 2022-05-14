@@ -12,6 +12,7 @@ describe("", () => {
   it("should test routes properties for CustomRequest", async () => {
     customRequest.setBaseUrl(userRouteBaseUrl);
     customRequest.setRouteObject(createNewUserRoute);
+    customRequest.setVerifyTokenFromEnv();
   });
 });
 

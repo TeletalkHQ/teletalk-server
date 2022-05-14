@@ -1,9 +1,5 @@
 const lodash = require("lodash");
 
-const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
-
 const errorThrower = (condition, error) => {
   if (condition) {
     //TODO Write errors into log file;
@@ -25,24 +21,6 @@ const objectInitializer = (values, props) => {
   } catch (error) {
     logger.log("objectInitializer catch", error);
   }
-};
-
-const getEnvironment = (envName) => {
-  return process.env[envName];
-};
-
-const getAllEnvironments = () => {
-  const environments = { ...ENVIRONMENT_KEYS };
-
-  for (const key in ENVIRONMENT_KEYS) {
-    environments[key] = getEnvironment(key);
-  }
-
-  return environments;
-};
-
-const setEnvironment = (envName, value) => {
-  process.env[envName] = value;
 };
 
 const getMethodFromRoute = (route) => {
@@ -253,8 +231,6 @@ module.exports = {
   extractVersions,
   filterObject,
   findByProp,
-  getAllEnvironments,
-  getEnvironment,
   getErrorObject,
   getHostFromRequest,
   getMethodFromRoute,
@@ -268,7 +244,6 @@ module.exports = {
   randomCountryCode,
   randomString,
   randomStringNumber,
-  setEnvironment,
   skipParams,
   versionCalculator,
 };

@@ -1,6 +1,6 @@
 const {
   expect,
-  setTestUserAndTestToken,
+  setTestUserProps,
   getTestUsersFromState,
 } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
@@ -42,7 +42,7 @@ describe("", () => {
 
     testUsers = await getTestUsersFromState();
 
-    setTestUserAndTestToken(testUsers.testUser_0);
+    setTestUserProps(testUsers.testUser_0);
   });
 });
 

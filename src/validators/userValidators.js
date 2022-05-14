@@ -1,11 +1,11 @@
 /* eslint-disable no-inner-declarations */
 const { userProps } = require("@/functions/helpers/UserProps");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
 const {
   errorThrower,
   getErrorObject,
   getValidatorErrorTypes,
-  getEnvironment,
 } = require("@/functions/utilities/utils");
 const {
   validatorCompiler,
@@ -31,9 +31,7 @@ const {
 } = require("@/models/validationModels/userValidationModels");
 
 const { countries } = require("@/variables/constants/countries");
-const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
+
 const {
   userErrors: {
     CELLPHONE_REQUIRED,
@@ -366,7 +364,7 @@ const privateIdValidator = async (privateId, returnCondition) => {
 
 const tokenValidator = async (
   token,
-  secret = getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET),
+  secret = envManager.getJwtMainSecret(),
   returnCondition
 ) => {
   try {

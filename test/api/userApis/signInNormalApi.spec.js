@@ -1,14 +1,8 @@
 const { expect } = require("@/functions/utilities/testUtils");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { userProps } = require("@/functions/helpers/UserProps");
-const {
-  setEnvironment,
-  getEnvironment,
-} = require("@/functions/utilities/utils");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 
-const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
 const {
   userRoutes: { userRouteBaseUrl, signInNormalRoute },
 } = require("@/variables/routes/userRoutes");
@@ -45,21 +39,19 @@ describe("signInNormalApi test success requests", () => {
       user: { countryCode, countryName, phoneNumber, verifyToken },
     } = response.body;
 
-    const verificationCode = getEnvironment(
-      ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE
-    );
+    const verificationCode = envManager.getTestVerificationCode();
 
     expect(countryCode).equal(cellphone.countryCode);
     expect(countryName).equal(cellphone.countryName);
     expect(phoneNumber).equal(cellphone.phoneNumber);
     expect(verificationCode).length(verificationCodeModel.length.value);
 
-    setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, verifyToken);
+    envManager.setTestVerifyToken(verifyToken);
   });
 });
 
 describe("signInNormalApi test failure requests", () => {
-  cellphoneFailureTests();
+  cellphoneFailureTests(cellphone);
   countryCodeFailureTests(cellphone);
   countryNameFailureTests(cellphone);
   phoneNumberFailureTests(cellphone);

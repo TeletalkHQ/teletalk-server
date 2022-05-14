@@ -1,16 +1,12 @@
 const MelipayamakApi = require("melipayamak");
 
-const { getEnvironment, errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 
-const {
-  ENVIRONMENT_KEYS,
-  ENVIRONMENT_VALUES,
-} = require("@/variables/constants/environmentInitialValues");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
-const USERNAME = getEnvironment(ENVIRONMENT_KEYS.SMS_CLIENT_USERNAME);
-const PASSWORD = getEnvironment(ENVIRONMENT_KEYS.SMS_CLIENT_PASSWORD);
+const { username, password } = envManager.getSmsClientProps();
 
-const api = new MelipayamakApi(USERNAME, PASSWORD);
+const api = new MelipayamakApi(username, password);
 
 const sms = api.sms();
 
@@ -25,8 +21,8 @@ const smsClient = async ({ from, to, text, isFlash = false }) => {
 };
 
 const sendSms = async (countryCode, phoneNumber, text) => {
-  const NODE_ENV = getEnvironment(ENVIRONMENT_KEYS.NODE_ENV);
-  const { test, development } = ENVIRONMENT_VALUES.NODE_ENV;
+  const NODE_ENV = envManager.getNodeEnv();
+  const { test, development } = envManager.getNodeEnvValues();
 
   const condition = NODE_ENV === test || NODE_ENV === development;
   if (condition) {

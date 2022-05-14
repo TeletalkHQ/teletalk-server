@@ -4,17 +4,11 @@ const {
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { getHostFromRequest } = require("@/functions/utilities/utils");
-const {
-  getEnvironment,
-  setEnvironment,
-} = require("@/functions/utilities/utils");
-const { sendSms, smsTexts } = require("@/functions/tools/SmsClient");
-const { TemporaryClients } = require("@/functions/tools/TemporaryClients");
 
-const {
-  ENVIRONMENT_KEYS,
-  ENVIRONMENT_VALUES,
-} = require("@/variables/constants/environmentInitialValues");
+const { sendSms, smsTexts } = require("@/functions/tools/SmsClient");
+const { temporaryClients } = require("@/functions/tools/TemporaryClients");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
+
 const { verificationCodeValidator } = require("@/validators/userValidators");
 
 const signInNormalUserController = async (
@@ -36,18 +30,18 @@ const signInNormalUserController = async (
 
     const verifyToken = await tokenSigner(
       cellphone,
-      getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
+      envManager.getJwtSignInSecret()
     );
 
-    const client = await TemporaryClients.findClient(cellphone);
+    const client = await temporaryClients.findClient(cellphone);
 
     if (client) {
-      await TemporaryClients.updateClient(client, {
+      await temporaryClients.updateClient(client, {
         verificationCode,
         mainToken: verifyToken,
       });
     } else {
-      await TemporaryClients.addClient({
+      await temporaryClients.addClient({
         mainToken: verifyToken,
         verificationCode: verificationCode,
         ...cellphone,
@@ -61,11 +55,8 @@ const signInNormalUserController = async (
       verifyToken,
     };
 
-    if (
-      getEnvironment(ENVIRONMENT_KEYS.NODE_ENV) ===
-      ENVIRONMENT_VALUES.NODE_ENV.test
-    ) {
-      setEnvironment(ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE, verificationCode);
+    if (envManager.getNodeEnv() === envManager.getNodeEnvValues().test) {
+      envManager.setTestVerificationCode(verificationCode);
     }
 
     res.checkAndResponse({ user: responseData });

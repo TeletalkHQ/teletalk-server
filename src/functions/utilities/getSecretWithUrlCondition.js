@@ -1,12 +1,9 @@
 const {
-  getEnvironment,
   isUrlMatchWithReqUrl,
   concatBaseUrlWithUrl,
 } = require("@/functions/utilities/utils");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
-const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
 const {
   userRoutes: { userRouteBaseUrl, verifySignInNormalRoute, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
@@ -20,11 +17,9 @@ const getSecretWithUrlCondition = (reqUrl) => {
     reqUrl
   );
 
-  return getEnvironment(
-    condition
-      ? ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET
-      : ENVIRONMENT_KEYS.JWT_MAIN_SECRET
-  );
+  return condition
+    ? envManager.getJwtSignInSecret()
+    : envManager.getJwtMainSecret();
 };
 
 module.exports = { getSecretWithUrlCondition };

@@ -1,14 +1,13 @@
-const {
-  getAllEnvironments,
-  getEnvironment,
-} = require("@/functions/utilities/utils");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
-const jwtOptions = { algorithm: "HS256" };
+const jwtDefaultOptions = { algorithm: "HS256" };
 
-const { NODE_ENV } = getAllEnvironments();
+const NODE_ENV = envManager.getNodeEnv();
 
-const MONGO_URL = getEnvironment(`MONGO_URL_${NODE_ENV.toUpperCase()}`);
+const MONGO_URL = envManager.getEnvironment(
+  `MONGO_URL_${NODE_ENV.toUpperCase()}`
+);
 
-const appConfigs = { jwtOptions, MONGO_URL };
+const appConfigs = { jwtDefaultOptions, MONGO_URL };
 
 module.exports = { appConfigs };

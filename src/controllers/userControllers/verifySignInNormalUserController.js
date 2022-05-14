@@ -1,27 +1,15 @@
 const { sendableUserData } = require("@/functions/utilities/sendableUserData");
-const { TemporaryClients } = require("@/functions/tools/TemporaryClients");
-const {
-  getEnvironment,
-  errorThrower,
-  getErrorObject,
-} = require("@/functions/utilities/utils");
+const { temporaryClients } = require("@/functions/tools/TemporaryClients");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const {
   userErrors: { VERIFICATION_CODE_INVALID, USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
-const { getTokenFromRequest } = require("@/functions/utilities/utils");
-const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
-
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
-const {
-  tokenValidator,
-  verificationCodeValidator,
-} = require("@/validators/userValidators");
+const { verificationCodeValidator } = require("@/validators/userValidators");
 
 const verifySignInNormalUserController = async (
   req = expressRequest,
@@ -38,7 +26,7 @@ const verifySignInNormalUserController = async (
     errorThrower(authData.done === false, authData.error);
 
     const cellphone = userProps.getCellphone(authData.payload);
-    const tempClient = await TemporaryClients.findClient(cellphone);
+    const tempClient = await temporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 
     errorThrower(tempClient?.verificationCode !== verificationCode, () =>

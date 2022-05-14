@@ -1,14 +1,11 @@
 const { randomId } = require("@/functions/utilities/randomId");
 const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
-const { TemporaryClients } = require("@/functions/tools/TemporaryClients");
+const { temporaryClients } = require("@/functions/tools/TemporaryClients");
 const { userProps } = require("@/functions/helpers/UserProps");
-const {
-  getEnvironment,
-  getErrorObject,
-  errorThrower,
-} = require("@/functions/utilities/utils");
+const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
 const {
   tokenValidator,
@@ -26,9 +23,6 @@ const {
 } = require("@/models/commonModels/commonModels");
 
 const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
-const {
   userErrors: { USER_NOT_EXIST, FULL_NAME_INVALID },
 } = require("@/variables/errors/userErrors");
 
@@ -45,7 +39,7 @@ const createNewUserUserController = async (
 
     const verifiedToken = await tokenValidator(
       verifyToken,
-      getEnvironment(ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET)
+      envManager.getJwtSignInSecret()
     );
 
     errorThrower(verifiedToken.done === false, verifiedToken.error);
@@ -63,7 +57,7 @@ const createNewUserUserController = async (
     );
 
     const cellphone = userProps.getCellphone(verifiedToken.payload);
-    const client = await TemporaryClients.findClient(cellphone);
+    const client = await temporaryClients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 
     const user = await userFinder(cellphone);

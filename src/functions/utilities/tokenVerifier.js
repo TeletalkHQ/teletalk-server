@@ -1,24 +1,20 @@
 const JWT = require("jsonwebtoken");
 
-const { getEnvironment } = require("@/functions/utilities/utils");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
 const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
-
-const { appConfigs } = require("@/configs/appConfigs");
-
-const initialOptions = appConfigs.jwtOptions;
+  appConfigs: { jwtDefaultOptions },
+} = require("@/configs/appConfigs");
 
 const tokenVerifier = (
   token,
-  secret = getEnvironment(ENVIRONMENT_KEYS.JWT_MAIN_SECRET),
-  options = initialOptions
+  secret = envManager.getJwtMainSecret(),
+  options = jwtDefaultOptions
 ) => {
   try {
     const data = JWT.verify(token, secret, {
       complete: true,
-      ...initialOptions,
+      ...jwtDefaultOptions,
       ...options,
     });
 

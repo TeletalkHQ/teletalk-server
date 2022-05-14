@@ -86,4 +86,4 @@ class TemporaryClients {
   }
 }
 
-module.exports = { TemporaryClients: new TemporaryClients({}) };
+module.exports = { temporaryClients: new TemporaryClients({}) };

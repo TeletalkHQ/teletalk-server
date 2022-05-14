@@ -1,5 +1,5 @@
 const {
-  setTestUserAndTestToken,
+  setTestUserProps,
   request,
   expect,
 } = require("@/functions/utilities/testUtils");
@@ -43,7 +43,7 @@ describe("", () => {
 
     testUsers = await getTestUsersFromState();
 
-    setTestUserAndTestToken(testUsers.testUser_0);
+    setTestUserProps(testUsers.testUser_0);
   });
 });
 

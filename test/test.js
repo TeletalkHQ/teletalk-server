@@ -1,19 +1,23 @@
-// //* Requirements ==>
+/* //* 
+//* 
+//* Require test files as your wish
+//* All test files using customRequest for make a request to server (in special case uses request)
+//* 
+ */ //*
+
+//* Requirements ==>
 require("$/requirements.spec");
 
-// * Database ==>
+//* Database ==>
 require("$/database/userDb.spec");
 
-// * User api's ==>
-require("$/api/userApis/signInNormalApi.spec");
-require("$/api/userApis/verifySignInNormalApi.spec");
-require("$/api/userApis/createNewUserApi.spec");
+//* User api's ==>
+require("$/api/userApis/signVerifyCreate.spec");
 
-//* Cellphone /api's ==>
-require("$/api/cellphoneApis/removeContactApi.spec");
-
+//* Cellphone api's ==>
 require("$/api/cellphoneApis/addContactApi.spec");
 require("$/api/cellphoneApis/editContactApi.spec");
+require("$/api/cellphoneApis/removeContactApi.spec");
 
 require("$/api/cellphoneApis/addBlockApi.spec");
 require("$/api/cellphoneApis/removeBlockApi.spec");

@@ -5,21 +5,12 @@ const {
   state: { getStateObject, setStateObject },
 } = require("@/functions/tools/State");
 const {
-  getAllEnvironments,
   errorThrower,
-  getEnvironment,
-  setEnvironment,
   getObjectLength,
   filterObject,
   concatBaseUrlWithUrl,
 } = require("@/functions/utilities/utils");
 
-const {
-  userRoutes: { verifySignInNormalRoute, createNewUserRoute },
-} = require("@/variables/routes/userRoutes");
-const {
-  ENVIRONMENT_KEYS,
-} = require("@/variables/constants/environmentInitialValues");
 const {
   initialValue: { stateKeys },
 } = require("@/variables/constants/initialValues/initialValue");
@@ -29,8 +20,10 @@ const request = async (
   routeObject,
   data,
   errorObject = {},
-  withoutTokenCondition,
-  filterDataCondition = true
+  { token = "", filterDataCondition = true } = {
+    token: "",
+    filterDataCondition: true,
+  }
 ) => {
   try {
     if (filterDataCondition) {
@@ -43,7 +36,7 @@ const request = async (
         url: concatBaseUrlWithUrl(baseUrl, routeObject),
       },
       data,
-      withoutTokenCondition
+      makeAuthorizationHeader(token)
     );
 
     const statusCode = errorObject?.statusCode || routeObject?.statusCode;
@@ -76,25 +69,14 @@ const request = async (
   }
 };
 
-const testRequest = (requestObject, data, withoutTokenCondition) => {
+const testRequest = (routeObject, data, authorization) => {
   try {
-    const { method, url } = requestObject;
-    const { TEST_VERIFY_TOKEN, TEST_MAIN_TOKEN } = getAllEnvironments();
+    const { method, url } = routeObject;
 
     const response = supertest[method](url)
       .send(data)
-      .set("Content-Type", "application/json");
-
-    if (!withoutTokenCondition) {
-      if (
-        requestObject.url.includes(verifySignInNormalRoute.url) ||
-        requestObject.url.includes(createNewUserRoute.url)
-      ) {
-        response.set(...makeTestRequestToken(TEST_VERIFY_TOKEN));
-      } else {
-        response.set(...makeTestRequestToken(TEST_MAIN_TOKEN));
-      }
-    }
+      .set("Content-Type", "application/json")
+      .set(authorization);
 
     return response;
   } catch (error) {
@@ -102,38 +84,19 @@ const testRequest = (requestObject, data, withoutTokenCondition) => {
   }
 };
 
-const makeTestRequestToken = (token) => ["Authorization", `Bearer ${token}`];
-
-const getTestMainToken = () => {
-  return getEnvironment(ENVIRONMENT_KEYS.TEST_MAIN_TOKEN);
-};
-
-const setTestMainToken = (token) => {
-  setEnvironment(ENVIRONMENT_KEYS.TEST_MAIN_TOKEN, token);
-};
-
-const setTestUser = (user) => setEnvironment(ENVIRONMENT_KEYS.TEST_USER, user);
-
-const setTestUserAndTestToken = (user) => {
-  setTestUser(user);
-  setTestMainToken(user.tokens[0].mainToken);
-};
+const makeAuthorizationHeader = (token) => ["Authorization", `Bearer ${token}`];
 
 const getTestUsersFromState = async () => {
   return await getStateObject(stateKeys.testUsers);
 };
-
 const setTestUsersIntoState = async (testUsers) => {
   return await setStateObject(stateKeys.testUsers, testUsers);
 };
 
 module.exports = {
   expect,
-  getTestMainToken,
   getTestUsersFromState,
   request,
-  setTestMainToken,
-  setTestUserAndTestToken,
   setTestUsersIntoState,
   testRequest,
 };

@@ -19,7 +19,7 @@ const objectInitializer = (values, props) => {
 
     return tempObj;
   } catch (error) {
-    logger.log("objectInitializer catch", error);
+    logger.log("objectInitializer catch, error:", error);
   }
 };
 

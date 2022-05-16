@@ -367,15 +367,7 @@ const tokenValidator = async (
   secret = envManager.getJwtMainSecret(),
   returnCondition
 ) => {
-  logger.log("secretsecretsecret", secret, "rm");
   try {
-    // errorThrower(token === "undefined", () =>
-    //   getErrorObject(TOKEN_REQUIRED, {
-    //     validatedToken: token,
-    //     validationResult: {},
-    //   })
-    // );
-
     const result = await compiledTokenValidator({ token });
 
     const errorObject = (errorObject, extraData = {}) =>

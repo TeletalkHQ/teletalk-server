@@ -15,7 +15,7 @@ const bodyClarifyMiddleware = (req, _, next) => {
     next();
     return { done: true };
   } catch (error) {
-    logger.log("bodyClarifyMiddleware catch", error);
+    logger.log("bodyClarifyMiddleware catch, error:", error);
     errorThrower(error, error);
     return { done: false };
   }

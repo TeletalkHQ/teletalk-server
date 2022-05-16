@@ -25,7 +25,7 @@ const userFinder = async (userData = userInitialOptions) => {
 
     return currentUser;
   } catch (error) {
-    logger.log("userFinder catch", error);
+    logger.log("userFinder catch, error:", error);
     errorThrower(error, error);
   }
 };
@@ -56,7 +56,7 @@ const addCellphoneToUserBlacklist = async (
       blacklist: currentUser.blacklist,
     });
   } catch (error) {
-    logger.log("addCellphoneToUserBlacklist catch, error", error);
+    logger.log("addCellphoneToUserBlacklist catch, error:", error);
     errorThrower(error, error);
   }
 };
@@ -102,8 +102,6 @@ const updateOneContact = async (
   editedValues
 ) => {
   try {
-    logger.log("currentUser.contacts", currentUser.contacts);
-
     const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
       currentUser.contacts,
       targetCellphone

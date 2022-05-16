@@ -6,8 +6,6 @@ const {
 const authenticationFailureTests = (data = {}) => {
   const fn = (token) => ({ token });
   it("should get error, TOKEN_REQUIRED", async () => {
-    logger.log("fn(undefined)", fn(undefined));
-
     await customRequest.sendRequest(data, TOKEN_REQUIRED, fn(undefined));
   });
   it("should get error, TOKEN_INVALID_TYPE", async () => {

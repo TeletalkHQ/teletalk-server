@@ -15,8 +15,10 @@ const {
 
 describe("", () => {
   it("should set routes properties", async () => {
-    customRequest.setBaseUrl(userRouteBaseUrl);
-    customRequest.setRouteObject(verifySignInNormalRoute);
+    customRequest.setRequestRequirements(
+      userRouteBaseUrl,
+      verifySignInNormalRoute
+    );
     customRequest.setVerifyTokenFromEnv();
   });
 });

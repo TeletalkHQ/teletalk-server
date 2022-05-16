@@ -10,8 +10,7 @@ const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 describe("", () => {
   it("should test routes properties for CustomRequest", async () => {
-    customRequest.setBaseUrl(userRouteBaseUrl);
-    customRequest.setRouteObject(createNewUserRoute);
+    customRequest.setRequestRequirements(userRouteBaseUrl, createNewUserRoute);
     customRequest.setVerifyTokenFromEnv();
   });
 });

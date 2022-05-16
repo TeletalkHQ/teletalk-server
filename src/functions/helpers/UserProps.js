@@ -77,6 +77,10 @@ class UserProps {
       privateId: object.privateId,
     };
   }
+
+  getTokenFromUserObject(userObject) {
+    return userObject.tokens[0].mainToken;
+  }
 }
 
 const userProps = new UserProps();

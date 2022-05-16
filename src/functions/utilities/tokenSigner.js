@@ -13,6 +13,8 @@ const tokenSigner = async (
   options = jwtDefaultOptions
 ) => {
   try {
+    logger.log("secretsecretsecret", secret, "rm");
+
     return JWT.sign(data, secret, {
       ...jwtDefaultOptions,
       ...options,

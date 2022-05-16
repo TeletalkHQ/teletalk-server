@@ -64,12 +64,18 @@ class EnvironmentManager {
   setTestUsers(users) {
     this.setEnvironment(this.ENVIRONMENT_KEYS.TEST_USERS, users);
   }
+  getTestUsers() {
+    this.getEnvironment(this.ENVIRONMENT_KEYS.TEST_USERS);
+  }
 
   getTestVerificationCode() {
     return this.getEnvironment(this.ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE);
   }
-  setTestVerificationCode() {
-    return this.setEnvironment(this.ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE);
+  setTestVerificationCode(verificationCode) {
+    return this.setEnvironment(
+      this.ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE,
+      verificationCode
+    );
   }
 
   getNodeEnv() {

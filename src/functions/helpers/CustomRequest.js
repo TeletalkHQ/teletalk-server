@@ -21,13 +21,17 @@ class CustomRequest {
     return this;
   }
 
+  setRequestRequirements(baseUrl, routeObject, options = this.options) {
+    this.setBaseUrl(baseUrl);
+    this.setRouteObject(routeObject);
+    this.setOptions({ ...this.options, ...options });
+  }
+
   sendRequest(data, errorObject, options = this.options) {
     const allOptions = {
       ...this.options,
       ...options,
     };
-
-    logger.log("options.token", options.token);
 
     return request(
       this.baseUrl,
@@ -44,9 +48,10 @@ class CustomRequest {
   setToken(token) {
     this.setOptions({ token });
   }
-  setMainTokenFromEnv() {
-    const token = envManager.getTestMainToken();
-    this.setOptions({ token });
+  setMainTokenFromUserObject(user) {
+    this.setOptions({ token: user.tokens[0].mainToken });
+
+    logger.log("setMainTokenFromUserObject", this.options, "rm");
   }
   setVerifyTokenFromEnv() {
     const token = envManager.getTestVerifyToken();

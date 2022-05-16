@@ -20,22 +20,20 @@ const request = async (
   routeObject,
   data,
   errorObject = {},
-  { token = "", filterDataCondition = true } = {
+  { token, filterDataCondition = true } = {
     token: "",
     filterDataCondition: true,
   }
 ) => {
   try {
-    if (filterDataCondition) {
-      data = filterObject(data, routeObject.inputFields[0]);
-    }
-
     const response = await testRequest(
       {
         ...routeObject,
         url: concatBaseUrlWithUrl(baseUrl, routeObject),
       },
-      data,
+      filterDataCondition
+        ? filterObject(data, routeObject.inputFields[0])
+        : data,
       makeAuthorizationHeader(token)
     );
 
@@ -76,7 +74,7 @@ const testRequest = (routeObject, data, authorization) => {
     const response = supertest[method](url)
       .send(data)
       .set("Content-Type", "application/json")
-      .set(authorization);
+      .set(...authorization);
 
     return response;
   } catch (error) {
@@ -84,7 +82,10 @@ const testRequest = (routeObject, data, authorization) => {
   }
 };
 
-const makeAuthorizationHeader = (token) => ["Authorization", `Bearer ${token}`];
+const makeAuthorizationHeader = (token) => [
+  "Authorization",
+  typeof token === "undefined" ? null : `Bearer ${token}`,
+];
 
 const getTestUsersFromState = async () => {
   return await getStateObject(stateKeys.testUsers);

@@ -12,6 +12,8 @@ const tokenVerifier = (
   options = jwtDefaultOptions
 ) => {
   try {
+    logger.log("secretsecretsecretsecretsecretsecretsecret", secret, "rm");
+
     const data = JWT.verify(token, secret, {
       complete: true,
       ...jwtDefaultOptions,

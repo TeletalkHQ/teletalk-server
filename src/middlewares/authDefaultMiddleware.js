@@ -8,6 +8,7 @@ const { tokenValidator } = require("@/validators/userValidators");
 const authDefaultMiddleware = async (req, res, next) => {
   try {
     const token = getTokenFromRequest(req);
+
     const secret = getSecretWithUrlCondition(req.url);
 
     const validationResult = await tokenValidator(token, secret);

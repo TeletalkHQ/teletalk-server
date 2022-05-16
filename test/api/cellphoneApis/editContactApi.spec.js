@@ -1,6 +1,5 @@
 const {
   expect,
-  setTestUserProps,
   getTestUsersFromState,
   request,
 } = require("@/functions/utilities/testUtils");
@@ -37,12 +36,12 @@ const contact = userProps.makeTestContact();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
-    customRequest.setBaseUrl(cellphoneRouteBaseUrl);
-    customRequest.setRouteObject(editContactRoute);
-
     testUsers = await getTestUsersFromState();
-
-    setTestUserProps(testUsers.testUser_0);
+    customRequest.setRequestRequirements(
+      cellphoneRouteBaseUrl,
+      editContactRoute
+    );
+    customRequest.setMainTokenFromUserObject(testUsers.testUser_0);
   });
 });
 
@@ -54,7 +53,13 @@ describe("edit contact success tests", () => {
       body: {
         addedContact: { firstName, lastName, privateId },
       },
-    } = await request(cellphoneRouteBaseUrl, addContactRoute, testUser_4);
+    } = await request(
+      cellphoneRouteBaseUrl,
+      addContactRoute,
+      testUser_4,
+      null,
+      { token: customRequest.options.token }
+    );
 
     expect(firstName).equal(testUser_4.firstName);
     expect(firstName.length)
@@ -75,6 +80,7 @@ describe("edit contact success tests", () => {
       firstName: "new firstName",
       lastName: "new lastName",
     };
+
     const {
       body: {
         editedContact: { firstName: newFirstName, lastName: newLastName },

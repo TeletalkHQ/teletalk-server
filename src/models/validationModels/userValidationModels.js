@@ -164,6 +164,7 @@ const privateIdValidationModel = {
 const tokenValidationModel = {
   token: {
     type: tokenModel.type.value,
+    required: tokenModel.required.value,
     messages: {
       required: tokenModel.required.error.message,
       string: tokenModel.type.error.message,

@@ -29,6 +29,9 @@ const {
 const { firstNameFailureTests } = require("$/api/generalTests/firstNameTests");
 const { lastNameFailureTests } = require("$/api/generalTests/lastNameTests");
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
+const {
+  authenticationFailureTests,
+} = require("$/api/generalTests/authenticationTests");
 
 let testUsers = {};
 
@@ -104,4 +107,5 @@ describe("addContact failure tests", () => {
   phoneNumberFailureTests(contact);
   firstNameFailureTests(contact);
   lastNameFailureTests(contact);
+  authenticationFailureTests();
 });

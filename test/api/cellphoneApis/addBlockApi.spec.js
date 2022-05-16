@@ -19,6 +19,9 @@ const {
   countryNameFailureTests,
 } = require("$/api/generalTests/countryNameTests");
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
+const {
+  authenticationFailureTests,
+} = require("$/api/generalTests/authenticationTests");
 
 const {
   userErrors: { BLACKLIST_ITEM_EXIST, SELF_STUFF },
@@ -86,4 +89,5 @@ describe("addBlock failure tests", () => {
   countryCodeFailureTests(cellphone);
   countryNameFailureTests(cellphone);
   phoneNumberFailureTests(cellphone);
+  authenticationFailureTests();
 });

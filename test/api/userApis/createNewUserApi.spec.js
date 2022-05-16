@@ -1,3 +1,4 @@
+const { expect } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const { firstNameFailureTests } = require("$/api/generalTests/firstNameTests");
@@ -11,6 +12,24 @@ const {
 } = require("@/variables/routes/userRoutes");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 
+const {
+  userModels: {
+    countryCodeModel,
+    countryNameModel,
+    phoneNumberModel,
+    firstNameModel,
+    lastNameModel,
+    privateIdModel,
+    tokenModel,
+    contactsModel,
+    blacklistModel,
+    bioModel,
+    createdAtModel,
+    macAddressModel,
+    usernameModel,
+  },
+} = require("@/models/userModels/userModels");
+
 describe("", () => {
   it("should test routes properties for CustomRequest", async () => {
     customRequest.setRequestRequirements(userRouteBaseUrl, createNewUserRoute);
@@ -20,7 +39,18 @@ describe("", () => {
 
 describe("success create new normal user", () => {
   it("should create new user in db", async () => {
-    await customRequest.sendRequest(userProps.makeTestFullName());
+    const {
+      body: {
+        countryCode,
+        countryName,
+        firstName,
+        lastName,
+        mainToken,
+        phoneNumber,
+        privateId,
+      },
+    } = await customRequest.sendRequest(userProps.makeTestFullName());
+    // expect(countryCode.length);
   });
 });
 

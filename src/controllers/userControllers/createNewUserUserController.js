@@ -72,9 +72,10 @@ const createNewUserUserController = async (
 
       res.checkAndResponse({
         user: {
-          ...sendableUserData(user),
+          ...cellphone,
           firstName,
           lastName,
+          privateId: user.privateId,
           mainToken: user.tokens[0],
         },
       });

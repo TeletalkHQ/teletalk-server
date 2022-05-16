@@ -3,6 +3,7 @@ require("@/configs/databaseConnecter").databaseConnecter();
 require("@/variables/globalVariables");
 
 const { errorThrower } = require("@/functions/utilities/utils");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { randomId } = require("@/functions/utilities/randomId");
 const { setTestUsersIntoState } = require("@/functions/utilities/testUtils");
@@ -13,7 +14,6 @@ const {
   commonModels: { privateIdCommonModel },
 } = require("@/models/commonModels/commonModels");
 const { addTestUser } = require("@/models/userModels/userModelFunctions");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
 describe("Add requirements to application state", () => {
   it("should make test users and save into state", async () => {

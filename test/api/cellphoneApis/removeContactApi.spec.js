@@ -24,6 +24,9 @@ const {
 const {
   countryNameFailureTests,
 } = require("$/api/generalTests/countryNameTests");
+const {
+  authenticationFailureTests,
+} = require("$/api/generalTests/authenticationTests");
 
 const {
   userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
@@ -105,4 +108,5 @@ describe("removeContact failure tests", () => {
   countryCodeFailureTests(cellphone);
   countryNameFailureTests(cellphone);
   phoneNumberFailureTests(cellphone);
+  authenticationFailureTests();
 });

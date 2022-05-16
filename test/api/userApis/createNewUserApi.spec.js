@@ -2,6 +2,9 @@ const { userProps } = require("@/functions/helpers/UserProps");
 
 const { firstNameFailureTests } = require("$/api/generalTests/firstNameTests");
 const { lastNameFailureTests } = require("$/api/generalTests/lastNameTests");
+const {
+  authenticationFailureTests,
+} = require("$/api/generalTests/authenticationTests");
 
 const {
   userRoutes: { userRouteBaseUrl, createNewUserRoute },
@@ -24,4 +27,5 @@ describe("success create new normal user", () => {
 describe("failure tests for create new normal user", () => {
   firstNameFailureTests(userProps.makeTestFullName());
   lastNameFailureTests(userProps.makeTestFullName());
+  authenticationFailureTests();
 });

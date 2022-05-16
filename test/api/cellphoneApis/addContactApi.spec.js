@@ -1,6 +1,5 @@
 const {
   expect,
-  setTestUserProps,
   getTestUsersFromState,
 } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
@@ -37,12 +36,13 @@ const contact = userProps.makeTestContact();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
-    customRequest.setBaseUrl(cellphoneRouteBaseUrl);
-    customRequest.setRouteObject(addContactRoute);
-
+    customRequest.setRequestRequirements(
+      cellphoneRouteBaseUrl,
+      addContactRoute
+    );
     testUsers = await getTestUsersFromState();
 
-    setTestUserProps(testUsers.testUser_0);
+    customRequest.setMainTokenFromUserObject(testUsers.testUser_0);
   });
 });
 

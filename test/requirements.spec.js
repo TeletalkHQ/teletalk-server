@@ -5,10 +5,7 @@ require("@/variables/globalVariables");
 const { errorThrower } = require("@/functions/utilities/utils");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { randomId } = require("@/functions/utilities/randomId");
-const {
-  setTestUserProps,
-  setTestUsersIntoState,
-} = require("@/functions/utilities/testUtils");
+const { setTestUsersIntoState } = require("@/functions/utilities/testUtils");
 
 const { countries } = require("@/variables/constants/countries");
 
@@ -58,7 +55,7 @@ describe("Add requirements to application state", () => {
     }
 
     envManager.setTestUsers(testUsers);
-    setTestUserProps(testUsers.testUser_0);
+    envManager.setTestUserProps(testUsers.testUser_0);
     await setTestUsersIntoState(testUsers);
   });
 });

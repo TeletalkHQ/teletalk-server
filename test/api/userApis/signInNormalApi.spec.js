@@ -26,18 +26,17 @@ const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should set routes properties", async () => {
-    customRequest.setBaseUrl(userRouteBaseUrl);
-    customRequest.setRouteObject(signInNormalRoute);
+    customRequest.setRequestRequirements(userRouteBaseUrl, signInNormalRoute);
   });
 });
 
 describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verify code`, async () => {
-    const response = await customRequest.sendRequest(cellphone);
-
     const {
-      user: { countryCode, countryName, phoneNumber, verifyToken },
-    } = response.body;
+      body: {
+        user: { countryCode, countryName, phoneNumber, verifyToken },
+      },
+    } = await customRequest.sendRequest(cellphone);
 
     const verificationCode = envManager.getTestVerificationCode();
 

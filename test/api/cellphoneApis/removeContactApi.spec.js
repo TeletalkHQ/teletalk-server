@@ -1,8 +1,4 @@
-const {
-  setTestUserProps,
-  request,
-  expect,
-} = require("@/functions/utilities/testUtils");
+const { request, expect } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
@@ -42,12 +38,13 @@ const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
-    customRequest.setBaseUrl(cellphoneRouteBaseUrl);
-    customRequest.setRouteObject(removeContactRoute);
-
     testUsers = await getTestUsersFromState();
 
-    setTestUserProps(testUsers.testUser_0);
+    customRequest.setRequestRequirements(
+      cellphoneRouteBaseUrl,
+      removeContactRoute
+    );
+    customRequest.setMainTokenFromUserObject(testUsers.testUser_0);
   });
 });
 
@@ -62,7 +59,10 @@ describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
     const { testUser_3 } = testUsers;
 
-    await request(cellphoneRouteBaseUrl, addContactRoute, testUser_3);
+    await request(cellphoneRouteBaseUrl, addContactRoute, testUser_3, null, {
+      token: customRequest.options.token,
+    });
+
     const {
       body: {
         removedContact: { phoneNumber, countryCode, countryName },

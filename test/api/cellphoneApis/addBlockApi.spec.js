@@ -1,7 +1,6 @@
 const {
   expect,
   getTestUsersFromState,
-  setTestUserProps,
 } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
@@ -35,12 +34,10 @@ const cellphone = userProps.makeTestCellphone();
 
 describe("", () => {
   it("should fill testUsers object", async () => {
-    customRequest.setBaseUrl(cellphoneRouteBaseUrl);
-    customRequest.setRouteObject(addBlockRoute);
-
     testUsers = await getTestUsersFromState();
 
-    setTestUserProps(testUsers.testUser_0);
+    customRequest.setRequestRequirements(cellphoneRouteBaseUrl, addBlockRoute);
+    customRequest.setMainTokenFromUserObject(testUsers.testUser_0);
   });
 });
 

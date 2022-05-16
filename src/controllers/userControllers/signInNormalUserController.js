@@ -48,7 +48,7 @@ const signInNormalUserController = async (
       });
     }
 
-    logger.log(verificationCode);
+    logger.log("verificationCode", verificationCode);
 
     const responseData = {
       ...cellphone,

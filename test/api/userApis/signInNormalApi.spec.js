@@ -13,14 +13,19 @@ const {
 
 const {
   countryCodeFailureTests,
+  countryCodeSuccessTests,
 } = require("$/api/generalTests/countryCodeTests");
 const {
   countryNameFailureTests,
+  countryNameSuccessTests,
 } = require("$/api/generalTests/countryNameTests");
 const {
   phoneNumberFailureTests,
 } = require("$/api/generalTests/phoneNumberTests");
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
+const {
+  verificationCodeSuccessTests,
+} = require("$/api/generalTests/verificationCodeTests");
 
 const cellphone = userProps.makeTestCellphone();
 
@@ -40,10 +45,32 @@ describe("signInNormalApi test success requests", () => {
 
     const verificationCode = envManager.getTestVerificationCode();
 
-    expect(countryCode).equal(cellphone.countryCode);
     expect(countryName).equal(cellphone.countryName);
     expect(phoneNumber).equal(cellphone.phoneNumber);
     expect(verificationCode).length(verificationCodeModel.length.value);
+
+    countryCodeSuccessTests(
+      {
+        countryCodeMain: cellphone.countryCode,
+        countryCodeTest: countryCode,
+      },
+      { stringEquality: true, modelCheck: true }
+    );
+
+    countryNameSuccessTests(
+      {
+        countryNameMain: cellphone.countryName,
+        countryNameTest: countryName,
+      },
+      { stringEquality: true, modelCheck: true }
+    );
+
+    verificationCodeSuccessTests(
+      { verificationCodeTest: verificationCode },
+      {
+        modelCheck: true,
+      }
+    );
 
     envManager.setTestVerifyToken(verifyToken);
   });

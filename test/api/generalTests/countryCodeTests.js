@@ -1,4 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { expect } = require("@/functions/utilities/testUtils");
 const { randomStringNumber } = require("@/functions/utilities/utils");
 
 const {
@@ -18,6 +19,28 @@ const {
 
 const countryCodeMaxlength = countryCodeModel.maxlength.value;
 const countryCodeMinlength = countryCodeModel.minlength.value;
+
+const countryCodeSuccessTests = (
+  { countryCodeMain, countryCodeTest } = {},
+  { stringEquality, modelCheck } = {}
+) => {
+  if (stringEquality) {
+    expect(countryCodeTest.length).equal(countryCodeMain.length);
+    expect(countryCodeMain).equal(countryCodeTest);
+  }
+
+  if (modelCheck) {
+    expect(countryCodeTest).to.be.an(countryCodeModel.type.value);
+
+    if (countryCodeModel.empty.value === false)
+      expect(countryCodeTest.length).to.be.greaterThan(0);
+
+    expect(countryCodeTest.length).greaterThanOrEqual(countryCodeMinlength);
+    expect(countryCodeTest.length).lessThanOrEqual(countryCodeMaxlength);
+
+    expect(+countryCodeTest).to.be.an("number");
+  }
+};
 
 const countryCodeFailureTests = (data) => {
   const fn = (countryCode) => ({ ...data, countryCode });
@@ -48,4 +71,4 @@ const countryCodeFailureTests = (data) => {
   });
 };
 
-module.exports = { countryCodeFailureTests };
+module.exports = { countryCodeFailureTests, countryCodeSuccessTests };

@@ -1,4 +1,10 @@
+const { expect } = require("@/functions/utilities/testUtils");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
+
+const {
+  userModels: { verificationCodeModel },
+} = require("@/models/userModels/userModels");
+
 const {
   userErrors: {
     VERIFICATION_CODE_REQUIRED,
@@ -7,6 +13,29 @@ const {
     VERIFICATION_CODE_INVALID,
   },
 } = require("@/variables/errors/userErrors");
+
+const verificationCodeLength = verificationCodeModel.length.value;
+
+const verificationCodeSuccessTests = (
+  { verificationCodeMain, verificationCodeTest } = {},
+  { stringEquality, modelCheck } = {}
+) => {
+  // if (stringEquality) {
+  //   expect(verificationCodeTest.length).equal(verificationCodeMain.length);
+  //   expect(verificationCodeMain).equal(verificationCodeTest);
+  // }
+
+  if (modelCheck) {
+    expect(verificationCodeTest).to.be.an(verificationCodeModel.type.value);
+
+    if (verificationCodeModel.empty.value === false)
+      expect(verificationCodeTest.length).to.be.greaterThan(0);
+
+    expect(+verificationCodeTest).to.be.an("number");
+
+    expect(verificationCodeTest.length).equal(verificationCodeLength);
+  }
+};
 
 const verificationCodeFailureTests = (data = {}) => {
   const fn = (verificationCode) => ({ ...data, verificationCode });
@@ -34,4 +63,4 @@ const verificationCodeFailureTests = (data = {}) => {
   });
 };
 
-module.exports = { verificationCodeFailureTests };
+module.exports = { verificationCodeFailureTests, verificationCodeSuccessTests };

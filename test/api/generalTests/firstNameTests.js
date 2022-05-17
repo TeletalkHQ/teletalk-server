@@ -1,5 +1,6 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomString } = require("@/functions/utilities/utils");
+const { expect } = require("@/functions/utilities/testUtils");
 
 const {
   userModels: { firstNameModel },
@@ -15,6 +16,27 @@ const {
 
 const firstNameMaxLength = firstNameModel.maxlength.value;
 const firstNameMinLength = firstNameModel.minlength.value;
+
+const firstNameSuccessTests = (
+  { firstNameMain, firstNameTest } = {},
+  { stringEquality, modelCheck } = {}
+) => {
+  if (stringEquality) {
+    expect(firstNameTest.length).equal(firstNameMain.length);
+    expect(firstNameMain).equal(firstNameTest);
+  }
+
+  if (modelCheck) {
+    expect(firstNameTest).to.be.an(firstNameModel.type.value);
+
+    if (firstNameModel.empty.value === false) {
+      expect(firstNameTest.length).to.be.greaterThan(0);
+
+      expect(firstNameTest.length).greaterThanOrEqual(firstNameMinLength);
+      expect(firstNameTest.length).lessThanOrEqual(firstNameMaxLength);
+    }
+  }
+};
 
 const firstNameFailureTests = (data) => {
   const fn = (firstName) => ({ ...data, firstName });
@@ -39,4 +61,4 @@ const firstNameFailureTests = (data) => {
   });
 };
 
-module.exports = { firstNameFailureTests };
+module.exports = { firstNameFailureTests, firstNameSuccessTests };

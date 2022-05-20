@@ -1,13 +1,6 @@
-const {
-  expect,
-  getTestUsersFromState,
-} = require("@/functions/utilities/testUtils");
+const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-
-const {
-  userModels: { privateIdModel, firstNameModel, lastNameModel },
-} = require("@/models/userModels/userModels");
 
 const {
   cellphoneRoutes: { addContactRoute, cellphoneRouteBaseUrl },
@@ -19,19 +12,29 @@ const { countries } = require("@/variables/constants/countries");
 
 const {
   countryCodeFailureTests,
+  countryCodeSuccessTests,
 } = require("$/api/generalTests/countryCodeTests");
 const {
   phoneNumberFailureTests,
+  phoneNumberSuccessTests,
 } = require("$/api/generalTests/phoneNumberTests");
 const {
   countryNameFailureTests,
+  countryNameSuccessTests,
 } = require("$/api/generalTests/countryNameTests");
-const { firstNameFailureTests } = require("$/api/generalTests/firstNameTests");
-const { lastNameFailureTests } = require("$/api/generalTests/lastNameTests");
+const {
+  firstNameFailureTests,
+  firstNameSuccessTests,
+} = require("$/api/generalTests/firstNameTests");
+const {
+  lastNameFailureTests,
+  lastNameSuccessTests,
+} = require("$/api/generalTests/lastNameTests");
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 const {
   authenticationFailureTests,
 } = require("$/api/generalTests/authenticationTests");
+const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
 
 let testUsers = {};
 
@@ -54,21 +57,73 @@ describe("add contact successfully", () => {
     const { testUser_1 } = testUsers;
     const {
       body: {
-        addedContact: { firstName, lastName, privateId },
+        addedContact: {
+          countryCode,
+          countryName,
+          firstName,
+          lastName,
+          phoneNumber,
+          privateId,
+        },
       },
     } = await customRequest.sendRequest(testUser_1);
-    expect(firstName).equal(testUser_1.firstName);
-    expect(firstName.length)
-      .greaterThanOrEqual(firstNameModel.minlength.value)
-      .lessThanOrEqual(firstNameModel.maxlength.value);
-    expect(lastName).equal(testUser_1.lastName);
-    expect(lastName.length)
-      .greaterThanOrEqual(lastNameModel.minlength.value)
-      .lessThanOrEqual(lastNameModel.maxlength.value);
-    expect(privateId).to.be.a(privateIdModel.type.value);
-    expect(privateId.length)
-      .greaterThanOrEqual(privateIdModel.minlength.value)
-      .lessThanOrEqual(privateIdModel.maxlength.value);
+
+    firstNameSuccessTests(
+      {
+        firstNameMain: testUser_1.firstName,
+        firstNameTest: firstName,
+      },
+      {
+        modelCheck: true,
+        stringEquality: true,
+      }
+    );
+
+    lastNameSuccessTests(
+      {
+        lastNameMain: testUser_1.lastName,
+        lastNameTest: lastName,
+      },
+      {
+        modelCheck: true,
+        stringEquality: true,
+      }
+    );
+
+    phoneNumberSuccessTests(
+      {
+        phoneNumberMain: testUser_1.phoneNumber,
+        phoneNumberTest: phoneNumber,
+      },
+      {
+        modelCheck: true,
+        stringEquality: true,
+      }
+    );
+
+    countryCodeSuccessTests(
+      {
+        countryCodeMain: testUser_1.countryCode,
+        countryCodeTest: countryCode,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
+
+    countryNameSuccessTests(
+      {
+        countryNameMain: testUser_1.countryName,
+        countryNameTest: countryName,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
+
+    privateIdSuccessTests(
+      {
+        privateIdMain: testUser_1.privateId,
+        privateIdTest: privateId,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
   });
 });
 

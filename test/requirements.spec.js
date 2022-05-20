@@ -1,5 +1,5 @@
 require("@/functions/helpers/requireDotenv").requireDotenv();
-require("@/configs/databaseConnecter").databaseConnecter();
+require("@/configs/databaseConnector").databaseConnector();
 require("@/variables/globalVariables");
 
 const { errorThrower } = require("@/functions/utilities/utils");

@@ -15,14 +15,21 @@ const {
 const {
   countryNameSuccessTests,
 } = require("$/api/generalTests/countryNameTests");
-
 const {
   authenticationFailureTests,
 } = require("$/api/generalTests/authenticationTests");
+const {
+  phoneNumberSuccessTests,
+} = require("$/api/generalTests/phoneNumberTests");
+const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
 
 const {
   userRoutes: { userRouteBaseUrl, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
+const { tokenSuccessTests } = require("$/api/generalTests/tokenTests");
+const { envManager } = require("@/functions/utilities/EnvironmentManager");
+
+const fullName = userProps.makeTestFullName();
 
 describe("", () => {
   it("should test routes properties for CustomRequest", async () => {
@@ -45,7 +52,15 @@ describe("success create new normal user", () => {
           privateId,
         },
       },
-    } = await customRequest.sendRequest(userProps.makeTestFullName());
+    } = await customRequest.sendRequest(fullName);
+
+    await tokenSuccessTests(
+      {
+        tokenTest: mainToken,
+        secret: envManager.getJwtSecrets().JWT_MAIN_SECRET,
+      },
+      { modelCheck: true, verifyToken: true }
+    );
 
     countryCodeSuccessTests(
       { countryCodeTest: countryCode },
@@ -57,13 +72,27 @@ describe("success create new normal user", () => {
       { modelCheck: true }
     );
 
-    firstNameSuccessTests({ firstNameTest: firstName }, { modelCheck: true });
-    lastNameSuccessTests({ lastNameTest: lastName }, { modelCheck: true });
+    phoneNumberSuccessTests(
+      { phoneNumberTest: phoneNumber },
+      { modelCheck: true }
+    );
+
+    privateIdSuccessTests({ privateIdTest: privateId }, { modelCheck: true });
+
+    firstNameSuccessTests(
+      { firstNameTest: firstName, firstNameMain: fullName.firstName },
+      { modelCheck: true, stringEquality: true }
+    );
+
+    lastNameSuccessTests(
+      { lastNameTest: lastName, lastNameMain: fullName.lastName },
+      { modelCheck: true, stringEquality: true }
+    );
   });
 });
 
 describe("failure tests for create new normal user", () => {
-  firstNameFailureTests(userProps.makeTestFullName());
-  lastNameFailureTests(userProps.makeTestFullName());
+  firstNameFailureTests(fullName);
+  lastNameFailureTests(fullName);
   authenticationFailureTests();
 });

@@ -11,7 +11,7 @@ const serveFavicon = require("serve-favicon");
 require("pretty-error").start();
 
 require("@/functions/helpers/requireDotenv").requireDotenv();
-require("@/configs/databaseConnecter").databaseConnecter();
+require("@/configs/databaseConnector").databaseConnector();
 
 const { concatBaseUrlWithUrl } = require("@/functions/utilities/utils");
 

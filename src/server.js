@@ -7,9 +7,7 @@ const http = require("http");
 const { app } = require("@/app");
 const { ioFunctions } = require("@/socket/io");
 
-const {
-  databaseConnecter: connectDatabase,
-} = require("@/configs/databaseConnecter");
+const { databaseConnector } = require("@/configs/databaseConnector");
 const { crashServer } = require("@/functions/utilities/utils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
@@ -27,7 +25,7 @@ const serverListenerCb = () => {
 
 const startServer = async () => {
   try {
-    await connectDatabase();
+    await databaseConnector();
 
     ioFunctions.sio(server);
 

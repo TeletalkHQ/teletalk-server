@@ -20,7 +20,75 @@
   },
   "rules": {
     "no-unused-expressions": 0,
-    "chai-friendly/no-unused-expressions": 2
+    "chai-friendly/no-unused-expressions": 2,
+    "spellcheck/spell-checker": [
+      1,
+      {
+        "comments": true,
+        "strings": true,
+        "identifiers": true,
+        "ignoreRequire": false,
+        "templates": true,
+        "lang": "en_US",
+        "skipWords": [
+          "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890",
+          "autofetch",
+          "autopep",
+          "favicon",
+          "morgan",
+          "cors",
+          "axios",
+          "bcrypt",
+          "bcryptjs",
+          "camelcase",
+          "CLEANME",
+          "codestream",
+          "dotenv",
+          "endregion",
+          "esbenp",
+          "fileupload",
+          "Fira",
+          "flowtype",
+          "indenticator",
+          "ipynb",
+          "Jalali",
+          "jsonwebtoken",
+          "luhn",
+          "maxlength",
+          "Melipayamak",
+          "middlewares",
+          "MINLENGTH",
+          "monospace",
+          "multer",
+          "nodemailer",
+          "onum",
+          "quatro",
+          "restclient",
+          "Restify",
+          "sindresorhus",
+          "snyk",
+          "soheil",
+          "strikethrough",
+          "stringAlphadash",
+          "stringAlphanum",
+          "tabnine",
+          "tabpanel",
+          "teletalk",
+          "Teletalk",
+          "Trez",
+          "uncategorizedErrors",
+          "upsert",
+          "vsintellicode",
+          "WITHSCORES",
+          "zadd",
+          "zoot",
+          "zrange"
+        ],
+        "skipIfMatch": ["http://[^s]*", "^[-\\w]+/[-\\w\\.]+$"],
+        // "skipWordIfMatch": ["^foobar.*$"],
+        "minLength": 4
+      }
+    ]
     //   "node/exports-style": ["error", "module.exports"],
     //   "node/file-extension-in-import": ["error", "always"],
     //   "node/prefer-global/buffer": ["error", "always"],
@@ -32,7 +100,8 @@
     //   "node/prefer-promises/fs": "error"
   },
   "plugins": [
-    "chai-friendly"
+    "chai-friendly",
+    "spellcheck"
     //  "security"
   ]
 }

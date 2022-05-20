@@ -17,14 +17,9 @@ const {
 const verificationCodeLength = verificationCodeModel.length.value;
 
 const verificationCodeSuccessTests = (
-  { verificationCodeMain, verificationCodeTest } = {},
-  { stringEquality, modelCheck } = {}
+  { verificationCodeTest } = {},
+  { modelCheck } = {}
 ) => {
-  // if (stringEquality) {
-  //   expect(verificationCodeTest.length).equal(verificationCodeMain.length);
-  //   expect(verificationCodeMain).equal(verificationCodeTest);
-  // }
-
   if (modelCheck) {
     expect(verificationCodeTest).to.be.an(verificationCodeModel.type.value);
 

@@ -1,4 +1,3 @@
-const { expect } = require("@/functions/utilities/testUtils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
@@ -6,10 +5,6 @@ const { customRequest } = require("@/functions/helpers/CustomRequest");
 const {
   userRoutes: { userRouteBaseUrl, signInNormalRoute },
 } = require("@/variables/routes/userRoutes");
-
-const {
-  userModels: { verificationCodeModel },
-} = require("@/models/userModels/userModels");
 
 const {
   countryCodeFailureTests,
@@ -21,11 +16,13 @@ const {
 } = require("$/api/generalTests/countryNameTests");
 const {
   phoneNumberFailureTests,
+  phoneNumberSuccessTests,
 } = require("$/api/generalTests/phoneNumberTests");
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 const {
   verificationCodeSuccessTests,
 } = require("$/api/generalTests/verificationCodeTests");
+const { tokenSuccessTests } = require("$/api/generalTests/tokenTests");
 
 const cellphone = userProps.makeTestCellphone();
 
@@ -45,9 +42,26 @@ describe("signInNormalApi test success requests", () => {
 
     const verificationCode = envManager.getTestVerificationCode();
 
-    expect(countryName).equal(cellphone.countryName);
-    expect(phoneNumber).equal(cellphone.phoneNumber);
-    expect(verificationCode).length(verificationCodeModel.length.value);
+    phoneNumberSuccessTests(
+      {
+        phoneNumberMain: cellphone.phoneNumber,
+        phoneNumberTest: phoneNumber,
+      },
+      { stringEquality: true, modelCheck: true }
+    );
+
+    verificationCodeSuccessTests(
+      { verificationCodeTest: verificationCode },
+      { modelCheck: true }
+    );
+
+    await tokenSuccessTests(
+      {
+        tokenTest: verifyToken,
+        secret: envManager.getJwtSecrets().JWT_SIGN_IN_SECRET,
+      },
+      { modelCheck: true, verifyToken: true }
+    );
 
     countryCodeSuccessTests(
       {
@@ -63,13 +77,6 @@ describe("signInNormalApi test success requests", () => {
         countryNameTest: countryName,
       },
       { stringEquality: true, modelCheck: true }
-    );
-
-    verificationCodeSuccessTests(
-      { verificationCodeTest: verificationCode },
-      {
-        modelCheck: true,
-      }
     );
 
     envManager.setTestVerifyToken(verifyToken);

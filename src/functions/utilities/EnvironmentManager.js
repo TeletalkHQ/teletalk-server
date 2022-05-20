@@ -98,10 +98,21 @@ class EnvironmentManager {
     };
   }
 
-  setTestUserProps = (user) => {
+  setTestUserProps(user) {
     this.setTestUser(user);
     this.setTestMainToken(user.tokens[0].mainToken);
-  };
+  }
+
+  getJwtSecrets() {
+    return {
+      JWT_MAIN_SECRET: this.getEnvironment(
+        this.ENVIRONMENT_KEYS.JWT_MAIN_SECRET
+      ),
+      JWT_SIGN_IN_SECRET: this.getEnvironment(
+        this.ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET
+      ),
+    };
+  }
 }
 
 const environmentManager = new EnvironmentManager();

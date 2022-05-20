@@ -1,7 +1,4 @@
-const {
-  expect,
-  getTestUsersFromState,
-} = require("@/functions/utilities/testUtils");
+const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 
@@ -11,12 +8,15 @@ const {
 
 const {
   countryCodeFailureTests,
+  countryCodeSuccessTests,
 } = require("$/api/generalTests/countryCodeTests");
 const {
   phoneNumberFailureTests,
+  phoneNumberSuccessTests,
 } = require("$/api/generalTests/phoneNumberTests");
 const {
   countryNameFailureTests,
+  countryNameSuccessTests,
 } = require("$/api/generalTests/countryNameTests");
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 const {
@@ -26,10 +26,6 @@ const {
 const {
   userErrors: { BLACKLIST_ITEM_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
-
-const {
-  userModels: { phoneNumberModel, countryNameModel, countryCodeModel },
-} = require("@/models/userModels/userModels");
 
 let testUsers = {};
 
@@ -54,20 +50,32 @@ describe("addBlock successful tests", () => {
       },
     } = await customRequest.sendRequest(testUser_1);
 
-    expect(phoneNumber).equal(testUser_1.phoneNumber);
-    expect(phoneNumber.length)
-      .greaterThanOrEqual(phoneNumberModel.minlength.value)
-      .lessThanOrEqual(phoneNumberModel.maxlength.value);
+    phoneNumberSuccessTests(
+      {
+        phoneNumberMain: testUser_1.phoneNumber,
+        phoneNumberTest: phoneNumber,
+      },
+      {
+        modelCheck: true,
+        stringEquality: true,
+      }
+    );
 
-    expect(countryCode).equal(testUser_1.countryCode);
-    expect(countryCode.length)
-      .greaterThanOrEqual(countryCodeModel.minlength.value)
-      .lessThanOrEqual(countryCodeModel.maxlength.value);
+    countryCodeSuccessTests(
+      {
+        countryCodeMain: testUser_1.countryCode,
+        countryCodeTest: countryCode,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
 
-    expect(countryName).equal(testUser_1.countryName);
-    expect(countryName.length)
-      .greaterThanOrEqual(countryNameModel.minlength.value)
-      .lessThanOrEqual(countryNameModel.maxlength.value);
+    countryNameSuccessTests(
+      {
+        countryNameMain: testUser_1.countryName,
+        countryNameTest: countryName,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
   });
 });
 

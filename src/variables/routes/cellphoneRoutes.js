@@ -74,8 +74,11 @@ const addContactRoute = routeGenerator(
   [
     {
       [addedContact]: {
+        countryCode,
+        countryName,
         firstName,
         lastName,
+        phoneNumber,
         privateId,
       },
     },

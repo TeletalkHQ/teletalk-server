@@ -1,14 +1,9 @@
 const {
-  expect,
   getTestUsersFromState,
   request,
 } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-
-const {
-  userModels: { privateIdModel, firstNameModel, lastNameModel },
-} = require("@/models/userModels/userModels");
 
 const {
   cellphoneRoutes: { addContactRoute, editContactRoute, cellphoneRouteBaseUrl },
@@ -19,19 +14,29 @@ const {
 
 const {
   countryCodeFailureTests,
+  countryCodeSuccessTests,
 } = require("$/api/generalTests/countryCodeTests");
 const {
   phoneNumberFailureTests,
+  phoneNumberSuccessTests,
 } = require("$/api/generalTests/phoneNumberTests");
 const {
   countryNameFailureTests,
+  countryNameSuccessTests,
 } = require("$/api/generalTests/countryNameTests");
-const { firstNameFailureTests } = require("$/api/generalTests/firstNameTests");
-const { lastNameFailureTests } = require("$/api/generalTests/lastNameTests");
+const {
+  firstNameFailureTests,
+  firstNameSuccessTests,
+} = require("$/api/generalTests/firstNameTests");
+const {
+  lastNameFailureTests,
+  lastNameSuccessTests,
+} = require("$/api/generalTests/lastNameTests");
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 const {
   authenticationFailureTests,
 } = require("$/api/generalTests/authenticationTests");
+const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
 
 let testUsers = {};
 
@@ -54,7 +59,14 @@ describe("edit contact success tests", () => {
 
     const {
       body: {
-        addedContact: { firstName, lastName, privateId },
+        addedContact: {
+          firstName,
+          lastName,
+          privateId,
+          countryCode,
+          countryName,
+          phoneNumber,
+        },
       },
     } = await request(
       cellphoneRouteBaseUrl,
@@ -64,20 +76,62 @@ describe("edit contact success tests", () => {
       { token: customRequest.options.token }
     );
 
-    expect(firstName).equal(testUser_4.firstName);
-    expect(firstName.length)
-      .greaterThanOrEqual(firstNameModel.minlength.value)
-      .lessThanOrEqual(firstNameModel.maxlength.value);
+    firstNameSuccessTests(
+      {
+        firstNameMain: testUser_4.firstName,
+        firstNameTest: firstName,
+      },
+      {
+        modelCheck: true,
+        stringEquality: true,
+      }
+    );
 
-    expect(lastName).equal(testUser_4.lastName);
-    expect(lastName.length)
-      .greaterThanOrEqual(lastNameModel.minlength.value)
-      .lessThanOrEqual(lastNameModel.maxlength.value);
+    lastNameSuccessTests(
+      {
+        lastNameMain: testUser_4.lastName,
+        lastNameTest: lastName,
+      },
+      {
+        modelCheck: true,
+        stringEquality: true,
+      }
+    );
 
-    expect(privateId).to.be.a(privateIdModel.type.value);
-    expect(privateId.length)
-      .greaterThanOrEqual(privateIdModel.minlength.value)
-      .lessThanOrEqual(privateIdModel.maxlength.value);
+    phoneNumberSuccessTests(
+      {
+        phoneNumberMain: testUser_4.phoneNumber,
+        phoneNumberTest: phoneNumber,
+      },
+      {
+        modelCheck: true,
+        stringEquality: true,
+      }
+    );
+
+    countryCodeSuccessTests(
+      {
+        countryCodeMain: testUser_4.countryCode,
+        countryCodeTest: countryCode,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
+
+    countryNameSuccessTests(
+      {
+        countryNameMain: testUser_4.countryName,
+        countryNameTest: countryName,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
+
+    privateIdSuccessTests(
+      {
+        privateIdMain: testUser_4.privateId,
+        privateIdTest: privateId,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
 
     const editedFullName = {
       firstName: "new firstName",
@@ -93,15 +147,21 @@ describe("edit contact success tests", () => {
       ...editedFullName,
     });
 
-    expect(editedFullName.firstName).equal(newFirstName);
-    expect(newFirstName.length)
-      .greaterThanOrEqual(firstNameModel.minlength.value)
-      .lessThanOrEqual(firstNameModel.maxlength.value);
+    firstNameSuccessTests(
+      {
+        firstNameMain: editedFullName.firstName,
+        firstNameTest: newFirstName,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
 
-    expect(newLastName).equal(editedFullName.lastName);
-    expect(newLastName.length)
-      .greaterThanOrEqual(lastNameModel.minlength.value)
-      .lessThanOrEqual(lastNameModel.maxlength.value);
+    lastNameSuccessTests(
+      {
+        lastNameMain: editedFullName.lastName,
+        lastNameTest: newLastName,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
   });
 });
 

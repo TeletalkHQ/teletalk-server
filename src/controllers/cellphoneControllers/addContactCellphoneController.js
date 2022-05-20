@@ -9,11 +9,7 @@ const addContactCellphoneController = async (
   res = expressResponse
 ) => {
   try {
-    const {
-      body: { firstName, lastName },
-      body,
-      currentUser,
-    } = req;
+    const { body, currentUser } = req;
     const targetUserData = userProps.getContact(body);
 
     const { targetUser } = await addContactToUserContacts(
@@ -23,8 +19,7 @@ const addContactCellphoneController = async (
 
     res.checkAndResponse({
       addedContact: {
-        firstName,
-        lastName,
+        ...targetUserData,
         privateId: targetUser.privateId,
       },
     });

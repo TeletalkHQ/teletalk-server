@@ -1,11 +1,7 @@
-const { request, expect } = require("@/functions/utilities/testUtils");
+const { request } = require("@/functions/utilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
-
-const {
-  userModels: { phoneNumberModel, countryNameModel, countryCodeModel },
-} = require("@/models/userModels/userModels");
 
 const {
   cellphoneRoutes: { removeBlockRoute, addBlockRoute, cellphoneRouteBaseUrl },
@@ -13,12 +9,15 @@ const {
 
 const {
   countryCodeFailureTests,
+  countryCodeSuccessTests,
 } = require("$/api/generalTests/countryCodeTests");
 const {
   phoneNumberFailureTests,
+  phoneNumberSuccessTests,
 } = require("$/api/generalTests/phoneNumberTests");
 const {
   countryNameFailureTests,
+  countryNameSuccessTests,
 } = require("$/api/generalTests/countryNameTests");
 const {
   authenticationFailureTests,
@@ -47,13 +46,6 @@ describe("", () => {
   });
 });
 
-const countryCodeMaxlength = countryCodeModel.maxlength.value;
-const countryCodeMinlength = countryCodeModel.minlength.value;
-const countryNameMaxlength = countryNameModel.maxlength.value;
-const countryNameMinlength = countryNameModel.minlength.value;
-const phoneNumberMaxlength = phoneNumberModel.maxlength.value;
-const phoneNumberMinlength = phoneNumberModel.minlength.value;
-
 describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
     const { testUser_3 } = testUsers;
@@ -67,20 +59,32 @@ describe("removeContact successful test", () => {
       },
     } = await customRequest.sendRequest(testUser_3);
 
-    expect(phoneNumber).equal(testUser_3.phoneNumber);
-    expect(phoneNumber.length)
-      .greaterThanOrEqual(phoneNumberMinlength)
-      .lessThanOrEqual(phoneNumberMaxlength);
+    phoneNumberSuccessTests(
+      {
+        phoneNumberMain: testUser_3.phoneNumber,
+        phoneNumberTest: phoneNumber,
+      },
+      {
+        modelCheck: true,
+        stringEquality: true,
+      }
+    );
 
-    expect(countryCode).equal(testUser_3.countryCode);
-    expect(countryCode.length)
-      .greaterThanOrEqual(countryCodeMinlength)
-      .lessThanOrEqual(countryCodeMaxlength);
+    countryCodeSuccessTests(
+      {
+        countryCodeMain: testUser_3.countryCode,
+        countryCodeTest: countryCode,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
 
-    expect(countryName).equal(testUser_3.countryName);
-    expect(countryName.length)
-      .greaterThanOrEqual(countryNameMinlength)
-      .lessThanOrEqual(countryNameMaxlength);
+    countryNameSuccessTests(
+      {
+        countryNameMain: testUser_3.countryName,
+        countryNameTest: countryName,
+      },
+      { modelCheck: true, stringEquality: true }
+    );
   });
 });
 

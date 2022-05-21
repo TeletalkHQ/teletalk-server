@@ -35,6 +35,9 @@ const {
 const {
   ignoreMiddlewaresByUrlMiddleware,
 } = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
+const {
+  applyMiddlewaresByUrlMiddleware,
+} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
 
 const {
   cellphoneRoutes: {
@@ -46,9 +49,6 @@ const {
     getContactsRoute,
   },
 } = require("@/variables/routes/cellphoneRoutes");
-const {
-  applyMiddlewaresByUrlMiddleware,
-} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
 
 const cellphoneRouter = Router();
 

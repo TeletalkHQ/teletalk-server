@@ -3,10 +3,9 @@ const {
 } = require("@/functions/utilities/getStatusCodeFromRoute");
 
 const sendJsonResponseMiddleware = (req, res, next) => {
-  const { routeObject } = req;
-
   try {
     res.sendJsonResponse = (data) => {
+      const { routeObject } = req;
       const statusCode = getStatusCodeFromRoute(routeObject);
 
       res.status(statusCode).json(data);

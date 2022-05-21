@@ -12,36 +12,43 @@ const {
 } = require("@/variables/errors/appErrors");
 
 const checkAndResponseMiddleware = (req, res, next) => {
-  crashServerWithCondition(
-    typeof res.sendJsonResponse !== "function",
-    SEND_JSON_RESPONSE_IS_NOT_FUNCTION
-  );
+  try {
+    crashServerWithCondition(
+      typeof res.sendJsonResponse !== "function",
+      SEND_JSON_RESPONSE_IS_NOT_FUNCTION
+    );
 
-  const {
-    routeObject: { outputFields },
-  } = req;
+    res.checkAndResponse = (data, outputIndex) => {
+      try {
+        const {
+          routeObject: { outputFields },
+        } = req;
 
-  res.checkAndResponse = (data, outputIndex) => {
-    try {
-      const checkResult = checkOutputFields(data, outputFields, outputIndex);
+        const checkResult = checkOutputFields(data, outputFields, outputIndex);
 
-      errorThrower(checkResult.done === false, () =>
-        getErrorObject(checkResult.errorObject, {
-          outputFields: data,
-          fields: outputFields,
-        })
-      );
+        errorThrower(checkResult.done === false, () =>
+          getErrorObject(checkResult.errorObject, {
+            outputFields: data,
+            fields: outputFields,
+          })
+        );
 
-      logger.log("response body: ", data);
-      res.sendJsonResponse(data);
-    } catch (error) {
-      logger.log("checkAndResponse catch, error:", error);
-      res.errorCollector(error);
-      res.errorResponser();
-    }
-  };
+        logger.log("response body: ", data);
+        res.sendJsonResponse(data);
+      } catch (error) {
+        logger.log("checkAndResponse catch, error:", error);
+        res.errorCollector(error);
+        res.errorResponser();
+      }
+    };
 
-  next();
+    next();
+  } catch (error) {
+    logger.log("checkAndResponseMiddleware catch, error:", error);
+
+    res.errorCollector(error);
+    res.errorResponser();
+  }
 };
 
 module.exports = { checkAndResponseMiddleware };

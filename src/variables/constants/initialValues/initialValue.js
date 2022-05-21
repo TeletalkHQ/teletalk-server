@@ -94,7 +94,7 @@ const inputOutputFields = {
   bio: "bio",
   blacklist: "blacklist",
   blockedCellphone: "blockedCellphone",
-  chats: "chats",
+  chats: [],
   contacts: "contacts",
   countryCode: "countryCode",
   countryName: "countryName",

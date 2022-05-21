@@ -9,7 +9,7 @@ const {
 
 const privateChatRouteBaseUrl = routeGenerator(
   true,
-  "/chat/privateChat",
+  "/chat",
   true,
   "1.0.0",
   "",
@@ -19,7 +19,7 @@ const privateChatRouteBaseUrl = routeGenerator(
 
 const getAllChatsRoute = routeGenerator(
   "get",
-  "/getAllPrivateChats",
+  "/privateChat/getAllPrivateChats",
   200,
   "1.0.0",
   "Use for Start new chat",
@@ -29,7 +29,7 @@ const getAllChatsRoute = routeGenerator(
 
 const chatsLastMessageRoute = routeGenerator(
   "post",
-  "/privateChatsLastMessages",
+  "/privateChat/privateChatsLastMessages",
   200,
   "1.0.0",
   "Use for Get chats last message"
@@ -37,7 +37,7 @@ const chatsLastMessageRoute = routeGenerator(
 
 const getMessagesRoute = routeGenerator(
   "post",
-  "/getPrivateMessages",
+  "/privateChat/getPrivateMessages",
   200,
   "1.0.0",
   "Use for get all messages"
@@ -45,7 +45,7 @@ const getMessagesRoute = routeGenerator(
 
 const startChatRoute = routeGenerator(
   "post",
-  "/startNewPrivateChat",
+  "/privateChat/startNewPrivateChat",
   200,
   "1.0.0",
   "Use for Start new chat"
@@ -53,7 +53,7 @@ const startChatRoute = routeGenerator(
 
 const sendMessageRoute = routeGenerator(
   "post",
-  "/sendPrivateMessage",
+  "/privateChat/sendPrivateMessage",
   200,
   "1.0.0",
   "Use for send private messages"

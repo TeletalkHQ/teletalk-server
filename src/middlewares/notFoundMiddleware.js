@@ -6,7 +6,7 @@ const {
 const notFoundMiddleware = (req, res, next) => {
   if (typeof req.routeObject !== "object") {
     req.routeObject = NOT_FOUND;
-    res.checkAndResponse(getErrorObject(NOT_FOUND));
+    res.sendJsonResponse(getErrorObject(NOT_FOUND));
   } else {
     next();
   }

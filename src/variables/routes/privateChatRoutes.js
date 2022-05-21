@@ -3,13 +3,18 @@ const {
   versionCalculator,
   extractVersions,
 } = require("@/functions/utilities/utils");
+const {
+  inputOutputFields: { chats },
+} = require("@/variables/constants/initialValues/initialValue");
 
 const privateChatRouteBaseUrl = routeGenerator(
   true,
   "/chat/privateChat",
   true,
   "1.0.0",
-  ""
+  "",
+  [{}],
+  [{}]
 );
 
 const getAllChatsRoute = routeGenerator(
@@ -17,7 +22,9 @@ const getAllChatsRoute = routeGenerator(
   "/getAllPrivateChats",
   200,
   "1.0.0",
-  "Use for Start new chat"
+  "Use for Start new chat",
+  [{}],
+  [{ chats }]
 );
 
 const chatsLastMessageRoute = routeGenerator(

@@ -55,8 +55,6 @@ app.use(express.json());
 app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
 
-//? Add your global middleware for routes here, in special cases you can ignore middleware by url
-
 app.use(findRouteObjectMiddleware);
 app.use(responseErrorHandlersMiddleware);
 app.use(
@@ -65,9 +63,10 @@ app.use(
     authDefaultMiddleware
   )
 ); //* Should be after 'responseErrorHandlersMiddleware'
+
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
-app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
-app.use(notFoundMiddleware); //* Should be after 'checkAndResponseMiddleware'
+app.use(notFoundMiddleware); //* Should be after 'sendJsonResponseMiddleware'
+app.use(checkAndResponseMiddleware); //* Should be after 'notFoundMiddleware'
 app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
 
 app.use(express.static("@/../public"));

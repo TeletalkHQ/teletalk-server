@@ -95,14 +95,6 @@ const addContactsRoute = routeGenerator(
   [{}]
 );
 
-// const editBlockRoute = routeGenerator(
-//   "patch",
-//   "/editBlock",
-//   200,
-//   "1.0.0",
-//   "User for edit single contact on user contacts list"
-// );
-
 const editContactRoute = routeGenerator(
   "patch",
   "/editContact",
@@ -217,7 +209,6 @@ const routes = {
   addContactRoute,
   addContactsRoute,
   cellphoneRouteBaseUrl,
-  // editBlockRoute,
   editContactRoute,
   getContactsRoute,
   removeBlockRoute,

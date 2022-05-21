@@ -50,8 +50,6 @@ class CustomRequest {
   }
   setMainTokenFromUserObject(user) {
     this.setOptions({ token: user.tokens[0].mainToken });
-
-    logger.log("setMainTokenFromUserObject", this.options, "rm");
   }
   setVerifyTokenFromEnv() {
     const token = envManager.getTestVerifyToken();

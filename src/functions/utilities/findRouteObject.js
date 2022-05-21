@@ -8,17 +8,21 @@ const {
   privateChatRoutes: { version: v3, ...privateChatRoutes },
 } = require("@/variables/routes/privateChatRoutes");
 
-const routes = { ...cellphoneRoutes, ...userRoutes, ...privateChatRoutes };
+const routes = {
+  ...cellphoneRoutes,
+  ...userRoutes,
+  ...privateChatRoutes,
+};
 
 const findRouteObject = (url) => {
   try {
     const [, , ...rest] = url.split("/");
 
-    const reqUrl = rest.at(-1);
-    // const fullUrl = rest.join("/");
+    // const reqUrl = rest.at(-1);
+    const fullUrl = rest.join("/");
 
     const routeObjectKey = Object.keys(routes).find((key) => {
-      return routes[key].url === `/${reqUrl}`;
+      return routes[key].url === `/${fullUrl}`;
     });
 
     return routes[routeObjectKey];

@@ -4,6 +4,7 @@ const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
 const {
   privateChatRoutes: { privateChatRouteBaseUrl, getAllChatsRoute },
 } = require("@/variables/routes/privateChatRoutes");
+const { chatsSuccessTests } = require("../generalTests/chatsTests");
 
 let testUsers = {};
 
@@ -22,8 +23,10 @@ describe("", () => {
 
 describe("getAllChats success tests", () => {
   it("Should get all user chats array", async () => {
-    const response = await customRequest.sendRequest();
+    const {
+      body: { chats },
+    } = await customRequest.sendRequest();
 
-    logger.log(response.body);
+    chatsSuccessTests({ chatsTest: chats }, { modelCheck: true });
   });
 });

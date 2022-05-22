@@ -16,6 +16,7 @@ const {
     BIO_MAXLENGTH_REACH,
     BIO_MINLENGTH_REACH,
     BLACKLIST_INVALID_TYPE,
+    CHATS_INVALID_TYPE,
     CONTACT_INVALID_TYPE,
     COUNTRY_CODE_EMPTY,
     COUNTRY_CODE_INVALID_TYPE,
@@ -110,6 +111,11 @@ const countryNameModel = {
   version: "1.0.0",
 };
 
+const chatsModel = {
+  type: modelPropertyGenerator("array", CHATS_INVALID_TYPE),
+  version: "1.0.0",
+};
+
 const createdAtModel = createdAtCommonModel;
 const privateIdModel = privateIdCommonModel;
 
@@ -188,6 +194,7 @@ const verificationCodeModel = {
 const models = {
   bioModel,
   blacklistModel,
+  chatsModel,
   contactsModel,
   countryCodeModel,
   countryNameModel,

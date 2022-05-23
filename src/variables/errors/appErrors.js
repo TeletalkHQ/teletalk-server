@@ -76,6 +76,15 @@ const SEND_JSON_RESPONSE_IS_NOT_FUNCTION = errorGenerator(
   INTERNAL_SERVER_ERROR
 );
 
+const SEND_SMS_FAILED = errorGenerator(
+  5000,
+  500,
+  "send sms failed",
+  "SEND_SMS_FAILED",
+  "1.0.0",
+  INTERNAL_SERVER_ERROR
+);
+
 const REQUEST_BODY_IS_UNDEFINED = errorGenerator(
   5000,
   500,
@@ -94,6 +103,7 @@ const errors = {
   OUTPUT_FIELDS_OVERLOAD,
   REQUEST_BODY_IS_UNDEFINED,
   SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
+  SEND_SMS_FAILED,
 };
 
 const appErrors = {

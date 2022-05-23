@@ -6,7 +6,9 @@ const { errorThrower } = require("@/functions/utilities/utils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { randomId } = require("@/functions/utilities/randomId");
-const { setTestUsersIntoState } = require("@/functions/utilities/testUtils");
+const {
+  setTestUsersIntoState,
+} = require("@/functions/testUtilities/testUtils");
 
 const { countries } = require("@/variables/constants/countries");
 

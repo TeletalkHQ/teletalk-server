@@ -1,7 +1,9 @@
-const { request } = require("@/functions/utilities/testUtils");
+const { request } = require("@/functions/testUtilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
+const {
+  getTestUsersFromState,
+} = require("@/functions/testUtilities/testUtils");
 
 const {
   cellphoneRoutes: {

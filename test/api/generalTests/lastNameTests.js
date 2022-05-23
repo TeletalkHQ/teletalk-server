@@ -1,6 +1,6 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomString } = require("@/functions/utilities/utils");
-const { expect } = require("@/functions/utilities/testUtils");
+const { expect } = require("@/functions/testUtilities/testUtils");
 
 const {
   userModels: { lastNameModel },

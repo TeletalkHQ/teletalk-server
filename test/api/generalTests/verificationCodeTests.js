@@ -1,4 +1,4 @@
-const { expect } = require("@/functions/utilities/testUtils");
+const { expect } = require("@/functions/testUtilities/testUtils");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const {

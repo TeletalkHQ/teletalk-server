@@ -14,29 +14,37 @@ const {
     PHONE_NUMBER_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const phoneNumberMaxlength = phoneNumberModel.maxlength.value;
 const phoneNumberMinlength = phoneNumberModel.minlength.value;
 
 const phoneNumberSuccessTests = (
   { phoneNumberMain, phoneNumberTest } = {},
-  { stringEquality, modelCheck } = {}
+  { stringEquality = true, modelCheck = true } = {
+    stringEquality: true,
+    modelCheck: true,
+  }
 ) => {
   if (stringEquality) {
     expect(phoneNumberTest.length).equal(phoneNumberMain.length);
     expect(phoneNumberMain).equal(phoneNumberTest);
   }
 
+  testBuilder.setVariables(phoneNumberModel, phoneNumberMain, phoneNumberTest);
+
+  if (stringEquality) {
+    testBuilder.stringEquality();
+  }
+
   if (modelCheck) {
-    expect(phoneNumberTest).to.be.an(phoneNumberModel.type.value);
+    testBuilder.typeCheck();
+    testBuilder.emptyCheck();
+    testBuilder.gteCheck();
+    testBuilder.lteCheck();
+    testBuilder.numericCheck();
 
-    if (phoneNumberModel.empty.value === false)
-      expect(phoneNumberTest.length).to.be.greaterThan(0);
-
-    expect(phoneNumberTest.length).greaterThanOrEqual(phoneNumberMinlength);
-    expect(phoneNumberTest.length).lessThanOrEqual(phoneNumberMaxlength);
-
-    expect(+phoneNumberTest).to.be.an("number");
+    testBuilder.execute();
   }
 };
 

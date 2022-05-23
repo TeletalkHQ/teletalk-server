@@ -92,16 +92,10 @@ describe("add contact successfully", () => {
       }
     );
 
-    phoneNumberSuccessTests(
-      {
-        phoneNumberMain: testUser_1.phoneNumber,
-        phoneNumberTest: phoneNumber,
-      },
-      {
-        modelCheck: true,
-        stringEquality: true,
-      }
-    );
+    phoneNumberSuccessTests({
+      phoneNumberMain: testUser_1.phoneNumber,
+      phoneNumberTest: phoneNumber,
+    });
 
     countryCodeSuccessTests(
       {

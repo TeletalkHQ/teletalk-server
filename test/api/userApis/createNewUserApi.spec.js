@@ -74,7 +74,7 @@ describe("success create new normal user", () => {
 
     phoneNumberSuccessTests(
       { phoneNumberTest: phoneNumber },
-      { modelCheck: true }
+      { stringEquality: false }
     );
 
     privateIdSuccessTests({ privateIdTest: privateId }, { modelCheck: true });

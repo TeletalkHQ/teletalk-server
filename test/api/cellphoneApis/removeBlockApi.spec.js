@@ -61,16 +61,10 @@ describe("removeContact successful test", () => {
       },
     } = await customRequest.sendRequest(testUser_3);
 
-    phoneNumberSuccessTests(
-      {
-        phoneNumberMain: testUser_3.phoneNumber,
-        phoneNumberTest: phoneNumber,
-      },
-      {
-        modelCheck: true,
-        stringEquality: true,
-      }
-    );
+    phoneNumberSuccessTests({
+      phoneNumberMain: testUser_3.phoneNumber,
+      phoneNumberTest: phoneNumber,
+    });
 
     countryCodeSuccessTests(
       {

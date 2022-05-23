@@ -52,16 +52,10 @@ describe("addBlock successful tests", () => {
       },
     } = await customRequest.sendRequest(testUser_1);
 
-    phoneNumberSuccessTests(
-      {
-        phoneNumberMain: testUser_1.phoneNumber,
-        phoneNumberTest: phoneNumber,
-      },
-      {
-        modelCheck: true,
-        stringEquality: true,
-      }
-    );
+    phoneNumberSuccessTests({
+      phoneNumberMain: testUser_1.phoneNumber,
+      phoneNumberTest: phoneNumber,
+    });
 
     countryCodeSuccessTests(
       {

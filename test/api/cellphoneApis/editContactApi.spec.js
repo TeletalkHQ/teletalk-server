@@ -98,16 +98,10 @@ describe("edit contact success tests", () => {
       }
     );
 
-    phoneNumberSuccessTests(
-      {
-        phoneNumberMain: testUser_4.phoneNumber,
-        phoneNumberTest: phoneNumber,
-      },
-      {
-        modelCheck: true,
-        stringEquality: true,
-      }
-    );
+    phoneNumberSuccessTests({
+      phoneNumberMain: testUser_4.phoneNumber,
+      phoneNumberTest: phoneNumber,
+    });
 
     countryCodeSuccessTests(
       {

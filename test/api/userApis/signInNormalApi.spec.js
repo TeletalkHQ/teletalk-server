@@ -42,13 +42,10 @@ describe("signInNormalApi test success requests", () => {
 
     const verificationCode = envManager.getTestVerificationCode();
 
-    phoneNumberSuccessTests(
-      {
-        phoneNumberMain: cellphone.phoneNumber,
-        phoneNumberTest: phoneNumber,
-      },
-      { stringEquality: true, modelCheck: true }
-    );
+    phoneNumberSuccessTests({
+      phoneNumberMain: cellphone.phoneNumber,
+      phoneNumberTest: phoneNumber,
+    });
 
     verificationCodeSuccessTests(
       { verificationCodeTest: verificationCode },

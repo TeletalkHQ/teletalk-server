@@ -1,51 +1,58 @@
 const MelipayamakApi = require("melipayamak");
 
-const { errorThrower } = require("@/functions/utilities/utils");
-
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const {
+  appErrors: { SEND_SMS_FAILED },
+} = require("@/variables/errors/appErrors");
 
-const { username, password } = envManager.getSmsClientProps();
+class SmsClient {
+  constructor() {
+    const { username, password } = envManager.getSmsClientProps();
 
-const api = new MelipayamakApi(username, password);
+    this.api = new MelipayamakApi(username, password);
+    this.sms = this.api.sms("rest", "async");
 
-const sms = api.sms();
-
-const smsClient = async ({ from, to, text, isFlash = false }) => {
-  try {
-    const result = await sms.send(to, from, text, isFlash);
-
-    return result;
-  } catch (error) {
-    errorThrower(error, error);
-  }
-};
-
-const sendSms = async (countryCode, phoneNumber, text) => {
-  const NODE_ENV = envManager.getNodeEnv();
-  const { test, development } = envManager.getNodeEnvValues();
-
-  const condition = NODE_ENV === test || NODE_ENV === development;
-  if (condition) {
-    const from = "50004001700470";
-    const to = `+${countryCode}${phoneNumber}`;
-
-    const smsResult = await smsClient({ from, to, text });
-
-    errorThrower(
-      smsResult.StrRetStatus !== "ok" && smsResult.RetStatus !== 1,
-      smsResult
-    );
+    this.defaultOptions = {
+      from: "50004001700470",
+      to: "",
+      text: "",
+      isFlash: false,
+      sendCondition: true,
+    };
   }
 
-  return { done: true };
-};
+  async sendSms(countryCode, phoneNumber, text, options = this.defaultOptions) {
+    const { from, isFlash, sendCondition } = {
+      ...this.defaultOptions,
+      ...options,
+    };
 
-const smsTexts = {
-  sendVerificationCode: (
-    verificationCode,
-    host
-  ) => `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${host}        
+    if (sendCondition) {
+      const to = `+${countryCode}${phoneNumber}`;
+
+      const smsResult = await this.sms.send(to, from, text, isFlash);
+
+      errorThrower(
+        smsResult.StrRetStatus !== "ok" && smsResult.RetStatus !== 1,
+        () => getErrorObject(SEND_SMS_FAILED, smsResult)
+      );
+    }
+
+    return { done: true };
+  }
+
+  smsTemplates() {
+    return {
+      sendVerificationCode: (
+        verificationCode,
+        host
+      ) => `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${host}        
         `,
-};
+    };
+  }
+}
 
-module.exports = { smsClient, sendSms, smsTexts };
+const smsClient = new SmsClient();
+
+module.exports = { smsClient };

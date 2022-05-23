@@ -4,8 +4,7 @@ const {
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { getHostFromRequest } = require("@/functions/utilities/utils");
-
-const { sendSms, smsTexts } = require("@/functions/tools/SmsClient");
+const { smsClient } = require("@/functions/tools/SmsClient");
 const { temporaryClients } = require("@/functions/tools/TemporaryClients");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
@@ -22,10 +21,19 @@ const signInNormalUserController = async (
 
     await verificationCodeValidator(verificationCode);
 
-    sendSms(
+    const NODE_ENV = envManager.getNodeEnv();
+    const { production } = envManager.getNodeEnvValues();
+    const sendCondition = NODE_ENV === production;
+
+    const smsText = smsClient
+      .smsTemplates()
+      .sendVerificationCode(verificationCode, getHostFromRequest(req));
+
+    await smsClient.sendSms(
       cellphone.countryCode,
       cellphone.phoneNumber,
-      smsTexts.sendVerificationCode(verificationCode, getHostFromRequest(req))
+      smsText,
+      { sendCondition }
     );
 
     const verifyToken = await tokenSigner(

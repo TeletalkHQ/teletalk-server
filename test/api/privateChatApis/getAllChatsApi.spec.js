@@ -1,5 +1,7 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
+const {
+  getTestUsersFromState,
+} = require("@/functions/testUtilities/testUtils");
 
 const {
   privateChatRoutes: { privateChatRouteBaseUrl, getAllChatsRoute },

@@ -1,4 +1,4 @@
-const { expect } = require("@/functions/utilities/testUtils");
+const { expect } = require("@/functions/testUtilities/testUtils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 

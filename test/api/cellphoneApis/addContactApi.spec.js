@@ -1,4 +1,6 @@
-const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
+const {
+  getTestUsersFromState,
+} = require("@/functions/testUtilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 

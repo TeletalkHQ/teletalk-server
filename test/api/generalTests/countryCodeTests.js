@@ -1,5 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { expect } = require("@/functions/utilities/testUtils");
+const { expect } = require("@/functions/testUtilities/testUtils");
 const { randomStringNumber } = require("@/functions/utilities/utils");
 
 const {

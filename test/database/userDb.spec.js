@@ -1,7 +1,7 @@
 const {
   state: { setStateObject, getStateObject },
 } = require("@/functions/tools/State");
-const { expect } = require("@/functions/utilities/testUtils");
+const { expect } = require("@/functions/testUtilities/testUtils");
 
 const {
   getAllUsers,

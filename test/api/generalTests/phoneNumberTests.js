@@ -25,21 +25,16 @@ const phoneNumberSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder.setVariables(phoneNumberModel, phoneNumberMain, phoneNumberTest);
-
-  if (stringEquality) {
-    testBuilder.stringEquality().execute(false);
-  }
-
-  if (modelCheck) {
-    testBuilder
-      .typeCheck()
-      .emptyCheck()
-      .gteCheck()
-      .lteCheck()
-      .numericCheck()
-      .execute();
-  }
+  testBuilder
+    .setVariables(phoneNumberModel, phoneNumberMain, phoneNumberTest)
+    .setOptions({ modelCheck, stringEquality })
+    .stringEquality()
+    .typeCheck()
+    .emptyCheck()
+    .gteCheck()
+    .lteCheck()
+    .numericCheck()
+    .execute();
 };
 
 const phoneNumberFailureTests = (data) => {

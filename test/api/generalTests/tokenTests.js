@@ -12,21 +12,19 @@ const tokenSuccessTests = async (
     modelCheck: true,
   }
 ) => {
-  testBuilder.setVariables(tokenModel, "", tokenTest);
-
-  if (modelCheck) {
-    testBuilder.typeCheck().gtCheck(10).execute(false);
-  }
-
-  if (verifyToken) {
+  testBuilder
+    .setVariables(tokenModel, "", tokenTest)
+    .setOptions({ modelCheck })
+    .typeCheck()
+    .gtCheck(10);
+  await testBuilder.checkAndExecuteAsync(verifyToken, async () => {
     const verifiedToken = await tokenValidator(tokenTest, secret);
-
     testBuilder
       .customTypeCheck(verifiedToken, "object")
       .customTypeCheck(verifiedToken.signature, "string")
       .customTypeCheck(verifiedToken.payload, "object")
       .execute();
-  }
+  });
 };
 
 module.exports = {

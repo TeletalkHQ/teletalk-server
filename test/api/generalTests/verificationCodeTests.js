@@ -20,11 +20,14 @@ const verificationCodeSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder.setVariables(verificationCodeModel, "", verificationCodeTest);
-
-  if (modelCheck) {
-    testBuilder.typeCheck().emptyCheck().numericCheck().lengthCheck().execute();
-  }
+  testBuilder
+    .setVariables(verificationCodeModel, "", verificationCodeTest)
+    .setOptions({ modelCheck })
+    .typeCheck()
+    .emptyCheck()
+    .numericCheck()
+    .lengthCheck()
+    .execute();
 };
 
 const verificationCodeFailureTests = (data = {}) => {

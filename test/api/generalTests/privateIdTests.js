@@ -11,13 +11,14 @@ const privateIdSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder.setVariables(privateIdModel, privateIdMain, privateIdTest);
-
-  if (stringEquality) testBuilder.stringEquality().execute(false);
-
-  if (modelCheck) {
-    testBuilder.typeCheck().gteCheck().lteCheck().execute();
-  }
+  testBuilder
+    .setVariables(privateIdModel, privateIdMain, privateIdTest)
+    .setOptions({ modelCheck, stringEquality })
+    .stringEquality()
+    .typeCheck()
+    .gteCheck()
+    .lteCheck()
+    .execute();
 };
 
 module.exports = { privateIdSuccessTests };

@@ -24,13 +24,15 @@ const firstNameSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder.setVariables(firstNameModel, firstNameMain, firstNameTest);
-
-  if (stringEquality) testBuilder.stringEquality().execute(false);
-
-  if (modelCheck) {
-    testBuilder.typeCheck().emptyCheck().gteCheck().lteCheck().execute();
-  }
+  testBuilder
+    .setVariables(firstNameModel, firstNameMain, firstNameTest)
+    .setOptions({ modelCheck, stringEquality })
+    .stringEquality()
+    .typeCheck()
+    .emptyCheck()
+    .gteCheck()
+    .lteCheck()
+    .execute();
 };
 
 const firstNameFailureTests = (data) => {

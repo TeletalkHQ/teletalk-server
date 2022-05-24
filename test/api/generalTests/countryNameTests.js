@@ -26,13 +26,15 @@ const countryNameSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder.setVariables(countryNameModel, countryNameMain, countryNameTest);
-
-  if (stringEquality) testBuilder.stringEquality().execute(false);
-
-  if (modelCheck) {
-    testBuilder.typeCheck().emptyCheck().gteCheck().lteCheck().execute();
-  }
+  testBuilder
+    .setVariables(countryNameModel, countryNameMain, countryNameTest)
+    .setOptions({ modelCheck, stringEquality })
+    .stringEquality()
+    .typeCheck()
+    .emptyCheck()
+    .gteCheck()
+    .lteCheck()
+    .execute();
 };
 
 const countryNameFailureTests = (data) => {

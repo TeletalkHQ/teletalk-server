@@ -1,4 +1,5 @@
-const { expect } = require("@/functions/testUtilities/testUtils");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
+
 const {
   chatModels: { chatIdModel },
 } = require("@/models/chatModels/chatModels");
@@ -6,22 +7,26 @@ const {
   userModels: { chatsModel },
 } = require("@/models/userModels/userModels");
 
-const chatIdMinLength = chatIdModel.minlength.value;
-const chatIdMaxLength = chatIdModel.maxlength.value;
-
-const chatsSuccessTests = ({ chatsTest } = {}, { modelCheck } = {}) => {
+const chatsSuccessTests = (
+  { chatsTest } = {},
+  { modelCheck = true } = {
+    modelCheck: true,
+  }
+) => {
   if (modelCheck) {
-    expect(chatsTest).to.be.an(chatsModel.type.value);
+    testBuilder.setVariables(chatsModel, undefined, chatsTest).typeCheck();
 
     if (chatsTest.length) {
+      //TODO Need to test
       const chat = chatsTest[0];
-      const chatId = chat.chatId;
-      const chatIdLength = chatIdLength;
 
-      expect(chat).to.be.an("object");
-      expect(chatId).to.be.an(chatIdModel.type.value);
-      expect(chatIdLength).lessThanOrEqual(chatIdMaxLength);
-      expect(chatIdLength).greaterThanOrEqual(chatIdMinLength);
+      testBuilder
+        .customTypeCheck(chat, "object")
+        .setVariables(chatIdModel, undefined, chat.chatId)
+        .typeCheck()
+        .gteCheck()
+        .lteCheck()
+        .execute();
     }
   }
 };

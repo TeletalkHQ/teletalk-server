@@ -1,6 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomString } = require("@/functions/utilities/utils");
-const { expect } = require("@/functions/testUtilities/testUtils");
 
 const {
   userModels: { countryNameModel },
@@ -15,27 +14,24 @@ const {
     COUNTRY_NAME_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const countryNameMaxlength = countryNameModel.maxlength.value;
 const countryNameMinlength = countryNameModel.minlength.value;
 
 const countryNameSuccessTests = (
   { countryNameMain, countryNameTest } = {},
-  { stringEquality, modelCheck } = {}
-) => {
-  if (stringEquality) {
-    expect(countryNameTest.length).equal(countryNameMain.length);
-    expect(countryNameMain).equal(countryNameTest);
+  { stringEquality = true, modelCheck = true } = {
+    stringEquality: true,
+    modelCheck: true,
   }
+) => {
+  testBuilder.setVariables(countryNameModel, countryNameMain, countryNameTest);
+
+  if (stringEquality) testBuilder.stringEquality().execute(false);
 
   if (modelCheck) {
-    expect(countryNameTest).to.be.an(countryNameModel.type.value);
-
-    if (countryNameModel.empty.value === false)
-      expect(countryNameTest.length).to.be.greaterThan(0);
-
-    expect(countryNameTest.length).greaterThanOrEqual(countryNameMinlength);
-    expect(countryNameTest.length).lessThanOrEqual(countryNameMaxlength);
+    testBuilder.typeCheck().emptyCheck().gteCheck().lteCheck().execute();
   }
 };
 

@@ -1,4 +1,3 @@
-const { expect } = require("@/functions/testUtilities/testUtils");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 
 const {
@@ -13,22 +12,18 @@ const {
     VERIFICATION_CODE_INVALID,
   },
 } = require("@/variables/errors/userErrors");
-
-const verificationCodeLength = verificationCodeModel.length.value;
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const verificationCodeSuccessTests = (
   { verificationCodeTest } = {},
-  { modelCheck } = {}
+  { modelCheck = true } = {
+    modelCheck: true,
+  }
 ) => {
+  testBuilder.setVariables(verificationCodeModel, "", verificationCodeTest);
+
   if (modelCheck) {
-    expect(verificationCodeTest).to.be.an(verificationCodeModel.type.value);
-
-    if (verificationCodeModel.empty.value === false)
-      expect(verificationCodeTest.length).to.be.greaterThan(0);
-
-    expect(+verificationCodeTest).to.be.an("number");
-
-    expect(verificationCodeTest.length).equal(verificationCodeLength);
+    testBuilder.typeCheck().emptyCheck().numericCheck().lengthCheck().execute();
   }
 };
 

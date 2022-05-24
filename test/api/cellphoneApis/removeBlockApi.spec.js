@@ -66,21 +66,15 @@ describe("removeContact successful test", () => {
       phoneNumberTest: phoneNumber,
     });
 
-    countryCodeSuccessTests(
-      {
-        countryCodeMain: testUser_3.countryCode,
-        countryCodeTest: countryCode,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    countryCodeSuccessTests({
+      countryCodeMain: testUser_3.countryCode,
+      countryCodeTest: countryCode,
+    });
 
-    countryNameSuccessTests(
-      {
-        countryNameMain: testUser_3.countryName,
-        countryNameTest: countryName,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    countryNameSuccessTests({
+      countryNameMain: testUser_3.countryName,
+      countryNameTest: countryName,
+    });
   });
 });
 

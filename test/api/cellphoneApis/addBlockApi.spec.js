@@ -57,21 +57,15 @@ describe("addBlock successful tests", () => {
       phoneNumberTest: phoneNumber,
     });
 
-    countryCodeSuccessTests(
-      {
-        countryCodeMain: testUser_1.countryCode,
-        countryCodeTest: countryCode,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    countryCodeSuccessTests({
+      countryCodeMain: testUser_1.countryCode,
+      countryCodeTest: countryCode,
+    });
 
-    countryNameSuccessTests(
-      {
-        countryNameMain: testUser_1.countryName,
-        countryNameTest: countryName,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    countryNameSuccessTests({
+      countryNameMain: testUser_1.countryName,
+      countryNameTest: countryName,
+    });
   });
 });
 

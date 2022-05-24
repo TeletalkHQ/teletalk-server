@@ -54,22 +54,19 @@ describe("success create new normal user", () => {
       },
     } = await customRequest.sendRequest(fullName);
 
-    await tokenSuccessTests(
-      {
-        tokenTest: mainToken,
-        secret: envManager.getJwtSecrets().JWT_MAIN_SECRET,
-      },
-      { modelCheck: true, verifyToken: true }
-    );
+    await tokenSuccessTests({
+      tokenTest: mainToken,
+      secret: envManager.getJwtSecrets().JWT_MAIN_SECRET,
+    });
 
     countryCodeSuccessTests(
       { countryCodeTest: countryCode },
-      { modelCheck: true }
+      { stringEquality: false }
     );
 
     countryNameSuccessTests(
       { countryNameTest: countryName },
-      { modelCheck: true }
+      { stringEquality: false }
     );
 
     phoneNumberSuccessTests(
@@ -77,17 +74,20 @@ describe("success create new normal user", () => {
       { stringEquality: false }
     );
 
-    privateIdSuccessTests({ privateIdTest: privateId }, { modelCheck: true });
-
-    firstNameSuccessTests(
-      { firstNameTest: firstName, firstNameMain: fullName.firstName },
-      { modelCheck: true, stringEquality: true }
+    privateIdSuccessTests(
+      { privateIdTest: privateId },
+      { stringEquality: false }
     );
 
-    lastNameSuccessTests(
-      { lastNameTest: lastName, lastNameMain: fullName.lastName },
-      { modelCheck: true, stringEquality: true }
-    );
+    firstNameSuccessTests({
+      firstNameTest: firstName,
+      firstNameMain: fullName.firstName,
+    });
+
+    lastNameSuccessTests({
+      lastNameTest: lastName,
+      lastNameMain: fullName.lastName,
+    });
   });
 });
 

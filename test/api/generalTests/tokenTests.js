@@ -1,4 +1,4 @@
-const { expect } = require("@/functions/testUtilities/testUtils");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
   userModels: { tokenModel },
@@ -7,19 +7,25 @@ const { tokenValidator } = require("@/validators/userValidators");
 
 const tokenSuccessTests = async (
   { tokenTest, secret } = {},
-  { modelCheck, verifyToken } = {}
+  { verifyToken = true, modelCheck = true } = {
+    verifyToken: true,
+    modelCheck: true,
+  }
 ) => {
+  testBuilder.setVariables(tokenModel, "", tokenTest);
+
   if (modelCheck) {
-    expect(tokenTest).to.be.an(tokenModel.type.value);
-    expect(tokenTest.length).to.be.greaterThan(10);
+    testBuilder.typeCheck().gtCheck(10).execute(false);
   }
 
   if (verifyToken) {
     const verifiedToken = await tokenValidator(tokenTest, secret);
 
-    expect(verifiedToken).to.be.an("object");
-    expect(verifiedToken.signature).to.be.an("string");
-    expect(verifiedToken.payload).to.be.an("object");
+    testBuilder
+      .customTypeCheck(verifiedToken, "object")
+      .customTypeCheck(verifiedToken.signature, "string")
+      .customTypeCheck(verifiedToken.payload, "object")
+      .execute();
   }
 };
 

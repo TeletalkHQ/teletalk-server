@@ -70,56 +70,35 @@ describe("add contact successfully", () => {
       },
     } = await customRequest.sendRequest(testUser_1);
 
-    firstNameSuccessTests(
-      {
-        firstNameMain: testUser_1.firstName,
-        firstNameTest: firstName,
-      },
-      {
-        modelCheck: true,
-        stringEquality: true,
-      }
-    );
+    firstNameSuccessTests({
+      firstNameMain: testUser_1.firstName,
+      firstNameTest: firstName,
+    });
 
-    lastNameSuccessTests(
-      {
-        lastNameMain: testUser_1.lastName,
-        lastNameTest: lastName,
-      },
-      {
-        modelCheck: true,
-        stringEquality: true,
-      }
-    );
+    lastNameSuccessTests({
+      lastNameMain: testUser_1.lastName,
+      lastNameTest: lastName,
+    });
 
     phoneNumberSuccessTests({
       phoneNumberMain: testUser_1.phoneNumber,
       phoneNumberTest: phoneNumber,
     });
 
-    countryCodeSuccessTests(
-      {
-        countryCodeMain: testUser_1.countryCode,
-        countryCodeTest: countryCode,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    countryCodeSuccessTests({
+      countryCodeMain: testUser_1.countryCode,
+      countryCodeTest: countryCode,
+    });
 
-    countryNameSuccessTests(
-      {
-        countryNameMain: testUser_1.countryName,
-        countryNameTest: countryName,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    countryNameSuccessTests({
+      countryNameMain: testUser_1.countryName,
+      countryNameTest: countryName,
+    });
 
-    privateIdSuccessTests(
-      {
-        privateIdMain: testUser_1.privateId,
-        privateIdTest: privateId,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    privateIdSuccessTests({
+      privateIdMain: testUser_1.privateId,
+      privateIdTest: privateId,
+    });
   });
 });
 

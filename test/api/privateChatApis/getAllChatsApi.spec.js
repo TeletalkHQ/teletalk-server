@@ -29,6 +29,6 @@ describe("getAllChats success tests", () => {
       body: { chats },
     } = await customRequest.sendRequest();
 
-    chatsSuccessTests({ chatsTest: chats }, { modelCheck: true });
+    chatsSuccessTests({ chatsTest: chats });
   });
 });

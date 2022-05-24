@@ -1,6 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomString } = require("@/functions/utilities/utils");
-const { expect } = require("@/functions/testUtilities/testUtils");
 
 const {
   userModels: { firstNameModel },
@@ -13,28 +12,24 @@ const {
     FIRST_NAME_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const firstNameMaxLength = firstNameModel.maxlength.value;
 const firstNameMinLength = firstNameModel.minlength.value;
 
 const firstNameSuccessTests = (
   { firstNameMain, firstNameTest } = {},
-  { stringEquality, modelCheck } = {}
-) => {
-  if (stringEquality) {
-    expect(firstNameTest.length).equal(firstNameMain.length);
-    expect(firstNameMain).equal(firstNameTest);
+  { stringEquality = true, modelCheck = true } = {
+    stringEquality: true,
+    modelCheck: true,
   }
+) => {
+  testBuilder.setVariables(firstNameModel, firstNameMain, firstNameTest);
+
+  if (stringEquality) testBuilder.stringEquality().execute(false);
 
   if (modelCheck) {
-    expect(firstNameTest).to.be.an(firstNameModel.type.value);
-
-    if (firstNameModel.empty.value === false) {
-      expect(firstNameTest.length).to.be.greaterThan(0);
-
-      expect(firstNameTest.length).greaterThanOrEqual(firstNameMinLength);
-      expect(firstNameTest.length).lessThanOrEqual(firstNameMaxLength);
-    }
+    testBuilder.typeCheck().emptyCheck().gteCheck().lteCheck().execute();
   }
 };
 

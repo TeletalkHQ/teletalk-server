@@ -47,34 +47,22 @@ describe("signInNormalApi test success requests", () => {
       phoneNumberTest: phoneNumber,
     });
 
-    verificationCodeSuccessTests(
-      { verificationCodeTest: verificationCode },
-      { modelCheck: true }
-    );
+    verificationCodeSuccessTests({ verificationCodeTest: verificationCode });
 
-    await tokenSuccessTests(
-      {
-        tokenTest: verifyToken,
-        secret: envManager.getJwtSecrets().JWT_SIGN_IN_SECRET,
-      },
-      { modelCheck: true, verifyToken: true }
-    );
+    await tokenSuccessTests({
+      tokenTest: verifyToken,
+      secret: envManager.getJwtSecrets().JWT_SIGN_IN_SECRET,
+    });
 
-    countryCodeSuccessTests(
-      {
-        countryCodeMain: cellphone.countryCode,
-        countryCodeTest: countryCode,
-      },
-      { stringEquality: true, modelCheck: true }
-    );
+    countryCodeSuccessTests({
+      countryCodeMain: cellphone.countryCode,
+      countryCodeTest: countryCode,
+    });
 
-    countryNameSuccessTests(
-      {
-        countryNameMain: cellphone.countryName,
-        countryNameTest: countryName,
-      },
-      { stringEquality: true, modelCheck: true }
-    );
+    countryNameSuccessTests({
+      countryNameMain: cellphone.countryName,
+      countryNameTest: countryName,
+    });
 
     envManager.setTestVerifyToken(verifyToken);
   });

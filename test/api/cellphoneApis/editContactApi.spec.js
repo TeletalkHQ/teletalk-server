@@ -76,56 +76,35 @@ describe("edit contact success tests", () => {
       { token: customRequest.options.token }
     );
 
-    firstNameSuccessTests(
-      {
-        firstNameMain: testUser_4.firstName,
-        firstNameTest: firstName,
-      },
-      {
-        modelCheck: true,
-        stringEquality: true,
-      }
-    );
+    firstNameSuccessTests({
+      firstNameMain: testUser_4.firstName,
+      firstNameTest: firstName,
+    });
 
-    lastNameSuccessTests(
-      {
-        lastNameMain: testUser_4.lastName,
-        lastNameTest: lastName,
-      },
-      {
-        modelCheck: true,
-        stringEquality: true,
-      }
-    );
+    lastNameSuccessTests({
+      lastNameMain: testUser_4.lastName,
+      lastNameTest: lastName,
+    });
 
     phoneNumberSuccessTests({
       phoneNumberMain: testUser_4.phoneNumber,
       phoneNumberTest: phoneNumber,
     });
 
-    countryCodeSuccessTests(
-      {
-        countryCodeMain: testUser_4.countryCode,
-        countryCodeTest: countryCode,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    countryCodeSuccessTests({
+      countryCodeMain: testUser_4.countryCode,
+      countryCodeTest: countryCode,
+    });
 
-    countryNameSuccessTests(
-      {
-        countryNameMain: testUser_4.countryName,
-        countryNameTest: countryName,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    countryNameSuccessTests({
+      countryNameMain: testUser_4.countryName,
+      countryNameTest: countryName,
+    });
 
-    privateIdSuccessTests(
-      {
-        privateIdMain: testUser_4.privateId,
-        privateIdTest: privateId,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    privateIdSuccessTests({
+      privateIdMain: testUser_4.privateId,
+      privateIdTest: privateId,
+    });
 
     const editedFullName = {
       firstName: "new firstName",
@@ -141,21 +120,15 @@ describe("edit contact success tests", () => {
       ...editedFullName,
     });
 
-    firstNameSuccessTests(
-      {
-        firstNameMain: editedFullName.firstName,
-        firstNameTest: newFirstName,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    firstNameSuccessTests({
+      firstNameMain: editedFullName.firstName,
+      firstNameTest: newFirstName,
+    });
 
-    lastNameSuccessTests(
-      {
-        lastNameMain: editedFullName.lastName,
-        lastNameTest: newLastName,
-      },
-      { modelCheck: true, stringEquality: true }
-    );
+    lastNameSuccessTests({
+      lastNameMain: editedFullName.lastName,
+      lastNameTest: newLastName,
+    });
   });
 });
 

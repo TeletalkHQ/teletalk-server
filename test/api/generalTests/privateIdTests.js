@@ -1,28 +1,22 @@
-const { expect } = require("@/functions/testUtilities/testUtils");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
   userModels: { privateIdModel },
 } = require("@/models/userModels/userModels");
 
-const privateIdMinLength = privateIdModel.minlength.value;
-const privateIdMaxLength = privateIdModel.maxlength.value;
-
 const privateIdSuccessTests = (
   { privateIdMain, privateIdTest } = {},
-  { stringEquality, modelCheck } = {}
-) => {
-  if (stringEquality) {
-    expect(privateIdTest.length).equal(privateIdMain.length);
-    expect(privateIdMain).equal(privateIdTest);
+  { stringEquality = true, modelCheck = true } = {
+    stringEquality: true,
+    modelCheck: true,
   }
+) => {
+  testBuilder.setVariables(privateIdModel, privateIdMain, privateIdTest);
+
+  if (stringEquality) testBuilder.stringEquality().execute(false);
 
   if (modelCheck) {
-    expect(privateIdTest).to.be.an(privateIdModel.type.value);
-
-    expect(privateIdTest.length).to.be.greaterThan(0);
-
-    expect(privateIdTest.length).greaterThanOrEqual(privateIdMinLength);
-    expect(privateIdTest.length).lessThanOrEqual(privateIdMaxLength);
+    testBuilder.typeCheck().gteCheck().lteCheck().execute();
   }
 };
 

@@ -13,11 +13,12 @@ const chatsSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  if (modelCheck) {
-    testBuilder.setVariables(chatsModel, undefined, chatsTest).typeCheck();
-
-    if (chatsTest.length) {
-      //TODO Need to test
+  testBuilder
+    .setVariables(chatsModel, undefined, chatsTest)
+    .setOptions({ modelCheck })
+    .typeCheck()
+    .execute()
+    .checkAndExecute(chatsTest.length, () => {
       const chat = chatsTest[0];
 
       testBuilder
@@ -27,8 +28,7 @@ const chatsSuccessTests = (
         .gteCheck()
         .lteCheck()
         .execute();
-    }
-  }
+    });
 };
 
 const chatsFailureTests = () => {};

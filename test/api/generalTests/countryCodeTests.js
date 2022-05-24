@@ -27,19 +27,16 @@ const countryCodeSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder.setVariables(countryCodeModel, countryCodeMain, countryCodeTest);
-
-  if (stringEquality) testBuilder.stringEquality().execute(false);
-
-  if (modelCheck) {
-    testBuilder
-      .typeCheck()
-      .emptyCheck()
-      .gteCheck()
-      .lteCheck()
-      .numericCheck()
-      .execute();
-  }
+  testBuilder
+    .setVariables(countryCodeModel, countryCodeMain, countryCodeTest)
+    .setOptions({ modelCheck, stringEquality })
+    .stringEquality()
+    .typeCheck()
+    .emptyCheck()
+    .gteCheck()
+    .lteCheck()
+    .numericCheck()
+    .execute();
 };
 
 const countryCodeFailureTests = (data) => {

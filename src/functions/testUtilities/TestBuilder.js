@@ -13,14 +13,32 @@ class TestBuilder {
   }
 
   stringEquality() {
-    this.tests.push(() =>
-      expect(this.variables.mainVariable.length).equal(
-        this.variables.testVariable.length
-      )
-    );
-    this.tests.push(() =>
-      expect(this.variables.mainVariable).equal(this.variables.testVariable)
-    );
+    this.checkAndExecute(this.options.stringEquality, () => {
+      this.tests.push(() =>
+        expect(this.variables.mainVariable.length).equal(
+          this.variables.testVariable.length
+        )
+      );
+      this.tests.push(() =>
+        expect(this.variables.mainVariable).equal(this.variables.testVariable)
+      );
+    });
+
+    return this;
+  }
+
+  checkAndExecute(condition, cb) {
+    if (condition) {
+      cb();
+    }
+
+    return this;
+  }
+
+  async checkAndExecuteAsync(condition, asyncCb) {
+    if (condition) {
+      await asyncCb();
+    }
 
     return this;
   }
@@ -49,12 +67,20 @@ class TestBuilder {
     return this;
   }
 
+  setOptions(options = this.options) {
+    this.options = { ...this.options, ...options };
+
+    return this;
+  }
+
   typeCheck(customType) {
-    this.tests.push(() =>
-      expect(this.variables.testVariable).to.be.an(
-        customType || this.variables.model.type.value
-      )
-    );
+    this.checkAndExecute(this.options.modelCheck, () => {
+      this.tests.push(() =>
+        expect(this.variables.testVariable).to.be.an(
+          customType || this.variables.model.type.value
+        )
+      );
+    });
 
     return this;
   }
@@ -66,45 +92,54 @@ class TestBuilder {
   }
 
   emptyCheck() {
-    if (this.variables.model.empty.value === false)
-      this.tests.push(() =>
-        expect(this.variables.testVariable.length).to.be.greaterThan(0)
-      );
+    this.checkAndExecute(this.options.modelCheck, () => {
+      if (this.variables.model.empty.value === false)
+        this.tests.push(() =>
+          expect(this.variables.testVariable.length).to.be.greaterThan(0)
+        );
+    });
 
     return this;
   }
 
   gteCheck() {
-    this.tests.push(() =>
-      expect(this.variables.testVariable.length).greaterThanOrEqual(
-        this.variables.modelMinLength
-      )
-    );
+    this.checkAndExecute(this.options.modelCheck, () => {
+      this.tests.push(() =>
+        expect(this.variables.testVariable.length).greaterThanOrEqual(
+          this.variables.modelMinLength
+        )
+      );
+    });
 
     return this;
   }
   gtCheck(length) {
-    this.tests.push(() =>
-      expect(this.variables.testVariable.length).greaterThan(length)
-    );
+    this.checkAndExecute(this.options.modelCheck, () => {
+      this.tests.push(() =>
+        expect(this.variables.testVariable.length).greaterThan(length)
+      );
+    });
 
     return this;
   }
   lteCheck() {
-    this.tests.push(() =>
-      expect(this.variables.testVariable.length).lessThanOrEqual(
-        this.variables.modelMaxLength
-      )
-    );
+    this.checkAndExecute(this.options.modelCheck, () => {
+      this.tests.push(() =>
+        expect(this.variables.testVariable.length).lessThanOrEqual(
+          this.variables.modelMaxLength
+        )
+      );
+    });
 
     return this;
   }
 
   numericCheck() {
-    this.tests.push(() =>
-      expect(+this.variables.testVariable).to.be.an("number")
-    );
-
+    this.checkAndExecute(this.options.modelCheck, () => {
+      this.tests.push(() =>
+        expect(+this.variables.testVariable).to.be.an("number")
+      );
+    });
     return this;
   }
 

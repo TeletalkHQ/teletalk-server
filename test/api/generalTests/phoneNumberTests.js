@@ -1,6 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomStringNumber } = require("@/functions/utilities/utils");
-const { expect } = require("@/functions/testUtilities/testUtils");
 
 const {
   userModels: { phoneNumberModel },
@@ -26,25 +25,20 @@ const phoneNumberSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  if (stringEquality) {
-    expect(phoneNumberTest.length).equal(phoneNumberMain.length);
-    expect(phoneNumberMain).equal(phoneNumberTest);
-  }
-
   testBuilder.setVariables(phoneNumberModel, phoneNumberMain, phoneNumberTest);
 
   if (stringEquality) {
-    testBuilder.stringEquality();
+    testBuilder.stringEquality().execute(false);
   }
 
   if (modelCheck) {
-    testBuilder.typeCheck();
-    testBuilder.emptyCheck();
-    testBuilder.gteCheck();
-    testBuilder.lteCheck();
-    testBuilder.numericCheck();
-
-    testBuilder.execute();
+    testBuilder
+      .typeCheck()
+      .emptyCheck()
+      .gteCheck()
+      .lteCheck()
+      .numericCheck()
+      .execute();
   }
 };
 

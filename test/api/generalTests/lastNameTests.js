@@ -1,6 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomString } = require("@/functions/utilities/utils");
-const { expect } = require("@/functions/testUtilities/testUtils");
 
 const {
   userModels: { lastNameModel },
@@ -9,25 +8,29 @@ const {
 const {
   userErrors: { LAST_NAME_INVALID_TYPE, LAST_NAME_MAXLENGTH_REACH },
 } = require("@/variables/errors/userErrors");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const lastNameMaxLength = lastNameModel.maxlength.value;
 
 const lastNameSuccessTests = (
   { lastNameMain, lastNameTest } = {},
-  { stringEquality, modelCheck } = {}
-) => {
-  if (stringEquality) {
-    expect(lastNameTest.length).equal(lastNameMain.length);
-    expect(lastNameMain).equal(lastNameTest);
+  { stringEquality = true, modelCheck = true } = {
+    stringEquality: true,
+    modelCheck: true,
   }
+) => {
+  testBuilder.setVariables(lastNameModel, lastNameMain, lastNameTest);
+
+  if (stringEquality) testBuilder.stringEquality().execute(false);
 
   if (modelCheck) {
-    expect(lastNameTest).to.be.an(lastNameModel.type.value);
+    testBuilder.typeCheck().emptyCheck();
 
     if (lastNameModel.empty.value === false) {
-      expect(lastNameTest.length).to.be.greaterThan(0);
-      expect(lastNameTest.length).lessThanOrEqual(lastNameMaxLength);
+      testBuilder.lteCheck();
     }
+
+    testBuilder.execute();
   }
 };
 

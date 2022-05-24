@@ -1,5 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { expect } = require("@/functions/testUtilities/testUtils");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 const { randomStringNumber } = require("@/functions/utilities/utils");
 
 const {
@@ -22,23 +22,23 @@ const countryCodeMinlength = countryCodeModel.minlength.value;
 
 const countryCodeSuccessTests = (
   { countryCodeMain, countryCodeTest } = {},
-  { stringEquality, modelCheck } = {}
-) => {
-  if (stringEquality) {
-    expect(countryCodeTest.length).equal(countryCodeMain.length);
-    expect(countryCodeMain).equal(countryCodeTest);
+  { stringEquality = true, modelCheck = true } = {
+    stringEquality: true,
+    modelCheck: true,
   }
+) => {
+  testBuilder.setVariables(countryCodeModel, countryCodeMain, countryCodeTest);
+
+  if (stringEquality) testBuilder.stringEquality().execute(false);
 
   if (modelCheck) {
-    expect(countryCodeTest).to.be.an(countryCodeModel.type.value);
-
-    if (countryCodeModel.empty.value === false)
-      expect(countryCodeTest.length).to.be.greaterThan(0);
-
-    expect(countryCodeTest.length).greaterThanOrEqual(countryCodeMinlength);
-    expect(countryCodeTest.length).lessThanOrEqual(countryCodeMaxlength);
-
-    expect(+countryCodeTest).to.be.an("number");
+    testBuilder
+      .typeCheck()
+      .emptyCheck()
+      .gteCheck()
+      .lteCheck()
+      .numericCheck()
+      .execute();
   }
 };
 

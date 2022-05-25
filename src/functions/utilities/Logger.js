@@ -199,6 +199,6 @@ function LoggerBuilder(level) {
     chalkMakerWithBG(bgColors.bgYellow, data, textColor);
 }
 
-const Logger = new LoggerBuilder();
+const logger = new LoggerBuilder();
 
-module.exports = { Logger };
+module.exports = { Logger: LoggerBuilder, logger };

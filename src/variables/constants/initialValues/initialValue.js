@@ -79,14 +79,6 @@ const stateKeys = {
   aliveClients: "aliveClients",
   users: "users",
   testUsers: "testUsers",
-
-  /**
-   * Shadow values come from test or etc... =>
-   *testUser_0: "testUser_0",
-   *testUser_1: "testUser_1",
-   *testUser_2: "testUser_2",
-   *testUser_...: "testUser_...",
-   */
 };
 
 const inputOutputFields = {

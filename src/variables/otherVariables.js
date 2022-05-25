@@ -48,4 +48,7 @@ const allStuff = {
 
 module.exports = {
   allStuff,
+  models,
+  errors,
+  routes,
 };

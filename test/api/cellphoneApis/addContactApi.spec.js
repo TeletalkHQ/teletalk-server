@@ -111,7 +111,7 @@ describe("addContact failure tests", () => {
   it("should get error, CONTACT_ITEM_EXIST", async () => {
     const { testUser_2 } = testUsers;
 
-    //   //* First one get succeed, but second one is duplicate
+    //* First one get succeed, but second one is duplicate
     await customRequest.sendRequest(testUser_2);
     await customRequest.sendRequest(testUser_2, CONTACT_ITEM_EXIST);
   });

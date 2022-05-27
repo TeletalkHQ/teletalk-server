@@ -1,5 +1,6 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomString } = require("@/functions/utilities/utils");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
   userModels: { lastNameModel },
@@ -8,7 +9,6 @@ const {
 const {
   userErrors: { LAST_NAME_INVALID_TYPE, LAST_NAME_MAXLENGTH_REACH },
 } = require("@/variables/errors/userErrors");
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const lastNameMaxLength = lastNameModel.maxlength.value;
 

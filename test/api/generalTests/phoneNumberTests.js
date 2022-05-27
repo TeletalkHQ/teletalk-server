@@ -1,5 +1,6 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomStringNumber } = require("@/functions/utilities/utils");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
   userModels: { phoneNumberModel },
@@ -13,7 +14,6 @@ const {
     PHONE_NUMBER_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const phoneNumberMaxlength = phoneNumberModel.maxlength.value;
 const phoneNumberMinlength = phoneNumberModel.minlength.value;

@@ -1,4 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
   userModels: { verificationCodeModel },
@@ -12,7 +13,6 @@ const {
     VERIFICATION_CODE_INVALID,
   },
 } = require("@/variables/errors/userErrors");
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const verificationCodeSuccessTests = (
   { verificationCodeTest } = {},

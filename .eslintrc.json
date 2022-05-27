@@ -91,7 +91,8 @@
           "WITHSCORES",
           "zadd",
           "zoot",
-          "zrange"
+          "zrange",
+          "iran"
         ],
         "skipIfMatch": ["http://[^s]*", "^[-\\w]+/[-\\w\\.]+$"],
         // "skipWordIfMatch": ["^foobar.*$"],

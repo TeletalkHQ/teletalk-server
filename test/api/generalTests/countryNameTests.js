@@ -1,5 +1,6 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
 const { randomString } = require("@/functions/utilities/utils");
+const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
   userModels: { countryNameModel },
@@ -14,7 +15,6 @@ const {
     COUNTRY_NAME_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const countryNameMaxlength = countryNameModel.maxlength.value;
 const countryNameMinlength = countryNameModel.minlength.value;

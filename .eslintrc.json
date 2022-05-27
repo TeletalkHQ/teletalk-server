@@ -40,6 +40,7 @@
           "bcrypt",
           "bcryptjs",
           "camelcase",
+          "chai",
           "CLEANME",
           "codestream",
           "cors",
@@ -53,6 +54,7 @@
           "flowtype",
           "indenticator",
           "ipynb",
+          "iran",
           "Jalali",
           "jsonwebtoken",
           "luhn",
@@ -78,6 +80,7 @@
           "stringAlphanum",
           "stringAlphanum",
           "stringEnum",
+          "supertest",
           "tabnine",
           "tabpanel",
           "teletalk",
@@ -91,8 +94,7 @@
           "WITHSCORES",
           "zadd",
           "zoot",
-          "zrange",
-          "iran"
+          "zrange"
         ],
         "skipIfMatch": ["http://[^s]*", "^[-\\w]+/[-\\w\\.]+$"],
         // "skipWordIfMatch": ["^foobar.*$"],

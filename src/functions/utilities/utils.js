@@ -3,7 +3,7 @@ const lodash = require("lodash");
 const errorThrower = (condition, error) => {
   if (condition) {
     //TODO Write errors into log file;
-    if (typeof error === "function") throw error();
+    if (customTypeof(error).type.function) throw error();
 
     throw error;
   }
@@ -35,10 +35,6 @@ const getMethodFromRoute = (route) => {
   }
 };
 
-const isFunction = (...items) => {
-  return items.every((i) => typeof i === "function");
-};
-
 const skipParams = (count) => {
   return Array.from({ length: count });
 };
@@ -50,6 +46,38 @@ const getErrorObject = (errorObject, extraData = {}, statusCode) => {
     [errorKey]: { ...error, ...extraData },
     statusCode: statusCode || errorObject.statusCode,
   };
+};
+
+const isFunction = (...items) => {
+  return items.every((i) => customTypeof(i).type.function);
+};
+const isArray = (value) => Array.isArray(value);
+const isNull = (value) => value === null;
+
+const customTypeof = (value) => {
+  let type = {
+    array: false,
+    nan: false,
+    null: false,
+    function: false,
+    string: false,
+    number: false,
+    object: false,
+    boolean: false,
+    undefined: false,
+  };
+
+  if (isNaN(value)) type.nan = true;
+
+  if (isArray(value)) {
+    type.array = true;
+  } else if (isNull(value)) {
+    type.null = true;
+  } else {
+    type[typeof value] = true;
+  }
+
+  return { type, truthy: isNull(value) ? false : !!value };
 };
 
 const getValidatorErrorTypes = (errorArray) => {
@@ -141,7 +169,7 @@ const findByProp = (items = [], value, prop) =>
 const getHostFromRequest = (request) => request.get("host");
 
 const isUrlMatchWithReqUrl = (url, reqUrl) =>
-  (Array.isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
+  (isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
 
 const versionCalculator = (versions = []) => {
   let [parentMajor, parentMinor, parentPatch] = convertStringArrayToNumberArray(
@@ -211,7 +239,7 @@ const filterObject = (object, filterFields) => {
   const filteredObject = {};
 
   for (const key in filterFields) {
-    if (typeof filterFields[key] === "object") {
+    if (customTypeof(filterFields[key]).type.object) {
       filteredObject[key] = filterObject(object[key], filterFields[key]);
       continue;
     }
@@ -237,14 +265,17 @@ module.exports = {
   getObjectLength,
   getTokenFromRequest,
   getValidatorErrorTypes,
+  isArray,
   isEqualWithTargetCellphone,
   isFunction,
+  isNull,
   isUrlMatchWithReqUrl,
   objectInitializer,
   randomCountryCode,
   randomString,
   randomStringNumber,
   skipParams,
+  customTypeof,
   versionCalculator,
 };
 
@@ -266,7 +297,7 @@ module.exports = {
 // NoCastString.prototype = Object.create(mongoose.SchemaType.prototype);
 
 // NoCastString.prototype.cast = function (str) {
-// 	if (typeof str !== "string") {
+// 	if (customTypeof(str) !== "string") {
 // 		throw new Error(`NoCastString: ${str} is not a string`);
 // 	}
 // 	return str;

@@ -1,4 +1,4 @@
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower, isNull } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
@@ -13,7 +13,7 @@ const findCurrentUserFromDb = async (req, res, next) => {
 
     const currentUser = await userFinder(cellphone);
 
-    errorThrower(currentUser === null, {
+    errorThrower(isNull(currentUser), {
       ...cellphone,
       ...USER_NOT_EXIST,
     });

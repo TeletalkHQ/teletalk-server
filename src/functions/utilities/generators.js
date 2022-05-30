@@ -1,5 +1,5 @@
 const { objectClarify } = require("@/functions/utilities/objectClarify");
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower, customTypeof } = require("@/functions/utilities/utils");
 
 const {
   initialValue,
@@ -141,7 +141,7 @@ const modelPropertyGenerator = (
   error = errorGeneratorInitialProperties
 ) => {
   try {
-    errorThrower(typeof value === "undefined", "Value need to be set!");
+    errorThrower(customTypeof(value).type.undefined, "Value need to be set!");
 
     return {
       value,

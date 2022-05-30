@@ -2,11 +2,13 @@ const {
   errorThrower,
   isFunction,
   isUrlMatchWithReqUrl,
+  isArray,
+  customTypeof,
 } = require("@/functions/utilities/utils");
 
 const applyMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   errorThrower(
-    typeof url !== "string" && !Array.isArray(url),
+    !customTypeof(url).type.string && !isArray(url),
     "url must be string or an array"
   );
   errorThrower(!middlewares.length, "You need to pass at least one middleware");

@@ -9,6 +9,7 @@ const {
   getObjectLength,
   filterObject,
   concatBaseUrlWithUrl,
+  customTypeof,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -84,7 +85,7 @@ const testRequest = (routeObject, data, authorization) => {
 
 const makeAuthorizationHeader = (token) => [
   "Authorization",
-  typeof token === "undefined" ? null : `Bearer ${token}`,
+  customTypeof(token).type.undefined ? null : `Bearer ${token}`,
 ];
 
 const getTestUsersFromState = async () => {

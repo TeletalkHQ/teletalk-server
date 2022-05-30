@@ -1,6 +1,8 @@
+const { customTypeof } = require("@/functions/utilities/utils");
+
 const errorCollectorMiddleware = (res, errorObject) => {
   try {
-    if (!errorObject || typeof errorObject !== "object") {
+    if (!errorObject || !customTypeof(errorObject).type.object) {
       //TODO Move to otherErrors
       errorObject = {
         errorCode: "UNKNOWN_ERROR_CODE",

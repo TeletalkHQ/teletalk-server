@@ -6,7 +6,10 @@ const {
     OUTPUT_FIELDS_OVERLOAD,
   },
 } = require("@/variables/errors/appErrors");
-const { getObjectLength } = require("@/functions/utilities/utils");
+const {
+  getObjectLength,
+  customTypeof,
+} = require("@/functions/utilities/utils");
 
 const checkInputFields = (input, fields, fieldsIndex = 0) => {
   const selectedFields = fields[fieldsIndex];
@@ -19,7 +22,7 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
     return result;
   };
 
-  if (typeof selectedFields === "undefined") {
+  if (customTypeof(selectedFields).type.undefined) {
     return fn(true);
   }
 
@@ -36,13 +39,13 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
     }
 
     for (const key in fields) {
-      if (typeof input[key] === "undefined") {
+      if (customTypeof(input[key]).type.undefined) {
         fn(false, INPUT_FIELDS_MISSING);
         break;
       }
 
-      if (typeof fields[key] === "object") {
-        if (typeof input[key] !== "object") {
+      if (customTypeof(fields[key]).type.object) {
+        if (!customTypeof(input[key]).type.object) {
           fn(false, INPUT_FIELDS_MISSING);
           break;
         }
@@ -70,7 +73,7 @@ const checkOutputFields = (output, fields, fieldsIndex = 0) => {
     return result;
   };
 
-  if (typeof selectedFields === "undefined") {
+  if (customTypeof(selectedFields).type.undefined) {
     return fn(true);
   }
 
@@ -87,13 +90,13 @@ const checkOutputFields = (output, fields, fieldsIndex = 0) => {
     }
 
     for (const key in fields) {
-      if (typeof output[key] === "undefined") {
+      if (customTypeof(output[key]).type.undefined) {
         fn(OUTPUT_FIELDS_MISSING);
         break;
       }
 
-      if (typeof fields[key] === "object") {
-        if (typeof output[key] !== "object") {
+      if (customTypeof(fields[key]).type.object) {
+        if (!customTypeof(output[key]).type.object) {
           fn(OUTPUT_FIELDS_MISSING);
           break;
         }

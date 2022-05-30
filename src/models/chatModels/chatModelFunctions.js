@@ -1,4 +1,4 @@
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { randomId } = require("@/functions/utilities/randomId");
 
 const {
@@ -55,7 +55,7 @@ const getAllChats = (currentUser) => {
 
 const sendPrivateMessage = async (currentUser, participantId, message) => {
   const targetUser = await userFinder({ privateId: participantId });
-  errorThrower(!targetUser, TARGET_USER_NOT_EXIST);
+  errorThrower(!targetUser, () => getErrorObject(TARGET_USER_NOT_EXIST));
 
   const chat = await PrivateChatMongoModel.findOne({
     "participants.participantID": {
@@ -63,8 +63,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
     },
   });
 
-  let chatId = chat?.chatId;
-
+  const chatId = chat?.chatId || randomId(chatIdModel.maxlength.value);
   const newMessage = {
     message,
     messageId: randomId(messageIdModel.maxlength.value),
@@ -72,25 +71,25 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
   };
 
   if (!chat) {
-    chatId = randomId(chatIdModel.maxlength.value);
-
-    const privateChat = new PrivateChatMongoModel({
-      chatId,
-      participants: [
-        { participantID: currentUser.privateId },
-        { participantID: targetUser.privateId },
-      ],
-      messages: [newMessage],
-    });
-
-    await privateChat.save();
+    await PrivateChatMongoModel.updateOne(
+      { chatId },
+      {
+        chatId,
+        participants: [
+          { participantID: currentUser.privateId },
+          { participantID: targetUser.privateId },
+        ],
+        messages: [newMessage],
+      },
+      { upsert: true }
+    );
 
     await currentUser.updateOne({ chats: { chatId } });
     await targetUser.updateOne({ chats: { chatId } });
   } else if (chat) {
     chat.messages.push(newMessage);
 
-    await chat.updateOne({ messages: chat.messages });
+    await chat.updateOne({ chatId }, { messages: chat.messages });
   }
 
   return { newMessage, chatId };

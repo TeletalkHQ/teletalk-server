@@ -1,13 +1,13 @@
 const Validator = require("fastest-validator");
 
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower, customTypeof } = require("@/functions/utilities/utils");
 
 const v = new Validator();
 
 const validatorCompiler = ({ version, ...validationModel }) => {
   try {
     errorThrower(
-      typeof validationModel !== "object",
+      !customTypeof(validationModel).type.object,
       "You must pass validationModel as a object"
     );
 

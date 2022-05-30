@@ -13,17 +13,17 @@ const {
 
 const chatIdValidator = validatorCompiler(chatIdValidationModel);
 
-const messageIDValidator = validatorCompiler(messageIdValidationModel);
+const messageIdValidator = validatorCompiler(messageIdValidationModel);
 
 const messageTextValidator = validatorCompiler(messageTextValidationModel);
 
-const participantIDValidator = validatorCompiler(participantIdValidationModel);
+const participantIdValidator = validatorCompiler(participantIdValidationModel);
 
 const chatValidators = {
   chatIdValidator,
   messageTextValidator,
-  participantIDValidator,
-  messageIDValidator,
+  participantIdValidator,
+  messageIdValidator,
 };
 
 module.exports = { chatValidators };

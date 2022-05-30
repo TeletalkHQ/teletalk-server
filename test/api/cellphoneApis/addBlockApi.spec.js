@@ -38,7 +38,7 @@ describe("", () => {
     testUsers = await getTestUsersFromState();
 
     customRequest.setRequestRequirements(cellphoneRouteBaseUrl, addBlockRoute);
-    customRequest.setMainTokenFromUserObject(testUsers.testUser_0);
+    customRequest.setMainTokenByUserObject(testUsers.testUser_0);
   });
 });
 

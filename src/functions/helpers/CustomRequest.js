@@ -48,7 +48,7 @@ class CustomRequest {
   setToken(token) {
     this.setOptions({ token });
   }
-  setMainTokenFromUserObject(user) {
+  setMainTokenByUserObject(user) {
     this.setOptions({ token: user.tokens[0].mainToken });
   }
   setVerifyTokenFromEnv() {

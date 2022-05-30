@@ -50,7 +50,7 @@ describe("", () => {
     );
     testUsers = await getTestUsersFromState();
 
-    customRequest.setMainTokenFromUserObject(testUsers.testUser_0);
+    customRequest.setMainTokenByUserObject(testUsers.testUser_0);
   });
 });
 

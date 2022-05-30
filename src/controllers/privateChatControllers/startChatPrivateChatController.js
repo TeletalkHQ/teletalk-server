@@ -27,17 +27,17 @@ const startChatPrivateChatController = async (
 ) => {
   try {
     const {
-      body: { privateId: targetUserID },
+      body: { privateId: targetUserId },
       db: { user: client },
     } = req;
 
-    const targetUser = await userFinder({ privateId: targetUserID });
+    const targetUser = await userFinder({ privateId: targetUserId });
 
     errorThrower(!targetUser, USER_NOT_EXIST);
 
     //TODO Use $and for test
     const chat = await PrivateChatMongoModel.findOne({
-      "participants.participantID": {
+      "participants.participantId": {
         $all: [client.privateId, targetUser.privateId],
       },
     });
@@ -49,8 +49,8 @@ const startChatPrivateChatController = async (
     const privateChat = new PrivateChatMongoModel({
       chatId,
       participants: [
-        { participantID: client.privateId },
-        { participantID: targetUser.privateId },
+        { participantId: client.privateId },
+        { participantId: targetUser.privateId },
       ],
     });
 

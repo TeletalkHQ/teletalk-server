@@ -1,5 +1,9 @@
 const { cellphoneFinder } = require("@/functions/utilities/cellphoneFinder");
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+const {
+  errorThrower,
+  getErrorObject,
+  isNull,
+} = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");
@@ -45,7 +49,7 @@ const addCellphoneToUserBlacklist = async (
     );
 
     const targetUser = await userFinder(cellphone);
-    errorThrower(targetUser === null, () =>
+    errorThrower(isNull(targetUser), () =>
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData: cellphone })
     );
 
@@ -75,7 +79,7 @@ const addContactToUserContacts = async (
     );
 
     const targetUser = await userFinder(userProps.getCellphone(targetUserData));
-    errorThrower(targetUser === null, () =>
+    errorThrower(isNull(targetUser), () =>
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
     );
 

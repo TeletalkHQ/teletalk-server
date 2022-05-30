@@ -5,6 +5,7 @@ const {
   errorThrower,
   getErrorObject,
   crashServerWithCondition,
+  customTypeof,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -16,7 +17,7 @@ const checkBodyFieldsMiddleware = (req, res, next) => {
     const { body, routeObject } = req;
 
     crashServerWithCondition(
-      typeof body === "undefined",
+      customTypeof(body).type.undefined,
       REQUEST_BODY_IS_UNDEFINED
     );
 

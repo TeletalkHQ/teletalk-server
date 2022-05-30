@@ -2,6 +2,8 @@ const chalk = require("chalk");
 
 //TODO Add some functionality from client logger
 
+const isArray = (value) => Array.isArray(value);
+
 const colors = {
   black: "black",
   blue: "blue",
@@ -85,17 +87,17 @@ function LoggerBuilder(level) {
       this.logs.push(chalk[bgColor](chalk[color](data)));
     }
 
-    if (typeof data === "object" && !Array.isArray(data?.values)) {
+    if (typeof data === "object" && !isArray(data?.values)) {
       this.logs.push(chalk[bgColor](chalk[color](data.text)));
     }
 
-    if (typeof data === "object" && Array.isArray(data?.values)) {
+    if (typeof data === "object" && isArray(data?.values)) {
       data.text.forEach((value) => {
         this.logs.push(chalk[bgColor](chalk[color](value)));
       });
     }
 
-    if (Array.isArray(data)) {
+    if (isArray(data)) {
       data.forEach((value) => {
         this.logs.push(chalk[bgColor](chalk[color](value)));
       });

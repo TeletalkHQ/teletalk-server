@@ -35,7 +35,7 @@ const messageIdModel = messageIdCommonModel;
 // const messageStatusModel = modelGenerator("1.0.0");
 
 const messageModel = {
-  maxlength: modelPropertyGenerator(10, MESSAGE_TEXT_MAX_LENGTH_REACH),
+  maxlength: modelPropertyGenerator(10000, MESSAGE_TEXT_MAX_LENGTH_REACH),
   minlength: modelPropertyGenerator(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
   type: modelPropertyGenerator("string", MESSAGE_TEXT_INVALID_TYPE),
   version: "1.0.0",

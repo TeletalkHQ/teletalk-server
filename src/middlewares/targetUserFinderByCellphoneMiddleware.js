@@ -3,7 +3,7 @@
 //!DEPRECATED
 
 const { userFinder } = require("@/functions/helpers/userFinder");
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower, isNull } = require("@/functions/utilities/utils");
 const { userProps } = require("@/functions/helpers/UserProps");
 
 const {
@@ -16,7 +16,7 @@ const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
 
     const targetUser = await userFinder(cellphone);
 
-    errorThrower(targetUser === null, {
+    errorThrower(isNull(targetUser), {
       ...cellphone,
       ...CELLPHONE_NOT_EXIST,
     });

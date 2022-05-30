@@ -5,6 +5,7 @@ const {
   errorThrower,
   getErrorObject,
   crashServerWithCondition,
+  customTypeof,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -14,7 +15,7 @@ const {
 const checkAndResponseMiddleware = (req, res, next) => {
   try {
     crashServerWithCondition(
-      typeof res.sendJsonResponse !== "function",
+      !customTypeof(res.sendJsonResponse).type.function,
       SEND_JSON_RESPONSE_IS_NOT_FUNCTION
     );
 

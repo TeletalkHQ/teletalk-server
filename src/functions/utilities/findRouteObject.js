@@ -18,6 +18,8 @@ const routes = {
   ...privateChatRoutes,
 };
 
+const routesKeys = Object.keys(routes);
+
 const findRouteObject = (url) => {
   try {
     const [, , ...rest] = url.split("/");
@@ -25,7 +27,7 @@ const findRouteObject = (url) => {
     // const reqUrl = rest.at(-1);
     const fullUrl = rest.join("/");
 
-    const routeObjectKey = Object.keys(routes).find((key) => {
+    const routeObjectKey = routesKeys.find((key) => {
       return routes[key].url === `/${fullUrl}`;
     });
 

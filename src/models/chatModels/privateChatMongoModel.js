@@ -18,7 +18,7 @@ const {
 // uniqueValidator.defaults.message = "{PATH}_exist";
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
-const participantIDTemplate = mongooseSchemaPropertyGenerator(
+const participantIdTemplate = mongooseSchemaPropertyGenerator(
   participantIdModel.type.value,
   [
     participantIdModel.maxlength.value,
@@ -76,13 +76,13 @@ const privateChat = {
         [messageModel.minlength.value, messageModel.minlength.error.message]
       ),
       messageSender: {
-        senderID: participantIDTemplate,
+        senderId: participantIdTemplate,
       },
     },
   ],
   participants: [
     {
-      participantID: participantIDTemplate,
+      participantId: participantIdTemplate,
     },
   ],
 };

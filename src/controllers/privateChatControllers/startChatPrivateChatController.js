@@ -2,8 +2,6 @@
 //!DEPRECATED
 //!DEPRECATED
 
-const { randomId } = require("@/functions/utilities/randomId");
-
 const {
   chatErrors: { CHAT_EXIST },
 } = require("@/variables/errors/chatErrors");
@@ -18,7 +16,7 @@ const {
 const {
   chatModels: { chatIdModel },
 } = require("@/models/chatModels/chatModels");
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower, randomId } = require("@/functions/utilities/utils");
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const startChatPrivateChatController = async (

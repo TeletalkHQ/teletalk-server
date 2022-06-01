@@ -14,10 +14,8 @@ const privateIdSuccessTests = (
   testBuilder
     .setVariables(privateIdModel, privateIdMain, privateIdTest)
     .setOptions({ modelCheck, stringEquality })
-    .stringEquality()
-    .typeCheck()
-    .gteCheck()
-    .lteCheck()
+    .emptyCheck()
+    .addCommonTest()
     .execute();
 };
 

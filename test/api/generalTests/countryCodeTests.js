@@ -30,11 +30,8 @@ const countryCodeSuccessTests = (
   testBuilder
     .setVariables(countryCodeModel, countryCodeMain, countryCodeTest)
     .setOptions({ modelCheck, stringEquality })
-    .stringEquality()
-    .typeCheck()
+    .addCommonTest()
     .emptyCheck()
-    .gteCheck()
-    .lteCheck()
     .numericCheck()
     .execute();
 };

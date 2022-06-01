@@ -1,4 +1,5 @@
 const lodash = require("lodash");
+const { nanoid } = require("nanoid");
 
 const errorThrower = (condition, error) => {
   if (condition) {
@@ -153,12 +154,21 @@ const randomString = (length) => {
   return pwd.join("");
 };
 
+const randomId = (size = 30) => nanoid(size);
+
 const randomStringNumber = (length) => {
   var chars = "12345678901234567890123456789012345678901234567890";
   var pwd = lodash.sampleSize(chars, length ?? 10);
   return pwd.join("");
 };
 
+const randomNumber = (length) => {
+  var chars = "12345678901234567890123456789012345678901234567890";
+  var pwd = lodash.sampleSize(chars, length ?? 10);
+  return pwd.join("");
+};
+
+//TODO: move to userProps
 const randomCountryCode = () =>
   Math.floor(Math.random() * 100 * Math.random()) +
   Math.floor(Math.random() * 10);
@@ -255,6 +265,7 @@ module.exports = {
   convertStringArrayToNumberArray,
   crashServer,
   crashServerWithCondition,
+  customTypeof,
   errorThrower,
   extractVersions,
   filterObject,
@@ -272,10 +283,11 @@ module.exports = {
   isUrlMatchWithReqUrl,
   objectInitializer,
   randomCountryCode,
+  randomId,
+  randomNumber,
   randomString,
   randomStringNumber,
   skipParams,
-  customTypeof,
   versionCalculator,
 };
 

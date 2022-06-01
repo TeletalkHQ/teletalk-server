@@ -1,9 +1,9 @@
 const { modelPropertyGenerator } = require("@/functions/utilities/generators");
-const { randomId } = require("@/functions/utilities/randomId");
 const {
   versionCalculator,
 
   extractVersions,
+  randomId,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -29,6 +29,7 @@ const {
     PRIVATE_ID_MAX_LENGTH_REACH,
     PRIVATE_ID_MIN_LENGTH_REACH,
     PRIVATE_ID_REQUIRED,
+    PRIVATE_ID_EMPTY,
   },
 } = require("@/variables/errors/userErrors");
 
@@ -47,6 +48,7 @@ const privateIdCommonModel = {
   type: modelPropertyGenerator("string", PRIVATE_ID_INVALID_TYPE),
   unique: modelPropertyGenerator(true, PRIVATE_ID_EXIST),
   version: "1.0.0",
+  empty: modelPropertyGenerator(false, PRIVATE_ID_EMPTY),
 };
 
 const chatIdCommonModel = {

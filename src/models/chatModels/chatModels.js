@@ -1,13 +1,13 @@
 const { modelPropertyGenerator } = require("@/functions/utilities/generators");
 const {
-  versionCalculator,
   extractVersions,
+  versionCalculator,
 } = require("@/functions/utilities/utils");
 
 const {
   commonModels: {
-    createdAtCommonModel,
     chatIdCommonModel,
+    createdAtCommonModel,
     messageIdCommonModel,
     privateIdCommonModel,
   },
@@ -18,6 +18,7 @@ const {
     MESSAGE_TEXT_INVALID_TYPE,
     MESSAGE_TEXT_MAX_LENGTH_REACH,
     MESSAGE_TEXT_MIN_LENGTH_REACH,
+    PARTICIPANT_EMPTY,
     PARTICIPANT_ID_EXIST,
     PARTICIPANT_ID_INVALID_TYPE,
     PARTICIPANT_ID_MAX_LENGTH_REACH,
@@ -63,6 +64,11 @@ const participantIdModel = {
     privateIdCommonModel.unique.value,
     PARTICIPANT_ID_EXIST
   ),
+  empty: modelPropertyGenerator(
+    privateIdCommonModel.empty.value,
+    PARTICIPANT_EMPTY
+  ),
+
   version: "1.0.0",
 };
 

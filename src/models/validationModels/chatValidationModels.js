@@ -59,17 +59,19 @@ const messageTextValidationModel = {
 
 const participantIdValidationModel = {
   participantId: {
+    empty: participantIdModel.empty.value,
+    max: participantIdModel.maxlength.value,
+    min: participantIdModel.minlength.value,
+    trim: participantIdModel.trim.value,
     type: participantIdModel.type.value,
     unique: participantIdModel.unique.value,
-    min: participantIdModel.minlength.value,
-    max: participantIdModel.maxlength.value,
-    trim: participantIdModel.trim.value,
     messages: {
-      string: participantIdModel.type.error.message,
       required: participantIdModel.required.error.message,
-      unique: participantIdModel.unique.error.message,
-      stringMin: participantIdModel.minlength.error.message,
+      string: participantIdModel.type.error.message,
+      stringEmpty: participantIdModel.empty.error.message,
       stringMax: participantIdModel.maxlength.error.message,
+      stringMin: participantIdModel.minlength.error.message,
+      unique: participantIdModel.unique.error.message,
     },
   },
   version: "1.0.0",

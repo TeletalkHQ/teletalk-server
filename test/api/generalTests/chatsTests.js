@@ -17,18 +17,19 @@ const chatsSuccessTests = (
     .setVariables(chatsModel, undefined, chatsTest)
     .setOptions({ modelCheck })
     .typeCheck()
-    .execute()
-    .checkAndExecute(chatsTest.length, () => {
-      const chat = chatsTest[0];
+    .execute();
 
-      testBuilder
-        .customTypeCheck(chat, "object")
-        .setVariables(chatIdModel, undefined, chat.chatId)
-        .typeCheck()
-        .gteCheck()
-        .lteCheck()
-        .execute();
-    });
+  testBuilder.checkAndExecute(chatsTest.length, () => {
+    const chat = chatsTest[0];
+
+    testBuilder
+      .customTypeCheck(chat, "object")
+      .setVariables(chatIdModel, undefined, chat.chatId)
+      .typeCheck()
+      .gteCheck()
+      .lteCheck()
+      .execute();
+  });
 };
 
 const chatsFailureTests = () => {};

@@ -27,11 +27,8 @@ const firstNameSuccessTests = (
   testBuilder
     .setVariables(firstNameModel, firstNameMain, firstNameTest)
     .setOptions({ modelCheck, stringEquality })
-    .stringEquality()
-    .typeCheck()
+    .addCommonTest()
     .emptyCheck()
-    .gteCheck()
-    .lteCheck()
     .execute();
 };
 

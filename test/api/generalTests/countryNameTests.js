@@ -29,11 +29,8 @@ const countryNameSuccessTests = (
   testBuilder
     .setVariables(countryNameModel, countryNameMain, countryNameTest)
     .setOptions({ modelCheck, stringEquality })
-    .stringEquality()
-    .typeCheck()
+    .addCommonTest()
     .emptyCheck()
-    .gteCheck()
-    .lteCheck()
     .execute();
 };
 

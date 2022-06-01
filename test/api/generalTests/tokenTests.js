@@ -18,14 +18,16 @@ const tokenSuccessTests = async (
     .setOptions({ modelCheck })
     .typeCheck()
     .gtCheck(10);
-  await testBuilder.checkAndExecuteAsync(verifyToken, async () => {
-    const verifiedToken = await tokenValidator(tokenTest, secret);
-    testBuilder
-      .customTypeCheck(verifiedToken, "object")
-      .customTypeCheck(verifiedToken.signature, "string")
-      .customTypeCheck(verifiedToken.payload, "object")
-      .execute();
-  });
+
+  (
+    await testBuilder.checkAndExecuteAsync(verifyToken, async () => {
+      const verifiedToken = await tokenValidator(tokenTest, secret);
+      testBuilder
+        .customTypeCheck(verifiedToken, "object")
+        .customTypeCheck(verifiedToken.signature, "string")
+        .customTypeCheck(verifiedToken.payload, "object");
+    })
+  ).execute();
 };
 
 module.exports = {

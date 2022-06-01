@@ -1,5 +1,8 @@
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
-const { randomId } = require("@/functions/utilities/randomId");
+const {
+  errorThrower,
+  getErrorObject,
+  randomId,
+} = require("@/functions/utilities/utils");
 
 const {
   PrivateChatMongoModel,

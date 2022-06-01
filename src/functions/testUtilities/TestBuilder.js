@@ -35,6 +35,12 @@ class TestBuilder {
     return this;
   }
 
+  addCommonTest() {
+    this.stringEquality().typeCheck().gteCheck().lteCheck();
+
+    return this;
+  }
+
   async checkAndExecuteAsync(condition, asyncCb) {
     if (condition) {
       await asyncCb();

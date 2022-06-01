@@ -1,9 +1,11 @@
-const { randomId } = require("@/functions/utilities/randomId");
-const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { temporaryClients } = require("@/functions/tools/TemporaryClients");
 const { userProps } = require("@/functions/helpers/UserProps");
-const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
+const {
+  getErrorObject,
+  errorThrower,
+  randomId,
+} = require("@/functions/utilities/utils");
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 

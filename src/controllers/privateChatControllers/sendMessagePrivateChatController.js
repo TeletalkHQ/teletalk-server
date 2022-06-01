@@ -2,9 +2,12 @@ const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const {
   sendPrivateMessage,
 } = require("@/models/chatModels/chatModelFunctions");
+const {
+  chatValidators: { participantIdValidator },
+} = require("@/validators/chatValidators");
 
 const {
-  chatErrors: { PARTICIPANT_ID_REQUIRED, MESSAGE_TEXT_REQUIRED },
+  chatErrors: { MESSAGE_TEXT_REQUIRED },
 } = require("@/variables/errors/chatErrors");
 
 const sendMessagePrivateChatController = async (
@@ -16,7 +19,9 @@ const sendMessagePrivateChatController = async (
       currentUser,
       body: { participantId, message },
     } = req;
-    errorThrower(!participantId, () => getErrorObject(PARTICIPANT_ID_REQUIRED));
+
+    await participantIdValidator(participantId);
+
     errorThrower(!message, () => getErrorObject(MESSAGE_TEXT_REQUIRED));
 
     const { chatId, newMessage } = await sendPrivateMessage(

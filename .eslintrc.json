@@ -39,6 +39,7 @@
           "axios",
           "bcrypt",
           "bcryptjs",
+          "nanoid",
           "camelcase",
           "chai",
           "CLEANME",

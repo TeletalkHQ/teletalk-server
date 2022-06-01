@@ -28,12 +28,9 @@ const phoneNumberSuccessTests = (
   testBuilder
     .setVariables(phoneNumberModel, phoneNumberMain, phoneNumberTest)
     .setOptions({ modelCheck, stringEquality })
-    .stringEquality()
-    .typeCheck()
     .emptyCheck()
-    .gteCheck()
-    .lteCheck()
     .numericCheck()
+    .addCommonTest()
     .execute();
 };
 

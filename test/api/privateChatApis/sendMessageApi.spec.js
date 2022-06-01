@@ -7,6 +7,14 @@ const {
   privateChatRoutes: { privateChatRouteBaseUrl, sendMessageRoute },
 } = require("@/variables/routes/privateChatRoutes");
 
+const {
+  participantIdFailureTests,
+} = require("$/api/generalTests/participantIdTests");
+const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
+const { chatIdSuccessTests } = require("$/api/generalTests/chatIdTests");
+const { messageIdSuccessTests } = require("$/api/generalTests/messageIdTests");
+const { messageSuccessTests } = require("$/api/generalTests/messageTests");
+
 let testUsers = {};
 
 describe("", () => {
@@ -22,12 +30,12 @@ describe("", () => {
   });
 });
 
+const message = "Hello! Im messages!";
+
 describe("send message success tests", () => {
   it("Should start new chat with selected test users", async () => {
     const { testUser_1 } = testUsers;
     const { privateId } = testUser_1;
-
-    const message = "Hello! Im messages!";
 
     const {
       body: {
@@ -42,5 +50,27 @@ describe("send message success tests", () => {
       participantId: privateId,
       message,
     });
+
+    privateIdSuccessTests(
+      {
+        privateIdTest: senderId,
+      },
+      { stringEquality: false }
+    );
+
+    chatIdSuccessTests(
+      {
+        chatIdTest: chatId,
+      },
+      { stringEquality: false }
+    );
+
+    messageIdSuccessTests({ chatIdTest: messageId }, { stringEquality: false });
+
+    messageSuccessTests({ messageMain: message, messageTest: newMessage });
   });
+});
+
+describe("send message failure tests", () => {
+  participantIdFailureTests({ message });
 });

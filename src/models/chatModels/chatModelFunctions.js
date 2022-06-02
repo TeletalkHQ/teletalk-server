@@ -1,8 +1,5 @@
-const {
-  errorThrower,
-  getErrorObject,
-  randomId,
-} = require("@/functions/utilities/utils");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 const {
   PrivateChatMongoModel,
@@ -66,10 +63,11 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
     },
   });
 
-  const chatId = chat?.chatId || randomId(chatIdModel.maxlength.value);
+  const chatId =
+    chat?.chatId || randomMaker.randomId(chatIdModel.maxlength.value);
   const newMessage = {
     message,
-    messageId: randomId(messageIdModel.maxlength.value),
+    messageId: randomMaker.randomId(messageIdModel.maxlength.value),
     messageSender: { senderId: currentUser.privateId },
   };
 

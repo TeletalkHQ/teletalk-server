@@ -11,7 +11,7 @@ const {
     PARTICIPANT_ID_MIN_LENGTH_REACH,
   },
 } = require("@/variables/errors/chatErrors");
-const { randomString } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 const participantIdMaxLength = participantIdModel.maxlength.value;
 const participantIdMinLength = participantIdModel.minlength.value;
@@ -47,13 +47,13 @@ const participantIdFailureTests = (data = {}) => {
   });
   it("Should get error, PARTICIPANT_ID_MIN_LENGTH_REACH", async () => {
     await customRequest.sendRequest(
-      fn(randomString(participantIdMinLength - 1)),
+      fn(randomMaker.randomString(participantIdMinLength - 1)),
       PARTICIPANT_ID_MIN_LENGTH_REACH
     );
   });
   it("Should get error, PARTICIPANT_ID_MAX_LENGTH_REACH", async () => {
     await customRequest.sendRequest(
-      fn(randomString(participantIdMaxLength + 1)),
+      fn(randomMaker.randomString(participantIdMaxLength + 1)),
       PARTICIPANT_ID_MAX_LENGTH_REACH
     );
   });

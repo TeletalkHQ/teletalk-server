@@ -1,6 +1,8 @@
 //!DEPRECATED
 //!DEPRECATED
 //!DEPRECATED
+const { errorThrower } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 const {
   chatErrors: { CHAT_EXIST },
@@ -16,7 +18,6 @@ const {
 const {
   chatModels: { chatIdModel },
 } = require("@/models/chatModels/chatModels");
-const { errorThrower, randomId } = require("@/functions/utilities/utils");
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const startChatPrivateChatController = async (
@@ -42,7 +43,7 @@ const startChatPrivateChatController = async (
 
     errorThrower(chat, CHAT_EXIST);
 
-    const chatId = randomId(chatIdModel.maxlength.value);
+    const chatId = randomMaker.randomId(chatIdModel.maxlength.value);
 
     const privateChat = new PrivateChatMongoModel({
       chatId,

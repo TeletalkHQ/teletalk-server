@@ -1,10 +1,9 @@
 const { modelPropertyGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
-
   extractVersions,
-  randomId,
 } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 const {
   chatErrors: {
@@ -67,7 +66,7 @@ const messageIdCommonModel = {
   trim: modelPropertyGenerator(true),
   type: modelPropertyGenerator("string", MESSAGE_ID_INVALID_TYPE),
   unique: modelPropertyGenerator(true, MESSAGE_ID_EXIST),
-  defaultValue: modelPropertyGenerator(randomId),
+  defaultValue: modelPropertyGenerator(randomMaker.randomId),
   version: "1.0.0",
 };
 

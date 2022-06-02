@@ -1,5 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { randomString } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 const {
   userModels: { firstNameModel },
@@ -40,13 +40,13 @@ const firstNameFailureTests = (data) => {
   });
   it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
     await customRequest.sendRequest(
-      fn(randomString(+firstNameMinLength - 1)),
+      fn(randomMaker.randomString(+firstNameMinLength - 1)),
       FIRST_NAME_MINLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
     await customRequest.sendRequest(
-      fn(randomString(+firstNameMaxLength + 1)),
+      fn(randomMaker.randomString(+firstNameMaxLength + 1)),
       FIRST_NAME_MAXLENGTH_REACH
     );
   });

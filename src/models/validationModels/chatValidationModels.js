@@ -46,12 +46,14 @@ const chatIdValidationModel = {
 const messageTextValidationModel = {
   message: {
     type: messageModel.type.value,
+    empty: messageModel.empty.value,
     min: messageModel.minlength.value,
     max: messageModel.maxlength.value,
     messages: {
       string: messageModel.type.error.message,
       stringMin: messageModel.minlength.error.message,
       stringMax: messageModel.maxlength.error.message,
+      stringEmpty: messageModel.empty.error.message,
     },
   },
   version: "1.0.0",

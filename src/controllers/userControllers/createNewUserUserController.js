@@ -1,13 +1,10 @@
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { temporaryClients } = require("@/functions/tools/TemporaryClients");
 const { userProps } = require("@/functions/helpers/UserProps");
-const {
-  getErrorObject,
-  errorThrower,
-  randomId,
-} = require("@/functions/utilities/utils");
+const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 const {
   tokenValidator,
@@ -82,7 +79,9 @@ const createNewUserUserController = async (
         },
       });
     } else if (!user) {
-      const privateId = randomId(privateIdCommonModel.maxlength.value);
+      const privateId = randomMaker.randomId(
+        privateIdCommonModel.maxlength.value
+      );
 
       const mainToken = await tokenSigner({ ...cellphone, privateId });
 

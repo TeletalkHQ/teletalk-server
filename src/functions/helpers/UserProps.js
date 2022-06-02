@@ -1,8 +1,4 @@
-const {
-  randomCountryCode,
-  randomStringNumber,
-  randomString,
-} = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 const {
   userModels: { firstNameModel, lastNameModel },
@@ -16,11 +12,11 @@ class UserProps {
   }
 
   makeTestCellphone() {
-    const country = countries[randomCountryCode()];
+    const country = countries[randomMaker.randomCountryCode()];
     const cellphone = this.makeCellphone(
       country.countryCode,
       country.countryName,
-      randomStringNumber(10)
+      randomMaker.randomStringNumber(10)
     );
 
     return cellphone;
@@ -37,8 +33,8 @@ class UserProps {
   makeTestContact() {
     return {
       ...this.makeTestCellphone(),
-      firstName: randomString(firstNameModel.maxlength.value),
-      lastName: randomString(lastNameModel.maxlength.value),
+      firstName: randomMaker.randomString(firstNameModel.maxlength.value),
+      lastName: randomMaker.randomString(lastNameModel.maxlength.value),
     };
   }
 
@@ -56,8 +52,8 @@ class UserProps {
 
   makeTestFullName() {
     return this.makeFullName(
-      randomString(firstNameModel.maxlength.value),
-      randomString(lastNameModel.maxlength.value)
+      randomMaker.randomString(firstNameModel.maxlength.value),
+      randomMaker.randomString(lastNameModel.maxlength.value)
     );
   }
 

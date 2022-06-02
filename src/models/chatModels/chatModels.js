@@ -24,6 +24,7 @@ const {
     PARTICIPANT_ID_MAX_LENGTH_REACH,
     PARTICIPANT_ID_MIN_LENGTH_REACH,
     PARTICIPANT_ID_REQUIRED,
+    MESSAGE_TEXT_EMPTY,
   },
 } = require("@/variables/errors/chatErrors");
 
@@ -36,9 +37,10 @@ const messageIdModel = messageIdCommonModel;
 // const messageStatusModel = modelGenerator("1.0.0");
 
 const messageModel = {
-  maxlength: modelPropertyGenerator(10000, MESSAGE_TEXT_MAX_LENGTH_REACH),
+  maxlength: modelPropertyGenerator(20, MESSAGE_TEXT_MAX_LENGTH_REACH),
   minlength: modelPropertyGenerator(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
   type: modelPropertyGenerator("string", MESSAGE_TEXT_INVALID_TYPE),
+  empty: modelPropertyGenerator(false, MESSAGE_TEXT_EMPTY),
   version: "1.0.0",
 };
 

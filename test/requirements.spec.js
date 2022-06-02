@@ -2,7 +2,8 @@ require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
 require("@/variables/globalVariables");
 
-const { errorThrower, randomId } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { errorThrower } = require("@/functions/utilities/utils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const {
@@ -29,7 +30,9 @@ describe("Add requirements to application state", () => {
       try {
         const phoneNumber = `000000000${i}`;
 
-        const privateId = randomId(privateIdCommonModel.maxlength.value);
+        const privateId = randomMaker.randomId(
+          privateIdCommonModel.maxlength.value
+        );
 
         const mainToken = await tokenSigner({
           countryName,

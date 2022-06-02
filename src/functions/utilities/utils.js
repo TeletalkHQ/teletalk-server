@@ -1,6 +1,3 @@
-const lodash = require("lodash");
-const { nanoid } = require("nanoid");
-
 const errorThrower = (condition, error) => {
   if (condition) {
     //TODO Write errors into log file;
@@ -148,31 +145,6 @@ const getValidatorErrorTypes = (errorArray) => {
   return validatorErrorTypes;
 };
 
-const randomString = (length) => {
-  var chars = "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
-  var pwd = lodash.sampleSize(chars, length ?? 12);
-  return pwd.join("");
-};
-
-const randomId = (size = 30) => nanoid(size);
-
-const randomStringNumber = (length) => {
-  var chars = "12345678901234567890123456789012345678901234567890";
-  var pwd = lodash.sampleSize(chars, length ?? 10);
-  return pwd.join("");
-};
-
-const randomNumber = (length) => {
-  var chars = "12345678901234567890123456789012345678901234567890";
-  var pwd = lodash.sampleSize(chars, length ?? 10);
-  return pwd.join("");
-};
-
-//TODO: move to userProps
-const randomCountryCode = () =>
-  Math.floor(Math.random() * 100 * Math.random()) +
-  Math.floor(Math.random() * 10);
-
 const findByProp = (items = [], value, prop) =>
   items.find((item) => item[prop] === value);
 
@@ -282,11 +254,6 @@ module.exports = {
   isNull,
   isUrlMatchWithReqUrl,
   objectInitializer,
-  randomCountryCode,
-  randomId,
-  randomNumber,
-  randomString,
-  randomStringNumber,
   skipParams,
   versionCalculator,
 };

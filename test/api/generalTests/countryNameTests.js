@@ -1,5 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { randomString } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
@@ -51,13 +51,13 @@ const countryNameFailureTests = (data) => {
   });
   it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
     await customRequest.sendRequest(
-      fn(randomString(countryNameMinlength - 1)),
+      fn(randomMaker.randomString(countryNameMinlength - 1)),
       COUNTRY_NAME_MINLENGTH_REACH
     );
   });
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
     await customRequest.sendRequest(
-      fn(randomString(countryNameMaxlength + 1)),
+      fn(randomMaker.randomString(countryNameMaxlength + 1)),
       COUNTRY_NAME_MAXLENGTH_REACH
     );
   });

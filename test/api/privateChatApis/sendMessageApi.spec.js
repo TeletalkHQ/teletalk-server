@@ -13,7 +13,11 @@ const {
 const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
 const { chatIdSuccessTests } = require("$/api/generalTests/chatIdTests");
 const { messageIdSuccessTests } = require("$/api/generalTests/messageIdTests");
-const { messageSuccessTests } = require("$/api/generalTests/messageTests");
+const {
+  messageSuccessTests,
+  messageFailureTests,
+} = require("$/api/generalTests/messageTests");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 let testUsers = {};
 
@@ -73,4 +77,5 @@ describe("send message success tests", () => {
 
 describe("send message failure tests", () => {
   participantIdFailureTests({ message });
+  messageFailureTests({ participantId: randomMaker.randomId() });
 });

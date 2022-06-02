@@ -1,5 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { randomString } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
@@ -35,7 +35,7 @@ const lastNameFailureTests = (data) => {
   const fn = (lastName) => ({ ...data, lastName });
   it("should get error, LAST_NAME_MAXLENGTH_REACH", async () => {
     await customRequest.sendRequest(
-      fn(randomString(lastNameMaxLength + 1)),
+      fn(randomMaker.randomString(lastNameMaxLength + 1)),
       LAST_NAME_MAXLENGTH_REACH
     );
   });
@@ -46,8 +46,8 @@ const lastNameFailureTests = (data) => {
   // it("should get error, LAST_NAME_MINLENGTH_REACH", async () => {
   //   await myRequest(
   //     userFullName(
-  //       randomString(firstNameMaxLength),
-  //       randomString(lastNameMinLength - 1)
+  //       randomMaker.randomString(firstNameMaxLength),
+  //       randomMaker.randomString(lastNameMinLength - 1)
   //     ),
   //     LAST_NAME_MINLENGTH_REACH
   //   );

@@ -1,5 +1,5 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { randomStringNumber } = require("@/functions/utilities/utils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
 const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
@@ -47,13 +47,13 @@ const phoneNumberFailureTests = (data) => {
   });
   it(`It should get error, PHONE_NUMBER_MINLENGTH_REACH`, async () => {
     await customRequest.sendRequest(
-      fn(randomStringNumber(phoneNumberMinlength - 1)),
+      fn(randomMaker.randomStringNumber(phoneNumberMinlength - 1)),
       PHONE_NUMBER_MINLENGTH_REACH
     );
   });
   it(`It should get error, PHONE_NUMBER_MAXLENGTH_REACH`, async () => {
     await customRequest.sendRequest(
-      fn(randomStringNumber(phoneNumberMaxlength + 1)),
+      fn(randomMaker.randomStringNumber(phoneNumberMaxlength + 1)),
       PHONE_NUMBER_MAXLENGTH_REACH
     );
   });

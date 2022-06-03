@@ -1,9 +1,7 @@
-const {
-  getTestUsersFromState,
-  request,
-} = require("@/functions/testUtilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { describer } = require("@/functions/helpers/Describer");
+const { stateManager } = require("@/functions/tools/StateManager");
 
 const {
   cellphoneRoutes: { addContactRoute, editContactRoute, cellphoneRouteBaseUrl },
@@ -38,24 +36,11 @@ const {
 } = require("$/api/generalTests/authenticationTests");
 const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
 
-let testUsers = {};
-
-const contact = userProps.makeTestContact();
-
-describe("", () => {
-  it("should fill testUsers object", async () => {
-    testUsers = await getTestUsersFromState();
-    customRequest.setRequestRequirements(
-      cellphoneRouteBaseUrl,
-      editContactRoute
-    );
-    customRequest.setMainTokenByUserObject(testUsers.testUser_0);
-  });
-});
+describer.addInitialDescribe(cellphoneRouteBaseUrl, editContactRoute, "0");
 
 describe("edit contact success tests", () => {
   it(`should add and edit testUser_1 on testUser_0 contact list`, async () => {
-    const { testUser_4 } = testUsers;
+    const { testUser_4 } = stateManager.state.testUsers;
 
     const {
       body: {
@@ -68,12 +53,14 @@ describe("edit contact success tests", () => {
           phoneNumber,
         },
       },
-    } = await request(
-      cellphoneRouteBaseUrl,
-      addContactRoute,
+    } = await customRequest.sendRequest(
       testUser_4,
       null,
-      { token: customRequest.options.token }
+      {
+        token: customRequest.options.token,
+      },
+      cellphoneRouteBaseUrl,
+      addContactRoute
     );
 
     firstNameSuccessTests({
@@ -132,18 +119,18 @@ describe("edit contact success tests", () => {
   });
 });
 
+//CLEANME SELF_STUFF CONTACT_ITEM_NOT_EXIST tests
 describe("editContact failure tests", () => {
+  const contact = userProps.makeTestContact();
+
   it("should get error, SELF_STUFF", async () => {
-    const { testUser_0 } = testUsers;
+    const { testUser_0 } = stateManager.state.testUsers;
     await customRequest.sendRequest(testUser_0, SELF_STUFF);
   });
-
   it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
-    const { testUser_10 } = testUsers;
-
+    const { testUser_10 } = stateManager.state.testUsers;
     await customRequest.sendRequest(testUser_10, CONTACT_ITEM_NOT_EXIST);
   });
-
   cellphoneFailureTests(contact);
   countryCodeFailureTests(contact);
   countryNameFailureTests(contact);

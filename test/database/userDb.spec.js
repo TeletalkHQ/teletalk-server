@@ -1,6 +1,4 @@
-const {
-  state: { setStateObject, getStateObject },
-} = require("@/functions/tools/State");
+const { stateManager } = require("@/functions/tools/StateManager");
 const { expect } = require("@/functions/testUtilities/testUtils");
 
 const {
@@ -18,11 +16,11 @@ describe("save user data in state", () => {
 
     expect(users).to.be.an("array");
 
-    await setStateObject(stateKeys.users, users);
+    await stateManager.setStateObject(stateKeys.users, users);
   });
 
   it("should get specified user data", async () => {
-    const allUsersFromState = await getStateObject(stateKeys.users);
+    const allUsersFromState = stateManager.state.users;
 
     expect(allUsersFromState).to.be.an("array");
 

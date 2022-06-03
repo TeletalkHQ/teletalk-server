@@ -1,12 +1,9 @@
-const { errorThrower } = require("@/functions/utilities/utils");
-
 const {
   getPrivateChatMessages,
 } = require("@/models/chatModels/chatModelFunctions");
-
 const {
-  chatErrors: { CHAT_ID_REQUIRED },
-} = require("@/variables/errors/chatErrors");
+  chatValidators: { chatIdValidator },
+} = require("@/validators/chatValidators");
 
 const getMessagesPrivateChatController = async (
   req = expressRequest,
@@ -18,7 +15,7 @@ const getMessagesPrivateChatController = async (
       currentUser,
     } = req;
 
-    errorThrower(!chatId, CHAT_ID_REQUIRED);
+    await chatIdValidator(chatId);
 
     const privateChatMessages = await getPrivateChatMessages(
       currentUser,
@@ -26,7 +23,7 @@ const getMessagesPrivateChatController = async (
     );
 
     res.checkAndResponse({
-      messages: privateChatMessages.messages,
+      messages: privateChatMessages,
     });
   } catch (error) {
     logger.log("getMessagesPrivateChatController catch, error:", error);

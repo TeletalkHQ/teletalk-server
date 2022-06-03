@@ -1,7 +1,6 @@
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const {
-  getTestUsersFromState,
-} = require("@/functions/testUtilities/testUtils");
+const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { describer } = require("@/functions/helpers/Describer");
 
 const {
   privateChatRoutes: { privateChatRouteBaseUrl, sendMessageRoute },
@@ -17,28 +16,14 @@ const {
   messageSuccessTests,
   messageFailureTests,
 } = require("$/api/generalTests/messageTests");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
-let testUsers = {};
-
-describe("", () => {
-  it("should fill testUsers object and set customRequest properties", async () => {
-    customRequest.setRequestRequirements(
-      privateChatRouteBaseUrl,
-      sendMessageRoute
-    );
-
-    testUsers = await getTestUsersFromState();
-
-    customRequest.setMainTokenByUserObject(testUsers.testUser_0);
-  });
-});
+describer.addInitialDescribe(privateChatRouteBaseUrl, sendMessageRoute, "0");
 
 const message = "Hello! Im messages!";
 
 describe("send message success tests", () => {
   it("Should start new chat with selected test users", async () => {
-    const { testUser_1 } = testUsers;
+    const { testUser_1 } = describer.state.testUsers;
     const { privateId } = testUser_1;
 
     const {

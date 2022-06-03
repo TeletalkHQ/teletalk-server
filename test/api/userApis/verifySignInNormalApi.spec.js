@@ -1,6 +1,7 @@
 const { expect } = require("@/functions/testUtilities/testUtils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { describer } = require("@/functions/helpers/Describer");
 
 const {
   userRoutes: { userRouteBaseUrl, verifySignInNormalRoute },
@@ -13,14 +14,12 @@ const {
   authenticationFailureTests,
 } = require("$/api/generalTests/authenticationTests");
 
-describe("", () => {
-  it("should set routes properties", async () => {
-    customRequest.setRequestRequirements(
-      userRouteBaseUrl,
-      verifySignInNormalRoute
-    );
-    customRequest.setVerifyTokenFromEnv();
-  });
+describer.addDescribeIt(() => {
+  customRequest.setRequestRequirements(
+    userRouteBaseUrl,
+    verifySignInNormalRoute
+  );
+  customRequest.setVerifyTokenFromEnv();
 });
 
 describe("verifySignInNormalApi success test", () => {

@@ -4,7 +4,14 @@ const {
   extractVersions,
 } = require("@/functions/utilities/utils");
 const {
-  inputOutputFields: { chats, message, participantId, chatId, newMessage },
+  inputOutputFields: {
+    chats,
+    message,
+    participantId,
+    chatId,
+    newMessage,
+    messages,
+  },
 } = require("@/variables/constants/initialValues/initialValue");
 
 const privateChatRouteBaseUrl = routeGenerator(
@@ -24,7 +31,15 @@ const getAllChatsRoute = routeGenerator(
   "1.0.0",
   "Use for Start new chat",
   [{}],
-  [{ chats }]
+  [
+    {
+      [chats]: [
+        {
+          chatId,
+        },
+      ],
+    },
+  ]
 );
 
 const chatsLastMessageRoute = routeGenerator(
@@ -43,11 +58,11 @@ const getMessagesRoute = routeGenerator(
   200,
   "1.0.0",
   "Use for get all messages",
-  [],
-  []
+  [{ chatId }],
+  [{ messages }]
 );
 
-//DEPRECATED
+//DEPRECATED startChatRoute
 const startChatRoute = routeGenerator(
   "post",
   "/privateChat/startNewPrivateChat",

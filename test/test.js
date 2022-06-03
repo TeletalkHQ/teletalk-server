@@ -22,5 +22,6 @@ require("$/api/cellphoneApis/removeContactApi.spec");
 require("$/api/cellphoneApis/addBlockApi.spec");
 require("$/api/cellphoneApis/removeBlockApi.spec");
 
-require("$/api/privateChatApis/getAllChatsApi.spec");
 require("$/api/privateChatApis/sendMessageApi.spec");
+require("$/api/privateChatApis/getAllChatsApi.spec");
+require("$/api/privateChatApis/getAllMessages.spec");

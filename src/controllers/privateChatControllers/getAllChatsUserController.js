@@ -1,4 +1,4 @@
-const { getAllChats } = require("@/models/chatModels/chatModelFunctions");
+const { getAllChats } = require("@/models/userModels/userModelFunctions");
 
 const getAllChatsUserController = async (
   req = expressRequest,

@@ -4,9 +4,14 @@ const {
   extractVersions,
 } = require("@/functions/utilities/utils");
 
-const { MESSAGE_TEXT_VALIDATION, PARTICIPANT_ID_VALIDATION } = {
+const {
+  MESSAGE_TEXT_VALIDATION,
+  PARTICIPANT_ID_VALIDATION,
+  CHAT_ID_VALIDATION,
+} = {
   MESSAGE_TEXT_VALIDATION: "MESSAGE_TEXT_VALIDATION",
   PARTICIPANT_ID_VALIDATION: "PARTICIPANT_ID_VALIDATION",
+  CHAT_ID_VALIDATION: "CHAT_ID_VALIDATION",
 };
 
 const CHAT_EXIST = errorGenerator(
@@ -19,36 +24,45 @@ const CHAT_EXIST = errorGenerator(
 
 const CHAT_ID_EXIST = errorGenerator(4001, 400, "", "CHAT_ID_EXIST", "1.0.0");
 
+const CHAT_ID_INVALID = errorGenerator(
+  4002,
+  400,
+  "",
+  "CHAT_ID_INVALID",
+  "1.0.0",
+  CHAT_ID_VALIDATION
+);
 const CHAT_ID_INVALID_TYPE = errorGenerator(
   4002,
   400,
   "",
   "CHAT_ID_INVALID_TYPE",
-  "1.0.0"
+  "1.0.0",
+  CHAT_ID_VALIDATION
 );
-
 const CHAT_ID_MAX_LENGTH_REACH = errorGenerator(
   4003,
   400,
   "",
   "CHAT_ID_MAX_LENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  CHAT_ID_VALIDATION
 );
-
 const CHAT_ID_MIN_LENGTH_REACH = errorGenerator(
   4004,
   400,
   "",
   "CHAT_ID_MIN_LENGTH_REACH",
-  "1.0.0"
+  "1.0.0",
+  CHAT_ID_VALIDATION
 );
-
 const CHAT_ID_REQUIRED = errorGenerator(
   4005,
   400,
   "",
   "CHAT_ID_REQUIRED",
-  "1.0.0"
+  "1.0.0",
+  CHAT_ID_VALIDATION
 );
 
 const CHAT_NOT_EXIST = errorGenerator(
@@ -66,7 +80,6 @@ const CREATED_AT_INVALID_TYPE = errorGenerator(
   "CREATED_AT_INVALID_TYPE",
   "1.0.0"
 );
-
 const MESSAGE_ID_EXIST = errorGenerator(
   4008,
   400,
@@ -74,7 +87,6 @@ const MESSAGE_ID_EXIST = errorGenerator(
   "MESSAGE_ID_EXIST",
   "1.0.0"
 );
-
 const MESSAGE_ID_INVALID_TYPE = errorGenerator(
   4009,
   400,
@@ -82,7 +94,6 @@ const MESSAGE_ID_INVALID_TYPE = errorGenerator(
   "MESSAGE_ID_INVALID_TYPE",
   "1.0.0"
 );
-
 const MESSAGE_ID_MAX_LENGTH_REACH = errorGenerator(
   4010,
   400,
@@ -90,7 +101,6 @@ const MESSAGE_ID_MAX_LENGTH_REACH = errorGenerator(
   "MESSAGE_ID_MAX_LENGTH_REACH",
   "1.0.0"
 );
-
 const MESSAGE_ID_MIN_LENGTH_REACH = errorGenerator(
   4011,
   400,
@@ -98,7 +108,6 @@ const MESSAGE_ID_MIN_LENGTH_REACH = errorGenerator(
   "MESSAGE_ID_MIN_LENGTH_REACH",
   "1.0.0"
 );
-
 const MESSAGE_ID_REQUIRED = errorGenerator(
   4012,
   400,
@@ -115,7 +124,6 @@ const MESSAGE_TEXT_INVALID_TYPE = errorGenerator(
   "1.0.0",
   MESSAGE_TEXT_VALIDATION
 );
-
 const MESSAGE_TEXT_EMPTY = errorGenerator(
   4013,
   400,
@@ -124,7 +132,6 @@ const MESSAGE_TEXT_EMPTY = errorGenerator(
   "1.0.0",
   MESSAGE_TEXT_VALIDATION
 );
-
 const MESSAGE_TEXT_INVALID = errorGenerator(
   4013,
   400,
@@ -133,7 +140,6 @@ const MESSAGE_TEXT_INVALID = errorGenerator(
   "1.0.0",
   MESSAGE_TEXT_VALIDATION
 );
-
 const MESSAGE_TEXT_MAX_LENGTH_REACH = errorGenerator(
   4014,
   400,
@@ -142,7 +148,6 @@ const MESSAGE_TEXT_MAX_LENGTH_REACH = errorGenerator(
   "1.0.0",
   MESSAGE_TEXT_VALIDATION
 );
-
 const MESSAGE_TEXT_MIN_LENGTH_REACH = errorGenerator(
   4015,
   400,
@@ -151,7 +156,6 @@ const MESSAGE_TEXT_MIN_LENGTH_REACH = errorGenerator(
   "1.0.0",
   MESSAGE_TEXT_VALIDATION
 );
-
 const MESSAGE_TEXT_REQUIRED = errorGenerator(
   4000,
   400,
@@ -169,7 +173,6 @@ const PARTICIPANT_ID_EXIST = errorGenerator(
   "1.0.0",
   PARTICIPANT_ID_VALIDATION
 );
-
 const PARTICIPANT_ID_INVALID = errorGenerator(
   4017,
   400,
@@ -194,7 +197,6 @@ const PARTICIPANT_ID_INVALID_TYPE = errorGenerator(
   "1.0.0",
   PARTICIPANT_ID_VALIDATION
 );
-
 const PARTICIPANT_ID_MAX_LENGTH_REACH = errorGenerator(
   4018,
   400,
@@ -203,7 +205,6 @@ const PARTICIPANT_ID_MAX_LENGTH_REACH = errorGenerator(
   "1.0.0",
   PARTICIPANT_ID_VALIDATION
 );
-
 const PARTICIPANT_ID_MIN_LENGTH_REACH = errorGenerator(
   4019,
   400,
@@ -212,7 +213,6 @@ const PARTICIPANT_ID_MIN_LENGTH_REACH = errorGenerator(
   "1.0.0",
   PARTICIPANT_ID_VALIDATION
 );
-
 const PARTICIPANT_ID_REQUIRED = errorGenerator(
   4020,
   400,
@@ -242,6 +242,7 @@ const USER_NO_LONGER_PARTICIPANT = errorGenerator(
 const errors = {
   CHAT_EXIST,
   CHAT_ID_EXIST,
+  CHAT_ID_INVALID,
   CHAT_ID_INVALID_TYPE,
   CHAT_ID_MAX_LENGTH_REACH,
   CHAT_ID_MIN_LENGTH_REACH,

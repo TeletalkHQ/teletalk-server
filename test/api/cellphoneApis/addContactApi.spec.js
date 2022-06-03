@@ -1,8 +1,7 @@
-const {
-  getTestUsersFromState,
-} = require("@/functions/testUtilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { describer } = require("@/functions/helpers/Describer");
+const { stateManager } = require("@/functions/tools/StateManager");
 
 const {
   cellphoneRoutes: { addContactRoute, cellphoneRouteBaseUrl },
@@ -38,25 +37,11 @@ const {
 } = require("$/api/generalTests/authenticationTests");
 const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
 
-let testUsers = {};
-
-const contact = userProps.makeTestContact();
-
-describe("", () => {
-  it("should fill testUsers object", async () => {
-    customRequest.setRequestRequirements(
-      cellphoneRouteBaseUrl,
-      addContactRoute
-    );
-    testUsers = await getTestUsersFromState();
-
-    customRequest.setMainTokenByUserObject(testUsers.testUser_0);
-  });
-});
+describer.addInitialDescribe(cellphoneRouteBaseUrl, addContactRoute, "0");
 
 describe("add contact successfully", () => {
   it(`should add testUser_1 to testUser_0 contact list`, async () => {
-    const { testUser_1 } = testUsers;
+    const { testUser_1 } = stateManager.state.testUsers;
     const {
       body: {
         addedContact: {
@@ -102,14 +87,17 @@ describe("add contact successfully", () => {
   });
 });
 
+//CLEANME SELF_STUFF CONTACT_ITEM_EXIST tests
 describe("addContact failure tests", () => {
+  const contact = userProps.makeTestContact();
+
   it("should get error, SELF_STUFF", async () => {
-    const { testUser_0 } = testUsers;
+    const { testUser_0 } = stateManager.state.testUsers;
     await customRequest.sendRequest(testUser_0, SELF_STUFF);
   });
 
   it("should get error, CONTACT_ITEM_EXIST", async () => {
-    const { testUser_2 } = testUsers;
+    const { testUser_2 } = stateManager.state.testUsers;
 
     //* First one get succeed, but second one is duplicate
     await customRequest.sendRequest(testUser_2);

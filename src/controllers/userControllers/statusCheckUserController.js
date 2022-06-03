@@ -1,4 +1,4 @@
-//UNUSED
+//UNUSED statusCheckUserController
 
 const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
 
@@ -15,6 +15,7 @@ const {
 } = require("@/functions/utilities/utils");
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 const { userProps } = require("@/functions/helpers/UserProps");
+
 const statusCheckUserController = async (
   req = expressRequest,
   res = expressResponse

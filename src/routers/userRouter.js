@@ -19,13 +19,17 @@ const {
 const {
   createNewUserUserController,
 } = require("@/controllers/userControllers/createNewUserUserController");
+const {
+  getUserDataUserController,
+} = require("@/controllers/userControllers/getUserDataUserController");
 
 const {
   userRoutes: {
     createNewUserRoute,
+    getUserDataRoute,
     logoutNormalRoute,
-    statusCheckRoute,
     signInNormalRoute,
+    statusCheckRoute,
     verifySignInNormalRoute,
   },
 } = require("@/variables/routes/userRoutes");
@@ -56,6 +60,11 @@ userRouter[createNewUserRoute.method](
 userRouter[logoutNormalRoute.method](
   logoutNormalRoute.url,
   logoutNormalUserController
+);
+
+userRouter[getUserDataRoute.method](
+  getUserDataRoute.url,
+  getUserDataUserController
 );
 
 module.exports = { userRouter };

@@ -40,8 +40,8 @@ const getChatsLastMessages = async (currentUser) => {
 };
 
 const getPrivateChat = async (currentUser, chatId) => {
-  const isChatExist = currentUser.chats.find((chat) => chat.chatId === chatId);
-  errorThrower(!isChatExist, () => getErrorObject(CHAT_NOT_EXIST));
+  const chatExist = currentUser.chats.find((chat) => chat.chatId === chatId);
+  errorThrower(!chatExist, () => getErrorObject(CHAT_NOT_EXIST));
 
   const chat = await PrivateChatMongoModel.findOne({ chatId });
   errorThrower(!chat, () => getErrorObject(CHAT_NOT_EXIST));
@@ -54,6 +54,7 @@ const getPrivateChatMessages = async (currentUser, chatId) =>
 
 const sendPrivateMessage = async (currentUser, participantId, message) => {
   const targetUser = await userFinder({ privateId: participantId });
+  //TODO Add test for TARGET_USER_NOT_EXIST
   errorThrower(!targetUser, () => getErrorObject(TARGET_USER_NOT_EXIST));
 
   const chat = await PrivateChatMongoModel.findOne({
@@ -87,7 +88,9 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
     await currentUser.updateOne({ chats: { chatId } });
     await targetUser.updateOne({ chats: { chatId } });
   } else if (chat) {
+    logger.log("rm", "chat.messages", chat.messages);
     chat.messages.push(newMessage);
+    logger.log("rm", "chat.messages new", chat.messages);
 
     await chat.updateOne({ chatId }, { messages: chat.messages });
   }

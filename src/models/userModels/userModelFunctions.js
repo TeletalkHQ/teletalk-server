@@ -208,7 +208,7 @@ const addTestUser = async (
   mainToken
 ) => {
   try {
-    await UserMongoModel.updateOne(
+    const user = await UserMongoModel.findOneAndUpdate(
       { countryCode, countryName, phoneNumber },
       {
         tokens: [{ mainToken }],
@@ -221,16 +221,20 @@ const addTestUser = async (
       },
       {
         upsert: true,
+        lean: true,
+        new: true,
       }
     );
-
-    const user = await userFinder({ countryCode, countryName, phoneNumber });
 
     return user;
   } catch (error) {
     logger.log("addTestUser catch, error:", error);
     errorThrower(error, error);
   }
+};
+
+const getAllChats = (currentUser) => {
+  return currentUser.chats.map((chat) => ({ chatId: chat.chatId }));
 };
 
 const getAllUsers = async () => {
@@ -251,6 +255,7 @@ module.exports = {
   addTestUser,
   createNewNormalUser,
   deleteBlacklistItem,
+  getAllChats,
   getAllUsers,
   getUserContacts,
   removeContactItem,

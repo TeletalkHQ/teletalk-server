@@ -11,6 +11,7 @@ const {
   customTypeof,
 } = require("@/functions/utilities/utils");
 
+//CLEANME //!checkInputFields
 const checkInputFields = (input, fields, fieldsIndex = 0) => {
   const selectedFields = fields[fieldsIndex];
   let result = { done: true, internalError: false, errorObject: {} };
@@ -18,12 +19,11 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
     result.done = false;
     result.internalError = internalError;
     result.errorObject = errorObject;
-
-    return result;
   };
 
   if (customTypeof(selectedFields).type.undefined) {
-    return fn(true);
+    fn(true);
+    return result;
   }
 
   const checkFields = (input, fields) => {
@@ -32,9 +32,11 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
 
     if (inputLength !== fieldsLength) {
       if (inputLength < fieldsLength) {
-        return fn(false, INPUT_FIELDS_MISSING);
+        fn(false, INPUT_FIELDS_MISSING);
+        return result;
       } else {
-        return fn(false, INPUT_FIELDS_OVERLOAD);
+        fn(false, INPUT_FIELDS_OVERLOAD);
+        return result;
       }
     }
 
@@ -52,6 +54,18 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
 
         result = checkFields(input[key], fields[key]);
       }
+
+      if (customTypeof(fields[key]).type.array) {
+        if (!customTypeof(input[key]).type.array) {
+          fn(false, INPUT_FIELDS_MISSING);
+          break;
+        }
+
+        // eslint-disable-next-line no-loop-func
+        input[key].forEach((item) => {
+          result = checkFields(item, fields[key][0]);
+        });
+      }
     }
 
     return result;
@@ -62,6 +76,7 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
   return result;
 };
 
+//CLEANME //!checkOutputFields
 const checkOutputFields = (output, fields, fieldsIndex = 0) => {
   const selectedFields = fields[fieldsIndex];
   let result = { done: true, internalError: false, errorObject: {} };
@@ -102,6 +117,18 @@ const checkOutputFields = (output, fields, fieldsIndex = 0) => {
         }
 
         result = checkFields(output[key], fields[key]);
+      }
+
+      if (customTypeof(fields[key]).type.array) {
+        if (!customTypeof(output[key]).type.array) {
+          fn(false, OUTPUT_FIELDS_MISSING);
+          break;
+        }
+
+        // eslint-disable-next-line no-loop-func
+        output[key].forEach((item) => {
+          result = checkFields(item, fields[key][0]);
+        });
       }
     }
 

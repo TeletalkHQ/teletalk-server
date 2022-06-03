@@ -94,7 +94,7 @@ const contactsModel = {
 const countryCodeModel = {
   empty: modelPropertyGenerator(false, COUNTRY_CODE_EMPTY),
   maxlength: modelPropertyGenerator(8, COUNTRY_CODE_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(2, COUNTRY_CODE_MINLENGTH_REACH), //TODO Fix me! i should be '1'!
+  minlength: modelPropertyGenerator(2, COUNTRY_CODE_MINLENGTH_REACH), //FIXME Fix me! i should be '1'!
   numeric: modelPropertyGenerator(true, COUNTRY_CODE_NUMERIC),
   required: modelPropertyGenerator(true, COUNTRY_CODE_REQUIRED),
   trim: modelPropertyGenerator(true),

@@ -27,19 +27,19 @@ class CustomRequest {
     this.setOptions({ ...this.options, ...options });
   }
 
-  sendRequest(data, errorObject, options = this.options) {
+  sendRequest(
+    data,
+    errorObject,
+    options = this.options,
+    baseUrl = this.baseUrl,
+    routeObject = this.routeObject
+  ) {
     const allOptions = {
       ...this.options,
       ...options,
     };
 
-    return request(
-      this.baseUrl,
-      this.routeObject,
-      data,
-      errorObject,
-      allOptions
-    );
+    return request(baseUrl, routeObject, data, errorObject, allOptions);
   }
 
   getToken() {

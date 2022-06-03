@@ -1,9 +1,7 @@
 const supertest = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 
-const {
-  state: { getStateObject, setStateObject },
-} = require("@/functions/tools/State");
+const { stateManager } = require("@/functions/tools/StateManager");
 const {
   errorThrower,
   getObjectLength,
@@ -27,6 +25,18 @@ const request = async (
   }
 ) => {
   try {
+    // logger.log(
+    // "//rm",
+    //   "data: ",
+    //   data,
+    //   "\n",
+    //   "routeObject data: ",
+    //   routeObject.inputFields[0],
+    //   "\n",
+    //   "filterObject: ",
+    //   filterObject(data, routeObject.inputFields[0])
+    // );
+
     const response = await testRequest(
       {
         ...routeObject,
@@ -88,11 +98,11 @@ const makeAuthorizationHeader = (token) => [
   customTypeof(token).type.undefined ? null : `Bearer ${token}`,
 ];
 
-const getTestUsersFromState = async () => {
-  return await getStateObject(stateKeys.testUsers);
+const getTestUsersFromState = () => {
+  return stateManager.state.testUsers;
 };
 const setTestUsersIntoState = async (testUsers) => {
-  return await setStateObject(stateKeys.testUsers, testUsers);
+  return await stateManager.setStateObject(stateKeys.testUsers, testUsers);
 };
 
 module.exports = {

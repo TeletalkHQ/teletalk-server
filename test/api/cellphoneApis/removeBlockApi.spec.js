@@ -1,9 +1,7 @@
-const { request } = require("@/functions/testUtilities/testUtils");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const {
-  getTestUsersFromState,
-} = require("@/functions/testUtilities/testUtils");
+const { describer } = require("@/functions/helpers/Describer");
+const { stateManager } = require("@/functions/tools/StateManager");
 
 const {
   cellphoneRoutes: { removeBlockRoute, addBlockRoute, cellphoneRouteBaseUrl },
@@ -32,29 +30,21 @@ const { countries } = require("@/variables/constants/countries");
 
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 
-let testUsers = {};
-
-const cellphone = userProps.makeTestCellphone();
-
-describe("", () => {
-  it("should set routes objects and fill testUsers", async () => {
-    testUsers = await getTestUsersFromState();
-
-    customRequest.setRequestRequirements(
-      cellphoneRouteBaseUrl,
-      removeBlockRoute
-    );
-    customRequest.setMainTokenByUserObject(testUsers.testUser_0);
-  });
-});
+describer.addInitialDescribe(cellphoneRouteBaseUrl, removeBlockRoute, "0");
 
 describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
-    const { testUser_3 } = testUsers;
+    const { testUser_3 } = stateManager.state.testUsers;
 
-    await request(cellphoneRouteBaseUrl, addBlockRoute, testUser_3, null, {
-      token: customRequest.options.token,
-    });
+    await customRequest.sendRequest(
+      testUser_3,
+      null,
+      {
+        token: customRequest.options.token,
+      },
+      cellphoneRouteBaseUrl,
+      addBlockRoute
+    );
     const {
       body: {
         removedBlockedCellphone: { phoneNumber, countryCode, countryName },
@@ -79,8 +69,10 @@ describe("removeContact successful test", () => {
 });
 
 describe("removeBlock failure tests", () => {
+  const cellphone = userProps.makeTestCellphone();
+
   it("should get error, SELF_STUFF", async () => {
-    const { testUser_0 } = testUsers;
+    const { testUser_0 } = stateManager.state.testUsers;
     await customRequest.sendRequest(testUser_0, SELF_STUFF);
   });
 

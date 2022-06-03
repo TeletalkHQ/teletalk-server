@@ -1,9 +1,6 @@
-const { request } = require("@/functions/testUtilities/testUtils");
+const { describer } = require("@/functions/helpers/Describer");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { customRequest } = require("@/functions/helpers/CustomRequest");
-const {
-  getTestUsersFromState,
-} = require("@/functions/testUtilities/testUtils");
 
 const {
   cellphoneRoutes: {
@@ -12,6 +9,10 @@ const {
     cellphoneRouteBaseUrl,
   },
 } = require("@/variables/routes/cellphoneRoutes");
+const {
+  userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
+} = require("@/variables/errors/userErrors");
+const { countries } = require("@/variables/constants/countries");
 
 const {
   countryCodeFailureTests,
@@ -28,37 +29,23 @@ const {
 const {
   authenticationFailureTests,
 } = require("$/api/generalTests/authenticationTests");
-
-const {
-  userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
-} = require("@/variables/errors/userErrors");
-const { countries } = require("@/variables/constants/countries");
-
 const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
 
-let testUsers = {};
-
-const cellphone = userProps.makeTestCellphone();
-
-describe("", () => {
-  it("should fill testUsers object", async () => {
-    testUsers = await getTestUsersFromState();
-
-    customRequest.setRequestRequirements(
-      cellphoneRouteBaseUrl,
-      removeContactRoute
-    );
-    customRequest.setMainTokenByUserObject(testUsers.testUser_0);
-  });
-});
+describer.addInitialDescribe(cellphoneRouteBaseUrl, removeContactRoute, "0");
 
 describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
-    const { testUser_3 } = testUsers;
+    const { testUser_3 } = describer.state.testUsers;
 
-    await request(cellphoneRouteBaseUrl, addContactRoute, testUser_3, null, {
-      token: customRequest.options.token,
-    });
+    await customRequest.sendRequest(
+      testUser_3,
+      null,
+      {
+        token: customRequest.options.token,
+      },
+      cellphoneRouteBaseUrl,
+      addContactRoute
+    );
 
     const {
       body: {
@@ -84,8 +71,10 @@ describe("removeContact successful test", () => {
 });
 
 describe("removeContact failure tests", () => {
+  const cellphone = userProps.makeTestCellphone();
+
   it("should get error, SELF_STUFF", async () => {
-    const { testUser_0 } = testUsers;
+    const { testUser_0 } = describer.state.testUsers;
     await customRequest.sendRequest(testUser_0, SELF_STUFF);
   });
 

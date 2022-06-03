@@ -1,18 +1,13 @@
 const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
-const {
-  state: { getStateObject, setStateObject },
-} = require("@/functions/tools/State");
+const { stateManager } = require("@/functions/tools/StateManager");
 
 const {
   initialValue: { stateKeys },
 } = require("@/variables/constants/initialValues/initialValue");
 
 class TemporaryClients {
-  constructor() {
-    this.initializeClients();
-  }
   async addClient(client) {
-    const aliveClients = await this.getAliveClients();
+    const aliveClients = this.getAliveClients();
 
     aliveClients.push(client);
 
@@ -20,24 +15,25 @@ class TemporaryClients {
   }
 
   async setAliveClients(aliveClients) {
-    const temporaryClients = await getStateObject(stateKeys.temporaryClients);
+    const temporaryClients = stateManager.state.temporaryClients;
 
-    const newClients = {
+    const newTemporaryClients = {
       ...temporaryClients,
       aliveClients,
     };
 
-    await setStateObject(stateKeys.temporaryClients, newClients);
+    await stateManager.setStateObject(
+      stateKeys.temporaryClients,
+      newTemporaryClients
+    );
   }
 
-  async getAliveClients() {
-    const temporaryClients = await getStateObject(stateKeys.temporaryClients);
-
-    return temporaryClients.aliveClients || [];
+  getAliveClients() {
+    return stateManager.state.temporaryClients.aliveClients;
   }
 
   async findClient(client) {
-    const aliveClients = await this.getAliveClients();
+    const aliveClients = this.getAliveClients();
 
     return aliveClients.find(
       (aliveClient) => !!isEqualWithTargetCellphone(aliveClient, client)
@@ -45,7 +41,7 @@ class TemporaryClients {
   }
 
   async findClientIndex(client) {
-    const aliveClients = await this.getAliveClients();
+    const aliveClients = this.getAliveClients();
 
     return aliveClients.findIndex(
       (aliveClient) => !!isEqualWithTargetCellphone(aliveClient, client)
@@ -53,7 +49,7 @@ class TemporaryClients {
   }
 
   async updateClient(client, updateProps) {
-    const aliveClients = await this.getAliveClients();
+    const aliveClients = this.getAliveClients();
     const aliveClientIndex = await this.findClient(client);
 
     if (aliveClientIndex !== -1) {
@@ -71,19 +67,8 @@ class TemporaryClients {
 
     return false;
   }
-
-  async getClients() {
-    const temporaryClients = await getStateObject(stateKeys.temporaryClients);
-
-    return temporaryClients;
-  }
-
-  async initializeClients(temporaryClients = {}) {
-    const oldClients = await this.getClients();
-    if (!oldClients) {
-      setStateObject(stateKeys.temporaryClients, temporaryClients);
-    }
-  }
 }
 
-module.exports = { temporaryClients: new TemporaryClients({}) };
+const temporaryClients = new TemporaryClients();
+
+module.exports = { temporaryClients, TemporaryClients };

@@ -26,6 +26,7 @@ describe("Add requirements to application state", () => {
     const users = Array.from({ length: 50 });
 
     const testUsers = {};
+
     for (let i = 0; i < users.length; i++) {
       try {
         const phoneNumber = `000000000${i}`;

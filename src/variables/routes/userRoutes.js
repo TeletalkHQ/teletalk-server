@@ -25,6 +25,22 @@ const {
   },
 } = require("@/variables/constants/initialValues/initialValue");
 
+const userDataProps = {
+  privateId,
+  firstName,
+  lastName,
+  bio,
+  contacts,
+  blacklist,
+  username,
+  phoneNumber,
+  countryCode,
+  countryName,
+  chats,
+  mainToken,
+  newUser,
+};
+
 const userRouteBaseUrl = routeGenerator(true, "/user", true, "1.0.0");
 
 const createNewUserRoute = routeGenerator(
@@ -89,6 +105,20 @@ const statusCheckRoute = routeGenerator(
   "Use for check client availability as a normal account"
 );
 
+const getUserDataRoute = routeGenerator(
+  "get",
+  "/normalUser/getUserData",
+  200,
+  "1.0.0",
+  "Use for get user data",
+  [{}],
+  [
+    {
+      [user]: userDataProps,
+    },
+  ]
+);
+
 const verifySignInNormalRoute = routeGenerator(
   "post",
   "/normalUser/verifySignInNormalUser",
@@ -102,32 +132,19 @@ const verifySignInNormalRoute = routeGenerator(
   ],
   [
     {
-      user: {
-        privateId,
-        firstName,
-        lastName,
-        bio,
-        contacts,
-        blacklist,
-        username,
-        phoneNumber,
-        countryCode,
-        countryName,
-        chats,
-        mainToken,
-        newUser,
-      },
+      [user]: userDataProps,
     },
-    { user: { [newUser]: newUser } },
+    { [user]: { [newUser]: newUser } },
   ]
 );
 
 const routes = {
-  userRouteBaseUrl,
   createNewUserRoute,
+  getUserDataRoute,
   logoutNormalRoute,
   signInNormalRoute,
   statusCheckRoute,
+  userRouteBaseUrl,
   verifySignInNormalRoute,
 };
 

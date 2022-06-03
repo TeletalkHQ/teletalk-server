@@ -18,6 +18,7 @@ const {
     CONTACT_ITEM_EXIST,
     CONTACT_ITEM_NOT_EXIST,
     TARGET_USER_NOT_EXIST,
+    USER_NOT_EXIST,
   },
 } = require("@/variables/errors/userErrors");
 
@@ -243,6 +244,23 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getUserData = async (privateId) => {
+  try {
+    const user = await UserMongoModel.findOne({ privateId }, undefined, {
+      lean: true,
+    });
+
+    errorThrower(!user, () =>
+      getErrorObject(USER_NOT_EXIST, { searchQueries: { privateId } })
+    );
+
+    return user;
+  } catch (error) {
+    logger.log("getUserData catch, error:", error);
+    throw error;
+  }
+};
+
 const removeTestUsers = async (length) => {
   for (let i = 0; i < length; i++) {
     await UserMongoModel.remove();
@@ -257,6 +275,7 @@ module.exports = {
   deleteBlacklistItem,
   getAllChats,
   getAllUsers,
+  getUserData,
   getUserContacts,
   removeContactItem,
   removeTestUsers,

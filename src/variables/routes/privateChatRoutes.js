@@ -5,12 +5,15 @@ const {
 } = require("@/functions/utilities/utils");
 const {
   inputOutputFields: {
+    chatId,
     chats,
     message,
-    participantId,
-    chatId,
-    newMessage,
+    messageId,
     messages,
+    messageSender,
+    newMessage,
+    participantId,
+    senderId,
   },
 } = require("@/variables/constants/initialValues/initialValue");
 
@@ -59,7 +62,19 @@ const getMessagesRoute = routeGenerator(
   "1.0.0",
   "Use for get all messages",
   [{ chatId }],
-  [{ messages }]
+  [
+    {
+      [messages]: [
+        {
+          [messageSender]: {
+            senderId,
+          },
+          messageId,
+          message,
+        },
+      ],
+    },
+  ]
 );
 
 //DEPRECATED startChatRoute

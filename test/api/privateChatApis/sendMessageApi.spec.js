@@ -54,7 +54,10 @@ describe("send message success tests", () => {
       { stringEquality: false }
     );
 
-    messageIdSuccessTests({ chatIdTest: messageId }, { stringEquality: false });
+    messageIdSuccessTests(
+      { messageIdTest: messageId },
+      { stringEquality: false }
+    );
 
     messageSuccessTests({ messageMain: message, messageTest: newMessage });
   });

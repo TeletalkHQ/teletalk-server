@@ -1,26 +1,21 @@
 const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
 
 const {
-  chatModels: { messageIdModel },
+  chatModels: { senderIdModel },
 } = require("@/models/chatModels/chatModels");
 
-const messageIdSuccessTests = (
-  { messageIdMain, messageIdTest } = {},
+const senderIdSuccessTests = (
+  { participantIdMain, participantIdTest } = {},
   { stringEquality = true, modelCheck = true } = {
     stringEquality: true,
     modelCheck: true,
   }
 ) => {
   testBuilder
-    .setVariables(messageIdModel, messageIdMain, messageIdTest)
+    .setVariables(senderIdModel, participantIdMain, participantIdTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
     .execute();
 };
 
-const messageIdFailureTests = () => {};
-
-module.exports = {
-  messageIdSuccessTests,
-  messageIdFailureTests,
-};
+module.exports = { senderIdSuccessTests };

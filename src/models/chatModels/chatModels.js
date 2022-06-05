@@ -15,6 +15,7 @@ const {
 
 const {
   chatErrors: {
+    MESSAGE_TEXT_EMPTY,
     MESSAGE_TEXT_INVALID_TYPE,
     MESSAGE_TEXT_MAX_LENGTH_REACH,
     MESSAGE_TEXT_MIN_LENGTH_REACH,
@@ -24,7 +25,12 @@ const {
     PARTICIPANT_ID_MAX_LENGTH_REACH,
     PARTICIPANT_ID_MIN_LENGTH_REACH,
     PARTICIPANT_ID_REQUIRED,
-    MESSAGE_TEXT_EMPTY,
+    SENDER_EMPTY,
+    SENDER_ID_EXIST,
+    SENDER_ID_INVALID_TYPE,
+    SENDER_ID_MAX_LENGTH_REACH,
+    SENDER_ID_MIN_LENGTH_REACH,
+    SENDER_ID_REQUIRED,
   },
 } = require("@/variables/errors/chatErrors");
 
@@ -74,6 +80,33 @@ const participantIdModel = {
   version: "1.0.0",
 };
 
+const senderIdModel = {
+  maxlength: modelPropertyGenerator(
+    privateIdCommonModel.maxlength.value,
+    SENDER_ID_MAX_LENGTH_REACH
+  ),
+  minlength: modelPropertyGenerator(
+    privateIdCommonModel.minlength.value,
+    SENDER_ID_MIN_LENGTH_REACH
+  ),
+  required: modelPropertyGenerator(
+    privateIdCommonModel.required.value,
+    SENDER_ID_REQUIRED
+  ),
+  trim: modelPropertyGenerator(privateIdCommonModel.trim.value),
+  type: modelPropertyGenerator(
+    privateIdCommonModel.type.value,
+    SENDER_ID_INVALID_TYPE
+  ),
+  unique: modelPropertyGenerator(
+    privateIdCommonModel.unique.value,
+    SENDER_ID_EXIST
+  ),
+  empty: modelPropertyGenerator(privateIdCommonModel.empty.value, SENDER_EMPTY),
+
+  version: "1.0.0",
+};
+
 // const participantStatusModel = modelGenerator("1.0.0");
 
 // const participantVisibilityModel = modelGenerator("1.0.0");
@@ -81,13 +114,14 @@ const participantIdModel = {
 const models = {
   chatIdModel,
   createdAtModel,
-  messageModel,
   messageIdModel,
+  messageModel,
   // messageSenderModel,
   // messageStatusModel,
   participantIdModel,
   // participantStatusModel,
   // participantVisibilityModel,
+  senderIdModel,
 };
 
 const chatModels = {

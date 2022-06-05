@@ -11,6 +11,9 @@ const {
   },
 } = require("@/variables/routes/privateChatRoutes");
 
+const { messageIdSuccessTests } = require("$/api/generalTests/messageIdTests");
+const { senderIdSuccessTests } = require("$/api/generalTests/senderIdTests");
+
 describer.addInitialDescribe(privateChatRouteBaseUrl, getMessagesRoute, "0");
 
 const message = "Hello! Im messages!";
@@ -44,8 +47,22 @@ describe("get messages success tests", () => {
 
     const { chatId } = chats.at(-1);
 
-    const response = await customRequest.sendRequest({ chatId });
+    const {
+      body: { messages },
+    } = await customRequest.sendRequest({ chatId });
 
-    logger.log("rm", response.body);
+    const {
+      messageId,
+      messageSender: { senderId },
+    } = messages.at(-1);
+
+    messageIdSuccessTests(
+      { messageIdTest: messageId },
+      { stringEquality: false }
+    );
+    senderIdSuccessTests(
+      { participantIdTest: senderId },
+      { stringEquality: false }
+    );
   });
 });

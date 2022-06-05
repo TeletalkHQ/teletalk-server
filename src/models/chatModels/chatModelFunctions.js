@@ -39,11 +39,21 @@ const getChatsLastMessages = async (currentUser) => {
   }
 };
 
-const getPrivateChat = async (currentUser, chatId) => {
+const getPrivateChat = async (
+  currentUser,
+  chatId,
+  projections = { "messages._id": 0 },
+  options = { lean: true }
+) => {
   const chatExist = currentUser.chats.find((chat) => chat.chatId === chatId);
   errorThrower(!chatExist, () => getErrorObject(CHAT_NOT_EXIST));
 
-  const chat = await PrivateChatMongoModel.findOne({ chatId });
+  const chat = await PrivateChatMongoModel.findOne(
+    { chatId },
+    projections,
+    options
+  );
+
   errorThrower(!chat, () => getErrorObject(CHAT_NOT_EXIST));
 
   return chat;
@@ -88,9 +98,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
     await currentUser.updateOne({ chats: { chatId } });
     await targetUser.updateOne({ chats: { chatId } });
   } else if (chat) {
-    logger.log("rm", "chat.messages", chat.messages);
     chat.messages.push(newMessage);
-    logger.log("rm", "chat.messages new", chat.messages);
 
     await chat.updateOne({ chatId }, { messages: chat.messages });
   }

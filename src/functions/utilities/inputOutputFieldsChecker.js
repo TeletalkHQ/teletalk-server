@@ -78,66 +78,86 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
 
 //CLEANME //!checkOutputFields
 const checkOutputFields = (output, fields, fieldsIndex = 0) => {
-  const selectedFields = fields[fieldsIndex];
-  let result = { done: true, internalError: false, errorObject: {} };
-  const fn = (internalError = false, errorObject = {}) => {
-    result.done = false;
-    result.internalError = internalError;
-    result.errorObject = errorObject;
+  try {
+    const selectedFields = fields[fieldsIndex];
+    let result = { done: true, internalError: false, errorObject: {} };
+    const fn = (internalError = false, errorObject = {}) => {
+      result.done = false;
+      result.internalError = internalError;
+      result.errorObject = errorObject;
+
+      return result;
+    };
+
+    if (customTypeof(selectedFields).type.undefined) {
+      return fn(true);
+    }
+
+    const checkFields = (output, fields) => {
+      const outputLength = getObjectLength(output);
+      const fieldsLength = getObjectLength(fields);
+
+      // logger.log("rm", Object.keys(output));
+      // logger.log("rm", Object.keys(fields));
+
+      if (outputLength !== fieldsLength) {
+        if (outputLength < fieldsLength) {
+          return fn(true, OUTPUT_FIELDS_MISSING);
+        } else {
+          // logger.log(
+          //   "rm",
+          //   "output:",
+          //   output,
+          //   "\nfields:",
+          //   fields,
+
+          //   "outputLength:",
+          //   outputLength,
+          //   "fieldsLength:",
+          //   fieldsLength
+          // );
+          return fn(true, OUTPUT_FIELDS_OVERLOAD);
+        }
+      }
+
+      for (const key in fields) {
+        if (customTypeof(output[key]).type.undefined) {
+          fn(true, OUTPUT_FIELDS_MISSING);
+          break;
+        }
+
+        if (customTypeof(fields[key]).type.object) {
+          if (!customTypeof(output[key]).type.object) {
+            fn(true, OUTPUT_FIELDS_MISSING);
+            break;
+          }
+
+          result = checkFields(output[key], fields[key]);
+        }
+
+        if (customTypeof(fields[key]).type.array) {
+          if (!customTypeof(output[key]).type.array) {
+            fn(true, OUTPUT_FIELDS_MISSING);
+            break;
+          }
+
+          // eslint-disable-next-line no-loop-func
+          output[key].forEach((item) => {
+            result = checkFields(item, fields[key][0]);
+          });
+        }
+      }
+
+      return result;
+    };
+
+    checkFields(output, selectedFields);
 
     return result;
-  };
-
-  if (customTypeof(selectedFields).type.undefined) {
-    return fn(true);
+  } catch (error) {
+    logger.log("checkOutputFields catch, error:", error);
+    throw error;
   }
-
-  const checkFields = (output, fields) => {
-    const outputLength = getObjectLength(output);
-    const fieldsLength = getObjectLength(fields);
-
-    if (outputLength !== fieldsLength) {
-      if (outputLength < fieldsLength) {
-        return fn(false, OUTPUT_FIELDS_MISSING);
-      } else {
-        return fn(false, OUTPUT_FIELDS_OVERLOAD);
-      }
-    }
-
-    for (const key in fields) {
-      if (customTypeof(output[key]).type.undefined) {
-        fn(OUTPUT_FIELDS_MISSING);
-        break;
-      }
-
-      if (customTypeof(fields[key]).type.object) {
-        if (!customTypeof(output[key]).type.object) {
-          fn(OUTPUT_FIELDS_MISSING);
-          break;
-        }
-
-        result = checkFields(output[key], fields[key]);
-      }
-
-      if (customTypeof(fields[key]).type.array) {
-        if (!customTypeof(output[key]).type.array) {
-          fn(false, OUTPUT_FIELDS_MISSING);
-          break;
-        }
-
-        // eslint-disable-next-line no-loop-func
-        output[key].forEach((item) => {
-          result = checkFields(item, fields[key][0]);
-        });
-      }
-    }
-
-    return result;
-  };
-
-  checkFields(output, selectedFields);
-
-  return result;
 };
 
 module.exports = { checkInputFields, checkOutputFields };

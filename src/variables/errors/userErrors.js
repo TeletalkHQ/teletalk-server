@@ -381,6 +381,16 @@ const CREATED_AT_INVALID_TYPE = errorBuilder
   .errorKey(CREATED_AT_VALIDATION)
   .build();
 
+const CREATED_AT_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4043)
+  .statusCode(400)
+  .message("")
+  .errorReason("CREATED_AT_REQUIRED")
+  .version("1.0.0")
+  .errorKey(CREATED_AT_VALIDATION)
+  .build();
+
 const FIRST_NAME_INVALID_TYPE = errorBuilder
   .create()
   .errorCode(4044)
@@ -944,6 +954,7 @@ const errors = {
   COUNTRY_NAME_REQUIRED,
   COUNTRY_NOT_SUPPORTED,
   CREATED_AT_INVALID_TYPE,
+  CREATED_AT_REQUIRED,
   FIRST_NAME_EMPTY,
   FIRST_NAME_INVALID_TYPE,
   FIRST_NAME_MAXLENGTH_REACH,

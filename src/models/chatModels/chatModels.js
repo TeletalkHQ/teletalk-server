@@ -1,4 +1,4 @@
-const { modelPropertyGenerator } = require("@/functions/utilities/generators");
+const { modelBuilder } = require("@/functions/helpers/Builder");
 const {
   extractVersions,
   versionCalculator,
@@ -42,70 +42,44 @@ const messageIdModel = messageIdCommonModel;
 
 // const messageStatusModel = modelGenerator("1.0.0");
 
-const messageModel = {
-  maxlength: modelPropertyGenerator(20, MESSAGE_TEXT_MAX_LENGTH_REACH),
-  minlength: modelPropertyGenerator(1, MESSAGE_TEXT_MIN_LENGTH_REACH),
-  type: modelPropertyGenerator("string", MESSAGE_TEXT_INVALID_TYPE),
-  empty: modelPropertyGenerator(false, MESSAGE_TEXT_EMPTY),
-  version: "1.0.0",
-};
+const messageModel = modelBuilder
+  .create()
+  .empty(false, MESSAGE_TEXT_EMPTY)
+  .maxlength(20, MESSAGE_TEXT_MAX_LENGTH_REACH)
+  .minlength(1, MESSAGE_TEXT_MIN_LENGTH_REACH)
+  .type("string", MESSAGE_TEXT_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const participantIdModel = {
-  maxlength: modelPropertyGenerator(
+const participantIdModel = modelBuilder
+  .create()
+  .empty(privateIdCommonModel.empty.value, PARTICIPANT_EMPTY)
+  .maxlength(
     privateIdCommonModel.maxlength.value,
     PARTICIPANT_ID_MAX_LENGTH_REACH
-  ),
-  minlength: modelPropertyGenerator(
+  )
+  .minlength(
     privateIdCommonModel.minlength.value,
     PARTICIPANT_ID_MIN_LENGTH_REACH
-  ),
-  required: modelPropertyGenerator(
-    privateIdCommonModel.required.value,
-    PARTICIPANT_ID_REQUIRED
-  ),
-  trim: modelPropertyGenerator(privateIdCommonModel.trim.value),
-  type: modelPropertyGenerator(
-    privateIdCommonModel.type.value,
-    PARTICIPANT_ID_INVALID_TYPE
-  ),
-  unique: modelPropertyGenerator(
-    privateIdCommonModel.unique.value,
-    PARTICIPANT_ID_EXIST
-  ),
-  empty: modelPropertyGenerator(
-    privateIdCommonModel.empty.value,
-    PARTICIPANT_EMPTY
-  ),
+  )
+  .required(privateIdCommonModel.required.value, PARTICIPANT_ID_REQUIRED)
+  .trim(privateIdCommonModel.trim.value)
+  .type(privateIdCommonModel.type.value, PARTICIPANT_ID_INVALID_TYPE)
+  .unique(privateIdCommonModel.unique.value, PARTICIPANT_ID_EXIST)
+  .version("1.0.0")
+  .build();
 
-  version: "1.0.0",
-};
-
-const senderIdModel = {
-  maxlength: modelPropertyGenerator(
-    privateIdCommonModel.maxlength.value,
-    SENDER_ID_MAX_LENGTH_REACH
-  ),
-  minlength: modelPropertyGenerator(
-    privateIdCommonModel.minlength.value,
-    SENDER_ID_MIN_LENGTH_REACH
-  ),
-  required: modelPropertyGenerator(
-    privateIdCommonModel.required.value,
-    SENDER_ID_REQUIRED
-  ),
-  trim: modelPropertyGenerator(privateIdCommonModel.trim.value),
-  type: modelPropertyGenerator(
-    privateIdCommonModel.type.value,
-    SENDER_ID_INVALID_TYPE
-  ),
-  unique: modelPropertyGenerator(
-    privateIdCommonModel.unique.value,
-    SENDER_ID_EXIST
-  ),
-  empty: modelPropertyGenerator(privateIdCommonModel.empty.value, SENDER_EMPTY),
-
-  version: "1.0.0",
-};
+const senderIdModel = modelBuilder
+  .create()
+  .maxlength(privateIdCommonModel.maxlength.value, SENDER_ID_MAX_LENGTH_REACH)
+  .minlength(privateIdCommonModel.minlength.value, SENDER_ID_MIN_LENGTH_REACH)
+  .required(privateIdCommonModel.required.value, SENDER_ID_REQUIRED)
+  .trim(privateIdCommonModel.trim.value)
+  .type(privateIdCommonModel.type.value, SENDER_ID_INVALID_TYPE)
+  .unique(privateIdCommonModel.unique.value, SENDER_ID_EXIST)
+  .empty(privateIdCommonModel.empty.value, SENDER_EMPTY)
+  .version("1.0.0")
+  .build();
 
 // const participantStatusModel = modelGenerator("1.0.0");
 

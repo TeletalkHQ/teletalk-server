@@ -1,4 +1,4 @@
-const { modelPropertyGenerator } = require("@/functions/utilities/generators");
+const { modelBuilder } = require("@/functions/helpers/Builder");
 const {
   versionCalculator,
 
@@ -66,130 +66,144 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-const bioModel = {
-  defaultValue: modelPropertyGenerator(""),
-  empty: modelPropertyGenerator(false, BIO_EMPTY),
-  maxlength: modelPropertyGenerator(255, BIO_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(2, BIO_MINLENGTH_REACH),
-  required: modelPropertyGenerator(false),
-  type: modelPropertyGenerator("string", BIO_INVALID_TYPE),
-  version: "1.0.0",
-};
+const bioModel = modelBuilder
+  .create()
+  .defaultValue("")
+  .empty(false, BIO_EMPTY)
+  .maxlength(255, BIO_MAXLENGTH_REACH)
+  .minlength(2, BIO_MINLENGTH_REACH)
+  .required(false)
+  .type("string", BIO_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const blacklistModel = {
-  defaultValue: modelPropertyGenerator([]),
-  type: modelPropertyGenerator("array", BLACKLIST_INVALID_TYPE),
-  version: "1.0.0",
-};
+const blacklistModel = modelBuilder
+  .create()
+  .defaultValue([])
+  .type("array", BLACKLIST_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const contactsModel = {
-  defaultValue: modelPropertyGenerator([]),
-  maxlength: modelPropertyGenerator(14),
-  minlength: modelPropertyGenerator(10),
-  required: modelPropertyGenerator(false),
-  type: modelPropertyGenerator("array", CONTACT_INVALID_TYPE),
-  version: "1.0.0",
-};
+const contactsModel = modelBuilder
+  .create()
+  .defaultValue([])
+  .maxlength(14)
+  .minlength(10)
+  .required(false)
+  .type("array", CONTACT_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const countryCodeModel = {
-  empty: modelPropertyGenerator(false, COUNTRY_CODE_EMPTY),
-  maxlength: modelPropertyGenerator(8, COUNTRY_CODE_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(2, COUNTRY_CODE_MINLENGTH_REACH), //FIXME Fix me! i should be '1'!
-  numeric: modelPropertyGenerator(true, COUNTRY_CODE_NUMERIC),
-  required: modelPropertyGenerator(true, COUNTRY_CODE_REQUIRED),
-  trim: modelPropertyGenerator(true),
-  type: modelPropertyGenerator("string", COUNTRY_CODE_INVALID_TYPE),
-  version: "1.0.0",
-};
+const countryCodeModel = modelBuilder
+  .create()
+  .empty(false, COUNTRY_CODE_EMPTY)
+  .maxlength(8, COUNTRY_CODE_MAXLENGTH_REACH)
+  .minlength(2, COUNTRY_CODE_MINLENGTH_REACH)
+  //FIXME Fix me! i should be '1'!
+  .numeric(true, COUNTRY_CODE_NUMERIC)
+  .required(true, COUNTRY_CODE_REQUIRED)
+  .trim(true)
+  .type("string", COUNTRY_CODE_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const countryNameModel = {
-  empty: modelPropertyGenerator(false, COUNTRY_NAME_EMPTY),
-  maxlength: modelPropertyGenerator(40, COUNTRY_NAME_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(2, COUNTRY_NAME_MINLENGTH_REACH),
-  required: modelPropertyGenerator(true, COUNTRY_NAME_REQUIRED),
-  type: modelPropertyGenerator("string", COUNTRY_NAME_INVALID_TYPE),
-  version: "1.0.0",
-};
+const countryNameModel = modelBuilder
+  .create()
+  .empty(false, COUNTRY_NAME_EMPTY)
+  .maxlength(40, COUNTRY_NAME_MAXLENGTH_REACH)
+  .minlength(2, COUNTRY_NAME_MINLENGTH_REACH)
+  .required(true, COUNTRY_NAME_REQUIRED)
+  .type("string", COUNTRY_NAME_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const chatsModel = {
-  type: modelPropertyGenerator("array", CHATS_INVALID_TYPE),
-  version: "1.0.0",
-};
+const chatsModel = modelBuilder
+  .create()
+  .type("array", CHATS_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
 const createdAtModel = createdAtCommonModel;
 const privateIdModel = privateIdCommonModel;
 
-const firstNameModel = {
-  empty: modelPropertyGenerator(false, FIRST_NAME_EMPTY),
-  maxlength: modelPropertyGenerator(18, FIRST_NAME_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(2, FIRST_NAME_MINLENGTH_REACH),
-  required: modelPropertyGenerator(true, FIRST_NAME_REQUIRED),
-  trim: modelPropertyGenerator(false),
-  type: modelPropertyGenerator("string", FIRST_NAME_INVALID_TYPE),
-  version: "1.0.0",
-};
+const firstNameModel = modelBuilder
+  .create()
+  .empty(false, FIRST_NAME_EMPTY)
+  .maxlength(18, FIRST_NAME_MAXLENGTH_REACH)
+  .minlength(2, FIRST_NAME_MINLENGTH_REACH)
+  .required(true, FIRST_NAME_REQUIRED)
+  .trim(false)
+  .type("string", FIRST_NAME_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const lastNameModel = {
-  defaultValue: modelPropertyGenerator(""),
-  empty: modelPropertyGenerator(false, LAST_NAME_EMPTY),
-  maxlength: modelPropertyGenerator(18, LAST_NAME_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(2, LAST_NAME_MINLENGTH_REACH),
-  required: modelPropertyGenerator(false, {}),
-  trim: modelPropertyGenerator(false),
-  type: modelPropertyGenerator("string", LAST_NAME_INVALID_TYPE),
-  version: "1.0.0",
-};
+const lastNameModel = modelBuilder
+  .create()
+  .defaultValue("")
+  .empty(false, LAST_NAME_EMPTY)
+  .maxlength(18, LAST_NAME_MAXLENGTH_REACH)
+  .minlength(2, LAST_NAME_MINLENGTH_REACH)
+  .required(false, {})
+  .trim(false)
+  .type("string", LAST_NAME_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const macAddressModel = {
-  empty: modelPropertyGenerator(false, MAC_ADDRESS_EMPTY),
-  maxlength: modelPropertyGenerator(16, MAC_ADDRESS_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(12, MAC_ADDRESS_MINLENGTH_REACH),
-  required: modelPropertyGenerator(true, MAC_ADDRESS_REQUIRED),
-  trim: modelPropertyGenerator(true),
-  type: modelPropertyGenerator("string", MAC_ADDRESS_INVALID_TYPE),
-  unique: modelPropertyGenerator(true, MAC_ADDRESS_EXIST),
-  version: "1.0.0",
-};
+const macAddressModel = modelBuilder
+  .create()
+  .empty(false, MAC_ADDRESS_EMPTY)
+  .maxlength(16, MAC_ADDRESS_MAXLENGTH_REACH)
+  .minlength(12, MAC_ADDRESS_MINLENGTH_REACH)
+  .required(true, MAC_ADDRESS_REQUIRED)
+  .trim(true)
+  .type("string", MAC_ADDRESS_INVALID_TYPE)
+  .unique(true, MAC_ADDRESS_EXIST)
+  .version("1.0.0")
+  .build();
 
-const phoneNumberModel = {
-  empty: modelPropertyGenerator(false, PHONE_NUMBER_EMPTY),
-  maxlength: modelPropertyGenerator(14, PHONE_NUMBER_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(10, PHONE_NUMBER_MINLENGTH_REACH),
-  numeric: modelPropertyGenerator(true, PHONE_NUMBER_NUMERIC),
-  required: modelPropertyGenerator(true, PHONE_NUMBER_REQUIRED),
-  type: modelPropertyGenerator("string", PHONE_NUMBER_INVALID_TYPE),
-  unique: modelPropertyGenerator(true, PHONE_NUMBER_EXIST),
-  version: "1.0.0",
-};
+const phoneNumberModel = modelBuilder
+  .create()
+  .empty(false, PHONE_NUMBER_EMPTY)
+  .maxlength(14, PHONE_NUMBER_MAXLENGTH_REACH)
+  .minlength(10, PHONE_NUMBER_MINLENGTH_REACH)
+  .numeric(true, PHONE_NUMBER_NUMERIC)
+  .required(true, PHONE_NUMBER_REQUIRED)
+  .type("string", PHONE_NUMBER_INVALID_TYPE)
+  .unique(true, PHONE_NUMBER_EXIST)
+  .version("1.0.0")
+  .build();
 
-const tokenModel = {
-  required: modelPropertyGenerator(true, TOKEN_REQUIRED),
-  type: modelPropertyGenerator("string", TOKEN_INVALID_TYPE),
-  unique: modelPropertyGenerator(true, TOKEN_EXIST),
-  version: "1.0.0",
-};
+const tokenModel = modelBuilder
+  .create()
+  .required(true, TOKEN_REQUIRED)
+  .type("string", TOKEN_INVALID_TYPE)
+  .unique(true, TOKEN_EXIST)
+  .version("1.0.0")
+  .build();
 
-const usernameModel = {
-  defaultValue: modelPropertyGenerator(""),
-  empty: modelPropertyGenerator(false, USERNAME_EMPTY),
-  lowercase: modelPropertyGenerator(true),
-  maxlength: modelPropertyGenerator(12, USERNAME_MAXLENGTH_REACH),
-  minlength: modelPropertyGenerator(4, USERNAME_MINLENGTH_REACH),
-  required: modelPropertyGenerator(false),
-  trim: modelPropertyGenerator(true),
-  type: modelPropertyGenerator("string", USERNAME_INVALID_TYPE),
-  unique: modelPropertyGenerator(false, USERNAME_EXIST),
-  version: "1.0.0",
-};
+const usernameModel = modelBuilder
+  .create()
+  .defaultValue("")
+  .empty(false, USERNAME_EMPTY)
+  .lowercase(true)
+  .maxlength(12, USERNAME_MAXLENGTH_REACH)
+  .minlength(4, USERNAME_MINLENGTH_REACH)
+  .required(false)
+  .trim(true)
+  .type("string", USERNAME_INVALID_TYPE)
+  .unique(false, USERNAME_EXIST)
+  .version("1.0.0")
+  .build();
 
-const verificationCodeModel = {
-  empty: modelPropertyGenerator(false, VERIFICATION_CODE_EMPTY),
-  length: modelPropertyGenerator(6, VERIFICATION_CODE_INVALID_LENGTH),
-  numeric: modelPropertyGenerator(true, VERIFICATION_CODE_NUMERIC),
-  trim: modelPropertyGenerator(true),
-  type: modelPropertyGenerator("string", VERIFICATION_CODE_INVALID_TYPE),
-  version: "1.0.0",
-};
+const verificationCodeModel = modelBuilder
+  .create()
+  .empty(false, VERIFICATION_CODE_EMPTY)
+  .length(6, VERIFICATION_CODE_INVALID_LENGTH)
+  .numeric(true, VERIFICATION_CODE_NUMERIC)
+  .trim(true)
+  .type("string", VERIFICATION_CODE_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
 const models = {
   bioModel,

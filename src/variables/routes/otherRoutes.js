@@ -1,26 +1,32 @@
-const { routeGenerator } = require("@/functions/utilities/generators");
+const { routeBuilder } = require("@/functions/helpers/Builder");
 const {
   versionCalculator,
   extractVersions,
 } = require("@/functions/utilities/utils");
 
-const otherRouteBaseUrl = routeGenerator(true, "/other", true, "1.0.0");
+const otherRouteBaseUrl = routeBuilder
+  .create()
+  .url("/other")
+  .version("1.0.0")
+  .build();
 
-const countriesRoute = routeGenerator(
-  "get",
-  "/countries",
-  200,
-  "1.0.0",
-  "Use for get countries for normal account"
-);
+const countriesRoute = routeBuilder
+  .create()
+  .method("get")
+  .url("/countries")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for get countries for normal account")
+  .build();
 
-const welcomeRoute = routeGenerator(
-  "get",
-  "/welcomeMessage",
-  200,
-  "1.0.0",
-  "Use to get welcome message for client"
-);
+const welcomeRoute = routeBuilder
+  .create()
+  .method("get")
+  .url("/welcomeMessage")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use to get welcome message for client")
+  .build();
 
 const routes = { otherRouteBaseUrl, countriesRoute, welcomeRoute };
 

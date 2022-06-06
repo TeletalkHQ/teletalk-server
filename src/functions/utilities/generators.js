@@ -27,10 +27,10 @@ const errorGenerator = (
 
     return {
       errorCode,
-      statusCode,
+      errorKey,
       message,
       reason: errorReason,
-      errorKey,
+      statusCode,
       version,
     };
   } catch (error) {

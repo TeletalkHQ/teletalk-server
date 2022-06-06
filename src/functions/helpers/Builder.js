@@ -66,14 +66,78 @@ class RouteBuilder {
   }
 }
 
+class ErrorBuilder {
+  constructor() {
+    this.defaultErrorObject = {
+      description: "Default route description",
+      message: "",
+      reason: "UNKNOWN_ERROR",
+      statusCode: 400,
+      version: "1.0.0",
+      errorKey: "",
+    };
+    this.errorObject = { ...this.defaultErrorObject };
+  }
+
+  create() {
+    this.errorObject = {};
+
+    return this;
+  }
+
+  errorCode(errorCode) {
+    this.errorObject.description = errorCode;
+
+    return this;
+  }
+
+  statusCode(statusCode) {
+    this.errorObject.statusCode = statusCode;
+
+    return this;
+  }
+
+  message(message) {
+    this.errorObject.message = message;
+
+    return this;
+  }
+
+  errorReason(errorReason) {
+    this.errorObject.reason = errorReason;
+
+    return this;
+  }
+
+  version(version) {
+    this.errorObject.version = version;
+
+    return this;
+  }
+
+  errorKey(errorKey) {
+    this.errorObject.errorKey = errorKey;
+
+    return this;
+  }
+
+  build() {
+    return this.errorObject;
+  }
+}
+
 class Builder {}
 
 const builder = new Builder();
 const routeBuilder = new RouteBuilder();
 
+const errorBuilder = new ErrorBuilder();
+
 module.exports = {
   builder,
   Builder,
+  errorBuilder,
+  ErrorBuilder,
   routeBuilder,
   RouteBuilder,
 };

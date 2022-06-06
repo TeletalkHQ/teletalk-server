@@ -4,7 +4,11 @@ const { describer } = require("@/functions/helpers/Describer");
 const {
   privateChatRoutes: { privateChatRouteBaseUrl, getAllChatsRoute },
 } = require("@/variables/routes/privateChatRoutes");
-const { chatsSuccessTests } = require("../generalTests/chatsTests");
+
+const {
+  authenticationFailureTests,
+} = require("$/api/generalTests/authenticationTests");
+const { chatsSuccessTests } = require("$/api/generalTests/chatsTests");
 
 describer.addInitialDescribe(privateChatRouteBaseUrl, getAllChatsRoute, "0");
 
@@ -16,4 +20,8 @@ describe("getAllChats success tests", () => {
 
     chatsSuccessTests({ chatsTest: chats });
   });
+});
+
+describe("getAllChatsApi failure tests", () => {
+  authenticationFailureTests();
 });

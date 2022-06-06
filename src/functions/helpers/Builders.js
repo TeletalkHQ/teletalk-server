@@ -1,4 +1,5 @@
-const { modelPropertyGenerator } = require("../utilities/generators");
+const { modelPropertyGenerator } = require("@/functions/utilities/generators");
+const { objectClarify } = require("@/functions/utilities/objectClarify");
 
 class RouteBuilder {
   constructor() {
@@ -235,12 +236,147 @@ class ModelBuilder {
   }
 }
 
+class ValidationModelBuilder {
+  constructor() {
+    this.validationModelObject = this.setDefaultValidationModelObject();
+    this.modelObject = {};
+  }
+  create() {
+    this.validationModelObject = this.setDefaultValidationModelObject();
+
+    return this;
+  }
+
+  build() {
+    return objectClarify(this.validationModelObject);
+  }
+
+  setModelObject(modelObject) {
+    this.modelObject = modelObject;
+
+    return this;
+  }
+
+  empty() {
+    this.validationModelObject.empty = this.modelObject.empty.value;
+
+    this.validationModelObject.messages.stringEmpty =
+      this.modelObject.empty.error.message;
+
+    return this;
+  }
+
+  length() {
+    this.validationModelObject.length = this.modelObject.length.value;
+
+    this.validationModelObject.messages.length =
+      this.modelObject.length.error.message;
+
+    return this;
+  }
+
+  max() {
+    this.validationModelObject.max = this.modelObject.maxlength.value;
+
+    this.validationModelObject.messages.stringMax =
+      this.modelObject.maxlength.error.message;
+
+    return this;
+  }
+
+  min() {
+    this.validationModelObject.min = this.modelObject.minlength.value;
+
+    this.validationModelObject.messages.stringMin =
+      this.modelObject.minlength.error.message;
+
+    return this;
+  }
+
+  numeric() {
+    this.validationModelObject.numeric = this.modelObject.numeric.value;
+
+    this.validationModelObject.messages.stringNumeric =
+      this.modelObject.numeric.error.message;
+
+    return this;
+  }
+
+  trim() {
+    this.validationModelObject.trim = this.modelObject.trim.value;
+
+    return this;
+  }
+
+  type() {
+    this.validationModelObject.type = this.modelObject.type.value;
+
+    this.validationModelObject.messages.string =
+      this.modelObject.type.error.message;
+
+    return this;
+  }
+
+  unique() {
+    this.validationModelObject.unique = this.modelObject.unique.value;
+
+    this.validationModelObject.messages.unique =
+      this.modelObject.unique.error.message;
+
+    return this;
+  }
+
+  required() {
+    this.validationModelObject.required = this.modelObject.required.value;
+
+    this.validationModelObject.messages.required =
+      this.modelObject.required.error.message;
+
+    return this;
+  }
+
+  optional() {
+    this.validationModelObject.optional = !this.modelObject.required.value;
+
+    return this;
+  }
+
+  lowercase() {
+    this.validationModelObject.lowercase = !this.modelObject.lowercase.value;
+
+    return this;
+  }
+
+  setDefaultValidationModelObject() {
+    return {
+      empty: undefined,
+      max: undefined,
+      min: undefined,
+      optional: undefined,
+      trim: undefined,
+      type: undefined,
+      unique: undefined,
+      numeric: undefined,
+      required: undefined,
+      messages: {
+        required: undefined,
+        string: undefined,
+        stringEmpty: undefined,
+        stringMax: undefined,
+        stringMin: undefined,
+        stringNumeric: undefined,
+      },
+    };
+  }
+}
+
 class Builder {}
 
 const builder = new Builder();
 const routeBuilder = new RouteBuilder();
 const errorBuilder = new ErrorBuilder();
 const modelBuilder = new ModelBuilder();
+const validationModelBuilder = new ValidationModelBuilder();
 
 module.exports = {
   builder,
@@ -251,4 +387,6 @@ module.exports = {
   ModelBuilder,
   routeBuilder,
   RouteBuilder,
+  validationModelBuilder,
+  ValidationModelBuilder,
 };

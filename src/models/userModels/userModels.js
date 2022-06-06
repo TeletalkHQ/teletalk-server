@@ -1,4 +1,4 @@
-const { modelBuilder } = require("@/functions/helpers/Builder");
+const { modelBuilder } = require("@/functions/helpers/Builders");
 const {
   versionCalculator,
 

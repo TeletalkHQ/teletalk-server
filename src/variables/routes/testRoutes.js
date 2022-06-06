@@ -1,12 +1,18 @@
-const { routeGenerator } = require("@/functions/utilities/generators");
+const { routeBuilder } = require("@/functions/helpers/Builder");
 const {
   versionCalculator,
   extractVersions,
 } = require("@/functions/utilities/utils");
 
-const testBaseUrl = routeGenerator(true, "/test", true, "1.0.0");
+const testBaseUrl = routeBuilder.create().url("/test").version("1.0.0").build();
 
-const getAllUsersRoute = routeGenerator("get", "getAllUsers", 200, "1.0.0");
+const getAllUsersRoute = routeBuilder
+  .create()
+  .method("get")
+  .url("getAllUsers")
+  .statusCode(200)
+  .version("1.0.0")
+  .build();
 
 const routes = {
   testBaseUrl,

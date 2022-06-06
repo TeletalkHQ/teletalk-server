@@ -1,4 +1,4 @@
-const { routeGenerator } = require("@/functions/utilities/generators");
+const { routeBuilder } = require("@/functions/helpers/Builder");
 const {
   versionCalculator,
   extractVersions,
@@ -20,22 +20,27 @@ const {
   },
 } = require("@/variables/constants/initialValues/initialValue");
 
-const cellphoneRouteBaseUrl = routeGenerator(true, "/cellphone", true, "1.0.0");
+const cellphoneRouteBaseUrl = routeBuilder
+  .create()
+  .url("/cellphone")
+  .version("1.0.0")
+  .build();
 
-const addBlockRoute = routeGenerator(
-  "post",
-  "/addBlock",
-  200,
-  "1.0.0",
-  "Use for block single contact on user contacts list",
-  [
+const addBlockRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/addBlock")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for block single contact on user contacts list")
+  .inputFields([
     {
       countryCode,
       countryName,
       phoneNumber,
     },
-  ],
-  [
+  ])
+  .outputFields([
     {
       [blockedCellphone]: {
         countryCode,
@@ -43,26 +48,28 @@ const addBlockRoute = routeGenerator(
         phoneNumber,
       },
     },
-  ]
-);
+  ])
+  .build();
 
-const addBlocksRoute = routeGenerator(
-  "post",
-  "/addBlocks",
-  200,
-  "1.0.0",
-  "Use for block single contact on user contacts list",
-  [{}],
-  [{}]
-);
+const addBlocksRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/addBlocks")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for block single contact on user contacts list")
+  .inputFields([{}])
+  .outputFields([{}])
+  .build();
 
-const addContactRoute = routeGenerator(
-  "post",
-  "/addContact",
-  200,
-  "1.0.0",
-  "Use for add single contact to current user contacts list",
-  [
+const addContactRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/addContact")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for add single contact to current user contacts list")
+  .inputFields([
     {
       countryCode,
       countryName,
@@ -70,8 +77,8 @@ const addContactRoute = routeGenerator(
       lastName,
       phoneNumber,
     },
-  ],
-  [
+  ])
+  .outputFields([
     {
       [addedContact]: {
         countryCode,
@@ -82,27 +89,29 @@ const addContactRoute = routeGenerator(
         privateId,
       },
     },
-  ]
-);
+  ])
+  .build();
 
-const addContactsRoute = routeGenerator(
-  "post",
-  "/addContacts",
-  200,
-  "1.0.0",
-  "Use for add single contact to current user contacts list",
-  [{}],
-  [{}]
-);
+const addContactsRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/addContacts")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for add single contact to current user contacts list")
+  .inputFields([{}])
+  .outputFields([{}])
+  .build();
 
-const editContactRoute = routeGenerator(
-  "patch",
-  "/editContact",
-  200,
-  "1.0.0",
-  "User for edit single contact on user contacts list",
-  [{ countryCode, countryName, firstName, lastName, phoneNumber }],
-  [
+const editContactRoute = routeBuilder
+  .create()
+  .method("patch")
+  .url("/editContact")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("User for edit single contact on user contacts list")
+  .inputFields([{ countryCode, countryName, firstName, lastName, phoneNumber }])
+  .outputFields([
     {
       [editedContact]: {
         countryCode,
@@ -112,33 +121,35 @@ const editContactRoute = routeGenerator(
         phoneNumber,
       },
     },
-  ]
-);
+  ])
+  .build();
 
-const getContactsRoute = routeGenerator(
-  "get",
-  "/getContacts",
-  200,
-  "1.0.0",
-  "User for edit single contact on user contacts list",
-  [{}],
-  [{}]
-);
+const getContactsRoute = routeBuilder
+  .create()
+  .method("get")
+  .url("/getContacts")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("User for edit single contact on user contacts list")
+  .inputFields([{}])
+  .outputFields([{}])
+  .build();
 
-const removeBlockRoute = routeGenerator(
-  "delete",
-  "/removeBlock",
-  200,
-  "1.0.0",
-  "Use for remove single contact on user contacts list",
-  [
+const removeBlockRoute = routeBuilder
+  .create()
+  .method("delete")
+  .url("/removeBlock")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for remove single contact on user contacts list")
+  .inputFields([
     {
       countryCode,
       countryName,
       phoneNumber,
     },
-  ],
-  [
+  ])
+  .outputFields([
     {
       [removedBlockedCellphone]: {
         countryCode,
@@ -146,62 +157,67 @@ const removeBlockRoute = routeGenerator(
         phoneNumber,
       },
     },
-  ]
-);
+  ])
+  .build();
 
-const removeBlocksRoute = routeGenerator(
-  "delete",
-  "/removeBlocks",
-  200,
-  "1.0.0",
-  "Use for remove single contact on user contacts list",
-  [{}],
-  [{}]
-);
+const removeBlocksRoute = routeBuilder
+  .create()
+  .method("delete")
+  .url("/removeBlocks")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for remove single contact on user contacts list")
+  .inputFields([{}])
+  .outputFields([{}])
+  .build();
 
-const removeContactRoute = routeGenerator(
-  "delete",
-  "/removeContact",
-  200,
-  "1.0.0",
-  "Use for remove single contact on user contacts list",
-  [{ countryCode, countryName, phoneNumber }],
-  [
+const removeContactRoute = routeBuilder
+  .create()
+  .method("delete")
+  .url("/removeContact")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for remove single contact on user contacts list")
+  .inputFields([{ countryCode, countryName, phoneNumber }])
+  .outputFields([
     {
       [removedContact]: { countryCode, countryName, phoneNumber },
     },
-  ]
-);
+  ])
+  .build();
 
-const removeContactsRoute = routeGenerator(
-  "delete",
-  "/removeContacts",
-  200,
-  "1.0.0",
-  "Use for remove single contact on user contacts list",
-  [{}],
-  [{}]
-);
+const removeContactsRoute = routeBuilder
+  .create()
+  .method("delete")
+  .url("/removeContacts")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for remove single contact on user contacts list")
+  .inputFields([{}])
+  .outputFields([{}])
+  .build();
 
-const shareContactRoute = routeGenerator(
-  "post",
-  "/shareContact",
-  200,
-  "1.0.0",
-  "Use for share single contact on user contacts list",
-  [{}],
-  [{}]
-);
+const shareContactRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/shareContact")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for share single contact on user contacts list")
+  .inputFields([{}])
+  .outputFields([{}])
+  .build();
 
-const shareContactsRoute = routeGenerator(
-  "post",
-  "/shareContacts",
-  200,
-  "1.0.0",
-  "Use for share single contact on user contacts list",
-  [{}],
-  [{}]
-);
+const shareContactsRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/shareContacts")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for share single contact on user contacts list")
+  .inputFields([{}])
+  .outputFields([{}])
+  .build();
 
 const routes = {
   addBlockRoute,

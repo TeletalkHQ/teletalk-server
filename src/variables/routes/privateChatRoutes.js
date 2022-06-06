@@ -1,4 +1,4 @@
-const { routeGenerator } = require("@/functions/utilities/generators");
+const { routeBuilder } = require("@/functions/helpers/Builder");
 const {
   versionCalculator,
   extractVersions,
@@ -17,24 +17,22 @@ const {
   },
 } = require("@/variables/constants/initialValues/initialValue");
 
-const privateChatRouteBaseUrl = routeGenerator(
-  true,
-  "/chat",
-  true,
-  "1.0.0",
-  "",
-  [{}],
-  [{}]
-);
+const privateChatRouteBaseUrl = routeBuilder
+  .create()
+  .url("/chat")
+  .version("1.0.0")
+  .description("privateChatRouteBaseUrl description")
+  .build();
 
-const getAllChatsRoute = routeGenerator(
-  "get",
-  "/privateChat/getAllPrivateChats",
-  200,
-  "1.0.0",
-  "Use for Start new chat",
-  [{}],
-  [
+const getAllChatsRoute = routeBuilder
+  .create()
+  .method("get")
+  .url("/privateChat/getAllPrivateChats")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for Start new chat")
+  .inputFields([{}])
+  .outputFields([
     {
       [chats]: [
         {
@@ -42,27 +40,29 @@ const getAllChatsRoute = routeGenerator(
         },
       ],
     },
-  ]
-);
+  ])
+  .build();
 
-const chatsLastMessageRoute = routeGenerator(
-  "post",
-  "/privateChat/privateChatsLastMessages",
-  200,
-  "1.0.0",
-  "Use for Get chats last message",
-  [],
-  []
-);
+const chatsLastMessageRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/privateChat/privateChatsLastMessages")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for Get chats last message")
+  .inputFields([])
+  .outputFields([])
+  .build();
 
-const getMessagesRoute = routeGenerator(
-  "post",
-  "/privateChat/getPrivateMessages",
-  200,
-  "1.0.0",
-  "Use for get all messages",
-  [{ chatId }],
-  [
+const getMessagesRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/privateChat/getPrivateMessages")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for get all messages")
+  .inputFields([{ chatId }])
+  .outputFields([
     {
       [messages]: [
         {
@@ -74,39 +74,42 @@ const getMessagesRoute = routeGenerator(
         },
       ],
     },
-  ]
-);
+  ])
+  .build();
 
 //DEPRECATED startChatRoute
-const startChatRoute = routeGenerator(
-  "post",
-  "/privateChat/startNewPrivateChat",
-  200,
-  "1.0.0",
-  "Use for Start new chat",
-  [{}],
-  [{}]
-);
 
-const sendMessageRoute = routeGenerator(
-  "post",
-  "/privateChat/sendPrivateMessage",
-  200,
-  "1.0.0",
-  "Use for send private messages",
-  [
+const startChatRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/privateChat/startNewPrivateChat")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for Start new chat")
+  .inputFields([{}])
+  .outputFields([{}])
+  .build();
+
+const sendMessageRoute = routeBuilder
+  .create()
+  .method("post")
+  .url("/privateChat/sendPrivateMessage")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for send private messages")
+  .inputFields([
     {
       message,
       participantId,
     },
-  ],
-  [
+  ])
+  .outputFields([
     {
       chatId,
       newMessage,
     },
-  ]
-);
+  ])
+  .build();
 
 const routes = {
   privateChatRouteBaseUrl,

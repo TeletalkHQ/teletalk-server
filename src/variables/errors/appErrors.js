@@ -1,4 +1,4 @@
-const { errorBuilder } = require("@/functions/helpers/Builder");
+const { errorBuilder } = require("@/functions/helpers/Builders");
 const {
   versionCalculator,
   extractVersions,

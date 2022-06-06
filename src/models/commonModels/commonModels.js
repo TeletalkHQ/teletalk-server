@@ -31,7 +31,7 @@ const {
     PRIVATE_ID_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-const { modelBuilder } = require("@/functions/helpers/Builder");
+const { modelBuilder } = require("@/functions/helpers/Builders");
 
 const createdAtCommonModel = modelBuilder
   .create()

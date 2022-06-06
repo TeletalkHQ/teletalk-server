@@ -16,6 +16,9 @@ const {
   messageSuccessTests,
   messageFailureTests,
 } = require("$/api/generalTests/messageTests");
+const {
+  authenticationFailureTests,
+} = require("$/api/generalTests/authenticationTests");
 
 describer.addInitialDescribe(privateChatRouteBaseUrl, sendMessageRoute, "0");
 
@@ -64,6 +67,7 @@ describe("send message success tests", () => {
 });
 
 describe("send message failure tests", () => {
+  authenticationFailureTests();
   participantIdFailureTests({ message });
   messageFailureTests({ participantId: randomMaker.randomId() });
 });

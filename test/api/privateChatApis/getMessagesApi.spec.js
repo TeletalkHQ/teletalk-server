@@ -13,6 +13,9 @@ const {
 
 const { messageIdSuccessTests } = require("$/api/generalTests/messageIdTests");
 const { senderIdSuccessTests } = require("$/api/generalTests/senderIdTests");
+const {
+  authenticationFailureTests,
+} = require("$/api/generalTests/authenticationTests");
 
 describer.addInitialDescribe(privateChatRouteBaseUrl, getMessagesRoute, "0");
 
@@ -65,4 +68,9 @@ describe("get messages success tests", () => {
       { stringEquality: false }
     );
   });
+});
+
+describe("getMessagesApi failure tests", () => {
+  //TODO: chatId failure tests
+  authenticationFailureTests();
 });

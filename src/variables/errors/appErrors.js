@@ -1,98 +1,104 @@
-const { errorGenerator } = require("@/functions/utilities/generators");
+const { errorBuilder } = require("@/functions/helpers/Builder");
 const {
   versionCalculator,
   extractVersions,
 } = require("@/functions/utilities/utils");
 
-const APP_ERROR_KEYS = {
+const { INPUT_OUTPUT_FIELDS, INTERNAL_SERVER_ERROR, UNKNOWN_ERROR } = {
   INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",
   UNKNOWN_ERROR: "UNKNOWN_ERROR",
   INPUT_OUTPUT_FIELDS: "INPUT_OUTPUT_FIELDS",
 };
 
-const { INPUT_OUTPUT_FIELDS, INTERNAL_SERVER_ERROR, UNKNOWN_ERROR } =
-  APP_ERROR_KEYS;
+const NO_ROUTE_OBJECT = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(500)
+  .message("Internal server error")
+  .errorReason("NO_ROUTE_OBJECT")
+  .version("1.0.0")
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .build();
 
-const NO_ROUTE_OBJECT = errorGenerator(
-  5000,
-  500,
-  "Internal server error",
-  "NO_ROUTE_OBJECT",
-  "1.0.0",
-  INTERNAL_SERVER_ERROR
-);
+const NOT_FOUND = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(404)
+  .message("Internal server error")
+  .errorReason("NOT_FOUND")
+  .version("1.0.0")
+  .errorKey(UNKNOWN_ERROR)
+  .build();
 
-const NOT_FOUND = errorGenerator(
-  5000,
-  404,
-  "Internal server error",
-  "NOT_FOUND",
-  "1.0.0",
-  UNKNOWN_ERROR
-);
+const INPUT_FIELDS_MISSING = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(400)
+  .message("Internal server error")
+  .errorReason("INPUT_FIELDS_MISSING")
+  .version("1.0.0")
+  .errorKey(INPUT_OUTPUT_FIELDS)
+  .build();
 
-const INPUT_FIELDS_MISSING = errorGenerator(
-  5000,
-  400,
-  "Internal server error",
-  "INPUT_FIELDS_MISSING",
-  "1.0.0",
-  INPUT_OUTPUT_FIELDS
-);
+const INPUT_FIELDS_OVERLOAD = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(400)
+  .message("Internal server error")
+  .errorReason("INPUT_FIELDS_OVERLOAD")
+  .version("1.0.0")
+  .errorKey(INPUT_OUTPUT_FIELDS)
+  .build();
 
-const INPUT_FIELDS_OVERLOAD = errorGenerator(
-  5000,
-  400,
-  "Internal server error",
-  "INPUT_FIELDS_OVERLOAD",
-  "1.0.0",
-  INPUT_OUTPUT_FIELDS
-);
+const OUTPUT_FIELDS_MISSING = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(500)
+  .message("Internal server error")
+  .errorReason("OUTPUT_FIELDS_MISSING")
+  .version("1.0.0")
+  .errorKey(INPUT_OUTPUT_FIELDS)
+  .build();
 
-const OUTPUT_FIELDS_MISSING = errorGenerator(
-  5000,
-  500,
-  "Internal server error",
-  "OUTPUT_FIELDS_MISSING",
-  "1.0.0",
-  INPUT_OUTPUT_FIELDS
-);
+const OUTPUT_FIELDS_OVERLOAD = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(500)
+  .message("Internal server error")
+  .errorReason("OUTPUT_FIELDS_OVERLOAD")
+  .version("1.0.0")
+  .errorKey(INPUT_OUTPUT_FIELDS)
+  .build();
 
-const OUTPUT_FIELDS_OVERLOAD = errorGenerator(
-  5000,
-  500,
-  "Internal server error",
-  "OUTPUT_FIELDS_OVERLOAD",
-  "1.0.0",
-  INPUT_OUTPUT_FIELDS
-);
+const SEND_JSON_RESPONSE_IS_NOT_FUNCTION = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(500)
+  .message("sendJsonResponse is not a function")
+  .errorReason("SEND_JSON_RESPONSE_IS_NOT_FUNCTION")
+  .version("1.0.0")
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .build();
 
-const SEND_JSON_RESPONSE_IS_NOT_FUNCTION = errorGenerator(
-  5000,
-  500,
-  "sendJsonResponse is not a function",
-  "SEND_JSON_RESPONSE_IS_NOT_FUNCTION",
-  "1.0.0",
-  INTERNAL_SERVER_ERROR
-);
+const SEND_SMS_FAILED = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(500)
+  .message("send sms failed")
+  .errorReason("SEND_SMS_FAILED")
+  .version("1.0.0")
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .build();
 
-const SEND_SMS_FAILED = errorGenerator(
-  5000,
-  500,
-  "send sms failed",
-  "SEND_SMS_FAILED",
-  "1.0.0",
-  INTERNAL_SERVER_ERROR
-);
-
-const REQUEST_BODY_IS_UNDEFINED = errorGenerator(
-  5000,
-  500,
-  "sendJsonResponse is not a function",
-  "REQUEST_BODY_IS_UNDEFINED",
-  "1.0.0",
-  INTERNAL_SERVER_ERROR
-);
+const REQUEST_BODY_IS_UNDEFINED = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(500)
+  .message("sendJsonResponse is not a function")
+  .errorReason("REQUEST_BODY_IS_UNDEFINED")
+  .version("1.0.0")
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .build();
 
 const errors = {
   INPUT_FIELDS_MISSING,

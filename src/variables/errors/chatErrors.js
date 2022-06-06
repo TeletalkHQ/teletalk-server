@@ -1,3 +1,4 @@
+const { errorBuilder } = require("@/functions/helpers/Builder");
 const { errorGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
@@ -6,14 +7,22 @@ const {
 
 const {
   CHAT_ID_VALIDATION,
+  CHAT_VALIDATION,
   MESSAGE_TEXT_VALIDATION,
   PARTICIPANT_ID_VALIDATION,
   SENDER_ID_VALIDATION,
+  CREATED_AT_VALIDATION,
+  MESSAGE_ID_VALIDATION,
+  USER_VALIDATION,
 } = {
   CHAT_ID_VALIDATION: "CHAT_ID_VALIDATION",
+  CHAT_VALIDATION: "CHAT_VALIDATION",
+  CREATED_AT_VALIDATION: "CREATED_AT_VALIDATION",
+  MESSAGE_ID_VALIDATION: "MESSAGE_ID_VALIDATION",
   MESSAGE_TEXT_VALIDATION: "MESSAGE_TEXT_VALIDATION",
   PARTICIPANT_ID_VALIDATION: "PARTICIPANT_ID_VALIDATION",
   SENDER_ID_VALIDATION: "SENDER_ID_VALIDATION",
+  USER_VALIDATION: "USER_VALIDATION",
 };
 
 const CHAT_EXIST = errorGenerator(
@@ -21,273 +30,349 @@ const CHAT_EXIST = errorGenerator(
   400,
   "chat is already initialized",
   "CHAT_EXIST",
-  "1.0.0"
+  "1.0.0",
+  CHAT_VALIDATION
 );
 
-const CHAT_ID_EXIST = errorGenerator(4001, 400, "", "CHAT_ID_EXIST", "1.0.0");
+const CHAT_NOT_EXIST = errorBuilder
+  .create()
+  .errorCode(4006)
+  .statusCode(400)
+  .message("chat not exist, maybe deleted or something")
+  .errorReason("CHAT_NOT_EXIST")
+  .version("1.0.0")
+  .errorKey(CHAT_VALIDATION)
+  .build();
 
-const CHAT_ID_INVALID = errorGenerator(
-  4002,
-  400,
-  "",
-  "CHAT_ID_INVALID",
-  "1.0.0",
-  CHAT_ID_VALIDATION
-);
-const CHAT_ID_INVALID_TYPE = errorGenerator(
-  4002,
-  400,
-  "",
-  "CHAT_ID_INVALID_TYPE",
-  "1.0.0",
-  CHAT_ID_VALIDATION
-);
-const CHAT_ID_MAX_LENGTH_REACH = errorGenerator(
-  4003,
-  400,
-  "",
-  "CHAT_ID_MAX_LENGTH_REACH",
-  "1.0.0",
-  CHAT_ID_VALIDATION
-);
-const CHAT_ID_MIN_LENGTH_REACH = errorGenerator(
-  4004,
-  400,
-  "",
-  "CHAT_ID_MIN_LENGTH_REACH",
-  "1.0.0",
-  CHAT_ID_VALIDATION
-);
-const CHAT_ID_REQUIRED = errorGenerator(
-  4005,
-  400,
-  "",
-  "CHAT_ID_REQUIRED",
-  "1.0.0",
-  CHAT_ID_VALIDATION
-);
+const CHAT_ID_EXIST = errorBuilder
+  .create()
+  .errorCode(4001)
+  .statusCode(400)
+  .message("")
+  .errorReason("CHAT_ID_EXIST")
+  .version("1.0.0")
+  .errorKey(CHAT_ID_VALIDATION)
+  .build();
 
-const CHAT_NOT_EXIST = errorGenerator(
-  4006,
-  400,
-  "chat not exist, maybe deleted or something",
-  "CHAT_NOT_EXIST",
-  "1.0.0"
-);
+const CHAT_ID_INVALID = errorBuilder
+  .create()
+  .errorCode(4002)
+  .statusCode(400)
+  .message("")
+  .errorReason("CHAT_ID_INVALID")
+  .version("1.0.0")
+  .errorKey(CHAT_ID_VALIDATION)
+  .build();
 
-const CREATED_AT_INVALID_TYPE = errorGenerator(
-  4007,
-  400,
-  "",
-  "CREATED_AT_INVALID_TYPE",
-  "1.0.0"
-);
-const MESSAGE_ID_EXIST = errorGenerator(
-  4008,
-  400,
-  "",
-  "MESSAGE_ID_EXIST",
-  "1.0.0"
-);
-const MESSAGE_ID_INVALID_TYPE = errorGenerator(
-  4009,
-  400,
-  "",
-  "MESSAGE_ID_INVALID_TYPE",
-  "1.0.0"
-);
-const MESSAGE_ID_MAX_LENGTH_REACH = errorGenerator(
-  4010,
-  400,
-  "",
-  "MESSAGE_ID_MAX_LENGTH_REACH",
-  "1.0.0"
-);
-const MESSAGE_ID_MIN_LENGTH_REACH = errorGenerator(
-  4011,
-  400,
-  "",
-  "MESSAGE_ID_MIN_LENGTH_REACH",
-  "1.0.0"
-);
-const MESSAGE_ID_REQUIRED = errorGenerator(
-  4012,
-  400,
-  "",
-  "MESSAGE_ID_REQUIRED",
-  "1.0.0"
-);
+const CHAT_ID_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4002)
+  .statusCode(400)
+  .message("")
+  .errorReason("CHAT_ID_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(CHAT_ID_VALIDATION)
+  .build();
 
-const MESSAGE_TEXT_INVALID_TYPE = errorGenerator(
-  4013,
-  400,
-  "",
-  "MESSAGE_TEXT_INVALID_TYPE",
-  "1.0.0",
-  MESSAGE_TEXT_VALIDATION
-);
-const MESSAGE_TEXT_EMPTY = errorGenerator(
-  4013,
-  400,
-  "",
-  "MESSAGE_TEXT_EMPTY",
-  "1.0.0",
-  MESSAGE_TEXT_VALIDATION
-);
-const MESSAGE_TEXT_INVALID = errorGenerator(
-  4013,
-  400,
-  "",
-  "MESSAGE_TEXT_INVALID",
-  "1.0.0",
-  MESSAGE_TEXT_VALIDATION
-);
-const MESSAGE_TEXT_MAX_LENGTH_REACH = errorGenerator(
-  4014,
-  400,
-  "",
-  "MESSAGE_TEXT_MAX_LENGTH_REACH",
-  "1.0.0",
-  MESSAGE_TEXT_VALIDATION
-);
-const MESSAGE_TEXT_MIN_LENGTH_REACH = errorGenerator(
-  4015,
-  400,
-  "",
-  "MESSAGE_TEXT_MIN_LENGTH_REACH",
-  "1.0.0",
-  MESSAGE_TEXT_VALIDATION
-);
-const MESSAGE_TEXT_REQUIRED = errorGenerator(
-  4000,
-  400,
-  "message text is required",
-  "MESSAGE_TEXT_REQUIRED",
-  "1.0.0",
-  MESSAGE_TEXT_VALIDATION
-);
+const CHAT_ID_MAX_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4003)
+  .statusCode(400)
+  .message("")
+  .errorReason("CHAT_ID_MAX_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(CHAT_ID_VALIDATION)
+  .build();
 
-const PARTICIPANT_ID_EXIST = errorGenerator(
-  4016,
-  400,
-  "",
-  "PARTICIPANT_ID_EXIST",
-  "1.0.0",
-  PARTICIPANT_ID_VALIDATION
-);
-const PARTICIPANT_ID_INVALID = errorGenerator(
-  4017,
-  400,
-  "",
-  "PARTICIPANT_ID_INVALID",
-  "1.0.0",
-  PARTICIPANT_ID_VALIDATION
-);
-const PARTICIPANT_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "PARTICIPANT_EMPTY",
-  "1.0.0",
-  PARTICIPANT_ID_VALIDATION
-);
-const PARTICIPANT_ID_INVALID_TYPE = errorGenerator(
-  4017,
-  400,
-  "",
-  "PARTICIPANT_ID_INVALID_TYPE",
-  "1.0.0",
-  PARTICIPANT_ID_VALIDATION
-);
-const PARTICIPANT_ID_MAX_LENGTH_REACH = errorGenerator(
-  4018,
-  400,
-  "",
-  "PARTICIPANT_ID_MAX_LENGTH_REACH",
-  "1.0.0",
-  PARTICIPANT_ID_VALIDATION
-);
-const PARTICIPANT_ID_MIN_LENGTH_REACH = errorGenerator(
-  4019,
-  400,
-  "",
-  "PARTICIPANT_ID_MIN_LENGTH_REACH",
-  "1.0.0",
-  PARTICIPANT_ID_VALIDATION
-);
-const PARTICIPANT_ID_REQUIRED = errorGenerator(
-  4020,
-  400,
-  "",
-  "PARTICIPANT_ID_REQUIRED",
-  "1.0.0",
-  PARTICIPANT_ID_VALIDATION
-);
+const CHAT_ID_MIN_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4004)
+  .statusCode(400)
+  .message("")
+  .errorReason("CHAT_ID_MIN_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(CHAT_ID_VALIDATION)
+  .build();
 
-const PARTICIPANT_NOT_EXIST = errorGenerator(
-  4021,
-  400,
-  "",
-  "PARTICIPANT_NOT_EXIST",
-  "1.0.0",
-  PARTICIPANT_ID_VALIDATION
-);
-const SENDER_EMPTY = errorGenerator(
-  4021,
-  400,
-  "",
-  "SENDER_EMPTY",
-  "1.0.0",
-  SENDER_ID_VALIDATION
-);
-const SENDER_ID_EXIST = errorGenerator(
-  4021,
-  400,
-  "",
-  "SENDER_ID_EXIST",
-  "1.0.0",
-  SENDER_ID_VALIDATION
-);
-const SENDER_ID_INVALID_TYPE = errorGenerator(
-  4021,
-  400,
-  "",
-  "SENDER_ID_INVALID_TYPE",
-  "1.0.0",
-  SENDER_ID_VALIDATION
-);
-const SENDER_ID_MAX_LENGTH_REACH = errorGenerator(
-  4021,
-  400,
-  "",
-  "SENDER_ID_MAX_LENGTH_REACH",
-  "1.0.0",
-  SENDER_ID_VALIDATION
-);
-const SENDER_ID_MIN_LENGTH_REACH = errorGenerator(
-  4021,
-  400,
-  "",
-  "SENDER_ID_MIN_LENGTH_REACH",
-  "1.0.0",
-  SENDER_ID_VALIDATION
-);
-const SENDER_ID_REQUIRED = errorGenerator(
-  4021,
-  400,
-  "",
-  "SENDER_ID_REQUIRED",
-  "1.0.0",
-  SENDER_ID_VALIDATION
-);
+const CHAT_ID_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4005)
+  .statusCode(400)
+  .message("")
+  .errorReason("CHAT_ID_REQUIRED")
+  .version("1.0.0")
+  .errorKey(CHAT_ID_VALIDATION)
+  .build();
 
-const USER_NO_LONGER_PARTICIPANT = errorGenerator(
-  4022,
-  400,
-  "",
-  "USER_NO_LONGER_PARTICIPANT",
-  "1.0.0"
-);
+const CREATED_AT_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4007)
+  .statusCode(400)
+  .message("")
+  .errorReason("CREATED_AT_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(CREATED_AT_VALIDATION)
+  .build();
+
+const MESSAGE_ID_EXIST = errorBuilder
+  .create()
+  .errorCode(4008)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_ID_EXIST")
+  .version("1.0.0")
+  .errorKey(MESSAGE_ID_VALIDATION)
+  .build();
+
+const MESSAGE_ID_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4009)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_ID_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(MESSAGE_ID_VALIDATION)
+  .build();
+
+const MESSAGE_ID_MAX_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4010)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_ID_MAX_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(MESSAGE_ID_VALIDATION)
+  .build();
+
+const MESSAGE_ID_MIN_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4011)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_ID_MIN_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(MESSAGE_ID_VALIDATION)
+  .build();
+
+const MESSAGE_ID_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4012)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_ID_REQUIRED")
+  .version("1.0.0")
+  .errorKey(MESSAGE_ID_VALIDATION)
+  .build();
+
+const MESSAGE_TEXT_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4013)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_TEXT_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(MESSAGE_TEXT_VALIDATION)
+  .build();
+
+const MESSAGE_TEXT_EMPTY = errorBuilder
+  .create()
+  .errorCode(4013)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_TEXT_EMPTY")
+  .version("1.0.0")
+  .errorKey(MESSAGE_TEXT_VALIDATION)
+  .build();
+
+const MESSAGE_TEXT_INVALID = errorBuilder
+  .create()
+  .errorCode(4013)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_TEXT_INVALID")
+  .version("1.0.0")
+  .errorKey(MESSAGE_TEXT_VALIDATION)
+  .build();
+
+const MESSAGE_TEXT_MAX_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4014)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_TEXT_MAX_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(MESSAGE_TEXT_VALIDATION)
+  .build();
+
+const MESSAGE_TEXT_MIN_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4015)
+  .statusCode(400)
+  .message("")
+  .errorReason("MESSAGE_TEXT_MIN_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(MESSAGE_TEXT_VALIDATION)
+  .build();
+
+const MESSAGE_TEXT_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4000)
+  .statusCode(400)
+  .message("message text is required")
+  .errorReason("MESSAGE_TEXT_REQUIRED")
+  .version("1.0.0")
+  .errorKey(MESSAGE_TEXT_VALIDATION)
+  .build();
+
+const PARTICIPANT_ID_EXIST = errorBuilder
+  .create()
+  .errorCode(4016)
+  .statusCode(400)
+  .message("")
+  .errorReason("PARTICIPANT_ID_EXIST")
+  .version("1.0.0")
+  .errorKey(PARTICIPANT_ID_VALIDATION)
+  .build();
+
+const PARTICIPANT_ID_INVALID = errorBuilder
+  .create()
+  .errorCode(4017)
+  .statusCode(400)
+  .message("")
+  .errorReason("PARTICIPANT_ID_INVALID")
+  .version("1.0.0")
+  .errorKey(PARTICIPANT_ID_VALIDATION)
+  .build();
+
+const PARTICIPANT_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("PARTICIPANT_EMPTY")
+  .version("1.0.0")
+  .errorKey(PARTICIPANT_ID_VALIDATION)
+  .build();
+
+const PARTICIPANT_ID_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4017)
+  .statusCode(400)
+  .message("")
+  .errorReason("PARTICIPANT_ID_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(PARTICIPANT_ID_VALIDATION)
+  .build();
+
+const PARTICIPANT_ID_MAX_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4018)
+  .statusCode(400)
+  .message("")
+  .errorReason("PARTICIPANT_ID_MAX_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(PARTICIPANT_ID_VALIDATION)
+  .build();
+
+const PARTICIPANT_ID_MIN_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4019)
+  .statusCode(400)
+  .message("")
+  .errorReason("PARTICIPANT_ID_MIN_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(PARTICIPANT_ID_VALIDATION)
+  .build();
+
+const PARTICIPANT_ID_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4020)
+  .statusCode(400)
+  .message("")
+  .errorReason("PARTICIPANT_ID_REQUIRED")
+  .version("1.0.0")
+  .errorKey(PARTICIPANT_ID_VALIDATION)
+  .build();
+
+const PARTICIPANT_NOT_EXIST = errorBuilder
+  .create()
+  .errorCode(4021)
+  .statusCode(400)
+  .message("")
+  .errorReason("PARTICIPANT_NOT_EXIST")
+  .version("1.0.0")
+  .errorKey(PARTICIPANT_ID_VALIDATION)
+  .build();
+
+const SENDER_EMPTY = errorBuilder
+  .create()
+  .errorCode(4021)
+  .statusCode(400)
+  .message("")
+  .errorReason("SENDER_EMPTY")
+  .version("1.0.0")
+  .errorKey(SENDER_ID_VALIDATION)
+  .build();
+
+const SENDER_ID_EXIST = errorBuilder
+  .create()
+  .errorCode(4021)
+  .statusCode(400)
+  .message("")
+  .errorReason("SENDER_ID_EXIST")
+  .version("1.0.0")
+  .errorKey(SENDER_ID_VALIDATION)
+  .build();
+
+const SENDER_ID_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4021)
+  .statusCode(400)
+  .message("")
+  .errorReason("SENDER_ID_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(SENDER_ID_VALIDATION)
+  .build();
+
+const SENDER_ID_MAX_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4021)
+  .statusCode(400)
+  .message("")
+  .errorReason("SENDER_ID_MAX_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(SENDER_ID_VALIDATION)
+  .build();
+
+const SENDER_ID_MIN_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4021)
+  .statusCode(400)
+  .message("")
+  .errorReason("SENDER_ID_MIN_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(SENDER_ID_VALIDATION)
+  .build();
+
+const SENDER_ID_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4021)
+  .statusCode(400)
+  .message("")
+  .errorReason("SENDER_ID_REQUIRED")
+  .version("1.0.0")
+  .errorKey(SENDER_ID_VALIDATION)
+  .build();
+
+const USER_NO_LONGER_PARTICIPANT = errorBuilder
+  .create()
+  .errorCode(4022)
+  .statusCode(400)
+  .message("")
+  .errorReason("USER_NO_LONGER_PARTICIPANT")
+  .version("1.0.0")
+  .errorKey(USER_VALIDATION)
+  .build();
 
 const errors = {
   CHAT_EXIST,

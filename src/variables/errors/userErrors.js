@@ -1,4 +1,4 @@
-const { errorGenerator } = require("@/functions/utilities/generators");
+const { errorBuilder } = require("@/functions/helpers/Builder");
 const {
   versionCalculator,
   extractVersions,
@@ -51,715 +51,865 @@ const {
   VERIFICATION_CODE_VALIDATION: "VERIFICATION_CODE_VALIDATION",
 };
 
-const BIO_INVALID_TYPE = errorGenerator(
-  4024,
-  400,
-  "",
-  "BIO_INVALID_TYPE",
-  "1.0.0",
-  BIO_VALIDATION
-);
-const BIO_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "BIO_EMPTY",
-  "1.0.0",
-  BIO_VALIDATION
-);
-const BIO_MAXLENGTH_REACH = errorGenerator(
-  4025,
-  400,
-  "",
-  "BIO_MAXLENGTH_REACH",
-  "1.0.0",
-  BIO_VALIDATION
-);
-const BIO_MINLENGTH_REACH = errorGenerator(
-  4026,
-  400,
-  "",
-  "BIO_MINLENGTH_REACH",
-  "1.0.0",
-  BIO_VALIDATION
-);
+const BIO_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4024)
+  .statusCode(400)
+  .message("")
+  .errorReason("BIO_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(BIO_VALIDATION)
+  .build();
 
-const BLACKLIST_ITEM_EXIST = errorGenerator(
-  4000,
-  400,
-  "blacklist item is already exist",
-  "BLACKLIST_ITEM_EXIST",
-  "1.0.0",
-  BLACKLIST_VALIDATION
-);
-const BLACKLIST_INVALID_TYPE = errorGenerator(
-  4023,
-  400,
-  "",
-  "BLACKLIST_INVALID_TYPE",
-  "1.0.0",
-  BLACKLIST_VALIDATION
-);
-const BLACKLIST_ITEM_NOT_EXIST = errorGenerator(
-  4000,
-  400,
-  "blacklist item is not exist",
-  "BLACKLIST_ITEM_NOT_EXIST",
-  "1.0.0",
-  BLACKLIST_VALIDATION
-);
+const BIO_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("BIO_EMPTY")
+  .version("1.0.0")
+  .errorKey(BIO_VALIDATION)
+  .build();
 
-const CELLPHONE_EXIST = errorGenerator(
-  4027,
-  400,
-  "",
-  "CELLPHONE_EXIST",
-  "1.0.0",
-  CELLPHONE_VALIDATION
-);
-const CELLPHONE_INVALID = errorGenerator(
-  4028,
-  400,
-  "",
-  "CELLPHONE_INVALID",
-  "1.0.0",
-  CELLPHONE_VALIDATION
-);
-const CELLPHONE_NOT_EXIST = errorGenerator(
-  4031,
-  400,
-  "",
-  "CELLPHONE_NOT_EXIST",
-  "1.0.0",
-  CELLPHONE_VALIDATION
-);
-const CELLPHONE_REQUIRED = errorGenerator(
-  4032,
-  400,
-  "",
-  "CELLPHONE_REQUIRED",
-  "1.0.0",
-  CELLPHONE_VALIDATION
-);
-const CELLPHONE_EXIST_IN_CONTACT = errorGenerator(
-  4033,
-  400,
-  "",
-  "CELLPHONE_EXIST_IN_CONTACT",
-  "1.0.0",
-  CELLPHONE_VALIDATION
-);
+const BIO_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4025)
+  .statusCode(400)
+  .message("")
+  .errorReason("BIO_MAXLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(BIO_VALIDATION)
+  .build();
 
-const CHATS_INVALID_TYPE = errorGenerator(
-  4000,
-  400,
-  "",
-  "CHATS_INVALID_TYPE",
-  "1.0.0",
-  CHATS_VALIDATION
-);
+const BIO_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4026)
+  .statusCode(400)
+  .message("")
+  .errorReason("BIO_MINLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(BIO_VALIDATION)
+  .build();
 
-const CONTACT_INVALID_TYPE = errorGenerator(
-  4034,
-  400,
-  "",
-  "CONTACT_INVALID_TYPE",
-  "1.0.0",
-  CONTACT_VALIDATION
-);
-const CONTACT_ITEM_EXIST = errorGenerator(
-  4000,
-  400,
-  "Contact item is already exist",
-  "CONTACT_ITEM_EXIST",
-  "1.0.0",
-  CONTACT_VALIDATION
-);
-const CONTACT_ITEM_NOT_EXIST = errorGenerator(
-  4000,
-  400,
-  "Contact item is not exist",
-  "CONTACT_ITEM_NOT_EXIST",
-  "1.0.0",
-  CONTACT_VALIDATION
-);
+const BLACKLIST_ITEM_EXIST = errorBuilder
+  .create()
+  .errorCode(4000)
+  .statusCode(400)
+  .message("blacklist item is already exist")
+  .errorReason("BLACKLIST_ITEM_EXIST")
+  .version("1.0.0")
+  .errorKey(BLACKLIST_VALIDATION)
+  .build();
 
-const COUNTRY_CODE_INVALID_TYPE = errorGenerator(
-  4035,
-  400,
-  "",
-  "COUNTRY_CODE_INVALID_TYPE",
-  "1.0.0",
-  COUNTRY_CODE_VALIDATION
-);
-const COUNTRY_CODE_NUMERIC = errorGenerator(
-  4035,
-  400,
-  "",
-  "COUNTRY_CODE_NUMERIC",
-  "1.0.0",
-  COUNTRY_CODE_VALIDATION
-);
-const COUNTRY_CODE_INVALID = errorGenerator(
-  4035,
-  400,
-  "",
-  "COUNTRY_CODE_INVALID",
-  "1.0.0",
-  COUNTRY_CODE_VALIDATION
-);
-const COUNTRY_CODE_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "COUNTRY_CODE_EMPTY",
-  "1.0.0",
-  COUNTRY_CODE_VALIDATION
-);
-const COUNTRY_CODE_NOT_SUPPORTED = errorGenerator(
-  4035,
-  400,
-  "",
-  "COUNTRY_CODE_NOT_SUPPORTED",
-  "1.0.0",
-  COUNTRY_CODE_VALIDATION
-);
-const COUNTRY_CODE_MAXLENGTH_REACH = errorGenerator(
-  4036,
-  400,
-  "",
-  "COUNTRY_CODE_MAXLENGTH_REACH",
-  "1.0.0",
-  COUNTRY_CODE_VALIDATION
-);
-const COUNTRY_CODE_MINLENGTH_REACH = errorGenerator(
-  4037,
-  400,
-  "",
-  "COUNTRY_CODE_MINLENGTH_REACH",
-  "1.0.0",
-  COUNTRY_CODE_VALIDATION
-);
-const COUNTRY_CODE_REQUIRED = errorGenerator(
-  4038,
-  400,
-  "",
-  "COUNTRY_CODE_REQUIRED",
-  "1.0.0",
-  COUNTRY_CODE_VALIDATION
-);
+const BLACKLIST_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4023)
+  .statusCode(400)
+  .message("")
+  .errorReason("BLACKLIST_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(BLACKLIST_VALIDATION)
+  .build();
 
-const COUNTRY_NOT_SUPPORTED = errorGenerator(
-  4035,
-  400,
-  "",
-  "COUNTRY_NOT_SUPPORTED",
-  "1.0.0",
-  COUNTRY_NOT_SUPPORTED_VALIDATION
-);
+const BLACKLIST_ITEM_NOT_EXIST = errorBuilder
+  .create()
+  .errorCode(4000)
+  .statusCode(400)
+  .message("blacklist item is not exist")
+  .errorReason("BLACKLIST_ITEM_NOT_EXIST")
+  .version("1.0.0")
+  .errorKey(BLACKLIST_VALIDATION)
+  .build();
 
-const COUNTRY_NAME_NOT_SUPPORTED = errorGenerator(
-  4035,
-  400,
-  "",
-  "COUNTRY_NAME_NOT_SUPPORTED",
-  "1.0.0",
-  COUNTRY_NAME_VALIDATION
-);
-const COUNTRY_NAME_INVALID = errorGenerator(
-  4039,
-  400,
-  "",
-  "COUNTRY_NAME_INVALID",
-  "1.0.0",
-  COUNTRY_NAME_VALIDATION
-);
-const COUNTRY_NAME_INVALID_TYPE = errorGenerator(
-  4039,
-  400,
-  "",
-  "COUNTRY_NAME_INVALID_TYPE",
-  "1.0.0",
-  COUNTRY_NAME_VALIDATION
-);
-const COUNTRY_NAME_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "COUNTRY_NAME_EMPTY",
-  "1.0.0",
-  COUNTRY_NAME_VALIDATION
-);
-const COUNTRY_NAME_MAXLENGTH_REACH = errorGenerator(
-  4040,
-  400,
-  "",
-  "COUNTRY_NAME_MAXLENGTH_REACH",
-  "1.0.0",
-  COUNTRY_NAME_VALIDATION
-);
-const COUNTRY_NAME_MINLENGTH_REACH = errorGenerator(
-  4041,
-  400,
-  "",
-  "COUNTRY_NAME_MINLENGTH_REACH",
-  "1.0.0",
-  COUNTRY_NAME_VALIDATION
-);
-const COUNTRY_NAME_REQUIRED = errorGenerator(
-  4042,
-  400,
-  "",
-  "COUNTRY_NAME_REQUIRED",
-  "1.0.0",
-  COUNTRY_NAME_VALIDATION
-);
+const CELLPHONE_EXIST = errorBuilder
+  .create()
+  .errorCode(4027)
+  .statusCode(400)
+  .message("")
+  .errorReason("CELLPHONE_EXIST")
+  .version("1.0.0")
+  .errorKey(CELLPHONE_VALIDATION)
+  .build();
 
-const CREATED_AT_INVALID_TYPE = errorGenerator(
-  4043,
-  400,
-  "",
-  "CREATED_AT_INVALID_TYPE",
-  "1.0.0",
-  CREATED_AT_VALIDATION
-);
+const CELLPHONE_INVALID = errorBuilder
+  .create()
+  .errorCode(4028)
+  .statusCode(400)
+  .message("")
+  .errorReason("CELLPHONE_INVALID")
+  .version("1.0.0")
+  .errorKey(CELLPHONE_VALIDATION)
+  .build();
 
-const FIRST_NAME_INVALID_TYPE = errorGenerator(
-  4044,
-  400,
-  "",
-  "FIRST_NAME_INVALID_TYPE",
-  "1.0.0",
-  FIRST_NAME_VALIDATION
-);
-const FIRST_NAME_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "FIRST_NAME_EMPTY",
-  "1.0.0",
-  FIRST_NAME_VALIDATION
-);
-const FIRST_NAME_MAXLENGTH_REACH = errorGenerator(
-  4045,
-  400,
-  "",
-  "FIRST_NAME_MAXLENGTH_REACH",
-  "1.0.0",
-  FIRST_NAME_VALIDATION
-);
-const FIRST_NAME_MINLENGTH_REACH = errorGenerator(
-  4046,
-  400,
-  "",
-  "FIRST_NAME_MINLENGTH_REACH",
-  "1.0.0",
-  FIRST_NAME_VALIDATION
-);
-const FIRST_NAME_REQUIRED = errorGenerator(
-  4047,
-  400,
-  "",
-  "FIRST_NAME_REQUIRED",
-  "1.0.0",
-  FIRST_NAME_VALIDATION
-);
+const CELLPHONE_NOT_EXIST = errorBuilder
+  .create()
+  .errorCode(4031)
+  .statusCode(400)
+  .message("")
+  .errorReason("CELLPHONE_NOT_EXIST")
+  .version("1.0.0")
+  .errorKey(CELLPHONE_VALIDATION)
+  .build();
 
-const LAST_NAME_INVALID = errorGenerator(
-  4048,
-  400,
-  "",
-  "LAST_NAME_INVALID",
-  "1.0.0",
-  LAST_NAME_VALIDATION
-);
-const LAST_NAME_INVALID_TYPE = errorGenerator(
-  4048,
-  400,
-  "",
-  "LAST_NAME_INVALID_TYPE",
-  "1.0.0",
-  LAST_NAME_VALIDATION
-);
-const LAST_NAME_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "LAST_NAME_EMPTY",
-  "1.0.0",
-  LAST_NAME_VALIDATION
-);
-const LAST_NAME_MAXLENGTH_REACH = errorGenerator(
-  4049,
-  400,
-  "",
-  "LAST_NAME_MAXLENGTH_REACH",
-  "1.0.0",
-  LAST_NAME_VALIDATION
-);
-const LAST_NAME_MINLENGTH_REACH = errorGenerator(
-  4050,
-  400,
-  "",
-  "LAST_NAME_MINLENGTH_REACH",
-  "1.0.0",
-  LAST_NAME_VALIDATION
-);
+const CELLPHONE_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4032)
+  .statusCode(400)
+  .message("")
+  .errorReason("CELLPHONE_REQUIRED")
+  .version("1.0.0")
+  .errorKey(CELLPHONE_VALIDATION)
+  .build();
 
-const MAC_ADDRESS_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "MAC_ADDRESS_EMPTY",
-  "1.0.0",
-  MAC_ADDRESS_VALIDATION
-);
-const MAC_ADDRESS_EXIST = errorGenerator(
-  4051,
-  400,
-  "",
-  "MAC_ADDRESS_EXIST",
-  "1.0.0",
-  MAC_ADDRESS_VALIDATION
-);
-const MAC_ADDRESS_INVALID_TYPE = errorGenerator(
-  4052,
-  400,
-  "",
-  "MAC_ADDRESS_INVALID_TYPE",
-  "1.0.0",
-  MAC_ADDRESS_VALIDATION
-);
-const MAC_ADDRESS_MAXLENGTH_REACH = errorGenerator(
-  4053,
-  400,
-  "",
-  "MAC_ADDRESS_MAXLENGTH_REACH",
-  "1.0.0",
-  MAC_ADDRESS_VALIDATION
-);
-const MAC_ADDRESS_MINLENGTH_REACH = errorGenerator(
-  4054,
-  400,
-  "",
-  "MAC_ADDRESS_MINLENGTH_REACH",
-  "1.0.0",
-  MAC_ADDRESS_VALIDATION
-);
-const MAC_ADDRESS_REQUIRED = errorGenerator(
-  4055,
-  400,
-  "",
-  "MAC_ADDRESS_REQUIRED",
-  "1.0.0",
-  MAC_ADDRESS_VALIDATION
-);
+const CELLPHONE_EXIST_IN_CONTACT = errorBuilder
+  .create()
+  .errorCode(4033)
+  .statusCode(400)
+  .message("")
+  .errorReason("CELLPHONE_EXIST_IN_CONTACT")
+  .version("1.0.0")
+  .errorKey(CELLPHONE_VALIDATION)
+  .build();
 
-const FULL_NAME_INVALID = errorGenerator(
-  4056,
-  400,
-  "",
-  "FULL_NAME_INVALID",
-  "1.0.0",
-  FULL_NAME_VALIDATION
-);
+const CHATS_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4000)
+  .statusCode(400)
+  .message("")
+  .errorReason("CHATS_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(CHATS_VALIDATION)
+  .build();
 
-const PHONE_NUMBER_INVALID_TYPE = errorGenerator(
-  4056,
-  400,
-  "",
-  "PHONE_NUMBER_INVALID_TYPE",
-  "1.0.0",
-  PHONE_NUMBER_VALIDATION
-);
-const PHONE_NUMBER_INVALID = errorGenerator(
-  4000,
-  400,
-  "",
-  "PHONE_NUMBER_INVALID",
-  "1.0.0",
-  PHONE_NUMBER_VALIDATION
-);
-const PHONE_NUMBER_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "PHONE_NUMBER_EMPTY",
-  "1.0.0",
-  PHONE_NUMBER_VALIDATION
-);
-const PHONE_NUMBER_EXIST = errorGenerator(
-  4057,
-  400,
-  "",
-  "PHONE_NUMBER_EXIST",
-  "1.0.0",
-  PHONE_NUMBER_VALIDATION
-);
-const PHONE_NUMBER_REQUIRED = errorGenerator(
-  4058,
-  400,
-  "",
-  "PHONE_NUMBER_REQUIRED",
-  "1.0.0",
-  PHONE_NUMBER_VALIDATION
-);
-const PHONE_NUMBER_MINLENGTH_REACH = errorGenerator(
-  4059,
-  400,
-  "",
-  "PHONE_NUMBER_MINLENGTH_REACH",
-  "1.0.0",
-  PHONE_NUMBER_VALIDATION
-);
-const PHONE_NUMBER_MAXLENGTH_REACH = errorGenerator(
-  4060,
-  400,
-  "",
-  "PHONE_NUMBER_MAXLENGTH_REACH",
-  "1.0.0",
-  PHONE_NUMBER_VALIDATION
-);
-const PHONE_NUMBER_NUMERIC = errorGenerator(
-  4060,
-  400,
-  "",
-  "PHONE_NUMBER_NUMERIC",
-  "1.0.0",
-  PHONE_NUMBER_VALIDATION
-);
+const CONTACT_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4034)
+  .statusCode(400)
+  .message("")
+  .errorReason("CONTACT_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(CONTACT_VALIDATION)
+  .build();
 
-const PRIVATE_ID_EXIST = errorGenerator(
-  4061,
-  400,
-  "",
-  "PRIVATE_ID_EXIST",
-  "1.0.0",
-  PRIVATE_ID_VALIDATION
-);
-const PRIVATE_ID_INVALID_TYPE = errorGenerator(
-  4062,
-  400,
-  "",
-  "PRIVATE_ID_INVALID_TYPE",
-  "1.0.0",
-  PRIVATE_ID_VALIDATION
-);
-const PRIVATE_ID_INVALID = errorGenerator(
-  4065,
-  400,
-  "",
-  "PRIVATE_ID_INVALID",
-  "1.0.0",
-  PRIVATE_ID_VALIDATION
-);
-const PRIVATE_ID_MAX_LENGTH_REACH = errorGenerator(
-  4063,
-  400,
-  "",
-  "PRIVATE_ID_MAX_LENGTH_REACH",
-  "1.0.0",
-  PRIVATE_ID_VALIDATION
-);
-const PRIVATE_ID_MIN_LENGTH_REACH = errorGenerator(
-  4064,
-  400,
-  "",
-  "PRIVATE_ID_MIN_LENGTH_REACH",
-  "1.0.0",
-  PRIVATE_ID_VALIDATION
-);
-const PRIVATE_ID_REQUIRED = errorGenerator(
-  4065,
-  400,
-  "",
-  "PRIVATE_ID_REQUIRED",
-  "1.0.0",
-  PRIVATE_ID_VALIDATION
-);
-const PRIVATE_ID_EMPTY = errorGenerator(
-  4065,
-  400,
-  "",
-  "PRIVATE_ID_EMPTY",
-  "1.0.0",
-  PRIVATE_ID_VALIDATION
-);
+const CONTACT_ITEM_EXIST = errorBuilder
+  .create()
+  .errorCode(4000)
+  .statusCode(400)
+  .message("Contact item is already exist")
+  .errorReason("CONTACT_ITEM_EXIST")
+  .version("1.0.0")
+  .errorKey(CONTACT_VALIDATION)
+  .build();
 
-const SELF_STUFF = errorGenerator(
-  4066,
-  400,
-  "",
-  "SELF_STUFF",
-  "1.0.0",
-  SELF_STUFF_VALIDATION
-);
+const CONTACT_ITEM_NOT_EXIST = errorBuilder
+  .create()
+  .errorCode(4000)
+  .statusCode(400)
+  .message("Contact item is not exist")
+  .errorReason("CONTACT_ITEM_NOT_EXIST")
+  .version("1.0.0")
+  .errorKey(CONTACT_VALIDATION)
+  .build();
 
-const TARGET_USER_NOT_EXIST = errorGenerator(
-  4070,
-  400,
-  "target user not exist",
-  "TARGET_USER_NOT_EXIST",
-  "1.0.0",
-  TARGET_USER_VALIDATION
-);
+const COUNTRY_CODE_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4035)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_CODE_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(COUNTRY_CODE_VALIDATION)
+  .build();
 
-const TOKEN_EXIST = errorGenerator(
-  4067,
-  400,
-  "",
-  "TOKEN_EXIST",
-  "1.0.0",
-  TOKEN_VALIDATION
-);
-const TOKEN_REQUIRED = errorGenerator(
-  4068,
-  401,
-  "",
-  "TOKEN_REQUIRED",
-  "1.0.0",
-  TOKEN_VALIDATION
-);
-const TOKEN_INVALID = errorGenerator(
-  4069,
-  401,
-  "",
-  "TOKEN_INVALID",
-  "1.0.0",
-  TOKEN_VALIDATION
-);
-const TOKEN_CAN_NOT_VERIFIED = errorGenerator(
-  4069,
-  401,
-  "",
-  "TOKEN_CAN_NOT_VERIFIED",
-  "1.0.0",
-  TOKEN_VALIDATION
-);
-const TOKEN_INVALID_TYPE = errorGenerator(
-  4069,
-  401,
-  "",
-  "TOKEN_INVALID_TYPE",
-  "1.0.0",
-  TOKEN_VALIDATION
-);
+const COUNTRY_CODE_NUMERIC = errorBuilder
+  .create()
+  .errorCode(4035)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_CODE_NUMERIC")
+  .version("1.0.0")
+  .errorKey(COUNTRY_CODE_VALIDATION)
+  .build();
 
-const USER_NOT_EXIST = errorGenerator(
-  4070,
-  400,
-  "user not exist",
-  "USER_NOT_EXIST",
-  "1.0.0",
-  USER_VALIDATION
-);
+const COUNTRY_CODE_INVALID = errorBuilder
+  .create()
+  .errorCode(4035)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_CODE_INVALID")
+  .version("1.0.0")
+  .errorKey(COUNTRY_CODE_VALIDATION)
+  .build();
 
-const USERNAME_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "USERNAME_EMPTY",
-  "1.0.0",
-  USERNAME_VALIDATION
-);
-const USERNAME_EXIST = errorGenerator(
-  4071,
-  400,
-  "",
-  "USERNAME_EXIST",
-  "1.0.0",
-  USERNAME_VALIDATION
-);
-const USERNAME_INVALID_TYPE = errorGenerator(
-  4072,
-  400,
-  "",
-  "USERNAME_INVALID_TYPE",
-  "1.0.0",
-  USERNAME_VALIDATION
-);
-const USERNAME_INVALID = errorGenerator(
-  4072,
-  400,
-  "",
-  "USERNAME_INVALID",
-  "1.0.0",
-  USERNAME_VALIDATION
-);
-const USERNAME_REQUIRED = errorGenerator(
-  4072,
-  400,
-  "",
-  "USERNAME_REQUIRED",
-  "1.0.0",
-  USERNAME_VALIDATION
-);
-const USERNAME_MAXLENGTH_REACH = errorGenerator(
-  4073,
-  400,
-  "",
-  "USERNAME_MAXLENGTH_REACH",
-  "1.0.0",
-  USERNAME_VALIDATION
-);
-const USERNAME_MINLENGTH_REACH = errorGenerator(
-  4074,
-  400,
-  "",
-  "USERNAME_MINLENGTH_REACH",
-  "1.0.0",
-  USERNAME_VALIDATION
-);
+const COUNTRY_CODE_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_CODE_EMPTY")
+  .version("1.0.0")
+  .errorKey(COUNTRY_CODE_VALIDATION)
+  .build();
 
-const VERIFICATION_CODE_INVALID = errorGenerator(
-  4075,
-  400,
-  "Wrong verification code",
-  "VERIFICATION_CODE_INVALID",
-  "1.0.0",
-  VERIFICATION_CODE_VALIDATION
-);
-const VERIFICATION_CODE_REQUIRED = errorGenerator(
-  4075,
-  400,
-  "Wrong verification code",
-  "VERIFICATION_CODE_REQUIRED",
-  "1.0.0",
-  VERIFICATION_CODE_VALIDATION
-);
-const VERIFICATION_CODE_INVALID_TYPE = errorGenerator(
-  4076,
-  400,
-  "",
-  "VERIFICATION_CODE_INVALID_TYPE",
-  "1.0.0",
-  VERIFICATION_CODE_VALIDATION
-);
-const VERIFICATION_CODE_NUMERIC = errorGenerator(
-  4076,
-  400,
-  "",
-  "VERIFICATION_CODE_NUMERIC",
-  "1.0.0",
-  VERIFICATION_CODE_VALIDATION
-);
-const VERIFICATION_CODE_EMPTY = errorGenerator(
-  4076,
-  400,
-  "",
-  "VERIFICATION_CODE_EMPTY",
-  "1.0.0",
-  VERIFICATION_CODE_VALIDATION
-);
-const VERIFICATION_CODE_INVALID_LENGTH = errorGenerator(
-  4077,
-  400,
-  "",
-  "VERIFICATION_CODE_INVALID_LENGTH",
-  "1.0.0",
-  VERIFICATION_CODE_VALIDATION
-);
+const COUNTRY_CODE_NOT_SUPPORTED = errorBuilder
+  .create()
+  .errorCode(4035)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_CODE_NOT_SUPPORTED")
+  .version("1.0.0")
+  .errorKey(COUNTRY_CODE_VALIDATION)
+  .build();
 
+const COUNTRY_CODE_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4036)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_CODE_MAXLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(COUNTRY_CODE_VALIDATION)
+  .build();
+
+const COUNTRY_CODE_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4037)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_CODE_MINLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(COUNTRY_CODE_VALIDATION)
+  .build();
+
+const COUNTRY_CODE_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4038)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_CODE_REQUIRED")
+  .version("1.0.0")
+  .errorKey(COUNTRY_CODE_VALIDATION)
+  .build();
+
+const COUNTRY_NOT_SUPPORTED = errorBuilder
+  .create()
+  .errorCode(4035)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_NOT_SUPPORTED")
+  .version("1.0.0")
+  .errorKey(COUNTRY_NOT_SUPPORTED_VALIDATION)
+  .build();
+
+const COUNTRY_NAME_NOT_SUPPORTED = errorBuilder
+  .create()
+  .errorCode(4035)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_NAME_NOT_SUPPORTED")
+  .version("1.0.0")
+  .errorKey(COUNTRY_NAME_VALIDATION)
+  .build();
+
+const COUNTRY_NAME_INVALID = errorBuilder
+  .create()
+  .errorCode(4039)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_NAME_INVALID")
+  .version("1.0.0")
+  .errorKey(COUNTRY_NAME_VALIDATION)
+  .build();
+
+const COUNTRY_NAME_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4039)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_NAME_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(COUNTRY_NAME_VALIDATION)
+  .build();
+
+const COUNTRY_NAME_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_NAME_EMPTY")
+  .version("1.0.0")
+  .errorKey(COUNTRY_NAME_VALIDATION)
+  .build();
+
+const COUNTRY_NAME_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4040)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_NAME_MAXLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(COUNTRY_NAME_VALIDATION)
+  .build();
+
+const COUNTRY_NAME_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4041)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_NAME_MINLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(COUNTRY_NAME_VALIDATION)
+  .build();
+
+const COUNTRY_NAME_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4042)
+  .statusCode(400)
+  .message("")
+  .errorReason("COUNTRY_NAME_REQUIRED")
+  .version("1.0.0")
+  .errorKey(COUNTRY_NAME_VALIDATION)
+  .build();
+
+const CREATED_AT_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4043)
+  .statusCode(400)
+  .message("")
+  .errorReason("CREATED_AT_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(CREATED_AT_VALIDATION)
+  .build();
+
+const FIRST_NAME_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4044)
+  .statusCode(400)
+  .message("")
+  .errorReason("FIRST_NAME_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(FIRST_NAME_VALIDATION)
+  .build();
+
+const FIRST_NAME_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("FIRST_NAME_EMPTY")
+  .version("1.0.0")
+  .errorKey(FIRST_NAME_VALIDATION)
+  .build();
+
+const FIRST_NAME_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4045)
+  .statusCode(400)
+  .message("")
+  .errorReason("FIRST_NAME_MAXLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(FIRST_NAME_VALIDATION)
+  .build();
+
+const FIRST_NAME_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4046)
+  .statusCode(400)
+  .message("")
+  .errorReason("FIRST_NAME_MINLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(FIRST_NAME_VALIDATION)
+  .build();
+
+const FIRST_NAME_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4047)
+  .statusCode(400)
+  .message("")
+  .errorReason("FIRST_NAME_REQUIRED")
+  .version("1.0.0")
+  .errorKey(FIRST_NAME_VALIDATION)
+  .build();
+
+const LAST_NAME_INVALID = errorBuilder
+  .create()
+  .errorCode(4048)
+  .statusCode(400)
+  .message("")
+  .errorReason("LAST_NAME_INVALID")
+  .version("1.0.0")
+  .errorKey(LAST_NAME_VALIDATION)
+  .build();
+
+const LAST_NAME_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4048)
+  .statusCode(400)
+  .message("")
+  .errorReason("LAST_NAME_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(LAST_NAME_VALIDATION)
+  .build();
+
+const LAST_NAME_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("LAST_NAME_EMPTY")
+  .version("1.0.0")
+  .errorKey(LAST_NAME_VALIDATION)
+  .build();
+
+const LAST_NAME_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4049)
+  .statusCode(400)
+  .message("")
+  .errorReason("LAST_NAME_MAXLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(LAST_NAME_VALIDATION)
+  .build();
+
+const LAST_NAME_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4050)
+  .statusCode(400)
+  .message("")
+  .errorReason("LAST_NAME_MINLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(LAST_NAME_VALIDATION)
+  .build();
+
+const MAC_ADDRESS_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("MAC_ADDRESS_EMPTY")
+  .version("1.0.0")
+  .errorKey(MAC_ADDRESS_VALIDATION)
+  .build();
+
+const MAC_ADDRESS_EXIST = errorBuilder
+  .create()
+  .errorCode(4051)
+  .statusCode(400)
+  .message("")
+  .errorReason("MAC_ADDRESS_EXIST")
+  .version("1.0.0")
+  .errorKey(MAC_ADDRESS_VALIDATION)
+  .build();
+
+const MAC_ADDRESS_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4052)
+  .statusCode(400)
+  .message("")
+  .errorReason("MAC_ADDRESS_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(MAC_ADDRESS_VALIDATION)
+  .build();
+
+const MAC_ADDRESS_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4053)
+  .statusCode(400)
+  .message("")
+  .errorReason("MAC_ADDRESS_MAXLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(MAC_ADDRESS_VALIDATION)
+  .build();
+
+const MAC_ADDRESS_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4054)
+  .statusCode(400)
+  .message("")
+  .errorReason("MAC_ADDRESS_MINLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(MAC_ADDRESS_VALIDATION)
+  .build();
+
+const MAC_ADDRESS_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4055)
+  .statusCode(400)
+  .message("")
+  .errorReason("MAC_ADDRESS_REQUIRED")
+  .version("1.0.0")
+  .errorKey(MAC_ADDRESS_VALIDATION)
+  .build();
+
+const FULL_NAME_INVALID = errorBuilder
+  .create()
+  .errorCode(4056)
+  .statusCode(400)
+  .message("")
+  .errorReason("FULL_NAME_INVALID")
+  .version("1.0.0")
+  .errorKey(FULL_NAME_VALIDATION)
+  .build();
+
+const PHONE_NUMBER_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4056)
+  .statusCode(400)
+  .message("")
+  .errorReason("PHONE_NUMBER_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(PHONE_NUMBER_VALIDATION)
+  .build();
+
+const PHONE_NUMBER_INVALID = errorBuilder
+  .create()
+  .errorCode(4000)
+  .statusCode(400)
+  .message("")
+  .errorReason("PHONE_NUMBER_INVALID")
+  .version("1.0.0")
+  .errorKey(PHONE_NUMBER_VALIDATION)
+  .build();
+
+const PHONE_NUMBER_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("PHONE_NUMBER_EMPTY")
+  .version("1.0.0")
+  .errorKey(PHONE_NUMBER_VALIDATION)
+  .build();
+
+const PHONE_NUMBER_EXIST = errorBuilder
+  .create()
+  .errorCode(4057)
+  .statusCode(400)
+  .message("")
+  .errorReason("PHONE_NUMBER_EXIST")
+  .version("1.0.0")
+  .errorKey(PHONE_NUMBER_VALIDATION)
+  .build();
+
+const PHONE_NUMBER_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4058)
+  .statusCode(400)
+  .message("")
+  .errorReason("PHONE_NUMBER_REQUIRED")
+  .version("1.0.0")
+  .errorKey(PHONE_NUMBER_VALIDATION)
+  .build();
+
+const PHONE_NUMBER_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4059)
+  .statusCode(400)
+  .message("")
+  .errorReason("PHONE_NUMBER_MINLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(PHONE_NUMBER_VALIDATION)
+  .build();
+
+const PHONE_NUMBER_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4060)
+  .statusCode(400)
+  .message("")
+  .errorReason("PHONE_NUMBER_MAXLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(PHONE_NUMBER_VALIDATION)
+  .build();
+
+const PHONE_NUMBER_NUMERIC = errorBuilder
+  .create()
+  .errorCode(4060)
+  .statusCode(400)
+  .message("")
+  .errorReason("PHONE_NUMBER_NUMERIC")
+  .version("1.0.0")
+  .errorKey(PHONE_NUMBER_VALIDATION)
+  .build();
+
+const PRIVATE_ID_EXIST = errorBuilder
+  .create()
+  .errorCode(4061)
+  .statusCode(400)
+  .message("")
+  .errorReason("PRIVATE_ID_EXIST")
+  .version("1.0.0")
+  .errorKey(PRIVATE_ID_VALIDATION)
+  .build();
+
+const PRIVATE_ID_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4062)
+  .statusCode(400)
+  .message("")
+  .errorReason("PRIVATE_ID_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(PRIVATE_ID_VALIDATION)
+  .build();
+
+const PRIVATE_ID_INVALID = errorBuilder
+  .create()
+  .errorCode(4065)
+  .statusCode(400)
+  .message("")
+  .errorReason("PRIVATE_ID_INVALID")
+  .version("1.0.0")
+  .errorKey(PRIVATE_ID_VALIDATION)
+  .build();
+
+const PRIVATE_ID_MAX_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4063)
+  .statusCode(400)
+  .message("")
+  .errorReason("PRIVATE_ID_MAX_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(PRIVATE_ID_VALIDATION)
+  .build();
+
+const PRIVATE_ID_MIN_LENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4064)
+  .statusCode(400)
+  .message("")
+  .errorReason("PRIVATE_ID_MIN_LENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(PRIVATE_ID_VALIDATION)
+  .build();
+
+const PRIVATE_ID_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4065)
+  .statusCode(400)
+  .message("")
+  .errorReason("PRIVATE_ID_REQUIRED")
+  .version("1.0.0")
+  .errorKey(PRIVATE_ID_VALIDATION)
+  .build();
+
+const PRIVATE_ID_EMPTY = errorBuilder
+  .create()
+  .errorCode(4065)
+  .statusCode(400)
+  .message("")
+  .errorReason("PRIVATE_ID_EMPTY")
+  .version("1.0.0")
+  .errorKey(PRIVATE_ID_VALIDATION)
+  .build();
+
+const SELF_STUFF = errorBuilder
+  .create()
+  .errorCode(4066)
+  .statusCode(400)
+  .message("")
+  .errorReason("SELF_STUFF")
+  .version("1.0.0")
+  .errorKey(SELF_STUFF_VALIDATION)
+  .build();
+
+const TARGET_USER_NOT_EXIST = errorBuilder
+  .create()
+  .errorCode(4070)
+  .statusCode(400)
+  .message("target user not exist")
+  .errorReason("TARGET_USER_NOT_EXIST")
+  .version("1.0.0")
+  .errorKey(TARGET_USER_VALIDATION)
+  .build();
+
+const TOKEN_EXIST = errorBuilder
+  .create()
+  .errorCode(4067)
+  .statusCode(400)
+  .message("")
+  .errorReason("TOKEN_EXIST")
+  .version("1.0.0")
+  .errorKey(TOKEN_VALIDATION)
+  .build();
+
+const TOKEN_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4068)
+  .statusCode(401)
+  .message("")
+  .errorReason("TOKEN_REQUIRED")
+  .version("1.0.0")
+  .errorKey(TOKEN_VALIDATION)
+  .build();
+
+const TOKEN_INVALID = errorBuilder
+  .create()
+  .errorCode(4069)
+  .statusCode(401)
+  .message("")
+  .errorReason("TOKEN_INVALID")
+  .version("1.0.0")
+  .errorKey(TOKEN_VALIDATION)
+  .build();
+
+const TOKEN_CAN_NOT_VERIFIED = errorBuilder
+  .create()
+  .errorCode(4069)
+  .statusCode(401)
+  .message("")
+  .errorReason("TOKEN_CAN_NOT_VERIFIED")
+  .version("1.0.0")
+  .errorKey(TOKEN_VALIDATION)
+  .build();
+
+const TOKEN_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4069)
+  .statusCode(401)
+  .message("")
+  .errorReason("TOKEN_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(TOKEN_VALIDATION)
+  .build();
+
+const USER_NOT_EXIST = errorBuilder
+  .create()
+  .errorCode(4070)
+  .statusCode(400)
+  .message("user not exist")
+  .errorReason("USER_NOT_EXIST")
+  .version("1.0.0")
+  .errorKey(USER_VALIDATION)
+  .build();
+
+const USERNAME_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("USERNAME_EMPTY")
+  .version("1.0.0")
+  .errorKey(USERNAME_VALIDATION)
+  .build();
+
+const USERNAME_EXIST = errorBuilder
+  .create()
+  .errorCode(4071)
+  .statusCode(400)
+  .message("")
+  .errorReason("USERNAME_EXIST")
+  .version("1.0.0")
+  .errorKey(USERNAME_VALIDATION)
+  .build();
+
+const USERNAME_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4072)
+  .statusCode(400)
+  .message("")
+  .errorReason("USERNAME_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(USERNAME_VALIDATION)
+  .build();
+
+const USERNAME_INVALID = errorBuilder
+  .create()
+  .errorCode(4072)
+  .statusCode(400)
+  .message("")
+  .errorReason("USERNAME_INVALID")
+  .version("1.0.0")
+  .errorKey(USERNAME_VALIDATION)
+  .build();
+
+const USERNAME_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4072)
+  .statusCode(400)
+  .message("")
+  .errorReason("USERNAME_REQUIRED")
+  .version("1.0.0")
+  .errorKey(USERNAME_VALIDATION)
+  .build();
+
+const USERNAME_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4073)
+  .statusCode(400)
+  .message("")
+  .errorReason("USERNAME_MAXLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(USERNAME_VALIDATION)
+  .build();
+
+const USERNAME_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4074)
+  .statusCode(400)
+  .message("")
+  .errorReason("USERNAME_MINLENGTH_REACH")
+  .version("1.0.0")
+  .errorKey(USERNAME_VALIDATION)
+  .build();
+
+const VERIFICATION_CODE_INVALID = errorBuilder
+  .create()
+  .errorCode(4075)
+  .statusCode(400)
+  .message("Wrong verification code")
+  .errorReason("VERIFICATION_CODE_INVALID")
+  .version("1.0.0")
+  .errorKey(VERIFICATION_CODE_VALIDATION)
+  .build();
+
+const VERIFICATION_CODE_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4075)
+  .statusCode(400)
+  .message("Wrong verification code")
+  .errorReason("VERIFICATION_CODE_REQUIRED")
+  .version("1.0.0")
+  .errorKey(VERIFICATION_CODE_VALIDATION)
+  .build();
+
+const VERIFICATION_CODE_INVALID_TYPE = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("VERIFICATION_CODE_INVALID_TYPE")
+  .version("1.0.0")
+  .errorKey(VERIFICATION_CODE_VALIDATION)
+  .build();
+
+const VERIFICATION_CODE_NUMERIC = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("VERIFICATION_CODE_NUMERIC")
+  .version("1.0.0")
+  .errorKey(VERIFICATION_CODE_VALIDATION)
+  .build();
+
+const VERIFICATION_CODE_EMPTY = errorBuilder
+  .create()
+  .errorCode(4076)
+  .statusCode(400)
+  .message("")
+  .errorReason("VERIFICATION_CODE_EMPTY")
+  .version("1.0.0")
+  .errorKey(VERIFICATION_CODE_VALIDATION)
+  .build();
+
+const VERIFICATION_CODE_INVALID_LENGTH = errorBuilder
+  .create()
+  .errorCode(4077)
+  .statusCode(400)
+  .message("")
+  .errorReason("VERIFICATION_CODE_INVALID_LENGTH")
+  .version("1.0.0")
+  .errorKey(VERIFICATION_CODE_VALIDATION)
+  .build();
 const errors = {
   BIO_EMPTY,
   BIO_INVALID_TYPE,

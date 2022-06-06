@@ -1,4 +1,3 @@
-const { modelPropertyGenerator } = require("@/functions/utilities/generators");
 const {
   versionCalculator,
   extractVersions,
@@ -23,58 +22,65 @@ const {
 const {
   userErrors: {
     CREATED_AT_INVALID_TYPE,
+    CREATED_AT_REQUIRED,
+    PRIVATE_ID_EMPTY,
     PRIVATE_ID_EXIST,
     PRIVATE_ID_INVALID_TYPE,
     PRIVATE_ID_MAX_LENGTH_REACH,
     PRIVATE_ID_MIN_LENGTH_REACH,
     PRIVATE_ID_REQUIRED,
-    PRIVATE_ID_EMPTY,
   },
 } = require("@/variables/errors/userErrors");
+const { modelBuilder } = require("@/functions/helpers/Builder");
 
-const createdAtCommonModel = {
-  required: modelPropertyGenerator(true),
-  type: modelPropertyGenerator("date", CREATED_AT_INVALID_TYPE),
-  defaultValue: modelPropertyGenerator(Date.now),
-  version: "1.0.0",
-};
+const createdAtCommonModel = modelBuilder
+  .create()
+  .defaultValue(Date.now)
+  .required(true, CREATED_AT_REQUIRED)
+  .type("date", CREATED_AT_INVALID_TYPE)
+  .version("1.0.0")
+  .build();
 
-const privateIdCommonModel = {
-  maxlength: modelPropertyGenerator(35, PRIVATE_ID_MAX_LENGTH_REACH),
-  minlength: modelPropertyGenerator(30, PRIVATE_ID_MIN_LENGTH_REACH),
-  required: modelPropertyGenerator(true, PRIVATE_ID_REQUIRED),
-  trim: modelPropertyGenerator(true),
-  type: modelPropertyGenerator("string", PRIVATE_ID_INVALID_TYPE),
-  unique: modelPropertyGenerator(true, PRIVATE_ID_EXIST),
-  version: "1.0.0",
-  empty: modelPropertyGenerator(false, PRIVATE_ID_EMPTY),
-};
+const privateIdCommonModel = modelBuilder
+  .create()
+  .empty(false, PRIVATE_ID_EMPTY)
+  .maxlength(35, PRIVATE_ID_MAX_LENGTH_REACH)
+  .minlength(30, PRIVATE_ID_MIN_LENGTH_REACH)
+  .required(true, PRIVATE_ID_REQUIRED)
+  .trim(true)
+  .type("string", PRIVATE_ID_INVALID_TYPE)
+  .unique(true, PRIVATE_ID_EXIST)
+  .version("1.0.0")
+  .build();
 
-const chatIdCommonModel = {
-  maxlength: modelPropertyGenerator(35, CHAT_ID_MAX_LENGTH_REACH),
-  minlength: modelPropertyGenerator(30, CHAT_ID_MIN_LENGTH_REACH),
-  required: modelPropertyGenerator(true, CHAT_ID_REQUIRED),
-  trim: modelPropertyGenerator(true),
-  type: modelPropertyGenerator("string", CHAT_ID_INVALID_TYPE),
-  unique: modelPropertyGenerator(true, CHAT_ID_EXIST),
-  version: "1.0.0",
-};
-const messageIdCommonModel = {
-  maxlength: modelPropertyGenerator(45, MESSAGE_ID_MAX_LENGTH_REACH),
-  minlength: modelPropertyGenerator(40, MESSAGE_ID_MIN_LENGTH_REACH),
-  required: modelPropertyGenerator(true, MESSAGE_ID_REQUIRED),
-  trim: modelPropertyGenerator(true),
-  type: modelPropertyGenerator("string", MESSAGE_ID_INVALID_TYPE),
-  unique: modelPropertyGenerator(true, MESSAGE_ID_EXIST),
-  defaultValue: modelPropertyGenerator(randomMaker.randomId),
-  version: "1.0.0",
-};
+const chatIdCommonModel = modelBuilder
+  .create()
+  .maxlength(35, CHAT_ID_MAX_LENGTH_REACH)
+  .minlength(30, CHAT_ID_MIN_LENGTH_REACH)
+  .required(true, CHAT_ID_REQUIRED)
+  .trim(true)
+  .type("string", CHAT_ID_INVALID_TYPE)
+  .unique(true, CHAT_ID_EXIST)
+  .version("1.0.0")
+  .build();
+
+const messageIdCommonModel = modelBuilder
+  .create()
+  .defaultValue(randomMaker.randomId)
+  .maxlength(45, MESSAGE_ID_MAX_LENGTH_REACH)
+  .minlength(40, MESSAGE_ID_MIN_LENGTH_REACH)
+  .required(true, MESSAGE_ID_REQUIRED)
+  .trim(true)
+  .type("string", MESSAGE_ID_INVALID_TYPE)
+  .unique(true, MESSAGE_ID_EXIST)
+  .version("1.0.0")
+  .build();
 
 const models = {
-  createdAtCommonModel,
-  privateIdCommonModel,
   chatIdCommonModel,
+  createdAtCommonModel,
   messageIdCommonModel,
+  privateIdCommonModel,
 };
 
 const commonModels = {

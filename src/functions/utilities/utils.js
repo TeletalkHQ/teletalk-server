@@ -115,6 +115,7 @@ const getValidatorErrorTypes = (errorArray) => {
     objectMaxProps: false,
     objectMinProps: false,
     objectStrict: false,
+    required: false,
     string: false,
     stringAlpha: false,
     stringAlphadash: false,

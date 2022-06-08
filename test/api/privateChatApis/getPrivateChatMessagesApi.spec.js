@@ -5,7 +5,7 @@ const { stateManager } = require("@/functions/tools/StateManager");
 const {
   privateChatRoutes: {
     getAllChatsRoute,
-    getMessagesRoute,
+    getPrivateChatMessagesRoute,
     privateChatRouteBaseUrl,
     sendMessageRoute,
   },
@@ -18,7 +18,11 @@ const {
 } = require("$/api/generalTests/authenticationTests");
 const { chatIdFailureTests } = require("$/api/generalTests/chatIdTests");
 
-describer.addInitialDescribe(privateChatRouteBaseUrl, getMessagesRoute, "0");
+describer.addInitialDescribe(
+  privateChatRouteBaseUrl,
+  getPrivateChatMessagesRoute,
+  "0"
+);
 
 const message = "Hello! Im messages!";
 
@@ -26,7 +30,7 @@ describe("get messages success tests", () => {
   it("Should get messages for testUser_0", async () => {
     const { testUser_1 } = stateManager.state.testUsers;
 
-    //? First add start a chat and send some messages to testUser_1 =>
+    //? First start a chat and send some messages to testUser_1 =>
     // eslint-disable-next-line no-unused-vars
     for (const _ of Array.from({ length: 10 })) {
       await customRequest.sendRequest(

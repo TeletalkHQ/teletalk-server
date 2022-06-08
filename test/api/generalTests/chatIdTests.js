@@ -33,10 +33,10 @@ const chatIdMinLength = chatIdModel.minlength.value;
 const chatIdMaxLength = chatIdModel.maxlength.value;
 
 const chatIdFailureTests = (data = {}) => {
-  const fn = (chatId) => ({ ...data });
+  const fn = (chatId) => ({ ...data, chatId });
 
   it("Should get error, CHAT_ID_REQUIRED", async () => {
-    await customRequest.sendRequest(fn(undefined), CHAT_ID_REQUIRED);
+    await customRequest.sendRequest(fn(""), CHAT_ID_REQUIRED);
   });
 
   it("Should get error, CHAT_ID_INVALID_TYPE", async () => {

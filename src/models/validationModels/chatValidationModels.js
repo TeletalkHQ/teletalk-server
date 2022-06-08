@@ -27,6 +27,7 @@ const chatIdValidationModel = {
     .setModelObject(chatIdModel)
     .type()
     .unique()
+    .empty()
     .min()
     .max()
     .trim()

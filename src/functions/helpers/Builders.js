@@ -1,5 +1,6 @@
 const { modelPropertyGenerator } = require("@/functions/utilities/generators");
 const { objectClarify } = require("@/functions/utilities/objectClarify");
+const { customTypeof } = require("../utilities/utils");
 
 class RouteBuilder {
   constructor() {
@@ -243,6 +244,7 @@ class ValidationModelBuilder {
   }
   create() {
     this.validationModelObject = this.setDefaultValidationModelObject();
+    this.modelObject = {};
 
     return this;
   }
@@ -370,6 +372,111 @@ class ValidationModelBuilder {
   }
 }
 
+class MongoModelBuilder {
+  constructor() {
+    this.modelObject = {};
+    this.mongoModel = this.setDefaultMongoModel();
+  }
+
+  create() {
+    this.mongoModel = this.setDefaultMongoModel();
+    this.modelObject = {};
+
+    return this;
+  }
+
+  build() {
+    const finalMongoModel = {};
+
+    Object.keys(this.mongoModel)
+      .map((key) => {
+        if (this.mongoModel[key].length > 0)
+          return { key, value: this.mongoModel[key] };
+        return undefined;
+      })
+      .forEach((item) => {
+        if (!item) return;
+
+        const { key, value } = item;
+        finalMongoModel[key] = value.length > 1 ? value : value[0];
+      });
+
+    return finalMongoModel;
+  }
+
+  setDefaultMongoModel() {
+    return {
+      defaultValue: [],
+      lowercase: [],
+      maxlength: [],
+      minlength: [],
+      required: [],
+      trim: [],
+      type: [],
+      unique: [],
+    };
+  }
+
+  setModelObject(modelObject) {
+    this.modelObject = modelObject;
+
+    return this;
+  }
+
+  addProperty(name, addMessageCondition) {
+    this.mongoModel[name].push(this.modelObject[name].value);
+
+    const errorMessage = this.modelObject[name].error?.message;
+
+    if (
+      !customTypeof(errorMessage).type.undefined &&
+      addMessageCondition === true
+    )
+      this.mongoModel[name].push(errorMessage);
+  }
+
+  defaultValue() {
+    this.addProperty("defaultValue");
+
+    return this;
+  }
+  lowercase() {
+    this.addProperty("lowercase");
+
+    return this;
+  }
+  maxlength() {
+    this.addProperty("maxlength");
+
+    return this;
+  }
+  minlength() {
+    this.addProperty("minlength");
+
+    return this;
+  }
+  required() {
+    this.addProperty("required");
+
+    return this;
+  }
+  trim(addMessageCondition = false) {
+    this.addProperty("trim", addMessageCondition);
+
+    return this;
+  }
+  type(addMessageCondition = false) {
+    this.addProperty("type", addMessageCondition);
+
+    return this;
+  }
+  unique() {
+    this.addProperty("unique");
+
+    return this;
+  }
+}
+
 class Builder {}
 
 const builder = new Builder();
@@ -377,6 +484,7 @@ const routeBuilder = new RouteBuilder();
 const errorBuilder = new ErrorBuilder();
 const modelBuilder = new ModelBuilder();
 const validationModelBuilder = new ValidationModelBuilder();
+const mongoModelBuilder = new MongoModelBuilder();
 
 module.exports = {
   builder,
@@ -389,4 +497,5 @@ module.exports = {
   RouteBuilder,
   validationModelBuilder,
   ValidationModelBuilder,
+  mongoModelBuilder,
 };

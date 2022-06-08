@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
-const {
-  mongooseSchemaPropertyGenerator,
-} = require("@/functions/utilities/generators");
+const { mongoModelBuilder } = require("@/functions/helpers/Builders");
 
 const {
   chatModels: {
@@ -18,80 +16,69 @@ const {
 // uniqueValidator.defaults.message = "{PATH}_exist";
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
-const participantIdTemplate = mongooseSchemaPropertyGenerator(
-  participantIdModel.type.value,
-  [
-    participantIdModel.maxlength.value,
-    participantIdModel.maxlength.error.message,
-  ],
-  [
-    participantIdModel.minlength.value,
-    participantIdModel.minlength.error.message,
-  ],
-  [
-    participantIdModel.required.value,
-    participantIdModel.required.error.message,
-  ],
-  null,
-  participantIdModel.trim.value
-);
-
-const privateChat = {
-  chatId: mongooseSchemaPropertyGenerator(
-    chatIdModel.type.value,
-    [chatIdModel.maxlength.value, chatIdModel.maxlength.error.message],
-    [chatIdModel.minlength.value, chatIdModel.minlength.error.message],
-    [chatIdModel.required.value, chatIdModel.required.error.message],
-    chatIdModel.unique.value
-  ),
-  createdAt: mongooseSchemaPropertyGenerator(
-    createdAtModel.type.value,
-    null,
-    null,
-    [createdAtModel.required.value, createdAtModel.required.error.message],
-    null,
-    null,
-    createdAtModel.defaultValue.value
-  ),
-  messages: [
-    {
-      messageId: mongooseSchemaPropertyGenerator(
-        messageIdModel.type.value,
-        [
-          messageIdModel.maxlength.value,
-          messageIdModel.maxlength.error.message,
-        ],
-        [
-          messageIdModel.minlength.value,
-          messageIdModel.minlength.error.message,
-        ],
-        [messageIdModel.required.value, messageIdModel.required.error.message],
-        messageIdModel.unique.value,
-        messageIdModel.trim.value,
-        messageIdModel.defaultValue.value(messageIdModel.maxlength.value)
-      ),
-      message: mongooseSchemaPropertyGenerator(
-        messageModel.type.value,
-        [messageModel.maxlength.value, messageModel.maxlength.error.message],
-        [messageModel.minlength.value, messageModel.minlength.error.message]
-      ),
-      messageSender: {
-        senderId: participantIdTemplate,
-      },
-    },
-  ],
-  participants: [
-    {
-      participantId: participantIdTemplate,
-    },
-  ],
+const { chatId, createdAt, message, messageId, participantId } = {
+  chatId: mongoModelBuilder
+    .create()
+    .setModelObject(chatIdModel)
+    .type()
+    .maxlength()
+    .minlength()
+    .required()
+    .unique()
+    .build(),
+  createdAt: mongoModelBuilder
+    .create()
+    .setModelObject(createdAtModel)
+    .type()
+    .required()
+    .defaultValue()
+    .build(),
+  message: mongoModelBuilder
+    .create()
+    .setModelObject(messageModel)
+    .type()
+    .maxlength()
+    .minlength()
+    .build(),
+  messageId: mongoModelBuilder
+    .create()
+    .setModelObject(messageIdModel)
+    .type()
+    .minlength()
+    .maxlength()
+    .required()
+    .unique()
+    .trim()
+    .defaultValue()
+    .build(),
+  participantId: mongoModelBuilder
+    .create()
+    .setModelObject(participantIdModel)
+    .type()
+    .maxlength()
+    .minlength()
+    .required()
+    .trim()
+    .build(),
 };
 
 const PrivateChatSchema = new mongoose.Schema({
-  chatId: privateChat.chatId,
-  createdAt: privateChat.createdAt,
-  messages: privateChat.messages,
-  participants: privateChat.participants,
+  chatId,
+  createdAt,
+  participants: [
+    {
+      participantId: participantId,
+    },
+  ],
+  messages: [
+    {
+      message,
+      messageId,
+      messageSender: {
+        senderId: participantId,
+      },
+    },
+  ],
 });
 
 PrivateChatSchema.plugin(uniqueValidator);

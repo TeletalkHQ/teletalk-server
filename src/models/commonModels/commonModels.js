@@ -6,6 +6,7 @@ const { randomMaker } = require("@/functions/helpers/RandomMaker");
 
 const {
   chatErrors: {
+    CHAT_ID_EMPTY,
     CHAT_ID_EXIST,
     CHAT_ID_INVALID_TYPE,
     CHAT_ID_MAX_LENGTH_REACH,
@@ -55,6 +56,7 @@ const privateIdCommonModel = modelBuilder
 
 const chatIdCommonModel = modelBuilder
   .create()
+  .empty(false, CHAT_ID_EMPTY)
   .maxlength(35, CHAT_ID_MAX_LENGTH_REACH)
   .minlength(30, CHAT_ID_MIN_LENGTH_REACH)
   .required(true, CHAT_ID_REQUIRED)

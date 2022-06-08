@@ -21,7 +21,7 @@ const {
 const {
   privateChatRoutes: {
     sendMessageRoute,
-    getMessagesRoute,
+    getPrivateChatMessagesRoute,
     getAllChatsRoute,
     chatsLastMessageRoute,
   },
@@ -45,8 +45,8 @@ privateChatRouter[sendMessageRoute.method](
   sendMessageRoute.url,
   sendMessagePrivateChatController
 );
-privateChatRouter[getMessagesRoute.method](
-  getMessagesRoute.url,
+privateChatRouter[getPrivateChatMessagesRoute.method](
+  getPrivateChatMessagesRoute.url,
   getMessagesPrivateChatController
 );
 

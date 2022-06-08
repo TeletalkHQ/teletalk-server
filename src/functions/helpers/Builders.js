@@ -27,44 +27,48 @@ class RouteBuilder {
     return this.routeObject;
   }
 
+  addProperty(key, value) {
+    this.routeObject[key] = value;
+  }
+
   method(method) {
-    this.routeObject.method = method;
+    this.addProperty("method", method);
 
     return this;
   }
 
   url(url) {
-    this.routeObject.url = url;
+    this.addProperty("url", url);
 
     return this;
   }
 
   statusCode(statusCode) {
-    this.routeObject.statusCode = statusCode;
+    this.addProperty("statusCode", statusCode);
 
     return this;
   }
 
   version(version) {
-    this.routeObject.version = version;
+    this.addProperty("version", version);
 
     return this;
   }
 
   description(description) {
-    this.routeObject.description = description;
+    this.addProperty("description", description);
 
     return this;
   }
 
   inputFields(inputFields) {
-    this.routeObject.inputFields = inputFields;
+    this.addProperty("inputFields", inputFields);
 
     return this;
   }
 
   outputFields(outputFields) {
-    this.routeObject.outputFields = outputFields;
+    this.addProperty("outputFields", outputFields);
 
     return this;
   }
@@ -79,6 +83,7 @@ class ErrorBuilder {
       statusCode: 400,
       version: "1.0.0",
       errorKey: "",
+      errorCode: 4000,
     };
     this.errorObject = { ...this.defaultErrorObject };
   }
@@ -93,38 +98,42 @@ class ErrorBuilder {
     return this.errorObject;
   }
 
+  addProperty(key, value) {
+    this.errorObject[key] = value;
+  }
+
   errorCode(errorCode) {
-    this.errorObject.description = errorCode;
+    this.addProperty("errorCode", errorCode);
 
     return this;
   }
 
   statusCode(statusCode) {
-    this.errorObject.statusCode = statusCode;
+    this.addProperty("statusCode", statusCode);
 
     return this;
   }
 
   message(message) {
-    this.errorObject.message = message;
+    this.addProperty("message", message);
 
     return this;
   }
 
   errorReason(errorReason) {
-    this.errorObject.reason = errorReason;
+    this.addProperty("reason", errorReason);
+
+    return this;
+  }
+
+  errorKey(errorKey) {
+    this.addProperty("errorKey", errorKey);
 
     return this;
   }
 
   version(version) {
     this.errorObject.version = version;
-
-    return this;
-  }
-
-  errorKey(errorKey) {
-    this.errorObject.errorKey = errorKey;
 
     return this;
   }
@@ -139,6 +148,12 @@ class ModelBuilder {
     this.modelObject = this.setDefaultModelObject();
 
     return this;
+  }
+
+  addProperty(key, value, error) {
+    this.modelObject[key].value = value;
+
+    if (error) this.modelObject[key].error = error;
   }
 
   setDefaultModelObject() {
@@ -163,76 +178,74 @@ class ModelBuilder {
   }
 
   maxlength(value, error) {
-    this.modelObject.maxlength.value = value;
-    this.modelObject.maxlength.error = error;
+    this.addProperty("maxlength", value, error);
 
     return this;
   }
 
   minlength(value, error) {
-    this.modelObject.minlength.value = value;
-    this.modelObject.minlength.error = error;
+    this.addProperty("minlength", value, error);
 
     return this;
   }
 
   numeric(value, error) {
-    this.modelObject.numeric.value = value;
-    this.modelObject.numeric.error = error;
+    this.addProperty("numeric", value, error);
 
     return this;
   }
 
   type(value, error) {
-    this.modelObject.type.value = value;
-    this.modelObject.type.error = error;
+    this.addProperty("type", value, error);
+
     return this;
   }
 
   empty(value, error) {
-    this.modelObject.empty.value = value;
-    this.modelObject.empty.error = error;
+    this.addProperty("empty", value, error);
+
     return this;
   }
 
   version(value) {
     this.modelObject.version = value;
+
     return this;
   }
 
   required(value, error = {}) {
-    this.modelObject.required.value = value;
-    this.modelObject.required.error = error;
+    this.addProperty("required", value, error);
+
     return this;
   }
 
   trim(value, error) {
-    this.modelObject.trim.value = value;
-    this.modelObject.trim.error = error;
+    this.addProperty("trim", value, error);
+
     return this;
   }
 
   unique(value, error) {
-    this.modelObject.unique.value = value;
-    this.modelObject.unique.error = error;
+    this.addProperty("unique", value, error);
+
     return this;
   }
 
   defaultValue(value, error) {
-    this.modelObject.defaultValue.value = value;
-    this.modelObject.defaultValue.error = error;
+    this.addProperty("defaultValue", value, error);
+
     return this;
   }
 
   lowercase(value, error) {
-    this.modelObject.lowercase.value = value;
-    this.modelObject.lowercase.error = error;
+    this.addProperty("lowercase", value, error);
+
     return this;
   }
 
   length(value, error) {
-    this.modelObject.length.value = value;
-    this.modelObject.length.error = error;
+    this.addProperty("length", value, error);
+
     return this;
   }
 }
@@ -259,90 +272,84 @@ class ValidationModelBuilder {
     return this;
   }
 
-  empty() {
-    this.validationModelObject.empty = this.modelObject.empty.value;
+  _addProperty(validationKey, modelKey, messageKey) {
+    this._setValue(validationKey, modelKey);
+    this._setMessage(modelKey, messageKey);
+  }
+  _addPropertyWithoutMessage(validationKey, modelKey) {
+    this._setValue(validationKey, modelKey);
+  }
+  _setValue(validationKey, modelKey) {
+    this.validationModelObject[validationKey] =
+      this.modelObject[modelKey].value;
+  }
+  _setMessage(modelKey, messageKey) {
+    this.validationModelObject.messages[messageKey] =
+      this.modelObject[modelKey].error.message;
+  }
 
-    this.validationModelObject.messages.stringEmpty =
-      this.modelObject.empty.error.message;
+  empty() {
+    this._addProperty("empty", "empty", "stringEmpty");
 
     return this;
   }
 
   length() {
-    this.validationModelObject.length = this.modelObject.length.value;
-
-    this.validationModelObject.messages.length =
-      this.modelObject.length.error.message;
+    this._addProperty("length", "length", "length");
 
     return this;
   }
 
   max() {
-    this.validationModelObject.max = this.modelObject.maxlength.value;
-
-    this.validationModelObject.messages.stringMax =
-      this.modelObject.maxlength.error.message;
+    this._addProperty("max", "maxlength", "stringMax");
 
     return this;
   }
 
   min() {
-    this.validationModelObject.min = this.modelObject.minlength.value;
-
-    this.validationModelObject.messages.stringMin =
-      this.modelObject.minlength.error.message;
+    this._addProperty("min", "minlength", "stringMin");
 
     return this;
   }
 
   numeric() {
-    this.validationModelObject.numeric = this.modelObject.numeric.value;
-
-    this.validationModelObject.messages.stringNumeric =
-      this.modelObject.numeric.error.message;
+    this._addProperty("numeric", "numeric", "stringNumeric");
 
     return this;
   }
 
   trim() {
-    this.validationModelObject.trim = this.modelObject.trim.value;
+    this._addPropertyWithoutMessage("trim", "trim");
 
     return this;
   }
 
   type() {
-    this.validationModelObject.type = this.modelObject.type.value;
-
-    this.validationModelObject.messages.string =
-      this.modelObject.type.error.message;
+    this._addProperty("type", "type", "string");
 
     return this;
   }
 
   unique() {
-    this.validationModelObject.unique = this.modelObject.unique.value;
-
-    this.validationModelObject.messages.unique =
-      this.modelObject.unique.error.message;
+    this._addProperty("unique", "unique", "unique");
 
     return this;
   }
 
   required() {
-    this.validationModelObject.required = this.modelObject.required.value;
-
-    this.validationModelObject.messages.required =
-      this.modelObject.required.error.message;
+    this._addProperty("required", "required", "required");
 
     return this;
   }
 
+  //CLEANME ValidationModelBuilder optional method
   optional() {
     this.validationModelObject.optional = !this.modelObject.required.value;
 
     return this;
   }
 
+  //CLEANME ValidationModelBuilder lowercase method
   lowercase() {
     this.validationModelObject.lowercase = !this.modelObject.lowercase.value;
 

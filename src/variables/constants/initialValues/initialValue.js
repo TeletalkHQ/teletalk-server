@@ -87,7 +87,7 @@ const inputOutputFields = {
   bio: "bio",
   blacklist: "blacklist",
   blockedCellphone: "blockedCellphone",
-  chatId: "newMessage",
+  chatId: "chatId",
   chats: "chats",
   contacts: "contacts",
   countryCode: "countryCode",

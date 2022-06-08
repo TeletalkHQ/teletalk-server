@@ -54,7 +54,7 @@ const chatsLastMessageRoute = routeBuilder
   .outputFields([])
   .build();
 
-const getMessagesRoute = routeBuilder
+const getPrivateChatMessagesRoute = routeBuilder
   .create()
   .method("post")
   .url("/privateChat/getPrivateMessages")
@@ -115,7 +115,7 @@ const routes = {
   privateChatRouteBaseUrl,
   chatsLastMessageRoute,
   getAllChatsRoute,
-  getMessagesRoute,
+  getPrivateChatMessagesRoute,
   sendMessageRoute,
   startChatRoute,
 };

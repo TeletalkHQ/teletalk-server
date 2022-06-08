@@ -44,6 +44,16 @@ const CHAT_NOT_EXIST = errorBuilder
   .errorKey(CHAT_VALIDATION)
   .build();
 
+const CHAT_ID_EMPTY = errorBuilder
+  .create()
+  .errorCode(4001)
+  .statusCode(400)
+  .message("")
+  .errorReason("CHAT_ID_EMPTY")
+  .version("1.0.0")
+  .errorKey(CHAT_ID_VALIDATION)
+  .build();
+
 const CHAT_ID_EXIST = errorBuilder
   .create()
   .errorCode(4001)
@@ -376,6 +386,7 @@ const USER_NO_LONGER_PARTICIPANT = errorBuilder
 
 const errors = {
   CHAT_EXIST,
+  CHAT_ID_EMPTY,
   CHAT_ID_EXIST,
   CHAT_ID_INVALID,
   CHAT_ID_INVALID_TYPE,

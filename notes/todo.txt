@@ -20,7 +20,6 @@ FTP part 150, nginx part 149
 Using ms for convert time to ms and reverse 
 ClipboardJS documentation
 Make api for log server errors
-Add versioning system for static data
 Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
 useless routes cleanup

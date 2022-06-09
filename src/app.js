@@ -1,5 +1,5 @@
 //! Require this module before requiring anything!
-require("@/variables/globalVariables");
+require("@/variables/others/globalVariables");
 
 const cors = require("cors");
 const express = require("express");

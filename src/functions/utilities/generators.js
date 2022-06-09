@@ -1,12 +1,10 @@
 const { objectClarify } = require("@/functions/utilities/objectClarify");
 const { errorThrower, customTypeof } = require("@/functions/utilities/utils");
 
-const {
-  initialValue,
-} = require("@/variables/constants/initialValues/initialValue");
+const { initialOptions } = require("@/variables/others/initialOptions");
 
 const { modelGeneratorInitialProperties, errorGeneratorInitialProperties } =
-  initialValue;
+  initialOptions;
 
 const errorGenerator = (
   errorCode,

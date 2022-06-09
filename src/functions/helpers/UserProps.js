@@ -4,7 +4,7 @@ const {
   userModels: { firstNameModel, lastNameModel },
 } = require("@/models/userModels/userModels");
 
-const { countries } = require("@/variables/constants/countries");
+const { countries } = require("@/variables/others/countries");
 
 class UserProps {
   constructor(id) {

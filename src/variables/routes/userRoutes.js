@@ -23,7 +23,7 @@ const {
     chats,
     newUser,
   },
-} = require("@/variables/constants/initialValues/initialValue");
+} = require("@/variables/others/initialOptions");
 
 const userDataProps = {
   privateId,

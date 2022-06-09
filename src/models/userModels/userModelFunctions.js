@@ -10,7 +10,7 @@ const { UserMongoModel } = require("@/models/userModels/userMongoModel");
 
 const {
   initialOptions: { userInitialOptions },
-} = require("@/variables/constants/initialOptions/initialOptions");
+} = require("@/variables/others/initialOptions");
 const {
   userErrors: {
     BLACKLIST_ITEM_EXIST,

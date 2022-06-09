@@ -1,4 +1,4 @@
-const { countries } = require("@/variables/constants/countries");
+const { countries } = require("@/variables/others/countries");
 
 const countriesOtherController = async (
   req = expressRequest,

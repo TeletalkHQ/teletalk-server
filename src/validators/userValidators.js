@@ -27,7 +27,7 @@ const {
   },
 } = require("@/models/validationModels/userValidationModels");
 
-const { countries } = require("@/variables/constants/countries");
+const { countries } = require("@/variables/others/countries");
 
 const {
   userErrors: {

@@ -2,8 +2,8 @@ const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
 const { stateManager } = require("@/functions/tools/StateManager");
 
 const {
-  initialValue: { stateKeys },
-} = require("@/variables/constants/initialValues/initialValue");
+  initialOptions: { stateKeys },
+} = require("@/variables/others/initialOptions");
 
 class TemporaryClients {
   async addClient(client) {

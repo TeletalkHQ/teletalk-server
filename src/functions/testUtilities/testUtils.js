@@ -11,8 +11,8 @@ const {
 } = require("@/functions/utilities/utils");
 
 const {
-  initialValue: { stateKeys },
-} = require("@/variables/constants/initialValues/initialValue");
+  initialOptions: { stateKeys },
+} = require("@/variables/others/initialOptions");
 
 const request = async (
   baseUrl,

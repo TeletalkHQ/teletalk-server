@@ -15,7 +15,7 @@ const {
     participantId,
     senderId,
   },
-} = require("@/variables/constants/initialValues/initialValue");
+} = require("@/variables/others/initialOptions");
 
 const privateChatRouteBaseUrl = routeBuilder
   .create()

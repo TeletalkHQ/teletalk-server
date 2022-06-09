@@ -115,14 +115,38 @@ const inputOutputFields = {
   verifyToken: "verifyToken",
 };
 
-const initialValue = {
-  modelGeneratorInitialProperties,
+const jwtDefaultOptions = { algorithm: "HS256" };
+
+const userInitialOptions = {
+  bio: "",
+  blacklist: [],
+  contacts: [],
+  countryCode: "",
+  countryName: "",
+  createdAt: "",
+  firstName: "",
+  lastName: "",
+  macAddress: "",
+  phoneNumber: "",
+  privateId: "",
+  mainToken: "",
+  verifyToken: "",
+  username: "",
+};
+
+module.exports = {};
+
+const initialOptions = {
   errorGeneratorInitialProperties,
   initialValidatorPropValues,
+  modelGeneratorInitialProperties,
   stateKeys,
+  jwtDefaultOptions,
+  userInitialOptions,
+  inputOutputFields,
 };
 
 module.exports = {
-  initialValue,
-  inputOutputFields,
+  ...initialOptions,
+  initialOptions,
 };

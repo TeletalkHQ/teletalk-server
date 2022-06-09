@@ -1,12 +1,9 @@
 /* eslint-disable no-inner-declarations */
+const { validationErrorBuilder } = require("@/functions/helpers/Builders");
 const { userProps } = require("@/functions/helpers/UserProps");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
-const {
-  errorThrower,
-  getErrorObject,
-  getValidatorErrorTypes,
-} = require("@/functions/utilities/utils");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const {
   validatorCompiler,
 } = require("@/functions/utilities/validatorCompiler");
@@ -91,19 +88,6 @@ const checkReturnCondition = (returnCondition, error) => {
 };
 
 const bioValidator = validatorCompiler(bioValidationModel);
-
-const contactValidator = async (contact, returnCondition) => {
-  try {
-    await cellphoneValidator(userProps.getCellphone(contact));
-    await firstNameValidator(contact.firstName);
-    await lastNameValidator(contact.lastName);
-
-    return { done: true };
-  } catch (error) {
-    logger.log("contactValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
-};
 const compiledCountryCodeValidator = validatorCompiler(
   countryCodeValidationModel
 );
@@ -123,6 +107,19 @@ const compiledUsernameValidator = validatorCompiler(usernameValidationModel);
 const compiledVerificationCodeValidator = validatorCompiler(
   verificationCodeValidationModel
 );
+
+const contactValidator = async (contact, returnCondition) => {
+  try {
+    await cellphoneValidator(userProps.getCellphone(contact));
+    await firstNameValidator(contact.firstName);
+    await lastNameValidator(contact.lastName);
+
+    return { done: true };
+  } catch (error) {
+    logger.log("contactValidator catch, error:", error);
+    return checkReturnCondition(returnCondition, error);
+  }
+};
 
 const cellphoneValidator = async (cellphone = {}, returnCondition) => {
   try {
@@ -148,46 +145,29 @@ const countryCodeValidator = async (countryCode, returnCondition) => {
   try {
     const result = await compiledCountryCodeValidator({ countryCode });
 
-    if (result === true) {
-      const country = countries.find((c) => c.countryCode === countryCode);
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedCountryCode: countryCode,
+        },
+      })
+      .customCheck(result === true, () => {
+        const country = countries.find((c) => c.countryCode === countryCode);
 
-      errorThrower(country === undefined, () =>
-        errorObject(COUNTRY_CODE_NOT_SUPPORTED)
-      );
-
-      return { done: true };
-    }
-
-    const {
-      required,
-      string,
-      stringEmpty,
-      stringMax,
-      stringMin,
-      stringNumeric,
-    } = getValidatorErrorTypes(result);
-
-    // eslint-disable-next-line no-inner-declarations
-    function errorObject(errorObject) {
-      return getErrorObject(errorObject, {
-        validatedCountryCode: countryCode,
-        validationResult: result,
-      });
-    }
-
-    errorThrower(stringEmpty || required, () =>
-      errorObject(COUNTRY_CODE_REQUIRED)
-    );
-
-    errorThrower(string, () => errorObject(COUNTRY_CODE_INVALID_TYPE));
-
-    errorThrower(stringNumeric, () => errorObject(COUNTRY_CODE_NUMERIC));
-
-    errorThrower(stringMin, () => errorObject(COUNTRY_CODE_MINLENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(COUNTRY_CODE_MAXLENGTH_REACH));
-
-    errorThrower(result !== true, () => errorObject(COUNTRY_CODE_INVALID));
+        validationErrorBuilder.addError(
+          country === undefined,
+          COUNTRY_CODE_NOT_SUPPORTED
+        );
+      })
+      .stringEmpty(COUNTRY_CODE_REQUIRED)
+      .required(COUNTRY_CODE_REQUIRED)
+      .string(COUNTRY_CODE_INVALID_TYPE)
+      .stringNumeric(COUNTRY_CODE_NUMERIC)
+      .stringMin(COUNTRY_CODE_MINLENGTH_REACH)
+      .stringMax(COUNTRY_CODE_MAXLENGTH_REACH)
+      .throwAnyway(COUNTRY_CODE_INVALID)
+      .execute();
   } catch (error) {
     logger.log("countryCodeValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -198,37 +178,28 @@ const countryNameValidator = async (countryName, returnCondition) => {
   try {
     const result = await compiledCountryNameValidator({ countryName });
 
-    if (result === true) {
-      const country = countries.find((c) => c.countryName === countryName);
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedCountryName: countryName,
+        },
+      })
+      .customCheck(result === true, () => {
+        const country = countries.find((c) => c.countryName === countryName);
 
-      errorThrower(country === undefined, () =>
-        errorObject(COUNTRY_NAME_NOT_SUPPORTED)
-      );
-
-      return { done: true };
-    }
-
-    const { required, string, stringEmpty, stringMax, stringMin } =
-      getValidatorErrorTypes(result);
-
-    function errorObject(errorObject) {
-      return getErrorObject(errorObject, {
-        validatedCountryName: countryName,
-        validationResult: result,
-      });
-    }
-
-    errorThrower(stringEmpty || required, () =>
-      errorObject(COUNTRY_NAME_REQUIRED)
-    );
-
-    errorThrower(string, () => errorObject(COUNTRY_NAME_INVALID_TYPE));
-
-    errorThrower(stringMin, () => errorObject(COUNTRY_NAME_MINLENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(COUNTRY_NAME_MAXLENGTH_REACH));
-
-    errorThrower(result !== true, () => errorObject(COUNTRY_NAME_INVALID));
+        validationErrorBuilder.addError(
+          country === undefined,
+          COUNTRY_NAME_NOT_SUPPORTED
+        );
+      })
+      .required(COUNTRY_NAME_REQUIRED)
+      .stringEmpty(COUNTRY_NAME_REQUIRED)
+      .string(COUNTRY_NAME_INVALID_TYPE)
+      .stringMax(COUNTRY_NAME_MAXLENGTH_REACH)
+      .stringMin(COUNTRY_NAME_MINLENGTH_REACH)
+      .throwAnyway(COUNTRY_NAME_INVALID)
+      .execute();
   } catch (error) {
     logger.log("countryNameValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -241,24 +212,19 @@ const firstNameValidator = async (firstName, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { required, string, stringEmpty, stringMax, stringMin } =
-      getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedFirstName: firstName,
-        validationResult: result,
-      });
-
-    errorThrower(stringEmpty || required, () =>
-      errorObject(FIRST_NAME_REQUIRED)
-    );
-
-    errorThrower(string, () => errorObject(FIRST_NAME_INVALID_TYPE));
-
-    errorThrower(stringMin, () => errorObject(FIRST_NAME_MINLENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(FIRST_NAME_MAXLENGTH_REACH));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedFirstName: firstName,
+        },
+      })
+      .required(FIRST_NAME_REQUIRED)
+      .stringEmpty(FIRST_NAME_REQUIRED)
+      .string(FIRST_NAME_INVALID_TYPE)
+      .stringMin(FIRST_NAME_MINLENGTH_REACH)
+      .stringMax(FIRST_NAME_MAXLENGTH_REACH)
+      .execute();
   } catch (error) {
     logger.log("firstNameValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -271,19 +237,15 @@ const lastNameValidator = async (lastName, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { string, stringMax } = getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedLastName: lastName,
-        validationResult: result,
-      });
-
-    errorThrower(string, () => errorObject(LAST_NAME_INVALID_TYPE));
-
-    errorThrower(stringMax, () => errorObject(LAST_NAME_MAXLENGTH_REACH));
-
-    errorThrower(result !== true, errorObject(LAST_NAME_INVALID));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: { validatedLastName: lastName },
+      })
+      .string(LAST_NAME_INVALID_TYPE)
+      .stringMax(LAST_NAME_MAXLENGTH_REACH)
+      .throwAnyway(LAST_NAME_INVALID)
+      .execute();
   } catch (error) {
     logger.log("lastNameValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -296,34 +258,21 @@ const phoneNumberValidator = async (phoneNumber, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const {
-      required,
-      string,
-      stringEmpty,
-      stringMax,
-      stringMin,
-      stringNumeric,
-    } = getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedPhoneNumber: phoneNumber,
-        validationResult: result,
-      });
-
-    errorThrower(stringEmpty || required, () =>
-      errorObject(PHONE_NUMBER_REQUIRED)
-    );
-
-    errorThrower(string, () => errorObject(PHONE_NUMBER_INVALID_TYPE));
-
-    errorThrower(stringNumeric, () => errorObject(PHONE_NUMBER_NUMERIC));
-
-    errorThrower(stringMin, () => errorObject(PHONE_NUMBER_MINLENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(PHONE_NUMBER_MAXLENGTH_REACH));
-
-    errorThrower(result !== true, () => errorObject(PHONE_NUMBER_INVALID));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedPhoneNumber: phoneNumber,
+        },
+      })
+      .required(PHONE_NUMBER_REQUIRED)
+      .stringEmpty(PHONE_NUMBER_REQUIRED)
+      .string(PHONE_NUMBER_INVALID_TYPE)
+      .stringMax(PHONE_NUMBER_MAXLENGTH_REACH)
+      .stringMin(PHONE_NUMBER_MINLENGTH_REACH)
+      .stringNumeric(PHONE_NUMBER_NUMERIC)
+      .throwAnyway(PHONE_NUMBER_INVALID)
+      .execute();
   } catch (error) {
     logger.log("countryNameValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -336,26 +285,20 @@ const privateIdValidator = async (privateId, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { required, string, stringEmpty, stringMax, stringMin } =
-      getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedPrivateId: privateId,
-        validationResult: result,
-      });
-
-    errorThrower(stringEmpty || required, () =>
-      errorObject(PRIVATE_ID_REQUIRED)
-    );
-
-    errorThrower(string, () => errorObject(PRIVATE_ID_INVALID_TYPE));
-
-    errorThrower(stringMin, () => errorObject(PRIVATE_ID_MIN_LENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(PRIVATE_ID_MAX_LENGTH_REACH));
-
-    errorThrower(result !== true, errorObject(PRIVATE_ID_INVALID));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedPrivateId: privateId,
+        },
+      })
+      .required(PRIVATE_ID_REQUIRED)
+      .stringEmpty(PRIVATE_ID_REQUIRED)
+      .string(PRIVATE_ID_INVALID_TYPE)
+      .stringMin(PRIVATE_ID_MIN_LENGTH_REACH)
+      .stringMax(PRIVATE_ID_MAX_LENGTH_REACH)
+      .throwAnyway(PRIVATE_ID_INVALID)
+      .execute();
   } catch (error) {
     logger.log("privateIdValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -370,34 +313,28 @@ const tokenValidator = async (
   try {
     const result = await compiledTokenValidator({ token });
 
-    const errorObject = (errorObject, extraData = {}) =>
-      getErrorObject(errorObject, {
-        validatedToken: token,
-        validationResult: result,
-        ...extraData,
-      });
-
-    if (result === true) {
-      const verifiedToken = tokenVerifier(token, secret);
-
-      if (verifiedToken.done === true) return verifiedToken.data;
-
-      errorThrower(verifiedToken.done === false, () =>
-        errorObject(TOKEN_INVALID, {
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
           validatedToken: token,
-          validationResult: result,
-          tokenError: verifiedToken.error,
-        })
-      );
-    }
+        },
+      })
+      .required(TOKEN_REQUIRED)
+      .stringEmpty(TOKEN_REQUIRED)
+      .string(TOKEN_INVALID_TYPE)
+      .throwAnyway(TOKEN_INVALID)
+      .execute();
 
-    const { required, string, stringEmpty } = getValidatorErrorTypes(result);
+    const verifiedToken = tokenVerifier(token, secret);
+    if (verifiedToken.done === true) return verifiedToken.data;
 
-    errorThrower(stringEmpty || required, () => errorObject(TOKEN_REQUIRED));
-
-    errorThrower(string, () => errorObject(TOKEN_INVALID_TYPE));
-
-    errorThrower(result !== true, () => errorObject(TOKEN_INVALID));
+    validationErrorBuilder
+      .addExtraErrorFields({
+        tokenError: verifiedToken.error,
+      })
+      .addError(verifiedToken.done === false, TOKEN_INVALID)
+      .execute();
   } catch (error) {
     logger.log("tokenValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -410,24 +347,18 @@ const usernameValidator = async (username, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { required, string, stringEmpty, stringMax, stringMin } =
-      getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedUsername: username,
-        validationResult: result,
-      });
-
-    errorThrower(stringEmpty || required, () => errorObject(USERNAME_REQUIRED));
-
-    errorThrower(string, () => errorObject(USERNAME_INVALID_TYPE));
-
-    errorThrower(stringMin, () => errorObject(USERNAME_MINLENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(USERNAME_MAXLENGTH_REACH));
-
-    errorThrower(result !== true, () => errorObject(USERNAME_INVALID));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: { validatedUsername: username },
+      })
+      .required(USERNAME_REQUIRED)
+      .stringEmpty(USERNAME_REQUIRED)
+      .string(USERNAME_INVALID_TYPE)
+      .stringMin(USERNAME_MINLENGTH_REACH)
+      .stringMax(USERNAME_MAXLENGTH_REACH)
+      .throwAnyway(USERNAME_INVALID)
+      .execute();
   } catch (error) {
     logger.log("usernameValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -442,28 +373,20 @@ const verificationCodeValidator = async (verificationCode, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { required, string, stringEmpty, stringLength, stringNumeric } =
-      getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedVerificationCode: verificationCode,
-        validationResult: result,
-      });
-
-    errorThrower(stringEmpty || required, () =>
-      errorObject(VERIFICATION_CODE_REQUIRED)
-    );
-
-    errorThrower(string, () => errorObject(VERIFICATION_CODE_INVALID_TYPE));
-
-    errorThrower(stringNumeric, () => errorObject(VERIFICATION_CODE_NUMERIC));
-
-    errorThrower(stringLength, () =>
-      errorObject(VERIFICATION_CODE_INVALID_LENGTH)
-    );
-
-    errorThrower(result !== true, () => errorObject(VERIFICATION_CODE_INVALID));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedVerificationCode: verificationCode,
+        },
+      })
+      .required(VERIFICATION_CODE_REQUIRED)
+      .stringEmpty(VERIFICATION_CODE_REQUIRED)
+      .string(VERIFICATION_CODE_INVALID_TYPE)
+      .stringNumeric(VERIFICATION_CODE_NUMERIC)
+      .stringLength(VERIFICATION_CODE_INVALID_LENGTH)
+      .throwAnyway(VERIFICATION_CODE_INVALID)
+      .execute();
   } catch (error) {
     logger.log("verificationCodeValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);

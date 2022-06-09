@@ -1,6 +1,11 @@
 const { modelPropertyGenerator } = require("@/functions/utilities/generators");
 const { objectClarify } = require("@/functions/utilities/objectClarify");
-const { customTypeof } = require("../utilities/utils");
+const {
+  customTypeof,
+  errorThrower,
+  getValidatorErrorTypes,
+  getErrorObject,
+} = require("@/functions/utilities/utils");
 
 class RouteBuilder {
   constructor() {
@@ -379,6 +384,135 @@ class ValidationModelBuilder {
   }
 }
 
+class ValidationErrorBuilder {
+  constructor() {
+    this.options = this.defaultOptions();
+    this.validationResultErrorKeys = this.defaultValidationResultErrorKeys();
+    this.validationResult = [];
+    this.makeErrorObject = this.defaultMakeErrorObject();
+    this.errors = [];
+  }
+
+  create() {
+    this.reset();
+
+    return this;
+  }
+
+  reset() {
+    this.options = this.defaultOptions();
+    this.makeErrorObject = this.defaultMakeErrorObject();
+    this.validationResultErrorKeys = this.defaultValidationResultErrorKeys();
+    this.validationResult = this.defaultValidationResult();
+    this.errors = [];
+  }
+
+  defaultOptions() {
+    return {
+      autoErrorDetection: true,
+      extraErrorFields: {},
+    };
+  }
+  defaultValidationResultErrorKeys() {
+    return getValidatorErrorTypes([]);
+  }
+  defaultValidationResult() {
+    return [];
+  }
+  defaultMakeErrorObject() {
+    return (errorObject) => {
+      return getErrorObject(errorObject, {
+        validationResult: this.validationResult,
+        ...this.options.extraErrorFields,
+      });
+    };
+  }
+  setRequirements(result, options = this.options) {
+    this.setValidationResult(result);
+    if (customTypeof(result).type.array) this.setValidationErrorKeys(result);
+    this.setOptions(options);
+
+    return this;
+  }
+
+  execute() {
+    for (const error of this.errors) {
+      const { condition, errorObject } = error;
+
+      errorThrower(condition, () => this.makeErrorObject(errorObject));
+    }
+  }
+
+  addError(condition, errorObject) {
+    this.errors.push({ condition, errorObject });
+
+    return this;
+  }
+  setValidationResult(result) {
+    this.validationResult = result;
+    return this;
+  }
+  setValidationErrorKeys(result) {
+    this.validationResultErrorKeys = getValidatorErrorTypes(result);
+    return this;
+  }
+  setOptions(options = this.options) {
+    this.options = {
+      ...this.options,
+      ...options,
+    };
+
+    return this;
+  }
+  addExtraErrorFields(fields = {}) {
+    this.setOptions({
+      extraErrorFields: {
+        ...this.options.extraErrorFields,
+        ...fields,
+      },
+    });
+
+    return this;
+  }
+
+  customCheck(condition, cb) {
+    if (condition) cb();
+    return this;
+  }
+  stringEmpty(errorObject) {
+    this.addError(this.validationResultErrorKeys.stringEmpty, errorObject);
+    return this;
+  }
+  required(errorObject) {
+    this.addError(this.validationResultErrorKeys.required, errorObject);
+    return this;
+  }
+  string(errorObject) {
+    this.addError(this.validationResultErrorKeys.string, errorObject);
+    return this;
+  }
+  stringNumeric(errorObject) {
+    this.addError(this.validationResultErrorKeys.stringNumeric, errorObject);
+    return this;
+  }
+  stringLength(errorObject) {
+    this.addError(this.validationResultErrorKeys.stringLength, errorObject);
+    return this;
+  }
+  stringMin(errorObject) {
+    this.addError(this.validationResultErrorKeys.stringMin, errorObject);
+    return this;
+  }
+  stringMax(errorObject) {
+    this.addError(this.validationResultErrorKeys.stringMax, errorObject);
+    return this;
+  }
+  throwAnyway(errorObject) {
+    this.addError(this.validationResult !== true, errorObject);
+    return this;
+  }
+}
+
 class MongoModelBuilder {
   constructor() {
     this.modelObject = {};
@@ -487,11 +621,12 @@ class MongoModelBuilder {
 class Builder {}
 
 const builder = new Builder();
-const routeBuilder = new RouteBuilder();
 const errorBuilder = new ErrorBuilder();
 const modelBuilder = new ModelBuilder();
-const validationModelBuilder = new ValidationModelBuilder();
 const mongoModelBuilder = new MongoModelBuilder();
+const routeBuilder = new RouteBuilder();
+const validationErrorBuilder = new ValidationErrorBuilder();
+const validationModelBuilder = new ValidationModelBuilder();
 
 module.exports = {
   builder,
@@ -500,9 +635,11 @@ module.exports = {
   ErrorBuilder,
   modelBuilder,
   ModelBuilder,
+  mongoModelBuilder,
   routeBuilder,
   RouteBuilder,
+  validationErrorBuilder,
+  ValidationErrorBuilder,
   validationModelBuilder,
   ValidationModelBuilder,
-  mongoModelBuilder,
 };

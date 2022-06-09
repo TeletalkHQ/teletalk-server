@@ -1,8 +1,5 @@
-const {
-  errorThrower,
-  getValidatorErrorTypes,
-  getErrorObject,
-} = require("@/functions/utilities/utils");
+const { validationErrorBuilder } = require("@/functions/helpers/Builders");
+const { errorThrower } = require("@/functions/utilities/utils");
 const {
   validatorCompiler,
 } = require("@/functions/utilities/validatorCompiler");
@@ -15,6 +12,7 @@ const {
     messageTextValidationModel,
   },
 } = require("@/models/validationModels/chatValidationModels");
+
 const {
   chatErrors: {
     CHAT_ID_INVALID,
@@ -58,24 +56,20 @@ const chatIdValidator = async (chatId, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { required, string, stringEmpty, stringMax, stringMin } =
-      getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedChatId: chatId,
-        validationResult: result,
-      });
-
-    errorThrower(stringEmpty || required, () => errorObject(CHAT_ID_REQUIRED));
-
-    errorThrower(string, () => errorObject(CHAT_ID_INVALID_TYPE));
-
-    errorThrower(stringMin, () => errorObject(CHAT_ID_MIN_LENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(CHAT_ID_MAX_LENGTH_REACH));
-
-    errorThrower(result !== true, errorObject(CHAT_ID_INVALID));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedChatId: chatId,
+        },
+      })
+      .required(CHAT_ID_REQUIRED)
+      .stringEmpty(CHAT_ID_REQUIRED)
+      .string(CHAT_ID_INVALID_TYPE)
+      .stringMin(CHAT_ID_MIN_LENGTH_REACH)
+      .stringMax(CHAT_ID_MAX_LENGTH_REACH)
+      .throwAnyway(CHAT_ID_INVALID)
+      .execute();
   } catch (error) {
     logger.log("chatIdValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -88,26 +82,20 @@ const messageTextValidator = async (messageText, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedMessageText: messageText,
-        validationResult: result,
-      });
-
-    const { required, string, stringEmpty, stringMax, stringMin } =
-      getValidatorErrorTypes(result);
-
-    errorThrower(stringEmpty || required, () =>
-      errorObject(MESSAGE_TEXT_REQUIRED)
-    );
-
-    errorThrower(string, () => errorObject(MESSAGE_TEXT_INVALID_TYPE));
-
-    errorThrower(stringMin, () => errorObject(MESSAGE_ID_MIN_LENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(MESSAGE_TEXT_MAX_LENGTH_REACH));
-
-    errorThrower(result !== true, errorObject(MESSAGE_TEXT_INVALID));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedMessageText: messageText,
+        },
+      })
+      .required(MESSAGE_TEXT_REQUIRED)
+      .stringEmpty(MESSAGE_TEXT_REQUIRED)
+      .string(MESSAGE_TEXT_INVALID_TYPE)
+      .stringMin(MESSAGE_ID_MIN_LENGTH_REACH)
+      .stringMax(MESSAGE_TEXT_MAX_LENGTH_REACH)
+      .throwAnyway(MESSAGE_TEXT_INVALID)
+      .execute();
   } catch (error) {
     logger.log("messageTextValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -122,26 +110,20 @@ const participantIdValidator = async (participantId, returnCondition) => {
 
     if (result === true) return { done: true };
 
-    const { required, string, stringEmpty, stringMax, stringMin } =
-      getValidatorErrorTypes(result);
-
-    const errorObject = (errorObject) =>
-      getErrorObject(errorObject, {
-        validatedParticipantId: participantId,
-        validationResult: result,
-      });
-
-    errorThrower(stringEmpty || required, () =>
-      errorObject(PARTICIPANT_ID_REQUIRED)
-    );
-
-    errorThrower(string, () => errorObject(PARTICIPANT_ID_INVALID_TYPE));
-
-    errorThrower(stringMin, () => errorObject(PARTICIPANT_ID_MIN_LENGTH_REACH));
-
-    errorThrower(stringMax, () => errorObject(PARTICIPANT_ID_MAX_LENGTH_REACH));
-
-    errorThrower(result !== true, errorObject(PARTICIPANT_ID_INVALID));
+    validationErrorBuilder
+      .create()
+      .setRequirements(result, {
+        extraErrorFields: {
+          validatedParticipantId: participantId,
+        },
+      })
+      .required(PARTICIPANT_ID_REQUIRED)
+      .stringEmpty(PARTICIPANT_ID_REQUIRED)
+      .string(PARTICIPANT_ID_INVALID_TYPE)
+      .stringMin(PARTICIPANT_ID_MIN_LENGTH_REACH)
+      .stringMax(PARTICIPANT_ID_MAX_LENGTH_REACH)
+      .throwAnyway(PARTICIPANT_ID_INVALID)
+      .execute();
   } catch (error) {
     logger.log("privateIdValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);

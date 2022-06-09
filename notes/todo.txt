@@ -27,3 +27,4 @@ useless routes cleanup
 Add auth check in all test files
 Add newUser:false test
 Add exclude props to utils
+Cleanup builder classes: private methods

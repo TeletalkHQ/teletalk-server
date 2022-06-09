@@ -78,7 +78,6 @@ const getPrivateChatMessagesRoute = routeBuilder
   .build();
 
 //DEPRECATED startChatRoute
-
 const startChatRoute = routeBuilder
   .create()
   .method("post")

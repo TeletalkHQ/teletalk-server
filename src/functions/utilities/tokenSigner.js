@@ -4,8 +4,8 @@ const { errorThrower } = require("@/functions/utilities/utils");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
 const {
-  appConfigs: { jwtDefaultOptions },
-} = require("@/configs/appConfigs");
+  initialOptions: { jwtDefaultOptions },
+} = require("@/variables/others/initialOptions");
 
 const tokenSigner = async (
   data,

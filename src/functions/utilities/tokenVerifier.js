@@ -3,8 +3,8 @@ const JWT = require("jsonwebtoken");
 const { envManager } = require("@/functions/utilities/EnvironmentManager");
 
 const {
-  appConfigs: { jwtDefaultOptions },
-} = require("@/configs/appConfigs");
+  initialOptions: { jwtDefaultOptions },
+} = require("@/variables/others/initialOptions");
 
 const tokenVerifier = (
   token,

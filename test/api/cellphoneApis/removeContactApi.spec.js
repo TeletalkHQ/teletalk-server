@@ -12,7 +12,7 @@ const {
 const {
   userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
-const { countries } = require("@/variables/constants/countries");
+const { countries } = require("@/variables/others/countries");
 
 const {
   countryCodeFailureTests,

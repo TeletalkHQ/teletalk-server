@@ -18,7 +18,7 @@ const {
     removedBlockedCellphone,
     removedContact,
   },
-} = require("@/variables/constants/initialValues/initialValue");
+} = require("@/variables/others/initialOptions");
 
 const cellphoneRouteBaseUrl = routeBuilder
   .create()

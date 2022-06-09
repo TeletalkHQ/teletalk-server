@@ -1,6 +1,6 @@
 require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
-require("@/variables/globalVariables");
+require("@/variables/others/globalVariables");
 
 const { randomMaker } = require("@/functions/helpers/RandomMaker");
 const { errorThrower } = require("@/functions/utilities/utils");
@@ -10,7 +10,7 @@ const {
   setTestUsersIntoState,
 } = require("@/functions/testUtilities/testUtils");
 
-const { countries } = require("@/variables/constants/countries");
+const { countries } = require("@/variables/others/countries");
 
 const {
   commonModels: { privateIdCommonModel },

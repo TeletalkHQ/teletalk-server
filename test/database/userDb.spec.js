@@ -7,8 +7,8 @@ const {
 } = require("@/models/userModels/userModelFunctions");
 
 const {
-  initialValue: { stateKeys },
-} = require("@/variables/constants/initialValues/initialValue");
+  initialOptions: { stateKeys },
+} = require("@/variables/others/initialOptions");
 
 describe("save user data in state", () => {
   it("should get all users data", async () => {

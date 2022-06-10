@@ -1,7 +1,7 @@
 /* eslint-disable no-inner-declarations */
-const { validationErrorBuilder } = require("@/functions/helpers/Builders");
-const { userProps } = require("@/functions/helpers/UserProps");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { validationErrorBuilder } = require("@/classes/Builders");
+const { userProps } = require("@/classes/UserProps");
+const { envManager } = require("@/classes/EnvironmentManager");
 const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const {

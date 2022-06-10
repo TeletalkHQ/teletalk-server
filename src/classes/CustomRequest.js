@@ -1,5 +1,5 @@
-const { request } = require("@/functions/testUtilities/testUtils");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { request } = require("@/functions/utilities/testUtils");
+const { envManager } = require("@/classes/EnvironmentManager");
 
 class CustomRequest {
   constructor() {

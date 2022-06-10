@@ -1,11 +1,3 @@
-const { objectClarify } = require("@/functions/utilities/objectClarify");
-const { errorThrower, customTypeof } = require("@/functions/utilities/utils");
-
-const { initialOptions } = require("@/variables/others/initialOptions");
-
-const { modelGeneratorInitialProperties, errorGeneratorInitialProperties } =
-  initialOptions;
-
 const errorGenerator = (
   errorCode,
   statusCode,
@@ -99,7 +91,6 @@ const mongooseSchemaPropertyGenerator = (
 };
 
 //!DEPRECATED
-// eslint-disable-next-line no-unused-vars
 const modelGenerator = (
   maxlength = modelGeneratorInitialProperties,
   minlength = modelGeneratorInitialProperties,
@@ -132,28 +123,4 @@ const modelGenerator = (
   } catch (error) {
     logger.log("modelGenerator catch, error:", error);
   }
-};
-
-const modelPropertyGenerator = (
-  value,
-  error = errorGeneratorInitialProperties
-) => {
-  try {
-    errorThrower(customTypeof(value).type.undefined, "Value need to be set!");
-
-    return {
-      value,
-      error,
-    };
-  } catch (error) {
-    logger.log("modelPropertyGenerator catch, error:", error);
-    errorThrower(error, error);
-  }
-};
-
-module.exports = {
-  errorGenerator,
-  mongooseSchemaPropertyGenerator,
-  routeGenerator,
-  modelPropertyGenerator,
 };

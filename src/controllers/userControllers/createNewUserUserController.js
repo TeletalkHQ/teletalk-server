@@ -1,10 +1,10 @@
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
 const { temporaryClients } = require("@/functions/tools/TemporaryClients");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { envManager } = require("@/classes/EnvironmentManager");
+const { randomMaker } = require("@/classes/RandomMaker");
 
 const {
   tokenValidator,

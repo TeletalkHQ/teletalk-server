@@ -1,6 +1,6 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
+const { customRequest } = require("@/classes/CustomRequest");
+const { randomMaker } = require("@/classes/RandomMaker");
+const { testBuilder } = require("@/classes/TestBuilder");
 
 const {
   userModels: { countryNameModel },

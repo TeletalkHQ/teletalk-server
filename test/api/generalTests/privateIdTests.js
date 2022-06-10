@@ -1,4 +1,4 @@
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
+const { testBuilder } = require("@/classes/TestBuilder");
 
 const {
   userModels: { privateIdModel },

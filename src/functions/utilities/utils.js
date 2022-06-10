@@ -173,20 +173,14 @@ const versionCalculator = (versions = []) => {
 const convertStringArrayToNumberArray = (items) => items.map((item) => +item);
 
 const extractVersions = (object) => {
-  const tempArray = [];
-
-  for (const key in object) {
-    tempArray.push(object[key].version);
-  }
-
-  return tempArray;
+  return Object.keys(object).map((key) => object[key].version);
 };
 
-const isEqualWithTargetCellphone = (cellphone, targetCell) => {
+const isEqualWithTargetCellphone = (cellphone, targetCellphone) => {
   if (
-    cellphone.phoneNumber === targetCell.phoneNumber &&
-    cellphone.countryCode === targetCell.countryCode &&
-    cellphone.countryName === targetCell.countryName
+    cellphone.phoneNumber === targetCellphone.phoneNumber &&
+    cellphone.countryCode === targetCellphone.countryCode &&
+    cellphone.countryName === targetCellphone.countryName
   ) {
     return true;
   }
@@ -215,6 +209,18 @@ const crashServerWithCondition = (condition, errorObject) => {
   }
 };
 
+const excludeVersion = (object) => {
+  const tempObject = {};
+
+  for (const key in object) {
+    const { version, ...childObject } = object[key];
+
+    tempObject[key] = childObject;
+  }
+
+  return tempObject;
+};
+
 const concatBaseUrlWithUrl = (baseUrlObject, routeObject) =>
   `${baseUrlObject.url}${routeObject.url}`;
 
@@ -240,6 +246,7 @@ module.exports = {
   crashServerWithCondition,
   customTypeof,
   errorThrower,
+  excludeVersion,
   extractVersions,
   filterObject,
   findByProp,

@@ -4,7 +4,7 @@
 
 const { userFinder } = require("@/functions/helpers/userFinder");
 const { errorThrower, isNull } = require("@/functions/utilities/utils");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 
 const {
   userErrors: { CELLPHONE_NOT_EXIST },

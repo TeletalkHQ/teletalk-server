@@ -1,4 +1,4 @@
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { envManager } = require("@/classes/EnvironmentManager");
 
 const NODE_ENV = envManager.getNodeEnv();
 

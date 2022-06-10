@@ -1,4 +1,4 @@
-const { validationModelBuilder } = require("@/functions/helpers/Builders");
+const { validationModelBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
@@ -21,17 +21,14 @@ const {
 } = require("@/models/userModels/userModels");
 
 const bioValidationModel = {
-  bio: {
-    empty: bioModel.empty.value,
-    max: bioModel.maxlength.value,
-    optional: !bioModel.required.value,
-    type: bioModel.type.value,
-    messages: {
-      string: bioModel.type.error.message,
-      stringEmpty: bioModel.empty.error.message,
-      stringMax: bioModel.maxlength.error.message,
-    },
-  },
+  bio: validationModelBuilder
+    .create()
+    .setModelObject(bioModel)
+    .empty()
+    .max()
+    .optional()
+    .type()
+    .build(),
   version: "1.0.0",
 };
 

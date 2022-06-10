@@ -1,7 +1,5 @@
-const {
-  getTestUsersFromState,
-} = require("@/functions/testUtilities/testUtils");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
+const { customRequest } = require("@/classes/CustomRequest");
 
 class Describer {
   constructor() {

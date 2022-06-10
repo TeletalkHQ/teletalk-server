@@ -7,14 +7,13 @@ const { cellphoneValidator } = require("@/validators/userValidators");
 const {
   userErrors: { TOKEN_REQUIRED, USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
-const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 
 const {
   errorThrower,
   getTokenFromRequest,
 } = require("@/functions/utilities/utils");
 const { userFinder } = require("@/models/userModels/userModelFunctions");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 
 const statusCheckUserController = async (
   req = expressRequest,
@@ -36,9 +35,7 @@ const statusCheckUserController = async (
 
     errorThrower(!user, USER_NOT_EXIST);
 
-    const userData = sendableUserData(user);
-
-    res.status(200).json({ user: userData });
+    res.status(200).json({ user });
   } catch (error) {
     logger.log("statusCheckUserController catch, error:", error);
     res.errorCollector(error);

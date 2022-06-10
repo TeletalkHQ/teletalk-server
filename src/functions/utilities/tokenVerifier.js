@@ -1,6 +1,6 @@
 const JWT = require("jsonwebtoken");
 
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { envManager } = require("@/classes/EnvironmentManager");
 
 const {
   initialOptions: { jwtDefaultOptions },

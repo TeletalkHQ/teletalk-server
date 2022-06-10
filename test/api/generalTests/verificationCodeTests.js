@@ -1,5 +1,5 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
+const { customRequest } = require("@/classes/CustomRequest");
+const { testBuilder } = require("@/classes/TestBuilder");
 
 const {
   userModels: { verificationCodeModel },

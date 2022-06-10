@@ -1,6 +1,6 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
-const { describer } = require("@/functions/helpers/Describer");
+const { customRequest } = require("@/classes/CustomRequest");
+const { randomMaker } = require("@/classes/RandomMaker");
+const { describer } = require("@/classes/Describer");
 
 const {
   privateChatRoutes: { privateChatRouteBaseUrl, sendMessageRoute },

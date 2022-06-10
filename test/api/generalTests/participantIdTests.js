@@ -1,4 +1,4 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { customRequest } = require("@/classes/CustomRequest");
 
 const {
   chatModels: { participantIdModel },
@@ -11,7 +11,7 @@ const {
     PARTICIPANT_ID_MIN_LENGTH_REACH,
   },
 } = require("@/variables/errors/chatErrors");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { randomMaker } = require("@/classes/RandomMaker");
 
 const participantIdMaxLength = participantIdModel.maxlength.value;
 const participantIdMinLength = participantIdModel.minlength.value;

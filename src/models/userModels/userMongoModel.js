@@ -1,21 +1,20 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
-const { mongoModelBuilder } = require("@/functions/helpers/Builders");
+const { mongoModelBuilder } = require("@/classes/Builders");
+const { excludeVersion } = require("@/functions/utilities/utils");
 
 const {
-  userModels: {
-    bioModel: { version: _0, ...bioModel },
-    countryCodeModel: { version: _1, ...countryCodeModel },
-    countryNameModel: { version: _2, ...countryNameModel },
-    createdAtModel: { version: _3, ...createdAtModel },
-    firstNameModel: { version: _4, ...firstNameModel },
-    lastNameModel: { version: _5, ...lastNameModel },
-    phoneNumberModel: { version: _6, ...phoneNumberModel },
-    tokenModel: { version: _7, ...tokenModel },
-    usernameModel: { version: _8, ...usernameModel },
-  },
-} = require("@/models/userModels/userModels");
+  bioModel,
+  countryCodeModel,
+  countryNameModel,
+  createdAtModel,
+  firstNameModel,
+  lastNameModel,
+  phoneNumberModel,
+  tokenModel,
+  usernameModel,
+} = excludeVersion(require("@/models/userModels/userModels").userModels);
 
 const {
   commonModels: {

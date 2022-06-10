@@ -1,6 +1,6 @@
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
-const { userProps } = require("@/functions/helpers/UserProps");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { envManager } = require("@/classes/EnvironmentManager");
+const { userProps } = require("@/classes/UserProps");
+const { customRequest } = require("@/classes/CustomRequest");
 
 const {
   userRoutes: { userRouteBaseUrl, signInNormalRoute },

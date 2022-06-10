@@ -1,7 +1,6 @@
-const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 const { temporaryClients } = require("@/functions/tools/TemporaryClients");
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 
 const {
   userErrors: { VERIFICATION_CODE_INVALID, USER_NOT_EXIST },
@@ -41,7 +40,7 @@ const verifySignInNormalUserController = async (
       {
         user: user
           ? {
-              ...sendableUserData(user),
+              ...user,
               mainToken: user.tokens[0].mainToken,
               newUser: false,
             }

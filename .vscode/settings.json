@@ -29,7 +29,7 @@
     "coverage": false
   },
   "explorerExclude.backup": null,
-  "cSpell.words": ["", "Alphadash", "Alphanum"],
+  "cSpell.words": ["", "abcdefghijklmnopqrstufwxyz", "Alphadash", "Alphanum"],
   "mocha.enabled": true,
   "mocha.requires": ["module-alias/register"],
   "mocha.showInExplorer": true,

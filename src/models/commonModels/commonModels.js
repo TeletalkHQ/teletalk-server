@@ -2,7 +2,8 @@ const {
   versionCalculator,
   extractVersions,
 } = require("@/functions/utilities/utils");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { randomMaker } = require("@/classes/RandomMaker");
+const { modelBuilder } = require("@/classes/Builders");
 
 const {
   chatErrors: {
@@ -19,7 +20,6 @@ const {
     MESSAGE_ID_REQUIRED,
   },
 } = require("@/variables/errors/chatErrors");
-
 const {
   userErrors: {
     CREATED_AT_INVALID_TYPE,
@@ -32,7 +32,6 @@ const {
     PRIVATE_ID_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-const { modelBuilder } = require("@/functions/helpers/Builders");
 
 const createdAtCommonModel = modelBuilder
   .create()

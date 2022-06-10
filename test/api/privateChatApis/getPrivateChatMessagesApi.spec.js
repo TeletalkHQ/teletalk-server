@@ -1,5 +1,5 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { describer } = require("@/functions/helpers/Describer");
+const { customRequest } = require("@/classes/CustomRequest");
+const { describer } = require("@/classes/Describer");
 const { stateManager } = require("@/functions/tools/StateManager");
 
 const {

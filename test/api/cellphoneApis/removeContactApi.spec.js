@@ -1,6 +1,6 @@
-const { describer } = require("@/functions/helpers/Describer");
-const { userProps } = require("@/functions/helpers/UserProps");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { describer } = require("@/classes/Describer");
+const { userProps } = require("@/classes/UserProps");
+const { customRequest } = require("@/classes/CustomRequest");
 
 const {
   cellphoneRoutes: {

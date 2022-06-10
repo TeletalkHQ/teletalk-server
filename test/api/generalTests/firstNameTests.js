@@ -1,5 +1,5 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { customRequest } = require("@/classes/CustomRequest");
+const { randomMaker } = require("@/classes/RandomMaker");
 
 const {
   userModels: { firstNameModel },
@@ -12,7 +12,7 @@ const {
     FIRST_NAME_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
+const { testBuilder } = require("@/classes/TestBuilder");
 
 const firstNameMaxLength = firstNameModel.maxlength.value;
 const firstNameMinLength = firstNameModel.minlength.value;

@@ -1,6 +1,6 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { testBuilder } = require("@/functions/testUtilities/TestBuilder");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { customRequest } = require("@/classes/CustomRequest");
+const { testBuilder } = require("@/classes/TestBuilder");
+const { randomMaker } = require("@/classes/RandomMaker");
 
 const {
   chatModels: { messageModel },

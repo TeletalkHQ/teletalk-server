@@ -2,11 +2,11 @@ const {
   passwordGenerator,
 } = require("@/functions/utilities/passwordGenerator");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 const { getHostFromRequest } = require("@/functions/utilities/utils");
 const { smsClient } = require("@/functions/tools/SmsClient");
 const { temporaryClients } = require("@/functions/tools/TemporaryClients");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { envManager } = require("@/classes/EnvironmentManager");
 
 const { verificationCodeValidator } = require("@/validators/userValidators");
 

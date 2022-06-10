@@ -1,4 +1,4 @@
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 const { cellphoneValidator } = require("@/validators/userValidators");
 
 const cellphoneValidatorMiddleware = async (req, res, next) => {

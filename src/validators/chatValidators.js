@@ -1,4 +1,4 @@
-const { validationErrorBuilder } = require("@/functions/helpers/Builders");
+const { validationErrorBuilder } = require("@/classes/Builders");
 const { errorThrower } = require("@/functions/utilities/utils");
 const {
   validatorCompiler,

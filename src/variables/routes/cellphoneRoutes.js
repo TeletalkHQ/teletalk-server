@@ -1,4 +1,4 @@
-const { routeBuilder } = require("@/functions/helpers/Builders");
+const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,

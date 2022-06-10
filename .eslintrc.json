@@ -101,7 +101,8 @@
           "WITHSCORES",
           "zadd",
           "zoot",
-          "zrange"
+          "zrange",
+          "abcdefghijklmnopqrstufwxyz"
         ],
         "skipIfMatch": ["http://[^s]*", "^[-\\w]+/[-\\w\\.]+$"],
         // "skipWordIfMatch": ["^foobar.*$"],

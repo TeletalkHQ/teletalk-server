@@ -1,5 +1,4 @@
-const { errorBuilder } = require("@/functions/helpers/Builders");
-const { errorGenerator } = require("@/functions/utilities/generators");
+const { errorBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
@@ -25,14 +24,15 @@ const {
   USER_VALIDATION: "USER_VALIDATION",
 };
 
-const CHAT_EXIST = errorGenerator(
-  4000,
-  400,
-  "chat is already initialized",
-  "CHAT_EXIST",
-  "1.0.0",
-  CHAT_VALIDATION
-);
+const CHAT_EXIST = errorBuilder
+  .create()
+  .errorCode(4000)
+  .statusCode(400)
+  .message("chat is already initialized")
+  .errorReason("CHAT_EXIST")
+  .version("1.0.0")
+  .errorKey(CHAT_VALIDATION)
+  .build();
 
 const CHAT_NOT_EXIST = errorBuilder
   .create()

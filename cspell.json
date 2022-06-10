@@ -6,6 +6,7 @@
   "words": [],
   "ignoreWords": [
     "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890",
+    "abcdefghijklmnopqrstufwxyz",
     "autofetch",
     "autopep",
     "axios",

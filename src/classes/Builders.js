@@ -1,4 +1,3 @@
-const { modelPropertyGenerator } = require("@/functions/utilities/generators");
 const { objectClarify } = require("@/functions/utilities/objectClarify");
 const {
   customTypeof,
@@ -128,18 +127,33 @@ class ModelBuilder {
   }
   #defaultModelObject() {
     return {
-      defaultValue: modelPropertyGenerator("", {}),
-      empty: modelPropertyGenerator(false, {}),
-      lowercase: modelPropertyGenerator("", {}),
-      length: modelPropertyGenerator("", {}),
-      maxlength: modelPropertyGenerator(0, {}),
-      minlength: modelPropertyGenerator(0, {}),
-      numeric: modelPropertyGenerator(false, {}),
-      required: modelPropertyGenerator(false, {}),
-      trim: modelPropertyGenerator(false, {}),
-      type: modelPropertyGenerator("", {}),
-      unique: modelPropertyGenerator("", {}),
-      version: modelPropertyGenerator("", {}),
+      defaultValue: this.#fn("", {}),
+      empty: this.#fn(false, {}),
+      lowercase: this.#fn("", {}),
+      length: this.#fn("", {}),
+      maxlength: this.#fn(0, {}),
+      minlength: this.#fn(0, {}),
+      numeric: this.#fn(false, {}),
+      required: this.#fn(false, {}),
+      trim: this.#fn(false, {}),
+      type: this.#fn("", {}),
+      unique: this.#fn("", {}),
+      version: this.#fn("", {}),
+    };
+  }
+  #fn() {
+    return {
+      value: null,
+      error: {
+        value: null,
+        error: {
+          code: 0,
+          errorKey: "",
+          message: "",
+          reason: "",
+          version: "",
+        },
+      },
     };
   }
 

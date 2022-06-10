@@ -4,7 +4,7 @@ const {
   getErrorObject,
   isNull,
 } = require("@/functions/utilities/utils");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");
 
@@ -26,9 +26,7 @@ const userFinder = async (userData = userInitialOptions) => {
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    const currentUser = await UserMongoModel.findOne(userData);
-
-    return currentUser;
+    return await UserMongoModel.findOne(userData);
   } catch (error) {
     logger.log("userFinder catch, error:", error);
     errorThrower(error, error);

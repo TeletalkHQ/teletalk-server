@@ -1,4 +1,4 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
+const { customRequest } = require("@/classes/CustomRequest");
 const {
   userErrors: { TOKEN_REQUIRED, TOKEN_INVALID_TYPE },
 } = require("@/variables/errors/userErrors");

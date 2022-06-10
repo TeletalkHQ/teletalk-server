@@ -1,5 +1,5 @@
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { randomMaker } = require("@/classes/RandomMaker");
 
 const {
   PrivateChatMongoModel,

@@ -2,13 +2,11 @@ require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
 require("@/variables/others/globalVariables");
 
-const { randomMaker } = require("@/functions/helpers/RandomMaker");
+const { randomMaker } = require("@/classes/RandomMaker");
 const { errorThrower } = require("@/functions/utilities/utils");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { envManager } = require("@/classes/EnvironmentManager");
 const { tokenSigner } = require("@/functions/utilities/tokenSigner");
-const {
-  setTestUsersIntoState,
-} = require("@/functions/testUtilities/testUtils");
+const { setTestUsersIntoState } = require("@/functions/utilities/testUtils");
 
 const { countries } = require("@/variables/others/countries");
 

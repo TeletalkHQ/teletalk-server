@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
-const { mongoModelBuilder } = require("@/functions/helpers/Builders");
+const { mongoModelBuilder } = require("@/classes/Builders");
 
 const {
   chatModels: {

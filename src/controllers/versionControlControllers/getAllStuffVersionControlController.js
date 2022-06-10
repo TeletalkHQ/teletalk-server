@@ -1,4 +1,4 @@
-const { allStuff } = require("@/variables/others/otherVariables");
+const { allStuff } = require("@/variables/others/allStuff");
 
 const getAllStuffVersionControlController = async (
   req = expressRequest,

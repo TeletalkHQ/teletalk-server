@@ -1,16 +1,13 @@
-const {
-  cellphoneRoutes: { version: v1, cellphoneRouteBaseUrl, ...cellphoneRoutes },
-} = require("@/variables/routes/cellphoneRoutes");
-const {
-  userRoutes: { version: v2, userRouteBaseUrl, ...userRoutes },
-} = require("@/variables/routes/userRoutes");
-const {
-  privateChatRoutes: {
-    version: v3,
-    privateChatRouteBaseUrl,
-    ...privateChatRoutes
-  },
-} = require("@/variables/routes/privateChatRoutes");
+const { excludeVersion } = require("@/functions/utilities/utils");
+
+const { cellphoneRouteBaseUrl, ...cellphoneRoutes } =
+  require("@/variables/routes/cellphoneRoutes").cellphoneRoutes;
+const { userRouteBaseUrl, ...userRoutes } = excludeVersion(
+  require("@/variables/routes/userRoutes").userRoutes
+);
+const { privateChatRouteBaseUrl, ...privateChatRoutes } = excludeVersion(
+  require("@/variables/routes/privateChatRoutes").privateChatRoutes
+);
 
 const routes = {
   ...cellphoneRoutes,

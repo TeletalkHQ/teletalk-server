@@ -1,5 +1,5 @@
-const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { customRequest } = require("@/classes/CustomRequest");
+const { userProps } = require("@/classes/UserProps");
 
 const {
   firstNameFailureTests,
@@ -27,7 +27,7 @@ const {
   userRoutes: { userRouteBaseUrl, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
 const { tokenSuccessTests } = require("$/api/generalTests/tokenTests");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { envManager } = require("@/classes/EnvironmentManager");
 
 const fullName = userProps.makeTestFullName();
 

@@ -1,4 +1,3 @@
-const { sendableUserData } = require("@/functions/utilities/sendableUserData");
 const { getUserData } = require("@/models/userModels/userModelFunctions");
 
 const getUserDataUserController = async (
@@ -10,7 +9,7 @@ const getUserDataUserController = async (
 
     const user = await getUserData(privateId);
 
-    res.checkAndResponse({ user: { ...sendableUserData(user) } });
+    res.checkAndResponse({ user });
   } catch (error) {
     logger.log("getUserDataUserController catch, error: ", error);
     res.errorCollector(error);

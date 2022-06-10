@@ -1,6 +1,6 @@
 const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 
 const {
   userErrors: { SELF_STUFF },

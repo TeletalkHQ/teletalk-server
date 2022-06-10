@@ -2,7 +2,7 @@ const {
   isUrlMatchWithReqUrl,
   concatBaseUrlWithUrl,
 } = require("@/functions/utilities/utils");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { envManager } = require("@/classes/EnvironmentManager");
 
 const {
   userRoutes: { userRouteBaseUrl, verifySignInNormalRoute, createNewUserRoute },

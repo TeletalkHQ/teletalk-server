@@ -1,4 +1,4 @@
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 const { errorThrower } = require("@/functions/utilities/utils");
 const { contactValidator } = require("@/validators/userValidators");
 

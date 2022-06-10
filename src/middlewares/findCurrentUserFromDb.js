@@ -1,5 +1,5 @@
 const { errorThrower, isNull } = require("@/functions/utilities/utils");
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 

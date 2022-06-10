@@ -1,4 +1,4 @@
-const { userProps } = require("@/functions/helpers/UserProps");
+const { userProps } = require("@/classes/UserProps");
 const { updateOneContact } = require("@/models/userModels/userModelFunctions");
 
 const editContactCellphoneController = async (

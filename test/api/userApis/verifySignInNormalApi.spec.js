@@ -1,7 +1,7 @@
-const { expect } = require("@/functions/testUtilities/testUtils");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
-const { customRequest } = require("@/functions/helpers/CustomRequest");
-const { describer } = require("@/functions/helpers/Describer");
+const { expect } = require("@/functions/utilities/testUtils");
+const { envManager } = require("@/classes/EnvironmentManager");
+const { customRequest } = require("@/classes/CustomRequest");
+const { describer } = require("@/classes/Describer");
 
 const {
   userRoutes: { userRouteBaseUrl, verifySignInNormalRoute },

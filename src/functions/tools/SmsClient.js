@@ -1,7 +1,7 @@
 const MelipayamakApi = require("melipayamak");
 
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
-const { envManager } = require("@/functions/utilities/EnvironmentManager");
+const { envManager } = require("@/classes/EnvironmentManager");
 const {
   appErrors: { SEND_SMS_FAILED },
 } = require("@/variables/errors/appErrors");

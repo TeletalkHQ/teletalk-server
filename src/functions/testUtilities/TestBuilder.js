@@ -2,14 +2,69 @@ const { expect } = require("@/functions/testUtilities/testUtils");
 
 class TestBuilder {
   constructor() {
-    this.defaultOptions = {
+    this.tests = [];
+    this.options = this.#defaultOptions();
+    this.variables = this.#defaultVariables();
+  }
+
+  #defaultOptions() {
+    return {
       modelCheck: true,
       stringEquality: true,
     };
-    this.options = { ...this.defaultOptions };
+  }
+  #defaultVariables() {
+    return {
+      model: {},
+      mainVariable: null,
+      testVariable: null,
+      modelMaxLength: 0,
+      modelMinLength: 0,
+      modelLength: 0,
+    };
+  }
+  #reset() {
     this.tests = [];
+    this.variables = this.#defaultVariables();
+    this.options = this.#defaultOptions();
 
-    this.variables = this.getDefaultVariables();
+    return this;
+  }
+
+  setVariables(model, mainVariable, testVariable) {
+    this.variables = {
+      ...this.variables,
+      model,
+      mainVariable,
+      testVariable,
+      modelLength: model?.length?.value,
+      modelMaxLength: model?.maxlength?.value,
+      modelMinLength: model?.minlength?.value,
+    };
+
+    return this;
+  }
+
+  setOptions(options = this.options) {
+    this.options = { ...this.options, ...options };
+
+    return this;
+  }
+
+  execute(resetCondition = true) {
+    this.tests.forEach((test) => {
+      test();
+    });
+
+    if (resetCondition) this.#reset();
+
+    return this;
+  }
+
+  addCommonTest() {
+    this.stringEquality().typeCheck().gteCheck().lteCheck();
+
+    return this;
   }
 
   stringEquality() {
@@ -34,13 +89,6 @@ class TestBuilder {
 
     return this;
   }
-
-  addCommonTest() {
-    this.stringEquality().typeCheck().gteCheck().lteCheck();
-
-    return this;
-  }
-
   async checkAndExecuteAsync(condition, asyncCb) {
     if (condition) {
       await asyncCb();
@@ -55,26 +103,6 @@ class TestBuilder {
         +this.variables.modelLength
       )
     );
-
-    return this;
-  }
-
-  setVariables(model, mainVariable, testVariable) {
-    this.variables = {
-      ...this.variables,
-      model,
-      mainVariable,
-      testVariable,
-      modelLength: model?.length?.value,
-      modelMaxLength: model?.maxlength?.value,
-      modelMinLength: model?.minlength?.value,
-    };
-
-    return this;
-  }
-
-  setOptions(options = this.options) {
-    this.options = { ...this.options, ...options };
 
     return this;
   }
@@ -146,36 +174,6 @@ class TestBuilder {
         expect(+this.variables.testVariable).to.be.an("number")
       );
     });
-    return this;
-  }
-
-  execute(resetCondition = true) {
-    this.tests.forEach((test) => {
-      test();
-    });
-
-    if (resetCondition) this.reset();
-
-    return this;
-  }
-
-  getDefaultVariables() {
-    return {
-      model: {},
-      mainVariable: null,
-      testVariable: null,
-      modelMaxLength: 0,
-      modelMinLength: 0,
-      modelLength: 0,
-    };
-  }
-
-  reset() {
-    this.variables = this.getDefaultVariables();
-
-    this.options = { ...this.defaultOptions };
-    this.tests = [];
-
     return this;
   }
 }

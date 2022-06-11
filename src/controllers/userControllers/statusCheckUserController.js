@@ -1,6 +1,6 @@
 //UNUSED statusCheckUserController
-
-const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
+const { userProps } = require("@/classes/UserProps");
+const { authManager } = require("@/classes/AuthManager");
 
 const { cellphoneValidator } = require("@/validators/userValidators");
 
@@ -13,7 +13,6 @@ const {
   getTokenFromRequest,
 } = require("@/functions/utilities/utils");
 const { userFinder } = require("@/models/userModels/userModelFunctions");
-const { userProps } = require("@/classes/UserProps");
 
 const statusCheckUserController = async (
   req = expressRequest,
@@ -24,7 +23,7 @@ const statusCheckUserController = async (
 
     errorThrower(!mainToken, TOKEN_REQUIRED);
 
-    const tokenData = tokenVerifier(mainToken);
+    const tokenData = authManager.tokenVerifier(mainToken);
 
     const cellphone = userProps.getCellphone(tokenData.payload);
 

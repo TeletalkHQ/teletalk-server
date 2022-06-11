@@ -1,4 +1,4 @@
-const { stateManager } = require("@/functions/tools/StateManager");
+const { stateManager } = require("@/classes/StateManager");
 const { expect } = require("@/functions/utilities/testUtils");
 
 const {

@@ -1,4 +1,4 @@
-const { temporaryClients } = require("@/functions/tools/TemporaryClients");
+const { temporaryClients } = require("@/classes/TemporaryClients");
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { userProps } = require("@/classes/UserProps");
 

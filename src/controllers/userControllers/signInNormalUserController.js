@@ -1,11 +1,11 @@
 const {
   passwordGenerator,
 } = require("@/functions/utilities/passwordGenerator");
-const { tokenSigner } = require("@/functions/utilities/tokenSigner");
+const { authManager } = require("@/classes/AuthManager");
 const { userProps } = require("@/classes/UserProps");
 const { getHostFromRequest } = require("@/functions/utilities/utils");
-const { smsClient } = require("@/functions/tools/SmsClient");
-const { temporaryClients } = require("@/functions/tools/TemporaryClients");
+const { smsClient } = require("@/classes/SmsClient");
+const { temporaryClients } = require("@/classes/TemporaryClients");
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const { verificationCodeValidator } = require("@/validators/userValidators");
@@ -36,7 +36,7 @@ const signInNormalUserController = async (
       { sendCondition }
     );
 
-    const verifyToken = await tokenSigner(
+    const verifyToken = await authManager.tokenSigner(
       cellphone,
       envManager.getJwtSignInSecret()
     );

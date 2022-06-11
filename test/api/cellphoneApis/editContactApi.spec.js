@@ -1,7 +1,7 @@
 const { userProps } = require("@/classes/UserProps");
 const { customRequest } = require("@/classes/CustomRequest");
 const { describer } = require("@/classes/Describer");
-const { stateManager } = require("@/functions/tools/StateManager");
+const { stateManager } = require("@/classes/StateManager");
 
 const {
   cellphoneRoutes: { addContactRoute, editContactRoute, cellphoneRouteBaseUrl },

@@ -1,7 +1,7 @@
 const supertest = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 
-const { stateManager } = require("@/functions/tools/StateManager");
+const { stateManager } = require("@/classes/StateManager");
 const {
   errorThrower,
   getObjectLength,

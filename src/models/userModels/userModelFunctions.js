@@ -1,5 +1,5 @@
-const { cellphoneFinder } = require("@/functions/utilities/cellphoneFinder");
 const {
+  cellphoneFinder,
   errorThrower,
   getErrorObject,
   isNull,
@@ -273,8 +273,8 @@ module.exports = {
   deleteBlacklistItem,
   getAllChats,
   getAllUsers,
-  getUserData,
   getUserContacts,
+  getUserData,
   removeContactItem,
   removeTestUsers,
   updateOneContact,

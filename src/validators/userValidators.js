@@ -2,7 +2,8 @@
 const { validationErrorBuilder } = require("@/classes/Builders");
 const { userProps } = require("@/classes/UserProps");
 const { envManager } = require("@/classes/EnvironmentManager");
-const { tokenVerifier } = require("@/functions/utilities/tokenVerifier");
+const { authManager } = require("@/classes/AuthManager");
+
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const {
   validatorCompiler,
@@ -326,7 +327,7 @@ const tokenValidator = async (
       .throwAnyway(TOKEN_INVALID)
       .execute();
 
-    const verifiedToken = tokenVerifier(token, secret);
+    const verifiedToken = authManager.tokenVerifier(token, secret);
     if (verifiedToken.done === true) return verifiedToken.data;
 
     validationErrorBuilder

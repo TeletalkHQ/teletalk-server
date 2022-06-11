@@ -1,6 +1,5 @@
-const {
-  getSecretWithUrlCondition,
-} = require("@/functions/utilities/getSecretWithUrlCondition");
+const { authManager } = require("@/classes/AuthManager");
+
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
 
 const { tokenValidator } = require("@/validators/userValidators");
@@ -9,7 +8,7 @@ const authDefaultMiddleware = async (req, res, next) => {
   try {
     const token = getTokenFromRequest(req);
 
-    const secret = getSecretWithUrlCondition(req.url);
+    const secret = authManager.getSecretWithUrlCondition(req.url);
 
     const validationResult = await tokenValidator(token, secret);
 

@@ -5,7 +5,7 @@ require("@/variables/others/globalVariables");
 const { randomMaker } = require("@/classes/RandomMaker");
 const { errorThrower } = require("@/functions/utilities/utils");
 const { envManager } = require("@/classes/EnvironmentManager");
-const { tokenSigner } = require("@/functions/utilities/tokenSigner");
+const { authManager } = require("@/classes/AuthManager");
 const { setTestUsersIntoState } = require("@/functions/utilities/testUtils");
 
 const { countries } = require("@/variables/others/countries");
@@ -33,7 +33,7 @@ describe("Add requirements to application state", () => {
           privateIdCommonModel.maxlength.value
         );
 
-        const mainToken = await tokenSigner({
+        const mainToken = await authManager.tokenSigner({
           countryName,
           countryCode,
           phoneNumber,

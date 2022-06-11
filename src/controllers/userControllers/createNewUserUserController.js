@@ -1,10 +1,11 @@
-const { tokenSigner } = require("@/functions/utilities/tokenSigner");
-const { temporaryClients } = require("@/functions/tools/TemporaryClients");
+const { authManager } = require("@/classes/AuthManager");
+const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userProps } = require("@/classes/UserProps");
-const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
-const { getTokenFromRequest } = require("@/functions/utilities/utils");
 const { envManager } = require("@/classes/EnvironmentManager");
 const { randomMaker } = require("@/classes/RandomMaker");
+
+const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
+const { getTokenFromRequest } = require("@/functions/utilities/utils");
 
 const {
   tokenValidator,
@@ -83,7 +84,10 @@ const createNewUserUserController = async (
         privateIdCommonModel.maxlength.value
       );
 
-      const mainToken = await tokenSigner({ ...cellphone, privateId });
+      const mainToken = await authManager.tokenSigner({
+        ...cellphone,
+        privateId,
+      });
 
       const userData = {
         ...cellphone,

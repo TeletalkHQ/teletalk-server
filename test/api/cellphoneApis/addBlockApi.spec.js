@@ -26,7 +26,7 @@ const {
 const {
   userErrors: { BLACKLIST_ITEM_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
-const { stateManager } = require("@/functions/tools/StateManager");
+const { stateManager } = require("@/classes/StateManager");
 
 describer.addInitialDescribe(cellphoneRouteBaseUrl, addBlockRoute, "0");
 

@@ -1,5 +1,5 @@
 const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
-const { stateManager } = require("@/functions/tools/StateManager");
+const { stateManager } = require("@/classes/StateManager");
 
 const {
   initialOptions: { stateKeys },

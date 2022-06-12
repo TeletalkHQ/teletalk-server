@@ -46,6 +46,24 @@ const getErrorObject = (errorObject, extraData = {}, statusCode) => {
   };
 };
 
+const objectClarify = (dirtyObject = {}) => {
+  const cleanObject = {};
+
+  Object.entries(dirtyObject)?.forEach(([key, value]) => {
+    if (!customTypeof(value).type.undefined) {
+      if (customTypeof(dirtyObject[key]).type.object) {
+        cleanObject[key] = objectClarify(dirtyObject[key]);
+
+        return;
+      }
+
+      cleanObject[key] = value;
+    }
+  });
+
+  return cleanObject;
+};
+
 const isFunction = (...items) => {
   return items.every((i) => customTypeof(i).type.function);
 };
@@ -276,6 +294,7 @@ module.exports = {
   isFunction,
   isNull,
   isUrlMatchWithReqUrl,
+  objectClarify,
   objectInitializer,
   skipParams,
   versionCalculator,

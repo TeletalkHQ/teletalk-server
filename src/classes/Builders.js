@@ -1,9 +1,9 @@
-const { objectClarify } = require("@/functions/utilities/objectClarify");
 const {
   customTypeof,
   errorThrower,
-  getValidatorErrorTypes,
   getErrorObject,
+  getValidatorErrorTypes,
+  objectClarify,
 } = require("@/functions/utilities/utils");
 
 class RouteBuilder {

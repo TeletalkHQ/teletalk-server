@@ -20,24 +20,24 @@ const {
 } = require("@/models/validationModels/chatValidationModels");
 
 const routes = {
-  cellphoneRoutes,
-  otherRoutes,
-  privateChatRoutes,
-  userRoutes,
-  versionControlRoutes,
+  ...cellphoneRoutes,
+  ...otherRoutes,
+  ...privateChatRoutes,
+  ...userRoutes,
+  ...versionControlRoutes,
 };
 
 const models = {
-  chatModels,
-  commonModels,
-  userModels,
-  chatValidationModels,
-  userValidationModels,
+  ...chatModels,
+  ...commonModels,
+  ...userModels,
+  ...chatValidationModels,
+  ...userValidationModels,
 };
 
 const errors = {
-  chatErrors,
-  userErrors,
+  ...chatErrors,
+  ...userErrors,
 };
 
 const allStuff = {

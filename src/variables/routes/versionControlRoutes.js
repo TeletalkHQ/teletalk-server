@@ -19,6 +19,8 @@ const getAllStuffsRoute = routeBuilder
   .description(
     "Use for get all routes, models, validation models, errors and more"
   )
+  .inputFields([{}])
+  .outputFields([{}])
   .build();
 
 const routes = { versionControlBaseUrl, getAllStuffsRoute };

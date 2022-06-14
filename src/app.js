@@ -1,4 +1,4 @@
-//! Require this module before requiring anything!
+//! Require this module before require anything!
 require("@/variables/others/globalVariables");
 
 const cors = require("cors");
@@ -46,6 +46,9 @@ const {
 const {
   userRoutes: { signInNormalRoute, userRouteBaseUrl },
 } = require("@/variables/routes/userRoutes");
+const {
+  versionControlRoutes: { versionControlBaseUrl, getAllStuffsRoute },
+} = require("@/variables/routes/versionControlRoutes");
 
 const app = express();
 
@@ -59,7 +62,10 @@ app.use(findRouteObjectMiddleware);
 app.use(responseErrorHandlersMiddleware);
 app.use(
   ignoreMiddlewaresByUrlMiddleware(
-    [concatBaseUrlWithUrl(userRouteBaseUrl, signInNormalRoute)],
+    [
+      concatBaseUrlWithUrl(userRouteBaseUrl, signInNormalRoute),
+      concatBaseUrlWithUrl(versionControlBaseUrl, getAllStuffsRoute),
+    ],
     authDefaultMiddleware
   )
 ); //* Should be after 'responseErrorHandlersMiddleware'

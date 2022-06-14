@@ -1,5 +1,8 @@
 const { excludeVersion } = require("@/functions/utilities/utils");
 
+const { versionControlRoutes } = excludeVersion(
+  require("@/variables/routes/versionControlRoutes")
+);
 const { cellphoneRouteBaseUrl, ...cellphoneRoutes } =
   require("@/variables/routes/cellphoneRoutes").cellphoneRoutes;
 const { userRouteBaseUrl, ...userRoutes } = excludeVersion(
@@ -13,6 +16,7 @@ const routes = {
   ...cellphoneRoutes,
   ...userRoutes,
   ...privateChatRoutes,
+  ...versionControlRoutes,
 };
 
 const routesKeys = Object.keys(routes);

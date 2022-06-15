@@ -7,6 +7,7 @@ const {
 const versionControlBaseUrl = routeBuilder
   .create()
   .url("/versionControl")
+  .baseUrl()
   .version("1.0.0")
   .build();
 
@@ -14,6 +15,7 @@ const getAllStuffsRoute = routeBuilder
   .create()
   .method("get")
   .url("/getAllStuff")
+  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description(

@@ -49,6 +49,9 @@ const {
 const {
   versionControlRoutes: { versionControlBaseUrl, getAllStuffsRoute },
 } = require("@/variables/routes/versionControlRoutes");
+const {
+  otherRoutes: { otherRouteBaseUrl, countriesRoute, welcomeRoute },
+} = require("@/variables/routes/otherRoutes");
 
 const app = express();
 
@@ -59,19 +62,21 @@ app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
 
 app.use(findRouteObjectMiddleware);
+app.use(notFoundMiddleware);
 app.use(responseErrorHandlersMiddleware);
 app.use(
   ignoreMiddlewaresByUrlMiddleware(
     [
       concatBaseUrlWithUrl(userRouteBaseUrl, signInNormalRoute),
       concatBaseUrlWithUrl(versionControlBaseUrl, getAllStuffsRoute),
+      concatBaseUrlWithUrl(otherRouteBaseUrl, welcomeRoute),
+      concatBaseUrlWithUrl(otherRouteBaseUrl, countriesRoute),
     ],
     authDefaultMiddleware
   )
 ); //* Should be after 'responseErrorHandlersMiddleware'
 
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
-app.use(notFoundMiddleware); //* Should be after 'sendJsonResponseMiddleware'
 app.use(checkAndResponseMiddleware); //* Should be after 'notFoundMiddleware'
 app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
 

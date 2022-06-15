@@ -15,6 +15,8 @@ const inputOutputFields = {
   contacts: "contacts",
   countryCode: "countryCode",
   countryName: "countryName",
+  countries: "countries",
+  countryShortName: "countryShortName",
   editedContact: "editedContact",
   firstName: "firstName",
   lastName: "lastName",

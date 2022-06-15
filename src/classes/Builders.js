@@ -9,6 +9,7 @@ const {
 class RouteBuilder {
   constructor() {
     this.routeObject = this.#defaultRouteObject();
+    this.routeBaseUrl = "";
   }
 
   #defaultRouteObject() {
@@ -27,7 +28,7 @@ class RouteBuilder {
   }
 
   create() {
-    this.routeObject = {};
+    this.routeObject = this.#defaultRouteObject();
     return this;
   }
   build() {
@@ -39,6 +40,14 @@ class RouteBuilder {
   }
   url(url) {
     this.#addProperty("url", url);
+    return this;
+  }
+  baseUrl() {
+    this.routeBaseUrl = this.routeObject.url;
+    return this;
+  }
+  fullUrl() {
+    this.#addProperty("fullUrl", `${this.routeBaseUrl}${this.routeObject.url}`);
     return this;
   }
   statusCode(statusCode) {

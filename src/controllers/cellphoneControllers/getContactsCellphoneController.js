@@ -9,7 +9,7 @@ const getContactsCellphoneController = async (
 
     const contacts = await getUserContacts(currentUser);
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       contacts,
     });
   } catch (error) {

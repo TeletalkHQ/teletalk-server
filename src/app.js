@@ -27,7 +27,7 @@ const {
 } = require("@/middlewares/responseErrorHandlersMiddleware");
 const {
   checkAndResponseMiddleware,
-} = require("@/middlewares/checkAndResponseMiddleware");
+} = require("@/middlewares/checkDataAndResponseMiddleware");
 
 const { lifeLine } = require("@/routers/lifeLine");
 const {

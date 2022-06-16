@@ -14,7 +14,7 @@ const removeBlockCellphoneController = async (
 
     await deleteBlacklistItem(currentUser, targetUserData);
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       removedBlockedCellphone: targetUserData,
     });
   } catch (error) {

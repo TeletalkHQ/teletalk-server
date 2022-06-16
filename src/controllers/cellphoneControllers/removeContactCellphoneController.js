@@ -12,7 +12,7 @@ const removeContactCellphoneController = async (
 
     await removeContactItem(currentUser, targetUserData);
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       removedContact: targetUserData,
     });
   } catch (error) {

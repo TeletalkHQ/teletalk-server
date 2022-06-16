@@ -70,7 +70,7 @@ const createNewUserUserController = async (
         privateId: user.privateId,
       });
 
-      res.checkAndResponse({
+      res.checkDataAndResponse({
         user: {
           ...cellphone,
           firstName,
@@ -99,7 +99,7 @@ const createNewUserUserController = async (
 
       await createNewNormalUser(userData);
 
-      res.checkAndResponse({
+      res.checkDataAndResponse({
         user: { ...cellphone, privateId, firstName, lastName, mainToken },
       });
     }

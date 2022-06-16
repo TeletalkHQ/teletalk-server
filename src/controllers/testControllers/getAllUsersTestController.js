@@ -7,7 +7,7 @@ const getAllUsersTestController = async (
   try {
     const { users } = await getAllUsers();
 
-    res.checkAndResponse({ users });
+    res.checkDataAndResponse({ users });
   } catch (error) {
     logger.log("getAllUsersTestController", error);
     res.errorCollector(error);

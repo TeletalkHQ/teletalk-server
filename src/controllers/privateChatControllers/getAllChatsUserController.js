@@ -9,7 +9,7 @@ const getAllChatsUserController = async (
 
     const chats = await getAllChats(currentUser);
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       chats,
     });
   } catch (error) {

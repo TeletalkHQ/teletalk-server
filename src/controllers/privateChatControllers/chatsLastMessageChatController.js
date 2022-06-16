@@ -11,7 +11,7 @@ const chatsLastMessageChatController = async (
 
     const chatsWithLastMessages = await getChatsLastMessages(currentUser);
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       chatsWithLastMessages,
     });
   } catch (error) {

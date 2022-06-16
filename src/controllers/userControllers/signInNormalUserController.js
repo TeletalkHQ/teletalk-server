@@ -67,7 +67,7 @@ const signInNormalUserController = async (
       envManager.setTestVerificationCode(verificationCode);
     }
 
-    res.checkAndResponse({ user: responseData });
+    res.checkDataAndResponse({ user: responseData });
   } catch (error) {
     logger.log("signInNormalUserController catch, error: ", error);
     res.errorCollector(error);

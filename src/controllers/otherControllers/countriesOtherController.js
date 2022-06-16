@@ -5,7 +5,7 @@ const countriesOtherController = async (
   res = expressResponse
 ) => {
   try {
-    res.checkAndResponse({ countries });
+    res.checkDataAndResponse({ countries });
   } catch (error) {
     logger.log("countriesUserController catch, error:", error);
     res.errorCollector(error);

@@ -17,7 +17,7 @@ const addContactCellphoneController = async (
       targetUserData
     );
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       addedContact: {
         ...targetUserData,
         privateId: targetUser.privateId,

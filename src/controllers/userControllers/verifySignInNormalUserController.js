@@ -36,7 +36,7 @@ const verifySignInNormalUserController = async (
 
     const outputIndex = user ? 0 : 1;
 
-    res.checkAndResponse(
+    res.checkDataAndResponse(
       {
         user: user
           ? {

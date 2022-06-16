@@ -18,7 +18,7 @@ const editContactCellphoneController = async (
 
     await updateOneContact(currentUser, targetCellphone, editedValues);
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       editedContact: { ...targetCellphone, ...editedValues },
     });
   } catch (error) {

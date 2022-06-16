@@ -22,7 +22,7 @@ const getMessagesPrivateChatController = async (
       chatId
     );
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       messages: privateChatMessages,
     });
   } catch (error) {

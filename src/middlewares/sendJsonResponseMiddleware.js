@@ -1,6 +1,6 @@
 const {
   getStatusCodeFromRoute,
-} = require("@/functions/utilities/getStatusCodeFromRoute");
+} = require("@/functions/utilities/getStatusCodeFromRouteObject");
 
 const sendJsonResponseMiddleware = (req, res, next) => {
   try {

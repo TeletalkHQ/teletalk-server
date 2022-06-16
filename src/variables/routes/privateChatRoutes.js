@@ -2,6 +2,7 @@ const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
+  addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
 const {
   inputOutputFields: {
@@ -20,7 +21,6 @@ const {
 const privateChatRouteBaseUrl = routeBuilder
   .create()
   .url("/chat")
-  .baseUrl()
   .version("1.0.0")
   .description("privateChatRouteBaseUrl description")
   .build();
@@ -29,7 +29,6 @@ const getAllChatsRoute = routeBuilder
   .create()
   .method("get")
   .url("/privateChat/getAllPrivateChats")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for Start new chat")
@@ -49,7 +48,6 @@ const chatsLastMessageRoute = routeBuilder
   .create()
   .method("post")
   .url("/privateChat/privateChatsLastMessages")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for Get chats last message")
@@ -61,7 +59,6 @@ const getPrivateChatMessagesRoute = routeBuilder
   .create()
   .method("post")
   .url("/privateChat/getPrivateMessages")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for get all messages")
@@ -86,7 +83,6 @@ const startChatRoute = routeBuilder
   .create()
   .method("post")
   .url("/privateChat/startNewPrivateChat")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for Start new chat")
@@ -98,7 +94,6 @@ const sendMessageRoute = routeBuilder
   .create()
   .method("post")
   .url("/privateChat/sendPrivateMessage")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for send private messages")
@@ -116,14 +111,14 @@ const sendMessageRoute = routeBuilder
   ])
   .build();
 
-const routes = {
+const routes = addFullUrlToRouteObjects(privateChatRouteBaseUrl, {
   privateChatRouteBaseUrl,
   chatsLastMessageRoute,
   getAllChatsRoute,
   getPrivateChatMessagesRoute,
   sendMessageRoute,
   startChatRoute,
-};
+});
 
 const privateChatRoutes = {
   version: versionCalculator(extractVersions(routes)),

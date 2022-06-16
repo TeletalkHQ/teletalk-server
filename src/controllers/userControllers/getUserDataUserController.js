@@ -9,7 +9,7 @@ const getUserDataUserController = async (
 
     const user = await getUserData(privateId);
 
-    res.checkAndResponse({ user });
+    res.checkDataAndResponse({ user });
   } catch (error) {
     logger.log("getUserDataUserController catch, error: ", error);
     res.errorCollector(error);

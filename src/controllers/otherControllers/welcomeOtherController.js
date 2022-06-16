@@ -3,7 +3,7 @@ const welcomeOtherController = (
   res = expressResponse
 ) => {
   try {
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       message: "Hey! Welcome to teletalk <3",
     });
   } catch (error) {

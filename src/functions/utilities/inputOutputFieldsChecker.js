@@ -15,6 +15,11 @@ const {
 const checkInputFields = (input, fields, fieldsIndex = 0) => {
   const selectedFields = fields[fieldsIndex];
   let result = { done: true, internalError: false, errorObject: {} };
+
+  // if (fields.length === 0) {
+  //   return result;
+  // }
+
   const fn = (internalError = false, errorObject = {}) => {
     result.done = false;
     result.internalError = internalError;
@@ -81,6 +86,11 @@ const checkOutputFields = (output, fields, fieldsIndex = 0) => {
   try {
     const selectedFields = fields[fieldsIndex];
     let result = { done: true, internalError: false, errorObject: {} };
+
+    // if (fields.length === 0) {
+    //   return result;
+    // }
+
     const fn = (internalError = false, errorObject = {}) => {
       result.done = false;
       result.internalError = internalError;

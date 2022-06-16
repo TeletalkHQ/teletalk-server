@@ -14,7 +14,7 @@ const addBlockCellphoneController = async (
 
     await addCellphoneToUserBlacklist(currentUser, targetUser);
 
-    res.checkAndResponse({
+    res.checkDataAndResponse({
       blockedCellphone: targetUser,
     });
   } catch (error) {

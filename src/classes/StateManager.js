@@ -19,7 +19,7 @@ class StateManager {
 
   initializeStates() {
     Object.keys(this.state).forEach((key) => {
-      redis.get(key, (error, result) => {
+      redis.set(key, (error, result) => {
         if (!error) {
           this.state[key] = JSON.parse(result);
         }

@@ -60,12 +60,12 @@ class TemporaryClients {
         ...updateProps,
       });
 
-      this.setAliveClients(aliveClients);
+      await this.setAliveClients(aliveClients);
 
-      return true;
+      return { done: true };
     }
 
-    return false;
+    return { done: false };
   }
 }
 

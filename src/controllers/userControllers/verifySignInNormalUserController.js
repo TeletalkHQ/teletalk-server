@@ -22,19 +22,22 @@ const verifySignInNormalUserController = async (
 
     await verificationCodeValidator(verificationCode);
 
-    errorThrower(authData.done === false, authData.error);
-
     const cellphone = userProps.getCellphone(authData.payload);
     const tempClient = await temporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 
+    logger.log(
+      "rm",
+      "tempClient?.verificationCode",
+      tempClient?.verificationCode
+    );
     errorThrower(tempClient?.verificationCode !== verificationCode, () =>
       getErrorObject(VERIFICATION_CODE_INVALID)
     );
 
     const user = await userFinder(cellphone);
 
-    const outputIndex = user ? 0 : 1;
+    const dataOutputIndex = user ? 0 : 1;
 
     res.checkDataAndResponse(
       {
@@ -46,7 +49,7 @@ const verifySignInNormalUserController = async (
             }
           : { newUser: true },
       },
-      outputIndex
+      dataOutputIndex
     );
   } catch (error) {
     logger.log("verifySignInNormalUserController catch, error:", error);

@@ -51,7 +51,7 @@ const signInNormalUserController = async (
     } else {
       await temporaryClients.addClient({
         mainToken: verifyToken,
-        verificationCode: verificationCode,
+        verificationCode,
         ...cellphone,
       });
     }

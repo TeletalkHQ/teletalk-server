@@ -1,6 +1,6 @@
 const {
   getStatusCodeFromRoute,
-} = require("@/functions/utilities/getStatusCodeFromRoute");
+} = require("@/functions/utilities/getStatusCodeFromRouteObject");
 const { getErrorObject, customTypeof } = require("@/functions/utilities/utils");
 
 const {

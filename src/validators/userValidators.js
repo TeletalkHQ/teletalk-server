@@ -146,8 +146,8 @@ const countryCodeValidator = async (countryCode, returnCondition) => {
   try {
     const result = await compiledCountryCodeValidator({ countryCode });
 
-    validationErrorBuilder
-      .create()
+    const errorBuilder = validationErrorBuilder.create();
+    errorBuilder
       .setRequirements(result, {
         extraErrorFields: {
           validatedCountryCode: countryCode,
@@ -156,7 +156,7 @@ const countryCodeValidator = async (countryCode, returnCondition) => {
       .customCheck(result === true, () => {
         const country = countries.find((c) => c.countryCode === countryCode);
 
-        validationErrorBuilder.addError(
+        errorBuilder.addError(
           country === undefined,
           COUNTRY_CODE_NOT_SUPPORTED
         );
@@ -179,8 +179,9 @@ const countryNameValidator = async (countryName, returnCondition) => {
   try {
     const result = await compiledCountryNameValidator({ countryName });
 
-    validationErrorBuilder
-      .create()
+    const errorBuilder = validationErrorBuilder.create();
+
+    errorBuilder
       .setRequirements(result, {
         extraErrorFields: {
           validatedCountryName: countryName,
@@ -189,7 +190,7 @@ const countryNameValidator = async (countryName, returnCondition) => {
       .customCheck(result === true, () => {
         const country = countries.find((c) => c.countryName === countryName);
 
-        validationErrorBuilder.addError(
+        errorBuilder.addError(
           country === undefined,
           COUNTRY_NAME_NOT_SUPPORTED
         );
@@ -314,8 +315,9 @@ const tokenValidator = async (
   try {
     const result = await compiledTokenValidator({ token });
 
-    validationErrorBuilder
-      .create()
+    const errorBuilder = validationErrorBuilder.create();
+
+    errorBuilder
       .setRequirements(result, {
         extraErrorFields: {
           validatedToken: token,
@@ -330,7 +332,7 @@ const tokenValidator = async (
     const verifiedToken = authManager.tokenVerifier(token, secret);
     if (verifiedToken.done === true) return verifiedToken.data;
 
-    validationErrorBuilder
+    errorBuilder
       .addExtraErrorFields({
         tokenError: verifiedToken.error,
       })

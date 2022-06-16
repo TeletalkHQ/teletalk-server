@@ -2,6 +2,7 @@ const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
+  addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -44,7 +45,6 @@ const userDataProps = {
 const userRouteBaseUrl = routeBuilder
   .create()
   .url("/user")
-  .baseUrl()
   .version("1.0.0")
   .build();
 
@@ -52,7 +52,6 @@ const createNewUserRoute = routeBuilder
   .create()
   .method("post")
   .url("/normalUser/createNewNormalUser")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for create new user for normal account")
@@ -76,7 +75,6 @@ const logoutNormalRoute = routeBuilder
   .create()
   .method("post")
   .url("/normalUser/logoutNormalUser")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for logout client as a normal account")
@@ -88,7 +86,6 @@ const signInNormalRoute = routeBuilder
   .create()
   .method("post")
   .url("/normalUser/signInNormalUser")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for sign in client as a normal account")
@@ -115,7 +112,6 @@ const statusCheckRoute = routeBuilder
   .create()
   .method("get")
   .url("/normalUser/statusCheck")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for check client availability as a normal account")
@@ -127,7 +123,6 @@ const getUserDataRoute = routeBuilder
   .create()
   .method("get")
   .url("/normalUser/getUserData")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for get user data")
@@ -143,7 +138,6 @@ const verifySignInNormalRoute = routeBuilder
   .create()
   .method("post")
   .url("/normalUser/verifySignInNormalUser")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for verify sign in (normal account) as normal account")
@@ -160,7 +154,7 @@ const verifySignInNormalRoute = routeBuilder
   ])
   .build();
 
-const routes = {
+const routes = addFullUrlToRouteObjects(userRouteBaseUrl, {
   createNewUserRoute,
   getUserDataRoute,
   logoutNormalRoute,
@@ -168,7 +162,7 @@ const routes = {
   statusCheckRoute,
   userRouteBaseUrl,
   verifySignInNormalRoute,
-};
+});
 
 const userRoutes = {
   ...routes,

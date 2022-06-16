@@ -271,7 +271,20 @@ const cellphoneFinder = (cellphones, targetCellphone) => {
   }
 };
 
+const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
+  const { url: baseUrl } = baseRouteObject;
+
+  for (const key in routeObjects) {
+    const routeObject = routeObjects[key];
+
+    routeObject.fullUrl = `${baseUrl}${routeObject.url}`;
+  }
+
+  return routeObjects;
+};
+
 module.exports = {
+  addFullUrlToRouteObjects,
   cellphoneFinder,
   concatBaseUrlWithUrl,
   convertStringArrayToNumberArray,

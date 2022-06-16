@@ -8,12 +8,7 @@ const {
 
 class RouteBuilder {
   constructor() {
-    this.routeObject = this.#defaultRouteObject();
-    this.routeBaseUrl = "";
-  }
-
-  #defaultRouteObject() {
-    return {
+    this.routeObject = {
       method: "GET",
       url: "/404",
       statusCode: 404,
@@ -22,15 +17,13 @@ class RouteBuilder {
       inputFields: [{}],
       outputFields: [{}],
     };
+    this.routeBaseUrl = "";
   }
+
   #addProperty(key, value) {
     this.routeObject[key] = value;
   }
 
-  create() {
-    this.routeObject = this.#defaultRouteObject();
-    return this;
-  }
   build() {
     return this.routeObject;
   }
@@ -40,14 +33,6 @@ class RouteBuilder {
   }
   url(url) {
     this.#addProperty("url", url);
-    return this;
-  }
-  baseUrl() {
-    this.routeBaseUrl = this.routeObject.url;
-    return this;
-  }
-  fullUrl() {
-    this.#addProperty("fullUrl", `${this.routeBaseUrl}${this.routeObject.url}`);
     return this;
   }
   statusCode(statusCode) {
@@ -74,11 +59,7 @@ class RouteBuilder {
 
 class ErrorBuilder {
   constructor() {
-    this.errorObject = this.#defaultErrorObject();
-  }
-
-  #defaultErrorObject() {
-    return {
+    this.errorObject = {
       description: "Default route description",
       message: "",
       reason: "UNKNOWN_ERROR",
@@ -88,14 +69,11 @@ class ErrorBuilder {
       errorCode: 4000,
     };
   }
+
   #addProperty(key, value) {
     this.errorObject[key] = value;
   }
 
-  create() {
-    this.errorObject = {};
-    return this;
-  }
   build() {
     return this.errorObject;
   }
@@ -127,30 +105,28 @@ class ErrorBuilder {
 
 class ModelBuilder {
   constructor() {
-    this.modelObject = this.#defaultModelObject();
+    this.modelObject = {
+      defaultValue: this.#initialValueAndError("", {}),
+      empty: this.#initialValueAndError(false, {}),
+      lowercase: this.#initialValueAndError("", {}),
+      length: this.#initialValueAndError("", {}),
+      maxlength: this.#initialValueAndError(0, {}),
+      minlength: this.#initialValueAndError(0, {}),
+      numeric: this.#initialValueAndError(false, {}),
+      required: this.#initialValueAndError(false, {}),
+      trim: this.#initialValueAndError(false, {}),
+      type: this.#initialValueAndError("", {}),
+      unique: this.#initialValueAndError("", {}),
+      version: this.#initialValueAndError("", {}),
+    };
   }
 
   #addProperty(key, value, error) {
     this.modelObject[key].value = value;
     if (error) this.modelObject[key].error = error;
   }
-  #defaultModelObject() {
-    return {
-      defaultValue: this.#fn("", {}),
-      empty: this.#fn(false, {}),
-      lowercase: this.#fn("", {}),
-      length: this.#fn("", {}),
-      maxlength: this.#fn(0, {}),
-      minlength: this.#fn(0, {}),
-      numeric: this.#fn(false, {}),
-      required: this.#fn(false, {}),
-      trim: this.#fn(false, {}),
-      type: this.#fn("", {}),
-      unique: this.#fn("", {}),
-      version: this.#fn("", {}),
-    };
-  }
-  #fn() {
+
+  #initialValueAndError() {
     return {
       value: null,
       error: {
@@ -166,10 +142,6 @@ class ModelBuilder {
     };
   }
 
-  create() {
-    this.modelObject = this.#defaultModelObject();
-    return this;
-  }
   build() {
     return this.modelObject;
   }
@@ -225,19 +197,7 @@ class ModelBuilder {
 
 class ValidationModelBuilder {
   constructor() {
-    this.validationModelObject = this.#defaultValidationModelObject();
-    this.modelObject = this.#defaultModelObject();
-  }
-
-  #reset() {
-    this.validationModelObject = this.#defaultValidationModelObject();
-    this.modelObject = this.#defaultModelObject();
-  }
-  #defaultModelObject() {
-    return {};
-  }
-  #defaultValidationModelObject() {
-    return {
+    this.validationModelObject = {
       empty: undefined,
       max: undefined,
       min: undefined,
@@ -256,7 +216,9 @@ class ValidationModelBuilder {
         stringNumeric: undefined,
       },
     };
+    this.modelObject = {};
   }
+
   #addProperty(validationKey, modelKey, messageKey) {
     this.#setValue(validationKey, modelKey);
     this.#setMessage(modelKey, messageKey);
@@ -273,10 +235,6 @@ class ValidationModelBuilder {
       this.modelObject[modelKey].error.message;
   }
 
-  create() {
-    this.#reset();
-    return this;
-  }
   build() {
     return objectClarify(this.validationModelObject);
   }
@@ -334,33 +292,21 @@ class ValidationModelBuilder {
 
 class ValidationErrorBuilder {
   constructor() {
-    this.options = this.#defaultOptions();
-    this.validationResultErrorKeys = this.#defaultValidationResultErrorKeys();
     this.validationResult = [];
-    this.makeErrorObject = this.#defaultMakeErrorObject();
-    this.errors = [];
-  }
-
-  #defaultOptions() {
-    return {
+    this.callbackErrors = [];
+    this.options = {
       autoErrorDetection: true,
       extraErrorFields: {},
     };
-  }
-  #defaultValidationResultErrorKeys() {
-    return getValidatorErrorTypes([]);
-  }
-  #defaultValidationResult() {
-    return [];
-  }
-  #defaultMakeErrorObject() {
-    return (errorObject) => {
+    this.validationResultErrorKeys = getValidatorErrorTypes([]);
+    this.makeErrorObject = (errorObject) => {
       return getErrorObject(errorObject, {
         validationResult: this.validationResult,
         ...this.options.extraErrorFields,
       });
     };
   }
+
   #setOptions(options = this.options) {
     this.options = {
       ...this.options,
@@ -376,20 +322,9 @@ class ValidationErrorBuilder {
     this.validationResultErrorKeys = getValidatorErrorTypes(result);
     return this;
   }
-  #reset() {
-    this.options = this.#defaultOptions();
-    this.makeErrorObject = this.#defaultMakeErrorObject();
-    this.validationResultErrorKeys = this.#defaultValidationResultErrorKeys();
-    this.validationResult = this.#defaultValidationResult();
-    this.errors = [];
-  }
 
-  create() {
-    this.#reset();
-    return this;
-  }
   addError(condition, errorObject) {
-    this.errors.push({ condition, errorObject });
+    this.callbackErrors.push({ condition, errorObject });
     return this;
   }
   setRequirements(result, options = this.options) {
@@ -400,7 +335,7 @@ class ValidationErrorBuilder {
     return this;
   }
   execute() {
-    for (const error of this.errors) {
+    for (const error of this.callbackErrors) {
       const { condition, errorObject } = error;
 
       errorThrower(condition, () => this.makeErrorObject(errorObject));
@@ -456,15 +391,9 @@ class ValidationErrorBuilder {
 
 class MongoModelBuilder {
   constructor() {
-    this.modelObject = this.#defaultModelObject();
-    this.mongoModel = this.#defaultMongoModel();
-  }
+    this.modelObject = {};
 
-  #defaultModelObject() {
-    return {};
-  }
-  #defaultMongoModel() {
-    return {
+    this.mongoModel = {
       defaultValue: [],
       lowercase: [],
       maxlength: [],
@@ -475,10 +404,7 @@ class MongoModelBuilder {
       unique: [],
     };
   }
-  #reset() {
-    this.mongoModel = this.#defaultMongoModel();
-    this.modelObject = {};
-  }
+
   #addProperty(name) {
     this.#setProperty(name);
     this.#setMessage(name);
@@ -493,10 +419,6 @@ class MongoModelBuilder {
     this.mongoModel[key].push(this.modelObject[key].error?.message);
   }
 
-  create() {
-    this.#reset();
-    return this;
-  }
   build() {
     const finalMongoModel = {};
     Object.keys(this.mongoModel).forEach((key) => {
@@ -546,19 +468,14 @@ class MongoModelBuilder {
   }
 }
 
-class Builder {}
-
-const builder = new Builder();
-const errorBuilder = new ErrorBuilder();
-const modelBuilder = new ModelBuilder();
-const mongoModelBuilder = new MongoModelBuilder();
-const routeBuilder = new RouteBuilder();
-const validationErrorBuilder = new ValidationErrorBuilder();
-const validationModelBuilder = new ValidationModelBuilder();
+const errorBuilder = { create: () => new ErrorBuilder() };
+const modelBuilder = { create: () => new ModelBuilder() };
+const mongoModelBuilder = { create: () => new MongoModelBuilder() };
+const routeBuilder = { create: () => new RouteBuilder() };
+const validationErrorBuilder = { create: () => new ValidationErrorBuilder() };
+const validationModelBuilder = { create: () => new ValidationModelBuilder() };
 
 module.exports = {
-  builder,
-  Builder,
   errorBuilder,
   ErrorBuilder,
   modelBuilder,

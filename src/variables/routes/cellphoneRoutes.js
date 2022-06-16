@@ -2,6 +2,7 @@ const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
+  addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -23,7 +24,6 @@ const {
 const cellphoneRouteBaseUrl = routeBuilder
   .create()
   .url("/cellphone")
-  .baseUrl()
   .version("1.0.0")
   .build();
 
@@ -31,7 +31,6 @@ const addBlockRoute = routeBuilder
   .create()
   .method("post")
   .url("/addBlock")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for block single contact on user contacts list")
@@ -57,7 +56,6 @@ const addBlocksRoute = routeBuilder
   .create()
   .method("post")
   .url("/addBlocks")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for block single contact on user contacts list")
@@ -69,7 +67,6 @@ const addContactRoute = routeBuilder
   .create()
   .method("post")
   .url("/addContact")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for add single contact to current user contacts list")
@@ -100,7 +97,6 @@ const addContactsRoute = routeBuilder
   .create()
   .method("post")
   .url("/addContacts")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for add single contact to current user contacts list")
@@ -112,7 +108,6 @@ const editContactRoute = routeBuilder
   .create()
   .method("patch")
   .url("/editContact")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("User for edit single contact on user contacts list")
@@ -134,7 +129,6 @@ const getContactsRoute = routeBuilder
   .create()
   .method("get")
   .url("/getContacts")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("User for edit single contact on user contacts list")
@@ -146,7 +140,6 @@ const removeBlockRoute = routeBuilder
   .create()
   .method("delete")
   .url("/removeBlock")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
@@ -172,7 +165,6 @@ const removeBlocksRoute = routeBuilder
   .create()
   .method("delete")
   .url("/removeBlocks")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
@@ -184,7 +176,6 @@ const removeContactRoute = routeBuilder
   .create()
   .method("delete")
   .url("/removeContact")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
@@ -200,7 +191,6 @@ const removeContactsRoute = routeBuilder
   .create()
   .method("delete")
   .url("/removeContacts")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
@@ -212,7 +202,6 @@ const shareContactRoute = routeBuilder
   .create()
   .method("post")
   .url("/shareContact")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for share single contact on user contacts list")
@@ -224,7 +213,6 @@ const shareContactsRoute = routeBuilder
   .create()
   .method("post")
   .url("/shareContacts")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use for share single contact on user contacts list")
@@ -232,7 +220,7 @@ const shareContactsRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const routes = {
+const routes = addFullUrlToRouteObjects(cellphoneRouteBaseUrl, {
   addBlockRoute,
   addBlocksRoute,
   addContactRoute,
@@ -246,7 +234,7 @@ const routes = {
   removeContactsRoute,
   shareContactRoute,
   shareContactsRoute,
-};
+});
 
 const cellphoneRoutes = {
   version: versionCalculator(extractVersions(routes)),

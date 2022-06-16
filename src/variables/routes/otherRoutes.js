@@ -3,6 +3,7 @@ const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
+  addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
 const { inputOutputFields } = require("@/variables/others/initialOptions");
 
@@ -12,7 +13,6 @@ const { countries, countryShortName, countryName, countryCode } =
 const otherRouteBaseUrl = routeBuilder
   .create()
   .url("/other")
-  .baseUrl()
   .version("1.0.0")
   .build();
 
@@ -20,7 +20,6 @@ const countriesRoute = routeBuilder
   .create()
   .method("get")
   .url("/countries")
-  .fullUrl()
   .statusCode(200)
   .inputFields([{}])
   .outputFields([
@@ -36,13 +35,16 @@ const welcomeRoute = routeBuilder
   .create()
   .method("get")
   .url("/welcomeMessage")
-  .fullUrl()
   .statusCode(200)
   .version("1.0.0")
   .description("Use to get welcome message for client")
   .build();
 
-const routes = { otherRouteBaseUrl, countriesRoute, welcomeRoute };
+const routes = addFullUrlToRouteObjects(otherRouteBaseUrl, {
+  otherRouteBaseUrl,
+  countriesRoute,
+  welcomeRoute,
+});
 
 const otherRoutes = {
   version: versionCalculator(extractVersions(routes)),

@@ -14,7 +14,7 @@ class SmsClient {
     this.sms = this.api.sms("rest", "async");
 
     this.defaultOptions = {
-      from: "50004001700470",
+      sendFrom: "50004001700470",
       to: "",
       text: "",
       isFlash: false,
@@ -23,21 +23,19 @@ class SmsClient {
   }
 
   async sendSms(countryCode, phoneNumber, text, options = this.defaultOptions) {
-    const { from, isFlash, sendCondition } = {
+    const { sendFrom, isFlash } = {
       ...this.defaultOptions,
       ...options,
     };
 
-    if (sendCondition) {
-      const to = `+${countryCode}${phoneNumber}`;
+    const sendTo = `+${countryCode}${phoneNumber}`;
 
-      const smsResult = await this.sms.send(to, from, text, isFlash);
+    const smsResult = await this.sms.send(sendTo, sendFrom, text, isFlash);
 
-      errorThrower(
-        smsResult.StrRetStatus !== "ok" && smsResult.RetStatus !== 1,
-        () => getErrorObject(SEND_SMS_FAILED, smsResult)
-      );
-    }
+    errorThrower(
+      smsResult.StrRetStatus !== "ok" && smsResult.RetStatus !== 1,
+      () => getErrorObject(SEND_SMS_FAILED, smsResult)
+    );
 
     return { done: true };
   }

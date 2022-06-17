@@ -85,6 +85,9 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
 const checkOutputFields = (output, fields, fieldsIndex = 0) => {
   try {
     const selectedFields = fields[fieldsIndex];
+
+    // logger.log("rm", "selectedFields", selectedFields, "output", output);
+
     let result = { done: true, internalError: false, errorObject: {} };
 
     // if (fields.length === 0) {

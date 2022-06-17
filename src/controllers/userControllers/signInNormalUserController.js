@@ -24,17 +24,18 @@ const signInNormalUserController = async (
     const NODE_ENV = envManager.getNodeEnv();
     const { production } = envManager.getNodeEnvValues();
     const sendCondition = NODE_ENV === production;
+    if (sendCondition) {
+      const smsText = smsClient
+        .smsTemplates()
+        .sendVerificationCode(verificationCode, getHostFromRequest(req));
 
-    const smsText = smsClient
-      .smsTemplates()
-      .sendVerificationCode(verificationCode, getHostFromRequest(req));
-
-    await smsClient.sendSms(
-      cellphone.countryCode,
-      cellphone.phoneNumber,
-      smsText,
-      { sendCondition }
-    );
+      await smsClient.sendSms(
+        cellphone.countryCode,
+        cellphone.phoneNumber,
+        smsText,
+        { sendCondition }
+      );
+    }
 
     const verifyToken = await authManager.tokenSigner(
       cellphone,

@@ -22,11 +22,11 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-const userFinder = async (userData = userInitialOptions) => {
+const userFinder = async (userData = userInitialOptions, options) => {
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    return await UserMongoModel.findOne(userData);
+    return await UserMongoModel.findOne(userData, options);
   } catch (error) {
     logger.log("userFinder catch, error:", error);
     errorThrower(error, error);
@@ -69,11 +69,11 @@ const addContactToUserContacts = async (
   targetUserData = userInitialOptions
 ) => {
   try {
-    const { cellphone: existContactItem } = cellphoneFinder(
+    const { cellphone: isContactExist } = cellphoneFinder(
       currentUser.contacts,
       targetUserData
     );
-    errorThrower(existContactItem, () =>
+    errorThrower(isContactExist, () =>
       getErrorObject(CONTACT_ITEM_EXIST, { targetUserData })
     );
 

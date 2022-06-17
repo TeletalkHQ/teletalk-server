@@ -267,7 +267,8 @@ const cellphoneFinder = (cellphones, targetCellphone) => {
     });
     return { cellphone, cellphoneIndex };
   } catch (error) {
-    errorThrower(error, error);
+    logger.log("cellphoneFinder catch, error:", error);
+    throw error;
   }
 };
 

@@ -26,25 +26,23 @@ const verifySignInNormalUserController = async (
     const tempClient = await temporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 
-    logger.log(
-      "rm",
-      "tempClient?.verificationCode",
-      tempClient?.verificationCode
-    );
     errorThrower(tempClient?.verificationCode !== verificationCode, () =>
       getErrorObject(VERIFICATION_CODE_INVALID)
     );
 
-    const user = await userFinder(cellphone);
+    const { tokens, ...user } =
+      (await userFinder(cellphone, { lean: true })) || {};
 
-    const dataOutputIndex = user ? 0 : 1;
+    const isUserExist = user?.privateId;
+
+    const dataOutputIndex = isUserExist ? 0 : 1;
 
     res.checkDataAndResponse(
       {
-        user: user
+        user: isUserExist
           ? {
               ...user,
-              mainToken: user.tokens[0].mainToken,
+              mainToken: tokens[0].mainToken,
               newUser: false,
             }
           : { newUser: true },

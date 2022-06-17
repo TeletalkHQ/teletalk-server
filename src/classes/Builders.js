@@ -143,6 +143,16 @@ class ModelBuilder {
   }
 
   build() {
+    for (const key in this.modelObject) {
+      if (key === "version") continue;
+
+      const { value } = this.modelObject[key];
+      const valueType = customTypeof(value);
+      if (valueType.type.null || valueType.type.undefined) {
+        delete this.modelObject[key];
+      }
+    }
+
     return this.modelObject;
   }
   maxlength(value, error) {

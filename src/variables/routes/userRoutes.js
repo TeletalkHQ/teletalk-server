@@ -7,13 +7,13 @@ const {
 
 const {
   inputOutputFields: {
-    bio,
+    // bio,
     countryCode,
     countryName,
     firstName,
     lastName,
     phoneNumber,
-    username,
+    // username,
     verificationCode,
     verifyToken,
     privateId,
@@ -30,10 +30,10 @@ const userDataProps = {
   privateId,
   firstName,
   lastName,
-  bio,
+  // bio,
   contacts,
   blacklist,
-  username,
+  // username,
   phoneNumber,
   countryCode,
   countryName,

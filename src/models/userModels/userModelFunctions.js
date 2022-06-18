@@ -1,8 +1,9 @@
+const { customTypeof } = require("@/classes/CustomTypeof");
+
 const {
   cellphoneFinder,
   errorThrower,
   getErrorObject,
-  isNull,
 } = require("@/functions/utilities/utils");
 const { userProps } = require("@/classes/UserProps");
 
@@ -48,7 +49,7 @@ const addCellphoneToUserBlacklist = async (
     );
 
     const targetUser = await userFinder(cellphone);
-    errorThrower(isNull(targetUser), () =>
+    errorThrower(customTypeof.check(targetUser).type.null, () =>
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData: cellphone })
     );
 
@@ -78,7 +79,7 @@ const addContactToUserContacts = async (
     );
 
     const targetUser = await userFinder(userProps.getCellphone(targetUserData));
-    errorThrower(isNull(targetUser), () =>
+    errorThrower(customTypeof.check(targetUser).type.null, () =>
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
     );
 

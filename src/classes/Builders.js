@@ -1,5 +1,6 @@
+const { customTypeof } = require("@/classes/CustomTypeof");
+
 const {
-  customTypeof,
   errorThrower,
   getErrorObject,
   getValidatorErrorTypes,
@@ -147,8 +148,8 @@ class ModelBuilder {
       if (key === "version") continue;
 
       const { value } = this.modelObject[key];
-      const valueType = customTypeof(value);
-      if (valueType.type.null || valueType.type.undefined) {
+      const valueType = customTypeof.check(value).type;
+      if (valueType.null || valueType.undefined) {
         delete this.modelObject[key];
       }
     }
@@ -339,7 +340,8 @@ class ValidationErrorBuilder {
   }
   setRequirements(result, options = this.options) {
     this.#setValidationResult(result);
-    if (customTypeof(result).type.array) this.#setValidationErrorKeys(result);
+    if (customTypeof.check(result).type.array)
+      this.#setValidationErrorKeys(result);
     this.#setOptions(options);
 
     return this;

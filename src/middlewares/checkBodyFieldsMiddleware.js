@@ -1,3 +1,5 @@
+const { customTypeof } = require("@/classes/CustomTypeof");
+
 const {
   checkInputFields,
 } = require("@/functions/utilities/inputOutputFieldsChecker");
@@ -5,7 +7,6 @@ const {
   errorThrower,
   getErrorObject,
   crashServerWithCondition,
-  customTypeof,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -17,7 +18,7 @@ const checkBodyFieldsMiddleware = (req, res, next) => {
     const { body, routeObject } = req;
 
     crashServerWithCondition(
-      customTypeof(body).type.undefined,
+      customTypeof.check(body).type.undefined,
       REQUEST_BODY_IS_UNDEFINED
     );
 

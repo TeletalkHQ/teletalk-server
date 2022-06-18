@@ -1,14 +1,13 @@
+const { customTypeof } = require("@/classes/CustomTypeof");
+
 const {
   errorThrower,
-  isFunction,
   isUrlMatchWithReqUrl,
-  isArray,
-  customTypeof,
 } = require("@/functions/utilities/utils");
 
 const applyMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   errorThrower(
-    !customTypeof(url).type.string && !isArray(url),
+    !customTypeof.check(url).type.string && !customTypeof.check(url).type.array,
     "url must be string or an array"
   );
   errorThrower(!middlewares.length, "You need to pass at least one middleware");
@@ -16,7 +15,7 @@ const applyMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   return async (req, res, next) => {
     try {
       errorThrower(
-        !isFunction(res?.json, next),
+        !customTypeof.isFunction(res?.json, next),
         "Some of items [res, next] is not a function"
       );
 

@@ -2,8 +2,10 @@
 //!DEPRECATED
 //!DEPRECATED
 
+const { customTypeof } = require("@/classes/CustomTypeof");
+
 const { userFinder } = require("@/functions/helpers/userFinder");
-const { errorThrower, isNull } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 const { userProps } = require("@/classes/UserProps");
 
 const {
@@ -16,7 +18,7 @@ const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
 
     const targetUser = await userFinder(cellphone);
 
-    errorThrower(isNull(targetUser), {
+    errorThrower(customTypeof.check(targetUser).type.null, {
       ...cellphone,
       ...CELLPHONE_NOT_EXIST,
     });

@@ -1,3 +1,5 @@
+const { customTypeof } = require("@/classes/CustomTypeof");
+
 const {
   checkOutputFields,
 } = require("@/functions/utilities/inputOutputFieldsChecker");
@@ -5,7 +7,6 @@ const {
   errorThrower,
   getErrorObject,
   crashServerWithCondition,
-  customTypeof,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -15,7 +16,7 @@ const {
 const checkAndResponseMiddleware = (req, res, next) => {
   try {
     crashServerWithCondition(
-      !customTypeof(res.sendJsonResponse).type.function,
+      !customTypeof.check(res.sendJsonResponse).type.function,
       SEND_JSON_RESPONSE_IS_NOT_FUNCTION
     );
 

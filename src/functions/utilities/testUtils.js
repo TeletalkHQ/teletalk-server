@@ -1,13 +1,14 @@
 const supertest = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 
+const { customTypeof } = require("@/classes/CustomTypeof");
 const { stateManager } = require("@/classes/StateManager");
+
 const {
   errorThrower,
   getObjectLength,
   filterObject,
   concatBaseUrlWithUrl,
-  customTypeof,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -95,7 +96,7 @@ const testRequest = (routeObject, data, authorization) => {
 
 const makeAuthorizationHeader = (token) => [
   "Authorization",
-  customTypeof(token).type.undefined ? null : `Bearer ${token}`,
+  customTypeof.check(token).type.undefined ? null : `Bearer ${token}`,
 ];
 
 const getTestUsersFromState = () => {

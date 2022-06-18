@@ -1,7 +1,9 @@
+const { customTypeof } = require("@/classes/CustomTypeof");
+
 const errorThrower = (condition, error) => {
   if (condition) {
     //TODO Write errors into log file;
-    if (customTypeof(error).type.function) throw error();
+    if (customTypeof.check(error).type.function) throw error();
 
     throw error;
   }
@@ -50,8 +52,8 @@ const objectClarify = (dirtyObject = {}) => {
   const cleanObject = {};
 
   Object.entries(dirtyObject)?.forEach(([key, value]) => {
-    if (!customTypeof(value).type.undefined) {
-      if (customTypeof(dirtyObject[key]).type.object) {
+    if (!customTypeof.check(value).type.undefined) {
+      if (customTypeof.check(dirtyObject[key]).type.object) {
         cleanObject[key] = objectClarify(dirtyObject[key]);
 
         return;
@@ -64,37 +66,7 @@ const objectClarify = (dirtyObject = {}) => {
   return cleanObject;
 };
 
-const isFunction = (...items) => {
-  return items.every((i) => customTypeof(i).type.function);
-};
-const isArray = (value) => Array.isArray(value);
 const isNull = (value) => value === null;
-
-const customTypeof = (value) => {
-  let type = {
-    array: false,
-    nan: false,
-    null: false,
-    function: false,
-    string: false,
-    number: false,
-    object: false,
-    boolean: false,
-    undefined: false,
-  };
-
-  if (isNaN(value)) type.nan = true;
-
-  if (isArray(value)) {
-    type.array = true;
-  } else if (isNull(value)) {
-    type.null = true;
-  } else {
-    type[typeof value] = true;
-  }
-
-  return { type, truthy: isNull(value) ? false : !!value };
-};
 
 const getValidatorErrorTypes = (errorArray) => {
   const validatorErrorTypes = {
@@ -170,7 +142,8 @@ const findByProp = (items = [], value, prop) =>
 const getHostFromRequest = (request) => request.get("host");
 
 const isUrlMatchWithReqUrl = (url, reqUrl) =>
-  (isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
+  (customTypeof.check(url).type.array && url.some((u) => u === reqUrl)) ||
+  url === reqUrl;
 
 const versionCalculator = (versions = []) => {
   let [parentMajor, parentMinor, parentPatch] = convertStringArrayToNumberArray(
@@ -246,7 +219,7 @@ const filterObject = (object, filterFields) => {
   const filteredObject = {};
 
   for (const key in filterFields) {
-    if (customTypeof(filterFields[key]).type.object) {
+    if (customTypeof.check(filterFields[key]).type.object) {
       filteredObject[key] = filterObject(object[key], filterFields[key]);
       continue;
     }
@@ -291,7 +264,6 @@ module.exports = {
   convertStringArrayToNumberArray,
   crashServer,
   crashServerWithCondition,
-  customTypeof,
   errorThrower,
   excludeVersion,
   extractVersions,
@@ -303,9 +275,7 @@ module.exports = {
   getObjectLength,
   getTokenFromRequest,
   getValidatorErrorTypes,
-  isArray,
   isEqualWithTargetCellphone,
-  isFunction,
   isNull,
   isUrlMatchWithReqUrl,
   objectClarify,
@@ -313,16 +283,6 @@ module.exports = {
   skipParams,
   versionCalculator,
 };
-
-// const extractFromInfo = (object) => {
-//   const tempObject = {};
-
-//   for (const key in object) {
-//     tempObject[key] = object[key].info;
-//   }
-
-//   return tempObject;
-// };
 
 // const mongoose = require("mongoose");
 
@@ -332,7 +292,7 @@ module.exports = {
 // NoCastString.prototype = Object.create(mongoose.SchemaType.prototype);
 
 // NoCastString.prototype.cast = function (str) {
-// 	if (customTypeof(str) !== "string") {
+// 	if (customTypeof.check(str).type.string) {
 // 		throw new Error(`NoCastString: ${str} is not a string`);
 // 	}
 // 	return str;

@@ -23,7 +23,13 @@ const verifySignInNormalUserController = async (
     await verificationCodeValidator(verificationCode);
 
     const cellphone = userProps.getCellphone(authData.payload);
+
+    logger.log("rm", "cellphone", cellphone);
+
     const tempClient = await temporaryClients.findClient(cellphone);
+
+    logger.log("rm", "tempClient", tempClient);
+
     errorThrower(!tempClient, USER_NOT_EXIST);
 
     errorThrower(tempClient?.verificationCode !== verificationCode, () =>

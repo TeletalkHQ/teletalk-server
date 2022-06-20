@@ -23,38 +23,55 @@ const verifySignInNormalUserController = async (
     await verificationCodeValidator(verificationCode);
 
     const cellphone = userProps.getCellphone(authData.payload);
-
-    logger.log("rm", "cellphone", cellphone);
-
     const tempClient = await temporaryClients.findClient(cellphone);
-
-    logger.log("rm", "tempClient", tempClient);
-
     errorThrower(!tempClient, USER_NOT_EXIST);
 
     errorThrower(tempClient?.verificationCode !== verificationCode, () =>
       getErrorObject(VERIFICATION_CODE_INVALID)
     );
 
-    const { tokens, ...user } =
-      (await userFinder(cellphone, { lean: true })) || {};
+    const {
+      blacklist,
+      // username,
+      chats,
+      // bio,
+      contacts,
+      countryCode,
+      countryName,
+      firstName,
+      lastName,
+      phoneNumber,
+      privateId,
+      tokens,
+    } = (await userFinder(cellphone)) || {};
 
-    const isUserExist = user?.privateId;
+    const isUserExist = privateId;
 
     const dataOutputIndex = isUserExist ? 0 : 1;
 
-    res.checkDataAndResponse(
-      {
-        user: isUserExist
-          ? {
-              ...user,
-              mainToken: tokens[0].mainToken,
-              newUser: false,
-            }
-          : { newUser: true },
-      },
-      dataOutputIndex
-    );
+    const responseData = {
+      user: isUserExist
+        ? {
+            blacklist,
+            // username,
+            chats,
+            // bio,
+            contacts,
+            countryCode,
+            countryName,
+            firstName,
+            lastName,
+            mainToken: tokens[0].mainToken,
+            newUser: false,
+            phoneNumber,
+            privateId,
+          }
+        : { newUser: true },
+    };
+
+    logger.log("rm", "responseData", responseData);
+
+    res.checkDataAndResponse(responseData, dataOutputIndex);
   } catch (error) {
     logger.log("verifySignInNormalUserController catch, error:", error);
     res.errorCollector(error);

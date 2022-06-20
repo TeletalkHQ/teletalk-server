@@ -50,7 +50,7 @@ class TemporaryClients {
 
   async updateClient(client, updateProps) {
     const aliveClients = this.getAliveClients();
-    const aliveClientIndex = await this.findClient(client);
+    const aliveClientIndex = await this.findClientIndex(client);
 
     if (aliveClientIndex !== -1) {
       const aliveClient = aliveClients[aliveClientIndex];

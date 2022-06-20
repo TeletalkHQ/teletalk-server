@@ -23,11 +23,11 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-const userFinder = async (userData = userInitialOptions, options) => {
+const userFinder = async (userData = userInitialOptions) => {
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    return await UserMongoModel.findOne(userData, options);
+    return await UserMongoModel.findOne(userData, undefined, { lean: true });
   } catch (error) {
     logger.log("userFinder catch, error:", error);
     errorThrower(error, error);

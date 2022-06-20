@@ -28,15 +28,15 @@ const checkAndResponseMiddleware = (req, res, next) => {
 
         const checkResult = checkOutputFields(data, outputFields, outputIndex);
 
-        // logger.log(
-        //   "rm",
-        //   "checkResult",
-        //   JSON.stringify({
-        //     checkResult,
-        //     outputFields: data,
-        //     fields: outputFields,
-        //   })
-        // );
+        logger.log(
+          "rm",
+          "checkResult",
+          JSON.stringify({
+            checkResult,
+            outputFields: data,
+            fields: outputFields,
+          })
+        );
 
         errorThrower(checkResult.done === false, () =>
           getErrorObject(checkResult.errorObject, {

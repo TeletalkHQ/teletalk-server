@@ -23,11 +23,14 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-const userFinder = async (userData = userInitialOptions) => {
+const userFinder = async (
+  userData = userInitialOptions,
+  options = { lean: true }
+) => {
   try {
     errorThrower(!userData, "You should send me data to find your target");
 
-    return await UserMongoModel.findOne(userData, undefined, { lean: true });
+    return await UserMongoModel.findOne(userData, undefined, options);
   } catch (error) {
     logger.log("userFinder catch, error:", error);
     errorThrower(error, error);
@@ -89,6 +92,9 @@ const addContactToUserContacts = async (
         privateId: targetUser.privateId,
       })
     );
+
+    logger.log("rm", "currentUser", currentUser);
+
     await currentUser.updateOne({
       contacts: currentUser.contacts,
     });

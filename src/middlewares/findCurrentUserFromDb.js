@@ -13,7 +13,7 @@ const findCurrentUserFromDb = async (req, res, next) => {
   try {
     const cellphone = userProps.getCellphone(req.authData.payload);
 
-    const currentUser = await userFinder(cellphone);
+    const currentUser = await userFinder(cellphone, {});
 
     errorThrower(customTypeof.check(currentUser).type.null, {
       ...cellphone,

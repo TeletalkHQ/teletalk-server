@@ -44,7 +44,6 @@ const signInNormalUserController = async (
 
     const client = await temporaryClients.findClient(cellphone);
 
-    logger.log("rm", "client", client);
     if (client) {
       await temporaryClients.updateClient(client, {
         verificationCode,

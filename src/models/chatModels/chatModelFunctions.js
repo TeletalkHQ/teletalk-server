@@ -63,7 +63,7 @@ const getPrivateChatMessages = async (currentUser, chatId) =>
   (await getPrivateChat(currentUser, chatId)).messages;
 
 const sendPrivateMessage = async (currentUser, participantId, message) => {
-  const targetUser = await userFinder({ privateId: participantId });
+  const targetUser = await userFinder({ privateId: participantId }, {});
   //TODO Add test for TARGET_USER_NOT_EXIST
   errorThrower(!targetUser, () => getErrorObject(TARGET_USER_NOT_EXIST));
 

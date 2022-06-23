@@ -5,10 +5,16 @@ const {
   extractVersions,
   addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
-const { inputOutputFields } = require("@/variables/others/initialOptions");
 
-const { countries, countryShortName, countryName, countryCode } =
-  inputOutputFields;
+const {
+  inputOutputFields: {
+    countries,
+    countryCode,
+    countryName,
+    countryShortName,
+    message,
+  },
+} = require("@/variables/others/initialOptions");
 
 const otherRouteBaseUrl = routeBuilder
   .create()
@@ -38,6 +44,7 @@ const welcomeRoute = routeBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use to get welcome message for client")
+  .outputFields([{ message }])
   .build();
 
 const routes = addFullUrlToRouteObjects(otherRouteBaseUrl, {

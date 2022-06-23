@@ -86,7 +86,7 @@ const checkOutputFields = (output, fields, fieldsIndex = 0) => {
   try {
     const selectedFields = fields[fieldsIndex];
 
-    // logger.log("rm", "selectedFields", selectedFields, "output", output);
+    // logger.log("selectedFields", selectedFields, "output", output);
 
     let result = { done: true, internalError: false, errorObject: {} };
 
@@ -110,15 +110,14 @@ const checkOutputFields = (output, fields, fieldsIndex = 0) => {
       const outputLength = getObjectLength(output);
       const fieldsLength = getObjectLength(fields);
 
-      // logger.log("rm", Object.keys(output));
-      // logger.log("rm", Object.keys(fields));
+      // logger.log(Object.keys(output));
+      // logger.log(Object.keys(fields));
 
       if (outputLength !== fieldsLength) {
         if (outputLength < fieldsLength) {
           return fn(true, OUTPUT_FIELDS_MISSING);
         } else {
           // logger.log(
-          //   "rm",
           //   "output:",
           //   output,
           //   "\nfields:",

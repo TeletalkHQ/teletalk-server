@@ -69,8 +69,6 @@ const verifySignInNormalUserController = async (
         : { newUser: true },
     };
 
-    logger.log("rm", "responseData", responseData);
-
     res.checkDataAndResponse(responseData, dataOutputIndex);
   } catch (error) {
     logger.log("verifySignInNormalUserController catch, error:", error);

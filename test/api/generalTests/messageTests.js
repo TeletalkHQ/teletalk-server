@@ -26,6 +26,7 @@ const messageSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(messageModel, messageMain, messageTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()

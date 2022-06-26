@@ -25,6 +25,7 @@ const firstNameSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(firstNameModel, firstNameMain, firstNameTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()

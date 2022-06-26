@@ -12,6 +12,7 @@ const messageIdSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(messageIdModel, messageIdMain, messageIdTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()

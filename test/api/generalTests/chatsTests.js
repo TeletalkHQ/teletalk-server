@@ -13,17 +13,17 @@ const chatsSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder
+  const ts = testBuilder
+    .create()
     .setVariables(chatsModel, undefined, chatsTest)
-    .setOptions({ modelCheck })
-    .typeCheck()
-    .execute();
+    .setOptions({ modelCheck });
 
-  testBuilder.checkAndExecute(chatsTest.length, () => {
+  ts.typeCheck().execute();
+
+  ts.checkAndExecute(chatsTest.length, () => {
     const chat = chatsTest[0];
 
-    testBuilder
-      .customTypeCheck(chat, "object")
+    ts.customTypeCheck(chat, "object")
       .setVariables(chatIdModel, undefined, chat.chatId)
       .typeCheck()
       .gteCheck()

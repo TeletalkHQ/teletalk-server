@@ -21,7 +21,7 @@ describe("Add requirements to application state", () => {
       c.countryName.toLowerCase().includes("iran")
     );
 
-    const users = Array.from({ length: 50 });
+    const users = Array.from({ length: 500 });
 
     const testUsers = {};
 

@@ -27,6 +27,7 @@ const countryNameSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(countryNameModel, countryNameMain, countryNameTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()

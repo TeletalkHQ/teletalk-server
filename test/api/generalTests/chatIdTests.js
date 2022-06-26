@@ -23,6 +23,7 @@ const chatIdSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(chatIdModel, chatIdMain, chatIdTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()

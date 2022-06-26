@@ -21,6 +21,7 @@ const verificationCodeSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(verificationCodeModel, "", verificationCodeTest)
     .setOptions({ modelCheck })
     .typeCheck()

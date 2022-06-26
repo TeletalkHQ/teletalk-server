@@ -23,13 +23,6 @@ class TestBuilder {
       modelLength: 0,
     };
   }
-  #reset() {
-    this.tests = [];
-    this.variables = this.#defaultVariables();
-    this.options = this.#defaultOptions();
-
-    return this;
-  }
 
   setVariables(model, mainVariable, testVariable) {
     this.variables = {
@@ -51,12 +44,10 @@ class TestBuilder {
     return this;
   }
 
-  execute(resetCondition = true) {
+  execute() {
     this.tests.forEach((test) => {
       test();
     });
-
-    if (resetCondition) this.#reset();
 
     return this;
   }
@@ -178,6 +169,6 @@ class TestBuilder {
   }
 }
 
-const testBuilder = new TestBuilder();
+const testBuilder = { create: () => new TestBuilder() };
 
 module.exports = { testBuilder, TestBuilder };

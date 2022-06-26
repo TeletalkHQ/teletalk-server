@@ -12,6 +12,7 @@ const {
   errorThrower,
   getTokenFromRequest,
 } = require("@/functions/utilities/utils");
+
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const statusCheckUserController = async (

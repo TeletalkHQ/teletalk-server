@@ -24,6 +24,6 @@ Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
 useless routes cleanup
 
-Add newUser:false test
-Add exclude props to utils (like version)
-Cleanup builder classes: private methods
+TODO Add exclude props to utils (like version)
+FIXME Add newUser:false test
+FIXME Fix public assets sharing

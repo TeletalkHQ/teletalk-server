@@ -33,6 +33,7 @@ const findRouteObject = (url) => {
     return route;
   } catch (error) {
     logger.log("findRouteObject catch, error:", error);
+    throw error;
   }
 };
 

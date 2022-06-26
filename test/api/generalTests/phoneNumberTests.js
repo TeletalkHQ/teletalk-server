@@ -26,6 +26,7 @@ const phoneNumberSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(phoneNumberModel, phoneNumberMain, phoneNumberTest)
     .setOptions({ modelCheck, stringEquality })
     .emptyCheck()

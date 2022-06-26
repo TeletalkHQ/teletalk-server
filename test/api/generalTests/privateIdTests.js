@@ -12,6 +12,7 @@ const privateIdSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(privateIdModel, privateIdMain, privateIdTest)
     .setOptions({ modelCheck, stringEquality })
     .emptyCheck()

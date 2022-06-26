@@ -28,6 +28,7 @@ const countryCodeSuccessTests = (
   }
 ) => {
   testBuilder
+    .create()
     .setVariables(countryCodeModel, countryCodeMain, countryCodeTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()

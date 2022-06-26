@@ -13,17 +13,17 @@ const tokenSuccessTests = async (
     modelCheck: true,
   }
 ) => {
-  testBuilder
+  const ts = testBuilder
+    .create()
     .setVariables(tokenModel, "", tokenTest)
-    .setOptions({ modelCheck })
-    .typeCheck()
-    .gtCheck(10);
+    .setOptions({ modelCheck });
+
+  ts.typeCheck().gtCheck(10);
 
   (
-    await testBuilder.checkAndExecuteAsync(verifyToken, async () => {
+    await ts.checkAndExecuteAsync(verifyToken, async () => {
       const verifiedToken = await tokenValidator(tokenTest, secret);
-      testBuilder
-        .customTypeCheck(verifiedToken, "object")
+      ts.customTypeCheck(verifiedToken, "object")
         .customTypeCheck(verifiedToken.signature, "string")
         .customTypeCheck(verifiedToken.payload, "object");
     })

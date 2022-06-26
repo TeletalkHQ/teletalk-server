@@ -19,15 +19,15 @@ const lastNameSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder
+  const ts = testBuilder
+    .create()
     .setVariables(lastNameModel, lastNameMain, lastNameTest)
-    .setOptions({ modelCheck, stringEquality })
-    .stringEquality()
+    .setOptions({ modelCheck, stringEquality });
+
+  ts.stringEquality()
     .typeCheck()
     .emptyCheck()
-    .checkAndExecute(lastNameModel.empty.value === false, () =>
-      testBuilder.lteCheck()
-    )
+    .checkAndExecute(lastNameModel.empty.value === false, () => ts.lteCheck())
     .execute();
 };
 

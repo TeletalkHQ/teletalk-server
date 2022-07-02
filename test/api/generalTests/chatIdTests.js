@@ -1,4 +1,3 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const { randomMaker } = require("@/classes/RandomMaker");
 const { testBuilder } = require("@/classes/TestBuilder");
 
@@ -14,13 +13,13 @@ const {
     CHAT_ID_REQUIRED,
   },
 } = require("@/variables/errors/chatErrors");
+const {
+  successTestDefaultOptions,
+} = require("@/variables/others/testVariables");
 
 const chatIdSuccessTests = (
   { chatIdMain, chatIdTest } = {},
-  { stringEquality = true, modelCheck = true } = {
-    stringEquality: true,
-    modelCheck: true,
-  }
+  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
   testBuilder
     .create()
@@ -33,7 +32,7 @@ const chatIdSuccessTests = (
 const chatIdMinLength = chatIdModel.minlength.value;
 const chatIdMaxLength = chatIdModel.maxlength.value;
 
-const chatIdFailureTests = (data = {}) => {
+const chatIdFailureTests = (customRequest, data = {}) => {
   const fn = (chatId) => ({ ...data, chatId });
 
   it("Should get error, CHAT_ID_REQUIRED", async () => {

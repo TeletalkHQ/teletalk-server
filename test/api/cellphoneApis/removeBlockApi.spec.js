@@ -1,93 +1,65 @@
 const { userProps } = require("@/classes/UserProps");
-const { customRequest } = require("@/classes/CustomRequest");
-const { describer } = require("@/classes/Describer");
-const { stateManager } = require("@/classes/StateManager");
 
-const {
-  cellphoneRoutes: { removeBlockRoute, addBlockRoute, cellphoneRouteBaseUrl },
-} = require("@/variables/routes/cellphoneRoutes");
-
-const {
-  countryCodeFailureTests,
-  countryCodeSuccessTests,
-} = require("$/api/generalTests/countryCodeTests");
-const {
-  phoneNumberFailureTests,
-  phoneNumberSuccessTests,
-} = require("$/api/generalTests/phoneNumberTests");
-const {
-  countryNameFailureTests,
-  countryNameSuccessTests,
-} = require("$/api/generalTests/countryNameTests");
-const {
-  authenticationFailureTests,
-} = require("$/api/generalTests/authenticationTests");
+const { generalTest } = require("@/classes/GeneralTest");
 
 const {
   userErrors: { BLACKLIST_ITEM_NOT_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
-const { countries } = require("@/variables/others/countries");
-
-const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
-
-describer.addInitialDescribe(cellphoneRouteBaseUrl, removeBlockRoute, "0");
+const {
+  requesters: { removeBlockRequest, addBlockRequest },
+  testVariables: {
+    testUsers: { removeBlockSuccessfulTestUser, selfStuffTestUser },
+    cellphones: { notExistedContact },
+  },
+} = require("@/variables/others/testVariables");
 
 describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
-    const { testUser_3 } = stateManager.state.testUsers;
-
-    await customRequest.sendRequest(
-      testUser_3,
-      null,
-      {
-        token: customRequest.options.token,
-      },
-      cellphoneRouteBaseUrl,
-      addBlockRoute
-    );
+    await addBlockRequest.sendRequest(removeBlockSuccessfulTestUser, null, {
+      token: removeBlockRequest.options.token,
+    });
     const {
       body: {
         removedBlockedCellphone: { phoneNumber, countryCode, countryName },
       },
-    } = await customRequest.sendRequest(testUser_3);
+    } = await removeBlockRequest.sendRequest(removeBlockSuccessfulTestUser);
 
-    phoneNumberSuccessTests({
-      phoneNumberMain: testUser_3.phoneNumber,
-      phoneNumberTest: phoneNumber,
-    });
-
-    countryCodeSuccessTests({
-      countryCodeMain: testUser_3.countryCode,
-      countryCodeTest: countryCode,
-    });
-
-    countryNameSuccessTests({
-      countryNameMain: testUser_3.countryName,
-      countryNameTest: countryName,
-    });
+    generalTest
+      .createSuccessTest()
+      .countryName({
+        countryNameMain: removeBlockSuccessfulTestUser.countryName,
+        countryNameTest: countryName,
+      })
+      .countryCode({
+        countryCodeMain: removeBlockSuccessfulTestUser.countryCode,
+        countryCodeTest: countryCode,
+      })
+      .phoneNumber({
+        phoneNumberMain: removeBlockSuccessfulTestUser.phoneNumber,
+        phoneNumberTest: phoneNumber,
+      });
   });
 });
 
 describe("removeBlock failure tests", () => {
-  const cellphone = userProps.makeTestCellphone();
-
   it("should get error, SELF_STUFF", async () => {
-    const { testUser_0 } = stateManager.state.testUsers;
-    await customRequest.sendRequest(testUser_0, SELF_STUFF);
+    await removeBlockRequest.sendRequest(selfStuffTestUser, SELF_STUFF);
   });
 
   it("should get error, BLACKLIST_ITEM_NOT_EXIST", async () => {
-    const { countryCode, countryName } = countries[0];
-
-    await customRequest.sendRequest(
-      userProps.makeCellphone(countryCode, countryName, "1234567890"),
+    await removeBlockRequest.sendRequest(
+      notExistedContact,
       BLACKLIST_ITEM_NOT_EXIST
     );
   });
 
-  cellphoneFailureTests();
-  countryCodeFailureTests(cellphone);
-  countryNameFailureTests(cellphone);
-  phoneNumberFailureTests(cellphone);
-  authenticationFailureTests();
+  const cellphone = userProps.makeTestCellphone();
+
+  generalTest
+    .createFailTest(removeBlockRequest)
+    .authentication()
+    .cellphone()
+    .countryCode(cellphone)
+    .countryName(cellphone)
+    .phoneNumber(cellphone);
 });

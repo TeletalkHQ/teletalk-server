@@ -3,13 +3,13 @@ const { testBuilder } = require("@/classes/TestBuilder");
 const {
   chatModels: { messageIdModel },
 } = require("@/models/chatModels/chatModels");
+const {
+  successTestDefaultOptions,
+} = require("@/variables/others/testVariables");
 
 const messageIdSuccessTests = (
   { messageIdMain, messageIdTest } = {},
-  { stringEquality = true, modelCheck = true } = {
-    stringEquality: true,
-    modelCheck: true,
-  }
+  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
   testBuilder
     .create()

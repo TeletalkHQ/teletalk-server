@@ -38,7 +38,7 @@ const request = async (
     //   filterObject(data, routeObject.inputFields[0])
     // );
 
-    const response = await testRequest(
+    const response = await superTestRequest(
       {
         ...routeObject,
         url: concatBaseUrlWithUrl(baseUrl, routeObject),
@@ -79,7 +79,7 @@ const request = async (
   }
 };
 
-const testRequest = (routeObject, data, authorization) => {
+const superTestRequest = (routeObject, data, authorization) => {
   try {
     const { method, url } = routeObject;
 
@@ -90,7 +90,7 @@ const testRequest = (routeObject, data, authorization) => {
 
     return response;
   } catch (error) {
-    logger.log("testRequest catch, error:", testRequest);
+    logger.log("testRequest catch, error:", superTestRequest);
   }
 };
 
@@ -99,6 +99,7 @@ const makeAuthorizationHeader = (token) => [
   customTypeof.check(token).type.undefined ? null : `Bearer ${token}`,
 ];
 
+//CLEANME move this methods to stateManager
 const getTestUsersFromState = () => {
   return stateManager.state.testUsers;
 };
@@ -106,10 +107,18 @@ const setTestUsersIntoState = async (testUsers) => {
   return await stateManager.setStateObject(stateKeys.testUsers, testUsers);
 };
 
+const getTokenByTestUserNumber = (testUserNumber) => {
+  const testUsers = getTestUsersFromState();
+
+  logger.log("rm", testUsers[`testUser_${testUserNumber}`]);
+  return testUsers[`testUser_${testUserNumber}`]?.tokens[0]?.mainToken;
+};
+
 module.exports = {
   expect,
   getTestUsersFromState,
+  getTokenByTestUserNumber,
   request,
   setTestUsersIntoState,
-  testRequest,
+  testRequest: superTestRequest,
 };

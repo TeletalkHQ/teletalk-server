@@ -1,5 +1,7 @@
-const { request } = require("@/functions/utilities/testUtils");
-const { envManager } = require("@/classes/EnvironmentManager");
+const {
+  request,
+  getTokenByTestUserNumber,
+} = require("@/functions/utilities/testUtilities");
 
 class CustomRequest {
   constructor() {
@@ -7,7 +9,16 @@ class CustomRequest {
     this.baseUrl = {};
     this.data = {};
     this.errorObject = {};
-    this.options = { token: "", filterDataCondition: true };
+    this.options = { token: "", filterDataCondition: true, testUserNumber: 0 };
+  }
+
+  getDefaultToken() {
+    return getTokenByTestUserNumber(this.options.testUserNumber);
+  }
+  setDefaultToken() {
+    const token = this.getDefaultToken();
+
+    this.setToken(token);
   }
 
   setRouteObject(routeObject) {
@@ -25,6 +36,11 @@ class CustomRequest {
     this.setBaseUrl(baseUrl);
     this.setRouteObject(routeObject);
     this.setOptions({ ...this.options, ...options });
+    if (!options.token) {
+      this.setDefaultToken();
+    }
+
+    return this;
   }
 
   sendRequest(
@@ -47,13 +63,13 @@ class CustomRequest {
   }
   setToken(token) {
     this.setOptions({ token });
+
+    return this;
   }
   setMainTokenByUserObject(user) {
-    this.setOptions({ token: user.tokens[0].mainToken });
-  }
-  setVerifyTokenFromEnv() {
-    const token = envManager.getTestVerifyToken();
-    this.setOptions({ token });
+    this.setToken(user.tokens[0].mainToken);
+
+    return this;
   }
 
   getOptions() {
@@ -66,7 +82,9 @@ class CustomRequest {
   }
 }
 
+const customRequest = { create: () => new CustomRequest() };
+
 module.exports = {
-  customRequest: new CustomRequest(),
+  customRequest,
   CustomRequest,
 };

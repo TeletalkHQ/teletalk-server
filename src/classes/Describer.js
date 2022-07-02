@@ -1,6 +1,3 @@
-const { getTestUsersFromState } = require("@/functions/utilities/testUtils");
-const { customRequest } = require("@/classes/CustomRequest");
-
 class Describer {
   constructor() {
     this.state = {
@@ -8,19 +5,7 @@ class Describer {
     };
   }
 
-  addInitialDescribe(baseUrl, routeObject, testUserNumber) {
-    describe("", () => {
-      it("should fill testUsers object and set customRequest properties", () => {
-        customRequest.setRequestRequirements(baseUrl, routeObject);
-
-        this.state.testUsers = getTestUsersFromState();
-
-        customRequest.setMainTokenByUserObject(
-          this.state.testUsers[`testUser_${testUserNumber}`]
-        );
-      });
-    });
-  }
+  addInitialDescribe() {}
 
   addDescribeIt(cb, describeMsg = "", itMsg = "") {
     describe(describeMsg, () => {

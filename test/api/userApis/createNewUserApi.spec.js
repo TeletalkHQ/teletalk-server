@@ -1,45 +1,45 @@
-const { customRequest } = require("@/classes/CustomRequest");
+const { envManager } = require("@/classes/EnvironmentManager");
+const { generalTest } = require("@/classes/GeneralTest");
 const { userProps } = require("@/classes/UserProps");
 
-const {
-  firstNameFailureTests,
-  firstNameSuccessTests,
-} = require("$/api/generalTests/firstNameTests");
-const {
-  lastNameFailureTests,
-  lastNameSuccessTests,
-} = require("$/api/generalTests/lastNameTests");
-const {
-  countryCodeSuccessTests,
-} = require("$/api/generalTests/countryCodeTests");
-const {
-  countryNameSuccessTests,
-} = require("$/api/generalTests/countryNameTests");
-const {
-  authenticationFailureTests,
-} = require("$/api/generalTests/authenticationTests");
-const {
-  phoneNumberSuccessTests,
-} = require("$/api/generalTests/phoneNumberTests");
-const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
+const { expect } = require("@/functions/utilities/testUtilities");
 
 const {
-  userRoutes: { userRouteBaseUrl, createNewUserRoute },
-} = require("@/variables/routes/userRoutes");
-const { tokenSuccessTests } = require("$/api/generalTests/tokenTests");
-const { envManager } = require("@/classes/EnvironmentManager");
+  requesters: {
+    createNewUserRequest,
+    signInNormalRequest,
+    verifySignInRequest,
+  },
+  testVariables: {
+    cellphones: { createNewUserSignInCellphone },
+  },
+} = require("@/variables/others/testVariables");
 
 const fullName = userProps.makeTestFullName();
 
-describe("", () => {
-  it("should test routes properties for CustomRequest", async () => {
-    customRequest.setRequestRequirements(userRouteBaseUrl, createNewUserRoute);
-    customRequest.setVerifyTokenFromEnv();
-  });
-});
-
 describe("success create new normal user", () => {
   it("should create new user in db", async () => {
+    const {
+      body: {
+        user: { verifyToken: newUserVerifyToken },
+      },
+    } = await signInNormalRequest.sendRequest(createNewUserSignInCellphone);
+    //* 1- Sign in as a new user =>
+
+    //* 2- Get verification code, In test mode the verification code is stored in env =>
+    const newUserVerificationCode = envManager.getTestVerificationCode();
+
+    //* 3- Verify user by verificationCode & verifyToken =>
+    const newUserVerifySignInResponse = await verifySignInRequest
+      .setToken(newUserVerifyToken)
+      .sendRequest({
+        verificationCode: newUserVerificationCode,
+      });
+
+    //* 4- Test output when newUser === false =>
+    expect(newUserVerifySignInResponse.body.user.newUser).equal(true);
+
+    //* 5- Finalize new user sign in (save user in db) =>
     const {
       body: {
         user: {
@@ -52,47 +52,45 @@ describe("success create new normal user", () => {
           privateId,
         },
       },
-    } = await customRequest.sendRequest(fullName);
+    } = await createNewUserRequest
+      .setToken(newUserVerifyToken)
+      .sendRequest(fullName);
 
-    await tokenSuccessTests({
+    const gt = generalTest.createSuccessTest(createNewUserRequest);
+
+    await gt.token({
       tokenTest: mainToken,
       secret: envManager.getJwtSecrets().JWT_MAIN_SECRET,
     });
 
-    countryCodeSuccessTests(
-      { countryCodeTest: countryCode },
-      { stringEquality: false }
-    );
-
-    countryNameSuccessTests(
-      { countryNameTest: countryName },
-      { stringEquality: false }
-    );
-
-    phoneNumberSuccessTests(
-      { phoneNumberTest: phoneNumber },
-      { stringEquality: false }
-    );
-
-    privateIdSuccessTests(
-      { privateIdTest: privateId },
-      { stringEquality: false }
-    );
-
-    firstNameSuccessTests({
-      firstNameTest: firstName,
-      firstNameMain: fullName.firstName,
-    });
-
-    lastNameSuccessTests({
-      lastNameTest: lastName,
-      lastNameMain: fullName.lastName,
-    });
+    gt.countryCode({
+      countryCodeTest: countryCode,
+      countryCodeMain: createNewUserSignInCellphone.countryCode,
+    })
+      .countryName({
+        countryNameTest: countryName,
+        countryNameMain: createNewUserSignInCellphone.countryName,
+      })
+      .phoneNumber({
+        phoneNumberTest: phoneNumber,
+        phoneNumberMain: createNewUserSignInCellphone.phoneNumber,
+      })
+      .privateId({ privateIdTest: privateId }, { stringEquality: false })
+      .firstName({
+        firstNameTest: firstName,
+        firstNameMain: fullName.firstName,
+      })
+      .lastName({
+        lastNameTest: lastName,
+        lastNameMain: fullName.lastName,
+      });
   });
 });
 
 describe("failure tests for create new normal user", () => {
-  firstNameFailureTests(fullName);
-  lastNameFailureTests(fullName);
-  authenticationFailureTests();
+  generalTest
+    .createFailTest(createNewUserRequest)
+    .authentication()
+    .firstName(fullName)
+    .lastName(fullName);
 });

@@ -3,10 +3,12 @@ require("@/configs/databaseConnector").databaseConnector();
 require("@/variables/others/globalVariables");
 
 const { randomMaker } = require("@/classes/RandomMaker");
-const { errorThrower } = require("@/functions/utilities/utils");
-const { envManager } = require("@/classes/EnvironmentManager");
 const { authManager } = require("@/classes/AuthManager");
-const { setTestUsersIntoState } = require("@/functions/utilities/testUtils");
+
+const { errorThrower } = require("@/functions/utilities/utils");
+const {
+  setTestUsersIntoState,
+} = require("@/functions/utilities/testUtilities");
 
 const { countries } = require("@/variables/others/countries");
 
@@ -14,6 +16,7 @@ const {
   commonModels: { privateIdCommonModel },
 } = require("@/models/commonModels/commonModels");
 const { addTestUser } = require("@/models/userModels/userModelFunctions");
+const { eventEmitter } = require("@/classes/EventEmitter");
 
 describe("Add requirements to application state", () => {
   it("should make test users and save into state", async () => {
@@ -21,7 +24,7 @@ describe("Add requirements to application state", () => {
       c.countryName.toLowerCase().includes("iran")
     );
 
-    const users = Array.from({ length: 500 });
+    const users = Array.from({ length: 100 });
 
     const testUsers = {};
 
@@ -40,7 +43,7 @@ describe("Add requirements to application state", () => {
           privateId,
         });
 
-        const testUser = await addTestUser(
+        testUsers[`testUser_${i}`] = await addTestUser(
           countryCode,
           countryName,
           phoneNumber,
@@ -49,16 +52,16 @@ describe("Add requirements to application state", () => {
           privateId,
           mainToken
         );
-
-        testUsers[`testUser_${i}`] = testUser;
       } catch (error) {
         logger.log("requirements.spec adding users catch, error:", error);
         errorThrower(error, error);
       }
     }
 
-    envManager.setTestUsers(testUsers);
-    envManager.setTestUserProps(testUsers.testUser_0);
+    //CLEANME
     await setTestUsersIntoState(testUsers);
+    eventEmitter.emitEvent({
+      event: eventEmitter.eventKeys.requirementsGetDone,
+    });
   });
 });

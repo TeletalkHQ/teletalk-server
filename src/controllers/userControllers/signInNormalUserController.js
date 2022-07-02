@@ -47,11 +47,11 @@ const signInNormalUserController = async (
     if (client) {
       await temporaryClients.updateClient(client, {
         verificationCode,
-        mainToken: verifyToken,
+        verifyToken,
       });
     } else {
       await temporaryClients.addClient({
-        mainToken: verifyToken,
+        verifyToken,
         verificationCode,
         ...cellphone,
       });

@@ -1,33 +1,18 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const { randomMaker } = require("@/classes/RandomMaker");
-const { describer } = require("@/classes/Describer");
 
 const {
-  privateChatRoutes: { privateChatRouteBaseUrl, sendMessageRoute },
-} = require("@/variables/routes/privateChatRoutes");
-
-const {
-  participantIdFailureTests,
-} = require("$/api/generalTests/participantIdTests");
-const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
-const { chatIdSuccessTests } = require("$/api/generalTests/chatIdTests");
-const { messageIdSuccessTests } = require("$/api/generalTests/messageIdTests");
-const {
-  messageSuccessTests,
-  messageFailureTests,
-} = require("$/api/generalTests/messageTests");
-const {
-  authenticationFailureTests,
-} = require("$/api/generalTests/authenticationTests");
-
-describer.addInitialDescribe(privateChatRouteBaseUrl, sendMessageRoute, "0");
+  requesters: { sendMessageRequest },
+  testVariables: {
+    testUsers: { sendMessageSuccessfulTestUser },
+  },
+} = require("@/variables/others/testVariables");
+const { generalTest } = require("@/classes/GeneralTest");
 
 const message = "Hello! Im messages!";
 
 describe("send message success tests", () => {
-  it("Should start new chat with selected test users", async () => {
-    const { testUser_1 } = describer.state.testUsers;
-    const { privateId } = testUser_1;
+  it("Should start new chat with selected test users and send message", async () => {
+    const { privateId } = sendMessageSuccessfulTestUser;
 
     const {
       body: {
@@ -38,36 +23,36 @@ describe("send message success tests", () => {
           messageSender: { senderId },
         },
       },
-    } = await customRequest.sendRequest({
+    } = await sendMessageRequest.sendRequest({
       participantId: privateId,
       message,
     });
 
-    privateIdSuccessTests(
-      {
-        privateIdTest: senderId,
-      },
-      { stringEquality: false }
-    );
-
-    chatIdSuccessTests(
-      {
-        chatIdTest: chatId,
-      },
-      { stringEquality: false }
-    );
-
-    messageIdSuccessTests(
-      { messageIdTest: messageId },
-      { stringEquality: false }
-    );
-
-    messageSuccessTests({ messageMain: message, messageTest: newMessage });
+    generalTest
+      .createSuccessTest()
+      .privateId(
+        {
+          privateIdTest: senderId,
+        },
+        { stringEquality: false }
+      )
+      .chatId(
+        {
+          chatIdTest: chatId,
+        },
+        { stringEquality: false }
+      )
+      .messageId({ messageIdTest: messageId }, { stringEquality: false })
+      .message({ messageMain: message, messageTest: newMessage });
   });
 });
 
 describe("send message failure tests", () => {
-  authenticationFailureTests();
-  participantIdFailureTests({ message });
-  messageFailureTests({ participantId: randomMaker.randomId() });
+  generalTest
+    .createFailTest(sendMessageRequest)
+    .authentication()
+    .participantId({ message })
+    .message({
+      participantId: randomMaker.randomId(),
+    });
 });

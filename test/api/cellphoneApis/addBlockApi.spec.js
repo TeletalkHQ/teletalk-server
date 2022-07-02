@@ -1,82 +1,68 @@
 const { userProps } = require("@/classes/UserProps");
-const { customRequest } = require("@/classes/CustomRequest");
-const { describer } = require("@/classes/Describer");
 
-const {
-  cellphoneRoutes: { cellphoneRouteBaseUrl, addBlockRoute },
-} = require("@/variables/routes/cellphoneRoutes");
-
-const {
-  countryCodeFailureTests,
-  countryCodeSuccessTests,
-} = require("$/api/generalTests/countryCodeTests");
-const {
-  phoneNumberFailureTests,
-  phoneNumberSuccessTests,
-} = require("$/api/generalTests/phoneNumberTests");
-const {
-  countryNameFailureTests,
-  countryNameSuccessTests,
-} = require("$/api/generalTests/countryNameTests");
-const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
-const {
-  authenticationFailureTests,
-} = require("$/api/generalTests/authenticationTests");
+const { generalTest } = require("@/classes/GeneralTest");
 
 const {
   userErrors: { BLACKLIST_ITEM_EXIST, SELF_STUFF },
 } = require("@/variables/errors/userErrors");
-const { stateManager } = require("@/classes/StateManager");
-
-describer.addInitialDescribe(cellphoneRouteBaseUrl, addBlockRoute, "0");
+const {
+  requesters: { addBlockRequest },
+  testVariables: {
+    testUsers: {
+      addBlockSuccessfulTestUser,
+      selfStuffTestUser,
+      blacklistItemExistTestUser,
+    },
+  },
+} = require("@/variables/others/testVariables");
 
 describe("addBlock successful tests", () => {
-  it(`should add testUser_1 to testUser_0 blacklist`, async () => {
-    const { testUser_1 } = stateManager.state.testUsers;
-
+  it(`should add addBlockSuccessfulTestUser to testUser_0 blacklist`, async () => {
     const {
       body: {
         blockedCellphone: { phoneNumber, countryCode, countryName },
       },
-    } = await customRequest.sendRequest(testUser_1);
+    } = await addBlockRequest.sendRequest(addBlockSuccessfulTestUser);
 
-    phoneNumberSuccessTests({
-      phoneNumberMain: testUser_1.phoneNumber,
-      phoneNumberTest: phoneNumber,
-    });
-
-    countryCodeSuccessTests({
-      countryCodeMain: testUser_1.countryCode,
-      countryCodeTest: countryCode,
-    });
-
-    countryNameSuccessTests({
-      countryNameMain: testUser_1.countryName,
-      countryNameTest: countryName,
-    });
+    generalTest
+      .createSuccessTest()
+      .countryName({
+        countryNameMain: addBlockSuccessfulTestUser.countryName,
+        countryNameTest: countryName,
+      })
+      .countryCode({
+        countryCodeMain: addBlockSuccessfulTestUser.countryCode,
+        countryCodeTest: countryCode,
+      })
+      .phoneNumber({
+        phoneNumberMain: addBlockSuccessfulTestUser.phoneNumber,
+        phoneNumberTest: phoneNumber,
+      });
   });
 });
 
 //CLEANME SELF_STUFF BLACKLIST_ITEM_EXIST tests
 describe("addBlock failure tests", () => {
-  const cellphone = userProps.makeTestCellphone();
-
   it("should get error, SELF_STUFF", async () => {
-    const { testUser_0 } = stateManager.state.testUsers;
-    await customRequest.sendRequest(testUser_0, SELF_STUFF);
+    await addBlockRequest.sendRequest(selfStuffTestUser, SELF_STUFF);
   });
 
   it("should get error, BLACKLIST_ITEM_EXIST", async () => {
-    const { testUser_2 } = stateManager.state.testUsers;
-
     //* First one get succeed, but second one is duplicate
-    await customRequest.sendRequest(testUser_2);
-    await customRequest.sendRequest(testUser_2, BLACKLIST_ITEM_EXIST);
+    await addBlockRequest.sendRequest(blacklistItemExistTestUser);
+    await addBlockRequest.sendRequest(
+      blacklistItemExistTestUser,
+      BLACKLIST_ITEM_EXIST
+    );
   });
 
-  cellphoneFailureTests();
-  countryCodeFailureTests(cellphone);
-  countryNameFailureTests(cellphone);
-  phoneNumberFailureTests(cellphone);
-  authenticationFailureTests();
+  const cellphone = userProps.makeTestCellphone();
+
+  generalTest
+    .createFailTest(addBlockRequest)
+    .cellphone(cellphone)
+    .countryCode(cellphone)
+    .countryName(cellphone)
+    .phoneNumber(cellphone)
+    .authentication();
 });

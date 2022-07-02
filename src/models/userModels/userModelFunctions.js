@@ -93,8 +93,6 @@ const addContactToUserContacts = async (
       })
     );
 
-    logger.log("rm", "currentUser", currentUser);
-
     await currentUser.updateOne({
       contacts: currentUser.contacts,
     });

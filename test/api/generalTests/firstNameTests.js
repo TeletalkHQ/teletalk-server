@@ -1,4 +1,3 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const { randomMaker } = require("@/classes/RandomMaker");
 
 const {
@@ -13,16 +12,16 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 const { testBuilder } = require("@/classes/TestBuilder");
+const {
+  successTestDefaultOptions,
+} = require("@/variables/others/testVariables");
 
 const firstNameMaxLength = firstNameModel.maxlength.value;
 const firstNameMinLength = firstNameModel.minlength.value;
 
 const firstNameSuccessTests = (
   { firstNameMain, firstNameTest } = {},
-  { stringEquality = true, modelCheck = true } = {
-    stringEquality: true,
-    modelCheck: true,
-  }
+  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
   testBuilder
     .create()
@@ -33,7 +32,7 @@ const firstNameSuccessTests = (
     .execute();
 };
 
-const firstNameFailureTests = (data) => {
+const firstNameFailureTests = (customRequest, data) => {
   const fn = (firstName) => ({ ...data, firstName });
 
   it("should get error, FIRST_NAME_REQUIRED", async () => {

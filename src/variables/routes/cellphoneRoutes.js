@@ -2,7 +2,6 @@ const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
-  addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -21,13 +20,15 @@ const {
   },
 } = require("@/variables/others/initialOptions");
 
-const cellphoneRouteBaseUrl = routeBuilder
-  .create()
-  .url("/cellphone")
-  .version("1.0.0")
-  .build();
+const cellphoneRouteBuilder = routeBuilder("/cellphone");
 
-const addBlockRoute = routeBuilder
+const cellphoneRouteBaseUrl = cellphoneRouteBuilder
+  .create()
+  .baseUrl()
+  .baseUrlVersion("1.0.0")
+  .buildBaseUrl();
+
+const addBlockRoute = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/addBlock")
@@ -52,7 +53,7 @@ const addBlockRoute = routeBuilder
   ])
   .build();
 
-const addBlocksRoute = routeBuilder
+const addBlocksRoute = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/addBlocks")
@@ -63,7 +64,7 @@ const addBlocksRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const addContactRoute = routeBuilder
+const addContactRoute = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/addContact")
@@ -93,7 +94,7 @@ const addContactRoute = routeBuilder
   ])
   .build();
 
-const addContactsRoute = routeBuilder
+const addContactsRoute = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/addContacts")
@@ -104,7 +105,7 @@ const addContactsRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const editContactRoute = routeBuilder
+const editContactRoute = cellphoneRouteBuilder
   .create()
   .method("patch")
   .url("/editContact")
@@ -125,7 +126,7 @@ const editContactRoute = routeBuilder
   ])
   .build();
 
-const getContactsRoute = routeBuilder
+const getContactsRoute = cellphoneRouteBuilder
   .create()
   .method("get")
   .url("/getContacts")
@@ -136,7 +137,7 @@ const getContactsRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const removeBlockRoute = routeBuilder
+const removeBlockRoute = cellphoneRouteBuilder
   .create()
   .method("delete")
   .url("/removeBlock")
@@ -161,7 +162,7 @@ const removeBlockRoute = routeBuilder
   ])
   .build();
 
-const removeBlocksRoute = routeBuilder
+const removeBlocksRoute = cellphoneRouteBuilder
   .create()
   .method("delete")
   .url("/removeBlocks")
@@ -172,7 +173,7 @@ const removeBlocksRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const removeContactRoute = routeBuilder
+const removeContactRoute = cellphoneRouteBuilder
   .create()
   .method("delete")
   .url("/removeContact")
@@ -187,7 +188,7 @@ const removeContactRoute = routeBuilder
   ])
   .build();
 
-const removeContactsRoute = routeBuilder
+const removeContactsRoute = cellphoneRouteBuilder
   .create()
   .method("delete")
   .url("/removeContacts")
@@ -198,7 +199,7 @@ const removeContactsRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const shareContactRoute = routeBuilder
+const shareContactRoute = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/shareContact")
@@ -209,7 +210,7 @@ const shareContactRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const shareContactsRoute = routeBuilder
+const shareContactsRoute = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/shareContacts")
@@ -220,7 +221,7 @@ const shareContactsRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const routes = addFullUrlToRouteObjects(cellphoneRouteBaseUrl, {
+const routes = {
   addBlockRoute,
   addBlocksRoute,
   addContactRoute,
@@ -234,7 +235,7 @@ const routes = addFullUrlToRouteObjects(cellphoneRouteBaseUrl, {
   removeContactsRoute,
   shareContactRoute,
   shareContactsRoute,
-});
+};
 
 const cellphoneRoutes = {
   version: versionCalculator(extractVersions(routes)),

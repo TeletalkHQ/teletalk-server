@@ -2,7 +2,6 @@ const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
-  addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
 const {
   inputOutputFields: {
@@ -18,14 +17,15 @@ const {
   },
 } = require("@/variables/others/initialOptions");
 
-const privateChatRouteBaseUrl = routeBuilder
-  .create()
-  .url("/chat")
-  .version("1.0.0")
-  .description("privateChatRouteBaseUrl description")
-  .build();
+const privateChatRouteBuilder = routeBuilder("/chat");
 
-const getAllChatsRoute = routeBuilder
+const privateChatRouteBaseUrl = privateChatRouteBuilder
+  .create()
+  .baseUrl()
+  .baseUrlVersion("1.0.0")
+  .buildBaseUrl();
+
+const getAllChatsRoute = privateChatRouteBuilder
   .create()
   .method("get")
   .url("/privateChat/getAllPrivateChats")
@@ -44,7 +44,7 @@ const getAllChatsRoute = routeBuilder
   ])
   .build();
 
-const chatsLastMessageRoute = routeBuilder
+const chatsLastMessageRoute = privateChatRouteBuilder
   .create()
   .method("post")
   .url("/privateChat/privateChatsLastMessages")
@@ -55,7 +55,7 @@ const chatsLastMessageRoute = routeBuilder
   .outputFields([])
   .build();
 
-const getPrivateChatMessagesRoute = routeBuilder
+const getPrivateChatMessagesRoute = privateChatRouteBuilder
   .create()
   .method("post")
   .url("/privateChat/getPrivateMessages")
@@ -79,7 +79,7 @@ const getPrivateChatMessagesRoute = routeBuilder
   .build();
 
 //DEPRECATED startChatRoute
-const startChatRoute = routeBuilder
+const startChatRoute = privateChatRouteBuilder
   .create()
   .method("post")
   .url("/privateChat/startNewPrivateChat")
@@ -90,7 +90,7 @@ const startChatRoute = routeBuilder
   .outputFields([{}])
   .build();
 
-const sendMessageRoute = routeBuilder
+const sendMessageRoute = privateChatRouteBuilder
   .create()
   .method("post")
   .url("/privateChat/sendPrivateMessage")
@@ -111,14 +111,14 @@ const sendMessageRoute = routeBuilder
   ])
   .build();
 
-const routes = addFullUrlToRouteObjects(privateChatRouteBaseUrl, {
+const routes = {
   privateChatRouteBaseUrl,
   chatsLastMessageRoute,
   getAllChatsRoute,
   getPrivateChatMessagesRoute,
   sendMessageRoute,
   startChatRoute,
-});
+};
 
 const privateChatRoutes = {
   version: versionCalculator(extractVersions(routes)),

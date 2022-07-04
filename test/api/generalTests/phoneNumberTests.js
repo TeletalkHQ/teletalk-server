@@ -1,4 +1,3 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const { randomMaker } = require("@/classes/RandomMaker");
 const { testBuilder } = require("@/classes/TestBuilder");
 
@@ -14,16 +13,16 @@ const {
     PHONE_NUMBER_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
+const {
+  successTestDefaultOptions,
+} = require("@/variables/others/testVariables");
 
 const phoneNumberMaxlength = phoneNumberModel.maxlength.value;
 const phoneNumberMinlength = phoneNumberModel.minlength.value;
 
 const phoneNumberSuccessTests = (
   { phoneNumberMain, phoneNumberTest } = {},
-  { stringEquality = true, modelCheck = true } = {
-    stringEquality: true,
-    modelCheck: true,
-  }
+  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
   testBuilder
     .create()
@@ -35,7 +34,7 @@ const phoneNumberSuccessTests = (
     .execute();
 };
 
-const phoneNumberFailureTests = (data) => {
+const phoneNumberFailureTests = (customRequest, data) => {
   const fn = (phoneNumber) => ({ ...data, phoneNumber });
   it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
     await customRequest.sendRequest(fn(""), PHONE_NUMBER_REQUIRED);

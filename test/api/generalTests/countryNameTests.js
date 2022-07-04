@@ -1,4 +1,3 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const { randomMaker } = require("@/classes/RandomMaker");
 const { testBuilder } = require("@/classes/TestBuilder");
 
@@ -15,16 +14,16 @@ const {
     COUNTRY_NAME_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
+const {
+  successTestDefaultOptions,
+} = require("@/variables/others/testVariables");
 
 const countryNameMaxlength = countryNameModel.maxlength.value;
 const countryNameMinlength = countryNameModel.minlength.value;
 
 const countryNameSuccessTests = (
   { countryNameMain, countryNameTest } = {},
-  { stringEquality = true, modelCheck = true } = {
-    stringEquality: true,
-    modelCheck: true,
-  }
+  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
   testBuilder
     .create()
@@ -35,7 +34,7 @@ const countryNameSuccessTests = (
     .execute();
 };
 
-const countryNameFailureTests = (data) => {
+const countryNameFailureTests = (customRequest, data) => {
   const fn = (countryName) => ({ ...data, countryName });
 
   it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {

@@ -25,5 +25,6 @@ Add user status into contact and user schema
 useless routes cleanup
 
 TODO Add exclude props to utils (like version)
+TODO Add General test class!
 FIXME Add newUser:false test
 FIXME Fix public assets sharing

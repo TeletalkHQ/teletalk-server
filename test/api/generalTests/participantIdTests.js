@@ -1,5 +1,3 @@
-const { customRequest } = require("@/classes/CustomRequest");
-
 const {
   chatModels: { participantIdModel },
 } = require("@/models/chatModels/chatModels");
@@ -29,7 +27,7 @@ const participantIdMinLength = participantIdModel.minlength.value;
 //     .buildCommonTest();
 // };
 
-const participantIdFailureTests = (data = {}) => {
+const participantIdFailureTests = (customRequest, data = {}) => {
   const fn = (participantId) => ({
     ...data,
     participantId,

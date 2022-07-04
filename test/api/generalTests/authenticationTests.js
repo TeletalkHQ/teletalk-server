@@ -1,9 +1,8 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const {
   userErrors: { TOKEN_REQUIRED, TOKEN_INVALID_TYPE },
 } = require("@/variables/errors/userErrors");
 
-const authenticationFailureTests = (data = {}) => {
+const authenticationFailureTests = (customRequest, data = {}) => {
   const fn = (token) => ({ token });
   it("should get error, TOKEN_REQUIRED", async () => {
     await customRequest.sendRequest(data, TOKEN_REQUIRED, fn(undefined));

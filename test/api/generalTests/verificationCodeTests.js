@@ -1,4 +1,3 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const { testBuilder } = require("@/classes/TestBuilder");
 
 const {
@@ -31,7 +30,7 @@ const verificationCodeSuccessTests = (
     .execute();
 };
 
-const verificationCodeFailureTests = (data = {}) => {
+const verificationCodeFailureTests = (customRequest, data = {}) => {
   const fn = (verificationCode) => ({ ...data, verificationCode });
 
   it("it should get error, VERIFICATION_CODE_REQUIRED", async () => {

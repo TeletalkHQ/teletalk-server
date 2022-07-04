@@ -1,47 +1,23 @@
+const { generalTest } = require("@/classes/GeneralTest");
 const { userProps } = require("@/classes/UserProps");
-const { customRequest } = require("@/classes/CustomRequest");
-const { describer } = require("@/classes/Describer");
-const { stateManager } = require("@/classes/StateManager");
 
-const {
-  cellphoneRoutes: { addContactRoute, cellphoneRouteBaseUrl },
-} = require("@/variables/routes/cellphoneRoutes");
 const {
   userErrors: { CONTACT_ITEM_EXIST, SELF_STUFF, TARGET_USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
-const { countries } = require("@/variables/others/countries");
+const {
+  requesters: { addContactRequest },
+  testVariables: {
+    cellphones: { notExistedContact },
+    testUsers: {
+      addContactSuccessfulTestUser,
+      selfStuffTestUser,
+      contactItemExistTestUser,
+    },
+  },
+} = require("@/variables/others/testVariables");
 
-const {
-  countryCodeFailureTests,
-  countryCodeSuccessTests,
-} = require("$/api/generalTests/countryCodeTests");
-const {
-  phoneNumberFailureTests,
-  phoneNumberSuccessTests,
-} = require("$/api/generalTests/phoneNumberTests");
-const {
-  countryNameFailureTests,
-  countryNameSuccessTests,
-} = require("$/api/generalTests/countryNameTests");
-const {
-  firstNameFailureTests,
-  firstNameSuccessTests,
-} = require("$/api/generalTests/firstNameTests");
-const {
-  lastNameFailureTests,
-  lastNameSuccessTests,
-} = require("$/api/generalTests/lastNameTests");
-const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
-const {
-  authenticationFailureTests,
-} = require("$/api/generalTests/authenticationTests");
-const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
-
-describer.addInitialDescribe(cellphoneRouteBaseUrl, addContactRoute, "0");
-
-describe("add contact successfully", () => {
+describe("add contact success tests", () => {
   it(`should add testUser_1 to testUser_0 contact list`, async () => {
-    const { testUser_1 } = stateManager.state.testUsers;
     const {
       body: {
         addedContact: {
@@ -53,37 +29,34 @@ describe("add contact successfully", () => {
           privateId,
         },
       },
-    } = await customRequest.sendRequest(testUser_1);
+    } = await addContactRequest.sendRequest(addContactSuccessfulTestUser);
 
-    firstNameSuccessTests({
-      firstNameMain: testUser_1.firstName,
-      firstNameTest: firstName,
-    });
-
-    lastNameSuccessTests({
-      lastNameMain: testUser_1.lastName,
-      lastNameTest: lastName,
-    });
-
-    phoneNumberSuccessTests({
-      phoneNumberMain: testUser_1.phoneNumber,
-      phoneNumberTest: phoneNumber,
-    });
-
-    countryCodeSuccessTests({
-      countryCodeMain: testUser_1.countryCode,
-      countryCodeTest: countryCode,
-    });
-
-    countryNameSuccessTests({
-      countryNameMain: testUser_1.countryName,
-      countryNameTest: countryName,
-    });
-
-    privateIdSuccessTests({
-      privateIdMain: testUser_1.privateId,
-      privateIdTest: privateId,
-    });
+    generalTest
+      .createSuccessTest()
+      .privateId({
+        privateIdMain: addContactSuccessfulTestUser.privateId,
+        privateIdTest: privateId,
+      })
+      .countryCode({
+        countryCodeMain: addContactSuccessfulTestUser.countryCode,
+        countryCodeTest: countryCode,
+      })
+      .countryName({
+        countryNameMain: addContactSuccessfulTestUser.countryName,
+        countryNameTest: countryName,
+      })
+      .phoneNumber({
+        phoneNumberMain: addContactSuccessfulTestUser.phoneNumber,
+        phoneNumberTest: phoneNumber,
+      })
+      .lastName({
+        lastNameMain: addContactSuccessfulTestUser.lastName,
+        lastNameTest: lastName,
+      })
+      .firstName({
+        firstNameMain: addContactSuccessfulTestUser.firstName,
+        firstNameTest: firstName,
+      });
   });
 });
 
@@ -92,38 +65,32 @@ describe("addContact failure tests", () => {
   const contact = userProps.makeTestContact();
 
   it("should get error, SELF_STUFF", async () => {
-    const { testUser_0 } = stateManager.state.testUsers;
-    await customRequest.sendRequest(testUser_0, SELF_STUFF);
+    await addContactRequest.sendRequest(selfStuffTestUser, SELF_STUFF);
   });
 
   it("should get error, CONTACT_ITEM_EXIST", async () => {
-    const { testUser_2 } = stateManager.state.testUsers;
-
     //* First one get succeed, but second one is duplicate
-    await customRequest.sendRequest(testUser_2);
-    await customRequest.sendRequest(testUser_2, CONTACT_ITEM_EXIST);
+    await addContactRequest.sendRequest(contactItemExistTestUser);
+    await addContactRequest.sendRequest(
+      contactItemExistTestUser,
+      CONTACT_ITEM_EXIST
+    );
   });
 
   it("should get error, TARGET_USER_NOT_EXIST", async () => {
-    const { countryCode, countryName } = countries[0];
-
-    await customRequest.sendRequest(
-      {
-        phoneNumber: "1234567890",
-        countryCode,
-        countryName,
-        firstName: "Stalwart",
-        lastName: "SS!",
-      },
+    await addContactRequest.sendRequest(
+      notExistedContact,
       TARGET_USER_NOT_EXIST
     );
   });
 
-  cellphoneFailureTests(contact);
-  countryCodeFailureTests(contact);
-  countryNameFailureTests(contact);
-  phoneNumberFailureTests(contact);
-  firstNameFailureTests(contact);
-  lastNameFailureTests(contact);
-  authenticationFailureTests();
+  generalTest
+    .createFailTest(addContactRequest)
+    .authentication()
+    .cellphone(contact)
+    .countryCode(contact)
+    .countryName(contact)
+    .phoneNumber(contact)
+    .firstName(contact)
+    .lastName(contact);
 });

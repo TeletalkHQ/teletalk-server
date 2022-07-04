@@ -1,4 +1,3 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const { testBuilder } = require("@/classes/TestBuilder");
 const { randomMaker } = require("@/classes/RandomMaker");
 
@@ -14,16 +13,16 @@ const {
     MESSAGE_TEXT_INVALID_TYPE,
   },
 } = require("@/variables/errors/chatErrors");
+const {
+  successTestDefaultOptions,
+} = require("@/variables/others/testVariables");
 
 // const messageMinLength = messageModel.minlength.value;
 const messageMaxLength = messageModel.maxlength.value;
 
 const messageSuccessTests = (
   { messageMain, messageTest } = {},
-  { stringEquality = true, modelCheck = true } = {
-    stringEquality: true,
-    modelCheck: true,
-  }
+  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
   testBuilder
     .create()
@@ -32,7 +31,7 @@ const messageSuccessTests = (
     .addCommonTest()
     .execute();
 };
-const messageFailureTests = (data) => {
+const messageFailureTests = (customRequest, data) => {
   const fn = (message) => ({
     ...data,
     message,

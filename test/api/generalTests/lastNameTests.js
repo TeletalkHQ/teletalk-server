@@ -1,4 +1,3 @@
-const { customRequest } = require("@/classes/CustomRequest");
 const { randomMaker } = require("@/classes/RandomMaker");
 const { testBuilder } = require("@/classes/TestBuilder");
 
@@ -9,15 +8,15 @@ const {
 const {
   userErrors: { LAST_NAME_INVALID_TYPE, LAST_NAME_MAXLENGTH_REACH },
 } = require("@/variables/errors/userErrors");
+const {
+  successTestDefaultOptions,
+} = require("@/variables/others/testVariables");
 
 const lastNameMaxLength = lastNameModel.maxlength.value;
 
 const lastNameSuccessTests = (
   { lastNameMain, lastNameTest } = {},
-  { stringEquality = true, modelCheck = true } = {
-    stringEquality: true,
-    modelCheck: true,
-  }
+  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
   const ts = testBuilder
     .create()
@@ -31,7 +30,7 @@ const lastNameSuccessTests = (
     .execute();
 };
 
-const lastNameFailureTests = (data) => {
+const lastNameFailureTests = (customRequest, data) => {
   const fn = (lastName) => ({ ...data, lastName });
   it("should get error, LAST_NAME_MAXLENGTH_REACH", async () => {
     await customRequest.sendRequest(

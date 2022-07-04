@@ -22,6 +22,7 @@ const tokenSuccessTests = async (
 
   (
     await ts.checkAndExecuteAsync(verifyToken, async () => {
+      //BUG token verifier
       const verifiedToken = await tokenValidator(tokenTest, secret);
       ts.customTypeCheck(verifiedToken, "object")
         .customTypeCheck(verifiedToken.signature, "string")

@@ -2,7 +2,6 @@ const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
-  addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -42,13 +41,17 @@ const userDataProps = {
   newUser,
 };
 
-const userRouteBaseUrl = routeBuilder
-  .create()
-  .url("/user")
-  .version("1.0.0")
-  .build();
+const userRouteBuilder = routeBuilder("/user");
 
-const createNewUserRoute = routeBuilder
+const userRouteBaseUrl = userRouteBuilder
+  .create()
+  .baseUrl()
+  .baseUrlVersion("1.0.0")
+  .buildBaseUrl();
+
+logger.log("rm", "userRouteBaseUrl", userRouteBaseUrl);
+
+const createNewUserRoute = userRouteBuilder
   .create()
   .method("post")
   .url("/normalUser/createNewNormalUser")
@@ -71,7 +74,7 @@ const createNewUserRoute = routeBuilder
   ])
   .build();
 
-const logoutNormalRoute = routeBuilder
+const logoutNormalRoute = userRouteBuilder
   .create()
   .method("post")
   .url("/normalUser/logoutNormalUser")
@@ -82,7 +85,7 @@ const logoutNormalRoute = routeBuilder
   .outputFields()
   .build();
 
-const signInNormalRoute = routeBuilder
+const signInNormalRoute = userRouteBuilder
   .create()
   .method("post")
   .url("/normalUser/signInNormalUser")
@@ -108,7 +111,7 @@ const signInNormalRoute = routeBuilder
   ])
   .build();
 
-const statusCheckRoute = routeBuilder
+const statusCheckRoute = userRouteBuilder
   .create()
   .method("get")
   .url("/normalUser/statusCheck")
@@ -119,7 +122,7 @@ const statusCheckRoute = routeBuilder
   .outputFields()
   .build();
 
-const getUserDataRoute = routeBuilder
+const getUserDataRoute = userRouteBuilder
   .create()
   .method("get")
   .url("/normalUser/getUserData")
@@ -134,7 +137,7 @@ const getUserDataRoute = routeBuilder
   ])
   .build();
 
-const verifySignInNormalRoute = routeBuilder
+const verifySignInNormalRoute = userRouteBuilder
   .create()
   .method("post")
   .url("/normalUser/verifySignInNormalUser")
@@ -154,7 +157,7 @@ const verifySignInNormalRoute = routeBuilder
   ])
   .build();
 
-const routes = addFullUrlToRouteObjects(userRouteBaseUrl, {
+const routes = {
   createNewUserRoute,
   getUserDataRoute,
   logoutNormalRoute,
@@ -162,8 +165,9 @@ const routes = addFullUrlToRouteObjects(userRouteBaseUrl, {
   statusCheckRoute,
   userRouteBaseUrl,
   verifySignInNormalRoute,
-});
+};
 
+logger.log("rm", routes);
 const userRoutes = {
   ...routes,
   version: versionCalculator(extractVersions(routes)),

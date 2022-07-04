@@ -212,6 +212,7 @@ const excludeVersion = (object) => {
   return tempObject;
 };
 
+//FIXME This should have just the url's to concat
 const concatBaseUrlWithUrl = (baseUrlObject, routeObject) =>
   `${baseUrlObject.url}${routeObject.url}`;
 
@@ -246,12 +247,10 @@ const cellphoneFinder = (cellphones, targetCellphone) => {
 };
 
 const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
-  const { url: baseUrl } = baseRouteObject;
-
   for (const key in routeObjects) {
     const routeObject = routeObjects[key];
 
-    routeObject.fullUrl = `${baseUrl}${routeObject.url}`;
+    routeObject.fullUrl = concatBaseUrlWithUrl(baseRouteObject, routeObject);
   }
 
   return routeObjects;

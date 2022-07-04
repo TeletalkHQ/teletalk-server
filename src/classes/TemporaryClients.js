@@ -32,15 +32,16 @@ class TemporaryClients {
     return stateManager.state.temporaryClients.aliveClients;
   }
 
-  async findClient(client) {
+  findClient(tempoClientCellphone) {
     const aliveClients = this.getAliveClients();
 
     return aliveClients.find(
-      (aliveClient) => !!isEqualWithTargetCellphone(aliveClient, client)
+      (aliveClient) =>
+        !!isEqualWithTargetCellphone(aliveClient, tempoClientCellphone)
     );
   }
 
-  async findClientIndex(client) {
+  findClientIndex(client) {
     const aliveClients = this.getAliveClients();
 
     return aliveClients.findIndex(
@@ -50,7 +51,7 @@ class TemporaryClients {
 
   async updateClient(client, updateProps) {
     const aliveClients = this.getAliveClients();
-    const aliveClientIndex = await this.findClientIndex(client);
+    const aliveClientIndex = this.findClientIndex(client);
 
     if (aliveClientIndex !== -1) {
       const aliveClient = aliveClients[aliveClientIndex];

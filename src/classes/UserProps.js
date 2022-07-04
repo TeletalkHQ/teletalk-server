@@ -5,6 +5,7 @@ const {
 } = require("@/models/userModels/userModels");
 
 const { countries } = require("@/variables/others/countries");
+const { dataUsageManager } = require("@/classes/DataUsageManager");
 
 class UserProps {
   constructor(id) {
@@ -20,6 +21,25 @@ class UserProps {
     );
 
     return cellphone;
+  }
+
+  makeUnusedTestCellphone() {
+    const cellphone = this.makeTestCellphone();
+
+    const isCellphoneUsedBefore =
+      dataUsageManager.isCellphoneUsedBefore(cellphone);
+
+    if (isCellphoneUsedBefore) {
+      this.makeUnusedTestCellphone();
+    } else return cellphone;
+  }
+
+  makeUnusedTestCellphoneAndUpdateUsage() {
+    const unusedCellphone = this.makeUnusedTestCellphone();
+
+    dataUsageManager.addUsedCellphone(unusedCellphone);
+
+    return unusedCellphone;
   }
 
   makeCellphone(countryCode, countryName, phoneNumber) {

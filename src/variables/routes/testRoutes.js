@@ -2,12 +2,17 @@ const { routeBuilder } = require("@/classes/Builders");
 const {
   versionCalculator,
   extractVersions,
-  addFullUrlToRouteObjects,
 } = require("@/functions/utilities/utils");
 
-const testBaseUrl = routeBuilder.create().url("/test").version("1.0.0").build();
+const testRouteBuilder = routeBuilder("/test");
 
-const getAllUsersRoute = routeBuilder
+const testBaseUrl = testRouteBuilder
+  .create()
+  .baseUrl()
+  .baseUrlVersion("1.0.0")
+  .buildBaseUrl();
+
+const getAllUsersRoute = testRouteBuilder
   .create()
   .method("get")
   .url("/getAllUsers")
@@ -15,10 +20,10 @@ const getAllUsersRoute = routeBuilder
   .version("1.0.0")
   .build();
 
-const routes = addFullUrlToRouteObjects(testBaseUrl, {
+const routes = {
   testBaseUrl,
   getAllUsersRoute,
-});
+};
 
 const testRoutes = {
   ...routes,

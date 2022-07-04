@@ -8,7 +8,9 @@ const {
 } = require("@/functions/utilities/utils");
 
 class RouteBuilder {
-  constructor() {
+  constructor(baseUrl) {
+    this._baseUrl = baseUrl;
+    this.baseUrlObject = { url: "", version: "1.0.0" };
     this.routeObject = {
       method: "GET",
       url: "/404",
@@ -18,24 +20,50 @@ class RouteBuilder {
       inputFields: [{}],
       outputFields: [{}],
     };
-    this.routeBaseUrl = "";
   }
 
   #addProperty(key, value) {
     this.routeObject[key] = value;
   }
+  #reset() {
+    this.routeObject = {};
+  }
 
   build() {
-    return this.routeObject;
+    const routeObject = this.routeObject;
+
+    this.#reset();
+
+    return routeObject;
   }
+  buildBaseUrl() {
+    const baseUrlObject = this.baseUrlObject;
+
+    this.baseUrlObject = {};
+
+    return baseUrlObject;
+  }
+
   method(method) {
     this.#addProperty("method", method);
     return this;
   }
   url(url) {
     this.#addProperty("url", url);
+    this.#addProperty("fullUrl", `${this._baseUrl}${url}`);
     return this;
   }
+  baseUrl() {
+    this.baseUrlObject.url = this._baseUrl;
+
+    return this;
+  }
+  baseUrlVersion(version) {
+    this.baseUrlObject.version = version;
+
+    return this;
+  }
+
   statusCode(statusCode) {
     this.#addProperty("statusCode", statusCode);
     return this;
@@ -48,11 +76,11 @@ class RouteBuilder {
     this.#addProperty("description", description);
     return this;
   }
-  inputFields(inputFields) {
+  inputFields(inputFields = this.routeObject.inputFields) {
     this.#addProperty("inputFields", inputFields);
     return this;
   }
-  outputFields(outputFields) {
+  outputFields(outputFields = this.routeObject.outputFields) {
     this.#addProperty("outputFields", outputFields);
     return this;
   }
@@ -483,7 +511,9 @@ class MongoModelBuilder {
 const errorBuilder = { create: () => new ErrorBuilder() };
 const modelBuilder = { create: () => new ModelBuilder() };
 const mongoModelBuilder = { create: () => new MongoModelBuilder() };
-const routeBuilder = { create: () => new RouteBuilder() };
+const routeBuilder = (baseUrl) => ({
+  create: (...args) => new RouteBuilder(baseUrl, ...args),
+});
 const validationErrorBuilder = { create: () => new ValidationErrorBuilder() };
 const validationModelBuilder = { create: () => new ValidationModelBuilder() };
 

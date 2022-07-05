@@ -13,10 +13,9 @@ const {
 const {
   initialOptions: { stateKeys },
 } = require("@/variables/others/initialOptions");
+const { userProps } = require("@/classes/UserProps");
 
 const request = async (
-  //CLEANME Remove baseUrl from requesters
-  baseUrl,
   routeObject,
   data,
   errorObject = {},
@@ -96,23 +95,18 @@ const makeAuthorizationHeader = (token) => [
   customTypeof.check(token).type.undefined ? null : `Bearer ${token}`,
 ];
 
-//CLEANME move this methods to stateManager
-const getTestUsersFromState = () => {
-  return stateManager.state.testUsers;
-};
 const setTestUsersIntoState = async (testUsers) => {
   return await stateManager.setStateObject(stateKeys.testUsers, testUsers);
 };
 
 const getTokenByTestUserNumber = (testUserNumber) => {
-  const testUsers = getTestUsersFromState();
-
-  return testUsers[`testUser_${testUserNumber}`]?.tokens[0]?.mainToken;
+  const testUsers = stateManager.state.testUsers;
+  const user = testUsers[`testUser_${testUserNumber}`];
+  return userProps.getTokenFromUserObject(user);
 };
 
 module.exports = {
   expect,
-  getTestUsersFromState,
   getTokenByTestUserNumber,
   request,
   setTestUsersIntoState,

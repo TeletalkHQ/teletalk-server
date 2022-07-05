@@ -36,29 +36,35 @@ const countryCodeSuccessTests = (
     .execute();
 };
 
-const countryCodeFailureTests = (customRequest, data) => {
+const countryCodeFailureTests = (configuredCustomRequest, data) => {
   const fn = (countryCode) => ({ ...data, countryCode });
 
   it(`It should get error, COUNTRY_CODE_REQUIRED`, async () => {
-    await customRequest.sendRequest(fn(""), COUNTRY_CODE_REQUIRED);
+    await configuredCustomRequest.sendRequest(fn(""), COUNTRY_CODE_REQUIRED);
   });
   it(`It should get error, COUNTRY_CODE_NUMERIC`, async () => {
-    await customRequest.sendRequest(fn("98!"), COUNTRY_CODE_NUMERIC);
+    await configuredCustomRequest.sendRequest(fn("98!"), COUNTRY_CODE_NUMERIC);
   });
   it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
-    await customRequest.sendRequest(fn(98), COUNTRY_CODE_INVALID_TYPE);
+    await configuredCustomRequest.sendRequest(
+      fn(98),
+      COUNTRY_CODE_INVALID_TYPE
+    );
   });
   it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
-    await customRequest.sendRequest(fn("010101"), COUNTRY_CODE_NOT_SUPPORTED);
+    await configuredCustomRequest.sendRequest(
+      fn("010101"),
+      COUNTRY_CODE_NOT_SUPPORTED
+    );
   });
   it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(randomMaker.randomStringNumber(countryCodeMinlength - 1)),
       COUNTRY_CODE_MINLENGTH_REACH
     );
   });
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(randomMaker.randomStringNumber(countryCodeMaxlength + 1)),
       COUNTRY_CODE_MAXLENGTH_REACH
     );

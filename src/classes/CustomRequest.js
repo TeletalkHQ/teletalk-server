@@ -1,19 +1,13 @@
-const {
-  request,
-  getTokenByTestUserNumber,
-} = require("@/functions/utilities/testUtilities");
+const { request } = require("@/functions/utilities/testUtilities");
 
 class CustomRequest {
-  constructor() {
+  constructor(token) {
     this.routeObject = {};
+    this.token = token;
     this.baseUrl = {};
     this.data = {};
     this.errorObject = {};
-  }
-  #options = { token: "", filterDataCondition: true, testUserNumber: 0 };
-
-  getDefaultToken() {
-    return getTokenByTestUserNumber(this.getOptions().testUserNumber);
+    this.options = { token, filterDataCondition: true };
   }
 
   setRouteObject(routeObject) {
@@ -21,22 +15,14 @@ class CustomRequest {
 
     return this;
   }
-  //CLEANME Clean base url
   setBaseUrl(baseUrl) {
     this.baseUrl = baseUrl;
-
     return this;
   }
 
-  setRequestRequirements(baseUrl, routeObject, options = this.#options) {
-    this.setBaseUrl(baseUrl);
+  setRequestRequirements(routeObject, options = this.options) {
     this.setRouteObject(routeObject);
-    this.setOptions({ ...this.#options, ...options });
-
-    //CLEANME Remove this default things...
-    if (!options.token) {
-      this.setToken(this.getDefaultToken());
-    }
+    this.setOptions({ ...this.options, ...options });
 
     return this;
   }
@@ -44,16 +30,15 @@ class CustomRequest {
   sendRequest(
     data,
     errorObject,
-    options = this.#options,
-    baseUrl = this.baseUrl,
+    options = this.options,
     routeObject = this.routeObject
   ) {
     const allOptions = {
-      ...this.#options,
+      ...this.options,
       ...options,
     };
 
-    return request(baseUrl, routeObject, data, errorObject, allOptions);
+    return request(routeObject, data, errorObject, allOptions);
   }
 
   getToken() {
@@ -63,22 +48,20 @@ class CustomRequest {
     this.setOptions({ token });
     return this;
   }
-  setMainTokenByUserObject(user) {
-    this.setToken(user.tokens[0].mainToken);
-    return this;
-  }
 
   getOptions() {
-    return this.#options;
+    return this.options;
   }
   setOptions(newOptions) {
-    this.#options = { ...this.#options, ...newOptions };
+    this.options = { ...this.options, ...newOptions };
 
     return this;
   }
 }
 
-const customRequest = { create: () => new CustomRequest() };
+const customRequest = (token) => {
+  return { create: () => new CustomRequest(token) };
+};
 
 module.exports = {
   customRequest,

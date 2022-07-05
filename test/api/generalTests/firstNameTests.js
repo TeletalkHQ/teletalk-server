@@ -32,26 +32,29 @@ const firstNameSuccessTests = (
     .execute();
 };
 
-const firstNameFailureTests = (customRequest, data) => {
+const firstNameFailureTests = (configuredCustomRequest, data) => {
   const fn = (firstName) => ({ ...data, firstName });
 
   it("should get error, FIRST_NAME_REQUIRED", async () => {
-    await customRequest.sendRequest(fn(""), FIRST_NAME_REQUIRED);
+    await configuredCustomRequest.sendRequest(fn(""), FIRST_NAME_REQUIRED);
   });
   it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(randomMaker.randomString(+firstNameMinLength - 1)),
       FIRST_NAME_MINLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(randomMaker.randomString(+firstNameMaxLength + 1)),
       FIRST_NAME_MAXLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_INVALID_TYPE", async () => {
-    await customRequest.sendRequest(fn(123456789), FIRST_NAME_INVALID_TYPE);
+    await configuredCustomRequest.sendRequest(
+      fn(123456789),
+      FIRST_NAME_INVALID_TYPE
+    );
   });
 };
 

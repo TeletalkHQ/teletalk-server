@@ -31,6 +31,8 @@ const verifySignInNormalUserController = async (
     );
 
     //CLEANME
+    const user = (await userFinder(cellphone)) || {};
+
     const {
       blacklist,
       // username,
@@ -43,9 +45,7 @@ const verifySignInNormalUserController = async (
       lastName,
       phoneNumber,
       privateId,
-      tokens,
-    } = (await userFinder(cellphone)) || {};
-
+    } = user;
     const isUserExist = privateId;
 
     const dataOutputIndex = isUserExist ? 0 : 1;
@@ -62,7 +62,7 @@ const verifySignInNormalUserController = async (
             countryName,
             firstName,
             lastName,
-            mainToken: tokens[0].mainToken,
+            mainToken: userProps.getTokenFromUserObject(user),
             newUser: false,
             phoneNumber,
             privateId,

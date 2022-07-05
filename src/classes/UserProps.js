@@ -95,7 +95,7 @@ class UserProps {
   }
 
   getTokenFromUserObject(userObject) {
-    return userObject.tokens[0].mainToken;
+    return userObject.tokens[0]?.mainToken;
   }
 }
 

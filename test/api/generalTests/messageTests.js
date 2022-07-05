@@ -31,32 +31,35 @@ const messageSuccessTests = (
     .addCommonTest()
     .execute();
 };
-const messageFailureTests = (customRequest, data) => {
+const messageFailureTests = (configuredCustomRequest, data) => {
   const fn = (message) => ({
     ...data,
     message,
   });
 
   it("Should get error, MESSAGE_TEXT_REQUIRED", async () => {
-    await customRequest.sendRequest(fn(""), MESSAGE_TEXT_REQUIRED);
+    await configuredCustomRequest.sendRequest(fn(""), MESSAGE_TEXT_REQUIRED);
   });
 
   it("Should get error, MESSAGE_TEXT_MAX_LENGTH_REACH", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(randomMaker.randomString(messageMaxLength + 1)),
       MESSAGE_TEXT_MAX_LENGTH_REACH
     );
   });
 
   // it("Should get error, MESSAGE_TEXT_MIN_LENGTH_REACH", async () => {
-  //   await customRequest.sendRequest(
+  //   await configuredCustomRequest.sendRequest(
   //     fn(randomMaker.randomString(messageMinLength - 1 || 1)),
   //     MESSAGE_TEXT_MIN_LENGTH_REACH
   //   );
   // });
 
   it("Should get error, MESSAGE_TEXT_INVALID_TYPE", async () => {
-    await customRequest.sendRequest(fn(123456789), MESSAGE_TEXT_INVALID_TYPE);
+    await configuredCustomRequest.sendRequest(
+      fn(123456789),
+      MESSAGE_TEXT_INVALID_TYPE
+    );
   });
 };
 

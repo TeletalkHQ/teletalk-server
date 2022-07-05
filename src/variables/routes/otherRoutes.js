@@ -17,11 +17,7 @@ const {
 
 const otherRouteBuilder = routeBuilder("/other");
 
-const otherRouteBaseUrl = otherRouteBuilder
-  .create()
-  .baseUrl()
-  .baseUrlVersion("1.0.0")
-  .buildBaseUrl();
+const otherRouteBaseUrl = otherRouteBuilder.create().baseUrlObject("1.0.0");
 
 const countriesRoute = otherRouteBuilder
   .create()

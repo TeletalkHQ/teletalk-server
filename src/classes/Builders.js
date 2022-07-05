@@ -10,10 +10,10 @@ const {
 class RouteBuilder {
   constructor(baseUrl) {
     this._baseUrl = baseUrl;
-    this.baseUrlObject = { url: "", version: "1.0.0" };
     this.routeObject = {
       method: "GET",
       url: "/404",
+      fullUrl: "/404",
       statusCode: 404,
       version: "1.0.0",
       description: "Default route description",
@@ -31,17 +31,15 @@ class RouteBuilder {
 
   build() {
     const routeObject = this.routeObject;
-
     this.#reset();
-
     return routeObject;
   }
-  buildBaseUrl() {
-    const baseUrlObject = this.baseUrlObject;
 
-    this.baseUrlObject = {};
-
-    return baseUrlObject;
+  baseUrlObject(version, baseUrl = this._baseUrl) {
+    return {
+      url: baseUrl,
+      version,
+    };
   }
 
   method(method) {
@@ -51,16 +49,6 @@ class RouteBuilder {
   url(url) {
     this.#addProperty("url", url);
     this.#addProperty("fullUrl", `${this._baseUrl}${url}`);
-    return this;
-  }
-  baseUrl() {
-    this.baseUrlObject.url = this._baseUrl;
-
-    return this;
-  }
-  baseUrlVersion(version) {
-    this.baseUrlObject.version = version;
-
     return this;
   }
 

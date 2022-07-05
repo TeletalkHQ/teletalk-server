@@ -24,9 +24,7 @@ const cellphoneRouteBuilder = routeBuilder("/cellphone");
 
 const cellphoneRouteBaseUrl = cellphoneRouteBuilder
   .create()
-  .baseUrl()
-  .baseUrlVersion("1.0.0")
-  .buildBaseUrl();
+  .baseUrlObject("1.0.0");
 
 const addBlockRoute = cellphoneRouteBuilder
   .create()

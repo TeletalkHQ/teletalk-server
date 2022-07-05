@@ -16,7 +16,7 @@ const {
 describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
     await addBlockRequest.sendRequest(removeBlockSuccessfulTestUser, null, {
-      token: removeBlockRequest.options.token,
+      token: removeBlockRequest.getOptions().token,
     });
     const {
       body: {

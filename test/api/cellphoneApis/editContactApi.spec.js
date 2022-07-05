@@ -32,7 +32,7 @@ describe("edit contact success tests", () => {
       editContactSuccessfulTestUser,
       null,
       {
-        token: editContactRequest.options.token,
+        token: editContactRequest.getOptions().token,
       }
     );
     const gt = generalTest.createSuccessTest();

@@ -43,13 +43,7 @@ const userDataProps = {
 
 const userRouteBuilder = routeBuilder("/user");
 
-const userRouteBaseUrl = userRouteBuilder
-  .create()
-  .baseUrl()
-  .baseUrlVersion("1.0.0")
-  .buildBaseUrl();
-
-logger.log("rm", "userRouteBaseUrl", userRouteBaseUrl);
+const userRouteBaseUrl = userRouteBuilder.create().baseUrlObject("1.0.0");
 
 const createNewUserRoute = userRouteBuilder
   .create()
@@ -167,7 +161,6 @@ const routes = {
   verifySignInNormalRoute,
 };
 
-logger.log("rm", routes);
 const userRoutes = {
   ...routes,
   version: versionCalculator(extractVersions(routes)),

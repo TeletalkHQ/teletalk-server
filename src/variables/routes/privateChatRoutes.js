@@ -21,9 +21,7 @@ const privateChatRouteBuilder = routeBuilder("/chat");
 
 const privateChatRouteBaseUrl = privateChatRouteBuilder
   .create()
-  .baseUrl()
-  .baseUrlVersion("1.0.0")
-  .buildBaseUrl();
+  .baseUrlObject("1.0.0");
 
 const getAllChatsRoute = privateChatRouteBuilder
   .create()

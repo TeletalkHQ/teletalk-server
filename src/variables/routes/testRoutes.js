@@ -6,11 +6,7 @@ const {
 
 const testRouteBuilder = routeBuilder("/test");
 
-const testBaseUrl = testRouteBuilder
-  .create()
-  .baseUrl()
-  .baseUrlVersion("1.0.0")
-  .buildBaseUrl();
+const testBaseUrl = testRouteBuilder.create().baseUrlObject("1.0.0");
 
 const getAllUsersRoute = testRouteBuilder
   .create()

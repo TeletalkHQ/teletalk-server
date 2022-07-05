@@ -2,9 +2,9 @@ const {
   userErrors: { CELLPHONE_REQUIRED },
 } = require("@/variables/errors/userErrors");
 
-const cellphoneFailureTests = (customRequest, data = {}) => {
+const cellphoneFailureTests = (configuredCustomRequest, data = {}) => {
   it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       { ...data, countryCode: "", countryName: "", phoneNumber: "" },
       CELLPHONE_REQUIRED
     );

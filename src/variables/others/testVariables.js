@@ -6,7 +6,6 @@ const {
   cellphoneRoutes: {
     addBlockRoute,
     addContactRoute,
-    cellphoneRouteBaseUrl,
     editContactRoute,
     removeBlockRoute,
     removeContactRoute,
@@ -16,7 +15,6 @@ const {
   userRoutes: {
     createNewUserRoute,
     signInNormalRoute,
-    userRouteBaseUrl,
     verifySignInNormalRoute,
   },
 } = require("@/variables/routes/userRoutes");
@@ -24,7 +22,6 @@ const {
   privateChatRoutes: {
     getAllChatsRoute,
     getPrivateChatMessagesRoute,
-    privateChatRouteBaseUrl,
     sendMessageRoute,
   },
 } = require("@/variables/routes/privateChatRoutes");
@@ -46,17 +43,18 @@ const {
 
 const { countryCode, countryName } = countries[0];
 const notExistedContact = {
-  phoneNumber: "1234567890",
   countryCode,
   countryName,
   firstName: "Stalwart",
   lastName: "SS!",
+  phoneNumber: "1234567890",
 };
 
-const makeRequester = (baseUrl, routeObject, testUserNumber) =>
-  customRequest.create().setRequestRequirements(baseUrl, routeObject, {
-    testUserNumber,
-  });
+const token = userProps.getTokenFromUserObject(testUser_0);
+const customRequestWithTestUser_0_data = customRequest(token);
+
+const makeRequester = (routeObject) =>
+  customRequestWithTestUser_0_data.create().setRequestRequirements(routeObject);
 
 const testVariables = {
   cellphones: {
@@ -90,37 +88,21 @@ const successTestDefaultOptions = {
 };
 
 const requesters = {
-  addBlockRequest: makeRequester(cellphoneRouteBaseUrl, addBlockRoute, 0),
-  addContactRequest: makeRequester(cellphoneRouteBaseUrl, addContactRoute, 0),
-  createNewUserRequest: makeRequester(userRouteBaseUrl, createNewUserRoute),
-  editContactRequest: makeRequester(cellphoneRouteBaseUrl, editContactRoute, 0),
-  getAllChatsRequest: makeRequester(
-    privateChatRouteBaseUrl,
-    getAllChatsRoute,
-    0
-  ),
-  getPrivateChatMessagesRequest: makeRequester(
-    privateChatRouteBaseUrl,
-    getPrivateChatMessagesRoute,
-    0
-  ),
-  removeBlockRequest: makeRequester(cellphoneRouteBaseUrl, removeBlockRoute, 0),
-  removeContactRequest: makeRequester(
-    cellphoneRouteBaseUrl,
-    removeContactRoute,
-    0
-  ),
-  sendMessageRequest: makeRequester(
-    privateChatRouteBaseUrl,
-    sendMessageRoute,
-    0
-  ),
-  signInNormalRequest: makeRequester(userRouteBaseUrl, signInNormalRoute),
-  verifySignInRequest: makeRequester(userRouteBaseUrl, verifySignInNormalRoute),
+  addBlockRequest: makeRequester(addBlockRoute),
+  addContactRequest: makeRequester(addContactRoute),
+  createNewUserRequest: makeRequester(createNewUserRoute),
+  editContactRequest: makeRequester(editContactRoute),
+  getAllChatsRequest: makeRequester(getAllChatsRoute),
+  getPrivateChatMessagesRequest: makeRequester(getPrivateChatMessagesRoute),
+  removeBlockRequest: makeRequester(removeBlockRoute),
+  removeContactRequest: makeRequester(removeContactRoute),
+  sendMessageRequest: makeRequester(sendMessageRoute),
+  signInNormalRequest: makeRequester(signInNormalRoute),
+  verifySignInRequest: makeRequester(verifySignInNormalRoute),
 };
 
 module.exports = {
+  requesters,
   successTestDefaultOptions,
   testVariables,
-  requesters,
 };

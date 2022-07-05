@@ -30,29 +30,35 @@ const verificationCodeSuccessTests = (
     .execute();
 };
 
-const verificationCodeFailureTests = (customRequest, data = {}) => {
+const verificationCodeFailureTests = (configuredCustomRequest, data = {}) => {
   const fn = (verificationCode) => ({ ...data, verificationCode });
 
   it("it should get error, VERIFICATION_CODE_REQUIRED", async () => {
-    await customRequest.sendRequest(fn(""), VERIFICATION_CODE_REQUIRED);
+    await configuredCustomRequest.sendRequest(
+      fn(""),
+      VERIFICATION_CODE_REQUIRED
+    );
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID_TYPE", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn("wrong type!"),
       VERIFICATION_CODE_INVALID_TYPE
     );
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID_LENGTH", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn("00000000000"),
       VERIFICATION_CODE_INVALID_LENGTH
     );
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID", async () => {
-    await customRequest.sendRequest(fn("000000"), VERIFICATION_CODE_INVALID);
+    await configuredCustomRequest.sendRequest(
+      fn("000000"),
+      VERIFICATION_CODE_INVALID
+    );
   });
 };
 

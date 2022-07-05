@@ -30,16 +30,19 @@ const lastNameSuccessTests = (
     .execute();
 };
 
-const lastNameFailureTests = (customRequest, data) => {
+const lastNameFailureTests = (configuredCustomRequest, data) => {
   const fn = (lastName) => ({ ...data, lastName });
   it("should get error, LAST_NAME_MAXLENGTH_REACH", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(randomMaker.randomString(lastNameMaxLength + 1)),
       LAST_NAME_MAXLENGTH_REACH
     );
   });
   it("should get error, LAST_NAME_INVALID_TYPE", async () => {
-    await customRequest.sendRequest(fn(123456789), LAST_NAME_INVALID_TYPE);
+    await configuredCustomRequest.sendRequest(
+      fn(123456789),
+      LAST_NAME_INVALID_TYPE
+    );
   });
 
   // it("should get error, LAST_NAME_MINLENGTH_REACH", async () => {

@@ -76,7 +76,7 @@ const createNewUserUserController = async (
           firstName,
           lastName,
           privateId: user.privateId,
-          mainToken: user.tokens[0],
+          mainToken: userProps.getTokenFromUserObject(user),
         },
       });
     } else if (!user) {

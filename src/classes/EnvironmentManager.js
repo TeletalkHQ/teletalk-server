@@ -1,3 +1,5 @@
+const { userProps } = require("@/classes/UserProps");
+
 class EnvironmentManager {
   constructor() {
     this.ENVIRONMENT_KEYS = {
@@ -100,7 +102,7 @@ class EnvironmentManager {
 
   setTestUserProps(user) {
     this.setTestUser(user);
-    this.setTestMainToken(user.tokens[0].mainToken);
+    this.setTestMainToken(userProps.getTokenFromUserObject(user));
   }
 
   getJwtSecrets() {

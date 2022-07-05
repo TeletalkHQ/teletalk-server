@@ -27,30 +27,30 @@ const participantIdMinLength = participantIdModel.minlength.value;
 //     .buildCommonTest();
 // };
 
-const participantIdFailureTests = (customRequest, data = {}) => {
+const participantIdFailureTests = (configuredCustomRequest, data = {}) => {
   const fn = (participantId) => ({
     ...data,
     participantId,
   });
 
   it("Should get error, PARTICIPANT_ID_REQUIRED", async () => {
-    await customRequest.sendRequest(fn(""), PARTICIPANT_ID_REQUIRED);
+    await configuredCustomRequest.sendRequest(fn(""), PARTICIPANT_ID_REQUIRED);
   });
 
   it("Should get error, PARTICIPANT_ID_INVALID_TYPE", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(1234567891234586),
       PARTICIPANT_ID_INVALID_TYPE
     );
   });
   it("Should get error, PARTICIPANT_ID_MIN_LENGTH_REACH", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(randomMaker.randomString(participantIdMinLength - 1)),
       PARTICIPANT_ID_MIN_LENGTH_REACH
     );
   });
   it("Should get error, PARTICIPANT_ID_MAX_LENGTH_REACH", async () => {
-    await customRequest.sendRequest(
+    await configuredCustomRequest.sendRequest(
       fn(randomMaker.randomString(participantIdMaxLength + 1)),
       PARTICIPANT_ID_MAX_LENGTH_REACH
     );

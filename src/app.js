@@ -13,8 +13,6 @@ require("pretty-error").start();
 require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
 
-const { concatBaseUrlWithUrl } = require("@/functions/utilities/utils");
-
 const {
   sendJsonResponseMiddleware,
 } = require("@/middlewares/sendJsonResponseMiddleware");
@@ -44,13 +42,13 @@ const {
 } = require("@/middlewares/authDefaultMiddleware");
 
 const {
-  userRoutes: { signInNormalRoute, userRouteBaseUrl },
+  userRoutes: { signInNormalRoute },
 } = require("@/variables/routes/userRoutes");
 const {
-  versionControlRoutes: { versionControlBaseUrl, getAllStuffsRoute },
+  versionControlRoutes: { getAllStuffsRoute },
 } = require("@/variables/routes/versionControlRoutes");
 const {
-  otherRoutes: { otherRouteBaseUrl, countriesRoute, welcomeRoute },
+  otherRoutes: { countriesRoute, welcomeRoute },
 } = require("@/variables/routes/otherRoutes");
 
 const app = express();
@@ -67,10 +65,10 @@ app.use(responseErrorHandlersMiddleware);
 app.use(
   ignoreMiddlewaresByUrlMiddleware(
     [
-      concatBaseUrlWithUrl(userRouteBaseUrl, signInNormalRoute),
-      concatBaseUrlWithUrl(versionControlBaseUrl, getAllStuffsRoute),
-      concatBaseUrlWithUrl(otherRouteBaseUrl, welcomeRoute),
-      concatBaseUrlWithUrl(otherRouteBaseUrl, countriesRoute),
+      signInNormalRoute.fullUrl,
+      getAllStuffsRoute.fullUrl,
+      welcomeRoute.fullUrl,
+      countriesRoute.fullUrl,
     ],
     authDefaultMiddleware
   )

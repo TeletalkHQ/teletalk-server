@@ -8,7 +8,6 @@ const {
   errorThrower,
   getObjectLength,
   filterObject,
-  concatBaseUrlWithUrl,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -16,6 +15,7 @@ const {
 } = require("@/variables/others/initialOptions");
 
 const request = async (
+  //CLEANME Remove baseUrl from requesters
   baseUrl,
   routeObject,
   data,
@@ -39,10 +39,7 @@ const request = async (
     // );
 
     const response = await superTestRequest(
-      {
-        ...routeObject,
-        url: concatBaseUrlWithUrl(baseUrl, routeObject),
-      },
+      routeObject,
       filterDataCondition
         ? filterObject(data, routeObject.inputFields[0])
         : data,
@@ -64,7 +61,7 @@ const request = async (
       const { errorKey, errorCode, errorReason } = errorObject;
 
       logger.log(
-        `route specs=> url:${routeObject.url} reason:${errorObject.reason} errorKey:${errorKey}\n response.body:`,
+        `route specs=> url:${routeObject.fullUrl} reason:${errorObject.reason} errorKey:${errorKey}\n response.body:`,
         response.body
       );
 
@@ -81,9 +78,9 @@ const request = async (
 
 const superTestRequest = (routeObject, data, authorization) => {
   try {
-    const { method, url } = routeObject;
+    const { method, fullUrl } = routeObject;
 
-    const response = supertest[method](url)
+    const response = supertest[method](fullUrl)
       .send(data)
       .set("Content-Type", "application/json")
       .set(...authorization);
@@ -110,7 +107,6 @@ const setTestUsersIntoState = async (testUsers) => {
 const getTokenByTestUserNumber = (testUserNumber) => {
   const testUsers = getTestUsersFromState();
 
-  logger.log("rm", testUsers[`testUser_${testUserNumber}`]);
   return testUsers[`testUser_${testUserNumber}`]?.tokens[0]?.mainToken;
 };
 

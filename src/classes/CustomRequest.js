@@ -26,6 +26,7 @@ class CustomRequest {
 
     return this;
   }
+  //CLEANME Clean base url
   setBaseUrl(baseUrl) {
     this.baseUrl = baseUrl;
 

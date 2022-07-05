@@ -4,7 +4,6 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const {
   isUrlMatchWithReqUrl,
-  concatBaseUrlWithUrl,
   errorThrower,
 } = require("@/functions/utilities/utils");
 
@@ -13,7 +12,7 @@ const {
 } = require("@/variables/others/initialOptions");
 
 const {
-  userRoutes: { userRouteBaseUrl, verifySignInNormalRoute, createNewUserRoute },
+  userRoutes: { verifySignInNormalRoute, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
 
 class AuthManager {
@@ -57,10 +56,7 @@ class AuthManager {
 
   getSecretWithUrlCondition(reqUrl) {
     const condition = isUrlMatchWithReqUrl(
-      [
-        concatBaseUrlWithUrl(userRouteBaseUrl, verifySignInNormalRoute),
-        concatBaseUrlWithUrl(userRouteBaseUrl, createNewUserRoute),
-      ],
+      [verifySignInNormalRoute.fullUrl, createNewUserRoute.fullUrl],
       reqUrl
     );
 

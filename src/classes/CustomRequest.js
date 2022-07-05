@@ -9,16 +9,11 @@ class CustomRequest {
     this.baseUrl = {};
     this.data = {};
     this.errorObject = {};
-    this.options = { token: "", filterDataCondition: true, testUserNumber: 0 };
   }
+  #options = { token: "", filterDataCondition: true, testUserNumber: 0 };
 
   getDefaultToken() {
-    return getTokenByTestUserNumber(this.options.testUserNumber);
-  }
-  setDefaultToken() {
-    const token = this.getDefaultToken();
-
-    this.setToken(token);
+    return getTokenByTestUserNumber(this.getOptions().testUserNumber);
   }
 
   setRouteObject(routeObject) {
@@ -33,12 +28,14 @@ class CustomRequest {
     return this;
   }
 
-  setRequestRequirements(baseUrl, routeObject, options = this.options) {
+  setRequestRequirements(baseUrl, routeObject, options = this.#options) {
     this.setBaseUrl(baseUrl);
     this.setRouteObject(routeObject);
-    this.setOptions({ ...this.options, ...options });
+    this.setOptions({ ...this.#options, ...options });
+
+    //CLEANME Remove this default things...
     if (!options.token) {
-      this.setDefaultToken();
+      this.setToken(this.getDefaultToken());
     }
 
     return this;
@@ -47,12 +44,12 @@ class CustomRequest {
   sendRequest(
     data,
     errorObject,
-    options = this.options,
+    options = this.#options,
     baseUrl = this.baseUrl,
     routeObject = this.routeObject
   ) {
     const allOptions = {
-      ...this.options,
+      ...this.#options,
       ...options,
     };
 
@@ -60,24 +57,22 @@ class CustomRequest {
   }
 
   getToken() {
-    return this.options.token;
+    return this.getOptions().token;
   }
   setToken(token) {
     this.setOptions({ token });
-
     return this;
   }
   setMainTokenByUserObject(user) {
     this.setToken(user.tokens[0].mainToken);
-
     return this;
   }
 
   getOptions() {
-    return this.options;
+    return this.#options;
   }
   setOptions(newOptions) {
-    this.options = { ...this.options, ...newOptions };
+    this.#options = { ...this.#options, ...newOptions };
 
     return this;
   }

@@ -6,15 +6,13 @@ const {
   userFinder,
 } = require("@/models/userModels/userModelFunctions");
 
-const {
-  initialOptions: { stateKeys },
-} = require("@/variables/others/initialOptions");
-
 describe("save user data in state", () => {
   it("should get all users data", async () => {
     const users = await getAllUsers();
     expect(users).to.be.an("array");
-    await stateManager.setStateObject(stateKeys.users, users);
+
+    const { users: stateKey } = stateManager.stateKeys;
+    await stateManager.setStateObject(stateKey, users);
   });
 
   it("should get specified user data", async () => {

@@ -1,14 +1,16 @@
 const MelipayamakApi = require("melipayamak");
 
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { envManager } = require("@/classes/EnvironmentManager");
+
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+
 const {
   appErrors: { SEND_SMS_FAILED },
 } = require("@/variables/errors/appErrors");
 
 class SmsClient {
   constructor() {
-    const { username, password } = envManager.getSmsClientProps();
+    const { username, password } = this.getSmsClientProps();
 
     this.api = new MelipayamakApi(username, password);
     this.sms = this.api.sms("rest", "async");
@@ -47,6 +49,16 @@ class SmsClient {
         host
       ) => `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${host}        
         `,
+    };
+  }
+
+  getSmsClientProps() {
+    const { SMS_CLIENT_USERNAME, SMS_CLIENT_PASSWORD } =
+      envManager.ENVIRONMENT_KEYS;
+
+    return {
+      username: envManager.getEnvironment(SMS_CLIENT_USERNAME),
+      password: envManager.getEnvironment(SMS_CLIENT_PASSWORD),
     };
   }
 }

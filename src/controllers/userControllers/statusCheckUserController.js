@@ -1,4 +1,4 @@
-//UNUSED statusCheckUserController
+//REFACTOR statusCheckUserController
 const { userProps } = require("@/classes/UserProps");
 const { authManager } = require("@/classes/AuthManager");
 

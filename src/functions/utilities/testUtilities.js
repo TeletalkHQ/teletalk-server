@@ -10,9 +10,6 @@ const {
   filterObject,
 } = require("@/functions/utilities/utils");
 
-const {
-  initialOptions: { stateKeys },
-} = require("@/variables/others/initialOptions");
 const { userProps } = require("@/classes/UserProps");
 
 const request = async (
@@ -95,12 +92,8 @@ const makeAuthorizationHeader = (token) => [
   customTypeof.check(token).type.undefined ? null : `Bearer ${token}`,
 ];
 
-const setTestUsersIntoState = async (testUsers) => {
-  return await stateManager.setStateObject(stateKeys.testUsers, testUsers);
-};
-
 const getTokenByTestUserNumber = (testUserNumber) => {
-  const testUsers = stateManager.state.testUsers;
+  const { testUsers } = stateManager.state;
   const user = testUsers[`testUser_${testUserNumber}`];
   return userProps.getTokenFromUserObject(user);
 };
@@ -109,6 +102,5 @@ module.exports = {
   expect,
   getTokenByTestUserNumber,
   request,
-  setTestUsersIntoState,
   testRequest: superTestRequest,
 };

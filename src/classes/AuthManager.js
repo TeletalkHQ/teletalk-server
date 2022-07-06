@@ -18,7 +18,7 @@ const {
 class AuthManager {
   tokenVerifier(
     token,
-    secret = envManager.getJwtMainSecret(),
+    secret = this.getJwtMainSecret(),
     options = jwtDefaultOptions
   ) {
     try {
@@ -40,7 +40,7 @@ class AuthManager {
 
   async tokenSigner(
     data,
-    secret = envManager.getJwtMainSecret(),
+    secret = this.getJwtMainSecret(),
     options = jwtDefaultOptions
   ) {
     try {
@@ -60,9 +60,22 @@ class AuthManager {
       reqUrl
     );
 
-    return condition
-      ? envManager.getJwtSignInSecret()
-      : envManager.getJwtMainSecret();
+    return condition ? this.getJwtSignInSecret() : this.getJwtMainSecret();
+  }
+
+  getJwtSignInSecret() {
+    const { JWT_SIGN_IN_SECRET } = envManager.ENVIRONMENT_KEYS;
+    return envManager.getEnvironment(JWT_SIGN_IN_SECRET);
+  }
+  getJwtMainSecret() {
+    const { JWT_MAIN_SECRET } = envManager.ENVIRONMENT_KEYS;
+    return envManager.getEnvironment(JWT_MAIN_SECRET);
+  }
+  getJwtSecrets() {
+    return {
+      JWT_MAIN_SECRET: this.getJwtMainSecret(),
+      JWT_SIGN_IN_SECRET: this.getJwtSignInSecret(),
+    };
   }
 }
 

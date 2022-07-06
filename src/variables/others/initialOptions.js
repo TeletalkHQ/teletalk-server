@@ -1,10 +1,3 @@
-const stateKeys = {
-  temporaryClients: "temporaryClients",
-  aliveClients: "aliveClients",
-  users: "users",
-  testUsers: "testUsers",
-};
-
 const inputOutputFields = {
   addedContact: "addedContact",
   bio: "bio",
@@ -62,7 +55,6 @@ const userInitialOptions = {
 module.exports = {};
 
 const initialOptions = {
-  stateKeys,
   jwtDefaultOptions,
   userInitialOptions,
   inputOutputFields,

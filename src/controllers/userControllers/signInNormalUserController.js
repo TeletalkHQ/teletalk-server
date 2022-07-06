@@ -1,12 +1,13 @@
-const {
-  passwordGenerator,
-} = require("@/functions/utilities/passwordGenerator");
 const { authManager } = require("@/classes/AuthManager");
 const { userProps } = require("@/classes/UserProps");
-const { getHostFromRequest } = require("@/functions/utilities/utils");
 const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { envManager } = require("@/classes/EnvironmentManager");
+
+const { getHostFromRequest } = require("@/functions/utilities/utils");
+const {
+  passwordGenerator,
+} = require("@/functions/utilities/passwordGenerator");
 
 const { verificationCodeValidator } = require("@/validators/userValidators");
 
@@ -39,7 +40,7 @@ const signInNormalUserController = async (
 
     const verifyToken = await authManager.tokenSigner(
       cellphone,
-      envManager.getJwtSignInSecret()
+      authManager.getJwtSignInSecret()
     );
 
     const client = await temporaryClients.findClient(cellphone);
@@ -65,7 +66,7 @@ const signInNormalUserController = async (
     };
 
     if (envManager.getNodeEnv() === envManager.getNodeEnvValues().test) {
-      envManager.setTestVerificationCode(verificationCode);
+      userProps.setTestVerificationCode(verificationCode);
     }
 
     res.checkDataAndResponse({ user: responseData });

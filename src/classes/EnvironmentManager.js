@@ -1,5 +1,3 @@
-const { userProps } = require("@/classes/UserProps");
-
 class EnvironmentManager {
   constructor() {
     this.ENVIRONMENT_KEYS = {
@@ -14,14 +12,14 @@ class EnvironmentManager {
       SMS_CLIENT_PASSWORD: "SMS_CLIENT_PASSWORD",
       SMS_CLIENT_USERNAME: "SMS_CLIENT_USERNAME",
       TEST_MAIN_TOKEN: "TEST_MAIN_TOKEN",
-      TEST_VERIFICATION_CODE: "TEST_VERIFICATION_CODE",
-      TEST_VERIFY_TOKEN: "TEST_VERIFY_TOKEN",
       TEST_USER: "TEST_USER",
       TEST_USERS: "TEST_USERS",
+      TEST_VERIFICATION_CODE: "TEST_VERIFICATION_CODE",
+      TEST_VERIFY_TOKEN: "TEST_VERIFY_TOKEN",
     };
 
     this.ENVIRONMENT_VALUES = {
-      NODE_ENV: {
+      [this.ENVIRONMENT_KEYS.NODE_ENV]: {
         test: "test",
         production: "production",
         development: "development",
@@ -33,7 +31,7 @@ class EnvironmentManager {
   getEnvironment(envName) {
     return process.env[envName];
   }
-  getAllEnvironments() {
+  getAllLocalEnvironments() {
     const environments = { ...this.ENVIRONMENT_KEYS };
 
     for (const key in this.ENVIRONMENT_KEYS) {
@@ -46,74 +44,11 @@ class EnvironmentManager {
     process.env[envName] = value;
   }
 
-  getTestMainToken() {
-    return this.getEnvironment(this.ENVIRONMENT_KEYS.TEST_MAIN_TOKEN);
-  }
-  setTestMainToken(token) {
-    this.setEnvironment(this.ENVIRONMENT_KEYS.TEST_MAIN_TOKEN, token);
-  }
-
-  getTestVerifyToken() {
-    return this.getEnvironment(this.ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN);
-  }
-  setTestVerifyToken(token) {
-    this.setEnvironment(this.ENVIRONMENT_KEYS.TEST_VERIFY_TOKEN, token);
-  }
-
-  setTestUser(user) {
-    this.setEnvironment(this.ENVIRONMENT_KEYS.TEST_USER, user);
-  }
-  setTestUsers(users) {
-    this.setEnvironment(this.ENVIRONMENT_KEYS.TEST_USERS, users);
-  }
-  getTestUsers() {
-    this.getEnvironment(this.ENVIRONMENT_KEYS.TEST_USERS);
-  }
-
-  getTestVerificationCode() {
-    return this.getEnvironment(this.ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE);
-  }
-  setTestVerificationCode(verificationCode) {
-    return this.setEnvironment(
-      this.ENVIRONMENT_KEYS.TEST_VERIFICATION_CODE,
-      verificationCode
-    );
-  }
-
   getNodeEnv() {
     return this.getEnvironment(this.ENVIRONMENT_KEYS.NODE_ENV);
   }
   getNodeEnvValues() {
     return this.ENVIRONMENT_VALUES.NODE_ENV;
-  }
-
-  getJwtSignInSecret() {
-    return this.getEnvironment(this.ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET);
-  }
-  getJwtMainSecret() {
-    return this.getEnvironment(this.ENVIRONMENT_KEYS.JWT_MAIN_SECRET);
-  }
-  getSmsClientProps() {
-    return {
-      username: this.getEnvironment(this.ENVIRONMENT_KEYS.SMS_CLIENT_USERNAME),
-      password: this.getEnvironment(this.ENVIRONMENT_KEYS.SMS_CLIENT_PASSWORD),
-    };
-  }
-
-  setTestUserProps(user) {
-    this.setTestUser(user);
-    this.setTestMainToken(userProps.getTokenFromUserObject(user));
-  }
-
-  getJwtSecrets() {
-    return {
-      JWT_MAIN_SECRET: this.getEnvironment(
-        this.ENVIRONMENT_KEYS.JWT_MAIN_SECRET
-      ),
-      JWT_SIGN_IN_SECRET: this.getEnvironment(
-        this.ENVIRONMENT_KEYS.JWT_SIGN_IN_SECRET
-      ),
-    };
   }
 }
 

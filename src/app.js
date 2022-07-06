@@ -62,16 +62,15 @@ app.use(morgan("dev"));
 app.use(findRouteObjectMiddleware);
 app.use(notFoundMiddleware);
 app.use(responseErrorHandlersMiddleware);
+
+const arrayOfFullUrl = [
+  signInNormalRoute,
+  getAllStuffsRoute,
+  welcomeRoute,
+  countriesRoute,
+].map((item) => item.fullUrl);
 app.use(
-  ignoreMiddlewaresByUrlMiddleware(
-    [
-      signInNormalRoute.fullUrl,
-      getAllStuffsRoute.fullUrl,
-      welcomeRoute.fullUrl,
-      countriesRoute.fullUrl,
-    ],
-    authDefaultMiddleware
-  )
+  ignoreMiddlewaresByUrlMiddleware(arrayOfFullUrl, authDefaultMiddleware)
 ); //* Should be after 'responseErrorHandlersMiddleware'
 
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'

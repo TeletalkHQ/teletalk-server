@@ -1,6 +1,6 @@
-const { envManager } = require("@/classes/EnvironmentManager");
-
+const { authManager } = require("@/classes/AuthManager");
 const { generalTest } = require("@/classes/GeneralTest");
+const { userProps } = require("@/classes/UserProps");
 
 const {
   testVariables: {
@@ -17,7 +17,7 @@ describe("signInNormalApi test success requests", () => {
       },
     } = await signInNormalRequest.sendRequest(signInCellphone);
 
-    const verificationCode = envManager.getTestVerificationCode();
+    const verificationCode = userProps.getTestVerificationCode();
 
     const successTest = generalTest.createSuccessTest();
 
@@ -36,12 +36,13 @@ describe("signInNormalApi test success requests", () => {
       })
       .verificationCode({ verificationCodeTest: verificationCode });
 
+    const JWT_SIGN_IN_SECRET = authManager.getJwtSignInSecret();
     await successTest.token({
       tokenTest: verifyToken,
-      secret: envManager.getJwtSecrets().JWT_SIGN_IN_SECRET,
+      secret: JWT_SIGN_IN_SECRET,
     });
 
-    envManager.setTestVerifyToken(verifyToken);
+    userProps.setTestVerifyToken(verifyToken);
   });
 });
 

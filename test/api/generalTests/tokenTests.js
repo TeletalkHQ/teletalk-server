@@ -22,7 +22,7 @@ const tokenSuccessTests = async (
 
   (
     await ts.checkAndExecuteAsync(verifyToken, async () => {
-      //BUG token verifier
+      //BUG token verifier weird bug, i don't know what it is
       const verifiedToken = await tokenValidator(tokenTest, secret);
       ts.customTypeCheck(verifiedToken, "object")
         .customTypeCheck(verifiedToken.signature, "string")

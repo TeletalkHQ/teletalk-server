@@ -6,9 +6,6 @@ const { randomMaker } = require("@/classes/RandomMaker");
 const { authManager } = require("@/classes/AuthManager");
 
 const { errorThrower } = require("@/functions/utilities/utils");
-const {
-  setTestUsersIntoState,
-} = require("@/functions/utilities/testUtilities");
 
 const { countries } = require("@/variables/others/countries");
 
@@ -17,6 +14,7 @@ const {
 } = require("@/models/commonModels/commonModels");
 const { addTestUser } = require("@/models/userModels/userModelFunctions");
 const { eventEmitter } = require("@/classes/EventEmitter");
+const { userProps } = require("@/classes/UserProps");
 
 describe("Add requirements to application state", () => {
   it("should make test users and save into state", async () => {
@@ -58,10 +56,11 @@ describe("Add requirements to application state", () => {
       }
     }
 
-    //CLEANME
-    await setTestUsersIntoState(testUsers);
+    await userProps.setTestUsers(testUsers);
+
+    const { requirementsGetDone } = eventEmitter.eventKeys;
     eventEmitter.emitEvent({
-      event: eventEmitter.eventKeys.requirementsGetDone,
+      event: requirementsGetDone,
     });
   });
 });

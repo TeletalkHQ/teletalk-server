@@ -1,7 +1,6 @@
 /* eslint-disable no-inner-declarations */
 const { validationErrorBuilder } = require("@/classes/Builders");
 const { userProps } = require("@/classes/UserProps");
-const { envManager } = require("@/classes/EnvironmentManager");
 const { authManager } = require("@/classes/AuthManager");
 
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
@@ -309,7 +308,7 @@ const privateIdValidator = async (privateId, returnCondition) => {
 
 const tokenValidator = async (
   token,
-  secret = envManager.getJwtMainSecret(),
+  secret = authManager.getJwtMainSecret(),
   returnCondition
 ) => {
   try {

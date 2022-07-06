@@ -305,12 +305,10 @@ class ValidationModelBuilder {
     this.#addProperty("required", "required", "required");
     return this;
   }
-  //CLEANME ValidationModelBuilder optional method
   optional() {
     this.validationModelObject.optional = !this.modelObject.required.value;
     return this;
   }
-  //CLEANME ValidationModelBuilder lowercase method
   lowercase() {
     this.validationModelObject.lowercase = !this.modelObject.lowercase.value;
     return this;

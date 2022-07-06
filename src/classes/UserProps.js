@@ -1,12 +1,15 @@
 const { randomMaker } = require("@/classes/RandomMaker");
+const { dataUsageManager } = require("@/classes/DataUsageManager");
+const { envManager } = require("@/classes/EnvironmentManager");
+const { stateManager } = require("@/classes/StateManager");
 
 const {
   userModels: { firstNameModel, lastNameModel },
 } = require("@/models/userModels/userModels");
 
 const { countries } = require("@/variables/others/countries");
-const { dataUsageManager } = require("@/classes/DataUsageManager");
 
+//REFACTOR Change UserProps method names
 class UserProps {
   constructor(id) {
     this.id = id;
@@ -96,6 +99,25 @@ class UserProps {
 
   getTokenFromUserObject(userObject) {
     return userObject.tokens[0]?.mainToken;
+  }
+
+  setTestVerifyToken(token) {
+    const { TEST_VERIFY_TOKEN } = envManager.ENVIRONMENT_KEYS;
+    envManager.setEnvironment(TEST_VERIFY_TOKEN, token);
+  }
+
+  getTestVerificationCode() {
+    const { TEST_VERIFICATION_CODE } = envManager.ENVIRONMENT_KEYS;
+    return envManager.getEnvironment(TEST_VERIFICATION_CODE);
+  }
+  setTestVerificationCode(verificationCode) {
+    const { TEST_VERIFICATION_CODE } = envManager.ENVIRONMENT_KEYS;
+    envManager.setEnvironment(TEST_VERIFICATION_CODE, verificationCode);
+  }
+
+  async setTestUsers(testUsers) {
+    const { testUsers: stateKey } = stateManager.stateKeys;
+    return await stateManager.setStateObject(stateKey, testUsers);
   }
 }
 

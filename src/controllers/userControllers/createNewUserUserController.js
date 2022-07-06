@@ -1,7 +1,6 @@
 const { authManager } = require("@/classes/AuthManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userProps } = require("@/classes/UserProps");
-const { envManager } = require("@/classes/EnvironmentManager");
 const { randomMaker } = require("@/classes/RandomMaker");
 
 const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
@@ -39,7 +38,7 @@ const createNewUserUserController = async (
 
     const verifiedToken = await tokenValidator(
       verifyToken,
-      envManager.getJwtSignInSecret()
+      authManager.getJwtSignInSecret()
     );
 
     errorThrower(verifiedToken.done === false, verifiedToken.error);

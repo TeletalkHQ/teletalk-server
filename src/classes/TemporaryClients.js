@@ -1,10 +1,6 @@
 const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
 const { stateManager } = require("@/classes/StateManager");
 
-const {
-  initialOptions: { stateKeys },
-} = require("@/variables/others/initialOptions");
-
 class TemporaryClients {
   async addClient(client) {
     const aliveClients = this.getAliveClients();
@@ -22,10 +18,8 @@ class TemporaryClients {
       aliveClients,
     };
 
-    await stateManager.setStateObject(
-      stateKeys.temporaryClients,
-      newTemporaryClients
-    );
+    const { temporaryClients: stateKey } = stateManager.stateKeys;
+    await stateManager.setStateObject(stateKey, newTemporaryClients);
   }
 
   getAliveClients() {

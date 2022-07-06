@@ -22,9 +22,7 @@ ClipboardJS documentation
 Make api for log server errors
 Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
-useless routes cleanup
+Useless routes cleanup
 
-TODO Add exclude props to utils (like version)
-TODO Add General test class!
-FIXME Add newUser:false test
-FIXME Fix public assets sharing
+Add exclude props to utils (like version)
+Fix public assets sharing

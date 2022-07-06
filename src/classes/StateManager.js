@@ -14,6 +14,13 @@ class StateManager {
       testUsers: {},
     };
 
+    this.stateKeys = {
+      temporaryClients: "temporaryClients",
+      aliveClients: "aliveClients",
+      users: "users",
+      testUsers: "testUsers",
+    };
+
     this.initializeStates();
   }
 

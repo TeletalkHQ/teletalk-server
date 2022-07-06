@@ -1,4 +1,4 @@
-const { envManager } = require("@/classes/EnvironmentManager");
+const { authManager } = require("@/classes/AuthManager");
 const { generalTest } = require("@/classes/GeneralTest");
 const { userProps } = require("@/classes/UserProps");
 
@@ -27,7 +27,7 @@ describe("success create new normal user", () => {
     //* 1- Sign in as a new user =>
 
     //* 2- Get verification code, In test mode the verification code is stored in env =>
-    const newUserVerificationCode = envManager.getTestVerificationCode();
+    const newUserVerificationCode = userProps.getTestVerificationCode();
 
     //* 3- Verify user by verificationCode & verifyToken =>
     const newUserVerifySignInResponse = await verifySignInRequest
@@ -58,9 +58,10 @@ describe("success create new normal user", () => {
 
     const gt = generalTest.createSuccessTest(createNewUserRequest);
 
+    const JWT_MAIN_SECRET = authManager.getJwtMainSecret();
     await gt.token({
       tokenTest: mainToken,
-      secret: envManager.getJwtSecrets().JWT_MAIN_SECRET,
+      secret: JWT_MAIN_SECRET,
     });
 
     gt.countryCode({

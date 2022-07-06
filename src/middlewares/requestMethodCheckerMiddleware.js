@@ -5,7 +5,7 @@ const { privateChatRoutes } = require("@/variables/routes/privateChatRoutes");
 
 const templates = [userRoutes, cellphoneRoutes, otherRoutes, privateChatRoutes];
 
-//FIXME
+//TODO requestMethodCheckerMiddleware
 
 const requestMethodCheckerMiddleware = async (req, res, next) => {
   try {
@@ -14,8 +14,6 @@ const requestMethodCheckerMiddleware = async (req, res, next) => {
     );
 
     if (!targetTemplate) {
-      //TODO if (!targetTemplate)
-      // throw undefined;
     }
 
     if (targetTemplate) {

@@ -3,7 +3,9 @@ const {
 } = require("@/variables/errors/userErrors");
 
 const authenticationFailureTests = (configuredCustomRequest, data = {}) => {
+  //* Correct token maybe is set, so we need to break this down
   const fn = (token) => ({ token });
+
   it("should get error, TOKEN_REQUIRED", async () => {
     await configuredCustomRequest.sendRequest(
       data,

@@ -2,9 +2,6 @@ const { generalTest } = require("@/classes/GeneralTest");
 const { userProps } = require("@/classes/UserProps");
 
 const {
-  userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
-} = require("@/variables/errors/userErrors");
-const {
   requesters: { editContactRequest, addContactRequest },
   testVariables: {
     testUsers: {
@@ -86,23 +83,13 @@ describe("edit contact success tests", () => {
   });
 });
 
-//CLEANME SELF_STUFF CONTACT_ITEM_NOT_EXIST tests
 describe("editContact failure tests", () => {
   const contact = userProps.makeTestContact();
-
-  it("should get error, SELF_STUFF", async () => {
-    await editContactRequest.sendRequest(selfStuffTestUser, SELF_STUFF);
-  });
-  it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
-    await editContactRequest.sendRequest(
-      editContactItemNotExistTestUser,
-      CONTACT_ITEM_NOT_EXIST
-    );
-  });
-
   generalTest
     .createFailTest(editContactRequest)
     .authentication()
+    .selfStuff(selfStuffTestUser)
+    .contactItemNotExist(editContactItemNotExistTestUser)
     .cellphone(contact)
     .countryCode(contact)
     .countryName(contact)

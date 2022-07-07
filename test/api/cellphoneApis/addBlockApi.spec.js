@@ -3,9 +3,6 @@ const { userProps } = require("@/classes/UserProps");
 const { generalTest } = require("@/classes/GeneralTest");
 
 const {
-  userErrors: { BLACKLIST_ITEM_EXIST, SELF_STUFF },
-} = require("@/variables/errors/userErrors");
-const {
   requesters: { addBlockRequest },
   testVariables: {
     testUsers: {
@@ -41,28 +38,20 @@ describe("addBlock successful tests", () => {
   });
 });
 
-//CLEANME SELF_STUFF BLACKLIST_ITEM_EXIST tests
 describe("addBlock failure tests", () => {
-  it("should get error, SELF_STUFF", async () => {
-    await addBlockRequest.sendRequest(selfStuffTestUser, SELF_STUFF);
-  });
-
-  it("should get error, BLACKLIST_ITEM_EXIST", async () => {
-    //* First one get succeed, but second one is duplicate
+  before(async () => {
+    //* Add someone to blacklist for blacklistItemExist error
     await addBlockRequest.sendRequest(blacklistItemExistTestUser);
-    await addBlockRequest.sendRequest(
-      blacklistItemExistTestUser,
-      BLACKLIST_ITEM_EXIST
-    );
   });
 
   const cellphone = userProps.makeTestCellphone();
-
   generalTest
     .createFailTest(addBlockRequest)
+    .authentication()
+    .selfStuff(selfStuffTestUser)
     .cellphone(cellphone)
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)
-    .authentication();
+    .blacklistItemExist(blacklistItemExistTestUser);
 });

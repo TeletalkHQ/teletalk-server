@@ -110,7 +110,7 @@ const compiledVerificationCodeValidator = validatorCompiler(
 
 const contactValidator = async (contact, returnCondition) => {
   try {
-    await cellphoneValidator(userProps.getCellphone(contact));
+    await cellphoneValidator(userProps.makeCellphoneByParam(contact));
     await firstNameValidator(contact.firstName);
     await lastNameValidator(contact.lastName);
 

@@ -22,7 +22,7 @@ const verifySignInNormalUserController = async (
 
     await verificationCodeValidator(verificationCode);
 
-    const cellphone = userProps.getCellphone(authData.payload);
+    const cellphone = userProps.makeCellphoneByParam(authData.payload);
     const tempClient = await temporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 
@@ -62,7 +62,7 @@ const verifySignInNormalUserController = async (
             countryName,
             firstName,
             lastName,
-            mainToken: userProps.getTokenFromUserObject(user),
+            mainToken: userProps.getTokenFromUserObjectByParam(user),
             newUser: false,
             phoneNumber,
             privateId,

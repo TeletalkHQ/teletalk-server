@@ -2,6 +2,7 @@ const supertest = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 
 const { customTypeof } = require("@/classes/CustomTypeof");
+
 const { stateManager } = require("@/classes/StateManager");
 
 const {
@@ -95,7 +96,7 @@ const makeAuthorizationHeader = (token) => [
 const getTokenByTestUserNumber = (testUserNumber) => {
   const { testUsers } = stateManager.state;
   const user = testUsers[`testUser_${testUserNumber}`];
-  return userProps.getTokenFromUserObject(user);
+  return userProps.getTokenFromUserObjectByParam(user);
 };
 
 module.exports = {

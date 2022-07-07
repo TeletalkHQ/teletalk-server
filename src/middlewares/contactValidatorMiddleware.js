@@ -7,7 +7,7 @@ const contactValidatorMiddleware = async (req, res, next) => {
     const { firstName, lastName } = req.body;
 
     const validationResult = await contactValidator({
-      ...userProps.makeCellphoneByParam(req.body),
+      ...userProps.makeCellphoneByObjectParam(req.body),
       firstName,
       lastName,
     });

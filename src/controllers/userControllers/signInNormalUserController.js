@@ -16,7 +16,7 @@ const signInNormalUserController = async (
   res = expressResponse
 ) => {
   try {
-    const cellphone = userProps.makeCellphoneByParam(req.body);
+    const cellphone = userProps.makeCellphoneByObjectParam(req.body);
 
     const verificationCode = passwordGenerator();
 

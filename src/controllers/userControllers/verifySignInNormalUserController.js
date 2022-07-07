@@ -22,7 +22,7 @@ const verifySignInNormalUserController = async (
 
     await verificationCodeValidator(verificationCode);
 
-    const cellphone = userProps.makeCellphoneByParam(authData.payload);
+    const cellphone = userProps.makeCellphoneByObjectParam(authData.payload);
     const tempClient = await temporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 
@@ -48,7 +48,7 @@ const verifySignInNormalUserController = async (
     } = user;
     const isUserExist = privateId;
 
-    const dataOutputIndex = isUserExist ? 0 : 1;
+    const sendingDataOutputIndex = isUserExist ? 0 : 1;
 
     const responseData = {
       user: isUserExist
@@ -70,7 +70,7 @@ const verifySignInNormalUserController = async (
         : { newUser: true },
     };
 
-    res.checkDataAndResponse(responseData, dataOutputIndex);
+    res.checkDataAndResponse(responseData, sendingDataOutputIndex);
   } catch (error) {
     logger.log("verifySignInNormalUserController catch, error:", error);
     res.errorCollector(error);

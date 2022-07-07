@@ -50,7 +50,7 @@ const notExistedContact = {
   phoneNumber: "1234567890",
 };
 
-const token = userProps.getTokenFromUserObject(testUser_0);
+const token = userProps.getTokenFromUserObjectByParam(testUser_0);
 const customRequestWithTestUser_0_data = customRequest(token);
 
 const makeRequester = (routeObject) =>

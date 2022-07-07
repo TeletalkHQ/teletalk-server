@@ -26,7 +26,7 @@ const statusCheckUserController = async (
 
     const tokenData = authManager.tokenVerifier(mainToken);
 
-    const cellphone = userProps.getCellphone(tokenData.payload);
+    const cellphone = userProps.makeCellphoneByParam(tokenData.payload);
 
     const validatedCellphone = await cellphoneValidator(cellphone);
 

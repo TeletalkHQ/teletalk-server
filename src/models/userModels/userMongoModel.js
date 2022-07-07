@@ -187,7 +187,7 @@ const UserSchema = new mongoose.Schema({
       mainToken,
     },
   ],
-  username, //TODO UserStatus here =>
+  username, 
 });
 
 // UserRegisterSchema.post("save", function (error, doc, next) {

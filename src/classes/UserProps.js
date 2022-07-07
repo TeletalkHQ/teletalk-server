@@ -9,7 +9,6 @@ const {
 
 const { countries } = require("@/variables/others/countries");
 
-//REFACTOR Change UserProps method names
 class UserProps {
   constructor(id) {
     this.id = id;
@@ -80,7 +79,7 @@ class UserProps {
     );
   }
 
-  getCellphone(object = {}) {
+  makeCellphoneByParam(object = {}) {
     return {
       countryCode: object.countryCode,
       countryName: object.countryName,
@@ -88,22 +87,17 @@ class UserProps {
     };
   }
 
-  getContact(object = {}) {
+  makeContactByParam(object = {}) {
     return {
-      ...this.getCellphone(object),
+      ...this.makeCellphoneByParam(object),
       firstName: object.firstName,
       lastName: object.lastName,
       privateId: object.privateId,
     };
   }
 
-  getTokenFromUserObject(userObject) {
+  getTokenFromUserObjectByParam(userObject) {
     return userObject.tokens[0]?.mainToken;
-  }
-
-  setTestVerifyToken(token) {
-    const { TEST_VERIFY_TOKEN } = envManager.ENVIRONMENT_KEYS;
-    envManager.setEnvironment(TEST_VERIFY_TOKEN, token);
   }
 
   getTestVerificationCode() {
@@ -118,6 +112,10 @@ class UserProps {
   async setTestUsers(testUsers) {
     const { testUsers: stateKey } = stateManager.stateKeys;
     return await stateManager.setStateObject(stateKey, testUsers);
+  }
+  setTestVerifyToken(token) {
+    const { TEST_VERIFY_TOKEN } = envManager.ENVIRONMENT_KEYS;
+    envManager.setEnvironment(TEST_VERIFY_TOKEN, token);
   }
 }
 

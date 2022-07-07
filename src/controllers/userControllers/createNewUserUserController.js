@@ -55,7 +55,7 @@ const createNewUserUserController = async (
       }
     );
 
-    const cellphone = userProps.getCellphone(verifiedToken.payload);
+    const cellphone = userProps.makeCellphoneByParam(verifiedToken.payload);
     const client = await temporaryClients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 
@@ -75,7 +75,7 @@ const createNewUserUserController = async (
           firstName,
           lastName,
           privateId: user.privateId,
-          mainToken: userProps.getTokenFromUserObject(user),
+          mainToken: userProps.getTokenFromUserObjectByParam(user),
         },
       });
     } else if (!user) {

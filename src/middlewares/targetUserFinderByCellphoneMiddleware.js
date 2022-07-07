@@ -14,7 +14,7 @@ const {
 
 const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
   try {
-    const cellphone = userProps.getCellphone(req.body);
+    const cellphone = userProps.makeCellphoneByParam(req.body);
 
     const targetUser = await userFinder(cellphone);
 

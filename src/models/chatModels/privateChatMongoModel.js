@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
 
 const { mongoModelBuilder } = require("@/classes/Builders");
+
+const { mongooseUniqueValidator } = require("@/configs/mongoosePlugins");
 
 const {
   chatModels: {
@@ -12,9 +13,6 @@ const {
     participantIdModel,
   },
 } = require("@/models/chatModels/chatModels");
-
-// uniqueValidator.defaults.message = "{PATH}_exist";
-// uniqueValidator.defaults.type = "mongoose-unique-validator";
 
 const { chatId, createdAt, message, messageId, participantId } = {
   chatId: mongoModelBuilder
@@ -81,7 +79,7 @@ const PrivateChatSchema = new mongoose.Schema({
   ],
 });
 
-PrivateChatSchema.plugin(uniqueValidator);
+PrivateChatSchema.plugin(mongooseUniqueValidator);
 
 module.exports = { PrivateChatSchema };
 

@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
 
 const { mongoModelBuilder } = require("@/classes/Builders");
+
+const { mongooseUniqueValidator } = require("@/configs/mongoosePlugins");
 const { excludeVersion } = require("@/functions/utilities/utils");
 
 const {
@@ -23,9 +24,6 @@ const {
     messageIdCommonModel,
   },
 } = require("@/models/commonModels/commonModels");
-
-//TODO: Move to configs
-uniqueValidator.defaults.message = "{PATH}_exist";
 
 const {
   bio,
@@ -187,7 +185,7 @@ const UserSchema = new mongoose.Schema({
       mainToken,
     },
   ],
-  username, 
+  username,
 });
 
 // UserRegisterSchema.post("save", function (error, doc, next) {
@@ -201,7 +199,7 @@ const UserSchema = new mongoose.Schema({
 // });
 //
 
-UserSchema.plugin(uniqueValidator);
+UserSchema.plugin(mongooseUniqueValidator);
 
 const UserMongoModel = mongoose.model("User", UserSchema, "users");
 

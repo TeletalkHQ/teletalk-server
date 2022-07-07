@@ -10,7 +10,9 @@ const selfStuffControllerMiddleware = (req, res, next) => {
   try {
     const targetCellphone = req.body;
 
-    const cellphone = userProps.makeCellphoneByParam(req.authData.payload);
+    const cellphone = userProps.makeCellphoneByObjectParam(
+      req.authData.payload
+    );
 
     errorThrower(isEqualWithTargetCellphone(cellphone, targetCellphone), () =>
       getErrorObject(SELF_STUFF, { targetCellphone })

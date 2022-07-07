@@ -3,7 +3,7 @@ const { cellphoneValidator } = require("@/validators/userValidators");
 
 const cellphoneValidatorMiddleware = async (req, res, next) => {
   try {
-    const cellphone = userProps.makeCellphoneByParam(req.body);
+    const cellphone = userProps.makeCellphoneByObjectParam(req.body);
     await cellphoneValidator(cellphone);
 
     next();

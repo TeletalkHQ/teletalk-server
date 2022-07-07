@@ -16,7 +16,7 @@ class UserProps {
 
   makeTestCellphone() {
     const country = countries[randomMaker.randomCountryCode()];
-    const cellphone = this.makeCellphone(
+    const cellphone = this.makeCellphoneByParams(
       country.countryCode,
       country.countryName,
       randomMaker.randomStringNumber(10)
@@ -44,7 +44,7 @@ class UserProps {
     return unusedCellphone;
   }
 
-  makeCellphone(countryCode, countryName, phoneNumber) {
+  makeCellphoneByParams(countryCode, countryName, phoneNumber) {
     return {
       countryCode,
       countryName,
@@ -60,7 +60,7 @@ class UserProps {
     };
   }
 
-  makeContact(cellphone, firstName, lastName) {
+  makeContactByParams(cellphone, firstName, lastName) {
     return {
       ...cellphone,
       firstName,
@@ -68,28 +68,26 @@ class UserProps {
     };
   }
 
-  makeFullName(firstName, lastName) {
+  makeFullNameByParam(firstName, lastName) {
     return { firstName, lastName };
   }
-
   makeTestFullName() {
-    return this.makeFullName(
+    return this.makeFullNameByParam(
       randomMaker.randomString(firstNameModel.maxlength.value),
       randomMaker.randomString(lastNameModel.maxlength.value)
     );
   }
 
-  makeCellphoneByParam(object = {}) {
+  makeCellphoneByObjectParam(object = {}) {
     return {
       countryCode: object.countryCode,
       countryName: object.countryName,
       phoneNumber: object.phoneNumber,
     };
   }
-
-  makeContactByParam(object = {}) {
+  makeContactObjectByParam(object = {}) {
     return {
-      ...this.makeCellphoneByParam(object),
+      ...this.makeCellphoneByObjectParam(object),
       firstName: object.firstName,
       lastName: object.lastName,
       privateId: object.privateId,

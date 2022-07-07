@@ -55,7 +55,9 @@ const createNewUserUserController = async (
       }
     );
 
-    const cellphone = userProps.makeCellphoneByParam(verifiedToken.payload);
+    const cellphone = userProps.makeCellphoneByObjectParam(
+      verifiedToken.payload
+    );
     const client = await temporaryClients.findClient(cellphone);
     errorThrower(!client, USER_NOT_EXIST);
 

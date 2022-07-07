@@ -94,6 +94,38 @@ class UserProps {
     };
   }
 
+  makeDefaultUserObjectByParam(userObject) {
+    const {
+      bio,
+      blacklist,
+      chats,
+      contacts,
+      countryCode,
+      countryName,
+      firstName,
+      lastName,
+      phoneNumber,
+      privateId,
+      tokens,
+      username,
+    } = userObject;
+
+    return {
+      bio,
+      blacklist,
+      chats,
+      contacts,
+      countryCode,
+      countryName,
+      firstName,
+      lastName,
+      phoneNumber,
+      privateId,
+      tokens,
+      username,
+    };
+  }
+
   getTokenFromUserObjectByParam(userObject) {
     return userObject.tokens[0]?.mainToken;
   }

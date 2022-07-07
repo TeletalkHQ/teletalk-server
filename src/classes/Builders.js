@@ -19,6 +19,7 @@ class RouteBuilder {
       description: "Default route description",
       inputFields: [{}],
       outputFields: [{}],
+      optionalFields: [{}],
     };
   }
 
@@ -70,6 +71,10 @@ class RouteBuilder {
   }
   outputFields(outputFields = this.routeObject.outputFields) {
     this.#addProperty("outputFields", outputFields);
+    return this;
+  }
+  optionalFields(optionalFields = this.routeObject.optionalFields) {
+    this.#addProperty("optionalFields", optionalFields);
     return this;
   }
 }

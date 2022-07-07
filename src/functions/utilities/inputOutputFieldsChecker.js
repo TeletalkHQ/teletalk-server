@@ -11,18 +11,18 @@ const {
   },
 } = require("@/variables/errors/appErrors");
 
-//CLEANME //!checkInputFields
+//REFACTOR //!checkInputFields
 const checkInputFields = (input, fields, fieldsIndex = 0) => {
   const selectedFields = fields[fieldsIndex];
-  let result = { done: true, internalError: false, errorObject: {} };
+  let result = { done: true, externalError: false, errorObject: {} };
 
   // if (fields.length === 0) {
   //   return result;
   // }
 
-  const fn = (internalError = false, errorObject = {}) => {
+  const fn = (externalError = false, errorObject = {}) => {
     result.done = false;
-    result.internalError = internalError;
+    result.externalError = externalError;
     result.errorObject = errorObject;
   };
 
@@ -81,7 +81,7 @@ const checkInputFields = (input, fields, fieldsIndex = 0) => {
   return result;
 };
 
-//CLEANME //!checkOutputFields
+//REFACTOR //!checkOutputFields
 const checkOutputFields = (output, fields, fieldsIndex = 0) => {
   try {
     const selectedFields = fields[fieldsIndex];
@@ -133,29 +133,35 @@ const checkOutputFields = (output, fields, fieldsIndex = 0) => {
       }
 
       for (const key in fields) {
-        if (customTypeof.check(output[key]).type.undefined) {
+        const outputProp = output[key];
+        const fieldProp = fields[key];
+
+        //* If true fieldProp is optional field
+        if (fieldProp && customTypeof.check(fieldProp).type.boolean) continue;
+
+        if (customTypeof.check(outputProp).type.undefined) {
           fn(true, OUTPUT_FIELDS_MISSING);
           break;
         }
 
-        if (customTypeof.check(fields[key]).type.object) {
-          if (!customTypeof.check(output[key]).type.object) {
+        if (customTypeof.check(fieldProp).type.object) {
+          if (!customTypeof.check(outputProp).type.object) {
             fn(true, OUTPUT_FIELDS_MISSING);
             break;
           }
 
-          result = checkFields(output[key], fields[key]);
+          result = checkFields(outputProp, fieldProp);
         }
 
-        if (customTypeof.check(fields[key]).type.array) {
-          if (!customTypeof.check(output[key]).type.array) {
+        if (customTypeof.check(fieldProp).type.array) {
+          if (!customTypeof.check(outputProp).type.array) {
             fn(true, OUTPUT_FIELDS_MISSING);
             break;
           }
 
           // eslint-disable-next-line no-loop-func
-          output[key].forEach((item) => {
-            result = checkFields(item, fields[key][0]);
+          outputProp.forEach((item) => {
+            result = checkFields(item, fieldProp[0]);
           });
         }
       }

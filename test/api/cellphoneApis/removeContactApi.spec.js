@@ -2,9 +2,6 @@ const { generalTest } = require("@/classes/GeneralTest");
 const { userProps } = require("@/classes/UserProps");
 
 const {
-  userErrors: { CONTACT_ITEM_NOT_EXIST, SELF_STUFF },
-} = require("@/variables/errors/userErrors");
-const {
   requesters: { addContactRequest, removeContactRequest },
   testVariables: {
     cellphones: { notExistedContact },
@@ -42,24 +39,14 @@ describe("removeContact successful test", () => {
 });
 
 describe("removeContact failure tests", () => {
-  it("should get error, SELF_STUFF", async () => {
-    await removeContactRequest.sendRequest(selfStuffTestUser, SELF_STUFF);
-  });
-
-  it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
-    await removeContactRequest.sendRequest(
-      notExistedContact,
-      CONTACT_ITEM_NOT_EXIST
-    );
-  });
-
   const cellphone = userProps.makeTestCellphone();
-
   generalTest
     .createFailTest(removeContactRequest)
     .authentication()
     .cellphone()
     .countryCode(cellphone)
     .countryName(cellphone)
-    .phoneNumber(cellphone);
+    .phoneNumber(cellphone)
+    .selfStuff(selfStuffTestUser)
+    .contactItemNotExist(notExistedContact);
 });

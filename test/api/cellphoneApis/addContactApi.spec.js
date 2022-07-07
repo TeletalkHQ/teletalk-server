@@ -2,9 +2,6 @@ const { generalTest } = require("@/classes/GeneralTest");
 const { userProps } = require("@/classes/UserProps");
 
 const {
-  userErrors: { CONTACT_ITEM_EXIST, SELF_STUFF, TARGET_USER_NOT_EXIST },
-} = require("@/variables/errors/userErrors");
-const {
   requesters: { addContactRequest },
   testVariables: {
     cellphones: { notExistedContact },
@@ -60,30 +57,13 @@ describe("add contact success tests", () => {
   });
 });
 
-//CLEANME SELF_STUFF CONTACT_ITEM_EXIST tests
 describe("addContact failure tests", () => {
-  const contact = userProps.makeTestContact();
-
-  it("should get error, SELF_STUFF", async () => {
-    await addContactRequest.sendRequest(selfStuffTestUser, SELF_STUFF);
-  });
-
-  it("should get error, CONTACT_ITEM_EXIST", async () => {
-    //* First one get succeed, but second one is duplicate
+  //* Add someone to contacts for contactItemExist fail tests
+  before(async () => {
     await addContactRequest.sendRequest(contactItemExistTestUser);
-    await addContactRequest.sendRequest(
-      contactItemExistTestUser,
-      CONTACT_ITEM_EXIST
-    );
   });
 
-  it("should get error, TARGET_USER_NOT_EXIST", async () => {
-    await addContactRequest.sendRequest(
-      notExistedContact,
-      TARGET_USER_NOT_EXIST
-    );
-  });
-
+  const contact = userProps.makeTestContact();
   generalTest
     .createFailTest(addContactRequest)
     .authentication()
@@ -92,5 +72,8 @@ describe("addContact failure tests", () => {
     .countryName(contact)
     .phoneNumber(contact)
     .firstName(contact)
-    .lastName(contact);
+    .lastName(contact)
+    .selfStuff(selfStuffTestUser)
+    .contactItemExist(contactItemExistTestUser)
+    .targetUserNotExist(notExistedContact);
 });

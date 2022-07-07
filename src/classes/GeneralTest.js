@@ -39,10 +39,18 @@ const {
 const {
   participantIdFailureTests,
 } = require("$/api/generalTests/participantIdTests");
+const {
+  blacklistItemNotExistFailureTests,
+  contactItemNotExistFailureTests,
+  contactItemExistFailureTests,
+  targetUserNotExistFailureTests,
+  blacklistItemExistFailureTests,
+} = require("$/api/generalTests/existencesTests");
 
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
+const { selfStuffFailureTests } = require("$/api/generalTests/selfStuffTests");
 
 class GeneralFailTestMaker {
   constructor(requester) {
@@ -96,6 +104,31 @@ class GeneralFailTestMaker {
   }
   message(...args) {
     messageFailureTests(...this.#defaultArgs(), ...args);
+    return this;
+  }
+  selfStuff(...args) {
+    selfStuffFailureTests(...this.#defaultArgs(), ...args);
+    return this;
+  }
+  blacklistItemNotExist(...args) {
+    blacklistItemNotExistFailureTests(...this.#defaultArgs(), ...args);
+    return this;
+  }
+  blacklistItemExist(...args) {
+    blacklistItemExistFailureTests(...this.#defaultArgs(), ...args);
+    return this;
+  }
+  contactItemNotExist(...args) {
+    contactItemNotExistFailureTests(...this.#defaultArgs(), ...args);
+    return this;
+  }
+  contactItemExist(...args) {
+    contactItemExistFailureTests(...this.#defaultArgs(), ...args);
+    return this;
+  }
+
+  targetUserNotExist(...args) {
+    targetUserNotExistFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
 }

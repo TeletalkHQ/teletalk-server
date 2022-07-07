@@ -41,6 +41,7 @@
           "autofetch",
           "autopep",
           "axios",
+          "existences",
           "bcrypt",
           "bcryptjs",
           "camelcase",

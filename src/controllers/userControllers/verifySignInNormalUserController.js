@@ -30,42 +30,21 @@ const verifySignInNormalUserController = async (
       getErrorObject(VERIFICATION_CODE_INVALID)
     );
 
-    //CLEANME
-    const user = (await userFinder(cellphone)) || {};
+    const foundUser = (await userFinder(cellphone)) || {};
+    const { tokens, ...defaultUserObject } =
+      userProps.makeDefaultUserObjectByParam(foundUser);
 
-    const {
-      blacklist,
-      // username,
-      chats,
-      // bio,
-      contacts,
-      countryCode,
-      countryName,
-      firstName,
-      lastName,
-      phoneNumber,
-      privateId,
-    } = user;
-    const isUserExist = privateId;
-
+    const isUserExist = defaultUserObject.privateId;
     const sendingDataOutputIndex = isUserExist ? 0 : 1;
-
     const responseData = {
       user: isUserExist
         ? {
-            blacklist,
-            // username,
-            chats,
-            // bio,
-            contacts,
-            countryCode,
-            countryName,
-            firstName,
-            lastName,
-            mainToken: userProps.getTokenFromUserObjectByParam(user),
+            ...defaultUserObject,
+            mainToken: userProps.getTokenFromUserObjectByParam({
+              ...defaultUserObject,
+              tokens,
+            }),
             newUser: false,
-            phoneNumber,
-            privateId,
           }
         : { newUser: true },
     };

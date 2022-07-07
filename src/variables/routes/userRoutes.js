@@ -6,13 +6,13 @@ const {
 
 const {
   inputOutputFields: {
-    // bio,
+    bio,
     countryCode,
     countryName,
     firstName,
     lastName,
     phoneNumber,
-    // username,
+    username,
     verificationCode,
     verifyToken,
     privateId,
@@ -29,10 +29,10 @@ const userDataProps = {
   privateId,
   firstName,
   lastName,
-  // bio,
+  bio,
   contacts,
   blacklist,
-  // username,
+  username,
   phoneNumber,
   countryCode,
   countryName,
@@ -126,7 +126,11 @@ const getUserDataRoute = userRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [user]: userDataProps,
+      [user]: {
+        ...userDataProps,
+        bio: true,
+        username: true,
+      },
     },
   ])
   .build();
@@ -145,7 +149,7 @@ const verifySignInNormalRoute = userRouteBuilder
   ])
   .outputFields([
     {
-      [user]: userDataProps,
+      [user]: { ...userDataProps, bio: true, username: true },
     },
     { [user]: { [newUser]: newUser } },
   ])

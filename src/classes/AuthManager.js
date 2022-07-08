@@ -64,6 +64,12 @@ class AuthManager {
     return isSignInUrl ? this.getJwtSignInSecret() : this.getJwtMainSecret();
   }
 
+  getTokenFromRequest(request) {
+    const { authorization, Authorization } = request.headers;
+
+    return (authorization || Authorization)?.split("Bearer ")[1];
+  }
+
   getJwtSignInSecret() {
     const { JWT_SIGN_IN_SECRET } = envManager.ENVIRONMENT_KEYS;
     return envManager.getEnvironment(JWT_SIGN_IN_SECRET);

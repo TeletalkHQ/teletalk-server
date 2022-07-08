@@ -1,19 +1,19 @@
-const { excludeVersion } = require("@/functions/utilities/utils");
+const { excludeVersions } = require("@/functions/utilities/utils");
 
 //TODO Get routes from allStuff
-const { otherRouteBaseUrl, ...otherRoutes } = excludeVersion(
+const { otherRouteBaseUrl, ...otherRoutes } = excludeVersions(
   require("@/variables/routes/otherRoutes").otherRoutes
 );
-const { versionControlBaseUrl, ...versionControlRoutes } = excludeVersion(
+const { versionControlBaseUrl, ...versionControlRoutes } = excludeVersions(
   require("@/variables/routes/versionControlRoutes").versionControlRoutes
 );
-const { cellphoneRouteBaseUrl, ...cellphoneRoutes } = excludeVersion(
+const { cellphoneRouteBaseUrl, ...cellphoneRoutes } = excludeVersions(
   require("@/variables/routes/cellphoneRoutes").cellphoneRoutes
 );
-const { userRouteBaseUrl, ...userRoutes } = excludeVersion(
+const { userRouteBaseUrl, ...userRoutes } = excludeVersions(
   require("@/variables/routes/userRoutes").userRoutes
 );
-const { privateChatRouteBaseUrl, ...privateChatRoutes } = excludeVersion(
+const { privateChatRouteBaseUrl, ...privateChatRoutes } = excludeVersions(
   require("@/variables/routes/privateChatRoutes").privateChatRoutes
 );
 

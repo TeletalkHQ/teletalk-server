@@ -1,26 +1,42 @@
-// //TODO requestMethodCheckerMiddleware
+const {
+  excludeVersions,
+  errorThrower,
+  getErrorObject,
+} = require("@/functions/utilities/utils");
 
-// const requestMethodCheckerMiddleware = async (req, res, next) => {
-//   try {
-//     const targetTemplate = templates.find(
-//       (template) => template.baseUrl === req.baseUrl
-//     );
+const {
+  appErrors: { METHOD_NOT_ALLOWED },
+} = require("@/variables/errors/appErrors");
+const {
+  allStuff: {
+    routes: { version, ...routes },
+  },
+} = require("@/variables/others/allStuff");
 
-//     if (!targetTemplate) {
-//     }
+const routesWithoutVersion = excludeVersions(routes);
 
-//     if (targetTemplate) {
-//       const { baseUrl, info, ...urls } = targetTemplate;
+const requestMethodCheckerMiddleware = async (req, res, next) => {
+  try {
+    const routeObject = Object.values(routesWithoutVersion).find(
+      (value) => value.fullUrl === req.url
+    );
 
-//       const routesArray = Object.entries(urls).map((url) => ({ ...url }));
-//     }
-//     return { done: true };
-//   } catch (error) {
-//     logger.log("requestMethodCheckerMiddleware catch, error:", error);
-//     res.errorCollector(error);
-//     res.errorResponser();
-//     return { done: false };
-//   }
-// };
+    const requestMethod = req.method.toLowerCase();
+    const routeObjectMethod = routeObject.method.toLowerCase();
 
-// module.exports = { requestMethodCheckerMiddleware };
+    errorThrower(requestMethod !== routeObjectMethod, () =>
+      getErrorObject(METHOD_NOT_ALLOWED)
+    );
+
+    next();
+
+    return { done: true };
+  } catch (error) {
+    logger.log("requestMethodCheckerMiddleware catch, error:", error);
+    res.errorCollector(error);
+    res.errorResponser();
+    return { done: false };
+  }
+};
+
+module.exports = { requestMethodCheckerMiddleware };

@@ -4,6 +4,10 @@ const { envManager } = require("@/classes/EnvironmentManager");
 const { stateManager } = require("@/classes/StateManager");
 
 const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("@/functions/utilities/utils");
+
+const {
   userModels: { firstNameModel, lastNameModel },
 } = require("@/models/userModels/userModels");
 
@@ -146,6 +150,21 @@ class UserProps {
   setTestVerifyToken(token) {
     const { TEST_VERIFY_TOKEN } = envManager.ENVIRONMENT_KEYS;
     envManager.setEnvironment(TEST_VERIFY_TOKEN, token);
+  }
+
+  cellphoneFinder(cellphones, targetCellphone) {
+    let cellphoneIndex = -1;
+
+    try {
+      const cellphone = cellphones.find((cellphone, index) => {
+        cellphoneIndex = index;
+        return isDataHasEqualityWithTargetCellphone(cellphone, targetCellphone);
+      });
+      return { cellphone, cellphoneIndex };
+    } catch (error) {
+      logger.log("cellphoneFinder catch, error:", error);
+      throw error;
+    }
   }
 }
 

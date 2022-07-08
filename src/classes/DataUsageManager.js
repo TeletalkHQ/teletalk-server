@@ -1,4 +1,6 @@
-const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
+const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("@/functions/utilities/utils");
 
 class DataUsageManager {
   constructor() {
@@ -13,7 +15,7 @@ class DataUsageManager {
 
   isCellphoneUsedBefore(cellphone) {
     return this.usedCellphone.some((c) =>
-      isEqualWithTargetCellphone(c, cellphone)
+      isDataHasEqualityWithTargetCellphone(c, cellphone)
     );
   }
 }

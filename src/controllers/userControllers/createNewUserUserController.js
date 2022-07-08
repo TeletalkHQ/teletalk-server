@@ -4,7 +4,6 @@ const { userProps } = require("@/classes/UserProps");
 const { randomMaker } = require("@/classes/RandomMaker");
 
 const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
-const { getTokenFromRequest } = require("@/functions/utilities/utils");
 
 const {
   userFinder,
@@ -34,7 +33,7 @@ const createNewUserUserController = async (
       body: { firstName, lastName },
     } = req;
 
-    const verifyToken = getTokenFromRequest(req);
+    const verifyToken = authManager.getTokenFromRequest(req);
 
     const verifiedToken = await tokenValidator(
       verifyToken,

@@ -1,14 +1,3 @@
-const { cellphoneRoutes } = require("@/variables/routes/cellphoneRoutes");
-const { otherRoutes } = require("@/variables/routes/otherRoutes");
-const { privateChatRoutes } = require("@/variables/routes/privateChatRoutes");
-const { userRoutes } = require("@/variables/routes/userRoutes");
-const {
-  versionControlRoutes,
-} = require("@/variables/routes/versionControlRoutes");
-
-const { userErrors } = require("@/variables/errors/userErrors");
-const { chatErrors } = require("@/variables/errors/chatErrors");
-
 const { chatModels } = require("@/models/chatModels/chatModels");
 const { commonModels } = require("@/models/commonModels/commonModels");
 const { userModels } = require("@/models/userModels/userModels");
@@ -18,6 +7,16 @@ const {
 const {
   chatValidationModels,
 } = require("@/models/validationModels/chatValidationModels");
+
+const { cellphoneRoutes } = require("@/variables/routes/cellphoneRoutes");
+const { otherRoutes } = require("@/variables/routes/otherRoutes");
+const { privateChatRoutes } = require("@/variables/routes/privateChatRoutes");
+const { userRoutes } = require("@/variables/routes/userRoutes");
+const {
+  versionControlRoutes,
+} = require("@/variables/routes/versionControlRoutes");
+const { userErrors } = require("@/variables/errors/userErrors");
+const { chatErrors } = require("@/variables/errors/chatErrors");
 
 const routes = {
   ...cellphoneRoutes,

@@ -1,19 +1,6 @@
 const { Router } = require("express");
 
 const {
-  contactValidatorMiddleware,
-} = require("@/middlewares/contactValidatorMiddleware");
-const {
-  selfStuffControllerMiddleware,
-} = require("@/middlewares/selfStuffControllerMiddleware");
-const {
-  cellphoneValidatorMiddleware,
-} = require("@/middlewares/cellphoneValidatorMiddleware");
-const {
-  findCurrentUserFromDb,
-} = require("@/middlewares/findCurrentUserFromDb");
-
-const {
   addBlockCellphoneController,
 } = require("@/controllers/cellphoneControllers/addBlockCellphoneController");
 const {
@@ -33,6 +20,18 @@ const {
 } = require("@/controllers/cellphoneControllers/addContactCellphoneController");
 
 const {
+  contactValidatorMiddleware,
+} = require("@/middlewares/contactValidatorMiddleware");
+const {
+  selfStuffControllerMiddleware,
+} = require("@/middlewares/selfStuffControllerMiddleware");
+const {
+  cellphoneValidatorMiddleware,
+} = require("@/middlewares/cellphoneValidatorMiddleware");
+const {
+  findCurrentUserFromDb,
+} = require("@/middlewares/findCurrentUserFromDb");
+const {
   ignoreMiddlewaresByUrlMiddleware,
 } = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
 const {
@@ -41,12 +40,12 @@ const {
 
 const {
   cellphoneRoutes: {
-    addContactRoute,
     addBlockRoute,
+    addContactRoute,
     editContactRoute,
+    getContactsRoute,
     removeBlockRoute,
     removeContactRoute,
-    getContactsRoute,
   },
 } = require("@/variables/routes/cellphoneRoutes");
 

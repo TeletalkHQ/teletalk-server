@@ -1,10 +1,6 @@
 const { Router } = require("express");
 
 const {
-  cellphoneValidatorMiddleware,
-} = require("@/middlewares/cellphoneValidatorMiddleware");
-
-const {
   verifySignInNormalUserController,
 } = require("@/controllers/userControllers/verifySignInNormalUserController");
 const {
@@ -22,6 +18,10 @@ const {
 const {
   getUserDataUserController,
 } = require("@/controllers/userControllers/getUserDataUserController");
+
+const {
+  cellphoneValidatorMiddleware,
+} = require("@/middlewares/cellphoneValidatorMiddleware");
 
 const {
   userRoutes: {

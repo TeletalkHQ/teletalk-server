@@ -1,10 +1,10 @@
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { randomMaker } = require("@/classes/RandomMaker");
+
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
 const {
   PrivateChatMongoModel,
 } = require("@/models/chatModels/privateChatMongoModel");
-
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 const {
   chatModels: { messageIdModel, chatIdModel },

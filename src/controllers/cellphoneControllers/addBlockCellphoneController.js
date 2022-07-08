@@ -1,4 +1,5 @@
 const { userProps } = require("@/classes/UserProps");
+
 const {
   addCellphoneToUserBlacklist,
 } = require("@/models/userModels/userModelFunctions");

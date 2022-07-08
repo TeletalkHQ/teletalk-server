@@ -7,12 +7,6 @@ const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
 const { getTokenFromRequest } = require("@/functions/utilities/utils");
 
 const {
-  tokenValidator,
-  firstNameValidator,
-  lastNameValidator,
-} = require("@/validators/userValidators");
-
-const {
   userFinder,
   createNewNormalUser,
   updateUserDataByPrivateId,
@@ -20,6 +14,12 @@ const {
 const {
   commonModels: { privateIdCommonModel },
 } = require("@/models/commonModels/commonModels");
+
+const {
+  tokenValidator,
+  firstNameValidator,
+  lastNameValidator,
+} = require("@/validators/userValidators");
 
 const {
   userErrors: { USER_NOT_EXIST, FULL_NAME_INVALID },

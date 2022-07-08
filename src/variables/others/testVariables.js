@@ -58,33 +58,33 @@ const makeRequester = (routeObject) =>
 
 const testVariables = {
   cellphones: {
-    signInCellphone: userProps.makeUnusedTestCellphoneAndUpdateUsage(),
-    verifySignInNewUserCellphone:
-      userProps.makeUnusedTestCellphoneAndUpdateUsage(),
-    verifySignInFailTestCellphone:
-      userProps.makeUnusedTestCellphoneAndUpdateUsage(),
     createNewUserSignInCellphone:
       userProps.makeUnusedTestCellphoneAndUpdateUsage(),
     notExistedContact,
+    signInCellphone: userProps.makeUnusedTestCellphoneAndUpdateUsage(),
+    verifySignInFailTestCellphone:
+      userProps.makeUnusedTestCellphoneAndUpdateUsage(),
+    verifySignInNewUserCellphone:
+      userProps.makeUnusedTestCellphoneAndUpdateUsage(),
   },
   testUsers: {
-    selfStuffTestUser: testUser_0,
-    addContactSuccessfulTestUser: testUser_1,
-    contactItemExistTestUser: testUser_2,
-    editContactSuccessfulTestUser: testUser_3,
-    editContactItemNotExistTestUser: testUser_4,
-    removeContactSuccessfulTestUser: testUser_5,
     addBlockSuccessfulTestUser: testUser_6,
+    addContactSuccessfulTestUser: testUser_1,
     blacklistItemExistTestUser: testUser_7,
-    removeBlockSuccessfulTestUser: testUser_8,
-    sendMessageSuccessfulTestUser: testUser_9,
+    contactItemExistTestUser: testUser_2,
+    editContactItemNotExistTestUser: testUser_4,
+    editContactSuccessfulTestUser: testUser_3,
     getPrivateChatMessagesTestUser: testUser_10,
+    removeBlockSuccessfulTestUser: testUser_8,
+    removeContactSuccessfulTestUser: testUser_5,
+    selfStuffTestUser: testUser_0,
+    sendMessageSuccessfulTestUser: testUser_9,
   },
 };
 
 const successTestDefaultOptions = {
-  stringEquality: true,
   modelCheck: true,
+  stringEquality: true,
 };
 
 const requesters = {

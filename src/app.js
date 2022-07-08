@@ -1,11 +1,11 @@
-//! Require this module before require anything!
-require("@/variables/others/globalVariables");
-
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const serveFavicon = require("serve-favicon");
+
+//! Require this module before internal modules!
+require("@/variables/others/globalVariables");
 
 //* PrettyError is error prettier in terminal.
 require("pretty-error").start();
@@ -26,8 +26,6 @@ const {
 const {
   checkAndResponseMiddleware,
 } = require("@/middlewares/checkDataAndResponseMiddleware");
-
-const { lifeLine } = require("@/routers/lifeLine");
 const {
   checkBodyFieldsMiddleware,
 } = require("@/middlewares/checkBodyFieldsMiddleware");
@@ -40,6 +38,8 @@ const {
 const {
   authDefaultMiddleware,
 } = require("@/middlewares/authDefaultMiddleware");
+
+const { lifeLine } = require("@/routers/lifeLine");
 
 const {
   userRoutes: { signInNormalRoute },
@@ -74,8 +74,8 @@ app.use(
 ); //* Should be after 'responseErrorHandlersMiddleware'
 
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
-app.use(checkAndResponseMiddleware); //* Should be after 'notFoundMiddleware'
 app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
+app.use(checkAndResponseMiddleware); //* Should be after 'notFoundMiddleware'
 
 app.use(express.static("@/../public"));
 app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));

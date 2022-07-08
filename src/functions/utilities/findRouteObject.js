@@ -1,5 +1,6 @@
 const { excludeVersion } = require("@/functions/utilities/utils");
 
+//TODO Get routes from allStuff
 const { otherRouteBaseUrl, ...otherRoutes } = excludeVersion(
   require("@/variables/routes/otherRoutes").otherRoutes
 );

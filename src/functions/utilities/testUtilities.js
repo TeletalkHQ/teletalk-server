@@ -2,16 +2,14 @@ const supertest = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 
 const { customTypeof } = require("@/classes/CustomTypeof");
-
 const { stateManager } = require("@/classes/StateManager");
+const { userProps } = require("@/classes/UserProps");
 
 const {
   errorThrower,
-  getObjectLength,
   filterObject,
+  getObjectLength,
 } = require("@/functions/utilities/utils");
-
-const { userProps } = require("@/classes/UserProps");
 
 const request = async (
   routeObject,

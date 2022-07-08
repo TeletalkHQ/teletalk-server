@@ -1,6 +1,7 @@
 const {
   getPrivateChatMessages,
 } = require("@/models/chatModels/chatModelFunctions");
+
 const {
   chatValidators: { chatIdValidator },
 } = require("@/validators/chatValidators");

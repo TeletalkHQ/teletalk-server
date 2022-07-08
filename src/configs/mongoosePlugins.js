@@ -1,8 +1,6 @@
-const uniqueValidator = require("mongoose-unique-validator");
+const mongooseUniqueValidator = require("mongoose-unique-validator");
 
-uniqueValidator.defaults.message = "{PATH}_exist";
-uniqueValidator.defaults.type = "mongoose-unique-validator";
+mongooseUniqueValidator.defaults.message = "{PATH}_exist";
+mongooseUniqueValidator.defaults.type = "mongoose-unique-validator";
 
-const mongooseUniqueValidator = uniqueValidator;
-
-module.exports = { mongooseUniqueValidator };
+module.exports = { uniqueValidator: mongooseUniqueValidator };

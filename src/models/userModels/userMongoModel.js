@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const { mongoModelBuilder } = require("@/classes/Builders");
 
-const { mongooseUniqueValidator } = require("@/configs/mongoosePlugins");
+const { uniqueValidator } = require("@/configs/mongoosePlugins");
 const { excludeVersion } = require("@/functions/utilities/utils");
 
 const {
@@ -199,7 +199,7 @@ const UserSchema = new mongoose.Schema({
 // });
 //
 
-UserSchema.plugin(mongooseUniqueValidator);
+UserSchema.plugin(uniqueValidator);
 
 const UserMongoModel = mongoose.model("User", UserSchema, "users");
 

@@ -1,5 +1,6 @@
-const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
 const { stateManager } = require("@/classes/StateManager");
+
+const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
 
 class TemporaryClients {
   async addClient(client) {

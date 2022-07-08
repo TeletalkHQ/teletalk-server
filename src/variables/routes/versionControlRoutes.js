@@ -1,7 +1,8 @@
 const { routeBuilder } = require("@/classes/Builders");
+
 const {
-  versionCalculator,
   extractVersions,
+  versionCalculator,
 } = require("@/functions/utilities/utils");
 
 const versionControlRouteBuilder = routeBuilder("/versionControl");
@@ -23,7 +24,10 @@ const getAllStuffsRoute = versionControlRouteBuilder
   .outputFields([{}])
   .build();
 
-const routes = { versionControlBaseUrl, getAllStuffsRoute };
+const routes = {
+  getAllStuffsRoute,
+  versionControlBaseUrl,
+};
 
 const versionControlRoutes = {
   ...routes,

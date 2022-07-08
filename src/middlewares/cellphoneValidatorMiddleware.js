@@ -1,4 +1,5 @@
 const { userProps } = require("@/classes/UserProps");
+
 const { cellphoneValidator } = require("@/validators/userValidators");
 
 const cellphoneValidatorMiddleware = async (req, res, next) => {

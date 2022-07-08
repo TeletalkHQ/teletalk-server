@@ -8,7 +8,7 @@ const {
 } = require("@/controllers/otherControllers/welcomeOtherController");
 
 const {
-  otherRoutes: { welcomeRoute, countriesRoute },
+  otherRoutes: { countriesRoute, welcomeRoute },
 } = require("@/variables/routes/otherRoutes");
 
 const otherRouter = Router();

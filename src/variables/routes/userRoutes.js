@@ -1,44 +1,45 @@
 const { routeBuilder } = require("@/classes/Builders");
+
 const {
-  versionCalculator,
   extractVersions,
+  versionCalculator,
 } = require("@/functions/utilities/utils");
 
 const {
   inputOutputFields: {
     bio,
+    blacklist,
+    chats,
+    contacts,
     countryCode,
     countryName,
     firstName,
     lastName,
+    mainToken,
+    newUser,
     phoneNumber,
+    privateId,
+    user,
     username,
     verificationCode,
     verifyToken,
-    privateId,
-    user,
-    mainToken,
-    contacts,
-    blacklist,
-    chats,
-    newUser,
   },
 } = require("@/variables/others/initialOptions");
 
 const userDataProps = {
-  privateId,
-  firstName,
-  lastName,
   bio,
-  contacts,
   blacklist,
-  username,
-  phoneNumber,
+  chats,
+  contacts,
   countryCode,
   countryName,
-  chats,
+  firstName,
+  lastName,
   mainToken,
   newUser,
+  phoneNumber,
+  privateId,
+  username,
 };
 
 const userRouteBuilder = routeBuilder("/user");

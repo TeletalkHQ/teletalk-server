@@ -5,10 +5,12 @@ require("module-alias/register");
 const http = require("http");
 
 const { app } = require("@/app");
-const { ioFunctions } = require("@/socket/io");
+
+const { envManager } = require("@/classes/EnvironmentManager");
 
 const { crashServer } = require("@/functions/utilities/utils");
-const { envManager } = require("@/classes/EnvironmentManager");
+
+const { ioFunctions } = require("@/socket/io");
 
 const server = http.createServer(app);
 

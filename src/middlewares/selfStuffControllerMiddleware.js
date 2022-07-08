@@ -1,6 +1,8 @@
 const { userProps } = require("@/classes/UserProps");
 
-const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
+const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("@/functions/utilities/utils");
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
 const {
@@ -15,8 +17,9 @@ const selfStuffControllerMiddleware = (req, res, next) => {
       req.authData.payload
     );
 
-    errorThrower(isEqualWithTargetCellphone(cellphone, targetCellphone), () =>
-      getErrorObject(SELF_STUFF, { targetCellphone })
+    errorThrower(
+      isDataHasEqualityWithTargetCellphone(cellphone, targetCellphone),
+      () => getErrorObject(SELF_STUFF, { targetCellphone })
     );
 
     next();

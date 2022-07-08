@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const { mongoModelBuilder } = require("@/classes/Builders");
 
 const { uniqueValidator } = require("@/configs/mongoosePlugins");
-const { excludeVersion } = require("@/functions/utilities/utils");
+const { excludeVersions } = require("@/functions/utilities/utils");
 
 const {
   bioModel,
@@ -15,7 +15,7 @@ const {
   phoneNumberModel,
   tokenModel,
   usernameModel,
-} = excludeVersion(require("@/models/userModels/userModels").userModels);
+} = excludeVersions(require("@/models/userModels/userModels").userModels);
 
 const {
   commonModels: {

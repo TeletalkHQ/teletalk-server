@@ -1,28 +1,25 @@
 const { customTypeof } = require("@/classes/CustomTypeof");
 
+const {
+  appErrors: { UNKNOWN_ERROR },
+} = require("@/variables/errors/appErrors");
+
 const errorCollectorMiddleware = (res, errorObject) => {
   try {
-    if (!errorObject || !customTypeof.check(errorObject).type.object) {
-      //TODO Move to otherErrors
-      errorObject = {
-        errorCode: "UNKNOWN_ERROR_CODE",
-        message: "Call your service",
-        statusCode: 500,
-        reason: "UNKNOWN_ERROR",
-        unacceptableError: errorObject,
-      };
-    }
+    const errorToSend = !customTypeof.check(errorObject).type.object
+      ? UNKNOWN_ERROR
+      : errorObject;
 
-    res.errors = errorObject;
+    res.errors = errorToSend;
 
-    if (isNaN(+res.errors.statusCode)) {
-      res.errors.statusCode = 500;
+    if (customTypeof.check(+res.errors.statusCode).type.nan) {
+      res.errors = errorToSend;
     }
   } catch (error) {
     logger
       .redBright("errorCollectorMiddleware catch! its critical!!!")
       .log(error);
-    res.errors.statusCode = 500;
+    res.errors = UNKNOWN_ERROR;
     res.errorResponser();
   }
 };

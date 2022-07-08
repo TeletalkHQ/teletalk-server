@@ -38,6 +38,9 @@ const {
 const {
   authDefaultMiddleware,
 } = require("@/middlewares/authDefaultMiddleware");
+const {
+  requestMethodCheckerMiddleware,
+} = require("@/middlewares/requestMethodCheckerMiddleware");
 
 const { lifeLine } = require("@/routers/lifeLine");
 
@@ -76,6 +79,7 @@ app.use(
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
 app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
 app.use(checkAndResponseMiddleware); //* Should be after 'notFoundMiddleware'
+app.use(requestMethodCheckerMiddleware);
 
 app.use(express.static("@/../public"));
 app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));

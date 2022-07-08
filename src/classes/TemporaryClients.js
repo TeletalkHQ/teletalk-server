@@ -1,6 +1,8 @@
 const { stateManager } = require("@/classes/StateManager");
 
-const { isEqualWithTargetCellphone } = require("@/functions/utilities/utils");
+const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("@/functions/utilities/utils");
 
 class TemporaryClients {
   async addClient(client) {
@@ -32,7 +34,10 @@ class TemporaryClients {
 
     return aliveClients.find(
       (aliveClient) =>
-        !!isEqualWithTargetCellphone(aliveClient, tempoClientCellphone)
+        !!isDataHasEqualityWithTargetCellphone(
+          aliveClient,
+          tempoClientCellphone
+        )
     );
   }
 
@@ -40,7 +45,8 @@ class TemporaryClients {
     const aliveClients = this.getAliveClients();
 
     return aliveClients.findIndex(
-      (aliveClient) => !!isEqualWithTargetCellphone(aliveClient, client)
+      (aliveClient) =>
+        !!isDataHasEqualityWithTargetCellphone(aliveClient, client)
     );
   }
 

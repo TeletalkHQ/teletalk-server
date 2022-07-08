@@ -1,12 +1,10 @@
 const { authManager } = require("@/classes/AuthManager");
 
-const { getTokenFromRequest } = require("@/functions/utilities/utils");
-
 const { tokenValidator } = require("@/validators/userValidators");
 
 const authDefaultMiddleware = async (req, res, next) => {
   try {
-    const token = getTokenFromRequest(req);
+    const token = authManager.getTokenFromRequest(req);
 
     const secret = authManager.getSecretWithUrlCondition(req.url);
 

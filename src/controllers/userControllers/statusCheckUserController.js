@@ -2,10 +2,7 @@
 const { userProps } = require("@/classes/UserProps");
 const { authManager } = require("@/classes/AuthManager");
 
-const {
-  errorThrower,
-  getTokenFromRequest,
-} = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
@@ -20,7 +17,7 @@ const statusCheckUserController = async (
   res = expressResponse
 ) => {
   try {
-    const mainToken = getTokenFromRequest(req);
+    const mainToken = authManager.getTokenFromRequest(req);
 
     errorThrower(!mainToken, TOKEN_REQUIRED);
 

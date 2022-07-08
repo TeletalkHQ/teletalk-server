@@ -1,7 +1,7 @@
 const { customTypeof } = require("@/classes/CustomTypeof");
 const { userProps } = require("@/classes/UserProps");
 
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
@@ -17,10 +17,10 @@ const findCurrentUserFromDb = async (req, res, next) => {
 
     const currentUser = await userFinder(cellphone, {});
 
-    errorThrower(customTypeof.check(currentUser).type.null, {
-      ...cellphone,
-      ...USER_NOT_EXIST,
-    });
+    //TODO Add tests when user not exist
+    errorThrower(customTypeof.check(currentUser).type.null, () =>
+      getErrorObject(USER_NOT_EXIST, cellphone)
+    );
 
     req.currentUser = currentUser;
 

@@ -20,23 +20,22 @@ const applyMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
       );
 
       if (isUrlMatchWithReqUrl(url, req.url)) {
-        let noErrorOnMiddlewares = true;
+        let hasErrorOnMiddlewares = false;
         for await (const md of middlewares) {
           const result = await md(req, res, () => {});
 
           if (!result?.done) {
-            noErrorOnMiddlewares = false;
+            hasErrorOnMiddlewares = true;
             break;
           }
         }
-        if (noErrorOnMiddlewares) {
+        if (!hasErrorOnMiddlewares) {
           next();
         }
-      } else {
-        return next();
-      }
+      } else next();
     } catch (error) {
       logger.log("applyMiddlewaresByUrlMiddleware catch, error:", error);
+      throw error;
     }
   };
 };

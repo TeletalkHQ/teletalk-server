@@ -5,10 +5,16 @@ const {
   extractVersions,
 } = require("@/functions/utilities/utils");
 
-const { INPUT_OUTPUT_FIELDS, INTERNAL_SERVER_ERROR, UNKNOWN_ERROR } = {
-  INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",
-  UNKNOWN_ERROR: "UNKNOWN_ERROR",
+const {
+  INPUT_OUTPUT_FIELDS,
+  INTERNAL_SERVER_ERROR,
+  UNKNOWN_ROUTE,
+  EXTERNAL_APP_ERROR,
+} = {
   INPUT_OUTPUT_FIELDS: "INPUT_OUTPUT_FIELDS",
+  INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",
+  EXTERNAL_APP_ERROR: "EXTERNAL_APP_ERROR",
+  UNKNOWN_ROUTE: "UNKNOWN_ROUTE",
 };
 
 const NO_ROUTE_OBJECT = errorBuilder
@@ -21,14 +27,14 @@ const NO_ROUTE_OBJECT = errorBuilder
   .errorKey(INTERNAL_SERVER_ERROR)
   .build();
 
-const NOT_FOUND = errorBuilder
+const ROUTE_NOT_FOUND = errorBuilder
   .create()
   .errorCode(5000)
   .statusCode(404)
-  .message("Internal server error")
-  .errorReason("NOT_FOUND")
+  .message("Route not found")
+  .errorReason("ROUTE_NOT_FOUND")
   .version("1.0.0")
-  .errorKey(UNKNOWN_ERROR)
+  .errorKey(UNKNOWN_ROUTE)
   .build();
 
 const INPUT_FIELDS_MISSING = errorBuilder
@@ -51,6 +57,16 @@ const INPUT_FIELDS_OVERLOAD = errorBuilder
   .errorKey(INPUT_OUTPUT_FIELDS)
   .build();
 
+const METHOD_NOT_ALLOWED = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(405)
+  .message("External app error")
+  .errorReason("METHOD_NOT_ALLOWED")
+  .version("1.0.0")
+  .errorKey(EXTERNAL_APP_ERROR)
+  .build();
+
 const OUTPUT_FIELDS_MISSING = errorBuilder
   .create()
   .errorCode(5000)
@@ -69,6 +85,16 @@ const OUTPUT_FIELDS_OVERLOAD = errorBuilder
   .errorReason("OUTPUT_FIELDS_OVERLOAD")
   .version("1.0.0")
   .errorKey(INPUT_OUTPUT_FIELDS)
+  .build();
+
+const REQUEST_BODY_IS_UNDEFINED = errorBuilder
+  .create()
+  .errorCode(5000)
+  .statusCode(500)
+  .message("sendJsonResponse is not a function")
+  .errorReason("REQUEST_BODY_IS_UNDEFINED")
+  .version("1.0.0")
+  .errorKey(INTERNAL_SERVER_ERROR)
   .build();
 
 const SEND_JSON_RESPONSE_IS_NOT_FUNCTION = errorBuilder
@@ -91,12 +117,12 @@ const SEND_SMS_FAILED = errorBuilder
   .errorKey(INTERNAL_SERVER_ERROR)
   .build();
 
-const REQUEST_BODY_IS_UNDEFINED = errorBuilder
+const UNKNOWN_ERROR = errorBuilder
   .create()
   .errorCode(5000)
   .statusCode(500)
-  .message("sendJsonResponse is not a function")
-  .errorReason("REQUEST_BODY_IS_UNDEFINED")
+  .message("Unknown error occurred, Call your service")
+  .errorReason("UNKNOWN_ERROR")
   .version("1.0.0")
   .errorKey(INTERNAL_SERVER_ERROR)
   .build();
@@ -104,13 +130,15 @@ const REQUEST_BODY_IS_UNDEFINED = errorBuilder
 const errors = {
   INPUT_FIELDS_MISSING,
   INPUT_FIELDS_OVERLOAD,
+  METHOD_NOT_ALLOWED,
   NO_ROUTE_OBJECT,
-  NOT_FOUND,
   OUTPUT_FIELDS_MISSING,
   OUTPUT_FIELDS_OVERLOAD,
   REQUEST_BODY_IS_UNDEFINED,
+  ROUTE_NOT_FOUND,
   SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
   SEND_SMS_FAILED,
+  UNKNOWN_ERROR,
 };
 
 const appErrors = {

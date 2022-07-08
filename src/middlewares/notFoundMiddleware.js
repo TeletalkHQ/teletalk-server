@@ -6,13 +6,13 @@ const {
 const { getErrorObject } = require("@/functions/utilities/utils");
 
 const {
-  appErrors: { NOT_FOUND },
+  appErrors: { ROUTE_NOT_FOUND },
 } = require("@/variables/errors/appErrors");
 
 const notFoundMiddleware = (req, res, next) => {
   if (!customTypeof.check(req.routeObject).type.object) {
-    const statusCode = getStatusCodeFromRoute(NOT_FOUND);
-    const errorObject = getErrorObject(NOT_FOUND);
+    const statusCode = getStatusCodeFromRoute(ROUTE_NOT_FOUND);
+    const errorObject = getErrorObject(ROUTE_NOT_FOUND);
 
     res.status(statusCode).json(errorObject);
   } else {

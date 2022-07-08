@@ -32,6 +32,7 @@ const getMethodFromRoute = (route) => {
     return method;
   } catch (error) {
     logger.log("getMethodFromRoute catch, error:", error);
+    throw error;
   }
 };
 
@@ -53,8 +54,9 @@ const objectClarify = (dirtyObject = {}) => {
 
   Object.entries(dirtyObject)?.forEach(([key, value]) => {
     if (!customTypeof.check(value).type.undefined) {
-      if (customTypeof.check(dirtyObject[key]).type.object) {
-        cleanObject[key] = objectClarify(dirtyObject[key]);
+      const prop = dirtyObject[key];
+      if (customTypeof.check(prop).type.object) {
+        cleanObject[key] = objectClarify(prop);
 
         return;
       }
@@ -65,8 +67,6 @@ const objectClarify = (dirtyObject = {}) => {
 
   return cleanObject;
 };
-
-const isNull = (value) => value === null;
 
 const getValidatorErrorTypes = (errorArray) => {
   const validatorErrorTypes = {
@@ -136,9 +136,6 @@ const getValidatorErrorTypes = (errorArray) => {
   return validatorErrorTypes;
 };
 
-const findByProp = (items = [], value, prop) =>
-  items.find((item) => item[prop] === value);
-
 const getHostFromRequest = (request) => request.get("host");
 
 const isUrlMatchWithReqUrl = (url, reqUrl) =>
@@ -167,22 +164,16 @@ const extractVersions = (object) => {
   return Object.keys(object).map((key) => object[key].version);
 };
 
-const isEqualWithTargetCellphone = (cellphone, targetCellphone) => {
+const isDataHasEqualityWithTargetCellphone = (data, targetCellphone) => {
   if (
-    cellphone.phoneNumber === targetCellphone.phoneNumber &&
-    cellphone.countryCode === targetCellphone.countryCode &&
-    cellphone.countryName === targetCellphone.countryName
+    data.phoneNumber === targetCellphone.phoneNumber &&
+    data.countryCode === targetCellphone.countryCode &&
+    data.countryName === targetCellphone.countryName
   ) {
     return true;
   }
 
   return false;
-};
-
-const getTokenFromRequest = (request) => {
-  const { authorization, Authorization } = request.headers;
-
-  return (authorization || Authorization)?.split("Bearer ")[1];
 };
 
 const getObjectLength = (object) => Object.keys(object).length;
@@ -200,7 +191,7 @@ const crashServerWithCondition = (condition, errorObject) => {
   }
 };
 
-const excludeVersion = (object) => {
+const excludeVersions = (object) => {
   const tempObject = {};
 
   for (const key in object) {
@@ -229,21 +220,6 @@ const filterObject = (object, filterFields) => {
   return filteredObject;
 };
 
-const cellphoneFinder = (cellphones, targetCellphone) => {
-  let cellphoneIndex = -1;
-
-  try {
-    const cellphone = cellphones.find((cellphone, index) => {
-      cellphoneIndex = index;
-      return isEqualWithTargetCellphone(cellphone, targetCellphone);
-    });
-    return { cellphone, cellphoneIndex };
-  } catch (error) {
-    logger.log("cellphoneFinder catch, error:", error);
-    throw error;
-  }
-};
-
 const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
   for (const key in routeObjects) {
     const routeObject = routeObjects[key];
@@ -259,24 +235,20 @@ const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
 
 module.exports = {
   addFullUrlToRouteObjects,
-  cellphoneFinder,
   concatBaseUrlWithUrl,
   convertStringArrayToNumberArray,
   crashServer,
   crashServerWithCondition,
   errorThrower,
-  excludeVersion,
+  excludeVersions,
   extractVersions,
   filterObject,
-  findByProp,
   getErrorObject,
   getHostFromRequest,
   getMethodFromRoute,
   getObjectLength,
-  getTokenFromRequest,
   getValidatorErrorTypes,
-  isEqualWithTargetCellphone,
-  isNull,
+  isDataHasEqualityWithTargetCellphone,
   isUrlMatchWithReqUrl,
   objectClarify,
   objectInitializer,

@@ -1,11 +1,8 @@
 const { customTypeof } = require("@/classes/CustomTypeof");
 
-const {
-  cellphoneFinder,
-  errorThrower,
-  getErrorObject,
-} = require("@/functions/utilities/utils");
 const { userProps } = require("@/classes/UserProps");
+
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");
 
@@ -42,7 +39,7 @@ const addCellphoneToUserBlacklist = async (
   cellphone
 ) => {
   try {
-    const { cellphone: existBlacklistItem } = cellphoneFinder(
+    const { cellphone: existBlacklistItem } = userProps.cellphoneFinder(
       currentUser.blacklist,
       cellphone
     );
@@ -73,7 +70,7 @@ const addContactToUserContacts = async (
   targetUserData = userInitialOptions
 ) => {
   try {
-    const { cellphone: isContactExist } = cellphoneFinder(
+    const { cellphone: isContactExist } = userProps.cellphoneFinder(
       currentUser.contacts,
       targetUserData
     );
@@ -112,10 +109,8 @@ const updateOneContact = async (
   editedValues
 ) => {
   try {
-    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
-      currentUser.contacts,
-      targetCellphone
-    );
+    const { cellphone: contactItem, cellphoneIndex } =
+      userProps.cellphoneFinder(currentUser.contacts, targetCellphone);
     errorThrower(!contactItem, () => getErrorObject(CONTACT_ITEM_NOT_EXIST));
 
     currentUser.contacts.splice(cellphoneIndex, 1, {
@@ -143,10 +138,8 @@ const getUserContacts = async (currentUser = userInitialOptions) => {
 };
 
 const deleteBlacklistItem = async (currentUser, targetUserData) => {
-  const { cellphone: blacklistItem, cellphoneIndex } = cellphoneFinder(
-    currentUser.blacklist,
-    targetUserData
-  );
+  const { cellphone: blacklistItem, cellphoneIndex } =
+    userProps.cellphoneFinder(currentUser.blacklist, targetUserData);
   errorThrower(!blacklistItem, () => getErrorObject(BLACKLIST_ITEM_NOT_EXIST));
 
   currentUser.blacklist.splice(cellphoneIndex, 1);
@@ -161,10 +154,8 @@ const removeContactItem = async (
   targetUserData = userInitialOptions
 ) => {
   try {
-    const { cellphone: contactItem, cellphoneIndex } = cellphoneFinder(
-      currentUser.contacts,
-      targetUserData
-    );
+    const { cellphone: contactItem, cellphoneIndex } =
+      userProps.cellphoneFinder(currentUser.contacts, targetUserData);
     errorThrower(!contactItem, () =>
       getErrorObject(CONTACT_ITEM_NOT_EXIST, { targetUserData })
     );

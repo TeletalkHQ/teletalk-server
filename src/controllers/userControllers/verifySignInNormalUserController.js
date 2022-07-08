@@ -1,12 +1,13 @@
 const { temporaryClients } = require("@/classes/TemporaryClients");
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 const { userProps } = require("@/classes/UserProps");
+
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+
+const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const {
   userErrors: { VERIFICATION_CODE_INVALID, USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
-
-const { userFinder } = require("@/models/userModels/userModelFunctions");
 
 const { verificationCodeValidator } = require("@/validators/userValidators");
 

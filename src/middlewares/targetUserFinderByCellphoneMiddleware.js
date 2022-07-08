@@ -3,10 +3,10 @@
 //!DEPRECATED
 
 const { customTypeof } = require("@/classes/CustomTypeof");
+const { userProps } = require("@/classes/UserProps");
 
 const { userFinder } = require("@/functions/helpers/userFinder");
 const { errorThrower } = require("@/functions/utilities/utils");
-const { userProps } = require("@/classes/UserProps");
 
 const {
   userErrors: { CELLPHONE_NOT_EXIST },

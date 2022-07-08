@@ -10,7 +10,6 @@ const {
 const {
   initialOptions: { jwtDefaultOptions },
 } = require("@/variables/others/initialOptions");
-
 const {
   userRoutes: { verifySignInNormalRoute, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");

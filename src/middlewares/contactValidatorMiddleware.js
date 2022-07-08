@@ -1,5 +1,7 @@
 const { userProps } = require("@/classes/UserProps");
+
 const { errorThrower } = require("@/functions/utilities/utils");
+
 const { contactValidator } = require("@/validators/userValidators");
 
 const contactValidatorMiddleware = async (req, res, next) => {

@@ -1,7 +1,7 @@
 const { customTypeof } = require("@/classes/CustomTypeof");
+const { userProps } = require("@/classes/UserProps");
 
 const { errorThrower } = require("@/functions/utilities/utils");
-const { userProps } = require("@/classes/UserProps");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 

@@ -2,18 +2,18 @@
 const { userProps } = require("@/classes/UserProps");
 const { authManager } = require("@/classes/AuthManager");
 
-const { cellphoneValidator } = require("@/validators/userValidators");
-
-const {
-  userErrors: { TOKEN_REQUIRED, USER_NOT_EXIST },
-} = require("@/variables/errors/userErrors");
-
 const {
   errorThrower,
   getTokenFromRequest,
 } = require("@/functions/utilities/utils");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
+
+const { cellphoneValidator } = require("@/validators/userValidators");
+
+const {
+  userErrors: { TOKEN_REQUIRED, USER_NOT_EXIST },
+} = require("@/variables/errors/userErrors");
 
 const statusCheckUserController = async (
   req = expressRequest,

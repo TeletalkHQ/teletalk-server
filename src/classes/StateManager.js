@@ -1,4 +1,5 @@
 const Redis = require("ioredis");
+
 const { errorThrower } = require("@/functions/utilities/utils");
 
 const redis = new Redis();

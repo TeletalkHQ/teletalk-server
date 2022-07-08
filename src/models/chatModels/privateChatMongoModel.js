@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const { mongoModelBuilder } = require("@/classes/Builders");
 
-const { mongooseUniqueValidator } = require("@/configs/mongoosePlugins");
+const { uniqueValidator } = require("@/configs/mongoosePlugins");
 
 const {
   chatModels: {
@@ -79,7 +79,7 @@ const PrivateChatSchema = new mongoose.Schema({
   ],
 });
 
-PrivateChatSchema.plugin(mongooseUniqueValidator);
+PrivateChatSchema.plugin(uniqueValidator);
 
 module.exports = { PrivateChatSchema };
 

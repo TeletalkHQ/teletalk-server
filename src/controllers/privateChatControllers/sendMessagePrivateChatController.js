@@ -1,6 +1,7 @@
 const {
   sendPrivateMessage,
 } = require("@/models/chatModels/chatModelFunctions");
+
 const {
   chatValidators: { participantIdValidator, messageTextValidator },
 } = require("@/validators/chatValidators");

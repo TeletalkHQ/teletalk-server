@@ -141,7 +141,7 @@ class UserProps {
 
   async setTestUsers(testUsers) {
     const { testUsers: stateKey } = stateManager.stateKeys;
-    return await stateManager.setStateObject(stateKey, testUsers);
+    return await stateManager.setState(stateKey, testUsers);
   }
   setTestVerifyToken(token) {
     const { TEST_VERIFY_TOKEN } = envManager.ENVIRONMENT_KEYS;

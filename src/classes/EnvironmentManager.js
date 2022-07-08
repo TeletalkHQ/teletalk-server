@@ -20,9 +20,9 @@ class EnvironmentManager {
 
     this.ENVIRONMENT_VALUES = {
       [this.ENVIRONMENT_KEYS.NODE_ENV]: {
-        test: "test",
-        production: "production",
         development: "development",
+        production: "production",
+        test: "test",
       },
       PORT: 8080,
     };

@@ -12,7 +12,7 @@ class TemporaryClients {
   }
 
   async setAliveClients(aliveClients) {
-    const temporaryClients = stateManager.state.temporaryClients;
+    const { temporaryClients } = stateManager.state;
 
     const newTemporaryClients = {
       ...temporaryClients,
@@ -20,7 +20,7 @@ class TemporaryClients {
     };
 
     const { temporaryClients: stateKey } = stateManager.stateKeys;
-    await stateManager.setStateObject(stateKey, newTemporaryClients);
+    await stateManager.setState(stateKey, newTemporaryClients);
   }
 
   getAliveClients() {

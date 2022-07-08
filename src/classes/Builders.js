@@ -11,15 +11,15 @@ class RouteBuilder {
   constructor(baseUrl) {
     this._baseUrl = baseUrl;
     this.routeObject = {
-      method: "GET",
-      url: "/404",
-      fullUrl: "/404",
-      statusCode: 404,
-      version: "1.0.0",
       description: "Default route description",
+      fullUrl: "/404",
       inputFields: [{}],
-      outputFields: [{}],
+      method: "GET",
       optionalFields: [{}],
+      outputFields: [{}],
+      statusCode: 404,
+      url: "/404",
+      version: "1.0.0",
     };
   }
 
@@ -452,12 +452,10 @@ class MongoModelBuilder {
 
   build() {
     const finalMongoModel = {};
-    Object.keys(this.mongoModel).forEach((key) => {
-      if (this.mongoModel[key].length > 0) {
-        const value = this.mongoModel[key];
-        finalMongoModel[key] = value.length > 1 ? value : value[0];
-      }
-    });
+    for (const key in this.mongoModel) {
+      const prop = this.mongoModel[key];
+      finalMongoModel[key] = prop.length > 1 ? prop : prop[0];
+    }
 
     return finalMongoModel;
   }
@@ -465,6 +463,7 @@ class MongoModelBuilder {
     this.modelObject = modelObject;
     return this;
   }
+
   defaultValue() {
     this.#addProperty("defaultValue");
     return this;
@@ -500,11 +499,14 @@ class MongoModelBuilder {
 }
 
 const errorBuilder = { create: () => new ErrorBuilder() };
+
 const modelBuilder = { create: () => new ModelBuilder() };
 const mongoModelBuilder = { create: () => new MongoModelBuilder() };
+
 const routeBuilder = (baseUrl) => ({
   create: (...args) => new RouteBuilder(baseUrl, ...args),
 });
+
 const validationErrorBuilder = { create: () => new ValidationErrorBuilder() };
 const validationModelBuilder = { create: () => new ValidationModelBuilder() };
 

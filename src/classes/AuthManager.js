@@ -8,22 +8,24 @@ const {
 } = require("@/functions/utilities/utils");
 
 const {
-  initialOptions: { jwtDefaultOptions },
-} = require("@/variables/others/initialOptions");
-const {
   userRoutes: { verifySignInNormalRoute, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
 
 class AuthManager {
+  constructor() {
+    //? Is this should change by dev's ?
+    this.options = { algorithm: "HS256" };
+  }
+
   tokenVerifier(
     token,
     secret = this.getJwtMainSecret(),
-    options = jwtDefaultOptions
+    options = this.options
   ) {
     try {
       const data = JWT.verify(token, secret, {
         complete: true,
-        ...jwtDefaultOptions,
+        ...this.options,
         ...options,
       });
 
@@ -40,11 +42,11 @@ class AuthManager {
   async tokenSigner(
     data,
     secret = this.getJwtMainSecret(),
-    options = jwtDefaultOptions
+    options = this.options
   ) {
     try {
       return JWT.sign(data, secret, {
-        ...jwtDefaultOptions,
+        ...this.options,
         ...options,
       });
     } catch (error) {
@@ -54,12 +56,12 @@ class AuthManager {
   }
 
   getSecretWithUrlCondition(reqUrl) {
-    const condition = isUrlMatchWithReqUrl(
+    const isSignInUrl = isUrlMatchWithReqUrl(
       [verifySignInNormalRoute.fullUrl, createNewUserRoute.fullUrl],
       reqUrl
     );
 
-    return condition ? this.getJwtSignInSecret() : this.getJwtMainSecret();
+    return isSignInUrl ? this.getJwtSignInSecret() : this.getJwtMainSecret();
   }
 
   getJwtSignInSecret() {

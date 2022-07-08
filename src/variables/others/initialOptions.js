@@ -33,8 +33,6 @@ const inputOutputFields = {
   verifyToken: "verifyToken",
 };
 
-const jwtDefaultOptions = { algorithm: "HS256" };
-
 const userInitialOptions = {
   bio: "",
   blacklist: [],
@@ -55,7 +53,6 @@ const userInitialOptions = {
 module.exports = {};
 
 const initialOptions = {
-  jwtDefaultOptions,
   userInitialOptions,
   inputOutputFields,
 };

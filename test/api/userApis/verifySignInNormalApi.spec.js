@@ -1,3 +1,4 @@
+const { authManager } = require("@/classes/AuthManager");
 const { generalTest } = require("@/classes/GeneralTest");
 const { userProps } = require("@/classes/UserProps");
 
@@ -16,6 +17,8 @@ const {
 
 describe("verifySignInNormalApi success test", () => {
   it("should get newUser === true if there is no user with test verify token in db", async () => {
+    const generalSuccessTests = generalTest.createSuccessTest();
+
     const signInFn = async () => {
       const {
         body: {
@@ -25,9 +28,17 @@ describe("verifySignInNormalApi success test", () => {
 
       return verifyToken;
     };
+    const verifyTokenSecret = authManager.getJwtSignInSecret();
+    const tokenVerifier = async (token) => {
+      await generalSuccessTests.token({
+        tokenTest: token,
+        secret: verifyTokenSecret,
+      });
+    };
+
     //* 1- Sign in as a new user =>
     const newUserVerifyToken = await signInFn();
-
+    await tokenVerifier(newUserVerifyToken);
     //* 2- Get verification code, In test mode the verification code is stored in env =>
     const newUserVerificationCode = userProps.getTestVerificationCode();
 
@@ -49,7 +60,7 @@ describe("verifySignInNormalApi success test", () => {
 
     //* 6- Now sign in again for test output when newUser === false =>
     const existedUserVerifyToken = await signInFn();
-
+    await tokenVerifier(existedUserVerifyToken);
     //* 7- Get the verification code =>
     const existedVerificationCode = userProps.getTestVerificationCode();
 

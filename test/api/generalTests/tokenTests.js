@@ -18,7 +18,8 @@ const tokenSuccessTests = async (
     .setVariables(tokenModel, "", tokenTest)
     .setOptions({ modelCheck });
 
-  ts.typeCheck().gtCheck(10);
+  //TODO Add min/max length to token model
+  ts.typeCheck().gtCheck(100);
 
   (
     await ts.checkAndExecuteAsync(verifyToken, async () => {

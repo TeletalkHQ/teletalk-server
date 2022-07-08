@@ -1,8 +1,6 @@
 const { customTypeof } = require("@/classes/CustomTypeof");
 
-const {
-  checkInputFields,
-} = require("@/functions/utilities/inputOutputFieldsChecker");
+const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 const {
   errorThrower,
   getErrorObject,
@@ -10,24 +8,34 @@ const {
 } = require("@/functions/utilities/utils");
 
 const {
-  appErrors: { REQUEST_BODY_IS_UNDEFINED },
+  appErrors: {
+    REQUEST_BODY_IS_UNDEFINED,
+    INPUT_FIELDS_OVERLOAD,
+    INPUT_FIELDS_MISSING,
+  },
 } = require("@/variables/errors/appErrors");
 
 const checkBodyFieldsMiddleware = (req, res, next) => {
   try {
-    const { body, routeObject } = req;
+    const {
+      body,
+      routeObject: { inputFields },
+    } = req;
 
     crashServerWithCondition(
       customTypeof.check(body).type.undefined,
       REQUEST_BODY_IS_UNDEFINED
     );
 
-    const checkResult = checkInputFields(body, routeObject.inputFields);
+    const checkResult = ioFieldsChecker(body, inputFields, {
+      missingFieldsError: INPUT_FIELDS_MISSING,
+      overloadFieldsError: INPUT_FIELDS_OVERLOAD,
+    });
 
     errorThrower(checkResult.done === false, () =>
       getErrorObject(checkResult.errorObject, {
         inputFields: body,
-        fields: routeObject.inputFields,
+        fields: inputFields,
       })
     );
 

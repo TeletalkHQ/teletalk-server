@@ -19,8 +19,8 @@
     "achil.vscode-javascript-repl",
     "streetsidesoftware.code-spell-checker-persian",
     "earshinov.sort-lines-by-selection",
-    "eamodio.toggle-excluded-files",
     "cweijan.vscode-database-client2",
-    "qcz.text-power-tools"
+    "qcz.text-power-tools",
+    "eamodio.toggle-excluded-files"
   ]
 }

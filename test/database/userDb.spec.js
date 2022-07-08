@@ -12,7 +12,7 @@ describe("save user data in state", () => {
     expect(users).to.be.an("array");
 
     const { users: stateKey } = stateManager.stateKeys;
-    await stateManager.setStateObject(stateKey, users);
+    await stateManager.setState(stateKey, users);
   });
 
   it("should get specified user data", async () => {

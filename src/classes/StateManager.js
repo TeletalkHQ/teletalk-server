@@ -7,19 +7,19 @@ const redis = new Redis();
 class StateManager {
   constructor() {
     this.state = {
+      aliveClients: [],
       temporaryClients: {
         aliveClients: [],
       },
-      aliveClients: [],
-      users: [],
       testUsers: {},
+      users: [],
     };
 
     this.stateKeys = {
-      temporaryClients: "temporaryClients",
       aliveClients: "aliveClients",
-      users: "users",
+      temporaryClients: "temporaryClients",
       testUsers: "testUsers",
+      users: "users",
     };
 
     this.initializeStates();
@@ -35,7 +35,7 @@ class StateManager {
     });
   }
 
-  async getState(key) {
+  async getStateStringifiedValue(key) {
     try {
       return await redis.get(key);
     } catch (error) {
@@ -44,9 +44,9 @@ class StateManager {
     }
   }
 
-  async getStateObject(key) {
+  async getState(key) {
     try {
-      const value = await this.getState(key);
+      const value = await this.getStateStringifiedValue(key);
 
       return JSON.parse(value);
     } catch (error) {
@@ -55,15 +55,16 @@ class StateManager {
     }
   }
 
-  async setState(key, value) {
+  async setStateWithStringifiedValue(key, value) {
     await redis.set(key, value);
 
     return { done: true };
   }
 
-  async setStateObject(key, newState) {
+  async setState(key, newState) {
     this.state[key] = newState;
-    await this.setState(key, JSON.stringify(newState));
+    const stringifiedNewState = JSON.stringify(newState);
+    await this.setStateWithStringifiedValue(key, stringifiedNewState);
 
     return { done: true };
   }

@@ -42,6 +42,8 @@
           "autopep",
           "axios",
           "existences",
+          "Urls",
+          "Stringified",
           "bcrypt",
           "bcryptjs",
           "camelcase",

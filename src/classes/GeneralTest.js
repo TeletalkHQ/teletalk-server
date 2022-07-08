@@ -46,11 +46,11 @@ const {
   targetUserNotExistFailureTests,
   blacklistItemExistFailureTests,
 } = require("$/api/generalTests/existencesTests");
+const { selfStuffFailureTests } = require("$/api/generalTests/selfStuffTests");
 
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-const { selfStuffFailureTests } = require("$/api/generalTests/selfStuffTests");
 
 class GeneralFailTestMaker {
   constructor(requester) {
@@ -126,7 +126,6 @@ class GeneralFailTestMaker {
     contactItemExistFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
-
   targetUserNotExist(...args) {
     targetUserNotExistFailureTests(...this.#defaultArgs(), ...args);
     return this;
@@ -277,7 +276,7 @@ const generalTest = {
 };
 
 module.exports = {
-  generalTest,
   GeneralFailTestMaker,
   GeneralSuccessTestMaker,
+  generalTest,
 };

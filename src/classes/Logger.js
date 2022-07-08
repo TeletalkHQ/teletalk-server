@@ -39,6 +39,7 @@ const defaultTextAndColorOption = { text: "", textColor: colors.white };
 
 let _level = undefined;
 
+//TODO Change LoggerBuilder function to class
 function LoggerBuilder(level) {
   this.levels = ["error", "warn", "info", "debug"];
   this.logs = [];

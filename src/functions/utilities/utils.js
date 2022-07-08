@@ -212,9 +212,7 @@ const excludeVersion = (object) => {
   return tempObject;
 };
 
-//FIXME This should have just the url's to concat
-const concatBaseUrlWithUrl = (baseUrlObject, routeObject) =>
-  `${baseUrlObject.url}${routeObject.url}`;
+const concatBaseUrlWithUrl = (baseUrl, routeUrl) => `${baseUrl}${routeUrl}`;
 
 const filterObject = (object, filterFields) => {
   const filteredObject = {};
@@ -250,7 +248,10 @@ const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
   for (const key in routeObjects) {
     const routeObject = routeObjects[key];
 
-    routeObject.fullUrl = concatBaseUrlWithUrl(baseRouteObject, routeObject);
+    routeObject.fullUrl = concatBaseUrlWithUrl(
+      baseRouteObject.url,
+      routeObject.url
+    );
   }
 
   return routeObjects;

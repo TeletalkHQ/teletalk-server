@@ -14,7 +14,7 @@ const {
 } = require("@/models/commonModels/commonModels");
 const { addTestUser } = require("@/models/userModels/userModelFunctions");
 const { eventEmitter } = require("@/classes/EventEmitter");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 describe("Add requirements to application state", () => {
   it("should make test users and save into state", async () => {
@@ -56,7 +56,7 @@ describe("Add requirements to application state", () => {
       }
     }
 
-    await userProps.setTestUsers(testUsers);
+    await userPropsUtilities.setTestUsers(testUsers);
 
     const { requirementsGetDone } = eventEmitter.eventKeys;
     eventEmitter.emitEvent({

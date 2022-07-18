@@ -1,6 +1,6 @@
 const { authManager } = require("@/classes/AuthManager");
 const { generalTest } = require("@/classes/GeneralTest");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
 
@@ -15,7 +15,7 @@ const {
   },
 } = require("@/variables/others/testVariables");
 
-const fullName = userProps.makeTestFullName();
+const fullName = userPropsUtilities.makeTestFullName();
 
 describe("success create new normal user", () => {
   it("should create new user in db", async () => {
@@ -27,7 +27,8 @@ describe("success create new normal user", () => {
     //* 1- Sign in as a new user =>
 
     //* 2- Get verification code, In test mode the verification code is stored in env =>
-    const newUserVerificationCode = userProps.getTestVerificationCode();
+    const newUserVerificationCode =
+      userPropsUtilities.getTestVerificationCode();
 
     //* 3- Verify user by verificationCode & verifyToken =>
     const newUserVerifySignInResponse = await verifySignInRequest

@@ -1,4 +1,4 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   isDataHasEqualityWithTargetCellphone,
@@ -13,7 +13,7 @@ const selfStuffControllerMiddleware = (req, res, next) => {
   try {
     const targetCellphone = req.body;
 
-    const cellphone = userProps.makeCellphoneByObjectParam(
+    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
       req.authData.payload
     );
 

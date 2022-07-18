@@ -1,6 +1,6 @@
 const { authManager } = require("@/classes/AuthManager");
 const { generalTest } = require("@/classes/GeneralTest");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
 
@@ -40,7 +40,8 @@ describe("verifySignInNormalApi success test", () => {
     const newUserVerifyToken = await signInFn();
     await tokenVerifier(newUserVerifyToken);
     //* 2- Get verification code, In test mode the verification code is stored in env =>
-    const newUserVerificationCode = userProps.getTestVerificationCode();
+    const newUserVerificationCode =
+      userPropsUtilities.getTestVerificationCode();
 
     //* 3- Verify user by verificationCode & verifyToken =>
     const newUserVerifySignInResponse = await verifySignInRequest
@@ -53,7 +54,7 @@ describe("verifySignInNormalApi success test", () => {
     expect(newUserVerifySignInResponse.body.user.newUser).equal(true);
 
     //* 5- Finalize new user sign in (save user in db) =>
-    const fullName = userProps.makeTestFullName();
+    const fullName = userPropsUtilities.makeTestFullName();
     await createNewUserRequest
       .setToken(newUserVerifyToken)
       .sendRequest(fullName);
@@ -62,7 +63,8 @@ describe("verifySignInNormalApi success test", () => {
     const existedUserVerifyToken = await signInFn();
     await tokenVerifier(existedUserVerifyToken);
     //* 7- Get the verification code =>
-    const existedVerificationCode = userProps.getTestVerificationCode();
+    const existedVerificationCode =
+      userPropsUtilities.getTestVerificationCode();
 
     //* 8- Verify sign in when newUser === false =>
     const {

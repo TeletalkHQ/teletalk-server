@@ -1,10 +1,10 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { cellphoneValidator } = require("@/validators/userValidators");
 
 const cellphoneValidatorMiddleware = async (req, res, next) => {
   try {
-    const cellphone = userProps.makeCellphoneByObjectParam(req.body);
+    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(req.body);
     await cellphoneValidator(cellphone);
 
     next();

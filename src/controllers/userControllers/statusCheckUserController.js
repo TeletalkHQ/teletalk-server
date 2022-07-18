@@ -1,5 +1,5 @@
 //REFACTOR statusCheckUserController
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
 
 const { errorThrower } = require("@/functions/utilities/utils");
@@ -18,18 +18,17 @@ const statusCheckUserController = async (
 ) => {
   try {
     const mainToken = authManager.getTokenFromRequest(req);
-
     errorThrower(!mainToken, TOKEN_REQUIRED);
 
     const tokenData = authManager.tokenVerifier(mainToken);
 
-    const cellphone = userProps.makeCellphoneByObjectParam(tokenData.payload);
-
+    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
+      tokenData.payload
+    );
     const validatedCellphone = await cellphoneValidator(cellphone);
-
     errorThrower(!validatedCellphone, validatedCellphone);
-    const user = await userFinder(cellphone);
 
+    const user = await userFinder(cellphone);
     errorThrower(!user, USER_NOT_EXIST);
 
     res.status(200).json({ user });

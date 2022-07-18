@@ -1,6 +1,6 @@
 /* eslint-disable no-inner-declarations */
 const { validationErrorBuilder } = require("@/classes/Builders");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
 
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
@@ -110,7 +110,9 @@ const compiledVerificationCodeValidator = validatorCompiler(
 
 const contactValidator = async (contact, returnCondition) => {
   try {
-    await cellphoneValidator(userProps.makeCellphoneByObjectParam(contact));
+    await cellphoneValidator(
+      userPropsUtilities.makeCellphoneByObjectParam(contact)
+    );
     await firstNameValidator(contact.firstName);
     await lastNameValidator(contact.lastName);
 

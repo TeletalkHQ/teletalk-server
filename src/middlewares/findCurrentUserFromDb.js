@@ -1,5 +1,5 @@
 const { customTypeof } = require("@/classes/CustomTypeof");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
@@ -11,7 +11,7 @@ const {
 
 const findCurrentUserFromDb = async (req, res, next) => {
   try {
-    const cellphone = userProps.makeCellphoneByObjectParam(
+    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
       req.authData.payload
     );
 

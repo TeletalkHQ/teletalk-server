@@ -1,4 +1,4 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { removeContactItem } = require("@/models/userModels/userModelFunctions");
 
@@ -9,7 +9,7 @@ const removeContactCellphoneController = async (
   try {
     const { currentUser, body } = req;
 
-    const targetUserData = userProps.makeCellphoneByObjectParam(body);
+    const targetUserData = userPropsUtilities.makeCellphoneByObjectParam(body);
 
     await removeContactItem(currentUser, targetUserData);
 

@@ -1,5 +1,5 @@
 const { authManager } = require("@/classes/AuthManager");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { envManager } = require("@/classes/EnvironmentManager");
@@ -16,7 +16,7 @@ const signInNormalUserController = async (
   res = expressResponse
 ) => {
   try {
-    const cellphone = userProps.makeCellphoneByObjectParam(req.body);
+    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(req.body);
 
     const verificationCode = passwordGenerator();
 
@@ -66,7 +66,7 @@ const signInNormalUserController = async (
     };
 
     if (envManager.getNodeEnv() === envManager.getNodeEnvValues().test) {
-      userProps.setTestVerificationCode(verificationCode);
+      userPropsUtilities.setTestVerificationCode(verificationCode);
     }
 
     res.checkDataAndResponse({ user: responseData });

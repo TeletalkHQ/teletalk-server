@@ -1,5 +1,5 @@
 const { generalTest } = require("@/classes/GeneralTest");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   requesters: { addContactRequest, removeContactRequest },
@@ -39,7 +39,7 @@ describe("removeContact successful test", () => {
 });
 
 describe("removeContact failure tests", () => {
-  const cellphone = userProps.makeTestCellphone();
+  const cellphone = userPropsUtilities.makeTestCellphone();
   generalTest
     .createFailTest(removeContactRequest)
     .authentication()

@@ -1,4 +1,4 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utils");
 
@@ -9,7 +9,7 @@ const contactValidatorMiddleware = async (req, res, next) => {
     const { firstName, lastName } = req.body;
 
     const validationResult = await contactValidator({
-      ...userProps.makeCellphoneByObjectParam(req.body),
+      ...userPropsUtilities.makeCellphoneByObjectParam(req.body),
       firstName,
       lastName,
     });

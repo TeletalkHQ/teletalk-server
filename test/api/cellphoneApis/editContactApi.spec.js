@@ -1,5 +1,5 @@
 const { generalTest } = require("@/classes/GeneralTest");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   requesters: { editContactRequest, addContactRequest },
@@ -84,7 +84,7 @@ describe("edit contact success tests", () => {
 });
 
 describe("editContact failure tests", () => {
-  const contact = userProps.makeTestContact();
+  const contact = userPropsUtilities.makeTestContact();
   generalTest
     .createFailTest(editContactRequest)
     .authentication()

@@ -1,4 +1,4 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   addContactToUserContacts,
@@ -10,7 +10,7 @@ const addContactCellphoneController = async (
 ) => {
   try {
     const { body, currentUser } = req;
-    const targetUserData = userProps.makeContactObjectByParam(body);
+    const targetUserData = userPropsUtilities.makeContactObjectByParam(body);
 
     const { targetUser } = await addContactToUserContacts(
       currentUser,

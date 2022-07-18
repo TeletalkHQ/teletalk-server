@@ -3,7 +3,7 @@ const { expect } = require("chai");
 
 const { customTypeof } = require("@/classes/CustomTypeof");
 const { stateManager } = require("@/classes/StateManager");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   errorThrower,
@@ -94,7 +94,7 @@ const makeAuthorizationHeader = (token) => [
 const getTokenByTestUserNumber = (testUserNumber) => {
   const { testUsers } = stateManager.state;
   const user = testUsers[`testUser_${testUserNumber}`];
-  return userProps.getTokenFromUserObjectByParam(user);
+  return userPropsUtilities.getTokenFromUserObjectByParam(user);
 };
 
 module.exports = {

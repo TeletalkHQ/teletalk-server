@@ -3,7 +3,7 @@
 //!DEPRECATED
 
 const { customTypeof } = require("@/classes/CustomTypeof");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { userFinder } = require("@/functions/helpers/userFinder");
 const { errorThrower } = require("@/functions/utilities/utils");
@@ -14,7 +14,7 @@ const {
 
 const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
   try {
-    const cellphone = userProps.makeCellphoneByObjectParam(req.body);
+    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(req.body);
 
     const targetUser = await userFinder(cellphone);
 

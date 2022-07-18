@@ -123,6 +123,10 @@ class ErrorBuilder {
     this.errorObject.version = version;
     return this;
   }
+  description(description) {
+    this.errorObject.description = description;
+    return this;
+  }
 }
 
 class ModelBuilder {

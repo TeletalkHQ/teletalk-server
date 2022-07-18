@@ -1,6 +1,6 @@
 const { authManager } = require("@/classes/AuthManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { randomMaker } = require("@/classes/RandomMaker");
 
 const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
@@ -54,7 +54,7 @@ const createNewUserUserController = async (
       }
     );
 
-    const cellphone = userProps.makeCellphoneByObjectParam(
+    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
       verifiedToken.payload
     );
     const client = await temporaryClients.findClient(cellphone);
@@ -76,7 +76,7 @@ const createNewUserUserController = async (
           firstName,
           lastName,
           privateId: user.privateId,
-          mainToken: userProps.getTokenFromUserObjectByParam(user),
+          mainToken: userPropsUtilities.getTokenFromUserObjectByParam(user),
         },
       });
     } else if (!user) {

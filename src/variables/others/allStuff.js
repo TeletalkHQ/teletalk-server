@@ -17,6 +17,7 @@ const {
 } = require("@/variables/routes/versionControlRoutes");
 const { userErrors } = require("@/variables/errors/userErrors");
 const { chatErrors } = require("@/variables/errors/chatErrors");
+const { appErrors } = require("@/variables/errors/appErrors");
 
 const routes = {
   ...cellphoneRoutes,
@@ -37,6 +38,7 @@ const models = {
 const errors = {
   ...chatErrors,
   ...userErrors,
+  ...appErrors,
 };
 
 const allStuff = {

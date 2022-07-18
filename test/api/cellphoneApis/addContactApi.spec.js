@@ -1,5 +1,5 @@
 const { generalTest } = require("@/classes/GeneralTest");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   requesters: { addContactRequest },
@@ -63,7 +63,7 @@ describe("addContact failure tests", () => {
     await addContactRequest.sendRequest(contactItemExistTestUser);
   });
 
-  const contact = userProps.makeTestContact();
+  const contact = userPropsUtilities.makeTestContact();
   generalTest
     .createFailTest(addContactRequest)
     .authentication()

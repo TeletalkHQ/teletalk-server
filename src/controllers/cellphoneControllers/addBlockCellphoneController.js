@@ -1,4 +1,4 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   addCellphoneToUserBlacklist,
@@ -11,7 +11,7 @@ const addBlockCellphoneController = async (
   try {
     const { body, currentUser } = req;
 
-    const targetUser = userProps.makeCellphoneByObjectParam(body);
+    const targetUser = userPropsUtilities.makeCellphoneByObjectParam(body);
 
     await addCellphoneToUserBlacklist(currentUser, targetUser);
 

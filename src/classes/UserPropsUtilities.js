@@ -13,7 +13,7 @@ const {
 
 const { countries } = require("@/variables/others/countries");
 
-class UserProps {
+class UserPropsUtilities {
   constructor(id) {
     this.id = id;
   }
@@ -168,6 +168,6 @@ class UserProps {
   }
 }
 
-const userProps = new UserProps();
+const userPropsUtilities = new UserPropsUtilities();
 
-module.exports = { userProps };
+module.exports = { userPropsUtilities };

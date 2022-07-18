@@ -1,4 +1,4 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   deleteBlacklistItem,
@@ -11,7 +11,7 @@ const removeBlockCellphoneController = async (
   try {
     const { currentUser, body } = req;
 
-    const targetUserData = userProps.makeCellphoneByObjectParam(body);
+    const targetUserData = userPropsUtilities.makeCellphoneByObjectParam(body);
 
     await deleteBlacklistItem(currentUser, targetUserData);
 

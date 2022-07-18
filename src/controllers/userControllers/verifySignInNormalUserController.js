@@ -1,5 +1,5 @@
 const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
@@ -23,7 +23,9 @@ const verifySignInNormalUserController = async (
 
     await verificationCodeValidator(verificationCode);
 
-    const cellphone = userProps.makeCellphoneByObjectParam(authData.payload);
+    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
+      authData.payload
+    );
     const tempClient = await temporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 
@@ -33,7 +35,7 @@ const verifySignInNormalUserController = async (
 
     const foundUser = (await userFinder(cellphone)) || {};
     const { tokens, ...defaultUserObject } =
-      userProps.makeDefaultUserObjectByParam(foundUser);
+      userPropsUtilities.makeDefaultUserObjectByParam(foundUser);
 
     const isUserExist = defaultUserObject.privateId;
     const sendingDataOutputIndex = isUserExist ? 0 : 1;
@@ -41,7 +43,7 @@ const verifySignInNormalUserController = async (
       user: isUserExist
         ? {
             ...defaultUserObject,
-            mainToken: userProps.getTokenFromUserObjectByParam({
+            mainToken: userPropsUtilities.getTokenFromUserObjectByParam({
               ...defaultUserObject,
               tokens,
             }),

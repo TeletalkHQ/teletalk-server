@@ -1,4 +1,4 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { generalTest } = require("@/classes/GeneralTest");
 
@@ -44,7 +44,7 @@ describe("addBlock failure tests", () => {
     await addBlockRequest.sendRequest(blacklistItemExistTestUser);
   });
 
-  const cellphone = userProps.makeTestCellphone();
+  const cellphone = userPropsUtilities.makeTestCellphone();
   generalTest
     .createFailTest(addBlockRequest)
     .authentication()

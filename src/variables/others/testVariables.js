@@ -1,5 +1,5 @@
 const { stateManager } = require("@/classes/StateManager");
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { customRequest } = require("@/classes/CustomRequest");
 
 const {
@@ -50,7 +50,7 @@ const notExistedContact = {
   phoneNumber: "1234567890",
 };
 
-const token = userProps.getTokenFromUserObjectByParam(testUser_0);
+const token = userPropsUtilities.getTokenFromUserObjectByParam(testUser_0);
 const customRequestWithTestUser_0_data = customRequest(token);
 
 const makeRequester = (routeObject) =>
@@ -59,13 +59,13 @@ const makeRequester = (routeObject) =>
 const testVariables = {
   cellphones: {
     createNewUserSignInCellphone:
-      userProps.makeUnusedTestCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedTestCellphoneAndUpdateUsage(),
     notExistedContact,
-    signInCellphone: userProps.makeUnusedTestCellphoneAndUpdateUsage(),
+    signInCellphone: userPropsUtilities.makeUnusedTestCellphoneAndUpdateUsage(),
     verifySignInFailTestCellphone:
-      userProps.makeUnusedTestCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedTestCellphoneAndUpdateUsage(),
     verifySignInNewUserCellphone:
-      userProps.makeUnusedTestCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedTestCellphoneAndUpdateUsage(),
   },
   testUsers: {
     addBlockSuccessfulTestUser: testUser_6,

@@ -1,4 +1,4 @@
-const { userProps } = require("@/classes/UserProps");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { updateOneContact } = require("@/models/userModels/userModelFunctions");
 
@@ -13,7 +13,7 @@ const editContactCellphoneController = async (
       currentUser,
     } = req;
 
-    const targetCellphone = userProps.makeCellphoneByObjectParam(body);
+    const targetCellphone = userPropsUtilities.makeCellphoneByObjectParam(body);
 
     const editedValues = { firstName, lastName };
 

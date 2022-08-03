@@ -50,7 +50,7 @@ const checkAndResponseMiddleware = (req, res, next) => {
           })
         );
 
-        logger.log("response body: ", data);
+        // logger.log("response body: ", data);
         res.sendJsonResponse(data);
       } catch (error) {
         logger.log("checkDataAndResponse catch, error:", error);

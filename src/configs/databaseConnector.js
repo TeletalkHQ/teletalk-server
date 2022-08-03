@@ -15,7 +15,7 @@ const databaseConnector = () => {
     });
     return { database };
   } catch (error) {
-    logger.log("connectDatabase catch, error:", error);
+    logger.log("databaseConnector catch, error:", error);
     errorThrower(error, error);
   }
 };

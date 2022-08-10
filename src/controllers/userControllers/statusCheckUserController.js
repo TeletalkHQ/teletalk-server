@@ -20,13 +20,13 @@ const statusCheckUserController = async (
     const mainToken = authManager.getTokenFromRequest(req);
     errorThrower(!mainToken, TOKEN_REQUIRED);
 
-    const tokenData = authManager.tokenVerifier(mainToken);
+    const tokenData = authManager.tokenVerifier(mainToken).data;
 
     const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
       tokenData.payload
     );
-    const validatedCellphone = await cellphoneValidator(cellphone);
-    errorThrower(!validatedCellphone, validatedCellphone);
+
+    await cellphoneValidator(cellphone);
 
     const user = await userFinder(cellphone);
     errorThrower(!user, USER_NOT_EXIST);

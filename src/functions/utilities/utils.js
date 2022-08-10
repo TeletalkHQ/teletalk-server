@@ -23,19 +23,6 @@ const objectInitializer = (values, props) => {
   }
 };
 
-const getMethodFromRoute = (route) => {
-  try {
-    const method = route?.method;
-
-    errorThrower(!method, "You need to pass correct route object");
-
-    return method;
-  } catch (error) {
-    logger.log("getMethodFromRoute catch, error:", error);
-    throw error;
-  }
-};
-
 const skipParams = (count) => {
   return Array.from({ length: count });
 };
@@ -66,74 +53,6 @@ const objectClarify = (dirtyObject = {}) => {
   });
 
   return cleanObject;
-};
-
-const getValidatorErrorTypes = (errorArray) => {
-  const validatorErrorTypes = {
-    array: false,
-    arrayContains: false,
-    arrayEmpty: false,
-    arrayEnum: false,
-    arrayLength: false,
-    arrayMax: false,
-    arrayMin: false,
-    arrayUnique: false,
-    boolean: false,
-    date: false,
-    dateMax: false,
-    dateMin: false,
-    email: false,
-    emailEmpty: false,
-    emailMax: false,
-    emailMin: false,
-    enumValue: false,
-    equalField: false,
-    equalValue: false,
-    forbidden: false,
-    function: false,
-    luhn: false,
-    mac: false,
-    number: false,
-    numberEqual: false,
-    numberInteger: false,
-    numberMax: false,
-    numberMin: false,
-    numberNegative: false,
-    numberNotEqual: false,
-    numberPositive: false,
-    object: false,
-    objectMaxProps: false,
-    objectMinProps: false,
-    objectStrict: false,
-    required: false,
-    string: false,
-    stringAlpha: false,
-    stringAlphadash: false,
-    stringAlphanum: false,
-    stringBase64: false,
-    stringContains: false,
-    stringEmpty: false,
-    stringEnum: false,
-    stringHex: false,
-    stringLength: false,
-    stringMax: false,
-    stringMin: false,
-    stringNumeric: false,
-    stringPattern: false,
-    stringSingleLine: false,
-    tuple: false,
-    tupleEmpty: false,
-    tupleLength: false,
-    url: false,
-    uuid: false,
-    uuidVersion: false,
-  };
-
-  errorArray.forEach((error) => {
-    validatorErrorTypes[error.type] = true;
-  });
-
-  return validatorErrorTypes;
 };
 
 const getHostFromRequest = (request) => request.get("host");
@@ -245,9 +164,7 @@ module.exports = {
   filterObject,
   getErrorObject,
   getHostFromRequest,
-  getMethodFromRoute,
   getObjectLength,
-  getValidatorErrorTypes,
   isDataHasEqualityWithTargetCellphone,
   isUrlMatchWithReqUrl,
   objectClarify,

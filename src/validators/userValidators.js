@@ -2,11 +2,9 @@
 const { validationErrorBuilder } = require("@/classes/Builders");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
+const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
-const {
-  validatorCompiler,
-} = require("@/functions/utilities/validatorCompiler");
 
 const {
   commonValidationModels: { createdAtValidationModel },
@@ -87,26 +85,39 @@ const checkReturnCondition = (returnCondition, error) => {
   errorThrower(error, error);
 };
 
-const bioValidator = validatorCompiler(bioValidationModel);
-const compiledCountryCodeValidator = validatorCompiler(
+const bioValidator =
+  ValidationModelBuilder.validatorCompiler(bioValidationModel);
+const compiledCountryCodeValidator = ValidationModelBuilder.validatorCompiler(
   countryCodeValidationModel
 );
-const compiledCountryNameValidator = validatorCompiler(
+const compiledCountryNameValidator = ValidationModelBuilder.validatorCompiler(
   countryNameValidationModel
 );
-const createdAtValidator = validatorCompiler(createdAtValidationModel);
-const compiledFirstNameValidator = validatorCompiler(firstNameValidationModel);
-const compiledLastNameValidator = validatorCompiler(lastNameValidationModel);
-const macAddressValidator = validatorCompiler(macAddressValidationModel);
-const compiledPhoneNumberValidator = validatorCompiler(
+const createdAtValidator = ValidationModelBuilder.validatorCompiler(
+  createdAtValidationModel
+);
+const compiledFirstNameValidator = ValidationModelBuilder.validatorCompiler(
+  firstNameValidationModel
+);
+const compiledLastNameValidator = ValidationModelBuilder.validatorCompiler(
+  lastNameValidationModel
+);
+const macAddressValidator = ValidationModelBuilder.validatorCompiler(
+  macAddressValidationModel
+);
+const compiledPhoneNumberValidator = ValidationModelBuilder.validatorCompiler(
   phoneNumberValidationModel
 );
-const compiledPrivateIdValidator = validatorCompiler(privateIdValidationModel);
-const compiledTokenValidator = validatorCompiler(tokenValidationModel);
-const compiledUsernameValidator = validatorCompiler(usernameValidationModel);
-const compiledVerificationCodeValidator = validatorCompiler(
-  verificationCodeValidationModel
+const compiledPrivateIdValidator = ValidationModelBuilder.validatorCompiler(
+  privateIdValidationModel
 );
+const compiledTokenValidator =
+  ValidationModelBuilder.validatorCompiler(tokenValidationModel);
+const compiledUsernameValidator = ValidationModelBuilder.validatorCompiler(
+  usernameValidationModel
+);
+const compiledVerificationCodeValidator =
+  ValidationModelBuilder.validatorCompiler(verificationCodeValidationModel);
 
 const contactValidator = async (contact, returnCondition) => {
   try {

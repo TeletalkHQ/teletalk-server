@@ -16,8 +16,8 @@ Restify part 136
 Use snyk vulnerability scanner for sec reason
 Use firewall part 146
 PM2 for nodeJS process manager part 149
-FTP part 150, nginx part 149 
-Using ms for convert time to ms and reverse 
+FTP part 150, nginx part 149
+Using ms for convert time to ms and reverse
 ClipboardJS documentation
 Make api for log server errors
 Use lokiJS for frontend db in-memory
@@ -26,3 +26,5 @@ Useless routes cleanup
 
 Add exclude props to utils (like version)
 Fix public assets sharing
+Add getContacts tests
+Separate builders

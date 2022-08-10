@@ -1,4 +1,4 @@
-const { validationModelBuilder } = require("@/classes/Builders");
+const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
 const {
   versionCalculator,
   extractVersions,

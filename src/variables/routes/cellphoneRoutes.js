@@ -9,6 +9,7 @@ const {
   inputOutputFields: {
     addedContact,
     blockedCellphone,
+    contacts,
     countryCode,
     countryName,
     editedContact,
@@ -133,7 +134,20 @@ const getContactsRoute = cellphoneRouteBuilder
   .version("1.0.0")
   .description("User for edit single contact on user contacts list")
   .inputFields([{}])
-  .outputFields([{}])
+  .outputFields([
+    {
+      [contacts]: [
+        {
+          countryCode,
+          countryName,
+          firstName,
+          lastName,
+          phoneNumber,
+          privateId,
+        },
+      ],
+    },
+  ])
   .build();
 
 const removeBlockRoute = cellphoneRouteBuilder

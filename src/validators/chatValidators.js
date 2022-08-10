@@ -1,9 +1,7 @@
 const { validationErrorBuilder } = require("@/classes/Builders");
+const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
 const { errorThrower } = require("@/functions/utilities/utils");
-const {
-  validatorCompiler,
-} = require("@/functions/utilities/validatorCompiler");
 
 const {
   chatValidationModels: {
@@ -42,12 +40,16 @@ const checkReturnCondition = (returnCondition, error) => {
   errorThrower(error, error);
 };
 
-const compiledChatIdValidator = validatorCompiler(chatIdValidationModel);
-const messageIdValidator = validatorCompiler(messageIdValidationModel);
-const compiledMessageTextValidator = validatorCompiler(
+const compiledChatIdValidator = ValidationModelBuilder.validatorCompiler(
+  chatIdValidationModel
+);
+const messageIdValidator = ValidationModelBuilder.validatorCompiler(
+  messageIdValidationModel
+);
+const compiledMessageTextValidator = ValidationModelBuilder.validatorCompiler(
   messageTextValidationModel
 );
-const compiledParticipantIdValidator = validatorCompiler(
+const compiledParticipantIdValidator = ValidationModelBuilder.validatorCompiler(
   participantIdValidationModel
 );
 

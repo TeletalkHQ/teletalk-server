@@ -165,12 +165,10 @@ const UserSchema = new mongoose.Schema({
       firstName,
       lastName,
       phoneNumber,
-      privateId: {
-        ...(() => {
-          const { unique, ...rest } = privateId;
-          return rest;
-        })(),
-      },
+      privateId: (() => {
+        const { unique, ...rest } = privateId;
+        return rest;
+      })(),
     },
   ],
   countryCode,

@@ -24,18 +24,21 @@ const signInNormalUserController = async (
 
     const NODE_ENV = envManager.getNodeEnv();
     const { production } = envManager.getNodeEnvValues();
+
+    //TODO Move to appConfigs
     const sendCondition = NODE_ENV === production;
     if (sendCondition) {
+      const host = getHostFromRequest(req);
       const smsText = smsClient
         .smsTemplates()
-        .sendVerificationCode(verificationCode, getHostFromRequest(req));
+        .sendVerificationCode(verificationCode, host);
 
-      await smsClient.sendSms(
+      const sendTo = userPropsUtilities.makeFullNumber(
         cellphone.countryCode,
-        cellphone.phoneNumber,
-        smsText,
-        { sendCondition }
+        cellphone.phoneNumber
       );
+
+      await smsClient.sendSms(sendTo, smsText);
     }
 
     const verifyToken = await authManager.tokenSigner(
@@ -65,7 +68,9 @@ const signInNormalUserController = async (
       verifyToken,
     };
 
-    if (envManager.getNodeEnv() === envManager.getNodeEnvValues().test) {
+    const NODE_ENV_KEY = envManager.getNodeEnv();
+    const NODE_ENV_VALUE = envManager.getNodeEnvValues().test;
+    if (NODE_ENV_KEY === NODE_ENV_VALUE) {
       userPropsUtilities.setTestVerificationCode(verificationCode);
     }
 

@@ -56,6 +56,10 @@ class UserPropsUtilities {
     };
   }
 
+  makeFullNumber(countryCode, phoneNumber) {
+    return `+${countryCode}${phoneNumber}`;
+  }
+
   makeTestContact() {
     return {
       ...this.makeTestCellphone(),

@@ -20,17 +20,14 @@ class SmsClient {
       to: "",
       text: "",
       isFlash: false,
-      sendCondition: true,
     };
   }
 
-  async sendSms(countryCode, phoneNumber, text, options = this.defaultOptions) {
+  async sendSms(sendTo, text, options = this.defaultOptions) {
     const { sendFrom, isFlash } = {
       ...this.defaultOptions,
       ...options,
     };
-
-    const sendTo = `+${countryCode}${phoneNumber}`;
 
     const smsResult = await this.sms.send(sendTo, sendFrom, text, isFlash);
 

@@ -31,6 +31,9 @@ const models = {
   ...chatModels,
   ...commonModels,
   ...userModels,
+};
+
+const validationModels = {
   ...chatValidationModels,
   ...userValidationModels,
 };
@@ -45,6 +48,7 @@ const allStuff = {
   models,
   errors,
   routes,
+  validationModels,
 };
 
 module.exports = {

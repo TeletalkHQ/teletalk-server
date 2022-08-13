@@ -33,9 +33,16 @@
     ".trachCan": true
   },
   "explorerExclude.backup": null,
-  "cSpell.words": ["", "abcdefghijklmnopqrstufwxyz", "Alphadash", "Alphanum"],
+  "cSpell.words": [
+    "",
+    "abcdefghijklmnopqrstufwxyz",
+    "Alphadash",
+    "Alphanum"
+  ],
   "mocha.enabled": true,
-  "mocha.requires": ["module-alias/register"],
+  "mocha.requires": [
+    "module-alias/register"
+  ],
   "mocha.showInExplorer": true,
   "mochaExplorer.require": "module-alias/register",
   "mochaExplorer.timeout": 4000,

@@ -41,6 +41,7 @@ const welcomeRoute = otherRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use to get welcome message for client")
+  .inputFields([{}])
   .outputFields([{ message }])
   .build();
 

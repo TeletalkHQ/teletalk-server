@@ -76,8 +76,8 @@ const logoutNormalRoute = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for logout client as a normal account")
-  .inputFields()
-  .outputFields()
+  .inputFields([{}])
+  .outputFields([{}])
   .build();
 
 const signInNormalRoute = userRouteBuilder
@@ -113,8 +113,8 @@ const statusCheckRoute = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for check client availability as a normal account")
-  .inputFields()
-  .outputFields()
+  .inputFields([{}])
+  .outputFields([{}])
   .build();
 
 const getUserDataRoute = userRouteBuilder

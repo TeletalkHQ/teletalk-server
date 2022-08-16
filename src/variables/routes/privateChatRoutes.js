@@ -50,8 +50,8 @@ const chatsLastMessageRoute = privateChatRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for Get chats last message")
-  .inputFields([])
-  .outputFields([])
+  .inputFields([{}])
+  .outputFields([{}])
   .build();
 
 const getPrivateChatMessagesRoute = privateChatRouteBuilder

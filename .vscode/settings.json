@@ -46,5 +46,8 @@
   "mocha.showInExplorer": true,
   "mochaExplorer.require": "module-alias/register",
   "mochaExplorer.timeout": 4000,
-  "mochaExplorer.logpanel": true
+  "mochaExplorer.logpanel": true,
+  "marquee.widgets.npm-stats.packageNames": [
+    "teletalk-server"
+  ]
 }

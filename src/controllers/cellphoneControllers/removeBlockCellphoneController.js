@@ -11,7 +11,7 @@ const removeBlockCellphoneController = async (
   try {
     const { currentUser, body } = req;
 
-    const targetUserData = userPropsUtilities.makeCellphoneByObjectParam(body);
+    const targetUserData = userPropsUtilities.extractCellphone(body);
 
     await deleteBlacklistItem(currentUser, targetUserData);
 

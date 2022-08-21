@@ -13,7 +13,7 @@ const editContactCellphoneController = async (
       currentUser,
     } = req;
 
-    const targetCellphone = userPropsUtilities.makeCellphoneByObjectParam(body);
+    const targetCellphone = userPropsUtilities.extractCellphone(body);
 
     const editedValues = { firstName, lastName };
 

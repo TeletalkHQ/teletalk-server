@@ -63,7 +63,7 @@ describe("addContact failure tests", () => {
     await addContactRequest.sendRequest(contactItemExistTestUser);
   });
 
-  const contact = userPropsUtilities.makeTestContact();
+  const contact = userPropsUtilities.makeRandomContact();
   generalTest
     .createFailTest(addContactRequest)
     .authentication()

@@ -12,13 +12,14 @@ const {
 } = require("@/models/userModels/userModels");
 
 const { countries } = require("@/variables/others/countries");
+const { objectUtilities } = require("./ObjectUtilities");
 
 class UserPropsUtilities {
   constructor(id) {
     this.id = id;
   }
 
-  makeTestCellphone() {
+  makeRandomCellphone() {
     const country = countries[randomMaker.randomCountryCode()];
     const cellphone = this.makeCellphoneByParams(
       country.countryCode,
@@ -29,19 +30,19 @@ class UserPropsUtilities {
     return cellphone;
   }
 
-  makeUnusedTestCellphone() {
-    const cellphone = this.makeTestCellphone();
+  makeUnusedRandomCellphone() {
+    const cellphone = this.makeRandomCellphone();
 
     const isCellphoneUsedBefore =
       dataUsageManager.isCellphoneUsedBefore(cellphone);
 
     if (isCellphoneUsedBefore) {
-      this.makeUnusedTestCellphone();
+      this.makeUnusedRandomCellphone();
     } else return cellphone;
   }
 
-  makeUnusedTestCellphoneAndUpdateUsage() {
-    const unusedCellphone = this.makeUnusedTestCellphone();
+  makeUnusedRandomCellphoneAndUpdateUsage() {
+    const unusedCellphone = this.makeUnusedRandomCellphone();
 
     dataUsageManager.addUsedCellphone(unusedCellphone);
 
@@ -56,13 +57,13 @@ class UserPropsUtilities {
     };
   }
 
-  makeFullNumber(countryCode, phoneNumber) {
+  concatCountryCodeWithPhoneNumber(countryCode, phoneNumber) {
     return `+${countryCode}${phoneNumber}`;
   }
 
-  makeTestContact() {
+  makeRandomContact() {
     return {
-      ...this.makeTestCellphone(),
+      ...this.makeRandomCellphone(),
       firstName: randomMaker.randomString(firstNameModel.maxlength.value),
       lastName: randomMaker.randomString(lastNameModel.maxlength.value),
     };
@@ -76,34 +77,33 @@ class UserPropsUtilities {
     };
   }
 
-  makeFullNameByParam(firstName, lastName) {
+  makeFullNameByParams(firstName, lastName) {
     return { firstName, lastName };
   }
-  makeTestFullName() {
-    return this.makeFullNameByParam(
+  makeRandomFullName() {
+    return this.makeFullNameByParams(
       randomMaker.randomString(firstNameModel.maxlength.value),
       randomMaker.randomString(lastNameModel.maxlength.value)
     );
   }
 
-  //TODO Change make to extract
-  makeCellphoneByObjectParam(object = {}) {
+  extractCellphone(object = {}) {
     return {
       countryCode: object.countryCode,
       countryName: object.countryName,
       phoneNumber: object.phoneNumber,
     };
   }
-  makeContactObjectByParam(object = {}) {
+  extractContact(object = {}) {
     return {
-      ...this.makeCellphoneByObjectParam(object),
+      ...this.extractCellphone(object),
       firstName: object.firstName,
       lastName: object.lastName,
       privateId: object.privateId,
     };
   }
 
-  makeDefaultUserObjectByParam(userObject) {
+  extractDefaultUserData(userObject) {
     const {
       bio,
       blacklist,
@@ -119,7 +119,7 @@ class UserPropsUtilities {
       username,
     } = userObject;
 
-    return {
+    return objectUtilities.objectClarify({
       bio,
       blacklist,
       chats,
@@ -132,7 +132,7 @@ class UserPropsUtilities {
       privateId,
       tokens,
       username,
-    };
+    });
   }
 
   getTokenFromUserObjectByParam(userObject) {

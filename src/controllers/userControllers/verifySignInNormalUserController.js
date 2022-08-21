@@ -23,9 +23,7 @@ const verifySignInNormalUserController = async (
 
     await verificationCodeValidator(verificationCode);
 
-    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
-      authData.payload
-    );
+    const cellphone = userPropsUtilities.extractCellphone(authData.payload);
     const tempClient = await temporaryClients.findClient(cellphone);
     errorThrower(!tempClient, USER_NOT_EXIST);
 
@@ -35,7 +33,7 @@ const verifySignInNormalUserController = async (
 
     const foundUser = (await userFinder(cellphone)) || {};
     const { tokens, ...defaultUserObject } =
-      userPropsUtilities.makeDefaultUserObjectByParam(foundUser);
+      userPropsUtilities.extractDefaultUserData(foundUser);
 
     const isUserExist = defaultUserObject.privateId;
     const sendingDataOutputIndex = isUserExist ? 0 : 1;
@@ -44,7 +42,6 @@ const verifySignInNormalUserController = async (
         ? {
             ...defaultUserObject,
             mainToken: userPropsUtilities.getTokenFromUserObjectByParam({
-              ...defaultUserObject,
               tokens,
             }),
             newUser: false,

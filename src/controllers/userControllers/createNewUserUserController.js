@@ -54,7 +54,7 @@ const createNewUserUserController = async (
       }
     );
 
-    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
+    const cellphone = userPropsUtilities.extractCellphone(
       verifiedToken.payload
     );
     const client = await temporaryClients.findClient(cellphone);

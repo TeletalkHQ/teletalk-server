@@ -54,7 +54,7 @@ describe("verifySignInNormalApi success test", () => {
     expect(newUserVerifySignInResponse.body.user.newUser).equal(true);
 
     //* 5- Finalize new user sign in (save user in db) =>
-    const fullName = userPropsUtilities.makeTestFullName();
+    const fullName = userPropsUtilities.makeRandomFullName();
     await createNewUserRequest
       .setToken(newUserVerifyToken)
       .sendRequest(fullName);

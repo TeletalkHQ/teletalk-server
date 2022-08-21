@@ -11,9 +11,7 @@ const {
 
 const findCurrentUserFromDb = async (req, res, next) => {
   try {
-    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
-      req.authData.payload
-    );
+    const cellphone = userPropsUtilities.extractCellphone(req.authData.payload);
 
     const currentUser = await userFinder(cellphone, {});
 

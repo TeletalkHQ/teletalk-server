@@ -11,7 +11,7 @@ const addBlockCellphoneController = async (
   try {
     const { body, currentUser } = req;
 
-    const targetUser = userPropsUtilities.makeCellphoneByObjectParam(body);
+    const targetUser = userPropsUtilities.extractCellphone(body);
 
     await addCellphoneToUserBlacklist(currentUser, targetUser);
 

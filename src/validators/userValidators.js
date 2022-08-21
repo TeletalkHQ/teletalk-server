@@ -121,9 +121,7 @@ const compiledVerificationCodeValidator =
 
 const contactValidator = async (contact, returnCondition) => {
   try {
-    await cellphoneValidator(
-      userPropsUtilities.makeCellphoneByObjectParam(contact)
-    );
+    await cellphoneValidator(userPropsUtilities.extractCellphone(contact));
     await firstNameValidator(contact.firstName);
     await lastNameValidator(contact.lastName);
 

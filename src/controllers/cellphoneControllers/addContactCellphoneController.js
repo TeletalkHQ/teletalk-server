@@ -10,7 +10,7 @@ const addContactCellphoneController = async (
 ) => {
   try {
     const { body, currentUser } = req;
-    const targetUserData = userPropsUtilities.makeContactObjectByParam(body);
+    const targetUserData = userPropsUtilities.extractContact(body);
 
     const { targetUser } = await addContactToUserContacts(
       currentUser,

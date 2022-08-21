@@ -84,7 +84,7 @@ describe("edit contact success tests", () => {
 });
 
 describe("editContact failure tests", () => {
-  const contact = userPropsUtilities.makeTestContact();
+  const contact = userPropsUtilities.makeRandomContact();
   generalTest
     .createFailTest(editContactRequest)
     .authentication()

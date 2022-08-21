@@ -1,130 +1,162 @@
 const { errorBuilder } = require("@/classes/Builders");
 
 const {
-  versionCalculator,
   extractVersions,
+  versionCalculator,
 } = require("@/functions/utilities/utils");
 
 const {
+  EXTERNAL_APP_ERROR,
   INPUT_OUTPUT_FIELDS,
   INTERNAL_SERVER_ERROR,
   UNKNOWN_ROUTE,
-  EXTERNAL_APP_ERROR,
 } = {
+  EXTERNAL_APP_ERROR: "EXTERNAL_APP_ERROR",
   INPUT_OUTPUT_FIELDS: "INPUT_OUTPUT_FIELDS",
   INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",
-  EXTERNAL_APP_ERROR: "EXTERNAL_APP_ERROR",
   UNKNOWN_ROUTE: "UNKNOWN_ROUTE",
 };
 
 const NO_ROUTE_OBJECT = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(500)
-  .message("Internal server error")
-  .errorReason("NO_ROUTE_OBJECT")
-  .version("1.0.0")
   .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason("NO_ROUTE_OBJECT")
+  .message("Internal server error")
+  .statusCode(500)
+  .version("1.0.0")
   .build();
 
 const ROUTE_NOT_FOUND = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(404)
-  .message("Route not found")
-  .errorReason("ROUTE_NOT_FOUND")
-  .version("1.0.0")
   .errorKey(UNKNOWN_ROUTE)
+  .errorReason("ROUTE_NOT_FOUND")
+  .message("Route not found")
+  .statusCode(404)
+  .version("1.0.0")
   .build();
 
 const INPUT_FIELDS_MISSING = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(400)
-  .message("Internal server error")
-  .errorReason("INPUT_FIELDS_MISSING")
-  .version("1.0.0")
   .errorKey(INPUT_OUTPUT_FIELDS)
+  .errorReason("INPUT_FIELDS_MISSING")
+  .message("Internal server error")
+  .statusCode(400)
+  .version("1.0.0")
   .build();
 
 const INPUT_FIELDS_OVERLOAD = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(400)
-  .message("Internal server error")
-  .errorReason("INPUT_FIELDS_OVERLOAD")
-  .version("1.0.0")
   .errorKey(INPUT_OUTPUT_FIELDS)
+  .errorReason("INPUT_FIELDS_OVERLOAD")
+  .message("Internal server error")
+  .statusCode(400)
+  .version("1.0.0")
   .build();
 
 const METHOD_NOT_ALLOWED = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(405)
-  .message("External app error")
-  .errorReason("METHOD_NOT_ALLOWED")
-  .version("1.0.0")
   .errorKey(EXTERNAL_APP_ERROR)
+  .errorReason("METHOD_NOT_ALLOWED")
+  .message("External app error")
+  .statusCode(405)
+  .version("1.0.0")
   .build();
 
 const OUTPUT_FIELDS_MISSING = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(500)
-  .message("Internal server error")
-  .errorReason("OUTPUT_FIELDS_MISSING")
-  .version("1.0.0")
   .errorKey(INPUT_OUTPUT_FIELDS)
+  .errorReason("OUTPUT_FIELDS_MISSING")
+  .message("Internal server error")
+  .statusCode(500)
+  .version("1.0.0")
   .build();
 
 const OUTPUT_FIELDS_OVERLOAD = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(500)
-  .message("Internal server error")
-  .errorReason("OUTPUT_FIELDS_OVERLOAD")
-  .version("1.0.0")
   .errorKey(INPUT_OUTPUT_FIELDS)
+  .errorReason("OUTPUT_FIELDS_OVERLOAD")
+  .message("Internal server error")
+  .statusCode(500)
+  .version("1.0.0")
   .build();
 
 const REQUEST_BODY_IS_UNDEFINED = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(500)
-  .message("sendJsonResponse is not a function")
-  .errorReason("REQUEST_BODY_IS_UNDEFINED")
-  .version("1.0.0")
   .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason("REQUEST_BODY_IS_UNDEFINED")
+  .message("sendJsonResponse is not a function")
+  .statusCode(500)
+  .version("1.0.0")
+  .build();
+
+const REQUIRED_FIELDS_NOT_DEFINED = errorBuilder
+  .create()
+  .errorCode(5000)
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason("REQUIRED_FIELDS_NOT_DEFINED")
+  .message(
+    "Required fields is not denied, If you want to check io fields you need to provide required fields."
+  )
+  .statusCode(500)
+  .version("1.0.0")
+  .build();
+
+const REQUIRED_IO_FIELD_IS_NOT_OBJECT = errorBuilder
+  .create()
+  .errorCode(5000)
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason("REQUIRED_IO_FIELD_IS_NOT_OBJECT")
+  .message("Required field is not object")
+  .statusCode(500)
+  .version("1.0.0")
+  .build("REQUIRED_IO_FIELD_IS_NOT_OBJECT");
+
+const REQUIRED_IO_FIELD_IS_NOT_ARRAY = errorBuilder
+  .create()
+  .errorCode(5000)
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason("REQUIRED_IO_FIELD_IS_NOT_ARRAY")
+  .message("Required field is not array")
+  .statusCode(500)
+  .version("1.0.0")
   .build();
 
 const SEND_JSON_RESPONSE_IS_NOT_FUNCTION = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(500)
-  .message("sendJsonResponse is not a function")
-  .errorReason("SEND_JSON_RESPONSE_IS_NOT_FUNCTION")
-  .version("1.0.0")
   .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason("SEND_JSON_RESPONSE_IS_NOT_FUNCTION")
+  .message("sendJsonResponse is not a function")
+  .statusCode(500)
+  .version("1.0.0")
   .build();
 
 const SEND_SMS_FAILED = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(500)
-  .message("send sms failed")
-  .errorReason("SEND_SMS_FAILED")
-  .version("1.0.0")
   .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason("SEND_SMS_FAILED")
+  .message("send sms failed")
+  .statusCode(500)
+  .version("1.0.0")
   .build();
 
 const UNKNOWN_ERROR = errorBuilder
   .create()
   .errorCode(5000)
-  .statusCode(500)
-  .message("Unknown error occurred, Call your service")
-  .errorReason("UNKNOWN_ERROR")
-  .version("1.0.0")
   .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason("UNKNOWN_ERROR")
+  .message("Unknown error occurred, Call your service")
+  .statusCode(500)
+  .version("1.0.0")
   .build();
 
 const errors = {
@@ -135,6 +167,9 @@ const errors = {
   OUTPUT_FIELDS_MISSING,
   OUTPUT_FIELDS_OVERLOAD,
   REQUEST_BODY_IS_UNDEFINED,
+  REQUIRED_FIELDS_NOT_DEFINED,
+  REQUIRED_IO_FIELD_IS_NOT_ARRAY,
+  REQUIRED_IO_FIELD_IS_NOT_OBJECT,
   ROUTE_NOT_FOUND,
   SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
   SEND_SMS_FAILED,

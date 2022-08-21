@@ -1,41 +1,53 @@
 const { customTypeof } = require("@/classes/CustomTypeof");
+const { objectUtilities } = require("@/classes/ObjectUtilities");
 
-const { getObjectLength } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
+
+const { appErrors } = require("@/variables/errors/appErrors");
+
+const {
+  REQUIRED_FIELDS_NOT_DEFINED,
+  REQUIRED_IO_FIELD_IS_NOT_ARRAY,
+  REQUIRED_IO_FIELD_IS_NOT_OBJECT,
+} = appErrors;
+
+const ioFieldsCheckerDefaultOptions = {
+  requiredFieldsIndex: 0,
+  missingFieldsError: {},
+  overloadFieldsError: {},
+};
 
 const ioFieldsChecker = (
-  input,
-  fields,
-  options = {
-    fieldsIndex: 0,
-    missingFieldsError: {},
-    overloadFieldsError: {},
-  }
+  ioData,
+  requiredFields,
+  options = ioFieldsCheckerDefaultOptions
 ) => {
   const {
-    fieldsIndex = 0,
+    requiredFieldsIndex = 0,
     missingFieldsError,
     overloadFieldsError,
   } = {
-    fieldsIndex: 0,
+    ...ioFieldsCheckerDefaultOptions,
     ...options,
   };
 
   try {
-    const selectedFields = fields[fieldsIndex];
+    const selectedRequiredFields = getSelectedRequiredFields(
+      requiredFields,
+      requiredFieldsIndex
+    );
 
-    if (customTypeof.check(selectedFields).type.undefined) {
-      const internalError = {
-        internalError: true,
-        errorObject: {},
-      };
-      throw internalError;
-    }
+    throwErrorIfSelectedRequiredFieldsIsNotDefined(selectedRequiredFields);
 
-    checkFields(input, selectedFields, missingFieldsError, overloadFieldsError);
+    checkFields(
+      ioData,
+      selectedRequiredFields,
+      missingFieldsError,
+      overloadFieldsError
+    );
 
     return { done: true };
   } catch (error) {
-    logger.log("ioFieldsChecker catch, error:", error);
     return {
       done: false,
       errorObject: error,
@@ -43,71 +55,154 @@ const ioFieldsChecker = (
   }
 };
 
+const getSelectedRequiredFields = (requiredFields, index) =>
+  requiredFields[index];
+
+const throwErrorIfSelectedRequiredFieldsIsNotDefined = (
+  selectedRequiredFields
+) => {
+  errorThrower(
+    customTypeof.check(selectedRequiredFields).type.undefined,
+    REQUIRED_FIELDS_NOT_DEFINED
+  );
+};
+
 const checkFields = (
   ioData,
-  fields,
+  requiredFields,
   missingFieldsError,
   overloadFieldsError
 ) => {
-  const ioFieldsLength = getObjectLength(ioData);
-  const fieldsLength = getObjectLength(fields);
+  const filteredOptionalFieldsFromRequiredFields =
+    filterOptionalFields(requiredFields);
 
-  if (ioFieldsLength !== fieldsLength) {
-    if (ioFieldsLength < fieldsLength) {
-      throw missingFieldsError;
-    } else {
-      // logger.log(
-      //   "ioData:",
-      //   ioData,
-      //   "\nfields:",
-      //   fields,
+  logger.log(
+    "rm",
+    "filteredOptionalFieldsFromRequiredFields",
+    filteredOptionalFieldsFromRequiredFields
+  );
 
-      //   "ioFieldsLength:",
-      //   ioFieldsLength,
-      //   "fieldsLength:",
-      //   fieldsLength
-      // );
-      throw overloadFieldsError;
-    }
-  }
+  throwErrorByIoDataAndRequiredFieldsLengthComparison(
+    ioData,
+    filteredOptionalFieldsFromRequiredFields,
+    missingFieldsError,
+    overloadFieldsError
+  );
 
-  for (const key in fields) {
-    const ioProp = ioData[key];
-    const fieldProp = fields[key];
+  for (const key in requiredFields) {
+    const ioField = ioData[key];
+    const requiredField = requiredFields[key];
 
-    //* If true fieldProp is optional field
-    if (fieldProp && customTypeof.check(fieldProp).type.boolean) continue;
+    if (checkIfIsRequiredFieldOptional(requiredField)) continue;
 
-    if (customTypeof.check(ioProp).type.undefined) throw missingFieldsError;
+    throwErrorIfIoFieldIsUndefined(ioField, missingFieldsError);
 
-    if (customTypeof.check(fieldProp).type.object) {
-      if (!customTypeof.check(ioProp).type.object) {
-        throw missingFieldsError;
-      }
+    if (customTypeof.check(requiredField).type.object) {
+      throwErrorIfIoFieldIsNotObject(ioField);
 
-      checkFields(ioProp, fieldProp, missingFieldsError, overloadFieldsError);
-    }
+      checkObjectFields(
+        ioField,
+        requiredField,
+        missingFieldsError,
+        overloadFieldsError
+      );
+    } else if (customTypeof.check(requiredField).type.array) {
+      throwErrorIfIoFieldIsNotArray(ioField);
 
-    if (customTypeof.check(fieldProp).type.array) {
-      if (!customTypeof.check(ioProp).type.array) {
-        throw missingFieldsError;
-      }
-
-      ioProp.forEach((item) => {
-        checkFields(
-          item,
-          fieldProp[0],
-          missingFieldsError,
-          overloadFieldsError
-        );
-      });
+      checkArrayFields(
+        ioField,
+        requiredField,
+        missingFieldsError,
+        overloadFieldsError
+      );
     }
   }
 
   return { done: true };
 };
 
-module.exports = {
-  ioFieldsChecker,
-  checkFields,
+const checkObjectFields = (
+  ioField,
+  requiredField,
+  missingFieldsError,
+  overloadFieldsError
+) => {
+  checkFields(ioField, requiredField, missingFieldsError, overloadFieldsError);
 };
+
+const checkArrayFields = (
+  ioField,
+  requiredField,
+  missingFieldsError,
+  overloadFieldsError
+) => {
+  ioField.forEach((item) => {
+    checkFields(
+      item,
+      requiredField[0],
+      missingFieldsError,
+      overloadFieldsError
+    );
+  });
+};
+
+const filterOptionalFields = (object) => {
+  const tempObject = { ...object };
+
+  for (const key in tempObject) {
+    const value = tempObject[key];
+    if (customTypeof.check(value).type.boolean && value) {
+      delete tempObject[key];
+    }
+  }
+
+  return tempObject;
+};
+
+const throwErrorByIoDataAndRequiredFieldsLengthComparison = (
+  ioData,
+  requiredFields,
+  missingFieldsError,
+  overloadFieldsError
+) => {
+  const ioFieldsLength = objectUtilities.objectKeysLength(ioData);
+  const fieldsLength = objectUtilities.objectKeysLength(requiredFields);
+
+  logger.log(
+    "rm",
+    "ioFieldsLength !== fieldsLength",
+    ioFieldsLength !== fieldsLength,
+    ioFieldsLength,
+    fieldsLength,
+    ioData,
+    requiredFields
+  );
+  if (ioFieldsLength !== fieldsLength) {
+    errorThrower(ioFieldsLength < fieldsLength, missingFieldsError);
+
+    throw overloadFieldsError;
+  }
+};
+
+const checkIfIsRequiredFieldOptional = (requiredField) => {
+  return customTypeof.check(requiredField).type.boolean && !!requiredField;
+};
+
+const throwErrorIfIoFieldIsUndefined = (ioField, missingFieldsError) => {
+  errorThrower(customTypeof.check(ioField).type.undefined, missingFieldsError);
+};
+
+const throwErrorIfIoFieldIsNotObject = (ioField) => {
+  errorThrower(
+    !customTypeof.check(ioField).type.object,
+    REQUIRED_IO_FIELD_IS_NOT_OBJECT
+  );
+};
+const throwErrorIfIoFieldIsNotArray = (ioField) => {
+  errorThrower(
+    !customTypeof.check(ioField).type.array,
+    REQUIRED_IO_FIELD_IS_NOT_ARRAY
+  );
+};
+
+module.exports = { ioFieldsChecker };

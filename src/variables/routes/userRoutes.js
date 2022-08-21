@@ -36,7 +36,6 @@ const userDataProps = {
   firstName,
   lastName,
   mainToken,
-  newUser,
   phoneNumber,
   privateId,
   username,
@@ -114,7 +113,11 @@ const statusCheckRoute = userRouteBuilder
   .version("1.0.0")
   .description("Use for check client availability as a normal account")
   .inputFields([{}])
-  .outputFields([{}])
+  .outputFields([
+    {
+      [user]: { ...userDataProps, bio: true, username: true },
+    },
+  ])
   .build();
 
 const getUserDataRoute = userRouteBuilder
@@ -150,7 +153,7 @@ const verifySignInNormalRoute = userRouteBuilder
   ])
   .outputFields([
     {
-      [user]: { ...userDataProps, bio: true, username: true },
+      [user]: { ...userDataProps, bio: true, username: true, newUser },
     },
     { [user]: { [newUser]: newUser } },
   ])

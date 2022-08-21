@@ -1,15 +1,11 @@
-//REFACTOR statusCheckUserController
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { authManager } = require("@/classes/AuthManager");
 
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
-const { cellphoneValidator } = require("@/validators/userValidators");
-
 const {
-  userErrors: { TOKEN_REQUIRED, USER_NOT_EXIST },
+  userErrors: { USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const statusCheckUserController = async (
@@ -17,21 +13,26 @@ const statusCheckUserController = async (
   res = expressResponse
 ) => {
   try {
-    const mainToken = authManager.getTokenFromRequest(req);
-    errorThrower(!mainToken, TOKEN_REQUIRED);
+    const { authData } = req;
 
-    const tokenData = authManager.tokenVerifier(mainToken).data;
+    const cellphone = userPropsUtilities.extractCellphone(authData.payload);
 
-    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(
-      tokenData.payload
+    const foundUser = await userFinder(cellphone);
+    errorThrower(!foundUser, () =>
+      getErrorObject(USER_NOT_EXIST, { cellphone })
     );
 
-    await cellphoneValidator(cellphone);
+    const { tokens, ...defaultUserObject } =
+      userPropsUtilities.extractDefaultUserData(foundUser);
 
-    const user = await userFinder(cellphone);
-    errorThrower(!user, USER_NOT_EXIST);
-
-    res.status(200).json({ user });
+    res.checkDataAndResponse({
+      user: {
+        ...defaultUserObject,
+        mainToken: userPropsUtilities.getTokenFromUserObjectByParam({
+          tokens,
+        }),
+      },
+    });
   } catch (error) {
     logger.log("statusCheckUserController catch, error:", error);
     res.errorCollector(error);

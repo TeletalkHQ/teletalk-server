@@ -34,22 +34,17 @@ const {
   },
 } = require("@/variables/routes/userRoutes");
 
+const {
+  applyMiddlewaresByUrlMiddleware,
+} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
+
 const userRouter = Router();
 
-userRouter.use(signInNormalRoute.url, cellphoneValidatorMiddleware);
-
-userRouter[signInNormalRoute.method](
-  signInNormalRoute.url,
-  signInNormalUserController
-);
-userRouter[verifySignInNormalRoute.method](
-  verifySignInNormalRoute.url,
-  verifySignInNormalUserController
-);
-
-userRouter[statusCheckRoute.method](
-  statusCheckRoute.url,
-  statusCheckUserController
+userRouter.use(
+  applyMiddlewaresByUrlMiddleware(
+    [signInNormalRoute.url],
+    cellphoneValidatorMiddleware
+  )
 );
 
 userRouter[createNewUserRoute.method](
@@ -65,6 +60,21 @@ userRouter[logoutNormalRoute.method](
 userRouter[getUserDataRoute.method](
   getUserDataRoute.url,
   getUserDataUserController
+);
+
+userRouter[signInNormalRoute.method](
+  signInNormalRoute.url,
+  signInNormalUserController
+);
+
+userRouter[statusCheckRoute.method](
+  statusCheckRoute.url,
+  statusCheckUserController
+);
+
+userRouter[verifySignInNormalRoute.method](
+  verifySignInNormalRoute.url,
+  verifySignInNormalUserController
 );
 
 module.exports = { userRouter };

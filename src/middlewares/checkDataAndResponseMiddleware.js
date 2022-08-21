@@ -2,16 +2,16 @@ const { customTypeof } = require("@/classes/CustomTypeof");
 
 const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 const {
+  crashServerWithCondition,
   errorThrower,
   getErrorObject,
-  crashServerWithCondition,
 } = require("@/functions/utilities/utils");
 
 const {
   appErrors: {
-    SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
     OUTPUT_FIELDS_MISSING,
     OUTPUT_FIELDS_OVERLOAD,
+    SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
   },
 } = require("@/variables/errors/appErrors");
 
@@ -22,14 +22,14 @@ const checkAndResponseMiddleware = (req, res, next) => {
       SEND_JSON_RESPONSE_IS_NOT_FUNCTION
     );
 
-    res.checkDataAndResponse = (data, outputIndex) => {
+    res.checkDataAndResponse = (data, requiredFieldsIndex) => {
       try {
         const {
           routeObject: { outputFields },
         } = req;
 
         const checkResult = ioFieldsChecker(data, outputFields, {
-          fieldsIndex: outputIndex,
+          requiredFieldsIndex,
           missingFieldsError: OUTPUT_FIELDS_MISSING,
           overloadFieldsError: OUTPUT_FIELDS_OVERLOAD,
         });
@@ -50,7 +50,6 @@ const checkAndResponseMiddleware = (req, res, next) => {
           })
         );
 
-        // logger.log("response body: ", data);
         res.sendJsonResponse(data);
       } catch (error) {
         logger.log("checkDataAndResponse catch, error:", error);

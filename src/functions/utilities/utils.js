@@ -152,6 +152,10 @@ const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
   return routeObjects;
 };
 
+const printCatchError = (functionName, error) => {
+  logger.log(`${functionName} catch, error: ${error}`);
+};
+
 module.exports = {
   addFullUrlToRouteObjects,
   concatBaseUrlWithUrl,
@@ -169,6 +173,7 @@ module.exports = {
   isUrlMatchWithReqUrl,
   objectClarify,
   objectInitializer,
+  printCatchError,
   skipParams,
   versionCalculator,
 };

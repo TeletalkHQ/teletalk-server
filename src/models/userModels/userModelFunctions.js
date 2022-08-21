@@ -51,8 +51,7 @@ const addCellphoneToUserBlacklist = async (
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData: cellphone })
     );
 
-    const blacklistItem =
-      userPropsUtilities.makeCellphoneByObjectParam(cellphone);
+    const blacklistItem = userPropsUtilities.extractCellphone(cellphone);
 
     currentUser.blacklist.push(blacklistItem);
     await currentUser.updateOne({
@@ -78,14 +77,14 @@ const addContactToUserContacts = async (
     );
 
     const targetUser = await userFinder(
-      userPropsUtilities.makeCellphoneByObjectParam(targetUserData)
+      userPropsUtilities.extractCellphone(targetUserData)
     );
     errorThrower(customTypeof.check(targetUser).type.null, () =>
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
     );
 
     currentUser.contacts.push(
-      userPropsUtilities.makeContactObjectByParam({
+      userPropsUtilities.extractContact({
         ...targetUserData,
         privateId: targetUser.privateId,
       })
@@ -113,7 +112,7 @@ const updateOneContact = async (
     errorThrower(!contactItem, () => getErrorObject(CONTACT_ITEM_NOT_EXIST));
 
     currentUser.contacts.splice(cellphoneIndex, 1, {
-      ...userPropsUtilities.makeContactObjectByParam(targetCellphone),
+      ...userPropsUtilities.extractContact(targetCellphone),
       firstName: editedValues.firstName,
       lastName: editedValues.lastName,
     });

@@ -16,7 +16,7 @@ const signInNormalUserController = async (
   res = expressResponse
 ) => {
   try {
-    const cellphone = userPropsUtilities.makeCellphoneByObjectParam(req.body);
+    const cellphone = userPropsUtilities.extractCellphone(req.body);
 
     const verificationCode = passwordGenerator();
 
@@ -33,7 +33,7 @@ const signInNormalUserController = async (
         .smsTemplates()
         .sendVerificationCode(verificationCode, host);
 
-      const sendTo = userPropsUtilities.makeFullNumber(
+      const sendTo = userPropsUtilities.concatCountryCodeWithPhoneNumber(
         cellphone.countryCode,
         cellphone.phoneNumber
       );

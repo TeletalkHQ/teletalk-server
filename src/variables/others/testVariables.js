@@ -59,13 +59,14 @@ const makeRequester = (routeObject) =>
 const testVariables = {
   cellphones: {
     createNewUserSignInCellphone:
-      userPropsUtilities.makeUnusedTestCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
     notExistedContact,
-    signInCellphone: userPropsUtilities.makeUnusedTestCellphoneAndUpdateUsage(),
+    signInCellphone:
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
     verifySignInFailTestCellphone:
-      userPropsUtilities.makeUnusedTestCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
     verifySignInNewUserCellphone:
-      userPropsUtilities.makeUnusedTestCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
   },
   testUsers: {
     addBlockSuccessfulTestUser: testUser_6,

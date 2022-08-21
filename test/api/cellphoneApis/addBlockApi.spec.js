@@ -44,7 +44,7 @@ describe("addBlock failure tests", () => {
     await addBlockRequest.sendRequest(blacklistItemExistTestUser);
   });
 
-  const cellphone = userPropsUtilities.makeTestCellphone();
+  const cellphone = userPropsUtilities.makeRandomCellphone();
   generalTest
     .createFailTest(addBlockRequest)
     .authentication()

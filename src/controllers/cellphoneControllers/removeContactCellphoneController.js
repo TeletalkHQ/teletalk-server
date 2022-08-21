@@ -9,7 +9,7 @@ const removeContactCellphoneController = async (
   try {
     const { currentUser, body } = req;
 
-    const targetUserData = userPropsUtilities.makeCellphoneByObjectParam(body);
+    const targetUserData = userPropsUtilities.extractCellphone(body);
 
     await removeContactItem(currentUser, targetUserData);
 

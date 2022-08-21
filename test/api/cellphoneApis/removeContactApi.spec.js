@@ -39,7 +39,7 @@ describe("removeContact successful test", () => {
 });
 
 describe("removeContact failure tests", () => {
-  const cellphone = userPropsUtilities.makeTestCellphone();
+  const cellphone = userPropsUtilities.makeRandomCellphone();
   generalTest
     .createFailTest(removeContactRequest)
     .authentication()

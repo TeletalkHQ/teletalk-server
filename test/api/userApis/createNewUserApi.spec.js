@@ -15,7 +15,7 @@ const {
   },
 } = require("@/variables/others/testVariables");
 
-const fullName = userPropsUtilities.makeTestFullName();
+const fullName = userPropsUtilities.makeRandomFullName();
 
 describe("success create new normal user", () => {
   it("should create new user in db", async () => {

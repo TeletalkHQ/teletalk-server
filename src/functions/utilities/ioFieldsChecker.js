@@ -76,12 +76,6 @@ const checkFields = (
   const filteredOptionalFieldsFromRequiredFields =
     filterOptionalFields(requiredFields);
 
-  logger.log(
-    "rm",
-    "filteredOptionalFieldsFromRequiredFields",
-    filteredOptionalFieldsFromRequiredFields
-  );
-
   throwErrorByIoDataAndRequiredFieldsLengthComparison(
     ioData,
     filteredOptionalFieldsFromRequiredFields,
@@ -168,15 +162,6 @@ const throwErrorByIoDataAndRequiredFieldsLengthComparison = (
   const ioFieldsLength = objectUtilities.objectKeysLength(ioData);
   const fieldsLength = objectUtilities.objectKeysLength(requiredFields);
 
-  logger.log(
-    "rm",
-    "ioFieldsLength !== fieldsLength",
-    ioFieldsLength !== fieldsLength,
-    ioFieldsLength,
-    fieldsLength,
-    ioData,
-    requiredFields
-  );
   if (ioFieldsLength !== fieldsLength) {
     errorThrower(ioFieldsLength < fieldsLength, missingFieldsError);
 

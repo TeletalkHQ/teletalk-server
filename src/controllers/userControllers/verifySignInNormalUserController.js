@@ -25,7 +25,7 @@ const verifySignInNormalUserController = async (
 
     const cellphone = userPropsUtilities.extractCellphone(authData.payload);
     const tempClient = await temporaryClients.findClient(cellphone);
-    errorThrower(!tempClient, USER_NOT_EXIST);
+    errorThrower(!tempClient, () => getErrorObject(USER_NOT_EXIST));
 
     errorThrower(tempClient?.verificationCode !== verificationCode, () =>
       getErrorObject(VERIFICATION_CODE_INVALID)

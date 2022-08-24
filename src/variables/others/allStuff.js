@@ -17,9 +17,6 @@ const {
 } = require("@/variables/routes/versionControlRoutes");
 const { appErrors } = require("@/variables/errors/appErrors");
 const { chatErrors } = require("@/variables/errors/chatErrors");
-const {
-  errorMessages: enErrorMessages,
-} = require("@/translate/en/messages/errorMessages");
 const { userErrors } = require("@/variables/errors/userErrors");
 
 const routes = {
@@ -47,13 +44,8 @@ const errors = {
   ...userErrors,
 };
 
-const languages = {
-  en: { errorMessages: enErrorMessages },
-};
-
 const allStuff = {
   errors,
-  languages,
   models,
   routes,
   validationModels,

@@ -15,9 +15,12 @@ const { userRoutes } = require("@/variables/routes/userRoutes");
 const {
   versionControlRoutes,
 } = require("@/variables/routes/versionControlRoutes");
-const { userErrors } = require("@/variables/errors/userErrors");
-const { chatErrors } = require("@/variables/errors/chatErrors");
 const { appErrors } = require("@/variables/errors/appErrors");
+const { chatErrors } = require("@/variables/errors/chatErrors");
+const {
+  errorMessages: enErrorMessages,
+} = require("@/translate/en/messages/errorMessages");
+const { userErrors } = require("@/variables/errors/userErrors");
 
 const routes = {
   ...cellphoneRoutes,
@@ -39,21 +42,26 @@ const validationModels = {
 };
 
 const errors = {
+  ...appErrors,
   ...chatErrors,
   ...userErrors,
-  ...appErrors,
+};
+
+const languages = {
+  en: { errorMessages: enErrorMessages },
 };
 
 const allStuff = {
-  models,
   errors,
+  languages,
+  models,
   routes,
   validationModels,
 };
 
 module.exports = {
   allStuff,
-  models,
   errors,
+  models,
   routes,
 };

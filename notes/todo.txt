@@ -28,3 +28,4 @@ Add exclude props to utils (like version)
 Fix public assets sharing
 Add getContacts tests
 Separate builders
+Add TranslateManager class

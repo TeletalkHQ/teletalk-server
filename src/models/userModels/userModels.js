@@ -63,6 +63,7 @@ const {
     VERIFICATION_CODE_INVALID_LENGTH,
     VERIFICATION_CODE_INVALID_TYPE,
     VERIFICATION_CODE_NUMERIC,
+    VERIFICATION_CODE_MAXLENGTH_REACH,
   },
 } = require("@/variables/errors/userErrors");
 
@@ -199,6 +200,7 @@ const verificationCodeModel = modelBuilder
   .create()
   .empty(false, VERIFICATION_CODE_EMPTY)
   .length(6, VERIFICATION_CODE_INVALID_LENGTH)
+  .maxlength(6, VERIFICATION_CODE_MAXLENGTH_REACH)
   .numeric(true, VERIFICATION_CODE_NUMERIC)
   .trim(true)
   .type("string", VERIFICATION_CODE_INVALID_TYPE)

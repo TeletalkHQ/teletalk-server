@@ -814,6 +814,16 @@ const VERIFICATION_CODE_INVALID_LENGTH = errorBuilder
   .version("1.0.0")
   .errorKey(VERIFICATION_CODE_VALIDATION)
   .build();
+
+const VERIFICATION_CODE_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4077)
+  .statusCode(400)
+  .errorReason(errorUniqueIds.VERIFICATION_CODE_MAXLENGTH_REACH)
+  .version("1.0.0")
+  .errorKey(VERIFICATION_CODE_VALIDATION)
+  .build();
+
 const errors = {
   BIO_EMPTY,
   BIO_INVALID_TYPE,
@@ -902,6 +912,7 @@ const errors = {
   VERIFICATION_CODE_INVALID_TYPE,
   VERIFICATION_CODE_NUMERIC,
   VERIFICATION_CODE_REQUIRED,
+  VERIFICATION_CODE_MAXLENGTH_REACH,
 };
 
 const userErrors = {

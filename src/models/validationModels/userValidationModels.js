@@ -141,6 +141,7 @@ const verificationCodeValidationModel = {
     .setModelObject(verificationCodeModel)
     .empty()
     .length()
+    .max()
     .numeric()
     .trim()
     .type()

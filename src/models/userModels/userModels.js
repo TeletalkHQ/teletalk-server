@@ -98,7 +98,7 @@ const contactsModel = modelBuilder
 const countryCodeModel = modelBuilder
   .create()
   .empty(false, COUNTRY_CODE_EMPTY)
-  .maxlength(8, COUNTRY_CODE_MAXLENGTH_REACH)
+  .maxlength(4, COUNTRY_CODE_MAXLENGTH_REACH)
   .minlength(2, COUNTRY_CODE_MINLENGTH_REACH)
   //FIXME Fix me! i should be '1'!
   .numeric(true, COUNTRY_CODE_NUMERIC)

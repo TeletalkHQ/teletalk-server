@@ -95,4 +95,5 @@ describe("failure tests for create new normal user", () => {
     .authentication()
     .firstName(fullName)
     .lastName(fullName);
+  //TODO Add lastName req fail test
 });

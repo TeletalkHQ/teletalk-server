@@ -6,9 +6,8 @@ const { randomMaker } = require("@/classes/RandomMaker");
 const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
 
 const {
-  userFinder,
   createNewNormalUser,
-  updateUserDataByPrivateId,
+  userFinder,
 } = require("@/models/userModels/userModelFunctions");
 const {
   commonModels: { privateIdCommonModel },
@@ -40,7 +39,9 @@ const createNewUserUserController = async (
       authManager.getJwtSignInSecret()
     );
 
-    errorThrower(verifiedToken.done === false, verifiedToken.error);
+    errorThrower(verifiedToken.done === false, () =>
+      getErrorObject(verifiedToken.error)
+    );
 
     const validatedFirstName = await firstNameValidator(firstName);
     const validatedLastName = await lastNameValidator(lastName);
@@ -58,27 +59,12 @@ const createNewUserUserController = async (
       verifiedToken.payload
     );
     const client = await temporaryClients.findClient(cellphone);
-    errorThrower(!client, USER_NOT_EXIST);
+    errorThrower(!client, () => getErrorObject(USER_NOT_EXIST, cellphone));
 
     const user = await userFinder(cellphone);
 
     if (user) {
-      await updateUserDataByPrivateId({
-        tokens: user.token,
-        firstName,
-        lastName,
-        privateId: user.privateId,
-      });
-
-      res.checkDataAndResponse({
-        user: {
-          ...cellphone,
-          firstName,
-          lastName,
-          privateId: user.privateId,
-          mainToken: userPropsUtilities.getTokenFromUserObjectByParam(user),
-        },
-      });
+      //TODO Add userExist error/tests
     } else if (!user) {
       const privateId = randomMaker.randomId(
         privateIdCommonModel.maxlength.value
@@ -94,7 +80,7 @@ const createNewUserUserController = async (
         firstName,
         lastName,
         privateId,
-        tokens: [{ mainToken: mainToken }],
+        tokens: [{ mainToken }],
       };
 
       await createNewNormalUser(userData);

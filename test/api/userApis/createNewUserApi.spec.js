@@ -17,6 +17,8 @@ const {
 
 const fullName = userPropsUtilities.makeRandomFullName();
 
+//TODO Add USER_EXIST fail tests
+
 describe("success create new normal user", () => {
   it("should create new user in db", async () => {
     const {
@@ -57,18 +59,19 @@ describe("success create new normal user", () => {
       .setToken(newUserVerifyToken)
       .sendRequest(fullName);
 
-    const gt = generalTest.createSuccessTest(createNewUserRequest);
+    const successTests = generalTest.createSuccessTest(createNewUserRequest);
 
     const JWT_MAIN_SECRET = authManager.getJwtMainSecret();
-    await gt.token({
+    await successTests.token({
       tokenTest: mainToken,
       secret: JWT_MAIN_SECRET,
     });
 
-    gt.countryCode({
-      countryCodeTest: countryCode,
-      countryCodeMain: createNewUserSignInCellphone.countryCode,
-    })
+    successTests
+      .countryCode({
+        countryCodeTest: countryCode,
+        countryCodeMain: createNewUserSignInCellphone.countryCode,
+      })
       .countryName({
         countryNameTest: countryName,
         countryNameMain: createNewUserSignInCellphone.countryName,

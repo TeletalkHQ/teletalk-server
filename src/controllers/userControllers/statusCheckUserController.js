@@ -23,7 +23,7 @@ const statusCheckUserController = async (
     );
 
     const { tokens, ...defaultUserObject } =
-      userPropsUtilities.extractDefaultUserData(foundUser);
+      userPropsUtilities.extractUserData(foundUser);
 
     res.checkDataAndResponse({
       user: {

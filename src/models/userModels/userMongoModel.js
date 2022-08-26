@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const { mongoModelBuilder } = require("@/classes/Builders");
 
 const { uniqueValidator } = require("@/configs/mongoosePlugins");
+
 const { excludeVersions } = require("@/functions/utilities/utils");
 
 const {
@@ -19,9 +20,9 @@ const {
 
 const {
   commonModels: {
-    privateIdCommonModel,
     chatIdCommonModel,
     messageIdCommonModel,
+    privateIdCommonModel,
   },
 } = require("@/models/commonModels/commonModels");
 
@@ -144,6 +145,7 @@ const {
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
+console.log("bio model", bio);
 const UserSchema = new mongoose.Schema({
   bio,
   blacklist: [

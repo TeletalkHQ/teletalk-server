@@ -33,7 +33,7 @@ const verifySignInNormalUserController = async (
 
     const foundUser = (await userFinder(cellphone)) || {};
     const { tokens, ...defaultUserObject } =
-      userPropsUtilities.extractDefaultUserData(foundUser);
+      userPropsUtilities.extractUserData(foundUser);
 
     const isUserExist = defaultUserObject.privateId;
     const sendingDataOutputIndex = isUserExist ? 0 : 1;

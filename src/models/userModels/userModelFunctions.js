@@ -83,13 +83,11 @@ const addContactToUserContacts = async (
       getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
     );
 
-    currentUser.contacts.push(
-      userPropsUtilities.extractContact({
-        ...targetUserData,
-        privateId: targetUser.privateId,
-      })
-    );
-
+    const contact = userPropsUtilities.extractContact({
+      ...targetUserData,
+      privateId: targetUser.privateId,
+    });
+    currentUser.contacts.push(contact);
     await currentUser.updateOne({
       contacts: currentUser.contacts,
     });

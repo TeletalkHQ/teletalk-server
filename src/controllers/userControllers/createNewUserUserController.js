@@ -20,7 +20,7 @@ const {
 } = require("@/validators/userValidators");
 
 const {
-  userErrors: { USER_NOT_EXIST, FULL_NAME_INVALID },
+  userErrors: { USER_NOT_EXIST, FULL_NAME_INVALID, USER_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const createNewUserUserController = async (
@@ -34,10 +34,8 @@ const createNewUserUserController = async (
 
     const verifyToken = authManager.getTokenFromRequest(req);
 
-    const verifiedToken = await tokenValidator(
-      verifyToken,
-      authManager.getJwtSignInSecret()
-    );
+    const jwtSecret = authManager.getJwtSignInSecret();
+    const verifiedToken = await tokenValidator(verifyToken, jwtSecret);
 
     errorThrower(verifiedToken.done === false, () =>
       getErrorObject(verifiedToken.error)
@@ -63,32 +61,30 @@ const createNewUserUserController = async (
 
     const user = await userFinder(cellphone);
 
-    if (user) {
-      //TODO Add userExist error/tests
-    } else if (!user) {
-      const privateId = randomMaker.randomId(
-        privateIdCommonModel.maxlength.value
-      );
+    errorThrower(user, () => getErrorObject(USER_EXIST));
 
-      const mainToken = await authManager.tokenSigner({
-        ...cellphone,
-        privateId,
-      });
+    const privateId = randomMaker.randomId(
+      privateIdCommonModel.maxlength.value
+    );
 
-      const userData = {
-        ...cellphone,
-        firstName,
-        lastName,
-        privateId,
-        tokens: [{ mainToken }],
-      };
+    const mainToken = await authManager.tokenSigner({
+      ...cellphone,
+      privateId,
+    });
 
-      await createNewNormalUser(userData);
+    const userData = {
+      ...cellphone,
+      firstName,
+      lastName,
+      privateId,
+      tokens: [{ mainToken }],
+    };
 
-      res.checkDataAndResponse({
-        user: { ...cellphone, privateId, firstName, lastName, mainToken },
-      });
-    }
+    await createNewNormalUser(userData);
+
+    res.checkDataAndResponse({
+      user: { ...cellphone, privateId, firstName, lastName, mainToken },
+    });
   } catch (error) {
     logger.log("createNewUserUserController", error);
     res.errorCollector(error);

@@ -30,3 +30,4 @@ Add getContacts tests
 Separate builders
 Add TranslateManager class
 Use getErrorObject JUST IN RESPONSE AREA!
+Cleanup controllers

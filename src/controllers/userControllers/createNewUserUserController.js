@@ -2,6 +2,7 @@ const { authManager } = require("@/classes/AuthManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { randomMaker } = require("@/classes/RandomMaker");
+const { objectUtilities } = require("@/classes/ObjectUtilities");
 
 const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
 
@@ -72,7 +73,9 @@ const createNewUserUserController = async (
       privateId,
     });
 
-    const userData = {
+    const defaultUserData = userPropsUtilities.defaultUserData();
+    const allUserData = {
+      ...defaultUserData,
       ...cellphone,
       firstName,
       lastName,
@@ -80,7 +83,10 @@ const createNewUserUserController = async (
       tokens: [{ mainToken }],
     };
 
-    await createNewNormalUser(userData);
+    const userDataForDatabase = objectUtilities.excludeProps(allUserData, [
+      "bio",
+    ]);
+    await createNewNormalUser(userDataForDatabase);
 
     res.checkDataAndResponse({
       user: { ...cellphone, privateId, firstName, lastName, mainToken },

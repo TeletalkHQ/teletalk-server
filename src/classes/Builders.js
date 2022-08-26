@@ -404,7 +404,7 @@ class MongoModelBuilder {
       lowercase: [],
       maxlength: [],
       minlength: [],
-      required: [],
+      required: [false],
       trim: [],
       type: [],
       unique: [],

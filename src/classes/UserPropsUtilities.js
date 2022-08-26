@@ -2,6 +2,7 @@ const { randomMaker } = require("@/classes/RandomMaker");
 const { dataUsageManager } = require("@/classes/DataUsageManager");
 const { envManager } = require("@/classes/EnvironmentManager");
 const { stateManager } = require("@/classes/StateManager");
+const { objectUtilities } = require("@/classes/ObjectUtilities");
 
 const {
   isDataHasEqualityWithTargetCellphone,
@@ -12,7 +13,6 @@ const {
 } = require("@/models/userModels/userModels");
 
 const { countries } = require("@/variables/others/countries");
-const { objectUtilities } = require("./ObjectUtilities");
 
 class UserPropsUtilities {
   constructor(id) {
@@ -103,7 +103,7 @@ class UserPropsUtilities {
     };
   }
 
-  extractDefaultUserData(userObject) {
+  extractUserData(userObject) {
     const {
       bio,
       blacklist,
@@ -170,6 +170,22 @@ class UserPropsUtilities {
       logger.log("cellphoneFinder catch, error:", error);
       throw error;
     }
+  }
+
+  defaultUserData() {
+    return {
+      bio: "",
+      blacklist: [],
+      chats: [],
+      contacts: [],
+      countryCode: "",
+      countryName: "",
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      privateId: "",
+      username: "",
+    };
   }
 }
 

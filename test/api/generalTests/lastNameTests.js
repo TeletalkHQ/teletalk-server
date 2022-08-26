@@ -40,7 +40,7 @@ const lastNameFailureTests = (configuredCustomRequest, data) => {
   });
   it("should get error, LAST_NAME_INVALID_TYPE", async () => {
     await configuredCustomRequest.sendRequest(
-      fn(123456789),
+      fn(randomMaker.randomNumber(lastNameMaxLength)),
       LAST_NAME_INVALID_TYPE
     );
   });

@@ -29,3 +29,4 @@ Fix public assets sharing
 Add getContacts tests
 Separate builders
 Add TranslateManager class
+Use getErrorObject JUST IN RESPONSE AREA!

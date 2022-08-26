@@ -428,6 +428,15 @@ const LAST_NAME_MINLENGTH_REACH = errorBuilder
   .errorKey(LAST_NAME_VALIDATION)
   .build();
 
+const LAST_NAME_REQUIRED = errorBuilder
+  .create()
+  .errorCode(4050)
+  .statusCode(400)
+  .errorReason(errorUniqueIds.LAST_NAME_REQUIRED)
+  .version("1.0.0")
+  .errorKey(LAST_NAME_VALIDATION)
+  .build();
+
 const MAC_ADDRESS_EMPTY = errorBuilder
   .create()
   .errorCode(4076)
@@ -870,6 +879,7 @@ const errors = {
   LAST_NAME_INVALID_TYPE,
   LAST_NAME_MAXLENGTH_REACH,
   LAST_NAME_MINLENGTH_REACH,
+  LAST_NAME_REQUIRED,
   MAC_ADDRESS_EMPTY,
   MAC_ADDRESS_EXIST,
   MAC_ADDRESS_INVALID_TYPE,

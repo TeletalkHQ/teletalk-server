@@ -43,17 +43,20 @@ const countryCodeFailureTests = (configuredCustomRequest, data) => {
     await configuredCustomRequest.sendRequest(fn(""), COUNTRY_CODE_REQUIRED);
   });
   it(`It should get error, COUNTRY_CODE_NUMERIC`, async () => {
-    await configuredCustomRequest.sendRequest(fn("98!"), COUNTRY_CODE_NUMERIC);
+    await configuredCustomRequest.sendRequest(
+      fn(randomMaker.randomString(countryCodeMaxlength - 1) + "!"),
+      COUNTRY_CODE_NUMERIC
+    );
   });
   it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
     await configuredCustomRequest.sendRequest(
-      fn(98),
+      fn(randomMaker.randomNumber(countryCodeMaxlength)),
       COUNTRY_CODE_INVALID_TYPE
     );
   });
   it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
     await configuredCustomRequest.sendRequest(
-      fn("010101"),
+      fn(randomMaker.randomString(countryCodeMaxlength)),
       COUNTRY_CODE_NOT_SUPPORTED
     );
   });

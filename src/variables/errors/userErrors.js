@@ -698,6 +698,15 @@ const TOKEN_INVALID_TYPE = errorBuilder
   .errorKey(TOKEN_VALIDATION)
   .build();
 
+const USER_EXIST = errorBuilder
+  .create()
+  .errorCode(4070)
+  .statusCode(400)
+  .errorReason(errorUniqueIds.USER_EXIST)
+  .version("1.0.0")
+  .errorKey(USER_VALIDATION)
+  .build();
+
 const USER_NOT_EXIST = errorBuilder
   .create()
   .errorCode(4070)
@@ -908,6 +917,7 @@ const errors = {
   TOKEN_INVALID,
   TOKEN_INVALID_TYPE,
   TOKEN_REQUIRED,
+  USER_EXIST,
   USER_NOT_EXIST,
   USERNAME_EMPTY,
   USERNAME_EXIST,

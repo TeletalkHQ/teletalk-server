@@ -15,19 +15,20 @@ const {
   },
 } = require("@/variables/others/testVariables");
 
+const signInFn = async () => {
+  const {
+    body: {
+      user: { verifyToken },
+    },
+  } = await signInNormalRequest.sendRequest(verifySignInNewUserCellphone);
+
+  return verifyToken;
+};
+
 describe("verifySignInNormalApi success test", () => {
   it("should get newUser === true if there is no user with test verify token in db", async () => {
     const generalSuccessTests = generalTest.createSuccessTest();
 
-    const signInFn = async () => {
-      const {
-        body: {
-          user: { verifyToken },
-        },
-      } = await signInNormalRequest.sendRequest(verifySignInNewUserCellphone);
-
-      return verifyToken;
-    };
     const verifyTokenSecret = authManager.getJwtSignInSecret();
     const tokenVerifier = async (token) => {
       await generalSuccessTests.token({

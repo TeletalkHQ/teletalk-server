@@ -20,7 +20,7 @@ class RandomMaker {
   randomNumber(length) {
     var chars = "12345678901234567890123456789012345678901234567890";
     var pwd = lodash.sampleSize(chars, length ?? 10);
-    return pwd.join("");
+    return +pwd.join("");
   }
 
   randomCountryCode() {

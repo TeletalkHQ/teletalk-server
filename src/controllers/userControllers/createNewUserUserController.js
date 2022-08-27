@@ -46,7 +46,9 @@ const createNewUserUserController = async (
     const validatedLastName = await lastNameValidator(lastName);
 
     errorThrower(
-      validatedFirstName.done !== true || validatedLastName.done !== true,
+      [validatedFirstName, validatedLastName].every(
+        (item) => item.done !== true
+      ),
       () => {
         return getErrorObject(FULL_NAME_INVALID, {
           validatedFullName: { validatedFirstName, validatedLastName },
@@ -60,9 +62,9 @@ const createNewUserUserController = async (
     const client = await temporaryClients.findClient(cellphone);
     errorThrower(!client, () => getErrorObject(USER_NOT_EXIST, cellphone));
 
-    const user = await userFinder(cellphone);
+    const foundUser = await userFinder(cellphone);
 
-    errorThrower(user, () => getErrorObject(USER_EXIST));
+    errorThrower(foundUser, () => getErrorObject(USER_EXIST));
 
     const privateId = randomMaker.randomId(
       privateIdCommonModel.maxlength.value
@@ -88,9 +90,8 @@ const createNewUserUserController = async (
     ]);
     await createNewNormalUser(userDataForDatabase);
 
-    res.checkDataAndResponse({
-      user: { ...cellphone, privateId, firstName, lastName, mainToken },
-    });
+    const user = { ...cellphone, privateId, firstName, lastName, mainToken };
+    res.checkDataAndResponse({ user });
   } catch (error) {
     logger.log("createNewUserUserController", error);
     res.errorCollector(error);

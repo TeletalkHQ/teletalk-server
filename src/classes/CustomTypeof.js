@@ -1,7 +1,7 @@
 const { regex } = require("@/variables/others/regex");
 
 class CustomTypeof {
-  isEveryTypeCheckTrue(items, type) {
+  isEveryTypeCheckTrue(items = [], type) {
     return items.every((value) => typeof value === type);
   }
 
@@ -54,6 +54,14 @@ class CustomTypeof {
 
   isNumber(...items) {
     return items.every((item) => regex.enNumber.test(item));
+  }
+
+  isBoolean(...items) {
+    return this.isEveryTypeCheckTrue(items, "boolean");
+  }
+
+  isTruthy(...items) {
+    return items.every((item) => !!item === true);
   }
 }
 

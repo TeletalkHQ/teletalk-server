@@ -33,7 +33,6 @@
     "debug": "^4.3.4",
     "defer-to-connect": "^2.0.1",
     "dotenv": "^16.0.0",
-    "eslint-plugin-chai-friendly": "^0.7.2",
     "express": "^4.18.1",
     "fastest-validator": "^1.12.0",
     "fs-extra": "^10.1.0",
@@ -53,7 +52,7 @@
     "pretty-error": "^4.0.0",
     "serve-favicon": "^2.5.0",
     "socket.io": "^4.5.0",
-    "validator": "^13.7.0",
+    "utility-store": "^1.4.5",
     "winston": "^3.7.2"
   },
   "devDependencies": {
@@ -70,6 +69,7 @@
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-mocha": "^10.0.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-security": "^1.5.0",

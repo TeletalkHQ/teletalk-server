@@ -5,7 +5,11 @@ const { errorThrower } = require("@/functions/utilities/utils");
 
 const { appErrors } = require("@/variables/errors/appErrors");
 
-const { REQUIRED_FIELDS_NOT_DEFINED } = appErrors;
+const {
+  REQUIRED_FIELDS_NOT_DEFINED,
+  REQUIRED_IO_FIELD_IS_NOT_ARRAY,
+  REQUIRED_IO_FIELD_IS_NOT_OBJECT,
+} = appErrors;
 
 const ioFieldsCheckerDefaultOptions = {
   requiredFieldsIndex: 0,
@@ -39,7 +43,9 @@ const ioFieldsChecker = (
       ioData,
       selectedRequiredFields,
       missingFieldsError,
-      overloadFieldsError
+      overloadFieldsError,
+      REQUIRED_IO_FIELD_IS_NOT_ARRAY,
+      REQUIRED_IO_FIELD_IS_NOT_OBJECT
     ).check();
 
     return { done: true };

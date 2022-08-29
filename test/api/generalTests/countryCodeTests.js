@@ -1,5 +1,5 @@
 const { testBuilder } = require("@/classes/TestBuilder");
-const { randomMaker } = require("@/classes/RandomMaker");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const {
   userModels: { countryCodeModel },
@@ -56,7 +56,8 @@ const countryCodeFailureTests = (configuredCustomRequest, data) => {
   });
   it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
     await configuredCustomRequest.sendRequest(
-      fn(randomMaker.randomString(countryCodeMaxlength)),
+      //FIXME Read from countries for sure
+      fn("1111"),
       COUNTRY_CODE_NOT_SUPPORTED
     );
   });

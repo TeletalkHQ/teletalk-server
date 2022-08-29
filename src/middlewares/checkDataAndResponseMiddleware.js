@@ -1,10 +1,9 @@
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 const {
   crashServerWithCondition,
   errorThrower,
-  getErrorObject,
 } = require("@/functions/utilities/utils");
 
 const {
@@ -18,7 +17,7 @@ const {
 const checkAndResponseMiddleware = (req, res, next) => {
   try {
     crashServerWithCondition(
-      !customTypeof.check(res.sendJsonResponse).type.function,
+      !customTypeof.check(res.sendJsonResponse).type.isFunction,
       SEND_JSON_RESPONSE_IS_NOT_FUNCTION
     );
 
@@ -43,12 +42,11 @@ const checkAndResponseMiddleware = (req, res, next) => {
         //   })
         // );
 
-        errorThrower(checkResult.done === false, () =>
-          getErrorObject(checkResult.errorObject, {
-            outputFields: data,
-            fields: outputFields,
-          })
-        );
+        errorThrower(checkResult.done === false, () => ({
+          ...checkResult.errorObject,
+          outputFields: data,
+          fields: outputFields,
+        }));
 
         res.sendJsonResponse(data);
       } catch (error) {

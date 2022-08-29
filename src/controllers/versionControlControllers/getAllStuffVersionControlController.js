@@ -15,8 +15,6 @@ const getAllStuffVersionControlController = async (
 
     const languageData = languages[language];
 
-    logger.log("rm", languageData, "languageData");
-    logger.log("rm", language, "language");
     //TODO Update with checkAndResponse ?!
     res.status(200).json({ ...allStuff, languageData });
   } catch (error) {

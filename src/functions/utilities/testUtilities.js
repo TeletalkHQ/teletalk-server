@@ -1,7 +1,7 @@
 const supertest = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
-const { customTypeof } = require("@/classes/CustomTypeof");
 const { stateManager } = require("@/classes/StateManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
@@ -88,13 +88,13 @@ const superTestRequest = (routeObject, data, authorization) => {
 
 const makeAuthorizationHeader = (token) => [
   "Authorization",
-  customTypeof.check(token).type.undefined ? null : `Bearer ${token}`,
+  customTypeof.check(token).type.isUndefined ? null : `Bearer ${token}`,
 ];
 
 const getTokenByTestUserNumber = (testUserNumber) => {
   const { testUsers } = stateManager.state;
   const user = testUsers[`testUser_${testUserNumber}`];
-  return userPropsUtilities.getTokenFromUserObjectByParam(user);
+  return userPropsUtilities.getTokenFromUserObject(user);
 };
 
 module.exports = {

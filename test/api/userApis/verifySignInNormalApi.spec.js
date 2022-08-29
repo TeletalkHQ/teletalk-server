@@ -5,6 +5,10 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { expect } = require("@/functions/utilities/testUtilities");
 
 const {
+  userModels: { firstNameModel, lastNameModel },
+} = require("@/models/userModels/userModels");
+
+const {
   testVariables: {
     cellphones: { verifySignInNewUserCellphone, verifySignInFailTestCellphone },
   },
@@ -55,7 +59,10 @@ describe("verifySignInNormalApi success test", () => {
     expect(newUserVerifySignInResponse.body.user.newUser).equal(true);
 
     //* 5- Finalize new user sign in (save user in db) =>
-    const fullName = userPropsUtilities.makeRandomFullName();
+    const fullName = userPropsUtilities.makeRandomFullName(
+      firstNameModel.maxlength.value,
+      lastNameModel.maxlength.value
+    );
     await createNewUserRequest
       .setToken(newUserVerifyToken)
       .sendRequest(fullName);

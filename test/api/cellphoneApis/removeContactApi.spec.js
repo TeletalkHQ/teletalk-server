@@ -8,6 +8,7 @@ const {
     testUsers: { removeContactSuccessfulTestUser, selfStuffTestUser },
   },
 } = require("@/variables/others/testVariables");
+const { countries } = require("@/variables/others/countries");
 
 describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
@@ -39,7 +40,7 @@ describe("removeContact successful test", () => {
 });
 
 describe("removeContact failure tests", () => {
-  const cellphone = userPropsUtilities.makeRandomCellphone();
+  const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   generalTest
     .createFailTest(removeContactRequest)
     .authentication()

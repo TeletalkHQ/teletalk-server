@@ -1,4 +1,4 @@
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const {
   errorThrower,
@@ -8,7 +8,8 @@ const {
 
 const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   errorThrower(
-    !customTypeof.check(url).type.string && !customTypeof.check(url).type.array,
+    !customTypeof.check(url).type.isString &&
+      !customTypeof.check(url).type.isArray,
     "url must be string or an array"
   );
   errorThrower(!middlewares.length, "You need to pass at least one middleware");

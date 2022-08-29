@@ -1,5 +1,5 @@
 const { testBuilder } = require("@/classes/TestBuilder");
-const { randomMaker } = require("@/classes/RandomMaker");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const {
   chatModels: { messageModel },

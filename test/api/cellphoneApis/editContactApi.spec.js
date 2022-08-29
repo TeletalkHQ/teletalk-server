@@ -2,6 +2,10 @@ const { generalTest } = require("@/classes/GeneralTest");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
+  userModels: { firstNameModel, lastNameModel },
+} = require("@/models/userModels/userModels");
+
+const {
   requesters: { editContactRequest, addContactRequest },
   testVariables: {
     testUsers: {
@@ -11,6 +15,7 @@ const {
     },
   },
 } = require("@/variables/others/testVariables");
+const { countries } = require("@/variables/others/countries");
 
 describe("edit contact success tests", () => {
   it(`should add and edit testUser_1 on testUser_0 contact list`, async () => {
@@ -84,7 +89,11 @@ describe("edit contact success tests", () => {
 });
 
 describe("editContact failure tests", () => {
-  const contact = userPropsUtilities.makeRandomContact();
+  const contact = userPropsUtilities.makeRandomContact(
+    firstNameModel.maxlength.value,
+    lastNameModel.maxlength.value,
+    countries
+  );
   generalTest
     .createFailTest(editContactRequest)
     .authentication()

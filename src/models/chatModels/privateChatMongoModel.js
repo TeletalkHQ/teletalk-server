@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const { mongoModelBuilder } = require("@/classes/Builders");
+const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
 const { uniqueValidator } = require("@/configs/mongoosePlugins");
 

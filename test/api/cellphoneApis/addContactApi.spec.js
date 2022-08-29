@@ -2,6 +2,10 @@ const { generalTest } = require("@/classes/GeneralTest");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
+  userModels: { firstNameModel, lastNameModel },
+} = require("@/models/userModels/userModels");
+
+const {
   requesters: { addContactRequest },
   testVariables: {
     cellphones: { notExistedContact },
@@ -12,6 +16,7 @@ const {
     },
   },
 } = require("@/variables/others/testVariables");
+const { countries } = require("@/variables/others/countries");
 
 describe("add contact success tests", () => {
   it(`should add testUser_1 to testUser_0 contact list`, async () => {
@@ -63,7 +68,11 @@ describe("addContact failure tests", () => {
     await addContactRequest.sendRequest(contactItemExistTestUser);
   });
 
-  const contact = userPropsUtilities.makeRandomContact();
+  const contact = userPropsUtilities.makeRandomContact(
+    firstNameModel.maxlength.value,
+    lastNameModel.maxlength.value,
+    countries
+  );
   generalTest
     .createFailTest(addContactRequest)
     .authentication()

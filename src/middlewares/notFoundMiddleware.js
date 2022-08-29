@@ -1,4 +1,4 @@
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const {
   getStatusCodeFromRoute,
@@ -10,7 +10,7 @@ const {
 } = require("@/variables/errors/appErrors");
 
 const notFoundMiddleware = (req, res, next) => {
-  if (!customTypeof.check(req.routeObject).type.object) {
+  if (!customTypeof.check(req.routeObject).type.isObject) {
     const statusCode = getStatusCodeFromRoute(ROUTE_NOT_FOUND);
     const errorObject = getErrorObject(ROUTE_NOT_FOUND);
 

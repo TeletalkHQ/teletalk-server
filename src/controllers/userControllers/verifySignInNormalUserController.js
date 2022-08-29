@@ -1,7 +1,7 @@
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
@@ -25,10 +25,11 @@ const verifySignInNormalUserController = async (
 
     const cellphone = userPropsUtilities.extractCellphone(authData.payload);
     const tempClient = await temporaryClients.findClient(cellphone);
-    errorThrower(!tempClient, () => getErrorObject(USER_NOT_EXIST));
+    errorThrower(!tempClient, () => USER_NOT_EXIST);
 
-    errorThrower(tempClient?.verificationCode !== verificationCode, () =>
-      getErrorObject(VERIFICATION_CODE_INVALID)
+    errorThrower(
+      tempClient?.verificationCode !== verificationCode,
+      () => VERIFICATION_CODE_INVALID
     );
 
     const foundUser = (await userFinder(cellphone)) || {};
@@ -41,7 +42,7 @@ const verifySignInNormalUserController = async (
       user: isUserExist
         ? {
             ...defaultUserObject,
-            mainToken: userPropsUtilities.getTokenFromUserObjectByParam({
+            mainToken: userPropsUtilities.getTokenFromUserObject({
               tokens,
             }),
             newUser: false,

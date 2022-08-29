@@ -1,6 +1,6 @@
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 
@@ -18,9 +18,7 @@ const statusCheckUserController = async (
     const cellphone = userPropsUtilities.extractCellphone(authData.payload);
 
     const foundUser = await userFinder(cellphone);
-    errorThrower(!foundUser, () =>
-      getErrorObject(USER_NOT_EXIST, { cellphone })
-    );
+    errorThrower(!foundUser, () => ({ ...USER_NOT_EXIST, cellphone }));
 
     const { tokens, ...defaultUserObject } =
       userPropsUtilities.extractUserData(foundUser);
@@ -28,7 +26,7 @@ const statusCheckUserController = async (
     res.checkDataAndResponse({
       user: {
         ...defaultUserObject,
-        mainToken: userPropsUtilities.getTokenFromUserObjectByParam({
+        mainToken: userPropsUtilities.getTokenFromUserObject({
           tokens,
         }),
       },

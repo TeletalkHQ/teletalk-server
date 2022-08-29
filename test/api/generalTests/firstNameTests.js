@@ -1,4 +1,4 @@
-const { randomMaker } = require("@/classes/RandomMaker");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const {
   userModels: { firstNameModel },

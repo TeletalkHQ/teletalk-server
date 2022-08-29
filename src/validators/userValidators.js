@@ -1,8 +1,11 @@
 /* eslint-disable no-inner-declarations */
-const { validationErrorBuilder } = require("@/classes/Builders");
+const {
+  validationErrorBuilder,
+} = require("utility-store/src/classes/ValidationErrorBuilder");
+
+const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
-const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
@@ -26,14 +29,6 @@ const {
 } = require("@/models/validationModels/userValidationModels");
 
 const {
-  userErrors: {
-    CELLPHONE_REQUIRED,
-    TOKEN_INVALID,
-    TOKEN_INVALID_TYPE,
-    TOKEN_REQUIRED,
-  },
-} = require("@/variables/errors/userErrors");
-const {
   countryCodeValidatorErrorBuilder,
   countryNameValidatorErrorBuilder,
   firstNameValidatorErrorBuilder,
@@ -42,7 +37,16 @@ const {
   privateIdValidatorErrorBuilder,
   usernameValidatorErrorBuilder,
   verificationCodeValidatorErrorBuilder,
-} = require("./userValidatorErrorBuilders");
+} = require("@/validators/userValidatorErrorBuilders");
+
+const {
+  userErrors: {
+    CELLPHONE_REQUIRED,
+    TOKEN_INVALID,
+    TOKEN_INVALID_TYPE,
+    TOKEN_REQUIRED,
+  },
+} = require("@/variables/errors/userErrors");
 
 const checkReturnCondition = (returnCondition, error) => {
   if (returnCondition) {
@@ -103,9 +107,10 @@ const cellphoneValidator = async (cellphone = {}, returnCondition) => {
   try {
     const { countryCode, countryName, phoneNumber } = cellphone;
 
-    errorThrower(!phoneNumber && !countryCode && !countryName, () => {
-      return getErrorObject(CELLPHONE_REQUIRED);
-    });
+    errorThrower(
+      !phoneNumber && !countryCode && !countryName,
+      () => CELLPHONE_REQUIRED
+    );
 
     // const countryCodeValidationError =
     await countryCodeValidator(countryCode, false);

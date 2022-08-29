@@ -1,9 +1,9 @@
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const errorThrower = (condition, error) => {
   if (condition) {
     //TODO Write errors into log file;
-    if (customTypeof.check(error).type.function) throw error();
+    if (customTypeof.check(error).type.isFunction) throw error();
 
     throw error;
   }
@@ -40,9 +40,9 @@ const objectClarify = (dirtyObject = {}) => {
   const cleanObject = {};
 
   Object.entries(dirtyObject)?.forEach(([key, value]) => {
-    if (!customTypeof.check(value).type.undefined) {
+    if (!customTypeof.check(value).type.isUndefined) {
       const prop = dirtyObject[key];
-      if (customTypeof.check(prop).type.object) {
+      if (customTypeof.check(prop).type.isObject) {
         cleanObject[key] = objectClarify(prop);
 
         return;
@@ -58,7 +58,7 @@ const objectClarify = (dirtyObject = {}) => {
 const getHostFromRequest = (request) => request.get("host");
 
 const isUrlMatchWithReqUrl = (url, reqUrl) =>
-  (customTypeof.check(url).type.array && url.some((u) => u === reqUrl)) ||
+  (customTypeof.check(url).type.isArray && url.some((u) => u === reqUrl)) ||
   url === reqUrl;
 
 const versionCalculator = (versions = []) => {
@@ -81,18 +81,6 @@ const convertStringArrayToNumberArray = (items) => items.map((item) => +item);
 
 const extractVersions = (object) => {
   return Object.keys(object).map((key) => object[key].version);
-};
-
-const isDataHasEqualityWithTargetCellphone = (data, targetCellphone) => {
-  if (
-    data.phoneNumber === targetCellphone.phoneNumber &&
-    data.countryCode === targetCellphone.countryCode &&
-    data.countryName === targetCellphone.countryName
-  ) {
-    return true;
-  }
-
-  return false;
 };
 
 const getObjectLength = (object) => Object.keys(object).length;
@@ -128,7 +116,7 @@ const filterObject = (object, filterFields) => {
   const filteredObject = {};
 
   for (const key in filterFields) {
-    if (customTypeof.check(filterFields[key]).type.object) {
+    if (customTypeof.check(filterFields[key]).type.isObject) {
       filteredObject[key] = filterObject(object[key], filterFields[key]);
       continue;
     }
@@ -152,8 +140,17 @@ const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
   return routeObjects;
 };
 
-const printCatchError = (functionName, error) => {
-  logger.log(`${functionName} catch, error: ${error}`);
+//TODO Move it to UserPropsUtilities
+const isDataHasEqualityWithTargetCellphone = (data, targetCellphone) => {
+  if (
+    data.phoneNumber === targetCellphone.phoneNumber &&
+    data.countryCode === targetCellphone.countryCode &&
+    data.countryName === targetCellphone.countryName
+  ) {
+    return true;
+  }
+
+  return false;
 };
 
 module.exports = {
@@ -173,7 +170,6 @@ module.exports = {
   isUrlMatchWithReqUrl,
   objectClarify,
   objectInitializer,
-  printCatchError,
   skipParams,
   versionCalculator,
 };

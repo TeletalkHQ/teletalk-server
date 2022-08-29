@@ -3,7 +3,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const {
   isDataHasEqualityWithTargetCellphone,
 } = require("@/functions/utilities/utils");
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const {
   userErrors: { SELF_STUFF },
@@ -17,7 +17,7 @@ const selfStuffControllerMiddleware = (req, res, next) => {
 
     errorThrower(
       isDataHasEqualityWithTargetCellphone(cellphone, targetCellphone),
-      () => getErrorObject(SELF_STUFF, { targetCellphone })
+      () => ({ ...SELF_STUFF, targetCellphone })
     );
 
     next();

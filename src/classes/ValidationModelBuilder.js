@@ -1,6 +1,5 @@
 const Validator = require("fastest-validator");
-
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const { errorThrower, objectClarify } = require("@/functions/utilities/utils");
 
@@ -49,7 +48,7 @@ class ValidationModelBuilder {
   static validatorCompiler({ version, ...validationModel }) {
     try {
       errorThrower(
-        !customTypeof.check(validationModel).type.object,
+        !customTypeof.check(validationModel).type.isObject,
         "You must pass validationModel as a object"
       );
 

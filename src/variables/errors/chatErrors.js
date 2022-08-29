@@ -1,4 +1,4 @@
-const { errorBuilder } = require("@/classes/Builders");
+const { errorBuilder } = require("@/classes/ErrorBuilder");
 
 const {
   extractVersions,

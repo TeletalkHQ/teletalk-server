@@ -50,7 +50,7 @@ const notExistedContact = {
   phoneNumber: "1234567890",
 };
 
-const token = userPropsUtilities.getTokenFromUserObjectByParam(testUser_0);
+const token = userPropsUtilities.getTokenFromUserObject(testUser_0);
 const customRequestWithTestUser_0_data = customRequest(token);
 
 const makeRequester = (routeObject) =>
@@ -59,14 +59,14 @@ const makeRequester = (routeObject) =>
 const testVariables = {
   cellphones: {
     createNewUserSignInCellphone:
-      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(countries),
     notExistedContact,
     signInCellphone:
-      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(countries),
     verifySignInFailTestCellphone:
-      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(countries),
     verifySignInNewUserCellphone:
-      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(countries),
   },
   testUsers: {
     addBlockSuccessfulTestUser: testUser_6,

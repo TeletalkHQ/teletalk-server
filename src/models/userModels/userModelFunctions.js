@@ -1,4 +1,4 @@
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
@@ -42,14 +42,16 @@ const addCellphoneToUserBlacklist = async (
     const { cellphone: existBlacklistItem } =
       userPropsUtilities.cellphoneFinder(currentUser.blacklist, cellphone);
 
-    errorThrower(existBlacklistItem, () =>
-      getErrorObject(BLACKLIST_ITEM_EXIST, { targetUserData: cellphone })
-    );
+    errorThrower(existBlacklistItem, () => ({
+      ...BLACKLIST_ITEM_EXIST,
+      targetUserData: cellphone,
+    }));
 
     const targetUser = await userFinder(cellphone);
-    errorThrower(customTypeof.check(targetUser).type.null, () =>
-      getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData: cellphone })
-    );
+    errorThrower(customTypeof.check(targetUser).type.isNull, () => ({
+      ...TARGET_USER_NOT_EXIST,
+      targetUserData: cellphone,
+    }));
 
     const blacklistItem = userPropsUtilities.extractCellphone(cellphone);
 
@@ -72,16 +74,18 @@ const addContactToUserContacts = async (
       currentUser.contacts,
       targetUserData
     );
-    errorThrower(isContactExist, () =>
-      getErrorObject(CONTACT_ITEM_EXIST, { targetUserData })
-    );
+    errorThrower(isContactExist, () => ({
+      ...CONTACT_ITEM_EXIST,
+      targetUserData,
+    }));
 
     const targetUser = await userFinder(
       userPropsUtilities.extractCellphone(targetUserData)
     );
-    errorThrower(customTypeof.check(targetUser).type.null, () =>
-      getErrorObject(TARGET_USER_NOT_EXIST, { targetUserData })
-    );
+    errorThrower(customTypeof.check(targetUser).type.isNull, () => ({
+      ...TARGET_USER_NOT_EXIST,
+      targetUserData,
+    }));
 
     const contact = userPropsUtilities.extractContact({
       ...targetUserData,
@@ -107,7 +111,7 @@ const updateOneContact = async (
   try {
     const { cellphone: contactItem, cellphoneIndex } =
       userPropsUtilities.cellphoneFinder(currentUser.contacts, targetCellphone);
-    errorThrower(!contactItem, () => getErrorObject(CONTACT_ITEM_NOT_EXIST));
+    errorThrower(!contactItem, () => CONTACT_ITEM_NOT_EXIST);
 
     currentUser.contacts.splice(cellphoneIndex, 1, {
       ...userPropsUtilities.extractContact(targetCellphone),
@@ -136,7 +140,7 @@ const getUserContacts = async (currentUser = userInitialOptions) => {
 const deleteBlacklistItem = async (currentUser, targetUserData) => {
   const { cellphone: blacklistItem, cellphoneIndex } =
     userPropsUtilities.cellphoneFinder(currentUser.blacklist, targetUserData);
-  errorThrower(!blacklistItem, () => getErrorObject(BLACKLIST_ITEM_NOT_EXIST));
+  errorThrower(!blacklistItem, () => BLACKLIST_ITEM_NOT_EXIST);
 
   currentUser.blacklist.splice(cellphoneIndex, 1);
 
@@ -152,9 +156,10 @@ const removeContactItem = async (
   try {
     const { cellphone: contactItem, cellphoneIndex } =
       userPropsUtilities.cellphoneFinder(currentUser.contacts, targetUserData);
-    errorThrower(!contactItem, () =>
-      getErrorObject(CONTACT_ITEM_NOT_EXIST, { targetUserData })
-    );
+    errorThrower(!contactItem, () => ({
+      ...CONTACT_ITEM_NOT_EXIST,
+      targetUserData,
+    }));
 
     currentUser.contacts.splice(cellphoneIndex, 1);
     await currentUser.updateOne({
@@ -242,9 +247,10 @@ const getUserData = async (privateId) => {
       lean: true,
     });
 
-    errorThrower(!user, () =>
-      getErrorObject(USER_NOT_EXIST, { searchQueries: { privateId } })
-    );
+    errorThrower(!user, () => ({
+      ...USER_NOT_EXIST,
+      searchQueries: { privateId },
+    }));
 
     return user;
   } catch (error) {

@@ -1,5 +1,5 @@
-const { checkFields } = require("@/classes/CheckFields");
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { checkFields } = require("utility-store/src/classes/CheckFields");
 
 const { errorThrower } = require("@/functions/utilities/utils");
 
@@ -58,7 +58,7 @@ const throwErrorIfSelectedRequiredFieldsIsNotDefined = (
   selectedRequiredFields
 ) => {
   errorThrower(
-    customTypeof.check(selectedRequiredFields).type.undefined,
+    customTypeof.check(selectedRequiredFields).type.isUndefined,
     REQUIRED_FIELDS_NOT_DEFINED
   );
 };

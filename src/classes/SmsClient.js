@@ -2,7 +2,7 @@ const MelipayamakApi = require("melipayamak");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const {
   appErrors: { SEND_SMS_FAILED },
@@ -33,7 +33,10 @@ class SmsClient {
 
     errorThrower(
       smsResult.StrRetStatus !== "ok" && smsResult.RetStatus !== 1,
-      () => getErrorObject(SEND_SMS_FAILED, smsResult)
+      () => ({
+        ...SEND_SMS_FAILED,
+        smsResult,
+      })
     );
 
     return { done: true };

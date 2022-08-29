@@ -12,6 +12,7 @@ const {
     },
   },
 } = require("@/variables/others/testVariables");
+const { countries } = require("@/variables/others/countries");
 
 describe("addBlock successful tests", () => {
   it(`should add addBlockSuccessfulTestUser to testUser_0 blacklist`, async () => {
@@ -44,7 +45,7 @@ describe("addBlock failure tests", () => {
     await addBlockRequest.sendRequest(blacklistItemExistTestUser);
   });
 
-  const cellphone = userPropsUtilities.makeRandomCellphone();
+  const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   generalTest
     .createFailTest(addBlockRequest)
     .authentication()

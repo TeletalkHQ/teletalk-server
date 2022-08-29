@@ -1,9 +1,8 @@
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 const {
   errorThrower,
-  getErrorObject,
   crashServerWithCondition,
 } = require("@/functions/utilities/utils");
 
@@ -23,7 +22,7 @@ const checkBodyFieldsMiddleware = (req, res, next) => {
     } = req;
 
     crashServerWithCondition(
-      customTypeof.check(body).type.undefined,
+      customTypeof.check(body).type.isUndefined,
       REQUEST_BODY_IS_UNDEFINED
     );
 
@@ -32,12 +31,11 @@ const checkBodyFieldsMiddleware = (req, res, next) => {
       overloadFieldsError: INPUT_FIELDS_OVERLOAD,
     });
 
-    errorThrower(checkResult.done === false, () =>
-      getErrorObject(checkResult.errorObject, {
-        inputFields: body,
-        fields: inputFields,
-      })
-    );
+    errorThrower(checkResult.done === false, () => ({
+      ...checkResult.errorObject,
+      inputFields: body,
+      fields: inputFields,
+    }));
 
     next();
   } catch (error) {

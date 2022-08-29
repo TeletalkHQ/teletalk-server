@@ -9,7 +9,7 @@ const {
     PARTICIPANT_ID_MIN_LENGTH_REACH,
   },
 } = require("@/variables/errors/chatErrors");
-const { randomMaker } = require("@/classes/RandomMaker");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const participantIdMaxLength = participantIdModel.maxlength.value;
 const participantIdMinLength = participantIdModel.minlength.value;
@@ -39,7 +39,7 @@ const participantIdFailureTests = (configuredCustomRequest, data = {}) => {
 
   it("Should get error, PARTICIPANT_ID_INVALID_TYPE", async () => {
     await configuredCustomRequest.sendRequest(
-      fn(1234567891234586),
+      fn(randomMaker.randomNumber(participantIdMaxLength)),
       PARTICIPANT_ID_INVALID_TYPE
     );
   });

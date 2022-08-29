@@ -1,4 +1,4 @@
-const { randomMaker } = require("@/classes/RandomMaker");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
 
@@ -46,7 +46,7 @@ const getPrivateChat = async (
   options = { lean: true }
 ) => {
   const chatExist = currentUser.chats.find((chat) => chat.chatId === chatId);
-  errorThrower(!chatExist, () => getErrorObject(CHAT_NOT_EXIST));
+  errorThrower(!chatExist, () => CHAT_NOT_EXIST);
 
   const chat = await PrivateChatMongoModel.findOne(
     { chatId },
@@ -54,7 +54,7 @@ const getPrivateChat = async (
     options
   );
 
-  errorThrower(!chat, () => getErrorObject(CHAT_NOT_EXIST));
+  errorThrower(!chat, () => CHAT_NOT_EXIST);
 
   return chat;
 };
@@ -65,7 +65,7 @@ const getPrivateChatMessages = async (currentUser, chatId) =>
 const sendPrivateMessage = async (currentUser, participantId, message) => {
   const targetUser = await userFinder({ privateId: participantId }, {});
   //TODO Add test for TARGET_USER_NOT_EXIST
-  errorThrower(!targetUser, () => getErrorObject(TARGET_USER_NOT_EXIST));
+  errorThrower(!targetUser, () => TARGET_USER_NOT_EXIST);
 
   const chat = await PrivateChatMongoModel.findOne({
     "participants.participantId": {

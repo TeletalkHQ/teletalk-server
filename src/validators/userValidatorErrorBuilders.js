@@ -1,4 +1,6 @@
-const { validationErrorBuilder } = require("@/classes/Builders");
+const {
+  validationErrorBuilder,
+} = require("utility-store/src/classes/ValidationErrorBuilder");
 
 const {
   userErrors: {
@@ -51,6 +53,7 @@ const { countries } = require("@/variables/others/countries");
 
 const countryCodeValidatorErrorBuilder = (validationResult, countryCode) => {
   const errorBuilder = validationErrorBuilder.create();
+
   errorBuilder
     .setRequirements(validationResult, {
       extraErrorFields: {

@@ -1,10 +1,13 @@
+const {
+  objectUtilities,
+} = require("utility-store/src/classes/ObjectUtilities");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+
 const { authManager } = require("@/classes/AuthManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { randomMaker } = require("@/classes/RandomMaker");
-const { objectUtilities } = require("@/classes/ObjectUtilities");
 
-const { getErrorObject, errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const {
   createNewNormalUser,
@@ -38,9 +41,7 @@ const createNewUserUserController = async (
     const jwtSecret = authManager.getJwtSignInSecret();
     const verifiedToken = await tokenValidator(verifyToken, jwtSecret);
 
-    errorThrower(verifiedToken.done === false, () =>
-      getErrorObject(verifiedToken.error)
-    );
+    errorThrower(verifiedToken.done === false, () => verifiedToken.error);
 
     const validatedFirstName = await firstNameValidator(firstName);
     const validatedLastName = await lastNameValidator(lastName);
@@ -49,22 +50,21 @@ const createNewUserUserController = async (
       [validatedFirstName, validatedLastName].every(
         (item) => item.done !== true
       ),
-      () => {
-        return getErrorObject(FULL_NAME_INVALID, {
-          validatedFullName: { validatedFirstName, validatedLastName },
-        });
-      }
+      () => ({
+        ...FULL_NAME_INVALID,
+        validatedFullName: { validatedFirstName, validatedLastName },
+      })
     );
 
     const cellphone = userPropsUtilities.extractCellphone(
       verifiedToken.payload
     );
     const client = await temporaryClients.findClient(cellphone);
-    errorThrower(!client, () => getErrorObject(USER_NOT_EXIST, cellphone));
+    errorThrower(!client, () => ({ ...USER_NOT_EXIST, cellphone }));
 
     const foundUser = await userFinder(cellphone);
 
-    errorThrower(foundUser, () => getErrorObject(USER_EXIST));
+    errorThrower(foundUser, () => USER_EXIST);
 
     const privateId = randomMaker.randomId(
       privateIdCommonModel.maxlength.value

@@ -1,5 +1,10 @@
-class EnvironmentManager {
+const {
+  EnvironmentManager: EnvironmentManagerMain,
+} = require("utility-store/src/classes/EnvironmentManager");
+
+class EnvironmentManager extends EnvironmentManagerMain {
   constructor() {
+    super();
     this.ENVIRONMENT_KEYS = {
       DEVELOPMENT_PORT: "DEVELOPMENT_PORT",
       JWT_MAIN_SECRET: "JWT_MAIN_SECRET",
@@ -27,35 +32,11 @@ class EnvironmentManager {
       PORT: 8080,
     };
   }
-
-  getEnvironment(envName) {
-    return process.env[envName];
-  }
-  getAllLocalEnvironments() {
-    const environments = { ...this.ENVIRONMENT_KEYS };
-
-    for (const key in this.ENVIRONMENT_KEYS) {
-      environments[key] = this.getEnvironment(key);
-    }
-
-    return environments;
-  }
-  setEnvironment(envName, value) {
-    process.env[envName] = value;
-  }
-
-  getNodeEnv() {
-    return this.getEnvironment(this.ENVIRONMENT_KEYS.NODE_ENV);
-  }
-  getNodeEnvValues() {
-    return this.ENVIRONMENT_VALUES.NODE_ENV;
-  }
 }
 
 const environmentManager = new EnvironmentManager();
 
 module.exports = {
   environmentManager,
-  EnvironmentManager,
   envManager: environmentManager,
 };

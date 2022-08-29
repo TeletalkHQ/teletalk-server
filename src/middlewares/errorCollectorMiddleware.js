@@ -1,20 +1,17 @@
-const { customTypeof } = require("@/classes/CustomTypeof");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const {
   appErrors: { UNKNOWN_ERROR },
 } = require("@/variables/errors/appErrors");
+const { getErrorObject } = require("@/functions/utilities/utils");
 
 const errorCollectorMiddleware = (res, errorObject) => {
   try {
-    const errorToSend = !customTypeof.check(errorObject).type.object
-      ? UNKNOWN_ERROR
-      : errorObject;
+    const errorToSend = customTypeof.check(errorObject).type.isObject
+      ? errorObject
+      : UNKNOWN_ERROR;
 
-    res.errors = errorToSend;
-
-    if (customTypeof.check(+res.errors.statusCode).type.nan) {
-      res.errors = errorToSend;
-    }
+    res.errors = getErrorObject(errorToSend);
   } catch (error) {
     logger
       .redBright("errorCollectorMiddleware catch! its critical!!!")

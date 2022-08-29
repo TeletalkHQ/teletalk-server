@@ -1,9 +1,11 @@
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+
+const { modelBuilder } = require("@/classes/ModelBuilder");
+
 const {
-  versionCalculator,
   extractVersions,
+  versionCalculator,
 } = require("@/functions/utilities/utils");
-const { randomMaker } = require("@/classes/RandomMaker");
-const { modelBuilder } = require("@/classes/Builders");
 
 const {
   chatErrors: {

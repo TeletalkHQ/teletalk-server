@@ -2,7 +2,7 @@ require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
 require("@/variables/others/globalVariables");
 
-const { randomMaker } = require("@/classes/RandomMaker");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { authManager } = require("@/classes/AuthManager");
 
 const { errorThrower } = require("@/functions/utilities/utils");
@@ -13,7 +13,7 @@ const {
   commonModels: { privateIdCommonModel },
 } = require("@/models/commonModels/commonModels");
 const { addTestUser } = require("@/models/userModels/userModelFunctions");
-const { eventEmitter } = require("@/classes/EventEmitter");
+const { eventManager } = require("@/classes/EventManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 describe("Add requirements to application state", () => {
@@ -58,9 +58,7 @@ describe("Add requirements to application state", () => {
 
     await userPropsUtilities.setTestUsers(testUsers);
 
-    const { requirementsGetDone } = eventEmitter.eventKeys;
-    eventEmitter.emitEvent({
-      event: requirementsGetDone,
-    });
+    const { requirementsGetDone } = eventManager.eventKeys;
+    eventManager.emitEvent(requirementsGetDone);
   });
 });

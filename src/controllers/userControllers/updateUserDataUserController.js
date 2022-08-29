@@ -41,7 +41,7 @@ const updateUserDataUserController = async (
         firstName,
         lastName,
         privateId: user.privateId,
-        mainToken: userPropsUtilities.getTokenFromUserObjectByParam(user),
+        mainToken: userPropsUtilities.getTokenFromUserObject(user),
       },
     });
   } catch (error) {

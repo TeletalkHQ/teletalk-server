@@ -1,4 +1,7 @@
-const { validationErrorBuilder } = require("@/classes/Builders");
+const {
+  validationErrorBuilder,
+} = require("utility-store/src/classes/ValidationErrorBuilder");
+
 const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
 const { errorThrower } = require("@/functions/utilities/utils");

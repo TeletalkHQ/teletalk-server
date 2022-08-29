@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const { mongoModelBuilder } = require("@/classes/Builders");
+const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
 const { uniqueValidator } = require("@/configs/mongoosePlugins");
 
@@ -145,7 +145,6 @@ const {
 
 // uniqueValidator.defaults.type = "mongoose-unique-validator";
 
-console.log("bio model", bio);
 const UserSchema = new mongoose.Schema({
   bio,
   blacklist: [

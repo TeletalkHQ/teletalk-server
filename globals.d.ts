@@ -1,6 +1,7 @@
 import { request, response } from "express";
+import { LoggerNode } from "utility-store/src/classes/LoggerNode";
 
-import { logger as loggerInstance } from "@/classes/Logger";
+const loggerInstance = new LoggerNode();
 
 declare global {
   const logger = loggerInstance;

@@ -1,16 +1,17 @@
+//! Require this modules before internal modules!
+require("@/variables/others/customGlobals");
+require("@/functions/helpers/requireDotenv").requireDotenv();
+require("@/classes/AppConfigs");
+
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const serveFavicon = require("serve-favicon");
 
-//! Require this module before internal modules!
-require("@/variables/others/customGlobals");
-
 //* PrettyError is error prettier in terminal.
 require("pretty-error").start();
 
-require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
 
 const {

@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 
-const {
-  appConfigs: { MONGO_URL },
-} = require("@/configs/appConfigs");
+const { appConfigs } = require("@/classes/AppConfigs");
 
 const { errorThrower } = require("@/functions/utilities/utils");
 
 const databaseConnector = () => {
   try {
+    const {
+      dbConfigs: { MONGO_URL },
+    } = appConfigs.getConfigs();
+
     const database = mongoose.connect(MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

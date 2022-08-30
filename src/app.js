@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const serveFavicon = require("serve-favicon");
 
 //! Require this module before internal modules!
-require("@/variables/others/globalVariables");
+require("@/variables/others/customGlobals");
 
 //* PrettyError is error prettier in terminal.
 require("pretty-error").start();

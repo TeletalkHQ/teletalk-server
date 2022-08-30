@@ -52,7 +52,7 @@
     "pretty-error": "^4.0.0",
     "serve-favicon": "^2.5.0",
     "socket.io": "^4.5.0",
-    "utility-store": "^1.6.2",
+    "utility-store": "^1.8.0",
     "winston": "^3.7.2"
   },
   "devDependencies": {

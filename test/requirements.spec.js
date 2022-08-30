@@ -1,6 +1,6 @@
 require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
-require("@/variables/others/globalVariables");
+require("@/variables/others/customGlobals");
 
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { authManager } = require("@/classes/AuthManager");

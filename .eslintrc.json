@@ -41,9 +41,6 @@
           "autofetch",
           "autopep",
           "axios",
-          "existences",
-          "Urls",
-          "Stringified",
           "bcrypt",
           "bcryptjs",
           "camelcase",
@@ -56,11 +53,13 @@
           "enum",
           "enumValue",
           "esbenp",
+          "existences",
           "favicon",
           "fileupload",
           "Fira",
           "flowtype",
           "func",
+          "Globals",
           "indenticator",
           "ioredis",
           "ipynb",
@@ -92,6 +91,7 @@
           "stringAlphadash",
           "stringAlphanum",
           "stringEnum",
+          "Stringified",
           "supertest",
           "tabnine",
           "tabpanel",
@@ -101,6 +101,7 @@
           "typeof",
           "uncategorizedErrors",
           "upsert",
+          "Urls",
           "validators",
           "verifier",
           "vsintellicode",
@@ -109,7 +110,10 @@
           "zoot",
           "zrange"
         ],
-        "skipIfMatch": ["http://[^s]*", "^[-\\w]+/[-\\w\\.]+$"],
+        "skipIfMatch": [
+          "http://[^s]*",
+          "^[-\\w]+/[-\\w\\.]+$"
+        ],
         // "skipWordIfMatch": ["^foobar.*$"],
         "minLength": 4
       }

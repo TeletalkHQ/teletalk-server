@@ -21,18 +21,6 @@ const request = async (
   }
 ) => {
   try {
-    // logger.log(
-    // "//rm",
-    //   "data: ",
-    //   data,
-    //   "\n",
-    //   "routeObject data: ",
-    //   routeObject.inputFields[0],
-    //   "\n",
-    //   "filterObject: ",
-    //   filterObject(data, routeObject.inputFields[0])
-    // );
-
     const response = await superTestRequest(
       routeObject,
       filterDataCondition
@@ -53,14 +41,14 @@ const request = async (
         "UnknownError, you need to send me correct error object"
       );
 
-      const { errorKey, errorCode, errorReason } = errorObject;
+      const { errorKey, errorCode, reason } = errorObject;
 
       logger.log(
-        `route specs=> url:${routeObject.fullUrl} reason:${errorObject.reason} errorKey:${errorKey}\n response.body:`,
+        `route specs=> url:${routeObject.fullUrl} reason:${reason} errorKey:${errorKey}\n response.body:`,
         response.body
       );
 
-      expect(response.body.errors[errorKey]?.errorReason).to.equal(errorReason);
+      expect(response.body.errors[errorKey]?.reason).to.equal(reason);
       expect(response.body.errors[errorKey]?.errorCode).to.equal(errorCode);
     }
 

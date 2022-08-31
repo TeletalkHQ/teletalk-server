@@ -18,7 +18,6 @@ class AppConfigs {
   }
 
   getConfigs() {
-    logger.log("rm", this.configs);
     return this.configs;
   }
 }

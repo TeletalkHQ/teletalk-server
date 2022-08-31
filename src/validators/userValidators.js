@@ -7,7 +7,7 @@ const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
 
-const { errorThrower, getErrorObject } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utils");
 
 const {
   commonValidationModels: { createdAtValidationModel },

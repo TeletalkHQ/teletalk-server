@@ -1,6 +1,5 @@
-const { LoggerNode } = require("utility-store/src/classes/LoggerNode");
-
 const { response, request } = require("express");
+const { LoggerNode } = require("utility-store/src/classes/LoggerNode");
 
 const logger = new LoggerNode();
 global.logger = logger;

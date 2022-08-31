@@ -31,7 +31,7 @@ const checkBodyFieldsMiddleware = (req, res, next) => {
       overloadFieldsError: INPUT_FIELDS_OVERLOAD,
     });
 
-    errorThrower(checkResult.done === false, () => ({
+    errorThrower(checkResult.ok === false, () => ({
       ...checkResult.errorObject,
       inputFields: body,
       fields: inputFields,

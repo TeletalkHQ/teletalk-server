@@ -60,7 +60,7 @@ const chatIdValidator = async (chatId, returnCondition) => {
   try {
     const result = await compiledChatIdValidator({ chatId });
 
-    if (result === true) return { done: true };
+    if (result === true) return { ok: true };
 
     validationErrorBuilder
       .create()
@@ -86,7 +86,7 @@ const messageTextValidator = async (messageText, returnCondition) => {
   try {
     const result = await compiledMessageTextValidator({ message: messageText });
 
-    if (result === true) return { done: true };
+    if (result === true) return { ok: true };
 
     validationErrorBuilder
       .create()
@@ -114,7 +114,7 @@ const participantIdValidator = async (participantId, returnCondition) => {
       participantId,
     });
 
-    if (result === true) return { done: true };
+    if (result === true) return { ok: true };
 
     validationErrorBuilder
       .create()

@@ -27,12 +27,12 @@ const requestMethodCheckerMiddleware = async (req, res, next) => {
 
     next();
 
-    return { done: true };
+    return { ok: true };
   } catch (error) {
     logger.log("requestMethodCheckerMiddleware catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
-    return { done: false };
+    return { ok: false };
   }
 };
 

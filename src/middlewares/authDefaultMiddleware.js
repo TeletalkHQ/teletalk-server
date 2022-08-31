@@ -14,7 +14,7 @@ const authDefaultMiddleware = async (req, res, next) => {
 
     next();
 
-    return { done: true };
+    return { ok: true };
   } catch (error) {
     logger.log(
       "🚀 ~ file: authDefaultMiddleware.js ~ line 11 ~ authDefaultMiddleware ~ error",
@@ -22,7 +22,7 @@ const authDefaultMiddleware = async (req, res, next) => {
     );
     res.errorCollector(error);
     res.errorResponser();
-    return { done: false };
+    return { ok: false };
   }
 };
 

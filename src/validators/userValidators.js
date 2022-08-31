@@ -96,7 +96,7 @@ const contactValidator = async (contact, returnCondition) => {
     await firstNameValidator(contact.firstName);
     await lastNameValidator(contact.lastName);
 
-    return { done: true };
+    return { ok: true };
   } catch (error) {
     logger.log("contactValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
@@ -154,7 +154,7 @@ const firstNameValidator = async (firstName, returnCondition) => {
   try {
     const validationResult = await compiledFirstNameValidator({ firstName });
 
-    if (validationResult === true) return { done: true };
+    if (validationResult === true) return { ok: true };
 
     firstNameValidatorErrorBuilder(validationResult, firstName);
   } catch (error) {
@@ -167,7 +167,7 @@ const lastNameValidator = async (lastName, returnCondition) => {
   try {
     const validationResult = await compiledLastNameValidator({ lastName });
 
-    if (validationResult === true) return { done: true };
+    if (validationResult === true) return { ok: true };
 
     lastNameValidatorErrorBuilder(validationResult, lastName);
   } catch (error) {
@@ -182,7 +182,7 @@ const phoneNumberValidator = async (phoneNumber, returnCondition) => {
       phoneNumber,
     });
 
-    if (validationResult === true) return { done: true };
+    if (validationResult === true) return { ok: true };
 
     phoneNumberValidatorErrorBuilder(validationResult, phoneNumber);
   } catch (error) {
@@ -195,7 +195,7 @@ const privateIdValidator = async (privateId, returnCondition) => {
   try {
     const validationResult = await compiledPrivateIdValidator({ privateId });
 
-    if (validationResult === true) return { done: true };
+    if (validationResult === true) return { ok: true };
 
     privateIdValidatorErrorBuilder(validationResult, privateId);
   } catch (error) {
@@ -228,13 +228,13 @@ const tokenValidator = async (
       .execute();
 
     const verifiedToken = authManager.tokenVerifier(token, secret);
-    if (verifiedToken.done === true) return verifiedToken.data;
+    if (verifiedToken.ok === true) return verifiedToken.data;
 
     errorBuilder
       .addExtraErrorFields({
         tokenError: verifiedToken.error,
       })
-      .addError(verifiedToken.done === false, TOKEN_INVALID)
+      .addError(verifiedToken.ok === false, TOKEN_INVALID)
       .execute();
   } catch (error) {
     logger.log("tokenValidator catch, error:", error);
@@ -246,7 +246,7 @@ const usernameValidator = async (username, returnCondition) => {
   try {
     const validationResult = await compiledUsernameValidator({ username });
 
-    if (validationResult === true) return { done: true };
+    if (validationResult === true) return { ok: true };
 
     usernameValidatorErrorBuilder(validationResult, username);
   } catch (error) {
@@ -261,7 +261,7 @@ const verificationCodeValidator = async (verificationCode, returnCondition) => {
       verificationCode,
     });
 
-    if (validationResult === true) return { done: true };
+    if (validationResult === true) return { ok: true };
 
     verificationCodeValidatorErrorBuilder(validationResult, verificationCode);
   } catch (error) {

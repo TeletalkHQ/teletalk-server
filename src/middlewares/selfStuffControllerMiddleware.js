@@ -22,13 +22,13 @@ const selfStuffControllerMiddleware = (req, res, next) => {
 
     next();
 
-    return { done: true };
+    return { ok: true };
   } catch (error) {
     logger.log("selfStuffControllerMiddleware catch", error);
     res.errorCollector(error);
     res.errorResponser();
 
-    return { done: false };
+    return { ok: false };
   }
 };
 

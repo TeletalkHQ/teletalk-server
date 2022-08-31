@@ -39,7 +39,7 @@ class SmsClient {
       })
     );
 
-    return { done: true };
+    return { ok: true };
   }
 
   smsTemplates() {

@@ -29,7 +29,7 @@ const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
       for await (const md of middlewares) {
         const result = await md(req, res, () => {});
 
-        if (!result?.done) {
+        if (!result?.ok) {
           noErrorOnMiddlewares = false;
           break;
         }

@@ -64,10 +64,10 @@ class TemporaryClients {
 
       await this.setAliveClients(aliveClients);
 
-      return { done: true };
+      return { ok: true };
     }
 
-    return { done: false };
+    return { ok: false };
   }
 }
 

@@ -12,11 +12,11 @@ const bodyClarifyMiddleware = (req, _, next) => {
     req.body = objectClarify(req.body);
 
     next();
-    return { done: true };
+    return { ok: true };
   } catch (error) {
     logger.log("bodyClarifyMiddleware catch, error:", error);
     errorThrower(error, error);
-    return { done: false };
+    return { ok: false };
   }
 };
 

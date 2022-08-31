@@ -48,10 +48,10 @@ const ioFieldsChecker = (
       REQUIRED_IO_FIELD_IS_NOT_OBJECT
     ).check();
 
-    return { done: true };
+    return { ok: true };
   } catch (error) {
     return {
-      done: false,
+      ok: false,
       errorObject: error,
     };
   }

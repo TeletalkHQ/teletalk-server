@@ -10,6 +10,8 @@ const {
 const {
   userRoutes: { verifySignInNormalRoute, createNewUserRoute },
 } = require("@/variables/routes/userRoutes");
+const { printCatchError } = require("utility-store/src/functions/utilities");
+const { trier } = require("utility-store/src/classes/Trier");
 
 class AuthManager {
   constructor() {
@@ -17,26 +19,32 @@ class AuthManager {
     this.options = { algorithm: "HS256" };
   }
 
+  tryVerifyToken(token, secret, options) {
+    const data = JWT.verify(token, secret, {
+      complete: true,
+      ...this.options,
+      ...options,
+    });
+
+    return { data, done: true };
+  }
+
   tokenVerifier(
     token,
     secret = this.getJwtMainSecret(),
     options = this.options
   ) {
-    try {
-      const data = JWT.verify(token, secret, {
-        complete: true,
-        ...this.options,
-        ...options,
-      });
-
-      return { data, done: true };
-    } catch (error) {
-      logger.log("tokenVerifier catch, error:", error);
-      return {
-        error,
-        done: false,
-      };
-    }
+    return trier
+      .start()
+      .try(this.tryVerifyToken.bind(this), token, secret, options)
+      .catch((error) => {
+        printCatchError(this.tokenVerifier.name, error);
+        return {
+          error,
+          done: false,
+        };
+      })
+      .execute();
   }
 
   async tokenSigner(

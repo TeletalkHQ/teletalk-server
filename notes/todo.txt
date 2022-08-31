@@ -22,12 +22,9 @@ ClipboardJS documentation
 Make api for log server errors
 Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
-Useless routes cleanup
 
-Add exclude props to utils (like version)
 Fix public assets sharing
 Add getContacts tests
-Separate builders
 Add TranslateManager class
-Use getErrorObject JUST IN RESPONSE AREA!
 Cleanup controllers
+Cleanup catch logs!

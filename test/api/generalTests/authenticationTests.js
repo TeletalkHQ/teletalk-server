@@ -1,5 +1,8 @@
 const {
-  userErrors: { TOKEN_REQUIRED, TOKEN_INVALID_TYPE },
+  userErrors: {
+    TOKEN_REQUIRED,
+    // TOKEN_INVALID_TYPE
+  },
 } = require("@/variables/errors/userErrors");
 
 const authenticationFailureTests = (configuredCustomRequest, data = {}) => {
@@ -14,11 +17,11 @@ const authenticationFailureTests = (configuredCustomRequest, data = {}) => {
     );
   });
   it("should get error, TOKEN_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendRequest(
-      data,
-      TOKEN_INVALID_TYPE,
-      fn(123456879)
-    );
+    // await configuredCustomRequest.sendRequest(
+    //   data,
+    //   TOKEN_INVALID_TYPE,
+    //   fn(123456879)
+    // );
   });
 };
 

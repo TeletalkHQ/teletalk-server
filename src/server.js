@@ -7,6 +7,7 @@ const http = require("http");
 const { app } = require("@/app");
 
 const { envManager } = require("@/classes/EnvironmentManager");
+const { trier } = require("utility-store/src/classes/Trier");
 
 const { crashServer } = require("@/functions/utilities/utils");
 
@@ -44,13 +45,13 @@ const expressServer = () => {
   server.listen(EXACT_PORT, serverListenerCb);
 };
 
+const tryStartServer = () => {
+  socketServer();
+  expressServer();
+};
+
 const startServer = async () => {
-  try {
-    socketServer();
-    expressServer();
-  } catch (error) {
-    crashServer(error);
-  }
+  trier.start(tryStartServer).try().catch(crashServer).execute();
 };
 
 startServer();

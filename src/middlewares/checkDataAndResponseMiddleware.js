@@ -42,7 +42,7 @@ const checkAndResponseMiddleware = (req, res, next) => {
         //   })
         // );
 
-        errorThrower(checkResult.done === false, () => ({
+        errorThrower(checkResult.ok === false, () => ({
           ...checkResult.errorObject,
           outputFields: data,
           fields: outputFields,

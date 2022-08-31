@@ -58,7 +58,7 @@ class StateManager {
   async setStateWithStringifiedValue(key, value) {
     await this.storage.set(key, value);
 
-    return { done: true };
+    return { ok: true };
   }
 
   async setState(key, newState) {
@@ -66,7 +66,7 @@ class StateManager {
     const stringifiedNewState = JSON.stringify(newState);
     await this.setStateWithStringifiedValue(key, stringifiedNewState);
 
-    return { done: true };
+    return { ok: true };
   }
 }
 

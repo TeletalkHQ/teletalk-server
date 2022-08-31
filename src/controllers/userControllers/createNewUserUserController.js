@@ -41,15 +41,13 @@ const createNewUserUserController = async (
     const jwtSecret = authManager.getJwtSignInSecret();
     const verifiedToken = await tokenValidator(verifyToken, jwtSecret);
 
-    errorThrower(verifiedToken.done === false, () => verifiedToken.error);
+    errorThrower(verifiedToken.ok === false, () => verifiedToken.error);
 
     const validatedFirstName = await firstNameValidator(firstName);
     const validatedLastName = await lastNameValidator(lastName);
 
     errorThrower(
-      [validatedFirstName, validatedLastName].every(
-        (item) => item.done !== true
-      ),
+      [validatedFirstName, validatedLastName].every((item) => item.ok !== true),
       () => ({
         ...FULL_NAME_INVALID,
         validatedFullName: { validatedFirstName, validatedLastName },

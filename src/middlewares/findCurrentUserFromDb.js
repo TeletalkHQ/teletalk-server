@@ -25,12 +25,12 @@ const findCurrentUserFromDb = async (req, res, next) => {
     req.currentUser = currentUser;
 
     next();
-    return { done: true };
+    return { ok: true };
   } catch (error) {
     logger.log("findCurrentUserFromDb catch: ", error);
     res.errorCollector(error);
     res.errorResponser();
-    return { done: false };
+    return { ok: false };
   }
 };
 

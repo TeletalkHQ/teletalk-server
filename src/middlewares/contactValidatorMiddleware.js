@@ -14,16 +14,16 @@ const contactValidatorMiddleware = async (req, res, next) => {
       lastName,
     });
 
-    errorThrower(validationResult.done !== true, validationResult);
+    errorThrower(validationResult.ok !== true, validationResult);
 
     next();
 
-    return { done: true };
+    return { ok: true };
   } catch (error) {
     logger.log("contactValidatorMiddleware catch, error:", error);
     res.errorCollector(error);
     res.errorResponser();
-    return { done: false };
+    return { ok: false };
   }
 };
 

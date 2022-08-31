@@ -1,22 +1,20 @@
+const { trier } = require("utility-store/src/classes/Trier");
 const JWT = require("jsonwebtoken");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const {
-  isUrlMatchWithReqUrl,
-  errorThrower,
-} = require("@/functions/utilities/utils");
+const { isUrlMatchWithReqUrl } = require("@/functions/utilities/utils");
 
 const {
-  userRoutes: { verifySignInNormalRoute, createNewUserRoute },
+  userRoutes: { createNewUserRoute, verifySignInNormalRoute },
 } = require("@/variables/routes/userRoutes");
-const { printCatchError } = require("utility-store/src/functions/utilities");
-const { trier } = require("utility-store/src/classes/Trier");
 
 class AuthManager {
   constructor() {
-    //? Is this should change by dev's ?
+    //FIXME Is this should change by dev's ?
     this.options = { algorithm: "HS256" };
+    this.tryVerifyToken = this.tryVerifyToken.bind(this);
+    this.trySignToken = this.trySignToken.bind(this);
   }
 
   tryVerifyToken(token, secret, options) {
@@ -26,7 +24,7 @@ class AuthManager {
       ...options,
     });
 
-    return { data, done: true };
+    return { data, ok: true };
   }
 
   tokenVerifier(
@@ -36,31 +34,32 @@ class AuthManager {
   ) {
     return trier
       .start()
-      .try(this.tryVerifyToken.bind(this), token, secret, options)
+      .setOptions(this.tokenVerifier.name)
+      .try(this.tryVerifyToken, token, secret, options)
       .catch((error) => {
-        printCatchError(this.tokenVerifier.name, error);
         return {
           error,
-          done: false,
+          ok: false,
         };
-      })
-      .execute();
+      }).result;
   }
 
+  trySignToken(data, secret, options) {
+    return JWT.sign(data, secret, {
+      ...this.options,
+      ...options,
+    });
+  }
   async tokenSigner(
     data,
     secret = this.getJwtMainSecret(),
     options = this.options
   ) {
-    try {
-      return JWT.sign(data, secret, {
-        ...this.options,
-        ...options,
-      });
-    } catch (error) {
-      logger.log("tokenSigner catch, error:", error);
-      errorThrower(error, error);
-    }
+    return trier
+      .start()
+      .setOptions(this.tokenSigner.name)
+      .try(this.trySignToken, data, secret, options)
+      .throw().result;
   }
 
   getSecretWithUrlCondition(reqUrl) {

@@ -3,24 +3,30 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { generalTest } = require("@/classes/GeneralTest");
 
 const {
-  requesters: { removeBlockRequest, addBlockRequest },
+  requesters: { addBlockRequest, removeBlockRequest },
   testVariables: {
-    testUsers: { removeBlockSuccessfulTestUser, selfStuffTestUser },
     cellphones: { notExistedContact },
+    testUsers: { removeBlockSuccessfulTestUser, selfStuffTestUser },
   },
 } = require("@/variables/others/testVariables");
 const { countries } = require("@/variables/others/countries");
 
 describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
-    await addBlockRequest.sendRequest(removeBlockSuccessfulTestUser, null, {
-      token: removeBlockRequest.getOptions().token,
-    });
+    await addBlockRequest().sendFullFeaturedRequest(
+      removeBlockSuccessfulTestUser,
+      null,
+      {
+        token: removeBlockRequest().getOptions().token,
+      }
+    );
     const {
       body: {
         removedBlockedCellphone: { phoneNumber, countryCode, countryName },
       },
-    } = await removeBlockRequest.sendRequest(removeBlockSuccessfulTestUser);
+    } = await removeBlockRequest().sendFullFeaturedRequest(
+      removeBlockSuccessfulTestUser
+    );
 
     generalTest
       .createSuccessTest()
@@ -42,7 +48,7 @@ describe("removeContact successful test", () => {
 describe("removeBlock failure tests", () => {
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   generalTest
-    .createFailTest(removeBlockRequest)
+    .createFailTest(removeBlockRequest())
     .authentication()
     .cellphone()
     .countryCode(cellphone)

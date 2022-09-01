@@ -1,9 +1,18 @@
-const Validator = require("fastest-validator");
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { trier } = require("utility-store/src/classes/Trier");
+const Validator = require("fastest-validator");
 
 const { errorThrower, objectClarify } = require("@/functions/utilities/utils");
 
-const v = new Validator();
+const {
+  localErrors: { VALIDATION_MODEL_IS_NOT_OBJECT },
+} = require("@/variables/errors/localErrors");
+
+const fastestValidatorCompiler = new Validator();
+
+const tryCompileValidator = (validationModel) => {
+  return fastestValidatorCompiler.compile(validationModel);
+};
 
 class ValidationModelBuilder {
   constructor() {
@@ -11,12 +20,12 @@ class ValidationModelBuilder {
       empty: undefined,
       max: undefined,
       min: undefined,
+      numeric: undefined,
       optional: undefined,
+      required: undefined,
       trim: undefined,
       type: undefined,
       unique: undefined,
-      numeric: undefined,
-      required: undefined,
       messages: {
         required: undefined,
         string: undefined,
@@ -46,22 +55,16 @@ class ValidationModelBuilder {
   }
 
   static validatorCompiler({ version, ...validationModel }) {
-    try {
-      errorThrower(
-        !customTypeof.check(validationModel).type.isObject,
-        "You must pass validationModel as a object"
-      );
+    errorThrower(
+      !customTypeof.isObject(validationModel),
+      VALIDATION_MODEL_IS_NOT_OBJECT
+    );
 
-      return v.compile(validationModel);
-    } catch (error) {
-      logger.log("validatorCompiler catch, error:", error);
-      errorThrower(error, error);
-    }
+    return trier(this.validatorCompiler)
+      .try(tryCompileValidator, validationModel)
+      .printAndThrow().result;
   }
 
-  build() {
-    return objectClarify(this.validationModelObject);
-  }
   setModelObject(modelObject) {
     this.modelObject = modelObject;
     return this;
@@ -109,6 +112,10 @@ class ValidationModelBuilder {
   lowercase() {
     this.validationModelObject.lowercase = !this.modelObject.lowercase.value;
     return this;
+  }
+
+  build() {
+    return objectClarify(this.validationModelObject);
   }
 }
 

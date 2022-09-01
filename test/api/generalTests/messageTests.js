@@ -38,25 +38,28 @@ const messageFailureTests = (configuredCustomRequest, data) => {
   });
 
   it("Should get error, MESSAGE_TEXT_REQUIRED", async () => {
-    await configuredCustomRequest.sendRequest(fn(""), MESSAGE_TEXT_REQUIRED);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      fn(""),
+      MESSAGE_TEXT_REQUIRED
+    );
   });
 
   it("Should get error, MESSAGE_TEXT_MAX_LENGTH_REACH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(messageMaxLength + 1)),
       MESSAGE_TEXT_MAX_LENGTH_REACH
     );
   });
 
   // it("Should get error, MESSAGE_TEXT_MIN_LENGTH_REACH", async () => {
-  //   await configuredCustomRequest.sendRequest(
+  //   await configuredCustomRequest.sendFullFeaturedRequest(
   //     fn(randomMaker.randomString(messageMinLength - 1 || 1)),
   //     MESSAGE_TEXT_MIN_LENGTH_REACH
   //   );
   // });
 
   it("Should get error, MESSAGE_TEXT_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(123456789),
       MESSAGE_TEXT_INVALID_TYPE
     );

@@ -36,25 +36,28 @@ const chatIdFailureTests = (configuredCustomRequest, data = {}) => {
   const fn = (chatId) => ({ ...data, chatId });
 
   it("Should get error, CHAT_ID_REQUIRED", async () => {
-    await configuredCustomRequest.sendRequest(fn(""), CHAT_ID_REQUIRED);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      fn(""),
+      CHAT_ID_REQUIRED
+    );
   });
 
   it("Should get error, CHAT_ID_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(12365475),
       CHAT_ID_INVALID_TYPE
     );
   });
 
   it("Should get error, CHAT_ID_MAX_LENGTH_REACH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(+chatIdMaxLength + 1)),
       CHAT_ID_MAX_LENGTH_REACH
     );
   });
 
   it("Should get error, CHAT_ID_MIN_LENGTH_REACH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(+chatIdMinLength - 1)),
       CHAT_ID_MIN_LENGTH_REACH
     );

@@ -34,23 +34,26 @@ const participantIdFailureTests = (configuredCustomRequest, data = {}) => {
   });
 
   it("Should get error, PARTICIPANT_ID_REQUIRED", async () => {
-    await configuredCustomRequest.sendRequest(fn(""), PARTICIPANT_ID_REQUIRED);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      fn(""),
+      PARTICIPANT_ID_REQUIRED
+    );
   });
 
   it("Should get error, PARTICIPANT_ID_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomNumber(participantIdMaxLength)),
       PARTICIPANT_ID_INVALID_TYPE
     );
   });
   it("Should get error, PARTICIPANT_ID_MIN_LENGTH_REACH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(participantIdMinLength - 1)),
       PARTICIPANT_ID_MIN_LENGTH_REACH
     );
   });
   it("Should get error, PARTICIPANT_ID_MAX_LENGTH_REACH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(participantIdMaxLength + 1)),
       PARTICIPANT_ID_MAX_LENGTH_REACH
     );

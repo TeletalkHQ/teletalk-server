@@ -37,28 +37,31 @@ const phoneNumberSuccessTests = (
 const phoneNumberFailureTests = (configuredCustomRequest, data) => {
   const fn = (phoneNumber) => ({ ...data, phoneNumber });
   it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
-    await configuredCustomRequest.sendRequest(fn(""), PHONE_NUMBER_REQUIRED);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      fn(""),
+      PHONE_NUMBER_REQUIRED
+    );
   });
   it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(9119119191),
       PHONE_NUMBER_INVALID_TYPE
     );
   });
   it(`It should get error, PHONE_NUMBER_NUMERIC`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn("9119119191!"),
       PHONE_NUMBER_NUMERIC
     );
   });
   it(`It should get error, PHONE_NUMBER_MINLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomStringNumber(phoneNumberMinlength - 1)),
       PHONE_NUMBER_MINLENGTH_REACH
     );
   });
   it(`It should get error, PHONE_NUMBER_MAXLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomStringNumber(phoneNumberMaxlength + 1)),
       PHONE_NUMBER_MAXLENGTH_REACH
     );

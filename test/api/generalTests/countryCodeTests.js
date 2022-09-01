@@ -40,35 +40,38 @@ const countryCodeFailureTests = (configuredCustomRequest, data) => {
   const fn = (countryCode) => ({ ...data, countryCode });
 
   it(`It should get error, COUNTRY_CODE_REQUIRED`, async () => {
-    await configuredCustomRequest.sendRequest(fn(""), COUNTRY_CODE_REQUIRED);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      fn(""),
+      COUNTRY_CODE_REQUIRED
+    );
   });
   it(`It should get error, COUNTRY_CODE_NUMERIC`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(countryCodeMaxlength - 1) + "!"),
       COUNTRY_CODE_NUMERIC
     );
   });
   it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomNumber(countryCodeMaxlength)),
       COUNTRY_CODE_INVALID_TYPE
     );
   });
   it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       //FIXME Read from countries for sure
       fn("1111"),
       COUNTRY_CODE_NOT_SUPPORTED
     );
   });
   it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomStringNumber(countryCodeMinlength - 1)),
       COUNTRY_CODE_MINLENGTH_REACH
     );
   });
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomStringNumber(countryCodeMaxlength + 1)),
       COUNTRY_CODE_MAXLENGTH_REACH
     );

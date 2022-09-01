@@ -23,7 +23,7 @@ describe("send message success tests", () => {
           messageSender: { senderId },
         },
       },
-    } = await sendMessageRequest.sendRequest({
+    } = await sendMessageRequest().sendFullFeaturedRequest({
       participantId: privateId,
       message,
     });
@@ -49,7 +49,7 @@ describe("send message success tests", () => {
 
 describe("send message failure tests", () => {
   generalTest
-    .createFailTest(sendMessageRequest)
+    .createFailTest(sendMessageRequest())
     .authentication()
     .participantId({ message })
     .message({

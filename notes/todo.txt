@@ -28,3 +28,4 @@ Add getContacts tests
 Add TranslateManager class
 Cleanup controllers
 Cleanup catch logs!
+BUG: After signIn, verifyToken get validated without verifySignIn

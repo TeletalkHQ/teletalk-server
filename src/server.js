@@ -51,7 +51,7 @@ const tryStartServer = () => {
 };
 
 const startServer = async () => {
-  trier.start(tryStartServer).try().catch(crashServer).execute();
+  trier(startServer.name).try(tryStartServer).catch(crashServer);
 };
 
 startServer();

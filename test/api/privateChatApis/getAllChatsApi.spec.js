@@ -10,12 +10,12 @@ describe("getAllChats success tests", () => {
   it("Should get all user chats array", async () => {
     const {
       body: { chats },
-    } = await getAllChatsRequest.sendRequest();
+    } = await getAllChatsRequest().sendFullFeaturedRequest();
 
     chatsSuccessTests({ chatsTest: chats });
   });
 });
 
 describe("getAllChatsApi failure tests", () => {
-  authenticationFailureTests(getAllChatsRequest);
+  authenticationFailureTests(getAllChatsRequest());
 });

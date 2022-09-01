@@ -4,7 +4,7 @@ const {
 
 const cellphoneFailureTests = (configuredCustomRequest, data = {}) => {
   it(`It should get error, CELLPHONE_REQUIRED`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       { ...data, countryCode: "", countryName: "", phoneNumber: "" },
       CELLPHONE_REQUIRED
     );

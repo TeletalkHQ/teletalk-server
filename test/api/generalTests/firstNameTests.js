@@ -36,22 +36,25 @@ const firstNameFailureTests = (configuredCustomRequest, data) => {
   const fn = (firstName) => ({ ...data, firstName });
 
   it("should get error, FIRST_NAME_REQUIRED", async () => {
-    await configuredCustomRequest.sendRequest(fn(""), FIRST_NAME_REQUIRED);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      fn(""),
+      FIRST_NAME_REQUIRED
+    );
   });
   it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(+firstNameMinLength - 1)),
       FIRST_NAME_MINLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(+firstNameMaxLength + 1)),
       FIRST_NAME_MAXLENGTH_REACH
     );
   });
   it("should get error, FIRST_NAME_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(123456789),
       FIRST_NAME_INVALID_TYPE
     );

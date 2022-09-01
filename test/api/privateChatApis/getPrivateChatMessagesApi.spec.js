@@ -6,9 +6,9 @@ const {
 const { chatIdFailureTests } = require("$/api/generalTests/chatIdTests");
 const {
   requesters: {
+    getAllChatsRequest,
     getPrivateChatMessagesRequest,
     sendMessageRequest,
-    getAllChatsRequest,
   },
   testVariables: {
     testUsers: { getPrivateChatMessagesTestUser },
@@ -22,7 +22,7 @@ describe("get messages success tests", () => {
     //? First start a chat and send some messages to testUser_1 =>
     // eslint-disable-next-line no-unused-vars
     for (const _ of Array.from({ length: 10 })) {
-      await sendMessageRequest.sendRequest({
+      await sendMessageRequest().sendFullFeaturedRequest({
         participantId: getPrivateChatMessagesTestUser.privateId,
         message,
       });
@@ -31,13 +31,15 @@ describe("get messages success tests", () => {
     //? Now get added chats from user data =>
     const {
       body: { chats },
-    } = await getAllChatsRequest.sendRequest();
+    } = await getAllChatsRequest().sendFullFeaturedRequest();
 
     const { chatId } = chats.at(-1);
 
     const {
       body: { messages },
-    } = await getPrivateChatMessagesRequest.sendRequest({ chatId });
+    } = await getPrivateChatMessagesRequest().sendFullFeaturedRequest({
+      chatId,
+    });
 
     const {
       messageId,
@@ -56,6 +58,6 @@ describe("get messages success tests", () => {
 });
 
 describe("getMessagesApi failure tests", () => {
-  authenticationFailureTests(getPrivateChatMessagesRequest);
-  chatIdFailureTests(getPrivateChatMessagesRequest);
+  authenticationFailureTests(getPrivateChatMessagesRequest());
+  chatIdFailureTests(getPrivateChatMessagesRequest());
 });

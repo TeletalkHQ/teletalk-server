@@ -39,35 +39,35 @@ const verificationCodeFailureTests = (configuredCustomRequest, data = {}) => {
   const fn = (verificationCode) => ({ ...data, verificationCode });
 
   it("it should get error, VERIFICATION_CODE_REQUIRED", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(""),
       VERIFICATION_CODE_REQUIRED
     );
   });
 
   it("it should get error, VERIFICATION_CODE_NUMERIC", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn("verification code numeric!"),
       VERIFICATION_CODE_NUMERIC
     );
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomNumber(verificationCodeLength)),
       VERIFICATION_CODE_INVALID_TYPE
     );
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID_LENGTH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomStringNumber(verificationCodeLength + 1)),
       VERIFICATION_CODE_INVALID_LENGTH
     );
   });
 
   it("it should get error, VERIFICATION_CODE_INVALID", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomStringNumber(verificationCodeLength)),
       VERIFICATION_CODE_INVALID
     );

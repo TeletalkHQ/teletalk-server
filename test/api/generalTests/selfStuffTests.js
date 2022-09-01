@@ -4,7 +4,7 @@ const {
 
 const selfStuffFailureTests = (configuredCustomRequest, data) => {
   it("should get error, TOKEN_REQUIRED", async () => {
-    await configuredCustomRequest.sendRequest(data, SELF_STUFF);
+    await configuredCustomRequest.sendFullFeaturedRequest(data, SELF_STUFF);
   });
 };
 

@@ -11,12 +11,14 @@ const {
     cellphones: { notExistedContact },
     testUsers: {
       addContactSuccessfulTestUser,
-      selfStuffTestUser,
       contactItemExistTestUser,
+      selfStuffTestUser,
     },
   },
 } = require("@/variables/others/testVariables");
 const { countries } = require("@/variables/others/countries");
+
+const configuredAddContactRequester = addContactRequest();
 
 describe("add contact success tests", () => {
   it(`should add testUser_1 to testUser_0 contact list`, async () => {
@@ -31,7 +33,10 @@ describe("add contact success tests", () => {
           privateId,
         },
       },
-    } = await addContactRequest.sendRequest(addContactSuccessfulTestUser);
+    } = await configuredAddContactRequester.sendFullFeaturedRequest(
+      //TODO User cellphone instead
+      addContactSuccessfulTestUser
+    );
 
     generalTest
       .createSuccessTest()
@@ -65,7 +70,9 @@ describe("add contact success tests", () => {
 describe("addContact failure tests", () => {
   //* Add someone to contacts for contactItemExist fail tests
   before(async () => {
-    await addContactRequest.sendRequest(contactItemExistTestUser);
+    await configuredAddContactRequester.sendFullFeaturedRequest(
+      contactItemExistTestUser
+    );
   });
 
   const contact = userPropsUtilities.makeRandomContact(
@@ -74,7 +81,7 @@ describe("addContact failure tests", () => {
     countries
   );
   generalTest
-    .createFailTest(addContactRequest)
+    .createFailTest(configuredAddContactRequester)
     .authentication()
     .cellphone(contact)
     .countryCode(contact)

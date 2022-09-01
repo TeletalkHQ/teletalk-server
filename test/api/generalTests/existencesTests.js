@@ -10,29 +10,44 @@ const {
 
 const blacklistItemNotExistFailureTests = (configuredCustomRequest, data) => {
   it("should get error, BLACKLIST_ITEM_NOT_EXIST", async () => {
-    await configuredCustomRequest.sendRequest(data, BLACKLIST_ITEM_NOT_EXIST);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      data,
+      BLACKLIST_ITEM_NOT_EXIST
+    );
   });
 };
 const blacklistItemExistFailureTests = (configuredCustomRequest, data) => {
   it("should get error, BLACKLIST_ITEM_EXIST", async () => {
-    await configuredCustomRequest.sendRequest(data, BLACKLIST_ITEM_EXIST);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      data,
+      BLACKLIST_ITEM_EXIST
+    );
   });
 };
 
 const contactItemNotExistFailureTests = (configuredCustomRequest, data) => {
   it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
-    await configuredCustomRequest.sendRequest(data, CONTACT_ITEM_NOT_EXIST);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      data,
+      CONTACT_ITEM_NOT_EXIST
+    );
   });
 };
 const contactItemExistFailureTests = (configuredCustomRequest, data) => {
   it("should get error, CONTACT_ITEM_EXIST", async () => {
-    await configuredCustomRequest.sendRequest(data, CONTACT_ITEM_EXIST);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      data,
+      CONTACT_ITEM_EXIST
+    );
   });
 };
 
 const targetUserNotExistFailureTests = (configuredCustomRequest, data) => {
   it("should get error, TARGET_USER_NOT_EXIST", async () => {
-    await configuredCustomRequest.sendRequest(data, TARGET_USER_NOT_EXIST);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      data,
+      TARGET_USER_NOT_EXIST
+    );
   });
 };
 

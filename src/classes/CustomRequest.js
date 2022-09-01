@@ -3,17 +3,20 @@ const { expect } = require("chai");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
-
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 class CustomRequest {
   constructor(token) {
     this.routeObject = {};
     this.data = {};
-    this.options = { token, filterDataCondition: true };
+    this.options = {
+      token,
+      filterDataCondition: true,
+      requiredFieldIndex: 0,
+      selectedRequiredFields: {},
+    };
     this.mergedOptions = { ...this.options };
     this.requestData = undefined;
-    this.requiredFieldIndex = 0;
     this.errorObject = undefined;
     this.authorizationHeader = ["Authorization", null];
     this.responseStatusCode = undefined;
@@ -116,13 +119,20 @@ class CustomRequest {
 
     return this;
   }
+  setSelectedRequiredFields() {
+    const selectedRequiredFields = this.getSelectedRequiredFields();
+    this.setOptions({ selectedRequiredFields });
+    return this;
+  }
   async sendFullFeaturedRequest(data, errorObject, options = this.options) {
     (
       await this.mergeOptions(options)
         .logStartTestRequest()
         .logRouteSpecs()
+        .setSelectedRequiredFields()
         .logMergedOptions()
         .setRequestData(data)
+        .filterRequestData()
         .logRequestData()
         .setErrorObject(errorObject)
         .makeAuthorizationHeader()
@@ -182,20 +192,21 @@ class CustomRequest {
     return this;
   }
 
+  getSelectedRequiredFields() {
+    const { requiredFieldIndex } = this.mergedOptions;
+    return this.routeObject.inputFields[requiredFieldIndex];
+  }
+  filterRequestData() {
+    const { selectedRequiredFields } = this.getOptions();
+    const filteredRequestData = objectUtilities.excludePropsPeerToPeer(
+      this.requestData,
+      selectedRequiredFields
+    );
+    this.setRequestData(filteredRequestData);
+    return this;
+  }
   setRequestData(requestData) {
-    const { filterDataCondition } = this.mergedOptions;
-
     this.requestData = requestData;
-    if (filterDataCondition) {
-      const requiredFields =
-        this.routeObject.inputFields[this.requiredFieldIndex];
-
-      this.requestData = objectUtilities.excludePropsPeerToPeer(
-        this.requestData,
-        requiredFields
-      );
-    }
-
     return this;
   }
 

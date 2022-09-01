@@ -1,7 +1,5 @@
 const Redis = require("ioredis");
 
-const { errorThrower } = require("@/functions/utilities/utils");
-
 class StateManager {
   constructor() {
     this.storage = new Redis();
@@ -36,28 +34,16 @@ class StateManager {
   }
 
   async getStateStringifiedValue(key) {
-    try {
-      return await this.storage.get(key);
-    } catch (error) {
-      logger.log("getState catch, error", error);
-      errorThrower(error, error);
-    }
+    return this.storage.get(key);
   }
 
   async getState(key) {
-    try {
-      const value = await this.getStateStringifiedValue(key);
-
-      return JSON.parse(value);
-    } catch (error) {
-      logger.log("getStateObject catch, error", error);
-      errorThrower(error, error);
-    }
+    const value = await this.getStateStringifiedValue(key);
+    return JSON.parse(value);
   }
 
   async setStateWithStringifiedValue(key, value) {
     await this.storage.set(key, value);
-
     return { ok: true };
   }
 
@@ -65,7 +51,6 @@ class StateManager {
     this.state[key] = newState;
     const stringifiedNewState = JSON.stringify(newState);
     await this.setStateWithStringifiedValue(key, stringifiedNewState);
-
     return { ok: true };
   }
 }

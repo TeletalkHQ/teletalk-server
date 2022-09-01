@@ -12,15 +12,21 @@ const { countries } = require("@/variables/others/countries");
 
 describe("removeContact successful test", () => {
   it(`should add testUser_3 to testUser_0 contact list`, async () => {
-    await addContactRequest.sendRequest(removeContactSuccessfulTestUser, null, {
-      token: removeContactRequest.getOptions().token,
-    });
+    await addContactRequest().sendFullFeaturedRequest(
+      removeContactSuccessfulTestUser,
+      null,
+      {
+        token: removeContactRequest().getOptions().token,
+      }
+    );
 
     const {
       body: {
         removedContact: { phoneNumber, countryCode, countryName },
       },
-    } = await removeContactRequest.sendRequest(removeContactSuccessfulTestUser);
+    } = await removeContactRequest().sendFullFeaturedRequest(
+      removeContactSuccessfulTestUser
+    );
 
     generalTest
       .createSuccessTest()
@@ -42,7 +48,7 @@ describe("removeContact successful test", () => {
 describe("removeContact failure tests", () => {
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   generalTest
-    .createFailTest(removeContactRequest)
+    .createFailTest(removeContactRequest())
     .authentication()
     .cellphone()
     .countryCode(cellphone)

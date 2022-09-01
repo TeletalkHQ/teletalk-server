@@ -38,28 +38,31 @@ const countryNameFailureTests = (configuredCustomRequest, data) => {
   const fn = (countryName) => ({ ...data, countryName });
 
   it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
-    await configuredCustomRequest.sendRequest(fn(""), COUNTRY_NAME_REQUIRED);
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      fn(""),
+      COUNTRY_NAME_REQUIRED
+    );
   });
   it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn("Something wrong!"),
       COUNTRY_NAME_NOT_SUPPORTED
     );
   });
   it(`It should get error, COUNTRY_NAME_INVALID_TYPE`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(1235468),
       COUNTRY_NAME_INVALID_TYPE
     );
   });
   it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(countryNameMinlength - 1)),
       COUNTRY_NAME_MINLENGTH_REACH
     );
   });
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(countryNameMaxlength + 1)),
       COUNTRY_NAME_MAXLENGTH_REACH
     );

@@ -9,13 +9,13 @@ const {
 } = require("@/models/userModels/userModels");
 
 const {
-  testVariables: {
-    cellphones: { verifySignInNewUserCellphone, verifySignInFailTestCellphone },
-  },
   requesters: {
-    verifySignInRequest,
-    signInNormalRequest,
     createNewUserRequest,
+    signInNormalRequest,
+    verifySignInRequest,
+  },
+  testVariables: {
+    cellphones: { verifySignInFailTestCellphone, verifySignInNewUserCellphone },
   },
 } = require("@/variables/others/testVariables");
 
@@ -24,7 +24,9 @@ const signInFn = async () => {
     body: {
       user: { verifyToken },
     },
-  } = await signInNormalRequest.sendRequest(verifySignInNewUserCellphone);
+  } = await signInNormalRequest().sendFullFeaturedRequest(
+    verifySignInNewUserCellphone
+  );
 
   return verifyToken;
 };
@@ -33,25 +35,26 @@ describe("verifySignInNormalApi success test", () => {
   it("should get newUser === true if there is no user with test verify token in db", async () => {
     const generalSuccessTests = generalTest.createSuccessTest();
 
-    const verifyTokenSecret = authManager.getJwtSignInSecret();
+    const signInSecret = authManager.getJwtSignInSecret();
     const tokenVerifier = async (token) => {
-      await generalSuccessTests.token({
+      return await generalSuccessTests.token({
+        secret: signInSecret,
         tokenTest: token,
-        secret: verifyTokenSecret,
       });
     };
 
     //* 1- Sign in as a new user =>
     const newUserVerifyToken = await signInFn();
     await tokenVerifier(newUserVerifyToken);
-    //* 2- Get verification code, In test mode the verification code is stored in env =>
+
+    //* 2- Get verification code, In test mode, verification code is stored in env =>
     const newUserVerificationCode =
       userPropsUtilities.getTestVerificationCode();
 
     //* 3- Verify user by verificationCode & verifyToken =>
-    const newUserVerifySignInResponse = await verifySignInRequest
+    const newUserVerifySignInResponse = await verifySignInRequest()
       .setToken(newUserVerifyToken)
-      .sendRequest({
+      .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
       });
 
@@ -63,25 +66,26 @@ describe("verifySignInNormalApi success test", () => {
       firstNameModel.maxlength.value,
       lastNameModel.maxlength.value
     );
-    await createNewUserRequest
+    await createNewUserRequest()
       .setToken(newUserVerifyToken)
-      .sendRequest(fullName);
+      .sendFullFeaturedRequest(fullName);
 
     //* 6- Now sign in again for test output when newUser === false =>
-    const existedUserVerifyToken = await signInFn();
-    await tokenVerifier(existedUserVerifyToken);
+    const signedUserVerifyToken = await signInFn();
+    await tokenVerifier(signedUserVerifyToken);
     //* 7- Get the verification code =>
-    const existedVerificationCode =
-      userPropsUtilities.getTestVerificationCode();
+    const verificationCode = userPropsUtilities.getTestVerificationCode();
 
     //* 8- Verify sign in when newUser === false =>
     const {
       body: {
         user: { newUser, ...userData },
       },
-    } = await verifySignInRequest.setToken(existedUserVerifyToken).sendRequest({
-      verificationCode: existedVerificationCode,
-    });
+    } = await verifySignInRequest()
+      .setToken(signedUserVerifyToken)
+      .sendFullFeaturedRequest({
+        verificationCode,
+      });
 
     //* 9- Test output when newUser === false =>
     expect(newUser).equal(false);
@@ -106,18 +110,19 @@ describe("verifySignInNormalApi success test", () => {
 });
 
 describe("verifySignInNormalApi failure tests", () => {
+  //* Config customRequest for fail tests
+  const customRequest = verifySignInRequest();
   before(async () => {
     const {
       body: {
         user: { verifyToken },
       },
-    } = await signInNormalRequest.sendRequest(verifySignInFailTestCellphone);
+    } = await signInNormalRequest().sendFullFeaturedRequest(
+      verifySignInFailTestCellphone
+    );
 
-    verifySignInRequest.setToken(verifyToken);
+    customRequest.setToken(verifyToken);
   });
 
-  generalTest
-    .createFailTest(verifySignInRequest)
-    .verificationCode()
-    .authentication();
+  generalTest.createFailTest(customRequest).verificationCode().authentication();
 });

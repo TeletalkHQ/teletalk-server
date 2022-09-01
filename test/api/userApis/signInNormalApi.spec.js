@@ -15,7 +15,7 @@ describe("signInNormalApi test success requests", () => {
       body: {
         user: { countryCode, countryName, phoneNumber, verifyToken },
       },
-    } = await signInNormalRequest.sendRequest(signInCellphone);
+    } = await signInNormalRequest().sendFullFeaturedRequest(signInCellphone);
 
     const verificationCode = userPropsUtilities.getTestVerificationCode();
 
@@ -48,7 +48,7 @@ describe("signInNormalApi test success requests", () => {
 
 describe("signInNormalApi test failure requests", () => {
   generalTest
-    .createFailTest(signInNormalRequest)
+    .createFailTest(signInNormalRequest())
     .cellphone(signInCellphone)
     .countryCode(signInCellphone)
     .countryName(signInCellphone)

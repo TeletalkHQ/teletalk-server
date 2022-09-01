@@ -5,9 +5,7 @@ const { tokenValidator } = require("@/validators/userValidators");
 const authDefaultMiddleware = async (req, res, next) => {
   try {
     const token = authManager.getTokenFromRequest(req);
-
     const secret = authManager.getSecretWithUrlCondition(req.url);
-
     const validationResult = await tokenValidator(token, secret);
 
     req.authData = validationResult;

@@ -32,9 +32,7 @@ class AuthManager {
     secret = this.getJwtMainSecret(),
     options = this.options
   ) {
-    return trier
-      .start()
-      .setOptions(this.tokenVerifier.name)
+    return trier(this.tokenVerifier.name)
       .try(this.tryVerifyToken, token, secret, options)
       .catch((error) => {
         return {
@@ -55,25 +53,24 @@ class AuthManager {
     secret = this.getJwtMainSecret(),
     options = this.options
   ) {
-    return trier
-      .start()
-      .setOptions(this.tokenSigner.name)
+    return trier(this.tokenSigner.name)
       .try(this.trySignToken, data, secret, options)
-      .throw().result;
+      .printAndThrow().result;
   }
 
   getSecretWithUrlCondition(reqUrl) {
-    const isSignInUrl = isUrlMatchWithReqUrl(
+    const isVerificationUrl = isUrlMatchWithReqUrl(
       [verifySignInNormalRoute.fullUrl, createNewUserRoute.fullUrl],
       reqUrl
     );
 
-    return isSignInUrl ? this.getJwtSignInSecret() : this.getJwtMainSecret();
+    return isVerificationUrl
+      ? this.getJwtSignInSecret()
+      : this.getJwtMainSecret();
   }
 
   getTokenFromRequest(request) {
     const { authorization, Authorization } = request.headers;
-
     return (authorization || Authorization)?.split("Bearer ")[1];
   }
 

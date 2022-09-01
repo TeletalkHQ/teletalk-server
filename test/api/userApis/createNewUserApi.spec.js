@@ -28,21 +28,23 @@ const fullName = userPropsUtilities.makeRandomFullName(
 
 describe("success create new normal user", () => {
   it("should create new user in db", async () => {
+    //* 1- Sign in as a new user =>
     const {
       body: {
         user: { verifyToken: newUserVerifyToken },
       },
-    } = await signInNormalRequest.sendRequest(createNewUserSignInCellphone);
-    //* 1- Sign in as a new user =>
+    } = await signInNormalRequest().sendFullFeaturedRequest(
+      createNewUserSignInCellphone
+    );
 
     //* 2- Get verification code, In test mode the verification code is stored in env =>
     const newUserVerificationCode =
       userPropsUtilities.getTestVerificationCode();
 
     //* 3- Verify user by verificationCode & verifyToken =>
-    const newUserVerifySignInResponse = await verifySignInRequest
+    const newUserVerifySignInResponse = await verifySignInRequest()
       .setToken(newUserVerifyToken)
-      .sendRequest({
+      .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
       });
 
@@ -62,11 +64,11 @@ describe("success create new normal user", () => {
           privateId,
         },
       },
-    } = await createNewUserRequest
+    } = await createNewUserRequest()
       .setToken(newUserVerifyToken)
-      .sendRequest(fullName);
+      .sendFullFeaturedRequest(fullName);
 
-    const successTests = generalTest.createSuccessTest(createNewUserRequest);
+    const successTests = generalTest.createSuccessTest(createNewUserRequest());
 
     const JWT_MAIN_SECRET = authManager.getJwtMainSecret();
     await successTests.token({
@@ -99,11 +101,26 @@ describe("success create new normal user", () => {
   });
 });
 
-describe("failure tests for create new normal user", () => {
+describe("create new normal user failure tests", () => {
+  //* Config customRequest for fail tests
+  const customRequest = createNewUserRequest();
+  before(async () => {
+    const {
+      body: {
+        user: { verifyToken },
+      },
+    } = await signInNormalRequest().sendFullFeaturedRequest(
+      createNewUserSignInCellphone
+    );
+    logger.log("rm", "verifyTokenVerifyToken", verifyToken);
+
+    customRequest.setToken(verifyToken);
+  });
+
   generalTest
-    .createFailTest(createNewUserRequest)
+    .createFailTest(customRequest)
     .authentication()
     .firstName(fullName)
+    //TODO Add lastName required fail test
     .lastName(fullName);
-  //TODO Add lastName req fail test
 });

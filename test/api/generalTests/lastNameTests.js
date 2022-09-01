@@ -33,13 +33,13 @@ const lastNameSuccessTests = (
 const lastNameFailureTests = (configuredCustomRequest, data) => {
   const fn = (lastName) => ({ ...data, lastName });
   it("should get error, LAST_NAME_MAXLENGTH_REACH", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(lastNameMaxLength + 1)),
       LAST_NAME_MAXLENGTH_REACH
     );
   });
   it("should get error, LAST_NAME_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendRequest(
+    await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomNumber(lastNameMaxLength)),
       LAST_NAME_INVALID_TYPE
     );

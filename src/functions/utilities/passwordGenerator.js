@@ -1,28 +1,21 @@
 const generatePassword = require("generate-password");
 
-const { errorThrower } = require("@/functions/utilities/utils");
-
 const initialOptions = {
-  length: 6,
-  numbers: true,
-  lowercase: false,
-  uppercase: false,
-  symbol: false,
   exclude: "",
+  length: 6,
+  lowercase: false,
+  numbers: true,
+  symbol: false,
+  uppercase: false,
 };
 
 const passwordGenerator = (options = initialOptions) => {
-  try {
-    const randomPassword = generatePassword.generate({
-      ...initialOptions,
-      ...options,
-    });
+  const randomPassword = generatePassword.generate({
+    ...initialOptions,
+    ...options,
+  });
 
-    return randomPassword;
-  } catch (error) {
-    logger.log("passwordGenerator catch, error:", error);
-    errorThrower(error, error);
-  }
+  return randomPassword;
 };
 
 module.exports = { passwordGenerator };

@@ -20,7 +20,9 @@ describe("addBlock successful tests", () => {
       body: {
         blockedCellphone: { phoneNumber, countryCode, countryName },
       },
-    } = await addBlockRequest.sendRequest(addBlockSuccessfulTestUser);
+    } = await addBlockRequest().sendFullFeaturedRequest(
+      addBlockSuccessfulTestUser
+    );
 
     generalTest
       .createSuccessTest()
@@ -42,12 +44,12 @@ describe("addBlock successful tests", () => {
 describe("addBlock failure tests", () => {
   before(async () => {
     //* Add someone to blacklist for blacklistItemExist error
-    await addBlockRequest.sendRequest(blacklistItemExistTestUser);
+    await addBlockRequest().sendFullFeaturedRequest(blacklistItemExistTestUser);
   });
 
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   generalTest
-    .createFailTest(addBlockRequest)
+    .createFailTest(addBlockRequest())
     .authentication()
     .selfStuff(selfStuffTestUser)
     .cellphone(cellphone)

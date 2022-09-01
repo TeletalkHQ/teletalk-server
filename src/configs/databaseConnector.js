@@ -1,25 +1,24 @@
+const { trier } = require("utility-store/src/classes/Trier");
+
 const mongoose = require("mongoose");
 
 const { appConfigs } = require("@/classes/AppConfigs");
 
-const { errorThrower } = require("@/functions/utilities/utils");
+const tryConnectToDatabase = () => {
+  const {
+    dbConfigs: { MONGO_URL },
+  } = appConfigs.getConfigs();
+
+  const database = mongoose.connect(MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    keepAlive: true,
+  });
+  return { database };
+};
 
 const databaseConnector = () => {
-  try {
-    const {
-      dbConfigs: { MONGO_URL },
-    } = appConfigs.getConfigs();
-
-    const database = mongoose.connect(MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      keepAlive: true,
-    });
-    return { database };
-  } catch (error) {
-    logger.log("databaseConnector catch, error:", error);
-    errorThrower(error, error);
-  }
+  trier(databaseConnector.name).try(tryConnectToDatabase).printAndThrow();
 };
 
 mongoose.connection.once("connected", () => {

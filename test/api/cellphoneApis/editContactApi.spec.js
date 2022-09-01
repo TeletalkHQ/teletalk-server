@@ -30,11 +30,11 @@ describe("edit contact success tests", () => {
           privateId,
         },
       },
-    } = await addContactRequest.sendRequest(
+    } = await addContactRequest().sendFullFeaturedRequest(
       editContactSuccessfulTestUser,
       null,
       {
-        token: editContactRequest.getOptions().token,
+        token: editContactRequest().getOptions().token,
       }
     );
     const gt = generalTest.createSuccessTest();
@@ -73,7 +73,7 @@ describe("edit contact success tests", () => {
       body: {
         editedContact: { firstName: newFirstName, lastName: newLastName },
       },
-    } = await editContactRequest.sendRequest({
+    } = await editContactRequest().sendFullFeaturedRequest({
       ...editContactSuccessfulTestUser,
       ...editedFullName,
     });
@@ -95,7 +95,7 @@ describe("editContact failure tests", () => {
     countries
   );
   generalTest
-    .createFailTest(editContactRequest)
+    .createFailTest(editContactRequest())
     .authentication()
     .selfStuff(selfStuffTestUser)
     .contactItemNotExist(editContactItemNotExistTestUser)

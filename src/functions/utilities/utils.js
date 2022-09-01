@@ -1,5 +1,7 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
+//CLEANME some methods is duplicate
+
 const errorThrower = (condition, error) => {
   if (condition) {
     //TODO Write errors into log file;
@@ -112,21 +114,6 @@ const excludeVersions = (object) => {
 
 const concatBaseUrlWithUrl = (baseUrl, routeUrl) => `${baseUrl}${routeUrl}`;
 
-const filterObject = (object, filterFields) => {
-  const filteredObject = {};
-
-  for (const key in filterFields) {
-    if (customTypeof.check(filterFields[key]).type.isObject) {
-      filteredObject[key] = filterObject(object[key], filterFields[key]);
-      continue;
-    }
-
-    filteredObject[key] = object[key];
-  }
-
-  return filteredObject;
-};
-
 const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
   for (const key in routeObjects) {
     const routeObject = routeObjects[key];
@@ -162,7 +149,6 @@ module.exports = {
   errorThrower,
   excludeVersions,
   extractVersions,
-  filterObject,
   getErrorObject,
   getHostFromRequest,
   getObjectLength,

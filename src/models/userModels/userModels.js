@@ -64,6 +64,8 @@ const {
     VERIFICATION_CODE_INVALID_TYPE,
     VERIFICATION_CODE_NUMERIC,
     VERIFICATION_CODE_MAXLENGTH_REACH,
+    TOKEN_MINLENGTH_REACH,
+    TOKEN_MAXLENGTH_REACH,
   },
 } = require("@/variables/errors/userErrors");
 
@@ -178,6 +180,8 @@ const tokenModel = modelBuilder
   .create()
   .required(true, TOKEN_REQUIRED)
   .type("string", TOKEN_INVALID_TYPE)
+  .minlength(200, TOKEN_MINLENGTH_REACH)
+  .maxlength(350, TOKEN_MAXLENGTH_REACH)
   .unique(true, TOKEN_EXIST)
   .version("1.0.0")
   .build();

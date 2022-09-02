@@ -698,6 +698,24 @@ const TOKEN_INVALID_TYPE = errorBuilder
   .errorKey(TOKEN_VALIDATION)
   .build();
 
+const TOKEN_MINLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4069)
+  .statusCode(401)
+  .errorReason(errorUniqueIds.TOKEN_MINLENGTH_REACH)
+  .version("1.0.0")
+  .errorKey(TOKEN_VALIDATION)
+  .build();
+
+const TOKEN_MAXLENGTH_REACH = errorBuilder
+  .create()
+  .errorCode(4069)
+  .statusCode(401)
+  .errorReason(errorUniqueIds.TOKEN_MAXLENGTH_REACH)
+  .version("1.0.0")
+  .errorKey(TOKEN_VALIDATION)
+  .build();
+
 const USER_EXIST = errorBuilder
   .create()
   .errorCode(4070)
@@ -916,6 +934,8 @@ const errors = {
   TOKEN_EXIST,
   TOKEN_INVALID,
   TOKEN_INVALID_TYPE,
+  TOKEN_MAXLENGTH_REACH,
+  TOKEN_MINLENGTH_REACH,
   TOKEN_REQUIRED,
   USER_EXIST,
   USER_NOT_EXIST,

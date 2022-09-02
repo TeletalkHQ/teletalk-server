@@ -186,6 +186,7 @@ class CustomRequest {
     const { token } = this.mergedOptions;
     this.authorizationHeader = [
       "Authorization",
+      //TODO: Add test for Bearer missing
       customTypeof.check(token).isTruthy ? `Bearer ${token}` : null,
     ];
 

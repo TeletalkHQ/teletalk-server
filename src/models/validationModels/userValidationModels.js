@@ -130,6 +130,8 @@ const tokenValidationModel = {
     .create()
     .setModelObject(tokenModel)
     .type()
+    .min()
+    .max()
     .required()
     .build(),
   version: "1.0.0",

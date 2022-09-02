@@ -45,6 +45,8 @@ const {
     TOKEN_INVALID,
     TOKEN_INVALID_TYPE,
     TOKEN_REQUIRED,
+    TOKEN_MINLENGTH_REACH,
+    TOKEN_MAXLENGTH_REACH,
   },
 } = require("@/variables/errors/userErrors");
 
@@ -222,6 +224,8 @@ const tokenValidator = async (
         },
       })
       .required(TOKEN_REQUIRED)
+      .stringMin(TOKEN_MINLENGTH_REACH)
+      .stringMax(TOKEN_MAXLENGTH_REACH)
       .stringEmpty(TOKEN_REQUIRED)
       .string(TOKEN_INVALID_TYPE)
       .throwAnyway(TOKEN_INVALID)

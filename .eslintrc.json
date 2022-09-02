@@ -33,6 +33,7 @@
         "lang": "en_US",
         "skipWords": [
           "abcdefghijklmnopqrstufwxyz",
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
           "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890",
           "Alphadash",
           "Alphanum",

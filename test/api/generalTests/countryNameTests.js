@@ -55,12 +55,16 @@ const countryNameFailureTests = (configuredCustomRequest, data) => {
       COUNTRY_NAME_INVALID_TYPE
     );
   });
-  it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomString(countryNameMinlength - 1)),
-      COUNTRY_NAME_MINLENGTH_REACH
-    );
-  });
+
+  if (countryNameMinlength > 1) {
+    it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
+      await configuredCustomRequest.sendFullFeaturedRequest(
+        fn(randomMaker.randomString(countryNameMinlength - 1)),
+        COUNTRY_NAME_MINLENGTH_REACH
+      );
+    });
+  }
+
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(countryNameMaxlength + 1)),

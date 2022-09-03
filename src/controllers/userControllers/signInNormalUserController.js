@@ -4,7 +4,7 @@ const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const { getHostFromRequest } = require("@/functions/utilities/utils");
+const { getHostFromRequest } = require("@/functions/utilities/utilities");
 const {
   passwordGenerator,
 } = require("@/functions/utilities/passwordGenerator");

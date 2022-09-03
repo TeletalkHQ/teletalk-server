@@ -2,7 +2,10 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { trier } = require("utility-store/src/classes/Trier");
 const Validator = require("fastest-validator");
 
-const { errorThrower, objectClarify } = require("@/functions/utilities/utils");
+const {
+  errorThrower,
+  objectClarify,
+} = require("@/functions/utilities/utilities");
 
 const {
   localErrors: { VALIDATION_MODEL_IS_NOT_OBJECT },

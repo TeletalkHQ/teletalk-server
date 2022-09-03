@@ -2,7 +2,7 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { userFinder } = require("@/models/userModels/userModelFunctions");
 

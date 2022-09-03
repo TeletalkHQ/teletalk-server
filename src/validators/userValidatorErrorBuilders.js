@@ -24,7 +24,7 @@ const {
     LAST_NAME_INVALID,
     LAST_NAME_INVALID_TYPE,
     LAST_NAME_MAXLENGTH_REACH,
-    LAST_NAME_REQUIRED,
+    LAST_NAME_MINLENGTH_REACH,
     PHONE_NUMBER_INVALID,
     PHONE_NUMBER_INVALID_TYPE,
     PHONE_NUMBER_MAXLENGTH_REACH,
@@ -121,7 +121,7 @@ const lastNameValidatorErrorBuilder = (validationResult, lastName) => {
       extraErrorFields: { validatedLastName: lastName },
     })
     .string(LAST_NAME_INVALID_TYPE)
-    .stringMin(LAST_NAME_REQUIRED)
+    .stringMin(LAST_NAME_MINLENGTH_REACH)
     .stringMax(LAST_NAME_MAXLENGTH_REACH)
     .throwAnyway(LAST_NAME_INVALID)
     .execute();

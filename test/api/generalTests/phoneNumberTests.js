@@ -44,13 +44,13 @@ const phoneNumberFailureTests = (configuredCustomRequest, data) => {
   });
   it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(9119119191),
+      fn(randomMaker.randomNumber(phoneNumberMaxlength)),
       PHONE_NUMBER_INVALID_TYPE
     );
   });
   it(`It should get error, PHONE_NUMBER_NUMERIC`, async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
-      fn("9119119191!"),
+      fn(randomMaker.randomString(phoneNumberMaxlength - 1) + "!"),
       PHONE_NUMBER_NUMERIC
     );
   });

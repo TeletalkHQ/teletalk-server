@@ -3,7 +3,7 @@ const { routeBuilder } = require("@/classes/RouteBuilder");
 const {
   versionCalculator,
   extractVersions,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const {
   inputOutputFields: {

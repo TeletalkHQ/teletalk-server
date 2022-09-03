@@ -3,7 +3,7 @@ const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
 const {
   extractVersions,
   versionCalculator,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const {
   chatModels: { chatIdModel, messageIdModel, messageModel, participantIdModel },

@@ -3,7 +3,7 @@ const { modelBuilder } = require("@/classes/ModelBuilder");
 const {
   extractVersions,
   versionCalculator,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const {
   commonModels: {

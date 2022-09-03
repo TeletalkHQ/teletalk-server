@@ -18,6 +18,9 @@ const {
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
+const {
+  getNonExistedCountryCode,
+} = require("@/functions/utilities/testUtilities");
 
 const countryCodeMaxlength = countryCodeModel.maxlength.value;
 const countryCodeMinlength = countryCodeModel.minlength.value;
@@ -58,18 +61,22 @@ const countryCodeFailureTests = (configuredCustomRequest, data) => {
     );
   });
   it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
+    const nonExistedCountryCode = getNonExistedCountryCode();
     await configuredCustomRequest.sendFullFeaturedRequest(
-      //FIXME Read from countries for sure
-      fn("1111"),
+      fn(nonExistedCountryCode),
       COUNTRY_CODE_NOT_SUPPORTED
     );
   });
-  it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomStringNumber(countryCodeMinlength - 1)),
-      COUNTRY_CODE_MINLENGTH_REACH
-    );
-  });
+
+  if (countryCodeMinlength > 1) {
+    it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
+      await configuredCustomRequest.sendFullFeaturedRequest(
+        fn(randomMaker.randomStringNumber(countryCodeMinlength - 1)),
+        COUNTRY_CODE_MINLENGTH_REACH
+      );
+    });
+  }
+
   it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomStringNumber(countryCodeMaxlength + 1)),

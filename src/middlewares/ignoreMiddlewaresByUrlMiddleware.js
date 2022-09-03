@@ -4,7 +4,7 @@ const {
   errorThrower,
   isUrlMatchWithReqUrl,
   crashServer,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   errorThrower(

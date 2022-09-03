@@ -45,7 +45,7 @@ const authenticationFailureTests = (configuredCustomRequest, data = {}) => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
       TOKEN_MINLENGTH_REACH,
-      fn(randomMaker.randomString(tokenMinlength - 1))
+      fn(randomMaker.randomString(+tokenMinlength - 1))
     );
   });
 };

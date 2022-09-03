@@ -1,6 +1,6 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
   appErrors: { NO_ROUTE_OBJECT },

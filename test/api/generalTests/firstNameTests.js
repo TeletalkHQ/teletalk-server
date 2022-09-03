@@ -41,18 +41,23 @@ const firstNameFailureTests = (configuredCustomRequest, data) => {
       FIRST_NAME_REQUIRED
     );
   });
-  it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomString(+firstNameMinLength - 1)),
-      FIRST_NAME_MINLENGTH_REACH
-    );
-  });
+
+  if (firstNameMinLength > 1) {
+    it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
+      await configuredCustomRequest.sendFullFeaturedRequest(
+        fn(randomMaker.randomString(+firstNameMinLength - 1)),
+        FIRST_NAME_MINLENGTH_REACH
+      );
+    });
+  }
+
   it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomString(+firstNameMaxLength + 1)),
       FIRST_NAME_MAXLENGTH_REACH
     );
   });
+
   it("should get error, FIRST_NAME_INVALID_TYPE", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       fn(123456789),

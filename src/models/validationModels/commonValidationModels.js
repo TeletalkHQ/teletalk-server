@@ -2,7 +2,7 @@ const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
 const {
   versionCalculator,
   extractVersions,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const {
   commonModels: { createdAtCommonModel },

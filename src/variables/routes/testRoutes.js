@@ -3,7 +3,7 @@ const { routeBuilder } = require("@/classes/RouteBuilder");
 const {
   extractVersions,
   versionCalculator,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const testRouteBuilder = routeBuilder("/test");
 

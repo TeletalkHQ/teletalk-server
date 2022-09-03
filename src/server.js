@@ -9,7 +9,7 @@ const { app } = require("@/app");
 const { envManager } = require("@/classes/EnvironmentManager");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { crashServer } = require("@/functions/utilities/utils");
+const { crashServer } = require("@/functions/utilities/utilities");
 
 const { ioFunctions } = require("@/socket/io");
 

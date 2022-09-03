@@ -5,7 +5,7 @@ require("@/configs/databaseConnector").databaseConnector();
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { authManager } = require("@/classes/AuthManager");
 
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { countries } = require("@/variables/others/countries");
 

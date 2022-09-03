@@ -1,6 +1,6 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { excludeVersions } = require("@/functions/utilities/utils");
+const { excludeVersions } = require("@/functions/utilities/utilities");
 
 //TODO Get routes from allStuff
 const { otherRouteBaseUrl, ...otherRoutes } = excludeVersions(

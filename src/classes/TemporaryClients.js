@@ -2,7 +2,7 @@ const { stateManager } = require("@/classes/StateManager");
 
 const {
   isDataHasEqualityWithTargetCellphone,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 class TemporaryClients {
   async addClient(client) {

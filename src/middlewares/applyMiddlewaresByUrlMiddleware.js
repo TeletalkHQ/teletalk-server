@@ -3,7 +3,7 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const {
   errorThrower,
   isUrlMatchWithReqUrl,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const applyMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   errorThrower(

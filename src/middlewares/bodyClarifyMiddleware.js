@@ -1,4 +1,7 @@
-const { errorThrower, objectClarify } = require("@/functions/utilities/utils");
+const {
+  errorThrower,
+  objectClarify,
+} = require("@/functions/utilities/utilities");
 
 /**
  * @param {object} req

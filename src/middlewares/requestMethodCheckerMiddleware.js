@@ -1,7 +1,7 @@
 const {
   excludeVersions,
   errorThrower,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const {
   appErrors: { METHOD_NOT_ALLOWED },

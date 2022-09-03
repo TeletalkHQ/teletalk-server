@@ -3,7 +3,7 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const {
   getStatusCodeFromRoute,
 } = require("@/functions/utilities/getStatusCodeFromRouteObject");
-const { getErrorObject } = require("@/functions/utilities/utils");
+const { getErrorObject } = require("@/functions/utilities/utilities");
 
 const {
   appErrors: { ROUTE_NOT_FOUND },

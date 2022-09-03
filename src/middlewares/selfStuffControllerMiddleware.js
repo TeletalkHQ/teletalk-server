@@ -2,8 +2,8 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   isDataHasEqualityWithTargetCellphone,
-} = require("@/functions/utilities/utils");
-const { errorThrower } = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
   userErrors: { SELF_STUFF },

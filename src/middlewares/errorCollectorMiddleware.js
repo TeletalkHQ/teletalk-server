@@ -3,7 +3,7 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const {
   appErrors: { UNKNOWN_ERROR },
 } = require("@/variables/errors/appErrors");
-const { getErrorObject } = require("@/functions/utilities/utils");
+const { getErrorObject } = require("@/functions/utilities/utilities");
 
 const errorCollectorMiddleware = (res, errorObject) => {
   try {

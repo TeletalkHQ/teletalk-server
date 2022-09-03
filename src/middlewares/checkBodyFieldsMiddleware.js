@@ -4,7 +4,7 @@ const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 const {
   errorThrower,
   crashServerWithCondition,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const {
   appErrors: {

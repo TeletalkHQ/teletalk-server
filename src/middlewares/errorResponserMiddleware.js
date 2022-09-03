@@ -1,4 +1,4 @@
-const { crashServer } = require("@/functions/utilities/utils");
+const { crashServer } = require("@/functions/utilities/utilities");
 
 const errorResponserMiddleware = (res = expressResponse) => {
   try {

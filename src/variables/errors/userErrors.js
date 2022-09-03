@@ -3,7 +3,7 @@ const { errorBuilder } = require("@/classes/ErrorBuilder");
 const {
   extractVersions,
   versionCalculator,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const {
   errorKeys: {

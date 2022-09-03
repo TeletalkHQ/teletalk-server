@@ -56,7 +56,7 @@ class CustomRequest {
   }
   checkErrorReason() {
     const { errorKey, reason } = this.errorObject;
-    expect(this.response.body.errors[errorKey]?.reason).to.equal(reason);
+    expect(reason).to.equal(this.response.body.errors[errorKey]?.reason);
     return this;
   }
   checkErrorCode() {

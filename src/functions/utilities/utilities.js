@@ -71,7 +71,7 @@ const versionCalculator = (versions = []) => {
   versions.forEach((v) => {
     const [major, minor, patch] = convertStringArrayToNumberArray(v.split("."));
 
-    parentMajor += major - 1;
+    parentMajor += +major - 1;
     parentMinor += minor;
     parentPatch += patch;
   });

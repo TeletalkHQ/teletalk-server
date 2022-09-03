@@ -1,7 +1,7 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { checkFields } = require("utility-store/src/classes/CheckFields");
 
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { appErrors } = require("@/variables/errors/appErrors");
 const { trier } = require("utility-store/src/classes/Trier");

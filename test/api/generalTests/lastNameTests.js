@@ -6,13 +6,18 @@ const {
 } = require("@/models/userModels/userModels");
 
 const {
-  userErrors: { LAST_NAME_INVALID_TYPE, LAST_NAME_MAXLENGTH_REACH },
+  userErrors: {
+    LAST_NAME_INVALID_TYPE,
+    LAST_NAME_MAXLENGTH_REACH,
+    LAST_NAME_MINLENGTH_REACH,
+  },
 } = require("@/variables/errors/userErrors");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
 
 const lastNameMaxLength = lastNameModel.maxlength.value;
+const lastNameMinLength = lastNameModel.minlength.value;
 
 const lastNameSuccessTests = (
   { lastNameMain, lastNameTest } = {},
@@ -38,22 +43,22 @@ const lastNameFailureTests = (configuredCustomRequest, data) => {
       LAST_NAME_MAXLENGTH_REACH
     );
   });
+
+  if (lastNameMinLength > 1) {
+    it("should get error, LAST_NAME_MINLENGTH_REACH", async () => {
+      await configuredCustomRequest.sendFullFeaturedRequest(
+        fn(randomMaker.randomString(lastNameMinLength - 1)),
+        LAST_NAME_MINLENGTH_REACH
+      );
+    });
+  }
+
   it("should get error, LAST_NAME_INVALID_TYPE", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       fn(randomMaker.randomNumber(lastNameMaxLength)),
       LAST_NAME_INVALID_TYPE
     );
   });
-
-  // it("should get error, LAST_NAME_MINLENGTH_REACH", async () => {
-  //   await myRequest(
-  //     userFullName(
-  //       randomMaker.randomString(firstNameMaxLength),
-  //       randomMaker.randomString(lastNameMinLength - 1)
-  //     ),
-  //     LAST_NAME_MINLENGTH_REACH
-  //   );
-  // });
 };
 
 module.exports = {

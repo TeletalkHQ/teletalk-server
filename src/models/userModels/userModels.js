@@ -3,7 +3,7 @@ const {
   versionCalculator,
 
   extractVersions,
-} = require("@/functions/utilities/utils");
+} = require("@/functions/utilities/utilities");
 
 const {
   commonModels: { createdAtCommonModel, privateIdCommonModel },
@@ -101,8 +101,7 @@ const countryCodeModel = modelBuilder
   .create()
   .empty(false, COUNTRY_CODE_EMPTY)
   .maxlength(4, COUNTRY_CODE_MAXLENGTH_REACH)
-  .minlength(2, COUNTRY_CODE_MINLENGTH_REACH)
-  //FIXME Fix me! i should be '1'!
+  .minlength(1, COUNTRY_CODE_MINLENGTH_REACH)
   .numeric(true, COUNTRY_CODE_NUMERIC)
   .required(true, COUNTRY_CODE_REQUIRED)
   .trim(true)
@@ -113,7 +112,7 @@ const countryCodeModel = modelBuilder
 const countryNameModel = modelBuilder
   .create()
   .empty(false, COUNTRY_NAME_EMPTY)
-  .maxlength(40, COUNTRY_NAME_MAXLENGTH_REACH)
+  .maxlength(50, COUNTRY_NAME_MAXLENGTH_REACH)
   .minlength(2, COUNTRY_NAME_MINLENGTH_REACH)
   .required(true, COUNTRY_NAME_REQUIRED)
   .type("string", COUNTRY_NAME_INVALID_TYPE)

@@ -6,7 +6,7 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { userFinder } = require("@/functions/helpers/userFinder");
-const { errorThrower } = require("@/functions/utilities/utils");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
   userErrors: { CELLPHONE_NOT_EXIST },

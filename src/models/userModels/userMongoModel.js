@@ -4,7 +4,7 @@ const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
 const { uniqueValidator } = require("@/configs/mongoosePlugins");
 
-const { excludeVersions } = require("@/functions/utilities/utils");
+const { excludeVersions } = require("@/functions/utilities/utilities");
 
 const {
   bioModel,

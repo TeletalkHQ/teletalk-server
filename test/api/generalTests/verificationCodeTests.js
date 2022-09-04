@@ -1,6 +1,4 @@
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   userModels: { verificationCodeModel },
@@ -15,8 +13,7 @@ const {
     VERIFICATION_CODE_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-
-const verificationCodeLength = verificationCodeModel.length.value;
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const verificationCodeSuccessTests = (
   { verificationCodeTest } = {},
@@ -24,7 +21,7 @@ const verificationCodeSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  testBuilder
+  successTestBuilder
     .create()
     .setVariables(verificationCodeModel, "", verificationCodeTest)
     .setOptions({ modelCheck })
@@ -36,42 +33,18 @@ const verificationCodeSuccessTests = (
 };
 
 const verificationCodeFailureTests = (configuredCustomRequest, data = {}) => {
-  const fn = (verificationCode) => ({ ...data, verificationCode });
-
-  it("it should get error, VERIFICATION_CODE_REQUIRED", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(""),
-      VERIFICATION_CODE_REQUIRED
-    );
-  });
-
-  it("it should get error, VERIFICATION_CODE_NUMERIC", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn("verification code numeric!"),
-      VERIFICATION_CODE_NUMERIC
-    );
-  });
-
-  it("it should get error, VERIFICATION_CODE_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomNumber(verificationCodeLength)),
-      VERIFICATION_CODE_INVALID_TYPE
-    );
-  });
-
-  it("it should get error, VERIFICATION_CODE_INVALID_LENGTH", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomStringNumber(verificationCodeLength + 1)),
-      VERIFICATION_CODE_INVALID_LENGTH
-    );
-  });
-
-  it("it should get error, VERIFICATION_CODE_INVALID", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomStringNumber(verificationCodeLength)),
-      VERIFICATION_CODE_INVALID
-    );
-  });
+  failTestBuilder
+    .create(
+      configuredCustomRequest,
+      data,
+      verificationCodeModel,
+      "verificationCode"
+    )
+    .required(VERIFICATION_CODE_REQUIRED)
+    .numeric(VERIFICATION_CODE_NUMERIC)
+    .invalidType_typeIsString(VERIFICATION_CODE_INVALID_TYPE)
+    .length(VERIFICATION_CODE_INVALID_LENGTH)
+    .invalidNumber(VERIFICATION_CODE_INVALID);
 };
 
 module.exports = { verificationCodeFailureTests, verificationCodeSuccessTests };

@@ -1,5 +1,9 @@
-const { testBuilder } = require("@/classes/TestBuilder");
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
+
+const {
+  getNonExistedCountryCode,
+} = require("@/functions/utilities/testUtilities");
 
 const {
   userModels: { countryCodeModel },
@@ -18,18 +22,12 @@ const {
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-const {
-  getNonExistedCountryCode,
-} = require("@/functions/utilities/testUtilities");
-
-const countryCodeMaxlength = countryCodeModel.maxlength.value;
-const countryCodeMinlength = countryCodeModel.minlength.value;
 
 const countryCodeSuccessTests = (
   { countryCodeMain, countryCodeTest } = {},
   { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
-  testBuilder
+  successTestBuilder
     .create()
     .setVariables(countryCodeModel, countryCodeMain, countryCodeTest)
     .setOptions({ modelCheck, stringEquality })
@@ -40,49 +38,14 @@ const countryCodeSuccessTests = (
 };
 
 const countryCodeFailureTests = (configuredCustomRequest, data) => {
-  const fn = (countryCode) => ({ ...data, countryCode });
-
-  it(`It should get error, COUNTRY_CODE_REQUIRED`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(""),
-      COUNTRY_CODE_REQUIRED
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_NUMERIC`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomString(countryCodeMaxlength - 1) + "!"),
-      COUNTRY_CODE_NUMERIC
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_INVALID_TYPE`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomNumber(countryCodeMaxlength)),
-      COUNTRY_CODE_INVALID_TYPE
-    );
-  });
-  it(`It should get error, COUNTRY_CODE_NOT_SUPPORTED`, async () => {
-    const nonExistedCountryCode = getNonExistedCountryCode();
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(nonExistedCountryCode),
-      COUNTRY_CODE_NOT_SUPPORTED
-    );
-  });
-
-  if (countryCodeMinlength > 1) {
-    it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-      await configuredCustomRequest.sendFullFeaturedRequest(
-        fn(randomMaker.randomStringNumber(countryCodeMinlength - 1)),
-        COUNTRY_CODE_MINLENGTH_REACH
-      );
-    });
-  }
-
-  it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomStringNumber(countryCodeMaxlength + 1)),
-      COUNTRY_CODE_MAXLENGTH_REACH
-    );
-  });
+  failTestBuilder
+    .create(configuredCustomRequest, data, countryCodeModel, "countryCode")
+    .required(COUNTRY_CODE_REQUIRED)
+    .numeric(COUNTRY_CODE_NUMERIC)
+    .invalidType_typeIsString(COUNTRY_CODE_INVALID_TYPE)
+    .minlength(COUNTRY_CODE_MINLENGTH_REACH)
+    .maxlength(COUNTRY_CODE_MAXLENGTH_REACH)
+    .custom(getNonExistedCountryCode(), COUNTRY_CODE_NOT_SUPPORTED);
 };
 
 module.exports = { countryCodeFailureTests, countryCodeSuccessTests };

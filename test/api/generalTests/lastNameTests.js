@@ -1,5 +1,4 @@
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   userModels: { lastNameModel },
@@ -15,15 +14,13 @@ const {
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-
-const lastNameMaxLength = lastNameModel.maxlength.value;
-const lastNameMinLength = lastNameModel.minlength.value;
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const lastNameSuccessTests = (
   { lastNameMain, lastNameTest } = {},
   { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
-  const ts = testBuilder
+  const ts = successTestBuilder
     .create()
     .setVariables(lastNameModel, lastNameMain, lastNameTest)
     .setOptions({ modelCheck, stringEquality });
@@ -36,29 +33,11 @@ const lastNameSuccessTests = (
 };
 
 const lastNameFailureTests = (configuredCustomRequest, data) => {
-  const fn = (lastName) => ({ ...data, lastName });
-  it("should get error, LAST_NAME_MAXLENGTH_REACH", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomString(lastNameMaxLength + 1)),
-      LAST_NAME_MAXLENGTH_REACH
-    );
-  });
-
-  if (lastNameMinLength > 1) {
-    it("should get error, LAST_NAME_MINLENGTH_REACH", async () => {
-      await configuredCustomRequest.sendFullFeaturedRequest(
-        fn(randomMaker.randomString(lastNameMinLength - 1)),
-        LAST_NAME_MINLENGTH_REACH
-      );
-    });
-  }
-
-  it("should get error, LAST_NAME_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomNumber(lastNameMaxLength)),
-      LAST_NAME_INVALID_TYPE
-    );
-  });
+  failTestBuilder
+    .create(configuredCustomRequest, data, lastNameModel, "lastName")
+    .maxlength(LAST_NAME_MAXLENGTH_REACH)
+    .minlength(LAST_NAME_MINLENGTH_REACH)
+    .invalidType_typeIsString(LAST_NAME_INVALID_TYPE);
 };
 
 module.exports = {

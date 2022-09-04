@@ -1,6 +1,6 @@
 const { expect } = require("@/functions/utilities/testUtilities");
 
-class TestBuilder {
+class SuccessTestBuilder {
   constructor() {
     this.tests = [];
     this.options = this.#defaultOptions();
@@ -169,6 +169,6 @@ class TestBuilder {
   }
 }
 
-const testBuilder = { create: () => new TestBuilder() };
+const successTestBuilder = { create: () => new SuccessTestBuilder() };
 
-module.exports = { testBuilder, TestBuilder };
+module.exports = { successTestBuilder, SuccessTestBuilder };

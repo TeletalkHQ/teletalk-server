@@ -1,4 +1,4 @@
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   chatModels: { chatIdModel },
@@ -13,7 +13,7 @@ const chatsSuccessTests = (
     modelCheck: true,
   }
 ) => {
-  const ts = testBuilder
+  const ts = successTestBuilder
     .create()
     .setVariables(chatsModel, undefined, chatsTest)
     .setOptions({ modelCheck });
@@ -32,6 +32,7 @@ const chatsSuccessTests = (
   });
 };
 
+//TODO: Add chats fail tests
 const chatsFailureTests = () => {};
 
 module.exports = { chatsFailureTests, chatsSuccessTests };

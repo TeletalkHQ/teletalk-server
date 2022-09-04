@@ -1,4 +1,4 @@
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   chatModels: { senderIdModel },
@@ -11,12 +11,14 @@ const senderIdSuccessTests = (
   { participantIdMain, participantIdTest } = {},
   { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
-  testBuilder
+  successTestBuilder
     .create()
     .setVariables(senderIdModel, participantIdMain, participantIdTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
     .execute();
 };
+
+//TODO Add fail tests for senderId
 
 module.exports = { senderIdSuccessTests };

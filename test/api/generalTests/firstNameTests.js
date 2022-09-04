@@ -1,5 +1,3 @@
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-
 const {
   userModels: { firstNameModel },
 } = require("@/models/userModels/userModels");
@@ -11,19 +9,17 @@ const {
     FIRST_NAME_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-
-const firstNameMaxLength = firstNameModel.maxlength.value;
-const firstNameMinLength = firstNameModel.minlength.value;
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const firstNameSuccessTests = (
   { firstNameMain, firstNameTest } = {},
   { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
-  testBuilder
+  successTestBuilder
     .create()
     .setVariables(firstNameModel, firstNameMain, firstNameTest)
     .setOptions({ modelCheck, stringEquality })
@@ -33,37 +29,12 @@ const firstNameSuccessTests = (
 };
 
 const firstNameFailureTests = (configuredCustomRequest, data) => {
-  const fn = (firstName) => ({ ...data, firstName });
-
-  it("should get error, FIRST_NAME_REQUIRED", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(""),
-      FIRST_NAME_REQUIRED
-    );
-  });
-
-  if (firstNameMinLength > 1) {
-    it("should get error, FIRST_NAME_MINLENGTH_REACH", async () => {
-      await configuredCustomRequest.sendFullFeaturedRequest(
-        fn(randomMaker.randomString(+firstNameMinLength - 1)),
-        FIRST_NAME_MINLENGTH_REACH
-      );
-    });
-  }
-
-  it("should get error, FIRST_NAME_MAXLENGTH_REACH", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomString(+firstNameMaxLength + 1)),
-      FIRST_NAME_MAXLENGTH_REACH
-    );
-  });
-
-  it("should get error, FIRST_NAME_INVALID_TYPE", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(123456789),
-      FIRST_NAME_INVALID_TYPE
-    );
-  });
+  failTestBuilder
+    .create(configuredCustomRequest, data, firstNameModel, "firstName")
+    .required(FIRST_NAME_REQUIRED)
+    .minlength(FIRST_NAME_MINLENGTH_REACH)
+    .maxlength(FIRST_NAME_MAXLENGTH_REACH)
+    .invalidType_typeIsString(FIRST_NAME_INVALID_TYPE);
 };
 
 module.exports = { firstNameFailureTests, firstNameSuccessTests };

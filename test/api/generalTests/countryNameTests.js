@@ -1,5 +1,6 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const {
   userModels: { countryNameModel },
@@ -19,13 +20,12 @@ const {
 } = require("@/variables/others/testVariables");
 
 const countryNameMaxlength = countryNameModel.maxlength.value;
-const countryNameMinlength = countryNameModel.minlength.value;
 
 const countryNameSuccessTests = (
   { countryNameMain, countryNameTest } = {},
   { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
-  testBuilder
+  successTestBuilder
     .create()
     .setVariables(countryNameModel, countryNameMain, countryNameTest)
     .setOptions({ modelCheck, stringEquality })
@@ -35,42 +35,16 @@ const countryNameSuccessTests = (
 };
 
 const countryNameFailureTests = (configuredCustomRequest, data) => {
-  const fn = (countryName) => ({ ...data, countryName });
-
-  it(`It should get error, COUNTRY_NAME_REQUIRED`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(""),
-      COUNTRY_NAME_REQUIRED
-    );
-  });
-  it(`It should get error, COUNTRY_NAME_NOT_SUPPORTED`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn("Something wrong!"),
+  failTestBuilder
+    .create(configuredCustomRequest, data, countryNameModel, "countryName")
+    .required(COUNTRY_NAME_REQUIRED)
+    .maxlength(COUNTRY_NAME_MAXLENGTH_REACH)
+    .minlength(COUNTRY_NAME_MINLENGTH_REACH)
+    .invalidType_typeIsString(COUNTRY_NAME_INVALID_TYPE)
+    .custom(
+      randomMaker.randomString(countryNameMaxlength),
       COUNTRY_NAME_NOT_SUPPORTED
     );
-  });
-  it(`It should get error, COUNTRY_NAME_INVALID_TYPE`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(1235468),
-      COUNTRY_NAME_INVALID_TYPE
-    );
-  });
-
-  if (countryNameMinlength > 1) {
-    it(`It should get error, COUNTRY_CODE_MINLENGTH_REACH`, async () => {
-      await configuredCustomRequest.sendFullFeaturedRequest(
-        fn(randomMaker.randomString(countryNameMinlength - 1)),
-        COUNTRY_NAME_MINLENGTH_REACH
-      );
-    });
-  }
-
-  it(`It should get error, COUNTRY_CODE_MAXLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomString(countryNameMaxlength + 1)),
-      COUNTRY_NAME_MAXLENGTH_REACH
-    );
-  });
 };
 
 module.exports = { countryNameFailureTests, countryNameSuccessTests };

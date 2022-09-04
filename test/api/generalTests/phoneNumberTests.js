@@ -1,5 +1,4 @@
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   userModels: { phoneNumberModel },
@@ -16,15 +15,13 @@ const {
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-
-const phoneNumberMaxlength = phoneNumberModel.maxlength.value;
-const phoneNumberMinlength = phoneNumberModel.minlength.value;
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const phoneNumberSuccessTests = (
   { phoneNumberMain, phoneNumberTest } = {},
   { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
-  testBuilder
+  successTestBuilder
     .create()
     .setVariables(phoneNumberModel, phoneNumberMain, phoneNumberTest)
     .setOptions({ modelCheck, stringEquality })
@@ -35,37 +32,13 @@ const phoneNumberSuccessTests = (
 };
 
 const phoneNumberFailureTests = (configuredCustomRequest, data) => {
-  const fn = (phoneNumber) => ({ ...data, phoneNumber });
-  it(`It should get error, PHONE_NUMBER_REQUIRED`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(""),
-      PHONE_NUMBER_REQUIRED
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_INVALID_TYPE`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomNumber(phoneNumberMaxlength)),
-      PHONE_NUMBER_INVALID_TYPE
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_NUMERIC`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomString(phoneNumberMaxlength - 1) + "!"),
-      PHONE_NUMBER_NUMERIC
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_MINLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomStringNumber(phoneNumberMinlength - 1)),
-      PHONE_NUMBER_MINLENGTH_REACH
-    );
-  });
-  it(`It should get error, PHONE_NUMBER_MAXLENGTH_REACH`, async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
-      fn(randomMaker.randomStringNumber(phoneNumberMaxlength + 1)),
-      PHONE_NUMBER_MAXLENGTH_REACH
-    );
-  });
+  failTestBuilder
+    .create(configuredCustomRequest, data, phoneNumberModel, "phoneNumber")
+    .required(PHONE_NUMBER_REQUIRED)
+    .invalidType_typeIsString(PHONE_NUMBER_INVALID_TYPE)
+    .numeric(PHONE_NUMBER_NUMERIC)
+    .minlength(PHONE_NUMBER_MINLENGTH_REACH)
+    .maxlength(PHONE_NUMBER_MAXLENGTH_REACH);
 };
 
 module.exports = { phoneNumberFailureTests, phoneNumberSuccessTests };

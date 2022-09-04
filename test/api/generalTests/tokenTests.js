@@ -1,4 +1,4 @@
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   userModels: { tokenModel },
@@ -13,7 +13,7 @@ const tokenSuccessTests = async (
     modelCheck: true,
   }
 ) => {
-  const ts = testBuilder
+  const ts = successTestBuilder
     .create()
     .setVariables(tokenModel, "", tokenTest)
     .setOptions({ modelCheck });

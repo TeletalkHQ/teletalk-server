@@ -1,4 +1,4 @@
-const { testBuilder } = require("@/classes/TestBuilder");
+const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   userModels: { privateIdModel },
@@ -11,7 +11,7 @@ const privateIdSuccessTests = (
   { privateIdMain, privateIdTest } = {},
   { stringEquality = true, modelCheck = true } = successTestDefaultOptions
 ) => {
-  testBuilder
+  successTestBuilder
     .create()
     .setVariables(privateIdModel, privateIdMain, privateIdTest)
     .setOptions({ modelCheck, stringEquality })

@@ -23,6 +23,5 @@ eventManager.addListener(eventManager.eventKeys.requirementsGetDone, () => {
   require("$/api/cellphoneApis/removeBlockApi.spec");
   require("$/api/privateChatApis/sendMessageApi.spec");
   require("$/api/privateChatApis/getAllChatsApi.spec");
-  //TODO Update fail tests
   require("$/api/privateChatApis/getPrivateChatMessagesApi.spec");
 });

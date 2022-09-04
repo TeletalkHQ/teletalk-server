@@ -1,9 +1,12 @@
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+
 require("@/variables/others/customGlobals");
 require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
 
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { authManager } = require("@/classes/AuthManager");
+const { eventManager } = require("@/classes/EventManager");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
@@ -13,8 +16,6 @@ const {
   commonModels: { privateIdCommonModel },
 } = require("@/models/commonModels/commonModels");
 const { addTestUser } = require("@/models/userModels/userModelFunctions");
-const { eventManager } = require("@/classes/EventManager");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 describe("Add requirements to application state", () => {
   it("should make test users and save into state", async () => {

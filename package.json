@@ -10,11 +10,14 @@
     "url": "https://github.com/S-STALWART-S/teletalk-server"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./src/server.js",
+    "coverage": "nyc npm run test",
     "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
-    "test": "cross-env NODE_ENV=test mocha ./test/test.js --recursive --exit",
+    "lint": "eslint src/**/*.js src/**/*.jsx",
     "prepare": "husky install",
-    "coverage": "nyc npm run test"
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build",
+    "start": "cross-env NODE_ENV=production node ./src/server.js",
+    "test": "cross-env NODE_ENV=test mocha ./test/test.js --recursive --exit"
   },
   "keywords": [
     "teletalk",

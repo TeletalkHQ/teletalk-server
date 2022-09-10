@@ -30,9 +30,10 @@
     ".mocharc.json": true,
     "dump.rdb": true,
     "newrelic_agent.log": true,
-    ".trachCan": true
+    ".trachCan": true,
+    ".nyc_output": true
   },
-  "explorerExclude.backup": null,
+  "explorerExclude.backup": {},
   "cSpell.words": [
     "",
     "abcdefghijklmnopqrstufwxyz",

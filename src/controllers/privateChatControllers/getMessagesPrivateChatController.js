@@ -1,3 +1,7 @@
+const { trier } = require("utility-store/src/classes/Trier");
+
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+
 const {
   getPrivateChatMessages,
 } = require("@/models/chatModels/chatModelFunctions");
@@ -6,31 +10,37 @@ const {
   chatValidators: { chatIdValidator },
 } = require("@/validators/chatValidators");
 
+const tryToGetMessages = async (currentUser, chatId) => {
+  await chatIdValidator(chatId);
+  const privateChatMessages = await getPrivateChatMessages(currentUser, chatId);
+  return privateChatMessages;
+};
+
+const responseToGetMessages = (privateChatMessages, res) => {
+  commonFunctionalities.controllerSuccessResponse(res, {
+    messages: privateChatMessages,
+  });
+};
+
+const catchGetMessages = commonFunctionalities.controllerCatchResponse;
+
 const getMessagesPrivateChatController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
-  try {
-    const {
-      body: { chatId },
-      currentUser,
-    } = req;
-
-    await chatIdValidator(chatId);
-
-    const privateChatMessages = await getPrivateChatMessages(
+  const {
+    body: { chatId },
+    currentUser,
+  } = req;
+  (
+    await trier(getMessagesPrivateChatController.name).tryAsync(
+      tryToGetMessages,
       currentUser,
       chatId
-    );
-
-    res.checkDataAndResponse({
-      messages: privateChatMessages,
-    });
-  } catch (error) {
-    logger.log("getMessagesPrivateChatController catch, error:", error);
-    res.errorCollector(error);
-    res.errorResponser();
-  }
+    )
+  )
+    .executeIfNoError(responseToGetMessages, res)
+    .catch(catchGetMessages, res);
 };
 
 module.exports = { getMessagesPrivateChatController };

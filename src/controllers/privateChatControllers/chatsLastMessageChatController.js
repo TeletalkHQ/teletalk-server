@@ -1,24 +1,38 @@
+const { trier } = require("utility-store/src/classes/Trier");
+
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+
 const {
   getChatsLastMessages,
 } = require("@/models/chatModels/chatModelFunctions");
+
+const tryToGetChatsLastMessage = async (currentUser) => {
+  const chatsWithLastMessages = await getChatsLastMessages(currentUser);
+  return chatsWithLastMessages;
+};
+
+const responseToGetChatsLastMessage = (chatsWithLastMessages, res) => {
+  commonFunctionalities.controllerSuccessResponse(res, {
+    chatsWithLastMessages,
+  });
+};
+
+const catchGetChatsLastMessage = commonFunctionalities.controllerCatchResponse;
 
 const chatsLastMessageChatController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
-  try {
-    const { currentUser } = req;
+  const { currentUser } = req;
 
-    const chatsWithLastMessages = await getChatsLastMessages(currentUser);
-
-    res.checkDataAndResponse({
-      chatsWithLastMessages,
-    });
-  } catch (error) {
-    logger.log("chatsLastMessageChatController catch, error:", error);
-    res.errorCollector(error);
-    res.errorResponser();
-  }
+  (
+    await trier(chatsLastMessageChatController.name).tryAsync(
+      tryToGetChatsLastMessage,
+      currentUser
+    )
+  )
+    .executeIfNoError(responseToGetChatsLastMessage, res)
+    .catch(catchGetChatsLastMessage, res);
 };
 
 module.exports = { chatsLastMessageChatController };

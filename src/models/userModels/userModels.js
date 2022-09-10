@@ -179,8 +179,8 @@ const tokenModel = modelBuilder
   .create()
   .required(true, TOKEN_REQUIRED)
   .type("string", TOKEN_INVALID_TYPE)
-  .minlength(150, TOKEN_MINLENGTH_REACH)
-  .maxlength(350, TOKEN_MAXLENGTH_REACH)
+  .minlength(100, TOKEN_MINLENGTH_REACH)
+  .maxlength(450, TOKEN_MAXLENGTH_REACH)
   .unique(true, TOKEN_EXIST)
   .version("1.0.0")
   .build();

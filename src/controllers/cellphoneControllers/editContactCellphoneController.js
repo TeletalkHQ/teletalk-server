@@ -1,31 +1,44 @@
+const { trier } = require("utility-store/src/classes/Trier");
+
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { updateOneContact } = require("@/models/userModels/userModelFunctions");
+
+const tryToEditContact = async (currentUser, targetCellphone, editedValues) => {
+  await updateOneContact(currentUser, targetCellphone, editedValues);
+};
+
+const responseToEditContact = (_, res, targetCellphone, editedValues) => {
+  commonFunctionalities.controllerSuccessResponse(res, {
+    editedContact: { ...targetCellphone, ...editedValues },
+  });
+};
+
+const catchEditContact = commonFunctionalities.controllerCatchResponse;
 
 const editContactCellphoneController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
-  try {
-    const {
-      body,
-      body: { firstName, lastName },
+  const {
+    body,
+    body: { firstName, lastName },
+    currentUser,
+  } = req;
+  const targetCellphone = userPropsUtilities.extractCellphone(body);
+  const editedValues = { firstName, lastName };
+
+  (
+    await trier(editContactCellphoneController.name).tryAsync(
+      tryToEditContact,
       currentUser,
-    } = req;
-
-    const targetCellphone = userPropsUtilities.extractCellphone(body);
-
-    const editedValues = { firstName, lastName };
-
-    await updateOneContact(currentUser, targetCellphone, editedValues);
-
-    res.checkDataAndResponse({
-      editedContact: { ...targetCellphone, ...editedValues },
-    });
-  } catch (error) {
-    res.errorCollector(error);
-    res.errorResponser();
-  }
+      targetCellphone,
+      editedValues
+    )
+  )
+    .executeIfNoError(responseToEditContact, res, targetCellphone, editedValues)
+    .catch(catchEditContact, res);
 };
 
 module.exports = { editContactCellphoneController };

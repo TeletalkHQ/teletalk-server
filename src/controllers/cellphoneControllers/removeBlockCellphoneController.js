@@ -1,27 +1,40 @@
+const { trier } = require("utility-store/src/classes/Trier");
+
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   deleteBlacklistItem,
 } = require("@/models/userModels/userModelFunctions");
 
+const tryToRemoveBlock = async (currentUser, targetUserData) => {
+  await deleteBlacklistItem(currentUser, targetUserData);
+};
+
+const responseToRemoveBlock = (_, res, targetUserData) => {
+  commonFunctionalities.controllerSuccessResponse(res, {
+    removedBlockedCellphone: targetUserData,
+  });
+};
+
+const catchRemoveBlock = commonFunctionalities.controllerCatchResponse;
+
 const removeBlockCellphoneController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
-  try {
-    const { currentUser, body } = req;
+  const { currentUser, body } = req;
+  const targetUserData = userPropsUtilities.extractCellphone(body);
 
-    const targetUserData = userPropsUtilities.extractCellphone(body);
-
-    await deleteBlacklistItem(currentUser, targetUserData);
-
-    res.checkDataAndResponse({
-      removedBlockedCellphone: targetUserData,
-    });
-  } catch (error) {
-    res.errorCollector(error);
-    res.errorResponser();
-  }
+  (
+    await trier(removeBlockCellphoneController.name).tryAsync(
+      tryToRemoveBlock,
+      currentUser,
+      targetUserData
+    )
+  )
+    .executeIfNoError(responseToRemoveBlock, res, targetUserData)
+    .catch(catchRemoveBlock, res);
 };
 
 module.exports = { removeBlockCellphoneController };

@@ -2,10 +2,7 @@ const { stateManager } = require("@/classes/StateManager");
 
 const { expect } = require("@/functions/utilities/testUtilities");
 
-const {
-  getAllUsers,
-  userFinder,
-} = require("@/models/userModels/userModelFunctions");
+const { getAllUsers, userFinder } = require("@/services/userServices");
 
 describe("save user data in state", () => {
   it("should get all users data", async () => {

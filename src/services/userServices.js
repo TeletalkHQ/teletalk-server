@@ -28,8 +28,6 @@ const userFinder = async (
   options = { lean: true }
 ) => {
   try {
-    errorThrower(!userData, "You should send me data to find your target");
-
     return await UserMongoModel.findOne(userData, undefined, options);
   } catch (error) {
     logger.log("userFinder catch, error:", error);
@@ -268,6 +266,11 @@ const removeTestUsers = async (length) => {
   }
 };
 
+const logoutUser = async (currentUser) => {
+  await currentUser.updateOne({ tokens: [] });
+  return { ok: true };
+};
+
 module.exports = {
   addCellphoneToUserBlacklist,
   addContactToUserContacts,
@@ -278,6 +281,7 @@ module.exports = {
   getAllUsers,
   getUserContacts,
   getUserData,
+  logoutUser,
   removeContactItem,
   removeTestUsers,
   updateOneContact,

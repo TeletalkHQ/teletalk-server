@@ -3,7 +3,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { removeContactItem } = require("@/models/userModels/userModelFunctions");
+const { removeContactItem } = require("@/services/userServices");
 
 const tryToRemoveContact = async (currentUser, cellphone) => {
   await removeContactItem(currentUser, cellphone);

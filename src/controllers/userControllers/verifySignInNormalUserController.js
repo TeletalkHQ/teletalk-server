@@ -3,7 +3,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { userFinder } = require("@/models/userModels/userModelFunctions");
+const { userFinder } = require("@/services/userServices");
 
 const {
   userErrors: { VERIFICATION_CODE_INVALID, USER_NOT_EXIST },

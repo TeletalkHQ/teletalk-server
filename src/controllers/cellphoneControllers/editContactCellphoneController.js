@@ -3,7 +3,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { updateOneContact } = require("@/models/userModels/userModelFunctions");
+const { updateOneContact } = require("@/services/userServices");
 
 const tryToEditContact = async (currentUser, targetCellphone, editedValues) => {
   await updateOneContact(currentUser, targetCellphone, editedValues);

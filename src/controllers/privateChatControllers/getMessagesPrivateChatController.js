@@ -2,9 +2,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const {
-  getPrivateChatMessages,
-} = require("@/models/chatModels/chatModelFunctions");
+const { getPrivateChatMessages } = require("@/services/chatServices");
 
 const {
   chatValidators: { chatIdValidator },

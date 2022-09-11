@@ -1,5 +1,5 @@
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
-const { getAllUsers } = require("@/models/userModels/userModelFunctions");
+const { getAllUsers } = require("@/services/userServices");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const tryToGetAllUsers = async () => {

@@ -3,9 +3,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const {
-  addContactToUserContacts,
-} = require("@/models/userModels/userModelFunctions");
+const { addContactToUserContacts } = require("@/services/userServices");
 
 const tryToAddContact = async (currentUser, contact) => {
   const { targetUser } = await addContactToUserContacts(currentUser, contact);

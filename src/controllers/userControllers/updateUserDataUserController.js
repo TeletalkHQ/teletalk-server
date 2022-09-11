@@ -6,7 +6,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const {
   updateUserDataByPrivateId,
   userFinder,
-} = require("@/models/userModels/userModelFunctions");
+} = require("@/services/userServices");
 const { tokenValidator } = require("@/validators/userValidators");
 
 const updateUserDataUserController = async (

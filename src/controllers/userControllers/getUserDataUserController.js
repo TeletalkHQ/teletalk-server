@@ -1,4 +1,4 @@
-const { getUserData } = require("@/models/userModels/userModelFunctions");
+const { getUserData } = require("@/services/userServices");
 
 const getUserDataUserController = async (
   req = expressRequest,

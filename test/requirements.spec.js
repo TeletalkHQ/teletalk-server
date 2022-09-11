@@ -15,7 +15,7 @@ const { countries } = require("@/variables/others/countries");
 const {
   commonModels: { privateIdCommonModel },
 } = require("@/models/commonModels/commonModels");
-const { addTestUser } = require("@/models/userModels/userModelFunctions");
+const { addTestUser } = require("@/services/userServices");
 
 describe("Add requirements to application state", () => {
   it("should make test users and save into state", async () => {

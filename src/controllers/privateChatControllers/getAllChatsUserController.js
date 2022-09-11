@@ -2,7 +2,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { getAllChats } = require("@/models/userModels/userModelFunctions");
+const { getAllChats } = require("@/services/userServices");
 
 const tryToGetAllChats = async (currentUser) => {
   const chats = await getAllChats(currentUser);

@@ -1,14 +1,11 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const {
-  errorThrower,
-  getErrorObject,
-} = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
   PrivateChatMongoModel,
 } = require("@/models/chatModels/privateChatMongoModel");
-const { userFinder } = require("@/models/userModels/userModelFunctions");
+const { userFinder } = require("@/services/userServices");
 const {
   chatModels: { messageIdModel, chatIdModel },
 } = require("@/models/chatModels/chatModels");

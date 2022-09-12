@@ -49,7 +49,7 @@ class CustomRequest {
     logger.log(
       `route specs => url:${fullUrl} reason:${reason} errorKey:${errorKey}\n response.body:`
     );
-    logger.log(`response body =>`);
+    logger.log("response body =>");
     logger.log(this.response.body);
 
     return this;
@@ -89,7 +89,7 @@ class CustomRequest {
   }
   logRouteSpecs() {
     logger
-      .bgBlue(`route: `, logger.colors.black)
+      .bgBlue("route: ", logger.colors.black)
       .bgGreen(this.routeObject.fullUrl, logger.colors.black)
       .log();
     return this;

@@ -3,7 +3,6 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { appConfigs } = require("@/classes/AppConfigs");
 const { authManager } = require("@/classes/AuthManager");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
-const { envManager } = require("@/classes/EnvironmentManager");
 const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
@@ -15,12 +14,6 @@ const {
 
 const { verificationCodeValidator } = require("@/validators/userValidators");
 
-const isTestServerRunning = () => {
-  const serverNodeEnvValue = envManager.getNodeEnv();
-  const nodeEnvTestValue = envManager.getNodeEnvValues().test;
-  const isTestServer = serverNodeEnvValue === nodeEnvTestValue;
-  return isTestServer;
-};
 const makeSmsText = (verificationCode, host) => {
   const smsText = smsClient
     .smsTemplates()
@@ -29,12 +22,12 @@ const makeSmsText = (verificationCode, host) => {
 };
 
 const makeFullNumber = (cellphone) => {
-  const makeFullNumber = userPropsUtilities.concatCountryCodeWithPhoneNumber(
+  const fullNumber = userPropsUtilities.concatCountryCodeWithPhoneNumber(
     cellphone.countryCode,
     cellphone.phoneNumber
   );
 
-  return makeFullNumber;
+  return fullNumber;
 };
 
 const tryToValidateVerificationCode = async (verificationCode) => {
@@ -46,8 +39,8 @@ const tryToSendVerificationCodeAsSms = async (
   host,
   verificationCode
 ) => {
-  const smsText = makeSmsText(verificationCode, host);
   const fullNumber = makeFullNumber(cellphone);
+  const smsText = makeSmsText(verificationCode, host);
   await smsClient.sendSms(fullNumber, smsText);
 };
 
@@ -94,9 +87,10 @@ const tryToSignInNormalUser = async (req) => {
   const {
     sms: { shouldSendSms },
   } = appConfigs.getConfigs();
-
   const trierInstance = trier(tryToSignInNormalUser, { autoThrowError: true });
+
   await trierInstance.tryAsync(tryToValidateVerificationCode, verificationCode);
+
   await commonFunctionalities.checkAndExecute(shouldSendSms, async () => {
     await trierInstance.tryAsync(
       tryToSendVerificationCodeAsSms,
@@ -114,36 +108,31 @@ const tryToSignInNormalUser = async (req) => {
     await trierInstance.tryAsync(tryToFindTemporaryClient, cellphone)
   ).result;
 
+  const temporaryClientUpdateHelper = async (userData, trierFn) =>
+    trierInstance.tryAsync(trierFn, userData, verificationCode, verifyToken);
   if (client) {
-    await trierInstance.tryAsync(
-      tryToUpdateTemporaryClient,
-      client,
-      verificationCode,
-      verifyToken
-    );
+    await temporaryClientUpdateHelper(client, tryToUpdateTemporaryClient);
   } else {
-    await trierInstance.tryAsync(
-      tryToAddNewTemporaryClient,
-      cellphone,
-      verificationCode,
-      verifyToken
-    );
+    await temporaryClientUpdateHelper(cellphone, tryToAddNewTemporaryClient);
   }
 
+  //TODO: Print it on log files
   logger.log("rm", "verificationCode", verificationCode);
 
   const responseData = {
     ...cellphone,
     verifyToken,
   };
-  if (isTestServerRunning()) {
+  const isTestServerRunning = commonFunctionalities.isTestServerRunning();
+  if (isTestServerRunning) {
+    //TODO: Update with ObjectUtilities
     responseData.verificationCode = verificationCode;
   }
   return responseData;
 };
 
-const responseToSignInNormalUser = (responseData, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, { user: responseData });
+const responseToSignInNormalUser = (user, res) => {
+  commonFunctionalities.controllerSuccessResponse(res, { user });
 };
 
 const catchSignInNormalUser = commonFunctionalities.controllerCatchResponse;

@@ -2,10 +2,7 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const {
-  errorThrower,
-  getErrorObject,
-} = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { UserMongoModel } = require("@/models/userModels/userMongoModel");
 

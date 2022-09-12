@@ -15,7 +15,7 @@ const responseToGetCountries = (countries, res) => {
 const catchGetCountries = commonFunctionalities.controllerCatchResponse;
 
 const countriesOtherController = async (
-  _ = expressRequest,
+  _req = expressRequest,
   res = expressResponse
 ) => {
   (await trier(countriesOtherController.name).tryAsync(tryToGetCountries))

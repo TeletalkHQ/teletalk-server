@@ -63,6 +63,8 @@ const isUrlMatchWithReqUrl = (url, reqUrl) =>
   (customTypeof.check(url).type.isArray && url.some((u) => u === reqUrl)) ||
   url === reqUrl;
 
+const convertStringArrayToNumberArray = (items) => items.map((item) => +item);
+
 const versionCalculator = (versions = []) => {
   let [parentMajor, parentMinor, parentPatch] = convertStringArrayToNumberArray(
     "1.0.0".split(".")
@@ -78,8 +80,6 @@ const versionCalculator = (versions = []) => {
 
   return `${parentMajor}.${parentMinor}.${parentPatch}`;
 };
-
-const convertStringArrayToNumberArray = (items) => items.map((item) => +item);
 
 const extractVersions = (object) => {
   return Object.keys(object).map((key) => object[key].version);

@@ -92,40 +92,6 @@ const compiledUsernameValidator = ValidationModelBuilder.validatorCompiler(
 const compiledVerificationCodeValidator =
   ValidationModelBuilder.validatorCompiler(verificationCodeValidationModel);
 
-const contactValidator = async (contact, returnCondition) => {
-  try {
-    await cellphoneValidator(userPropsUtilities.extractCellphone(contact));
-    await firstNameValidator(contact.firstName);
-    await lastNameValidator(contact.lastName);
-
-    return { ok: true };
-  } catch (error) {
-    logger.log("contactValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
-};
-
-const cellphoneValidator = async (cellphone = {}, returnCondition) => {
-  try {
-    const { countryCode, countryName, phoneNumber } = cellphone;
-
-    errorThrower(
-      !phoneNumber && !countryCode && !countryName,
-      () => CELLPHONE_REQUIRED
-    );
-
-    // const countryCodeValidationError =
-    await countryCodeValidator(countryCode, false);
-    // const countryNameValidationError =
-    await countryNameValidator(countryName, false);
-    // const phoneNumberValidationError =
-    await phoneNumberValidator(phoneNumber, false);
-  } catch (error) {
-    logger.log("cellphoneValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
-};
-
 const countryCodeValidator = async (countryCode, returnCondition) => {
   try {
     const validationResult = await compiledCountryCodeValidator({
@@ -189,6 +155,40 @@ const phoneNumberValidator = async (phoneNumber, returnCondition) => {
     phoneNumberValidatorErrorBuilder(validationResult, phoneNumber);
   } catch (error) {
     logger.log("countryNameValidator catch, error:", error);
+    return checkReturnCondition(returnCondition, error);
+  }
+};
+
+const cellphoneValidator = async (cellphone = {}, returnCondition) => {
+  try {
+    const { countryCode, countryName, phoneNumber } = cellphone;
+
+    errorThrower(
+      !phoneNumber && !countryCode && !countryName,
+      () => CELLPHONE_REQUIRED
+    );
+
+    // const countryCodeValidationError =
+    await countryCodeValidator(countryCode, false);
+    // const countryNameValidationError =
+    await countryNameValidator(countryName, false);
+    // const phoneNumberValidationError =
+    await phoneNumberValidator(phoneNumber, false);
+  } catch (error) {
+    logger.log("cellphoneValidator catch, error:", error);
+    return checkReturnCondition(returnCondition, error);
+  }
+};
+
+const contactValidator = async (contact, returnCondition) => {
+  try {
+    await cellphoneValidator(userPropsUtilities.extractCellphone(contact));
+    await firstNameValidator(contact.firstName);
+    await lastNameValidator(contact.lastName);
+
+    return { ok: true };
+  } catch (error) {
+    logger.log("contactValidator catch, error:", error);
     return checkReturnCondition(returnCondition, error);
   }
 };

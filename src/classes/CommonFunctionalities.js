@@ -14,6 +14,12 @@ class CommonFunctionalities {
   controllerSuccessResponse(res, data) {
     res.checkDataAndResponse(data);
   }
+
+  checkAndExecute(condition, callback, ...params) {
+    if (condition) {
+      return callback(...params);
+    }
+  }
 }
 
 const commonFunctionalities = new CommonFunctionalities();

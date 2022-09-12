@@ -22,7 +22,7 @@ const chatsSuccessTests = (
 
   ts.checkAndExecute(chatsTest.length, () => {
     const chat = chatsTest[0];
-
+    //TODO: Add types to static variables
     ts.customTypeCheck(chat, "object")
       .setVariables(chatIdModel, undefined, chat.chatId)
       .typeCheck()

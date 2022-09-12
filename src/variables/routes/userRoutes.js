@@ -100,6 +100,7 @@ const signInNormalRoute = userRouteBuilder
         countryName,
         phoneNumber,
         verifyToken,
+        verificationCode: true,
       },
     },
   ])

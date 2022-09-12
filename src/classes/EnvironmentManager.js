@@ -24,13 +24,30 @@ class EnvironmentManager extends EnvironmentManagerMain {
     };
 
     this.ENVIRONMENT_VALUES = {
-      [this.ENVIRONMENT_KEYS.NODE_ENV]: {
+      NODE_ENV: {
         development: "development",
         production: "production",
         test: "test",
       },
       PORT: 8080,
     };
+  }
+
+  getAllLocalEnvironments() {
+    const environments = { ...this.ENVIRONMENT_KEYS };
+
+    for (const key in this.ENVIRONMENT_KEYS) {
+      environments[key] = this.getEnvironment(key);
+    }
+
+    return environments;
+  }
+
+  getNodeEnv() {
+    return this.getEnvironment(this.ENVIRONMENT_KEYS.NODE_ENV);
+  }
+  getNodeEnvValues() {
+    return this.ENVIRONMENT_VALUES.NODE_ENV;
   }
 }
 

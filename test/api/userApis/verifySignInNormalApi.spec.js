@@ -22,13 +22,13 @@ const {
 const signInFn = async () => {
   const {
     body: {
-      user: { verifyToken },
+      user: { verifyToken, verificationCode },
     },
   } = await signInNormalRequest().sendFullFeaturedRequest(
     verifySignInNewUserCellphone
   );
 
-  return verifyToken;
+  return { verifyToken, verificationCode };
 };
 
 describe("verifySignInNormalApi success test", () => {
@@ -44,24 +44,23 @@ describe("verifySignInNormalApi success test", () => {
     };
 
     //* 1- Sign in as a new user =>
-    const newUserVerifyToken = await signInFn();
+    const {
+      verifyToken: newUserVerifyToken,
+      verificationCode: newUserVerificationCode,
+    } = await signInFn();
     await tokenVerifier(newUserVerifyToken);
 
-    //* 2- Get verification code, In test mode, verification code is stored in env =>
-    const newUserVerificationCode =
-      userPropsUtilities.getTestVerificationCode();
-
-    //* 3- Verify user by verificationCode & verifyToken =>
+    //* 2- Verify user by verificationCode & verifyToken =>
     const newUserVerifySignInResponse = await verifySignInRequest()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
       });
 
-    //* 4- Test output when newUser === false =>
+    //* 3- Test output when newUser === false =>
     expect(newUserVerifySignInResponse.body.user.newUser).equal(true);
 
-    //* 5- Finalize new user sign in (save user in db) =>
+    //* 4- Finalize new user sign in (save user in db) =>
     const fullName = userPropsUtilities.makeRandomFullName(
       firstNameModel.maxlength.value,
       lastNameModel.maxlength.value
@@ -70,13 +69,13 @@ describe("verifySignInNormalApi success test", () => {
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest(fullName);
 
-    //* 6- Now sign in again for test output when newUser === false =>
-    const signedUserVerifyToken = await signInFn();
+    //* 5- Now sign in again for test output when newUser === false =>
+    const { verifyToken: signedUserVerifyToken, verificationCode } =
+      await signInFn();
     await tokenVerifier(signedUserVerifyToken);
-    //* 7- Get the verification code =>
-    const verificationCode = userPropsUtilities.getTestVerificationCode();
+    //* 6- Get the verification code =>
 
-    //* 8- Verify sign in when newUser === false =>
+    //* 7- Verify sign in when newUser === false =>
     const {
       body: {
         user: { newUser, ...userData },
@@ -87,7 +86,7 @@ describe("verifySignInNormalApi success test", () => {
         verificationCode,
       });
 
-    //* 9- Test output when newUser === false =>
+    //* 8- Test output when newUser === false =>
     expect(newUser).equal(false);
     const { countryCode, countryName, phoneNumber } =
       verifySignInNewUserCellphone;

@@ -31,27 +31,26 @@ describe("success create new normal user", () => {
     //* 1- Sign in as a new user =>
     const {
       body: {
-        user: { verifyToken: newUserVerifyToken },
+        user: {
+          verifyToken: newUserVerifyToken,
+          verificationCode: newUserVerificationCode,
+        },
       },
     } = await signInNormalRequest().sendFullFeaturedRequest(
       createNewUserSignInCellphone
     );
 
-    //* 2- Get verification code, In test mode the verification code is stored in env =>
-    const newUserVerificationCode =
-      userPropsUtilities.getTestVerificationCode();
-
-    //* 3- Verify user by verificationCode & verifyToken =>
+    //* 2- Verify user by verificationCode & verifyToken =>
     const newUserVerifySignInResponse = await verifySignInRequest()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
       });
 
-    //* 4- Test output when newUser === false =>
+    //* 3- Test output when newUser === false =>
     expect(newUserVerifySignInResponse.body.user.newUser).equal(true);
 
-    //* 5- Finalize new user sign in (save user in db) =>
+    //* 4- Finalize new user sign in (save user in db) =>
     const {
       body: {
         user: {

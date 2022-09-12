@@ -1,6 +1,5 @@
 const { authManager } = require("@/classes/AuthManager");
 const { generalTest } = require("@/classes/GeneralTest");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   testVariables: {
@@ -13,11 +12,15 @@ describe("signInNormalApi test success requests", () => {
   it(`It should get sign in data like token and verification code`, async () => {
     const {
       body: {
-        user: { countryCode, countryName, phoneNumber, verifyToken },
+        user: {
+          countryCode,
+          countryName,
+          phoneNumber,
+          verifyToken,
+          verificationCode,
+        },
       },
     } = await signInNormalRequest().sendFullFeaturedRequest(signInCellphone);
-
-    const verificationCode = userPropsUtilities.getTestVerificationCode();
 
     const successTest = generalTest.createSuccessTest();
 
@@ -41,8 +44,6 @@ describe("signInNormalApi test success requests", () => {
       tokenTest: verifyToken,
       secret: JWT_SIGN_IN_SECRET,
     });
-
-    userPropsUtilities.setTestVerifyToken(verifyToken);
   });
 });
 

@@ -1,8 +1,12 @@
+const { trier } = require("utility-store/src/classes/Trier");
+
+const { appConfigs } = require("@/classes/AppConfigs");
 const { authManager } = require("@/classes/AuthManager");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { envManager } = require("@/classes/EnvironmentManager");
 const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
-const { envManager } = require("@/classes/EnvironmentManager");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { getHostFromRequest } = require("@/functions/utilities/utilities");
 const {
@@ -11,75 +15,151 @@ const {
 
 const { verificationCodeValidator } = require("@/validators/userValidators");
 
+const isTestServerRunning = () => {
+  const serverNodeEnvValue = envManager.getNodeEnv();
+  const nodeEnvTestValue = envManager.getNodeEnvValues().test;
+  const isTestServer = serverNodeEnvValue === nodeEnvTestValue;
+  return isTestServer;
+};
+const makeSmsText = (verificationCode, host) => {
+  const smsText = smsClient
+    .smsTemplates()
+    .sendVerificationCode(verificationCode, host);
+  return smsText;
+};
+
+const makeFullNumber = (cellphone) => {
+  const makeFullNumber = userPropsUtilities.concatCountryCodeWithPhoneNumber(
+    cellphone.countryCode,
+    cellphone.phoneNumber
+  );
+
+  return makeFullNumber;
+};
+
+const tryToValidateVerificationCode = async (verificationCode) => {
+  await verificationCodeValidator(verificationCode);
+};
+
+const tryToSendVerificationCodeAsSms = async (
+  cellphone,
+  host,
+  verificationCode
+) => {
+  const smsText = makeSmsText(verificationCode, host);
+  const fullNumber = makeFullNumber(cellphone);
+  await smsClient.sendSms(fullNumber, smsText);
+};
+
+const tryToSignVerifyToken = async (cellphone) => {
+  const verifyToken = await authManager.tokenSigner(
+    cellphone,
+    authManager.getJwtSignInSecret()
+  );
+  return verifyToken;
+};
+
+const tryToAddNewTemporaryClient = async (
+  cellphone,
+  verificationCode,
+  verifyToken
+) => {
+  await temporaryClients.addClient({
+    verifyToken,
+    verificationCode,
+    ...cellphone,
+  });
+};
+
+const tryToUpdateTemporaryClient = async (
+  client,
+  verificationCode,
+  verifyToken
+) => {
+  await temporaryClients.updateClient(client, {
+    verificationCode,
+    verifyToken,
+  });
+};
+
+const tryToFindTemporaryClient = async (cellphone) => {
+  const client = await temporaryClients.findClient(cellphone);
+  return client;
+};
+
+const tryToSignInNormalUser = async (req) => {
+  const host = getHostFromRequest(req);
+  const cellphone = userPropsUtilities.extractCellphone(req.body);
+  const verificationCode = passwordGenerator();
+  const {
+    sms: { shouldSendSms },
+  } = appConfigs.getConfigs();
+
+  const trierInstance = trier(tryToSignInNormalUser, { autoThrowError: true });
+  await trierInstance.tryAsync(tryToValidateVerificationCode, verificationCode);
+  await commonFunctionalities.checkAndExecute(shouldSendSms, async () => {
+    await trierInstance.tryAsync(
+      tryToSendVerificationCodeAsSms,
+      cellphone,
+      host,
+      verificationCode
+    );
+  });
+
+  const verifyToken = (
+    await trierInstance.tryAsync(tryToSignVerifyToken, cellphone)
+  ).result;
+
+  const client = (
+    await trierInstance.tryAsync(tryToFindTemporaryClient, cellphone)
+  ).result;
+
+  if (client) {
+    await trierInstance.tryAsync(
+      tryToUpdateTemporaryClient,
+      client,
+      verificationCode,
+      verifyToken
+    );
+  } else {
+    await trierInstance.tryAsync(
+      tryToAddNewTemporaryClient,
+      cellphone,
+      verificationCode,
+      verifyToken
+    );
+  }
+
+  logger.log("rm", "verificationCode", verificationCode);
+
+  const responseData = {
+    ...cellphone,
+    verifyToken,
+  };
+  if (isTestServerRunning()) {
+    responseData.verificationCode = verificationCode;
+  }
+  return responseData;
+};
+
+const responseToSignInNormalUser = (responseData, res) => {
+  commonFunctionalities.controllerSuccessResponse(res, { user: responseData });
+};
+
+const catchSignInNormalUser = commonFunctionalities.controllerCatchResponse;
+
 const signInNormalUserController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
-  try {
-    const cellphone = userPropsUtilities.extractCellphone(req.body);
-
-    const verificationCode = passwordGenerator();
-
-    await verificationCodeValidator(verificationCode);
-
-    const NODE_ENV = envManager.getNodeEnv();
-    const { production } = envManager.getNodeEnvValues();
-
-    //TODO Move to appConfigs
-    const sendCondition = NODE_ENV === production;
-    if (sendCondition) {
-      const host = getHostFromRequest(req);
-      const smsText = smsClient
-        .smsTemplates()
-        .sendVerificationCode(verificationCode, host);
-
-      const sendTo = userPropsUtilities.concatCountryCodeWithPhoneNumber(
-        cellphone.countryCode,
-        cellphone.phoneNumber
-      );
-
-      await smsClient.sendSms(sendTo, smsText);
-    }
-
-    const verifyToken = await authManager.tokenSigner(
-      cellphone,
-      authManager.getJwtSignInSecret()
-    );
-
-    const client = await temporaryClients.findClient(cellphone);
-
-    if (client) {
-      await temporaryClients.updateClient(client, {
-        verificationCode,
-        verifyToken,
-      });
-    } else {
-      await temporaryClients.addClient({
-        verifyToken,
-        verificationCode,
-        ...cellphone,
-      });
-    }
-
-    logger.log("verificationCode", verificationCode);
-
-    const responseData = {
-      ...cellphone,
-      verifyToken,
-    };
-
-    const NODE_ENV_KEY = envManager.getNodeEnv();
-    const NODE_ENV_VALUE = envManager.getNodeEnvValues().test;
-    if (NODE_ENV_KEY === NODE_ENV_VALUE) {
-      userPropsUtilities.setTestVerificationCode(verificationCode);
-    }
-
-    res.checkDataAndResponse({ user: responseData });
-  } catch (error) {
-    logger.log("signInNormalUserController catch, error: ", error);
-    res.errorCollector(error);
-    res.errorResponser();
-  }
+  (
+    await trier(signInNormalUserController.name).tryAsync(
+      tryToSignInNormalUser,
+      req
+    )
+  )
+    .executeIfNoError(responseToSignInNormalUser, res)
+    .catch(catchSignInNormalUser);
 };
 
 module.exports = { signInNormalUserController };

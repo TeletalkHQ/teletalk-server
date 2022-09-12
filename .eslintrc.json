@@ -1,137 +1,68 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "react-app"
-    //   "plugin:node/recommended",
-    // "plugin:security/recommended"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 2020
-  },
   "env": {
-    "browser": true,
-    "node": true,
-    "jasmine": true,
-    "mocha": true
+    "commonjs": true,
+    "es2021": true,
+    "mocha": true,
+    "node": true
   },
+  "extends": ["eslint:recommended", "plugin:@cspell/recommended"],
   "globals": {
-    "logger": true,
     "expressRequest": true,
-    "expressResponse": true
+    "expressResponse": true,
+    "logger": true
   },
-  "rules": {
-    "no-unused-expressions": 0,
-    "chai-friendly/no-unused-expressions": 2,
-    "spellcheck/spell-checker": [
-      1,
-      {
-        "comments": true,
-        "strings": true,
-        "identifiers": true,
-        "ignoreRequire": false,
-        "templates": true,
-        "lang": "en_US",
-        "skipWords": [
-          "abcdefghijklmnopqrstufwxyz",
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-          "abcdefghijklmnopqrstufwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890",
-          "Alphadash",
-          "Alphanum",
-          "Apis",
-          "arrayEnum",
-          "autofetch",
-          "autopep",
-          "axios",
-          "bcrypt",
-          "bcryptjs",
-          "camelcase",
-          "chai",
-          "CLEANME",
-          "codestream",
-          "cors",
-          "dotenv",
-          "endregion",
-          "enum",
-          "enumValue",
-          "esbenp",
-          "existences",
-          "favicon",
-          "fileupload",
-          "Fira",
-          "flowtype",
-          "func",
-          "Globals",
-          "indenticator",
-          "ioredis",
-          "ipynb",
-          "iran",
-          "Jalali",
-          "jsonwebtoken",
-          "luhn",
-          "maxlength",
-          "Melipayamak",
-          "middlewares",
-          "MINLENGTH",
-          "monospace",
-          "morgan",
-          "multer",
-          "nanoid",
-          "nodemailer",
-          "onum",
-          "quatro",
-          "redis",
-          "requesters",
-          "responser",
-          "restclient",
-          "Restify",
-          "sendable",
-          "sindresorhus",
-          "snyk",
-          "soheil",
-          "strikethrough",
-          "stringAlphadash",
-          "stringAlphanum",
-          "stringEnum",
-          "Stringified",
-          "supertest",
-          "tabnine",
-          "tabpanel",
-          "teletalk",
-          "Teletalk",
-          "Trez",
-          "typeof",
-          "uncategorizedErrors",
-          "upsert",
-          "Urls",
-          "validators",
-          "verifier",
-          "vsintellicode",
-          "WITHSCORES",
-          "zadd",
-          "zoot",
-          "zrange"
-        ],
-        "skipIfMatch": [
-          "http://[^s]*",
-          "^[-\\w]+/[-\\w\\.]+$"
-        ],
-        // "skipWordIfMatch": ["^foobar.*$"],
-        "minLength": 4
-      }
-    ]
-    //   "node/exports-style": ["error", "module.exports"],
-    //   "node/file-extension-in-import": ["error", "always"],
-    //   "node/prefer-global/buffer": ["error", "always"],
-    //   "node/prefer-global/console": ["error", "always"],
-    //   "node/prefer-global/process": ["error", "always"],
-    //   "node/prefer-global/url-search-params": ["error", "always"],
-    //   "node/prefer-global/url": ["error", "always"],
-    //   "node/prefer-promises/dns": "error",
-    //   "node/prefer-promises/fs": "error"
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest"
   },
   "plugins": [
     "chai-friendly",
-    "spellcheck"
+    "@cspell"
     //  "security"
-  ]
+  ],
+  "rules": {
+    "@cspell/spellchecker": [
+      "warn",
+      {
+        "ignoreImports": false,
+        "ignoreImportProperties": false
+      }
+    ],
+    "arrow-parens": "warn",
+    "chai-friendly/no-unused-expressions": 2,
+
+    // "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "no-unused-expressions": 0,
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": true,
+        "classes": true,
+        "variables": true,
+        "allowNamedExports": false
+      }
+    ],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"]
+  }
 }
+
+//   "node/exports-style": ["error", "module.exports"],
+//   "node/file-extension-in-import": ["error", "always"],
+//   "node/prefer-global/buffer": ["error", "always"],
+//   "node/prefer-global/console": ["error", "always"],
+//   "node/prefer-global/process": ["error", "always"],
+//   "node/prefer-global/url-search-params": ["error", "always"],
+//   "node/prefer-global/url": ["error", "always"],
+//   "node/prefer-promises/dns": "error",
+//   "node/prefer-promises/fs": "error"

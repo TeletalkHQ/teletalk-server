@@ -34,21 +34,12 @@
     ".nyc_output": true
   },
   "explorerExclude.backup": {},
-  "cSpell.words": [
-    "",
-    "abcdefghijklmnopqrstufwxyz",
-    "Alphadash",
-    "Alphanum"
-  ],
+  "cSpell.words": [],
   "mocha.enabled": true,
-  "mocha.requires": [
-    "module-alias/register"
-  ],
+  "mocha.requires": ["module-alias/register"],
   "mocha.showInExplorer": true,
   "mochaExplorer.require": "module-alias/register",
   "mochaExplorer.timeout": 4000,
   "mochaExplorer.logpanel": true,
-  "marquee.widgets.npm-stats.packageNames": [
-    "teletalk-server"
-  ]
+  "marquee.widgets.npm-stats.packageNames": ["teletalk-server"]
 }

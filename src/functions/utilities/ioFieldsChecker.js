@@ -18,6 +18,18 @@ const ioFieldsCheckerDefaultOptions = {
   overloadFieldsError: {},
 };
 
+const getSelectedRequiredFields = (requiredFields, index) =>
+  requiredFields[index];
+
+const throwErrorIfSelectedRequiredFieldsIsNotDefined = (
+  selectedRequiredFields
+) => {
+  errorThrower(
+    customTypeof.check(selectedRequiredFields).type.isUndefined,
+    REQUIRED_FIELDS_NOT_DEFINED
+  );
+};
+
 const tryCheckFields = (
   ioData,
   requiredFields,
@@ -72,18 +84,6 @@ const ioFieldsChecker = (
       errorObject: error,
     }))
     .printAndThrow().result;
-};
-
-const getSelectedRequiredFields = (requiredFields, index) =>
-  requiredFields[index];
-
-const throwErrorIfSelectedRequiredFieldsIsNotDefined = (
-  selectedRequiredFields
-) => {
-  errorThrower(
-    customTypeof.check(selectedRequiredFields).type.isUndefined,
-    REQUIRED_FIELDS_NOT_DEFINED
-  );
 };
 
 module.exports = { ioFieldsChecker };

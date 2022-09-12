@@ -1,5 +1,7 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
+const { envManager } = require("@/classes/EnvironmentManager");
+
 class CommonFunctionalities {
   randomStringWithMinLengthOne(length) {
     const finalLength = length === 0 ? 1 : length;
@@ -19,6 +21,13 @@ class CommonFunctionalities {
     if (condition) {
       return callback(...params);
     }
+  }
+
+  isTestServerRunning() {
+    const serverNodeEnvValue = envManager.getNodeEnv();
+    const nodeEnvTestValue = envManager.getNodeEnvValues().test;
+    const isTestServer = serverNodeEnvValue === nodeEnvTestValue;
+    return isTestServer;
   }
 }
 

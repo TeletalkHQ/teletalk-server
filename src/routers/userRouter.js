@@ -1,5 +1,5 @@
 const { Router } = require("express");
-
+//TODO: Index imports
 const {
   verifySignInNormalUserController,
 } = require("@/controllers/userControllers/verifySignInNormalUserController");
@@ -7,8 +7,8 @@ const {
   signInNormalUserController,
 } = require("@/controllers/userControllers/signInNormalUserController");
 const {
-  statusCheckUserController,
-} = require("@/controllers/userControllers/statusCheckUserController");
+  checkUserStatusUserController,
+} = require("@/controllers/userControllers/checkUserStatusUserController");
 const {
   logoutNormalUserController,
 } = require("@/controllers/userControllers/logoutNormalUserController");
@@ -69,7 +69,7 @@ userRouter[signInNormalRoute.method](
 
 userRouter[statusCheckRoute.method](
   statusCheckRoute.url,
-  statusCheckUserController
+  checkUserStatusUserController
 );
 
 userRouter[verifySignInNormalRoute.method](

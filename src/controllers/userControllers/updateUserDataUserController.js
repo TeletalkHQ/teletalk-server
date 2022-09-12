@@ -1,15 +1,14 @@
-//UNUSED updateUserDataUserController
-//CLEANME updateUserDataUserController
-//REFACTOR updateUserDataUserController
 const { authManager } = require("@/classes/AuthManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+
 const {
   updateUserDataByPrivateId,
   userFinder,
 } = require("@/services/userServices");
+
 const { tokenValidator } = require("@/validators/userValidators");
 
-const updateUserDataUserController = async (
+const updatePersonalInfoUserController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
@@ -30,7 +29,7 @@ const updateUserDataUserController = async (
     const user = await userFinder(cellphone);
 
     await updateUserDataByPrivateId({
-      tokens: user.token,
+      tokens: user.tokens,
       firstName,
       lastName,
       privateId: user.privateId,
@@ -51,4 +50,6 @@ const updateUserDataUserController = async (
   }
 };
 
-module.exports = { updateUserDataUserController };
+module.exports = {
+  updatePersonalInfoUserController,
+};

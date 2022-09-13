@@ -69,12 +69,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-04-11T16:06:54.836Z",
-    "modified": "2022-07-08T17:31:49.569Z",
+    "modified": "2022-09-13T20:16:29.158Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"phoneNumber\": null,\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
+      "raw": "{\n  \"phoneNumber\": \"9119119191\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"\"\n}",
       "form": []
     },
     "tests": []

@@ -8,8 +8,7 @@ const {
 
 const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   errorThrower(
-    !customTypeof.check(url).type.isString &&
-      !customTypeof.check(url).type.isArray,
+    customTypeof.isNotArray(url) && customTypeof.isNotString(url),
     "url must be string or an array"
   );
   errorThrower(!middlewares.length, "You need to pass at least one middleware");
@@ -17,7 +16,7 @@ const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   return async (req, res, next) => {
     try {
       errorThrower(
-        !customTypeof.isFunction(res?.json, next),
+        customTypeof.isNotFunction(res?.json, next),
         "Some of items [res, next] is not a function"
       );
 

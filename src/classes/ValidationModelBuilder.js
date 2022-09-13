@@ -1,11 +1,11 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const {
+  objectUtilities,
+} = require("utility-store/src/classes/ObjectUtilities");
 const { trier } = require("utility-store/src/classes/Trier");
 const Validator = require("fastest-validator");
 
-const {
-  errorThrower,
-  objectClarify,
-} = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
   localErrors: { VALIDATION_MODEL_IS_NOT_OBJECT },
@@ -59,7 +59,7 @@ class ValidationModelBuilder {
 
   static validatorCompiler({ version, ...validationModel }) {
     errorThrower(
-      !customTypeof.isObject(validationModel),
+      customTypeof.isNotObject(validationModel),
       VALIDATION_MODEL_IS_NOT_OBJECT
     );
 
@@ -118,7 +118,7 @@ class ValidationModelBuilder {
   }
 
   build() {
-    return objectClarify(this.validationModelObject);
+    return objectUtilities.objectClarify(this.validationModelObject);
   }
 }
 

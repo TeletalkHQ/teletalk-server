@@ -1,7 +1,8 @@
 const {
-  errorThrower,
-  objectClarify,
-} = require("@/functions/utilities/utilities");
+  objectUtilities,
+} = require("utility-store/src/classes/ObjectUtilities");
+
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 /**
  * @param {object} req
@@ -12,7 +13,7 @@ const {
  */
 const bodyClarifyMiddleware = (req, _, next) => {
   try {
-    req.body = objectClarify(req.body);
+    req.body = objectUtilities.objectClarify(req.body);
 
     next();
     return { ok: true };

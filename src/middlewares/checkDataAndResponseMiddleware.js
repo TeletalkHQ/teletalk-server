@@ -17,7 +17,7 @@ const {
 const checkAndResponseMiddleware = (req, res, next) => {
   try {
     crashServerWithCondition(
-      !customTypeof.check(res.sendJsonResponse).type.isFunction,
+      customTypeof.isNotFunction(res.sendJsonResponse),
       SEND_JSON_RESPONSE_IS_NOT_FUNCTION
     );
 

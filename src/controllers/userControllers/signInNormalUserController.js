@@ -149,7 +149,7 @@ const signInNormalUserController = async (
     )
   )
     .executeIfNoError(responseToSignInNormalUser, res)
-    .catch(catchSignInNormalUser);
+    .catch(catchSignInNormalUser, res);
 };
 
 module.exports = { signInNormalUserController };

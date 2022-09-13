@@ -169,12 +169,9 @@ const removeContactItem = async (
   }
 };
 
-const updateUserDataByPrivateId = async (userData) => {
+const updatePersonalInfo = async (currentUser, updateProperties) => {
   try {
-    await UserMongoModel.findOneAndUpdate(
-      { privateId: userData.privateId },
-      userData
-    );
+    await currentUser.updateOne(updateProperties);
   } catch (error) {
     logger.log("updateUserTokens catch, error:", error);
 
@@ -282,6 +279,6 @@ module.exports = {
   removeContactItem,
   removeTestUsers,
   updateOneContact,
-  updateUserDataByPrivateId,
+  updatePersonalInfo,
   userFinder,
 };

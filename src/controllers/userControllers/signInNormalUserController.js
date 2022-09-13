@@ -30,6 +30,7 @@ const makeFullNumber = (cellphone) => {
   return fullNumber;
 };
 
+//TODO: Add multi-try functionality, also abnormal activity for some of this repeating tasks
 const tryToValidateVerificationCode = async (verificationCode) => {
   await verificationCodeValidator(verificationCode);
 };

@@ -1,32 +1,11 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
-//CLEANME some methods is duplicate
-
 const errorThrower = (condition, error) => {
   if (condition) {
-    //TODO Write errors into log file;
     if (customTypeof.check(error).type.isFunction) throw error();
 
     throw error;
   }
-};
-
-const objectInitializer = (values, props) => {
-  try {
-    const tempObj = {};
-
-    props.forEach((prop, index) => {
-      tempObj[prop] = values[index];
-    });
-
-    return tempObj;
-  } catch (error) {
-    logger.log("objectInitializer catch, error:", error);
-  }
-};
-
-const skipParams = (count) => {
-  return Array.from({ length: count });
 };
 
 const getErrorObject = (errorObject, extraData = {}, statusCode) => {
@@ -36,25 +15,6 @@ const getErrorObject = (errorObject, extraData = {}, statusCode) => {
     [errorKey]: { ...error, ...extraData },
     statusCode: statusCode || errorObject.statusCode,
   };
-};
-
-const objectClarify = (dirtyObject = {}) => {
-  const cleanObject = {};
-
-  Object.entries(dirtyObject)?.forEach(([key, value]) => {
-    if (!customTypeof.check(value).type.isUndefined) {
-      const prop = dirtyObject[key];
-      if (customTypeof.check(prop).type.isObject) {
-        cleanObject[key] = objectClarify(prop);
-
-        return;
-      }
-
-      cleanObject[key] = value;
-    }
-  });
-
-  return cleanObject;
 };
 
 const getHostFromRequest = (request) => request.get("host");
@@ -80,26 +40,9 @@ const versionCalculator = (versions = []) => {
 
   return `${parentMajor}.${parentMinor}.${parentPatch}`;
 };
-
 const extractVersions = (object) => {
   return Object.keys(object).map((key) => object[key].version);
 };
-
-const getObjectLength = (object) => Object.keys(object).length;
-
-const crashServer = (message) => {
-  logger.bgRed(message).log();
-  process.exit(1);
-};
-
-const crashServerWithCondition = (condition, errorObject) => {
-  if (condition) {
-    crashServer(
-      errorObject.reason || errorObject.errorKey || errorObject.message
-    );
-  }
-};
-
 const excludeVersions = (object) => {
   const tempObject = {};
 
@@ -112,8 +55,19 @@ const excludeVersions = (object) => {
   return tempObject;
 };
 
-const concatBaseUrlWithUrl = (baseUrl, routeUrl) => `${baseUrl}${routeUrl}`;
+const crashServer = (message) => {
+  logger.bgRed(message).log();
+  process.exit(1);
+};
+const crashServerWithCondition = (condition, errorObject) => {
+  if (condition) {
+    crashServer(
+      errorObject.reason || errorObject.errorKey || errorObject.message
+    );
+  }
+};
 
+const concatBaseUrlWithUrl = (baseUrl, routeUrl) => `${baseUrl}${routeUrl}`;
 const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
   for (const key in routeObjects) {
     const routeObject = routeObjects[key];
@@ -151,12 +105,8 @@ module.exports = {
   extractVersions,
   getErrorObject,
   getHostFromRequest,
-  getObjectLength,
   isDataHasEqualityWithTargetCellphone,
   isUrlMatchWithReqUrl,
-  objectClarify,
-  objectInitializer,
-  skipParams,
   versionCalculator,
 };
 

@@ -5,6 +5,7 @@ const {
 } = require("@/variables/errors/appErrors");
 const { getErrorObject } = require("@/functions/utilities/utilities");
 
+//TODO: This is not a middleware! rename it
 const errorCollectorMiddleware = (res, errorObject) => {
   try {
     const errorToSend = customTypeof.check(errorObject).type.isObject

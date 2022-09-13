@@ -13,7 +13,7 @@
     "coverage": "nyc npm run test",
     "deploy": "gh-pages -d build",
     "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
-    "lint": "eslint './src/**'",
+    "lint": "eslint './src/**/*.js'",
     "predeploy": "npm run build",
     "prepare": "husky install",
     "start": "cross-env NODE_ENV=production node ./src/server.js",
@@ -55,7 +55,7 @@
     "pretty-error": "^4.0.0",
     "serve-favicon": "^2.5.0",
     "socket.io": "^4.5.2",
-    "utility-store": "^1.17.1",
+    "utility-store": "^1.18.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {

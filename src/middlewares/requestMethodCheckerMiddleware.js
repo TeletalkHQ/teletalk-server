@@ -23,7 +23,7 @@ const requestMethodCheckerMiddleware = async (req, res, next) => {
     const requestMethod = req.method.toLowerCase();
     const routeObjectMethod = routeObject.method.toLowerCase();
 
-    errorThrower(requestMethod !== routeObjectMethod, () => METHOD_NOT_ALLOWED);
+    errorThrower(requestMethod !== routeObjectMethod, METHOD_NOT_ALLOWED);
 
     next();
 

@@ -1,23 +1,29 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { trier } = require("utility-store/src/classes/Trier");
 
-const {
-  getStatusCodeFromRoute,
-} = require("@/functions/utilities/getStatusCodeFromRouteObject");
-const { getErrorObject } = require("@/functions/utilities/utilities");
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+
+const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
   appErrors: { ROUTE_NOT_FOUND },
 } = require("@/variables/errors/appErrors");
 
-const notFoundMiddleware = (req, res, next) => {
-  if (!customTypeof.check(req.routeObject).type.isObject) {
-    const statusCode = getStatusCodeFromRoute(ROUTE_NOT_FOUND);
-    const errorObject = getErrorObject(ROUTE_NOT_FOUND);
+const isRouteObjectInvalid = ({ fullUrl, inputFields, outputFields, url }) =>
+  customTypeof.isUndefined(fullUrl, inputFields, outputFields, url);
 
-    res.status(statusCode).json(errorObject);
-  } else {
-    next();
-  }
+const tryToValidateRouteObject = (routeObject) => {
+  errorThrower(isRouteObjectInvalid(routeObject), ROUTE_NOT_FOUND);
+};
+
+const catchValidateRouteObject = commonFunctionalities.controllerCatchResponse;
+
+//TODO: Add some tests
+const notFoundMiddleware = (req, res, next) => {
+  trier(notFoundMiddleware.name)
+    .try(tryToValidateRouteObject, req.routeObject)
+    .executeIfNoError(() => next())
+    .catch(catchValidateRouteObject, res);
 };
 
 module.exports = { notFoundMiddleware };

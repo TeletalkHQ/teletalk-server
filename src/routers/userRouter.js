@@ -18,6 +18,9 @@ const {
 const {
   getUserDataUserController,
 } = require("@/controllers/userControllers/getUserDataUserController");
+const {
+  updatePersonalInfoUserController,
+} = require("@/controllers/userControllers/updateUserDataUserController");
 
 const {
   cellphoneValidatorMiddleware,
@@ -29,8 +32,9 @@ const {
     getUserDataRoute,
     logoutNormalRoute,
     signInNormalRoute,
-    statusCheckRoute,
+    checkUserStatusRoute,
     verifySignInNormalRoute,
+    updatePersonalInfoRoute,
   },
 } = require("@/variables/routes/userRoutes");
 
@@ -67,9 +71,14 @@ userRouter[signInNormalRoute.method](
   signInNormalUserController
 );
 
-userRouter[statusCheckRoute.method](
-  statusCheckRoute.url,
+userRouter[checkUserStatusRoute.method](
+  checkUserStatusRoute.url,
   checkUserStatusUserController
+);
+
+userRouter[updatePersonalInfoRoute.method](
+  updatePersonalInfoRoute.url,
+  updatePersonalInfoUserController
 );
 
 userRouter[verifySignInNormalRoute.method](

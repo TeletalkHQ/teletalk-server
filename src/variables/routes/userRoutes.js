@@ -106,7 +106,7 @@ const signInNormalRoute = userRouteBuilder
   ])
   .build();
 
-const statusCheckRoute = userRouteBuilder
+const checkUserStatusRoute = userRouteBuilder
   .create()
   .method("get")
   .url("/normalUser/statusCheck")
@@ -140,6 +140,17 @@ const getUserDataRoute = userRouteBuilder
   ])
   .build();
 
+const updatePersonalInfoRoute = userRouteBuilder
+  .create()
+  .method("patch")
+  .url("/normalUser/updatePersonalInfo")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for user update personal info")
+  .inputFields([{ firstName, lastName }])
+  .outputFields([{ firstName, lastName }])
+  .build();
+
 const verifySignInNormalRoute = userRouteBuilder
   .create()
   .method("post")
@@ -165,7 +176,8 @@ const routes = {
   getUserDataRoute,
   logoutNormalRoute,
   signInNormalRoute,
-  statusCheckRoute,
+  checkUserStatusRoute,
+  updatePersonalInfoRoute,
   userRouteBaseUrl,
   verifySignInNormalRoute,
 };

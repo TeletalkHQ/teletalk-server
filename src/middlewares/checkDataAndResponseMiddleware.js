@@ -33,15 +33,6 @@ const checkAndResponseMiddleware = (req, res, next) => {
           overloadFieldsError: OUTPUT_FIELDS_OVERLOAD,
         });
 
-        // logger.log(
-        //   "checkResult",
-        //   JSON.stringify({
-        //     checkResult,
-        //     outputFields: data,
-        //     fields: outputFields,
-        //   })
-        // );
-
         errorThrower(checkResult.ok === false, () => ({
           ...checkResult.errorObject,
           outputFields: data,

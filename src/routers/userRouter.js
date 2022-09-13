@@ -20,27 +20,35 @@ const {
 } = require("@/controllers/userControllers/getUserDataUserController");
 const {
   updatePersonalInfoUserController,
-} = require("@/controllers/userControllers/updateUserDataUserController");
+} = require("@/controllers/userControllers/updatePersonalInfoUserController");
 
 const {
   cellphoneValidatorMiddleware,
 } = require("@/middlewares/cellphoneValidatorMiddleware");
+const {
+  applyMiddlewaresByUrlMiddleware,
+} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
+const {
+  findCurrentUserFromDb,
+} = require("@/middlewares/findCurrentUserFromDb");
+const {
+  validateVerificationCodeMiddleware,
+} = require("@/middlewares/validateVerificationCodeMiddleware");
+const {
+  verifyVerificationCodeMiddleware,
+} = require("@/middlewares/verifyVerificationCodeMiddleware");
 
 const {
   userRoutes: {
+    checkUserStatusRoute,
     createNewUserRoute,
     getUserDataRoute,
     logoutNormalRoute,
     signInNormalRoute,
-    checkUserStatusRoute,
-    verifySignInNormalRoute,
     updatePersonalInfoRoute,
+    verifySignInNormalRoute,
   },
 } = require("@/variables/routes/userRoutes");
-
-const {
-  applyMiddlewaresByUrlMiddleware,
-} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
 
 const userRouter = Router();
 
@@ -78,11 +86,14 @@ userRouter[checkUserStatusRoute.method](
 
 userRouter[updatePersonalInfoRoute.method](
   updatePersonalInfoRoute.url,
+  findCurrentUserFromDb,
   updatePersonalInfoUserController
 );
 
 userRouter[verifySignInNormalRoute.method](
   verifySignInNormalRoute.url,
+  validateVerificationCodeMiddleware,
+  verifyVerificationCodeMiddleware,
   verifySignInNormalUserController
 );
 

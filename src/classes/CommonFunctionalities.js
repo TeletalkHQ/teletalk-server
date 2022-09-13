@@ -13,8 +13,8 @@ class CommonFunctionalities {
     res.errorResponser();
   }
 
-  controllerSuccessResponse(res, data) {
-    res.checkDataAndResponse(data);
+  controllerSuccessResponse(res, data, requiredFieldsIndex) {
+    res.checkDataAndResponse(data, requiredFieldsIndex);
   }
 
   checkAndExecute(condition, callback, ...params) {

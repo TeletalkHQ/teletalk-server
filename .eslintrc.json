@@ -17,39 +17,37 @@
   },
   "plugins": [
     "chai-friendly",
-    "@cspell"
-    //  "security"
+    "@cspell" //  "security"
   ],
   "rules": {
     "@cspell/spellchecker": [
       "warn",
       {
-        "ignoreImports": false,
-        "ignoreImportProperties": false
+        "ignoreImportProperties": false,
+        "ignoreImports": false
       }
     ],
     "arrow-parens": "warn",
     "chai-friendly/no-unused-expressions": 2,
-
     // "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "no-unused-expressions": 0,
     "no-unused-vars": [
       "warn",
       {
-        "vars": "all",
         "args": "after-used",
+        "argsIgnorePattern": "^_",
         "ignoreRestSiblings": true,
-        "argsIgnorePattern": "^_"
+        "vars": "all"
       }
     ],
     "no-use-before-define": [
       "error",
       {
-        "functions": true,
+        "allowNamedExports": false,
         "classes": true,
-        "variables": true,
-        "allowNamedExports": false
+        "functions": true,
+        "variables": true
       }
     ],
     "quotes": ["error", "double"],

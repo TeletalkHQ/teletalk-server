@@ -44,16 +44,7 @@ const {
 } = require("@/middlewares/requestMethodCheckerMiddleware");
 
 const { lifeLine } = require("@/routers/lifeLine");
-
-const {
-  userRoutes: { signInNormalRoute },
-} = require("@/variables/routes/userRoutes");
-const {
-  versionControlRoutes: { getAllStuffsRoute },
-} = require("@/variables/routes/versionControlRoutes");
-const {
-  otherRoutes: { countriesRoute, welcomeRoute },
-} = require("@/variables/routes/otherRoutes");
+const { getIgnoredUrlsForAuth } = require("./functions/helpers/otherHelpers");
 
 const app = express();
 
@@ -62,28 +53,22 @@ app.use(helmet());
 app.use(express.json());
 app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
-
-app.use(findRouteObjectMiddleware);
-app.use(notFoundMiddleware);
-app.use(responseErrorHandlersMiddleware);
-
-const arrayOfFullUrl = [
-  signInNormalRoute,
-  getAllStuffsRoute,
-  welcomeRoute,
-  countriesRoute,
-].map((item) => item.fullUrl);
-app.use(
-  ignoreMiddlewaresByUrlMiddleware(arrayOfFullUrl, authDefaultMiddleware)
-); //* Should be after 'responseErrorHandlersMiddleware'
-
-app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
-app.use(checkBodyFieldsMiddleware); //* Should be after 'notFoundMiddleware'
-app.use(checkAndResponseMiddleware); //* Should be after 'notFoundMiddleware'
-app.use(requestMethodCheckerMiddleware);
-
 app.use(express.static("@/../public"));
 app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));
+
+app.use(findRouteObjectMiddleware);
+app.use(responseErrorHandlersMiddleware);
+app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
+app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
+app.use(
+  ignoreMiddlewaresByUrlMiddleware(
+    getIgnoredUrlsForAuth(),
+    authDefaultMiddleware
+  )
+); //* Should be after 'sendJsonResponseMiddleware'
+app.use(notFoundMiddleware); //* Should be after 'sendJsonResponseMiddleware'
+app.use(requestMethodCheckerMiddleware); //* Should be after 'notFoundMiddleware'
+app.use(checkBodyFieldsMiddleware); //* Should be after 'requestMethodCheckerMiddleware'
 
 //* All routers is in lifeLine =>
 app.use(lifeLine);

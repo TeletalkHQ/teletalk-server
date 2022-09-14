@@ -15,7 +15,8 @@ const tryGetStatusCodeFromRouteObject = (routeObject) => {
 const getStatusCodeFromRoute = (routeObject) => {
   return trier()
     .try(tryGetStatusCodeFromRouteObject, routeObject)
-    .printAndThrow().result;
+    .printAndThrow()
+    .result();
 };
 
 module.exports = { getStatusCodeFromRoute };

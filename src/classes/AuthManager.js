@@ -39,7 +39,8 @@ class AuthManager {
           error,
           ok: false,
         };
-      }).result;
+      })
+      .result();
   }
 
   trySignToken(data, secret, options) {
@@ -55,7 +56,8 @@ class AuthManager {
   ) {
     return trier(this.tokenSigner.name)
       .try(this.trySignToken, data, secret, options)
-      .printAndThrow().result;
+      .printAndThrow()
+      .result();
   }
 
   getSecretWithUrlCondition(reqUrl) {

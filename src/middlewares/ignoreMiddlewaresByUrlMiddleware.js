@@ -1,45 +1,23 @@
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
-
 const {
-  errorThrower,
+  checkApplyIgnoreMiddlewareStartupConditions,
+  executeMiddlewares,
   isUrlMatchWithReqUrl,
-  crashServer,
 } = require("@/functions/utilities/utilities");
 
 const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
-  errorThrower(
-    customTypeof.isNotArray(url) && customTypeof.isNotString(url),
-    "url must be string or an array"
-  );
-  errorThrower(!middlewares.length, "You need to pass at least one middleware");
+  checkApplyIgnoreMiddlewareStartupConditions(url, middlewares);
 
   return async (req, res, next) => {
-    try {
-      errorThrower(
-        customTypeof.isNotFunction(res?.json, next),
-        "Some of items [res, next] is not a function"
-      );
-
-      if (isUrlMatchWithReqUrl(url, req.url)) {
-        return next();
-      }
-
-      let shouldContinue = true;
-      for await (const md of middlewares) {
-        const result = await md(req, res, () => {});
-
-        if (!result?.ok) {
-          shouldContinue = false;
-          break;
-        }
-      }
-      if (shouldContinue) {
-        next();
-      }
-    } catch (error) {
-      logger.log("ignoreMiddlewaresByUrlMiddleware catch, error:", error);
-      crashServer();
+    if (isUrlMatchWithReqUrl(url, req.url)) {
+      return next();
     }
+
+    return await executeMiddlewares({
+      middlewares,
+      next,
+      req,
+      res,
+    });
   };
 };
 

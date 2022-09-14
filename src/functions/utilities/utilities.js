@@ -94,14 +94,35 @@ const isDataHasEqualityWithTargetCellphone = (data, targetCellphone) => {
   return false;
 };
 
+const executeMiddlewares = async ({ middlewares, next, req, res }) => {
+  for await (const md of middlewares) {
+    const result = await md(req, res, () => {});
+
+    if (!result?.ok) {
+      return;
+    }
+  }
+  return next();
+};
+
+const checkApplyIgnoreMiddlewareStartupConditions = (url, middlewares) => {
+  errorThrower(
+    customTypeof.isNotString(url) && customTypeof.isNotArray(url),
+    "url must be string or an array"
+  );
+  errorThrower(!middlewares.length, "You need to pass at least one middleware");
+};
+
 module.exports = {
   addFullUrlToRouteObjects,
+  checkApplyIgnoreMiddlewareStartupConditions,
   concatBaseUrlWithUrl,
   convertStringArrayToNumberArray,
   crashServer,
   crashServerWithCondition,
   errorThrower,
   excludeVersions,
+  executeMiddlewares,
   extractVersions,
   getErrorObject,
   getHostFromRequest,

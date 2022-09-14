@@ -38,7 +38,8 @@ const tryToFindRouteObject = (url) => {
 const findRouteObject = (url) => {
   return trier(findRouteObject.name)
     .try(tryToFindRouteObject, url)
-    .printAndThrow().result;
+    .printAndThrow()
+    .result();
 };
 
 module.exports = { findRouteObject };

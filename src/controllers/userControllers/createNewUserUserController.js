@@ -115,7 +115,7 @@ const createNewUserMultiTrier = async ({
 
   const cellphone = (
     await trierInstance.tryAsync(tryToExtractCellphoneFromToken, verifyToken)
-  ).result;
+  ).result();
 
   await trierInstance.tryAsync(tryToValidateFirstName, firstName);
   await trierInstance.tryAsync(tryToValidateLastName, lastName);
@@ -126,7 +126,7 @@ const createNewUserMultiTrier = async ({
 
   const mainToken = (
     await trierInstance.tryAsync(tryToSignMainToken, cellphone, privateId)
-  ).result;
+  ).result();
 
   const userDataForDatabase = fixUserDataForDb({
     cellphone,

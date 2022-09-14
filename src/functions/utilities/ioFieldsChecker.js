@@ -83,7 +83,8 @@ const ioFieldsChecker = (
       ok: false,
       errorObject: error,
     }))
-    .printAndThrow().result;
+    .printAndThrow()
+    .result();
 };
 
 module.exports = { ioFieldsChecker };

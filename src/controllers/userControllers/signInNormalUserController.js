@@ -103,11 +103,11 @@ const tryToSignInNormalUser = async (req) => {
 
   const verifyToken = (
     await trierInstance.tryAsync(tryToSignVerifyToken, cellphone)
-  ).result;
+  ).result();
 
   const client = (
     await trierInstance.tryAsync(tryToFindTemporaryClient, cellphone)
-  ).result;
+  ).result();
 
   const temporaryClientUpdateHelper = async (userData, trierFn) =>
     trierInstance.tryAsync(trierFn, userData, verificationCode, verifyToken);

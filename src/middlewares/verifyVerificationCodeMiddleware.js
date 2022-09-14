@@ -39,7 +39,7 @@ const verifyVerificationCodeMultiTry = async (
 
   const tempClient = (
     await trierInstance.tryAsync(tryToGetTemporaryClient, cellphone)
-  ).result;
+  ).result();
 
   const { verificationCode: actualVerificationCode } = tempClient;
 

@@ -1,5 +1,7 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { trier } = require("utility-store/src/classes/Trier");
 
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
@@ -10,28 +12,42 @@ const {
   userErrors: { USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
+const tryToFindCurrentUserFromDb = async (userData) => {
+  const cellphone = userPropsUtilities.extractCellphone(userData);
+
+  const currentUser = await userFinder(cellphone, {});
+
+  //TODO Add tests when user not exist
+  errorThrower(customTypeof.check(currentUser).type.isNull, () => ({
+    ...USER_NOT_EXIST,
+    cellphone,
+  }));
+
+  return { currentUser, ok: true };
+};
+
+const executeIfNoError = ({ currentUser }, req, next) => {
+  req.currentUser = currentUser;
+  next();
+};
+
+const catchFindCurrentUserFromDb = (error, res) => {
+  commonFunctionalities.controllerCatchResponse(error, res);
+  return { ok: false };
+};
+
 const findCurrentUserFromDb = async (req, res, next) => {
-  try {
-    const cellphone = userPropsUtilities.extractCellphone(req.authData.payload);
+  const { payload: userData } = req.authData;
 
-    const currentUser = await userFinder(cellphone, {});
-
-    //TODO Add tests when user not exist
-    errorThrower(customTypeof.check(currentUser).type.isNull, () => ({
-      ...USER_NOT_EXIST,
-      cellphone,
-    }));
-
-    req.currentUser = currentUser;
-
-    next();
-    return { ok: true };
-  } catch (error) {
-    logger.log("findCurrentUserFromDb catch: ", error);
-    res.errorCollector(error);
-    res.errorResponser();
-    return { ok: false };
-  }
+  return (
+    await trier(findCurrentUserFromDb.name).tryAsync(
+      tryToFindCurrentUserFromDb,
+      userData
+    )
+  )
+    .executeIfNoError(executeIfNoError, req, next)
+    .catch(catchFindCurrentUserFromDb, res)
+    .result();
 };
 
 module.exports = { findCurrentUserFromDb };

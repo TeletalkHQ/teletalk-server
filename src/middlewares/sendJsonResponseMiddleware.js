@@ -1,21 +1,7 @@
-const {
-  getStatusCodeFromRoute,
-} = require("@/functions/utilities/getStatusCodeFromRouteObject");
+const { sendJsonResponse } = require("@/functions/helpers/sendJsonResponse");
 
 const sendJsonResponseMiddleware = (req, res, next) => {
-  try {
-    res.sendJsonResponse = (data) => {
-      const { routeObject } = req;
-      const statusCode = getStatusCodeFromRoute(routeObject);
-
-      res.status(statusCode).json(data);
-    };
-  } catch (error) {
-    logger.log("sendJsonResponse catch, error:", error);
-    res.errorCollector(error);
-    res.errorResponser();
-  }
-
+  res.sendJsonResponse = (data) => sendJsonResponse(req, res, data);
   next();
 };
 

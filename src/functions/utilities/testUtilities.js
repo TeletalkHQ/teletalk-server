@@ -1,4 +1,4 @@
-const { userModels } = require("@/models/userModels/userModels");
+const { userModels } = require("@/models/dataModels/userModels");
 const { expect } = require("chai");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { countries } = require("utility-store/src/variables/countries");

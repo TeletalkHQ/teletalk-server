@@ -4,7 +4,7 @@ const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const {
   userModels: { countryNameModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 
 const {
   userErrors: {

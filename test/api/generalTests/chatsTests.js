@@ -2,10 +2,10 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   chatModels: { chatIdModel },
-} = require("@/models/chatModels/chatModels");
+} = require("@/models/dataModels/chatModels");
 const {
   userModels: { chatsModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 
 const chatsSuccessTests = (
   { chatsTest } = {},

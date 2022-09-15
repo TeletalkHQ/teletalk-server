@@ -2,7 +2,7 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   chatModels: { chatIdModel },
-} = require("@/models/chatModels/chatModels");
+} = require("@/models/dataModels/chatModels");
 
 const {
   chatErrors: {

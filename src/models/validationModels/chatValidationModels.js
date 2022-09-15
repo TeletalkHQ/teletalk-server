@@ -7,7 +7,7 @@ const {
 
 const {
   chatModels: { chatIdModel, messageIdModel, messageModel, participantIdModel },
-} = require("@/models/chatModels/chatModels");
+} = require("@/models/dataModels/chatModels");
 
 const messageIdValidationModel = {
   messageId: validationModelBuilder

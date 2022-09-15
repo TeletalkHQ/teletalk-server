@@ -3,7 +3,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   userModels: { firstNameModel, lastNameModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 
 const {
   requesters: { editContactRequest, addContactRequest },

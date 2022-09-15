@@ -1,49 +1,56 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { trier } = require("utility-store/src/classes/Trier");
 
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+
+const { errorThrower } = require("@/functions/utilities/utilities");
 const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
-const {
-  errorThrower,
-  crashServerWithCondition,
-} = require("@/functions/utilities/utilities");
 
 const {
   appErrors: {
-    REQUEST_BODY_IS_UNDEFINED,
-    INPUT_FIELDS_OVERLOAD,
     INPUT_FIELDS_MISSING,
+    INPUT_FIELDS_OVERLOAD,
+    REQUEST_BODY_IS_UNDEFINED,
   },
 } = require("@/variables/errors/appErrors");
 
+const tryToCheckBodyFields = (body, inputFields) => {
+  errorThrower(customTypeof.isUndefined(body), REQUEST_BODY_IS_UNDEFINED);
+
+  const checkResult = ioFieldsChecker(body, inputFields, {
+    missingFieldsError: INPUT_FIELDS_MISSING,
+    overloadFieldsError: INPUT_FIELDS_OVERLOAD,
+  });
+
+  errorThrower(checkResult.ok === false, () => ({
+    ...checkResult.errorObject,
+    fields: inputFields,
+    inputFields: body,
+  }));
+
+  return { ok: true };
+};
+
+const executeIfNoError = (_, next) => {
+  next();
+};
+
+const catchCheckBodyFields = (error, res) => {
+  commonFunctionalities.controllerCatchResponse(error, res);
+  return { ok: false };
+};
+
 const checkBodyFieldsMiddleware = (req, res, next) => {
-  try {
-    const {
-      body,
-      routeObject: { inputFields },
-    } = req;
+  const {
+    body,
+    routeObject: { inputFields },
+  } = req;
 
-    crashServerWithCondition(
-      customTypeof.check(body).type.isUndefined,
-      REQUEST_BODY_IS_UNDEFINED
-    );
-
-    const checkResult = ioFieldsChecker(body, inputFields, {
-      missingFieldsError: INPUT_FIELDS_MISSING,
-      overloadFieldsError: INPUT_FIELDS_OVERLOAD,
-    });
-
-    errorThrower(checkResult.ok === false, () => ({
-      ...checkResult.errorObject,
-      inputFields: body,
-      fields: inputFields,
-    }));
-
-    next();
-  } catch (error) {
-    logger.log("checkBodyFieldsMiddleware catch, error:", error);
-    logger.log("fields", error.INPUT_OUTPUT_FIELDS?.fields);
-    res.errorCollector(error);
-    res.errorResponser();
-  }
+  return trier(checkBodyFieldsMiddleware.name)
+    .try(tryToCheckBodyFields, body, inputFields)
+    .executeIfNoError(executeIfNoError, next)
+    .catch(catchCheckBodyFields, res)
+    .result();
 };
 
 module.exports = { checkBodyFieldsMiddleware };

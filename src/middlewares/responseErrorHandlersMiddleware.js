@@ -1,9 +1,5 @@
-const {
-  errorCollectorMiddleware,
-} = require("@/middlewares/errorCollectorMiddleware");
-const {
-  errorResponserMiddleware,
-} = require("@/middlewares/errorResponserMiddleware");
+const { errorCollector } = require("@/functions/helpers/errorCollector");
+const { errorResponser } = require("@/functions/helpers/errorResponser");
 
 const responseErrorHandlersMiddleware = (_, res, next) => {
   res.errors = {
@@ -12,10 +8,10 @@ const responseErrorHandlersMiddleware = (_, res, next) => {
   };
 
   res.errorCollector = (errorObject) => {
-    errorCollectorMiddleware(res, errorObject);
+    errorCollector(res, errorObject);
   };
   res.errorResponser = () => {
-    errorResponserMiddleware(res);
+    errorResponser(res);
   };
 
   next();

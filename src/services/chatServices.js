@@ -5,10 +5,11 @@ const { errorThrower } = require("@/functions/utilities/utilities");
 const {
   PrivateChatMongoModel,
 } = require("@/models/chatModels/privateChatMongoModel");
-const { userFinder } = require("@/services/userServices");
 const {
   chatModels: { messageIdModel, chatIdModel },
 } = require("@/models/chatModels/chatModels");
+
+const { userFinder } = require("@/services/userServices");
 
 const {
   chatErrors: { CHAT_NOT_EXIST },

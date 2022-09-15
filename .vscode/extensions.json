@@ -21,7 +21,6 @@
     "earshinov.sort-lines-by-selection",
     "cweijan.vscode-database-client2",
     "qcz.text-power-tools",
-    "eamodio.toggle-excluded-files",
-    "PeterSchmalfeldt.explorer-exclude"
+    "peterschmalfeldt.explorer-exclude"
   ]
 }

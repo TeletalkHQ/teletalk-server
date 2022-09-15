@@ -25,7 +25,7 @@ const {
   responseErrorHandlersMiddleware,
 } = require("@/middlewares/responseErrorHandlersMiddleware");
 const {
-  checkAndResponseMiddleware,
+  checkDataAndResponseMiddleware,
 } = require("@/middlewares/checkDataAndResponseMiddleware");
 const {
   checkBodyFieldsMiddleware,
@@ -59,7 +59,7 @@ app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));
 app.use(findRouteObjectMiddleware);
 app.use(responseErrorHandlersMiddleware);
 app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
-app.use(checkAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
+app.use(checkDataAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
 app.use(
   ignoreMiddlewaresByUrlMiddleware(
     getIgnoredUrlsForAuth(),

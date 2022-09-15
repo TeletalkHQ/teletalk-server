@@ -1,4 +1,7 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { trier } = require("utility-store/src/classes/Trier");
+
+const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 const {
@@ -14,46 +17,58 @@ const {
   },
 } = require("@/variables/errors/appErrors");
 
-const checkAndResponseMiddleware = (req, res, next) => {
-  try {
-    crashServerWithCondition(
-      customTypeof.isNotFunction(res.sendJsonResponse),
-      SEND_JSON_RESPONSE_IS_NOT_FUNCTION
-    );
+const tryToCheckDataAndResponse = ({
+  data,
+  outputFields,
+  requiredFieldsIndex,
+}) => {
+  const checkResult = ioFieldsChecker(data, outputFields, {
+    requiredFieldsIndex,
+    missingFieldsError: OUTPUT_FIELDS_MISSING,
+    overloadFieldsError: OUTPUT_FIELDS_OVERLOAD,
+  });
 
-    res.checkDataAndResponse = (data, requiredFieldsIndex) => {
-      try {
-        const {
-          routeObject: { outputFields },
-        } = req;
+  errorThrower(checkResult.ok === false, () => ({
+    ...checkResult.errorObject,
+    outputFields: data,
+    fields: outputFields,
+  }));
 
-        const checkResult = ioFieldsChecker(data, outputFields, {
-          requiredFieldsIndex,
-          missingFieldsError: OUTPUT_FIELDS_MISSING,
-          overloadFieldsError: OUTPUT_FIELDS_OVERLOAD,
-        });
-
-        errorThrower(checkResult.ok === false, () => ({
-          ...checkResult.errorObject,
-          outputFields: data,
-          fields: outputFields,
-        }));
-
-        res.sendJsonResponse(data);
-      } catch (error) {
-        logger.log("checkDataAndResponse catch, error:", error);
-        res.errorCollector(error);
-        res.errorResponser();
-      }
-    };
-
-    next();
-  } catch (error) {
-    logger.log("checkAndResponseMiddleware catch, error:", error);
-
-    res.errorCollector(error);
-    res.errorResponser();
-  }
+  return { ok: true, data };
 };
 
-module.exports = { checkAndResponseMiddleware };
+const executeIfNoError = ({ data }, res) => {
+  res.sendJsonResponse(data);
+};
+
+const catchCheckDataAndResponse = (error, res) => {
+  commonFunctionalities.controllerCatchResponse(error, res);
+  return { ok: false };
+};
+
+const checkDataAndResponseMiddleware = (req, res, next) => {
+  crashServerWithCondition(
+    customTypeof.isNotFunction(res.sendJsonResponse),
+    SEND_JSON_RESPONSE_IS_NOT_FUNCTION
+  );
+
+  res.checkDataAndResponse = (data, requiredFieldsIndex) => {
+    const {
+      routeObject: { outputFields },
+    } = req;
+
+    return trier(checkDataAndResponseMiddleware.name)
+      .try(tryToCheckDataAndResponse, {
+        data,
+        requiredFieldsIndex,
+        outputFields,
+      })
+      .executeIfNoError(executeIfNoError, res)
+      .catch(catchCheckDataAndResponse, res)
+      .result();
+  };
+
+  next();
+};
+
+module.exports = { checkDataAndResponseMiddleware };

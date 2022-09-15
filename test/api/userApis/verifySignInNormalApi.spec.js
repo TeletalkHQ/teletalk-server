@@ -6,7 +6,7 @@ const { expect } = require("@/functions/utilities/testUtilities");
 
 const {
   userModels: { firstNameModel, lastNameModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 
 const {
   requesters: {

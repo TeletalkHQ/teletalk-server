@@ -4,7 +4,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { UserMongoModel } = require("@/models/userModels/userMongoModel");
+const { UserMongoModel } = require("@/models/dataModels/userMongoModel");
 
 const {
   initialOptions: { userInitialOptions },

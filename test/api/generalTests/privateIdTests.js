@@ -2,7 +2,7 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   userModels: { privateIdModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");

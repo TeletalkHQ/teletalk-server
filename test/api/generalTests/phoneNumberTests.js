@@ -2,7 +2,7 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   userModels: { phoneNumberModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 const {
   userErrors: {
     PHONE_NUMBER_INVALID_TYPE,

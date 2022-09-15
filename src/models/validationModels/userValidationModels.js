@@ -18,7 +18,7 @@ const {
     usernameModel,
     verificationCodeModel,
   },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 
 const bioValidationModel = {
   bio: validationModelBuilder

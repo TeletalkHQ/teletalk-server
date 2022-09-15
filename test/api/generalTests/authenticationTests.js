@@ -2,7 +2,7 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const {
   userModels: { tokenModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 
 const {
   userErrors: {

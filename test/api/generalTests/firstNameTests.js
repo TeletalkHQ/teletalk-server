@@ -1,6 +1,6 @@
 const {
   userModels: { firstNameModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 const {
   userErrors: {
     FIRST_NAME_INVALID_TYPE,

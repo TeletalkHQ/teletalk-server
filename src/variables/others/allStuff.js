@@ -1,6 +1,6 @@
-const { chatModels } = require("@/models/chatModels/chatModels");
-const { commonModels } = require("@/models/commonModels/commonModels");
-const { userModels } = require("@/models/userModels/userModels");
+const { chatModels } = require("@/models/dataModels/chatModels");
+const { commonModels } = require("@/models/dataModels/commonModels");
+const { userModels } = require("@/models/dataModels/userModels");
 const {
   userValidationModels,
 } = require("@/models/validationModels/userValidationModels");

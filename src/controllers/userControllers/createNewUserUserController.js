@@ -14,7 +14,7 @@ const { errorThrower } = require("@/functions/utilities/utilities");
 const { createNewNormalUser, userFinder } = require("@/services/userServices");
 const {
   commonModels: { privateIdCommonModel },
-} = require("@/models/commonModels/commonModels");
+} = require("@/models/dataModels/commonModels");
 
 const {
   firstNameValidator,

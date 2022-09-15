@@ -4,10 +4,10 @@ const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
   PrivateChatMongoModel,
-} = require("@/models/chatModels/privateChatMongoModel");
+} = require("@/models/dataModels/privateChatMongoModel");
 const {
   chatModels: { messageIdModel, chatIdModel },
-} = require("@/models/chatModels/chatModels");
+} = require("@/models/dataModels/chatModels");
 
 const { userFinder } = require("@/services/userServices");
 

@@ -7,7 +7,7 @@ const {
 
 const {
   userModels: { countryCodeModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 
 const {
   userErrors: {

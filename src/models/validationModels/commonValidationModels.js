@@ -6,7 +6,7 @@ const {
 
 const {
   commonModels: { createdAtCommonModel },
-} = require("@/models/commonModels/commonModels");
+} = require("@/models/dataModels/commonModels");
 
 const createdAtValidationModel = {
   createdAt: validationModelBuilder

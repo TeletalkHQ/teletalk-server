@@ -2,7 +2,7 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const {
   userModels: { verificationCodeModel },
-} = require("@/models/userModels/userModels");
+} = require("@/models/dataModels/userModels");
 
 const {
   userErrors: {

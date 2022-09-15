@@ -14,7 +14,7 @@ const { countries } = require("@/variables/others/countries");
 
 const {
   commonModels: { privateIdCommonModel },
-} = require("@/models/commonModels/commonModels");
+} = require("@/models/dataModels/commonModels");
 const { addTestUser } = require("@/services/userServices");
 
 describe("Add requirements to application state", () => {

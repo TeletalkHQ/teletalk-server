@@ -16,7 +16,7 @@ const {
   phoneNumberModel,
   tokenModel,
   usernameModel,
-} = excludeVersions(require("@/models/userModels/userModels").userModels);
+} = excludeVersions(require("@/models/dataModels/userModels").userModels);
 
 const {
   commonModels: {
@@ -24,7 +24,7 @@ const {
     messageIdCommonModel,
     privateIdCommonModel,
   },
-} = require("@/models/commonModels/commonModels");
+} = require("@/models/dataModels/commonModels");
 
 const {
   bio,

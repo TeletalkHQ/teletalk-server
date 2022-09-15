@@ -2,7 +2,7 @@ const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const {
   chatModels: { participantIdModel },
-} = require("@/models/chatModels/chatModels");
+} = require("@/models/dataModels/chatModels");
 const {
   chatErrors: {
     PARTICIPANT_ID_INVALID_TYPE,

@@ -12,7 +12,7 @@ const {
     messageModel,
     participantIdModel,
   },
-} = require("@/models/chatModels/chatModels");
+} = require("@/models/dataModels/chatModels");
 
 const { chatId, createdAt, message, messageId, participantId } = {
   chatId: mongoModelBuilder

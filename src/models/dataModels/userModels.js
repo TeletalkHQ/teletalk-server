@@ -7,7 +7,7 @@ const {
 
 const {
   commonModels: { createdAtCommonModel, privateIdCommonModel },
-} = require("@/models/commonModels/commonModels");
+} = require("@/models/dataModels/commonModels");
 
 const {
   userErrors: {

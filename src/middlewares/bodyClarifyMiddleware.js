@@ -2,26 +2,28 @@ const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
+const { trier } = require("utility-store/src/classes/Trier");
 
-/**
- * @param {object} req
- * @param {object} res
- * @param {function} next
- *
- * @return req.body without undefined values
- */
-const bodyClarifyMiddleware = (req, _, next) => {
-  try {
-    req.body = objectUtilities.objectClarify(req.body);
+const tryToClarifyBody = (object) => {
+  const clarifiedBody = objectUtilities.objectClarify(object);
+  return { clarifiedBody, ok: true };
+};
 
-    next();
-    return { ok: true };
-  } catch (error) {
-    logger.log("bodyClarifyMiddleware catch, error:", error);
-    errorThrower(error, error);
-    return { ok: false };
-  }
+const executeIfNoError = ({ clarifiedBody }, req, next) => {
+  req.body = clarifiedBody;
+  next();
+};
+
+const catchBodyClarify = () => {
+  return { ok: false };
+};
+
+const bodyClarifyMiddleware = (req, _res, next) => {
+  return trier(catchBodyClarify.name)
+    .try(tryToClarifyBody, req.body)
+    .executeIfNoError(executeIfNoError, req, next)
+    .catch(catchBodyClarify)
+    .result();
 };
 
 module.exports = { bodyClarifyMiddleware };

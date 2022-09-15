@@ -6,7 +6,6 @@ const {
 
 const findRouteObjectMiddleware = (req, _res, next) => {
   req.routeObject = findRouteObject(req.url) || ROUTE_NOT_FOUND;
-
   next();
 };
 

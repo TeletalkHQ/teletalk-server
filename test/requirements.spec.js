@@ -16,6 +16,35 @@ const {
   commonModels: { privateIdCommonModel },
 } = require("@/models/dataModels/commonModels");
 const { addTestUser } = require("@/services/userServices");
+const { trier } = require("utility-store/src/classes/Trier");
+
+const tryToAddTestUser = async ({
+  testUsers,
+  countryCode,
+  countryName,
+  index,
+}) => {
+  const phoneNumber = `000000000${index}`;
+
+  const privateId = randomMaker.randomId(privateIdCommonModel.maxlength.value);
+
+  const mainToken = await authManager.tokenSigner({
+    countryName,
+    countryCode,
+    phoneNumber,
+    privateId,
+  });
+
+  testUsers[`testUser_${index}`] = await addTestUser({
+    countryCode,
+    countryName,
+    phoneNumber,
+    firstName: "test",
+    lastName: `user_${index}`,
+    privateId,
+    mainToken,
+  });
+};
 
 describe("Add requirements to application state", () => {
   it("should make test users and save into state", async () => {
@@ -27,34 +56,13 @@ describe("Add requirements to application state", () => {
 
     const testUsers = {};
 
-    for (let i = 0; i < users.length; i++) {
-      try {
-        const phoneNumber = `000000000${i}`;
-
-        const privateId = randomMaker.randomId(
-          privateIdCommonModel.maxlength.value
-        );
-
-        const mainToken = await authManager.tokenSigner({
-          countryName,
-          countryCode,
-          phoneNumber,
-          privateId,
-        });
-
-        testUsers[`testUser_${i}`] = await addTestUser(
-          countryCode,
-          countryName,
-          phoneNumber,
-          "test",
-          `user_${i}`,
-          privateId,
-          mainToken
-        );
-      } catch (error) {
-        logger.log("requirements.spec adding users catch, error:", error);
-        errorThrower(error, error);
-      }
+    for (let index = 0; index < users.length; index++) {
+      await trier(tryToAddTestUser.name).tryAsync(tryToAddTestUser, {
+        testUsers,
+        countryCode,
+        countryName,
+        index,
+      });
     }
 
     await userPropsUtilities.setTestUsers(testUsers);

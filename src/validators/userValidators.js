@@ -44,19 +44,12 @@ const {
     CELLPHONE_REQUIRED,
     TOKEN_INVALID,
     TOKEN_INVALID_TYPE,
-    TOKEN_REQUIRED,
-    TOKEN_MINLENGTH_REACH,
     TOKEN_MAXLENGTH_REACH,
+    TOKEN_MINLENGTH_REACH,
+    TOKEN_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-
-const checkReturnCondition = (returnCondition, error) => {
-  if (returnCondition) {
-    return error;
-  }
-
-  errorThrower(error, error);
-};
+const { trier } = require("utility-store/src/classes/Trier");
 
 const bioValidator =
   ValidationModelBuilder.validatorCompiler(bioValidationModel);
@@ -92,33 +85,41 @@ const compiledUsernameValidator = ValidationModelBuilder.validatorCompiler(
 const compiledVerificationCodeValidator =
   ValidationModelBuilder.validatorCompiler(verificationCodeValidationModel);
 
-const countryCodeValidator = async (countryCode, returnCondition) => {
-  try {
-    const validationResult = await compiledCountryCodeValidator({
-      countryCode,
-    });
+const trierInstance = async (callerName, callback, ...params) =>
+  (await trier(callerName).tryAsync(callback, ...params)).printAndThrow();
 
-    countryCodeValidatorErrorBuilder(validationResult, countryCode);
-  } catch (error) {
-    logger.log("countryCodeValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+const tryToValidateCountryCode = async (countryCode) => {
+  const validationResult = await compiledCountryCodeValidator({
+    countryCode,
+  });
+  //BUG? Why validationResult not checking for being true
+  countryCodeValidatorErrorBuilder(validationResult, countryCode);
+};
+const countryCodeValidator = async (countryCode) => {
+  await trierInstance(
+    countryCodeValidator.name,
+    tryToValidateCountryCode,
+    countryCode
+  );
 };
 
-const countryNameValidator = async (countryName, returnCondition) => {
-  try {
-    const validationResult = await compiledCountryNameValidator({
-      countryName,
-    });
-
-    countryNameValidatorErrorBuilder(validationResult, countryName);
-  } catch (error) {
-    logger.log("countryNameValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+const tryToValidateCountryName = async (countryName) => {
+  const validationResult = await compiledCountryNameValidator({
+    countryName,
+  });
+  //BUG? Why validationResult not checking for being true
+  countryNameValidatorErrorBuilder(validationResult, countryName);
+};
+const countryNameValidator = async (countryName) => {
+  await trierInstance(
+    countryNameValidator.name,
+    tryToValidateCountryName,
+    countryName
+  );
 };
 
-const firstNameValidator = async (firstName, returnCondition) => {
+//FIXME remove ok: true
+const firstNameValidator = async (firstName) => {
   try {
     const validationResult = await compiledFirstNameValidator({ firstName });
 
@@ -127,11 +128,11 @@ const firstNameValidator = async (firstName, returnCondition) => {
     firstNameValidatorErrorBuilder(validationResult, firstName);
   } catch (error) {
     logger.log("firstNameValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
+    throw error;
   }
 };
-
-const lastNameValidator = async (lastName, returnCondition) => {
+//FIXME remove ok: true
+const lastNameValidator = async (lastName) => {
   try {
     const validationResult = await compiledLastNameValidator({ lastName });
 
@@ -140,138 +141,132 @@ const lastNameValidator = async (lastName, returnCondition) => {
     lastNameValidatorErrorBuilder(validationResult, lastName);
   } catch (error) {
     logger.log("lastNameValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
+    throw error;
   }
 };
 
-const phoneNumberValidator = async (phoneNumber, returnCondition) => {
-  try {
-    const validationResult = await compiledPhoneNumberValidator({
-      phoneNumber,
-    });
+const tryToValidatePhoneNumber = async (phoneNumber) => {
+  const validationResult = await compiledPhoneNumberValidator({
+    phoneNumber,
+  });
 
-    if (validationResult === true) return { ok: true };
+  if (validationResult === true) return;
 
-    phoneNumberValidatorErrorBuilder(validationResult, phoneNumber);
-  } catch (error) {
-    logger.log("countryNameValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+  phoneNumberValidatorErrorBuilder(validationResult, phoneNumber);
+};
+const phoneNumberValidator = async (phoneNumber) => {
+  await trierInstance(
+    phoneNumberValidator.name,
+    tryToValidatePhoneNumber,
+    phoneNumber
+  );
 };
 
-const cellphoneValidator = async (cellphone = {}, returnCondition) => {
-  try {
-    const { countryCode, countryName, phoneNumber } = cellphone;
+const tryToValidateCellphone = async (cellphone) => {
+  const { countryCode, countryName, phoneNumber } = cellphone;
 
-    errorThrower(
-      !phoneNumber && !countryCode && !countryName,
-      () => CELLPHONE_REQUIRED
-    );
+  errorThrower(!phoneNumber && !countryCode && !countryName, () => ({
+    ...CELLPHONE_REQUIRED,
+    validatedCellphone: cellphone,
+  }));
 
-    // const countryCodeValidationError =
-    await countryCodeValidator(countryCode, false);
-    // const countryNameValidationError =
-    await countryNameValidator(countryName, false);
-    // const phoneNumberValidationError =
-    await phoneNumberValidator(phoneNumber, false);
-  } catch (error) {
-    logger.log("cellphoneValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+  await countryCodeValidator(countryCode);
+  await countryNameValidator(countryName);
+  await phoneNumberValidator(phoneNumber);
+};
+const cellphoneValidator = async (cellphone = {}) => {
+  await trierInstance(
+    cellphoneValidator.name,
+    tryToValidateCellphone,
+    cellphone
+  );
 };
 
-const contactValidator = async (contact, returnCondition) => {
-  try {
-    await cellphoneValidator(userPropsUtilities.extractCellphone(contact));
-    await firstNameValidator(contact.firstName);
-    await lastNameValidator(contact.lastName);
-
-    return { ok: true };
-  } catch (error) {
-    logger.log("contactValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+const tryToValidateContact = async (contact) => {
+  await cellphoneValidator(userPropsUtilities.extractCellphone(contact));
+  await firstNameValidator(contact.firstName);
+  await lastNameValidator(contact.lastName);
+};
+const contactValidator = async (contact) => {
+  await trierInstance(contactValidator.name, tryToValidateContact, contact);
 };
 
-const privateIdValidator = async (privateId, returnCondition) => {
-  try {
-    const validationResult = await compiledPrivateIdValidator({ privateId });
-
-    if (validationResult === true) return { ok: true };
-
-    privateIdValidatorErrorBuilder(validationResult, privateId);
-  } catch (error) {
-    logger.log("privateIdValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+const tryToValidatePrivateId = async (privateId) => {
+  const validationResult = await compiledPrivateIdValidator({ privateId });
+  if (validationResult === true) return;
+  privateIdValidatorErrorBuilder(validationResult, privateId);
+};
+const privateIdValidator = async (privateId) => {
+  await trierInstance(
+    privateIdValidator.name,
+    tryToValidatePrivateId,
+    privateId
+  );
 };
 
+const tryToValidateToken = async (token, secret) => {
+  const validationResult = await compiledTokenValidator({ token });
+
+  const errorBuilder = validationErrorBuilder.create();
+
+  //CLEANME Like others extract me, please!
+  errorBuilder
+    .setRequirements(validationResult, {
+      extraErrorFields: {
+        validatedToken: token,
+      },
+    })
+    .required(TOKEN_REQUIRED)
+    .stringMin(TOKEN_MINLENGTH_REACH)
+    .stringMax(TOKEN_MAXLENGTH_REACH)
+    .stringEmpty(TOKEN_REQUIRED)
+    .string(TOKEN_INVALID_TYPE)
+    .throwAnyway(TOKEN_INVALID)
+    .execute();
+
+  const verifiedToken = authManager.tokenVerifier(token, secret);
+  if (verifiedToken.ok === true) return verifiedToken.data;
+
+  errorBuilder
+    .addExtraErrorFields({
+      tokenError: verifiedToken.error,
+    })
+    .addError(verifiedToken.ok === false, TOKEN_INVALID)
+    .execute();
+};
 const tokenValidator = async (
   token,
-  secret = authManager.getJwtMainSecret(),
-  returnCondition
+  secret = authManager.getJwtMainSecret()
 ) => {
-  try {
-    const validationResult = await compiledTokenValidator({ token });
-
-    const errorBuilder = validationErrorBuilder.create();
-
-    //CLEANME Like others extract me, please!
-    errorBuilder
-      .setRequirements(validationResult, {
-        extraErrorFields: {
-          validatedToken: token,
-        },
-      })
-      .required(TOKEN_REQUIRED)
-      .stringMin(TOKEN_MINLENGTH_REACH)
-      .stringMax(TOKEN_MAXLENGTH_REACH)
-      .stringEmpty(TOKEN_REQUIRED)
-      .string(TOKEN_INVALID_TYPE)
-      .throwAnyway(TOKEN_INVALID)
-      .execute();
-
-    const verifiedToken = authManager.tokenVerifier(token, secret);
-    if (verifiedToken.ok === true) return verifiedToken.data;
-
-    errorBuilder
-      .addExtraErrorFields({
-        tokenError: verifiedToken.error,
-      })
-      .addError(verifiedToken.ok === false, TOKEN_INVALID)
-      .execute();
-  } catch (error) {
-    logger.log("tokenValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+  return (
+    await trierInstance(tokenValidator.name, tryToValidateToken, token, secret)
+  ).result();
 };
 
-const usernameValidator = async (username, returnCondition) => {
-  try {
-    const validationResult = await compiledUsernameValidator({ username });
-
-    if (validationResult === true) return { ok: true };
-
-    usernameValidatorErrorBuilder(validationResult, username);
-  } catch (error) {
-    logger.log("usernameValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+const tryToValidateUsername = async (username) => {
+  const validationResult = await compiledUsernameValidator({ username });
+  if (validationResult === true) return;
+  usernameValidatorErrorBuilder(validationResult, username);
+};
+const usernameValidator = async (username) => {
+  await trierInstance(usernameValidator.name, tryToValidateUsername, username);
 };
 
-const verificationCodeValidator = async (verificationCode, returnCondition) => {
-  try {
-    const validationResult = await compiledVerificationCodeValidator({
-      verificationCode,
-    });
+const tryToValidateVerificationCode = async (verificationCode) => {
+  const validationResult = await compiledVerificationCodeValidator({
+    verificationCode,
+  });
 
-    if (validationResult === true) return { ok: true };
+  if (validationResult === true) return;
 
-    verificationCodeValidatorErrorBuilder(validationResult, verificationCode);
-  } catch (error) {
-    logger.log("verificationCodeValidator catch, error:", error);
-    return checkReturnCondition(returnCondition, error);
-  }
+  verificationCodeValidatorErrorBuilder(validationResult, verificationCode);
+};
+const verificationCodeValidator = async (verificationCode) => {
+  await trierInstance(
+    verificationCodeValidator.name,
+    tryToValidateVerificationCode,
+    verificationCode
+  );
 };
 
 module.exports = {

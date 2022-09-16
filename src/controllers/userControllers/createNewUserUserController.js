@@ -22,7 +22,7 @@ const {
   tokenValidator,
 } = require("@/validators/userValidators");
 const {
-  userErrors: { FULL_NAME_INVALID, USER_EXIST, USER_NOT_EXIST },
+  userErrors: { USER_EXIST, USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const tryToExtractCellphoneFromToken = async (verifyToken) => {
@@ -34,19 +34,11 @@ const tryToExtractCellphoneFromToken = async (verifyToken) => {
 };
 
 const tryToValidateFirstName = async (firstName) => {
-  const validatedFirstName = await firstNameValidator(firstName);
-  errorThrower(validatedFirstName.ok === false, {
-    ...FULL_NAME_INVALID,
-    validatedFullName: { validatedFirstName },
-  });
+  await firstNameValidator(firstName);
 };
 
 const tryToValidateLastName = async (lastName) => {
-  const validatedLastName = await lastNameValidator(lastName);
-  errorThrower(validatedLastName.ok === false, {
-    ...FULL_NAME_INVALID,
-    validatedFullName: { validatedLastName },
-  });
+  await lastNameValidator(lastName);
 };
 
 const tryToFindTemporaryClient = async (cellphone) => {

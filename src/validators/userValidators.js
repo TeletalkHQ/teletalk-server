@@ -118,31 +118,26 @@ const countryNameValidator = async (countryName) => {
   );
 };
 
-//FIXME remove ok: true
-const firstNameValidator = async (firstName) => {
-  try {
-    const validationResult = await compiledFirstNameValidator({ firstName });
-
-    if (validationResult === true) return { ok: true };
-
-    firstNameValidatorErrorBuilder(validationResult, firstName);
-  } catch (error) {
-    logger.log("firstNameValidator catch, error:", error);
-    throw error;
-  }
+const tryToValidateFirstName = async (firstName) => {
+  const validationResult = await compiledFirstNameValidator({ firstName });
+  if (validationResult === true) return;
+  firstNameValidatorErrorBuilder(validationResult, firstName);
 };
-//FIXME remove ok: true
+const firstNameValidator = async (firstName) => {
+  await trierInstance(
+    firstNameValidator.name,
+    tryToValidateFirstName,
+    firstName
+  );
+};
+
+const tryToValidateLastName = async (lastName) => {
+  const validationResult = await compiledLastNameValidator({ lastName });
+  if (validationResult === true) return;
+  lastNameValidatorErrorBuilder(validationResult, lastName);
+};
 const lastNameValidator = async (lastName) => {
-  try {
-    const validationResult = await compiledLastNameValidator({ lastName });
-
-    if (validationResult === true) return { ok: true };
-
-    lastNameValidatorErrorBuilder(validationResult, lastName);
-  } catch (error) {
-    logger.log("lastNameValidator catch, error:", error);
-    throw error;
-  }
+  await trierInstance(lastNameValidator.name, tryToValidateLastName, lastName);
 };
 
 const tryToValidatePhoneNumber = async (phoneNumber) => {

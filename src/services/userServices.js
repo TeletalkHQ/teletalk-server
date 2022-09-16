@@ -19,120 +19,143 @@ const {
     USER_NOT_EXIST,
   },
 } = require("@/variables/errors/userErrors");
+const { trier } = require("utility-store/src/classes/Trier");
 
+const tryToFindUser = async (userData, options) => {
+  return await UserMongoModel.findOne(userData, undefined, options);
+};
 const userFinder = async (
   userData = userInitialOptions,
   options = { lean: true }
 ) => {
-  try {
-    return await UserMongoModel.findOne(userData, undefined, options);
-  } catch (error) {
-    logger.log("userFinder catch, error:", error);
-    errorThrower(error, error);
-  }
+  return (
+    await trier(userFinder.name).tryAsync(tryToFindUser, userData, options)
+  )
+    .printAndThrow()
+    .result();
+};
+
+const tryToAddCellphoneToUserBlacklist = async (currentUser, cellphone) => {
+  const { cellphone: existBlacklistItem } = userPropsUtilities.cellphoneFinder(
+    currentUser.blacklist,
+    cellphone
+  );
+
+  errorThrower(existBlacklistItem, () => ({
+    ...BLACKLIST_ITEM_EXIST,
+    targetUserData: cellphone,
+  }));
+
+  const targetUser = await userFinder(cellphone);
+  errorThrower(customTypeof.check(targetUser).type.isNull, () => ({
+    ...TARGET_USER_NOT_EXIST,
+    targetUserData: cellphone,
+  }));
+
+  const blacklistItem = userPropsUtilities.extractCellphone(cellphone);
+  currentUser.blacklist.push(blacklistItem);
+  await currentUser.updateOne({
+    blacklist: currentUser.blacklist,
+  });
 };
 
 const addCellphoneToUserBlacklist = async (
   currentUser = userInitialOptions,
   cellphone
 ) => {
-  try {
-    const { cellphone: existBlacklistItem } =
-      userPropsUtilities.cellphoneFinder(currentUser.blacklist, cellphone);
-
-    errorThrower(existBlacklistItem, () => ({
-      ...BLACKLIST_ITEM_EXIST,
-      targetUserData: cellphone,
-    }));
-
-    const targetUser = await userFinder(cellphone);
-    errorThrower(customTypeof.check(targetUser).type.isNull, () => ({
-      ...TARGET_USER_NOT_EXIST,
-      targetUserData: cellphone,
-    }));
-
-    const blacklistItem = userPropsUtilities.extractCellphone(cellphone);
-
-    currentUser.blacklist.push(blacklistItem);
-    await currentUser.updateOne({
-      blacklist: currentUser.blacklist,
-    });
-  } catch (error) {
-    logger.log("addCellphoneToUserBlacklist catch, error:", error);
-    errorThrower(error, error);
-  }
+  return (
+    await trier(addCellphoneToUserBlacklist.name).tryAsync(
+      tryToAddCellphoneToUserBlacklist,
+      currentUser,
+      cellphone
+    )
+  )
+    .printAndThrow()
+    .result();
 };
 
+const tryToAddContactToUserContacts = async (currentUser, targetUserData) => {
+  const { cellphone: isContactExist } = userPropsUtilities.cellphoneFinder(
+    currentUser.contacts,
+    targetUserData
+  );
+  errorThrower(isContactExist, () => ({
+    ...CONTACT_ITEM_EXIST,
+    targetUserData,
+  }));
+
+  const targetUser = await userFinder(
+    userPropsUtilities.extractCellphone(targetUserData)
+  );
+  errorThrower(customTypeof.check(targetUser).type.isNull, () => ({
+    ...TARGET_USER_NOT_EXIST,
+    targetUserData,
+  }));
+
+  const contact = userPropsUtilities.extractContact({
+    ...targetUserData,
+    privateId: targetUser.privateId,
+  });
+  currentUser.contacts.push(contact);
+  await currentUser.updateOne({
+    contacts: currentUser.contacts,
+  });
+
+  return { targetUser, currentUser };
+};
 const addContactToUserContacts = async (
   currentUser = userInitialOptions,
   targetUserData = userInitialOptions
 ) => {
-  try {
-    const { cellphone: isContactExist } = userPropsUtilities.cellphoneFinder(
-      currentUser.contacts,
+  return (
+    await trier(addContactToUserContacts.name).tryAsync(
+      tryToAddContactToUserContacts,
+      currentUser,
       targetUserData
-    );
-    errorThrower(isContactExist, () => ({
-      ...CONTACT_ITEM_EXIST,
-      targetUserData,
-    }));
-
-    const targetUser = await userFinder(
-      userPropsUtilities.extractCellphone(targetUserData)
-    );
-    errorThrower(customTypeof.check(targetUser).type.isNull, () => ({
-      ...TARGET_USER_NOT_EXIST,
-      targetUserData,
-    }));
-
-    const contact = userPropsUtilities.extractContact({
-      ...targetUserData,
-      privateId: targetUser.privateId,
-    });
-    currentUser.contacts.push(contact);
-    await currentUser.updateOne({
-      contacts: currentUser.contacts,
-    });
-
-    return { targetUser, currentUser };
-  } catch (error) {
-    logger.log("addContactToUserContacts catch, error:", error);
-    errorThrower(error, error);
-  }
+    )
+  )
+    .printAndThrow()
+    .result();
 };
 
+const tryToUpdateOneContact = async ({
+  currentUser,
+  editedValues,
+  targetCellphone,
+}) => {
+  const { cellphone: contactItem, cellphoneIndex } =
+    userPropsUtilities.cellphoneFinder(currentUser.contacts, targetCellphone);
+  errorThrower(!contactItem, () => CONTACT_ITEM_NOT_EXIST);
+
+  currentUser.contacts.splice(cellphoneIndex, 1, {
+    ...userPropsUtilities.extractContact(targetCellphone),
+    firstName: editedValues.firstName,
+    lastName: editedValues.lastName,
+  });
+  await currentUser.updateOne({
+    contacts: currentUser.contacts,
+  });
+
+  return { currentUser };
+};
 const updateOneContact = async (
   currentUser = userInitialOptions,
   targetCellphone,
   editedValues
 ) => {
-  try {
-    const { cellphone: contactItem, cellphoneIndex } =
-      userPropsUtilities.cellphoneFinder(currentUser.contacts, targetCellphone);
-    errorThrower(!contactItem, () => CONTACT_ITEM_NOT_EXIST);
-
-    currentUser.contacts.splice(cellphoneIndex, 1, {
-      ...userPropsUtilities.extractContact(targetCellphone),
-      firstName: editedValues.firstName,
-      lastName: editedValues.lastName,
-    });
-    await currentUser.updateOne({
-      contacts: currentUser.contacts,
-    });
-
-    return { currentUser };
-  } catch (error) {
-    logger.log("updateOneContact catch, error:", error);
-    errorThrower(error, error);
-  }
+  return (
+    await trier().tryAsync(tryToUpdateOneContact, {
+      currentUser,
+      editedValues,
+      targetCellphone,
+    })
+  )
+    .printAndThrow()
+    .result();
 };
 
 const getUserContacts = async (currentUser = userInitialOptions) => {
-  try {
-    return currentUser.contacts;
-  } catch (error) {
-    logger.log("getUserContacts catch, error:", error);
-  }
+  return currentUser.contacts;
 };
 
 const deleteBlacklistItem = async (currentUser, targetUserData) => {
@@ -141,89 +164,105 @@ const deleteBlacklistItem = async (currentUser, targetUserData) => {
   errorThrower(!blacklistItem, () => BLACKLIST_ITEM_NOT_EXIST);
 
   currentUser.blacklist.splice(cellphoneIndex, 1);
-
   await currentUser.updateOne({
     blacklist: currentUser.blacklist,
   });
 };
 
+const tryToRemoveContactItem = async (currentUser, targetUserData) => {
+  const { cellphone: contactItem, cellphoneIndex } =
+    userPropsUtilities.cellphoneFinder(currentUser.contacts, targetUserData);
+  errorThrower(!contactItem, () => ({
+    ...CONTACT_ITEM_NOT_EXIST,
+    targetUserData,
+  }));
+
+  //TODO: Remove all splice and use arrayUtilities
+  currentUser.contacts.splice(cellphoneIndex, 1);
+  await currentUser.updateOne({
+    contacts: currentUser.contacts,
+  });
+};
 const removeContactItem = async (
   currentUser = userInitialOptions,
   targetUserData = userInitialOptions
 ) => {
-  try {
-    const { cellphone: contactItem, cellphoneIndex } =
-      userPropsUtilities.cellphoneFinder(currentUser.contacts, targetUserData);
-    errorThrower(!contactItem, () => ({
-      ...CONTACT_ITEM_NOT_EXIST,
-      targetUserData,
-    }));
-
-    currentUser.contacts.splice(cellphoneIndex, 1);
-    await currentUser.updateOne({
-      contacts: currentUser.contacts,
-    });
-  } catch (error) {
-    logger.log("removeContactItem catch, error:", error);
-    errorThrower(error, error);
-  }
+  return (
+    await trier(removeContactItem.name).tryAsync(
+      tryToRemoveContactItem,
+      currentUser,
+      targetUserData
+    )
+  )
+    .printAndThrow()
+    .result();
 };
 
+const tryToUpdatePersonalInfo = async (currentUser, updateProperties) => {
+  return await currentUser.updateOne(updateProperties);
+};
 const updatePersonalInfo = async (currentUser, updateProperties) => {
-  try {
-    await currentUser.updateOne(updateProperties);
-  } catch (error) {
-    logger.log("updateUserTokens catch, error:", error);
-
-    errorThrower(error, error);
-  }
+  return (
+    await trier(updatePersonalInfo.name).tryAsync(
+      tryToUpdatePersonalInfo,
+      currentUser,
+      updateProperties
+    )
+  )
+    .printAndThrow()
+    .result();
 };
 
+const tryToCreateNewNormalUser = async (userData) => {
+  const newUser = new UserMongoModel(userData);
+  await newUser.save();
+
+  return { ok: true };
+};
 const createNewNormalUser = async (userData) => {
-  try {
-    const newUser = new UserMongoModel(userData);
-    await newUser.save();
-
-    return true;
-  } catch (error) {
-    logger.log("createNewNormalUser catch, error:", error);
-    errorThrower(error, error);
-  }
+  return (
+    await trier(createNewNormalUser.name).tryAsync(
+      tryToCreateNewNormalUser,
+      userData
+    )
+  )
+    .printAndThrow()
+    .result();
 };
 
-const addTestUser = async (
+const tryToAddTestUser = async ({
   countryCode,
   countryName,
-  phoneNumber,
   firstName,
   lastName,
+  mainToken,
+  phoneNumber,
   privateId,
-  mainToken
-) => {
-  try {
-    const user = await UserMongoModel.findOneAndUpdate(
-      { countryCode, countryName, phoneNumber },
-      {
-        tokens: [{ mainToken }],
-        privateId,
-        firstName,
-        lastName,
-        contacts: [],
-        blacklist: [],
-        chats: [],
-      },
-      {
-        upsert: true,
-        lean: true,
-        new: true,
-      }
-    );
+}) => {
+  const user = await UserMongoModel.findOneAndUpdate(
+    { countryCode, countryName, phoneNumber },
+    {
+      tokens: [{ mainToken }],
+      privateId,
+      firstName,
+      lastName,
+      contacts: [],
+      blacklist: [],
+      chats: [],
+    },
+    {
+      upsert: true,
+      lean: true,
+      new: true,
+    }
+  );
 
-    return user;
-  } catch (error) {
-    logger.log("addTestUser catch, error:", error);
-    errorThrower(error, error);
-  }
+  return user;
+};
+const addTestUser = async (userData = userInitialOptions) => {
+  return (await trier(addTestUser.name).tryAsync(tryToAddTestUser, userData))
+    .printAndThrow()
+    .result();
 };
 
 const getAllChats = (currentUser) => {
@@ -232,26 +271,24 @@ const getAllChats = (currentUser) => {
 
 const getAllUsers = async () => {
   const users = await UserMongoModel.find();
-
   return users;
 };
 
+const tryToGetUserData = async (privateId) => {
+  const user = await UserMongoModel.findOne({ privateId }, undefined, {
+    lean: true,
+  });
+  errorThrower(!user, () => ({
+    ...USER_NOT_EXIST,
+    searchQueries: { privateId },
+  }));
+
+  return user;
+};
 const getUserData = async (privateId) => {
-  try {
-    const user = await UserMongoModel.findOne({ privateId }, undefined, {
-      lean: true,
-    });
-
-    errorThrower(!user, () => ({
-      ...USER_NOT_EXIST,
-      searchQueries: { privateId },
-    }));
-
-    return user;
-  } catch (error) {
-    logger.log("getUserData catch, error:", error);
-    throw error;
-  }
+  return (await trier(getUserData.name).tryAsync(tryToGetUserData, privateId))
+    .printAndThrow()
+    .result();
 };
 
 const removeTestUsers = async (length) => {

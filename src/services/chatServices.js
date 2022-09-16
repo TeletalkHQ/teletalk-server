@@ -17,27 +17,32 @@ const {
 const {
   userErrors: { TARGET_USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
+const { trier } = require("utility-store/src/classes/Trier");
+
+const tryToGetChatsLastMessages = async (currentUser) => {
+  const chats = [];
+
+  for (const chat of currentUser.chats) {
+    const chatWithMessages = await PrivateChatMongoModel.findOne({
+      chatId: chat.chatId,
+    });
+    if (chatWithMessages) {
+      const { messages, participants, chatId } = chatWithMessages;
+      const lastMessage = messages?.at(-1);
+      chats.push({ participants, chatId, messages: [lastMessage] });
+    }
+  }
+
+  return chats;
+};
 
 const getChatsLastMessages = async (currentUser) => {
-  try {
-    const chats = [];
-
-    for (const chat of currentUser.chats) {
-      const chatWithMessages = await PrivateChatMongoModel.findOne({
-        chatId: chat.chatId,
-      });
-      if (chatWithMessages) {
-        const { messages, participants, chatId } = chatWithMessages;
-        const lastMessage = messages?.at(-1);
-        chats.push({ participants, chatId, messages: [lastMessage] });
-      }
-    }
-
-    return chats;
-  } catch (error) {
-    logger.log("getChatsLastMessages catch, error", error);
-    errorThrower(error, error);
-  }
+  (
+    await trier(getChatsLastMessages.name).tryAsync(
+      tryToGetChatsLastMessages,
+      currentUser
+    )
+  ).printAndThrow();
 };
 
 const getPrivateChat = async (

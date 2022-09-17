@@ -1,6 +1,6 @@
 /*
  * Require test files as your wish
- * All test files using requester for make a request to server (in special case uses request)
+ * All test files are independent
  */
 
 const { eventManager } = require("@/classes/EventManager");

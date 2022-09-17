@@ -2,8 +2,6 @@ const {
   UserPropsUtilities: UserPropsUtilitiesMain,
 } = require("utility-store/src/classes/UserPropsUtilities");
 
-const { stateManager } = require("@/classes/StateManager");
-
 class UserPropsUtilities extends UserPropsUtilitiesMain {
   constructor(id) {
     super();
@@ -15,10 +13,6 @@ class UserPropsUtilities extends UserPropsUtilitiesMain {
   }
 
   //CLEANME: Move to TestUtilities
-  async setTestUsers(testUsers) {
-    const { testUsers: stateKey } = stateManager.stateKeys;
-    return await stateManager.setState(stateKey, testUsers);
-  }
 }
 
 const userPropsUtilities = new UserPropsUtilities();

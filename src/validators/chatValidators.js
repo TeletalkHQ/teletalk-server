@@ -4,14 +4,12 @@ const {
 
 const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
-
 const {
   chatValidationModels: {
     chatIdValidationModel,
-    participantIdValidationModel,
     messageIdValidationModel,
     messageTextValidationModel,
+    participantIdValidationModel,
   },
 } = require("@/models/validationModels/chatValidationModels");
 

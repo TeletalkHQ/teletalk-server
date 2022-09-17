@@ -1,36 +1,38 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+const { trier } = require("utility-store/src/classes/Trier");
 
+//#region //! Require before internal files!
 require("@/variables/others/customGlobals");
 require("@/functions/helpers/requireDotenv").requireDotenv();
 require("@/configs/databaseConnector").databaseConnector();
+//#endregion
 
 const { authManager } = require("@/classes/AuthManager");
 const { eventManager } = require("@/classes/EventManager");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
-
-const { countries } = require("@/variables/others/countries");
+const { setTestUsers } = require("@/functions/utilities/testUtilities");
 
 const {
   commonModels: { privateIdCommonModel },
 } = require("@/models/dataModels/commonModels");
+
+const { countries } = require("@/variables/others/countries");
+
 const { addTestUser } = require("@/services/userServices");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const tryToAddTestUser = async ({
-  testUsers,
   countryCode,
   countryName,
   index,
+  testUsers,
 }) => {
   const phoneNumber = `000000000${index}`;
 
   const privateId = randomMaker.randomId(privateIdCommonModel.maxlength.value);
 
   const mainToken = await authManager.tokenSigner({
-    countryName,
     countryCode,
+    countryName,
     phoneNumber,
     privateId,
   });
@@ -38,11 +40,11 @@ const tryToAddTestUser = async ({
   testUsers[`testUser_${index}`] = await addTestUser({
     countryCode,
     countryName,
-    phoneNumber,
     firstName: "test",
     lastName: `user_${index}`,
-    privateId,
     mainToken,
+    phoneNumber,
+    privateId,
   });
 };
 
@@ -58,14 +60,14 @@ describe("Add requirements to application state", () => {
 
     for (let index = 0; index < users.length; index++) {
       await trier(tryToAddTestUser.name).tryAsync(tryToAddTestUser, {
-        testUsers,
         countryCode,
         countryName,
         index,
+        testUsers,
       });
     }
 
-    await userPropsUtilities.setTestUsers(testUsers);
+    await setTestUsers(testUsers);
 
     const { requirementsGetDone } = eventManager.eventKeys;
     eventManager.emitEvent(requirementsGetDone);

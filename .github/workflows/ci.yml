@@ -2,15 +2,40 @@ name: Teletalk Server CI
 on:
   push:
     branches: [teletalk-server-main]
+
   pull_request:
     branches: [teletalk-server-main]
+
 jobs:
   build:
+    env:
+      CI: true
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        redis-version: [4, 5, 6]
+        mongodb-version: ["4.2", "4.4", "5.0", "6.0"]
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js version 16
+
+      - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: ${{ matrix.node-version }}
+
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: ${{ matrix.redis-version }}
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+
       - run: npm install
+      - run: npm run test

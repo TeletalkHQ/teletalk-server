@@ -11,8 +11,6 @@ class UserPropsUtilities extends UserPropsUtilitiesMain {
   getTokenFromUserObject(userObject) {
     return userObject.tokens[0]?.mainToken;
   }
-
-  //CLEANME: Move to TestUtilities
 }
 
 const userPropsUtilities = new UserPropsUtilities();

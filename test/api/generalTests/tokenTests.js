@@ -23,7 +23,7 @@ const tokenSuccessTests = async (
 
   (
     await ts.checkAndExecuteAsync(verifyToken, async () => {
-      //BUG token verifier weird bug, i don't know what it is
+      //BUG token verifier weird bug, i don't know what it is (invalid signature)
       const verifiedToken = await tokenValidator(tokenTest, secret);
       ts.customTypeCheck(verifiedToken, "object")
         .customTypeCheck(verifiedToken.signature, "string")

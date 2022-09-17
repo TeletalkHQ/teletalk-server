@@ -11,7 +11,7 @@ const {
   userErrors: { USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
-//TODO: Add some tests
+//TODO: Add some tests, this controller has no any tests
 
 const fixUserData = (foundUser) => {
   const { tokens, ...userData } = userPropsUtilities.extractUserData(foundUser);

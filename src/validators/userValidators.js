@@ -92,7 +92,6 @@ const tryToValidateCountryCode = async (countryCode) => {
   const validationResult = await compiledCountryCodeValidator({
     countryCode,
   });
-  //BUG? Why validationResult not checking for being true
   countryCodeValidatorErrorBuilder(validationResult, countryCode);
 };
 const countryCodeValidator = async (countryCode) => {
@@ -107,7 +106,6 @@ const tryToValidateCountryName = async (countryName) => {
   const validationResult = await compiledCountryNameValidator({
     countryName,
   });
-  //BUG? Why validationResult not checking for being true
   countryNameValidatorErrorBuilder(validationResult, countryName);
 };
 const countryNameValidator = async (countryName) => {

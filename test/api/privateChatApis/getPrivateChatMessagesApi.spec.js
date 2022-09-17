@@ -1,9 +1,10 @@
 const { messageIdSuccessTests } = require("$/api/generalTests/messageIdTests");
 const { senderIdSuccessTests } = require("$/api/generalTests/senderIdTests");
+const { chatIdFailureTests } = require("$/api/generalTests/chatIdTests");
 const {
   authenticationFailureTests,
 } = require("$/api/generalTests/authenticationTests");
-const { chatIdFailureTests } = require("$/api/generalTests/chatIdTests");
+
 const {
   requesters: {
     getAllChatsRequest,
@@ -23,8 +24,8 @@ describe("get messages success tests", () => {
     // eslint-disable-next-line no-unused-vars
     for (const _ of Array.from({ length: 10 })) {
       await sendMessageRequest().sendFullFeaturedRequest({
-        participantId: getPrivateChatMessagesTestUser.privateId,
         message,
+        participantId: getPrivateChatMessagesTestUser.privateId,
       });
     }
 

@@ -127,7 +127,7 @@ const tryToSignInNormalUser = async (req) => {
     ...cellphone,
     verifyToken,
   };
-  const sendingDataWithVerificationCode = objectUtilities.addProperty(
+  const responseDataWithVerificationCode = objectUtilities.addProperty(
     defaultResponseData,
     "verificationCode",
     verificationCode
@@ -135,9 +135,10 @@ const tryToSignInNormalUser = async (req) => {
 
   const isTestServerRunning = commonFunctionalities.isTestServerRunning();
   const sendingResponseData = isTestServerRunning
-    ? defaultResponseData
-    : sendingDataWithVerificationCode;
+    ? responseDataWithVerificationCode
+    : defaultResponseData;
 
+  logger.log("rm", "sendingResponseData:", sendingResponseData);
   return sendingResponseData;
 };
 

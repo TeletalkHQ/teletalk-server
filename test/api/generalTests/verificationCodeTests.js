@@ -1,4 +1,5 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const {
   userModels: { verificationCodeModel },
@@ -13,7 +14,6 @@ const {
     VERIFICATION_CODE_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const verificationCodeSuccessTests = (
   { verificationCodeTest } = {},
@@ -47,4 +47,7 @@ const verificationCodeFailureTests = (configuredCustomRequest, data = {}) => {
     .invalidNumber(VERIFICATION_CODE_INVALID);
 };
 
-module.exports = { verificationCodeFailureTests, verificationCodeSuccessTests };
+module.exports = {
+  verificationCodeFailureTests,
+  verificationCodeSuccessTests,
+};

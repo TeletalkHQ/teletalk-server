@@ -10,28 +10,27 @@ jobs:
   build:
     env:
       CI: true
+      LINTER_RULES_PATH: /
+      JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
+      VALIDATE_JAVASCRIPT_STANDARD: false
 
     strategy:
       matrix:
-        node-version: [
-        # 14.x,
-          16.x,
-          #  18.x
-            ]
-        redis-version: [
-        #4, 5,
-          6]
-        mongodb-version: [
-        # "4.2", "4.4", "5.0",
-          6.0]
+        node-version: [16.x, 18.x]
+        redis-version: [4, 5, 6]
+        mongodb-version: [4.4, 5.0, 6.0]
+        operations: [ubuntu-latest, windows-latest, macos-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operations }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - name: Lint Code Base
+        uses: github/super-linter@v4
 
       - name: Use Node.js version ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 

@@ -11,7 +11,7 @@
   },
   "scripts": {
     "coverage": "nyc npm run test",
-    "deploy": "gh-pages -d build",
+    "build": "webpack ./src/server.js -o dist/main.js",
     "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
     "lint": "eslint ./",
     "predeploy": "npm run build",
@@ -94,6 +94,8 @@
     "nyc": "^15.1.0",
     "prettier": "2.7.1",
     "supertest": "^6.2.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
     "yargs": "^17.5.1"
   },
   "lint-staged": {

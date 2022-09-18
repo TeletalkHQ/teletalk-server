@@ -33,8 +33,8 @@ jobs:
 
       - run: npm install
 
-      - name: Lint Code Base
-        uses: github/super-linter@v4
+      # - name: Lint Code Base
+      #   uses: github/super-linter@v4
 
       - name: Start Redis version ${{ matrix.redis-version }}
         uses: supercharge/redis-github-action@1.4.0

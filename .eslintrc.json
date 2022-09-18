@@ -20,6 +20,8 @@
     "@cspell" //  "security"
   ],
   "rules": {
+    "no-var": "warn",
+    "no-delete-var": "warn",
     "@cspell/spellchecker": [
       "warn",
       {

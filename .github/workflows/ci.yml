@@ -26,13 +26,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Lint Code Base
-        uses: github/super-linter@v4
-
       - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
+      - run: npm install
+
+      - name: Lint Code Base
+        uses: github/super-linter@v4
 
       - name: Start Redis version ${{ matrix.redis-version }}
         uses: supercharge/redis-github-action@1.4.0
@@ -44,5 +46,4 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
-      - run: npm install
       - run: npm run test

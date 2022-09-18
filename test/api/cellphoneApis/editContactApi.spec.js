@@ -18,7 +18,7 @@ const {
 const { countries } = require("@/variables/others/countries");
 
 describe("edit contact success tests", () => {
-  it(`should add and edit testUser_1 on testUser_0 contact list`, async () => {
+  it("should add and edit testUser_1 on testUser_0 contact list", async () => {
     const {
       body: {
         addedContact: {

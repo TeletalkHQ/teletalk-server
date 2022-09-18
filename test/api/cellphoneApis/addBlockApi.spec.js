@@ -15,7 +15,7 @@ const {
 const { countries } = require("@/variables/others/countries");
 
 describe("addBlock successful tests", () => {
-  it(`should add addBlockSuccessfulTestUser to testUser_0 blacklist`, async () => {
+  it("should add addBlockSuccessfulTestUser to testUser_0 blacklist", async () => {
     const {
       body: {
         blockedCellphone: { phoneNumber, countryCode, countryName },

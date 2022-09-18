@@ -1,0 +1,10 @@
+.git
+.github
+.husky
+.idea
+.nyc_output
+.trashCan
+.vscode
+node_modules
+public
+thunder-tests

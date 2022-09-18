@@ -11,7 +11,7 @@ const {
 const { countries } = require("@/variables/others/countries");
 
 describe("removeContact successful test", () => {
-  it(`should add testUser_3 to testUser_0 contact list`, async () => {
+  it("should add testUser_3 to testUser_0 contact list", async () => {
     await addContactRequest().sendFullFeaturedRequest(
       removeContactSuccessfulTestUser,
       null,

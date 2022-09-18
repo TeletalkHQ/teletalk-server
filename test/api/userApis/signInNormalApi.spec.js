@@ -9,7 +9,7 @@ const {
 } = require("@/variables/others/testVariables");
 
 describe("signInNormalApi test success requests", () => {
-  it(`It should get sign in data like token and verification code`, async () => {
+  it("It should get sign in data like token and verification code", async () => {
     const {
       body: {
         user: {

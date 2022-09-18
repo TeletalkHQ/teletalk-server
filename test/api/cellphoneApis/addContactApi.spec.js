@@ -21,7 +21,7 @@ const { countries } = require("@/variables/others/countries");
 const configuredAddContactRequester = addContactRequest();
 
 describe("add contact success tests", () => {
-  it(`should add testUser_1 to testUser_0 contact list`, async () => {
+  it("should add testUser_1 to testUser_0 contact list", async () => {
     const {
       body: {
         addedContact: {

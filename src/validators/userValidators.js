@@ -1,33 +1,27 @@
-/* eslint-disable no-inner-declarations */
+const { trier } = require("utility-store/src/classes/Trier");
 const {
   validationErrorBuilder,
 } = require("utility-store/src/classes/ValidationErrorBuilder");
 
-const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
-  commonValidationModels: { createdAtValidationModel },
-} = require("@/models/validationModels/commonValidationModels");
-const {
-  userValidationModels: {
-    bioValidationModel,
-    countryCodeValidationModel,
-    countryNameValidationModel,
-    firstNameValidationModel,
-    lastNameValidationModel,
-    macAddressValidationModel,
-    phoneNumberValidationModel,
-    privateIdValidationModel,
-    tokenValidationModel,
-    usernameValidationModel,
-    verificationCodeValidationModel,
+  compiledValidators: {
+    compiledCountryCodeValidator,
+    compiledCountryNameValidator,
+    compiledFirstNameValidator,
+    compiledLastNameValidator,
+    compiledPhoneNumberValidator,
+    compiledPrivateIdValidator,
+    compiledTokenValidator,
+    compiledUsernameValidator,
+    compiledVerificationCodeValidator,
+    macAddressValidator,
   },
-} = require("@/models/validationModels/userValidationModels");
-
+} = require("@/validators/compiledValidators");
 const {
   countryCodeValidatorErrorBuilder,
   countryNameValidatorErrorBuilder,
@@ -37,7 +31,7 @@ const {
   privateIdValidatorErrorBuilder,
   usernameValidatorErrorBuilder,
   verificationCodeValidatorErrorBuilder,
-} = require("@/validators/userValidatorErrorBuilders");
+} = require("@/validators/validatorErrorBuilders");
 
 const {
   userErrors: {
@@ -49,41 +43,6 @@ const {
     TOKEN_REQUIRED,
   },
 } = require("@/variables/errors/userErrors");
-const { trier } = require("utility-store/src/classes/Trier");
-
-const bioValidator =
-  ValidationModelBuilder.validatorCompiler(bioValidationModel);
-const compiledCountryCodeValidator = ValidationModelBuilder.validatorCompiler(
-  countryCodeValidationModel
-);
-const compiledCountryNameValidator = ValidationModelBuilder.validatorCompiler(
-  countryNameValidationModel
-);
-const createdAtValidator = ValidationModelBuilder.validatorCompiler(
-  createdAtValidationModel
-);
-const compiledFirstNameValidator = ValidationModelBuilder.validatorCompiler(
-  firstNameValidationModel
-);
-const compiledLastNameValidator = ValidationModelBuilder.validatorCompiler(
-  lastNameValidationModel
-);
-const macAddressValidator = ValidationModelBuilder.validatorCompiler(
-  macAddressValidationModel
-);
-const compiledPhoneNumberValidator = ValidationModelBuilder.validatorCompiler(
-  phoneNumberValidationModel
-);
-const compiledPrivateIdValidator = ValidationModelBuilder.validatorCompiler(
-  privateIdValidationModel
-);
-const compiledTokenValidator =
-  ValidationModelBuilder.validatorCompiler(tokenValidationModel);
-const compiledUsernameValidator = ValidationModelBuilder.validatorCompiler(
-  usernameValidationModel
-);
-const compiledVerificationCodeValidator =
-  ValidationModelBuilder.validatorCompiler(verificationCodeValidationModel);
 
 const trierInstance = async (callerName, callback, ...params) =>
   (await trier(callerName).tryAsync(callback, ...params)).printAndThrow();
@@ -263,12 +222,10 @@ const verificationCodeValidator = async (verificationCode) => {
 };
 
 module.exports = {
-  bioValidator,
   cellphoneValidator,
   contactValidator,
   countryCodeValidator,
   countryNameValidator,
-  createdAtValidator,
   firstNameValidator,
   lastNameValidator,
   macAddressValidator,

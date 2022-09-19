@@ -1,71 +1,24 @@
-const {
-  validationErrorBuilder,
-} = require("utility-store/src/classes/ValidationErrorBuilder");
-
-const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
-
-const {
-  chatValidationModels: {
-    chatIdValidationModel,
-    messageIdValidationModel,
-    messageTextValidationModel,
-    participantIdValidationModel,
-  },
-} = require("@/models/validationModels/chatValidationModels");
-
-const {
-  chatErrors: {
-    CHAT_ID_INVALID,
-    CHAT_ID_INVALID_TYPE,
-    CHAT_ID_MAX_LENGTH_REACH,
-    CHAT_ID_MIN_LENGTH_REACH,
-    CHAT_ID_REQUIRED,
-    MESSAGE_ID_MIN_LENGTH_REACH,
-    MESSAGE_TEXT_INVALID,
-    MESSAGE_TEXT_INVALID_TYPE,
-    MESSAGE_TEXT_MAX_LENGTH_REACH,
-    MESSAGE_TEXT_REQUIRED,
-    PARTICIPANT_ID_INVALID,
-    PARTICIPANT_ID_INVALID_TYPE,
-    PARTICIPANT_ID_MAX_LENGTH_REACH,
-    PARTICIPANT_ID_MIN_LENGTH_REACH,
-    PARTICIPANT_ID_REQUIRED,
-  },
-} = require("@/variables/errors/chatErrors");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const compiledChatIdValidator = ValidationModelBuilder.validatorCompiler(
-  chatIdValidationModel
-);
-const messageIdValidator = ValidationModelBuilder.validatorCompiler(
-  messageIdValidationModel
-);
-const compiledMessageTextValidator = ValidationModelBuilder.validatorCompiler(
-  messageTextValidationModel
-);
-const compiledParticipantIdValidator = ValidationModelBuilder.validatorCompiler(
-  participantIdValidationModel
-);
+const {
+  compiledValidators: {
+    compiledChatIdValidator,
+    compiledMessageTextValidator,
+    compiledParticipantIdValidator,
+  },
+} = require("@/validators/compiledValidators");
+
+const {
+  chatIdValidatorErrorBuilder,
+  messageTextValidatorErrorBuilder,
+  participantIdValidatorErrorBuilder,
+} = require("@/validators/validatorErrorBuilders");
 
 const tryToValidateChatId = async (chatId) => {
-  const result = await compiledChatIdValidator({ chatId });
+  const validationResult = await compiledChatIdValidator({ chatId });
 
-  if (result === true) return;
-
-  validationErrorBuilder
-    .create()
-    .setRequirements(result, {
-      extraErrorFields: {
-        validatedChatId: chatId,
-      },
-    })
-    .required(CHAT_ID_REQUIRED)
-    .stringEmpty(CHAT_ID_REQUIRED)
-    .string(CHAT_ID_INVALID_TYPE)
-    .stringMin(CHAT_ID_MIN_LENGTH_REACH)
-    .stringMax(CHAT_ID_MAX_LENGTH_REACH)
-    .throwAnyway(CHAT_ID_INVALID)
-    .execute();
+  if (validationResult === true) return;
+  chatIdValidatorErrorBuilder(validationResult, chatId);
 };
 const chatIdValidator = async (chatId) => {
   (
@@ -74,25 +27,14 @@ const chatIdValidator = async (chatId) => {
 };
 
 const tryToValidateMessageText = async (messageText) => {
-  const result = await compiledMessageTextValidator({ message: messageText });
+  const validationResult = await compiledMessageTextValidator({
+    message: messageText,
+  });
 
-  if (result === true) return;
-
-  validationErrorBuilder
-    .create()
-    .setRequirements(result, {
-      extraErrorFields: {
-        validatedMessageText: messageText,
-      },
-    })
-    .required(MESSAGE_TEXT_REQUIRED)
-    .stringEmpty(MESSAGE_TEXT_REQUIRED)
-    .string(MESSAGE_TEXT_INVALID_TYPE)
-    .stringMin(MESSAGE_ID_MIN_LENGTH_REACH)
-    .stringMax(MESSAGE_TEXT_MAX_LENGTH_REACH)
-    .throwAnyway(MESSAGE_TEXT_INVALID)
-    .execute();
+  if (validationResult === true) return;
+  messageTextValidatorErrorBuilder(validationResult, messageText);
 };
+
 const messageTextValidator = async (messageText) => {
   (
     await trier(messageTextValidator.name).tryAsync(
@@ -103,27 +45,14 @@ const messageTextValidator = async (messageText) => {
 };
 
 const tryToValidateParticipantId = async (participantId) => {
-  const result = await compiledParticipantIdValidator({
+  const validationResult = await compiledParticipantIdValidator({
     participantId,
   });
 
-  if (result === true) return;
-
-  validationErrorBuilder
-    .create()
-    .setRequirements(result, {
-      extraErrorFields: {
-        validatedParticipantId: participantId,
-      },
-    })
-    .required(PARTICIPANT_ID_REQUIRED)
-    .stringEmpty(PARTICIPANT_ID_REQUIRED)
-    .string(PARTICIPANT_ID_INVALID_TYPE)
-    .stringMin(PARTICIPANT_ID_MIN_LENGTH_REACH)
-    .stringMax(PARTICIPANT_ID_MAX_LENGTH_REACH)
-    .throwAnyway(PARTICIPANT_ID_INVALID)
-    .execute();
+  if (validationResult === true) return;
+  participantIdValidatorErrorBuilder(validationResult, participantId);
 };
+
 const participantIdValidator = async (participantId) => {
   (
     await trier(participantIdValidator.name).tryAsync(
@@ -135,7 +64,6 @@ const participantIdValidator = async (participantId) => {
 
 const chatValidators = {
   chatIdValidator,
-  messageIdValidator,
   messageTextValidator,
   participantIdValidator,
 };

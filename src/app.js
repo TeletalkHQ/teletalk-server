@@ -1,4 +1,5 @@
 //! Require this modules before internal modules!
+require("module-alias/register");
 require("@/others/startupRequirements").startupRequirements();
 
 const cors = require("cors");

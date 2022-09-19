@@ -1,1 +1,1 @@
-require("@/others/startupRequirements").startupRequirements();
+require("module-alias/register");

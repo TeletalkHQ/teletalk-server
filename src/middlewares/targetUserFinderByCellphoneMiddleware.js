@@ -16,7 +16,7 @@ const tryToFindUserByCellphone = async (requestData) => {
 
   const targetUser = await userFinder(cellphone);
 
-  errorThrower(customTypeof.check(targetUser).type.isNull, {
+  errorThrower(customTypeof.isNull(targetUser), {
     ...cellphone,
     ...CELLPHONE_NOT_EXIST,
   });

@@ -5,8 +5,8 @@
 .nyc_output
 .trashCan
 .vscode
+build
+dist
 node_modules
 public
 thunder-tests
-dist
-build

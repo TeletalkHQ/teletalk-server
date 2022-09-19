@@ -11,8 +11,8 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
-    "start": "cross-env NODE_ENV=development node ./built/index.js",
-    "build": "esbuild ./src/server.js --platform=node --target=node16.0 --bundle --minify --outfile=built/index.js",
+    "start": "cross-env NODE_ENV=development node ./build/index.js",
+    "build": "esbuild ./src/server.js --platform=node --target=node16.0 --bundle --minify --outfile=build/index.js",
     "test": "cross-env NODE_ENV=test mocha ./test/test.js --recursive --exit",
     "test_production": "cross-env NODE_ENV=test_production mocha ./test/test.js --recursive --exit",
     "prepare": "husky install",

@@ -17,7 +17,6 @@ const {
   tokenModel,
   usernameModel,
 } = excludeVersions(require("@/models/dataModels/userModels").userModels);
-
 const {
   commonModels: {
     chatIdCommonModel,

@@ -5,8 +5,8 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
-const { errorUniqueIds } = require("@/variables/errors/errorUniqueIds");
-const { errorKeys } = require("@/variables/errors/errorKeys");
+const { errorUniqueIds } = require("@/variables/others/errorUniqueIds");
+const { errorKeys } = require("@/variables/others/errorKeys");
 
 const {
   CHAT_ID_VALIDATION,

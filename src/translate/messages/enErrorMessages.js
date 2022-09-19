@@ -142,7 +142,7 @@ const {
     TOKEN_MAXLENGTH_REACH,
     TOKEN_MINLENGTH_REACH,
   },
-} = require("@/variables/errors/errorUniqueIds");
+} = require("@/variables/others/errorUniqueIds");
 
 const enErrorMessages = {
   [BIO_EMPTY]: "MESSAGE: BIO_EMPTY",

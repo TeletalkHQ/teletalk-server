@@ -3,6 +3,25 @@ const {
 } = require("utility-store/src/classes/ValidationErrorBuilder");
 
 const {
+  chatErrors: {
+    CHAT_ID_INVALID,
+    CHAT_ID_INVALID_TYPE,
+    CHAT_ID_MAX_LENGTH_REACH,
+    CHAT_ID_MIN_LENGTH_REACH,
+    CHAT_ID_REQUIRED,
+    MESSAGE_ID_MIN_LENGTH_REACH,
+    MESSAGE_TEXT_INVALID,
+    MESSAGE_TEXT_INVALID_TYPE,
+    MESSAGE_TEXT_MAX_LENGTH_REACH,
+    MESSAGE_TEXT_REQUIRED,
+    PARTICIPANT_ID_INVALID,
+    PARTICIPANT_ID_INVALID_TYPE,
+    PARTICIPANT_ID_MAX_LENGTH_REACH,
+    PARTICIPANT_ID_MIN_LENGTH_REACH,
+    PARTICIPANT_ID_REQUIRED,
+  },
+} = require("@/variables/errors/chatErrors");
+const {
   userErrors: {
     COUNTRY_CODE_INVALID,
     COUNTRY_CODE_INVALID_TYPE,
@@ -197,15 +216,70 @@ const verificationCodeValidatorErrorBuilder = (
     .execute();
 };
 
-//? ValidatorErrorBuilder
+const participantIdValidatorErrorBuilder = (
+  validationResult,
+  participantId
+) => {
+  validationErrorBuilder
+    .create()
+    .setRequirements(validationResult, {
+      extraErrorFields: {
+        validatedParticipantId: participantId,
+      },
+    })
+    .required(PARTICIPANT_ID_REQUIRED)
+    .stringEmpty(PARTICIPANT_ID_REQUIRED)
+    .string(PARTICIPANT_ID_INVALID_TYPE)
+    .stringMin(PARTICIPANT_ID_MIN_LENGTH_REACH)
+    .stringMax(PARTICIPANT_ID_MAX_LENGTH_REACH)
+    .throwAnyway(PARTICIPANT_ID_INVALID)
+    .execute();
+};
+
+const messageTextValidatorErrorBuilder = (validationResult, messageText) => {
+  validationErrorBuilder
+    .create()
+    .setRequirements(validationResult, {
+      extraErrorFields: {
+        validatedMessageText: messageText,
+      },
+    })
+    .required(MESSAGE_TEXT_REQUIRED)
+    .stringEmpty(MESSAGE_TEXT_REQUIRED)
+    .string(MESSAGE_TEXT_INVALID_TYPE)
+    .stringMin(MESSAGE_ID_MIN_LENGTH_REACH)
+    .stringMax(MESSAGE_TEXT_MAX_LENGTH_REACH)
+    .throwAnyway(MESSAGE_TEXT_INVALID)
+    .execute();
+};
+
+const chatIdValidatorErrorBuilder = (validationResult, chatId) => {
+  validationErrorBuilder
+    .create()
+    .setRequirements(validationResult, {
+      extraErrorFields: {
+        validatedChatId: chatId,
+      },
+    })
+    .required(CHAT_ID_REQUIRED)
+    .stringEmpty(CHAT_ID_REQUIRED)
+    .string(CHAT_ID_INVALID_TYPE)
+    .stringMin(CHAT_ID_MIN_LENGTH_REACH)
+    .stringMax(CHAT_ID_MAX_LENGTH_REACH)
+    .throwAnyway(CHAT_ID_INVALID)
+    .execute();
+};
 
 module.exports = {
   countryCodeValidatorErrorBuilder,
   countryNameValidatorErrorBuilder,
   firstNameValidatorErrorBuilder,
   lastNameValidatorErrorBuilder,
+  messageTextValidatorErrorBuilder,
+  participantIdValidatorErrorBuilder,
   phoneNumberValidatorErrorBuilder,
   privateIdValidatorErrorBuilder,
   usernameValidatorErrorBuilder,
   verificationCodeValidatorErrorBuilder,
+  chatIdValidatorErrorBuilder,
 };

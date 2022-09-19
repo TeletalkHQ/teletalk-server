@@ -63,10 +63,10 @@ const participantIdValidationModel = {
 };
 
 const models = {
-  messageIdValidationModel,
-  participantIdValidationModel,
-  messageTextValidationModel,
   chatIdValidationModel,
+  messageIdValidationModel,
+  messageTextValidationModel,
+  participantIdValidationModel,
 };
 
 const chatValidationModels = {

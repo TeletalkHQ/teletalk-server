@@ -1,4 +1,12 @@
-# Ignore artifacts:
+.git
+.github
+.nyc_output
+.trashCan
 build
-public
+build
+built
+dist
 node_modules
+public
+public
+thunder-tests

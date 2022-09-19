@@ -5,19 +5,13 @@
     "baseUrl": ".",
     "paths": {
       // "~/*": ["./*"],
-      "@/*": [
-        "./src/*"
-      ],
+      "@/*": ["./src/*"],
       // "#/*": ["./public/*"],
-      "$/*": [
-        "./test/*"
-      ]
+      "$/*": ["./test/*"]
     }
   },
-  "exclude": [
-    "./node_modules"
-  ],
+  "exclude": ["./node_modules"],
   "typeAcquisition": {
     "exclude": []
-  },
+  }
 }

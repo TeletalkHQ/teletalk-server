@@ -7,7 +7,7 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const getDevelopmentApp = () => require("@/app").app;
-const getProductionApp = () => require("~/built/index.js").app;
+const getProductionApp = () => require("~/build/index.js").app;
 
 const NODE_ENV = envManager.getNodeEnv();
 const {

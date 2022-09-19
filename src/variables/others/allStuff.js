@@ -2,22 +2,22 @@ const { chatModels } = require("@/models/dataModels/chatModels");
 const { commonModels } = require("@/models/dataModels/commonModels");
 const { userModels } = require("@/models/dataModels/userModels");
 const {
-  userValidationModels,
-} = require("@/models/validationModels/userValidationModels");
-const {
   chatValidationModels,
 } = require("@/models/validationModels/chatValidationModels");
+const {
+  userValidationModels,
+} = require("@/models/validationModels/userValidationModels");
 
+const { appErrors } = require("@/variables/errors/appErrors");
 const { cellphoneRoutes } = require("@/variables/routes/cellphoneRoutes");
+const { chatErrors } = require("@/variables/errors/chatErrors");
 const { otherRoutes } = require("@/variables/routes/otherRoutes");
 const { privateChatRoutes } = require("@/variables/routes/privateChatRoutes");
+const { userErrors } = require("@/variables/errors/userErrors");
 const { userRoutes } = require("@/variables/routes/userRoutes");
 const {
   versionControlRoutes,
 } = require("@/variables/routes/versionControlRoutes");
-const { appErrors } = require("@/variables/errors/appErrors");
-const { chatErrors } = require("@/variables/errors/chatErrors");
-const { userErrors } = require("@/variables/errors/userErrors");
 
 const routes = {
   ...cellphoneRoutes,

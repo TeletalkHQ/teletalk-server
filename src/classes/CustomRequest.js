@@ -230,11 +230,11 @@ class CustomRequest {
   }
 }
 
-const customRequest = (token) => {
+const customRequestCreator = (token) => {
   return { create: () => new CustomRequest(token) };
 };
 
 module.exports = {
-  customRequest,
+  customRequestCreator,
   CustomRequest,
 };

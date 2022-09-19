@@ -1,6 +1,6 @@
 const { stateManager } = require("@/classes/StateManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { customRequest } = require("@/classes/CustomRequest");
+const { customRequestCreator } = require("@/classes/CustomRequest");
 
 const {
   cellphoneRoutes: {
@@ -51,7 +51,7 @@ const notExistedContact = {
 };
 
 const defaultToken = userPropsUtilities.getTokenFromUserObject(testUser_0);
-const defaultCustomRequest = customRequest(defaultToken);
+const defaultCustomRequest = customRequestCreator(defaultToken);
 
 const makeRequester = (routeObject) => () =>
   defaultCustomRequest.create().setRouteObject(routeObject);

@@ -138,7 +138,6 @@ const tryToSignInNormalUser = async (req) => {
     ? responseDataWithVerificationCode
     : defaultResponseData;
 
-  logger.log("rm", "sendingResponseData:", sendingResponseData);
   return sendingResponseData;
 };
 

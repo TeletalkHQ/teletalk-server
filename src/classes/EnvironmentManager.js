@@ -28,6 +28,7 @@ class EnvironmentManager extends EnvironmentManagerMain {
         development: "development",
         production: "production",
         test: "test",
+        test_production: "test_production",
       },
       PORT: 8080,
     };

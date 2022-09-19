@@ -1,7 +1,5 @@
 //! Require this modules before internal modules!
-require("@/variables/others/customGlobals");
-require("@/functions/helpers/requireDotenv").requireDotenv();
-require("@/classes/AppConfigs");
+require("@/others/startupRequirements").startupRequirements();
 
 const cors = require("cors");
 const express = require("express");
@@ -12,7 +10,7 @@ const serveFavicon = require("serve-favicon");
 //* PrettyError is error prettier in terminal.
 require("pretty-error").start();
 
-require("@/configs/databaseConnector").databaseConnector();
+const { getIgnoredUrlsForAuth } = require("@/functions/helpers/otherHelpers");
 
 const {
   sendJsonResponseMiddleware,
@@ -44,7 +42,6 @@ const {
 } = require("@/middlewares/requestMethodCheckerMiddleware");
 
 const { lifeLine } = require("@/routers/lifeLine");
-const { getIgnoredUrlsForAuth } = require("./functions/helpers/otherHelpers");
 
 const app = express();
 
@@ -53,8 +50,9 @@ app.use(helmet());
 app.use(express.json());
 app.use(requestDetailsLoggerMiddleware);
 app.use(morgan("dev"));
-app.use(express.static("@/../public"));
-app.use(serveFavicon("@/../public/assets/icons/favicon/favicon.ico"));
+
+app.use(express.static("public"));
+app.use(serveFavicon("public/assets/icons/favicon/favicon.ico"));
 
 app.use(findRouteObjectMiddleware);
 app.use(responseErrorHandlersMiddleware);

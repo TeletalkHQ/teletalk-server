@@ -6,27 +6,29 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const {
-  inputOutputFields: {
-    addedContact,
-    blockedCellphone,
-    contacts,
-    countryCode,
-    countryName,
-    editedContact,
-    firstName,
-    lastName,
-    phoneNumber,
-    privateId,
-    removedBlockedCellphone,
-    removedContact,
+  initialOptions: {
+    inputOutputFields: {
+      addedContact,
+      blockedCellphone,
+      contacts,
+      countryCode,
+      countryName,
+      editedContact,
+      firstName,
+      lastName,
+      phoneNumber,
+      privateId,
+      removedBlockedCellphone,
+      removedContact,
+    },
   },
-} = require("@/variables/others/initialOptions");
+} = require("@/variables/others/inputOutputFields");
 
 const cellphoneRouteBuilder = routeBuilder("/cellphone");
 
 const cellphoneRouteBaseUrl = cellphoneRouteBuilder
   .create()
-  .baseUrlObject("1.0.0");
+  .createBaseUrlObject("1.0.0");
 
 const addBlockRoute = cellphoneRouteBuilder
   .create()
@@ -112,7 +114,15 @@ const editContactRoute = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("User for edit single contact on user contacts list")
-  .inputFields([{ countryCode, countryName, firstName, lastName, phoneNumber }])
+  .inputFields([
+    {
+      countryCode,
+      countryName,
+      firstName,
+      lastName,
+      phoneNumber,
+    },
+  ])
   .outputFields([
     {
       [editedContact]: {
@@ -193,10 +203,20 @@ const removeContactRoute = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
-  .inputFields([{ countryCode, countryName, phoneNumber }])
+  .inputFields([
+    {
+      countryCode,
+      countryName,
+      phoneNumber,
+    },
+  ])
   .outputFields([
     {
-      [removedContact]: { countryCode, countryName, phoneNumber },
+      [removedContact]: {
+        countryCode,
+        countryName,
+        phoneNumber,
+      },
     },
   ])
   .build();
@@ -235,6 +255,7 @@ const shareContactsRoute = cellphoneRouteBuilder
   .build();
 
 const routes = {
+  //FIXME: rename x's to multi
   addBlockRoute,
   addBlocksRoute,
   addContactRoute,

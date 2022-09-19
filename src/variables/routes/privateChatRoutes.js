@@ -1,29 +1,31 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const {
-  versionCalculator,
   extractVersions,
+  versionCalculator,
 } = require("@/functions/utilities/utilities");
 
 const {
-  inputOutputFields: {
-    chatId,
-    chats,
-    message,
-    messageId,
-    messages,
-    messageSender,
-    newMessage,
-    participantId,
-    senderId,
+  initialOptions: {
+    inputOutputFields: {
+      chatId,
+      chats,
+      message,
+      messageId,
+      messages,
+      messageSender,
+      newMessage,
+      participantId,
+      senderId,
+    },
   },
-} = require("@/variables/others/initialOptions");
+} = require("@/variables/others/inputOutputFields");
 
 const privateChatRouteBuilder = routeBuilder("/chat");
 
 const privateChatRouteBaseUrl = privateChatRouteBuilder
   .create()
-  .baseUrlObject("1.0.0");
+  .createBaseUrlObject("1.0.0");
 
 const getAllChatsRoute = privateChatRouteBuilder
   .create()
@@ -67,11 +69,11 @@ const getPrivateChatMessagesRoute = privateChatRouteBuilder
     {
       [messages]: [
         {
+          message,
+          messageId,
           [messageSender]: {
             senderId,
           },
-          messageId,
-          message,
         },
       ],
     },
@@ -100,10 +102,10 @@ const sendMessageRoute = privateChatRouteBuilder
   .build();
 
 const routes = {
-  privateChatRouteBaseUrl,
   chatsLastMessageRoute,
   getAllChatsRoute,
   getPrivateChatMessagesRoute,
+  privateChatRouteBaseUrl,
   sendMessageRoute,
 };
 

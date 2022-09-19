@@ -14,33 +14,33 @@ require("pretty-error").start();
 const { getIgnoredUrlsForAuth } = require("@/functions/helpers/otherHelpers");
 
 const {
-  sendJsonResponseMiddleware,
-} = require("@/middlewares/sendJsonResponseMiddleware");
-const { notFoundMiddleware } = require("@/middlewares/notFoundMiddleware");
-const {
-  requestDetailsLoggerMiddleware,
-} = require("@/middlewares/requestDetailsLoggerMiddleware");
-const {
-  responseErrorHandlersMiddleware,
-} = require("@/middlewares/responseErrorHandlersMiddleware");
-const {
-  checkDataAndResponseMiddleware,
-} = require("@/middlewares/checkDataAndResponseMiddleware");
+  authDefaultMiddleware,
+} = require("@/middlewares/authDefaultMiddleware");
 const {
   checkBodyFieldsMiddleware,
 } = require("@/middlewares/checkBodyFieldsMiddleware");
+const {
+  checkDataAndResponseMiddleware,
+} = require("@/middlewares/checkDataAndResponseMiddleware");
 const {
   findRouteObjectMiddleware,
 } = require("@/middlewares/findRouteObjectMiddleware");
 const {
   ignoreMiddlewaresByUrlMiddleware,
 } = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
+const { notFoundMiddleware } = require("@/middlewares/notFoundMiddleware");
 const {
-  authDefaultMiddleware,
-} = require("@/middlewares/authDefaultMiddleware");
+  requestDetailsLoggerMiddleware,
+} = require("@/middlewares/requestDetailsLoggerMiddleware");
 const {
   requestMethodCheckerMiddleware,
 } = require("@/middlewares/requestMethodCheckerMiddleware");
+const {
+  responseErrorHandlersMiddleware,
+} = require("@/middlewares/responseErrorHandlersMiddleware");
+const {
+  sendJsonResponseMiddleware,
+} = require("@/middlewares/sendJsonResponseMiddleware");
 
 const { lifeLine } = require("@/routers/lifeLine");
 

@@ -5,15 +5,15 @@ const {
   versionControlRoutes: { getAllStuffsRoute },
 } = require("@/variables/routes/versionControlRoutes");
 const {
-  otherRoutes: { countriesRoute, welcomeRoute },
+  otherRoutes: { getCountriesRoute, getWelcomeMessageRoute },
 } = require("@/variables/routes/otherRoutes");
 
 const getIgnoredUrlsForAuth = () => {
   const arrayOfIgnoringUrl = [
     signInNormalRoute,
     getAllStuffsRoute,
-    welcomeRoute,
-    countriesRoute,
+    getWelcomeMessageRoute,
+    getCountriesRoute,
   ].map((item) => item.fullUrl);
   return arrayOfIgnoringUrl;
 };

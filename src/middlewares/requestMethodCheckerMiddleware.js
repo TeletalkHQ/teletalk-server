@@ -1,4 +1,10 @@
+const {
+  objectUtilities,
+} = require("utility-store/src/classes/ObjectUtilities");
+const { trier } = require("utility-store/src/classes/Trier");
+
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+
 const {
   excludeVersions,
   errorThrower,
@@ -12,14 +18,13 @@ const {
     routes: { version, ...routes },
   },
 } = require("@/variables/others/allStuff");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const routesWithoutVersion = excludeVersions(routes);
 
 const tryToCheckRequestMethod = (reqUrl, reqMethod) => {
-  const routeObject = Object.values(routesWithoutVersion).find(
-    (value) => value.fullUrl === reqUrl
-  );
+  const routeObject = objectUtilities
+    .objectValues(routesWithoutVersion)
+    .find((value) => value.fullUrl === reqUrl);
 
   const requestMethod = reqMethod.toLowerCase();
   const routeObjectMethod = routeObject.method.toLowerCase();

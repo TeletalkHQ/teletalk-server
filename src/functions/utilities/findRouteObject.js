@@ -1,3 +1,6 @@
+const {
+  objectUtilities,
+} = require("utility-store/src/classes/ObjectUtilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { excludeVersions } = require("@/functions/utilities/utilities");
@@ -19,7 +22,7 @@ const { privateChatRouteBaseUrl, ...privateChatRoutes } = excludeVersions(
   require("@/variables/routes/privateChatRoutes").privateChatRoutes
 );
 
-const routes = Object.values({
+const routes = objectUtilities.objectValues({
   ...cellphoneRoutes,
   ...otherRoutes,
   ...privateChatRoutes,

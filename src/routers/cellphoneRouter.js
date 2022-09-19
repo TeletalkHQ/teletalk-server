@@ -4,11 +4,8 @@ const {
   addBlockCellphoneController,
 } = require("@/controllers/cellphoneControllers/addBlockCellphoneController");
 const {
-  removeBlockCellphoneController,
-} = require("@/controllers/cellphoneControllers/removeBlockCellphoneController");
-const {
-  removeContactCellphoneController,
-} = require("@/controllers/cellphoneControllers/removeContactCellphoneController");
+  addContactCellphoneController,
+} = require("@/controllers/cellphoneControllers/addContactCellphoneController");
 const {
   editContactCellphoneController,
 } = require("@/controllers/cellphoneControllers/editContactCellphoneController");
@@ -16,12 +13,15 @@ const {
   getContactsCellphoneController,
 } = require("@/controllers/cellphoneControllers/getContactsCellphoneController");
 const {
-  addContactCellphoneController,
-} = require("@/controllers/cellphoneControllers/addContactCellphoneController");
+  removeBlockCellphoneController,
+} = require("@/controllers/cellphoneControllers/removeBlockCellphoneController");
+const {
+  removeContactCellphoneController,
+} = require("@/controllers/cellphoneControllers/removeContactCellphoneController");
 
 const {
-  contactValidatorMiddleware,
-} = require("@/middlewares/contactValidatorMiddleware");
+  applyMiddlewaresByUrlMiddleware,
+} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
 const {
   cellphoneSelfStuffCheckMiddleware,
 } = require("@/middlewares/cellphoneSelfStuffCheckMiddleware");
@@ -29,14 +29,14 @@ const {
   cellphoneValidatorMiddleware,
 } = require("@/middlewares/cellphoneValidatorMiddleware");
 const {
+  contactValidatorMiddleware,
+} = require("@/middlewares/contactValidatorMiddleware");
+const {
   findCurrentUserFromDb,
 } = require("@/middlewares/findCurrentUserFromDb");
 const {
   ignoreMiddlewaresByUrlMiddleware,
 } = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
-const {
-  applyMiddlewaresByUrlMiddleware,
-} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
 
 const {
   cellphoneRoutes: {

@@ -1,10 +1,10 @@
-//* No more relative path!
-//! Require this module before requiring anything!
-require("module-alias/register");
-
 const http = require("http");
 
 const { trier } = require("utility-store/src/classes/Trier");
+
+//! Require this module before requiring internal modules!
+require("module-alias/register");
+require("@/others/startupRequirements").startupRequirements();
 
 const { app } = require("@/app");
 
@@ -46,13 +46,13 @@ const expressServer = () => {
   server.listen(EXACT_PORT, serverListenerCb);
 };
 
-const tryStartServer = () => {
+const tryToStartHttpServer = () => {
   socketServer();
   expressServer();
 };
 
 const startServer = async () => {
-  trier(startServer.name).try(tryStartServer).catch(crashServer);
+  trier(startServer.name).try(tryToStartHttpServer).catch(crashServer);
 };
 
 startServer();

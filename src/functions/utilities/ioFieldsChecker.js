@@ -25,7 +25,7 @@ const throwErrorIfSelectedRequiredFieldsIsNotDefined = (
   selectedRequiredFields
 ) => {
   errorThrower(
-    customTypeof.check(selectedRequiredFields).type.isUndefined,
+    customTypeof.isUndefined(selectedRequiredFields),
     REQUIRED_FIELDS_NOT_DEFINED
   );
 };

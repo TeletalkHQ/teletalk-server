@@ -2,13 +2,12 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const errorThrower = (condition, error) => {
   if (condition) {
-    if (customTypeof.check(error).type.isFunction) throw error();
-
+    if (customTypeof.isFunction(error)) throw error();
     throw error;
   }
 };
 
-const getErrorObject = (errorObject, extraData = {}, statusCode) => {
+const fixResponseErrorObject = (errorObject, extraData = {}, statusCode) => {
   const { errorKey, ...error } = errorObject;
 
   return {
@@ -20,38 +19,44 @@ const getErrorObject = (errorObject, extraData = {}, statusCode) => {
 const getHostFromRequest = (request) => request.get("host");
 
 const isUrlMatchWithReqUrl = (url, reqUrl) =>
-  (customTypeof.check(url).type.isArray && url.some((u) => u === reqUrl)) ||
+  (customTypeof.isArray(url) && url.some((u) => u === reqUrl)) ||
   url === reqUrl;
 
 const convertStringArrayToNumberArray = (items) => items.map((item) => +item);
-
+const concatVersions = (parentMajor, parentMinor, parentPatch) =>
+  `${parentMajor}.${parentMinor}.${parentPatch}`;
 const versionCalculator = (versions = []) => {
-  let [parentMajor, parentMinor, parentPatch] = convertStringArrayToNumberArray(
-    "1.0.0".split(".")
+  const { parentMajor, parentMinor, parentPatch } = versions.reduce(
+    (previousValue, currentValue) => {
+      const { parentMajor, parentMinor, parentPatch } = previousValue;
+      const [major, minor, patch] = convertStringArrayToNumberArray(
+        currentValue.split(".")
+      );
+
+      return {
+        parentMajor: parentMajor + major - 1,
+        parentMinor: parentMinor + minor,
+        parentPatch: parentPatch + patch,
+      };
+    },
+    {
+      parentMajor: 1,
+      parentMinor: 0,
+      parentPatch: 0,
+    }
   );
 
-  versions.forEach((v) => {
-    const [major, minor, patch] = convertStringArrayToNumberArray(v.split("."));
-
-    parentMajor += +major - 1;
-    parentMinor += minor;
-    parentPatch += patch;
-  });
-
-  return `${parentMajor}.${parentMinor}.${parentPatch}`;
+  return concatVersions(parentMajor, parentMinor, parentPatch);
 };
 const extractVersions = (object) => {
   return Object.keys(object).map((key) => object[key].version);
 };
 const excludeVersions = (object) => {
   const tempObject = {};
-
   for (const key in object) {
-    const { version, ...childObject } = object[key];
-
-    tempObject[key] = childObject;
+    const { version, ...rest } = object[key];
+    tempObject[key] = rest;
   }
-
   return tempObject;
 };
 
@@ -124,7 +129,7 @@ module.exports = {
   excludeVersions,
   executeMiddlewares,
   extractVersions,
-  getErrorObject,
+  fixResponseErrorObject,
   getHostFromRequest,
   isDataHasEqualityWithTargetCellphone,
   isUrlMatchWithReqUrl,

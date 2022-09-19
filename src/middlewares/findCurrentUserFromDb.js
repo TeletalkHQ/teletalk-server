@@ -18,7 +18,7 @@ const tryToFindCurrentUserFromDb = async (userData) => {
   const currentUser = await userFinder(cellphone, {});
 
   //TODO Add tests when user not exist
-  errorThrower(customTypeof.check(currentUser).type.isNull, () => ({
+  errorThrower(customTypeof.isNull(currentUser), () => ({
     ...USER_NOT_EXIST,
     cellphone,
   }));

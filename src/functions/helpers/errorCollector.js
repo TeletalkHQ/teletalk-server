@@ -1,6 +1,6 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
-const { getErrorObject } = require("@/functions/utilities/utilities");
+const { fixResponseErrorObject } = require("@/functions/utilities/utilities");
 
 const {
   appErrors: { UNKNOWN_ERROR },
@@ -8,14 +8,14 @@ const {
 const { trier } = require("utility-store/src/classes/Trier");
 
 const tryToCollectError = (errorObject) => {
-  const errorToSend = customTypeof.check(errorObject).type.isObject
+  const errorToSend = customTypeof.isObject(errorObject)
     ? errorObject
     : UNKNOWN_ERROR;
   return errorToSend;
 };
 
 const executeIfNoError = (errorToSend, res) => {
-  res.errors = getErrorObject(errorToSend);
+  res.errors = fixResponseErrorObject(errorToSend);
 };
 
 const catchCollectError = (_error, res) => {

@@ -47,7 +47,7 @@ const tryToAddCellphoneToUserBlacklist = async (currentUser, cellphone) => {
   }));
 
   const targetUser = await userFinder(cellphone);
-  errorThrower(customTypeof.check(targetUser).type.isNull, () => ({
+  errorThrower(customTypeof.isNull(targetUser), () => ({
     ...TARGET_USER_NOT_EXIST,
     targetUserData: cellphone,
   }));
@@ -87,7 +87,7 @@ const tryToAddContactToUserContacts = async (currentUser, targetUserData) => {
   const targetUser = await userFinder(
     userPropsUtilities.extractCellphone(targetUserData)
   );
-  errorThrower(customTypeof.check(targetUser).type.isNull, () => ({
+  errorThrower(customTypeof.isNull(targetUser), () => ({
     ...TARGET_USER_NOT_EXIST,
     targetUserData,
   }));

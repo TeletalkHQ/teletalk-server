@@ -1,6 +1,9 @@
-/environments/production.env
+environments/production.env
 
-/.husky
+.husky
 .nyc_output
-/node_modules
-/coverage
+node_modules
+coverage
+build
+built
+dist

@@ -1,19 +1,32 @@
-const supertest = require("supertest")(require("@/app").app);
 const { expect } = require("chai");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
+const { envManager } = require("@/classes/EnvironmentManager");
+
+const getDevelopmentApp = () => require("@/app").app;
+const getProductionApp = () => require("~/built/index.js").app;
+
+const NODE_ENV = envManager.getNodeEnv();
+const {
+  NODE_ENV: { test },
+} = envManager.ENVIRONMENT_VALUES;
+
+const app = NODE_ENV === test ? getDevelopmentApp() : getProductionApp();
+logger.log("rm", "NODE_ENV:", NODE_ENV);
+const supertest = require("supertest")(app);
+
 class CustomRequest {
   constructor(token) {
     this.routeObject = {};
     this.data = {};
     this.options = {
-      token,
       filterDataCondition: true,
       requiredFieldIndex: 0,
       selectedRequiredFields: {},
+      token,
     };
     this.mergedOptions = { ...this.options };
     this.requestData = undefined;

@@ -4,10 +4,11 @@ require("module-alias/register");
 
 const http = require("http");
 
+const { trier } = require("utility-store/src/classes/Trier");
+
 const { app } = require("@/app");
 
 const { envManager } = require("@/classes/EnvironmentManager");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const { crashServer } = require("@/functions/utilities/utilities");
 
@@ -55,3 +56,5 @@ const startServer = async () => {
 };
 
 startServer();
+
+module.exports = { app, server };

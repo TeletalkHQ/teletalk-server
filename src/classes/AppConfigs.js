@@ -1,7 +1,6 @@
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const NODE_ENV = envManager.getNodeEnv();
-
 const envName = `MONGO_URL_${NODE_ENV.toUpperCase()}`;
 const MONGO_URL = envManager.getEnvironment(envName);
 

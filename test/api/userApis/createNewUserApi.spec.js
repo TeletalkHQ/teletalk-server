@@ -111,7 +111,6 @@ describe("create new normal user failure tests", () => {
     } = await signInNormalRequest().sendFullFeaturedRequest(
       createNewUserSignInCellphone
     );
-    logger.log("rm", "verifyTokenVerifyToken", verifyToken);
 
     customRequest.setToken(verifyToken);
   });

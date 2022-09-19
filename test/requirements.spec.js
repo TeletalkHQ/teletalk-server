@@ -1,11 +1,8 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { trier } = require("utility-store/src/classes/Trier");
 
-//#region //! Require before internal files!
-require("@/variables/others/customGlobals");
-require("@/functions/helpers/requireDotenv").requireDotenv();
-require("@/configs/databaseConnector").databaseConnector();
-//#endregion
+//! Require before internal files!
+require("@/others/startupRequirements").startupRequirements();
 
 const { authManager } = require("@/classes/AuthManager");
 const { eventManager } = require("@/classes/EventManager");

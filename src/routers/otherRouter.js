@@ -8,18 +8,18 @@ const {
 } = require("@/controllers/otherControllers/getWelcomeMessageOtherController");
 
 const {
-  otherRoutes: { countriesRoute, welcomeRoute },
+  otherRoutes: { getCountriesRoute, getWelcomeMessageRoute },
 } = require("@/variables/routes/otherRoutes");
 
 const otherRouter = Router();
 
-otherRouter[welcomeRoute.method](
-  welcomeRoute.url,
+otherRouter[getWelcomeMessageRoute.method](
+  getWelcomeMessageRoute.url,
   getWelcomeMessageOtherController
 );
 
-otherRouter[countriesRoute.method](
-  countriesRoute.url,
+otherRouter[getCountriesRoute.method](
+  getCountriesRoute.url,
   countriesOtherController
 );
 

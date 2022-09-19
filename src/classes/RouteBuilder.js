@@ -27,7 +27,7 @@ class RouteBuilder {
     return routeObject;
   }
 
-  baseUrlObject(version, baseUrl = this._baseUrl) {
+  createBaseUrlObject(version, baseUrl = this._baseUrl) {
     return {
       url: baseUrl,
       version,

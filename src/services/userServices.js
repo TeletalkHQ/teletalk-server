@@ -1,4 +1,5 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { trier } = require("utility-store/src/classes/Trier");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
@@ -19,7 +20,6 @@ const {
     USER_NOT_EXIST,
   },
 } = require("@/variables/errors/userErrors");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const tryToFindUser = async (userData, options) => {
   return await UserMongoModel.findOne(userData, undefined, options);

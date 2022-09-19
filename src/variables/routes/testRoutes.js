@@ -7,7 +7,7 @@ const {
 
 const testRouteBuilder = routeBuilder("/test");
 
-const testBaseUrl = testRouteBuilder.create().baseUrlObject("1.0.0");
+const testBaseUrl = testRouteBuilder.create().createBaseUrlObject("1.0.0");
 
 const getAllUsersRoute = testRouteBuilder
   .create()
@@ -18,8 +18,8 @@ const getAllUsersRoute = testRouteBuilder
   .build();
 
 const routes = {
-  testBaseUrl,
   getAllUsersRoute,
+  testBaseUrl,
 };
 
 const testRoutes = {

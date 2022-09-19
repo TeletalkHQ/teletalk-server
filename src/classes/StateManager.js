@@ -1,4 +1,7 @@
 const Redis = require("ioredis");
+const {
+  objectUtilities,
+} = require("utility-store/src/classes/ObjectUtilities");
 
 class StateManager {
   constructor() {
@@ -24,7 +27,7 @@ class StateManager {
   }
 
   initializeStates() {
-    Object.keys(this.state).forEach((key) => {
+    objectUtilities.objectKeys(this.state).forEach((key) => {
       this.storage.set(key, (error, result) => {
         if (!error) {
           this.state[key] = JSON.parse(result);

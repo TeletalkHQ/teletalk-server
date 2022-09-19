@@ -6,20 +6,24 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const {
-  inputOutputFields: {
-    countries,
-    countryCode,
-    countryName,
-    countryShortName,
-    message,
+  initialOptions: {
+    inputOutputFields: {
+      countries,
+      countryCode,
+      countryName,
+      countryShortName,
+      message,
+    },
   },
-} = require("@/variables/others/initialOptions");
+} = require("@/variables/others/inputOutputFields");
 
 const otherRouteBuilder = routeBuilder("/other");
 
-const otherRouteBaseUrl = otherRouteBuilder.create().baseUrlObject("1.0.0");
+const otherRouteBaseUrl = otherRouteBuilder
+  .create()
+  .createBaseUrlObject("1.0.0");
 
-const countriesRoute = otherRouteBuilder
+const getCountriesRoute = otherRouteBuilder
   .create()
   .method("get")
   .url("/countries")
@@ -27,14 +31,20 @@ const countriesRoute = otherRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [countries]: [{ countryShortName, countryName, countryCode }],
+      [countries]: [
+        {
+          countryCode,
+          countryName,
+          countryShortName,
+        },
+      ],
     },
   ])
   .version("1.0.0")
   .description("Use for get countries for normal account")
   .build();
 
-const welcomeRoute = otherRouteBuilder
+const getWelcomeMessageRoute = otherRouteBuilder
   .create()
   .method("get")
   .url("/welcomeMessage")
@@ -42,13 +52,17 @@ const welcomeRoute = otherRouteBuilder
   .version("1.0.0")
   .description("Use to get welcome message for client")
   .inputFields([{}])
-  .outputFields([{ message }])
+  .outputFields([
+    {
+      message,
+    },
+  ])
   .build();
 
 const routes = {
+  getCountriesRoute,
   otherRouteBaseUrl,
-  countriesRoute,
-  welcomeRoute,
+  getWelcomeMessageRoute,
 };
 
 const otherRoutes = {

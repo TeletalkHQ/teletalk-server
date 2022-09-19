@@ -1,4 +1,7 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const {
+  objectUtilities,
+} = require("utility-store/src/classes/ObjectUtilities");
 
 const errorThrower = (condition, error) => {
   if (condition) {
@@ -49,7 +52,7 @@ const versionCalculator = (versions = []) => {
   return concatVersions(parentMajor, parentMinor, parentPatch);
 };
 const extractVersions = (object) => {
-  return Object.keys(object).map((key) => object[key].version);
+  return objectUtilities.objectKeys(object).map((key) => object[key].version);
 };
 const excludeVersions = (object) => {
   const tempObject = {};

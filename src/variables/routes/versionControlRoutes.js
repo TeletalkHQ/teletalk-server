@@ -9,7 +9,7 @@ const versionControlRouteBuilder = routeBuilder("/versionControl");
 
 const versionControlBaseUrl = versionControlRouteBuilder
   .create()
-  .baseUrlObject("1.0.0");
+  .createBaseUrlObject("1.0.0");
 
 const getAllStuffsRoute = versionControlRouteBuilder
   .create()

@@ -6,44 +6,29 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const {
-  inputOutputFields: {
-    bio,
-    blacklist,
-    chats,
-    contacts,
-    countryCode,
-    countryName,
-    firstName,
-    lastName,
-    mainToken,
-    newUser,
-    phoneNumber,
-    privateId,
-    user,
-    username,
-    verificationCode,
-    verifyToken,
+  initialOptions: {
+    inputOutputFields: {
+      bio,
+      countryCode,
+      countryName,
+      firstName,
+      lastName,
+      mainToken,
+      newUser,
+      phoneNumber,
+      privateId,
+      user,
+      username,
+      verificationCode,
+      verifyToken,
+    },
+    userDataDefaultProps,
   },
-} = require("@/variables/others/initialOptions");
-
-const userDataProps = {
-  bio,
-  blacklist,
-  chats,
-  contacts,
-  countryCode,
-  countryName,
-  firstName,
-  lastName,
-  mainToken,
-  phoneNumber,
-  privateId,
-  username,
-};
+} = require("@/variables/others/inputOutputFields");
 
 const userRouteBuilder = routeBuilder("/user");
 
-const userRouteBaseUrl = userRouteBuilder.create().baseUrlObject("1.0.0");
+const userRouteBaseUrl = userRouteBuilder.create().createBaseUrlObject("1.0.0");
 
 const createNewUserRoute = userRouteBuilder
   .create()
@@ -52,7 +37,12 @@ const createNewUserRoute = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for create new user for normal account")
-  .inputFields([{ firstName, lastName }])
+  .inputFields([
+    {
+      firstName,
+      lastName,
+    },
+  ])
   .outputFields([
     {
       [user]: {
@@ -99,8 +89,8 @@ const signInNormalRoute = userRouteBuilder
         countryCode,
         countryName,
         phoneNumber,
+        [verificationCode]: true,
         verifyToken,
-        verificationCode: true,
       },
     },
   ])
@@ -116,7 +106,11 @@ const checkUserStatusRoute = userRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [user]: { ...userDataProps, bio: true, username: true },
+      [user]: {
+        ...userDataDefaultProps,
+        [bio]: true,
+        [username]: true,
+      },
     },
   ])
   .build();
@@ -132,9 +126,9 @@ const getUserDataRoute = userRouteBuilder
   .outputFields([
     {
       [user]: {
-        ...userDataProps,
-        bio: true,
-        username: true,
+        ...userDataDefaultProps,
+        [bio]: true,
+        [username]: true,
       },
     },
   ])
@@ -147,8 +141,18 @@ const updatePersonalInfoRoute = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for user update personal info")
-  .inputFields([{ firstName, lastName }])
-  .outputFields([{ firstName, lastName }])
+  .inputFields([
+    {
+      firstName,
+      lastName,
+    },
+  ])
+  .outputFields([
+    {
+      firstName,
+      lastName,
+    },
+  ])
   .build();
 
 const verifySignInNormalRoute = userRouteBuilder
@@ -165,18 +169,27 @@ const verifySignInNormalRoute = userRouteBuilder
   ])
   .outputFields([
     {
-      [user]: { ...userDataProps, bio: true, username: true, newUser },
+      [user]: {
+        ...userDataDefaultProps,
+        [bio]: true,
+        newUser,
+        [username]: true,
+      },
     },
-    { [user]: { [newUser]: newUser } },
+    {
+      [user]: {
+        [newUser]: newUser,
+      },
+    },
   ])
   .build();
 
 const routes = {
+  checkUserStatusRoute,
   createNewUserRoute,
   getUserDataRoute,
   logoutNormalRoute,
   signInNormalRoute,
-  checkUserStatusRoute,
   updatePersonalInfoRoute,
   userRouteBaseUrl,
   verifySignInNormalRoute,

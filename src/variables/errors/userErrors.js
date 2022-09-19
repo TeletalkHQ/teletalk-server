@@ -29,8 +29,8 @@ const {
     USERNAME_VALIDATION,
     VERIFICATION_CODE_VALIDATION,
   },
-} = require("@/variables/errors/errorKeys");
-const { errorUniqueIds } = require("@/variables/errors/errorUniqueIds");
+} = require("@/variables/others/errorKeys");
+const { errorUniqueIds } = require("@/variables/others/errorUniqueIds");
 
 const BIO_INVALID_TYPE = errorBuilder
   .create()

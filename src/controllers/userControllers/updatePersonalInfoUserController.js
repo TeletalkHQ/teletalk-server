@@ -1,6 +1,7 @@
+const { trier } = require("utility-store/src/classes/Trier");
+
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { updatePersonalInfo } = require("@/services/userServices");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const tryToUpdatePersonalInfo = async (currentUser, firstName, lastName) => {
   await updatePersonalInfo(currentUser, {

@@ -1,10 +1,10 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { checkFields } = require("utility-store/src/classes/CheckFields");
+const { trier } = require("utility-store/src/classes/Trier");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { appErrors } = require("@/variables/errors/appErrors");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const {
   REQUIRED_FIELDS_NOT_DEFINED,

@@ -10,10 +10,10 @@ const {
 
 const getIgnoredUrlsForAuth = () => {
   const arrayOfIgnoringUrl = [
-    signInNormalRoute,
     getAllStuffsRoute,
-    getWelcomeMessageRoute,
     getCountriesRoute,
+    getWelcomeMessageRoute,
+    signInNormalRoute,
   ].map((item) => item.fullUrl);
   return arrayOfIgnoringUrl;
 };

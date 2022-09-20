@@ -32,12 +32,3 @@ const authDefaultMiddleware = async (req, res, next) => {
 };
 
 module.exports = { authDefaultMiddleware };
-
-//TODO Add me in function!
-// myConsole
-// 	.bgRed("🚀")
-// 	.bgGreen("~ file: authDefaultMiddleware.js")
-// 	.bgYellow("~ line 11")
-// 	.bgMagenta("~ authDefaultMiddleware")
-// 	.bgCyan("error\n")
-// 	.log("#)((@#)()(#(@(#@#(()@)@#@)()@#()#()(@#()@()");

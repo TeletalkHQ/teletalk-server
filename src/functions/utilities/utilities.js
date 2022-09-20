@@ -113,7 +113,7 @@ const executeMiddlewares = async ({ middlewares, next, req, res }) => {
   return next();
 };
 
-const checkApplyIgnoreMiddlewareStartupConditions = (url, middlewares) => {
+const checkExecuteMiddlewaresRequirements = (url, middlewares) => {
   errorThrower(
     customTypeof.isNotString(url) && customTypeof.isNotArray(url),
     "url must be string or an array"
@@ -123,7 +123,7 @@ const checkApplyIgnoreMiddlewareStartupConditions = (url, middlewares) => {
 
 module.exports = {
   addFullUrlToRouteObjects,
-  checkApplyIgnoreMiddlewareStartupConditions,
+  checkExecuteMiddlewaresRequirements,
   concatBaseUrlWithUrl,
   convertStringArrayToNumberArray,
   crashServer,

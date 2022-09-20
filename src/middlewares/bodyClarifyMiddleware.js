@@ -1,7 +1,6 @@
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
-
 const { trier } = require("utility-store/src/classes/Trier");
 
 const tryToClarifyBody = (object) => {

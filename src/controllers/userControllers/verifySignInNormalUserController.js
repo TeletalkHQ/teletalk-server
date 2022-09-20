@@ -1,8 +1,9 @@
+const { trier } = require("utility-store/src/classes/Trier");
+
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { userFinder } = require("@/services/userServices");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const fixUserData = (isUserExist, defaultUserObject, tokens) => {
   return {

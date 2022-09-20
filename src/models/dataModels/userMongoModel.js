@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
-const { uniqueValidator } = require("@/configs/mongoosePlugins");
+const { mongooseUniqueValidator } = require("@/others/mongoosePlugins");
 
 const { excludeVersions } = require("@/functions/utilities/utilities");
 
@@ -142,8 +142,6 @@ const {
   // },
 };
 
-// uniqueValidator.defaults.type = "mongoose-unique-validator";
-
 const UserSchema = new mongoose.Schema({
   bio,
   blacklist: [
@@ -197,7 +195,7 @@ const UserSchema = new mongoose.Schema({
 // });
 //
 
-UserSchema.plugin(uniqueValidator);
+UserSchema.plugin(mongooseUniqueValidator);
 
 const UserMongoModel = mongoose.model("User", UserSchema, "users");
 

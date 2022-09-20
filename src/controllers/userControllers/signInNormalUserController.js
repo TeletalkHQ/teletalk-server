@@ -33,7 +33,6 @@ const makeFullNumber = (cellphone) => {
   return fullNumber;
 };
 
-//TODO: Add multi-try functionality, also abnormal activity for some of this repeating tasks
 const tryToValidateVerificationCode = async (verificationCode) => {
   await verificationCodeValidator(verificationCode);
 };
@@ -84,6 +83,30 @@ const tryToFindTemporaryClient = async (cellphone) => {
   return client;
 };
 
+const temporaryClientHelper = async ({
+  client,
+  verificationCode,
+  verifyToken,
+  trierInstance,
+  cellphone,
+}) => {
+  if (client) {
+    await trierInstance.tryAsync(
+      tryToUpdateTemporaryClient,
+      client,
+      verificationCode,
+      verifyToken
+    );
+  } else {
+    await trierInstance.tryAsync(
+      tryToAddNewTemporaryClient,
+      cellphone,
+      verificationCode,
+      verifyToken
+    );
+  }
+};
+
 const tryToSignInNormalUser = async (req) => {
   const host = getHostFromRequest(req);
   const cellphone = userPropsUtilities.extractCellphone(req.body);
@@ -112,13 +135,13 @@ const tryToSignInNormalUser = async (req) => {
     await trierInstance.tryAsync(tryToFindTemporaryClient, cellphone)
   ).result();
 
-  const temporaryClientUpdateHelper = async (userData, trierFn) =>
-    trierInstance.tryAsync(trierFn, userData, verificationCode, verifyToken);
-  if (client) {
-    await temporaryClientUpdateHelper(client, tryToUpdateTemporaryClient);
-  } else {
-    await temporaryClientUpdateHelper(cellphone, tryToAddNewTemporaryClient);
-  }
+  await temporaryClientHelper({
+    cellphone,
+    client,
+    trierInstance,
+    verificationCode,
+    verifyToken,
+  });
 
   //TODO: Print it on log files
   logger.log("rm", "verificationCode", verificationCode);

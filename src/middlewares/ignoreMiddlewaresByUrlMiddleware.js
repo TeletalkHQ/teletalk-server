@@ -1,11 +1,11 @@
 const {
-  checkApplyIgnoreMiddlewareStartupConditions,
+  checkExecuteMiddlewaresRequirements,
   executeMiddlewares,
   isUrlMatchWithReqUrl,
 } = require("@/functions/utilities/utilities");
 
 const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
-  checkApplyIgnoreMiddlewareStartupConditions(url, middlewares);
+  checkExecuteMiddlewaresRequirements(url, middlewares);
 
   return async (req, res, next) => {
     if (isUrlMatchWithReqUrl(url, req.url)) {

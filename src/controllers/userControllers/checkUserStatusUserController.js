@@ -30,6 +30,8 @@ const tryToCheckUserStatus = async (userData) => {
   const foundUser = await userFinder(cellphone);
   errorThrower(!foundUser, () => ({ ...USER_NOT_EXIST, cellphone }));
   const fixedUserData = fixUserData(foundUser);
+  console.log(fixedUserData);
+
   return fixedUserData;
 };
 

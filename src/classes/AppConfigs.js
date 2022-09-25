@@ -9,7 +9,7 @@ class AppConfigs {
     this.configs = {
       dbConfigs: { MONGO_URL },
       sms: {
-        shouldSendSms: NODE_ENV === envManager.getNodeEnvValues().development,
+        shouldSendSms: NODE_ENV === envManager.getNodeEnvValues().production,
       },
     };
 

@@ -50,7 +50,7 @@ const verifyVerificationCodeMultiTry = async (
   );
 };
 
-const verifyVerificationCodeMiddleware = async (req, res, next) => {
+const verifyVerificationCode = async (req, res, next) => {
   const {
     authData,
     body: { verificationCode: sentVerificationCode },
@@ -58,7 +58,7 @@ const verifyVerificationCodeMiddleware = async (req, res, next) => {
   const cellphone = userPropsUtilities.extractCellphone(authData.payload);
 
   (
-    await trier(verifyVerificationCodeMiddleware.name).tryAsync(
+    await trier(verifyVerificationCode.name).tryAsync(
       verifyVerificationCodeMultiTry,
       sentVerificationCode,
       cellphone
@@ -68,4 +68,4 @@ const verifyVerificationCodeMiddleware = async (req, res, next) => {
     .catch(catchVerifyVerificationCode, res);
 };
 
-module.exports = { verifyVerificationCodeMiddleware };
+module.exports = { verifyVerificationCode };

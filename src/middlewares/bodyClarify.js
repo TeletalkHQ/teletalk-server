@@ -17,7 +17,7 @@ const catchBodyClarify = () => {
   return { ok: false };
 };
 
-const bodyClarifyMiddleware = (req, _res, next) => {
+const bodyClarify = (req, _res, next) => {
   return trier(catchBodyClarify.name)
     .try(tryToClarifyBody, req.body)
     .executeIfNoError(executeIfNoError, req, next)
@@ -25,4 +25,4 @@ const bodyClarifyMiddleware = (req, _res, next) => {
     .result();
 };
 
-module.exports = { bodyClarifyMiddleware };
+module.exports = { bodyClarify };

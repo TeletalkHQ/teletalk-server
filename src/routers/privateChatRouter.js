@@ -13,9 +13,7 @@ const {
   sendMessagePrivateChatController,
 } = require("@/controllers/privateChatControllers/sendMessagePrivateChatController");
 
-const {
-  findCurrentUserFromDb,
-} = require("@/middlewares/findCurrentUserFromDb");
+const { middlewares } = require("@/middlewares/middlewares");
 
 const {
   privateChatRoutes: {
@@ -28,7 +26,7 @@ const {
 
 const privateChatRouter = Router();
 
-privateChatRouter.use(findCurrentUserFromDb);
+privateChatRouter.use(middlewares.findCurrentUserFromDb);
 
 privateChatRouter[getAllChatsRoute.method](
   getAllChatsRoute.url,

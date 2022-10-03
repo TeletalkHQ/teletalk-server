@@ -5,7 +5,8 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
-const { userFinder } = require("@/functions/helpers/userFinder");
+
+const { userFinder } = require("@/services/userServices");
 
 const {
   userErrors: { CELLPHONE_NOT_EXIST },
@@ -35,9 +36,9 @@ const catchFindUserByCellphone = (error, res) => {
 };
 //DEPRECATED
 //UNUSED
-const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
+const targetUserFinderByCellphone = async (req, res, next) => {
   (
-    await trier(targetUserFinderByCellphoneMiddleware.name).tryAsync(
+    await trier(targetUserFinderByCellphone.name).tryAsync(
       tryToFindUserByCellphone,
       req.body
     )
@@ -47,4 +48,4 @@ const targetUserFinderByCellphoneMiddleware = async (req, res, next) => {
     .result();
 };
 
-module.exports = { targetUserFinderByCellphoneMiddleware };
+module.exports = { targetUserFinderByCellphone };

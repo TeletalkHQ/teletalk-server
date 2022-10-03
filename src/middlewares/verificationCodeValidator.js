@@ -11,10 +11,10 @@ const tryToValidateVerificationCode = async (verificationCode) => {
 const catchValidateVerificationCode =
   commonFunctionalities.controllerCatchResponse;
 
-const validateVerificationCodeMiddleware = async (req, res, next) => {
+const verificationCodeValidatorMiddleware = async (req, res, next) => {
   const { verificationCode } = req.body;
   (
-    await trier(validateVerificationCodeMiddleware.name).tryAsync(
+    await trier(verificationCodeValidator.name).tryAsync(
       tryToValidateVerificationCode,
       verificationCode
     )
@@ -23,4 +23,6 @@ const validateVerificationCodeMiddleware = async (req, res, next) => {
     .catch(catchValidateVerificationCode, res);
 };
 
-module.exports = { validateVerificationCodeMiddleware };
+module.exports = {
+  verificationCodeValidator: verificationCodeValidatorMiddleware,
+};

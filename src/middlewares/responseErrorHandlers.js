@@ -1,7 +1,7 @@
 const { errorCollector } = require("@/functions/helpers/errorCollector");
 const { errorResponser } = require("@/functions/helpers/errorResponser");
 
-const responseErrorHandlersMiddleware = (_, res, next) => {
+const responseErrorHandlers = (_, res, next) => {
   res.errors = {
     errors: {},
     statusCode: 500,
@@ -17,4 +17,4 @@ const responseErrorHandlersMiddleware = (_, res, next) => {
   next();
 };
 
-module.exports = { responseErrorHandlersMiddleware };
+module.exports = { responseErrorHandlers };

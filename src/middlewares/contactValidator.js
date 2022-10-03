@@ -38,4 +38,4 @@ const contactValidatorMiddleware = async (req, res, next) => {
     .result();
 };
 
-module.exports = { contactValidatorMiddleware };
+module.exports = { contactValidator: contactValidatorMiddleware };

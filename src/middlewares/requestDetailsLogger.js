@@ -1,4 +1,4 @@
-const requestDetailsLoggerMiddleware = (req, _, next) => {
+const requestDetailsLogger = (req, _, next) => {
   logger
     .blue("--------------------------------------")
     .bgBlue({
@@ -27,4 +27,4 @@ const requestDetailsLoggerMiddleware = (req, _, next) => {
   next();
 };
 
-module.exports = { requestDetailsLoggerMiddleware };
+module.exports = { requestDetailsLogger };

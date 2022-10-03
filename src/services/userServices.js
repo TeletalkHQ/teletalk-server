@@ -298,7 +298,8 @@ const removeTestUsers = async (length) => {
 };
 
 const logoutUser = async (currentUser) => {
-  await currentUser.updateOne({ tokens: [] });
+  currentUser.tokens = [];
+  await currentUser.updateOne({ tokens: currentUser.tokens });
   return { ok: true };
 };
 

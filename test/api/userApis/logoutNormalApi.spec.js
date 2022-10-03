@@ -1,5 +1,3 @@
-const { authManager } = require("@/classes/AuthManager");
-const { generalTest } = require("@/classes/GeneralTest");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
@@ -44,13 +42,10 @@ const verifySingIn = async (verificationCode, verifyToken) => {
   await verifySignInRequest().setToken(verifyToken).sendFullFeaturedRequest({
     verificationCode,
   });
-  await verifySignInRequest().setToken(verifyToken).sendFullFeaturedRequest({
-    verificationCode,
-  });
 };
 
 const createNewUser = async (verifyToken) => {
-  await createNewUserRequest()
+  return await createNewUserRequest()
     .setToken(verifyToken)
     .sendFullFeaturedRequest(fullName);
 };

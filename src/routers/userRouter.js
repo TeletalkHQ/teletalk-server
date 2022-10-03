@@ -18,16 +18,19 @@ const {
 
 const userRouter = Router();
 
-userRouter.use(
-  middlewares.applyMiddlewaresByUrl(
-    [signInNormalRoute.url],
-    middlewares.cellphoneValidator
-  )
+userRouter[checkUserStatusRoute.method](
+  checkUserStatusRoute.url,
+  controllers.checkUserStatus
 );
 
 userRouter[createNewUserRoute.method](
   createNewUserRoute.url,
   controllers.createNewUser
+);
+
+userRouter[getUserDataRoute.method](
+  getUserDataRoute.url,
+  controllers.getUserData
 );
 
 userRouter[logoutNormalRoute.method](
@@ -36,19 +39,10 @@ userRouter[logoutNormalRoute.method](
   controllers.logoutNormal
 );
 
-userRouter[getUserDataRoute.method](
-  getUserDataRoute.url,
-  controllers.getUserData
-);
-
 userRouter[signInNormalRoute.method](
   signInNormalRoute.url,
+  middlewares.cellphoneValidator,
   controllers.signInNormal
-);
-
-userRouter[checkUserStatusRoute.method](
-  checkUserStatusRoute.url,
-  controllers.checkUserStatus
 );
 
 userRouter[updatePersonalInfoRoute.method](

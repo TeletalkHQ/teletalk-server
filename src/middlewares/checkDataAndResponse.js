@@ -46,7 +46,7 @@ const catchCheckDataAndResponse = (error, res) => {
   return { ok: false };
 };
 
-const checkDataAndResponseMiddleware = (req, res, next) => {
+const checkDataAndResponse = (req, res, next) => {
   crashServerWithCondition(
     customTypeof.isNotFunction(res.sendJsonResponse),
     SEND_JSON_RESPONSE_IS_NOT_FUNCTION
@@ -57,7 +57,7 @@ const checkDataAndResponseMiddleware = (req, res, next) => {
       routeObject: { outputFields },
     } = req;
 
-    return trier(checkDataAndResponseMiddleware.name)
+    return trier(checkDataAndResponse.name)
       .try(tryToCheckDataAndResponse, {
         data,
         requiredFieldsIndex,
@@ -71,4 +71,4 @@ const checkDataAndResponseMiddleware = (req, res, next) => {
   next();
 };
 
-module.exports = { checkDataAndResponseMiddleware };
+module.exports = { checkDataAndResponse };

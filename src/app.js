@@ -13,61 +13,34 @@ require("pretty-error").start();
 
 const { getIgnoredUrlsForAuth } = require("@/functions/helpers/otherHelpers");
 
-const {
-  authDefaultMiddleware,
-} = require("@/middlewares/authDefaultMiddleware");
-const {
-  checkBodyFieldsMiddleware,
-} = require("@/middlewares/checkBodyFieldsMiddleware");
-const {
-  checkDataAndResponseMiddleware,
-} = require("@/middlewares/checkDataAndResponseMiddleware");
-const {
-  findRouteObjectMiddleware,
-} = require("@/middlewares/findRouteObjectMiddleware");
-const {
-  ignoreMiddlewaresByUrlMiddleware,
-} = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
-const { notFoundMiddleware } = require("@/middlewares/notFoundMiddleware");
-const {
-  requestDetailsLoggerMiddleware,
-} = require("@/middlewares/requestDetailsLoggerMiddleware");
-const {
-  requestMethodCheckerMiddleware,
-} = require("@/middlewares/requestMethodCheckerMiddleware");
-const {
-  responseErrorHandlersMiddleware,
-} = require("@/middlewares/responseErrorHandlersMiddleware");
-const {
-  sendJsonResponseMiddleware,
-} = require("@/middlewares/sendJsonResponseMiddleware");
-
 const { lifeLine } = require("@/routers/lifeLine");
+
+const { middlewares } = require("@/middlewares/middlewares");
 
 const app = express();
 
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-app.use(requestDetailsLoggerMiddleware);
+app.use(middlewares.requestDetailsLogger);
 app.use(morgan("dev"));
 
 app.use(express.static("public"));
 app.use(serveFavicon("public/assets/icons/favicon/favicon.ico"));
 
-app.use(findRouteObjectMiddleware);
-app.use(responseErrorHandlersMiddleware);
-app.use(sendJsonResponseMiddleware); //* Should be after 'responseErrorHandlersMiddleware'
-app.use(checkDataAndResponseMiddleware); //* Should be after 'sendJsonResponseMiddleware'
+app.use(middlewares.findRouteObject);
+app.use(middlewares.responseErrorHandlers);
+app.use(middlewares.sendJsonResponse); //* Should be after 'responseErrorHandlers'
+app.use(middlewares.checkDataAndResponse); //* Should be after 'sendJsonResponse'
 app.use(
-  ignoreMiddlewaresByUrlMiddleware(
+  middlewares.ignoreMiddlewaresByUrl(
     getIgnoredUrlsForAuth(),
-    authDefaultMiddleware
+    middlewares.authDefault
   )
-); //* Should be after 'sendJsonResponseMiddleware'
-app.use(notFoundMiddleware); //* Should be after 'sendJsonResponseMiddleware'
-app.use(requestMethodCheckerMiddleware); //* Should be after 'notFoundMiddleware'
-app.use(checkBodyFieldsMiddleware); //* Should be after 'requestMethodCheckerMiddleware'
+); //* Should be after 'sendJsonResponse'
+app.use(middlewares.notFound); //* Should be after 'sendJsonResponse'
+app.use(middlewares.requestMethodChecker); //* Should be after 'notFound'
+app.use(middlewares.checkBodyFields); //* Should be after 'requestMethodChecker'
 
 //* All routers is in lifeLine =>
 app.use(lifeLine);

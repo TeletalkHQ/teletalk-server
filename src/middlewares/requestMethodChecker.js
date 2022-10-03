@@ -43,12 +43,12 @@ const catchCheckRequestMethod = (error, res) => {
   return { ok: false };
 };
 
-const requestMethodCheckerMiddleware = (req, res, next) => {
-  return trier(requestMethodCheckerMiddleware.name)
+const requestMethodChecker = (req, res, next) => {
+  return trier(requestMethodChecker.name)
     .try(tryToCheckRequestMethod, req.url, req.method)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchCheckRequestMethod, res)
     .result();
 };
 
-module.exports = { requestMethodCheckerMiddleware };
+module.exports = { requestMethodChecker };

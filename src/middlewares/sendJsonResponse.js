@@ -5,4 +5,4 @@ const sendJsonResponseMiddleware = (req, res, next) => {
   next();
 };
 
-module.exports = { sendJsonResponseMiddleware };
+module.exports = { sendJsonResponse: sendJsonResponseMiddleware };

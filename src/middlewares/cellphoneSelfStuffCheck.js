@@ -31,15 +31,15 @@ const catchTryTo = (error, res) => {
   return { ok: false };
 };
 
-const cellphoneSelfStuffCheckMiddleware = (req, res, next) => {
+const cellphoneSelfStuffCheck = (req, res, next) => {
   const targetCellphone = req.body;
   const { payload: userData } = req.authData;
 
-  return trier(cellphoneSelfStuffCheckMiddleware.name)
+  return trier(cellphoneSelfStuffCheck.name)
     .try(tryTo, targetCellphone, userData)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchTryTo, res)
     .result();
 };
 
-module.exports = { cellphoneSelfStuffCheckMiddleware };
+module.exports = { cellphoneSelfStuffCheck };

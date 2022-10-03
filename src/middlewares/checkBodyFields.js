@@ -40,17 +40,17 @@ const catchCheckBodyFields = (error, res) => {
   return { ok: false };
 };
 
-const checkBodyFieldsMiddleware = (req, res, next) => {
+const checkBodyFields = (req, res, next) => {
   const {
     body,
     routeObject: { inputFields },
   } = req;
 
-  return trier(checkBodyFieldsMiddleware.name)
+  return trier(checkBodyFields.name)
     .try(tryToCheckBodyFields, body, inputFields)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchCheckBodyFields, res)
     .result();
 };
 
-module.exports = { checkBodyFieldsMiddleware };
+module.exports = { checkBodyFields };

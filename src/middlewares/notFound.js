@@ -19,11 +19,11 @@ const tryToValidateRouteObject = (routeObject) => {
 const catchValidateRouteObject = commonFunctionalities.controllerCatchResponse;
 
 //TODO: Add some tests
-const notFoundMiddleware = (req, res, next) => {
-  trier(notFoundMiddleware.name)
+const notFound = (req, res, next) => {
+  trier(notFound.name)
     .try(tryToValidateRouteObject, req.routeObject)
     .executeIfNoError(() => next())
     .catch(catchValidateRouteObject, res);
 };
 
-module.exports = { notFoundMiddleware };
+module.exports = { notFound };

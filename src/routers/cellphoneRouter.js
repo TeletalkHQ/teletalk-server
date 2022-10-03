@@ -19,24 +19,7 @@ const {
   removeContactCellphoneController,
 } = require("@/controllers/cellphoneControllers/removeContactCellphoneController");
 
-const {
-  applyMiddlewaresByUrlMiddleware,
-} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
-const {
-  cellphoneSelfStuffCheckMiddleware,
-} = require("@/middlewares/cellphoneSelfStuffCheckMiddleware");
-const {
-  cellphoneValidatorMiddleware,
-} = require("@/middlewares/cellphoneValidatorMiddleware");
-const {
-  contactValidatorMiddleware,
-} = require("@/middlewares/contactValidatorMiddleware");
-const {
-  findCurrentUserFromDb,
-} = require("@/middlewares/findCurrentUserFromDb");
-const {
-  ignoreMiddlewaresByUrlMiddleware,
-} = require("@/middlewares/ignoreMiddlewaresByUrlMiddleware");
+const { middlewares } = require("@/middlewares/middlewares");
 
 const {
   cellphoneRoutes: {
@@ -51,24 +34,24 @@ const {
 
 const cellphoneRouter = Router();
 
-cellphoneRouter.use(findCurrentUserFromDb);
+cellphoneRouter.use(middlewares.findCurrentUserFromDb);
 
 cellphoneRouter.use(
-  ignoreMiddlewaresByUrlMiddleware(
+  middlewares.ignoreMiddlewaresByUrl(
     getContactsRoute.url,
-    cellphoneSelfStuffCheckMiddleware
+    middlewares.cellphoneSelfStuffCheck
   )
 );
 cellphoneRouter.use(
-  ignoreMiddlewaresByUrlMiddleware(
+  middlewares.ignoreMiddlewaresByUrl(
     [getContactsRoute.url, addContactRoute.url],
-    cellphoneValidatorMiddleware
+    middlewares.cellphoneValidator
   )
 );
 cellphoneRouter.use(
-  applyMiddlewaresByUrlMiddleware(
+  middlewares.applyMiddlewaresByUrl(
     [editContactRoute.url, addContactRoute.url],
-    contactValidatorMiddleware
+    middlewares.contactValidator
   )
 );
 

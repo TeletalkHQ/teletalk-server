@@ -4,7 +4,7 @@ const {
   isUrlMatchWithReqUrl,
 } = require("@/functions/utilities/utilities");
 
-const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
+const ignoreMiddlewaresByUrl = (url, ...middlewares) => {
   checkExecuteMiddlewaresRequirements(url, middlewares);
 
   return async (req, res, next) => {
@@ -21,4 +21,4 @@ const ignoreMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   };
 };
 
-module.exports = { ignoreMiddlewaresByUrlMiddleware };
+module.exports = { ignoreMiddlewaresByUrl };

@@ -22,21 +22,7 @@ const {
   verifySignInNormalUserController,
 } = require("@/controllers/userControllers/verifySignInNormalUserController");
 
-const {
-  cellphoneValidatorMiddleware,
-} = require("@/middlewares/cellphoneValidatorMiddleware");
-const {
-  applyMiddlewaresByUrlMiddleware,
-} = require("@/middlewares/applyMiddlewaresByUrlMiddleware");
-const {
-  findCurrentUserFromDb,
-} = require("@/middlewares/findCurrentUserFromDb");
-const {
-  validateVerificationCodeMiddleware,
-} = require("@/middlewares/validateVerificationCodeMiddleware");
-const {
-  verifyVerificationCodeMiddleware,
-} = require("@/middlewares/verifyVerificationCodeMiddleware");
+const { middlewares } = require("@/middlewares/middlewares");
 
 const {
   userRoutes: {
@@ -53,9 +39,9 @@ const {
 const userRouter = Router();
 
 userRouter.use(
-  applyMiddlewaresByUrlMiddleware(
+  middlewares.applyMiddlewaresByUrl(
     [signInNormalRoute.url],
-    cellphoneValidatorMiddleware
+    middlewares.cellphoneValidator
   )
 );
 
@@ -66,7 +52,7 @@ userRouter[createNewUserRoute.method](
 
 userRouter[logoutNormalRoute.method](
   logoutNormalRoute.url,
-  findCurrentUserFromDb,
+  middlewares.findCurrentUserFromDb,
   logoutNormalUserController
 );
 
@@ -87,14 +73,14 @@ userRouter[checkUserStatusRoute.method](
 
 userRouter[updatePersonalInfoRoute.method](
   updatePersonalInfoRoute.url,
-  findCurrentUserFromDb,
+  middlewares.findCurrentUserFromDb,
   updatePersonalInfoUserController
 );
 
 userRouter[verifySignInNormalRoute.method](
   verifySignInNormalRoute.url,
-  validateVerificationCodeMiddleware,
-  verifyVerificationCodeMiddleware,
+  middlewares.verificationCodeValidator,
+  middlewares.verifyVerificationCode,
   verifySignInNormalUserController
 );
 

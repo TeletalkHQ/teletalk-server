@@ -22,13 +22,11 @@ const catchValidateToken = (error, res) => {
   return { ok: false };
 };
 
-const authDefaultMiddleware = async (req, res, next) => {
-  return (
-    await trier(authDefaultMiddleware.name).tryAsync(tryToValidateToken, req)
-  )
+const authDefault = async (req, res, next) => {
+  return (await trier(authDefault.name).tryAsync(tryToValidateToken, req))
     .executeIfNoError(assignValidationResultToRequest, req, next)
     .catch(catchValidateToken, res)
     .result();
 };
 
-module.exports = { authDefaultMiddleware };
+module.exports = { authDefault };

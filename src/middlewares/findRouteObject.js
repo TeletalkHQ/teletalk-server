@@ -9,4 +9,4 @@ const findRouteObjectMiddleware = (req, _res, next) => {
   next();
 };
 
-module.exports = { findRouteObjectMiddleware };
+module.exports = { findRouteObject: findRouteObjectMiddleware };

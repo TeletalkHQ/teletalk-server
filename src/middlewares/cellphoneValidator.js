@@ -32,4 +32,4 @@ const cellphoneValidatorMiddleware = async (req, res, next) => {
     .result();
 };
 
-module.exports = { cellphoneValidatorMiddleware };
+module.exports = { cellphoneValidator: cellphoneValidatorMiddleware };

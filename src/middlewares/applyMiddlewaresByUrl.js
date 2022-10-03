@@ -4,7 +4,7 @@ const {
   isUrlMatchWithReqUrl,
 } = require("@/functions/utilities/utilities");
 
-const applyMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
+const applyMiddlewaresByUrl = (url, ...middlewares) => {
   checkExecuteMiddlewaresRequirements(url, middlewares);
 
   return async (req, res, next) => {
@@ -21,4 +21,4 @@ const applyMiddlewaresByUrlMiddleware = (url, ...middlewares) => {
   };
 };
 
-module.exports = { applyMiddlewaresByUrlMiddleware };
+module.exports = { applyMiddlewaresByUrl };

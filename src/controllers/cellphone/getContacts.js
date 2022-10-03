@@ -17,20 +17,12 @@ const responseToGetContacts = (contacts, res) => {
 
 const catchGetContacts = commonFunctionalities.controllerCatchResponse;
 
-const getContactsCellphoneController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const getContacts = async (req = expressRequest, res = expressResponse) => {
   const { currentUser } = req;
 
-  (
-    await trier(getContactsCellphoneController.name).tryAsync(
-      tryToGetContacts,
-      currentUser
-    )
-  )
+  (await trier(getContacts.name).tryAsync(tryToGetContacts, currentUser))
     .executeIfNoError(responseToGetContacts, res)
     .catch(catchGetContacts, res);
 };
 
-module.exports = { getContactsCellphoneController };
+module.exports = { getContacts };

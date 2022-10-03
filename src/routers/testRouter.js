@@ -1,8 +1,6 @@
 const { Router } = require("express");
 
-const {
-  getAllUsersTestController,
-} = require("@/controllers/testControllers/getAllUsersTestController");
+const { controllers } = require("@/controllers/controllers");
 
 const {
   testRoutes: { getAllUsersRoute },
@@ -12,7 +10,7 @@ const testRouter = Router();
 
 testRouter[getAllUsersRoute.method](
   getAllUsersRoute.url,
-  getAllUsersTestController
+  controllers.getAllUsers
 );
 
 module.exports = { testRouter };

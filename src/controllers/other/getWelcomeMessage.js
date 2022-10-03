@@ -14,17 +14,10 @@ const responseToGetWelcomeMessage = (message, res) => {
 
 const catchGetWelcomeMessage = commonFunctionalities.controllerCatchResponse;
 
-const getWelcomeMessageOtherController = async (
-  _ = expressRequest,
-  res = expressResponse
-) => {
-  (
-    await trier(getWelcomeMessageOtherController).tryAsync(
-      tryToGetWelcomeMessage
-    )
-  )
+const getWelcomeMessage = async (_ = expressRequest, res = expressResponse) => {
+  (await trier(getWelcomeMessage).tryAsync(tryToGetWelcomeMessage))
     .executeIfNoError(responseToGetWelcomeMessage, res)
     .catch(catchGetWelcomeMessage);
 };
 
-module.exports = { getWelcomeMessageOtherController };
+module.exports = { getWelcomeMessage };

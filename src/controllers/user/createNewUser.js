@@ -141,15 +141,12 @@ const createNewUserMultiTrier = async ({
   return userDataForSendToClient;
 };
 
-const createNewUserUserController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const createNewUser = async (req = expressRequest, res = expressResponse) => {
   const {
     body: { firstName, lastName },
   } = req;
   const verifyToken = authManager.getTokenFromRequest(req);
-  const trierInstance = trier(createNewUserUserController.name);
+  const trierInstance = trier(createNewUser.name);
 
   (
     await trierInstance.tryAsync(createNewUserMultiTrier, {
@@ -162,4 +159,4 @@ const createNewUserUserController = async (
     .catch(catchCreateNewUser, res);
 };
 
-module.exports = { createNewUserUserController };
+module.exports = { createNewUser };

@@ -1,26 +1,6 @@
 const { Router } = require("express");
-//TODO: Index imports
-const {
-  checkUserStatusUserController,
-} = require("@/controllers/userControllers/checkUserStatusUserController");
-const {
-  createNewUserUserController,
-} = require("@/controllers/userControllers/createNewUserUserController");
-const {
-  getUserDataUserController,
-} = require("@/controllers/userControllers/getUserDataUserController");
-const {
-  logoutNormalUserController,
-} = require("@/controllers/userControllers/logoutNormalUserController");
-const {
-  signInNormalUserController,
-} = require("@/controllers/userControllers/signInNormalUserController");
-const {
-  updatePersonalInfoUserController,
-} = require("@/controllers/userControllers/updatePersonalInfoUserController");
-const {
-  verifySignInNormalUserController,
-} = require("@/controllers/userControllers/verifySignInNormalUserController");
+
+const { controllers } = require("@/controllers/controllers");
 
 const { middlewares } = require("@/middlewares/middlewares");
 
@@ -47,41 +27,41 @@ userRouter.use(
 
 userRouter[createNewUserRoute.method](
   createNewUserRoute.url,
-  createNewUserUserController
+  controllers.createNewUser
 );
 
 userRouter[logoutNormalRoute.method](
   logoutNormalRoute.url,
   middlewares.findCurrentUserFromDb,
-  logoutNormalUserController
+  controllers.logoutNormal
 );
 
 userRouter[getUserDataRoute.method](
   getUserDataRoute.url,
-  getUserDataUserController
+  controllers.getUserData
 );
 
 userRouter[signInNormalRoute.method](
   signInNormalRoute.url,
-  signInNormalUserController
+  controllers.signInNormal
 );
 
 userRouter[checkUserStatusRoute.method](
   checkUserStatusRoute.url,
-  checkUserStatusUserController
+  controllers.checkUserStatus
 );
 
 userRouter[updatePersonalInfoRoute.method](
   updatePersonalInfoRoute.url,
   middlewares.findCurrentUserFromDb,
-  updatePersonalInfoUserController
+  controllers.updatePersonalInfo
 );
 
 userRouter[verifySignInNormalRoute.method](
   verifySignInNormalRoute.url,
   middlewares.verificationCodeValidator,
   middlewares.verifyVerificationCode,
-  verifySignInNormalUserController
+  controllers.verifySignInNormal
 );
 
 module.exports = { userRouter };

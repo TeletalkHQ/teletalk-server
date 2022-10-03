@@ -18,15 +18,12 @@ const responseToAddBlockCellphone = (blockedCellphone, res) => {
 
 const catchAddToBlockCellphone = commonFunctionalities.controllerCatchResponse;
 
-const addBlockCellphoneController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const addBlock = async (req = expressRequest, res = expressResponse) => {
   const { body, currentUser } = req;
   const blockingCellphone = userPropsUtilities.extractCellphone(body);
 
   (
-    await trier(addBlockCellphoneController.name).tryAsync(
+    await trier(addBlock.name).tryAsync(
       tryToAddBlockCellphone,
       blockingCellphone,
       currentUser
@@ -36,4 +33,4 @@ const addBlockCellphoneController = async (
     .catch(catchAddToBlockCellphone, res);
 };
 
-module.exports = { addBlockCellphoneController };
+module.exports = { addBlock };

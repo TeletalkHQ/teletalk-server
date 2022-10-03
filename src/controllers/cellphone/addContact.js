@@ -21,22 +21,13 @@ const responseToAddContact = (targetUser, res, contact) => {
 
 const catchAddContact = commonFunctionalities.controllerCatchResponse;
 
-const addContactCellphoneController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const addContact = async (req = expressRequest, res = expressResponse) => {
   const { body, currentUser } = req;
   const contact = userPropsUtilities.extractContact(body);
 
-  (
-    await trier(addContactCellphoneController.name).tryAsync(
-      tryToAddContact,
-      currentUser,
-      contact
-    )
-  )
+  (await trier(addContact.name).tryAsync(tryToAddContact, currentUser, contact))
     .executeIfNoError(responseToAddContact, res, contact)
     .catch(catchAddContact, res);
 };
 
-module.exports = { addContactCellphoneController };
+module.exports = { addContact };

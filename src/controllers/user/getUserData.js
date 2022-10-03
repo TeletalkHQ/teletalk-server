@@ -15,14 +15,14 @@ const responseToGetUserData = (user, res) => {
 
 const catchGetUserData = commonFunctionalities.controllerCatchResponse;
 
-const getUserDataUserController = async (
+const getUserDataController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
   const { privateId } = req.body;
 
   (
-    await trier(getUserDataUserController.name).tryAsync(
+    await trier(getUserDataController.name).tryAsync(
       tryToGetUserData,
       privateId
     )
@@ -31,4 +31,4 @@ const getUserDataUserController = async (
     .catch(catchGetUserData);
 };
 
-module.exports = { getUserDataUserController };
+module.exports = { getUserData: getUserDataController };

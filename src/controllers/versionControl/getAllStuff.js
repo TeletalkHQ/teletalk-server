@@ -21,15 +21,12 @@ const responseToGetAllStuff = (data, res) => {
 
 const catchGetAllStuff = commonFunctionalities.controllerCatchResponse;
 
-const getAllStuffVersionControlController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const getAllStuff = async (req = expressRequest, res = expressResponse) => {
   const { language = "en" } = req.body;
-  trier(getAllStuffVersionControlController.name)
+  trier(getAllStuff.name)
     .try(tryToGetAllStuff, language)
     .executeIfNoError(responseToGetAllStuff, res)
     .catch(catchGetAllStuff, res);
 };
 
-module.exports = { getAllStuffVersionControlController };
+module.exports = { getAllStuff };

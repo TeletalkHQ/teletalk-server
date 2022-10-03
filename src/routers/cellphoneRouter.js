@@ -1,23 +1,6 @@
 const { Router } = require("express");
 
-const {
-  addBlockCellphoneController,
-} = require("@/controllers/cellphoneControllers/addBlockCellphoneController");
-const {
-  addContactCellphoneController,
-} = require("@/controllers/cellphoneControllers/addContactCellphoneController");
-const {
-  editContactCellphoneController,
-} = require("@/controllers/cellphoneControllers/editContactCellphoneController");
-const {
-  getContactsCellphoneController,
-} = require("@/controllers/cellphoneControllers/getContactsCellphoneController");
-const {
-  removeBlockCellphoneController,
-} = require("@/controllers/cellphoneControllers/removeBlockCellphoneController");
-const {
-  removeContactCellphoneController,
-} = require("@/controllers/cellphoneControllers/removeContactCellphoneController");
+const { controllers } = require("@/controllers/controllers");
 
 const { middlewares } = require("@/middlewares/middlewares");
 
@@ -57,32 +40,29 @@ cellphoneRouter.use(
 
 cellphoneRouter[getContactsRoute.method](
   getContactsRoute.url,
-  getContactsCellphoneController
+  controllers.getContacts
 );
 
 cellphoneRouter[addContactRoute.method](
   addContactRoute.url,
-  addContactCellphoneController
+  controllers.addContact
 );
 
-cellphoneRouter[addBlockRoute.method](
-  addBlockRoute.url,
-  addBlockCellphoneController
-);
+cellphoneRouter[addBlockRoute.method](addBlockRoute.url, controllers.addBlock);
 
 cellphoneRouter[removeBlockRoute.method](
   removeBlockRoute.url,
-  removeBlockCellphoneController
+  controllers.removeBlock
 );
 
 cellphoneRouter[removeContactRoute.method](
   removeContactRoute.url,
-  removeContactCellphoneController
+  controllers.removeContact
 );
 
 cellphoneRouter[editContactRoute.method](
   editContactRoute.url,
-  editContactCellphoneController
+  controllers.editContact
 );
 
 module.exports = { cellphoneRouter };

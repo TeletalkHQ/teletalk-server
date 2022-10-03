@@ -21,7 +21,7 @@ const responseToUpdatePersonalInfo = (_, res, firstName, lastName) => {
 
 const catchUpdatePersonalInfo = commonFunctionalities.controllerCatchResponse;
 
-const updatePersonalInfoUserController = async (
+const updatePersonalInfoController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
@@ -31,7 +31,7 @@ const updatePersonalInfoUserController = async (
   } = req;
 
   (
-    await trier(updatePersonalInfoUserController.name).tryAsync(
+    await trier(updatePersonalInfoController.name).tryAsync(
       tryToUpdatePersonalInfo,
       currentUser,
       firstName,
@@ -43,5 +43,5 @@ const updatePersonalInfoUserController = async (
 };
 
 module.exports = {
-  updatePersonalInfoUserController,
+  updatePersonalInfo: updatePersonalInfoController,
 };

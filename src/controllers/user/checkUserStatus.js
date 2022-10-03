@@ -41,22 +41,14 @@ const responseToCheckUserStatus = (userData, res) => {
 
 const catchCheckUserStatus = commonFunctionalities.controllerCatchResponse;
 
-const checkUserStatusUserController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const checkUserStatus = async (req = expressRequest, res = expressResponse) => {
   const {
     authData: { payload: userData },
   } = req;
 
-  (
-    await trier(checkUserStatusUserController.name).tryAsync(
-      tryToCheckUserStatus,
-      userData
-    )
-  )
+  (await trier(checkUserStatus.name).tryAsync(tryToCheckUserStatus, userData))
     .executeIfNoError(responseToCheckUserStatus, res)
     .catch(catchCheckUserStatus, res);
 };
 
-module.exports = { checkUserStatusUserController };
+module.exports = { checkUserStatus };

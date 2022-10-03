@@ -17,15 +17,12 @@ const responseToRemoveBlock = (_, res, targetUserData) => {
 
 const catchRemoveBlock = commonFunctionalities.controllerCatchResponse;
 
-const removeBlockCellphoneController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const removeBlock = async (req = expressRequest, res = expressResponse) => {
   const { currentUser, body } = req;
   const targetUserData = userPropsUtilities.extractCellphone(body);
 
   (
-    await trier(removeBlockCellphoneController.name).tryAsync(
+    await trier(removeBlock.name).tryAsync(
       tryToRemoveBlock,
       currentUser,
       targetUserData
@@ -35,4 +32,4 @@ const removeBlockCellphoneController = async (
     .catch(catchRemoveBlock, res);
 };
 
-module.exports = { removeBlockCellphoneController };
+module.exports = { removeBlock };

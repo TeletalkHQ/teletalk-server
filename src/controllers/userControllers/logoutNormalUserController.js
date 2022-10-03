@@ -14,6 +14,7 @@ const responseToLogoutNormal = (data, res) => {
 
 const catchLogoutNormal = commonFunctionalities.controllerCatchResponse;
 
+//TODO: Add tests
 const logoutNormalUserController = async (
   req = expressRequest,
   res = expressResponse

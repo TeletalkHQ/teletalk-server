@@ -17,10 +17,7 @@ const responseToEditContact = (_, res, targetCellphone, editedValues) => {
 
 const catchEditContact = commonFunctionalities.controllerCatchResponse;
 
-const editContactCellphoneController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const editContact = async (req = expressRequest, res = expressResponse) => {
   const {
     body,
     body: { firstName, lastName },
@@ -30,7 +27,7 @@ const editContactCellphoneController = async (
   const editedValues = { firstName, lastName };
 
   (
-    await trier(editContactCellphoneController.name).tryAsync(
+    await trier(editContact.name).tryAsync(
       tryToEditContact,
       currentUser,
       targetCellphone,
@@ -41,4 +38,4 @@ const editContactCellphoneController = async (
     .catch(catchEditContact, res);
 };
 
-module.exports = { editContactCellphoneController };
+module.exports = { editContact };

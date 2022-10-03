@@ -1,8 +1,6 @@
 const { Router } = require("express");
 
-const {
-  getAllStuffVersionControlController,
-} = require("@/controllers/versionControlControllers/getAllStuffVersionControlController");
+const { controllers } = require("@/controllers/controllers");
 
 const {
   versionControlRoutes,
@@ -14,7 +12,7 @@ const { getAllStuffsRoute } = versionControlRoutes;
 
 versionControlRouter[getAllStuffsRoute.method](
   getAllStuffsRoute.url,
-  getAllStuffVersionControlController
+  controllers.getAllStuff
 );
 
 module.exports = { versionControlRouter };

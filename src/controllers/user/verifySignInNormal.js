@@ -50,14 +50,14 @@ const responseToSignInNormalUser = (
 
 const catchSignInNormalUser = commonFunctionalities.controllerCatchResponse;
 
-const verifySignInNormalUserController = async (
+const verifySignInNormal = async (
   req = expressRequest,
   res = expressResponse
 ) => {
   const { authData } = req;
 
   (
-    await trier(verifySignInNormalUserController.name).tryAsync(
+    await trier(verifySignInNormal.name).tryAsync(
       tryToSignInNormalUser,
       authData.payload
     )
@@ -66,4 +66,4 @@ const verifySignInNormalUserController = async (
     .catch(catchSignInNormalUser, res);
 };
 
-module.exports = { verifySignInNormalUserController };
+module.exports = { verifySignInNormal };

@@ -15,20 +15,12 @@ const responseToLogoutNormal = (data, res) => {
 const catchLogoutNormal = commonFunctionalities.controllerCatchResponse;
 
 //TODO: Add tests
-const logoutNormalUserController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const logoutNormal = async (req = expressRequest, res = expressResponse) => {
   const { currentUser } = req;
 
-  (
-    await trier(logoutNormalUserController.name).tryAsync(
-      tryToLogoutNormal,
-      currentUser
-    )
-  )
+  (await trier(logoutNormal.name).tryAsync(tryToLogoutNormal, currentUser))
     .executeIfNoError(responseToLogoutNormal, res)
     .catch(catchLogoutNormal, res);
 };
 
-module.exports = { logoutNormalUserController };
+module.exports = { logoutNormal };

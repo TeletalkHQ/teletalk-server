@@ -1,17 +1,6 @@
 const { Router } = require("express");
 
-const {
-  chatsLastMessageChatController,
-} = require("@/controllers/privateChatControllers/chatsLastMessageChatController");
-const {
-  getAllChatsUserController,
-} = require("@/controllers/privateChatControllers/getAllChatsUserController");
-const {
-  getMessagesPrivateChatController,
-} = require("@/controllers/privateChatControllers/getMessagesPrivateChatController");
-const {
-  sendMessagePrivateChatController,
-} = require("@/controllers/privateChatControllers/sendMessagePrivateChatController");
+const { controllers } = require("@/controllers/controllers");
 
 const { middlewares } = require("@/middlewares/middlewares");
 
@@ -30,21 +19,21 @@ privateChatRouter.use(middlewares.findCurrentUserFromDb);
 
 privateChatRouter[getAllChatsRoute.method](
   getAllChatsRoute.url,
-  getAllChatsUserController
+  controllers.getAllChats
 );
 
 privateChatRouter[chatsLastMessageRoute.method](
   chatsLastMessageRoute.url,
-  chatsLastMessageChatController
+  controllers.chatsLastMessage
 );
 
 privateChatRouter[sendMessageRoute.method](
   sendMessageRoute.url,
-  sendMessagePrivateChatController
+  controllers.sendMessage
 );
 privateChatRouter[getPrivateChatMessagesRoute.method](
   getPrivateChatMessagesRoute.url,
-  getMessagesPrivateChatController
+  controllers.getMessages
 );
 
 module.exports = { privateChatRouter };

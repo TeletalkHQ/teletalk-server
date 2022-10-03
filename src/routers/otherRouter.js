@@ -1,11 +1,6 @@
 const { Router } = require("express");
 
-const {
-  countriesOtherController,
-} = require("@/controllers/otherControllers/countriesOtherController");
-const {
-  getWelcomeMessageOtherController,
-} = require("@/controllers/otherControllers/getWelcomeMessageOtherController");
+const { controllers } = require("@/controllers/controllers");
 
 const {
   otherRoutes: { getCountriesRoute, getWelcomeMessageRoute },
@@ -15,12 +10,12 @@ const otherRouter = Router();
 
 otherRouter[getWelcomeMessageRoute.method](
   getWelcomeMessageRoute.url,
-  getWelcomeMessageOtherController
+  controllers.getWelcomeMessage
 );
 
 otherRouter[getCountriesRoute.method](
   getCountriesRoute.url,
-  countriesOtherController
+  controllers.getCountries
 );
 
 module.exports = { otherRouter };

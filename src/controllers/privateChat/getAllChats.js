@@ -17,13 +17,13 @@ const responseToGetAllChats = (chats, res) => {
 
 const catchGetAllChats = commonFunctionalities.controllerCatchResponse;
 
-const getAllChatsUserController = async (
+const getAllChatsController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
   const { currentUser } = req;
   (
-    await trier(getAllChatsUserController.name).tryAsync(
+    await trier(getAllChatsController.name).tryAsync(
       tryToGetAllChats,
       currentUser
     )
@@ -32,4 +32,4 @@ const getAllChatsUserController = async (
     .catch(catchGetAllChats, res);
 };
 
-module.exports = { getAllChatsUserController };
+module.exports = { getAllChats: getAllChatsController };

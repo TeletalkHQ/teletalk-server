@@ -13,13 +13,13 @@ const responseToGetAllUsers = (users, res) => {
 
 const catchGetAllUsers = commonFunctionalities.controllerCatchResponse;
 
-const getAllUsersTestController = async (
+const getAllUsersController = async (
   _ = expressRequest,
   res = expressResponse
 ) => {
-  (await trier(getAllUsersTestController.name).tryAsync(tryToGetAllUsers))
+  (await trier(getAllUsersController.name).tryAsync(tryToGetAllUsers))
     .executeIfNoError(responseToGetAllUsers, res)
     .catch(catchGetAllUsers, res);
 };
 
-module.exports = { getAllUsersTestController };
+module.exports = { getAllUsers: getAllUsersController };

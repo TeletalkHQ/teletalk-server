@@ -6,21 +6,19 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const {
-  initialOptions: {
-    inputOutputFields: {
-      addedContact,
-      blockedCellphone,
-      contacts,
-      countryCode,
-      countryName,
-      editedContact,
-      firstName,
-      lastName,
-      phoneNumber,
-      privateId,
-      removedBlockedCellphone,
-      removedContact,
-    },
+  inputOutputFields: {
+    addedContact,
+    blockedCellphone,
+    contacts,
+    countryCode,
+    countryName,
+    editedContact,
+    firstName,
+    lastName,
+    phoneNumber,
+    privateId,
+    removedBlockedCellphone,
+    removedContact,
   },
 } = require("@/variables/others/inputOutputFields");
 

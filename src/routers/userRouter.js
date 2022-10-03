@@ -66,6 +66,7 @@ userRouter[createNewUserRoute.method](
 
 userRouter[logoutNormalRoute.method](
   logoutNormalRoute.url,
+  findCurrentUserFromDb,
   logoutNormalUserController
 );
 

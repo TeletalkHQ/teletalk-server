@@ -1,4 +1,4 @@
-const userDataDefaultProps = {
+const userDataDefaultIoFields = {
   bio: "bio",
   blacklist: "blacklist",
   chats: "chats",
@@ -14,7 +14,7 @@ const userDataDefaultProps = {
 };
 
 const inputOutputFields = {
-  ...userDataDefaultProps,
+  ...userDataDefaultIoFields,
   addedContact: "addedContact",
   blockedCellphone: "blockedCellphone",
   chatId: "chatId",
@@ -28,6 +28,7 @@ const inputOutputFields = {
   messageSender: "messageSender",
   newMessage: "newMessage",
   newUser: "newUser",
+  ok: "ok",
   participantId: "participantId",
   removedBlockedCellphone: "removedBlockedCellphone",
   removedContact: "removedContact",
@@ -37,11 +38,7 @@ const inputOutputFields = {
   verifyToken: "verifyToken",
 };
 
-const initialOptions = {
-  inputOutputFields,
-  userDataDefaultProps,
-};
-
 module.exports = {
-  initialOptions,
+  inputOutputFields,
+  userDataDefaultIoFields,
 };

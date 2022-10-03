@@ -15,6 +15,7 @@ eventManager.addListener(eventManager.eventKeys.requirementsGetDone, () => {
   require("$/api/userApis/signInNormalApi.spec");
   require("$/api/userApis/verifySignInNormalApi.spec");
   require("$/api/userApis/createNewUserApi.spec");
+  require("$/api/userApis/logoutNormalApi.spec");
   //? Cellphone api's ==>
   require("$/api/cellphoneApis/addContactApi.spec");
   require("$/api/cellphoneApis/editContactApi.spec");

@@ -14,6 +14,7 @@ const getIgnoredUrlsForAuth = () => {
     getCountriesRoute,
     getWelcomeMessageRoute,
     signInNormalRoute,
+    { fullUrl: "/" },
   ].map((item) => item.fullUrl);
   return arrayOfIgnoringUrl;
 };

@@ -6,24 +6,23 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const {
-  initialOptions: {
-    inputOutputFields: {
-      bio,
-      countryCode,
-      countryName,
-      firstName,
-      lastName,
-      mainToken,
-      newUser,
-      phoneNumber,
-      privateId,
-      user,
-      username,
-      verificationCode,
-      verifyToken,
-    },
-    userDataDefaultProps,
+  inputOutputFields: {
+    bio,
+    countryCode,
+    countryName,
+    firstName,
+    lastName,
+    mainToken,
+    newUser,
+    ok,
+    phoneNumber,
+    privateId,
+    user,
+    username,
+    verificationCode,
+    verifyToken,
   },
+  userDataDefaultIoFields,
 } = require("@/variables/others/inputOutputFields");
 
 const userRouteBuilder = routeBuilder("/user");
@@ -66,7 +65,7 @@ const logoutNormalRoute = userRouteBuilder
   .version("1.0.0")
   .description("Use for logout client as a normal account")
   .inputFields([{}])
-  .outputFields([{}])
+  .outputFields([{ ok }])
   .build();
 
 const signInNormalRoute = userRouteBuilder
@@ -107,7 +106,7 @@ const checkUserStatusRoute = userRouteBuilder
   .outputFields([
     {
       [user]: {
-        ...userDataDefaultProps,
+        ...userDataDefaultIoFields,
         [bio]: true,
         [username]: true,
       },
@@ -126,7 +125,7 @@ const getUserDataRoute = userRouteBuilder
   .outputFields([
     {
       [user]: {
-        ...userDataDefaultProps,
+        ...userDataDefaultIoFields,
         [bio]: true,
         [username]: true,
       },
@@ -170,7 +169,7 @@ const verifySignInNormalRoute = userRouteBuilder
   .outputFields([
     {
       [user]: {
-        ...userDataDefaultProps,
+        ...userDataDefaultIoFields,
         [bio]: true,
         newUser,
         [username]: true,

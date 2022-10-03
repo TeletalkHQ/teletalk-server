@@ -6,18 +6,16 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const {
-  initialOptions: {
-    inputOutputFields: {
-      chatId,
-      chats,
-      message,
-      messageId,
-      messages,
-      messageSender,
-      newMessage,
-      participantId,
-      senderId,
-    },
+  inputOutputFields: {
+    chatId,
+    chats,
+    message,
+    messageId,
+    messages,
+    messageSender,
+    newMessage,
+    participantId,
+    senderId,
   },
 } = require("@/variables/others/inputOutputFields");
 

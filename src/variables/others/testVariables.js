@@ -1,6 +1,6 @@
+const { customRequestCreator } = require("@/classes/CustomRequest");
 const { stateManager } = require("@/classes/StateManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { customRequestCreator } = require("@/classes/CustomRequest");
 
 const {
   cellphoneRoutes: {
@@ -16,6 +16,7 @@ const {
     createNewUserRoute,
     signInNormalRoute,
     verifySignInNormalRoute,
+    logoutNormalRoute,
   },
 } = require("@/variables/routes/userRoutes");
 const {
@@ -59,14 +60,16 @@ const makeRequester = (routeObject) => () =>
 const testVariables = {
   cellphones: {
     createNewUserSignInCellphone:
-      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(countries),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
+    logoutNormalCellphone:
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
     notExistedContact,
     signInCellphone:
-      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(countries),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
     verifySignInFailTestCellphone:
-      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(countries),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
     verifySignInNewUserCellphone:
-      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(countries),
+      userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
   },
   testUsers: {
     addBlockSuccessfulTestUser: testUser_6,
@@ -95,6 +98,7 @@ const requesters = {
   editContactRequest: makeRequester(editContactRoute),
   getAllChatsRequest: makeRequester(getAllChatsRoute),
   getPrivateChatMessagesRequest: makeRequester(getPrivateChatMessagesRoute),
+  logoutNormalRequest: makeRequester(logoutNormalRoute),
   removeBlockRequest: makeRequester(removeBlockRoute),
   removeContactRequest: makeRequester(removeContactRoute),
   sendMessageRequest: makeRequester(sendMessageRoute),

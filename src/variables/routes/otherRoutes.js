@@ -6,14 +6,12 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const {
-  initialOptions: {
-    inputOutputFields: {
-      countries,
-      countryCode,
-      countryName,
-      countryShortName,
-      message,
-    },
+  inputOutputFields: {
+    countries,
+    countryCode,
+    countryName,
+    countryShortName,
+    message,
   },
 } = require("@/variables/others/inputOutputFields");
 

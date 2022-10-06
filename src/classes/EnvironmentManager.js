@@ -6,6 +6,7 @@ class EnvironmentManager extends EnvironmentManagerMain {
   constructor() {
     super();
     this.ENVIRONMENT_KEYS = {
+      COVERAGE: "COVERAGE",
       DEVELOPMENT_PORT: "DEVELOPMENT_PORT",
       JWT_MAIN_SECRET: "JWT_MAIN_SECRET",
       JWT_SIGN_IN_SECRET: "JWT_SIGN_IN_SECRET",

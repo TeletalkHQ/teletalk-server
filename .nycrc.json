@@ -1,0 +1,6 @@
+{
+  "all": true,
+  "include": ["src"],
+  "output": "reports",
+  "reporter": ["html", "text", "json-summary"]
+}

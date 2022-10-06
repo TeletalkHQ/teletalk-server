@@ -1,6 +1,7 @@
 {
   "all": true,
+  "check-coverage": true,
   "include": ["src"],
   "output": "reports",
-  "reporter": ["text", "json-summary", "text-lcov"]
+  "reporter": ["text", "clover", "json-summary", "text-lcov"]
 }

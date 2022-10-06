@@ -96,9 +96,6 @@
     "supertest": "^6.2.4",
     "yargs": "^17.5.1"
   },
-  "lint-staged": {
-    "**/*": "npm run format"
-  },
   "type": "commonjs",
   "engines": {
     "node": ">=14.10.0"

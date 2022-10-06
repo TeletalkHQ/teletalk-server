@@ -1,6 +1,9 @@
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const NODE_ENV = envManager.getNodeEnv();
+const COVERAGE = envManager.getEnvironment(
+  envManager.ENVIRONMENT_KEYS.COVERAGE
+);
 const envName = `MONGO_URL_${NODE_ENV.toUpperCase()}`;
 const MONGO_URL = envManager.getEnvironment(envName);
 
@@ -16,7 +19,10 @@ class AppConfigs {
     this.runConfigs();
   }
   runConfigs() {
-    logger.setLevel(logger.levels.debug);
+    const shouldPrintLogs = !COVERAGE;
+    if (shouldPrintLogs) {
+      logger.setLevel(logger.levels.debug);
+    }
   }
 
   getConfigs() {

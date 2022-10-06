@@ -3,5 +3,5 @@
   "check-coverage": true,
   "include": ["src"],
   "output": "reports",
-  "reporter": ["text", "clover", "json-summary", "text-lcov"]
+  "reporter": ["text", "clover"]
 }

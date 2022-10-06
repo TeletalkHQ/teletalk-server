@@ -1,9 +1,8 @@
 # Teletalk messenger (server)
 
-[![Teletalk Server CI](https://github.com/S-STALWART-S/teletalk-server/actions/workflows/ci.yml/badge.svg)](https://github.com/S-STALWART-S/teletalk-server/actions/workflows/ci.yml)
+[![CI](https://github.com/S-STALWART-S/teletalk-server/actions/workflows/ci.yml/badge.svg)](https://github.com/S-STALWART-S/teletalk-server/actions/workflows/ci.yml)
 ![Test](test/badge.svg)
-
-[![codecov](https://codecov.io/github/S-STALWART-S/teletalk-server/branch/teletalk-server-main/graph/badge.svg?token=RO3A9OXIGP)](https://codecov.io/github/S-STALWART-S/teletalk-server)
+[![coverage](https://codecov.io/github/S-STALWART-S/teletalk-server/branch/teletalk-server-main/graph/badge.svg?token=RO3A9OXIGP)](https://codecov.io/github/S-STALWART-S/teletalk-server)
 
 <!-- [![GitHub Super-Linter](https://github.com/<OWNER>/<REPOSITORY>/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter) -->
 

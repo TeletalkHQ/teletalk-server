@@ -3,10 +3,8 @@
 .nyc_output
 .trashCan
 build
-build
 built
 dist
 node_modules
-public
 public
 thunder-tests

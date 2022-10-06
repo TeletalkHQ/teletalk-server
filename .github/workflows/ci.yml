@@ -2,7 +2,6 @@ name: Teletalk Server CI
 on:
   push:
     branches: [teletalk-server-main]
-
   pull_request:
     branches: [teletalk-server-main]
 
@@ -45,11 +44,11 @@ jobs:
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
-      - run: npm run test # test development app
-      - run: npm run build # build production app
-      - run: npm run test-production # test production app
+      - run: npm run test
+      - run: npm run build
+      - run: npm run test-production
       - run: npm run coverage
 
-      - name: Use for get info for code coverage
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
 

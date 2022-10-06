@@ -51,6 +51,7 @@
     "indenticator",
     "ipynb",
     "jsonwebtoken",
+    "lcov",
     "linebreak",
     "luhn",
     "maxlength",

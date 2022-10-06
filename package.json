@@ -11,14 +11,17 @@
   },
   "scripts": {
     "build": "esbuild ./src/server.js --platform=node --target=node16.0 --bundle --minify --outfile=build/index.js",
-    "coverage": "cross-env COVERAGE=true nyc npm run test",
+    "coverage": "cross-env COVERAGE=true nyc npm run test && npm run test --reporter mocha-badge-generator",
     "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
     "format": "prettier --write ./",
     "lint": "eslint ./",
     "prepare": "husky install",
-    "start": "cross-env NODE_ENV=development node ./build/index.js",
-    "test": "cross-env NODE_ENV=test mocha ./test/test.js --recursive --reporter mocha-badge-generator --exit",
-    "test-production": "cross-env NODE_ENV=test_production npm run test"
+    "start": "cross-env NODE_ENV=production node ./build/index.js",
+    "test": "cross-env NODE_ENV=test npm run test-runner",
+    "test-production": "cross-env NODE_ENV=test_production npm run test-runner",
+    "test-runner": "mocha ./test/test.js --recursive --exit",
+    "test-runner-with-badge": "mocha ./test/test.js --recursive --reporter mocha-badge-generator --exit",
+    "test-with-badge": "cross-env NODE_ENV=test npm run test-runner-with-badge"
   },
   "dependencies": {
     "@sindresorhus/is": "^5.3.0",
@@ -99,6 +102,16 @@
   "type": "commonjs",
   "engines": {
     "node": ">=14.10.0"
+  },
+  "lint-staged": {
+    "./src/*": [
+      "eslint",
+      "prettier --write"
+    ],
+    "./test/*": [
+      "eslint",
+      "prettier --write"
+    ]
   },
   "_moduleAliases": {
     "~": ".",

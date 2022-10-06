@@ -15,7 +15,6 @@ const {
 } = envManager.ENVIRONMENT_VALUES;
 
 const app = NODE_ENV === test ? getDevelopmentApp() : getProductionApp();
-logger.log("rm", "NODE_ENV:", NODE_ENV);
 const supertest = require("supertest")(app);
 
 class CustomRequest {

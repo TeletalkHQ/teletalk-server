@@ -26,9 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Codecov
-        uses: codecov/codecov-action@v3
-
       - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -50,4 +47,9 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm run test # test development app
       - run: npm run build # build production app
-      - run: npm run test_production # test production app
+      - run: npm run test-production # test production app
+      - run: npm run coverage
+
+      - name: Use for get info for code coverage
+        uses: codecov/codecov-action@v3
+

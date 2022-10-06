@@ -1,0 +1,41 @@
+name: Teletalk Server Code Style
+on:
+  push:
+    branches: [teletalk-server-main]
+  pull_request:
+    branches: [teletalk-server-main]
+
+jobs:
+  build:
+    env:
+      CI: true
+      JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
+      LINTER_RULES_PATH: /
+      VALIDATE_JAVASCRIPT_STANDARD: false
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        operations: [ubuntu-latest]
+
+    runs-on: ${{ matrix.operations }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js version ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      # - name: Lint Code Base
+      #   uses: github/super-linter@v4
+
+      - name: Run linting
+        run: npm run Lint
+
+      - name: Run prettier
+        run: npm run format

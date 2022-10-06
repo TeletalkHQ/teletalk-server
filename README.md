@@ -2,13 +2,13 @@
 
 <!-- [![CI](https://github.com/S-STALWART-S/teletalk-server/actions/workflows/ci.yml/badge.svg)](https://github.com/S-STALWART-S/teletalk-server/actions/workflows/ci.yml) -->
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20CI/teletalk-server-main?label=ci)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20CI/teletalk-server-main?label=CI)
 ![Test](test/badge.svg)
-![Codecov branch](https://img.shields.io/codecov/c/github/s-stalwart-s/teletalk-server/teletalk-server-main?label=coverage)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20Build/teletalk-server-main)
+![Codecov branch](https://img.shields.io/codecov/c/github/s-stalwart-s/teletalk-server/teletalk-server-main?label=Coverage)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20Build/teletalk-server-main?label=Build)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20Code%20Style/teletalk-server-main?label=Code%20style)
-![GitHub](https://img.shields.io/github/license/s-stalwart-s/teletalk-server)
-![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/s-stalwart-s/teletalk-server/teletalk-server-main)
+![GitHub](https://img.shields.io/github/license/s-stalwart-s/teletalk-server?label=License)
+![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/S-STALWART-S/teletalk-server/teletalk-server-main?label=Version)
 
 <!-- [![GitHub Super-Linter](https://github.com/<OWNER>/<REPOSITORY>/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter) -->
 

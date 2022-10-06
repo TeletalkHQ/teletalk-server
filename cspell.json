@@ -39,6 +39,7 @@
     "bcrypt",
     "bcryptjs",
     "camelcase",
+    "codecov",
     "codestream",
     "d'Ivoire",
     "dotenv",

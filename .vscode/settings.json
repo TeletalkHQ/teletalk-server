@@ -31,7 +31,12 @@
     "dump.rdb": true,
     "newrelic_agent.log": true,
     ".trachCan": true,
-    ".nyc_output": true
+    ".nyc_output": true,
+    ".nycrc.json": true,
+    "LICENSE.md": true,
+    "jsconfig.json": true,
+    "CHANGELOG.md": true,
+    "build": true
   },
   "explorerExclude.backup": {},
   "cSpell.words": [],

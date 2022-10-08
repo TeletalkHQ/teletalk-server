@@ -59,7 +59,13 @@ npm run test
 - JWT_SIGN_IN_SECRET for verification secret
 - MONGO_URL_PRODUCTION for your database (mongoDB) address
 
-3. Start app:
+3. Build production app:
+
+```bash
+npm run build
+```
+
+4. Start app:
 
 ```bash
 npm start

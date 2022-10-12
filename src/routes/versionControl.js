@@ -5,13 +5,11 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
-const versionControlRouteBuilder = routeBuilder("/versionControl");
+const { baseUrls } = require("@/routes/baseUrls");
 
-const versionControlBaseUrl = versionControlRouteBuilder
-  .create()
-  .createBaseUrlObject("1.0.0");
+const versionControlRouteBuilder = routeBuilder(baseUrls.versionControl);
 
-const getAllStuffsRoute = versionControlRouteBuilder
+const getAllStuffs = versionControlRouteBuilder
   .create()
   .method("get")
   .url("/getAllStuff")
@@ -25,8 +23,7 @@ const getAllStuffsRoute = versionControlRouteBuilder
   .build();
 
 const routes = {
-  getAllStuffsRoute,
-  versionControlBaseUrl,
+  getAllStuffs,
 };
 
 const versionControlRoutes = {

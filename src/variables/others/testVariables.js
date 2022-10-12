@@ -2,30 +2,8 @@ const { customRequestCreator } = require("@/classes/CustomRequest");
 const { stateManager } = require("@/classes/StateManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const {
-  cellphoneRoutes: {
-    addBlockRoute,
-    addContactRoute,
-    editContactRoute,
-    removeBlockRoute,
-    removeContactRoute,
-  },
-} = require("@/variables/routes/cellphoneRoutes");
-const {
-  userRoutes: {
-    createNewUserRoute,
-    signInNormalRoute,
-    verifySignInNormalRoute,
-    logoutNormalRoute,
-  },
-} = require("@/variables/routes/userRoutes");
-const {
-  privateChatRoutes: {
-    getAllChatsRoute,
-    getPrivateChatMessagesRoute,
-    sendMessageRoute,
-  },
-} = require("@/variables/routes/privateChatRoutes");
+const { routes } = require("@/routes/routes");
+
 const { countries } = require("@/variables/others/countries");
 
 const {
@@ -92,18 +70,20 @@ const successTestDefaultOptions = {
 };
 
 const requesters = {
-  addBlockRequest: makeRequester(addBlockRoute),
-  addContactRequest: makeRequester(addContactRoute),
-  createNewUserRequest: makeRequester(createNewUserRoute),
-  editContactRequest: makeRequester(editContactRoute),
-  getAllChatsRequest: makeRequester(getAllChatsRoute),
-  getPrivateChatMessagesRequest: makeRequester(getPrivateChatMessagesRoute),
-  logoutNormalRequest: makeRequester(logoutNormalRoute),
-  removeBlockRequest: makeRequester(removeBlockRoute),
-  removeContactRequest: makeRequester(removeContactRoute),
-  sendMessageRequest: makeRequester(sendMessageRoute),
-  signInNormalRequest: makeRequester(signInNormalRoute),
-  verifySignInRequest: makeRequester(verifySignInNormalRoute),
+  addBlockRequest: makeRequester(routes.cellphone.addBlock),
+  addContactRequest: makeRequester(routes.cellphone.addContact),
+  createNewUserRequest: makeRequester(routes.user.createNewUser),
+  editContactRequest: makeRequester(routes.cellphone.editContact),
+  getAllChatsRequest: makeRequester(routes.privateChat.getAllChats),
+  getPrivateChatMessagesRequest: makeRequester(
+    routes.privateChat.getPrivateChatMessages
+  ),
+  logoutNormalRequest: makeRequester(routes.user.logoutNormal),
+  removeBlockRequest: makeRequester(routes.cellphone.removeBlock),
+  removeContactRequest: makeRequester(routes.cellphone.removeContact),
+  sendMessageRequest: makeRequester(routes.privateChat.sendMessage),
+  signInNormalRequest: makeRequester(routes.user.signInNormal),
+  verifySignInRequest: makeRequester(routes.user.verifySignInNormal),
 };
 
 module.exports = {

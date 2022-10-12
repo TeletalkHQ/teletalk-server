@@ -5,6 +5,8 @@ const {
   extractVersions,
 } = require("@/functions/utilities/utilities");
 
+const { baseUrls } = require("@/routes/baseUrls");
+
 const {
   inputOutputFields: {
     countries,
@@ -15,13 +17,9 @@ const {
   },
 } = require("@/variables/others/inputOutputFields");
 
-const otherRouteBuilder = routeBuilder("/other");
+const otherRouteBuilder = routeBuilder(baseUrls.other);
 
-const otherRouteBaseUrl = otherRouteBuilder
-  .create()
-  .createBaseUrlObject("1.0.0");
-
-const getCountriesRoute = otherRouteBuilder
+const getCountries = otherRouteBuilder
   .create()
   .method("get")
   .url("/countries")
@@ -42,7 +40,7 @@ const getCountriesRoute = otherRouteBuilder
   .description("Use for get countries for normal account")
   .build();
 
-const getWelcomeMessageRoute = otherRouteBuilder
+const getWelcomeMessage = otherRouteBuilder
   .create()
   .method("get")
   .url("/welcomeMessage")
@@ -58,9 +56,8 @@ const getWelcomeMessageRoute = otherRouteBuilder
   .build();
 
 const routes = {
-  getCountriesRoute,
-  otherRouteBaseUrl,
-  getWelcomeMessageRoute,
+  getCountries,
+  getWelcomeMessage,
 };
 
 const otherRoutes = {

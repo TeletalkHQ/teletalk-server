@@ -2,14 +2,12 @@ const { Router } = require("express");
 
 const { controllers } = require("@/controllers/controllers");
 
-const {
-  testRoutes: { getAllUsersRoute },
-} = require("@/variables/routes/testRoutes");
+const { routes } = require("@/routes/routes");
 
 const testRouter = Router();
 
-testRouter[getAllUsersRoute.method](
-  getAllUsersRoute.url,
+testRouter[routes.test.getAllUsers.method](
+  routes.test.getAllUsers.url,
   controllers.getAllUsers
 );
 

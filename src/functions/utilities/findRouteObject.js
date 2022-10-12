@@ -5,33 +5,18 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { excludeVersions } = require("@/functions/utilities/utilities");
 
-//TODO Get routes from allStuff
-const { otherRouteBaseUrl, ...otherRoutes } = excludeVersions(
-  require("@/variables/routes/otherRoutes").otherRoutes
-);
-const { versionControlBaseUrl, ...versionControlRoutes } = excludeVersions(
-  require("@/variables/routes/versionControlRoutes").versionControlRoutes
-);
-const { cellphoneRouteBaseUrl, ...cellphoneRoutes } = excludeVersions(
-  require("@/variables/routes/cellphoneRoutes").cellphoneRoutes
-);
-const { userRouteBaseUrl, ...userRoutes } = excludeVersions(
-  require("@/variables/routes/userRoutes").userRoutes
-);
-const { privateChatRouteBaseUrl, ...privateChatRoutes } = excludeVersions(
-  require("@/variables/routes/privateChatRoutes").privateChatRoutes
-);
+const { routes } = require("@/routes/routes");
 
-const routes = objectUtilities.objectValues({
-  ...cellphoneRoutes,
-  ...otherRoutes,
-  ...privateChatRoutes,
-  ...userRoutes,
-  ...versionControlRoutes,
+const routesWithoutVersion = objectUtilities.objectValues({
+  ...excludeVersions(routes.cellphone),
+  ...excludeVersions(routes.other),
+  ...excludeVersions(routes.privateChat),
+  ...excludeVersions(routes.user),
+  ...excludeVersions(routes.versionControl),
 });
 
 const tryToFindRouteObject = (url) => {
-  const route = routes.find((item) => {
+  const route = routesWithoutVersion.find((item) => {
     return item.fullUrl === url;
   });
 

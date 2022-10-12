@@ -1,17 +1,18 @@
 const { expect } = require("chai");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-const { countries } = require("utility-store/src/variables/countries");
 
 const { stateManager } = require("@/classes/StateManager");
 
-const { userModels } = require("@/models/dataModels/userModels");
+const { models } = require("@/models/models");
+
+const { countries } = require("@/variables/others/countries");
 
 const getNonExistedCountryCode = () => {
   const {
-    countryCodeModel: {
+    countryCode: {
       maxlength: { value: countryCodeMaxlength },
     },
-  } = userModels;
+  } = models.native.user;
   const randomCountryCode =
     randomMaker.randomStringNumber(countryCodeMaxlength);
 

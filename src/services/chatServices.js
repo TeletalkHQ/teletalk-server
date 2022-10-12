@@ -1,13 +1,9 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+const { trier } = require("utility-store/src/classes/Trier");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const {
-  PrivateChatMongoModel,
-} = require("@/models/dataModels/privateChatMongoModel");
-const {
-  chatModels: { messageIdModel, chatIdModel },
-} = require("@/models/dataModels/chatModels");
+const { models } = require("@/models/models");
 
 const { userFinder } = require("@/services/userServices");
 
@@ -17,13 +13,15 @@ const {
 const {
   userErrors: { TARGET_USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
-const { trier } = require("utility-store/src/classes/Trier");
+
+const chatModels = models.native.chat;
+const PrivateChat = models.database.mongoDb.PrivateChat;
 
 const tryToGetChatsLastMessages = async (currentUser) => {
   const chats = [];
 
   for (const chat of currentUser.chats) {
-    const chatWithMessages = await PrivateChatMongoModel.findOne({
+    const chatWithMessages = await PrivateChat.findOne({
       chatId: chat.chatId,
     });
     if (chatWithMessages) {
@@ -54,11 +52,7 @@ const getPrivateChat = async (
   const chatExist = currentUser.chats.find((chat) => chat.chatId === chatId);
   errorThrower(!chatExist, () => CHAT_NOT_EXIST);
 
-  const chat = await PrivateChatMongoModel.findOne(
-    { chatId },
-    projections,
-    options
-  );
+  const chat = await PrivateChat.findOne({ chatId }, projections, options);
 
   errorThrower(!chat, () => CHAT_NOT_EXIST);
 
@@ -73,22 +67,22 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
   //TODO Add test for TARGET_USER_NOT_EXIST
   errorThrower(!targetUser, () => TARGET_USER_NOT_EXIST);
 
-  const chat = await PrivateChatMongoModel.findOne({
+  const chat = await PrivateChat.findOne({
     "participants.participantId": {
       $all: [currentUser.privateId, targetUser.privateId],
     },
   });
 
   const chatId =
-    chat?.chatId || randomMaker.randomId(chatIdModel.maxlength.value);
+    chat?.chatId || randomMaker.randomId(chatModels.chatId.maxlength.value);
   const newMessage = {
     message,
-    messageId: randomMaker.randomId(messageIdModel.maxlength.value),
+    messageId: randomMaker.randomId(chatModels.messageId.maxlength.value),
     messageSender: { senderId: currentUser.privateId },
   };
 
   if (!chat) {
-    await PrivateChatMongoModel.updateOne(
+    await PrivateChat.updateOne(
       { chatId },
       {
         chatId,

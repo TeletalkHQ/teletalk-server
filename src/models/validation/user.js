@@ -5,26 +5,12 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
-const {
-  userModels: {
-    bioModel,
-    countryCodeModel,
-    countryNameModel,
-    firstNameModel,
-    lastNameModel,
-    macAddressModel,
-    phoneNumberModel,
-    privateIdModel,
-    tokenModel,
-    usernameModel,
-    verificationCodeModel,
-  },
-} = require("@/models/dataModels/userModels");
+const { nativeModels } = require("@/models/native/native");
 
-const bioValidationModel = {
+const bio = {
   bio: validationModelBuilder
     .create()
-    .setModelObject(bioModel)
+    .setModelObject(nativeModels.user.bio)
     .empty()
     .max()
     .optional()
@@ -33,10 +19,10 @@ const bioValidationModel = {
   version: "1.0.0",
 };
 
-const countryCodeValidationModel = {
+const countryCode = {
   countryCode: validationModelBuilder
     .create()
-    .setModelObject(countryCodeModel)
+    .setModelObject(nativeModels.user.countryCode)
     .empty()
     .max()
     .min()
@@ -47,10 +33,10 @@ const countryCodeValidationModel = {
   version: "1.0.0",
 };
 
-const countryNameValidationModel = {
+const countryName = {
   countryName: validationModelBuilder
     .create()
-    .setModelObject(countryNameModel)
+    .setModelObject(nativeModels.user.countryName)
     .empty()
     .max()
     .min()
@@ -59,10 +45,10 @@ const countryNameValidationModel = {
   version: "1.0.0",
 };
 
-const firstNameValidationModel = {
+const firstName = {
   firstName: validationModelBuilder
     .create()
-    .setModelObject(firstNameModel)
+    .setModelObject(nativeModels.user.firstName)
     .empty()
     .max()
     .min()
@@ -72,10 +58,10 @@ const firstNameValidationModel = {
   version: "1.0.0",
 };
 
-const lastNameValidationModel = {
+const lastName = {
   lastName: validationModelBuilder
     .create()
-    .setModelObject(lastNameModel)
+    .setModelObject(nativeModels.user.lastName)
     .empty()
     .max()
     .min()
@@ -86,10 +72,10 @@ const lastNameValidationModel = {
   version: "1.0.0",
 };
 
-const macAddressValidationModel = {
+const macAddress = {
   macAddress: validationModelBuilder
     .create()
-    .setModelObject(macAddressModel)
+    .setModelObject(nativeModels.user.macAddress)
     .empty()
     .max()
     .min()
@@ -100,10 +86,10 @@ const macAddressValidationModel = {
   version: "1.0.0",
 };
 
-const phoneNumberValidationModel = {
+const phoneNumber = {
   phoneNumber: validationModelBuilder
     .create()
-    .setModelObject(phoneNumberModel)
+    .setModelObject(nativeModels.user.phoneNumber)
     .empty()
     .max()
     .min()
@@ -113,10 +99,10 @@ const phoneNumberValidationModel = {
   version: "1.0.0",
 };
 
-const privateIdValidationModel = {
+const privateId = {
   privateId: validationModelBuilder
     .create()
-    .setModelObject(privateIdModel)
+    .setModelObject(nativeModels.user.privateId)
     .max()
     .min()
     .trim()
@@ -126,10 +112,10 @@ const privateIdValidationModel = {
   version: "1.0.0",
 };
 
-const tokenValidationModel = {
+const token = {
   token: validationModelBuilder
     .create()
-    .setModelObject(tokenModel)
+    .setModelObject(nativeModels.user.token)
     .type()
     .min()
     .max()
@@ -138,10 +124,10 @@ const tokenValidationModel = {
   version: "1.0.0",
 };
 
-const verificationCodeValidationModel = {
+const verificationCode = {
   verificationCode: validationModelBuilder
     .create()
-    .setModelObject(verificationCodeModel)
+    .setModelObject(nativeModels.user.verificationCode)
     .empty()
     .length()
     .max()
@@ -151,18 +137,18 @@ const verificationCodeValidationModel = {
     .build(),
   version: "1.0.0",
 };
-const cellphoneValidationModel = {
-  ...countryCodeValidationModel,
-  ...countryNameValidationModel,
-  ...phoneNumberValidationModel,
+const cellphone = {
+  ...countryCode,
+  ...countryName,
+  ...phoneNumber,
 
   version: "1.0.0",
 };
 
-const usernameValidationModel = {
+const username = {
   username: validationModelBuilder
     .create()
-    .setModelObject(usernameModel)
+    .setModelObject(nativeModels.user.username)
     .empty()
     .lowercase()
     .max()
@@ -175,26 +161,26 @@ const usernameValidationModel = {
   version: "1.0.0",
 };
 
-const models = {
-  bioValidationModel,
-  cellphoneValidationModel,
-  countryCodeValidationModel,
-  countryNameValidationModel,
-  firstNameValidationModel,
-  lastNameValidationModel,
-  macAddressValidationModel,
-  phoneNumberValidationModel,
-  privateIdValidationModel,
-  tokenValidationModel,
-  usernameValidationModel,
-  verificationCodeValidationModel,
+const validationModels = {
+  bio,
+  cellphone,
+  countryCode,
+  countryName,
+  firstName,
+  lastName,
+  macAddress,
+  phoneNumber,
+  privateId,
+  token,
+  username,
+  verificationCode,
 };
 
-const userValidationModels = {
-  ...models,
-  version: versionCalculator(extractVersions(models)),
+const user = {
+  ...validationModels,
+  version: versionCalculator(extractVersions(validationModels)),
 };
 
 module.exports = {
-  userValidationModels,
+  user,
 };

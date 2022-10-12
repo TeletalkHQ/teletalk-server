@@ -5,9 +5,7 @@ const {
   extractVersions,
 } = require("@/functions/utilities/utilities");
 
-const {
-  commonModels: { createdAtCommonModel, privateIdCommonModel },
-} = require("@/models/dataModels/commonModels");
+const { common } = require("@/models/native/common");
 
 const {
   userErrors: {
@@ -69,7 +67,7 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-const bioModel = modelBuilder
+const bio = modelBuilder
   .create()
   .defaultValue("")
   .empty(false, BIO_EMPTY)
@@ -80,14 +78,14 @@ const bioModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const blacklistModel = modelBuilder
+const blacklist = modelBuilder
   .create()
   .defaultValue([])
   .type("array", BLACKLIST_INVALID_TYPE)
   .version("1.0.0")
   .build();
 
-const contactsModel = modelBuilder
+const contacts = modelBuilder
   .create()
   .defaultValue([])
   .maxlength(14)
@@ -97,7 +95,7 @@ const contactsModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const countryCodeModel = modelBuilder
+const countryCode = modelBuilder
   .create()
   .empty(false, COUNTRY_CODE_EMPTY)
   .maxlength(4, COUNTRY_CODE_MAXLENGTH_REACH)
@@ -109,7 +107,7 @@ const countryCodeModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const countryNameModel = modelBuilder
+const countryName = modelBuilder
   .create()
   .empty(false, COUNTRY_NAME_EMPTY)
   .maxlength(50, COUNTRY_NAME_MAXLENGTH_REACH)
@@ -119,16 +117,16 @@ const countryNameModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const chatsModel = modelBuilder
+const chats = modelBuilder
   .create()
   .type("array", CHATS_INVALID_TYPE)
   .version("1.0.0")
   .build();
 
-const createdAtModel = createdAtCommonModel;
-const privateIdModel = privateIdCommonModel;
+const createdAt = common.createdAt;
+const privateId = common.privateId;
 
-const firstNameModel = modelBuilder
+const firstName = modelBuilder
   .create()
   .empty(false, FIRST_NAME_EMPTY)
   .maxlength(18, FIRST_NAME_MAXLENGTH_REACH)
@@ -139,7 +137,7 @@ const firstNameModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const lastNameModel = modelBuilder
+const lastName = modelBuilder
   .create()
   .defaultValue("")
   .empty(false, LAST_NAME_EMPTY)
@@ -151,7 +149,7 @@ const lastNameModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const macAddressModel = modelBuilder
+const macAddress = modelBuilder
   .create()
   .empty(false, MAC_ADDRESS_EMPTY)
   .maxlength(16, MAC_ADDRESS_MAXLENGTH_REACH)
@@ -163,7 +161,7 @@ const macAddressModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const phoneNumberModel = modelBuilder
+const phoneNumber = modelBuilder
   .create()
   .empty(false, PHONE_NUMBER_EMPTY)
   .maxlength(14, PHONE_NUMBER_MAXLENGTH_REACH)
@@ -175,7 +173,7 @@ const phoneNumberModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const tokenModel = modelBuilder
+const token = modelBuilder
   .create()
   .required(true, TOKEN_REQUIRED)
   .type("string", TOKEN_INVALID_TYPE)
@@ -185,7 +183,7 @@ const tokenModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const usernameModel = modelBuilder
+const username = modelBuilder
   .create()
   .defaultValue("")
   .empty(false, USERNAME_EMPTY)
@@ -199,7 +197,7 @@ const usernameModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const verificationCodeModel = modelBuilder
+const verificationCode = modelBuilder
   .create()
   .empty(false, VERIFICATION_CODE_EMPTY)
   .length(6, VERIFICATION_CODE_INVALID_LENGTH)
@@ -211,28 +209,28 @@ const verificationCodeModel = modelBuilder
   .build();
 
 const models = {
-  bioModel,
-  blacklistModel,
-  chatsModel,
-  contactsModel,
-  countryCodeModel,
-  countryNameModel,
-  createdAtModel,
-  firstNameModel,
-  lastNameModel,
-  macAddressModel,
-  phoneNumberModel,
-  privateIdModel,
-  tokenModel,
-  usernameModel,
-  verificationCodeModel,
+  bio,
+  blacklist,
+  chats,
+  contacts,
+  countryCode,
+  countryName,
+  createdAt,
+  firstName,
+  lastName,
+  macAddress,
+  phoneNumber,
+  privateId,
+  token,
+  username,
+  verificationCode,
 };
 
-const userModels = {
+const user = {
   version: versionCalculator(extractVersions(models)),
   ...models,
 };
 
 module.exports = {
-  userModels,
+  user,
 };

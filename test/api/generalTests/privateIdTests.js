@@ -1,11 +1,12 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
-const {
-  userModels: { privateIdModel },
-} = require("@/models/dataModels/userModels");
+const { models } = require("@/models/models");
+
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
+
+const userModels = models.native.user;
 
 const privateIdSuccessTests = (
   { privateIdMain, privateIdTest } = {},
@@ -13,7 +14,7 @@ const privateIdSuccessTests = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(privateIdModel, privateIdMain, privateIdTest)
+    .setVariables(userModels.privateId, privateIdMain, privateIdTest)
     .setOptions({ modelCheck, stringEquality })
     .emptyCheck()
     .addCommonTest()

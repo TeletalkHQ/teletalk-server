@@ -4,12 +4,10 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { getPrivateChatMessages } = require("@/services/chatServices");
 
-const {
-  chatValidators: { chatIdValidator },
-} = require("@/validators/chatValidators");
+const { validators } = require("@/validators/validators");
 
 const tryToGetMessages = async (currentUser, chatId) => {
-  await chatIdValidator(chatId);
+  await validators.chatId(chatId);
   const privateChatMessages = await getPrivateChatMessages(currentUser, chatId);
   return privateChatMessages;
 };

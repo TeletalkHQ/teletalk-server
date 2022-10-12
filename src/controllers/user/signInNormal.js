@@ -15,7 +15,7 @@ const {
   passwordGenerator,
 } = require("@/functions/utilities/passwordGenerator");
 
-const { verificationCodeValidator } = require("@/validators/userValidators");
+const { validators } = require("@/validators/validators");
 
 const makeSmsText = (verificationCode, host) => {
   const smsText = smsClient
@@ -34,7 +34,7 @@ const makeFullNumber = (cellphone) => {
 };
 
 const tryToValidateVerificationCode = async (verificationCode) => {
-  await verificationCodeValidator(verificationCode);
+  await validators.verificationCode(verificationCode);
 };
 
 const tryToSendVerificationCodeAsSms = async (

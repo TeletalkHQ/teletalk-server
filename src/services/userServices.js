@@ -5,7 +5,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { UserMongoModel } = require("@/models/dataModels/userMongoModel");
+const { models } = require("@/models/models");
 
 const {
   initialOptions: { userInitialOptions },
@@ -21,8 +21,10 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
+const User = models.database.mongoDb.User;
+
 const tryToFindUser = async (userData, options) => {
-  return await UserMongoModel.findOne(userData, undefined, options);
+  return await User.findOne(userData, undefined, options);
 };
 const userFinder = async (
   userData = userInitialOptions,
@@ -214,7 +216,7 @@ const updatePersonalInfo = async (currentUser, updateProperties) => {
 };
 
 const tryToCreateNewNormalUser = async (userData) => {
-  const newUser = new UserMongoModel(userData);
+  const newUser = new User(userData);
   await newUser.save();
 
   return { ok: true };
@@ -239,7 +241,7 @@ const tryToAddTestUser = async ({
   phoneNumber,
   privateId,
 }) => {
-  const user = await UserMongoModel.findOneAndUpdate(
+  const user = await User.findOneAndUpdate(
     { countryCode, countryName, phoneNumber },
     {
       tokens: [{ mainToken }],
@@ -270,12 +272,12 @@ const getAllChats = (currentUser) => {
 };
 
 const getAllUsers = async () => {
-  const users = await UserMongoModel.find();
+  const users = await User.find();
   return users;
 };
 
 const tryToGetUserData = async (privateId) => {
-  const user = await UserMongoModel.findOne({ privateId }, undefined, {
+  const user = await User.findOne({ privateId }, undefined, {
     lean: true,
   });
   errorThrower(!user, () => ({
@@ -293,7 +295,7 @@ const getUserData = async (privateId) => {
 
 const removeTestUsers = async (length) => {
   for (let i = 0; i < length; i++) {
-    await UserMongoModel.remove();
+    await User.remove();
   }
 };
 

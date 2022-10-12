@@ -1,8 +1,9 @@
 const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
-const {
-  chatModels: { participantIdModel },
-} = require("@/models/dataModels/chatModels");
+const { models } = require("@/models/models");
+
+const chatModels = models.native.chat;
+
 const {
   chatErrors: {
     PARTICIPANT_ID_INVALID_TYPE,
@@ -27,7 +28,12 @@ const {
 
 const participantIdFailureTests = (configuredCustomRequest, data = {}) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, participantIdModel, "participantId")
+    .create(
+      configuredCustomRequest,
+      data,
+      chatModels.participantId,
+      "participantId"
+    )
     .required(PARTICIPANT_ID_REQUIRED)
     .invalidType_typeIsString(PARTICIPANT_ID_INVALID_TYPE)
     .minlength(PARTICIPANT_ID_MIN_LENGTH_REACH)

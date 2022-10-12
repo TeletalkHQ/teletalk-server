@@ -1,8 +1,7 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
-const {
-  chatModels: { chatIdModel },
-} = require("@/models/dataModels/chatModels");
+const { models } = require("@/models/models");
 
 const {
   chatErrors: {
@@ -15,7 +14,8 @@ const {
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-const { failTestBuilder } = require("@/classes/FailTestBuilder");
+
+const chatModels = models.native.chat;
 
 const chatIdSuccessTests = (
   { chatIdMain, chatIdTest } = {},
@@ -23,7 +23,7 @@ const chatIdSuccessTests = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(chatIdModel, chatIdMain, chatIdTest)
+    .setVariables(chatModels.chatId, chatIdMain, chatIdTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
     .execute();
@@ -31,7 +31,7 @@ const chatIdSuccessTests = (
 
 const chatIdFailureTests = (configuredCustomRequest, data = {}) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, chatIdModel, "chatId")
+    .create(configuredCustomRequest, data, chatModels.chatId, "chatId")
     .required(CHAT_ID_REQUIRED)
     .minlength(CHAT_ID_MIN_LENGTH_REACH)
     .maxlength(CHAT_ID_MAX_LENGTH_REACH)

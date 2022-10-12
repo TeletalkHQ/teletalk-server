@@ -2,28 +2,14 @@ const mongoose = require("mongoose");
 
 const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
-const { mongooseUniqueValidator } = require("@/others/mongoosePlugins");
+const { mongooseUniqueValidator } = require("@/plugins/mongoosePlugins");
 
 const { excludeVersions } = require("@/functions/utilities/utilities");
 
-const {
-  bioModel,
-  countryCodeModel,
-  countryNameModel,
-  createdAtModel,
-  firstNameModel,
-  lastNameModel,
-  phoneNumberModel,
-  tokenModel,
-  usernameModel,
-} = excludeVersions(require("@/models/dataModels/userModels").userModels);
-const {
-  commonModels: {
-    chatIdCommonModel,
-    messageIdCommonModel,
-    privateIdCommonModel,
-  },
-} = require("@/models/dataModels/commonModels");
+const { nativeModels } = require("@/models/native/native");
+
+const userModelsWithoutVersion = excludeVersions(nativeModels.user);
+const commonModelsWithoutVersion = excludeVersions(nativeModels.common);
 
 const {
   bio,
@@ -41,14 +27,14 @@ const {
 } = {
   bio: mongoModelBuilder
     .create()
-    .setModelObject(bioModel)
+    .setModelObject(userModelsWithoutVersion.bio)
     .type()
     .maxlength()
     .minlength()
     .build(),
   chatId: mongoModelBuilder
     .create()
-    .setModelObject(chatIdCommonModel)
+    .setModelObject(commonModelsWithoutVersion.chatId)
     .type()
     .maxlength()
     .minlength()
@@ -57,7 +43,7 @@ const {
     .build(),
   countryCode: mongoModelBuilder
     .create()
-    .setModelObject(countryCodeModel)
+    .setModelObject(userModelsWithoutVersion.countryCode)
     .type()
     .maxlength()
     .minlength()
@@ -65,7 +51,7 @@ const {
     .build(),
   countryName: mongoModelBuilder
     .create()
-    .setModelObject(countryNameModel)
+    .setModelObject(userModelsWithoutVersion.countryName)
     .type()
     .maxlength()
     .minlength()
@@ -73,13 +59,13 @@ const {
     .build(),
   createdAt: mongoModelBuilder
     .create()
-    .setModelObject(createdAtModel)
+    .setModelObject(userModelsWithoutVersion.createdAt)
     .type()
     .defaultValue()
     .build(),
   firstName: mongoModelBuilder
     .create()
-    .setModelObject(firstNameModel)
+    .setModelObject(userModelsWithoutVersion.firstName)
     .type()
     .maxlength()
     .minlength()
@@ -87,14 +73,14 @@ const {
     .build(),
   lastMessage: mongoModelBuilder
     .create()
-    .setModelObject(messageIdCommonModel)
+    .setModelObject(commonModelsWithoutVersion.messageId)
     .type()
     .minlength()
     .maxlength()
     .build(),
   lastName: mongoModelBuilder
     .create()
-    .setModelObject(lastNameModel)
+    .setModelObject(userModelsWithoutVersion.lastName)
     .type()
     .maxlength()
     .trim()
@@ -102,14 +88,14 @@ const {
     .build(),
   mainToken: mongoModelBuilder
     .create()
-    .setModelObject(tokenModel)
+    .setModelObject(userModelsWithoutVersion.token)
     .type()
     .required()
     .unique()
     .build(),
   phoneNumber: mongoModelBuilder
     .create()
-    .setModelObject(phoneNumberModel)
+    .setModelObject(userModelsWithoutVersion.phoneNumber)
     .type()
     .maxlength()
     .minlength()
@@ -117,7 +103,7 @@ const {
     .build(),
   privateId: mongoModelBuilder
     .create()
-    .setModelObject(privateIdCommonModel)
+    .setModelObject(commonModelsWithoutVersion.privateId)
     .type()
     .minlength()
     .maxlength()
@@ -127,14 +113,13 @@ const {
     .build(),
   username: mongoModelBuilder
     .create()
-    .setModelObject(usernameModel)
+    .setModelObject(userModelsWithoutVersion.username)
     .type()
     .trim()
     .maxlength()
     .defaultValue()
     .lowercase()
-    .build(),
-  // validate: {
+    .build(), // validate: {
   // 	validator: function (value) {
   // 		return /^[a-z\s]{0,255}$/i.test(value);
   // 	},
@@ -197,6 +182,6 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(mongooseUniqueValidator);
 
-const UserMongoModel = mongoose.model("User", UserSchema, "users");
+const User = mongoose.model("User", UserSchema, "users");
 
-module.exports = { UserMongoModel };
+module.exports = { User };

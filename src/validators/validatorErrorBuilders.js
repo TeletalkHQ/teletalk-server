@@ -70,7 +70,7 @@ const {
 
 const { countries } = require("@/variables/others/countries");
 
-const countryCodeValidatorErrorBuilder = (validationResult, countryCode) => {
+const countryCode = (validationResult, countryCode) => {
   const errorBuilder = validationErrorBuilder.create();
 
   errorBuilder
@@ -94,7 +94,7 @@ const countryCodeValidatorErrorBuilder = (validationResult, countryCode) => {
     .execute();
 };
 
-const countryNameValidatorErrorBuilder = (validationResult, countryName) => {
+const countryName = (validationResult, countryName) => {
   const errorBuilder = validationErrorBuilder.create();
 
   errorBuilder
@@ -117,7 +117,7 @@ const countryNameValidatorErrorBuilder = (validationResult, countryName) => {
     .execute();
 };
 
-const firstNameValidatorErrorBuilder = (validationResult, firstName) => {
+const firstName = (validationResult, firstName) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -133,7 +133,7 @@ const firstNameValidatorErrorBuilder = (validationResult, firstName) => {
     .execute();
 };
 
-const lastNameValidatorErrorBuilder = (validationResult, lastName) => {
+const lastName = (validationResult, lastName) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -146,7 +146,7 @@ const lastNameValidatorErrorBuilder = (validationResult, lastName) => {
     .execute();
 };
 
-const phoneNumberValidatorErrorBuilder = (validationResult, phoneNumber) => {
+const phoneNumber = (validationResult, phoneNumber) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -164,7 +164,7 @@ const phoneNumberValidatorErrorBuilder = (validationResult, phoneNumber) => {
     .execute();
 };
 
-const privateIdValidatorErrorBuilder = (validationResult, privateId) => {
+const privateId = (validationResult, privateId) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -181,7 +181,7 @@ const privateIdValidatorErrorBuilder = (validationResult, privateId) => {
     .execute();
 };
 
-const usernameValidatorErrorBuilder = (validationResult, username) => {
+const username = (validationResult, username) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -196,10 +196,7 @@ const usernameValidatorErrorBuilder = (validationResult, username) => {
     .execute();
 };
 
-const verificationCodeValidatorErrorBuilder = (
-  validationResult,
-  verificationCode
-) => {
+const verificationCode = (validationResult, verificationCode) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -216,10 +213,7 @@ const verificationCodeValidatorErrorBuilder = (
     .execute();
 };
 
-const participantIdValidatorErrorBuilder = (
-  validationResult,
-  participantId
-) => {
+const participantId = (validationResult, participantId) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -236,7 +230,7 @@ const participantIdValidatorErrorBuilder = (
     .execute();
 };
 
-const messageTextValidatorErrorBuilder = (validationResult, messageText) => {
+const messageText = (validationResult, messageText) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -253,7 +247,7 @@ const messageTextValidatorErrorBuilder = (validationResult, messageText) => {
     .execute();
 };
 
-const chatIdValidatorErrorBuilder = (validationResult, chatId) => {
+const chatId = (validationResult, chatId) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -270,16 +264,20 @@ const chatIdValidatorErrorBuilder = (validationResult, chatId) => {
     .execute();
 };
 
+const validatorErrorBuilder = {
+  chatId,
+  countryCode,
+  countryName,
+  firstName,
+  lastName,
+  messageText,
+  participantId,
+  phoneNumber,
+  privateId,
+  username,
+  verificationCode,
+};
+
 module.exports = {
-  countryCodeValidatorErrorBuilder,
-  countryNameValidatorErrorBuilder,
-  firstNameValidatorErrorBuilder,
-  lastNameValidatorErrorBuilder,
-  messageTextValidatorErrorBuilder,
-  participantIdValidatorErrorBuilder,
-  phoneNumberValidatorErrorBuilder,
-  privateIdValidatorErrorBuilder,
-  usernameValidatorErrorBuilder,
-  verificationCodeValidatorErrorBuilder,
-  chatIdValidatorErrorBuilder,
+  validatorErrorBuilder,
 };

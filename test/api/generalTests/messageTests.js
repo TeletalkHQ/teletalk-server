@@ -1,8 +1,7 @@
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
-const {
-  chatModels: { messageModel },
-} = require("@/models/dataModels/chatModels");
+const { models } = require("@/models/models");
 
 const {
   chatErrors: {
@@ -15,7 +14,8 @@ const {
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-const { failTestBuilder } = require("@/classes/FailTestBuilder");
+
+const chatModels = models.native.chat;
 
 const messageSuccessTests = (
   { messageMain, messageTest } = {},
@@ -23,7 +23,7 @@ const messageSuccessTests = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(messageModel, messageMain, messageTest)
+    .setVariables(chatModels.message, messageMain, messageTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
     .execute();
@@ -31,7 +31,7 @@ const messageSuccessTests = (
 
 const messageFailureTests = (configuredCustomRequest, data) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, messageModel, "message")
+    .create(configuredCustomRequest, data, chatModels.message, "message")
     .required(MESSAGE_TEXT_REQUIRED)
     .maxlength(MESSAGE_TEXT_MAX_LENGTH_REACH)
     .minlength(MESSAGE_TEXT_MIN_LENGTH_REACH)

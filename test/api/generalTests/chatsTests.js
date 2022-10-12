@@ -1,11 +1,9 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
-const {
-  chatModels: { chatIdModel },
-} = require("@/models/dataModels/chatModels");
-const {
-  userModels: { chatsModel },
-} = require("@/models/dataModels/userModels");
+const { models } = require("@/models/models");
+
+const userModels = models.native.user;
+const chatModels = models.native.chat;
 
 const chatsSuccessTests = (
   { chatsTest } = {},
@@ -15,7 +13,7 @@ const chatsSuccessTests = (
 ) => {
   const ts = successTestBuilder
     .create()
-    .setVariables(chatsModel, undefined, chatsTest)
+    .setVariables(userModels.chats, undefined, chatsTest)
     .setOptions({ modelCheck });
 
   ts.typeCheck().execute();
@@ -24,7 +22,7 @@ const chatsSuccessTests = (
     const chat = chatsTest[0];
     //TODO: Add types to static variables
     ts.customTypeCheck(chat, "object")
-      .setVariables(chatIdModel, undefined, chat.chatId)
+      .setVariables(chatModels.chatId, undefined, chat.chatId)
       .typeCheck()
       .gteCheck()
       .lteCheck()

@@ -1,24 +1,12 @@
-const { chatModels } = require("@/models/dataModels/chatModels");
-const { commonModels } = require("@/models/dataModels/commonModels");
-const { userModels } = require("@/models/dataModels/userModels");
-const {
-  chatValidationModels,
-} = require("@/models/validationModels/chatValidationModels");
-const {
-  userValidationModels,
-} = require("@/models/validationModels/userValidationModels");
+const { models } = require("@/models/models");
+const { chatValidationModels } = require("@/models/validation/chat");
+const { userValidationModels } = require("@/models/validation/user");
 
 const { routes } = require("@/routes/routes");
 
 const { appErrors } = require("@/variables/errors/appErrors");
 const { chatErrors } = require("@/variables/errors/chatErrors");
 const { userErrors } = require("@/variables/errors/userErrors");
-
-const models = {
-  ...chatModels,
-  ...commonModels,
-  ...userModels,
-};
 
 const validationModels = {
   ...chatValidationModels,
@@ -33,7 +21,11 @@ const errors = {
 
 const allStuff = {
   errors,
-  models,
+  models: {
+    ...models.native.chat,
+    ...models.native.common,
+    ...models.native.user,
+  },
   routes: {
     ...routes.cellphone,
     ...routes.other,

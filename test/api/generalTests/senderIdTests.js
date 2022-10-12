@@ -1,8 +1,9 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
-const {
-  chatModels: { senderIdModel },
-} = require("@/models/dataModels/chatModels");
+const { models } = require("@/models/models");
+
+const chatModels = models.native.chat;
+
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
@@ -13,7 +14,7 @@ const senderIdSuccessTests = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(senderIdModel, participantIdMain, participantIdTest)
+    .setVariables(chatModels.senderId, participantIdMain, participantIdTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
     .execute();

@@ -4,9 +4,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
 
-const {
-  userModels: { firstNameModel, lastNameModel },
-} = require("@/models/dataModels/userModels");
+const { models } = require("@/models/models");
 
 const {
   requesters: {
@@ -19,9 +17,11 @@ const {
   },
 } = require("@/variables/others/testVariables");
 
+const userModels = models.native.user;
+
 const fullName = userPropsUtilities.makeRandomFullName(
-  firstNameModel.maxlength.value,
-  lastNameModel.maxlength.value
+  userModels.firstName.maxlength.value,
+  userModels.lastName.maxlength.value
 );
 
 //TODO Add USER_EXIST fail tests

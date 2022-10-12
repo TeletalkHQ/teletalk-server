@@ -1,8 +1,7 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
-const {
-  userModels: { lastNameModel },
-} = require("@/models/dataModels/userModels");
+const { models } = require("@/models/models");
 
 const {
   userErrors: {
@@ -14,7 +13,8 @@ const {
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-const { failTestBuilder } = require("@/classes/FailTestBuilder");
+
+const userModels = models.native.user;
 
 const lastNameSuccessTests = (
   { lastNameMain, lastNameTest } = {},
@@ -22,19 +22,21 @@ const lastNameSuccessTests = (
 ) => {
   const ts = successTestBuilder
     .create()
-    .setVariables(lastNameModel, lastNameMain, lastNameTest)
+    .setVariables(userModels.lastName, lastNameMain, lastNameTest)
     .setOptions({ modelCheck, stringEquality });
 
   ts.stringEquality()
     .typeCheck()
     .emptyCheck()
-    .checkAndExecute(lastNameModel.empty.value === false, () => ts.lteCheck())
+    .checkAndExecute(userModels.lastName.empty.value === false, () =>
+      ts.lteCheck()
+    )
     .execute();
 };
 
 const lastNameFailureTests = (configuredCustomRequest, data) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, lastNameModel, "lastName")
+    .create(configuredCustomRequest, data, userModels.lastName, "lastName")
     .maxlength(LAST_NAME_MAXLENGTH_REACH)
     .minlength(LAST_NAME_MINLENGTH_REACH)
     .invalidType_typeIsString(LAST_NAME_INVALID_TYPE);

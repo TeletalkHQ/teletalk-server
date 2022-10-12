@@ -10,35 +10,32 @@ const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
+
 const {
-  commonModels: { privateIdCommonModel },
-} = require("@/models/dataModels/commonModels");
+  common: { privateId: privateIdCommonModel },
+} = require("@/models/native/common");
 
 const { createNewNormalUser, userFinder } = require("@/services/userServices");
 
-const {
-  firstNameValidator,
-  lastNameValidator,
-  tokenValidator,
-} = require("@/validators/userValidators");
+const { validators } = require("@/validators/validators");
 const {
   userErrors: { USER_EXIST, USER_NOT_EXIST },
 } = require("@/variables/errors/userErrors");
 
 const tryToExtractCellphoneFromToken = async (verifyToken) => {
   const jwtSecret = authManager.getJwtSignInSecret();
-  const verifiedToken = await tokenValidator(verifyToken, jwtSecret);
+  const verifiedToken = await validators.token(verifyToken, jwtSecret);
   errorThrower(verifiedToken.ok === false, () => verifiedToken.error);
   const cellphone = userPropsUtilities.extractCellphone(verifiedToken.payload);
   return cellphone;
 };
 
 const tryToValidateFirstName = async (firstName) => {
-  await firstNameValidator(firstName);
+  await validators.firstName(firstName);
 };
 
 const tryToValidateLastName = async (lastName) => {
-  await lastNameValidator(lastName);
+  await validators.lastName(lastName);
 };
 
 const tryToFindTemporaryClient = async (cellphone) => {

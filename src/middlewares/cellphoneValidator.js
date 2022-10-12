@@ -3,11 +3,11 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { cellphoneValidator } = require("@/validators/userValidators");
+const { validators } = require("@/validators/validators");
 
 const tryToValidateCellphone = async (userData) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);
-  await cellphoneValidator(cellphone);
+  await validators.cellphone(cellphone);
   return { ok: true };
 };
 

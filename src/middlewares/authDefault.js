@@ -3,12 +3,12 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { authManager } = require("@/classes/AuthManager");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { tokenValidator } = require("@/validators/userValidators");
+const { validators } = require("@/validators/validators");
 
 const tryToValidateToken = async (req) => {
   const token = authManager.getTokenFromRequest(req);
   const secret = authManager.getSecretWithUrlCondition(req.url);
-  const validationResult = await tokenValidator(token, secret);
+  const validationResult = await validators.token(token, secret);
   return { validationResult, ok: true };
 };
 

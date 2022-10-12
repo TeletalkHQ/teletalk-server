@@ -1,8 +1,8 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
-const {
-  userModels: { phoneNumberModel },
-} = require("@/models/dataModels/userModels");
+const { models } = require("@/models/models");
+
 const {
   userErrors: {
     PHONE_NUMBER_INVALID_TYPE,
@@ -15,7 +15,8 @@ const {
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
-const { failTestBuilder } = require("@/classes/FailTestBuilder");
+
+const userModels = models.native.user;
 
 const phoneNumberSuccessTests = (
   { phoneNumberMain, phoneNumberTest } = {},
@@ -23,7 +24,7 @@ const phoneNumberSuccessTests = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(phoneNumberModel, phoneNumberMain, phoneNumberTest)
+    .setVariables(userModels.phoneNumber, phoneNumberMain, phoneNumberTest)
     .setOptions({ modelCheck, stringEquality })
     .emptyCheck()
     .numericCheck()
@@ -33,7 +34,12 @@ const phoneNumberSuccessTests = (
 
 const phoneNumberFailureTests = (configuredCustomRequest, data) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, phoneNumberModel, "phoneNumber")
+    .create(
+      configuredCustomRequest,
+      data,
+      userModels.phoneNumber,
+      "phoneNumber"
+    )
     .required(PHONE_NUMBER_REQUIRED)
     .invalidType_typeIsString(PHONE_NUMBER_INVALID_TYPE)
     .numeric(PHONE_NUMBER_NUMERIC)

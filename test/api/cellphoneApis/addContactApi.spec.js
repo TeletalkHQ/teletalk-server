@@ -1,9 +1,7 @@
 const { generalTest } = require("@/classes/GeneralTest");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const {
-  userModels: { firstNameModel, lastNameModel },
-} = require("@/models/dataModels/userModels");
+const { models } = require("@/models/models");
 
 const {
   requesters: { addContactRequest },
@@ -17,6 +15,8 @@ const {
   },
 } = require("@/variables/others/testVariables");
 const { countries } = require("@/variables/others/countries");
+
+const userModels = models.native.user;
 
 const configuredAddContactRequester = addContactRequest();
 
@@ -76,8 +76,8 @@ describe("addContact failure tests", () => {
   });
 
   const contact = userPropsUtilities.makeRandomContact(
-    firstNameModel.maxlength.value,
-    lastNameModel.maxlength.value,
+    userModels.firstName.maxlength.value,
+    userModels.lastName.maxlength.value,
     countries
   );
   generalTest

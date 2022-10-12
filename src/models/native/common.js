@@ -35,7 +35,7 @@ const {
   },
 } = require("@/variables/errors/userErrors");
 
-const createdAtCommonModel = modelBuilder
+const createdAt = modelBuilder
   .create()
   .defaultValue(Date.now)
   .required(true, CREATED_AT_REQUIRED)
@@ -43,7 +43,7 @@ const createdAtCommonModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const privateIdCommonModel = modelBuilder
+const privateId = modelBuilder
   .create()
   .empty(false, PRIVATE_ID_EMPTY)
   .maxlength(35, PRIVATE_ID_MAX_LENGTH_REACH)
@@ -55,7 +55,7 @@ const privateIdCommonModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const chatIdCommonModel = modelBuilder
+const chatId = modelBuilder
   .create()
   .empty(false, CHAT_ID_EMPTY)
   .maxlength(35, CHAT_ID_MAX_LENGTH_REACH)
@@ -67,7 +67,7 @@ const chatIdCommonModel = modelBuilder
   .version("1.0.0")
   .build();
 
-const messageIdCommonModel = modelBuilder
+const messageId = modelBuilder
   .create()
   .defaultValue(randomMaker.randomId)
   .maxlength(45, MESSAGE_ID_MAX_LENGTH_REACH)
@@ -80,17 +80,17 @@ const messageIdCommonModel = modelBuilder
   .build();
 
 const models = {
-  chatIdCommonModel,
-  createdAtCommonModel,
-  messageIdCommonModel,
-  privateIdCommonModel,
+  chatId,
+  createdAt,
+  messageId,
+  privateId,
 };
 
-const commonModels = {
+const common = {
   version: versionCalculator(extractVersions(models)),
   ...models,
 };
 
 module.exports = {
-  commonModels,
+  common,
 };

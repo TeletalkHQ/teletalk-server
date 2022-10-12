@@ -5,14 +5,12 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
-const {
-  chatModels: { chatIdModel, messageIdModel, messageModel, participantIdModel },
-} = require("@/models/dataModels/chatModels");
+const { nativeModels } = require("@/models/native/native");
 
-const messageIdValidationModel = {
+const messageId = {
   messageId: validationModelBuilder
     .create()
-    .setModelObject(messageIdModel)
+    .setModelObject(nativeModels.chat.messageId)
     .type()
     .unique()
     .min()
@@ -22,10 +20,10 @@ const messageIdValidationModel = {
   version: "1.0.0",
 };
 
-const chatIdValidationModel = {
+const chatId = {
   chatId: validationModelBuilder
     .create()
-    .setModelObject(chatIdModel)
+    .setModelObject(nativeModels.chat.chatId)
     .type()
     .unique()
     .empty()
@@ -36,10 +34,10 @@ const chatIdValidationModel = {
   version: "1.0.0",
 };
 
-const messageTextValidationModel = {
+const messageText = {
   message: validationModelBuilder
     .create()
-    .setModelObject(messageModel)
+    .setModelObject(nativeModels.chat.message)
     .type()
     .empty()
     .min()
@@ -48,10 +46,10 @@ const messageTextValidationModel = {
   version: "1.0.0",
 };
 
-const participantIdValidationModel = {
+const participantId = {
   participantId: validationModelBuilder
     .create()
-    .setModelObject(participantIdModel)
+    .setModelObject(nativeModels.chat.participantId)
     .empty()
     .max()
     .min()
@@ -62,16 +60,16 @@ const participantIdValidationModel = {
   version: "1.0.0",
 };
 
-const models = {
-  chatIdValidationModel,
-  messageIdValidationModel,
-  messageTextValidationModel,
-  participantIdValidationModel,
+const validationModels = {
+  chatId,
+  messageId,
+  messageText,
+  participantId,
 };
 
-const chatValidationModels = {
-  ...models,
-  version: versionCalculator(extractVersions(models)),
+const chat = {
+  ...validationModels,
+  version: versionCalculator(extractVersions(validationModels)),
 };
 
-module.exports = { chatValidationModels };
+module.exports = { chat };

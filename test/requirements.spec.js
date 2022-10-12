@@ -10,8 +10,8 @@ const { eventManager } = require("@/classes/EventManager");
 const { setTestUsers } = require("@/functions/utilities/testUtilities");
 
 const {
-  commonModels: { privateIdCommonModel },
-} = require("@/models/dataModels/commonModels");
+  common: { privateId: privateIdCommonModel },
+} = require("@/models/native/common");
 
 const { countries } = require("@/variables/others/countries");
 

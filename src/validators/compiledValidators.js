@@ -1,112 +1,88 @@
 const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
-const {
-  chatValidationModels: {
-    chatIdValidationModel,
-    messageIdValidationModel,
-    messageTextValidationModel,
-    participantIdValidationModel,
-  },
-} = require("@/models/validationModels/chatValidationModels");
+const { models } = require("@/models/models");
 
-const {
-  commonValidationModels: { createdAtValidationModel },
-} = require("@/models/validationModels/commonValidationModels");
+const validationModels = models.validation;
 
-const {
-  userValidationModels: {
-    bioValidationModel,
-    countryCodeValidationModel,
-    countryNameValidationModel,
-    firstNameValidationModel,
-    lastNameValidationModel,
-    macAddressValidationModel,
-    phoneNumberValidationModel,
-    privateIdValidationModel,
-    tokenValidationModel,
-    usernameValidationModel,
-    verificationCodeValidationModel,
-  },
-} = require("@/models/validationModels/userValidationModels");
+const bio = ValidationModelBuilder.validatorCompiler(validationModels.user.bio);
 
-const compiledBioValidator =
-  ValidationModelBuilder.validatorCompiler(bioValidationModel);
-
-const compiledChatIdValidator = ValidationModelBuilder.validatorCompiler(
-  chatIdValidationModel
+const chatId = ValidationModelBuilder.validatorCompiler(
+  validationModels.chat.chatId
 );
 
-const compiledMessageIdValidator = ValidationModelBuilder.validatorCompiler(
-  messageIdValidationModel
+const messageId = ValidationModelBuilder.validatorCompiler(
+  validationModels.chat.messageId
 );
 
-const compiledMessageTextValidator = ValidationModelBuilder.validatorCompiler(
-  messageTextValidationModel
+const messageText = ValidationModelBuilder.validatorCompiler(
+  validationModels.chat.messageText
 );
 
-const compiledParticipantIdValidator = ValidationModelBuilder.validatorCompiler(
-  participantIdValidationModel
+const participantId = ValidationModelBuilder.validatorCompiler(
+  validationModels.chat.participantId
 );
 
-const compiledCountryCodeValidator = ValidationModelBuilder.validatorCompiler(
-  countryCodeValidationModel
+const countryCode = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.countryCode
 );
 
-const compiledCountryNameValidator = ValidationModelBuilder.validatorCompiler(
-  countryNameValidationModel
+const countryName = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.countryName
 );
 
-const compiledCreatedAtValidator = ValidationModelBuilder.validatorCompiler(
-  createdAtValidationModel
+const createdAt = ValidationModelBuilder.validatorCompiler(
+  validationModels.common.createdAt
 );
 
-const compiledFirstNameValidator = ValidationModelBuilder.validatorCompiler(
-  firstNameValidationModel
+const firstName = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.firstName
 );
 
-const compiledLastNameValidator = ValidationModelBuilder.validatorCompiler(
-  lastNameValidationModel
+const lastName = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.lastName
 );
 
-const compiledMacAddressValidator = ValidationModelBuilder.validatorCompiler(
-  macAddressValidationModel
+const macAddress = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.macAddress
 );
 
-const compiledPhoneNumberValidator = ValidationModelBuilder.validatorCompiler(
-  phoneNumberValidationModel
+const phoneNumber = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.phoneNumber
 );
 
-const compiledPrivateIdValidator = ValidationModelBuilder.validatorCompiler(
-  privateIdValidationModel
+const privateId = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.privateId
 );
 
-const compiledTokenValidator =
-  ValidationModelBuilder.validatorCompiler(tokenValidationModel);
-
-const compiledUsernameValidator = ValidationModelBuilder.validatorCompiler(
-  usernameValidationModel
+const token = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.token
 );
 
-const compiledVerificationCodeValidator =
-  ValidationModelBuilder.validatorCompiler(verificationCodeValidationModel);
+const username = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.username
+);
+
+const verificationCode = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.verificationCode
+);
 
 const compiledValidators = {
-  compiledBioValidator,
-  compiledChatIdValidator,
-  compiledCountryCodeValidator,
-  compiledCountryNameValidator,
-  compiledCreatedAtValidator,
-  compiledFirstNameValidator,
-  compiledLastNameValidator,
-  compiledMacAddressValidator,
-  compiledMessageIdValidator,
-  compiledMessageTextValidator,
-  compiledParticipantIdValidator,
-  compiledPhoneNumberValidator,
-  compiledPrivateIdValidator,
-  compiledTokenValidator,
-  compiledUsernameValidator,
-  compiledVerificationCodeValidator,
+  bio,
+  chatId,
+  countryCode,
+  countryName,
+  createdAt,
+  firstName,
+  lastName,
+  macAddress,
+  messageId,
+  messageText,
+  participantId,
+  phoneNumber,
+  privateId,
+  token,
+  username,
+  verificationCode,
 };
 
 module.exports = { compiledValidators };

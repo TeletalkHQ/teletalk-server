@@ -2,10 +2,10 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { verificationCodeValidator } = require("@/validators/userValidators");
+const { validators } = require("@/validators/validators");
 
 const tryToValidateVerificationCode = async (verificationCode) => {
-  await verificationCodeValidator(verificationCode);
+  await validators.verificationCode(verificationCode);
 };
 
 const catchValidateVerificationCode =
@@ -14,7 +14,7 @@ const catchValidateVerificationCode =
 const verificationCodeValidatorMiddleware = async (req, res, next) => {
   const { verificationCode } = req.body;
   (
-    await trier(verificationCodeValidator.name).tryAsync(
+    await trier(verificationCodeValidatorMiddleware.name).tryAsync(
       tryToValidateVerificationCode,
       verificationCode
     )

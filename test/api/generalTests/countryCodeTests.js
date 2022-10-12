@@ -5,9 +5,9 @@ const {
   getNonExistedCountryCode,
 } = require("@/functions/utilities/testUtilities");
 
-const {
-  userModels: { countryCodeModel },
-} = require("@/models/dataModels/userModels");
+const { models } = require("@/models/models");
+
+const userModels = models.native.user;
 
 const {
   userErrors: {
@@ -29,7 +29,7 @@ const countryCodeSuccessTests = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(countryCodeModel, countryCodeMain, countryCodeTest)
+    .setVariables(userModels.countryCode, countryCodeMain, countryCodeTest)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
     .emptyCheck()
@@ -39,7 +39,12 @@ const countryCodeSuccessTests = (
 
 const countryCodeFailureTests = (configuredCustomRequest, data) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, countryCodeModel, "countryCode")
+    .create(
+      configuredCustomRequest,
+      data,
+      userModels.countryCode,
+      "countryCode"
+    )
     .required(COUNTRY_CODE_REQUIRED)
     .numeric(COUNTRY_CODE_NUMERIC)
     .invalidType_typeIsString(COUNTRY_CODE_INVALID_TYPE)

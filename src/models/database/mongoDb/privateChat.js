@@ -2,22 +2,17 @@ const mongoose = require("mongoose");
 
 const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
-const { mongooseUniqueValidator } = require("@/others/mongoosePlugins");
+const { mongooseUniqueValidator } = require("@/plugins/mongoosePlugins");
 
-const {
-  chatModels: {
-    chatIdModel,
-    createdAtModel,
-    messageIdModel,
-    messageModel,
-    participantIdModel,
-  },
-} = require("@/models/dataModels/chatModels");
+const { nativeModels } = require("@/models/native/native");
+const { excludeVersions } = require("@/functions/utilities/utilities");
+
+const chatModelsWithoutVersion = excludeVersions(nativeModels.chat);
 
 const { chatId, createdAt, message, messageId, participantId } = {
   chatId: mongoModelBuilder
     .create()
-    .setModelObject(chatIdModel)
+    .setModelObject(chatModelsWithoutVersion.chatId)
     .type()
     .maxlength()
     .minlength()
@@ -26,21 +21,21 @@ const { chatId, createdAt, message, messageId, participantId } = {
     .build(),
   createdAt: mongoModelBuilder
     .create()
-    .setModelObject(createdAtModel)
+    .setModelObject(chatModelsWithoutVersion.createdAt)
     .type()
     .required()
     .defaultValue()
     .build(),
   message: mongoModelBuilder
     .create()
-    .setModelObject(messageModel)
+    .setModelObject(chatModelsWithoutVersion.message)
     .type()
     .maxlength()
     .minlength()
     .build(),
   messageId: mongoModelBuilder
     .create()
-    .setModelObject(messageIdModel)
+    .setModelObject(chatModelsWithoutVersion.messageId)
     .type()
     .minlength()
     .maxlength()
@@ -51,7 +46,7 @@ const { chatId, createdAt, message, messageId, participantId } = {
     .build(),
   participantId: mongoModelBuilder
     .create()
-    .setModelObject(participantIdModel)
+    .setModelObject(chatModelsWithoutVersion.participantId)
     .type()
     .maxlength()
     .minlength()
@@ -63,11 +58,6 @@ const { chatId, createdAt, message, messageId, participantId } = {
 const PrivateChatSchema = new mongoose.Schema({
   chatId,
   createdAt,
-  participants: [
-    {
-      participantId: participantId,
-    },
-  ],
   messages: [
     {
       message,
@@ -77,16 +67,21 @@ const PrivateChatSchema = new mongoose.Schema({
       },
     },
   ],
+  participants: [
+    {
+      participantId,
+    },
+  ],
 });
 
 PrivateChatSchema.plugin(mongooseUniqueValidator);
 
 module.exports = { PrivateChatSchema };
 
-const PrivateChatMongoModel = mongoose.model(
+const PrivateChat = mongoose.model(
   "PrivateChat",
   PrivateChatSchema,
   "privateChats"
 );
 
-module.exports = { PrivateChatMongoModel };
+module.exports = { PrivateChat };

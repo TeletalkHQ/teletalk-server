@@ -5,6 +5,8 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
+const { baseUrls } = require("@/routes/baseUrls");
+
 const {
   inputOutputFields: {
     chatId,
@@ -19,13 +21,9 @@ const {
   },
 } = require("@/variables/others/inputOutputFields");
 
-const privateChatRouteBuilder = routeBuilder("/chat");
+const privateChatRouteBuilder = routeBuilder(baseUrls.privateChat);
 
-const privateChatRouteBaseUrl = privateChatRouteBuilder
-  .create()
-  .createBaseUrlObject("1.0.0");
-
-const getAllChatsRoute = privateChatRouteBuilder
+const getAllChats = privateChatRouteBuilder
   .create()
   .method("get")
   .url("/privateChat/getAllPrivateChats")
@@ -44,7 +42,7 @@ const getAllChatsRoute = privateChatRouteBuilder
   ])
   .build();
 
-const chatsLastMessageRoute = privateChatRouteBuilder
+const chatsLastMessage = privateChatRouteBuilder
   .create()
   .method("post")
   .url("/privateChat/privateChatsLastMessages")
@@ -55,7 +53,7 @@ const chatsLastMessageRoute = privateChatRouteBuilder
   .outputFields([{}])
   .build();
 
-const getPrivateChatMessagesRoute = privateChatRouteBuilder
+const getPrivateChatMessages = privateChatRouteBuilder
   .create()
   .method("post")
   .url("/privateChat/getPrivateMessages")
@@ -78,7 +76,7 @@ const getPrivateChatMessagesRoute = privateChatRouteBuilder
   ])
   .build();
 
-const sendMessageRoute = privateChatRouteBuilder
+const sendMessage = privateChatRouteBuilder
   .create()
   .method("post")
   .url("/privateChat/sendPrivateMessage")
@@ -100,11 +98,10 @@ const sendMessageRoute = privateChatRouteBuilder
   .build();
 
 const routes = {
-  chatsLastMessageRoute,
-  getAllChatsRoute,
-  getPrivateChatMessagesRoute,
-  privateChatRouteBaseUrl,
-  sendMessageRoute,
+  chatsLastMessage,
+  getAllChats,
+  getPrivateChatMessages,
+  sendMessage,
 };
 
 const privateChatRoutes = {

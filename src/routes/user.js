@@ -5,6 +5,8 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
+const { baseUrls } = require("@/routes/baseUrls");
+
 const {
   inputOutputFields: {
     bio,
@@ -25,11 +27,9 @@ const {
   userDataDefaultIoFields,
 } = require("@/variables/others/inputOutputFields");
 
-const userRouteBuilder = routeBuilder("/user");
+const userRouteBuilder = routeBuilder(baseUrls.user);
 
-const userRouteBaseUrl = userRouteBuilder.create().createBaseUrlObject("1.0.0");
-
-const createNewUserRoute = userRouteBuilder
+const createNewUser = userRouteBuilder
   .create()
   .method("post")
   .url("/normalUser/createNewNormalUser")
@@ -57,7 +57,7 @@ const createNewUserRoute = userRouteBuilder
   ])
   .build();
 
-const logoutNormalRoute = userRouteBuilder
+const logoutNormal = userRouteBuilder
   .create()
   .method("post")
   .url("/normalUser/logoutNormalUser")
@@ -68,7 +68,7 @@ const logoutNormalRoute = userRouteBuilder
   .outputFields([{ ok }])
   .build();
 
-const signInNormalRoute = userRouteBuilder
+const signInNormal = userRouteBuilder
   .create()
   .method("post")
   .url("/normalUser/signInNormalUser")
@@ -95,7 +95,7 @@ const signInNormalRoute = userRouteBuilder
   ])
   .build();
 
-const checkUserStatusRoute = userRouteBuilder
+const checkUserStatus = userRouteBuilder
   .create()
   .method("get")
   .url("/normalUser/statusCheck")
@@ -114,7 +114,7 @@ const checkUserStatusRoute = userRouteBuilder
   ])
   .build();
 
-const getUserDataRoute = userRouteBuilder
+const getUserData = userRouteBuilder
   .create()
   .method("get")
   .url("/normalUser/getUserData")
@@ -133,7 +133,7 @@ const getUserDataRoute = userRouteBuilder
   ])
   .build();
 
-const updatePersonalInfoRoute = userRouteBuilder
+const updatePersonalInfo = userRouteBuilder
   .create()
   .method("patch")
   .url("/normalUser/updatePersonalInfo")
@@ -154,7 +154,7 @@ const updatePersonalInfoRoute = userRouteBuilder
   ])
   .build();
 
-const verifySignInNormalRoute = userRouteBuilder
+const verifySignInNormal = userRouteBuilder
   .create()
   .method("post")
   .url("/normalUser/verifySignInNormalUser")
@@ -184,14 +184,13 @@ const verifySignInNormalRoute = userRouteBuilder
   .build();
 
 const routes = {
-  checkUserStatusRoute,
-  createNewUserRoute,
-  getUserDataRoute,
-  logoutNormalRoute,
-  signInNormalRoute,
-  updatePersonalInfoRoute,
-  userRouteBaseUrl,
-  verifySignInNormalRoute,
+  checkUserStatus,
+  createNewUser,
+  getUserData,
+  logoutNormal,
+  signInNormal,
+  updatePersonalInfo,
+  verifySignInNormal,
 };
 
 const userRoutes = {

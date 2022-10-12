@@ -1,6 +1,6 @@
 class RouteBuilder {
   constructor(baseUrl) {
-    this._baseUrl = baseUrl;
+    this.baseUrl = baseUrl;
     this.routeObject = {
       description: "Default route description",
       fullUrl: "/404",
@@ -27,20 +27,13 @@ class RouteBuilder {
     return routeObject;
   }
 
-  createBaseUrlObject(version, baseUrl = this._baseUrl) {
-    return {
-      url: baseUrl,
-      version,
-    };
-  }
-
   method(method) {
     this.#addProperty("method", method);
     return this;
   }
   url(url) {
     this.#addProperty("url", url);
-    this.#addProperty("fullUrl", `${this._baseUrl}${url}`);
+    this.#addProperty("fullUrl", `${this.baseUrl}${url}`);
     return this;
   }
 

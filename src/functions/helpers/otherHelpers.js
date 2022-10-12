@@ -1,19 +1,11 @@
-const {
-  userRoutes: { signInNormalRoute },
-} = require("@/variables/routes/userRoutes");
-const {
-  versionControlRoutes: { getAllStuffsRoute },
-} = require("@/variables/routes/versionControlRoutes");
-const {
-  otherRoutes: { getCountriesRoute, getWelcomeMessageRoute },
-} = require("@/variables/routes/otherRoutes");
+const { routes } = require("@/routes/routes");
 
 const getIgnoredUrlsForAuth = () => {
   const arrayOfIgnoringUrl = [
-    getAllStuffsRoute,
-    getCountriesRoute,
-    getWelcomeMessageRoute,
-    signInNormalRoute,
+    routes.versionControl.getAllStuffs,
+    routes.other.getCountries,
+    routes.other.getWelcomeMessage,
+    routes.user.signInNormal,
     { fullUrl: "/" },
   ].map((item) => item.fullUrl);
   return arrayOfIgnoringUrl;

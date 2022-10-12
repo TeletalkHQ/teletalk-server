@@ -5,9 +5,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const { isUrlMatchWithReqUrl } = require("@/functions/utilities/utilities");
 
-const {
-  userRoutes: { createNewUserRoute, verifySignInNormalRoute },
-} = require("@/variables/routes/userRoutes");
+const { routes } = require("@/routes/routes");
 
 class AuthManager {
   constructor() {
@@ -62,7 +60,10 @@ class AuthManager {
 
   getSecretWithUrlCondition(reqUrl) {
     const isVerificationUrl = isUrlMatchWithReqUrl(
-      [verifySignInNormalRoute.fullUrl, createNewUserRoute.fullUrl],
+      [
+        routes.user.verifySignInNormal.fullUrl,
+        routes.user.createNewUser.fullUrl,
+      ],
       reqUrl
     );
 

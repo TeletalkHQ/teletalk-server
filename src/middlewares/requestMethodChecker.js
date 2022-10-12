@@ -13,13 +13,9 @@ const {
 const {
   appErrors: { METHOD_NOT_ALLOWED },
 } = require("@/variables/errors/appErrors");
-const {
-  allStuff: {
-    routes: { version, ...routes },
-  },
-} = require("@/variables/others/allStuff");
+const { allStuff } = require("@/variables/others/allStuff");
 
-const routesWithoutVersion = excludeVersions(routes);
+const routesWithoutVersion = excludeVersions(allStuff.routes);
 
 const tryToCheckRequestMethod = (reqUrl, reqMethod) => {
   const routeObject = objectUtilities

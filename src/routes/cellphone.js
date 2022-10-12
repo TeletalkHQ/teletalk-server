@@ -5,6 +5,8 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
+const { baseUrls } = require("@/routes/baseUrls");
+
 const {
   inputOutputFields: {
     addedContact,
@@ -22,13 +24,9 @@ const {
   },
 } = require("@/variables/others/inputOutputFields");
 
-const cellphoneRouteBuilder = routeBuilder("/cellphone");
+const cellphoneRouteBuilder = routeBuilder(baseUrls.cellphone);
 
-const cellphoneRouteBaseUrl = cellphoneRouteBuilder
-  .create()
-  .createBaseUrlObject("1.0.0");
-
-const addBlockRoute = cellphoneRouteBuilder
+const addBlock = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/addBlock")
@@ -53,7 +51,7 @@ const addBlockRoute = cellphoneRouteBuilder
   ])
   .build();
 
-const addBlocksRoute = cellphoneRouteBuilder
+const addBlocks = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/addBlocks")
@@ -64,7 +62,7 @@ const addBlocksRoute = cellphoneRouteBuilder
   .outputFields([{}])
   .build();
 
-const addContactRoute = cellphoneRouteBuilder
+const addContact = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/addContact")
@@ -94,7 +92,7 @@ const addContactRoute = cellphoneRouteBuilder
   ])
   .build();
 
-const addContactsRoute = cellphoneRouteBuilder
+const addContacts = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/addContacts")
@@ -105,7 +103,7 @@ const addContactsRoute = cellphoneRouteBuilder
   .outputFields([{}])
   .build();
 
-const editContactRoute = cellphoneRouteBuilder
+const editContact = cellphoneRouteBuilder
   .create()
   .method("patch")
   .url("/editContact")
@@ -134,7 +132,7 @@ const editContactRoute = cellphoneRouteBuilder
   ])
   .build();
 
-const getContactsRoute = cellphoneRouteBuilder
+const getContacts = cellphoneRouteBuilder
   .create()
   .method("get")
   .url("/getContacts")
@@ -158,7 +156,7 @@ const getContactsRoute = cellphoneRouteBuilder
   ])
   .build();
 
-const removeBlockRoute = cellphoneRouteBuilder
+const removeBlock = cellphoneRouteBuilder
   .create()
   .method("delete")
   .url("/removeBlock")
@@ -183,7 +181,7 @@ const removeBlockRoute = cellphoneRouteBuilder
   ])
   .build();
 
-const removeBlocksRoute = cellphoneRouteBuilder
+const removeBlocks = cellphoneRouteBuilder
   .create()
   .method("delete")
   .url("/removeBlocks")
@@ -194,7 +192,7 @@ const removeBlocksRoute = cellphoneRouteBuilder
   .outputFields([{}])
   .build();
 
-const removeContactRoute = cellphoneRouteBuilder
+const removeContact = cellphoneRouteBuilder
   .create()
   .method("delete")
   .url("/removeContact")
@@ -219,7 +217,7 @@ const removeContactRoute = cellphoneRouteBuilder
   ])
   .build();
 
-const removeContactsRoute = cellphoneRouteBuilder
+const removeContacts = cellphoneRouteBuilder
   .create()
   .method("delete")
   .url("/removeContacts")
@@ -230,7 +228,7 @@ const removeContactsRoute = cellphoneRouteBuilder
   .outputFields([{}])
   .build();
 
-const shareContactRoute = cellphoneRouteBuilder
+const shareContact = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/shareContact")
@@ -241,7 +239,7 @@ const shareContactRoute = cellphoneRouteBuilder
   .outputFields([{}])
   .build();
 
-const shareContactsRoute = cellphoneRouteBuilder
+const shareContacts = cellphoneRouteBuilder
   .create()
   .method("post")
   .url("/shareContacts")
@@ -253,27 +251,25 @@ const shareContactsRoute = cellphoneRouteBuilder
   .build();
 
 const routes = {
-  //FIXME: rename x's to multi
-  addBlockRoute,
-  addBlocksRoute,
-  addContactRoute,
-  addContactsRoute,
-  cellphoneRouteBaseUrl,
-  editContactRoute,
-  getContactsRoute,
-  removeBlockRoute,
-  removeBlocksRoute,
-  removeContactRoute,
-  removeContactsRoute,
-  shareContactRoute,
-  shareContactsRoute,
+  addBlock,
+  addBlocks,
+  addContact,
+  addContacts,
+  editContact,
+  getContacts,
+  removeBlock,
+  removeBlocks,
+  removeContact,
+  removeContacts,
+  shareContact,
+  shareContacts,
 };
 
-const cellphoneRoutes = {
+const cellphone = {
   version: versionCalculator(extractVersions(routes)),
   ...routes,
 };
 
 module.exports = {
-  cellphoneRoutes,
+  cellphone,
 };

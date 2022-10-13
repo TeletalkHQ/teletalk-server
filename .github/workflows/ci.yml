@@ -6,7 +6,7 @@ on:
     branches: [teletalk-server-main]
 
 jobs:
-  build:
+  ci:
     env:
       CI: true
 

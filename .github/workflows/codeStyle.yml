@@ -6,7 +6,7 @@ on:
     branches: [teletalk-server-main]
 
 jobs:
-  build:
+  code_style:
     env:
       CI: true
       JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json

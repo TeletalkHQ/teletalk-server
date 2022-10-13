@@ -2,13 +2,16 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { getPrivateChatMessages } = require("@/services/chatServices");
+const { services } = require("@/services/services");
 
 const { validators } = require("@/validators/validators");
 
 const tryToGetMessages = async (currentUser, chatId) => {
   await validators.chatId(chatId);
-  const privateChatMessages = await getPrivateChatMessages(currentUser, chatId);
+  const privateChatMessages = await services.getPrivateChatMessages(
+    currentUser,
+    chatId
+  );
   return privateChatMessages;
 };
 

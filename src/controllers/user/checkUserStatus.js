@@ -5,7 +5,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { userFinder } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 const {
   userErrors: { USER_NOT_EXIST },
@@ -27,7 +27,7 @@ const fixUserData = (foundUser) => {
 
 const tryToCheckUserStatus = async (userData) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);
-  const foundUser = await userFinder(cellphone);
+  const foundUser = await services.userFinder(cellphone);
   errorThrower(!foundUser, () => ({ ...USER_NOT_EXIST, cellphone }));
   const fixedUserData = fixUserData(foundUser);
   console.log(fixedUserData);

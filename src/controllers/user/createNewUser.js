@@ -15,7 +15,7 @@ const {
   common: { privateId: privateIdCommonModel },
 } = require("@/models/native/common");
 
-const { createNewNormalUser, userFinder } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 const { validators } = require("@/validators/validators");
 const {
@@ -45,7 +45,7 @@ const tryToFindTemporaryClient = async (cellphone) => {
 };
 
 const tryToFindUserInDb = async (cellphone) => {
-  const foundUser = await userFinder(cellphone);
+  const foundUser = await services.userFinder(cellphone);
   errorThrower(foundUser, () => USER_EXIST);
   return foundUser;
 };
@@ -84,7 +84,7 @@ const fixUserDataForDb = ({
 };
 
 const tryToCreateNewUser = async (userDataForDatabase) => {
-  await createNewNormalUser(userDataForDatabase);
+  await services.createNewNormalUser(userDataForDatabase);
 };
 
 const responseToCreateNewUser = (user, res) => {

@@ -3,10 +3,10 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { removeContactItem } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 const tryToRemoveContact = async (currentUser, cellphone) => {
-  await removeContactItem(currentUser, cellphone);
+  await services.removeContactItem(currentUser, cellphone);
 };
 
 const responseToRemoveContact = (_, res, cellphone) => {

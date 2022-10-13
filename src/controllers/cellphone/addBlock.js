@@ -3,10 +3,10 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { addCellphoneToUserBlacklist } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 const tryToAddBlockCellphone = async (blockingCellphone, currentUser) => {
-  await addCellphoneToUserBlacklist(currentUser, blockingCellphone);
+  await services.addCellphoneToUserBlacklist(currentUser, blockingCellphone);
   return blockingCellphone;
 };
 

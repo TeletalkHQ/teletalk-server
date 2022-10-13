@@ -3,7 +3,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { userFinder } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 const fixUserData = (isUserExist, defaultUserObject, tokens) => {
   return {
@@ -22,7 +22,7 @@ const fixUserData = (isUserExist, defaultUserObject, tokens) => {
 const tryToSignInNormalUser = async (userData) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);
 
-  const foundUser = (await userFinder(cellphone)) || {};
+  const foundUser = (await services.userFinder(cellphone)) || {};
   const { tokens, ...defaultUserObject } =
     userPropsUtilities.extractUserData(foundUser);
 

@@ -7,6 +7,8 @@ const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { models } = require("@/models/models");
 
+const { commonServices } = require("@/services/common");
+
 const {
   initialOptions: { userInitialOptions },
 } = require("@/variables/others/initialOptions");
@@ -23,20 +25,6 @@ const {
 
 const User = models.database.mongoDb.User;
 
-const tryToFindUser = async (userData, options) => {
-  return await User.findOne(userData, undefined, options);
-};
-const userFinder = async (
-  userData = userInitialOptions,
-  options = { lean: true }
-) => {
-  return (
-    await trier(userFinder.name).tryAsync(tryToFindUser, userData, options)
-  )
-    .printAndThrow()
-    .result();
-};
-
 const tryToAddCellphoneToUserBlacklist = async (currentUser, cellphone) => {
   const { cellphone: existBlacklistItem } = userPropsUtilities.cellphoneFinder(
     currentUser.blacklist,
@@ -48,7 +36,7 @@ const tryToAddCellphoneToUserBlacklist = async (currentUser, cellphone) => {
     targetUserData: cellphone,
   }));
 
-  const targetUser = await userFinder(cellphone);
+  const targetUser = await commonServices.userFinder(cellphone);
   errorThrower(customTypeof.isNull(targetUser), () => ({
     ...TARGET_USER_NOT_EXIST,
     targetUserData: cellphone,
@@ -86,7 +74,7 @@ const tryToAddContactToUserContacts = async (currentUser, targetUserData) => {
     targetUserData,
   }));
 
-  const targetUser = await userFinder(
+  const targetUser = await commonServices.userFinder(
     userPropsUtilities.extractCellphone(targetUserData)
   );
   errorThrower(customTypeof.isNull(targetUser), () => ({
@@ -305,7 +293,7 @@ const logoutUser = async (currentUser) => {
   return { ok: true };
 };
 
-module.exports = {
+const userServices = {
   addCellphoneToUserBlacklist,
   addContactToUserContacts,
   addTestUser,
@@ -320,5 +308,8 @@ module.exports = {
   removeTestUsers,
   updateOneContact,
   updatePersonalInfo,
-  userFinder,
+};
+
+module.exports = {
+  userServices,
 };

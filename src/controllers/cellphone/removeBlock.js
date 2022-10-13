@@ -3,10 +3,10 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { deleteBlacklistItem } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 const tryToRemoveBlock = async (currentUser, targetUserData) => {
-  await deleteBlacklistItem(currentUser, targetUserData);
+  await services.deleteBlacklistItem(currentUser, targetUserData);
 };
 
 const responseToRemoveBlock = (_, res, targetUserData) => {

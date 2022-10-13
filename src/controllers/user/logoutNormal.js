@@ -2,10 +2,10 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { logoutUser } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 const tryToLogoutNormal = async (currentUser) => {
-  return await logoutUser(currentUser);
+  return await services.logoutUser(currentUser);
 };
 
 const responseToLogoutNormal = (data, res) => {

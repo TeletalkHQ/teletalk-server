@@ -2,11 +2,11 @@ const { stateManager } = require("@/classes/StateManager");
 
 const { expect } = require("@/functions/utilities/testUtilities");
 
-const { getAllUsers, userFinder } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 describe("save user data in state", () => {
   it("should get all users data", async () => {
-    const users = await getAllUsers();
+    const users = await services.getAllUsers();
     expect(users).to.be.an("array");
 
     const { users: stateKey } = stateManager.stateKeys;
@@ -22,7 +22,9 @@ describe("save user data in state", () => {
       const userFromState = allUsersFromState[0];
       expect(userFromState).to.be.an("object");
 
-      const user = await userFinder({ privateId: userFromState.privateId });
+      const user = await services.userFinder({
+        privateId: userFromState.privateId,
+      });
       expect(user).to.be.a("object");
     }
   });

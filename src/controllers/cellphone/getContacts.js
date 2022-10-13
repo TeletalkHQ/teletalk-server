@@ -2,10 +2,10 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { getUserContacts } = require("@/services/userServices");
+const { services } = require("@/services/services");
 
 const tryToGetContacts = async (currentUser) => {
-  const contacts = await getUserContacts(currentUser);
+  const contacts = await services.getUserContacts(currentUser);
   return contacts;
 };
 

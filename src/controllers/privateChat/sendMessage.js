@@ -2,7 +2,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { sendPrivateMessage } = require("@/services/chatServices");
+const { services } = require("@/services/services");
 
 const { validators } = require("@/validators/validators");
 
@@ -10,7 +10,7 @@ const tryToSendMessage = async (currentUser, participantId, message) => {
   await validators.participantId(participantId);
   await validators.messageText(message);
 
-  const { chatId, newMessage } = await sendPrivateMessage(
+  const { chatId, newMessage } = await services.sendPrivateMessage(
     currentUser,
     participantId,
     message

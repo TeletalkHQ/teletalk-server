@@ -2,10 +2,12 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { getChatsLastMessages } = require("@/services/chatServices");
+const { services } = require("@/services/services");
 
 const tryToGetChatsLastMessage = async (currentUser) => {
-  const chatsWithLastMessages = await getChatsLastMessages(currentUser);
+  const chatsWithLastMessages = await services.getChatsLastMessages(
+    currentUser
+  );
   return chatsWithLastMessages;
 };
 

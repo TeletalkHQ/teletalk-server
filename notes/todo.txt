@@ -29,4 +29,4 @@ Add getContacts tests
 Add TranslateManager class
 Make sure all validators and middlewares have ok:true/false return
 BUG: After signIn, verifyToken get validated without verifySignIn
-Services review|cleanup
+Update all tests engaged with db to store data

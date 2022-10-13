@@ -34,12 +34,12 @@ describe("get messages success tests", () => {
       body: { chats },
     } = await getAllChatsRequest().sendFullFeaturedRequest();
 
-    const { chatId } = chats.at(-1);
+    const chat = chats.at(-1);
 
     const {
       body: { messages },
     } = await getPrivateChatMessagesRequest().sendFullFeaturedRequest({
-      chatId,
+      chatId: chat.chatId,
     });
 
     const {

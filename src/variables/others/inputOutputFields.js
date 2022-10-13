@@ -1,7 +1,7 @@
 const userDataDefaultIoFields = {
   bio: "bio",
   blacklist: "blacklist",
-  chats: "chats",
+  chatInfo: "chatInfo",
   contacts: "contacts",
   countryCode: "countryCode",
   countryName: "countryName",
@@ -18,6 +18,7 @@ const inputOutputFields = {
   addedContact: "addedContact",
   blockedCellphone: "blockedCellphone",
   chatId: "chatId",
+  chats: "chats",
   countries: "countries",
   countryShortName: "countryShortName",
   editedContact: "editedContact",

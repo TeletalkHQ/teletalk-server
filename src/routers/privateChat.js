@@ -9,9 +9,9 @@ const privateChatRouter = Router();
 
 privateChatRouter.use(middlewares.findCurrentUserFromDb);
 
-privateChatRouter[routes.privateChat.getAllChats.method](
-  routes.privateChat.getAllChats.url,
-  controllers.getAllChats
+privateChatRouter[routes.privateChat.getAllPrivateChats.method](
+  routes.privateChat.getAllPrivateChats.url,
+  controllers.getAllPrivateChats
 );
 
 privateChatRouter[routes.privateChat.chatsLastMessage.method](

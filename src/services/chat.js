@@ -15,7 +15,7 @@ const PrivateChat = models.database.mongoDb.PrivateChat;
 const tryToGetChatsLastMessages = async (currentUser) => {
   const chats = [];
 
-  for (const chat of currentUser.chats) {
+  for (const chat of currentUser.chatInfo) {
     const chatWithMessages = await PrivateChat.findOne({
       chatId: chat.chatId,
     });
@@ -44,7 +44,7 @@ const getPrivateChat = async (
   projections = { "messages._id": 0 },
   options = { lean: true }
 ) => {
-  const chatExist = currentUser.chats.find((chat) => chat.chatId === chatId);
+  const chatExist = currentUser.chatInfo.find((chat) => chat.chatId === chatId);
   errorThrower(!chatExist, () => errors.CHAT_NOT_EXIST);
 
   const chat = await PrivateChat.findOne({ chatId }, projections, options);
@@ -65,21 +65,22 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
   //TODO Add test for TARGET_USER_NOT_EXIST
   errorThrower(!targetUser, () => errors.TARGET_USER_NOT_EXIST);
 
-  const chat = await PrivateChat.findOne({
+  const privateChat = await PrivateChat.findOne({
     "participants.participantId": {
       $all: [currentUser.privateId, targetUser.privateId],
     },
   });
 
   const chatId =
-    chat?.chatId || randomMaker.randomId(chatModels.chatId.maxlength.value);
+    privateChat?.chatId ||
+    randomMaker.randomId(chatModels.chatId.maxlength.value);
   const newMessage = {
     message,
     messageId: randomMaker.randomId(chatModels.messageId.maxlength.value),
     messageSender: { senderId: currentUser.privateId },
   };
 
-  if (!chat) {
+  if (!privateChat) {
     await PrivateChat.updateOne(
       { chatId },
       {
@@ -93,12 +94,13 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
       { upsert: true }
     );
 
-    await currentUser.updateOne({ chats: { chatId } });
-    await targetUser.updateOne({ chats: { chatId } });
-  } else if (chat) {
-    chat.messages.push(newMessage);
-
-    await chat.updateOne({ chatId }, { messages: chat.messages });
+    await currentUser.chatInfo.push({ chatId });
+    await targetUser.chatInfo.push({ chatId });
+    await currentUser.save();
+    await targetUser.save();
+  } else if (privateChat) {
+    privateChat.messages.push(newMessage);
+    await privateChat.updateOne({ chatId }, { messages: privateChat.messages });
   }
 
   return { newMessage, chatId };

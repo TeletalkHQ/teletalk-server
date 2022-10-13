@@ -1,6 +1,8 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
+//TODO: Some services need tests
+
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
@@ -35,9 +37,7 @@ const tryToAddCellphoneToUserBlacklist = async (currentUser, cellphone) => {
 
   const blacklistItem = userPropsUtilities.extractCellphone(cellphone);
   currentUser.blacklist.push(blacklistItem);
-  await currentUser.updateOne({
-    blacklist: currentUser.blacklist,
-  });
+  await currentUser.save();
 };
 
 const addCellphoneToUserBlacklist = async (
@@ -78,9 +78,7 @@ const tryToAddContactToUserContacts = async (currentUser, targetUserData) => {
     privateId: targetUser.privateId,
   });
   currentUser.contacts.push(contact);
-  await currentUser.updateOne({
-    contacts: currentUser.contacts,
-  });
+  await currentUser.save();
 
   return { targetUser, currentUser };
 };
@@ -108,14 +106,13 @@ const tryToUpdateOneContact = async ({
     userPropsUtilities.cellphoneFinder(currentUser.contacts, targetCellphone);
   errorThrower(!contactItem, () => errors.CONTACT_ITEM_NOT_EXIST);
 
-  currentUser.contacts.splice(cellphoneIndex, 1, {
+  const newContact = {
     ...userPropsUtilities.extractContact(targetCellphone),
     firstName: editedValues.firstName,
     lastName: editedValues.lastName,
-  });
-  await currentUser.updateOne({
-    contacts: currentUser.contacts,
-  });
+  };
+  currentUser.contacts.splice(cellphoneIndex, 1, newContact);
+  await currentUser.save();
 
   return { currentUser };
 };
@@ -145,9 +142,7 @@ const deleteBlacklistItem = async (currentUser, targetUserData) => {
   errorThrower(!blacklistItem, () => errors.BLACKLIST_ITEM_NOT_EXIST);
 
   currentUser.blacklist.splice(cellphoneIndex, 1);
-  await currentUser.updateOne({
-    blacklist: currentUser.blacklist,
-  });
+  await currentUser.save();
 };
 
 const tryToRemoveContactItem = async (currentUser, targetUserData) => {
@@ -160,9 +155,7 @@ const tryToRemoveContactItem = async (currentUser, targetUserData) => {
 
   //TODO: Remove all splice and use arrayUtilities
   currentUser.contacts.splice(cellphoneIndex, 1);
-  await currentUser.updateOne({
-    contacts: currentUser.contacts,
-  });
+  await currentUser.save();
 };
 const removeContactItem = async (
   currentUser = userInitialOptions,
@@ -195,9 +188,7 @@ const updatePersonalInfo = async (currentUser, updateProperties) => {
 };
 
 const tryToCreateNewNormalUser = async (userData) => {
-  const newUser = new User(userData);
-  await newUser.save();
-
+  await User.create(userData);
   return { ok: true };
 };
 const createNewNormalUser = async (userData) => {
@@ -229,7 +220,7 @@ const tryToAddTestUser = async ({
       lastName,
       contacts: [],
       blacklist: [],
-      chats: [],
+      chatInfo: [],
     },
     {
       upsert: true,
@@ -246,8 +237,8 @@ const addTestUser = async (userData = userInitialOptions) => {
     .result();
 };
 
-const getAllChats = (currentUser) => {
-  return currentUser.chats.map((chat) => ({ chatId: chat.chatId }));
+const getChatInfo = (currentUser) => {
+  return currentUser.chatInfo.map((chat) => ({ chatId: chat.chatId }));
 };
 
 const getAllUsers = async () => {
@@ -259,10 +250,7 @@ const tryToGetUserData = async (privateId) => {
   const user = await User.findOne({ privateId }, undefined, {
     lean: true,
   });
-  errorThrower(!user, () => ({
-    ...errors.USER_NOT_EXIST,
-    searchQueries: { privateId },
-  }));
+  errorThrower(!user, errors.USER_NOT_EXIST);
 
   return user;
 };
@@ -272,15 +260,9 @@ const getUserData = async (privateId) => {
     .result();
 };
 
-const removeTestUsers = async (length) => {
-  for (let i = 0; i < length; i++) {
-    await User.remove();
-  }
-};
-
 const logoutUser = async (currentUser) => {
   currentUser.tokens = [];
-  await currentUser.updateOne({ tokens: currentUser.tokens });
+  await currentUser.save();
   return { ok: true };
 };
 
@@ -290,13 +272,12 @@ const userServices = {
   addTestUser,
   createNewNormalUser,
   deleteBlacklistItem,
-  getAllChats,
+  getChatInfo,
   getAllUsers,
   getUserContacts,
   getUserData,
   logoutUser,
   removeContactItem,
-  removeTestUsers,
   updateOneContact,
   updatePersonalInfo,
 };

@@ -13,7 +13,7 @@ const chatsSuccessTests = (
 ) => {
   const ts = successTestBuilder
     .create()
-    .setVariables(userModels.chats, undefined, chatsTest)
+    .setVariables(userModels.chatInfo, undefined, chatsTest)
     .setOptions({ modelCheck });
 
   ts.typeCheck().execute();

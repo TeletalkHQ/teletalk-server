@@ -6,20 +6,17 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { errorThrower } = require("@/functions/utilities/utilities");
 const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 
-const {
-  appErrors: {
-    INPUT_FIELDS_MISSING,
-    INPUT_FIELDS_OVERLOAD,
-    REQUEST_BODY_IS_UNDEFINED,
-  },
-} = require("@/variables/errors/appErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const tryToCheckBodyFields = (body, inputFields) => {
-  errorThrower(customTypeof.isUndefined(body), REQUEST_BODY_IS_UNDEFINED);
+  errorThrower(
+    customTypeof.isUndefined(body),
+    errors.REQUEST_BODY_IS_UNDEFINED
+  );
 
   const checkResult = ioFieldsChecker(body, inputFields, {
-    missingFieldsError: INPUT_FIELDS_MISSING,
-    overloadFieldsError: INPUT_FIELDS_OVERLOAD,
+    missingFieldsError: errors.INPUT_FIELDS_MISSING,
+    overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
   });
 
   errorThrower(checkResult.ok === false, () => ({

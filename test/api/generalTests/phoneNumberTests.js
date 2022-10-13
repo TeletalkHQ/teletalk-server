@@ -3,15 +3,7 @@ const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const { models } = require("@/models/models");
 
-const {
-  userErrors: {
-    PHONE_NUMBER_INVALID_TYPE,
-    PHONE_NUMBER_MAXLENGTH_REACH,
-    PHONE_NUMBER_MINLENGTH_REACH,
-    PHONE_NUMBER_NUMERIC,
-    PHONE_NUMBER_REQUIRED,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
@@ -40,11 +32,11 @@ const phoneNumberFailureTests = (configuredCustomRequest, data) => {
       userModels.phoneNumber,
       "phoneNumber"
     )
-    .required(PHONE_NUMBER_REQUIRED)
-    .invalidType_typeIsString(PHONE_NUMBER_INVALID_TYPE)
-    .numeric(PHONE_NUMBER_NUMERIC)
-    .minlength(PHONE_NUMBER_MINLENGTH_REACH)
-    .maxlength(PHONE_NUMBER_MAXLENGTH_REACH);
+    .required(errors.PHONE_NUMBER_REQUIRED)
+    .invalidType_typeIsString(errors.PHONE_NUMBER_INVALID_TYPE)
+    .numeric(errors.PHONE_NUMBER_NUMERIC)
+    .minlength(errors.PHONE_NUMBER_MINLENGTH_REACH)
+    .maxlength(errors.PHONE_NUMBER_MAXLENGTH_REACH);
 };
 
 module.exports = { phoneNumberFailureTests, phoneNumberSuccessTests };

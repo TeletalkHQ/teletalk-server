@@ -9,16 +9,7 @@ const { models } = require("@/models/models");
 
 const userModels = models.native.user;
 
-const {
-  userErrors: {
-    COUNTRY_CODE_INVALID_TYPE,
-    COUNTRY_CODE_MAXLENGTH_REACH,
-    COUNTRY_CODE_MINLENGTH_REACH,
-    COUNTRY_CODE_NOT_SUPPORTED,
-    COUNTRY_CODE_NUMERIC,
-    COUNTRY_CODE_REQUIRED,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
@@ -45,12 +36,12 @@ const countryCodeFailureTests = (configuredCustomRequest, data) => {
       userModels.countryCode,
       "countryCode"
     )
-    .required(COUNTRY_CODE_REQUIRED)
-    .numeric(COUNTRY_CODE_NUMERIC)
-    .invalidType_typeIsString(COUNTRY_CODE_INVALID_TYPE)
-    .minlength(COUNTRY_CODE_MINLENGTH_REACH)
-    .maxlength(COUNTRY_CODE_MAXLENGTH_REACH)
-    .custom(getNonExistedCountryCode(), COUNTRY_CODE_NOT_SUPPORTED);
+    .required(errors.COUNTRY_CODE_REQUIRED)
+    .numeric(errors.COUNTRY_CODE_NUMERIC)
+    .invalidType_typeIsString(errors.COUNTRY_CODE_INVALID_TYPE)
+    .minlength(errors.COUNTRY_CODE_MINLENGTH_REACH)
+    .maxlength(errors.COUNTRY_CODE_MAXLENGTH_REACH)
+    .custom(getNonExistedCountryCode(), errors.COUNTRY_CODE_NOT_SUPPORTED);
 };
 
 module.exports = { countryCodeFailureTests, countryCodeSuccessTests };

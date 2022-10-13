@@ -4,13 +4,13 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { appErrors } = require("@/variables/errors/appErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const {
   REQUIRED_FIELDS_NOT_DEFINED,
   REQUIRED_IO_FIELD_IS_NOT_ARRAY,
   REQUIRED_IO_FIELD_IS_NOT_OBJECT,
-} = appErrors;
+} = errors;
 
 const ioFieldsCheckerDefaultOptions = {
   requiredFieldsIndex: 0,

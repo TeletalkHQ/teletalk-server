@@ -1,11 +1,9 @@
 const { findRouteObject } = require("@/functions/utilities/findRouteObject");
 
-const {
-  appErrors: { ROUTE_NOT_FOUND },
-} = require("@/variables/errors/appErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const findRouteObjectMiddleware = (req, _res, next) => {
-  req.routeObject = findRouteObject(req.url) || ROUTE_NOT_FOUND;
+  req.routeObject = findRouteObject(req.url) || errors.ROUTE_NOT_FOUND;
   next();
 };
 

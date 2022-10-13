@@ -2,14 +2,7 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { models } = require("@/models/models");
 
-const {
-  userErrors: {
-    TOKEN_MAXLENGTH_REACH,
-    TOKEN_MINLENGTH_REACH,
-    // TOKEN_INVALID_TYPE,
-    TOKEN_REQUIRED,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const userModels = models.native.user;
 
@@ -23,7 +16,7 @@ const authenticationFailureTests = (configuredCustomRequest, data = {}) => {
   it("should get error, TOKEN_REQUIRED", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
-      TOKEN_REQUIRED,
+      errors.TOKEN_REQUIRED,
       fn(null)
     );
   });
@@ -37,14 +30,14 @@ const authenticationFailureTests = (configuredCustomRequest, data = {}) => {
   it("should get error, TOKEN_MAXLENGTH_REACH", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
-      TOKEN_MAXLENGTH_REACH,
+      errors.TOKEN_MAXLENGTH_REACH,
       fn(randomMaker.randomString(tokenMaxlength + 1))
     );
   });
   it("should get error, TOKEN_MINLENGTH_REACH", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
-      TOKEN_MINLENGTH_REACH,
+      errors.TOKEN_MINLENGTH_REACH,
       fn(randomMaker.randomString(+tokenMinlength - 1))
     );
   });

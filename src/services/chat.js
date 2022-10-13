@@ -7,12 +7,7 @@ const { models } = require("@/models/models");
 
 const { commonServices } = require("@/services/common");
 
-const {
-  chatErrors: { CHAT_NOT_EXIST },
-} = require("@/variables/errors/chatErrors");
-const {
-  userErrors: { TARGET_USER_NOT_EXIST },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const chatModels = models.native.chat;
 const PrivateChat = models.database.mongoDb.PrivateChat;
@@ -50,11 +45,11 @@ const getPrivateChat = async (
   options = { lean: true }
 ) => {
   const chatExist = currentUser.chats.find((chat) => chat.chatId === chatId);
-  errorThrower(!chatExist, () => CHAT_NOT_EXIST);
+  errorThrower(!chatExist, () => errors.CHAT_NOT_EXIST);
 
   const chat = await PrivateChat.findOne({ chatId }, projections, options);
 
-  errorThrower(!chat, () => CHAT_NOT_EXIST);
+  errorThrower(!chat, () => errors.CHAT_NOT_EXIST);
 
   return chat;
 };
@@ -68,7 +63,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
     {}
   );
   //TODO Add test for TARGET_USER_NOT_EXIST
-  errorThrower(!targetUser, () => TARGET_USER_NOT_EXIST);
+  errorThrower(!targetUser, () => errors.TARGET_USER_NOT_EXIST);
 
   const chat = await PrivateChat.findOne({
     "participants.participantId": {

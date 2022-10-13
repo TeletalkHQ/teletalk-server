@@ -4,9 +4,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const {
-  appErrors: { SEND_SMS_FAILED },
-} = require("@/variables/errors/appErrors");
+const { errors } = require("@/variables/errors/errors");
 
 class SmsClient {
   constructor() {
@@ -34,7 +32,7 @@ class SmsClient {
     errorThrower(
       smsResult.StrRetStatus !== "ok" && smsResult.RetStatus !== 1,
       () => ({
-        ...SEND_SMS_FAILED,
+        ...errors.SEND_SMS_FAILED,
         smsResult,
       })
     );

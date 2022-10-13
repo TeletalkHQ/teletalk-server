@@ -12,16 +12,7 @@ const { commonServices } = require("@/services/common");
 const {
   initialOptions: { userInitialOptions },
 } = require("@/variables/others/initialOptions");
-const {
-  userErrors: {
-    BLACKLIST_ITEM_EXIST,
-    BLACKLIST_ITEM_NOT_EXIST,
-    CONTACT_ITEM_EXIST,
-    CONTACT_ITEM_NOT_EXIST,
-    TARGET_USER_NOT_EXIST,
-    USER_NOT_EXIST,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const User = models.database.mongoDb.User;
 
@@ -32,13 +23,13 @@ const tryToAddCellphoneToUserBlacklist = async (currentUser, cellphone) => {
   );
 
   errorThrower(existBlacklistItem, () => ({
-    ...BLACKLIST_ITEM_EXIST,
+    ...errors.BLACKLIST_ITEM_EXIST,
     targetUserData: cellphone,
   }));
 
   const targetUser = await commonServices.userFinder(cellphone);
   errorThrower(customTypeof.isNull(targetUser), () => ({
-    ...TARGET_USER_NOT_EXIST,
+    ...errors.TARGET_USER_NOT_EXIST,
     targetUserData: cellphone,
   }));
 
@@ -70,7 +61,7 @@ const tryToAddContactToUserContacts = async (currentUser, targetUserData) => {
     targetUserData
   );
   errorThrower(isContactExist, () => ({
-    ...CONTACT_ITEM_EXIST,
+    ...errors.CONTACT_ITEM_EXIST,
     targetUserData,
   }));
 
@@ -78,7 +69,7 @@ const tryToAddContactToUserContacts = async (currentUser, targetUserData) => {
     userPropsUtilities.extractCellphone(targetUserData)
   );
   errorThrower(customTypeof.isNull(targetUser), () => ({
-    ...TARGET_USER_NOT_EXIST,
+    ...errors.TARGET_USER_NOT_EXIST,
     targetUserData,
   }));
 
@@ -115,7 +106,7 @@ const tryToUpdateOneContact = async ({
 }) => {
   const { cellphone: contactItem, cellphoneIndex } =
     userPropsUtilities.cellphoneFinder(currentUser.contacts, targetCellphone);
-  errorThrower(!contactItem, () => CONTACT_ITEM_NOT_EXIST);
+  errorThrower(!contactItem, () => errors.CONTACT_ITEM_NOT_EXIST);
 
   currentUser.contacts.splice(cellphoneIndex, 1, {
     ...userPropsUtilities.extractContact(targetCellphone),
@@ -151,7 +142,7 @@ const getUserContacts = async (currentUser = userInitialOptions) => {
 const deleteBlacklistItem = async (currentUser, targetUserData) => {
   const { cellphone: blacklistItem, cellphoneIndex } =
     userPropsUtilities.cellphoneFinder(currentUser.blacklist, targetUserData);
-  errorThrower(!blacklistItem, () => BLACKLIST_ITEM_NOT_EXIST);
+  errorThrower(!blacklistItem, () => errors.BLACKLIST_ITEM_NOT_EXIST);
 
   currentUser.blacklist.splice(cellphoneIndex, 1);
   await currentUser.updateOne({
@@ -163,7 +154,7 @@ const tryToRemoveContactItem = async (currentUser, targetUserData) => {
   const { cellphone: contactItem, cellphoneIndex } =
     userPropsUtilities.cellphoneFinder(currentUser.contacts, targetUserData);
   errorThrower(!contactItem, () => ({
-    ...CONTACT_ITEM_NOT_EXIST,
+    ...errors.CONTACT_ITEM_NOT_EXIST,
     targetUserData,
   }));
 
@@ -269,7 +260,7 @@ const tryToGetUserData = async (privateId) => {
     lean: true,
   });
   errorThrower(!user, () => ({
-    ...USER_NOT_EXIST,
+    ...errors.USER_NOT_EXIST,
     searchQueries: { privateId },
   }));
 

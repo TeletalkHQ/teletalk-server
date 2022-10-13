@@ -10,9 +10,7 @@ const {
   errorThrower,
 } = require("@/functions/utilities/utilities");
 
-const {
-  appErrors: { METHOD_NOT_ALLOWED },
-} = require("@/variables/errors/appErrors");
+const { errors } = require("@/variables/errors/errors");
 const { allStuff } = require("@/variables/others/allStuff");
 
 const routesWithoutVersion = excludeVersions(allStuff.routes);
@@ -25,7 +23,7 @@ const tryToCheckRequestMethod = (reqUrl, reqMethod) => {
   const requestMethod = reqMethod.toLowerCase();
   const routeObjectMethod = routeObject.method.toLowerCase();
 
-  errorThrower(requestMethod !== routeObjectMethod, METHOD_NOT_ALLOWED);
+  errorThrower(requestMethod !== routeObjectMethod, errors.METHOD_NOT_ALLOWED);
 
   return { ok: true };
 };

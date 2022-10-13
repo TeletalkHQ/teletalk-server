@@ -3,15 +3,7 @@ const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const { models } = require("@/models/models");
 
-const {
-  userErrors: {
-    VERIFICATION_CODE_INVALID,
-    VERIFICATION_CODE_INVALID_LENGTH,
-    VERIFICATION_CODE_INVALID_TYPE,
-    VERIFICATION_CODE_NUMERIC,
-    VERIFICATION_CODE_REQUIRED,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const userModels = models.native.user;
 
@@ -40,11 +32,11 @@ const verificationCodeFailureTests = (configuredCustomRequest, data = {}) => {
       userModels.verificationCode,
       "verificationCode"
     )
-    .required(VERIFICATION_CODE_REQUIRED)
-    .numeric(VERIFICATION_CODE_NUMERIC)
-    .invalidType_typeIsString(VERIFICATION_CODE_INVALID_TYPE)
-    .length(VERIFICATION_CODE_INVALID_LENGTH)
-    .invalidNumber(VERIFICATION_CODE_INVALID);
+    .required(errors.VERIFICATION_CODE_REQUIRED)
+    .numeric(errors.VERIFICATION_CODE_NUMERIC)
+    .invalidType_typeIsString(errors.VERIFICATION_CODE_INVALID_TYPE)
+    .length(errors.VERIFICATION_CODE_INVALID_LENGTH)
+    .invalidNumber(errors.VERIFICATION_CODE_INVALID);
 };
 
 module.exports = {

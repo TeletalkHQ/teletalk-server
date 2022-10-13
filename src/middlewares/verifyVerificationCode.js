@@ -6,13 +6,11 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const {
-  userErrors: { USER_NOT_EXIST, VERIFICATION_CODE_INVALID },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const tryToGetTemporaryClient = async (cellphone) => {
   const tempClient = await temporaryClients.findClient(cellphone);
-  errorThrower(!tempClient, () => USER_NOT_EXIST);
+  errorThrower(!tempClient, () => errors.USER_NOT_EXIST);
   return tempClient;
 };
 
@@ -22,7 +20,7 @@ const tryToVerifyVerificationCode = (
 ) => {
   errorThrower(
     sentVerificationCode !== actualVerificationCode,
-    () => VERIFICATION_CODE_INVALID
+    () => errors.VERIFICATION_CODE_INVALID
   );
 };
 

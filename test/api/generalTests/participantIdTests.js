@@ -4,14 +4,7 @@ const { models } = require("@/models/models");
 
 const chatModels = models.native.chat;
 
-const {
-  chatErrors: {
-    PARTICIPANT_ID_INVALID_TYPE,
-    PARTICIPANT_ID_MAX_LENGTH_REACH,
-    PARTICIPANT_ID_MIN_LENGTH_REACH,
-    PARTICIPANT_ID_REQUIRED,
-  },
-} = require("@/variables/errors/chatErrors");
+const { errors } = require("@/variables/errors/errors");
 
 // const participantIdSuccessTests = (
 //   { participantIdMain, participantIdTest } = {},
@@ -34,10 +27,10 @@ const participantIdFailureTests = (configuredCustomRequest, data = {}) => {
       chatModels.participantId,
       "participantId"
     )
-    .required(PARTICIPANT_ID_REQUIRED)
-    .invalidType_typeIsString(PARTICIPANT_ID_INVALID_TYPE)
-    .minlength(PARTICIPANT_ID_MIN_LENGTH_REACH)
-    .maxlength(PARTICIPANT_ID_MAX_LENGTH_REACH);
+    .required(errors.PARTICIPANT_ID_REQUIRED)
+    .invalidType_typeIsString(errors.PARTICIPANT_ID_INVALID_TYPE)
+    .minlength(errors.PARTICIPANT_ID_MIN_LENGTH_REACH)
+    .maxlength(errors.PARTICIPANT_ID_MAX_LENGTH_REACH);
 };
 
 module.exports = {

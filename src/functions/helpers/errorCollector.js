@@ -3,14 +3,12 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { fixResponseErrorObject } = require("@/functions/utilities/utilities");
 
-const {
-  appErrors: { UNKNOWN_ERROR },
-} = require("@/variables/errors/appErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const tryToCollectError = (errorObject) => {
   const errorToSend = customTypeof.isObject(errorObject)
     ? errorObject
-    : UNKNOWN_ERROR;
+    : errors.UNKNOWN_ERROR;
   return errorToSend;
 };
 
@@ -19,7 +17,7 @@ const executeIfNoError = (errorToSend, res) => {
 };
 
 const catchCollectError = (_error, res) => {
-  res.errors = UNKNOWN_ERROR;
+  res.errors = errors.UNKNOWN_ERROR;
   res.errorResponser();
 };
 

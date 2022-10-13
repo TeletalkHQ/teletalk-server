@@ -1,4 +1,4 @@
-const { generalTest } = require("@/classes/GeneralTest");
+const { generalTest } = require("$/classes/GeneralTest");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models/models");
@@ -32,12 +32,13 @@ describe("edit contact success tests", () => {
           token: requesters.editContactRequest().getOptions().token,
         }
       );
-    const gt = generalTest.createSuccessTest();
+    const successTest = generalTest.createSuccessTest();
 
-    gt.firstName({
-      firstNameMain: testVariables.users.editContactSuccessful.firstName,
-      firstNameTest: firstName,
-    })
+    successTest
+      .firstName({
+        firstNameMain: testVariables.users.editContactSuccessful.firstName,
+        firstNameTest: firstName,
+      })
       .lastName({
         lastNameMain: testVariables.users.editContactSuccessful.lastName,
         lastNameTest: lastName,
@@ -73,13 +74,15 @@ describe("edit contact success tests", () => {
       ...editedFullName,
     });
 
-    gt.lastName({
-      lastNameMain: editedFullName.lastName,
-      lastNameTest: newLastName,
-    }).firstName({
-      firstNameMain: editedFullName.firstName,
-      firstNameTest: newFirstName,
-    });
+    successTest
+      .lastName({
+        lastNameMain: editedFullName.lastName,
+        lastNameTest: newLastName,
+      })
+      .firstName({
+        firstNameMain: editedFullName.firstName,
+        firstNameTest: newFirstName,
+      });
   });
 });
 

@@ -1,4 +1,4 @@
-const { generalTest } = require("@/classes/GeneralTest");
+const { generalTest } = require("$/classes/GeneralTest");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models/models");

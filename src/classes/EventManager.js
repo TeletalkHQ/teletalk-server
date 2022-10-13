@@ -6,7 +6,7 @@ class EventManager extends EventManagerMain {
   constructor() {
     super();
     this.eventKeys = {
-      requirementsGetDone: "requirementsGetDone",
+      setRequirementsGetDone: "requirementsGetDone",
     };
   }
 }

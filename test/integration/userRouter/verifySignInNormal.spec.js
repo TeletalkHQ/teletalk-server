@@ -1,5 +1,5 @@
 const { authManager } = require("@/classes/AuthManager");
-const { generalTest } = require("@/classes/GeneralTest");
+const { generalTest } = require("$/classes/GeneralTest");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
@@ -26,11 +26,11 @@ const signInFn = async () => {
 
 describe("verifySignInNormalApi success test", () => {
   it("should get newUser === true if there is no user with test verify token in db", async () => {
-    const generalSuccessTests = generalTest.createSuccessTest();
+    const successTests = generalTest.createSuccessTest();
 
     const signInSecret = authManager.getJwtSignInSecret();
     const tokenVerifier = async (token) => {
-      return await generalSuccessTests.token({
+      return await successTests.token({
         secret: signInSecret,
         tokenTest: token,
       });

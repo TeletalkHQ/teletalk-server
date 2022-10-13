@@ -1,6 +1,6 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
-class ModelBuilder {
+class NativeModelBuilder {
   constructor() {
     this.modelObject = {
       defaultValue: this.#initialValueAndError("", {}),
@@ -102,6 +102,6 @@ class ModelBuilder {
   }
 }
 
-const modelBuilder = { create: () => new ModelBuilder() };
+const nativeModelBuilder = { create: () => new NativeModelBuilder() };
 
-module.exports = { modelBuilder, ModelBuilder };
+module.exports = { nativeModelBuilder, NativeModelBuilder };

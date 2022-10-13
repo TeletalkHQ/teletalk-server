@@ -1,6 +1,6 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const { modelBuilder } = require("@/classes/ModelBuilder");
+const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
 
 const {
   extractVersions,
@@ -9,7 +9,7 @@ const {
 
 const { errors } = require("@/variables/errors/errors");
 
-const createdAt = modelBuilder
+const createdAt = nativeModelBuilder
   .create()
   .defaultValue(Date.now)
   .required(true, errors.CREATED_AT_REQUIRED)
@@ -17,7 +17,7 @@ const createdAt = modelBuilder
   .version("1.0.0")
   .build();
 
-const privateId = modelBuilder
+const privateId = nativeModelBuilder
   .create()
   .empty(false, errors.PRIVATE_ID_EMPTY)
   .maxlength(35, errors.PRIVATE_ID_MAX_LENGTH_REACH)
@@ -29,7 +29,7 @@ const privateId = modelBuilder
   .version("1.0.0")
   .build();
 
-const chatId = modelBuilder
+const chatId = nativeModelBuilder
   .create()
   .empty(false, errors.CHAT_ID_EMPTY)
   .maxlength(35, errors.CHAT_ID_MAX_LENGTH_REACH)
@@ -41,7 +41,7 @@ const chatId = modelBuilder
   .version("1.0.0")
   .build();
 
-const messageId = modelBuilder
+const messageId = nativeModelBuilder
   .create()
   .defaultValue(randomMaker.randomId)
   .maxlength(45, errors.MESSAGE_ID_MAX_LENGTH_REACH)

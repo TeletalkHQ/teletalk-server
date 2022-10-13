@@ -1,4 +1,4 @@
-const { modelBuilder } = require("@/classes/ModelBuilder");
+const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
 
 const {
   extractVersions,
@@ -13,7 +13,7 @@ const chatId = common.chatId;
 const createdAt = common.createdAt;
 const messageId = common.messageId;
 
-const message = modelBuilder
+const message = nativeModelBuilder
   .create()
   .empty(false, errors.MESSAGE_TEXT_EMPTY)
   .maxlength(20, errors.MESSAGE_TEXT_MAX_LENGTH_REACH)
@@ -22,7 +22,7 @@ const message = modelBuilder
   .version("1.0.0")
   .build();
 
-const participantId = modelBuilder
+const participantId = nativeModelBuilder
   .create()
   .empty(common.privateId.empty.value, errors.PARTICIPANT_EMPTY)
   .maxlength(
@@ -40,7 +40,7 @@ const participantId = modelBuilder
   .version("1.0.0")
   .build();
 
-const senderId = modelBuilder
+const senderId = nativeModelBuilder
   .create()
   .maxlength(
     common.privateId.maxlength.value,

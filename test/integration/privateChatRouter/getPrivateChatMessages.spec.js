@@ -1,9 +1,13 @@
-const { messageIdSuccessTests } = require("$/api/generalTests/messageIdTests");
-const { senderIdSuccessTests } = require("$/api/generalTests/senderIdTests");
-const { chatIdFailureTests } = require("$/api/generalTests/chatIdTests");
+const {
+  messageIdSuccessTests,
+} = require("$/helpers/integrationHelpers/messageId");
+const {
+  senderIdSuccessTests,
+} = require("$/helpers/integrationHelpers/senderId");
+const { chatIdFailureTests } = require("$/helpers/integrationHelpers/chatId");
 const {
   authenticationFailureTests,
-} = require("$/api/generalTests/authenticationTests");
+} = require("$/helpers/integrationHelpers/authentication");
 
 const { requesters } = require("$/helpers/requesters");
 

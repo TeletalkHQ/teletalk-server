@@ -1,5 +1,5 @@
 const { authManager } = require("@/classes/AuthManager");
-const { generalTest } = require("@/classes/GeneralTest");
+const { generalTest } = require("$/classes/GeneralTest");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");

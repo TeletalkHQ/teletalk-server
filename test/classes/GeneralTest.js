@@ -1,52 +1,6 @@
 const {
-  countryCodeFailureTests,
-  countryCodeSuccessTests,
-} = require("$/api/generalTests/countryCodeTests");
-const { privateIdSuccessTests } = require("$/api/generalTests/privateIdTests");
-const {
-  countryNameFailureTests,
-  countryNameSuccessTests,
-} = require("$/api/generalTests/countryNameTests");
-const {
-  phoneNumberFailureTests,
-  phoneNumberSuccessTests,
-} = require("$/api/generalTests/phoneNumberTests");
-const { cellphoneFailureTests } = require("$/api/generalTests/cellphoneTests");
-const {
-  verificationCodeFailureTests,
-} = require("$/api/generalTests/verificationCodeTests");
-const {
-  authenticationFailureTests,
-} = require("$/api/generalTests/authenticationTests");
-const {
-  verificationCodeSuccessTests,
-} = require("$/api/generalTests/verificationCodeTests");
-const { tokenSuccessTests } = require("$/api/generalTests/tokenTests");
-const {
-  firstNameFailureTests,
-  firstNameSuccessTests,
-} = require("$/api/generalTests/firstNameTests");
-const {
-  lastNameFailureTests,
-  lastNameSuccessTests,
-} = require("$/api/generalTests/lastNameTests");
-const { chatIdSuccessTests } = require("$/api/generalTests/chatIdTests");
-const { messageIdSuccessTests } = require("$/api/generalTests/messageIdTests");
-const {
-  messageSuccessTests,
-  messageFailureTests,
-} = require("$/api/generalTests/messageTests");
-const {
-  participantIdFailureTests,
-} = require("$/api/generalTests/participantIdTests");
-const {
-  blacklistItemNotExistFailureTests,
-  contactItemNotExistFailureTests,
-  contactItemExistFailureTests,
-  targetUserNotExistFailureTests,
-  blacklistItemExistFailureTests,
-} = require("$/api/generalTests/existencesTests");
-const { selfStuffFailureTests } = require("$/api/generalTests/selfStuffTests");
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integration");
 
 const { testVariables } = require("$/variables/testVariables");
 
@@ -65,67 +19,91 @@ class GeneralFailTestMaker {
   }
 
   cellphone(...args) {
-    cellphoneFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.cellphoneFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
   countryCode(...args) {
-    countryCodeFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.countryCodeFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
   countryName(...args) {
-    countryNameFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.countryNameFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
   phoneNumber(...args) {
-    phoneNumberFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.phoneNumberFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
   verificationCode(...args) {
-    verificationCodeFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.verificationCodeFailureTests(
+      ...this.#defaultArgs(),
+      ...args
+    );
     return this;
   }
   authentication(...args) {
-    authenticationFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.authenticationFailureTests(
+      ...this.#defaultArgs(),
+      ...args
+    );
     return this;
   }
   firstName(...args) {
-    firstNameFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.firstNameFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
   lastName(...args) {
-    lastNameFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.lastNameFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
   participantId(...args) {
-    participantIdFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.participantIdFailureTests(
+      ...this.#defaultArgs(),
+      ...args
+    );
     return this;
   }
   message(...args) {
-    messageFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.messageFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
   selfStuff(...args) {
-    selfStuffFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.selfStuffFailureTests(...this.#defaultArgs(), ...args);
     return this;
   }
   blacklistItemNotExist(...args) {
-    blacklistItemNotExistFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.blacklistItemNotExistFailureTests(
+      ...this.#defaultArgs(),
+      ...args
+    );
     return this;
   }
   blacklistItemExist(...args) {
-    blacklistItemExistFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.blacklistItemExistFailureTests(
+      ...this.#defaultArgs(),
+      ...args
+    );
     return this;
   }
   contactItemNotExist(...args) {
-    contactItemNotExistFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.contactItemNotExistFailureTests(
+      ...this.#defaultArgs(),
+      ...args
+    );
     return this;
   }
   contactItemExist(...args) {
-    contactItemExistFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.contactItemExistFailureTests(
+      ...this.#defaultArgs(),
+      ...args
+    );
     return this;
   }
   targetUserNotExist(...args) {
-    targetUserNotExistFailureTests(...this.#defaultArgs(), ...args);
+    integrationHelpers.targetUserNotExistFailureTests(
+      ...this.#defaultArgs(),
+      ...args
+    );
     return this;
   }
 }
@@ -139,7 +117,7 @@ class GeneralSuccessTestMaker {
     { phoneNumberMain, phoneNumberTest } = {},
     options = this.defaultOptions
   ) {
-    phoneNumberSuccessTests(
+    integrationHelpers.phoneNumberSuccessTests(
       { phoneNumberMain, phoneNumberTest },
       {
         ...this.defaultOptions,
@@ -152,7 +130,7 @@ class GeneralSuccessTestMaker {
     { verificationCodeTest } = {},
     options = this.defaultOptions
   ) {
-    verificationCodeSuccessTests(
+    integrationHelpers.verificationCodeSuccessTests(
       { verificationCodeTest },
       {
         ...this.defaultOptions,
@@ -162,7 +140,7 @@ class GeneralSuccessTestMaker {
     return this;
   }
   async token({ tokenTest, secret } = {}, options = this.defaultOptions) {
-    await tokenSuccessTests(
+    await integrationHelpers.tokenSuccessTests(
       { tokenTest, secret },
       {
         ...this.defaultOptions,
@@ -175,7 +153,7 @@ class GeneralSuccessTestMaker {
     { countryCodeMain, countryCodeTest } = {},
     options = this.defaultOptions
   ) {
-    countryCodeSuccessTests(
+    integrationHelpers.countryCodeSuccessTests(
       { countryCodeMain, countryCodeTest },
       {
         ...this.defaultOptions,
@@ -188,7 +166,7 @@ class GeneralSuccessTestMaker {
     { countryNameMain, countryNameTest } = {},
     options = this.defaultOptions
   ) {
-    countryNameSuccessTests(
+    integrationHelpers.countryNameSuccessTests(
       { countryNameMain, countryNameTest },
       {
         ...this.defaultOptions,
@@ -201,7 +179,7 @@ class GeneralSuccessTestMaker {
     { firstNameMain, firstNameTest } = {},
     options = this.defaultOptions
   ) {
-    firstNameSuccessTests(
+    integrationHelpers.firstNameSuccessTests(
       { firstNameMain, firstNameTest },
       {
         ...this.defaultOptions,
@@ -211,7 +189,7 @@ class GeneralSuccessTestMaker {
     return this;
   }
   lastName({ lastNameMain, lastNameTest } = {}, options = this.defaultOptions) {
-    lastNameSuccessTests(
+    integrationHelpers.lastNameSuccessTests(
       { lastNameMain, lastNameTest },
       {
         ...this.defaultOptions,
@@ -224,7 +202,7 @@ class GeneralSuccessTestMaker {
     { privateIdMain, privateIdTest } = {},
     options = this.defaultOptions
   ) {
-    privateIdSuccessTests(
+    integrationHelpers.privateIdSuccessTests(
       { privateIdMain, privateIdTest },
       {
         ...this.defaultOptions,
@@ -234,7 +212,7 @@ class GeneralSuccessTestMaker {
     return this;
   }
   chatId({ chatIdMain, chatIdTest } = {}, options = this.defaultOptions) {
-    chatIdSuccessTests(
+    integrationHelpers.chatIdSuccessTests(
       { chatIdMain, chatIdTest },
       {
         ...this.defaultOptions,
@@ -247,7 +225,7 @@ class GeneralSuccessTestMaker {
     { messageIdMain, messageIdTest } = {},
     options = this.defaultOptions
   ) {
-    messageIdSuccessTests(
+    integrationHelpers.messageIdSuccessTests(
       { messageIdMain, messageIdTest },
       {
         ...this.defaultOptions,
@@ -257,7 +235,7 @@ class GeneralSuccessTestMaker {
     return this;
   }
   message({ messageMain, messageTest } = {}, options = this.defaultOptions) {
-    messageSuccessTests(
+    integrationHelpers.messageSuccessTests(
       { messageMain, messageTest },
       {
         ...this.defaultOptions,

@@ -1,6 +1,6 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const { generalTest } = require("@/classes/GeneralTest");
+const { generalTest } = require("$/classes/GeneralTest");
 
 const { requesters } = require("$/helpers/requesters");
 

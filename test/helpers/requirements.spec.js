@@ -66,7 +66,8 @@ describe("Add requirements to application state", () => {
 
     await setTestUsers(testUsers);
 
-    const { requirementsGetDone } = eventManager.eventKeys;
+    const { setRequirementsGetDone: requirementsGetDone } =
+      eventManager.eventKeys;
     eventManager.emitEvent(requirementsGetDone);
   });
 });

@@ -1,6 +1,6 @@
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { generalTest } = require("@/classes/GeneralTest");
+const { generalTest } = require("$/classes/GeneralTest");
 
 const { requesters } = require("$/helpers/requesters");
 

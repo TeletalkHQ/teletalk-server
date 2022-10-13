@@ -1,7 +1,7 @@
 const {
   authenticationFailureTests,
-} = require("$/api/generalTests/authenticationTests");
-const { chatsSuccessTests } = require("$/api/generalTests/chatsTests");
+} = require("$/helpers/integrationHelpers/authentication");
+const { chatsSuccessTests } = require("$/helpers/integrationHelpers/chats");
 
 const { requesters } = require("$/helpers/requesters");
 

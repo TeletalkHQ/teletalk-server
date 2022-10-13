@@ -1,28 +1,28 @@
 /*
+ * All test files are independent to each other, so orders not matter
  * Require test files as your wish
- * All test files are independent
  */
 
 const { eventManager } = require("@/classes/EventManager");
 
 //? Requirements ==>
-require("$/requirements.spec");
+require("$/helpers/requirements.spec");
 
-eventManager.addListener(eventManager.eventKeys.requirementsGetDone, () => {
+eventManager.addListener(eventManager.eventKeys.setRequirementsGetDone, () => {
   //? Database ==>
-  require("$/database/userDb.spec");
+  require("$/database/crudUser.spec");
   //? User api's ==>
-  require("$/api/userApis/signInNormalApi.spec");
-  require("$/api/userApis/verifySignInNormalApi.spec");
-  require("$/api/userApis/createNewUserApi.spec");
-  // require("$/api/userApis/logoutNormalApi.spec");
+  require("$/integration/userRouter/signInNormal.spec");
+  require("$/integration/userRouter/verifySignInNormal.spec");
+  require("$/integration/userRouter/createNewUser.spec");
+  // require("$/integration/user/logoutNormalApi.spec");
   //? Cellphone api's ==>
-  require("$/api/cellphoneApis/addContactApi.spec");
-  require("$/api/cellphoneApis/editContactApi.spec");
-  require("$/api/cellphoneApis/removeContactApi.spec");
-  require("$/api/cellphoneApis/addBlockApi.spec");
-  require("$/api/cellphoneApis/removeBlockApi.spec");
-  require("$/api/privateChatApis/sendMessageApi.spec");
-  require("$/api/privateChatApis/getAllChatsApi.spec");
-  require("$/api/privateChatApis/getPrivateChatMessagesApi.spec");
+  require("$/integration/cellphoneRouter/addContact.spec");
+  require("$/integration/cellphoneRouter/editContact.spec");
+  require("$/integration/cellphoneRouter/removeContact.spec");
+  require("$/integration/cellphoneRouter/addBlock.spec");
+  require("$/integration/cellphoneRouter/removeBlock.spec");
+  require("$/integration/privateChatRouter/sendMessage.spec");
+  require("$/integration/privateChatRouter/getAllChats.spec");
+  require("$/integration/privateChatRouter/getPrivateChatMessages.spec");
 });

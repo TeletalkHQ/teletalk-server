@@ -1,4 +1,5 @@
-const { modelBuilder } = require("@/classes/ModelBuilder");
+const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
+
 const {
   versionCalculator,
 
@@ -9,7 +10,7 @@ const { common } = require("@/models/native/common");
 
 const { errors } = require("@/variables/errors/errors");
 
-const bio = modelBuilder
+const bio = nativeModelBuilder
   .create()
   .defaultValue("")
   .empty(false, errors.BIO_EMPTY)
@@ -20,14 +21,14 @@ const bio = modelBuilder
   .version("1.0.0")
   .build();
 
-const blacklist = modelBuilder
+const blacklist = nativeModelBuilder
   .create()
   .defaultValue([])
   .type("array", errors.BLACKLIST_INVALID_TYPE)
   .version("1.0.0")
   .build();
 
-const contacts = modelBuilder
+const contacts = nativeModelBuilder
   .create()
   .defaultValue([])
   .maxlength(14)
@@ -37,7 +38,7 @@ const contacts = modelBuilder
   .version("1.0.0")
   .build();
 
-const countryCode = modelBuilder
+const countryCode = nativeModelBuilder
   .create()
   .empty(false, errors.COUNTRY_CODE_EMPTY)
   .maxlength(4, errors.COUNTRY_CODE_MAXLENGTH_REACH)
@@ -49,7 +50,7 @@ const countryCode = modelBuilder
   .version("1.0.0")
   .build();
 
-const countryName = modelBuilder
+const countryName = nativeModelBuilder
   .create()
   .empty(false, errors.COUNTRY_NAME_EMPTY)
   .maxlength(50, errors.COUNTRY_NAME_MAXLENGTH_REACH)
@@ -59,7 +60,7 @@ const countryName = modelBuilder
   .version("1.0.0")
   .build();
 
-const chatInfo = modelBuilder
+const chatInfo = nativeModelBuilder
   .create()
   .type("array", errors.CHATS_INVALID_TYPE)
   .version("1.0.0")
@@ -68,7 +69,7 @@ const chatInfo = modelBuilder
 const createdAt = common.createdAt;
 const privateId = common.privateId;
 
-const firstName = modelBuilder
+const firstName = nativeModelBuilder
   .create()
   .empty(false, errors.FIRST_NAME_EMPTY)
   .maxlength(18, errors.FIRST_NAME_MAXLENGTH_REACH)
@@ -79,7 +80,7 @@ const firstName = modelBuilder
   .version("1.0.0")
   .build();
 
-const lastName = modelBuilder
+const lastName = nativeModelBuilder
   .create()
   .defaultValue("")
   .empty(false, errors.LAST_NAME_EMPTY)
@@ -91,7 +92,7 @@ const lastName = modelBuilder
   .version("1.0.0")
   .build();
 
-const macAddress = modelBuilder
+const macAddress = nativeModelBuilder
   .create()
   .empty(false, errors.MAC_ADDRESS_EMPTY)
   .maxlength(16, errors.MAC_ADDRESS_MAXLENGTH_REACH)
@@ -103,7 +104,7 @@ const macAddress = modelBuilder
   .version("1.0.0")
   .build();
 
-const phoneNumber = modelBuilder
+const phoneNumber = nativeModelBuilder
   .create()
   .empty(false, errors.PHONE_NUMBER_EMPTY)
   .maxlength(14, errors.PHONE_NUMBER_MAXLENGTH_REACH)
@@ -115,7 +116,7 @@ const phoneNumber = modelBuilder
   .version("1.0.0")
   .build();
 
-const token = modelBuilder
+const token = nativeModelBuilder
   .create()
   .required(true, errors.TOKEN_REQUIRED)
   .type("string", errors.TOKEN_INVALID_TYPE)
@@ -125,7 +126,7 @@ const token = modelBuilder
   .version("1.0.0")
   .build();
 
-const username = modelBuilder
+const username = nativeModelBuilder
   .create()
   .defaultValue("")
   .empty(false, errors.USERNAME_EMPTY)
@@ -139,7 +140,7 @@ const username = modelBuilder
   .version("1.0.0")
   .build();
 
-const verificationCode = modelBuilder
+const verificationCode = nativeModelBuilder
   .create()
   .empty(false, errors.VERIFICATION_CODE_EMPTY)
   .length(6, errors.VERIFICATION_CODE_INVALID_LENGTH)

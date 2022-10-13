@@ -1,5 +1,5 @@
 const { authManager } = require("@/classes/AuthManager");
-const { generalTest } = require("@/classes/GeneralTest");
+const { generalTest } = require("$/classes/GeneralTest");
 
 const { requesters } = require("$/helpers/requesters");
 

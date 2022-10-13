@@ -74,7 +74,7 @@ const requesters = {
   addContactRequest: makeRequester(routes.cellphone.addContact),
   createNewUserRequest: makeRequester(routes.user.createNewUser),
   editContactRequest: makeRequester(routes.cellphone.editContact),
-  getAllChatsRequest: makeRequester(routes.privateChat.getAllChats),
+  getAllChatsRequest: makeRequester(routes.privateChat.getAllPrivateChats),
   getPrivateChatMessagesRequest: makeRequester(
     routes.privateChat.getPrivateChatMessages
   ),

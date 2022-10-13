@@ -23,7 +23,7 @@ const {
 
 const privateChatRouteBuilder = routeBuilder(baseUrls.privateChat);
 
-const getAllChats = privateChatRouteBuilder
+const getAllPrivateChats = privateChatRouteBuilder
   .create()
   .method("get")
   .url("/privateChat/getAllPrivateChats")
@@ -33,11 +33,7 @@ const getAllChats = privateChatRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [chats]: [
-        {
-          chatId,
-        },
-      ],
+      [chats]: chats,
     },
   ])
   .build();
@@ -99,7 +95,7 @@ const sendMessage = privateChatRouteBuilder
 
 const routes = {
   chatsLastMessage,
-  getAllChats,
+  getAllPrivateChats,
   getPrivateChatMessages,
   sendMessage,
 };

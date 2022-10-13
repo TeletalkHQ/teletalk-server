@@ -59,7 +59,7 @@ const countryName = modelBuilder
   .version("1.0.0")
   .build();
 
-const chats = modelBuilder
+const chatInfo = modelBuilder
   .create()
   .type("array", errors.CHATS_INVALID_TYPE)
   .version("1.0.0")
@@ -153,7 +153,7 @@ const verificationCode = modelBuilder
 const models = {
   bio,
   blacklist,
-  chats,
+  chatInfo,
   contacts,
   countryCode,
   countryName,

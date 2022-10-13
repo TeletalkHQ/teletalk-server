@@ -136,7 +136,7 @@ const UserSchema = new mongoose.Schema({
       phoneNumber,
     },
   ],
-  chats: [
+  chatInfo: [
     {
       chatId,
     },

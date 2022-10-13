@@ -8,7 +8,9 @@ const { removeContact } = require("@/controllers/cellphone/removeContact");
 const { getCountries } = require("@/controllers/other/getCountries");
 const { getWelcomeMessage } = require("@/controllers/other/getWelcomeMessage");
 
-const { getAllChats } = require("@/controllers/privateChat/getAllChats");
+const {
+  getAllPrivateChats,
+} = require("@/controllers/privateChat/getAllPrivateChats");
 const { getMessages } = require("@/controllers/privateChat/getMessages");
 const { sendMessage } = require("@/controllers/privateChat/sendMessage");
 
@@ -34,7 +36,7 @@ const controllers = {
   checkUserStatus,
   createNewUser,
   editContact,
-  getAllChats,
+  getAllPrivateChats,
   getAllStuff,
   getAllUsers,
   getContacts,

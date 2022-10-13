@@ -172,6 +172,7 @@ const verifySignInNormal = userRouteBuilder
         ...userDataDefaultIoFields,
         [bio]: true,
         newUser,
+
         [username]: true,
       },
     },

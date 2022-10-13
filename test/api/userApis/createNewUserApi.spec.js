@@ -4,18 +4,11 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
 
+const { requesters } = require("$/helpers/requesters");
+
 const { models } = require("@/models/models");
 
-const {
-  requesters: {
-    createNewUserRequest,
-    signInNormalRequest,
-    verifySignInRequest,
-  },
-  testVariables: {
-    cellphones: { createNewUserSignInCellphone },
-  },
-} = require("@/variables/others/testVariables");
+const { testVariables } = require("$/variables/testVariables");
 
 const userModels = models.native.user;
 
@@ -36,12 +29,13 @@ describe("success create new normal user", () => {
           verificationCode: newUserVerificationCode,
         },
       },
-    } = await signInNormalRequest().sendFullFeaturedRequest(
-      createNewUserSignInCellphone
-    );
+    } = await requesters
+      .signInNormalRequest()
+      .sendFullFeaturedRequest(testVariables.cellphones.createNewUserSignIn);
 
     //* 2- Verify user by verificationCode & verifyToken =>
-    const newUserVerifySignInResponse = await verifySignInRequest()
+    const newUserVerifySignInResponse = await requesters
+      .verifySignInRequest()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
@@ -63,11 +57,14 @@ describe("success create new normal user", () => {
           privateId,
         },
       },
-    } = await createNewUserRequest()
+    } = await requesters
+      .createNewUserRequest()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest(fullName);
 
-    const successTests = generalTest.createSuccessTest(createNewUserRequest());
+    const successTests = generalTest.createSuccessTest(
+      requesters.createNewUserRequest()
+    );
 
     const JWT_MAIN_SECRET = authManager.getJwtMainSecret();
     await successTests.token({
@@ -78,15 +75,18 @@ describe("success create new normal user", () => {
     successTests
       .countryCode({
         countryCodeTest: countryCode,
-        countryCodeMain: createNewUserSignInCellphone.countryCode,
+        countryCodeMain:
+          testVariables.cellphones.createNewUserSignIn.countryCode,
       })
       .countryName({
         countryNameTest: countryName,
-        countryNameMain: createNewUserSignInCellphone.countryName,
+        countryNameMain:
+          testVariables.cellphones.createNewUserSignIn.countryName,
       })
       .phoneNumber({
         phoneNumberTest: phoneNumber,
-        phoneNumberMain: createNewUserSignInCellphone.phoneNumber,
+        phoneNumberMain:
+          testVariables.cellphones.createNewUserSignIn.phoneNumber,
       })
       .privateId({ privateIdTest: privateId }, { stringEquality: false })
       .firstName({
@@ -102,15 +102,15 @@ describe("success create new normal user", () => {
 
 describe("create new normal user failure tests", () => {
   //* Config customRequest for fail tests
-  const customRequest = createNewUserRequest();
+  const customRequest = requesters.createNewUserRequest();
   before(async () => {
     const {
       body: {
         user: { verifyToken },
       },
-    } = await signInNormalRequest().sendFullFeaturedRequest(
-      createNewUserSignInCellphone
-    );
+    } = await requesters
+      .signInNormalRequest()
+      .sendFullFeaturedRequest(testVariables.cellphones.createNewUserSignIn);
 
     customRequest.setToken(verifyToken);
   });

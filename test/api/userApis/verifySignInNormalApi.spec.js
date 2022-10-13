@@ -4,18 +4,11 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
 
+const { requesters } = require("$/helpers/requesters");
+
 const { models } = require("@/models/models");
 
-const {
-  requesters: {
-    createNewUserRequest,
-    signInNormalRequest,
-    verifySignInRequest,
-  },
-  testVariables: {
-    cellphones: { verifySignInFailTestCellphone, verifySignInNewUserCellphone },
-  },
-} = require("@/variables/others/testVariables");
+const { testVariables } = require("$/variables/testVariables");
 
 const userModels = models.native.user;
 
@@ -24,9 +17,9 @@ const signInFn = async () => {
     body: {
       user: { verifyToken, verificationCode },
     },
-  } = await signInNormalRequest().sendFullFeaturedRequest(
-    verifySignInNewUserCellphone
-  );
+  } = await requesters
+    .signInNormalRequest()
+    .sendFullFeaturedRequest(testVariables.cellphones.verifySignInNewUser);
 
   return { verifyToken, verificationCode };
 };
@@ -51,7 +44,8 @@ describe("verifySignInNormalApi success test", () => {
     await tokenVerifier(newUserVerifyToken);
 
     //* 2- Verify user by verificationCode & verifyToken =>
-    const newUserVerifySignInResponse = await verifySignInRequest()
+    const newUserVerifySignInResponse = await requesters
+      .verifySignInRequest()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
@@ -65,7 +59,8 @@ describe("verifySignInNormalApi success test", () => {
       userModels.firstName.maxlength.value,
       userModels.lastName.maxlength.value
     );
-    await createNewUserRequest()
+    await requesters
+      .createNewUserRequest()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest(fullName);
 
@@ -80,7 +75,8 @@ describe("verifySignInNormalApi success test", () => {
       body: {
         user: { newUser, ...userData },
       },
-    } = await verifySignInRequest()
+    } = await requesters
+      .verifySignInRequest()
       .setToken(signedUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode,
@@ -89,7 +85,7 @@ describe("verifySignInNormalApi success test", () => {
     //* 8- Test output when newUser === false =>
     expect(newUser).equal(false);
     const { countryCode, countryName, phoneNumber } =
-      verifySignInNewUserCellphone;
+      testVariables.cellphones.verifySignInNewUser;
 
     generalTest
       .createSuccessTest()
@@ -110,15 +106,15 @@ describe("verifySignInNormalApi success test", () => {
 
 describe("verifySignInNormalApi failure tests", () => {
   //* Config customRequest for fail tests
-  const customRequest = verifySignInRequest();
+  const customRequest = requesters.verifySignInRequest();
   before(async () => {
     const {
       body: {
         user: { verifyToken },
       },
-    } = await signInNormalRequest().sendFullFeaturedRequest(
-      verifySignInFailTestCellphone
-    );
+    } = await requesters
+      .signInNormalRequest()
+      .sendFullFeaturedRequest(testVariables.cellphones.verifySignInFailTest);
 
     customRequest.setToken(verifyToken);
   });

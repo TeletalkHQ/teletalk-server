@@ -2,15 +2,16 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const { models } = require("@/models/models");
 
-const {
-  successTestDefaultOptions,
-} = require("@/variables/others/testVariables");
+const { testVariables } = require("$/variables/testVariables");
 
 const userModels = models.native.user;
 
 const privateIdSuccessTests = (
   { privateIdMain, privateIdTest } = {},
-  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
+  {
+    stringEquality = true,
+    modelCheck = true,
+  } = testVariables.successTestDefaultOptions
 ) => {
   successTestBuilder
     .create()

@@ -3,22 +3,14 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models/models");
 
-const {
-  requesters: { addContactRequest },
-  testVariables: {
-    cellphones: { notExistedContact },
-    testUsers: {
-      addContactSuccessfulTestUser,
-      contactItemExistTestUser,
-      selfStuffTestUser,
-    },
-  },
-} = require("@/variables/others/testVariables");
+const { requesters } = require("$/helpers/requesters");
+
+const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
 
 const userModels = models.native.user;
 
-const configuredAddContactRequester = addContactRequest();
+const configuredAddContactRequester = requesters.addContactRequest();
 
 describe("add contact success tests", () => {
   it("should add testUser_1 to testUser_0 contact list", async () => {
@@ -35,33 +27,33 @@ describe("add contact success tests", () => {
       },
     } = await configuredAddContactRequester.sendFullFeaturedRequest(
       //TODO User cellphone instead
-      addContactSuccessfulTestUser
+      testVariables.users.addContactSuccessful
     );
 
     generalTest
       .createSuccessTest()
       .privateId({
-        privateIdMain: addContactSuccessfulTestUser.privateId,
+        privateIdMain: testVariables.users.addContactSuccessful.privateId,
         privateIdTest: privateId,
       })
       .countryCode({
-        countryCodeMain: addContactSuccessfulTestUser.countryCode,
+        countryCodeMain: testVariables.users.addContactSuccessful.countryCode,
         countryCodeTest: countryCode,
       })
       .countryName({
-        countryNameMain: addContactSuccessfulTestUser.countryName,
+        countryNameMain: testVariables.users.addContactSuccessful.countryName,
         countryNameTest: countryName,
       })
       .phoneNumber({
-        phoneNumberMain: addContactSuccessfulTestUser.phoneNumber,
+        phoneNumberMain: testVariables.users.addContactSuccessful.phoneNumber,
         phoneNumberTest: phoneNumber,
       })
       .lastName({
-        lastNameMain: addContactSuccessfulTestUser.lastName,
+        lastNameMain: testVariables.users.addContactSuccessful.lastName,
         lastNameTest: lastName,
       })
       .firstName({
-        firstNameMain: addContactSuccessfulTestUser.firstName,
+        firstNameMain: testVariables.users.addContactSuccessful.firstName,
         firstNameTest: firstName,
       });
   });
@@ -71,7 +63,7 @@ describe("addContact failure tests", () => {
   //* Add someone to contacts for contactItemExist fail tests
   before(async () => {
     await configuredAddContactRequester.sendFullFeaturedRequest(
-      contactItemExistTestUser
+      testVariables.users.contactItemExist
     );
   });
 
@@ -89,7 +81,7 @@ describe("addContact failure tests", () => {
     .phoneNumber(contact)
     .firstName(contact)
     .lastName(contact)
-    .selfStuff(selfStuffTestUser)
-    .contactItemExist(contactItemExistTestUser)
-    .targetUserNotExist(notExistedContact);
+    .selfStuff(testVariables.users.selfStuff)
+    .contactItemExist(testVariables.users.contactItemExist)
+    .targetUserNotExist(testVariables.cellphones.notExistedContact);
 });

@@ -48,9 +48,7 @@ const {
 } = require("$/api/generalTests/existencesTests");
 const { selfStuffFailureTests } = require("$/api/generalTests/selfStuffTests");
 
-const {
-  successTestDefaultOptions,
-} = require("@/variables/others/testVariables");
+const { testVariables } = require("$/variables/testVariables");
 
 class GeneralFailTestMaker {
   constructor(requester) {
@@ -134,7 +132,7 @@ class GeneralFailTestMaker {
 
 class GeneralSuccessTestMaker {
   constructor() {
-    this.defaultOptions = successTestDefaultOptions;
+    this.defaultOptions = testVariables.successTestDefaultOptions;
   }
 
   phoneNumber(

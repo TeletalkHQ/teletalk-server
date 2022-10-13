@@ -4,15 +4,16 @@ const { failTestBuilder } = require("@/classes/FailTestBuilder");
 const { models } = require("@/models/models");
 
 const { errors } = require("@/variables/errors/errors");
-const {
-  successTestDefaultOptions,
-} = require("@/variables/others/testVariables");
+const { testVariables } = require("$/variables/testVariables");
 
 const userModels = models.native.user;
 
 const lastNameSuccessTests = (
   { lastNameMain, lastNameTest } = {},
-  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
+  {
+    stringEquality = true,
+    modelCheck = true,
+  } = testVariables.successTestDefaultOptions
 ) => {
   const ts = successTestBuilder
     .create()

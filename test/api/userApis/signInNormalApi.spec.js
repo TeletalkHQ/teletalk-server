@@ -1,12 +1,9 @@
 const { authManager } = require("@/classes/AuthManager");
 const { generalTest } = require("@/classes/GeneralTest");
 
-const {
-  testVariables: {
-    cellphones: { signInCellphone },
-  },
-  requesters: { signInNormalRequest },
-} = require("@/variables/others/testVariables");
+const { requesters } = require("$/helpers/requesters");
+
+const { testVariables } = require("$/variables/testVariables");
 
 describe("signInNormalApi test success requests", () => {
   it("It should get sign in data like token and verification code", async () => {
@@ -20,21 +17,23 @@ describe("signInNormalApi test success requests", () => {
           verificationCode,
         },
       },
-    } = await signInNormalRequest().sendFullFeaturedRequest(signInCellphone);
+    } = await requesters
+      .signInNormalRequest()
+      .sendFullFeaturedRequest(testVariables.cellphones.signIn);
 
     const successTest = generalTest.createSuccessTest();
 
     successTest
       .countryName({
-        countryNameMain: signInCellphone.countryName,
+        countryNameMain: testVariables.cellphones.signIn.countryName,
         countryNameTest: countryName,
       })
       .countryCode({
-        countryCodeMain: signInCellphone.countryCode,
+        countryCodeMain: testVariables.cellphones.signIn.countryCode,
         countryCodeTest: countryCode,
       })
       .phoneNumber({
-        phoneNumberMain: signInCellphone.phoneNumber,
+        phoneNumberMain: testVariables.cellphones.signIn.phoneNumber,
         phoneNumberTest: phoneNumber,
       })
       .verificationCode({ verificationCodeTest: verificationCode });
@@ -49,9 +48,9 @@ describe("signInNormalApi test success requests", () => {
 
 describe("signInNormalApi test failure requests", () => {
   generalTest
-    .createFailTest(signInNormalRequest())
-    .cellphone(signInCellphone)
-    .countryCode(signInCellphone)
-    .countryName(signInCellphone)
-    .phoneNumber(signInCellphone);
+    .createFailTest(requesters.signInNormalRequest())
+    .cellphone(testVariables.cellphones.signIn)
+    .countryCode(testVariables.cellphones.signIn)
+    .countryName(testVariables.cellphones.signIn)
+    .phoneNumber(testVariables.cellphones.signIn);
 });

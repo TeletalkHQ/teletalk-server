@@ -2,19 +2,11 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
 
+const { requesters } = require("$/helpers/requesters");
+
 const { models } = require("@/models/models");
 
-const {
-  requesters: {
-    createNewUserRequest,
-    signInNormalRequest,
-    verifySignInRequest,
-    logoutNormalRequest,
-  },
-  testVariables: {
-    cellphones: { verifySignInNewUserCellphone },
-  },
-} = require("@/variables/others/testVariables");
+const { testVariables } = require("$/variables/testVariables");
 
 const userModels = models.native.user;
 
@@ -28,9 +20,9 @@ const signInFn = async () => {
     body: {
       user: { verificationCode, verifyToken },
     },
-  } = await signInNormalRequest().sendFullFeaturedRequest(
-    verifySignInNewUserCellphone
-  );
+  } = await requesters
+    .signInNormalRequest()
+    .sendFullFeaturedRequest(testVariables.cellphones.verifySignInNewUser);
 
   return {
     verificationCode,
@@ -39,13 +31,17 @@ const signInFn = async () => {
 };
 
 const verifySingIn = async (verificationCode, verifyToken) => {
-  await verifySignInRequest().setToken(verifyToken).sendFullFeaturedRequest({
-    verificationCode,
-  });
+  await requesters
+    .verifySignInRequest()
+    .setToken(verifyToken)
+    .sendFullFeaturedRequest({
+      verificationCode,
+    });
 };
 
 const createNewUser = async (verifyToken) => {
-  return await createNewUserRequest()
+  return await requesters
+    .createNewUserRequest()
     .setToken(verifyToken)
     .sendFullFeaturedRequest(fullName);
 };
@@ -62,11 +58,9 @@ describe("logoutNormal success tests", () => {
 
     const {
       body: { ok },
-    } = await logoutNormalRequest().sendFullFeaturedRequest(
-      undefined,
-      undefined,
-      { token: mainToken }
-    );
+    } = await requesters
+      .logoutNormalRequest()
+      .sendFullFeaturedRequest(undefined, undefined, { token: mainToken });
 
     expect(ok).to.be.true;
   });

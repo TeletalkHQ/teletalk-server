@@ -9,13 +9,7 @@ const {
   errorThrower,
 } = require("@/functions/utilities/utilities");
 
-const {
-  appErrors: {
-    OUTPUT_FIELDS_MISSING,
-    OUTPUT_FIELDS_OVERLOAD,
-    SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
-  },
-} = require("@/variables/errors/appErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const tryToCheckDataAndResponse = ({
   data,
@@ -24,8 +18,8 @@ const tryToCheckDataAndResponse = ({
 }) => {
   const checkResult = ioFieldsChecker(data, outputFields, {
     requiredFieldsIndex,
-    missingFieldsError: OUTPUT_FIELDS_MISSING,
-    overloadFieldsError: OUTPUT_FIELDS_OVERLOAD,
+    missingFieldsError: errors.OUTPUT_FIELDS_MISSING,
+    overloadFieldsError: errors.OUTPUT_FIELDS_OVERLOAD,
   });
 
   errorThrower(checkResult.ok === false, () => ({
@@ -49,7 +43,7 @@ const catchCheckDataAndResponse = (error, res) => {
 const checkDataAndResponse = (req, res, next) => {
   crashServerWithCondition(
     customTypeof.isNotFunction(res.sendJsonResponse),
-    SEND_JSON_RESPONSE_IS_NOT_FUNCTION
+    errors.SEND_JSON_RESPONSE_IS_NOT_FUNCTION
   );
 
   res.checkDataAndResponse = (data, requiredFieldsIndex) => {

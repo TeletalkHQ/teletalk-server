@@ -3,14 +3,7 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const { models } = require("@/models/models");
 
-const {
-  chatErrors: {
-    MESSAGE_TEXT_INVALID_TYPE,
-    MESSAGE_TEXT_MAX_LENGTH_REACH,
-    MESSAGE_TEXT_MIN_LENGTH_REACH,
-    MESSAGE_TEXT_REQUIRED,
-  },
-} = require("@/variables/errors/chatErrors");
+const { errors } = require("@/variables/errors/errors");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
@@ -32,10 +25,10 @@ const messageSuccessTests = (
 const messageFailureTests = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(configuredCustomRequest, data, chatModels.message, "message")
-    .required(MESSAGE_TEXT_REQUIRED)
-    .maxlength(MESSAGE_TEXT_MAX_LENGTH_REACH)
-    .minlength(MESSAGE_TEXT_MIN_LENGTH_REACH)
-    .invalidType_typeIsString(MESSAGE_TEXT_INVALID_TYPE);
+    .required(errors.MESSAGE_TEXT_REQUIRED)
+    .maxlength(errors.MESSAGE_TEXT_MAX_LENGTH_REACH)
+    .minlength(errors.MESSAGE_TEXT_MIN_LENGTH_REACH)
+    .invalidType_typeIsString(errors.MESSAGE_TEXT_INVALID_TYPE);
 };
 
 module.exports = {

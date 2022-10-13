@@ -5,14 +5,7 @@ const { models } = require("@/models/models");
 
 const userModels = models.native.user;
 
-const {
-  userErrors: {
-    FIRST_NAME_INVALID_TYPE,
-    FIRST_NAME_MAXLENGTH_REACH,
-    FIRST_NAME_MINLENGTH_REACH,
-    FIRST_NAME_REQUIRED,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
@@ -33,10 +26,10 @@ const firstNameSuccessTests = (
 const firstNameFailureTests = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(configuredCustomRequest, data, userModels.firstName, "firstName")
-    .required(FIRST_NAME_REQUIRED)
-    .minlength(FIRST_NAME_MINLENGTH_REACH)
-    .maxlength(FIRST_NAME_MAXLENGTH_REACH)
-    .invalidType_typeIsString(FIRST_NAME_INVALID_TYPE);
+    .required(errors.FIRST_NAME_REQUIRED)
+    .minlength(errors.FIRST_NAME_MINLENGTH_REACH)
+    .maxlength(errors.FIRST_NAME_MAXLENGTH_REACH)
+    .invalidType_typeIsString(errors.FIRST_NAME_INVALID_TYPE);
 };
 
 module.exports = { firstNameFailureTests, firstNameSuccessTests };

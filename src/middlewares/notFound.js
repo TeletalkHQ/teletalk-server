@@ -5,15 +5,13 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const {
-  appErrors: { ROUTE_NOT_FOUND },
-} = require("@/variables/errors/appErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const isRouteObjectInvalid = ({ fullUrl, inputFields, outputFields, url }) =>
   customTypeof.isUndefined(fullUrl, inputFields, outputFields, url);
 
 const tryToValidateRouteObject = (routeObject) => {
-  errorThrower(isRouteObjectInvalid(routeObject), ROUTE_NOT_FOUND);
+  errorThrower(isRouteObjectInvalid(routeObject), errors.ROUTE_NOT_FOUND);
 };
 
 const catchValidateRouteObject = commonFunctionalities.controllerCatchResponse;

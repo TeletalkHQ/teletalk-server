@@ -18,9 +18,7 @@ const {
 const { services } = require("@/services/services");
 
 const { validators } = require("@/validators/validators");
-const {
-  userErrors: { USER_EXIST, USER_NOT_EXIST },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const tryToExtractCellphoneFromToken = async (verifyToken) => {
   const jwtSecret = authManager.getJwtSignInSecret();
@@ -40,13 +38,13 @@ const tryToValidateLastName = async (lastName) => {
 
 const tryToFindTemporaryClient = async (cellphone) => {
   const client = await temporaryClients.findClient(cellphone);
-  errorThrower(!client, () => ({ ...USER_NOT_EXIST, cellphone }));
+  errorThrower(!client, () => ({ ...errors.USER_NOT_EXIST, cellphone }));
   return client;
 };
 
 const tryToFindUserInDb = async (cellphone) => {
   const foundUser = await services.userFinder(cellphone);
-  errorThrower(foundUser, () => USER_EXIST);
+  errorThrower(foundUser, () => errors.USER_EXIST);
   return foundUser;
 };
 

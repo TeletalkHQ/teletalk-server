@@ -7,9 +7,7 @@ const Validator = require("fastest-validator");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const {
-  localErrors: { VALIDATION_MODEL_IS_NOT_OBJECT },
-} = require("@/variables/errors/localErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const fastestValidatorCompiler = new Validator();
 
@@ -60,7 +58,7 @@ class ValidationModelBuilder {
   static validatorCompiler({ version, ...validationModel }) {
     errorThrower(
       customTypeof.isNotObject(validationModel),
-      VALIDATION_MODEL_IS_NOT_OBJECT
+      errors.VALIDATION_MODEL_IS_NOT_OBJECT
     );
 
     return trier(this.validatorCompiler)

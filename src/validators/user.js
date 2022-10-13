@@ -13,16 +13,7 @@ const {
   validatorErrorBuilder,
 } = require("@/validators/validatorErrorBuilders");
 
-const {
-  userErrors: {
-    CELLPHONE_REQUIRED,
-    TOKEN_INVALID,
-    TOKEN_INVALID_TYPE,
-    TOKEN_MAXLENGTH_REACH,
-    TOKEN_MINLENGTH_REACH,
-    TOKEN_REQUIRED,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const trierInstance = async (callerName, callback, ...params) =>
   (await trier(callerName).tryAsync(callback, ...params)).printAndThrow();
@@ -94,7 +85,7 @@ const tryToValidateCellphone = async (cellphone) => {
   errorThrower(
     !cellphone.phoneNumber && !cellphone.countryCode && !cellphone.countryName,
     () => ({
-      ...CELLPHONE_REQUIRED,
+      ...errors.CELLPHONE_REQUIRED,
       validatedCellphone: cellphone,
     })
   );
@@ -137,12 +128,12 @@ const tryToValidateToken = async (token, secret) => {
         validatedToken: token,
       },
     })
-    .required(TOKEN_REQUIRED)
-    .stringMin(TOKEN_MINLENGTH_REACH)
-    .stringMax(TOKEN_MAXLENGTH_REACH)
-    .stringEmpty(TOKEN_REQUIRED)
-    .string(TOKEN_INVALID_TYPE)
-    .throwAnyway(TOKEN_INVALID)
+    .required(errors.TOKEN_REQUIRED)
+    .stringMin(errors.TOKEN_MINLENGTH_REACH)
+    .stringMax(errors.TOKEN_MAXLENGTH_REACH)
+    .stringEmpty(errors.TOKEN_REQUIRED)
+    .string(errors.TOKEN_INVALID_TYPE)
+    .throwAnyway(errors.TOKEN_INVALID)
     .execute();
 
   const verifiedToken = authManager.tokenVerifier(token, secret);
@@ -152,7 +143,7 @@ const tryToValidateToken = async (token, secret) => {
     .addExtraErrorFields({
       tokenError: verifiedToken.error,
     })
-    .addError(verifiedToken.ok === false, TOKEN_INVALID)
+    .addError(verifiedToken.ok === false, errors.TOKEN_INVALID)
     .execute();
 };
 const token = async (tokenParam, secret = authManager.getJwtMainSecret()) => {

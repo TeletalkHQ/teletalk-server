@@ -8,16 +8,14 @@ const {
 } = require("@/functions/utilities/utilities");
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const {
-  userErrors: { SELF_STUFF },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 
 const tryTo = (targetCellphone, userData) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);
 
   errorThrower(
     isDataHasEqualityWithTargetCellphone(cellphone, targetCellphone),
-    () => ({ ...SELF_STUFF, targetCellphone })
+    () => ({ ...errors.SELF_STUFF, targetCellphone })
   );
   return { ok: true };
 };

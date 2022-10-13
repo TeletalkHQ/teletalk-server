@@ -3,13 +3,7 @@ const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const { models } = require("@/models/models");
 
-const {
-  userErrors: {
-    LAST_NAME_INVALID_TYPE,
-    LAST_NAME_MAXLENGTH_REACH,
-    LAST_NAME_MINLENGTH_REACH,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
@@ -37,9 +31,9 @@ const lastNameSuccessTests = (
 const lastNameFailureTests = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(configuredCustomRequest, data, userModels.lastName, "lastName")
-    .maxlength(LAST_NAME_MAXLENGTH_REACH)
-    .minlength(LAST_NAME_MINLENGTH_REACH)
-    .invalidType_typeIsString(LAST_NAME_INVALID_TYPE);
+    .maxlength(errors.LAST_NAME_MAXLENGTH_REACH)
+    .minlength(errors.LAST_NAME_MINLENGTH_REACH)
+    .invalidType_typeIsString(errors.LAST_NAME_INVALID_TYPE);
 };
 
 module.exports = {

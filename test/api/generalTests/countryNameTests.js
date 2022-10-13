@@ -7,15 +7,7 @@ const { models } = require("@/models/models");
 
 const userModels = models.native.user;
 
-const {
-  userErrors: {
-    COUNTRY_NAME_MAXLENGTH_REACH,
-    COUNTRY_NAME_MINLENGTH_REACH,
-    COUNTRY_NAME_INVALID_TYPE,
-    COUNTRY_NAME_NOT_SUPPORTED,
-    COUNTRY_NAME_REQUIRED,
-  },
-} = require("@/variables/errors/userErrors");
+const { errors } = require("@/variables/errors/errors");
 const {
   successTestDefaultOptions,
 } = require("@/variables/others/testVariables");
@@ -43,13 +35,13 @@ const countryNameFailureTests = (configuredCustomRequest, data) => {
       userModels.countryName,
       "countryName"
     )
-    .required(COUNTRY_NAME_REQUIRED)
-    .maxlength(COUNTRY_NAME_MAXLENGTH_REACH)
-    .minlength(COUNTRY_NAME_MINLENGTH_REACH)
-    .invalidType_typeIsString(COUNTRY_NAME_INVALID_TYPE)
+    .required(errors.COUNTRY_NAME_REQUIRED)
+    .maxlength(errors.COUNTRY_NAME_MAXLENGTH_REACH)
+    .minlength(errors.COUNTRY_NAME_MINLENGTH_REACH)
+    .invalidType_typeIsString(errors.COUNTRY_NAME_INVALID_TYPE)
     .custom(
       randomMaker.randomString(countryNameMaxlength),
-      COUNTRY_NAME_NOT_SUPPORTED
+      errors.COUNTRY_NAME_NOT_SUPPORTED
     );
 };
 

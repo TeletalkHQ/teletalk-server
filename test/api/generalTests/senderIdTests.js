@@ -4,13 +4,14 @@ const { models } = require("@/models/models");
 
 const chatModels = models.native.chat;
 
-const {
-  successTestDefaultOptions,
-} = require("@/variables/others/testVariables");
+const { testVariables } = require("$/variables/testVariables");
 
 const senderIdSuccessTests = (
   { participantIdMain, participantIdTest } = {},
-  { stringEquality = true, modelCheck = true } = successTestDefaultOptions
+  {
+    stringEquality = true,
+    modelCheck = true,
+  } = testVariables.successTestDefaultOptions
 ) => {
   successTestBuilder
     .create()

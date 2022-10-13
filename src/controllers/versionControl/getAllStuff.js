@@ -2,7 +2,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { enErrorMessages } = require("@/translate/messages/enErrorMessages");
+const { enErrorMessages } = require("@/translation/messages/enErrorMessages");
 
 const { allStuff } = require("@/variables/others/allStuff");
 

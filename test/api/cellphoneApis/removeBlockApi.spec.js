@@ -2,44 +2,42 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { generalTest } = require("@/classes/GeneralTest");
 
-const {
-  requesters: { addBlockRequest, removeBlockRequest },
-  testVariables: {
-    cellphones: { notExistedContact },
-    testUsers: { removeBlockSuccessfulTestUser, selfStuffTestUser },
-  },
-} = require("@/variables/others/testVariables");
+const { requesters } = require("$/helpers/requesters");
+
+const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
 
 describe("removeContact successful test", () => {
   it("should add testUser_3 to testUser_0 contact list", async () => {
-    await addBlockRequest().sendFullFeaturedRequest(
-      removeBlockSuccessfulTestUser,
-      null,
-      {
-        token: removeBlockRequest().getOptions().token,
-      }
-    );
+    await requesters
+      .addBlockRequest()
+      .sendFullFeaturedRequest(
+        testVariables.users.removeBlockSuccessful,
+        null,
+        {
+          token: requesters.removeBlockRequest().getOptions().token,
+        }
+      );
     const {
       body: {
         removedBlockedCellphone: { phoneNumber, countryCode, countryName },
       },
-    } = await removeBlockRequest().sendFullFeaturedRequest(
-      removeBlockSuccessfulTestUser
-    );
+    } = await requesters
+      .removeBlockRequest()
+      .sendFullFeaturedRequest(testVariables.users.removeBlockSuccessful);
 
     generalTest
       .createSuccessTest()
       .countryName({
-        countryNameMain: removeBlockSuccessfulTestUser.countryName,
+        countryNameMain: testVariables.users.removeBlockSuccessful.countryName,
         countryNameTest: countryName,
       })
       .countryCode({
-        countryCodeMain: removeBlockSuccessfulTestUser.countryCode,
+        countryCodeMain: testVariables.users.removeBlockSuccessful.countryCode,
         countryCodeTest: countryCode,
       })
       .phoneNumber({
-        phoneNumberMain: removeBlockSuccessfulTestUser.phoneNumber,
+        phoneNumberMain: testVariables.users.removeBlockSuccessful.phoneNumber,
         phoneNumberTest: phoneNumber,
       });
   });
@@ -48,12 +46,12 @@ describe("removeContact successful test", () => {
 describe("removeBlock failure tests", () => {
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   generalTest
-    .createFailTest(removeBlockRequest())
+    .createFailTest(requesters.removeBlockRequest())
     .authentication()
     .cellphone()
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)
-    .selfStuff(selfStuffTestUser)
-    .blacklistItemNotExist(notExistedContact);
+    .selfStuff(testVariables.users.selfStuff)
+    .blacklistItemNotExist(testVariables.cellphones.notExistedContact);
 });

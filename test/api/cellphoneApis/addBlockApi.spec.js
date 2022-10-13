@@ -2,16 +2,9 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { generalTest } = require("@/classes/GeneralTest");
 
-const {
-  requesters: { addBlockRequest },
-  testVariables: {
-    testUsers: {
-      addBlockSuccessfulTestUser,
-      selfStuffTestUser,
-      blacklistItemExistTestUser,
-    },
-  },
-} = require("@/variables/others/testVariables");
+const { requesters } = require("$/helpers/requesters");
+
+const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
 
 describe("addBlock successful tests", () => {
@@ -20,22 +13,22 @@ describe("addBlock successful tests", () => {
       body: {
         blockedCellphone: { phoneNumber, countryCode, countryName },
       },
-    } = await addBlockRequest().sendFullFeaturedRequest(
-      addBlockSuccessfulTestUser
-    );
+    } = await requesters
+      .addBlockRequest()
+      .sendFullFeaturedRequest(testVariables.users.addBlockSuccessful);
 
     generalTest
       .createSuccessTest()
       .countryName({
-        countryNameMain: addBlockSuccessfulTestUser.countryName,
+        countryNameMain: testVariables.users.addBlockSuccessful.countryName,
         countryNameTest: countryName,
       })
       .countryCode({
-        countryCodeMain: addBlockSuccessfulTestUser.countryCode,
+        countryCodeMain: testVariables.users.addBlockSuccessful.countryCode,
         countryCodeTest: countryCode,
       })
       .phoneNumber({
-        phoneNumberMain: addBlockSuccessfulTestUser.phoneNumber,
+        phoneNumberMain: testVariables.users.addBlockSuccessful.phoneNumber,
         phoneNumberTest: phoneNumber,
       });
   });
@@ -44,17 +37,19 @@ describe("addBlock successful tests", () => {
 describe("addBlock failure tests", () => {
   before(async () => {
     //* Add someone to blacklist for blacklistItemExist error
-    await addBlockRequest().sendFullFeaturedRequest(blacklistItemExistTestUser);
+    await requesters
+      .addBlockRequest()
+      .sendFullFeaturedRequest(testVariables.users.blacklistItemExist);
   });
 
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   generalTest
-    .createFailTest(addBlockRequest())
+    .createFailTest(requesters.addBlockRequest())
     .authentication()
-    .selfStuff(selfStuffTestUser)
+    .selfStuff(testVariables.users.selfStuff)
     .cellphone(cellphone)
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)
-    .blacklistItemExist(blacklistItemExistTestUser);
+    .blacklistItemExist(testVariables.users.blacklistItemExist);
 });

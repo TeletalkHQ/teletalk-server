@@ -3,16 +3,9 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models/models");
 
-const {
-  requesters: { editContactRequest, addContactRequest },
-  testVariables: {
-    testUsers: {
-      editContactItemNotExistTestUser,
-      editContactSuccessfulTestUser,
-      selfStuffTestUser,
-    },
-  },
-} = require("@/variables/others/testVariables");
+const { requesters } = require("$/helpers/requesters");
+
+const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
 
 const userModels = models.native.user;
@@ -30,37 +23,39 @@ describe("edit contact success tests", () => {
           privateId,
         },
       },
-    } = await addContactRequest().sendFullFeaturedRequest(
-      editContactSuccessfulTestUser,
-      null,
-      {
-        token: editContactRequest().getOptions().token,
-      }
-    );
+    } = await requesters
+      .addContactRequest()
+      .sendFullFeaturedRequest(
+        testVariables.users.editContactSuccessful,
+        null,
+        {
+          token: requesters.editContactRequest().getOptions().token,
+        }
+      );
     const gt = generalTest.createSuccessTest();
 
     gt.firstName({
-      firstNameMain: editContactSuccessfulTestUser.firstName,
+      firstNameMain: testVariables.users.editContactSuccessful.firstName,
       firstNameTest: firstName,
     })
       .lastName({
-        lastNameMain: editContactSuccessfulTestUser.lastName,
+        lastNameMain: testVariables.users.editContactSuccessful.lastName,
         lastNameTest: lastName,
       })
       .phoneNumber({
-        phoneNumberMain: editContactSuccessfulTestUser.phoneNumber,
+        phoneNumberMain: testVariables.users.editContactSuccessful.phoneNumber,
         phoneNumberTest: phoneNumber,
       })
       .countryCode({
-        countryCodeMain: editContactSuccessfulTestUser.countryCode,
+        countryCodeMain: testVariables.users.editContactSuccessful.countryCode,
         countryCodeTest: countryCode,
       })
       .countryName({
-        countryNameMain: editContactSuccessfulTestUser.countryName,
+        countryNameMain: testVariables.users.editContactSuccessful.countryName,
         countryNameTest: countryName,
       })
       .privateId({
-        privateIdMain: editContactSuccessfulTestUser.privateId,
+        privateIdMain: testVariables.users.editContactSuccessful.privateId,
         privateIdTest: privateId,
       });
 
@@ -73,8 +68,8 @@ describe("edit contact success tests", () => {
       body: {
         editedContact: { firstName: newFirstName, lastName: newLastName },
       },
-    } = await editContactRequest().sendFullFeaturedRequest({
-      ...editContactSuccessfulTestUser,
+    } = await requesters.editContactRequest().sendFullFeaturedRequest({
+      ...testVariables.users.editContactSuccessful,
       ...editedFullName,
     });
 
@@ -95,10 +90,10 @@ describe("editContact failure tests", () => {
     countries
   );
   generalTest
-    .createFailTest(editContactRequest())
+    .createFailTest(requesters.editContactRequest())
     .authentication()
-    .selfStuff(selfStuffTestUser)
-    .contactItemNotExist(editContactItemNotExistTestUser)
+    .selfStuff(testVariables.users.selfStuff)
+    .contactItemNotExist(testVariables.users.editContactItemNotExist)
     .cellphone(contact)
     .countryCode(contact)
     .countryName(contact)

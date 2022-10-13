@@ -1,4 +1,4 @@
-name: Teletalk Server Code Style
+name: Code style
 on:
   push:
     branches: [teletalk-server-main]

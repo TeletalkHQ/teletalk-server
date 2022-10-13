@@ -1,4 +1,4 @@
-name: Teletalk Server CI
+name: CI
 on:
   push:
     branches: [teletalk-server-main]

@@ -2,12 +2,12 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const { models } = require("@/models/models");
 
-const chatModels = models.native.chat;
-
 const { testVariables } = require("$/variables/testVariables");
 
-const senderIdSuccessTests = (
-  { participantIdMain, participantIdTest } = {},
+const userModels = models.native.user;
+
+const phoneNumber = (
+  { phoneNumberMain, phoneNumberTest } = {},
   {
     stringEquality = true,
     modelCheck = true,
@@ -15,12 +15,12 @@ const senderIdSuccessTests = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(chatModels.senderId, participantIdMain, participantIdTest)
+    .setVariables(userModels.phoneNumber, phoneNumberMain, phoneNumberTest)
     .setOptions({ modelCheck, stringEquality })
+    .emptyCheck()
+    .numericCheck()
     .addCommonTest()
     .execute();
 };
 
-//TODO Add fail tests for senderId
-
-module.exports = { senderIdSuccessTests };
+module.exports = { phoneNumber };

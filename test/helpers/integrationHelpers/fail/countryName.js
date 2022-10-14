@@ -1,6 +1,5 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const { models } = require("@/models/models");
@@ -8,27 +7,10 @@ const { models } = require("@/models/models");
 const userModels = models.native.user;
 
 const { errors } = require("@/variables/errors/errors");
-const { testVariables } = require("$/variables/testVariables");
 
 const countryNameMaxlength = userModels.countryName.maxlength.value;
 
-const countryNameSuccessTests = (
-  { countryNameMain, countryNameTest } = {},
-  {
-    stringEquality = true,
-    modelCheck = true,
-  } = testVariables.successTestDefaultOptions
-) => {
-  successTestBuilder
-    .create()
-    .setVariables(userModels.countryName, countryNameMain, countryNameTest)
-    .setOptions({ modelCheck, stringEquality })
-    .addCommonTest()
-    .emptyCheck()
-    .execute();
-};
-
-const countryNameFailureTests = (configuredCustomRequest, data) => {
+const countryName = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(
       configuredCustomRequest,
@@ -46,4 +28,4 @@ const countryNameFailureTests = (configuredCustomRequest, data) => {
     );
 };
 
-module.exports = { countryNameFailureTests, countryNameSuccessTests };
+module.exports = { countryName };

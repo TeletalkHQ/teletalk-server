@@ -1,4 +1,6 @@
-const { generalTest } = require("$/classes/GeneralTest");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models/models");
@@ -30,7 +32,7 @@ describe("add contact success tests", () => {
       testVariables.users.addContactSuccessful
     );
 
-    generalTest
+    integrationHelpers
       .createSuccessTest()
       .privateId({
         privateIdMain: testVariables.users.addContactSuccessful.privateId,
@@ -72,7 +74,7 @@ describe("addContact failure tests", () => {
     userModels.lastName.maxlength.value,
     countries
   );
-  generalTest
+  integrationHelpers
     .createFailTest(configuredAddContactRequester)
     .authentication()
     .cellphone(contact)

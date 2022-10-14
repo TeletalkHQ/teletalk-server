@@ -5,7 +5,7 @@ const { models } = require("@/models/models");
 const userModels = models.native.user;
 const chatModels = models.native.chat;
 
-const chatsSuccessTests = (
+const chats = (
   { chatsTest } = {},
   { modelCheck = true } = {
     modelCheck: true,
@@ -30,7 +30,4 @@ const chatsSuccessTests = (
   });
 };
 
-//TODO: Add chats fail tests
-const chatsFailureTests = () => {};
-
-module.exports = { chatsFailureTests, chatsSuccessTests };
+module.exports = { chats };

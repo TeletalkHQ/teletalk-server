@@ -1,4 +1,3 @@
-const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const { models } = require("@/models/models");
@@ -7,24 +6,7 @@ const { errors } = require("@/variables/errors/errors");
 
 const userModels = models.native.user;
 
-const verificationCodeSuccessTests = (
-  { verificationCodeTest } = {},
-  { modelCheck = true } = {
-    modelCheck: true,
-  }
-) => {
-  successTestBuilder
-    .create()
-    .setVariables(userModels.verificationCode, "", verificationCodeTest)
-    .setOptions({ modelCheck })
-    .typeCheck()
-    .emptyCheck()
-    .numericCheck()
-    .lengthCheck()
-    .execute();
-};
-
-const verificationCodeFailureTests = (configuredCustomRequest, data = {}) => {
+const verificationCode = (configuredCustomRequest, data = {}) => {
   failTestBuilder
     .create(
       configuredCustomRequest,
@@ -40,6 +22,5 @@ const verificationCodeFailureTests = (configuredCustomRequest, data = {}) => {
 };
 
 module.exports = {
-  verificationCodeFailureTests,
-  verificationCodeSuccessTests,
+  verificationCode,
 };

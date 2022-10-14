@@ -1,5 +1,7 @@
 const { authManager } = require("@/classes/AuthManager");
-const { generalTest } = require("$/classes/GeneralTest");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
@@ -26,7 +28,7 @@ const signInFn = async () => {
 
 describe("verifySignInNormalApi success test", () => {
   it("should get newUser === true if there is no user with test verify token in db", async () => {
-    const successTests = generalTest.createSuccessTest();
+    const successTests = integrationHelpers.createSuccessTest();
 
     const signInSecret = authManager.getJwtSignInSecret();
     const tokenVerifier = async (token) => {
@@ -87,7 +89,7 @@ describe("verifySignInNormalApi success test", () => {
     const { countryCode, countryName, phoneNumber } =
       testVariables.cellphones.verifySignInNewUser;
 
-    generalTest
+    integrationHelpers
       .createSuccessTest()
       .countryCode({
         countryCodeMain: countryCode,
@@ -119,5 +121,8 @@ describe("verifySignInNormalApi failure tests", () => {
     customRequest.setToken(verifyToken);
   });
 
-  generalTest.createFailTest(customRequest).verificationCode().authentication();
+  integrationHelpers
+    .createFailTest(customRequest)
+    .verificationCode()
+    .authentication();
 });

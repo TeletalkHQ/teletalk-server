@@ -9,7 +9,7 @@ const userModels = models.native.user;
 const tokenMaxlength = userModels.token.maxlength.value;
 const tokenMinlength = userModels.token.minlength.value;
 
-const authenticationFailureTests = (configuredCustomRequest, data = {}) => {
+const authentication = (configuredCustomRequest, data = {}) => {
   //* Correct token maybe is set, so we need to break this down
   const fn = (token) => ({ token });
 
@@ -43,4 +43,4 @@ const authenticationFailureTests = (configuredCustomRequest, data = {}) => {
   });
 };
 
-module.exports = { authenticationFailureTests };
+module.exports = { authentication };

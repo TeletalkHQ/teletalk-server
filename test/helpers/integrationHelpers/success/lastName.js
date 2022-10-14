@@ -1,14 +1,12 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
-const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const { models } = require("@/models/models");
 
-const { errors } = require("@/variables/errors/errors");
 const { testVariables } = require("$/variables/testVariables");
 
 const userModels = models.native.user;
 
-const lastNameSuccessTests = (
+const lastName = (
   { lastNameMain, lastNameTest } = {},
   {
     stringEquality = true,
@@ -29,15 +27,6 @@ const lastNameSuccessTests = (
     .execute();
 };
 
-const lastNameFailureTests = (configuredCustomRequest, data) => {
-  failTestBuilder
-    .create(configuredCustomRequest, data, userModels.lastName, "lastName")
-    .maxlength(errors.LAST_NAME_MAXLENGTH_REACH)
-    .minlength(errors.LAST_NAME_MINLENGTH_REACH)
-    .invalidType_typeIsString(errors.LAST_NAME_INVALID_TYPE);
-};
-
 module.exports = {
-  lastNameFailureTests,
-  lastNameSuccessTests,
+  lastName,
 };

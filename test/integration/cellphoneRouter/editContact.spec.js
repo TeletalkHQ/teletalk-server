@@ -1,4 +1,6 @@
-const { generalTest } = require("$/classes/GeneralTest");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models/models");
@@ -32,7 +34,7 @@ describe("edit contact success tests", () => {
           token: requesters.editContactRequest().getOptions().token,
         }
       );
-    const successTest = generalTest.createSuccessTest();
+    const successTest = integrationHelpers.createSuccessTest();
 
     successTest
       .firstName({
@@ -92,7 +94,7 @@ describe("editContact failure tests", () => {
     userModels.lastName.maxlength.value,
     countries
   );
-  generalTest
+  integrationHelpers
     .createFailTest(requesters.editContactRequest())
     .authentication()
     .selfStuff(testVariables.users.selfStuff)

@@ -6,7 +6,7 @@ const { testVariables } = require("$/variables/testVariables");
 
 const chatModels = models.native.chat;
 
-const messageIdSuccessTests = (
+const messageId = (
   { messageIdMain, messageIdTest } = {},
   {
     stringEquality = true,
@@ -21,11 +21,6 @@ const messageIdSuccessTests = (
     .execute();
 };
 
-//TODO Add message id fail tests
-
-const messageIdFailureTests = () => {};
-
 module.exports = {
-  messageIdSuccessTests,
-  messageIdFailureTests,
+  messageId,
 };

@@ -1,6 +1,8 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const { generalTest } = require("$/classes/GeneralTest");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 
 const { requesters } = require("$/helpers/requesters");
 
@@ -26,7 +28,7 @@ describe("send message success tests", () => {
       message,
     });
 
-    generalTest
+    integrationHelpers
       .createSuccessTest()
       .privateId(
         {
@@ -46,7 +48,7 @@ describe("send message success tests", () => {
 });
 
 describe("send message failure tests", () => {
-  generalTest
+  integrationHelpers
     .createFailTest(requesters.sendMessageRequest())
     .authentication()
     .participantId({ message })

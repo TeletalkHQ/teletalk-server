@@ -1,8 +1,6 @@
 const {
-  authenticationFailureTests,
-} = require("$/helpers/integrationHelpers/authentication");
-const { chatsSuccessTests } = require("$/helpers/integrationHelpers/chats");
-
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 const { requesters } = require("$/helpers/requesters");
 
 describe("getAllPrivateChats success tests", () => {
@@ -11,10 +9,12 @@ describe("getAllPrivateChats success tests", () => {
       body: { chats },
     } = await requesters.getAllChatsRequest().sendFullFeaturedRequest();
 
-    chatsSuccessTests({ chatsTest: chats });
+    integrationHelpers.createSuccessTest().chats({ chatsTest: chats });
   });
 });
 
 describe("getAllChatsApi failure tests", () => {
-  authenticationFailureTests(requesters.getAllChatsRequest());
+  integrationHelpers
+    .createFailTest(requesters.getAllChatsRequest())
+    .authentication();
 });

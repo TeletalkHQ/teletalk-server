@@ -1,6 +1,6 @@
 const { errors } = require("@/variables/errors/errors");
 
-const cellphoneFailureTests = (configuredCustomRequest, data = {}) => {
+const cellphone = (configuredCustomRequest, data = {}) => {
   it("It should get error, CELLPHONE_REQUIRED", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       { ...data, countryCode: "", countryName: "", phoneNumber: "" },
@@ -9,4 +9,4 @@ const cellphoneFailureTests = (configuredCustomRequest, data = {}) => {
   });
 };
 
-module.exports = { cellphoneFailureTests };
+module.exports = { cellphone };

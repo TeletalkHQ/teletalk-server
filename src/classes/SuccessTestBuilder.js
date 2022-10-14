@@ -1,4 +1,4 @@
-const { expect } = require("@/functions/utilities/testUtilities");
+const { expect } = require("$/functions/utilities/testUtilities");
 
 class SuccessTestBuilder {
   constructor() {

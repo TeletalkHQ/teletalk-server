@@ -7,7 +7,7 @@ require("@/others/startupRequirements").startupRequirements();
 const { authManager } = require("@/classes/AuthManager");
 const { eventManager } = require("@/classes/EventManager");
 
-const { setTestUsers } = require("@/functions/utilities/testUtilities");
+const { setTestUsers } = require("$/functions/utilities/testUtilities");
 
 const {
   common: { privateId: privateIdCommonModel },

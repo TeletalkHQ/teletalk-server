@@ -1,10 +1,11 @@
-const { expect } = require("chai");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 
 const { envManager } = require("@/classes/EnvironmentManager");
+
+const { expect } = require("$/functions/utilities/testUtilities");
 
 const getDevelopmentApp = () => require("@/app").app;
 const getProductionApp = () => require("~/build/index.js").app;

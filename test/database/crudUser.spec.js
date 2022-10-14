@@ -1,6 +1,6 @@
 const { stateManager } = require("@/classes/StateManager");
 
-const { expect } = require("@/functions/utilities/testUtilities");
+const { expect } = require("$/functions/utilities/testUtilities");
 
 const { services } = require("@/services/services");
 

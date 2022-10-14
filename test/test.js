@@ -6,7 +6,7 @@
 const { eventManager } = require("@/classes/EventManager");
 
 //? Requirements ==>
-require("$/helpers/requirements.spec");
+require("$/functions/helpers/requirements.spec");
 
 eventManager.addListener(eventManager.eventKeys.setRequirementsGetDone, () => {
   //? Database ==>

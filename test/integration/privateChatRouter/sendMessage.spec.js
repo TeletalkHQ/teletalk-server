@@ -2,9 +2,9 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const {
   integrationHelpers,
-} = require("$/helpers/integrationHelpers/integrationHelpers");
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 
 const { testVariables } = require("$/variables/testVariables");
 
@@ -23,7 +23,7 @@ describe("send message success tests", () => {
           messageSender: { senderId },
         },
       },
-    } = await requesters.sendMessageRequest().sendFullFeaturedRequest({
+    } = await requesters.sendMessage().sendFullFeaturedRequest({
       participantId: privateId,
       message,
     });
@@ -49,7 +49,7 @@ describe("send message success tests", () => {
 
 describe("send message failure tests", () => {
   integrationHelpers
-    .createFailTest(requesters.sendMessageRequest())
+    .createFailTest(requesters.sendMessage())
     .authentication()
     .participantId({ message })
     .message({

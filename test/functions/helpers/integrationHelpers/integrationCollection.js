@@ -1,9 +1,9 @@
 const {
   integrationHelpersFailCollection,
-} = require("$/helpers/integrationHelpers/fail");
+} = require("$/functions/helpers/integrationHelpers/fail");
 const {
   integrationHelpersSuccessCollection,
-} = require("$/helpers/integrationHelpers/success");
+} = require("$/functions/helpers/integrationHelpers/success");
 
 const integrationHelpersCollection = {
   fail: integrationHelpersFailCollection,

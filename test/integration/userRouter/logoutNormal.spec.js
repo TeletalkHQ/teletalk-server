@@ -2,7 +2,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("$/functions/utilities/testUtilities");
 
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 
 const { models } = require("@/models/models");
 
@@ -21,7 +21,7 @@ const signInFn = async () => {
       user: { verificationCode, verifyToken },
     },
   } = await requesters
-    .signInNormalRequest()
+    .signInNormal()
     .sendFullFeaturedRequest(testVariables.cellphones.verifySignInNewUser);
 
   return {
@@ -32,7 +32,7 @@ const signInFn = async () => {
 
 const verifySingIn = async (verificationCode, verifyToken) => {
   await requesters
-    .verifySignInRequest()
+    .verifySignIn()
     .setToken(verifyToken)
     .sendFullFeaturedRequest({
       verificationCode,
@@ -41,7 +41,7 @@ const verifySingIn = async (verificationCode, verifyToken) => {
 
 const createNewUser = async (verifyToken) => {
   return await requesters
-    .createNewUserRequest()
+    .createNewUser()
     .setToken(verifyToken)
     .sendFullFeaturedRequest(fullName);
 };
@@ -59,7 +59,7 @@ describe("logoutNormal success tests", () => {
     const {
       body: { ok },
     } = await requesters
-      .logoutNormalRequest()
+      .logoutNormal()
       .sendFullFeaturedRequest(undefined, undefined, { token: mainToken });
 
     expect(ok).to.be.true;

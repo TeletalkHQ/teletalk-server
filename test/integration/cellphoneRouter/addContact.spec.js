@@ -1,18 +1,18 @@
 const {
   integrationHelpers,
-} = require("$/helpers/integrationHelpers/integrationHelpers");
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models/models");
 
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 
 const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
 
 const userModels = models.native.user;
 
-const configuredAddContactRequester = requesters.addContactRequest();
+const configuredAddContactRequester = requesters.addContact();
 
 describe("add contact success tests", () => {
   it("should add testUser_1 to testUser_0 contact list", async () => {

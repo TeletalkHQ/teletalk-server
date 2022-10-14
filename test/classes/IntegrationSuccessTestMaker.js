@@ -1,6 +1,6 @@
 const {
   integrationHelpersCollection,
-} = require("$/helpers/integrationHelpers/integrationCollection");
+} = require("$/functions/helpers/integrationHelpers/integrationCollection");
 
 const { testVariables } = require("$/variables/testVariables");
 

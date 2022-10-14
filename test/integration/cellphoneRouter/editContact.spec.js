@@ -1,11 +1,11 @@
 const {
   integrationHelpers,
-} = require("$/helpers/integrationHelpers/integrationHelpers");
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models/models");
 
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 
 const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
@@ -26,12 +26,12 @@ describe("edit contact success tests", () => {
         },
       },
     } = await requesters
-      .addContactRequest()
+      .addContact()
       .sendFullFeaturedRequest(
         testVariables.users.editContactSuccessful,
         null,
         {
-          token: requesters.editContactRequest().getOptions().token,
+          token: requesters.editContact().getOptions().token,
         }
       );
     const successTest = integrationHelpers.createSuccessTest();
@@ -71,7 +71,7 @@ describe("edit contact success tests", () => {
       body: {
         editedContact: { firstName: newFirstName, lastName: newLastName },
       },
-    } = await requesters.editContactRequest().sendFullFeaturedRequest({
+    } = await requesters.editContact().sendFullFeaturedRequest({
       ...testVariables.users.editContactSuccessful,
       ...editedFullName,
     });
@@ -95,7 +95,7 @@ describe("editContact failure tests", () => {
     countries
   );
   integrationHelpers
-    .createFailTest(requesters.editContactRequest())
+    .createFailTest(requesters.editContact())
     .authentication()
     .selfStuff(testVariables.users.selfStuff)
     .contactItemNotExist(testVariables.users.editContactItemNotExist)

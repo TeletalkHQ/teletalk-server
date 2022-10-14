@@ -51,6 +51,7 @@ const versionCalculator = (versions = []) => {
 
   return concatVersions(parentMajor, parentMinor, parentPatch);
 };
+
 const extractVersions = (object) => {
   return objectUtilities.objectKeys(object).map((key) => object[key].version);
 };
@@ -121,6 +122,8 @@ const checkExecuteMiddlewaresRequirements = (url, middlewares) => {
   errorThrower(!middlewares.length, "You need to pass at least one middleware");
 };
 
+const regexMaker = (pattern) => new RegExp(pattern);
+
 module.exports = {
   addFullUrlToRouteObjects,
   checkExecuteMiddlewaresRequirements,
@@ -136,6 +139,7 @@ module.exports = {
   getHostFromRequest,
   isDataHasEqualityWithTargetCellphone,
   isUrlMatchWithReqUrl,
+  regexMaker,
   versionCalculator,
 };
 

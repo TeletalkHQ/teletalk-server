@@ -4,7 +4,7 @@ const {
 } = require("$/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { expect } = require("@/functions/utilities/testUtilities");
+const { expect } = require("$/functions/utilities/testUtilities");
 
 const { requesters } = require("$/helpers/requesters");
 

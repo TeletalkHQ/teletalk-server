@@ -2,7 +2,7 @@ const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const {
   getNonExistedCountryCode,
-} = require("@/functions/utilities/testUtilities");
+} = require("$/functions/utilities/testUtilities");
 
 const { models } = require("@/models/models");
 

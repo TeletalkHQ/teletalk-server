@@ -2,9 +2,9 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   integrationHelpers,
-} = require("$/helpers/integrationHelpers/integrationHelpers");
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 
 const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
@@ -16,7 +16,7 @@ describe("addBlock successful tests", () => {
         blockedCellphone: { phoneNumber, countryCode, countryName },
       },
     } = await requesters
-      .addBlockRequest()
+      .addBlock()
       .sendFullFeaturedRequest(testVariables.users.addBlockSuccessful);
 
     integrationHelpers
@@ -40,13 +40,13 @@ describe("addBlock failure tests", () => {
   before(async () => {
     //* Add someone to blacklist for blacklistItemExist error
     await requesters
-      .addBlockRequest()
+      .addBlock()
       .sendFullFeaturedRequest(testVariables.users.blacklistItemExist);
   });
 
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   integrationHelpers
-    .createFailTest(requesters.addBlockRequest())
+    .createFailTest(requesters.addBlock())
     .authentication()
     .selfStuff(testVariables.users.selfStuff)
     .cellphone(cellphone)

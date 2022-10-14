@@ -1,9 +1,9 @@
 const {
   integrationHelpers,
-} = require("$/helpers/integrationHelpers/integrationHelpers");
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 
 const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
@@ -11,12 +11,12 @@ const { countries } = require("@/variables/others/countries");
 describe("removeContact successful test", () => {
   it("should add testUser_3 to testUser_0 contact list", async () => {
     await requesters
-      .addContactRequest()
+      .addContact()
       .sendFullFeaturedRequest(
         testVariables.users.removeContactSuccessful,
         null,
         {
-          token: requesters.removeContactRequest().getOptions().token,
+          token: requesters.removeContact().getOptions().token,
         }
       );
 
@@ -25,7 +25,7 @@ describe("removeContact successful test", () => {
         removedContact: { phoneNumber, countryCode, countryName },
       },
     } = await requesters
-      .removeContactRequest()
+      .removeContact()
       .sendFullFeaturedRequest(testVariables.users.removeContactSuccessful);
 
     integrationHelpers
@@ -51,7 +51,7 @@ describe("removeContact successful test", () => {
 describe("removeContact failure tests", () => {
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   integrationHelpers
-    .createFailTest(requesters.removeContactRequest())
+    .createFailTest(requesters.removeContact())
     .authentication()
     .cellphone()
     .countryCode(cellphone)

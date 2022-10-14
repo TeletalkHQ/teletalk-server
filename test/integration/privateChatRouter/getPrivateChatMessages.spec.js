@@ -1,7 +1,7 @@
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 const {
   integrationHelpers,
-} = require("$/helpers/integrationHelpers/integrationHelpers");
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 
 const { testVariables } = require("$/variables/testVariables");
 
@@ -12,7 +12,7 @@ describe("get messages success tests", () => {
     //? First start a chat and send some messages to testUser_1 =>
     // eslint-disable-next-line no-unused-vars
     for (const _ of Array.from({ length: 10 })) {
-      await requesters.sendMessageRequest().sendFullFeaturedRequest({
+      await requesters.sendMessage().sendFullFeaturedRequest({
         message,
         participantId: testVariables.users.getPrivateChatMessages.privateId,
       });
@@ -21,17 +21,15 @@ describe("get messages success tests", () => {
     //? Now get added chats from user data =>
     const {
       body: { chats },
-    } = await requesters.getAllChatsRequest().sendFullFeaturedRequest();
+    } = await requesters.getAllChats().sendFullFeaturedRequest();
 
     const chat = chats.at(-1);
 
     const {
       body: { messages },
-    } = await requesters
-      .getPrivateChatMessagesRequest()
-      .sendFullFeaturedRequest({
-        chatId: chat.chatId,
-      });
+    } = await requesters.getPrivateChatMessages().sendFullFeaturedRequest({
+      chatId: chat.chatId,
+    });
 
     const {
       messageId,
@@ -50,7 +48,7 @@ describe("get messages success tests", () => {
 
 describe("getMessagesApi failure tests", () => {
   integrationHelpers
-    .createFailTest(requesters.getPrivateChatMessagesRequest())
+    .createFailTest(requesters.getPrivateChatMessages())
     .authentication()
     .chatId();
 });

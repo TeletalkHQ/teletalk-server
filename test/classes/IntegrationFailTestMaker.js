@@ -1,6 +1,6 @@
 const {
   integrationHelpersCollection,
-} = require("$/helpers/integrationHelpers/integrationCollection");
+} = require("$/functions/helpers/integrationHelpers/integrationCollection");
 
 class IntegrationFailTestMaker {
   constructor(requester) {

@@ -1,12 +1,12 @@
 const { authManager } = require("@/classes/AuthManager");
 const {
   integrationHelpers,
-} = require("$/helpers/integrationHelpers/integrationHelpers");
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("$/functions/utilities/testUtilities");
 
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 
 const { models } = require("@/models/models");
 
@@ -20,7 +20,7 @@ const signInFn = async () => {
       user: { verifyToken, verificationCode },
     },
   } = await requesters
-    .signInNormalRequest()
+    .signInNormal()
     .sendFullFeaturedRequest(testVariables.cellphones.verifySignInNewUser);
 
   return { verifyToken, verificationCode };
@@ -47,7 +47,7 @@ describe("verifySignInNormalApi success test", () => {
 
     //* 2- Verify user by verificationCode & verifyToken =>
     const newUserVerifySignInResponse = await requesters
-      .verifySignInRequest()
+      .verifySignIn()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
@@ -62,7 +62,7 @@ describe("verifySignInNormalApi success test", () => {
       userModels.lastName.maxlength.value
     );
     await requesters
-      .createNewUserRequest()
+      .createNewUser()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest(fullName);
 
@@ -78,7 +78,7 @@ describe("verifySignInNormalApi success test", () => {
         user: { newUser, ...userData },
       },
     } = await requesters
-      .verifySignInRequest()
+      .verifySignIn()
       .setToken(signedUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode,
@@ -108,14 +108,14 @@ describe("verifySignInNormalApi success test", () => {
 
 describe("verifySignInNormalApi failure tests", () => {
   //* Config customRequest for fail tests
-  const customRequest = requesters.verifySignInRequest();
+  const customRequest = requesters.verifySignIn();
   before(async () => {
     const {
       body: {
         user: { verifyToken },
       },
     } = await requesters
-      .signInNormalRequest()
+      .signInNormal()
       .sendFullFeaturedRequest(testVariables.cellphones.verifySignInFailTest);
 
     customRequest.setToken(verifyToken);

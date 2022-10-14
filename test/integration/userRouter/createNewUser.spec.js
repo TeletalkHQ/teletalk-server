@@ -5,9 +5,9 @@ const { expect } = require("$/functions/utilities/testUtilities");
 
 const {
   integrationHelpers,
-} = require("$/helpers/integrationHelpers/integrationHelpers");
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 
-const { requesters } = require("$/helpers/requesters");
+const { requesters } = require("$/functions/helpers/requesters");
 
 const { models } = require("@/models/models");
 
@@ -33,12 +33,12 @@ describe("success create new normal user", () => {
         },
       },
     } = await requesters
-      .signInNormalRequest()
+      .signInNormal()
       .sendFullFeaturedRequest(testVariables.cellphones.createNewUserSignIn);
 
     //* 2- Verify user by verificationCode & verifyToken =>
     const newUserVerifySignInResponse = await requesters
-      .verifySignInRequest()
+      .verifySignIn()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
@@ -61,12 +61,12 @@ describe("success create new normal user", () => {
         },
       },
     } = await requesters
-      .createNewUserRequest()
+      .createNewUser()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest(fullName);
 
     const successTests = integrationHelpers.createSuccessTest(
-      requesters.createNewUserRequest()
+      requesters.createNewUser()
     );
 
     const JWT_MAIN_SECRET = authManager.getJwtMainSecret();
@@ -105,14 +105,14 @@ describe("success create new normal user", () => {
 
 describe("create new normal user failure tests", () => {
   //* Config customRequest for fail tests
-  const customRequest = requesters.createNewUserRequest();
+  const customRequest = requesters.createNewUser();
   before(async () => {
     const {
       body: {
         user: { verifyToken },
       },
     } = await requesters
-      .signInNormalRequest()
+      .signInNormal()
       .sendFullFeaturedRequest(testVariables.cellphones.createNewUserSignIn);
 
     customRequest.setToken(verifyToken);

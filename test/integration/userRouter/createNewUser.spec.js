@@ -1,5 +1,7 @@
 const { authManager } = require("@/classes/AuthManager");
-const { generalTest } = require("$/classes/GeneralTest");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("@/functions/utilities/testUtilities");
@@ -62,7 +64,7 @@ describe("success create new normal user", () => {
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest(fullName);
 
-    const successTests = generalTest.createSuccessTest(
+    const successTests = integrationHelpers.createSuccessTest(
       requesters.createNewUserRequest()
     );
 
@@ -115,7 +117,7 @@ describe("create new normal user failure tests", () => {
     customRequest.setToken(verifyToken);
   });
 
-  generalTest
+  integrationHelpers
     .createFailTest(customRequest)
     .authentication()
     .firstName(fullName)

@@ -1,6 +1,8 @@
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { generalTest } = require("$/classes/GeneralTest");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 
 const { requesters } = require("$/helpers/requesters");
 
@@ -17,7 +19,7 @@ describe("addBlock successful tests", () => {
       .addBlockRequest()
       .sendFullFeaturedRequest(testVariables.users.addBlockSuccessful);
 
-    generalTest
+    integrationHelpers
       .createSuccessTest()
       .countryName({
         countryNameMain: testVariables.users.addBlockSuccessful.countryName,
@@ -43,7 +45,7 @@ describe("addBlock failure tests", () => {
   });
 
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
-  generalTest
+  integrationHelpers
     .createFailTest(requesters.addBlockRequest())
     .authentication()
     .selfStuff(testVariables.users.selfStuff)

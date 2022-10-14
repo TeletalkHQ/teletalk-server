@@ -1,4 +1,3 @@
-const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
 const {
@@ -10,26 +9,8 @@ const { models } = require("@/models/models");
 const userModels = models.native.user;
 
 const { errors } = require("@/variables/errors/errors");
-const { testVariables } = require("$/variables/testVariables");
 
-const countryCodeSuccessTests = (
-  { countryCodeMain, countryCodeTest } = {},
-  {
-    stringEquality = true,
-    modelCheck = true,
-  } = testVariables.successTestDefaultOptions
-) => {
-  successTestBuilder
-    .create()
-    .setVariables(userModels.countryCode, countryCodeMain, countryCodeTest)
-    .setOptions({ modelCheck, stringEquality })
-    .addCommonTest()
-    .emptyCheck()
-    .numericCheck()
-    .execute();
-};
-
-const countryCodeFailureTests = (configuredCustomRequest, data) => {
+const countryCode = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(
       configuredCustomRequest,
@@ -45,4 +26,4 @@ const countryCodeFailureTests = (configuredCustomRequest, data) => {
     .custom(getNonExistedCountryCode(), errors.COUNTRY_CODE_NOT_SUPPORTED);
 };
 
-module.exports = { countryCodeFailureTests, countryCodeSuccessTests };
+module.exports = { countryCode };

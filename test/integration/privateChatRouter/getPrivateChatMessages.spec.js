@@ -1,15 +1,7 @@
-const {
-  messageIdSuccessTests,
-} = require("$/helpers/integrationHelpers/messageId");
-const {
-  senderIdSuccessTests,
-} = require("$/helpers/integrationHelpers/senderId");
-const { chatIdFailureTests } = require("$/helpers/integrationHelpers/chatId");
-const {
-  authenticationFailureTests,
-} = require("$/helpers/integrationHelpers/authentication");
-
 const { requesters } = require("$/helpers/requesters");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 
 const { testVariables } = require("$/variables/testVariables");
 
@@ -46,18 +38,19 @@ describe("get messages success tests", () => {
       messageSender: { senderId },
     } = messages.at(-1);
 
-    messageIdSuccessTests(
-      { messageIdTest: messageId },
-      { stringEquality: false }
-    );
-    senderIdSuccessTests(
-      { participantIdTest: senderId },
-      { stringEquality: false }
-    );
+    integrationHelpers
+      .createSuccessTest()
+      .messageId({ messageIdTest: messageId }, { stringEquality: false })
+      .participantId(
+        { participantIdTest: senderId },
+        { stringEquality: false }
+      );
   });
 });
 
 describe("getMessagesApi failure tests", () => {
-  authenticationFailureTests(requesters.getPrivateChatMessagesRequest());
-  chatIdFailureTests(requesters.getPrivateChatMessagesRequest());
+  integrationHelpers
+    .createFailTest(requesters.getPrivateChatMessagesRequest())
+    .authentication()
+    .chatId();
 });

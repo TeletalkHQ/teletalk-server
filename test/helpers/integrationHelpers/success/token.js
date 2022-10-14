@@ -6,7 +6,7 @@ const { validators } = require("@/validators/validators");
 
 const userModels = models.native.user;
 
-const tokenSuccessTests = async (
+const token = async (
   { tokenTest, secret } = {},
   { verifyToken = true, modelCheck = true } = {
     verifyToken: true,
@@ -33,6 +33,5 @@ const tokenSuccessTests = async (
 };
 
 module.exports = {
-  // tokenFailureTests,
-  tokenSuccessTests,
+  token,
 };

@@ -1,5 +1,7 @@
 const { authManager } = require("@/classes/AuthManager");
-const { generalTest } = require("$/classes/GeneralTest");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 
 const { requesters } = require("$/helpers/requesters");
 
@@ -21,7 +23,7 @@ describe("signInNormalApi test success requests", () => {
       .signInNormalRequest()
       .sendFullFeaturedRequest(testVariables.cellphones.signIn);
 
-    const successTest = generalTest.createSuccessTest();
+    const successTest = integrationHelpers.createSuccessTest();
 
     successTest
       .countryName({
@@ -47,7 +49,7 @@ describe("signInNormalApi test success requests", () => {
 });
 
 describe("signInNormalApi test failure requests", () => {
-  generalTest
+  integrationHelpers
     .createFailTest(requesters.signInNormalRequest())
     .cellphone(testVariables.cellphones.signIn)
     .countryCode(testVariables.cellphones.signIn)

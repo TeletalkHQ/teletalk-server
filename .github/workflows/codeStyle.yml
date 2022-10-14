@@ -31,9 +31,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # - name: Lint Code Base
-      #   uses: github/super-linter@v4
-
       - name: Run linting
         run: npm run lint
 

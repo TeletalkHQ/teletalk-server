@@ -1,4 +1,6 @@
-const { generalTest } = require("$/classes/GeneralTest");
+const {
+  integrationHelpers,
+} = require("$/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { requesters } = require("$/helpers/requesters");
@@ -26,7 +28,7 @@ describe("removeContact successful test", () => {
       .removeContactRequest()
       .sendFullFeaturedRequest(testVariables.users.removeContactSuccessful);
 
-    generalTest
+    integrationHelpers
       .createSuccessTest()
       .countryName({
         countryNameMain:
@@ -48,7 +50,7 @@ describe("removeContact successful test", () => {
 
 describe("removeContact failure tests", () => {
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
-  generalTest
+  integrationHelpers
     .createFailTest(requesters.removeContactRequest())
     .authentication()
     .cellphone()

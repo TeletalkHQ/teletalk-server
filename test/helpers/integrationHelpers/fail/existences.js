@@ -1,6 +1,6 @@
 const { errors } = require("@/variables/errors/errors");
 
-const blacklistItemNotExistFailureTests = (configuredCustomRequest, data) => {
+const blacklistItemNotExist = (configuredCustomRequest, data) => {
   it("should get error, BLACKLIST_ITEM_NOT_EXIST", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
@@ -8,7 +8,8 @@ const blacklistItemNotExistFailureTests = (configuredCustomRequest, data) => {
     );
   });
 };
-const blacklistItemExistFailureTests = (configuredCustomRequest, data) => {
+
+const blacklistItemExist = (configuredCustomRequest, data) => {
   it("should get error, BLACKLIST_ITEM_EXIST", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
@@ -17,7 +18,7 @@ const blacklistItemExistFailureTests = (configuredCustomRequest, data) => {
   });
 };
 
-const contactItemNotExistFailureTests = (configuredCustomRequest, data) => {
+const contactItemNotExist = (configuredCustomRequest, data) => {
   it("should get error, CONTACT_ITEM_NOT_EXIST", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
@@ -25,7 +26,7 @@ const contactItemNotExistFailureTests = (configuredCustomRequest, data) => {
     );
   });
 };
-const contactItemExistFailureTests = (configuredCustomRequest, data) => {
+const contactItemExist = (configuredCustomRequest, data) => {
   it("should get error, CONTACT_ITEM_EXIST", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
@@ -34,7 +35,7 @@ const contactItemExistFailureTests = (configuredCustomRequest, data) => {
   });
 };
 
-const targetUserNotExistFailureTests = (configuredCustomRequest, data) => {
+const targetUserNotExist = (configuredCustomRequest, data) => {
   it("should get error, TARGET_USER_NOT_EXIST", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
@@ -44,9 +45,9 @@ const targetUserNotExistFailureTests = (configuredCustomRequest, data) => {
 };
 
 module.exports = {
-  blacklistItemExistFailureTests,
-  blacklistItemNotExistFailureTests,
-  contactItemExistFailureTests,
-  contactItemNotExistFailureTests,
-  targetUserNotExistFailureTests,
+  blacklistItemExist,
+  blacklistItemNotExist,
+  contactItemExist,
+  contactItemNotExist,
+  targetUserNotExist,
 };

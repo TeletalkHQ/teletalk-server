@@ -2,12 +2,12 @@ const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
 const { models } = require("@/models/models");
 
+const chatModels = models.native.chat;
+
 const { testVariables } = require("$/variables/testVariables");
 
-const userModels = models.native.user;
-
-const privateIdSuccessTests = (
-  { privateIdMain, privateIdTest } = {},
+const participantId = (
+  { participantIdMain, participantIdTest } = {},
   {
     stringEquality = true,
     modelCheck = true,
@@ -15,11 +15,14 @@ const privateIdSuccessTests = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(userModels.privateId, privateIdMain, privateIdTest)
+    .setVariables(
+      chatModels.participantId,
+      participantIdMain,
+      participantIdTest
+    )
     .setOptions({ modelCheck, stringEquality })
-    .emptyCheck()
     .addCommonTest()
     .execute();
 };
 
-module.exports = { privateIdSuccessTests };
+module.exports = { participantId };

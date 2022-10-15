@@ -9,7 +9,7 @@ describe("getAllPrivateChats success tests", () => {
       body: { chats },
     } = await requesters.getAllChats().sendFullFeaturedRequest();
 
-    integrationHelpers.createSuccessTest().chats({ chatsTest: chats });
+    integrationHelpers.createSuccessTest().chats({ responseValue: chats });
   });
 });
 

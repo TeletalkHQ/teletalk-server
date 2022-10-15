@@ -56,7 +56,7 @@
     "serve-favicon": "^2.5.0",
     "snyk": "^1.1024.0",
     "socket.io": "^4.5.2",
-    "utility-store": "^1.26.1",
+    "utility-store": "^1.27.1",
     "winston": "^3.8.2"
   },
   "devDependencies": {

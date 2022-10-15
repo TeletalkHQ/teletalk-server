@@ -35,28 +35,28 @@ describe("add contact success tests", () => {
     integrationHelpers
       .createSuccessTest()
       .privateId({
-        privateIdMain: testVariables.users.addContactSuccessful.privateId,
-        privateIdTest: privateId,
+        clientValue: testVariables.users.addContactSuccessful.privateId,
+        responseValue: privateId,
       })
       .countryCode({
-        countryCodeMain: testVariables.users.addContactSuccessful.countryCode,
-        countryCodeTest: countryCode,
+        clientValue: testVariables.users.addContactSuccessful.countryCode,
+        responseValue: countryCode,
       })
       .countryName({
-        countryNameMain: testVariables.users.addContactSuccessful.countryName,
-        countryNameTest: countryName,
+        clientValue: testVariables.users.addContactSuccessful.countryName,
+        responseValue: countryName,
       })
       .phoneNumber({
-        phoneNumberMain: testVariables.users.addContactSuccessful.phoneNumber,
-        phoneNumberTest: phoneNumber,
+        clientValue: testVariables.users.addContactSuccessful.phoneNumber,
+        responseValue: phoneNumber,
       })
       .lastName({
-        lastNameMain: testVariables.users.addContactSuccessful.lastName,
-        lastNameTest: lastName,
+        clientValue: testVariables.users.addContactSuccessful.lastName,
+        responseValue: lastName,
       })
       .firstName({
-        firstNameMain: testVariables.users.addContactSuccessful.firstName,
-        firstNameTest: firstName,
+        clientValue: testVariables.users.addContactSuccessful.firstName,
+        responseValue: firstName,
       });
   });
 });

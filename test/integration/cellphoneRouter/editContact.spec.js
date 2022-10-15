@@ -38,28 +38,28 @@ describe("edit contact success tests", () => {
 
     successTest
       .firstName({
-        firstNameMain: testVariables.users.editContactSuccessful.firstName,
-        firstNameTest: firstName,
+        clientValue: testVariables.users.editContactSuccessful.firstName,
+        responseValue: firstName,
       })
       .lastName({
-        lastNameMain: testVariables.users.editContactSuccessful.lastName,
-        lastNameTest: lastName,
+        clientValue: testVariables.users.editContactSuccessful.lastName,
+        responseValue: lastName,
       })
       .phoneNumber({
-        phoneNumberMain: testVariables.users.editContactSuccessful.phoneNumber,
-        phoneNumberTest: phoneNumber,
+        clientValue: testVariables.users.editContactSuccessful.phoneNumber,
+        responseValue: phoneNumber,
       })
       .countryCode({
-        countryCodeMain: testVariables.users.editContactSuccessful.countryCode,
-        countryCodeTest: countryCode,
+        clientValue: testVariables.users.editContactSuccessful.countryCode,
+        responseValue: countryCode,
       })
       .countryName({
-        countryNameMain: testVariables.users.editContactSuccessful.countryName,
-        countryNameTest: countryName,
+        clientValue: testVariables.users.editContactSuccessful.countryName,
+        responseValue: countryName,
       })
       .privateId({
-        privateIdMain: testVariables.users.editContactSuccessful.privateId,
-        privateIdTest: privateId,
+        clientValue: testVariables.users.editContactSuccessful.privateId,
+        responseValue: privateId,
       });
 
     const editedFullName = {
@@ -78,12 +78,12 @@ describe("edit contact success tests", () => {
 
     successTest
       .lastName({
-        lastNameMain: editedFullName.lastName,
-        lastNameTest: newLastName,
+        clientValue: editedFullName.lastName,
+        responseValue: newLastName,
       })
       .firstName({
-        firstNameMain: editedFullName.firstName,
-        firstNameTest: newFirstName,
+        clientValue: editedFullName.firstName,
+        responseValue: newFirstName,
       });
   });
 });

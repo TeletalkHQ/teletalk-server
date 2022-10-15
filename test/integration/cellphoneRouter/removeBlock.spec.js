@@ -31,16 +31,16 @@ describe("removeContact successful test", () => {
     integrationHelpers
       .createSuccessTest()
       .countryName({
-        countryNameMain: testVariables.users.removeBlockSuccessful.countryName,
-        countryNameTest: countryName,
+        clientValue: testVariables.users.removeBlockSuccessful.countryName,
+        responseValue: countryName,
       })
       .countryCode({
-        countryCodeMain: testVariables.users.removeBlockSuccessful.countryCode,
-        countryCodeTest: countryCode,
+        clientValue: testVariables.users.removeBlockSuccessful.countryCode,
+        responseValue: countryCode,
       })
       .phoneNumber({
-        phoneNumberMain: testVariables.users.removeBlockSuccessful.phoneNumber,
-        phoneNumberTest: phoneNumber,
+        clientValue: testVariables.users.removeBlockSuccessful.phoneNumber,
+        responseValue: phoneNumber,
       });
   });
 });

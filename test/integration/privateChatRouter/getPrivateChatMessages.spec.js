@@ -38,11 +38,8 @@ describe("get messages success tests", () => {
 
     integrationHelpers
       .createSuccessTest()
-      .messageId({ messageIdTest: messageId }, { stringEquality: false })
-      .participantId(
-        { participantIdTest: senderId },
-        { stringEquality: false }
-      );
+      .messageId({ responseValue: messageId }, { stringEquality: false })
+      .participantId({ responseValue: senderId }, { stringEquality: false });
   });
 });
 

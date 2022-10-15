@@ -3,7 +3,7 @@ const { models } = require("@/models/models");
 
 const participantIdModel = models.native.chat.participantId;
 const participantId = (
-  { participantIdMain, participantIdTest } = {},
+  { clientValue, responseValue } = {},
   { stringEquality = true, modelCheck = true } = {
     stringEquality: true,
     modelCheck: true,
@@ -11,7 +11,7 @@ const participantId = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(participantIdModel, participantIdMain, participantIdTest)
+    .setVariables(participantIdModel, clientValue, responseValue)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest();
 };

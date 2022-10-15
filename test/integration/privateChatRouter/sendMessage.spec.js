@@ -32,18 +32,18 @@ describe("send message success tests", () => {
       .createSuccessTest()
       .privateId(
         {
-          privateIdTest: senderId,
+          responseValue: senderId,
         },
         { stringEquality: false }
       )
       .chatId(
         {
-          chatIdTest: chatId,
+          responseValue: chatId,
         },
         { stringEquality: false }
       )
-      .messageId({ messageIdTest: messageId }, { stringEquality: false })
-      .message({ messageMain: message, messageTest: newMessage });
+      .messageId({ responseValue: messageId }, { stringEquality: false })
+      .message({ clientValue: message, responseValue: newMessage });
   });
 });
 

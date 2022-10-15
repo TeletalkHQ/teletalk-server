@@ -1,9 +1,7 @@
 const { envManager } = require("@/classes/EnvironmentManager");
+const { Trier } = require("utility-store/src/classes/Trier");
 
 const NODE_ENV = envManager.getNodeEnv();
-const COVERAGE = envManager.getEnvironment(
-  envManager.ENVIRONMENT_KEYS.COVERAGE
-);
 const envName = `MONGO_URL_${NODE_ENV.toUpperCase()}`;
 const MONGO_URL = envManager.getEnvironment(envName);
 
@@ -19,9 +17,12 @@ class AppConfigs {
     this.runConfigs();
   }
   runConfigs() {
-    const shouldPrintLogs = !COVERAGE;
-    if (shouldPrintLogs) {
-      logger.setLevel(logger.levels.debug);
+    logger.setLevel(logger.levels.debug);
+
+    const NODE_ENV = envManager.getNodeEnv();
+    const shouldNotPrintCatchErrors = NODE_ENV.includes("test");
+    if (shouldNotPrintCatchErrors) {
+      Trier.changeGlobalConfigs({ canPrintError: false });
     }
   }
 

@@ -5,14 +5,14 @@ const { models } = require("@/models/models");
 const userModels = models.native.user;
 
 const verificationCode = (
-  { verificationCodeTest } = {},
+  { responseValue } = {},
   { modelCheck = true } = {
     modelCheck: true,
   }
 ) => {
   successTestBuilder
     .create()
-    .setVariables(userModels.verificationCode, "", verificationCodeTest)
+    .setVariables(userModels.verificationCode, "", responseValue)
     .setOptions({ modelCheck })
     .typeCheck()
     .emptyCheck()

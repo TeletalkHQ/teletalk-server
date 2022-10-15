@@ -59,11 +59,11 @@ class CustomRequest {
     const { fullUrl } = this.routeObject;
     const { errorKey, reason } = this.errorObject;
 
-    logger.log(
+    logger.info(
       `route specs => url:${fullUrl} reason:${reason} errorKey:${errorKey}\n response.body:`
     );
-    logger.log("response body =>");
-    logger.log(this.response.body);
+    logger.info("response body =>");
+    logger.info(this.response.body);
 
     return this;
   }
@@ -128,7 +128,7 @@ class CustomRequest {
         " - - - - - - - - - - - - - - - - - - - ",
         logger.colors.black
       )
-      .log();
+      .info();
 
     return this;
   }

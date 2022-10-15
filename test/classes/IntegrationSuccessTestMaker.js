@@ -9,144 +9,29 @@ class IntegrationSuccessTestMaker {
     this.defaultOptions = testVariables.successTestDefaultOptions;
   }
 
-  phoneNumber(
-    { phoneNumberMain, phoneNumberTest } = {},
-    options = this.defaultOptions
-  ) {
-    integrationHelpersCollection.success.phoneNumber(
-      { phoneNumberMain, phoneNumberTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  verificationCode(
-    { verificationCodeTest } = {},
-    options = this.defaultOptions
-  ) {
-    integrationHelpersCollection.success.verificationCode(
-      { verificationCodeTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  async token({ tokenTest, secret } = {}, options = this.defaultOptions) {
-    await integrationHelpersCollection.success.token(
-      { tokenTest, secret },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  countryCode(
-    { countryCodeMain, countryCodeTest } = {},
-    options = this.defaultOptions
-  ) {
-    integrationHelpersCollection.success.countryCode(
-      { countryCodeMain, countryCodeTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  countryName(
-    { countryNameMain, countryNameTest } = {},
-    options = this.defaultOptions
-  ) {
-    integrationHelpersCollection.success.countryName(
-      { countryNameMain, countryNameTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  firstName(
-    { firstNameMain, firstNameTest } = {},
-    options = this.defaultOptions
-  ) {
-    integrationHelpersCollection.success.firstName(
-      { firstNameMain, firstNameTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  lastName({ lastNameMain, lastNameTest } = {}, options = this.defaultOptions) {
-    integrationHelpersCollection.success.lastName(
-      { lastNameMain, lastNameTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  privateId(
-    { privateIdMain, privateIdTest } = {},
-    options = this.defaultOptions
-  ) {
-    integrationHelpersCollection.success.privateId(
-      { privateIdMain, privateIdTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  chatId({ chatIdMain, chatIdTest } = {}, options = this.defaultOptions) {
-    integrationHelpersCollection.success.chatId(
-      { chatIdMain, chatIdTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  messageId(
-    { messageIdMain, messageIdTest } = {},
-    options = this.defaultOptions
-  ) {
-    integrationHelpersCollection.success.messageId(
-      { messageIdMain, messageIdTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
-  participantId(
-    { participantIdMain, participantIdTest } = {},
-    options = this.defaultOptions
-  ) {
-    integrationHelpersCollection.success.participantId(
-      { participantIdMain, participantIdTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
+  successTestMaker(methodName) {
+    const successTestCallback = (
+      { clientValue, responseValue } = {},
+      options = this.defaultOptions
+    ) => {
+      integrationHelpersCollection.success[methodName](
+        {
+          clientValue,
+          responseValue,
+        },
+        {
+          ...this.defaultOptions,
+          ...options,
+        }
+      );
+      return this;
+    };
+    return successTestCallback;
   }
 
-  message({ messageMain, messageTest } = {}, options = this.defaultOptions) {
-    integrationHelpersCollection.success.message(
-      { messageMain, messageTest },
+  async token({ responseValue, secret } = {}, options = this.defaultOptions) {
+    await integrationHelpersCollection.success.token(
+      { responseValue, secret },
       {
         ...this.defaultOptions,
         ...options,
@@ -154,16 +39,18 @@ class IntegrationSuccessTestMaker {
     );
     return this;
   }
-  chats({ chatsMain, chatsTest } = {}, options = this.defaultOptions) {
-    integrationHelpersCollection.success.chats(
-      { chatsMain, chatsTest },
-      {
-        ...this.defaultOptions,
-        ...options,
-      }
-    );
-    return this;
-  }
+  countryCode = this.successTestMaker("countryCode");
+  chatId = this.successTestMaker("chatId");
+  chats = this.successTestMaker("chats");
+  countryName = this.successTestMaker("countryName");
+  firstName = this.successTestMaker("firstName");
+  lastName = this.successTestMaker("lastName");
+  message = this.successTestMaker("message");
+  messageId = this.successTestMaker("messageId");
+  participantId = this.successTestMaker("participantId");
+  phoneNumber = this.successTestMaker("phoneNumber");
+  privateId = this.successTestMaker("privateId");
+  verificationCode = this.successTestMaker("verificationCode");
 }
 
 module.exports = { IntegrationSuccessTestMaker };

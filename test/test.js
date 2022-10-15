@@ -23,6 +23,6 @@ eventManager.addListener(eventManager.eventKeys.setRequirementsGetDone, () => {
   require("$/integration/cellphoneRouter/addBlock.spec");
   require("$/integration/cellphoneRouter/removeBlock.spec");
   require("$/integration/privateChatRouter/sendMessage.spec");
-  require("$/integration/privateChatRouter/getAllChats.spec");
+  require("$/integration/privateChatRouter/getAllPrivateChats.spec");
   require("$/integration/privateChatRouter/getPrivateChatMessages.spec");
 });

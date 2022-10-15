@@ -7,6 +7,16 @@ class IntegrationFailTestMaker {
     this.requester = requester;
   }
 
+  failTestMaker(methodName) {
+    return (...args) => {
+      integrationHelpersCollection.fail[methodName](
+        ...this.#defaultArgs(),
+        ...args
+      );
+      return this;
+    };
+  }
+
   #defaultArgs() {
     return [this.requester];
   }
@@ -16,116 +26,23 @@ class IntegrationFailTestMaker {
     return this;
   }
 
-  cellphone(...args) {
-    integrationHelpersCollection.fail.cellphone(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  chatId(...args) {
-    integrationHelpersCollection.fail.chatId(...this.#defaultArgs(), ...args);
-    return this;
-  }
-  countryCode(...args) {
-    integrationHelpersCollection.fail.countryCode(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  countryName(...args) {
-    integrationHelpersCollection.fail.countryName(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  phoneNumber(...args) {
-    integrationHelpersCollection.fail.phoneNumber(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  verificationCode(...args) {
-    integrationHelpersCollection.fail.verificationCode(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  authentication(...args) {
-    integrationHelpersCollection.fail.authentication(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  firstName(...args) {
-    integrationHelpersCollection.fail.firstName(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  lastName(...args) {
-    integrationHelpersCollection.fail.lastName(...this.#defaultArgs(), ...args);
-    return this;
-  }
-  participantId(...args) {
-    integrationHelpersCollection.fail.participantId(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  message(...args) {
-    integrationHelpersCollection.fail.message(...this.#defaultArgs(), ...args);
-    return this;
-  }
-  selfStuff(...args) {
-    integrationHelpersCollection.fail.selfStuff(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  blacklistItemNotExist(...args) {
-    integrationHelpersCollection.fail.blacklistItemNotExist(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  blacklistItemExist(...args) {
-    integrationHelpersCollection.fail.blacklistItemExist(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  contactItemNotExist(...args) {
-    integrationHelpersCollection.fail.contactItemNotExist(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  contactItemExist(...args) {
-    integrationHelpersCollection.fail.contactItemExist(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
-  targetUserNotExist(...args) {
-    integrationHelpersCollection.fail.targetUserNotExist(
-      ...this.#defaultArgs(),
-      ...args
-    );
-    return this;
-  }
+  authentication = this.failTestMaker("authentication");
+  blacklistItemExist = this.failTestMaker("blacklistItemExist");
+  blacklistItemNotExist = this.failTestMaker("blacklistItemNotExist");
+  cellphone = this.failTestMaker("cellphone");
+  chatId = this.failTestMaker("chatId");
+  contactItemExist = this.failTestMaker("contactItemExist");
+  contactItemNotExist = this.failTestMaker("contactItemNotExist");
+  countryCode = this.failTestMaker("countryCode");
+  countryName = this.failTestMaker("countryName");
+  firstName = this.failTestMaker("firstName");
+  lastName = this.failTestMaker("lastName");
+  message = this.failTestMaker("message");
+  participantId = this.failTestMaker("participantId");
+  phoneNumber = this.failTestMaker("phoneNumber");
+  selfStuff = this.failTestMaker("selfStuff");
+  targetUserNotExist = this.failTestMaker("targetUserNotExist");
+  verificationCode = this.failTestMaker("verificationCode");
 }
 
 module.exports = { IntegrationFailTestMaker };

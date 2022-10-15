@@ -34,7 +34,7 @@ describe("verifySignInNormalApi success test", () => {
     const tokenVerifier = async (token) => {
       return await successTests.token({
         secret: signInSecret,
-        tokenTest: token,
+        responseValue: token,
       });
     };
 
@@ -92,16 +92,16 @@ describe("verifySignInNormalApi success test", () => {
     integrationHelpers
       .createSuccessTest()
       .countryCode({
-        countryCodeMain: countryCode,
-        countryCodeTest: userData.countryCode,
+        clientValue: countryCode,
+        responseValue: userData.countryCode,
       })
       .countryName({
-        countryNameMain: countryName,
-        countryNameTest: userData.countryName,
+        clientValue: countryName,
+        responseValue: userData.countryName,
       })
       .phoneNumber({
-        phoneNumberMain: phoneNumber,
-        phoneNumberTest: userData.phoneNumber,
+        clientValue: phoneNumber,
+        responseValue: userData.phoneNumber,
       });
   });
 });

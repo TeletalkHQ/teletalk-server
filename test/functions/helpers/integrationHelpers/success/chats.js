@@ -6,20 +6,20 @@ const userModels = models.native.user;
 const chatModels = models.native.chat;
 
 const chats = (
-  { chatsTest } = {},
+  { responseValue } = {},
   { modelCheck = true } = {
     modelCheck: true,
   }
 ) => {
   const ts = successTestBuilder
     .create()
-    .setVariables(userModels.chatInfo, undefined, chatsTest)
+    .setVariables(userModels.chatInfo, undefined, responseValue)
     .setOptions({ modelCheck });
 
   ts.typeCheck().execute();
 
-  ts.checkAndExecute(chatsTest.length, () => {
-    const chat = chatsTest[0];
+  ts.checkAndExecute(responseValue.length, () => {
+    const chat = responseValue[0];
     //TODO: Add types to static variables
     ts.customTypeCheck(chat, "object")
       .setVariables(chatModels.chatId, undefined, chat.chatId)

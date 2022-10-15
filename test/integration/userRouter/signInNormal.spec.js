@@ -27,22 +27,22 @@ describe("signInNormalApi test success requests", () => {
 
     successTest
       .countryName({
-        countryNameMain: testVariables.cellphones.signIn.countryName,
-        countryNameTest: countryName,
+        clientValue: testVariables.cellphones.signIn.countryName,
+        responseValue: countryName,
       })
       .countryCode({
-        countryCodeMain: testVariables.cellphones.signIn.countryCode,
-        countryCodeTest: countryCode,
+        clientValue: testVariables.cellphones.signIn.countryCode,
+        responseValue: countryCode,
       })
       .phoneNumber({
-        phoneNumberMain: testVariables.cellphones.signIn.phoneNumber,
-        phoneNumberTest: phoneNumber,
+        clientValue: testVariables.cellphones.signIn.phoneNumber,
+        responseValue: phoneNumber,
       })
-      .verificationCode({ verificationCodeTest: verificationCode });
+      .verificationCode({ responseValue: verificationCode });
 
     const JWT_SIGN_IN_SECRET = authManager.getJwtSignInSecret();
     await successTest.token({
-      tokenTest: verifyToken,
+      responseValue: verifyToken,
       secret: JWT_SIGN_IN_SECRET,
     });
   });

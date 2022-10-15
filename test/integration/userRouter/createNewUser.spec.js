@@ -71,34 +71,31 @@ describe("success create new normal user", () => {
 
     const JWT_MAIN_SECRET = authManager.getJwtMainSecret();
     await successTests.token({
-      tokenTest: mainToken,
+      responseValue: mainToken,
       secret: JWT_MAIN_SECRET,
     });
 
     successTests
       .countryCode({
-        countryCodeTest: countryCode,
-        countryCodeMain:
-          testVariables.cellphones.createNewUserSignIn.countryCode,
+        clientValue: testVariables.cellphones.createNewUserSignIn.countryCode,
+        responseValue: countryCode,
       })
       .countryName({
-        countryNameTest: countryName,
-        countryNameMain:
-          testVariables.cellphones.createNewUserSignIn.countryName,
+        responseValue: countryName,
+        clientValue: testVariables.cellphones.createNewUserSignIn.countryName,
       })
       .phoneNumber({
-        phoneNumberTest: phoneNumber,
-        phoneNumberMain:
-          testVariables.cellphones.createNewUserSignIn.phoneNumber,
+        clientValue: testVariables.cellphones.createNewUserSignIn.phoneNumber,
+        responseValue: phoneNumber,
       })
-      .privateId({ privateIdTest: privateId }, { stringEquality: false })
+      .privateId({ responseValue: privateId }, { stringEquality: false })
       .firstName({
-        firstNameTest: firstName,
-        firstNameMain: fullName.firstName,
+        clientValue: fullName.firstName,
+        responseValue: firstName,
       })
       .lastName({
-        lastNameTest: lastName,
-        lastNameMain: fullName.lastName,
+        clientValue: fullName.lastName,
+        responseValue: lastName,
       });
   });
 });

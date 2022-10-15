@@ -4,7 +4,6 @@
 // ) => {
 //   try {
 //   } catch (error) {
-//     logger.log("shareContactCellphoneController catch, error:", error);
 //     res.errorCollector(error);
 //     res.errorResponser();
 //   }

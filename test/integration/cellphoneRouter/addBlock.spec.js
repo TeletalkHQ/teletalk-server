@@ -22,16 +22,16 @@ describe("addBlock successful tests", () => {
     integrationHelpers
       .createSuccessTest()
       .countryName({
-        countryNameMain: testVariables.users.addBlockSuccessful.countryName,
-        countryNameTest: countryName,
+        clientValue: testVariables.users.addBlockSuccessful.countryName,
+        responseValue: countryName,
       })
       .countryCode({
-        countryCodeMain: testVariables.users.addBlockSuccessful.countryCode,
-        countryCodeTest: countryCode,
+        clientValue: testVariables.users.addBlockSuccessful.countryCode,
+        responseValue: countryCode,
       })
       .phoneNumber({
-        phoneNumberMain: testVariables.users.addBlockSuccessful.phoneNumber,
-        phoneNumberTest: phoneNumber,
+        clientValue: testVariables.users.addBlockSuccessful.phoneNumber,
+        responseValue: phoneNumber,
       });
   });
 });

@@ -31,19 +31,16 @@ describe("removeContact successful test", () => {
     integrationHelpers
       .createSuccessTest()
       .countryName({
-        countryNameMain:
-          testVariables.users.removeContactSuccessful.countryName,
-        countryNameTest: countryName,
+        clientValue: testVariables.users.removeContactSuccessful.countryName,
+        responseValue: countryName,
       })
       .countryCode({
-        countryCodeMain:
-          testVariables.users.removeContactSuccessful.countryCode,
-        countryCodeTest: countryCode,
+        clientValue: testVariables.users.removeContactSuccessful.countryCode,
+        responseValue: countryCode,
       })
       .phoneNumber({
-        phoneNumberMain:
-          testVariables.users.removeContactSuccessful.phoneNumber,
-        phoneNumberTest: phoneNumber,
+        clientValue: testVariables.users.removeContactSuccessful.phoneNumber,
+        responseValue: phoneNumber,
       });
   });
 });

@@ -144,7 +144,7 @@ const tryToSignInNormalUser = async (req) => {
   });
 
   //TODO: Print it on log files
-  logger.log("rm", "verificationCode", verificationCode);
+  logger.debug("rm", "verificationCode", verificationCode);
 
   const defaultResponseData = {
     ...cellphone,

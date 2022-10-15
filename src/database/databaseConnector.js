@@ -22,7 +22,7 @@ const databaseConnector = () => {
 };
 
 mongoose.connection.once("connected", () => {
-  logger.log(`MongoDB connected: ${mongoose.connection.host}`);
+  logger.info(`MongoDB connected: ${mongoose.connection.host}`);
 });
 
 module.exports = { databaseConnector };

@@ -23,21 +23,21 @@ const EXACT_PORT =
   PORT || envManager.getEnvironment(`${NODE_ENV.toUpperCase()}_PORT`);
 
 const serverListenerCb = () => {
-  logger.log(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
+  logger.info(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
 };
 
 const socketServer = () => {
   ioFunctions.sio(server);
 
   ioFunctions.io.on("connection", (socket) => {
-    logger.log("User connected.");
+    logger.info("User connected.");
 
-    logger.log(socket.id);
+    logger.info(socket.id);
 
     socket.on("disconnect", (...params) => {
-      logger.log(`${socket.id} disconnected`);
+      logger.info(`${socket.id} disconnected`);
 
-      logger.log(params);
+      logger.info(params);
     });
   });
 };

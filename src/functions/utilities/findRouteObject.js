@@ -5,7 +5,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { excludeVersions } = require("@/functions/utilities/utilities");
 
-const { routes } = require("@/routes/routes");
+const { routes } = require("@/routes");
 
 const routesWithoutVersion = objectUtilities.objectValues({
   ...excludeVersions(routes.cellphone),

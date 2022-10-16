@@ -4,7 +4,7 @@ const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
 const { mongooseUniqueValidator } = require("@/plugins/mongoosePlugins");
 
-const { nativeModels } = require("@/models/native/native");
+const { nativeModels } = require("@/models/native");
 const { excludeVersions } = require("@/functions/utilities/utilities");
 
 const chatModelsWithoutVersion = excludeVersions(nativeModels.chat);

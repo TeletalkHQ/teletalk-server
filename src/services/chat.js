@@ -3,7 +3,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const { commonServices } = require("@/services/common");
 

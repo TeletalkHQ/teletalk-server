@@ -1,6 +1,6 @@
 const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const validationModels = models.validation;
 

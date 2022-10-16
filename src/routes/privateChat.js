@@ -100,11 +100,11 @@ const routes = {
   sendMessage,
 };
 
-const privateChatRoutes = {
+const privateChat = {
   version: versionCalculator(extractVersions(routes)),
   ...routes,
 };
 
 module.exports = {
-  privateChatRoutes,
+  privateChat,
 };

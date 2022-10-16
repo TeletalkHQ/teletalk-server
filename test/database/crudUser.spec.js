@@ -2,7 +2,7 @@ const { stateManager } = require("@/classes/StateManager");
 
 const { expect } = require("$/functions/utilities/testUtilities");
 
-const { services } = require("@/services/services");
+const { services } = require("@/services");
 
 describe("save user data in state", () => {
   it("should get all users data", async () => {

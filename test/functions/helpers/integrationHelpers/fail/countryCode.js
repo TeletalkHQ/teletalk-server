@@ -4,7 +4,7 @@ const {
   getNonExistedCountryCode,
 } = require("$/functions/utilities/testUtilities");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const userModels = models.native.user;
 

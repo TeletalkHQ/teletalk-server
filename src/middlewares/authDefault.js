@@ -3,7 +3,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { authManager } = require("@/classes/AuthManager");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { validators } = require("@/validators/validators");
+const { validators } = require("@/validators");
 
 const tryToValidateToken = async (req) => {
   const token = authManager.getTokenFromRequest(req);

@@ -1,6 +1,6 @@
-const { nativeModels } = require("@/models/native/native");
+const { nativeModels } = require("@/models/native");
 const { database } = require("@/models/database/database");
-const { validation } = require("@/models/validation/validation");
+const { validation } = require("@/models/validation");
 
 const models = {
   database,

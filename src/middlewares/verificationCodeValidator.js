@@ -2,7 +2,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { validators } = require("@/validators/validators");
+const { validators } = require("@/validators");
 
 const tryToValidateVerificationCode = async (verificationCode) => {
   await validators.verificationCode(verificationCode);

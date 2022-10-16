@@ -1,6 +1,6 @@
 const { failTestBuilder } = require("@/classes/FailTestBuilder");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const userModels = models.native.user;
 

@@ -2,7 +2,7 @@ const { customRequestCreator } = require("@/classes/CustomRequest");
 const { stateManager } = require("@/classes/StateManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { routes } = require("@/routes/routes");
+const { routes } = require("@/routes");
 
 const { testUser_0 } = stateManager.state.testUsers;
 

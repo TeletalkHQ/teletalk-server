@@ -3,7 +3,7 @@ const {
 } = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const { requesters } = require("$/functions/helpers/requesters");
 

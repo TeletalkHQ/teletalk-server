@@ -60,9 +60,9 @@ const routes = {
   getWelcomeMessage,
 };
 
-const otherRoutes = {
+const other = {
   version: versionCalculator(extractVersions(routes)),
   ...routes,
 };
 
-module.exports = { otherRoutes };
+module.exports = { other };

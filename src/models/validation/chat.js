@@ -5,7 +5,7 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
-const { nativeModels } = require("@/models/native/native");
+const { nativeModels } = require("@/models/native");
 
 const messageId = {
   messageId: validationModelBuilder

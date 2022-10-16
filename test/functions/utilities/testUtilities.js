@@ -3,7 +3,7 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { stateManager } = require("@/classes/StateManager");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const { countries } = require("@/variables/others/countries");
 

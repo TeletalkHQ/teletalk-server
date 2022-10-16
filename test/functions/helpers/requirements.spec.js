@@ -15,7 +15,7 @@ const {
 
 const { countries } = require("@/variables/others/countries");
 
-const { services } = require("@/services/services");
+const { services } = require("@/services");
 
 const tryToAddTestUser = async ({
   countryCode,

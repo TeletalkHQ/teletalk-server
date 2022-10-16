@@ -1,5 +1,5 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const participantIdModel = models.native.chat.participantId;
 const participantId = (

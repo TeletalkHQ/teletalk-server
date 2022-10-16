@@ -3,7 +3,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { validators } = require("@/validators/validators");
+const { validators } = require("@/validators");
 
 const tryToValidateCellphone = async (userData) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);

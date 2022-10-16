@@ -1,8 +1,8 @@
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 const { chatValidationModels } = require("@/models/validation/chat");
 const { userValidationModels } = require("@/models/validation/user");
 
-const { routes } = require("@/routes/routes");
+const { routes } = require("@/routes");
 
 const { appErrors } = require("@/variables/errors/errors");
 const { chatErrors } = require("@/variables/errors/errors");

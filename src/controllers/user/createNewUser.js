@@ -15,9 +15,10 @@ const {
   common: { privateId: privateIdCommonModel },
 } = require("@/models/native/common");
 
-const { services } = require("@/services/services");
+const { services } = require("@/services");
 
-const { validators } = require("@/validators/validators");
+const { validators } = require("@/validators");
+
 const { errors } = require("@/variables/errors/errors");
 
 const tryToExtractCellphoneFromToken = async (verifyToken) => {

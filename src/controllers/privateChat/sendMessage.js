@@ -2,9 +2,9 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { services } = require("@/services/services");
+const { services } = require("@/services");
 
-const { validators } = require("@/validators/validators");
+const { validators } = require("@/validators");
 
 const tryToSendMessage = async (currentUser, participantId, message) => {
   await validators.participantId(participantId);

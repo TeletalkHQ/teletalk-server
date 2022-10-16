@@ -6,7 +6,7 @@ const { mongooseUniqueValidator } = require("@/plugins/mongoosePlugins");
 
 const { excludeVersions } = require("@/functions/utilities/utilities");
 
-const { nativeModels } = require("@/models/native/native");
+const { nativeModels } = require("@/models/native");
 
 const userModelsWithoutVersion = excludeVersions(nativeModels.user);
 const commonModelsWithoutVersion = excludeVersions(nativeModels.common);

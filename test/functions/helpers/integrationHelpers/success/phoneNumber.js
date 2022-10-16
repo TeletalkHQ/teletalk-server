@@ -1,6 +1,6 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const { testVariables } = require("$/variables/testVariables");
 

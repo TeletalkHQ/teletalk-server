@@ -4,7 +4,7 @@ const { expect } = require("$/functions/utilities/testUtilities");
 
 const { requesters } = require("$/functions/helpers/requesters");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const { testVariables } = require("$/variables/testVariables");
 

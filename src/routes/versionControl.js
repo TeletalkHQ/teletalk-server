@@ -31,4 +31,4 @@ const versionControlRoutes = {
   version: versionCalculator(extractVersions(routes)),
 };
 
-module.exports = { versionControlRoutes };
+module.exports = { versionControl: versionControlRoutes };

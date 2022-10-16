@@ -15,7 +15,7 @@ const {
   passwordGenerator,
 } = require("@/functions/utilities/passwordGenerator");
 
-const { validators } = require("@/validators/validators");
+const { validators } = require("@/validators");
 
 const makeSmsText = (verificationCode, host) => {
   const smsText = smsClient

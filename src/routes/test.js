@@ -21,9 +21,9 @@ const routes = {
   getAllUsers,
 };
 
-const testRoutes = {
+const test = {
   ...routes,
   version: versionCalculator(extractVersions(routes)),
 };
 
-module.exports = { testRoutes };
+module.exports = { test };

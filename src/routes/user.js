@@ -200,5 +200,5 @@ const userRoutes = {
 };
 
 module.exports = {
-  userRoutes,
+  user: userRoutes,
 };

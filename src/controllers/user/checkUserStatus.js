@@ -5,7 +5,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { services } = require("@/services/services");
+const { services } = require("@/services");
 
 const { errors } = require("@/variables/errors/errors");
 

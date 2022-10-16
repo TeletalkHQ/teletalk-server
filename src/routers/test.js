@@ -1,8 +1,8 @@
 const { Router } = require("express");
 
-const { controllers } = require("@/controllers/controllers");
+const { controllers } = require("@/controllers");
 
-const { routes } = require("@/routes/routes");
+const { routes } = require("@/routes");
 
 const testRouter = Router();
 

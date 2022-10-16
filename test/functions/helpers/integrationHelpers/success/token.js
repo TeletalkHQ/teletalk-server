@@ -1,8 +1,8 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
-const { validators } = require("@/validators/validators");
+const { validators } = require("@/validators");
 
 const userModels = models.native.user;
 

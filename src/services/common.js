@@ -1,6 +1,6 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const {
   initialOptions: { userInitialOptions },

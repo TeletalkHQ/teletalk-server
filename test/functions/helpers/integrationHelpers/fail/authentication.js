@@ -1,6 +1,6 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const { models } = require("@/models/models");
+const { models } = require("@/models");
 
 const { errors } = require("@/variables/errors/errors");
 

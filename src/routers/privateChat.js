@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const { controllers } = require("@/controllers/controllers");
 
-const { middlewares } = require("@/middlewares/middlewares");
+const { middlewares } = require("@/middlewares");
 const { routes } = require("@/routes/routes");
 
 const privateChatRouter = Router();

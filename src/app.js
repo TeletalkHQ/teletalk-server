@@ -15,7 +15,7 @@ const { getIgnoredUrlsForAuth } = require("@/functions/helpers/otherHelpers");
 
 const { lifeLine } = require("@/routers/lifeLine");
 
-const { middlewares } = require("@/middlewares/middlewares");
+const { middlewares } = require("@/middlewares");
 
 const app = express();
 

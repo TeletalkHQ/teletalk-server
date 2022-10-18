@@ -15,10 +15,11 @@
     "dev": "cross-env NODE_ENV=development nodemon --ignore ./thunder-tests --trace-warnings ./src/server.js",
     "format": "prettier --write ./",
     "lint": "eslint ./",
+    "check-style": "npm run format && npm run lint",
     "prepare": "husky install",
-    "start": "cross-env NODE_ENV=production node ./build/index.js",
+    "start": "npm run build && cross-env NODE_ENV=production node ./build/index.js",
     "test": "cross-env NODE_ENV=test npm run test-runner",
-    "test-production": "cross-env NODE_ENV=test_production npm run test-runner",
+    "test-production": "npm run build && cross-env NODE_ENV=test_production npm run test-runner",
     "test-runner": "mocha ./test/test.js --recursive --exit",
     "test-runner-with-badge": "mocha ./test/test.js --recursive --reporter mocha-badge-generator --exit",
     "test-with-badge": "cross-env NODE_ENV=test npm run test-runner-with-badge"

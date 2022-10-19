@@ -9,7 +9,7 @@ const tryToResponseToError = (res) => {
 };
 
 const catchResponseToError = () => {
-  logger.redBright("CRITICAL ERROR!!!").log();
+  logger.redBright("CRITICAL ERROR!!!").error();
   crashServer();
 };
 

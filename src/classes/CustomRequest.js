@@ -97,24 +97,24 @@ class CustomRequest {
       .bgRed("- - - - - - - - - - - - - - - - - - -", logger.colors.black)
       .bgRed("TEST_REQUEST_BEGIN", logger.colors.black)
       .bgRed(" - - - - - - - - - - - - - - - - - - - ", logger.colors.black)
-      .log();
+      .info();
     return this;
   }
   logRouteSpecs() {
     logger
       .bgBlue("route: ", logger.colors.black)
       .bgGreen(this.routeObject.fullUrl, logger.colors.black)
-      .log();
+      .info();
     return this;
   }
   logMergedOptions() {
     logger
       .bgRed("mergedOptions: ", logger.colors.black)
-      .log(this.mergedOptions);
+      .info(this.mergedOptions);
     return this;
   }
   logRequestData() {
-    logger.log("requestData: ", this.requestData);
+    logger.info("requestData: ", this.requestData);
     return this;
   }
   logEndRequest() {
@@ -231,7 +231,9 @@ class CustomRequest {
 }
 
 const customRequestCreator = (token) => {
-  return { create: () => new CustomRequest(token) };
+  return {
+    create: () => new CustomRequest(token),
+  };
 };
 
 module.exports = {

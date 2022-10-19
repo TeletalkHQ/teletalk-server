@@ -84,11 +84,11 @@ const tryToFindTemporaryClient = async (cellphone) => {
 };
 
 const temporaryClientHelper = async ({
+  cellphone,
   client,
+  trierInstance,
   verificationCode,
   verifyToken,
-  trierInstance,
-  cellphone,
 }) => {
   if (client) {
     await trierInstance.tryAsync(
@@ -114,7 +114,10 @@ const tryToSignInNormalUser = async (req) => {
   const {
     sms: { shouldSendSms },
   } = appConfigs.getConfigs();
-  const trierInstance = trier(tryToSignInNormalUser, { autoThrowError: true });
+
+  const trierInstance = trier(tryToSignInNormalUser, {
+    autoThrowError: true,
+  });
 
   await trierInstance.tryAsync(tryToValidateVerificationCode, verificationCode);
 

@@ -20,9 +20,10 @@ class AppConfigs {
     this.runConfigs();
   }
   runConfigs() {
-    logger.setLevel(logger.levels.debug);
+    const { NODE_ENV, LOGGER_LEVEL } = envManager.getAllLocalEnvironments();
 
-    const NODE_ENV = envManager.getNodeEnv();
+    logger.setLevel(LOGGER_LEVEL);
+
     const shouldNotPrintCatchErrors = NODE_ENV.includes("test");
     if (shouldNotPrintCatchErrors) {
       Trier.changeGlobalConfigs({ canPrintError: false });

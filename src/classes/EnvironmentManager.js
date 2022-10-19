@@ -10,6 +10,7 @@ class EnvironmentManager extends EnvironmentManagerMain {
       DEVELOPMENT_PORT: "DEVELOPMENT_PORT",
       JWT_MAIN_SECRET: "JWT_MAIN_SECRET",
       JWT_SIGN_IN_SECRET: "JWT_SIGN_IN_SECRET",
+      LOGGER_LEVEL: "LOGGER_LEVEL",
       MONGO_URL_DEVELOPMENT: "MONGO_URL_DEVELOPMENT",
       MONGO_URL_PRODUCTION: "MONGO_URL_PRODUCTION",
       MONGO_URL_TEST: "MONGO_URL_TEST",
@@ -25,6 +26,12 @@ class EnvironmentManager extends EnvironmentManagerMain {
     };
 
     this.ENVIRONMENT_VALUES = {
+      LOGGER_LEVEL: {
+        debug: "debug",
+        error: "error",
+        info: "info",
+        warning: "warning",
+      },
       NODE_ENV: {
         development: "development",
         production: "production",

@@ -1,49 +1,61 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
+const { authManager } = require("@/classes/AuthManager");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
-const { authManager } = require("@/classes/AuthManager");
 
-const fixUserData = async (isUserExist, defaultUserObject, tokens) => {
-  const getDataIfUserExist = async () => {
-    const mainToken =
-      userPropsUtilities.getTokenFromUserObject({
-        tokens,
-      }) ||
-      (await authManager.tokenSigner({
-        cellphone: userPropsUtilities.extractCellphone(defaultUserObject),
-        privateId: defaultUserObject.privateId,
-      }));
-    return {
-      ...defaultUserObject,
-      mainToken,
-      newUser: false,
-    };
-  };
+const generateNewMainToken = async (userData) => {
+  return await authManager.tokenSigner({
+    ...userPropsUtilities.extractCellphone(userData),
+    privateId: userData.privateId,
+  });
+};
 
-  const dataIfUserNotExist = { newUser: true };
+const handleGetMainToken = async (tokens, userData) => {
+  const mainToken = userPropsUtilities.getTokenFromUserObject({
+    tokens,
+  });
+  if (mainToken) return mainToken;
+
+  const newMainToken = await generateNewMainToken(userData);
+  await services.saveNewMainToken(
+    userPropsUtilities.extractCellphone(userData),
+    newMainToken
+  );
+  return newMainToken;
+};
+const dataIfUserExist = async (tokens, userData) => {
+  const mainToken = await handleGetMainToken(tokens, userData);
   return {
-    user: isUserExist ? await getDataIfUserExist() : dataIfUserNotExist,
+    ...userData,
+    mainToken,
+    newUser: false,
+  };
+};
+const dataIfUserNotExist = () => ({
+  newUser: true,
+});
+
+const fixUserData = async (isUserExist, userData, tokens) => {
+  return {
+    user: isUserExist
+      ? await dataIfUserExist(tokens, userData)
+      : dataIfUserNotExist(),
   };
 };
 
-const tryToSignInNormalUser = async (userData) => {
-  const cellphone = userPropsUtilities.extractCellphone(userData);
+const tryToSignInNormalUser = async (tokenPayload) => {
+  const cellphone = userPropsUtilities.extractCellphone(tokenPayload);
 
   const foundUser = (await services.userFinder(cellphone)) || {};
-  const { tokens, ...defaultUserObject } =
-    userPropsUtilities.extractUserData(foundUser);
+  const { tokens, ...userData } = userPropsUtilities.extractUserData(foundUser);
 
-  const isUserExist = !!defaultUserObject.privateId;
+  const isUserExist = !!userData.privateId;
   //? 0 stance for newUser:false and 1 for newUser:true
   const requiredFieldsIndex = isUserExist ? 0 : 1;
-  const responseData = await fixUserData(
-    isUserExist,
-    defaultUserObject,
-    tokens
-  );
+  const responseData = await fixUserData(isUserExist, userData, tokens);
 
   return {
     requiredFieldsIndex,

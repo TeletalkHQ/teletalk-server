@@ -266,18 +266,25 @@ const logoutUser = async (currentUser) => {
   return { ok: true };
 };
 
+const saveNewMainToken = async (cellphone, newMainToken) => {
+  const user = await commonServices.userFinder(cellphone);
+  user.tokens.push({ mainToken: newMainToken });
+  await user.save();
+};
+
 const userServices = {
   addCellphoneToUserBlacklist,
   addContactToUserContacts,
   addTestUser,
   createNewNormalUser,
   deleteBlacklistItem,
-  getChatInfo,
   getAllUsers,
+  getChatInfo,
   getUserContacts,
   getUserData,
   logoutUser,
   removeContactItem,
+  saveNewMainToken,
   updateOneContact,
   updatePersonalInfo,
 };

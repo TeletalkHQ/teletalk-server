@@ -4,18 +4,28 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
+const { authManager } = require("@/classes/AuthManager");
 
-const fixUserData = (isUserExist, defaultUserObject, tokens) => {
+const fixUserData = async (isUserExist, defaultUserObject, tokens) => {
+  const getDataIfUserExist = async () => {
+    const mainToken =
+      userPropsUtilities.getTokenFromUserObject({
+        tokens,
+      }) ||
+      (await authManager.tokenSigner({
+        cellphone: userPropsUtilities.extractCellphone(defaultUserObject),
+        privateId: defaultUserObject.privateId,
+      }));
+    return {
+      ...defaultUserObject,
+      mainToken,
+      newUser: false,
+    };
+  };
+
+  const dataIfUserNotExist = { newUser: true };
   return {
-    user: isUserExist
-      ? {
-          ...defaultUserObject,
-          mainToken: userPropsUtilities.getTokenFromUserObject({
-            tokens,
-          }),
-          newUser: false,
-        }
-      : { newUser: true },
+    user: isUserExist ? await getDataIfUserExist() : dataIfUserNotExist,
   };
 };
 
@@ -29,7 +39,11 @@ const tryToSignInNormalUser = async (userData) => {
   const isUserExist = !!defaultUserObject.privateId;
   //? 0 stance for newUser:false and 1 for newUser:true
   const requiredFieldsIndex = isUserExist ? 0 : 1;
-  const responseData = fixUserData(isUserExist, defaultUserObject, tokens);
+  const responseData = await fixUserData(
+    isUserExist,
+    defaultUserObject,
+    tokens
+  );
 
   return {
     requiredFieldsIndex,

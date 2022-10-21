@@ -22,7 +22,7 @@
       },
       {
         "_id": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
-        "name": "cellponeApis",
+        "name": "cellphoneApis",
         "containerId": "",
         "created": "2022-04-10T19:07:05.852Z",
         "sortNum": 20000

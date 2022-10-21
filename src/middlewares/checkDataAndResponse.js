@@ -4,10 +4,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
-const {
-  crashServerWithCondition,
-  errorThrower,
-} = require("@/functions/utilities/utilities");
+const { crashServerWithCondition } = require("@/functions/utilities/utilities");
 
 const { errors } = require("@/variables/errors/errors");
 
@@ -22,21 +19,21 @@ const tryToCheckDataAndResponse = ({
     overloadFieldsError: errors.OUTPUT_FIELDS_OVERLOAD,
   });
 
-  errorThrower(checkResult.ok === false, () => ({
-    ...checkResult.errorObject,
-    outputFields: data,
-    fields: outputFields,
-  }));
-
-  return { ok: true, data };
+  return { ok: true, data, checkResult };
 };
 
 const executeIfNoError = ({ data }, res) => {
   res.sendJsonResponse(data);
 };
 
-const catchCheckDataAndResponse = (error, res) => {
-  commonFunctionalities.controllerCatchResponse(error, res);
+const catchCheckDataAndResponse = (error, { data, outputFields, res }) => {
+  const sendingError = {
+    ...error.errorObject,
+    outputFields: data,
+    fields: outputFields,
+  };
+
+  commonFunctionalities.controllerCatchResponse(sendingError, res);
   return { ok: false };
 };
 
@@ -58,7 +55,11 @@ const checkDataAndResponse = (req, res, next) => {
         outputFields,
       })
       .executeIfNoError(executeIfNoError, res)
-      .catch(catchCheckDataAndResponse, res)
+      .catch(catchCheckDataAndResponse, {
+        data,
+        outputFields,
+        res,
+      })
       .result();
   };
 

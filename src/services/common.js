@@ -11,10 +11,7 @@ const User = models.database.mongoDb.User;
 const tryToFindUser = async (userData, options) => {
   return await User.findOne(userData, undefined, options);
 };
-const userFinder = async (
-  userData = userInitialOptions,
-  options = { lean: true }
-) => {
+const userFinder = async (userData = userInitialOptions, options) => {
   return (
     await trier(userFinder.name).tryAsync(tryToFindUser, userData, options)
   )

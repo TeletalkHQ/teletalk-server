@@ -98,7 +98,7 @@ const signInNormal = userRouteBuilder
 const checkUserStatus = userRouteBuilder
   .create()
   .method("get")
-  .url("/normalUser/statusCheck")
+  .url("/normalUser/checkUserStatus")
   .statusCode(200)
   .version("1.0.0")
   .description("Use for check client availability as a normal account")

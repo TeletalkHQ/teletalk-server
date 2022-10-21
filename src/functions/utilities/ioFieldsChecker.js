@@ -30,13 +30,13 @@ const throwErrorIfSelectedRequiredFieldsIsNotDefined = (
   );
 };
 
-const tryCheckFields = (
+const tryCheckFields = ({
   ioData,
+  missingFieldsError,
+  overloadFieldsError,
   requiredFields,
   requiredFieldsIndex,
-  missingFieldsError,
-  overloadFieldsError
-) => {
+}) => {
   const selectedRequiredFields = getSelectedRequiredFields(
     requiredFields,
     requiredFieldsIndex
@@ -71,14 +71,13 @@ const ioFieldsChecker = (
   };
 
   return trier(ioFieldsChecker.name)
-    .try(
-      tryCheckFields,
+    .try(tryCheckFields, {
       ioData,
+      missingFieldsError,
+      overloadFieldsError,
       requiredFields,
       requiredFieldsIndex,
-      missingFieldsError,
-      overloadFieldsError
-    )
+    })
     .catch((error) => ({
       ok: false,
       errorObject: error,

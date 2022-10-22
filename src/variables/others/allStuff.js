@@ -1,12 +1,12 @@
 const { models } = require("@/models");
-const { chatValidationModels } = require("@/models/validation/chat");
-const { userValidationModels } = require("@/models/validation/user");
+const { chat: chatValidationModels } = require("@/models/validation/chat");
+const { user: userValidationModels } = require("@/models/validation/user");
 
 const { routes } = require("@/routes");
 
-const { appErrors } = require("@/variables/errors/errors");
-const { chatErrors } = require("@/variables/errors/errors");
-const { userErrors } = require("@/variables/errors/errors");
+const { appErrors } = require("@/variables/errors/app");
+const { chatErrors } = require("@/variables/errors/chat");
+const { userErrors } = require("@/variables/errors/user");
 
 const validationModels = {
   ...chatValidationModels,

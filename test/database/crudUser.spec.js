@@ -23,7 +23,7 @@ describe("save user data in state", () => {
       expect(userFromState).to.be.an("object");
 
       const user = await services.userFinder({
-        privateId: userFromState.privateId,
+        userId: userFromState.userId,
       });
       expect(user).to.be.a("object");
     }

@@ -57,7 +57,7 @@ describe("success create new normal user", () => {
           lastName,
           mainToken,
           phoneNumber,
-          privateId,
+          userId,
         },
       },
     } = await requesters
@@ -88,7 +88,7 @@ describe("success create new normal user", () => {
         clientValue: testVariables.cellphones.createNewUserSignIn.phoneNumber,
         responseValue: phoneNumber,
       })
-      .privateId({ responseValue: privateId }, { stringEquality: false })
+      .userId({ responseValue: userId }, { stringEquality: false })
       .firstName({
         clientValue: fullName.firstName,
         responseValue: firstName,

@@ -9,7 +9,7 @@ const { services } = require("@/services");
 const generateNewMainToken = async (userData) => {
   return await authManager.tokenSigner({
     ...userPropsUtilities.extractCellphone(userData),
-    privateId: userData.privateId,
+    userId: userData.userId,
   });
 };
 
@@ -52,7 +52,7 @@ const tryToSignInNormalUser = async (tokenPayload) => {
   const foundUser = (await services.userFinder(cellphone)) || {};
   const { tokens, ...userData } = userPropsUtilities.extractUserData(foundUser);
 
-  const isUserExist = !!userData.privateId;
+  const isUserExist = !!userData.userId;
   //? 0 stance for newUser:false and 1 for newUser:true
   const requiredFieldsIndex = isUserExist ? 0 : 1;
   const responseData = await fixUserData(isUserExist, userData, tokens);

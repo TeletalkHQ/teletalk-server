@@ -6,7 +6,7 @@ const { testVariables } = require("$/variables/testVariables");
 
 const userModels = models.native.user;
 
-const privateId = (
+const userId = (
   { clientValue, responseValue } = {},
   {
     stringEquality = true,
@@ -15,11 +15,11 @@ const privateId = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(userModels.privateId, clientValue, responseValue)
+    .setVariables(userModels.userId, clientValue, responseValue)
     .setOptions({ modelCheck, stringEquality })
     .emptyCheck()
     .addCommonTest()
     .execute();
 };
 
-module.exports = { privateId };
+module.exports = { userId };

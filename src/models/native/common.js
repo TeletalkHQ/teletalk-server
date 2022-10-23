@@ -17,7 +17,7 @@ const createdAt = nativeModelBuilder
   .version("1.0.0")
   .build();
 
-const privateId = nativeModelBuilder
+const userId = nativeModelBuilder
   .create()
   .empty(false, errors.PRIVATE_ID_EMPTY)
   .maxlength(35, errors.PRIVATE_ID_MAX_LENGTH_REACH)
@@ -57,7 +57,7 @@ const models = {
   chatId,
   createdAt,
   messageId,
-  privateId,
+  userId,
 };
 
 const common = {

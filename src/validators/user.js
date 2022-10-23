@@ -107,13 +107,13 @@ const contact = async (contactParam) => {
   await trierInstance(contact.name, tryToValidateContact, contactParam);
 };
 
-const tryToValidatePrivateId = async (privateId) => {
-  const validationResult = await compiledValidators.privateId({ privateId });
+const tryToValidatePrivateId = async (userId) => {
+  const validationResult = await compiledValidators.userId({ userId });
   if (validationResult === true) return;
-  validatorErrorBuilder.privateId(validationResult, privateId);
+  validatorErrorBuilder.userId(validationResult, userId);
 };
-const privateId = async (privateIdParam) => {
-  await trierInstance(privateId.name, tryToValidatePrivateId, privateIdParam);
+const userId = async (privateIdParam) => {
+  await trierInstance(userId.name, tryToValidatePrivateId, privateIdParam);
 };
 
 const tryToValidateToken = async (token, secret) => {
@@ -186,7 +186,7 @@ const userValidators = {
   firstName,
   lastName,
   phoneNumber,
-  privateId,
+  userId,
   token,
   username,
   verificationCode,

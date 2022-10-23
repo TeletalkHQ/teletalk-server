@@ -4,8 +4,8 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { services } = require("@/services");
 
-const tryToGetUserData = async (privateId) => {
-  const user = await services.getUserData(privateId);
+const tryToGetUserData = async (userId) => {
+  const user = await services.getUserData(userId);
   return user;
 };
 
@@ -19,14 +19,9 @@ const getUserDataController = async (
   req = expressRequest,
   res = expressResponse
 ) => {
-  const { privateId } = req.body;
+  const { userId } = req.body;
 
-  (
-    await trier(getUserDataController.name).tryAsync(
-      tryToGetUserData,
-      privateId
-    )
-  )
+  (await trier(getUserDataController.name).tryAsync(tryToGetUserData, userId))
     .executeIfNoError(responseToGetUserData, res)
     .catch(catchGetUserData);
 };

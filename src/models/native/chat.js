@@ -24,37 +24,31 @@ const message = nativeModelBuilder
 
 const participantId = nativeModelBuilder
   .create()
-  .empty(common.privateId.empty.value, errors.PARTICIPANT_EMPTY)
+  .empty(common.userId.empty.value, errors.PARTICIPANT_EMPTY)
   .maxlength(
-    common.privateId.maxlength.value,
+    common.userId.maxlength.value,
     errors.PARTICIPANT_ID_MAX_LENGTH_REACH
   )
   .minlength(
-    common.privateId.minlength.value,
+    common.userId.minlength.value,
     errors.PARTICIPANT_ID_MIN_LENGTH_REACH
   )
-  .required(common.privateId.required.value, errors.PARTICIPANT_ID_REQUIRED)
-  .trim(common.privateId.trim.value)
-  .type(common.privateId.type.value, errors.PARTICIPANT_ID_INVALID_TYPE)
-  .unique(common.privateId.unique.value, errors.PARTICIPANT_ID_EXIST)
+  .required(common.userId.required.value, errors.PARTICIPANT_ID_REQUIRED)
+  .trim(common.userId.trim.value)
+  .type(common.userId.type.value, errors.PARTICIPANT_ID_INVALID_TYPE)
+  .unique(common.userId.unique.value, errors.PARTICIPANT_ID_EXIST)
   .version("1.0.0")
   .build();
 
 const senderId = nativeModelBuilder
   .create()
-  .maxlength(
-    common.privateId.maxlength.value,
-    errors.SENDER_ID_MAX_LENGTH_REACH
-  )
-  .minlength(
-    common.privateId.minlength.value,
-    errors.SENDER_ID_MIN_LENGTH_REACH
-  )
-  .required(common.privateId.required.value, errors.SENDER_ID_REQUIRED)
-  .trim(common.privateId.trim.value)
-  .type(common.privateId.type.value, errors.SENDER_ID_INVALID_TYPE)
-  .unique(common.privateId.unique.value, errors.SENDER_ID_EXIST)
-  .empty(common.privateId.empty.value, errors.SENDER_EMPTY)
+  .maxlength(common.userId.maxlength.value, errors.SENDER_ID_MAX_LENGTH_REACH)
+  .minlength(common.userId.minlength.value, errors.SENDER_ID_MIN_LENGTH_REACH)
+  .required(common.userId.required.value, errors.SENDER_ID_REQUIRED)
+  .trim(common.userId.trim.value)
+  .type(common.userId.type.value, errors.SENDER_ID_INVALID_TYPE)
+  .unique(common.userId.unique.value, errors.SENDER_ID_EXIST)
+  .empty(common.userId.empty.value, errors.SENDER_EMPTY)
   .version("1.0.0")
   .build();
 

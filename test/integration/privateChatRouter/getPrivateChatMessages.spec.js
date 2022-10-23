@@ -14,7 +14,7 @@ describe("get messages success tests", () => {
     for (const _ of Array.from({ length: 10 })) {
       await requesters.sendMessage().sendFullFeaturedRequest({
         message,
-        participantId: testVariables.users.getPrivateChatMessages.privateId,
+        participantId: testVariables.users.getPrivateChatMessages.userId,
       });
     }
 

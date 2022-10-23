@@ -49,7 +49,7 @@ class IntegrationSuccessTestMaker {
   messageId = this.successTestMaker("messageId");
   participantId = this.successTestMaker("participantId");
   phoneNumber = this.successTestMaker("phoneNumber");
-  privateId = this.successTestMaker("privateId");
+  userId = this.successTestMaker("userId");
   verificationCode = this.successTestMaker("verificationCode");
 }
 

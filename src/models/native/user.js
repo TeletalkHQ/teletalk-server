@@ -67,7 +67,7 @@ const chatInfo = nativeModelBuilder
   .build();
 
 const createdAt = common.createdAt;
-const privateId = common.privateId;
+const userId = common.userId;
 
 const firstName = nativeModelBuilder
   .create()
@@ -163,7 +163,7 @@ const models = {
   lastName,
   macAddress,
   phoneNumber,
-  privateId,
+  userId,
   token,
   username,
   verificationCode,

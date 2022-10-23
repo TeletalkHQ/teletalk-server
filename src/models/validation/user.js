@@ -99,10 +99,10 @@ const phoneNumber = {
   version: "1.0.0",
 };
 
-const privateId = {
-  privateId: validationModelBuilder
+const userId = {
+  userId: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.privateId)
+    .setModelObject(nativeModels.user.userId)
     .max()
     .min()
     .trim()
@@ -170,7 +170,7 @@ const validationModels = {
   lastName,
   macAddress,
   phoneNumber,
-  privateId,
+  userId,
   token,
   username,
   verificationCode,

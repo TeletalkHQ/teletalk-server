@@ -24,7 +24,7 @@ describe("add contact success tests", () => {
           firstName,
           lastName,
           phoneNumber,
-          privateId,
+          userId,
         },
       },
     } = await configuredAddContactRequester.sendFullFeaturedRequest(
@@ -34,9 +34,9 @@ describe("add contact success tests", () => {
 
     integrationHelpers
       .createSuccessTest()
-      .privateId({
-        clientValue: testVariables.users.addContactSuccessful.privateId,
-        responseValue: privateId,
+      .userId({
+        clientValue: testVariables.users.addContactSuccessful.userId,
+        responseValue: userId,
       })
       .countryCode({
         clientValue: testVariables.users.addContactSuccessful.countryCode,

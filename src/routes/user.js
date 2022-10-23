@@ -18,7 +18,7 @@ const {
     newUser,
     ok,
     phoneNumber,
-    privateId,
+    userId,
     user,
     username,
     verificationCode,
@@ -51,7 +51,7 @@ const createNewUser = userRouteBuilder
         lastName,
         mainToken,
         phoneNumber,
-        privateId,
+        userId,
       },
     },
   ])

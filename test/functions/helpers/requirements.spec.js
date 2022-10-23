@@ -10,7 +10,7 @@ const { eventManager } = require("@/classes/EventManager");
 const { setTestUsers } = require("$/functions/utilities/testUtilities");
 
 const {
-  common: { privateId: privateIdCommonModel },
+  common: { userId: privateIdCommonModel },
 } = require("@/models/native/common");
 
 const { countries } = require("@/variables/others/countries");
@@ -25,13 +25,13 @@ const tryToAddTestUser = async ({
 }) => {
   const phoneNumber = `000000000${index}`;
 
-  const privateId = randomMaker.randomId(privateIdCommonModel.maxlength.value);
+  const userId = randomMaker.randomId(privateIdCommonModel.maxlength.value);
 
   const mainToken = await authManager.tokenSigner({
     countryCode,
     countryName,
     phoneNumber,
-    privateId,
+    userId,
   });
 
   testUsers[`testUser_${index}`] = await services.addTestUser({
@@ -41,7 +41,7 @@ const tryToAddTestUser = async ({
     lastName: `user_${index}`,
     mainToken,
     phoneNumber,
-    privateId,
+    userId,
   });
 };
 

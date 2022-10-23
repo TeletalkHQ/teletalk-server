@@ -12,7 +12,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
-  common: { userId: privateIdCommonModel },
+  common: { userId: userIdCommonModel },
 } = require("@/models/native/common");
 
 const { services } = require("@/services");
@@ -50,7 +50,7 @@ const tryToFindUserInDb = async (cellphone) => {
 };
 
 const getRandomId = () =>
-  randomMaker.randomId(privateIdCommonModel.maxlength.value);
+  randomMaker.randomId(userIdCommonModel.maxlength.value);
 
 const tryToSignMainToken = async (cellphone, userId) => {
   const mainToken = await authManager.tokenSigner({

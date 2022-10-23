@@ -17,7 +17,6 @@ cellphoneRouter.use(
   )
 );
 
-//TODO: Remove addContact
 cellphoneRouter.use(
   middlewares.ignoreMiddlewaresByUrl(
     [routes.cellphone.getContacts.url, routes.cellphone.addContact.url],

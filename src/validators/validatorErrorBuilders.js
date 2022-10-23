@@ -111,7 +111,7 @@ const userId = (validationResult, userId) => {
     .create()
     .setRequirements(validationResult, {
       extraErrorFields: {
-        validatedPrivateId: userId,
+        validatedUserId: userId,
       },
     })
     .required(errors.PRIVATE_ID_REQUIRED)

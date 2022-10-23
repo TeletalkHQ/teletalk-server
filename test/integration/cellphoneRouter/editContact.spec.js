@@ -22,7 +22,7 @@ describe("edit contact success tests", () => {
           firstName,
           lastName,
           phoneNumber,
-          privateId,
+          userId,
         },
       },
     } = await requesters
@@ -57,9 +57,9 @@ describe("edit contact success tests", () => {
         clientValue: testVariables.users.editContactSuccessful.countryName,
         responseValue: countryName,
       })
-      .privateId({
-        clientValue: testVariables.users.editContactSuccessful.privateId,
-        responseValue: privateId,
+      .userId({
+        clientValue: testVariables.users.editContactSuccessful.userId,
+        responseValue: userId,
       });
 
     const editedFullName = {

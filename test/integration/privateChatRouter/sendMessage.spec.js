@@ -12,7 +12,7 @@ const message = "Hello! Im messages!";
 
 describe("send message success tests", () => {
   it("Should start new chat with selected test users and send message", async () => {
-    const { privateId } = testVariables.users.sendMessageSuccessful;
+    const { userId } = testVariables.users.sendMessageSuccessful;
 
     const {
       body: {
@@ -24,13 +24,13 @@ describe("send message success tests", () => {
         },
       },
     } = await requesters.sendMessage().sendFullFeaturedRequest({
-      participantId: privateId,
+      participantId: userId,
       message,
     });
 
     integrationHelpers
       .createSuccessTest()
-      .privateId(
+      .userId(
         {
           responseValue: senderId,
         },

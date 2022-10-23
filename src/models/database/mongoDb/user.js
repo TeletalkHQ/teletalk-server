@@ -22,7 +22,7 @@ const {
   lastName,
   mainToken,
   phoneNumber,
-  privateId,
+  userId,
   username,
 } = {
   bio: mongoModelBuilder
@@ -101,9 +101,9 @@ const {
     .minlength()
     .required()
     .build(),
-  privateId: mongoModelBuilder
+  userId: mongoModelBuilder
     .create()
-    .setModelObject(commonModelsWithoutVersion.privateId)
+    .setModelObject(commonModelsWithoutVersion.userId)
     .type()
     .minlength()
     .maxlength()
@@ -148,8 +148,8 @@ const UserSchema = new mongoose.Schema({
       firstName,
       lastName,
       phoneNumber,
-      privateId: (() => {
-        const { unique, ...rest } = privateId;
+      userId: (() => {
+        const { unique, ...rest } = userId;
         return rest;
       })(),
     },
@@ -160,7 +160,7 @@ const UserSchema = new mongoose.Schema({
   firstName,
   lastName,
   phoneNumber,
-  privateId,
+  userId,
   tokens: [
     {
       mainToken,

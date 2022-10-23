@@ -12,7 +12,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { errorThrower } = require("@/functions/utilities/utilities");
 
 const {
-  common: { privateId: privateIdCommonModel },
+  common: { userId: privateIdCommonModel },
 } = require("@/models/native/common");
 
 const { services } = require("@/services");
@@ -52,10 +52,10 @@ const tryToFindUserInDb = async (cellphone) => {
 const getRandomId = () =>
   randomMaker.randomId(privateIdCommonModel.maxlength.value);
 
-const tryToSignMainToken = async (cellphone, privateId) => {
+const tryToSignMainToken = async (cellphone, userId) => {
   const mainToken = await authManager.tokenSigner({
     ...cellphone,
-    privateId,
+    userId,
   });
   return mainToken;
 };
@@ -65,7 +65,7 @@ const fixUserDataForDb = ({
   firstName,
   lastName,
   mainToken,
-  privateId,
+  userId,
 }) => {
   const defaultUserData = userPropsUtilities.defaultUserData();
   const allUserData = {
@@ -73,7 +73,7 @@ const fixUserDataForDb = ({
     ...cellphone,
     firstName,
     lastName,
-    privateId,
+    userId,
     tokens: [{ mainToken }],
   };
   const userDataForDatabase = objectUtilities.excludeProps(allUserData, [
@@ -110,10 +110,10 @@ const createNewUserMultiTrier = async ({
   await trierInstance.tryAsync(tryToFindTemporaryClient, cellphone);
   await trierInstance.tryAsync(tryToFindUserInDb, cellphone);
 
-  const privateId = getRandomId();
+  const userId = getRandomId();
 
   const mainToken = (
-    await trierInstance.tryAsync(tryToSignMainToken, cellphone, privateId)
+    await trierInstance.tryAsync(tryToSignMainToken, cellphone, userId)
   ).result();
 
   const userDataForDatabase = fixUserDataForDb({
@@ -121,7 +121,7 @@ const createNewUserMultiTrier = async ({
     firstName,
     lastName,
     mainToken,
-    privateId,
+    userId,
   });
 
   await trierInstance.tryAsync(tryToCreateNewUser, userDataForDatabase);
@@ -131,7 +131,7 @@ const createNewUserMultiTrier = async ({
     firstName,
     lastName,
     mainToken,
-    privateId,
+    userId,
   };
 
   return userDataForSendToClient;

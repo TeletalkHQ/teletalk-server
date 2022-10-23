@@ -59,7 +59,7 @@ const getPrivateChatMessages = async (currentUser, chatId) =>
 
 const sendPrivateMessage = async (currentUser, participantId, message) => {
   const targetUser = await commonServices.userFinder(
-    { privateId: participantId },
+    { userId: participantId },
     {}
   );
   //TODO Add test for TARGET_USER_NOT_EXIST
@@ -67,7 +67,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
 
   const privateChat = await PrivateChat.findOne({
     "participants.participantId": {
-      $all: [currentUser.privateId, targetUser.privateId],
+      $all: [currentUser.userId, targetUser.userId],
     },
   });
 
@@ -77,7 +77,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
   const newMessage = {
     message,
     messageId: randomMaker.randomId(chatModels.messageId.maxlength.value),
-    messageSender: { senderId: currentUser.privateId },
+    messageSender: { senderId: currentUser.userId },
   };
 
   if (!privateChat) {
@@ -86,8 +86,8 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
       {
         chatId,
         participants: [
-          { participantId: currentUser.privateId },
-          { participantId: targetUser.privateId },
+          { participantId: currentUser.userId },
+          { participantId: targetUser.userId },
         ],
         messages: [newMessage],
       },

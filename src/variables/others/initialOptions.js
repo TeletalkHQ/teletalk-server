@@ -10,7 +10,7 @@ const userInitialOptions = {
   macAddress: "",
   mainToken: "",
   phoneNumber: "",
-  privateId: "",
+  userId: "",
   username: "",
   verifyToken: "",
 };

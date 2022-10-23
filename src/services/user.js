@@ -75,7 +75,7 @@ const tryToAddContactToUserContacts = async (currentUser, targetUserData) => {
 
   const contact = userPropsUtilities.extractContact({
     ...targetUserData,
-    privateId: targetUser.privateId,
+    userId: targetUser.userId,
   });
   currentUser.contacts.push(contact);
   await currentUser.save();
@@ -209,13 +209,13 @@ const tryToAddTestUser = async ({
   lastName,
   mainToken,
   phoneNumber,
-  privateId,
+  userId,
 }) => {
   const user = await User.findOneAndUpdate(
     { countryCode, countryName, phoneNumber },
     {
       tokens: [{ mainToken }],
-      privateId,
+      userId,
       firstName,
       lastName,
       contacts: [],
@@ -246,16 +246,16 @@ const getAllUsers = async () => {
   return users;
 };
 
-const tryToGetUserData = async (privateId) => {
-  const user = await User.findOne({ privateId }, undefined, {
+const tryToGetUserData = async (userId) => {
+  const user = await User.findOne({ userId }, undefined, {
     lean: true,
   });
   errorThrower(!user, errors.USER_NOT_EXIST);
 
   return user;
 };
-const getUserData = async (privateId) => {
-  return (await trier(getUserData.name).tryAsync(tryToGetUserData, privateId))
+const getUserData = async (userId) => {
+  return (await trier(getUserData.name).tryAsync(tryToGetUserData, userId))
     .printAndThrow()
     .result();
 };

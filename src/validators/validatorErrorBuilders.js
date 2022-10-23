@@ -106,12 +106,12 @@ const phoneNumber = (validationResult, phoneNumber) => {
     .execute();
 };
 
-const privateId = (validationResult, privateId) => {
+const userId = (validationResult, userId) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
       extraErrorFields: {
-        validatedPrivateId: privateId,
+        validatedPrivateId: userId,
       },
     })
     .required(errors.PRIVATE_ID_REQUIRED)
@@ -215,7 +215,7 @@ const validatorErrorBuilder = {
   messageText,
   participantId,
   phoneNumber,
-  privateId,
+  userId,
   username,
   verificationCode,
 };

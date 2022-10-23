@@ -9,7 +9,7 @@ const userDataDefaultIoFields = {
   lastName: "lastName",
   mainToken: "mainToken",
   phoneNumber: "phoneNumber",
-  privateId: "privateId",
+  userId: "userId",
   username: "username",
 };
 

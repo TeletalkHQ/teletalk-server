@@ -17,7 +17,7 @@ const responseToAddContact = (targetUser, res, contact) => {
   commonFunctionalities.controllerSuccessResponse(res, {
     addedContact: {
       ...contact,
-      privateId: targetUser.privateId,
+      userId: targetUser.userId,
     },
   });
 };
@@ -27,6 +27,7 @@ const catchAddContact = commonFunctionalities.controllerCatchResponse;
 const addContact = async (req = expressRequest, res = expressResponse) => {
   const { body, currentUser } = req;
   const contact = userPropsUtilities.extractContact(body);
+  console.log("contact:::", contact);
 
   (await trier(addContact.name).tryAsync(tryToAddContact, currentUser, contact))
     .executeIfNoError(responseToAddContact, res, contact)

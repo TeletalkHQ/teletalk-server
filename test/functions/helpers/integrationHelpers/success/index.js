@@ -35,8 +35,8 @@ const {
   phoneNumber,
 } = require("$/functions/helpers/integrationHelpers/success/phoneNumber");
 const {
-  privateId,
-} = require("$/functions/helpers/integrationHelpers/success/privateId");
+  userId,
+} = require("$/functions/helpers/integrationHelpers/success/userId");
 const {
   senderId,
 } = require("$/functions/helpers/integrationHelpers/success/senderId");
@@ -60,7 +60,7 @@ const integrationHelpersSuccessCollection = {
   messageId,
   participantId,
   phoneNumber,
-  privateId,
+  userId,
   senderId,
   token,
   verificationCode,

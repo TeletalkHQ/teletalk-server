@@ -50,8 +50,8 @@ const phoneNumber = ValidationModelBuilder.validatorCompiler(
   validationModels.user.phoneNumber
 );
 
-const privateId = ValidationModelBuilder.validatorCompiler(
-  validationModels.user.privateId
+const userId = ValidationModelBuilder.validatorCompiler(
+  validationModels.user.userId
 );
 
 const token = ValidationModelBuilder.validatorCompiler(
@@ -79,7 +79,7 @@ const compiledValidators = {
   messageText,
   participantId,
   phoneNumber,
-  privateId,
+  userId,
   token,
   username,
   verificationCode,

@@ -11,6 +11,7 @@
   },
   "scripts": {
     "build": "esbuild ./src/server.js --platform=node --target=node16.0 --bundle --minify --outfile=build/index.js",
+    "check-security": "snyk test",
     "check-style": "npm run format && npm run lint",
     "coverage": "cross-env COVERAGE=true nyc npm run test",
     "dev": "cross-env NODE_ENV=development LOGGER_LEVEL=debug nodemon --trace-warnings ./src/server.js",

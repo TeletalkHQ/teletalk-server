@@ -36,7 +36,10 @@
     "LICENSE.md": true,
     "jsconfig.json": true,
     "CHANGELOG.md": true,
-    "build": true
+    "build": true,
+    ".dccache": true,
+    "nodemon.json": true,
+    "cspell.json": true
   },
   "explorerExclude.backup": {},
   "cSpell.words": [],

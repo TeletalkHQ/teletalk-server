@@ -91,7 +91,6 @@ const {
     .setModelObject(userModelsWithoutVersion.token)
     .type()
     .required()
-    .unique()
     .build(),
   phoneNumber: mongoModelBuilder
     .create()

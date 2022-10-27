@@ -40,7 +40,7 @@ const { chatId, createdAt, message, messageId, participantId } = {
     .minlength()
     .maxlength()
     .required()
-    .unique()
+    // .unique()
     .trim()
     .defaultValue()
     .build(),

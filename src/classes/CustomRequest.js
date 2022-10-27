@@ -52,7 +52,14 @@ class CustomRequest {
   checkStatusCode() {
     const requestStatusCode =
       this.errorObject?.statusCode || this.routeObject?.statusCode;
-    expect(requestStatusCode).to.equal(this.responseStatusCode);
+
+    if (this.responseStatusCode !== requestStatusCode) {
+      logger.error(
+        `expected ${this.responseStatusCode} to equal ${requestStatusCode};\n response body is:`,
+        this.response.body
+      );
+    }
+    expect(this.responseStatusCode).to.equal(requestStatusCode);
     return this;
   }
   logErrorStuffs() {

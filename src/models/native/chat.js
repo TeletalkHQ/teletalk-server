@@ -16,7 +16,7 @@ const messageId = common.messageId;
 const message = nativeModelBuilder
   .create()
   .empty(false, errors.MESSAGE_TEXT_EMPTY)
-  .maxlength(20, errors.MESSAGE_TEXT_MAX_LENGTH_REACH)
+  .maxlength(1000, errors.MESSAGE_TEXT_MAX_LENGTH_REACH)
   .minlength(1, errors.MESSAGE_TEXT_MIN_LENGTH_REACH)
   .type("string", errors.MESSAGE_TEXT_INVALID_TYPE)
   .version("1.0.0")

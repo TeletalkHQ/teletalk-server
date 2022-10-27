@@ -81,18 +81,14 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
   };
 
   if (!privateChat) {
-    await PrivateChat.updateOne(
-      { chatId },
-      {
-        chatId,
-        participants: [
-          { participantId: currentUser.userId },
-          { participantId: targetUser.userId },
-        ],
-        messages: [newMessage],
-      },
-      { upsert: true }
-    );
+    await PrivateChat.create({
+      chatId,
+      participants: [
+        { participantId: currentUser.userId },
+        { participantId: targetUser.userId },
+      ],
+      messages: [newMessage],
+    });
 
     await currentUser.chatInfo.push({ chatId });
     await targetUser.chatInfo.push({ chatId });
@@ -100,7 +96,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
     await targetUser.save();
   } else if (privateChat) {
     privateChat.messages.push(newMessage);
-    await privateChat.updateOne({ chatId }, { messages: privateChat.messages });
+    await privateChat.save();
   }
 
   return { newMessage, chatId };

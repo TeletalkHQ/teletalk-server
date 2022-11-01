@@ -1,7 +1,7 @@
 const baseUrls = {
   cellphone: "/cellphone",
   other: "/other",
-  privateChat: "/chat",
+  privateChat: "/privateChat",
   test: "/test",
   user: "/user",
   versionControl: "/versionControl",

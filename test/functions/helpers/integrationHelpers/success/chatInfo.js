@@ -5,7 +5,7 @@ const { models } = require("@/models");
 const userModels = models.native.user;
 const chatModels = models.native.chat;
 
-const chats = (
+const chatInfo = (
   { responseValue } = {},
   { modelCheck = true } = {
     modelCheck: true,
@@ -30,4 +30,4 @@ const chats = (
   });
 };
 
-module.exports = { chats };
+module.exports = { chatInfo };

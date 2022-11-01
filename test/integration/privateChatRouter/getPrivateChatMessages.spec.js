@@ -12,7 +12,7 @@ describe("get messages success tests", () => {
     //? First start a chat and send some messages to testUser_1 =>
     // eslint-disable-next-line no-unused-vars
     for (const _ of Array.from({ length: 10 })) {
-      await requesters.sendMessage().sendFullFeaturedRequest({
+      await requesters.sendPrivateMessage().sendFullFeaturedRequest({
         message,
         participantId: testVariables.users.getPrivateChatMessages.userId,
       });
@@ -20,10 +20,10 @@ describe("get messages success tests", () => {
 
     //? Now get added chats from user data =>
     const {
-      body: { chats },
-    } = await requesters.getAllChats().sendFullFeaturedRequest();
+      body: { chatInfo },
+    } = await requesters.getChatInfo().sendFullFeaturedRequest();
 
-    const chat = chats.at(-1);
+    const chat = chatInfo.at(-1);
 
     const {
       body: { messages },

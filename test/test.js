@@ -15,6 +15,7 @@ eventManager.addListener(eventManager.eventKeys.setRequirementsGetDone, () => {
   require("$/integration/userRouter/signInNormal.spec");
   require("$/integration/userRouter/verifySignInNormal.spec");
   require("$/integration/userRouter/createNewUser.spec");
+  require("$/integration/userRouter/getChatInfo.spec");
   // require("$/integration/user/logoutNormalApi.spec");
   //? Cellphone api's ==>
   require("$/integration/cellphoneRouter/addContact.spec");
@@ -22,7 +23,6 @@ eventManager.addListener(eventManager.eventKeys.setRequirementsGetDone, () => {
   require("$/integration/cellphoneRouter/removeContact.spec");
   require("$/integration/cellphoneRouter/addBlock.spec");
   require("$/integration/cellphoneRouter/removeBlock.spec");
-  require("$/integration/privateChatRouter/sendMessage.spec");
-  require("$/integration/privateChatRouter/getAllPrivateChats.spec");
+  require("$/integration/privateChatRouter/sendPrivateMessage.spec");
   require("$/integration/privateChatRouter/getPrivateChatMessages.spec");
 });

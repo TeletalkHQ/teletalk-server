@@ -9,15 +9,17 @@ const { getCountries } = require("@/controllers/other/getCountries");
 const { getWelcomeMessage } = require("@/controllers/other/getWelcomeMessage");
 
 const {
-  getAllPrivateChats,
-} = require("@/controllers/privateChat/getAllPrivateChats");
-const { getMessages } = require("@/controllers/privateChat/getMessages");
-const { sendMessage } = require("@/controllers/privateChat/sendMessage");
+  getPrivateChatMessages,
+} = require("@/controllers/privateChat/getPrivateChatMessages");
+const {
+  sendPrivateMessage,
+} = require("@/controllers/privateChat/sendPrivateMessage");
 
 const { getAllUsers } = require("@/controllers/test/getAllUsers");
 
 const { checkUserStatus } = require("@/controllers/user/checkUserStatus");
 const { createNewUser } = require("@/controllers/user/createNewUser");
+const { getChatInfo } = require("@/controllers/user/getChatInfo");
 const { getUserData } = require("@/controllers/user/getUserData");
 const { logoutNormal } = require("@/controllers/user/logoutNormal");
 const { signInNormal } = require("@/controllers/user/signInNormal");
@@ -36,18 +38,18 @@ const controllers = {
   checkUserStatus,
   createNewUser,
   editContact,
-  getAllPrivateChats,
   getAllStuff,
   getAllUsers,
+  getChatInfo,
   getContacts,
   getCountries,
-  getMessages,
+  getPrivateChatMessages,
   getUserData,
   getWelcomeMessage,
   logoutNormal,
   removeBlock,
   removeContact,
-  sendMessage,
+  sendPrivateMessage,
   signInNormal,
   updatePersonalInfo,
   verifySignInNormal,

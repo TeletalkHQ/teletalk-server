@@ -29,7 +29,7 @@ describe("send message success tests", () => {
             messageSender: { senderId },
           },
         },
-      } = await requesters.sendMessage().sendFullFeaturedRequest({
+      } = await requesters.sendPrivateMessage().sendFullFeaturedRequest({
         participantId: userId,
         message,
       });
@@ -66,7 +66,7 @@ describe("send message success tests", () => {
 
 describe("send message failure tests", () => {
   integrationHelpers
-    .createFailTest(requesters.sendMessage())
+    .createFailTest(requesters.sendPrivateMessage())
     .authentication()
     .participantId({ message: arrayUtilities.arrayLastItem(messages) })
     .message({

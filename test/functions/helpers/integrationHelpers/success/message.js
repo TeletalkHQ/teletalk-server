@@ -8,6 +8,7 @@ const chatModels = models.native.chat;
 
 const message = (
   { clientValue, responseValue } = {},
+  //CLEANME: Remove all this default values
   {
     stringEquality = true,
     modelCheck = true,

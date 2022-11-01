@@ -5,26 +5,23 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToGetAllChats = async (currentUser) => {
-  const chats = await services.getChatInfo(currentUser);
-  return chats;
+  const chatInfo = await services.getChatInfo(currentUser);
+  return chatInfo;
 };
 
-const responseToGetAllChats = (chats, res) => {
+const responseToGetAllChats = (chatInfo, res) => {
   commonFunctionalities.controllerSuccessResponse(res, {
-    chats,
+    chatInfo,
   });
 };
 
 const catchGetAllChats = commonFunctionalities.controllerCatchResponse;
 
-const getAllPrivateChats = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const getChatInfo = async (req = expressRequest, res = expressResponse) => {
   const { currentUser } = req;
-  (await trier(getAllPrivateChats.name).tryAsync(tryToGetAllChats, currentUser))
+  (await trier(getChatInfo.name).tryAsync(tryToGetAllChats, currentUser))
     .executeIfNoError(responseToGetAllChats, res)
     .catch(catchGetAllChats, res);
 };
 
-module.exports = { getAllPrivateChats };
+module.exports = { getChatInfo };

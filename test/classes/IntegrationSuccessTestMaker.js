@@ -41,7 +41,7 @@ class IntegrationSuccessTestMaker {
   }
   countryCode = this.successTestMaker("countryCode");
   chatId = this.successTestMaker("chatId");
-  chats = this.successTestMaker("chats");
+  chatInfo = this.successTestMaker("chatInfo");
   countryName = this.successTestMaker("countryName");
   firstName = this.successTestMaker("firstName");
   lastName = this.successTestMaker("lastName");

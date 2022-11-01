@@ -9,23 +9,18 @@ const privateChatRouter = Router();
 
 privateChatRouter.use(middlewares.findCurrentUserFromDb);
 
-privateChatRouter[routes.privateChat.getAllPrivateChats.method](
-  routes.privateChat.getAllPrivateChats.url,
-  controllers.getAllPrivateChats
-);
-
 privateChatRouter[routes.privateChat.chatsLastMessage.method](
   routes.privateChat.chatsLastMessage.url,
   controllers.chatsLastMessage
 );
 
-privateChatRouter[routes.privateChat.sendMessage.method](
-  routes.privateChat.sendMessage.url,
-  controllers.sendMessage
+privateChatRouter[routes.privateChat.sendPrivateMessage.method](
+  routes.privateChat.sendPrivateMessage.url,
+  controllers.sendPrivateMessage
 );
 privateChatRouter[routes.privateChat.getPrivateChatMessages.method](
   routes.privateChat.getPrivateChatMessages.url,
-  controllers.getMessages
+  controllers.getPrivateChatMessages
 );
 
 module.exports = { privateChatRouter };

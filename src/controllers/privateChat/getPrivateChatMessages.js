@@ -23,13 +23,16 @@ const responseToGetMessages = (privateChatMessages, res) => {
 
 const catchGetMessages = commonFunctionalities.controllerCatchResponse;
 
-const getMessages = async (req = expressRequest, res = expressResponse) => {
+const getPrivateChatMessages = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   const {
     body: { chatId },
     currentUser,
   } = req;
   (
-    await trier(getMessages.name).tryAsync(
+    await trier(getPrivateChatMessages.name).tryAsync(
       tryToGetMessages,
       currentUser,
       chatId
@@ -39,4 +42,4 @@ const getMessages = async (req = expressRequest, res = expressResponse) => {
     .catch(catchGetMessages, res);
 };
 
-module.exports = { getMessages };
+module.exports = { getPrivateChatMessages };

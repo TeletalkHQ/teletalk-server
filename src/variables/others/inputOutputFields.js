@@ -18,6 +18,7 @@ const inputOutputFields = {
   addedContact: "addedContact",
   blockedCellphone: "blockedCellphone",
   chatId: "chatId",
+  chatIds: "chatIds",
   chats: "chats",
   countries: "countries",
   countryShortName: "countryShortName",

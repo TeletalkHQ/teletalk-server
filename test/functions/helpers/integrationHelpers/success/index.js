@@ -8,8 +8,8 @@ const {
   chatId,
 } = require("$/functions/helpers/integrationHelpers/success/chatId");
 const {
-  chats,
-} = require("$/functions/helpers/integrationHelpers/success/chats");
+  chatInfo,
+} = require("$/functions/helpers/integrationHelpers/success/chatInfo");
 const {
   countryCode,
 } = require("$/functions/helpers/integrationHelpers/success/countryCode");
@@ -51,7 +51,7 @@ const integrationHelpersSuccessCollection = {
   authentication,
   cellphone,
   chatId,
-  chats,
+  chatInfo,
   countryCode,
   countryName,
   firstName,

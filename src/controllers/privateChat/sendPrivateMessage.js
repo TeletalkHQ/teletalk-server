@@ -28,14 +28,17 @@ const responseToSendMessage = (responseData, res) => {
 
 const catchSendMessage = commonFunctionalities.controllerCatchResponse;
 
-const sendMessage = async (req = expressRequest, res = expressResponse) => {
+const sendPrivateMessage = async (
+  req = expressRequest,
+  res = expressResponse
+) => {
   const {
     currentUser,
     body: { participantId, message },
   } = req;
 
   (
-    await trier(sendMessage.name).tryAsync(
+    await trier(sendPrivateMessage.name).tryAsync(
       tryToSendMessage,
       currentUser,
       participantId,
@@ -46,4 +49,4 @@ const sendMessage = async (req = expressRequest, res = expressResponse) => {
     .catch(catchSendMessage, res);
 };
 
-module.exports = { sendMessage };
+module.exports = { sendPrivateMessage };

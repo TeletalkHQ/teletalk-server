@@ -10,6 +10,8 @@ const { baseUrls } = require("@/routes/baseUrls");
 const {
   inputOutputFields: {
     bio,
+    chatId,
+    chatInfo,
     countryCode,
     countryName,
     firstName,
@@ -18,8 +20,8 @@ const {
     newUser,
     ok,
     phoneNumber,
-    userId,
     user,
+    userId,
     username,
     verificationCode,
     verifyToken,
@@ -44,6 +46,7 @@ const createNewUser = userRouteBuilder
   ])
   .outputFields([
     {
+      //FIXME: Add chatInfo (its empty)
       [user]: {
         countryCode,
         countryName,
@@ -184,9 +187,25 @@ const verifySignInNormal = userRouteBuilder
   ])
   .build();
 
+const getChatInfo = userRouteBuilder
+  .create()
+  .method("get")
+  .url("/getChatInfo")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for get user chat ids")
+  .inputFields([{}])
+  .outputFields([
+    {
+      [chatInfo]: [{ chatId }],
+    },
+  ])
+  .build();
+
 const routes = {
   checkUserStatus,
   createNewUser,
+  getChatInfo,
   getUserData,
   logoutNormal,
   signInNormal,

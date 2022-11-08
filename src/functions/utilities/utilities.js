@@ -65,7 +65,7 @@ const excludeVersions = (object) => {
 };
 
 const crashServer = (message) => {
-  logger.bgRed(message).error();
+  logger.bgRed(message, logger.colors.black).error();
   process.exit(1);
 };
 const crashServerWithCondition = (condition, errorObject) => {

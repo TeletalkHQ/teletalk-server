@@ -40,19 +40,19 @@ yarn install
 **Run app in development mode:**
 
 ```bash
-npm run dev
+npm run start:dev
 ```
 
-**Run app tests:**
+**Run tests:**
 
 ```bash
-npm run test
+npm run test:dev
 ```
 
-**Run app in production mode:**
+**Run in production mode:**
 
-1. **Setup sms panel system:**
-   A sms panel system needed for send verification code to clients. Buy for your own and set the settings and stuffs on SmsClient class (located in /src/classes)
+1. **Setup sms provider:**
+   A sms provider needed for send verification code to clients. Buy for your own and set the settings and stuffs on SmsClient class (located in /src/classes). The functionality of SmsClient is up to you and your provider. Im working on it to replace this requirement with free version and also adding verification system with email.
 2. **Setup .env file.**
    Create production.env on environments folder at root of project. Setup this environments:
 
@@ -69,5 +69,5 @@ npm run build
 4. Start app:
 
 ```bash
-npm start
+npm start:production
 ```

@@ -6,17 +6,25 @@ const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const { expect } = require("$/functions/utilities/testUtilities");
+const { crashServer } = require("@/functions/utilities/utilities");
 
 const getDevelopmentApp = () => require("@/app").app;
 const getProductionApp = () => require("~/build/index.js").app;
 
-const NODE_ENV = envManager.getNodeEnv();
-const {
-  NODE_ENV: { test },
-} = envManager.ENVIRONMENT_VALUES;
+const getServer = () => {
+  const NODE_ENV = envManager.getNodeEnv();
+  const {
+    NODE_ENV: { test_dev, test_production },
+  } = envManager.ENVIRONMENT_VALUES;
 
-const app = NODE_ENV === test ? getDevelopmentApp() : getProductionApp();
-const supertest = require("supertest")(app);
+  if (NODE_ENV === test_dev) return getDevelopmentApp();
+  if (NODE_ENV === test_production) return getProductionApp();
+
+  const message = "No server found! check your environments...";
+  crashServer(message);
+};
+
+const supertest = require("supertest")(getServer());
 
 class CustomRequest {
   constructor(token) {

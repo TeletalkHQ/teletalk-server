@@ -41,10 +41,9 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
 
       - name: Test development app
-        run: npm run test
+        run: npm run test:dev
 
-      - name: Generate build app
+      - name: Generate build
         run: npm run build
-
-      - name: Test production app
-        run: npm run test-production
+      - name: Test built app
+        run: npm run test:production

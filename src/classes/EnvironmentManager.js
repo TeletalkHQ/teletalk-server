@@ -13,7 +13,8 @@ class EnvironmentManager extends EnvironmentManagerMain {
       LOGGER_LEVEL: "LOGGER_LEVEL",
       MONGO_URL_DEVELOPMENT: "MONGO_URL_DEVELOPMENT",
       MONGO_URL_PRODUCTION: "MONGO_URL_PRODUCTION",
-      MONGO_URL_TEST: "MONGO_URL_TEST",
+      MONGO_URL_TEST_DEV: "MONGO_URL_TEST_DEV",
+      MONGO_URL_TEST_PRODUCTION: "MONGO_URL_TEST_PRODUCTION",
       NODE_ENV: "NODE_ENV",
       PORT: "PORT",
       SMS_CLIENT_PASSWORD: "SMS_CLIENT_PASSWORD",
@@ -35,7 +36,7 @@ class EnvironmentManager extends EnvironmentManagerMain {
       NODE_ENV: {
         development: "development",
         production: "production",
-        test: "test",
+        test_dev: "test_dev",
         test_production: "test_production",
       },
       PORT: 8080,

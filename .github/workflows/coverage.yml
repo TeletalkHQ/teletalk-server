@@ -41,7 +41,7 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
 
       - name: Generate coverage files
-        run: npm run coverage
+        run: npm run test:coverage
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3

@@ -1,15 +1,18 @@
-FROM node:lts-alpine
+FROM node:16-alpine
 
-WORKDIR /app
+WORKDIR /teletalk-server
 
-COPY package.json ./
+COPY package*.json ./
+COPY jsconfig.json ./
+COPY environments/production.env environments/
+COPY src/ src/
+COPY public/ public/
 
-RUN npm install --only=production
-
+RUN npm install
 RUN npm run build
 
 USER node
 
-CMD [ "npm","start" ]
+CMD [ "npm","run","start:production" ]
 
 EXPOSE 8080

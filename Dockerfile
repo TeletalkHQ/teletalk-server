@@ -3,16 +3,17 @@ FROM node:16-alpine
 WORKDIR /teletalk-server
 
 COPY package*.json ./
+
+RUN npm install
 COPY jsconfig.json ./
-COPY environments/production.env environments/
+
+COPY environments/development.env environments/
+
 COPY src/ src/
 COPY public/ public/
 
-RUN npm install
-RUN npm run build
-
 USER node
 
-CMD [ "npm","run","start:production" ]
+CMD [ "npm","run","start:dev" ]
 
 EXPOSE 8080

@@ -3,10 +3,27 @@ const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 
+const { envManager } = require("@/classes/EnvironmentManager");
+
+//? This is actually redis tcp url from docker!
+const REDIS_PORT = envManager.getEnvironment(
+  envManager.ENVIRONMENT_KEYS.REDIS_PORT
+);
+const REDIS_DEFAULT_PORT = envManager.getEnvironment(
+  envManager.ENVIRONMENT_KEYS.REDIS_DEFAULT_PORT
+);
+const EXACT_REDIS_PORT = REDIS_PORT || REDIS_DEFAULT_PORT;
+
+const storage = new Redis(EXACT_REDIS_PORT);
+
+storage.on("connect", () =>
+  console.log(`Redis is connected on port ${EXACT_REDIS_PORT}`)
+);
+storage.on("error", (error) => console.error(error));
+
 class StateManager {
   constructor() {
-    this.storage = new Redis();
-
+    this.storage = storage;
     this.state = {
       aliveClients: [],
       temporaryClients: {

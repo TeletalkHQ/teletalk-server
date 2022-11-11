@@ -11,12 +11,15 @@ class EnvironmentManager extends EnvironmentManagerMain {
       JWT_MAIN_SECRET: "JWT_MAIN_SECRET",
       JWT_SIGN_IN_SECRET: "JWT_SIGN_IN_SECRET",
       LOGGER_LEVEL: "LOGGER_LEVEL",
+      MONGO_COLLECTION_NAME: "MONGO_COLLECTION_NAME",
+      MONGO_PORT: "MONGO_PORT",
       MONGO_URL_DEVELOPMENT: "MONGO_URL_DEVELOPMENT",
       MONGO_URL_PRODUCTION: "MONGO_URL_PRODUCTION",
-      MONGO_URL_TEST_DEV: "MONGO_URL_TEST_DEV",
+      MONGO_URL_TEST_DEVELOPMENT: "MONGO_URL_TEST_DEVELOPMENT",
       MONGO_URL_TEST_PRODUCTION: "MONGO_URL_TEST_PRODUCTION",
       NODE_ENV: "NODE_ENV",
-      PORT: "PORT",
+      REDIS_PORT: "REDIS_PORT",
+      REDIS_DEFAULT_PORT: "REDIS_DEFAULT_PORT",
       SMS_CLIENT_PASSWORD: "SMS_CLIENT_PASSWORD",
       SMS_CLIENT_USERNAME: "SMS_CLIENT_USERNAME",
       TEST_MAIN_TOKEN: "TEST_MAIN_TOKEN",
@@ -36,10 +39,9 @@ class EnvironmentManager extends EnvironmentManagerMain {
       NODE_ENV: {
         development: "development",
         production: "production",
-        test_dev: "test_dev",
+        test_development: "test_development",
         test_production: "test_production",
       },
-      PORT: 8080,
     };
   }
 

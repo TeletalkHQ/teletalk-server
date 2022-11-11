@@ -14,10 +14,10 @@ const getProductionApp = () => require("~/build/index.js").app;
 const getServer = () => {
   const NODE_ENV = envManager.getNodeEnv();
   const {
-    NODE_ENV: { test_dev, test_production },
+    NODE_ENV: { test_development, test_production },
   } = envManager.ENVIRONMENT_VALUES;
 
-  if (NODE_ENV === test_dev) return getDevelopmentApp();
+  if (NODE_ENV === test_development) return getDevelopmentApp();
   if (NODE_ENV === test_production) return getProductionApp();
 
   const message = "No server found! check your environments...";

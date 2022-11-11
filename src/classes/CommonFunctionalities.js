@@ -25,9 +25,9 @@ class CommonFunctionalities {
 
   isTestServerRunning() {
     const serverNodeEnvValue = envManager.getNodeEnv();
-    const { test_dev, test_production } = envManager.getNodeEnvValues();
+    const { test_development, test_production } = envManager.getNodeEnvValues();
 
-    const isTestServer = [test_dev, test_production].includes(
+    const isTestServer = [test_development, test_production].includes(
       serverNodeEnvValue
     );
     return isTestServer;

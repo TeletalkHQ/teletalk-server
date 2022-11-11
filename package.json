@@ -20,7 +20,7 @@
     "start:production": "cross-env NODE_ENV=production node ./build/index.js",
     "test-runner": "mocha ./test/test.js --recursive --exit",
     "test:coverage": "cross-env COVERAGE=true nyc npm run test:dev",
-    "test:dev": "cross-env NODE_ENV=test_dev LOGGER_LEVEL=debug npm run test-runner",
+    "test:dev": "cross-env NODE_ENV=test_development LOGGER_LEVEL=debug npm run test-runner",
     "test:dev:with-badge": "npm run test:dev -- -- --reporter mocha-badge-generator",
     "test:production": "cross-env NODE_ENV=test_production LOGGER_LEVEL=debug npm run test-runner"
   },

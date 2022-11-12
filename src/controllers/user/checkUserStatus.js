@@ -7,7 +7,7 @@ const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { services } = require("@/services");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 //TODO: Add some tests, this controller has no any tests
 

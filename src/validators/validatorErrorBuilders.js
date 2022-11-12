@@ -2,7 +2,7 @@ const {
   validationErrorBuilder,
 } = require("utility-store/src/classes/ValidationErrorBuilder");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const { countries } = require("@/variables/others/countries");
 

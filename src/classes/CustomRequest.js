@@ -63,9 +63,9 @@ class CustomRequest {
 
     if (this.responseStatusCode !== requestStatusCode) {
       logger.error(
-        `expected ${this.responseStatusCode} to equal ${requestStatusCode};\n response body is:`,
-        this.response.body
+        `expected ${this.responseStatusCode} to equal ${requestStatusCode};\n response body is:`
       );
+      console.dir(this.response.body, { depth: 5 });
     }
     expect(this.responseStatusCode).to.equal(requestStatusCode);
     return this;

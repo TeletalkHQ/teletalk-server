@@ -8,7 +8,7 @@ const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { services } = require("@/services");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const tryToFindUserByCellphone = async (requestData) => {
   const cellphone = userPropsUtilities.extractCellphone(requestData);

@@ -6,7 +6,7 @@ const { models } = require("@/models");
 
 const userModels = models.native.user;
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const countryNameMaxlength = userModels.countryName.maxlength.value;
 

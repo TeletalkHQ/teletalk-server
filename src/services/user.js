@@ -14,7 +14,7 @@ const { commonServices } = require("@/services/common");
 const {
   initialOptions: { userInitialOptions },
 } = require("@/variables/others/initialOptions");
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const User = models.database.mongoDb.User;
 

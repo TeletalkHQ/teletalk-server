@@ -7,15 +7,7 @@ const {
 
 const { baseUrls } = require("@/routes/baseUrls");
 
-const {
-  inputOutputFields: {
-    countries,
-    countryCode,
-    countryName,
-    countryShortName,
-    message,
-  },
-} = require("@/variables/others/inputOutputFields");
+const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
 
 const otherRouteBuilder = routeBuilder(baseUrls.other);
 
@@ -27,11 +19,11 @@ const getCountries = otherRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [countries]: [
+      countries: [
         {
-          countryCode,
-          countryName,
-          countryShortName,
+          countryCode: ioFieldTypes.countryCode,
+          countryName: ioFieldTypes.countryName,
+          countryShortName: ioFieldTypes.countryShortName,
         },
       ],
     },
@@ -50,7 +42,7 @@ const getWelcomeMessage = otherRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      message,
+      message: ioFieldTypes.message,
     },
   ])
   .build();

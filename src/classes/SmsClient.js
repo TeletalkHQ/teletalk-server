@@ -4,7 +4,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 class SmsClient {
   constructor() {

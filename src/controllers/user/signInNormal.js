@@ -111,9 +111,7 @@ const tryToSignInNormalUser = async (req) => {
   const host = getHostFromRequest(req);
   const cellphone = userPropsUtilities.extractCellphone(req.body);
   const verificationCode = passwordGenerator();
-  const {
-    sms: { shouldSendSms },
-  } = appConfigs.getConfigs();
+  const configs = appConfigs.getConfigs();
 
   const trierInstance = trier(tryToSignInNormalUser, {
     autoThrowError: true,
@@ -121,14 +119,17 @@ const tryToSignInNormalUser = async (req) => {
 
   await trierInstance.tryAsync(tryToValidateVerificationCode, verificationCode);
 
-  await commonFunctionalities.checkAndExecute(shouldSendSms, async () => {
-    await trierInstance.tryAsync(
-      tryToSendVerificationCodeAsSms,
-      cellphone,
-      host,
-      verificationCode
-    );
-  });
+  await commonFunctionalities.checkAndExecute(
+    configs.sms.shouldSendSms,
+    async () => {
+      await trierInstance.tryAsync(
+        tryToSendVerificationCodeAsSms,
+        cellphone,
+        host,
+        verificationCode
+      );
+    }
+  );
 
   const verifyToken = (
     await trierInstance.tryAsync(tryToSignVerifyToken, cellphone)

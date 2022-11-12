@@ -4,7 +4,7 @@ const { user: userValidationModels } = require("@/models/validation/user");
 
 const { routes } = require("@/routes");
 
-const { appErrors } = require("@/variables/errors/app");
+const { appErrors } = require("@/variables/errors/server");
 const { chatErrors } = require("@/variables/errors/chat");
 const { userErrors } = require("@/variables/errors/user");
 

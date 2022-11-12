@@ -1,4 +1,4 @@
-const { appErrors } = require("@/variables/errors/app");
+const { appErrors } = require("@/variables/errors/server");
 const { chatErrors } = require("@/variables/errors/chat");
 const { localErrors } = require("@/variables/errors/local");
 const { userErrors } = require("@/variables/errors/user");

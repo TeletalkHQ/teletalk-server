@@ -7,18 +7,7 @@ const {
 
 const { baseUrls } = require("@/routes/baseUrls");
 
-const {
-  inputOutputFields: {
-    chatId,
-    message,
-    messageId,
-    messages,
-    messageSender,
-    newMessage,
-    participantId,
-    senderId,
-  },
-} = require("@/variables/others/inputOutputFields");
+const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
 
 const privateChatRouteBuilder = routeBuilder(baseUrls.privateChat);
 
@@ -40,15 +29,15 @@ const getPrivateChatMessages = privateChatRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for get all messages")
-  .inputFields([{ chatId }])
+  .inputFields([{ chatId: ioFieldTypes.chatId }])
   .outputFields([
     {
-      [messages]: [
+      messages: [
         {
-          message,
-          messageId,
-          [messageSender]: {
-            senderId,
+          message: ioFieldTypes.message,
+          messageId: ioFieldTypes.messageId,
+          messageSender: {
+            senderId: ioFieldTypes.senderId,
           },
         },
       ],
@@ -65,14 +54,14 @@ const sendPrivateMessage = privateChatRouteBuilder
   .description("Use for send private messages")
   .inputFields([
     {
-      message,
-      participantId,
+      message: ioFieldTypes.message,
+      participantId: ioFieldTypes.participantId,
     },
   ])
   .outputFields([
     {
-      chatId,
-      newMessage,
+      chatId: ioFieldTypes.chatId,
+      newMessage: ioFieldTypes.newMessage,
     },
   ])
   .build();

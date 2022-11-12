@@ -8,7 +8,7 @@ const {
 } = require("@/functions/utilities/utilities");
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const tryTo = (targetCellphone, userData) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);

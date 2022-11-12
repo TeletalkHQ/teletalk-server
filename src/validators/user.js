@@ -13,7 +13,7 @@ const {
   validatorErrorBuilder,
 } = require("@/validators/validatorErrorBuilders");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const trierInstance = async (callerName, callback, ...params) =>
   (await trier(callerName).tryAsync(callback, ...params)).printAndThrow();

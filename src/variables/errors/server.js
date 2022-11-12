@@ -5,8 +5,8 @@ const {
   versionCalculator,
 } = require("@/functions/utilities/utilities");
 
-const { errorUniqueIds } = require("@/variables/others/errorUniqueIds");
 const { errorKeys } = require("@/variables/others/errorKeys");
+const { errorUniqueIds } = require("@/variables/others/errorUniqueIds");
 
 const {
   EXTERNAL_APP_ERROR,
@@ -38,6 +38,7 @@ const INPUT_FIELDS_MISSING = errorBuilder
   .errorCode(5000)
   .errorKey(INPUT_OUTPUT_FIELDS)
   .errorReason(errorUniqueIds.INPUT_FIELDS_MISSING)
+  //TODO: Organize errors with statusCode. for example, 400 is user error and not a server error
   .statusCode(400)
   .version("1.0.0")
   .build();
@@ -86,7 +87,6 @@ const REQUEST_BODY_IS_UNDEFINED = errorBuilder
   .statusCode(500)
   .version("1.0.0")
   .build();
-
 const REQUIRED_FIELDS_NOT_DEFINED = errorBuilder
   .create()
   .errorCode(5000)
@@ -95,7 +95,6 @@ const REQUIRED_FIELDS_NOT_DEFINED = errorBuilder
   .statusCode(500)
   .version("1.0.0")
   .build();
-
 const REQUIRED_IO_FIELD_IS_NOT_OBJECT = errorBuilder
   .create()
   .errorCode(5000)
@@ -104,12 +103,35 @@ const REQUIRED_IO_FIELD_IS_NOT_OBJECT = errorBuilder
   .statusCode(500)
   .version("1.0.0")
   .build("REQUIRED_IO_FIELD_IS_NOT_OBJECT");
-
 const REQUIRED_IO_FIELD_IS_NOT_ARRAY = errorBuilder
   .create()
   .errorCode(5000)
   .errorKey(INTERNAL_SERVER_ERROR)
   .errorReason(errorUniqueIds.REQUIRED_IO_FIELD_IS_NOT_ARRAY)
+  .statusCode(500)
+  .version("1.0.0")
+  .build();
+const INPUT_FIELD_TYPE_WRONG = errorBuilder
+  .create()
+  .errorCode(5000)
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason(errorUniqueIds.INPUT_FIELD_TYPE_WRONG)
+  .statusCode(500)
+  .version("1.0.0")
+  .build();
+const OUTPUT_FIELD_TYPE_WRONG = errorBuilder
+  .create()
+  .errorCode(5000)
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason(errorUniqueIds.OUTPUT_FIELD_TYPE_WRONG)
+  .statusCode(500)
+  .version("1.0.0")
+  .build();
+const REQUIRED_FIELD_TYPE_WRONG = errorBuilder
+  .create()
+  .errorCode(5000)
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .errorReason(errorUniqueIds.REQUIRED_FIELD_TYPE_WRONG)
   .statusCode(500)
   .version("1.0.0")
   .build();
@@ -142,13 +164,16 @@ const UNKNOWN_ERROR = errorBuilder
   .build();
 
 const errors = {
+  INPUT_FIELD_TYPE_WRONG,
   INPUT_FIELDS_MISSING,
   INPUT_FIELDS_OVERLOAD,
   METHOD_NOT_ALLOWED,
   NO_ROUTE_OBJECT,
+  OUTPUT_FIELD_TYPE_WRONG,
   OUTPUT_FIELDS_MISSING,
   OUTPUT_FIELDS_OVERLOAD,
   REQUEST_BODY_IS_UNDEFINED,
+  REQUIRED_FIELD_TYPE_WRONG,
   REQUIRED_FIELDS_NOT_DEFINED,
   REQUIRED_IO_FIELD_IS_NOT_ARRAY,
   REQUIRED_IO_FIELD_IS_NOT_OBJECT,

@@ -3,7 +3,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { fixResponseErrorObject } = require("@/functions/utilities/utilities");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const tryToCollectError = (errorObject) => {
   const errorToSend = customTypeof.isObject(errorObject)

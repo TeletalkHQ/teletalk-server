@@ -1,4 +1,4 @@
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const blacklistItemNotExist = (configuredCustomRequest, data) => {
   it("should get error, BLACKLIST_ITEM_NOT_EXIST", async () => {

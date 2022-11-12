@@ -7,22 +7,7 @@ const {
 
 const { baseUrls } = require("@/routes/baseUrls");
 
-const {
-  inputOutputFields: {
-    addedContact,
-    blockedCellphone,
-    contacts,
-    countryCode,
-    countryName,
-    editedContact,
-    firstName,
-    lastName,
-    phoneNumber,
-    userId,
-    removedBlockedCellphone,
-    removedContact,
-  },
-} = require("@/variables/others/inputOutputFields");
+const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
 
 const cellphoneRouteBuilder = routeBuilder(baseUrls.cellphone);
 
@@ -35,17 +20,17 @@ const addBlock = cellphoneRouteBuilder
   .description("Use for block single contact on user contacts list")
   .inputFields([
     {
-      countryCode,
-      countryName,
-      phoneNumber,
+      countryCode: ioFieldTypes.countryCode,
+      countryName: ioFieldTypes.countryName,
+      phoneNumber: ioFieldTypes.phoneNumber,
     },
   ])
   .outputFields([
     {
-      [blockedCellphone]: {
-        countryCode,
-        countryName,
-        phoneNumber,
+      blockedCellphone: {
+        countryCode: ioFieldTypes.countryCode,
+        countryName: ioFieldTypes.countryName,
+        phoneNumber: ioFieldTypes.phoneNumber,
       },
     },
   ])
@@ -71,22 +56,22 @@ const addContact = cellphoneRouteBuilder
   .description("Use for add single contact to current user contacts list")
   .inputFields([
     {
-      countryCode,
-      countryName,
-      firstName,
-      lastName,
-      phoneNumber,
+      countryCode: ioFieldTypes.countryCode,
+      countryName: ioFieldTypes.countryName,
+      firstName: ioFieldTypes.firstName,
+      lastName: ioFieldTypes.lastName,
+      phoneNumber: ioFieldTypes.phoneNumber,
     },
   ])
   .outputFields([
     {
-      [addedContact]: {
-        countryCode,
-        countryName,
-        firstName,
-        lastName,
-        phoneNumber,
-        userId,
+      addedContact: {
+        countryCode: ioFieldTypes.countryCode,
+        countryName: ioFieldTypes.countryName,
+        firstName: ioFieldTypes.firstName,
+        lastName: ioFieldTypes.lastName,
+        phoneNumber: ioFieldTypes.phoneNumber,
+        userId: ioFieldTypes.userId,
       },
     },
   ])
@@ -112,21 +97,21 @@ const editContact = cellphoneRouteBuilder
   .description("User for edit single contact on user contacts list")
   .inputFields([
     {
-      countryCode,
-      countryName,
-      firstName,
-      lastName,
-      phoneNumber,
+      countryCode: ioFieldTypes.countryCode,
+      countryName: ioFieldTypes.countryName,
+      firstName: ioFieldTypes.firstName,
+      lastName: ioFieldTypes.lastName,
+      phoneNumber: ioFieldTypes.phoneNumber,
     },
   ])
   .outputFields([
     {
-      [editedContact]: {
-        countryCode,
-        countryName,
-        firstName,
-        lastName,
-        phoneNumber,
+      editedContact: {
+        countryCode: ioFieldTypes.countryCode,
+        countryName: ioFieldTypes.countryName,
+        firstName: ioFieldTypes.firstName,
+        lastName: ioFieldTypes.lastName,
+        phoneNumber: ioFieldTypes.phoneNumber,
       },
     },
   ])
@@ -142,14 +127,14 @@ const getContacts = cellphoneRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [contacts]: [
+      contacts: [
         {
-          countryCode,
-          countryName,
-          firstName,
-          lastName,
-          phoneNumber,
-          userId,
+          countryCode: ioFieldTypes.countryCode,
+          countryName: ioFieldTypes.countryName,
+          firstName: ioFieldTypes.firstName,
+          lastName: ioFieldTypes.lastName,
+          phoneNumber: ioFieldTypes.phoneNumber,
+          userId: ioFieldTypes.userId,
         },
       ],
     },
@@ -165,17 +150,17 @@ const removeBlock = cellphoneRouteBuilder
   .description("Use for remove single contact on user contacts list")
   .inputFields([
     {
-      countryCode,
-      countryName,
-      phoneNumber,
+      countryCode: ioFieldTypes.countryCode,
+      countryName: ioFieldTypes.countryName,
+      phoneNumber: ioFieldTypes.phoneNumber,
     },
   ])
   .outputFields([
     {
-      [removedBlockedCellphone]: {
-        countryCode,
-        countryName,
-        phoneNumber,
+      removedBlockedCellphone: {
+        countryCode: ioFieldTypes.countryCode,
+        countryName: ioFieldTypes.countryName,
+        phoneNumber: ioFieldTypes.phoneNumber,
       },
     },
   ])
@@ -201,17 +186,17 @@ const removeContact = cellphoneRouteBuilder
   .description("Use for remove single contact on user contacts list")
   .inputFields([
     {
-      countryCode,
-      countryName,
-      phoneNumber,
+      countryCode: ioFieldTypes.countryCode,
+      countryName: ioFieldTypes.countryName,
+      phoneNumber: ioFieldTypes.phoneNumber,
     },
   ])
   .outputFields([
     {
-      [removedContact]: {
-        countryCode,
-        countryName,
-        phoneNumber,
+      removedContact: {
+        countryCode: ioFieldTypes.countryCode,
+        countryName: ioFieldTypes.countryName,
+        phoneNumber: ioFieldTypes.phoneNumber,
       },
     },
   ])

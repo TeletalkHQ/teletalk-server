@@ -7,7 +7,7 @@ const { models } = require("@/models");
 
 const { commonServices } = require("@/services/common");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
 const PrivateChat = models.database.mongoDb.PrivateChat;

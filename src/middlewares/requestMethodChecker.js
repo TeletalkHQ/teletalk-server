@@ -10,7 +10,7 @@ const {
   errorThrower,
 } = require("@/functions/utilities/utilities");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 const { allStuff } = require("@/variables/others/allStuff");
 
 const routesWithoutVersion = excludeVersions(allStuff.routes);

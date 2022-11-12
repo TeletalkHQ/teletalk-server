@@ -7,7 +7,7 @@ const Validator = require("fastest-validator");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const fastestValidatorCompiler = new Validator();
 

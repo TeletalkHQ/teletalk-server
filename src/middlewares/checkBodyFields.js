@@ -6,7 +6,8 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { errorThrower } = require("@/functions/utilities/utilities");
 const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
+const { appConfigs } = require("@/classes/AppConfigs");
 
 const tryToCheckBodyFields = (body, inputFields) => {
   errorThrower(
@@ -17,12 +18,23 @@ const tryToCheckBodyFields = (body, inputFields) => {
   const checkResult = ioFieldsChecker(body, inputFields, {
     missingFieldsError: errors.INPUT_FIELDS_MISSING,
     overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
+    ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
   });
+
+  const configs = appConfigs.getConfigs();
+  const checkResultErrorReason = checkResult.errorObject?.reason;
+  const wrongTypeErrorReason = errors.INPUT_FIELD_TYPE_WRONG.reason;
+  if (
+    configs.server.shouldIgnoreInputFieldWrongTypeError &&
+    checkResultErrorReason === wrongTypeErrorReason
+  ) {
+    return { ok: true };
+  }
 
   errorThrower(checkResult.ok === false, () => ({
     ...checkResult.errorObject,
-    fields: inputFields,
-    inputFields: body,
+    inputFields,
+    inputData: body,
   }));
 
   return { ok: true };

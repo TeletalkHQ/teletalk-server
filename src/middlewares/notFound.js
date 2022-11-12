@@ -5,7 +5,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const isRouteObjectInvalid = ({ fullUrl, inputFields, outputFields, url }) =>
   customTypeof.isUndefined(fullUrl, inputFields, outputFields, url);

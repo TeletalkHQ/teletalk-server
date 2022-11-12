@@ -2,7 +2,7 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { models } = require("@/models");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const userModels = models.native.user;
 

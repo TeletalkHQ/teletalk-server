@@ -1,4 +1,4 @@
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const cellphone = (configuredCustomRequest, data = {}) => {
   it("It should get error, CELLPHONE_REQUIRED", async () => {

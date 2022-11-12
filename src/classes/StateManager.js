@@ -17,9 +17,9 @@ const EXACT_REDIS_PORT = REDIS_PORT || REDIS_DEFAULT_PORT;
 const storage = new Redis(EXACT_REDIS_PORT);
 
 storage.on("connect", () =>
-  console.log(`Redis is connected on port ${EXACT_REDIS_PORT}`)
+  logger.info(`Redis is connected on port ${EXACT_REDIS_PORT}`)
 );
-storage.on("error", (error) => console.error(error));
+storage.on("error", (error) => logger.error(error));
 
 class StateManager {
   constructor() {

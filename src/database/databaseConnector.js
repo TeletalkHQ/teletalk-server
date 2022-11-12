@@ -4,11 +4,9 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { appConfigs } = require("@/classes/AppConfigs");
 
 const tryConnectToDatabase = () => {
-  const {
-    dbConfigs: { MONGO_URL_WITH_COLLECTION_NAME },
-  } = appConfigs.getConfigs();
+  const configs = appConfigs.getConfigs();
 
-  const database = mongoose.connect(MONGO_URL_WITH_COLLECTION_NAME, {
+  const database = mongoose.connect(configs.db.MONGO_URL_WITH_COLLECTION_NAME, {
     keepAlive: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,

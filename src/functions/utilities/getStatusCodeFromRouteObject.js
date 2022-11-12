@@ -2,7 +2,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const tryGetStatusCodeFromRouteObject = (routeObject) => {
   const statusCode = routeObject?.statusCode;

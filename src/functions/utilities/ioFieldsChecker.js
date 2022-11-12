@@ -4,18 +4,13 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
-const { errors } = require("@/variables/errors/errors");
-
-const {
-  REQUIRED_FIELDS_NOT_DEFINED,
-  REQUIRED_IO_FIELD_IS_NOT_ARRAY,
-  REQUIRED_IO_FIELD_IS_NOT_OBJECT,
-} = errors;
+const { errors } = require("@/variables/errors");
 
 const ioFieldsCheckerDefaultOptions = {
-  requiredFieldsIndex: 0,
+  ioDataFieldTypeWrongError: {},
   missingFieldsError: {},
   overloadFieldsError: {},
+  requiredFieldsIndex: 0,
 };
 
 const getSelectedRequiredFields = (requiredFields, index) =>
@@ -26,12 +21,13 @@ const throwErrorIfSelectedRequiredFieldsIsNotDefined = (
 ) => {
   errorThrower(
     customTypeof.isUndefined(selectedRequiredFields),
-    REQUIRED_FIELDS_NOT_DEFINED
+    errors.REQUIRED_FIELDS_NOT_DEFINED
   );
 };
 
 const tryCheckFields = ({
   ioData,
+  ioDataFieldTypeWrongError,
   missingFieldsError,
   overloadFieldsError,
   requiredFields,
@@ -44,14 +40,16 @@ const tryCheckFields = ({
 
   throwErrorIfSelectedRequiredFieldsIsNotDefined(selectedRequiredFields);
 
-  checkFields(
+  checkFields({
     ioData,
-    selectedRequiredFields,
+    ioDataFieldTypeWrongError,
+    ioIsNotArrayError: errors.REQUIRED_IO_FIELD_IS_NOT_ARRAY,
+    ioIsNotObjectError: errors.REQUIRED_IO_FIELD_IS_NOT_OBJECT,
     missingFieldsError,
     overloadFieldsError,
-    REQUIRED_IO_FIELD_IS_NOT_ARRAY,
-    REQUIRED_IO_FIELD_IS_NOT_OBJECT
-  ).check();
+    requiredFields: selectedRequiredFields,
+    requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
+  }).check();
 
   return { ok: true };
 };
@@ -62,6 +60,7 @@ const ioFieldsChecker = (
   options = ioFieldsCheckerDefaultOptions
 ) => {
   const {
+    ioDataFieldTypeWrongError,
     missingFieldsError,
     overloadFieldsError,
     requiredFieldsIndex = 0,
@@ -73,16 +72,19 @@ const ioFieldsChecker = (
   return trier(ioFieldsChecker.name)
     .try(tryCheckFields, {
       ioData,
+      ioDataFieldTypeWrongError,
       missingFieldsError,
       overloadFieldsError,
       requiredFields,
       requiredFieldsIndex,
     })
-    .catch((error) => ({
-      ok: false,
-      errorObject: error,
-    }))
-    .printAndThrow()
+    .catch((error) => {
+      return {
+        ok: false,
+        errorObject: error,
+      };
+    })
+    .printError()
     .result();
 };
 

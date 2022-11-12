@@ -8,7 +8,7 @@ const {
 
 const { common } = require("@/models/native/common");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const bio = nativeModelBuilder
   .create()

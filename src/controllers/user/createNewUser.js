@@ -19,7 +19,7 @@ const { services } = require("@/services");
 
 const { validators } = require("@/validators");
 
-const { errors } = require("@/variables/errors/errors");
+const { errors } = require("@/variables/errors");
 
 const tryToExtractCellphoneFromToken = async (verifyToken) => {
   const jwtSecret = authManager.getJwtSignInSecret();

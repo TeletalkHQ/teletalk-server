@@ -8,24 +8,7 @@ const {
 const { baseUrls } = require("@/routes/baseUrls");
 
 const {
-  inputOutputFields: {
-    bio,
-    chatId,
-    chatInfo,
-    countryCode,
-    countryName,
-    firstName,
-    lastName,
-    mainToken,
-    newUser,
-    ok,
-    phoneNumber,
-    user,
-    userId,
-    username,
-    verificationCode,
-    verifyToken,
-  },
+  ioFieldTypes,
   userDataDefaultIoFields,
 } = require("@/variables/others/inputOutputFields");
 
@@ -40,21 +23,21 @@ const createNewUser = userRouteBuilder
   .description("Use for create new user for normal account")
   .inputFields([
     {
-      firstName,
-      lastName,
+      firstName: ioFieldTypes.firstName,
+      lastName: ioFieldTypes.lastName,
     },
   ])
   .outputFields([
     {
       //FIXME: Add chatInfo (its empty)
-      [user]: {
-        countryCode,
-        countryName,
-        firstName,
-        lastName,
-        mainToken,
-        phoneNumber,
-        userId,
+      user: {
+        countryCode: ioFieldTypes.countryCode,
+        countryName: ioFieldTypes.countryName,
+        firstName: ioFieldTypes.firstName,
+        lastName: ioFieldTypes.lastName,
+        mainToken: ioFieldTypes.mainToken,
+        phoneNumber: ioFieldTypes.phoneNumber,
+        userId: ioFieldTypes.userId,
       },
     },
   ])
@@ -68,7 +51,7 @@ const logoutNormal = userRouteBuilder
   .version("1.0.0")
   .description("Use for logout client as a normal account")
   .inputFields([{}])
-  .outputFields([{ ok }])
+  .outputFields([{ ok: ioFieldTypes.ok }])
   .build();
 
 const signInNormal = userRouteBuilder
@@ -80,19 +63,19 @@ const signInNormal = userRouteBuilder
   .description("Use for sign in client as a normal account")
   .inputFields([
     {
-      countryCode,
-      countryName,
-      phoneNumber,
+      countryCode: ioFieldTypes.countryCode,
+      countryName: ioFieldTypes.countryName,
+      phoneNumber: ioFieldTypes.phoneNumber,
     },
   ])
   .outputFields([
     {
-      [user]: {
-        countryCode,
-        countryName,
-        phoneNumber,
-        [verificationCode]: true,
-        verifyToken,
+      user: {
+        countryCode: ioFieldTypes.countryCode,
+        countryName: ioFieldTypes.countryName,
+        phoneNumber: ioFieldTypes.phoneNumber,
+        verificationCode: true,
+        verifyToken: ioFieldTypes.verifyToken,
       },
     },
   ])
@@ -108,10 +91,10 @@ const checkUserStatus = userRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [user]: {
+      user: {
         ...userDataDefaultIoFields,
-        [bio]: true,
-        [username]: true,
+        bio: true,
+        username: true,
       },
     },
   ])
@@ -127,10 +110,10 @@ const getUserData = userRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [user]: {
+      user: {
         ...userDataDefaultIoFields,
-        [bio]: true,
-        [username]: true,
+        bio: true,
+        username: true,
       },
     },
   ])
@@ -145,14 +128,14 @@ const updatePersonalInfo = userRouteBuilder
   .description("Use for user update personal info")
   .inputFields([
     {
-      firstName,
-      lastName,
+      firstName: ioFieldTypes.firstName,
+      lastName: ioFieldTypes.lastName,
     },
   ])
   .outputFields([
     {
-      firstName,
-      lastName,
+      firstName: ioFieldTypes.firstName,
+      lastName: ioFieldTypes.lastName,
     },
   ])
   .build();
@@ -166,22 +149,21 @@ const verifySignInNormal = userRouteBuilder
   .description("Use for verify sign in (normal account) as normal account")
   .inputFields([
     {
-      verificationCode,
+      verificationCode: ioFieldTypes.verificationCode,
     },
   ])
   .outputFields([
     {
-      [user]: {
+      user: {
         ...userDataDefaultIoFields,
-        [bio]: true,
-        newUser,
-
-        [username]: true,
+        bio: true,
+        newUser: ioFieldTypes.newUser,
+        username: true,
       },
     },
     {
-      [user]: {
-        [newUser]: newUser,
+      user: {
+        newUser: ioFieldTypes.newUser,
       },
     },
   ])
@@ -197,7 +179,7 @@ const getChatInfo = userRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      [chatInfo]: [{ chatId }],
+      chatInfo: [{ chatId: ioFieldTypes.chatId }],
     },
   ])
   .build();

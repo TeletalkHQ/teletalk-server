@@ -1,4 +1,4 @@
-const http = require("http");
+const https = require("https");
 
 const { trier } = require("utility-store/src/classes/Trier");
 
@@ -16,7 +16,7 @@ const { crashServer } = require("@/functions/utilities/utilities");
 
 const { ioFunctions } = require("@/socket/io");
 
-const server = http.createServer(app);
+const server = https.createServer(app);
 
 //* PORT coming from heroku, so don't touch it!
 const { NODE_ENV } = envManager.getAllLocalEnvironments();

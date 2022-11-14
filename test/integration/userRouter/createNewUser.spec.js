@@ -11,7 +11,8 @@ const { requesters } = require("$/functions/helpers/requesters");
 
 const { models } = require("@/models");
 
-const { testVariables } = require("$/variables/testVariables");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
+const { temporaryClients } = require("@/classes/TemporaryClients");
 
 const userModels = models.native.user;
 
@@ -19,6 +20,7 @@ const fullName = userPropsUtilities.makeRandomFullName(
   userModels.firstName.maxlength.value,
   userModels.lastName.maxlength.value
 );
+const cellphones = testVariablesManager.getCellphones();
 
 //TODO Add USER_EXIST fail tests
 
@@ -28,13 +30,22 @@ describe("success create new normal user", () => {
     const {
       body: {
         user: {
+          countryCode: newUserCountryCode,
+          countryName: newUserCountryName,
+          phoneNumber: newUserPhoneNumber,
           verifyToken: newUserVerifyToken,
-          verificationCode: newUserVerificationCode,
         },
       },
     } = await requesters
       .signInNormal()
-      .sendFullFeaturedRequest(testVariables.cellphones.createNewUserSignIn);
+      .sendFullFeaturedRequest(cellphones.createNewUserSignIn);
+
+    const { verificationCode: newUserVerificationCode } =
+      await temporaryClients.findClientByCellphone({
+        countryCode: newUserCountryCode,
+        countryName: newUserCountryName,
+        phoneNumber: newUserPhoneNumber,
+      });
 
     //* 2- Verify user by verificationCode & verifyToken =>
     const newUserVerifySignInResponse = await requesters
@@ -77,15 +88,15 @@ describe("success create new normal user", () => {
 
     successTests
       .countryCode({
-        clientValue: testVariables.cellphones.createNewUserSignIn.countryCode,
+        clientValue: cellphones.createNewUserSignIn.countryCode,
         responseValue: countryCode,
       })
       .countryName({
         responseValue: countryName,
-        clientValue: testVariables.cellphones.createNewUserSignIn.countryName,
+        clientValue: cellphones.createNewUserSignIn.countryName,
       })
       .phoneNumber({
-        clientValue: testVariables.cellphones.createNewUserSignIn.phoneNumber,
+        clientValue: cellphones.createNewUserSignIn.phoneNumber,
         responseValue: phoneNumber,
       })
       .userId({ responseValue: userId }, { stringEquality: false })
@@ -110,7 +121,7 @@ describe("create new normal user failure tests", () => {
       },
     } = await requesters
       .signInNormal()
-      .sendFullFeaturedRequest(testVariables.cellphones.createNewUserSignIn);
+      .sendFullFeaturedRequest(cellphones.createNewUserSignIn);
 
     customRequest.setToken(verifyToken);
   });

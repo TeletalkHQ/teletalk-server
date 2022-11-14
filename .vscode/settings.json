@@ -39,7 +39,9 @@
     "build": true,
     ".dccache": true,
     "nodemon.json": true,
-    "cspell.json": true
+    "cspell.json": true,
+    ".dockerignore": true,
+    ".github": true
   },
   "explorerExclude.backup": {},
   "cSpell.words": [],

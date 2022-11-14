@@ -38,7 +38,7 @@ const tryToValidateLastName = async (lastName) => {
 };
 
 const tryToFindTemporaryClient = async (cellphone) => {
-  const client = await temporaryClients.findClient(cellphone);
+  const client = await temporaryClients.findClientByCellphone(cellphone);
   errorThrower(!client, () => ({ ...errors.USER_NOT_EXIST, cellphone }));
   return client;
 };
@@ -76,10 +76,8 @@ const fixUserDataForDb = ({
     userId,
     tokens: [{ mainToken }],
   };
-  const userDataForDatabase = objectUtilities.excludeProps(allUserData, [
-    "bio",
-  ]);
-  return userDataForDatabase;
+
+  return allUserData;
 };
 
 const tryToCreateNewUser = async (userDataForDatabase) => {
@@ -92,12 +90,8 @@ const responseToCreateNewUser = (user, res) => {
 
 const catchCreateNewUser = commonFunctionalities.controllerCatchResponse;
 
-const createNewUserMultiTrier = async ({
-  firstName,
-  lastName,
-  verifyToken,
-}) => {
-  const trierInstance = trier(createNewUserMultiTrier.name, {
+const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
+  const trierInstance = trier(createNewUserTrier.name, {
     autoThrowError: true,
   });
 
@@ -145,7 +139,7 @@ const createNewUser = async (req = expressRequest, res = expressResponse) => {
   const trierInstance = trier(createNewUser.name);
 
   (
-    await trierInstance.tryAsync(createNewUserMultiTrier, {
+    await trierInstance.tryAsync(createNewUserTrier, {
       firstName,
       lastName,
       verifyToken,

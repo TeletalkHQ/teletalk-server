@@ -7,7 +7,9 @@ const {
 
 const { requesters } = require("$/functions/helpers/requesters");
 
-const { testVariables } = require("$/variables/testVariables");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
+
+const users = testVariablesManager.getUsers();
 
 //TODO: Add multiple message and test
 //TODO: Use arrayUtilities instead
@@ -17,7 +19,7 @@ const messages = Array.from({ length: 20 }).map((_, index) => {
 
 describe("send message success tests", () => {
   it("Should start new chat with selected test users and send message", async () => {
-    const { userId } = testVariables.users.sendMessageSuccessful;
+    const { userId } = users.sendMessageSuccessful;
 
     for (const message of messages) {
       const {

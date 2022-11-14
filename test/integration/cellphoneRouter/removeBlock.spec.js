@@ -1,4 +1,5 @@
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const {
   integrationHelpers,
@@ -6,40 +7,38 @@ const {
 
 const { requesters } = require("$/functions/helpers/requesters");
 
-const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
+
+const users = testVariablesManager.getUsers();
+const cellphones = testVariablesManager.getCellphones();
 
 describe("removeContact successful test", () => {
   it("should add testUser_3 to testUser_0 contact list", async () => {
     await requesters
       .addBlock()
-      .sendFullFeaturedRequest(
-        testVariables.users.removeBlockSuccessful,
-        null,
-        {
-          token: requesters.removeBlock().getOptions().token,
-        }
-      );
+      .sendFullFeaturedRequest(users.removeBlockSuccessful, null, {
+        token: requesters.removeBlock().getOptions().token,
+      });
     const {
       body: {
         removedBlockedCellphone: { phoneNumber, countryCode, countryName },
       },
     } = await requesters
       .removeBlock()
-      .sendFullFeaturedRequest(testVariables.users.removeBlockSuccessful);
+      .sendFullFeaturedRequest(users.removeBlockSuccessful);
 
     integrationHelpers
       .createSuccessTest()
       .countryName({
-        clientValue: testVariables.users.removeBlockSuccessful.countryName,
+        clientValue: users.removeBlockSuccessful.countryName,
         responseValue: countryName,
       })
       .countryCode({
-        clientValue: testVariables.users.removeBlockSuccessful.countryCode,
+        clientValue: users.removeBlockSuccessful.countryCode,
         responseValue: countryCode,
       })
       .phoneNumber({
-        clientValue: testVariables.users.removeBlockSuccessful.phoneNumber,
+        clientValue: users.removeBlockSuccessful.phoneNumber,
         responseValue: phoneNumber,
       });
   });
@@ -54,6 +53,6 @@ describe("removeBlock failure tests", () => {
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)
-    .selfStuff(testVariables.users.selfStuff)
-    .blacklistItemNotExist(testVariables.cellphones.notExistedContact);
+    .selfStuff(users.selfStuff)
+    .blacklistItemNotExist(cellphones.notExistedContact);
 });

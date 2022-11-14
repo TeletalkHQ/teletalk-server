@@ -9,13 +9,13 @@ const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 const { errors } = require("@/variables/errors");
 const { appConfigs } = require("@/classes/AppConfigs");
 
-const tryToCheckBodyFields = (body, inputFields) => {
+const tryToCheckBodyFields = (body, requiredFields) => {
   errorThrower(
     customTypeof.isUndefined(body),
     errors.REQUEST_BODY_IS_UNDEFINED
   );
 
-  const checkResult = ioFieldsChecker(body, inputFields, {
+  const checkResult = ioFieldsChecker(body, requiredFields, {
     missingFieldsError: errors.INPUT_FIELDS_MISSING,
     overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
     ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
@@ -23,17 +23,18 @@ const tryToCheckBodyFields = (body, inputFields) => {
 
   const configs = appConfigs.getConfigs();
   const checkResultErrorReason = checkResult.errorObject?.reason;
-  const wrongTypeErrorReason = errors.INPUT_FIELD_TYPE_WRONG.reason;
+  const inputDataWrongTypeErrorReason = errors.INPUT_FIELD_TYPE_WRONG.reason;
+
   if (
     configs.server.shouldIgnoreInputFieldWrongTypeError &&
-    checkResultErrorReason === wrongTypeErrorReason
+    inputDataWrongTypeErrorReason === checkResultErrorReason
   ) {
     return { ok: true };
   }
 
   errorThrower(checkResult.ok === false, () => ({
     ...checkResult.errorObject,
-    inputFields,
+    requiredFields,
     inputData: body,
   }));
 

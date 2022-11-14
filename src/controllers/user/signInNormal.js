@@ -1,6 +1,3 @@
-const {
-  objectUtilities,
-} = require("utility-store/src/classes/ObjectUtilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { appConfigs } = require("@/classes/AppConfigs");
@@ -79,7 +76,7 @@ const tryToUpdateTemporaryClient = async (
 };
 
 const tryToFindTemporaryClient = async (cellphone) => {
-  const client = await temporaryClients.findClient(cellphone);
+  const client = await temporaryClients.findClientByCellphone(cellphone);
   return client;
 };
 
@@ -150,22 +147,10 @@ const tryToSignInNormalUser = async (req) => {
   //TODO: Print it on log files
   logger.debug("rm", "verificationCode", verificationCode);
 
-  const defaultResponseData = {
+  return {
     ...cellphone,
     verifyToken,
   };
-  const responseDataWithVerificationCode = objectUtilities.addProperty(
-    defaultResponseData,
-    "verificationCode",
-    verificationCode
-  );
-
-  const isTestServerRunning = commonFunctionalities.isTestServerRunning();
-  const sendingResponseData = isTestServerRunning
-    ? responseDataWithVerificationCode
-    : defaultResponseData;
-
-  return sendingResponseData;
 };
 
 const responseToSignInNormalUser = (user, res) => {

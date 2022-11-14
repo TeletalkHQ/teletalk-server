@@ -2,12 +2,11 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { trier } = require("utility-store/src/classes/Trier");
 
 //! Require before internal files!
-require("@/others/startupRequirements").startupRequirements();
-
+const { appConfigs } = require("@/classes/AppConfigs");
+const { appOptions } = require("@/classes/AppOptions");
 const { authManager } = require("@/classes/AuthManager");
 const { eventManager } = require("@/classes/EventManager");
-
-const { setTestUsers } = require("$/functions/utilities/testUtilities");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const {
   common: { userId: userIdCommonModel },
@@ -45,8 +44,9 @@ const tryToAddTestUser = async ({
   });
 };
 
+//TODO: Better random persons
 describe("Add requirements to application state", () => {
-  it("should make test users and save into state", async () => {
+  it("should make test users and save into state, also run configs", async () => {
     const { countryName, countryCode } = countries.find((c) =>
       c.countryName.toLowerCase().includes("iran")
     );
@@ -64,10 +64,10 @@ describe("Add requirements to application state", () => {
       });
     }
 
-    await setTestUsers(testUsers);
-
-    const { setRequirementsGetDone: requirementsGetDone } =
-      eventManager.eventKeys;
-    eventManager.emitEvent(requirementsGetDone);
+    testVariablesManager.setTestUsers(testUsers);
+    await appConfigs.runConfigs();
+    eventManager.emitEvent(
+      appOptions.getOptions().eventKeys.requirementsGetDone
+    );
   });
 });

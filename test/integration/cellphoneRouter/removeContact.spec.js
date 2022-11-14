@@ -1,24 +1,23 @@
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
+
 const {
   integrationHelpers,
 } = require("$/functions/helpers/integrationHelpers/integrationHelpers");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-
 const { requesters } = require("$/functions/helpers/requesters");
 
-const { testVariables } = require("$/variables/testVariables");
 const { countries } = require("@/variables/others/countries");
+
+const users = testVariablesManager.getUsers();
+const cellphones = testVariablesManager.getCellphones();
 
 describe("removeContact successful test", () => {
   it("should add testUser_3 to testUser_0 contact list", async () => {
     await requesters
       .addContact()
-      .sendFullFeaturedRequest(
-        testVariables.users.removeContactSuccessful,
-        null,
-        {
-          token: requesters.removeContact().getOptions().token,
-        }
-      );
+      .sendFullFeaturedRequest(users.removeContactSuccessful, null, {
+        token: requesters.removeContact().getOptions().token,
+      });
 
     const {
       body: {
@@ -26,20 +25,20 @@ describe("removeContact successful test", () => {
       },
     } = await requesters
       .removeContact()
-      .sendFullFeaturedRequest(testVariables.users.removeContactSuccessful);
+      .sendFullFeaturedRequest(users.removeContactSuccessful);
 
     integrationHelpers
       .createSuccessTest()
       .countryName({
-        clientValue: testVariables.users.removeContactSuccessful.countryName,
+        clientValue: users.removeContactSuccessful.countryName,
         responseValue: countryName,
       })
       .countryCode({
-        clientValue: testVariables.users.removeContactSuccessful.countryCode,
+        clientValue: users.removeContactSuccessful.countryCode,
         responseValue: countryCode,
       })
       .phoneNumber({
-        clientValue: testVariables.users.removeContactSuccessful.phoneNumber,
+        clientValue: users.removeContactSuccessful.phoneNumber,
         responseValue: phoneNumber,
       });
   });
@@ -54,6 +53,6 @@ describe("removeContact failure tests", () => {
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)
-    .selfStuff(testVariables.users.selfStuff)
-    .contactItemNotExist(testVariables.cellphones.notExistedContact);
+    .selfStuff(users.selfStuff)
+    .contactItemNotExist(cellphones.notExistedContact);
 });

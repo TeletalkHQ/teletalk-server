@@ -1,27 +1,35 @@
 const { authManager } = require("@/classes/AuthManager");
-const {
-  integrationHelpers,
-} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
+
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
+const { temporaryClients } = require("@/classes/TemporaryClients");
 
 const { expect } = require("$/functions/utilities/testUtilities");
 
 const { requesters } = require("$/functions/helpers/requesters");
+const {
+  integrationHelpers,
+} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 
 const { models } = require("@/models");
 
-const { testVariables } = require("$/variables/testVariables");
-
 const userModels = models.native.user;
+const cellphones = testVariablesManager.getCellphones();
 
 const signInFn = async () => {
   const {
     body: {
-      user: { verifyToken, verificationCode },
+      user: { countryCode, countryName, phoneNumber, verifyToken },
     },
   } = await requesters
     .signInNormal()
-    .sendFullFeaturedRequest(testVariables.cellphones.verifySignInNewUser);
+    .sendFullFeaturedRequest(cellphones.verifySignInNewUser);
+
+  const { verificationCode } = await temporaryClients.findClientByCellphone({
+    countryCode,
+    countryName,
+    phoneNumber,
+  });
 
   return { verifyToken, verificationCode };
 };
@@ -87,7 +95,7 @@ describe("verifySignInNormalApi success test", () => {
     //* 8- Test output when newUser === false =>
     expect(newUser).equal(false);
     const { countryCode, countryName, phoneNumber } =
-      testVariables.cellphones.verifySignInNewUser;
+      cellphones.verifySignInNewUser;
 
     integrationHelpers
       .createSuccessTest()
@@ -116,7 +124,7 @@ describe("verifySignInNormalApi failure tests", () => {
       },
     } = await requesters
       .signInNormal()
-      .sendFullFeaturedRequest(testVariables.cellphones.verifySignInFailTest);
+      .sendFullFeaturedRequest(cellphones.verifySignInFailTest);
 
     customRequest.setToken(verifyToken);
   });

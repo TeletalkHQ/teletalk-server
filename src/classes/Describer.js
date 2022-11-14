@@ -1,10 +1,4 @@
 class Describer {
-  constructor() {
-    this.state = {
-      testUsers: {},
-    };
-  }
-
   addInitialDescribe() {}
 
   addDescribeIt(cb, describeMsg = "", itMsg = "") {

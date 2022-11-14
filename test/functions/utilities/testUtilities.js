@@ -1,8 +1,6 @@
 const { expect } = require("chai");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const { stateManager } = require("@/classes/StateManager");
-
 const { models } = require("@/models");
 
 const { countries } = require("@/variables/others/countries");
@@ -23,13 +21,7 @@ const getNonExistedCountryCode = () => {
   return randomCountryCode;
 };
 
-const setTestUsers = async (testUsers) => {
-  const { testUsers: stateKey } = stateManager.stateKeys;
-  return await stateManager.setState(stateKey, testUsers);
-};
-
 module.exports = {
   expect,
   getNonExistedCountryCode,
-  setTestUsers,
 };

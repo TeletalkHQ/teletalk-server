@@ -1,3 +1,4 @@
+const { ioFieldMaker } = require("@/classes/IoFieldMaker");
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const {
@@ -29,18 +30,34 @@ const getPrivateChatMessages = privateChatRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for get all messages")
-  .inputFields([{ chatId: ioFieldTypes.chatId }])
+  .inputFields([
+    { chatId: ioFieldMaker.create().type(ioFieldTypes.chatId).build() },
+  ])
   .outputFields([
     {
-      messages: [
-        {
-          message: ioFieldTypes.message,
-          messageId: ioFieldTypes.messageId,
-          messageSender: {
-            senderId: ioFieldTypes.senderId,
+      messages: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.messages)
+        .value([
+          {
+            message: ioFieldMaker.create().type(ioFieldTypes.message).build(),
+            messageId: ioFieldMaker
+              .create()
+              .type(ioFieldTypes.messageId)
+              .build(),
+            messageSender: ioFieldMaker
+              .create()
+              .type(ioFieldTypes.messageSender)
+              .value({
+                senderId: ioFieldMaker
+                  .create()
+                  .type(ioFieldTypes.senderId)
+                  .build(),
+              })
+              .build(),
           },
-        },
-      ],
+        ])
+        .build(),
     },
   ])
   .build();
@@ -54,14 +71,17 @@ const sendPrivateMessage = privateChatRouteBuilder
   .description("Use for send private messages")
   .inputFields([
     {
-      message: ioFieldTypes.message,
-      participantId: ioFieldTypes.participantId,
+      message: ioFieldMaker.create().type(ioFieldTypes.message).build(),
+      participantId: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.participantId)
+        .build(),
     },
   ])
   .outputFields([
     {
-      chatId: ioFieldTypes.chatId,
-      newMessage: ioFieldTypes.newMessage,
+      chatId: ioFieldMaker.create().type(ioFieldTypes.chatId).build(),
+      newMessage: ioFieldMaker.create().type(ioFieldTypes.newMessage).build(),
     },
   ])
   .build();

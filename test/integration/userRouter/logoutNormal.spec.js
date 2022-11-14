@@ -1,3 +1,4 @@
+const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("$/functions/utilities/testUtilities");
@@ -6,9 +7,10 @@ const { requesters } = require("$/functions/helpers/requesters");
 
 const { models } = require("@/models");
 
-const { testVariables } = require("$/variables/testVariables");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const userModels = models.native.user;
+const cellphones = testVariablesManager.getCellphones();
 
 const fullName = userPropsUtilities.makeRandomFullName(
   userModels.firstName.maxlength.value,
@@ -18,11 +20,17 @@ const fullName = userPropsUtilities.makeRandomFullName(
 const signInFn = async () => {
   const {
     body: {
-      user: { verificationCode, verifyToken },
+      user: { countryCode, countryName, phoneNumber, verifyToken },
     },
   } = await requesters
     .signInNormal()
-    .sendFullFeaturedRequest(testVariables.cellphones.verifySignInNewUser);
+    .sendFullFeaturedRequest(cellphones.logoutNormal);
+
+  const { verificationCode } = await temporaryClients.findClientByCellphone({
+    countryCode,
+    countryName,
+    phoneNumber,
+  });
 
   return {
     verificationCode,

@@ -6,8 +6,10 @@ const {
 
 const { requesters } = require("$/functions/helpers/requesters");
 
-const { testVariables } = require("$/variables/testVariables");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { countries } = require("@/variables/others/countries");
+
+const users = testVariablesManager.getUsers();
 
 describe("addBlock successful tests", () => {
   it("should add addBlockSuccessfulTestUser to testUser_0 blacklist", async () => {
@@ -17,20 +19,20 @@ describe("addBlock successful tests", () => {
       },
     } = await requesters
       .addBlock()
-      .sendFullFeaturedRequest(testVariables.users.addBlockSuccessful);
+      .sendFullFeaturedRequest(users.addBlockSuccessful);
 
     integrationHelpers
       .createSuccessTest()
       .countryName({
-        clientValue: testVariables.users.addBlockSuccessful.countryName,
+        clientValue: users.addBlockSuccessful.countryName,
         responseValue: countryName,
       })
       .countryCode({
-        clientValue: testVariables.users.addBlockSuccessful.countryCode,
+        clientValue: users.addBlockSuccessful.countryCode,
         responseValue: countryCode,
       })
       .phoneNumber({
-        clientValue: testVariables.users.addBlockSuccessful.phoneNumber,
+        clientValue: users.addBlockSuccessful.phoneNumber,
         responseValue: phoneNumber,
       });
   });
@@ -41,17 +43,17 @@ describe("addBlock failure tests", () => {
     //* Add someone to blacklist for blacklistItemExist error
     await requesters
       .addBlock()
-      .sendFullFeaturedRequest(testVariables.users.blacklistItemExist);
+      .sendFullFeaturedRequest(users.blacklistItemExist);
   });
 
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
   integrationHelpers
     .createFailTest(requesters.addBlock())
     .authentication()
-    .selfStuff(testVariables.users.selfStuff)
+    .selfStuff(users.selfStuff)
     .cellphone(cellphone)
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)
-    .blacklistItemExist(testVariables.users.blacklistItemExist);
+    .blacklistItemExist(users.blacklistItemExist);
 });

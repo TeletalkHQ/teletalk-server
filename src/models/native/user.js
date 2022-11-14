@@ -15,7 +15,6 @@ const bio = nativeModelBuilder
   .defaultValue("")
   .empty(false, errors.BIO_EMPTY)
   .maxlength(255, errors.BIO_MAXLENGTH_REACH)
-  .minlength(2, errors.BIO_MINLENGTH_REACH)
   .required(false)
   .type("string", errors.BIO_INVALID_TYPE)
   .version("1.0.0")

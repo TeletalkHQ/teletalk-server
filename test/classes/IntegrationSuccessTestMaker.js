@@ -2,11 +2,11 @@ const {
   integrationHelpersCollection,
 } = require("$/functions/helpers/integrationHelpers/integrationCollection");
 
-const { testVariables } = require("$/variables/testVariables");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 class IntegrationSuccessTestMaker {
   constructor() {
-    this.defaultOptions = testVariables.successTestDefaultOptions;
+    this.defaultOptions = testVariablesManager.successTestDefaultOptions;
   }
 
   successTestMaker(methodName) {

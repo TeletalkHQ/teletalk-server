@@ -1,73 +1,60 @@
 const { stateManager } = require("@/classes/StateManager");
+const { appOptions } = require("@/classes/AppOptions");
 
 const {
   isDataHasEqualityWithTargetCellphone,
+  errorThrower,
 } = require("@/functions/utilities/utilities");
+const { errors } = require("@/variables/errors");
 
 class TemporaryClients {
+  #temporaryClientsKey = appOptions.getOptions().stateKeys.temporaryClients;
+
   async addClient(client) {
-    const aliveClients = this.getAliveClients();
-
-    aliveClients.push(client);
-
-    this.setAliveClients(aliveClients);
+    const temporaryClients = await this.getTemporaryClients();
+    temporaryClients.push(client);
+    await this.setTemporaryClients(temporaryClients);
   }
 
-  async setAliveClients(aliveClients) {
-    const { temporaryClients } = stateManager.state;
-
-    const newTemporaryClients = {
-      ...temporaryClients,
-      aliveClients,
-    };
-
-    const { temporaryClients: stateKey } = stateManager.stateKeys;
-    await stateManager.setState(stateKey, newTemporaryClients);
-  }
-
-  getAliveClients() {
-    return stateManager.state.temporaryClients.aliveClients;
-  }
-
-  findClient(tempoClientCellphone) {
-    const aliveClients = this.getAliveClients();
-
-    return aliveClients.find(
-      (aliveClient) =>
-        !!isDataHasEqualityWithTargetCellphone(
-          aliveClient,
-          tempoClientCellphone
-        )
+  async setTemporaryClients(temporaryClients) {
+    await stateManager.setStringifyState(
+      this.#temporaryClientsKey,
+      temporaryClients
     );
   }
 
-  findClientIndex(client) {
-    const aliveClients = this.getAliveClients();
+  async getTemporaryClients() {
+    return await stateManager.getStateAndParse(this.#temporaryClientsKey);
+  }
 
-    return aliveClients.findIndex(
-      (aliveClient) =>
-        !!isDataHasEqualityWithTargetCellphone(aliveClient, client)
+  async findClientByCellphone(cellphone) {
+    const temporaryClients = await this.getTemporaryClients();
+    return temporaryClients.find(
+      (temporaryClient) =>
+        !!isDataHasEqualityWithTargetCellphone(temporaryClient, cellphone)
     );
   }
 
   async updateClient(client, updateProps) {
-    const aliveClients = this.getAliveClients();
-    const aliveClientIndex = this.findClientIndex(client);
+    const temporaryClients = await this.getTemporaryClients();
 
-    if (aliveClientIndex !== -1) {
-      const aliveClient = aliveClients[aliveClientIndex];
+    const temporaryClientIndex = temporaryClients.findIndex(
+      (temporaryClient) =>
+        !!isDataHasEqualityWithTargetCellphone(temporaryClient, client)
+    );
 
-      aliveClients.splice(aliveClientIndex, 1, {
-        ...aliveClient,
-        ...updateProps,
-      });
+    //TODO: Add some tests
+    errorThrower(
+      temporaryClientIndex === -1,
+      errors.TEMPORARY_CLIENT_NOT_FOUND
+    );
 
-      await this.setAliveClients(aliveClients);
-
-      return { ok: true };
-    }
-
-    return { ok: false };
+    const temporaryClient = temporaryClients[temporaryClientIndex];
+    temporaryClients.splice(temporaryClientIndex, 1, {
+      ...temporaryClient,
+      ...updateProps,
+    });
+    await this.setTemporaryClients(temporaryClients);
   }
 }
 

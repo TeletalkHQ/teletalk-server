@@ -4,14 +4,14 @@ const { models } = require("@/models");
 
 const userModels = models.native.user;
 
-const { testVariables } = require("$/variables/testVariables");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const countryCode = (
   { clientValue, responseValue } = {},
   {
     stringEquality = true,
     modelCheck = true,
-  } = testVariables.successTestDefaultOptions
+  } = testVariablesManager.successTestDefaultOptions
 ) => {
   successTestBuilder
     .create()

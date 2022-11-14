@@ -1,17 +1,16 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const { models } = require("@/models");
 
 const userModels = models.native.user;
-
-const { testVariables } = require("$/variables/testVariables");
 
 const countryName = (
   { clientValue, responseValue } = {},
   {
     stringEquality = true,
     modelCheck = true,
-  } = testVariables.successTestDefaultOptions
+  } = testVariablesManager.successTestDefaultOptions
 ) => {
   successTestBuilder
     .create()

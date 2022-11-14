@@ -43,8 +43,6 @@ const tryCheckFields = ({
   checkFields({
     ioData,
     ioDataFieldTypeWrongError,
-    ioIsNotArrayError: errors.REQUIRED_IO_FIELD_IS_NOT_ARRAY,
-    ioIsNotObjectError: errors.REQUIRED_IO_FIELD_IS_NOT_OBJECT,
     missingFieldsError,
     overloadFieldsError,
     requiredFields: selectedRequiredFields,

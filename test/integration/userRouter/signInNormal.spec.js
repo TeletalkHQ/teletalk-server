@@ -1,41 +1,46 @@
 const { authManager } = require("@/classes/AuthManager");
+const { temporaryClients } = require("@/classes/TemporaryClients");
+
 const {
   integrationHelpers,
 } = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 
 const { requesters } = require("$/functions/helpers/requesters");
 
-const { testVariables } = require("$/variables/testVariables");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
+
+const cellphones = testVariablesManager.getCellphones();
 
 describe("signInNormalApi test success requests", () => {
   it("It should get sign in data like token and verification code", async () => {
     const {
       body: {
-        user: {
-          countryCode,
-          countryName,
-          phoneNumber,
-          verifyToken,
-          verificationCode,
-        },
+        user: { countryCode, countryName, phoneNumber, verifyToken },
       },
     } = await requesters
       .signInNormal()
-      .sendFullFeaturedRequest(testVariables.cellphones.signIn);
+      .sendFullFeaturedRequest(cellphones.signIn);
 
+    const tempoClient = await temporaryClients.findClientByCellphone({
+      countryCode,
+      countryName,
+      phoneNumber,
+    });
+
+    const { verificationCode } = tempoClient;
     const successTest = integrationHelpers.createSuccessTest();
 
     successTest
       .countryName({
-        clientValue: testVariables.cellphones.signIn.countryName,
+        clientValue: cellphones.signIn.countryName,
         responseValue: countryName,
       })
       .countryCode({
-        clientValue: testVariables.cellphones.signIn.countryCode,
+        clientValue: cellphones.signIn.countryCode,
         responseValue: countryCode,
       })
       .phoneNumber({
-        clientValue: testVariables.cellphones.signIn.phoneNumber,
+        clientValue: cellphones.signIn.phoneNumber,
         responseValue: phoneNumber,
       })
       .verificationCode({ responseValue: verificationCode });
@@ -51,8 +56,8 @@ describe("signInNormalApi test success requests", () => {
 describe("signInNormalApi test failure requests", () => {
   integrationHelpers
     .createFailTest(requesters.signInNormal())
-    .cellphone(testVariables.cellphones.signIn)
-    .countryCode(testVariables.cellphones.signIn)
-    .countryName(testVariables.cellphones.signIn)
-    .phoneNumber(testVariables.cellphones.signIn);
+    .cellphone(cellphones.signIn)
+    .countryCode(cellphones.signIn)
+    .countryName(cellphones.signIn)
+    .phoneNumber(cellphones.signIn);
 });

@@ -16,13 +16,13 @@
     "check:security": "snyk test & snyk code test",
     "check:style": "npm run check:format && npm run check:lint",
     "git:prepare": "husky install",
-    "start:dev": "cross-env NODE_ENV=development LOGGER_LEVEL=debug nodemon --trace-warnings ./src/server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon --trace-warnings ./src/server.js",
     "start:production": "cross-env NODE_ENV=production node ./build/index.js",
     "test-runner": "mocha ./test/test.js --recursive --exit",
     "test:coverage": "cross-env COVERAGE=true nyc npm run test:dev",
-    "test:dev": "cross-env NODE_ENV=test_development LOGGER_LEVEL=debug npm run test-runner",
+    "test:dev": "cross-env NODE_ENV=test_development npm run test-runner",
     "test:dev:with-badge": "npm run test:dev -- -- --reporter mocha-badge-generator",
-    "test:production": "cross-env NODE_ENV=test_production LOGGER_LEVEL=debug npm run test-runner"
+    "test:production": "cross-env NODE_ENV=test_production npm run test-runner"
   },
   "dependencies": {
     "@sindresorhus/is": "^5.3.0",
@@ -55,7 +55,7 @@
     "serve-favicon": "^2.5.0",
     "snyk": "^1.1038.0",
     "socket.io": "^4.5.3",
-    "utility-store": "^3.3.0",
+    "utility-store": "^3.4.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {

@@ -30,7 +30,7 @@ const {
     .setModelObject(userModelsWithoutVersion.bio)
     .type()
     .maxlength()
-    .minlength()
+    .defaultValue()
     .build(),
   chatId: mongoModelBuilder
     .create()

@@ -1,8 +1,7 @@
 const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const { models } = require("@/models");
-
-const { testVariables } = require("$/variables/testVariables");
 
 const chatModels = models.native.chat;
 
@@ -11,7 +10,7 @@ const chatId = (
   {
     stringEquality = true,
     modelCheck = true,
-  } = testVariables.successTestDefaultOptions
+  } = testVariablesManager.successTestDefaultOptions
 ) => {
   successTestBuilder
     .create()

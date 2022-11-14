@@ -6,6 +6,8 @@ const { trier } = require("utility-store/src/classes/Trier");
 require("module-alias/register");
 require("@/others/startupRequirements").startupRequirements();
 
+const { appConfigs } = require("@/classes/AppConfigs");
+
 const { app } = require("@/app");
 
 const { envManager } = require("@/classes/EnvironmentManager");
@@ -51,6 +53,7 @@ const tryToStartHttpServer = () => {
 };
 
 const startServer = async () => {
+  await appConfigs.runConfigs();
   trier(startServer.name).try(tryToStartHttpServer).catch(crashServer);
 };
 

@@ -1,9 +1,11 @@
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
+
 const { requesters } = require("$/functions/helpers/requesters");
 const {
   integrationHelpers,
 } = require("$/functions/helpers/integrationHelpers/integrationHelpers");
 
-const { testVariables } = require("$/variables/testVariables");
+const users = testVariablesManager.getUsers();
 
 describe("get messages success tests", () => {
   it("Should get messages for testUser_0", async () => {
@@ -14,7 +16,7 @@ describe("get messages success tests", () => {
     for (const _ of Array.from({ length: 10 })) {
       await requesters.sendPrivateMessage().sendFullFeaturedRequest({
         message,
-        participantId: testVariables.users.getPrivateChatMessages.userId,
+        participantId: users.getPrivateChatMessages.userId,
       });
     }
 

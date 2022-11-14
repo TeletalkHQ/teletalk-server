@@ -1,3 +1,4 @@
+const { ioFieldMaker } = require("@/classes/IoFieldMaker");
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const {
@@ -7,10 +8,7 @@ const {
 
 const { baseUrls } = require("@/routes/baseUrls");
 
-const {
-  ioFieldTypes,
-  userDataDefaultIoFields,
-} = require("@/variables/others/inputOutputFields");
+const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
 
 const userRouteBuilder = routeBuilder(baseUrls.user);
 
@@ -23,22 +21,35 @@ const createNewUser = userRouteBuilder
   .description("Use for create new user for normal account")
   .inputFields([
     {
-      firstName: ioFieldTypes.firstName,
-      lastName: ioFieldTypes.lastName,
+      firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
+      lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
     },
   ])
   .outputFields([
     {
       //FIXME: Add chatInfo (its empty)
-      user: {
-        countryCode: ioFieldTypes.countryCode,
-        countryName: ioFieldTypes.countryName,
-        firstName: ioFieldTypes.firstName,
-        lastName: ioFieldTypes.lastName,
-        mainToken: ioFieldTypes.mainToken,
-        phoneNumber: ioFieldTypes.phoneNumber,
-        userId: ioFieldTypes.userId,
-      },
+      user: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.user)
+        .value({
+          countryCode: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryCode)
+            .build(),
+          countryName: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryName)
+            .build(),
+          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
+          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
+          mainToken: ioFieldMaker.create().type(ioFieldTypes.mainToken).build(),
+          phoneNumber: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.phoneNumber)
+            .build(),
+          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
+        })
+        .build(),
     },
   ])
   .build();
@@ -51,7 +62,7 @@ const logoutNormal = userRouteBuilder
   .version("1.0.0")
   .description("Use for logout client as a normal account")
   .inputFields([{}])
-  .outputFields([{ ok: ioFieldTypes.ok }])
+  .outputFields([{ ok: ioFieldMaker.create().type(ioFieldTypes.ok).build() }])
   .build();
 
 const signInNormal = userRouteBuilder
@@ -63,20 +74,35 @@ const signInNormal = userRouteBuilder
   .description("Use for sign in client as a normal account")
   .inputFields([
     {
-      countryCode: ioFieldTypes.countryCode,
-      countryName: ioFieldTypes.countryName,
-      phoneNumber: ioFieldTypes.phoneNumber,
+      countryCode: ioFieldMaker.create().type(ioFieldTypes.countryCode).build(),
+      countryName: ioFieldMaker.create().type(ioFieldTypes.countryName).build(),
+      phoneNumber: ioFieldMaker.create().type(ioFieldTypes.phoneNumber).build(),
     },
   ])
   .outputFields([
     {
-      user: {
-        countryCode: ioFieldTypes.countryCode,
-        countryName: ioFieldTypes.countryName,
-        phoneNumber: ioFieldTypes.phoneNumber,
-        verificationCode: true,
-        verifyToken: ioFieldTypes.verifyToken,
-      },
+      user: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.user)
+        .value({
+          countryCode: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryCode)
+            .build(),
+          countryName: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryName)
+            .build(),
+          phoneNumber: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.phoneNumber)
+            .build(),
+          verifyToken: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.verifyToken)
+            .build(),
+        })
+        .build(),
     },
   ])
   .build();
@@ -91,11 +117,37 @@ const checkUserStatus = userRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      user: {
-        ...userDataDefaultIoFields,
-        bio: true,
-        username: true,
-      },
+      user: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.user)
+        .value({
+          bio: ioFieldMaker.create().type(ioFieldTypes.bio).build(),
+          blacklist: ioFieldMaker.create().type(ioFieldTypes.blacklist).build(),
+          chatInfo: ioFieldMaker.create().type(ioFieldTypes.chatInfo).build(),
+          contacts: ioFieldMaker.create().type(ioFieldTypes.contacts).build(),
+          countryCode: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryCode)
+            .build(),
+          countryName: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryName)
+            .build(),
+          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
+          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
+          mainToken: ioFieldMaker.create().type(ioFieldTypes.mainToken).build(),
+          phoneNumber: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.phoneNumber)
+            .build(),
+          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
+          username: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.username)
+
+            .build(),
+        })
+        .build(),
     },
   ])
   .build();
@@ -110,11 +162,37 @@ const getUserData = userRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      user: {
-        ...userDataDefaultIoFields,
-        bio: true,
-        username: true,
-      },
+      user: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.user)
+        .value({
+          bio: ioFieldMaker.create().type(ioFieldTypes.bio).build(),
+          blacklist: ioFieldMaker.create().type(ioFieldTypes.blacklist).build(),
+          chatInfo: ioFieldMaker.create().type(ioFieldTypes.chatInfo).build(),
+          contacts: ioFieldMaker.create().type(ioFieldTypes.contacts).build(),
+          countryCode: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryCode)
+            .build(),
+          countryName: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryName)
+            .build(),
+          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
+          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
+          mainToken: ioFieldMaker.create().type(ioFieldTypes.mainToken).build(),
+          phoneNumber: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.phoneNumber)
+            .build(),
+          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
+          username: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.username)
+
+            .build(),
+        })
+        .build(),
     },
   ])
   .build();
@@ -128,14 +206,14 @@ const updatePersonalInfo = userRouteBuilder
   .description("Use for user update personal info")
   .inputFields([
     {
-      firstName: ioFieldTypes.firstName,
-      lastName: ioFieldTypes.lastName,
+      firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
+      lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
     },
   ])
   .outputFields([
     {
-      firstName: ioFieldTypes.firstName,
-      lastName: ioFieldTypes.lastName,
+      firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
+      lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
     },
   ])
   .build();
@@ -149,22 +227,51 @@ const verifySignInNormal = userRouteBuilder
   .description("Use for verify sign in (normal account) as normal account")
   .inputFields([
     {
-      verificationCode: ioFieldTypes.verificationCode,
+      verificationCode: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.verificationCode)
+        .build(),
     },
   ])
   .outputFields([
     {
-      user: {
-        ...userDataDefaultIoFields,
-        bio: true,
-        newUser: ioFieldTypes.newUser,
-        username: true,
-      },
+      user: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.user)
+        .value({
+          bio: ioFieldMaker.create().type(ioFieldTypes.bio).build(),
+          blacklist: ioFieldMaker.create().type(ioFieldTypes.blacklist).build(),
+          chatInfo: ioFieldMaker.create().type(ioFieldTypes.chatInfo).build(),
+          contacts: ioFieldMaker.create().type(ioFieldTypes.contacts).build(),
+          countryCode: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryCode)
+            .build(),
+          countryName: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.countryName)
+            .build(),
+          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
+          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
+          mainToken: ioFieldMaker.create().type(ioFieldTypes.mainToken).build(),
+          newUser: ioFieldMaker.create().type(ioFieldTypes.newUser).build(),
+          phoneNumber: ioFieldMaker
+            .create()
+            .type(ioFieldTypes.phoneNumber)
+            .build(),
+          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
+          username: ioFieldMaker.create().type(ioFieldTypes.username).build(),
+        })
+        .build(),
     },
     {
-      user: {
-        newUser: ioFieldTypes.newUser,
-      },
+      user: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.user)
+        .value({
+          newUser: ioFieldMaker.create().type(ioFieldTypes.newUser).build(),
+        })
+        .build(),
     },
   ])
   .build();
@@ -179,7 +286,13 @@ const getChatInfo = userRouteBuilder
   .inputFields([{}])
   .outputFields([
     {
-      chatInfo: [{ chatId: ioFieldTypes.chatId }],
+      chatInfo: ioFieldMaker
+        .create()
+        .type(ioFieldTypes.chatInfo)
+        .value([
+          { chatId: ioFieldMaker.create().type(ioFieldTypes.chatId).build() },
+        ])
+        .build(),
     },
   ])
   .build();

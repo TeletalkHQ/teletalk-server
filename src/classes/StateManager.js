@@ -1,7 +1,4 @@
 const Redis = require("ioredis");
-const {
-  objectUtilities,
-} = require("utility-store/src/classes/ObjectUtilities");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
@@ -25,53 +22,36 @@ class StateManager {
   constructor() {
     this.storage = storage;
     this.state = {
-      aliveClients: [],
-      temporaryClients: {
-        aliveClients: [],
-      },
-      testUsers: {},
-      users: [],
+      temporaryClients: "[]",
     };
-
-    this.stateKeys = {
-      aliveClients: "aliveClients",
-      temporaryClients: "temporaryClients",
-      testUsers: "testUsers",
-      users: "users",
-    };
-
-    this.initializeStates();
   }
 
-  initializeStates() {
-    objectUtilities.objectKeys(this.state).forEach((key) => {
-      this.storage.set(key, (error, result) => {
-        if (!error) {
-          this.state[key] = JSON.parse(result);
-        }
-      });
-    });
+  async initializeStates() {
+    for (const key in this.state) {
+      const prevStateItem = await this.storage.get(key);
+      await this.storage.set(key, prevStateItem || this.state[key]);
+    }
   }
 
-  async getStateStringifiedValue(key) {
-    return this.storage.get(key);
+  stringify(value) {
+    return JSON.stringify(value);
   }
-
-  async getState(key) {
-    const value = await this.getStateStringifiedValue(key);
+  parse(value) {
     return JSON.parse(value);
   }
 
-  async setStateWithStringifiedValue(key, value) {
-    await this.storage.set(key, value);
-    return { ok: true };
+  async getState(key) {
+    return await this.storage.get(key);
+  }
+  async getStateAndParse(key) {
+    return this.parse(await this.getState(key));
   }
 
   async setState(key, newState) {
-    this.state[key] = newState;
-    const stringifiedNewState = JSON.stringify(newState);
-    await this.setStateWithStringifiedValue(key, stringifiedNewState);
-    return { ok: true };
+    await this.storage.set(key, newState);
+  }
+  async setStringifyState(key, newState) {
+    await this.setState(key, this.stringify(newState));
   }
 }
 

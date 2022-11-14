@@ -27,17 +27,17 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-04-10T19:07:05.855Z",
-    "modified": "2022-10-21T10:14:01.397Z",
+    "modified": "2022-11-13T23:25:20.651Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"verificationCode\":\"266320\"\n}",
+      "raw": "{\n    \"verificationCode\":\"346290\"\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxOTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUxNTkzMDU5fQ.DvVNhOfz7nG16BKTFhtfVdnmv9BxT1evtRcvPSidWGk"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwicGhvbmVOdW1iZXIiOiI5MTE5MTE5MTkxIiwiaWF0IjoxNjY4Mzc0ODk2fQ.Ucq3rLH3lF6QPNB1h3sX4Or8dSH9K9HDhVjFJBChn9I"
     },
     "tests": []
   },
@@ -178,17 +178,17 @@
     "method": "POST",
     "sortNum": 100000,
     "created": "2022-05-03T15:36:53.163Z",
-    "modified": "2022-05-03T15:53:28.548Z",
+    "modified": "2022-11-13T21:55:22.755Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"firstName\": \"testUser01\"\n}",
+      "raw": "{\n  \"firstName\": \"testUser01\",\n  \"lastName\":\"lastName  01\"\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjkxMTkxMTkxOTEiLCJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwiaWF0IjoxNjUxNTkzMDU5fQ.DvVNhOfz7nG16BKTFhtfVdnmv9BxT1evtRcvPSidWGk"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3VudHJ5Q29kZSI6Ijk4IiwiY291bnRyeU5hbWUiOiJJcmFuLCBJc2xhbWljIFJlcHVibGljIG9mIiwicGhvbmVOdW1iZXIiOiI5MTE5MTE5MTkxIiwiaWF0IjoxNjY4Mzc0ODk2fQ.Ucq3rLH3lF6QPNB1h3sX4Or8dSH9K9HDhVjFJBChn9I"
     },
     "tests": []
   }

@@ -227,9 +227,18 @@ class CustomRequest {
   }
   filterRequestData() {
     const { selectedRequiredFields } = this.getOptions();
+    const convertRequiredFieldForFiltering = objectUtilities
+      .objectEntries(selectedRequiredFields)
+      .reduce((previousValue, currentValue) => {
+        const [requiredFieldKey, requiredFieldProperties] = currentValue;
+        previousValue[requiredFieldKey] =
+          requiredFieldProperties.value || requiredFieldKey;
+        return previousValue;
+      }, {});
+
     const filteredRequestData = objectUtilities.excludePropsPeerToPeer(
       this.requestData,
-      selectedRequiredFields
+      convertRequiredFieldForFiltering
     );
     this.setRequestData(filteredRequestData);
     return this;

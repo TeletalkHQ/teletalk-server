@@ -1,14 +1,12 @@
 const { customRequestCreator } = require("@/classes/CustomRequest");
-const { stateManager } = require("@/classes/StateManager");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { routes } = require("@/routes");
 
-const { testUser_0 } = stateManager.state.testUsers;
-
+const { testUser_0 } = testVariablesManager.getTestUsers();
 const defaultToken = userPropsUtilities.getTokenFromUserObject(testUser_0);
 const defaultCustomRequest = customRequestCreator(defaultToken);
-
 const makeCustomRequest = (routeObject) => () =>
   defaultCustomRequest.create().setRouteObject(routeObject);
 

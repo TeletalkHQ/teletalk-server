@@ -7,10 +7,12 @@ const { models } = require("@/models");
 
 const { requesters } = require("$/functions/helpers/requesters");
 
-const { testVariables } = require("$/variables/testVariables");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { countries } = require("@/variables/others/countries");
 
 const userModels = models.native.user;
+
+const users = testVariablesManager.getUsers();
 
 describe("edit contact success tests", () => {
   it("should add and edit testUser_1 on testUser_0 contact list", async () => {
@@ -27,38 +29,34 @@ describe("edit contact success tests", () => {
       },
     } = await requesters
       .addContact()
-      .sendFullFeaturedRequest(
-        testVariables.users.editContactSuccessful,
-        null,
-        {
-          token: requesters.editContact().getOptions().token,
-        }
-      );
+      .sendFullFeaturedRequest(users.editContactSuccessful, null, {
+        token: requesters.editContact().getOptions().token,
+      });
     const successTest = integrationHelpers.createSuccessTest();
 
     successTest
       .firstName({
-        clientValue: testVariables.users.editContactSuccessful.firstName,
+        clientValue: users.editContactSuccessful.firstName,
         responseValue: firstName,
       })
       .lastName({
-        clientValue: testVariables.users.editContactSuccessful.lastName,
+        clientValue: users.editContactSuccessful.lastName,
         responseValue: lastName,
       })
       .phoneNumber({
-        clientValue: testVariables.users.editContactSuccessful.phoneNumber,
+        clientValue: users.editContactSuccessful.phoneNumber,
         responseValue: phoneNumber,
       })
       .countryCode({
-        clientValue: testVariables.users.editContactSuccessful.countryCode,
+        clientValue: users.editContactSuccessful.countryCode,
         responseValue: countryCode,
       })
       .countryName({
-        clientValue: testVariables.users.editContactSuccessful.countryName,
+        clientValue: users.editContactSuccessful.countryName,
         responseValue: countryName,
       })
       .userId({
-        clientValue: testVariables.users.editContactSuccessful.userId,
+        clientValue: users.editContactSuccessful.userId,
         responseValue: userId,
       });
 
@@ -72,7 +70,7 @@ describe("edit contact success tests", () => {
         editedContact: { firstName: newFirstName, lastName: newLastName },
       },
     } = await requesters.editContact().sendFullFeaturedRequest({
-      ...testVariables.users.editContactSuccessful,
+      ...users.editContactSuccessful,
       ...editedFullName,
     });
 
@@ -97,8 +95,8 @@ describe("editContact failure tests", () => {
   integrationHelpers
     .createFailTest(requesters.editContact())
     .authentication()
-    .selfStuff(testVariables.users.selfStuff)
-    .contactItemNotExist(testVariables.users.editContactItemNotExist)
+    .selfStuff(users.selfStuff)
+    .contactItemNotExist(users.editContactItemNotExist)
     .cellphone(contact)
     .countryCode(contact)
     .countryName(contact)

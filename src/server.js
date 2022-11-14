@@ -19,9 +19,10 @@ const { ioFunctions } = require("@/socket/io");
 const server = https.createServer(app);
 
 //* PORT coming from heroku, so don't touch it!
-const { NODE_ENV } = envManager.getAllLocalEnvironments();
+const { NODE_ENV, PORT } = envManager.getAllLocalEnvironments();
 
-const EXACT_PORT = envManager.getEnvironment(`PORT_${NODE_ENV.toUpperCase()}`);
+const EXACT_PORT =
+  PORT || envManager.getEnvironment(`PORT_${NODE_ENV.toUpperCase()}`);
 
 const serverListenerCb = () => {
   logger.info(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);

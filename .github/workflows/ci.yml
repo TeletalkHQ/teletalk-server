@@ -46,4 +46,4 @@ jobs:
       - name: Generate build
         run: npm run build
       - name: Test built app
-        run: npm run test:production
+        run: npm run test:production:local

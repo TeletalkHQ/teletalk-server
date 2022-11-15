@@ -9,16 +9,17 @@ const { expect } = require("$/functions/utilities/testUtilities");
 const { crashServer } = require("@/functions/utilities/utilities");
 
 const getDevelopmentApp = () => require("@/app").app;
-const getProductionApp = () => require("~/build/index.js").app;
+const getProductionApp = () => require("~/build").app;
 
 const getServer = () => {
   const NODE_ENV = envManager.getNodeEnv();
   const {
-    NODE_ENV: { test_development, test_production },
+    NODE_ENV: { test_development, test_production, test_production_local },
   } = envManager.ENVIRONMENT_VALUES;
 
   if (NODE_ENV === test_development) return getDevelopmentApp();
-  if (NODE_ENV === test_production) return getProductionApp();
+  if ([test_production, test_production_local].includes(NODE_ENV))
+    return getProductionApp();
 
   const message = "No server found! check your environments...";
   crashServer(message);

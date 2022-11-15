@@ -19,6 +19,9 @@ class EnvironmentManager extends EnvironmentManagerMain {
       MONGO_URL_TEST_PRODUCTION: "MONGO_URL_TEST_PRODUCTION",
       NODE_ENV: "NODE_ENV",
       PORT: "PORT",
+      REDIS_CLOUD_HOST: "REDIS_CLOUD_HOST",
+      REDIS_CLOUD_PASSWORD: "REDIS_CLOUD_PASSWORD",
+      REDIS_CLOUD_PORT: "REDIS_CLOUD_PORT",
       REDIS_DEFAULT_PORT: "REDIS_DEFAULT_PORT",
       REDIS_PORT: "REDIS_PORT",
       SHOULD_IGNORE_INPUT_FIELD_WRONG_TYPE_ERROR:
@@ -40,10 +43,12 @@ class EnvironmentManager extends EnvironmentManagerMain {
         warning: "warning",
       },
       NODE_ENV: {
+        build: "build",
         development: "development",
         production: "production",
         test_development: "test_development",
         test_production: "test_production",
+        test_production_local: "test_production_local",
       },
     };
   }

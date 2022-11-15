@@ -1,8 +1,6 @@
 class AppOptions {
   #options = {
-    eventKeys: {
-      requirementsGetDone: "requirementsGetDone",
-    },
+    eventKeys: {},
     stateKeys: {
       temporaryClients: "temporaryClients",
     },

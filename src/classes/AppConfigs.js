@@ -1,13 +1,12 @@
 const { Trier } = require("utility-store/src/classes/Trier");
 
 const { envManager } = require("@/classes/EnvironmentManager");
-const { stateManager } = require("@/classes/StateManager");
 
 class AppConfigs {
   #configs = {
     db: {
-      MONGO_URL: this.getMongoUrl(),
-      MONGO_URL_WITH_COLLECTION_NAME: this.makeMongoUrlWithCollectionName(),
+      MONGO_URL: this.#getMongoUrl(),
+      MONGO_URL_WITH_COLLECTION_NAME: this.#makeMongoUrlWithCollectionName(),
     },
     sms: {
       shouldSendSms: this.isProduction(),
@@ -25,8 +24,6 @@ class AppConfigs {
   }
 
   async runConfigs() {
-    await stateManager.initializeStates();
-
     const { NODE_ENV, LOGGER_LEVEL } = envManager.getAllLocalEnvironments();
     logger.setLevel(LOGGER_LEVEL);
     const shouldNotPrintCatchErrors = NODE_ENV.includes("test");
@@ -35,12 +32,12 @@ class AppConfigs {
     }
   }
 
-  getMongoUrl() {
+  #getMongoUrl() {
     const NODE_ENV = envManager.getNodeEnv();
     const mongoUrlEnvName = `MONGO_URL_${NODE_ENV.toUpperCase()}`;
     return envManager.getEnvironment(mongoUrlEnvName);
   }
-  makeMongoUrlWithCollectionName() {
+  #makeMongoUrlWithCollectionName() {
     const {
       MONGO_COLLECTION_NAME,
       //? This is actually mongoDb tcp url from docker!
@@ -50,7 +47,7 @@ class AppConfigs {
     const CORRECTED_MONGO_URL_FROM_DOCKER =
       MONGO_PORT && MONGO_PORT.replace("tcp://", "mongodb://");
     return `${
-      CORRECTED_MONGO_URL_FROM_DOCKER || this.getMongoUrl()
+      CORRECTED_MONGO_URL_FROM_DOCKER || this.#getMongoUrl()
     }/${MONGO_COLLECTION_NAME}`;
   }
 

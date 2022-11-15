@@ -10,19 +10,20 @@
     "url": "https://github.com/S-STALWART-S/teletalk-server"
   },
   "scripts": {
-    "build": "esbuild ./src/server.js --platform=node --target=node16.0 --bundle --minify --outfile=build/index.js",
+    "build": "esbuild ./esbuildEntryPoint.js --platform=node --target=node16.0 --bundle --minify --outfile=build/index.js",
     "check:format": "prettier --write ./",
     "check:lint": "eslint ./",
     "check:security": "snyk test & snyk code test",
     "check:style": "npm run check:format && npm run check:lint",
     "git:prepare": "husky install",
-    "start:dev": "cross-env NODE_ENV=development nodemon --trace-warnings ./src/server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon --trace-warnings ./index.js",
     "start:production": "cross-env NODE_ENV=production node ./build/index.js",
-    "test-runner": "mocha ./test/test.js --recursive --exit",
+    "test-runner": "mocha ./index.js --delay --recursive --exit",
     "test:coverage": "cross-env COVERAGE=true nyc npm run test:dev",
     "test:dev": "cross-env NODE_ENV=test_development npm run test-runner",
     "test:dev:with-badge": "npm run test:dev -- -- --reporter mocha-badge-generator",
-    "test:production": "cross-env NODE_ENV=test_production npm run test-runner"
+    "test:production": "cross-env NODE_ENV=test_production npm run test-runner",
+    "test:production:local": "cross-env NODE_ENV=test_production_local npm run test-runner"
   },
   "dependencies": {
     "@sindresorhus/is": "^5.3.0",
@@ -65,7 +66,6 @@
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/express": "^4.17.14",
     "@types/fs-extra": "^9.0.13",
-    "@types/ioredis": "^5.0.0",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/module-alias": "^2.0.1",
     "@types/mongoose": "^5.11.97",

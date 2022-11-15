@@ -275,6 +275,7 @@ const saveNewMainToken = async (cellphone, newMainToken) => {
 const userServices = {
   addCellphoneToUserBlacklist,
   addContactToUserContacts,
+  //TODO: Move to test services
   addTestUser,
   createNewNormalUser,
   deleteBlacklistItem,

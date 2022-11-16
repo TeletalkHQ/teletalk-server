@@ -4,14 +4,10 @@ require("@/variables/others/customGlobals");
 require("@/functions/helpers/requireDotenv").requireDotenv();
 //! This order is important <==
 
-const {
-  mainServerRequirements,
-} = require("~/startupRequirements/mainServerRequirements");
-const {
-  testServerRequirements,
-} = require("~/startupRequirements/testServerRequirements");
+const { mainServer } = require("~/startupRequirements/mainServer");
+const { testServer } = require("~/startupRequirements/testServer");
 
 module.exports = {
-  mainServerRequirements,
-  testServerRequirements,
+  mainServer,
+  testServer,
 };

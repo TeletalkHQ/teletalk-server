@@ -16,7 +16,8 @@ const server = http.createServer(app);
 const { NODE_ENV, PORT } = envManager.getAllLocalEnvironments();
 
 const EXACT_PORT =
-  PORT || envManager.getEnvironment(`PORT_${NODE_ENV.toUpperCase()}`);
+  PORT ||
+  envManager.getEnvironment(envManager.ENVIRONMENT_KEYS.SERVER_DEFAULT_PORT);
 
 const socketServer = () => {
   ioFunctions.sio(server);

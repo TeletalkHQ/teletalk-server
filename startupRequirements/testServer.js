@@ -43,7 +43,7 @@ const tryToAddTestUser = async ({
   logger.info(`${testUserName} added!`);
 };
 
-const testServerRequirements = async () => {
+const testServer = async () => {
   const { countryName, countryCode } = countries.find((c) =>
     c.countryName.toLowerCase().includes("iran")
   );
@@ -64,4 +64,4 @@ const testServerRequirements = async () => {
   testVariablesManager.setTestUsers(testUsers);
 };
 
-module.exports = { testServerRequirements };
+module.exports = { testServer };

@@ -1,18 +1,15 @@
 //! Require this modules before requiring internal modules ==>
-const {
-  mainServerRequirements,
-  testServerRequirements,
-} = require("./startupRequirements");
+const startupRequirements = require("./startupRequirements");
 //! Require this modules before requiring internal modules <==
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const startApp = async () => {
-  await mainServerRequirements();
+  await startupRequirements.mainServer();
 
   const NODE_ENV = envManager.getNodeEnv();
   if (NODE_ENV.includes("test")) {
-    await testServerRequirements();
+    await startupRequirements.testServer();
     require("$/test");
     run();
     return;

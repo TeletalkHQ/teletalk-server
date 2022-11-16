@@ -33,9 +33,7 @@ class AppConfigs {
   }
 
   #getMongoUrl() {
-    const NODE_ENV = envManager.getNodeEnv();
-    const mongoUrlEnvName = `MONGO_URL_${NODE_ENV.toUpperCase()}`;
-    return envManager.getEnvironment(mongoUrlEnvName);
+    return envManager.getEnvironment(envManager.ENVIRONMENT_KEYS.MONGO_URL);
   }
   #makeMongoUrlWithCollectionName() {
     const {

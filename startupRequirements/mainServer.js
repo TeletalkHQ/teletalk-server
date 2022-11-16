@@ -6,7 +6,7 @@ const {
   redisConnector,
 } = require("~/src/database/connectors");
 
-const mainServerRequirements = async () => {
+const mainServer = async () => {
   await appConfigs.runConfigs();
 
   const redisClient = redisConnector();
@@ -16,4 +16,4 @@ const mainServerRequirements = async () => {
   mongodbConnector();
 };
 
-module.exports = { mainServerRequirements };
+module.exports = { mainServer };

@@ -57,7 +57,7 @@ npm run test:dev
 
 - JWT_MAIN_SECRET for jwt main secret
 - JWT_SIGN_IN_SECRET for verification secret
-- MONGO_URL_PRODUCTION for your mongoDB database address
+- MONGO_URL for your mongoDB database address
 
 3. Build production app:
 

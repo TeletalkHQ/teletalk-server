@@ -10,6 +10,8 @@ const { crashServer } = require("@/functions/utilities/utilities");
 
 const { ioFunctions } = require("@/socket/io");
 
+require("~/temp/playground");
+
 const server = http.createServer(app);
 
 //* PORT coming from heroku, so don't touch it!

@@ -41,7 +41,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"phoneNumber\": \"9119119191\",\n  \"countryCode\": \"98\",\n  \"countryName\": \"iran\"\n}",
+      "raw": "{\n  \"phoneNumber\": \"9012700470\",\n  \"countryCode\": \"98\",\n  \"countryName\": \"iran\"\n}",
       "form": []
     },
     "tests": []
@@ -69,12 +69,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-04-11T16:06:54.836Z",
-    "modified": "2022-11-17T06:22:42.847Z",
+    "modified": "2022-11-17T06:52:40.403Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"phoneNumber\": \"9119119191\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
+      "raw": "{\n  \"phoneNumber\": \"9019019191\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
       "form": []
     },
     "tests": []

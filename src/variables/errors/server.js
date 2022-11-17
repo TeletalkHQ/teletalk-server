@@ -12,6 +12,7 @@ const {
   EXTERNAL_APP_ERROR,
   INPUT_OUTPUT_FIELDS,
   INTERNAL_SERVER_ERROR,
+  CLIENT_SIDE_ERROR,
   UNKNOWN_ROUTE,
 } = errorKeys;
 
@@ -113,10 +114,10 @@ const REQUIRED_IO_FIELD_IS_NOT_ARRAY = errorBuilder
   .build();
 const INPUT_FIELD_TYPE_WRONG = errorBuilder
   .create()
-  .errorCode(5000)
-  .errorKey(INTERNAL_SERVER_ERROR)
+  .errorCode(4000)
+  .errorKey(CLIENT_SIDE_ERROR)
   .errorReason(errorUniqueIds.INPUT_FIELD_TYPE_WRONG)
-  .statusCode(500)
+  .statusCode(400)
   .version("1.0.0")
   .build();
 const OUTPUT_FIELD_TYPE_WRONG = errorBuilder

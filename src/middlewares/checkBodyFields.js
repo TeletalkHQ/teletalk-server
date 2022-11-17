@@ -1,10 +1,12 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { trier } = require("utility-store/src/classes/Trier");
+const {
+  ioFieldsChecker,
+} = require("utility-store/src/functions/ioFieldsChecker");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
-const { ioFieldsChecker } = require("@/functions/utilities/ioFieldsChecker");
 
 const { errors } = require("@/variables/errors");
 const { appConfigs } = require("@/classes/AppConfigs");
@@ -16,9 +18,11 @@ const tryToCheckBodyFields = (body, requiredFields) => {
   );
 
   const checkResult = ioFieldsChecker(body, requiredFields, {
+    ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
     missingFieldsError: errors.INPUT_FIELDS_MISSING,
     overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
-    ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
+    requiredFieldsNotDefinedError: errors.REQUIRED_FIELDS_NOT_DEFINED,
+    requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
   });
 
   const configs = appConfigs.getConfigs();

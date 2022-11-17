@@ -1,43 +1,47 @@
-const MelipayamakApi = require("melipayamak");
-
 const { envManager } = require("@/classes/EnvironmentManager");
+
+const axios = require("axios");
 
 const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 
 class SmsClient {
-  constructor() {
-    const { username, password } = this.getSmsClientProps();
+  #smsProviderToken = envManager.getEnvironment(
+    envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_TOKEN
+  );
+  #smsProviderSender = envManager.getEnvironment(
+    envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_SENDER
+  );
+  #smsProviderUrl = envManager.getEnvironment(
+    envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_URL
+  );
 
-    this.api = new MelipayamakApi(username, password);
-    this.sms = this.api.sms("rest", "async");
+  #options = {
+    url: `${this.#smsProviderUrl}/${this.#smsProviderToken}`,
+    method: "POST",
+    sendFrom: this.#smsProviderSender,
+  };
 
-    this.defaultOptions = {
-      sendFrom: "50004001700470",
-      to: "",
-      text: "",
-      isFlash: false,
-    };
-  }
-
-  async sendSms(sendTo, text, options = this.defaultOptions) {
-    const { sendFrom, isFlash } = {
-      ...this.defaultOptions,
+  async sendSms(sendTo, text, options = this.#options) {
+    const { sendFrom } = {
+      ...this.#options,
       ...options,
     };
 
-    const smsResult = await this.sms.send(sendTo, sendFrom, text, isFlash);
-
-    errorThrower(
-      smsResult.StrRetStatus !== "ok" && smsResult.RetStatus !== 1,
-      () => ({
-        ...errors.SEND_SMS_FAILED,
-        smsResult,
-      })
+    const smsResult = await axios.post(
+      this.#options.url,
+      {
+        from: sendFrom,
+        text,
+        to: sendTo,
+      },
+      {
+        method: this.#options.method,
+      }
     );
 
-    return { ok: true };
+    errorThrower(smsResult.status !== 200, errors.SEND_SMS_FAILED);
   }
 
   smsTemplates() {
@@ -47,16 +51,6 @@ class SmsClient {
         host
       ) => `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${host}        
         `,
-    };
-  }
-
-  getSmsClientProps() {
-    const { SMS_CLIENT_USERNAME, SMS_CLIENT_PASSWORD } =
-      envManager.ENVIRONMENT_KEYS;
-
-    return {
-      username: envManager.getEnvironment(SMS_CLIENT_USERNAME),
-      password: envManager.getEnvironment(SMS_CLIENT_PASSWORD),
     };
   }
 }

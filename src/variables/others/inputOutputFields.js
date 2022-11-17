@@ -31,6 +31,7 @@ const ioFieldTypes = {
   countries: types.array,
   countryShortName: types.string,
   editedContact: types.object,
+  language: types.string,
   macAddress: types.string,
   message: types.string,
   messageId: types.string,

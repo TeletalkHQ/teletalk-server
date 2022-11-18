@@ -11,7 +11,7 @@ RUN yarn
 
 COPY jsconfig.json ./
 
-COPY environments/production.env environments/
+COPY environments/ environments/
 
 COPY src/ src/
 COPY test/ test/

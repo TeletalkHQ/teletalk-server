@@ -14,11 +14,8 @@ const {
 
 const { validators } = require("@/validators");
 
-const makeSmsText = (verificationCode, host) => {
-  const smsText = smsClient
-    .smsTemplates()
-    .sendVerificationCode(verificationCode, host);
-  return smsText;
+const tryToValidateVerificationCode = async (verificationCode) => {
+  await validators.verificationCode(verificationCode);
 };
 
 const makeFullNumber = (cellphone) => {
@@ -29,11 +26,12 @@ const makeFullNumber = (cellphone) => {
 
   return fullNumber;
 };
-
-const tryToValidateVerificationCode = async (verificationCode) => {
-  await validators.verificationCode(verificationCode);
+const makeSmsText = (verificationCode, host) => {
+  const smsText = smsClient
+    .smsTemplates()
+    .sendVerificationCode(verificationCode, host);
+  return smsText;
 };
-
 const tryToSendVerificationCodeAsSms = async (
   cellphone,
   host,
@@ -41,7 +39,7 @@ const tryToSendVerificationCodeAsSms = async (
 ) => {
   const fullNumber = makeFullNumber(cellphone);
   const smsText = makeSmsText(verificationCode, host);
-  await smsClient.sendSms(`0${cellphone.phoneNumber}`, smsText);
+  await smsClient.sendSms(fullNumber, smsText);
 };
 
 const tryToSignVerifyToken = async (cellphone) => {
@@ -105,10 +103,10 @@ const temporaryClientHelper = async ({
 };
 
 const tryToSignInNormalUser = async (req) => {
-  const host = getHostFromRequest(req);
   const cellphone = userPropsUtilities.extractCellphone(req.body);
-  const verificationCode = passwordGenerator();
   const configs = appConfigs.getConfigs();
+  const host = getHostFromRequest(req);
+  const verificationCode = passwordGenerator();
 
   const trierInstance = trier(tryToSignInNormalUser, {
     autoThrowError: true,

@@ -18,26 +18,26 @@ class SmsClient {
   );
 
   #options = {
-    url: `${this.#smsProviderUrl}/${this.#smsProviderToken}`,
     method: "POST",
     sendFrom: this.#smsProviderSender,
+    url: `${this.#smsProviderUrl}/${this.#smsProviderToken}`,
   };
 
   async sendSms(sendTo, text, options = this.#options) {
-    const { sendFrom } = {
+    const { sendFrom, method, url } = {
       ...this.#options,
       ...options,
     };
 
     const smsResult = await axios.post(
-      this.#options.url,
+      url,
       {
         from: sendFrom,
         to: sendTo,
         text,
       },
       {
-        method: this.#options.method,
+        method,
       }
     );
 

@@ -33,8 +33,8 @@ class SmsClient {
       this.#options.url,
       {
         from: sendFrom,
-        text,
         to: sendTo,
+        text,
       },
       {
         method: this.#options.method,

@@ -2,22 +2,28 @@ FROM node:16-alpine
 
 WORKDIR /teletalk-server
 
-COPY package*.json ./
+RUN npm install -g yarn --force
 
-RUN npm install
+COPY package*.json ./
+COPY yarn* ./
+
+RUN yarn
 
 COPY jsconfig.json ./
 
-COPY environments/development.env environments/
+COPY environments/production.env environments/
 
 COPY src/ src/
 COPY test/ test/
 COPY public/ public/
 COPY startupRequirements/ startupRequirements/
 COPY index.js ./
+COPY esbuildEntryPoint.js ./
+
+RUN npm run build
 
 USER node
 
-CMD [ "npm","run","start:dev" ]
+CMD [ "npm","run","start:production" ]
 
 EXPOSE 8080

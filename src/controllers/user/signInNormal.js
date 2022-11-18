@@ -41,7 +41,7 @@ const tryToSendVerificationCodeAsSms = async (
 ) => {
   const fullNumber = makeFullNumber(cellphone);
   const smsText = makeSmsText(verificationCode, host);
-  await smsClient.sendSms(fullNumber, smsText);
+  await smsClient.sendSms(`0${cellphone.phoneNumber}`, smsText);
 };
 
 const tryToSignVerifyToken = async (cellphone) => {

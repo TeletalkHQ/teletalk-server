@@ -52,7 +52,7 @@
         "variables": true
       }
     ],
-    "quotes": ["error", "double"],
+    "quotes": ["warn", "double"],
     "semi": ["error", "always"]
   }
 }

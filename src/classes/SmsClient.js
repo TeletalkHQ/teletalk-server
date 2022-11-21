@@ -21,10 +21,13 @@ class SmsClient {
   async sendVerificationCode(sendTo, host, verificationCode) {
     const text = this.templates().verificationCode(verificationCode, host);
     const providerIndex = envManager.getEnvironment(
-      envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_INDEX
+      envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_SELECTOR
     );
 
     const providers = [
+      () => {
+        //TODO: log something and say index is wrong
+      },
       this.#verificationCodeProvider1,
       this.#verificationCodeProvider2,
     ];

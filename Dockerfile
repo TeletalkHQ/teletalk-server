@@ -4,7 +4,7 @@ WORKDIR /teletalk-server
 
 RUN npm install -g yarn --force
 
-COPY package*.json ./
+COPY package.json ./
 COPY yarn* ./
 
 RUN yarn

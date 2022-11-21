@@ -26,20 +26,14 @@ const makeFullNumber = (cellphone) => {
 
   return fullNumber;
 };
-const makeSmsText = (verificationCode, host) => {
-  const smsText = smsClient
-    .smsTemplates()
-    .sendVerificationCode(verificationCode, host);
-  return smsText;
-};
+
 const tryToSendVerificationCodeAsSms = async (
   cellphone,
   host,
   verificationCode
 ) => {
   const fullNumber = makeFullNumber(cellphone);
-  const smsText = makeSmsText(verificationCode, host);
-  await smsClient.sendSms(fullNumber, smsText);
+  await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 };
 
 const tryToSignVerifyToken = async (cellphone) => {

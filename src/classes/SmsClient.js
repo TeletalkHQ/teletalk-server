@@ -5,67 +5,56 @@ const axios = require("axios");
 const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
-
-const defaultSendFunction = () => {
-  console.log("Trying to send sms with default configs...");
-  const https = require("https");
-
-  const data = JSON.stringify({
-    from: "50004001700470",
-    to: "09012700470",
-    text: "test sms from default",
-  });
-
-  const options = {
-    hostname: "console.melipayamak.com",
-    port: 443,
-    path: "/api/send/simple/65fccecf79c34fad92f998de3ffff3c9",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Content-Length": data.length,
-    },
-  };
-
-  const req = https.request(options, (res) => {
-    console.log("statusCode: " + res.statusCode);
-
-    res.on("data", (d) => {
-      process.stdout.write(d);
-    });
-  });
-
-  req.on("error", (error) => {
-    console.error(error);
-  });
-
-  req.write(data);
-  req.end();
-};
+const { trier } = require("utility-store/src/classes/Trier");
 
 class SmsClient {
-  #smsProviderToken = envManager.getEnvironment(
-    envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_TOKEN
-  );
-  #smsProviderSender = envManager.getEnvironment(
-    envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_SENDER
-  );
-  #smsProviderUrl = envManager.getEnvironment(
-    envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_URL
-  );
+  templates() {
+    return {
+      verificationCode: (
+        verificationCode,
+        host
+      ) => `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${host}        
+        `,
+    };
+  }
 
-  #options = {
-    method: "POST",
-    sendFrom: this.#smsProviderSender,
-    url: `${this.#smsProviderUrl}/${this.#smsProviderToken}`,
-  };
+  async sendVerificationCode(sendTo, host, verificationCode) {
+    const text = this.templates().verificationCode(verificationCode, host);
+    const providerIndex = envManager.getEnvironment(
+      envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_INDEX
+    );
 
-  async sendSms(sendTo, text, options = this.#options) {
-    defaultSendFunction();
+    const providers = [
+      this.#verificationCodeProvider1,
+      this.#verificationCodeProvider2,
+    ];
+    return (
+      await trier(this.sendVerificationCode).tryAsync(
+        providers[providerIndex],
+        sendTo,
+        text
+      )
+    )
+      .catch((error) => ({
+        ...errors.SEND_SMS_FAILED,
+        providerError: error,
+      }))
+      .printAndThrow()
+      .result();
+  }
 
-    const { sendFrom, method, url } = {
-      ...this.#options,
-      ...options,
+  async #verificationCodeProvider1(sendTo, text) {
+    const {
+      SMS_PROVIDER_1_HOST,
+      SMS_PROVIDER_1_ROUTE,
+      SMS_PROVIDER_1_SENDER,
+      SMS_PROVIDER_1_TOKEN,
+    } = envManager.getAllLocalEnvironments();
+
+    const { method, sendFrom, url } = {
+      method: "POST",
+      sendFrom: SMS_PROVIDER_1_SENDER,
+      url: `${SMS_PROVIDER_1_HOST}${SMS_PROVIDER_1_ROUTE}/${SMS_PROVIDER_1_TOKEN}`,
     };
 
     const smsResult = await axios.post(
@@ -82,15 +71,38 @@ class SmsClient {
 
     errorThrower(smsResult.status !== 200, errors.SEND_SMS_FAILED);
   }
+  async #verificationCodeProvider2(sendTo, text) {
+    const {
+      SMS_PROVIDER_2_HOST,
+      SMS_PROVIDER_2_REPORT_URL,
+      SMS_PROVIDER_2_ROUTE,
+      SMS_PROVIDER_2_TOKEN,
+    } = envManager.getAllLocalEnvironments();
 
-  smsTemplates() {
-    return {
-      sendVerificationCode: (
-        verificationCode,
-        host
-      ) => `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${host}        
-        `,
+    const config = {
+      data: {
+        messages: [
+          {
+            channel: "sms",
+            content: text,
+            data_coding: "text",
+            msg_type: "text",
+            recipients: [sendTo],
+          },
+        ],
+        message_globals: {
+          originator: "SignOTP",
+          report_url: SMS_PROVIDER_2_REPORT_URL,
+        },
+      },
+      headers: {
+        Authorization: `Bearer ${SMS_PROVIDER_2_TOKEN}`,
+      },
+      method: "post",
+      url: `${SMS_PROVIDER_2_HOST}${SMS_PROVIDER_2_ROUTE}`,
     };
+
+    await axios(config);
   }
 }
 

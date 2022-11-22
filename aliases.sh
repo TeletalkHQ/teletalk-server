@@ -8,15 +8,17 @@ alias docb="docker build . -t stalwart95/teletalk-server"
 alias docr="docker run -it -u 0 -p 8080:8080 stalwart95/teletalk-server"
 
 #? Railway aliases
-alias rwu="railway up"
 alias rwl="railway logs"
+alias rwu="railway up"
 
 #? npm aliases
+alias nrb="npm run build"
+alias nrsd="npm run start:dev"
+alias nrsp="nrb&&npm run start:production"
+alias nrspl="nrb&&npm run start:production:local"
 alias nrtd="npm run test:dev"
 alias nrtp="nrb&&npm run test:production"
-alias nrb="npm run build"
-alias nrsp="nrb&&npm run start:production"
-alias nrsd="npm run start:dev"
+alias nrtpl="nrb&&npm run test:production:local"
 
 #? yarn aliases
 alias ya="yarn add"

@@ -13,7 +13,7 @@ class SmsClient {
       verificationCode: (
         verificationCode,
         host
-      ) => `Hi! this sms is from teletalk! Your verify code is: ${verificationCode} \n\n ${host}        
+      ) => `Hi! this sms is from teletalk! Your verification code is: ${verificationCode} \n\n ${host}        
         `,
     };
   }

@@ -1,12 +1,12 @@
 CURRENT_DIR=$(pwd)
-COMMAND="\nsource $CURRENT_DIR/aliases.sh"
+COMMAND="source $CURRENT_DIR/aliases.sh"
 
 loader() {
   if [ -f "$1" ]; then
     if grep -q $COMMAND $1; then
       echo "aliases already loaded!"
     else
-      echo $COMMAND >>$1
+      echo "\n$COMMAND" >>$1
       echo "aliases loaded successfully"
       zsh
     fi

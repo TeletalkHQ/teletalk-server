@@ -2,23 +2,25 @@ CURRENT_DIR=$(pwd)
 COMMAND="source $CURRENT_DIR/aliases.sh"
 
 loader() {
-  if [ -f "$1" ]; then
-    if grep -q $COMMAND $1; then
+  RC_PATH="$HOME/.$1rc"
+
+  if [ -f "$RC_PATH" ]; then
+    if grep -q -x $COMMAND $RC_PATH; then
       echo "aliases already loaded!"
     else
-      echo "\n$COMMAND" >>$1
+      echo "$COMMAND" >>$RC_PATH
       echo "aliases loaded successfully"
-      zsh
+      exec $1
     fi
   fi
 }
 
 #* if running bash
 if [ -n "$BASH_VERSION" ]; then
-  loader "$HOME/.bashrc"
+  loader "bash"
 fi
 
 #* if running zsh
 if [ -n "$ZSH_VERSION" ]; then
-  loader "$HOME/.zshrc"
+  loader "zsh"
 fi

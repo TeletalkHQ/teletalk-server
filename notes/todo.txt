@@ -32,5 +32,5 @@ BUG: After signIn, verifyToken get validated without verifySignIn
 Update all tests engaged with db to store data
 Monitor test requests (total requests, count each url)
 Monitor all configs when tests start. Give it a good look!
-Logout need asap tests!
+Logging out requires immediate tests!
 Remove test stuff from main app!

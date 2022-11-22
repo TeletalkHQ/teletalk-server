@@ -1,3 +1,5 @@
+const supertest = require("supertest");
+
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
@@ -25,7 +27,8 @@ const getServer = () => {
   crashServer(message);
 };
 
-const supertest = require("supertest")(getServer());
+const app = getServer();
+const requester = supertest(app);
 
 class CustomRequest {
   constructor(token) {
@@ -202,7 +205,7 @@ class CustomRequest {
   async sendRequest() {
     const { method, fullUrl } = this.routeObject;
 
-    const response = await supertest[method](fullUrl)
+    const response = await requester[method](fullUrl)
       .send(this.requestData)
       .set("Content-Type", "application/json")
       .set(...this.authorizationHeader);

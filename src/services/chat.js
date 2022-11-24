@@ -41,7 +41,7 @@ const getChatsLastMessages = async (currentUser) => {
 const getPrivateChat = async (
   currentUser,
   chatId,
-  projections = { "messages._id": 0 },
+  projections = { "messages._id": 0, _id: 0, __v: 0, "participants._id": 0 },
   options = { lean: true }
 ) => {
   const chatExist = currentUser.chatInfo.find((chat) => chat.chatId === chatId);
@@ -53,9 +53,6 @@ const getPrivateChat = async (
 
   return chat;
 };
-
-const getPrivateChatMessages = async (currentUser, chatId) =>
-  (await getPrivateChat(currentUser, chatId)).messages;
 
 const sendPrivateMessage = async (currentUser, participantId, message) => {
   const targetUser = await commonServices.userFinder(
@@ -104,7 +101,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
 
 const chatServices = {
   getChatsLastMessages,
-  getPrivateChatMessages,
+  getPrivateChat,
   sendPrivateMessage,
 };
 

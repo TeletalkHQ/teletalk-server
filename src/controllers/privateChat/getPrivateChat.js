@@ -6,34 +6,28 @@ const { services } = require("@/services");
 
 const { validators } = require("@/validators");
 
-const tryToGetMessages = async (currentUser, chatId) => {
+const tryToGetPrivateChatMessages = async (currentUser, chatId) => {
   await validators.chatId(chatId);
-  const privateChatMessages = await services.getPrivateChatMessages(
-    currentUser,
-    chatId
-  );
-  return privateChatMessages;
+  const privateChat = await services.getPrivateChat(currentUser, chatId);
+  return privateChat;
 };
 
-const responseToGetMessages = (privateChatMessages, res) => {
+const responseToGetMessages = (privateChat, res) => {
   commonFunctionalities.controllerSuccessResponse(res, {
-    messages: privateChatMessages,
+    privateChat,
   });
 };
 
 const catchGetMessages = commonFunctionalities.controllerCatchResponse;
 
-const getPrivateChatMessages = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const getPrivateChat = async (req = expressRequest, res = expressResponse) => {
   const {
     body: { chatId },
     currentUser,
   } = req;
   (
-    await trier(getPrivateChatMessages.name).tryAsync(
-      tryToGetMessages,
+    await trier(getPrivateChat.name).tryAsync(
+      tryToGetPrivateChatMessages,
       currentUser,
       chatId
     )
@@ -42,4 +36,4 @@ const getPrivateChatMessages = async (
     .catch(catchGetMessages, res);
 };
 
-module.exports = { getPrivateChatMessages };
+module.exports = { getPrivateChat };

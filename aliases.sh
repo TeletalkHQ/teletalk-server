@@ -1,7 +1,10 @@
-#! LINUX|MAC USERS ONLY!
+#! LINUX|MAC USERS ONLY. I haven't tested it on Mac, so use with caution
+
 #* To use these aliases, you need to manually load this file with "source ./aliases.sh"
 #* or run aliasLoader.sh to add it to your current shell configurations,
 #* so the aliases can Automatically loaded when opening the shell.
+
+#* How to run aliasLoader.sh? E.g. bash ./aliasLoader.sh
 
 #? Docker aliases
 alias docb="docker build . -t stalwart95/teletalk-server"

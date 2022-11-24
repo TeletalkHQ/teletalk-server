@@ -18,6 +18,11 @@ const tryToCheckDataAndResponse = ({
   outputFields,
   requiredFieldsIndex,
 }) => {
+  console.log("outputFields:::");
+  console.dir(outputFields);
+  console.log("data:::");
+  console.dir(data);
+
   const checkResult = ioFieldsChecker(data, outputFields, {
     ioDataFieldTypeWrongError: errors.OUTPUT_FIELD_TYPE_WRONG,
     missingFieldsError: errors.OUTPUT_FIELDS_MISSING,
@@ -27,6 +32,7 @@ const tryToCheckDataAndResponse = ({
     requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
   });
 
+  //TODO: If there is no valid error object, throw UNKNOWN_ERROR
   errorThrower(checkResult.ok === false, checkResult.errorObject);
 
   return { data };

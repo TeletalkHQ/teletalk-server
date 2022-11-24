@@ -1,9 +1,9 @@
 const types = {
+  array: "array",
   boolean: "boolean",
   number: "number",
-  string: "string",
-  array: "array",
   object: "object",
+  string: "string",
 };
 
 const userDataDefaultIoFields = {
@@ -41,6 +41,8 @@ const ioFieldTypes = {
   newUser: types.boolean,
   ok: types.boolean,
   participantId: types.string,
+  participants: types.array,
+  privateChat: types.object,
   removedBlockedCellphone: types.object,
   removedContact: types.object,
   senderId: types.string,

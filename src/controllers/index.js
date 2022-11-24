@@ -8,14 +8,14 @@ const { removeContact } = require("@/controllers/cellphone/removeContact");
 const { getCountries } = require("@/controllers/other/getCountries");
 const { getWelcomeMessage } = require("@/controllers/other/getWelcomeMessage");
 
-const {
-  getPrivateChatMessages,
-} = require("@/controllers/privateChat/getPrivateChatMessages");
+const { getPrivateChat } = require("@/controllers/privateChat/getPrivateChat");
 const {
   sendPrivateMessage,
 } = require("@/controllers/privateChat/sendPrivateMessage");
 
-const { getAllUsers } = require("@/controllers/test/getAllUsers");
+const {
+  getChatsLastMessage,
+} = require("@/controllers/privateChat/getChatsLastMessage");
 
 const { checkUserStatus } = require("@/controllers/user/checkUserStatus");
 const { createNewUser } = require("@/controllers/user/createNewUser");
@@ -26,15 +26,15 @@ const { signInNormal } = require("@/controllers/user/signInNormal");
 const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
 const { verifySignInNormal } = require("@/controllers/user/verifySignInNormal");
 
+//TODO: Add to user controllers
+const { getAllUsers } = require("@/controllers/test/getAllUsers");
+
 const { getAllStuff } = require("@/controllers/versionControl/getAllStuff");
-const {
-  chatsLastMessage,
-} = require("@/controllers/privateChat/chatsLastMessage");
 
 const controllers = {
   addBlock,
   addContact,
-  chatsLastMessage,
+  getChatsLastMessage,
   checkUserStatus,
   createNewUser,
   editContact,
@@ -43,7 +43,7 @@ const controllers = {
   getChatInfo,
   getContacts,
   getCountries,
-  getPrivateChatMessages,
+  getPrivateChat,
   getUserData,
   getWelcomeMessage,
   logoutNormal,

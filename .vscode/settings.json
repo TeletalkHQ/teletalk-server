@@ -47,7 +47,10 @@
     "docker-compose.yml": true,
     "Dockerfile": true,
     "aliasLoader.sh": true,
-    "aliases.sh": true
+    "aliases.sh": true,
+    ".trachcan": true,
+    "startupRequirements": true,
+    "temp": true
   },
   "explorerExclude.backup": {},
   "cSpell.words": [],

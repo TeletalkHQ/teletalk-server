@@ -19,14 +19,14 @@ const responseToGetChatsLastMessage = (chatsWithLastMessages, res) => {
 
 const catchGetChatsLastMessage = commonFunctionalities.controllerCatchResponse;
 
-const chatsLastMessage = async (
+const getChatsLastMessage = async (
   req = expressRequest,
   res = expressResponse
 ) => {
   const { currentUser } = req;
 
   (
-    await trier(chatsLastMessage.name).tryAsync(
+    await trier(getChatsLastMessage.name).tryAsync(
       tryToGetChatsLastMessage,
       currentUser
     )
@@ -35,4 +35,4 @@ const chatsLastMessage = async (
     .catch(catchGetChatsLastMessage, res);
 };
 
-module.exports = { chatsLastMessage };
+module.exports = { getChatsLastMessage };

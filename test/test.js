@@ -18,4 +18,4 @@ require("$/integration/cellphoneRouter/removeContact.spec");
 require("$/integration/cellphoneRouter/addBlock.spec");
 require("$/integration/cellphoneRouter/removeBlock.spec");
 require("$/integration/privateChatRouter/sendPrivateMessage.spec");
-require("$/integration/privateChatRouter/getPrivateChatMessages.spec");
+require("$/integration/privateChatRouter/getPrivateChat.spec");

@@ -26,7 +26,7 @@ class TestVariablesManager {
       contactItemExist: this.testUsers.testUser_2,
       editContactItemNotExist: this.testUsers.testUser_4,
       editContactSuccessful: this.testUsers.testUser_3,
-      getPrivateChatMessages: this.testUsers.testUser_10,
+      getPrivateChat: this.testUsers.testUser_10,
       removeBlockSuccessful: this.testUsers.testUser_8,
       removeContactSuccessful: this.testUsers.testUser_5,
       selfStuff: this.testUsers.testUser_0,

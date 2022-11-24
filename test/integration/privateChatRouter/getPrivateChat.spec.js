@@ -16,7 +16,7 @@ describe("get messages success tests", () => {
     for (const _ of Array.from({ length: 10 })) {
       await requesters.sendPrivateMessage().sendFullFeaturedRequest({
         message,
-        participantId: users.getPrivateChatMessages.userId,
+        participantId: users.getPrivateChat.userId,
       });
     }
 
@@ -28,8 +28,10 @@ describe("get messages success tests", () => {
     const chat = chatInfo.at(-1);
 
     const {
-      body: { messages },
-    } = await requesters.getPrivateChatMessages().sendFullFeaturedRequest({
+      body: {
+        privateChat: { messages },
+      },
+    } = await requesters.getPrivateChat().sendFullFeaturedRequest({
       chatId: chat.chatId,
     });
 
@@ -47,7 +49,7 @@ describe("get messages success tests", () => {
 
 describe("getMessagesApi failure tests", () => {
   integrationHelpers
-    .createFailTest(requesters.getPrivateChatMessages())
+    .createFailTest(requesters.getPrivateChat())
     .authentication()
     .chatId();
 });

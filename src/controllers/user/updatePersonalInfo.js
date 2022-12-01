@@ -19,7 +19,7 @@ const responseToUpdatePersonalInfo = (_, res, firstName, lastName) => {
   });
 };
 
-const catchUpdatePersonalInfo = commonFunctionalities.controllerCatchResponse;
+const catchUpdatePersonalInfo = commonFunctionalities.controllerErrorResponse;
 
 const updatePersonalInfoController = async (
   req = expressRequest,

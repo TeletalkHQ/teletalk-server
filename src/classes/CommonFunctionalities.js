@@ -8,7 +8,7 @@ class CommonFunctionalities {
     return randomMaker.randomString(finalLength);
   }
 
-  controllerCatchResponse(error, res) {
+  controllerErrorResponse(error, res) {
     res.errorCollector(error);
     res.errorResponser();
   }

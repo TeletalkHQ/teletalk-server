@@ -9,7 +9,7 @@ const tryToValidateVerificationCode = async (verificationCode) => {
 };
 
 const catchValidateVerificationCode =
-  commonFunctionalities.controllerCatchResponse;
+  commonFunctionalities.controllerErrorResponse;
 
 const verificationCodeValidatorMiddleware = async (req, res, next) => {
   const { verificationCode } = req.body;

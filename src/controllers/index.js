@@ -17,10 +17,11 @@ const {
   getChatsLastMessage,
 } = require("@/controllers/privateChat/getChatsLastMessage");
 
-const { checkUserStatus } = require("@/controllers/user/checkUserStatus");
+const { getUserData } = require("@/controllers/user/getUserData");
 const { createNewUser } = require("@/controllers/user/createNewUser");
 const { getChatInfo } = require("@/controllers/user/getChatInfo");
-const { getUserData } = require("@/controllers/user/getUserData");
+const { getPublicUserInfo } = require("@/controllers/user/getPublicUserInfo");
+const { getTargetUserData } = require("@/controllers/user/getTargetUserData");
 const { logoutNormal } = require("@/controllers/user/logoutNormal");
 const { signInNormal } = require("@/controllers/user/signInNormal");
 const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
@@ -34,17 +35,18 @@ const { getAllStuff } = require("@/controllers/versionControl/getAllStuff");
 const controllers = {
   addBlock,
   addContact,
-  getChatsLastMessage,
-  checkUserStatus,
+  getUserData,
   createNewUser,
   editContact,
   getAllStuff,
   getAllUsers,
   getChatInfo,
+  getChatsLastMessage,
   getContacts,
   getCountries,
   getPrivateChat,
-  getUserData,
+  getPublicUserInfo,
+  getTargetUserData,
   getWelcomeMessage,
   logoutNormal,
   removeBlock,

@@ -2815,10 +2815,10 @@ csso@^4.2.0:
   dependencies:
     css-tree "^1.1.2"
 
-custom-typeof@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/custom-typeof/-/custom-typeof-1.1.0.tgz"
-  integrity sha512-0JEATI/mVwleexNRgs/PFu1AYSm9mAUC+9Ej83nnlZGw9uxpX17ZHGvwHbpUEIznMAF1HAilim+kC7LeQOdzlA==
+custom-typeof@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/custom-typeof/-/custom-typeof-1.2.0.tgz"
+  integrity sha512-JHmOBAFNL2g6MivqWPIEzttAU+EWAZm8h8ITabuDD+r4gph10RtsxD1m7B/o9DrJhUQ7+rJJUZ/nlrCmxc+dZQ==
 
 d@^1.0.1, d@1:
   version "1.0.1"
@@ -7149,12 +7149,12 @@ utila@~0.4:
   resolved "https://registry.npmjs.org/utila/-/utila-0.4.0.tgz"
   integrity sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==
 
-utility-store@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.npmjs.org/utility-store/-/utility-store-3.6.0.tgz"
-  integrity sha512-QT+YLeBmpVNyeIabF76hZKvOP2KeE5JaP3Qu3FqeSm7gzkVXxRdB3ZbL3Lia2C6hthU3whpZb6IaNIUCpf0MJw==
+utility-store@^3.15.0:
+  version "3.15.0"
+  resolved "https://registry.npmjs.org/utility-store/-/utility-store-3.15.0.tgz"
+  integrity sha512-WSov+vnqMb5ZLPB7GTQIbFEUrlnG8zaptu4oCsrmVlXUkM6ZuIDxSkGffcn0a4mowUh9jhjUPs8atHeBMERURA==
   dependencies:
-    custom-typeof "^1.1.0"
+    custom-typeof "^1.2.0"
     logger-browser "^1.1.0"
     logger-chalker "^1.1.0"
     nanoid "^3.3.4"

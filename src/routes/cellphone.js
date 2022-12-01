@@ -1,4 +1,3 @@
-const { ioFieldMaker } = require("@/classes/IoFieldMaker");
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const {
@@ -7,8 +6,7 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const { baseUrls } = require("@/routes/baseUrls");
-
-const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
+const { fields } = require("@/routes/fields");
 
 const cellphoneRouteBuilder = routeBuilder(baseUrls.cellphone);
 
@@ -19,33 +17,10 @@ const addBlock = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for block single contact on user contacts list")
-  .inputFields([
-    {
-      countryCode: ioFieldMaker.create().type(ioFieldTypes.countryCode).build(),
-      countryName: ioFieldMaker.create().type(ioFieldTypes.countryName).build(),
-      phoneNumber: ioFieldMaker.create().type(ioFieldTypes.phoneNumber).build(),
-    },
-  ])
+  .inputFields(fields.collection.cellphone)
   .outputFields([
     {
-      blockedCellphone: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.blockedCellphone)
-        .value({
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-        })
-        .build(),
+      blockedCellphone: fields.statics.object(fields.collection.cellphone),
     },
   ])
   .build();
@@ -57,8 +32,6 @@ const addBlocks = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for block single contact on user contacts list")
-  .inputFields([{}])
-  .outputFields([{}])
   .build();
 
 const addContact = cellphoneRouteBuilder
@@ -68,38 +41,10 @@ const addContact = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for add single contact to current user contacts list")
-  .inputFields([
-    {
-      countryCode: ioFieldMaker.create().type(ioFieldTypes.countryCode).build(),
-      countryName: ioFieldMaker.create().type(ioFieldTypes.countryName).build(),
-      firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-      lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-      phoneNumber: ioFieldMaker.create().type(ioFieldTypes.phoneNumber).build(),
-    },
-  ])
+  .inputFields(fields.collection.contactWithoutUserId)
   .outputFields([
     {
-      addedContact: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.addedContact)
-        .value({
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
-        })
-        .build(),
+      addedContact: fields.statics.object(fields.collection.contact),
     },
   ])
   .build();
@@ -111,8 +56,6 @@ const addContacts = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for add single contact to current user contacts list")
-  .inputFields([{}])
-  .outputFields([{}])
   .build();
 
 const editContact = cellphoneRouteBuilder
@@ -122,37 +65,12 @@ const editContact = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("User for edit single contact on user contacts list")
-  .inputFields([
-    {
-      countryCode: ioFieldMaker.create().type(ioFieldTypes.countryCode).build(),
-      countryName: ioFieldMaker.create().type(ioFieldTypes.countryName).build(),
-      firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-      lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-      phoneNumber: ioFieldMaker.create().type(ioFieldTypes.phoneNumber).build(),
-    },
-  ])
+  .inputFields(fields.collection.contactWithoutUserId)
   .outputFields([
     {
-      editedContact: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.editedContact)
-        .value({
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-        })
-        .build(),
+      editedContact: fields.statics.object(
+        fields.collection.contactWithoutUserId
+      ),
     },
   ])
   .build();
@@ -164,35 +82,9 @@ const getContacts = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("User for edit single contact on user contacts list")
-  .inputFields([{}])
   .outputFields([
     {
-      contacts: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.contacts)
-        .value([
-          {
-            countryCode: ioFieldMaker
-              .create()
-              .type(ioFieldTypes.countryCode)
-              .build(),
-            countryName: ioFieldMaker
-              .create()
-              .type(ioFieldTypes.countryName)
-              .build(),
-            firstName: ioFieldMaker
-              .create()
-              .type(ioFieldTypes.firstName)
-              .build(),
-            lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-            phoneNumber: ioFieldMaker
-              .create()
-              .type(ioFieldTypes.phoneNumber)
-              .build(),
-            userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
-          },
-        ])
-        .build(),
+      contacts: fields.statics.object(fields.collection.contact),
     },
   ])
   .build();
@@ -204,33 +96,12 @@ const removeBlock = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
-  .inputFields([
-    {
-      countryCode: ioFieldMaker.create().type(ioFieldTypes.countryCode).build(),
-      countryName: ioFieldMaker.create().type(ioFieldTypes.countryName).build(),
-      phoneNumber: ioFieldMaker.create().type(ioFieldTypes.phoneNumber).build(),
-    },
-  ])
+  .inputFields(fields.collection.cellphone)
   .outputFields([
     {
-      removedBlockedCellphone: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.removedBlockedCellphone)
-        .value({
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-        })
-        .build(),
+      removedBlockedCellphone: fields.statics.object(
+        fields.collection.cellphone
+      ),
     },
   ])
   .build();
@@ -242,8 +113,6 @@ const removeBlocks = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
-  .inputFields([{}])
-  .outputFields([{}])
   .build();
 
 const removeContact = cellphoneRouteBuilder
@@ -253,33 +122,10 @@ const removeContact = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
-  .inputFields([
-    {
-      countryCode: ioFieldMaker.create().type(ioFieldTypes.countryCode).build(),
-      countryName: ioFieldMaker.create().type(ioFieldTypes.countryName).build(),
-      phoneNumber: ioFieldMaker.create().type(ioFieldTypes.phoneNumber).build(),
-    },
-  ])
+  .inputFields(fields.collection.cellphone)
   .outputFields([
     {
-      removedContact: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.removedContact)
-        .value({
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-        })
-        .build(),
+      removedContact: fields.statics.object(fields.collection.cellphone),
     },
   ])
   .build();
@@ -291,8 +137,6 @@ const removeContacts = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for remove single contact on user contacts list")
-  .inputFields([{}])
-  .outputFields([{}])
   .build();
 
 const shareContact = cellphoneRouteBuilder
@@ -302,8 +146,6 @@ const shareContact = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for share single contact on user contacts list")
-  .inputFields([{}])
-  .outputFields([{}])
   .build();
 
 const shareContacts = cellphoneRouteBuilder
@@ -313,8 +155,6 @@ const shareContacts = cellphoneRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for share single contact on user contacts list")
-  .inputFields([{}])
-  .outputFields([{}])
   .build();
 
 const routes = {

@@ -11,13 +11,13 @@ const { errorThrower } = require("@/functions/utilities/utilities");
 const { errors } = require("@/variables/errors");
 const { appConfigs } = require("@/classes/AppConfigs");
 
-const tryToCheckBodyFields = (body, requiredFields) => {
+const tryToCheckBodyFields = (body, inputFields) => {
   errorThrower(
     customTypeof.isUndefined(body),
     errors.REQUEST_BODY_IS_UNDEFINED
   );
 
-  const checkResult = ioFieldsChecker(body, requiredFields, {
+  const checkResult = ioFieldsChecker(body, inputFields, {
     ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
     missingFieldsError: errors.INPUT_FIELDS_MISSING,
     overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
@@ -38,7 +38,7 @@ const tryToCheckBodyFields = (body, requiredFields) => {
 
   errorThrower(checkResult.ok === false, () => ({
     ...checkResult.errorObject,
-    requiredFields,
+    inputFields,
     inputData: body,
   }));
 
@@ -50,7 +50,7 @@ const executeIfNoError = (_, next) => {
 };
 
 const catchCheckBodyFields = (error, res) => {
-  commonFunctionalities.controllerCatchResponse(error, res);
+  commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

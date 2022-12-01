@@ -12,7 +12,7 @@ const responseToLogoutNormal = (data, res) => {
   commonFunctionalities.controllerSuccessResponse(res, data);
 };
 
-const catchLogoutNormal = commonFunctionalities.controllerCatchResponse;
+const catchLogoutNormal = commonFunctionalities.controllerErrorResponse;
 
 const logoutNormal = async (req = expressRequest, res = expressResponse) => {
   const { currentUser } = req;

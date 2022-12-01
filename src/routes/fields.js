@@ -1,0 +1,165 @@
+const { ioFieldMaker } = require("utility-store/src/classes/IoFieldMaker");
+
+const FIELD_TYPE = {
+  ARRAY: "array",
+  BOOLEAN: "boolean",
+  NUMBER: "number",
+  OBJECT: "object",
+  STRING: "string",
+};
+
+const statics = {
+  array: (value) =>
+    ioFieldMaker.create().type(FIELD_TYPE.ARRAY).value([value]).build(),
+  boolean: ioFieldMaker.create().type(FIELD_TYPE.BOOLEAN).build(),
+  number: ioFieldMaker.create().type(FIELD_TYPE.NUMBER).build(),
+  object: (value) =>
+    ioFieldMaker.create().type(FIELD_TYPE.OBJECT).value(value).build(),
+  string: ioFieldMaker.create().type(FIELD_TYPE.STRING).build(),
+};
+
+const bio = statics.string;
+const chatId = statics.string;
+const countryCode = statics.string;
+const countryName = statics.string;
+const countryShortName = statics.string;
+const description = statics.string;
+const errorCode = statics.string;
+const errorReason = statics.string;
+const firstName = statics.string;
+const language = statics.string;
+const lastName = statics.string;
+const message = statics.string;
+const messageId = statics.string;
+const newUser = statics.boolean;
+const ok = statics.boolean;
+const participantId = statics.string;
+const phoneNumber = statics.string;
+const senderId = statics.string;
+const status = statics.string;
+const token = statics.string;
+const userId = statics.string;
+const username = statics.string;
+const verificationCode = statics.string;
+const welcomeMessage = statics.string;
+
+const country = {
+  countryCode,
+  countryName,
+  countryShortName,
+};
+
+const cellphone = {
+  countryCode,
+  countryName,
+  phoneNumber,
+};
+
+const contact = {
+  countryCode,
+  countryName,
+  firstName,
+  lastName,
+  phoneNumber,
+  userId,
+};
+
+const fullName = {
+  firstName,
+  lastName,
+};
+
+const { userId: _userId, ...contactWithoutUserId } = contact;
+
+const chatInfoItem = {
+  chatId,
+};
+
+const messageSender = statics.object({
+  senderId,
+});
+
+const messageItem = {
+  message,
+  messageId,
+  messageSender,
+};
+
+const participantItem = {
+  participantId,
+};
+
+const blacklist = statics.array(contact);
+const chatInfo = statics.array(chatInfoItem);
+const contacts = statics.array(contact);
+const countries = statics.array(country);
+const messages = statics.array(messageItem);
+const participants = statics.array(participantItem);
+
+const user = {
+  bio: bio,
+  blacklist: blacklist,
+  chatInfo: chatInfo,
+  contacts: contacts,
+  countryCode: countryCode,
+  countryName: countryName,
+  firstName: firstName,
+  lastName: lastName,
+  phoneNumber: phoneNumber,
+  userId: userId,
+  username: username,
+  mainToken: token,
+};
+
+const single = {
+  bio,
+  chatId,
+  countryCode,
+  countryName,
+  countryShortName,
+  description,
+  errorCode,
+  errorReason,
+  firstName,
+  language,
+  lastName,
+  message,
+  messageId,
+  newUser,
+  ok,
+  participantId,
+  phoneNumber,
+  senderId,
+  status,
+  token,
+  userId,
+  username,
+  verificationCode,
+  welcomeMessage,
+};
+
+const collection = {
+  blacklist,
+  cellphone,
+  chatInfo,
+  chatInfoItem,
+  contact,
+  contacts,
+  contactWithoutUserId,
+  countries,
+  country,
+  fullName,
+  messageItem,
+  messages,
+  messageSender,
+  participants,
+  user,
+};
+
+const fields = {
+  collection,
+  single,
+  statics,
+};
+
+module.exports = { fields, FIELD_TYPE };

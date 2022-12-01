@@ -15,3 +15,5 @@ const startApp = async () => {
 };
 
 startApp();
+
+//TODO: Use app here (add all tests need)

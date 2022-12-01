@@ -11,7 +11,7 @@ const responseToGetAllUsers = (users, res) => {
   commonFunctionalities.controllerSuccessResponse(res, { users });
 };
 
-const catchGetAllUsers = commonFunctionalities.controllerCatchResponse;
+const catchGetAllUsers = commonFunctionalities.controllerErrorResponse;
 
 const getAllUsersController = async (
   _ = expressRequest,

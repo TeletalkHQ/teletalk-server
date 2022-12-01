@@ -16,7 +16,7 @@ const responseToAddBlockCellphone = (blockedCellphone, res) => {
   });
 };
 
-const catchAddToBlockCellphone = commonFunctionalities.controllerCatchResponse;
+const catchAddToBlockCellphone = commonFunctionalities.controllerErrorResponse;
 
 const addBlock = async (req = expressRequest, res = expressResponse) => {
   const { body, currentUser } = req;

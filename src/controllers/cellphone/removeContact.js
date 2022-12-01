@@ -15,7 +15,7 @@ const responseToRemoveContact = (_, res, cellphone) => {
   });
 };
 
-const catchRemoveContact = commonFunctionalities.controllerCatchResponse;
+const catchRemoveContact = commonFunctionalities.controllerErrorResponse;
 
 const removeContact = async (req = expressRequest, res = expressResponse) => {
   const { currentUser, body } = req;

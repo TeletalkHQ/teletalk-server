@@ -22,9 +22,9 @@ userRouter.use(
   )
 );
 
-userRouter[routes.user.checkUserStatus.method](
-  routes.user.checkUserStatus.url,
-  controllers.checkUserStatus
+userRouter[routes.user.getUserData.method](
+  routes.user.getUserData.url,
+  controllers.getUserData
 );
 
 userRouter[routes.user.createNewUser.method](
@@ -37,9 +37,14 @@ userRouter[routes.user.getChatInfo.method](
   controllers.getChatInfo
 );
 
-userRouter[routes.user.getUserData.method](
-  routes.user.getUserData.url,
-  controllers.getUserData
+userRouter[routes.user.getTargetUserData.method](
+  routes.user.getTargetUserData.url,
+  controllers.getTargetUserData
+);
+
+userRouter[routes.user.getPublicUserInfo.method](
+  routes.user.getPublicUserInfo.url,
+  controllers.getPublicUserInfo
 );
 
 userRouter[routes.user.logoutNormal.method](

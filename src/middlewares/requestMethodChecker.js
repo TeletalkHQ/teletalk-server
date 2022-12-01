@@ -33,7 +33,7 @@ const executeIfNoError = (_, next) => {
 };
 
 const catchCheckRequestMethod = (error, res) => {
-  commonFunctionalities.controllerCatchResponse(error, res);
+  commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

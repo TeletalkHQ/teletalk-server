@@ -1,4 +1,3 @@
-const { ioFieldMaker } = require("@/classes/IoFieldMaker");
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const {
@@ -7,8 +6,7 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const { baseUrls } = require("@/routes/baseUrls");
-
-const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
+const { fields } = require("@/routes/fields");
 
 const privateChatRouteBuilder = routeBuilder(baseUrls.privateChat);
 
@@ -19,8 +17,6 @@ const getChatsLastMessage = privateChatRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for Get chats last message")
-  .inputFields([{}])
-  .outputFields([{}])
   .build();
 
 const getPrivateChat = privateChatRouteBuilder
@@ -30,56 +26,14 @@ const getPrivateChat = privateChatRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for get all messages")
-  .inputFields([
-    { chatId: ioFieldMaker.create().type(ioFieldTypes.chatId).build() },
-  ])
+  .inputFields({ chatId: fields.single.chatId })
   .outputFields([
     {
-      privateChat: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.privateChat)
-        .value({
-          chatId: ioFieldMaker.create().type(ioFieldTypes.chatId).build(),
-          messages: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.messages)
-            .value([
-              {
-                message: ioFieldMaker
-                  .create()
-                  .type(ioFieldTypes.message)
-                  .build(),
-                messageId: ioFieldMaker
-                  .create()
-                  .type(ioFieldTypes.messageId)
-                  .build(),
-                messageSender: ioFieldMaker
-                  .create()
-                  .type(ioFieldTypes.messageSender)
-                  .value({
-                    senderId: ioFieldMaker
-                      .create()
-                      .type(ioFieldTypes.senderId)
-                      .build(),
-                  })
-                  .build(),
-              },
-            ])
-            .build(),
-          participants: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.participants)
-            .value([
-              {
-                participantId: ioFieldMaker
-                  .create()
-                  .type(ioFieldTypes.participantId)
-                  .build(),
-              },
-            ])
-            .build(),
-        })
-        .build(),
+      privateChat: fields.statics.object({
+        chatId: fields.single.chatId,
+        messages: fields.collection.messages,
+        participants: fields.collection.participants,
+      }),
     },
   ])
   .build();
@@ -91,19 +45,14 @@ const sendPrivateMessage = privateChatRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for send private messages")
-  .inputFields([
-    {
-      message: ioFieldMaker.create().type(ioFieldTypes.message).build(),
-      participantId: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.participantId)
-        .build(),
-    },
-  ])
+  .inputFields({
+    message: fields.single.message,
+    participantId: fields.single.participantId,
+  })
   .outputFields([
     {
-      chatId: ioFieldMaker.create().type(ioFieldTypes.chatId).build(),
-      newMessage: ioFieldMaker.create().type(ioFieldTypes.newMessage).build(),
+      chatId: fields.single.chatId,
+      newMessage: fields.statics.object(fields.collection.messageItem),
     },
   ])
   .build();

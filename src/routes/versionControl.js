@@ -1,5 +1,4 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
-const { ioFieldMaker } = require("@/classes/IoFieldMaker");
 
 const {
   extractVersions,
@@ -8,7 +7,7 @@ const {
 
 const { baseUrls } = require("@/routes/baseUrls");
 
-const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
+const { fields } = require("@/routes/fields");
 
 const versionControlRouteBuilder = routeBuilder(baseUrls.versionControl);
 
@@ -21,12 +20,9 @@ const getAllStuffs = versionControlRouteBuilder
   .description(
     "Use for get all routes, models, validation models, errors and more"
   )
-  .inputFields([
-    {
-      language: ioFieldMaker.create().type(ioFieldTypes.language).build(),
-    },
-  ])
-  .outputFields([{}])
+  .inputFields({
+    language: fields.single.language,
+  })
   .build();
 
 const routes = {

@@ -25,7 +25,7 @@ const tryToVerifyVerificationCode = (
 };
 
 const catchVerifyVerificationCode =
-  commonFunctionalities.controllerCatchResponse;
+  commonFunctionalities.controllerErrorResponse;
 
 const verifyVerificationCodeMultiTry = async (
   sentVerificationCode,

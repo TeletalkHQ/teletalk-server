@@ -6,24 +6,17 @@ const {
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const {
-  crashServerWithCondition,
-  errorThrower,
-} = require("@/functions/utilities/utilities");
+const { crashServerWithCondition } = require("@/functions/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 
 const tryToCheckDataAndResponse = ({
   data,
   outputFields,
-  requiredFieldsIndex,
+  requiredFieldsIndex = 0,
 }) => {
-  console.log("outputFields:::");
-  console.dir(outputFields);
-  console.log("data:::");
-  console.dir(data);
-
-  const checkResult = ioFieldsChecker(data, outputFields, {
+  const selectedOutputFields = outputFields[requiredFieldsIndex];
+  const checkResult = ioFieldsChecker(data, selectedOutputFields, {
     ioDataFieldTypeWrongError: errors.OUTPUT_FIELD_TYPE_WRONG,
     missingFieldsError: errors.OUTPUT_FIELDS_MISSING,
     overloadFieldsError: errors.OUTPUT_FIELDS_OVERLOAD,
@@ -33,7 +26,17 @@ const tryToCheckDataAndResponse = ({
   });
 
   //TODO: If there is no valid error object, throw UNKNOWN_ERROR
-  errorThrower(checkResult.ok === false, checkResult.errorObject);
+  if (checkResult.ok === false) {
+    if (!checkResult.errorObject || !checkResult.errorObject.reason) {
+      const error = {
+        ...errors.UNKNOWN_ERROR,
+        checkResult,
+      };
+      throw error;
+    }
+
+    throw checkResult.errorObject;
+  }
 
   return { data };
 };
@@ -43,7 +46,7 @@ const executeIfNoError = ({ data }, res) => {
 };
 
 const catchCheckDataAndResponse = (error, res) => {
-  commonFunctionalities.controllerCatchResponse(error, res);
+  commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

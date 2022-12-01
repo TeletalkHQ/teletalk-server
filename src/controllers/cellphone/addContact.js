@@ -22,7 +22,7 @@ const responseToAddContact = (targetUser, res, contact) => {
   });
 };
 
-const catchAddContact = commonFunctionalities.controllerCatchResponse;
+const catchAddContact = commonFunctionalities.controllerErrorResponse;
 
 const addContact = async (req = expressRequest, res = expressResponse) => {
   const { body, currentUser } = req;

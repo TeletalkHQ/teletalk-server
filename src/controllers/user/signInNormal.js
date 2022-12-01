@@ -149,7 +149,7 @@ const responseToSignInNormalUser = (user, res) => {
   commonFunctionalities.controllerSuccessResponse(res, { user });
 };
 
-const catchSignInNormalUser = commonFunctionalities.controllerCatchResponse;
+const catchSignInNormalUser = commonFunctionalities.controllerErrorResponse;
 
 const signInNormal = async (req = expressRequest, res = expressResponse) => {
   (await trier(signInNormal.name).tryAsync(tryToSignInNormalUser, req))

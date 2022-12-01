@@ -19,7 +19,7 @@ const responseToGetAllStuff = (data, res) => {
   res.sendJsonResponse(data);
 };
 
-const catchGetAllStuff = commonFunctionalities.controllerCatchResponse;
+const catchGetAllStuff = commonFunctionalities.controllerErrorResponse;
 
 const getAllStuff = async (req = expressRequest, res = expressResponse) => {
   const { language = "en" } = req.body;

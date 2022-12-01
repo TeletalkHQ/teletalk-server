@@ -14,7 +14,7 @@ const tryToValidateRouteObject = (routeObject) => {
   errorThrower(isRouteObjectInvalid(routeObject), errors.ROUTE_NOT_FOUND);
 };
 
-const catchValidateRouteObject = commonFunctionalities.controllerCatchResponse;
+const catchValidateRouteObject = commonFunctionalities.controllerErrorResponse;
 
 //TODO: Add some tests
 const notFound = (req, res, next) => {

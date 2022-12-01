@@ -49,7 +49,15 @@ const fixUserData = async (isUserExist, userData, tokens) => {
 const tryToSignInNormalUser = async (tokenPayload) => {
   const cellphone = userPropsUtilities.extractCellphone(tokenPayload);
 
-  const foundUser = (await services.userFinder(cellphone)) || {};
+  const foundUser =
+    (await services.userFinder(
+      cellphone,
+      { lean: true },
+      {
+        "chatInfo._id": 0,
+        "contacts._id": 0,
+      }
+    )) || {};
   const { tokens, ...userData } = userPropsUtilities.extractUserData(foundUser);
 
   const isUserExist = !!userData.userId;
@@ -74,7 +82,7 @@ const responseToSignInNormalUser = (
   );
 };
 
-const catchSignInNormalUser = commonFunctionalities.controllerCatchResponse;
+const catchSignInNormalUser = commonFunctionalities.controllerErrorResponse;
 
 const verifySignInNormal = async (
   req = expressRequest,

@@ -1,6 +1,3 @@
-const {
-  objectUtilities,
-} = require("utility-store/src/classes/ObjectUtilities");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { trier } = require("utility-store/src/classes/Trier");
 
@@ -60,20 +57,9 @@ const tryToSignMainToken = async (cellphone, userId) => {
   return mainToken;
 };
 
-const fixUserDataForDb = ({
-  cellphone,
-  firstName,
-  lastName,
-  mainToken,
-  userId,
-}) => {
-  const defaultUserData = userPropsUtilities.defaultUserData();
+const fixUserDataForDb = ({ mainToken, ...rest }) => {
   const allUserData = {
-    ...defaultUserData,
-    ...cellphone,
-    firstName,
-    lastName,
-    userId,
+    ...rest,
     tokens: [{ mainToken }],
   };
 
@@ -88,7 +74,7 @@ const responseToCreateNewUser = (user, res) => {
   commonFunctionalities.controllerSuccessResponse(res, { user });
 };
 
-const catchCreateNewUser = commonFunctionalities.controllerCatchResponse;
+const catchCreateNewUser = commonFunctionalities.controllerErrorResponse;
 
 const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
   const trierInstance = trier(createNewUserTrier.name, {
@@ -110,17 +96,8 @@ const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
     await trierInstance.tryAsync(tryToSignMainToken, cellphone, userId)
   ).result();
 
-  const userDataForDatabase = fixUserDataForDb({
-    cellphone,
-    firstName,
-    lastName,
-    mainToken,
-    userId,
-  });
-
-  await trierInstance.tryAsync(tryToCreateNewUser, userDataForDatabase);
-
-  const userDataForSendToClient = {
+  const defaultUserData = {
+    ...userPropsUtilities.defaultUserData(),
     ...cellphone,
     firstName,
     lastName,
@@ -128,7 +105,11 @@ const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
     userId,
   };
 
-  return userDataForSendToClient;
+  const userDataForDatabase = fixUserDataForDb(defaultUserData);
+
+  await trierInstance.tryAsync(tryToCreateNewUser, userDataForDatabase);
+
+  return defaultUserData;
 };
 
 const createNewUser = async (req = expressRequest, res = expressResponse) => {

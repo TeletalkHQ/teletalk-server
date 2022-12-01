@@ -4,9 +4,9 @@ class RouteBuilder {
     this.routeObject = {
       description: "Default route description",
       fullUrl: "/404",
-      inputFields: [{}],
+      inputFields: {},
       method: "GET",
-      optionalFields: [{}],
+      optionalFields: [],
       outputFields: [{}],
       statusCode: 404,
       url: "/404",
@@ -17,14 +17,9 @@ class RouteBuilder {
   #addProperty(key, value) {
     this.routeObject[key] = value;
   }
-  #reset() {
-    this.routeObject = {};
-  }
 
   build() {
-    const routeObject = this.routeObject;
-    this.#reset();
-    return routeObject;
+    return this.routeObject;
   }
 
   method(method) {

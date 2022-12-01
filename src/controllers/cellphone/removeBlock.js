@@ -15,7 +15,7 @@ const responseToRemoveBlock = (_, res, targetUserData) => {
   });
 };
 
-const catchRemoveBlock = commonFunctionalities.controllerCatchResponse;
+const catchRemoveBlock = commonFunctionalities.controllerErrorResponse;
 
 const removeBlock = async (req = expressRequest, res = expressResponse) => {
   const { currentUser, body } = req;

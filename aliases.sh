@@ -9,13 +9,16 @@
 #? Docker aliases
 alias docb="docker build . -t stalwart95/teletalk-server"
 alias docr="docker run -it -u 0 -p 8080:8080 stalwart95/teletalk-server"
-
+alias doccu="docker compose up --build"
 #? Railway aliases
 alias rwl="railway logs"
 alias rwu="railway up"
 
 #? npm aliases
 alias nrb="npm run build"
+alias nrcf="npm run check:format"
+alias nrcl="npm run check:lint"
+alias nrcs="npm run check:style"
 alias nrsd="npm run start:dev"
 alias nrsp="nrb&&npm run start:production"
 alias nrspl="nrb&&npm run start:production:local"

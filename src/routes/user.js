@@ -1,4 +1,3 @@
-const { ioFieldMaker } = require("@/classes/IoFieldMaker");
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const {
@@ -7,8 +6,7 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const { baseUrls } = require("@/routes/baseUrls");
-
-const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
+const { fields } = require("@/routes/fields");
 
 const userRouteBuilder = routeBuilder(baseUrls.user);
 
@@ -19,37 +17,11 @@ const createNewUser = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for create new user for normal account")
-  .inputFields([
-    {
-      firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-      lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-    },
-  ])
+  .inputFields(fields.collection.fullName)
+  //FIXME: Add chatInfo (its empty)
   .outputFields([
     {
-      //FIXME: Add chatInfo (its empty)
-      user: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.user)
-        .value({
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-          mainToken: ioFieldMaker.create().type(ioFieldTypes.mainToken).build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
-        })
-        .build(),
+      user: fields.statics.object(fields.collection.user),
     },
   ])
   .build();
@@ -61,8 +33,7 @@ const logoutNormal = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for logout client as a normal account")
-  .inputFields([{}])
-  .outputFields([{ ok: ioFieldMaker.create().type(ioFieldTypes.ok).build() }])
+  .outputFields([{ ok: fields.single.ok }])
   .build();
 
 const signInNormal = userRouteBuilder
@@ -72,82 +43,13 @@ const signInNormal = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for sign in client as a normal account")
-  .inputFields([
-    {
-      countryCode: ioFieldMaker.create().type(ioFieldTypes.countryCode).build(),
-      countryName: ioFieldMaker.create().type(ioFieldTypes.countryName).build(),
-      phoneNumber: ioFieldMaker.create().type(ioFieldTypes.phoneNumber).build(),
-    },
-  ])
+  .inputFields(fields.collection.cellphone)
   .outputFields([
     {
-      user: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.user)
-        .value({
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-          verifyToken: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.verifyToken)
-            .build(),
-        })
-        .build(),
-    },
-  ])
-  .build();
-
-const checkUserStatus = userRouteBuilder
-  .create()
-  .method("get")
-  .url("/normalUser/checkUserStatus")
-  .statusCode(200)
-  .version("1.0.0")
-  .description("Use for check client availability as a normal account")
-  .inputFields([{}])
-  .outputFields([
-    {
-      user: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.user)
-        .value({
-          bio: ioFieldMaker.create().type(ioFieldTypes.bio).build(),
-          blacklist: ioFieldMaker.create().type(ioFieldTypes.blacklist).build(),
-          chatInfo: ioFieldMaker.create().type(ioFieldTypes.chatInfo).build(),
-          contacts: ioFieldMaker.create().type(ioFieldTypes.contacts).build(),
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-          mainToken: ioFieldMaker.create().type(ioFieldTypes.mainToken).build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
-          username: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.username)
-
-            .build(),
-        })
-        .build(),
+      user: fields.statics.object({
+        ...fields.collection.cellphone,
+        verifyToken: fields.single.token,
+      }),
     },
   ])
   .build();
@@ -158,41 +60,45 @@ const getUserData = userRouteBuilder
   .url("/normalUser/getUserData")
   .statusCode(200)
   .version("1.0.0")
-  .description("Use for get user data")
-  .inputFields([{}])
+  .description("Use for check client availability as a normal account")
   .outputFields([
     {
-      user: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.user)
-        .value({
-          bio: ioFieldMaker.create().type(ioFieldTypes.bio).build(),
-          blacklist: ioFieldMaker.create().type(ioFieldTypes.blacklist).build(),
-          chatInfo: ioFieldMaker.create().type(ioFieldTypes.chatInfo).build(),
-          contacts: ioFieldMaker.create().type(ioFieldTypes.contacts).build(),
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-          mainToken: ioFieldMaker.create().type(ioFieldTypes.mainToken).build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
-          username: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.username)
+      user: fields.statics.object(fields.collection.user),
+    },
+  ])
+  .build();
 
-            .build(),
-        })
-        .build(),
+const getTargetUserData = userRouteBuilder
+  .create()
+  .method("post")
+  .url("/normalUser/getTargetUserData")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for get user data")
+  .outputFields([
+    {
+      user: fields.statics.object(fields.collection.user),
+    },
+  ])
+  .build();
+const getPublicUserInfo = userRouteBuilder
+  .create()
+  .method("post")
+  .url("/normalUser/getPublicUserInfo")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for get user data")
+  .inputFields({
+    userId: fields.single.userId,
+  })
+  .outputFields([
+    {
+      publicUserInfo: fields.statics.object({
+        ...fields.collection.fullName,
+        bio: fields.single.bio,
+        userId: fields.single.userId,
+        username: fields.single.username,
+      }),
     },
   ])
   .build();
@@ -204,18 +110,9 @@ const updatePersonalInfo = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for user update personal info")
-  .inputFields([
-    {
-      firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-      lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-    },
-  ])
-  .outputFields([
-    {
-      firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-      lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-    },
-  ])
+  .inputFields(fields.collection.fullName)
+  //TODO: Add bio, username, cellphone etc...
+  .outputFields([fields.collection.fullName])
   .build();
 
 const verifySignInNormal = userRouteBuilder
@@ -225,53 +122,20 @@ const verifySignInNormal = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for verify sign in (normal account) as normal account")
-  .inputFields([
-    {
-      verificationCode: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.verificationCode)
-        .build(),
-    },
-  ])
+  .inputFields({
+    verificationCode: fields.single.verificationCode,
+  })
   .outputFields([
     {
-      user: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.user)
-        .value({
-          bio: ioFieldMaker.create().type(ioFieldTypes.bio).build(),
-          blacklist: ioFieldMaker.create().type(ioFieldTypes.blacklist).build(),
-          chatInfo: ioFieldMaker.create().type(ioFieldTypes.chatInfo).build(),
-          contacts: ioFieldMaker.create().type(ioFieldTypes.contacts).build(),
-          countryCode: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryCode)
-            .build(),
-          countryName: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.countryName)
-            .build(),
-          firstName: ioFieldMaker.create().type(ioFieldTypes.firstName).build(),
-          lastName: ioFieldMaker.create().type(ioFieldTypes.lastName).build(),
-          mainToken: ioFieldMaker.create().type(ioFieldTypes.mainToken).build(),
-          newUser: ioFieldMaker.create().type(ioFieldTypes.newUser).build(),
-          phoneNumber: ioFieldMaker
-            .create()
-            .type(ioFieldTypes.phoneNumber)
-            .build(),
-          userId: ioFieldMaker.create().type(ioFieldTypes.userId).build(),
-          username: ioFieldMaker.create().type(ioFieldTypes.username).build(),
-        })
-        .build(),
+      user: fields.statics.object({
+        ...fields.collection.user,
+        newUser: fields.single.newUser,
+      }),
     },
     {
-      user: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.user)
-        .value({
-          newUser: ioFieldMaker.create().type(ioFieldTypes.newUser).build(),
-        })
-        .build(),
+      user: fields.statics.object({
+        newUser: fields.single.newUser,
+      }),
     },
   ])
   .build();
@@ -283,25 +147,19 @@ const getChatInfo = userRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use for get user chat ids")
-  .inputFields([{}])
   .outputFields([
     {
-      chatInfo: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.chatInfo)
-        .value([
-          { chatId: ioFieldMaker.create().type(ioFieldTypes.chatId).build() },
-        ])
-        .build(),
+      chatInfo: fields.statics.array({ chatId: fields.single.chatId }),
     },
   ])
   .build();
 
 const routes = {
-  checkUserStatus,
+  getUserData,
   createNewUser,
   getChatInfo,
-  getUserData,
+  getPublicUserInfo,
+  getTargetUserData,
   logoutNormal,
   signInNormal,
   updatePersonalInfo,

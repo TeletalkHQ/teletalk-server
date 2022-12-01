@@ -20,7 +20,7 @@ const executeIfNoError = (_, next) => {
 };
 
 const catchValidateContact = (error, res) => {
-  commonFunctionalities.controllerCatchResponse(error, res);
+  commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

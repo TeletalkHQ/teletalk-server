@@ -12,7 +12,7 @@ const responseToGetWelcomeMessage = (message, res) => {
   commonFunctionalities.controllerSuccessResponse(res, message);
 };
 
-const catchGetWelcomeMessage = commonFunctionalities.controllerCatchResponse;
+const catchGetWelcomeMessage = commonFunctionalities.controllerErrorResponse;
 
 const getWelcomeMessage = async (_ = expressRequest, res = expressResponse) => {
   (await trier(getWelcomeMessage).tryAsync(tryToGetWelcomeMessage))

@@ -17,7 +17,7 @@ const responseToGetChatsLastMessage = (chatsWithLastMessages, res) => {
   });
 };
 
-const catchGetChatsLastMessage = commonFunctionalities.controllerCatchResponse;
+const catchGetChatsLastMessage = commonFunctionalities.controllerErrorResponse;
 
 const getChatsLastMessage = async (
   req = expressRequest,

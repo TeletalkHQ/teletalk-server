@@ -15,7 +15,7 @@ const responseToGetAllChats = (chatInfo, res) => {
   });
 };
 
-const catchGetAllChats = commonFunctionalities.controllerCatchResponse;
+const catchGetAllChats = commonFunctionalities.controllerErrorResponse;
 
 const getChatInfo = async (req = expressRequest, res = expressResponse) => {
   const { currentUser } = req;

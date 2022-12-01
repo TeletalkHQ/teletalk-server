@@ -18,7 +18,7 @@ const assignValidationResultToRequest = ({ validationResult }, req, next) => {
 };
 
 const catchValidateToken = (error, res) => {
-  commonFunctionalities.controllerCatchResponse(error, res);
+  commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

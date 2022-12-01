@@ -15,7 +15,7 @@ const responseToGetContacts = (contacts, res) => {
   });
 };
 
-const catchGetContacts = commonFunctionalities.controllerCatchResponse;
+const catchGetContacts = commonFunctionalities.controllerErrorResponse;
 
 const getContacts = async (req = expressRequest, res = expressResponse) => {
   const { currentUser } = req;

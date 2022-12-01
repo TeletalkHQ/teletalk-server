@@ -15,7 +15,7 @@ const responseToEditContact = (_, res, targetCellphone, editedValues) => {
   });
 };
 
-const catchEditContact = commonFunctionalities.controllerCatchResponse;
+const catchEditContact = commonFunctionalities.controllerErrorResponse;
 
 const editContact = async (req = expressRequest, res = expressResponse) => {
   const {

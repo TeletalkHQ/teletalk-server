@@ -26,7 +26,7 @@ const responseToSendMessage = (responseData, res) => {
   commonFunctionalities.controllerSuccessResponse(res, responseData);
 };
 
-const catchSendMessage = commonFunctionalities.controllerCatchResponse;
+const catchSendMessage = commonFunctionalities.controllerErrorResponse;
 
 const sendPrivateMessage = async (
   req = expressRequest,

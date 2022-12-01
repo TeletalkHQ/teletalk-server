@@ -18,7 +18,7 @@ const responseToGetMessages = (privateChat, res) => {
   });
 };
 
-const catchGetMessages = commonFunctionalities.controllerCatchResponse;
+const catchGetMessages = commonFunctionalities.controllerErrorResponse;
 
 const getPrivateChat = async (req = expressRequest, res = expressResponse) => {
   const {

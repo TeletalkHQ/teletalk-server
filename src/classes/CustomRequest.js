@@ -36,11 +36,10 @@ class CustomRequest {
     this.data = {};
     this.options = {
       filterDataCondition: true,
-      requiredFieldIndex: 0,
-      selectedRequiredFields: {},
       token,
+      inputFields: {},
     };
-    this.mergedOptions = { ...this.options };
+    this.temporaryOptions = { ...this.options };
     this.requestData = undefined;
     this.errorObject = undefined;
     this.authorizationHeader = ["Authorization", null];
@@ -105,7 +104,7 @@ class CustomRequest {
 
   mergeOptions(newOptions = this.getOptions) {
     const options = this.getOptions();
-    this.mergedOptions = {
+    this.temporaryOptions = {
       ...options,
       ...newOptions,
     };
@@ -126,10 +125,13 @@ class CustomRequest {
       .info();
     return this;
   }
-  logMergedOptions() {
+  logOptions() {
     logger
-      .bgRed("mergedOptions: ", logger.colors.black)
-      .info(this.mergedOptions);
+      .bgRed("temporary options: ", logger.colors.black)
+      .info({
+        ...this.temporaryOptions,
+        inputFields: this.routeObject.inputFields,
+      });
     return this;
   }
   logRequestData() {
@@ -151,31 +153,32 @@ class CustomRequest {
 
     return this;
   }
-  setSelectedRequiredFields() {
-    const selectedRequiredFields = this.getSelectedRequiredFields();
-    this.setOptions({ selectedRequiredFields });
-    return this;
-  }
-  async sendFullFeaturedRequest(data, errorObject, options = this.options) {
-    (
-      await this.mergeOptions(options)
-        .logStartTestRequest()
-        .logRouteSpecs()
-        .setSelectedRequiredFields()
-        .logMergedOptions()
-        .setRequestData(data)
-        .filterRequestData()
-        .logRequestData()
-        .setErrorObject(errorObject)
-        .makeAuthorizationHeader()
-        .sendRequest()
-    )
-      .setResponseStatusCode()
-      .checkStatusCode()
-      .checkError()
-      .logEndRequest();
 
-    return this.response;
+  async sendFullFeaturedRequest(data, errorObject, options = this.options) {
+    //TODO: Update with trier
+    try {
+      (
+        await this.mergeOptions(options)
+          .logStartTestRequest()
+          .logRouteSpecs()
+          .logOptions()
+          .setRequestData(data)
+          .filterRequestData()
+          .logRequestData()
+          .setErrorObject(errorObject)
+          .makeAuthorizationHeader()
+          .sendRequest()
+      )
+        .setResponseStatusCode()
+        .checkStatusCode()
+        .checkError()
+        .logEndRequest();
+
+      return this.response;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
   getToken() {
@@ -215,7 +218,7 @@ class CustomRequest {
   }
 
   makeAuthorizationHeader() {
-    const { token } = this.mergedOptions;
+    const { token } = this.temporaryOptions;
     this.authorizationHeader = [
       "Authorization",
       //TODO: Add test for Bearer missing
@@ -225,14 +228,9 @@ class CustomRequest {
     return this;
   }
 
-  getSelectedRequiredFields() {
-    const { requiredFieldIndex } = this.mergedOptions;
-    return this.routeObject.inputFields[requiredFieldIndex];
-  }
   filterRequestData() {
-    const { selectedRequiredFields } = this.getOptions();
     const convertRequiredFieldForFiltering = objectUtilities
-      .objectEntries(selectedRequiredFields)
+      .objectEntries(this.routeObject.inputFields)
       .reduce((previousValue, currentValue) => {
         const [requiredFieldKey, requiredFieldProperties] = currentValue;
         previousValue[requiredFieldKey] =

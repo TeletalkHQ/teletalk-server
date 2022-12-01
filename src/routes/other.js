@@ -1,4 +1,3 @@
-const { ioFieldMaker } = require("@/classes/IoFieldMaker");
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const {
@@ -7,8 +6,7 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const { baseUrls } = require("@/routes/baseUrls");
-
-const { ioFieldTypes } = require("@/variables/others/inputOutputFields");
+const { fields } = require("@/routes/fields");
 
 const otherRouteBuilder = routeBuilder(baseUrls.other);
 
@@ -17,29 +15,9 @@ const getCountries = otherRouteBuilder
   .method("get")
   .url("/countries")
   .statusCode(200)
-  .inputFields([{}])
   .outputFields([
     {
-      countries: ioFieldMaker
-        .create()
-        .type(ioFieldTypes.countries)
-        .value([
-          {
-            countryCode: ioFieldMaker
-              .create()
-              .type(ioFieldTypes.countryCode)
-              .build(),
-            countryName: ioFieldMaker
-              .create()
-              .type(ioFieldTypes.countryName)
-              .build(),
-            countryShortName: ioFieldMaker
-              .create()
-              .type(ioFieldTypes.countryShortName)
-              .build(),
-          },
-        ])
-        .build(),
+      countries: fields.statics.array(fields.collection.country),
     },
   ])
   .version("1.0.0")
@@ -53,10 +31,9 @@ const getWelcomeMessage = otherRouteBuilder
   .statusCode(200)
   .version("1.0.0")
   .description("Use to get welcome message for client")
-  .inputFields([{}])
   .outputFields([
     {
-      message: ioFieldMaker.create().type(ioFieldTypes.message).build(),
+      welcomeMessage: fields.single.welcomeMessage,
     },
   ])
   .build();

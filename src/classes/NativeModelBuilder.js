@@ -18,7 +18,7 @@ class NativeModelBuilder {
     };
   }
 
-  #addProperty(key, value, error) {
+  #addProperty(key, value = null, error) {
     this.modelObject[key].value = value;
     if (error) this.modelObject[key].error = error;
   }
@@ -27,14 +27,11 @@ class NativeModelBuilder {
     return {
       value: null,
       error: {
-        value: null,
-        error: {
-          code: 0,
-          errorKey: "",
-          message: "",
-          reason: "",
-          version: "",
-        },
+        code: 0,
+        errorKey: "",
+        message: "",
+        reason: "",
+        version: "",
       },
     };
   }

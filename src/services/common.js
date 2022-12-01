@@ -8,12 +8,21 @@ const {
 
 const User = models.database.mongoDb.User;
 
-const tryToFindUser = async (userData, options) => {
-  return await User.findOne(userData, undefined, options);
+const tryToFindUser = async (userData, options, projection) => {
+  return await User.findOne(userData, projection, options);
 };
-const userFinder = async (userData = userInitialOptions, options) => {
+const userFinder = async (
+  userData = userInitialOptions,
+  options,
+  projection
+) => {
   return (
-    await trier(userFinder.name).tryAsync(tryToFindUser, userData, options)
+    await trier(userFinder.name).tryAsync(
+      tryToFindUser,
+      userData,
+      options,
+      projection
+    )
   )
     .printAndThrow()
     .result();

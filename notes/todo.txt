@@ -34,3 +34,4 @@ Monitor test requests (total requests, count each url)
 Monitor all configs when tests start. Give it a good look!
 Logging out requires immediate tests!
 Remove test stuff from main app!
+Auth middleware should check token on db

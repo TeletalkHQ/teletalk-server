@@ -43,7 +43,7 @@ const expressServer = () => {
 };
 
 const tryToStartServers = async () => {
-  socketServer();
+  // socketServer();
   expressServer();
 };
 

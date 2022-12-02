@@ -23,33 +23,45 @@ const fixUserData = (foundUser) => {
   };
 };
 
-const tryToCheckUserStatus = async (userData) => {
+const tryToGetUserData = async (userData) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);
+  const currentUserNotExistError = {
+    ...errors.CURRENT_USER_NOT_EXIST,
+    cellphone,
+  };
+
   const foundUser = await services.userFinder(
     cellphone,
-    { lean: true },
-    { "chatInfo._id": 0, "contacts._id": 0 }
+    {
+      lean: true,
+    },
+    {
+      "chatInfo._id": 0,
+      "contacts._id": 0,
+    }
   );
-  errorThrower(!foundUser, () => ({ ...errors.USER_NOT_EXIST, cellphone }));
+  errorThrower(!foundUser, currentUserNotExistError);
   const fixedUserData = fixUserData(foundUser);
+
+  errorThrower(!fixedUserData.user.mainToken, currentUserNotExistError);
 
   return fixedUserData;
 };
 
-const responseToCheckUserStatus = (userData, res) => {
+const responseToGetUserData = (userData, res) => {
   commonFunctionalities.controllerSuccessResponse(res, userData);
 };
 
-const catchCheckUserStatus = commonFunctionalities.controllerErrorResponse;
+const catchGetUserData = commonFunctionalities.controllerErrorResponse;
 
 const getUserData = async (req = expressRequest, res = expressResponse) => {
   const {
     authData: { payload: userData },
   } = req;
 
-  (await trier(getUserData.name).tryAsync(tryToCheckUserStatus, userData))
-    .executeIfNoError(responseToCheckUserStatus, res)
-    .catch(catchCheckUserStatus, res);
+  (await trier(getUserData.name).tryAsync(tryToGetUserData, userData))
+    .executeIfNoError(responseToGetUserData, res)
+    .catch(catchGetUserData, res);
 };
 
 module.exports = { getUserData };

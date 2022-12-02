@@ -33,6 +33,7 @@ const {
 } = require("@/variables/others/errorKeys");
 const { errorUniqueIds } = require("@/variables/others/errorUniqueIds");
 
+//REFACTOR: 400 errors for user, merge chat errors with user errors
 const BIO_INVALID_TYPE = errorBuilder
   .create()
   .errorCode(4024)
@@ -726,11 +727,11 @@ const USER_EXIST = errorBuilder
   .errorKey(USER_VALIDATION)
   .build();
 
-const USER_NOT_EXIST = errorBuilder
+const CURRENT_USER_NOT_EXIST = errorBuilder
   .create()
   .errorCode(4070)
-  .statusCode(400)
-  .errorReason(errorUniqueIds.USER_NOT_EXIST)
+  .statusCode(401)
+  .errorReason(errorUniqueIds.CURRENT_USER_NOT_EXIST)
   .version("1.0.0")
   .errorKey(USER_VALIDATION)
   .build();
@@ -949,7 +950,7 @@ const errors = {
   TOKEN_MINLENGTH_REACH,
   TOKEN_REQUIRED,
   USER_EXIST,
-  USER_NOT_EXIST,
+  CURRENT_USER_NOT_EXIST,
   USERNAME_EMPTY,
   USERNAME_EXIST,
   USERNAME_INVALID,

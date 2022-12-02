@@ -10,7 +10,7 @@ const { errors } = require("@/variables/errors");
 
 const tryToGetTemporaryClient = async (cellphone) => {
   const tempClient = await temporaryClients.findClientByCellphone(cellphone);
-  errorThrower(!tempClient, () => errors.USER_NOT_EXIST);
+  errorThrower(!tempClient, () => errors.CURRENT_USER_NOT_EXIST);
   return tempClient;
 };
 

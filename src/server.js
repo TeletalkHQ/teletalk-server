@@ -8,7 +8,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const { crashServer } = require("@/functions/utilities/utilities");
 
-const { ioFunctions } = require("@/socket/io");
+// const { ioFunctions } = require("@/socket/io");
 
 const server = http.createServer(app);
 
@@ -20,19 +20,15 @@ const EXACT_PORT =
   envManager.getEnvironment(envManager.ENVIRONMENT_KEYS.SERVER_DEFAULT_PORT);
 
 const socketServer = () => {
-  ioFunctions.sio(server);
-
-  ioFunctions.io.on("connection", (socket) => {
-    logger.info("User connected.");
-
-    logger.info(socket.id);
-
-    socket.on("disconnect", (...params) => {
-      logger.info(`${socket.id} disconnected`);
-
-      logger.info(params);
-    });
-  });
+  // ioFunctions.sio(server);
+  // ioFunctions.io.on("connection", (socket) => {
+  //   logger.info("User connected.");
+  //   logger.info(socket.id);
+  //   socket.on("disconnect", (...params) => {
+  //     logger.info(`${socket.id} disconnected`);
+  //     logger.info(params);
+  //   });
+  // });
 };
 
 const serverListenerCb = () => {

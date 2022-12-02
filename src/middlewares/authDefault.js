@@ -9,23 +9,24 @@ const tryToValidateToken = async (req) => {
   const token = authManager.getTokenFromRequest(req);
   const secret = authManager.getSecretWithUrlCondition(req.url);
   const validationResult = await validators.token(token, secret);
+
   return { validationResult, ok: true };
 };
 
-const assignValidationResultToRequest = ({ validationResult }, req, next) => {
+const executeIfNoError = ({ validationResult }, req, next) => {
   req.authData = validationResult;
   next();
 };
 
-const catchValidateToken = (error, res) => {
+const catchAuthDefault = (error, res) => {
   commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 
 const authDefault = async (req, res, next) => {
   return (await trier(authDefault.name).tryAsync(tryToValidateToken, req))
-    .executeIfNoError(assignValidationResultToRequest, req, next)
-    .catch(catchValidateToken, res)
+    .executeIfNoError(executeIfNoError, req, next)
+    .catch(catchAuthDefault, res)
     .result();
 };
 

@@ -40,10 +40,7 @@ const tryToAddCellphoneToUserBlacklist = async (currentUser, cellphone) => {
   await currentUser.save();
 };
 
-const addCellphoneToUserBlacklist = async (
-  currentUser = userInitialOptions,
-  cellphone
-) => {
+const addCellphoneToUserBlacklist = async (currentUser, cellphone) => {
   return (
     await trier(addCellphoneToUserBlacklist.name).tryAsync(
       tryToAddCellphoneToUserBlacklist,
@@ -116,11 +113,7 @@ const tryToUpdateOneContact = async ({
 
   return { currentUser };
 };
-const updateOneContact = async (
-  currentUser = userInitialOptions,
-  targetCellphone,
-  editedValues
-) => {
+const updateOneContact = async (currentUser, targetCellphone, editedValues) => {
   return (
     await trier().tryAsync(tryToUpdateOneContact, {
       currentUser,
@@ -250,7 +243,7 @@ const tryToGetUserData = async (userId) => {
   const user = await User.findOne({ userId }, undefined, {
     lean: true,
   });
-  errorThrower(!user, errors.USER_NOT_EXIST);
+  errorThrower(!user, errors.CURRENT_USER_NOT_EXIST);
 
   return user;
 };

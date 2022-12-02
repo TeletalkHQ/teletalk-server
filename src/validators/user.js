@@ -112,6 +112,8 @@ const tryToValidateUserId = async (userId) => {
   if (validationResult === true) return;
   validatorErrorBuilder.userId(validationResult, userId);
 };
+
+//FIXME: Change names (add validator to the end)
 const userId = async (userIdParam) => {
   await trierInstance(userId.name, tryToValidateUserId, userIdParam);
 };

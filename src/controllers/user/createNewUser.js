@@ -36,7 +36,10 @@ const tryToValidateLastName = async (lastName) => {
 
 const tryToFindTemporaryClient = async (cellphone) => {
   const client = await temporaryClients.findClientByCellphone(cellphone);
-  errorThrower(!client, () => ({ ...errors.USER_NOT_EXIST, cellphone }));
+  errorThrower(!client, () => ({
+    ...errors.CURRENT_USER_NOT_EXIST,
+    cellphone,
+  }));
   return client;
 };
 

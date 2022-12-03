@@ -1,18 +1,18 @@
-// const sio = require("socket.io");
+const sio = require("socket.io");
 
-// let io = () => {};
+let io = () => {};
 
-// const ioFunctions = {
-//   io,
-//   sio: (server) => {
-//     ioFunctions.io = sio(server, {
-//       cors: {
-//         origin: "*",
-//       },
-//     });
-//   },
-// };
+const ioFunctions = {
+  io,
+  sio: (server) => {
+    ioFunctions.io = sio(server, {
+      cors: {
+        origin: "*",
+      },
+    });
+  },
+};
 
-// module.exports = {
-//   ioFunctions,
-// };
+module.exports = {
+  ioFunctions,
+};

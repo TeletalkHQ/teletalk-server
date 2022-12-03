@@ -36,7 +36,6 @@ const tryToGetUserData = async (userData) => {
       lean: true,
     },
     {
-      "chatInfo._id": 0,
       "contacts._id": 0,
     }
   );

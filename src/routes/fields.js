@@ -71,10 +71,6 @@ const fullName = {
 
 const { userId: _userId, ...contactWithoutUserId } = contact;
 
-const chatInfoItem = {
-  chatId,
-};
-
 const messageSender = statics.object({
   senderId,
 });
@@ -90,24 +86,29 @@ const participantItem = {
 };
 
 const blacklist = statics.array(contact);
-const chatInfo = statics.array(chatInfoItem);
 const contacts = statics.array(contact);
 const countries = statics.array(country);
 const messages = statics.array(messageItem);
+
 const participants = statics.array(participantItem);
 
+const privateChat = {
+  chatId,
+  messages,
+  participants,
+};
+
 const user = {
-  bio: bio,
-  blacklist: blacklist,
-  chatInfo: chatInfo,
-  contacts: contacts,
-  countryCode: countryCode,
-  countryName: countryName,
-  firstName: firstName,
-  lastName: lastName,
-  phoneNumber: phoneNumber,
-  userId: userId,
-  username: username,
+  bio,
+  blacklist,
+  contacts,
+  countryCode,
+  countryName,
+  firstName,
+  lastName,
+  phoneNumber,
+  userId,
+  username,
   mainToken: token,
 };
 
@@ -141,8 +142,6 @@ const single = {
 const collection = {
   blacklist,
   cellphone,
-  chatInfo,
-  chatInfoItem,
   contact,
   contacts,
   contactWithoutUserId,
@@ -153,6 +152,7 @@ const collection = {
   messages,
   messageSender,
   participants,
+  privateChat,
   user,
 };
 

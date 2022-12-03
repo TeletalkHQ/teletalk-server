@@ -16,40 +16,35 @@ describe("get messages success tests", () => {
     for (const _ of Array.from({ length: 10 })) {
       await requesters.sendPrivateMessage().sendFullFeaturedRequest({
         message,
-        participantId: users.getPrivateChat.userId,
+        participantId: users.getAllPrivateChats.userId,
       });
     }
 
     //? Now get added chats from user data =>
     const {
-      body: { chatInfo },
-    } = await requesters.getChatInfo().sendFullFeaturedRequest();
+      body: { privateChats },
+    } = await requesters.getAllPrivateChats().sendFullFeaturedRequest();
 
-    const chat = chatInfo.at(-1);
+    //FIXME: Length privateChats should be one or more
 
-    const {
-      body: {
-        privateChat: { messages },
-      },
-    } = await requesters.getPrivateChat().sendFullFeaturedRequest({
-      chatId: chat.chatId,
-    });
+    for (const chat of privateChats) {
+      const { messages } = chat;
 
-    const {
-      messageId,
-      messageSender: { senderId },
-    } = messages.at(-1);
+      const {
+        messageId,
+        messageSender: { senderId },
+      } = messages.at(-1);
 
-    integrationHelpers
-      .createSuccessTest()
-      .messageId({ responseValue: messageId }, { stringEquality: false })
-      .participantId({ responseValue: senderId }, { stringEquality: false });
+      integrationHelpers
+        .createSuccessTest()
+        .messageId({ responseValue: messageId }, { stringEquality: false })
+        .participantId({ responseValue: senderId }, { stringEquality: false });
+    }
   });
 });
 
 describe("getMessagesApi failure tests", () => {
   integrationHelpers
-    .createFailTest(requesters.getPrivateChat())
-    .authentication()
-    .chatId();
+    .createFailTest(requesters.getAllPrivateChats())
+    .authentication();
 });

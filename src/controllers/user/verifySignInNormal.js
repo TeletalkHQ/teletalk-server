@@ -54,7 +54,6 @@ const tryToSignInNormalUser = async (tokenPayload) => {
       cellphone,
       { lean: true },
       {
-        "chatInfo._id": 0,
         "contacts._id": 0,
       }
     )) || {};

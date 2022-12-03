@@ -29,11 +29,22 @@ const getPrivateChat = privateChatRouteBuilder
   .inputFields({ chatId: fields.single.chatId })
   .outputFields([
     {
-      privateChat: fields.statics.object({
-        chatId: fields.single.chatId,
-        messages: fields.collection.messages,
-        participants: fields.collection.participants,
-      }),
+      //TODO: Top props check
+      privateChat: fields.collection.privateChat,
+    },
+  ])
+  .build();
+
+const getAllPrivateChats = privateChatRouteBuilder
+  .create()
+  .method("get")
+  .url("/getAllPrivateChats")
+  .statusCode(200)
+  .version("1.0.0")
+  .description("Use for get all private chats with messages")
+  .outputFields([
+    {
+      privateChats: fields.statics.array(fields.collection.privateChat),
     },
   ])
   .build();
@@ -58,6 +69,7 @@ const sendPrivateMessage = privateChatRouteBuilder
   .build();
 
 const routes = {
+  getAllPrivateChats,
   getChatsLastMessage,
   getPrivateChat,
   sendPrivateMessage,

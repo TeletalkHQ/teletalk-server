@@ -13,11 +13,7 @@ const userRouter = Router();
 
 userRouter.use(
   applyMiddlewaresByUrl(
-    [
-      routes.user.getChatInfo.url,
-      routes.user.logoutNormal.url,
-      routes.user.updatePersonalInfo.url,
-    ],
+    [routes.user.logoutNormal.url, routes.user.updatePersonalInfo.url],
     middlewares.findCurrentUserFromDb
   )
 );
@@ -30,11 +26,6 @@ userRouter[routes.user.getUserData.method](
 userRouter[routes.user.createNewUser.method](
   routes.user.createNewUser.url,
   controllers.createNewUser
-);
-
-userRouter[routes.user.getChatInfo.method](
-  routes.user.getChatInfo.url,
-  controllers.getChatInfo
 );
 
 userRouter[routes.user.getTargetUserData.method](

@@ -18,6 +18,7 @@ class RouteBuilder {
     this.routeObject[key] = value;
   }
 
+  //TODO: Add checks before build
   build() {
     return this.routeObject;
   }

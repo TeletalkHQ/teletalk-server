@@ -1,4 +1,4 @@
-const { customRequestCreator } = require("@/classes/CustomRequest");
+const { customRequestCreator } = require("$/classes/CustomRequest");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
@@ -15,8 +15,7 @@ const requesters = {
   addContact: makeCustomRequest(routes.cellphone.addContact),
   createNewUser: makeCustomRequest(routes.user.createNewUser),
   editContact: makeCustomRequest(routes.cellphone.editContact),
-  getChatInfo: makeCustomRequest(routes.user.getChatInfo),
-  getPrivateChat: makeCustomRequest(routes.privateChat.getPrivateChat),
+  getAllPrivateChats: makeCustomRequest(routes.privateChat.getAllPrivateChats),
   logoutNormal: makeCustomRequest(routes.user.logoutNormal),
   removeBlock: makeCustomRequest(routes.cellphone.removeBlock),
   removeContact: makeCustomRequest(routes.cellphone.removeContact),

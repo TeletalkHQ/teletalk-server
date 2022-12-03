@@ -1,4 +1,4 @@
-const { successTestBuilder } = require("@/classes/SuccessTestBuilder");
+const { successTestBuilder } = require("$/classes/SuccessTestBuilder");
 
 const { models } = require("@/models");
 
@@ -13,19 +13,20 @@ const token = async (
     modelCheck: true,
   }
 ) => {
-  const ts = successTestBuilder
+  const builder = successTestBuilder
     .create()
     .setVariables(userModels.token, "", responseValue)
     .setOptions({ modelCheck });
 
   //TODO Add min/max length to token model
-  ts.typeCheck().gtCheck(100);
+  builder.typeCheck().gtCheck(100);
 
   (
-    await ts.checkAndExecuteAsync(verifyToken, async () => {
+    await builder.checkAndExecuteAsync(verifyToken, async () => {
       //BUG token verifier weird bug, i don't know what it is (invalid signature)
       const verifiedToken = await validators.token(responseValue, secret);
-      ts.customTypeCheck(verifiedToken, "object")
+      builder
+        .customTypeCheck(verifiedToken, "object")
         .customTypeCheck(verifiedToken.signature, "string")
         .customTypeCheck(verifiedToken.payload, "object");
     })

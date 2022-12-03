@@ -59,12 +59,6 @@ const countryName = nativeModelBuilder
   .version("1.0.0")
   .build();
 
-const chatInfo = nativeModelBuilder
-  .create()
-  .type("array", errors.CHATS_INVALID_TYPE)
-  .version("1.0.0")
-  .build();
-
 const createdAt = common.createdAt;
 const userId = common.userId;
 
@@ -153,7 +147,6 @@ const verificationCode = nativeModelBuilder
 const models = {
   bio,
   blacklist,
-  chatInfo,
   contacts,
   countryCode,
   countryName,
@@ -162,8 +155,8 @@ const models = {
   lastName,
   macAddress,
   phoneNumber,
-  userId,
   token,
+  userId,
   username,
   verificationCode,
 };

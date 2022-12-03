@@ -13,7 +13,6 @@ const commonModelsWithoutVersion = excludeVersions(nativeModels.common);
 
 const {
   bio,
-  chatId,
   countryCode,
   countryName,
   createdAt,
@@ -133,11 +132,6 @@ const UserSchema = new mongoose.Schema({
       countryCode,
       countryName,
       phoneNumber,
-    },
-  ],
-  chatInfo: [
-    {
-      chatId,
     },
   ],
   contacts: [

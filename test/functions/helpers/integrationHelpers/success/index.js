@@ -8,9 +8,6 @@ const {
   chatId,
 } = require("$/functions/helpers/integrationHelpers/success/chatId");
 const {
-  chatInfo,
-} = require("$/functions/helpers/integrationHelpers/success/chatInfo");
-const {
   countryCode,
 } = require("$/functions/helpers/integrationHelpers/success/countryCode");
 const {
@@ -35,6 +32,9 @@ const {
   phoneNumber,
 } = require("$/functions/helpers/integrationHelpers/success/phoneNumber");
 const {
+  privateChats,
+} = require("$/functions/helpers/integrationHelpers/success/privateChats");
+const {
   userId,
 } = require("$/functions/helpers/integrationHelpers/success/userId");
 const {
@@ -51,7 +51,6 @@ const integrationHelpersSuccessCollection = {
   authentication,
   cellphone,
   chatId,
-  chatInfo,
   countryCode,
   countryName,
   firstName,
@@ -60,9 +59,10 @@ const integrationHelpersSuccessCollection = {
   messageId,
   participantId,
   phoneNumber,
-  userId,
+  privateChats,
   senderId,
   token,
+  userId,
   verificationCode,
 };
 

@@ -213,7 +213,6 @@ const tryToAddTestUser = async ({
       lastName,
       contacts: [],
       blacklist: [],
-      chatInfo: [],
     },
     {
       upsert: true,
@@ -228,10 +227,6 @@ const addTestUser = async (userData = userInitialOptions) => {
   return (await trier(addTestUser.name).tryAsync(tryToAddTestUser, userData))
     .printAndThrow()
     .result();
-};
-
-const getChatInfo = (currentUser) => {
-  return currentUser.chatInfo.map((chat) => ({ chatId: chat.chatId }));
 };
 
 const getAllUsers = async () => {
@@ -273,7 +268,6 @@ const userServices = {
   createNewNormalUser,
   deleteBlacklistItem,
   getAllUsers,
-  getChatInfo,
   getUserContacts,
   getUserData,
   logoutUser,

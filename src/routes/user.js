@@ -18,7 +18,6 @@ const createNewUser = userRouteBuilder
   .version("1.0.0")
   .description("Use for create new user for normal account")
   .inputFields(fields.collection.fullName)
-  //FIXME: Add chatInfo (its empty)
   .outputFields([
     {
       user: fields.statics.object(fields.collection.user),
@@ -140,24 +139,9 @@ const verifySignInNormal = userRouteBuilder
   ])
   .build();
 
-const getChatInfo = userRouteBuilder
-  .create()
-  .method("get")
-  .url("/getChatInfo")
-  .statusCode(200)
-  .version("1.0.0")
-  .description("Use for get user chat ids")
-  .outputFields([
-    {
-      chatInfo: fields.statics.array({ chatId: fields.single.chatId }),
-    },
-  ])
-  .build();
-
 const routes = {
   getUserData,
   createNewUser,
-  getChatInfo,
   getPublicUserInfo,
   getTargetUserData,
   logoutNormal,

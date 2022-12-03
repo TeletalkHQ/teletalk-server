@@ -1,4 +1,4 @@
-const { failTestBuilder } = require("@/classes/FailTestBuilder");
+const { failTestBuilder } = require("$/classes/FailTestBuilder");
 
 const { models } = require("@/models");
 

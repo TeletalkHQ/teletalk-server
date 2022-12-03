@@ -37,6 +37,14 @@ const participantId = nativeModelBuilder
   .trim(common.userId.trim.value)
   .type(common.userId.type.value, errors.PARTICIPANT_ID_INVALID_TYPE)
   .unique(common.userId.unique.value, errors.PARTICIPANT_ID_EXIST)
+  //CLEANME: Remove all default versions
+  .version("1.0.0")
+  .build();
+
+//CLEANME: Use dataTypes
+const privateChats = nativeModelBuilder
+  .create()
+  .type("array")
   .version("1.0.0")
   .build();
 
@@ -55,9 +63,10 @@ const senderId = nativeModelBuilder
 const models = {
   chatId,
   createdAt,
-  messageId,
   message,
+  messageId,
   participantId,
+  privateChats,
   senderId,
 };
 

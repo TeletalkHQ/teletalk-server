@@ -12,21 +12,20 @@ const { errors } = require("@/variables/errors");
 const chatModels = models.native.chat;
 const PrivateChat = models.database.mongoDb.PrivateChat;
 
-const tryToGetChatsLastMessages = async (currentUser) => {
-  const chats = [];
+const tryToGetChatsLastMessages = async (participantId) => {
+  const chats = (await getAllPrivateChats(participantId)) || [];
+  const chatWithLastMessages = [];
+  for (const chat of chats) {
+    const { messages } = chat;
+    const lastMessage = messages?.at(-1);
 
-  for (const chat of currentUser.chatInfo) {
-    const chatWithMessages = await PrivateChat.findOne({
-      chatId: chat.chatId,
+    chatWithLastMessages.push({
+      ...chat,
+      messages: [lastMessage],
     });
-    if (chatWithMessages) {
-      const { messages, participants, chatId } = chatWithMessages;
-      const lastMessage = messages?.at(-1);
-      chats.push({ participants, chatId, messages: [lastMessage] });
-    }
   }
 
-  return chats;
+  return chatWithLastMessages;
 };
 
 const getChatsLastMessages = async (currentUser) => {
@@ -39,19 +38,44 @@ const getChatsLastMessages = async (currentUser) => {
 };
 
 const getPrivateChat = async (
-  currentUser,
   chatId,
-  projections = { "messages._id": 0, _id: 0, __v: 0, "participants._id": 0 },
+  projections = {
+    __v: 0,
+    _id: 0,
+    "messages._id": 0,
+    "participants._id": 0,
+  },
   options = { lean: true }
 ) => {
-  const chatExist = currentUser.chatInfo.find((chat) => chat.chatId === chatId);
-  errorThrower(!chatExist, () => errors.CHAT_NOT_EXIST);
-
   const chat = await PrivateChat.findOne({ chatId }, projections, options);
 
   errorThrower(!chat, () => errors.CHAT_NOT_EXIST);
 
   return chat;
+};
+
+const getAllPrivateChats = async (
+  participantId,
+  projections = {
+    __v: 0,
+    _id: 0,
+    "messages._id": 0,
+    "participants._id": 0,
+  },
+  options = { lean: true }
+) => {
+  console.log("participantId:::", participantId);
+
+  const chats =
+    (await PrivateChat.find(
+      {
+        "participants.participantId": participantId,
+      },
+      projections,
+      options
+    )) || [];
+
+  return chats;
 };
 
 const sendPrivateMessage = async (currentUser, participantId, message) => {
@@ -86,11 +110,6 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
       ],
       messages: [newMessage],
     });
-
-    await currentUser.chatInfo.push({ chatId });
-    await targetUser.chatInfo.push({ chatId });
-    await currentUser.save();
-    await targetUser.save();
   } else if (privateChat) {
     privateChat.messages.push(newMessage);
     await privateChat.save();
@@ -100,6 +119,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
 };
 
 const chatServices = {
+  getAllPrivateChats,
   getChatsLastMessages,
   getPrivateChat,
   sendPrivateMessage,

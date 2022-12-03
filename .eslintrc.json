@@ -48,8 +48,8 @@
       {
         "allowNamedExports": false,
         "classes": true,
-        "functions": true,
-        "variables": true
+        "functions": false,
+        "variables": false
       }
     ],
     "quotes": ["warn", "double"],

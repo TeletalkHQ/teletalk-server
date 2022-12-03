@@ -39,9 +39,8 @@ class IntegrationSuccessTestMaker {
     );
     return this;
   }
-  countryCode = this.successTestMaker("countryCode");
   chatId = this.successTestMaker("chatId");
-  chatInfo = this.successTestMaker("chatInfo");
+  countryCode = this.successTestMaker("countryCode");
   countryName = this.successTestMaker("countryName");
   firstName = this.successTestMaker("firstName");
   lastName = this.successTestMaker("lastName");
@@ -49,6 +48,7 @@ class IntegrationSuccessTestMaker {
   messageId = this.successTestMaker("messageId");
   participantId = this.successTestMaker("participantId");
   phoneNumber = this.successTestMaker("phoneNumber");
+  privateChats = this.successTestMaker("privateChats");
   userId = this.successTestMaker("userId");
   verificationCode = this.successTestMaker("verificationCode");
 }

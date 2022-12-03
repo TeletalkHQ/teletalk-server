@@ -14,6 +14,7 @@ class NativeModelBuilder {
       trim: this.#initialValueAndError(false, {}),
       type: this.#initialValueAndError("", {}),
       unique: this.#initialValueAndError("", {}),
+      //FIXME: Replace initial value with default version ("1.0.0")
       version: this.#initialValueAndError("", {}),
     };
   }

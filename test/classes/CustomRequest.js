@@ -126,12 +126,10 @@ class CustomRequest {
     return this;
   }
   logOptions() {
-    logger
-      .bgRed("temporary options: ", logger.colors.black)
-      .info({
-        ...this.temporaryOptions,
-        inputFields: this.routeObject.inputFields,
-      });
+    logger.bgRed("temporary options: ", logger.colors.black).info({
+      ...this.temporaryOptions,
+      inputFields: this.routeObject.inputFields,
+    });
     return this;
   }
   logRequestData() {
@@ -238,6 +236,7 @@ class CustomRequest {
         return previousValue;
       }, {});
 
+    //FIXME: Throw error if inputData is undefined when inputFields is not
     const filteredRequestData = objectUtilities.excludePropsPeerToPeer(
       this.requestData,
       convertRequiredFieldForFiltering

@@ -74,6 +74,7 @@ class AuthManager {
 
   getTokenFromRequest(request) {
     const { authorization, Authorization } = request.headers;
+    //TODO: Throw error if authorization not exist
     return (authorization || Authorization)?.split("Bearer ")[1];
   }
 

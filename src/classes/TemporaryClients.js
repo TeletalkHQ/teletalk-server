@@ -1,10 +1,11 @@
+const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("utility-store/src/functions/utilities");
+
 const { stateManager } = require("@/classes/StateManager");
 const { appOptions } = require("@/classes/AppOptions");
 
-const {
-  isDataHasEqualityWithTargetCellphone,
-  errorThrower,
-} = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/functions/utilities/utilities");
 const { errors } = require("@/variables/errors");
 
 class TemporaryClients {

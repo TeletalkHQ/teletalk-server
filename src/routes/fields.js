@@ -109,7 +109,7 @@ const user = {
   phoneNumber,
   userId,
   username,
-  mainToken: token,
+  token,
 };
 
 const single = {

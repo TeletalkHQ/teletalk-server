@@ -6,31 +6,31 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
 
-const generateNewMainToken = async (userData) => {
+const generateNewToken = async (userData) => {
   return await authManager.tokenSigner({
     ...userPropsUtilities.extractCellphone(userData),
     userId: userData.userId,
   });
 };
 
-const handleGetMainToken = async (tokens, userData) => {
-  const mainToken = userPropsUtilities.getTokenFromUserObject({
-    tokens,
+const handleGetToken = async (sessions, userData) => {
+  const token = userPropsUtilities.getTokenFromUserObject({
+    sessions,
   });
-  if (mainToken) return mainToken;
+  if (token) return token;
 
-  const newMainToken = await generateNewMainToken(userData);
-  await services.saveNewMainToken(
+  const newToken = await generateNewToken(userData);
+  await services.saveNewToken(
     userPropsUtilities.extractCellphone(userData),
-    newMainToken
+    newToken
   );
-  return newMainToken;
+  return newToken;
 };
-const dataIfUserExist = async (tokens, userData) => {
-  const mainToken = await handleGetMainToken(tokens, userData);
+const dataIfUserExist = async (sessions, userData) => {
+  const token = await handleGetToken(sessions, userData);
   return {
     ...userData,
-    mainToken,
+    token,
     newUser: false,
   };
 };
@@ -38,10 +38,10 @@ const dataIfUserNotExist = () => ({
   newUser: true,
 });
 
-const fixUserData = async (isUserExist, userData, tokens) => {
+const fixUserData = async (isUserExist, userData, sessions) => {
   return {
     user: isUserExist
-      ? await dataIfUserExist(tokens, userData)
+      ? await dataIfUserExist(sessions, userData)
       : dataIfUserNotExist(),
   };
 };
@@ -57,12 +57,13 @@ const tryToSignInNormalUser = async (tokenPayload) => {
         "contacts._id": 0,
       }
     )) || {};
-  const { tokens, ...userData } = userPropsUtilities.extractUserData(foundUser);
+  const { sessions, ...userData } =
+    userPropsUtilities.extractUserData(foundUser);
 
   const isUserExist = !!userData.userId;
   //? 0 stance for newUser:false and 1 for newUser:true
   const requiredFieldsIndex = isUserExist ? 0 : 1;
-  const responseData = await fixUserData(isUserExist, userData, tokens);
+  const responseData = await fixUserData(isUserExist, userData, sessions);
 
   return {
     requiredFieldsIndex,

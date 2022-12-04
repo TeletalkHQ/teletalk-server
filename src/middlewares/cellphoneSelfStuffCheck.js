@@ -1,11 +1,11 @@
+const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("utility-store/src/functions/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const {
-  isDataHasEqualityWithTargetCellphone,
-} = require("@/functions/utilities/utilities");
 const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { errors } = require("@/variables/errors");

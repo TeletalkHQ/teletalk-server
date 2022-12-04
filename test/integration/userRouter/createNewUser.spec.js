@@ -33,7 +33,7 @@ describe("success create new normal user", () => {
           countryCode: newUserCountryCode,
           countryName: newUserCountryName,
           phoneNumber: newUserPhoneNumber,
-          verifyToken: newUserVerifyToken,
+          token: newUserVerifyToken,
         },
       },
     } = await requesters
@@ -47,7 +47,7 @@ describe("success create new normal user", () => {
         phoneNumber: newUserPhoneNumber,
       });
 
-    //* 2- Verify user by verificationCode & verifyToken =>
+    //* 2- Verify user by verificationCode & token =>
     const newUserVerifySignInResponse = await requesters
       .verifySignIn()
       .setToken(newUserVerifyToken)
@@ -66,7 +66,7 @@ describe("success create new normal user", () => {
           countryName,
           firstName,
           lastName,
-          mainToken,
+          token,
           phoneNumber,
           userId,
         },
@@ -82,7 +82,7 @@ describe("success create new normal user", () => {
 
     const JWT_MAIN_SECRET = authManager.getJwtMainSecret();
     await successTests.token({
-      responseValue: mainToken,
+      responseValue: token,
       secret: JWT_MAIN_SECRET,
     });
 
@@ -117,13 +117,13 @@ describe("create new normal user failure tests", () => {
   before(async () => {
     const {
       body: {
-        user: { verifyToken },
+        user: { token },
       },
     } = await requesters
       .signInNormal()
       .sendFullFeaturedRequest(cellphones.createNewUserSignIn);
 
-    customRequest.setToken(verifyToken);
+    customRequest.setToken(token);
   });
 
   integrationHelpers

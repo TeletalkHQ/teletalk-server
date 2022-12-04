@@ -47,7 +47,7 @@ const signInNormal = userRouteBuilder
     {
       user: fields.statics.object({
         ...fields.collection.cellphone,
-        verifyToken: fields.single.token,
+        token: fields.single.token,
       }),
     },
   ])

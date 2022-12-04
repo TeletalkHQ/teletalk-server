@@ -12,12 +12,13 @@ const { errors } = require("@/variables/errors");
 //TODO: Add some tests, this controller has no any tests
 
 const fixUserData = (foundUser) => {
-  const { tokens, ...userData } = userPropsUtilities.extractUserData(foundUser);
+  const { sessions, ...userData } =
+    userPropsUtilities.extractUserData(foundUser);
   return {
     user: {
       ...userData,
-      mainToken: userPropsUtilities.getTokenFromUserObject({
-        tokens,
+      token: userPropsUtilities.getTokenFromUserObject({
+        sessions,
       }),
     },
   };
@@ -42,7 +43,7 @@ const tryToGetUserData = async (userData) => {
   errorThrower(!foundUser, currentUserNotExistError);
   const fixedUserData = fixUserData(foundUser);
 
-  errorThrower(!fixedUserData.user.mainToken, currentUserNotExistError);
+  errorThrower(!fixedUserData.user.token, currentUserNotExistError);
 
   return fixedUserData;
 };

@@ -36,34 +36,30 @@ const tryToSendVerificationCodeAsSms = async (
   await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 };
 
-const tryToSignVerifyToken = async (cellphone) => {
-  const verifyToken = await authManager.tokenSigner(
+const tryToSignToken = async (cellphone) => {
+  const token = await authManager.tokenSigner(
     cellphone,
     authManager.getJwtSignInSecret()
   );
-  return verifyToken;
+  return token;
 };
 
 const tryToAddNewTemporaryClient = async (
   cellphone,
   verificationCode,
-  verifyToken
+  token
 ) => {
   await temporaryClients.addClient({
-    verifyToken,
+    token,
     verificationCode,
     ...cellphone,
   });
 };
 
-const tryToUpdateTemporaryClient = async (
-  client,
-  verificationCode,
-  verifyToken
-) => {
+const tryToUpdateTemporaryClient = async (client, verificationCode, token) => {
   await temporaryClients.updateClient(client, {
     verificationCode,
-    verifyToken,
+    token,
   });
 };
 
@@ -77,21 +73,21 @@ const temporaryClientHelper = async ({
   client,
   trierInstance,
   verificationCode,
-  verifyToken,
+  token,
 }) => {
   if (client) {
     await trierInstance.tryAsync(
       tryToUpdateTemporaryClient,
       client,
       verificationCode,
-      verifyToken
+      token
     );
   } else {
     await trierInstance.tryAsync(
       tryToAddNewTemporaryClient,
       cellphone,
       verificationCode,
-      verifyToken
+      token
     );
   }
 };
@@ -120,8 +116,8 @@ const tryToSignInNormalUser = async (req) => {
     }
   );
 
-  const verifyToken = (
-    await trierInstance.tryAsync(tryToSignVerifyToken, cellphone)
+  const token = (
+    await trierInstance.tryAsync(tryToSignToken, cellphone)
   ).result();
 
   const client = (
@@ -133,7 +129,7 @@ const tryToSignInNormalUser = async (req) => {
     client,
     trierInstance,
     verificationCode,
-    verifyToken,
+    token,
   });
 
   //TODO: Print it on log files
@@ -141,7 +137,7 @@ const tryToSignInNormalUser = async (req) => {
 
   return {
     ...cellphone,
-    verifyToken,
+    token,
   };
 };
 

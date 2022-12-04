@@ -33,6 +33,7 @@ const contacts = nativeModelBuilder
   .maxlength(14)
   .minlength(10)
   .required(false)
+  //CLEANME: Use dataTypes
   .type("array", errors.CONTACT_INVALID_TYPE)
   .version("1.0.0")
   .build();
@@ -60,6 +61,7 @@ const countryName = nativeModelBuilder
   .build();
 
 const createdAt = common.createdAt;
+
 const userId = common.userId;
 
 const firstName = nativeModelBuilder

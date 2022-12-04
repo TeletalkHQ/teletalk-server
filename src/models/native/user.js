@@ -9,6 +9,7 @@ const {
 const { common } = require("@/models/native/common");
 
 const { errors } = require("@/variables/errors");
+const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 const bio = nativeModelBuilder
   .create()
@@ -16,15 +17,13 @@ const bio = nativeModelBuilder
   .empty(false, errors.BIO_EMPTY)
   .maxlength(255, errors.BIO_MAXLENGTH_REACH)
   .required(false)
-  .type("string", errors.BIO_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.STRING, errors.BIO_INVALID_TYPE)
   .build();
 
 const blacklist = nativeModelBuilder
   .create()
   .defaultValue([])
-  .type("array", errors.BLACKLIST_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.ARRAY, errors.BLACKLIST_INVALID_TYPE)
   .build();
 
 const contacts = nativeModelBuilder
@@ -33,9 +32,7 @@ const contacts = nativeModelBuilder
   .maxlength(14)
   .minlength(10)
   .required(false)
-  //CLEANME: Use dataTypes
-  .type("array", errors.CONTACT_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.ARRAY, errors.CONTACT_INVALID_TYPE)
   .build();
 
 const countryCode = nativeModelBuilder
@@ -46,8 +43,7 @@ const countryCode = nativeModelBuilder
   .numeric(true, errors.COUNTRY_CODE_NUMERIC)
   .required(true, errors.COUNTRY_CODE_REQUIRED)
   .trim(true)
-  .type("string", errors.COUNTRY_CODE_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.STRING, errors.COUNTRY_CODE_INVALID_TYPE)
   .build();
 
 const countryName = nativeModelBuilder
@@ -56,8 +52,7 @@ const countryName = nativeModelBuilder
   .maxlength(50, errors.COUNTRY_NAME_MAXLENGTH_REACH)
   .minlength(2, errors.COUNTRY_NAME_MINLENGTH_REACH)
   .required(true, errors.COUNTRY_NAME_REQUIRED)
-  .type("string", errors.COUNTRY_NAME_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.STRING, errors.COUNTRY_NAME_INVALID_TYPE)
   .build();
 
 const createdAt = common.createdAt;
@@ -71,8 +66,7 @@ const firstName = nativeModelBuilder
   .minlength(2, errors.FIRST_NAME_MINLENGTH_REACH)
   .required(true, errors.FIRST_NAME_REQUIRED)
   .trim(false)
-  .type("string", errors.FIRST_NAME_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.STRING, errors.FIRST_NAME_INVALID_TYPE)
   .build();
 
 const lastName = nativeModelBuilder
@@ -83,8 +77,7 @@ const lastName = nativeModelBuilder
   .minlength(2, errors.LAST_NAME_MINLENGTH_REACH)
   .required(false, {})
   .trim(false)
-  .type("string", errors.LAST_NAME_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.STRING, errors.LAST_NAME_INVALID_TYPE)
   .build();
 
 const macAddress = nativeModelBuilder
@@ -94,9 +87,8 @@ const macAddress = nativeModelBuilder
   .minlength(12, errors.MAC_ADDRESS_MINLENGTH_REACH)
   .required(true, errors.MAC_ADDRESS_REQUIRED)
   .trim(true)
-  .type("string", errors.MAC_ADDRESS_INVALID_TYPE)
+  .type(FIELD_TYPE.STRING, errors.MAC_ADDRESS_INVALID_TYPE)
   .unique(true, errors.MAC_ADDRESS_EXIST)
-  .version("1.0.0")
   .build();
 
 const phoneNumber = nativeModelBuilder
@@ -106,19 +98,17 @@ const phoneNumber = nativeModelBuilder
   .minlength(10, errors.PHONE_NUMBER_MINLENGTH_REACH)
   .numeric(true, errors.PHONE_NUMBER_NUMERIC)
   .required(true, errors.PHONE_NUMBER_REQUIRED)
-  .type("string", errors.PHONE_NUMBER_INVALID_TYPE)
+  .type(FIELD_TYPE.STRING, errors.PHONE_NUMBER_INVALID_TYPE)
   .unique(true, errors.PHONE_NUMBER_EXIST)
-  .version("1.0.0")
   .build();
 
 const token = nativeModelBuilder
   .create()
   .required(true, errors.TOKEN_REQUIRED)
-  .type("string", errors.TOKEN_INVALID_TYPE)
+  .type(FIELD_TYPE.STRING, errors.TOKEN_INVALID_TYPE)
   .minlength(100, errors.TOKEN_MINLENGTH_REACH)
-  .maxlength(450, errors.TOKEN_MAXLENGTH_REACH)
+  .maxlength(500, errors.TOKEN_MAXLENGTH_REACH)
   .unique(true, errors.TOKEN_EXIST)
-  .version("1.0.0")
   .build();
 
 const username = nativeModelBuilder
@@ -130,9 +120,8 @@ const username = nativeModelBuilder
   .minlength(4, errors.USERNAME_MINLENGTH_REACH)
   .required(false)
   .trim(true)
-  .type("string", errors.USERNAME_INVALID_TYPE)
+  .type(FIELD_TYPE.STRING, errors.USERNAME_INVALID_TYPE)
   .unique(false, errors.USERNAME_EXIST)
-  .version("1.0.0")
   .build();
 
 const verificationCode = nativeModelBuilder
@@ -142,8 +131,7 @@ const verificationCode = nativeModelBuilder
   .maxlength(6, errors.VERIFICATION_CODE_MAXLENGTH_REACH)
   .numeric(true, errors.VERIFICATION_CODE_NUMERIC)
   .trim(true)
-  .type("string", errors.VERIFICATION_CODE_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.STRING, errors.VERIFICATION_CODE_INVALID_TYPE)
   .build();
 
 const models = {

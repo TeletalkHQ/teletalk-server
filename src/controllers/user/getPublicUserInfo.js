@@ -33,5 +33,4 @@ const getPublicUserInfo = async (
     .catch(catchGetUserData, res);
 };
 
-//CLEANME: Export as non-object
 module.exports = { getPublicUserInfo };

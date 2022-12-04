@@ -8,6 +8,7 @@ const {
 const { common } = require("@/models/native/common");
 
 const { errors } = require("@/variables/errors");
+const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 const chatId = common.chatId;
 const createdAt = common.createdAt;
@@ -18,8 +19,7 @@ const message = nativeModelBuilder
   .empty(false, errors.MESSAGE_TEXT_EMPTY)
   .maxlength(1000, errors.MESSAGE_TEXT_MAX_LENGTH_REACH)
   .minlength(1, errors.MESSAGE_TEXT_MIN_LENGTH_REACH)
-  .type("string", errors.MESSAGE_TEXT_INVALID_TYPE)
-  .version("1.0.0")
+  .type(FIELD_TYPE.STRING, errors.MESSAGE_TEXT_INVALID_TYPE)
   .build();
 
 const participantId = nativeModelBuilder
@@ -37,16 +37,9 @@ const participantId = nativeModelBuilder
   .trim(common.userId.trim.value)
   .type(common.userId.type.value, errors.PARTICIPANT_ID_INVALID_TYPE)
   .unique(common.userId.unique.value, errors.PARTICIPANT_ID_EXIST)
-  //CLEANME: Remove all default versions
-  .version("1.0.0")
   .build();
 
-//CLEANME: Use dataTypes
-const privateChats = nativeModelBuilder
-  .create()
-  .type("array")
-  .version("1.0.0")
-  .build();
+const privateChats = nativeModelBuilder.create().type(FIELD_TYPE.ARRAY).build();
 
 const senderId = nativeModelBuilder
   .create()
@@ -57,7 +50,6 @@ const senderId = nativeModelBuilder
   .type(common.userId.type.value, errors.SENDER_ID_INVALID_TYPE)
   .unique(common.userId.unique.value, errors.SENDER_ID_EXIST)
   .empty(common.userId.empty.value, errors.SENDER_EMPTY)
-  .version("1.0.0")
   .build();
 
 const models = {

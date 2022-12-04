@@ -1,12 +1,6 @@
 const { ioFieldMaker } = require("utility-store/src/classes/IoFieldMaker");
 
-const FIELD_TYPE = {
-  ARRAY: "array",
-  BOOLEAN: "boolean",
-  NUMBER: "number",
-  OBJECT: "object",
-  STRING: "string",
-};
+const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 const statics = {
   array: (value) =>
@@ -162,4 +156,4 @@ const fields = {
   statics,
 };
 
-module.exports = { fields, FIELD_TYPE };
+module.exports = { fields };

@@ -14,7 +14,6 @@ const getAllUsers = testRouteBuilder
   .method("get")
   .url("/getAllUsers")
   .statusCode(200)
-  .version("1.0.0")
   .build();
 
 const routes = {

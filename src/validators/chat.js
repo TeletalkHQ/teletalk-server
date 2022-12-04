@@ -3,14 +3,14 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { compiledValidators } = require("@/validators/compiledValidators");
 
 const {
-  validatorErrorBuilder,
+  validatorErrorChecker,
 } = require("@/validators/validatorErrorBuilders");
 
 const tryToValidateChatId = async (chatId) => {
   const validationResult = await compiledValidators.chatId({ chatId });
 
   if (validationResult === true) return;
-  validatorErrorBuilder.chatId(validationResult, chatId);
+  validatorErrorChecker.chatId(validationResult, chatId);
 };
 const chatId = async (chatIdParam) => {
   (
@@ -24,7 +24,7 @@ const tryToValidateMessageText = async (messageText) => {
   });
 
   if (validationResult === true) return;
-  validatorErrorBuilder.messageText(validationResult, messageText);
+  validatorErrorChecker.messageText(validationResult, messageText);
 };
 
 const messageText = async (messageTextParam) => {
@@ -42,7 +42,7 @@ const tryToValidateParticipantId = async (participantId) => {
   });
 
   if (validationResult === true) return;
-  validatorErrorBuilder.participantId(validationResult, participantId);
+  validatorErrorChecker.participantId(validationResult, participantId);
 };
 
 const participantId = async (participantIdParam) => {

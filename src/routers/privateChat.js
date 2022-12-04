@@ -25,7 +25,6 @@ privateChatRouter[routes.privateChat.getPrivateChat.method](
   controllers.getPrivateChat
 );
 
-//CLEANME: Make a class for creating router item
 privateChatRouter[routes.privateChat.getAllPrivateChats.method](
   routes.privateChat.getAllPrivateChats.url,
   controllers.getAllPrivateChats

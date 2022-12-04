@@ -13,14 +13,13 @@ const otherRouteBuilder = routeBuilder(baseUrls.other);
 const getCountries = otherRouteBuilder
   .create()
   .method("get")
-  .url("/countries")
+  .url("/getCountries")
   .statusCode(200)
   .outputFields([
     {
       countries: fields.statics.array(fields.collection.country),
     },
   ])
-  .version("1.0.0")
   .description("Use for get countries for normal account")
   .build();
 
@@ -29,7 +28,6 @@ const getWelcomeMessage = otherRouteBuilder
   .method("get")
   .url("/welcomeMessage")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use to get welcome message for client")
   .outputFields([
     {

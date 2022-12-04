@@ -15,7 +15,6 @@ const createNewUser = userRouteBuilder
   .method("post")
   .url("/normalUser/createNewNormalUser")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for create new user for normal account")
   .inputFields(fields.collection.fullName)
   .outputFields([
@@ -30,7 +29,6 @@ const logoutNormal = userRouteBuilder
   .method("post")
   .url("/normalUser/logoutNormalUser")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for logout client as a normal account")
   .outputFields([{ ok: fields.single.ok }])
   .build();
@@ -40,7 +38,6 @@ const signInNormal = userRouteBuilder
   .method("post")
   .url("/normalUser/signInNormalUser")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for sign in client as a normal account")
   .inputFields(fields.collection.cellphone)
   .outputFields([
@@ -58,7 +55,6 @@ const getUserData = userRouteBuilder
   .method("get")
   .url("/normalUser/getUserData")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for check client availability as a normal account")
   .outputFields([
     {
@@ -72,7 +68,6 @@ const getTargetUserData = userRouteBuilder
   .method("post")
   .url("/normalUser/getTargetUserData")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for get user data")
   .outputFields([
     {
@@ -85,7 +80,6 @@ const getPublicUserInfo = userRouteBuilder
   .method("post")
   .url("/normalUser/getPublicUserInfo")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for get user data")
   .inputFields({
     userId: fields.single.userId,
@@ -107,7 +101,6 @@ const updatePersonalInfo = userRouteBuilder
   .method("patch")
   .url("/normalUser/updatePersonalInfo")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for user update personal info")
   .inputFields(fields.collection.fullName)
   //TODO: Add bio, username, cellphone etc...
@@ -119,7 +112,6 @@ const verifySignInNormal = userRouteBuilder
   .method("post")
   .url("/normalUser/verifySignInNormalUser")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for verify sign in (normal account) as normal account")
   .inputFields({
     verificationCode: fields.single.verificationCode,

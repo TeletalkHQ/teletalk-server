@@ -14,12 +14,11 @@ class NativeModelBuilder {
       trim: this.#initialValueAndError(false, {}),
       type: this.#initialValueAndError("", {}),
       unique: this.#initialValueAndError("", {}),
-      //FIXME: Replace initial value with default version ("1.0.0")
-      version: this.#initialValueAndError("", {}),
     };
+    this.modelVersion = "1.0.0";
   }
 
-  #addProperty(key, value = null, error) {
+  #updateProperty(key, value = null, error) {
     this.modelObject[key].value = value;
     if (error) this.modelObject[key].error = error;
   }
@@ -32,15 +31,12 @@ class NativeModelBuilder {
         errorKey: "",
         message: "",
         reason: "",
-        version: "",
       },
     };
   }
 
   build() {
     for (const key in this.modelObject) {
-      if (key === "version") continue;
-
       const { value } = this.modelObject[key];
       const valueType = customTypeof.check(value).type;
       if (valueType.isNull || valueType.isUndefined) {
@@ -48,54 +44,56 @@ class NativeModelBuilder {
       }
     }
 
+    this.modelObject.version = this.modelVersion;
+
     return this.modelObject;
   }
   maxlength(value, error) {
-    this.#addProperty("maxlength", value, error);
+    this.#updateProperty("maxlength", value, error);
     return this;
   }
   minlength(value, error) {
-    this.#addProperty("minlength", value, error);
+    this.#updateProperty("minlength", value, error);
     return this;
   }
   numeric(value, error) {
-    this.#addProperty("numeric", value, error);
+    this.#updateProperty("numeric", value, error);
     return this;
   }
   type(value, error) {
-    this.#addProperty("type", value, error);
+    this.#updateProperty("type", value, error);
     return this;
   }
   empty(value, error) {
-    this.#addProperty("empty", value, error);
+    this.#updateProperty("empty", value, error);
     return this;
   }
   version(value) {
-    this.modelObject.version = value;
+    this.modelVersion = value;
     return this;
   }
   required(value, error = {}) {
-    this.#addProperty("required", value, error);
+    this.#updateProperty("required", value, error);
     return this;
   }
   trim(value, error) {
-    this.#addProperty("trim", value, error);
+    this.#updateProperty("trim", value, error);
     return this;
   }
   unique(value, error) {
-    this.#addProperty("unique", value, error);
+    this.#updateProperty("unique", value, error);
     return this;
   }
   defaultValue(value, error) {
-    this.#addProperty("defaultValue", value, error);
+    this.#updateProperty("defaultValue", value, error);
     return this;
   }
   lowercase(value, error) {
-    this.#addProperty("lowercase", value, error);
+    this.#updateProperty("lowercase", value, error);
     return this;
   }
   length(value, error) {
-    this.#addProperty("length", value, error);
+    this.#updateProperty("length", value, error);
     return this;
   }
 }

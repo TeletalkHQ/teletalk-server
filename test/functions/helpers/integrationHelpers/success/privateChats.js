@@ -1,6 +1,7 @@
 const { successTestBuilder } = require("$/classes/SuccessTestBuilder");
 
 const { models } = require("@/models");
+const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 const chatModels = models.native.chat;
 
@@ -17,11 +18,9 @@ const privateChats = (
 
   builder.typeCheck().execute();
 
-  //FIXME: Check all indexes like this
   responseValue.forEach((privateChat) => {
-    //TODO: Add types to static variables
     builder
-      .customTypeCheck(privateChat, "object")
+      .customTypeCheck(privateChat, FIELD_TYPE.OBJECT)
       //TODO: Add all parts
       .setVariables(chatModels.chatId, undefined, privateChat.chatId)
       .typeCheck()

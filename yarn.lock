@@ -5050,10 +5050,10 @@ logger-browser@^1.1.0:
   resolved "https://registry.npmjs.org/logger-browser/-/logger-browser-1.1.0.tgz"
   integrity sha512-rpYgQ79DkZOilw3v0HczsPz0Yald7QrxMqEzLkN9vM3qwnjtDU2q3ZmHGjXJEwliGRugJYNg5VIugpPfH9R8ag==
 
-logger-chalker@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/logger-chalker/-/logger-chalker-1.1.0.tgz"
-  integrity sha512-tVWC0DA9kEo0HGHDVC67tMhZPOrQ+qiS4ZGxPf7nEpd6ps/tWap84BDzkX4gLjDvtSd7dZL8JCRMm4AqlUu20Q==
+logger-chalker@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/logger-chalker/-/logger-chalker-1.2.0.tgz"
+  integrity sha512-GY7SWMSsRJXVGAUeC8vreRPPDy0b+fnVgNI9jIM8m3dgNQICtGYe16+hwYqQWGp6Eo9xqST+YP6fpoTi9uMDSw==
   dependencies:
     chalk "^4.1.0"
 
@@ -7154,14 +7154,14 @@ utila@~0.4:
   resolved "https://registry.npmjs.org/utila/-/utila-0.4.0.tgz"
   integrity sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==
 
-utility-store@^3.16.2:
-  version "3.16.2"
-  resolved "https://registry.npmjs.org/utility-store/-/utility-store-3.16.2.tgz"
-  integrity sha512-nKZpcHZPptWONXBKvDXebRt3j0YBhUVnKF8Ht/Bocne7xnvLsMEjw2MAOT/YjFk1BCxofCwa8kx/T+Kr1SRYwg==
+utility-store@^3.17.0:
+  version "3.17.0"
+  resolved "https://registry.npmjs.org/utility-store/-/utility-store-3.17.0.tgz"
+  integrity sha512-tYhPYUOuWx2arMN08N+IESzVMLQHnyaT9asp/1tZck9ZELVxXQ1/TpRYu/IFjroHaJ1eOwEK4f7ITwUKeUrQDw==
   dependencies:
     custom-typeof "^1.2.0"
     logger-browser "^1.1.0"
-    logger-chalker "^1.1.0"
+    logger-chalker "^1.2.0"
     nanoid "^3.3.4"
 
 utils-merge@1.0.1:

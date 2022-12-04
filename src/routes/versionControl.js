@@ -16,7 +16,6 @@ const getAllStuffs = versionControlRouteBuilder
   .method("post")
   .url("/getAllStuff")
   .statusCode(200)
-  .version("1.0.0")
   .description(
     "Use for get all routes, models, validation models, errors and more"
   )

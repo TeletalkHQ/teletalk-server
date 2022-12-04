@@ -10,14 +10,17 @@ COPY yarn* ./
 RUN yarn
 
 COPY jsconfig.json ./
-
 COPY environments/ environments/
 
-COPY src/ src/
-COPY test/ test/
-COPY public/ public/
 COPY startupRequirements/ startupRequirements/
+
+COPY src/ src/
+COPY public/ public/
 COPY index.js ./
+
+COPY test/ test/
+
+COPY esbuild.config.json ./
 COPY esbuildEntryPoint.js ./
 
 RUN npm run build

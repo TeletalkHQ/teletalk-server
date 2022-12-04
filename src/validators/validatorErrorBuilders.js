@@ -6,7 +6,7 @@ const { errors } = require("@/variables/errors");
 
 const { countries } = require("@/variables/others/countries");
 
-const countryCode = (validationResult, countryCode) => {
+const countryCodeErrorChecker = (validationResult, countryCode) => {
   const errorBuilder = validationErrorBuilder.create();
 
   errorBuilder
@@ -33,7 +33,7 @@ const countryCode = (validationResult, countryCode) => {
     .execute();
 };
 
-const countryName = (validationResult, countryName) => {
+const countryNameErrorChecker = (validationResult, countryName) => {
   const errorBuilder = validationErrorBuilder.create();
 
   errorBuilder
@@ -59,7 +59,7 @@ const countryName = (validationResult, countryName) => {
     .execute();
 };
 
-const firstName = (validationResult, firstName) => {
+const firstNameErrorChecker = (validationResult, firstName) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -75,7 +75,7 @@ const firstName = (validationResult, firstName) => {
     .execute();
 };
 
-const lastName = (validationResult, lastName) => {
+const lastNameErrorChecker = (validationResult, lastName) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -88,7 +88,7 @@ const lastName = (validationResult, lastName) => {
     .execute();
 };
 
-const phoneNumber = (validationResult, phoneNumber) => {
+const phoneNumberErrorChecker = (validationResult, phoneNumber) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -106,7 +106,7 @@ const phoneNumber = (validationResult, phoneNumber) => {
     .execute();
 };
 
-const userId = (validationResult, userId) => {
+const userIdErrorChecker = (validationResult, userId) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -114,16 +114,16 @@ const userId = (validationResult, userId) => {
         validatedUserId: userId,
       },
     })
-    .required(errors.PRIVATE_ID_REQUIRED)
-    .stringEmpty(errors.PRIVATE_ID_REQUIRED)
-    .string(errors.PRIVATE_ID_INVALID_TYPE)
-    .stringMin(errors.PRIVATE_ID_MIN_LENGTH_REACH)
-    .stringMax(errors.PRIVATE_ID_MAX_LENGTH_REACH)
-    .throwAnyway(errors.PRIVATE_ID_INVALID)
+    .required(errors.USER_ID_REQUIRED)
+    .stringEmpty(errors.USER_ID_REQUIRED)
+    .string(errors.USER_ID_INVALID_TYPE)
+    .stringMin(errors.USER_ID_MIN_LENGTH_REACH)
+    .stringMax(errors.USER_ID_MAX_LENGTH_REACH)
+    .throwAnyway(errors.USER_ID_INVALID)
     .execute();
 };
 
-const username = (validationResult, username) => {
+const usernameErrorChecker = (validationResult, username) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -138,7 +138,7 @@ const username = (validationResult, username) => {
     .execute();
 };
 
-const verificationCode = (validationResult, verificationCode) => {
+const verificationCodeErrorChecker = (validationResult, verificationCode) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -155,7 +155,7 @@ const verificationCode = (validationResult, verificationCode) => {
     .execute();
 };
 
-const participantId = (validationResult, participantId) => {
+const participantIdErrorChecker = (validationResult, participantId) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -172,7 +172,7 @@ const participantId = (validationResult, participantId) => {
     .execute();
 };
 
-const messageText = (validationResult, messageText) => {
+const messageTextErrorChecker = (validationResult, messageText) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -189,7 +189,7 @@ const messageText = (validationResult, messageText) => {
     .execute();
 };
 
-const chatId = (validationResult, chatId) => {
+const chatIdErrorChecker = (validationResult, chatId) => {
   validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
@@ -206,20 +206,32 @@ const chatId = (validationResult, chatId) => {
     .execute();
 };
 
-const validatorErrorBuilder = {
-  chatId,
-  countryCode,
-  countryName,
-  firstName,
-  lastName,
-  messageText,
-  participantId,
-  phoneNumber,
-  userId,
-  username,
-  verificationCode,
+const tokenErrorChecker = (errorBuilder) => {
+  errorBuilder
+    .required(errors.TOKEN_REQUIRED)
+    .stringMin(errors.TOKEN_MINLENGTH_REACH)
+    .stringMax(errors.TOKEN_MAXLENGTH_REACH)
+    .stringEmpty(errors.TOKEN_REQUIRED)
+    .string(errors.TOKEN_INVALID_TYPE)
+    .throwAnyway(errors.TOKEN_INVALID)
+    .execute();
+};
+
+const validatorErrorChecker = {
+  chatId: chatIdErrorChecker,
+  countryCode: countryCodeErrorChecker,
+  countryName: countryNameErrorChecker,
+  firstName: firstNameErrorChecker,
+  lastName: lastNameErrorChecker,
+  messageText: messageTextErrorChecker,
+  participantId: participantIdErrorChecker,
+  phoneNumber: phoneNumberErrorChecker,
+  token: tokenErrorChecker,
+  userId: userIdErrorChecker,
+  username: usernameErrorChecker,
+  verificationCode: verificationCodeErrorChecker,
 };
 
 module.exports = {
-  validatorErrorBuilder,
+  validatorErrorChecker,
 };

@@ -9,6 +9,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const { expect } = require("$/functions/utilities/testUtilities");
 const { crashServer } = require("@/functions/utilities/utilities");
+const { trier } = require("utility-store/src/classes/Trier");
 
 const getDevelopmentApp = () => require("@/app").app;
 const getProductionApp = () => require("../../build").app;
@@ -68,8 +69,7 @@ class CustomRequest {
       logger.error(
         `expected ${this.responseStatusCode} to equal ${requestStatusCode};\n response body is:`
       );
-      //TODO: Add dir to logger
-      console.dir(this.response.body, { depth: 5 });
+      logger.dir(this.response.body, { depth: 5 });
     }
     expect(this.responseStatusCode).to.equal(requestStatusCode);
     return this;
@@ -154,8 +154,7 @@ class CustomRequest {
   }
 
   async sendFullFeaturedRequest(data, errorObject, options = this.options) {
-    //TODO: Update with trier
-    try {
+    const tryToSendFullFeaturedRequest = async () => {
       (
         await this.mergeOptions(options)
           .logStartTestRequest()
@@ -174,10 +173,15 @@ class CustomRequest {
         .logEndRequest();
 
       return this.response;
-    } catch (error) {
-      logger.error(error);
-      throw error;
-    }
+    };
+
+    return (
+      await trier(this.sendFullFeaturedRequest.name).tryAsync(
+        tryToSendFullFeaturedRequest
+      )
+    )
+      .printAndThrow()
+      .result();
   }
 
   getToken() {
@@ -220,7 +224,6 @@ class CustomRequest {
     const { token } = this.temporaryOptions;
     this.authorizationHeader = [
       "Authorization",
-      //TODO: Add test for Bearer missing
       customTypeof.isTruthy(token) ? `Bearer ${token}` : null,
     ];
 

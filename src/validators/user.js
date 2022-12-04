@@ -10,7 +10,7 @@ const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { compiledValidators } = require("@/validators/compiledValidators");
 const {
-  validatorErrorBuilder,
+  validatorErrorChecker,
 } = require("@/validators/validatorErrorBuilders");
 
 const { errors } = require("@/variables/errors");
@@ -22,13 +22,13 @@ const tryToValidateCountryCode = async (countryCode) => {
   const validationResult = await compiledValidators.countryCode({
     countryCode,
   });
-  validatorErrorBuilder.countryCode(validationResult, countryCode);
+  validatorErrorChecker.countryCode(validationResult, countryCode);
 };
-const countryCode = async (countryCodeParam) => {
+const countryCodeValidator = async (countryCode) => {
   await trierInstance(
-    countryCode.name,
+    countryCodeValidator.name,
     tryToValidateCountryCode,
-    countryCodeParam
+    countryCode
   );
 };
 
@@ -36,32 +36,36 @@ const tryToValidateCountryName = async (countryName) => {
   const validationResult = await compiledValidators.countryName({
     countryName,
   });
-  validatorErrorBuilder.countryName(validationResult, countryName);
+  validatorErrorChecker.countryName(validationResult, countryName);
 };
-const countryName = async (countryNameParam) => {
+const countryNameValidator = async (countryName) => {
   await trierInstance(
-    countryName.name,
+    countryNameValidator.name,
     tryToValidateCountryName,
-    countryNameParam
+    countryName
   );
 };
 
 const tryToValidateFirstName = async (firstName) => {
   const validationResult = await compiledValidators.firstName({ firstName });
   if (validationResult === true) return;
-  validatorErrorBuilder.firstName(validationResult, firstName);
+  validatorErrorChecker.firstName(validationResult, firstName);
 };
-const firstName = async (firstNameParam) => {
-  await trierInstance(firstName.name, tryToValidateFirstName, firstNameParam);
+const firstNameValidator = async (firstName) => {
+  await trierInstance(
+    firstNameValidator.name,
+    tryToValidateFirstName,
+    firstName
+  );
 };
 
 const tryToValidateLastName = async (lastName) => {
   const validationResult = await compiledValidators.lastName({ lastName });
   if (validationResult === true) return;
-  validatorErrorBuilder.lastName(validationResult, lastName);
+  validatorErrorChecker.lastName(validationResult, lastName);
 };
-const lastName = async (lastNameParam) => {
-  await trierInstance(lastName.name, tryToValidateLastName, lastNameParam);
+const lastNameValidator = async (lastName) => {
+  await trierInstance(lastNameValidator.name, tryToValidateLastName, lastName);
 };
 
 const tryToValidatePhoneNumber = async (phoneNumber) => {
@@ -71,13 +75,13 @@ const tryToValidatePhoneNumber = async (phoneNumber) => {
 
   if (validationResult === true) return;
 
-  validatorErrorBuilder.phoneNumber(validationResult, phoneNumber);
+  validatorErrorChecker.phoneNumber(validationResult, phoneNumber);
 };
-const phoneNumber = async (phoneNumberParam) => {
+const phoneNumberValidator = async (phoneNumber) => {
   await trierInstance(
-    phoneNumber.name,
+    phoneNumberValidator.name,
     tryToValidatePhoneNumber,
-    phoneNumberParam
+    phoneNumber
   );
 };
 
@@ -90,53 +94,49 @@ const tryToValidateCellphone = async (cellphone) => {
     })
   );
 
-  await countryCode(cellphone.countryCode);
-  await countryName(cellphone.countryName);
-  await phoneNumber(cellphone.phoneNumber);
+  await countryCodeValidator(cellphone.countryCode);
+  await countryNameValidator(cellphone.countryName);
+  await phoneNumberValidator(cellphone.phoneNumber);
 };
-const cellphone = async (cellphoneParam = {}) => {
-  await trierInstance(cellphone.name, tryToValidateCellphone, cellphoneParam);
+const cellphoneValidator = async (cellphone = {}) => {
+  await trierInstance(
+    cellphoneValidator.name,
+    tryToValidateCellphone,
+    cellphone
+  );
 };
 
 const tryToValidateContact = async (contact) => {
-  await cellphone(userPropsUtilities.extractCellphone(contact));
-  await firstName(contact.firstName);
-  await lastName(contact.lastName);
+  await cellphoneValidator(userPropsUtilities.extractCellphone(contact));
+  await firstNameValidator(contact.firstName);
+  await lastNameValidator(contact.lastName);
 };
-const contact = async (contactParam) => {
-  await trierInstance(contact.name, tryToValidateContact, contactParam);
+const contactValidator = async (contact) => {
+  await trierInstance(contactValidator.name, tryToValidateContact, contact);
 };
 
 const tryToValidateUserId = async (userId) => {
   const validationResult = await compiledValidators.userId({ userId });
   if (validationResult === true) return;
-  validatorErrorBuilder.userId(validationResult, userId);
+  validatorErrorChecker.userId(validationResult, userId);
 };
 
-//FIXME: Change names (add validator to the end)
-const userId = async (userIdParam) => {
-  await trierInstance(userId.name, tryToValidateUserId, userIdParam);
+const userIdValidator = async (userId) => {
+  await trierInstance(userIdValidator.name, tryToValidateUserId, userId);
 };
 
 const tryToValidateToken = async (token, secret) => {
   const validationResult = await compiledValidators.token({ token });
 
-  const errorBuilder = validationErrorBuilder.create();
-
-  //CLEANME Like others extract me, please!
-  errorBuilder
+  const errorBuilder = validationErrorBuilder
+    .create()
     .setRequirements(validationResult, {
       extraErrorFields: {
         validatedToken: token,
       },
-    })
-    .required(errors.TOKEN_REQUIRED)
-    .stringMin(errors.TOKEN_MINLENGTH_REACH)
-    .stringMax(errors.TOKEN_MAXLENGTH_REACH)
-    .stringEmpty(errors.TOKEN_REQUIRED)
-    .string(errors.TOKEN_INVALID_TYPE)
-    .throwAnyway(errors.TOKEN_INVALID)
-    .execute();
+    });
+
+  validatorErrorChecker.token(errorBuilder);
 
   const verifiedToken = authManager.tokenVerifier(token, secret);
   if (verifiedToken.ok === true) return verifiedToken.data;
@@ -148,19 +148,22 @@ const tryToValidateToken = async (token, secret) => {
     .addError(verifiedToken.ok === false, errors.TOKEN_INVALID)
     .execute();
 };
-const token = async (tokenParam, secret = authManager.getJwtMainSecret()) => {
+const tokenValidator = async (
+  token,
+  secret = authManager.getJwtMainSecret()
+) => {
   return (
-    await trierInstance(token.name, tryToValidateToken, tokenParam, secret)
+    await trierInstance(tokenValidator.name, tryToValidateToken, token, secret)
   ).result();
 };
 
 const tryToValidateUsername = async (username) => {
   const validationResult = await compiledValidators.username({ username });
   if (validationResult === true) return;
-  validatorErrorBuilder.username(validationResult, username);
+  validatorErrorChecker.username(validationResult, username);
 };
-const username = async (usernameParam) => {
-  await trierInstance(username.name, tryToValidateUsername, usernameParam);
+const usernameValidator = async (username) => {
+  await trierInstance(usernameValidator.name, tryToValidateUsername, username);
 };
 
 const tryToValidateVerificationCode = async (verificationCode) => {
@@ -170,27 +173,27 @@ const tryToValidateVerificationCode = async (verificationCode) => {
 
   if (validationResult === true) return;
 
-  validatorErrorBuilder.verificationCode(validationResult, verificationCode);
+  validatorErrorChecker.verificationCode(validationResult, verificationCode);
 };
-const verificationCode = async (verificationCodeParam) => {
+const verificationCodeValidator = async (verificationCode) => {
   await trierInstance(
-    verificationCode.name,
+    verificationCodeValidator.name,
     tryToValidateVerificationCode,
-    verificationCodeParam
+    verificationCode
   );
 };
 
 const userValidators = {
-  cellphone,
-  contact,
-  countryCode,
-  countryName,
-  firstName,
-  lastName,
-  phoneNumber,
-  userId,
-  token,
-  username,
-  verificationCode,
+  cellphone: cellphoneValidator,
+  contact: contactValidator,
+  countryCode: countryCodeValidator,
+  countryName: countryNameValidator,
+  firstName: firstNameValidator,
+  lastName: lastNameValidator,
+  phoneNumber: phoneNumberValidator,
+  userId: userIdValidator,
+  token: tokenValidator,
+  username: usernameValidator,
+  verificationCode: verificationCodeValidator,
 };
 module.exports = { userValidators };

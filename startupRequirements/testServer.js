@@ -10,7 +10,7 @@ const {
 
 const { countries } = require("@/variables/others/countries");
 
-const { services } = require("@/services");
+const { testServices } = require("$/services/user");
 
 const tryToAddTestUser = async ({
   countryCode,
@@ -30,7 +30,7 @@ const tryToAddTestUser = async ({
   });
 
   const testUserName = `testUser_${index}`;
-  testUsers[testUserName] = await services.addTestUser({
+  testUsers[testUserName] = await testServices.addTestUser({
     countryCode,
     countryName,
     firstName: "test",

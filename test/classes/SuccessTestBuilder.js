@@ -1,5 +1,7 @@
 const { expect } = require("$/functions/utilities/testUtilities");
 
+const { FIELD_TYPE } = require("@/variables/others/fieldType");
+
 class SuccessTestBuilder {
   constructor() {
     this.tests = [];
@@ -162,7 +164,7 @@ class SuccessTestBuilder {
   numericCheck() {
     this.checkAndExecute(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(+this.variables.responseValue).to.be.an("number")
+        expect(+this.variables.responseValue).to.be.an(FIELD_TYPE.NUMBER)
       );
     });
     return this;

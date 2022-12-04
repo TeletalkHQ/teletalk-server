@@ -15,7 +15,6 @@ const getChatsLastMessage = privateChatRouteBuilder
   .method("post")
   .url("/getChatsLastMessage")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for Get chats last message")
   .build();
 
@@ -24,7 +23,6 @@ const getPrivateChat = privateChatRouteBuilder
   .method("post")
   .url("/getPrivateChat")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for get all messages")
   .inputFields({ chatId: fields.single.chatId })
   .outputFields([
@@ -40,7 +38,6 @@ const getAllPrivateChats = privateChatRouteBuilder
   .method("get")
   .url("/getAllPrivateChats")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for get all private chats with messages")
   .outputFields([
     {
@@ -54,7 +51,6 @@ const sendPrivateMessage = privateChatRouteBuilder
   .method("post")
   .url("/sendPrivateMessage")
   .statusCode(200)
-  .version("1.0.0")
   .description("Use for send private messages")
   .inputFields({
     message: fields.single.message,

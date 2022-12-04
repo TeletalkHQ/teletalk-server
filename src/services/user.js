@@ -186,40 +186,6 @@ const createNewNormalUser = async (userData) => {
     .result();
 };
 
-const tryToAddTestUser = async ({
-  countryCode,
-  countryName,
-  firstName,
-  lastName,
-  token,
-  phoneNumber,
-  userId,
-}) => {
-  const user = await User.findOneAndUpdate(
-    { countryCode, countryName, phoneNumber },
-    {
-      sessions: [{ token }],
-      userId,
-      firstName,
-      lastName,
-      contacts: [],
-      blacklist: [],
-    },
-    {
-      upsert: true,
-      lean: true,
-      new: true,
-    }
-  );
-
-  return user;
-};
-const addTestUser = async (userData) => {
-  return (await trier(addTestUser.name).tryAsync(tryToAddTestUser, userData))
-    .printAndThrow()
-    .result();
-};
-
 const getAllUsers = async () => {
   const users = await User.find();
   return users;
@@ -254,8 +220,6 @@ const saveNewToken = async (cellphone, newToken) => {
 const userServices = {
   addCellphoneToUserBlacklist,
   addContactToUserContacts,
-  //TODO: Move to test services
-  addTestUser,
   createNewNormalUser,
   deleteBlacklistItem,
   getAllUsers,

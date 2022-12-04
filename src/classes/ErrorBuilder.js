@@ -7,43 +7,43 @@ class ErrorBuilder {
       statusCode: 400,
       version: "1.0.0",
       errorKey: "",
-      errorCode: 4000,
+      // errorCode: 4000,
     };
   }
 
-  #addProperty(key, value) {
+  #updateProperty(key, value) {
     this.errorObject[key] = value;
   }
 
   build() {
     return this.errorObject;
   }
-  errorCode(errorCode) {
-    this.#addProperty("errorCode", errorCode);
-    return this;
-  }
+  // errorCode(errorCode) {
+  //   this.#updateProperty("errorCode", errorCode);
+  //   return this;
+  // }
   statusCode(statusCode) {
-    this.#addProperty("statusCode", statusCode);
+    this.#updateProperty("statusCode", statusCode);
     return this;
   }
   message(message) {
-    this.#addProperty("message", message);
+    this.#updateProperty("message", message);
     return this;
   }
   errorReason(errorReason) {
-    this.#addProperty("reason", errorReason);
+    this.#updateProperty("reason", errorReason);
     return this;
   }
   errorKey(errorKey) {
-    this.#addProperty("errorKey", errorKey);
+    this.#updateProperty("errorKey", errorKey);
     return this;
   }
   version(version) {
-    this.errorObject.version = version;
+    this.#updateProperty("version", version);
     return this;
   }
   description(description) {
-    this.errorObject.description = description;
+    this.#updateProperty("description", description);
     return this;
   }
 }

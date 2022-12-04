@@ -1,4 +1,4 @@
-const errorUniqueIds = {
+const UNIQUE_ERROR_IDS = {
   BIO_EMPTY: "BIO_EMPTY",
   BIO_INVALID_TYPE: "BIO_INVALID_TYPE",
   BIO_MAXLENGTH_REACH: "BIO_MAXLENGTH_REACH",
@@ -146,4 +146,4 @@ const errorUniqueIds = {
   VERIFICATION_CODE_REQUIRED: "VERIFICATION_CODE_REQUIRED",
 };
 
-module.exports = { errorUniqueIds };
+module.exports = { UNIQUE_ERROR_IDS };

@@ -1,8 +1,8 @@
 {
+  "bundle": true,
   "entry": "./esbuildEntryPoint.js",
+  "minify": true,
   "outfile": "build/index.js",
   "platform": "node",
-  "target": "node16.0",
-  "bundle": true,
-  "minify": true
+  "target": "node16.0"
 }

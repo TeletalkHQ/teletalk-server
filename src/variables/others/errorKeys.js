@@ -1,4 +1,4 @@
-const errorKeys = {
+const ERROR_KEYS = {
   BIO_VALIDATION: "BIO_VALIDATION",
   BLACKLIST_VALIDATION: "BLACKLIST_VALIDATION",
   CELLPHONE_VALIDATION: "CELLPHONE_VALIDATION",
@@ -35,4 +35,4 @@ const errorKeys = {
   VERIFICATION_CODE_VALIDATION: "VERIFICATION_CODE_VALIDATION",
 };
 
-module.exports = { errorKeys };
+module.exports = { ERROR_KEYS };

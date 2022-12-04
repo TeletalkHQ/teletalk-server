@@ -18,9 +18,9 @@ const { validators } = require("@/validators");
 
 const { errors } = require("@/variables/errors");
 
-const tryToExtractCellphoneFromToken = async (verifyToken) => {
+const tryToExtractCellphoneFromToken = async (token) => {
   const jwtSecret = authManager.getJwtSignInSecret();
-  const verifiedToken = await validators.token(verifyToken, jwtSecret);
+  const verifiedToken = await validators.token(token, jwtSecret);
   errorThrower(verifiedToken.ok === false, () => verifiedToken.error);
   const cellphone = userPropsUtilities.extractCellphone(verifiedToken.payload);
   return cellphone;
@@ -52,18 +52,18 @@ const tryToFindUserInDb = async (cellphone) => {
 const getRandomId = () =>
   randomMaker.randomId(userIdCommonModel.maxlength.value);
 
-const tryToSignMainToken = async (cellphone, userId) => {
-  const mainToken = await authManager.tokenSigner({
+const tryToSignToken = async (cellphone, userId) => {
+  const token = await authManager.tokenSigner({
     ...cellphone,
     userId,
   });
-  return mainToken;
+  return token;
 };
 
-const fixUserDataForDb = ({ mainToken, ...rest }) => {
+const fixUserDataForDb = ({ token, ...rest }) => {
   const allUserData = {
     ...rest,
-    tokens: [{ mainToken }],
+    sessions: [{ token }],
   };
 
   return allUserData;
@@ -95,8 +95,8 @@ const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
 
   const userId = getRandomId();
 
-  const mainToken = (
-    await trierInstance.tryAsync(tryToSignMainToken, cellphone, userId)
+  const token = (
+    await trierInstance.tryAsync(tryToSignToken, cellphone, userId)
   ).result();
 
   const defaultUserData = {
@@ -104,7 +104,7 @@ const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
     ...cellphone,
     firstName,
     lastName,
-    mainToken,
+    token,
     userId,
   };
 
@@ -119,14 +119,14 @@ const createNewUser = async (req = expressRequest, res = expressResponse) => {
   const {
     body: { firstName, lastName },
   } = req;
-  const verifyToken = authManager.getTokenFromRequest(req);
+  const token = authManager.getTokenFromRequest(req);
   const trierInstance = trier(createNewUser.name);
 
   (
     await trierInstance.tryAsync(createNewUserTrier, {
       firstName,
       lastName,
-      verifyToken,
+      verifyToken: token,
     })
   )
     .executeIfNoError(responseToCreateNewUser, res)

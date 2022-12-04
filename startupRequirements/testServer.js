@@ -22,7 +22,7 @@ const tryToAddTestUser = async ({
 
   const userId = randomMaker.randomId(userIdCommonModel.maxlength.value);
 
-  const mainToken = await authManager.tokenSigner({
+  const token = await authManager.tokenSigner({
     countryCode,
     countryName,
     phoneNumber,
@@ -35,7 +35,7 @@ const tryToAddTestUser = async ({
     countryName,
     firstName: "test",
     lastName: `user_${index}`,
-    mainToken,
+    token,
     phoneNumber,
     userId,
   });

@@ -15,7 +15,7 @@ describe("signInNormalApi test success requests", () => {
   it("It should get sign in data like token and verification code", async () => {
     const {
       body: {
-        user: { countryCode, countryName, phoneNumber, verifyToken },
+        user: { countryCode, countryName, phoneNumber, token },
       },
     } = await requesters
       .signInNormal()
@@ -47,7 +47,7 @@ describe("signInNormalApi test success requests", () => {
 
     const JWT_SIGN_IN_SECRET = authManager.getJwtSignInSecret();
     await successTest.token({
-      responseValue: verifyToken,
+      responseValue: token,
       secret: JWT_SIGN_IN_SECRET,
     });
   });

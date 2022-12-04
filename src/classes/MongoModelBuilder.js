@@ -14,18 +14,18 @@ class MongoModelBuilder {
     };
   }
 
-  #addProperty(name) {
+  #updateProperty(name) {
     this.#setProperty(name);
     this.#setMessage(name);
   }
-  #addPropertyWithoutMessage(name) {
+  #updatePropertyWithoutMessage(name) {
     this.#setProperty(name);
   }
   #setProperty(key) {
     this.mongoModel[key].push(this.modelObject[key].value);
   }
   #setMessage(key) {
-    this.mongoModel[key].push(this.modelObject[key].error?.message);
+    this.mongoModel[key].push(this.modelObject[key].error?.reason);
   }
 
   build() {
@@ -43,35 +43,39 @@ class MongoModelBuilder {
   }
 
   defaultValue() {
-    this.#addProperty("defaultValue");
+    this.#updateProperty("defaultValue");
     return this;
   }
   lowercase() {
-    this.#addProperty("lowercase");
+    this.#updateProperty("lowercase");
     return this;
   }
   maxlength() {
-    this.#addProperty("maxlength");
+    this.#updateProperty("maxlength");
     return this;
   }
   minlength() {
-    this.#addProperty("minlength");
+    this.#updateProperty("minlength");
     return this;
   }
   required() {
-    this.#addProperty("required");
+    this.#updateProperty("required");
     return this;
   }
   trim() {
-    this.#addPropertyWithoutMessage("trim");
+    this.#updatePropertyWithoutMessage("trim");
     return this;
   }
   type() {
-    this.#addPropertyWithoutMessage("type");
+    this.#updatePropertyWithoutMessage("type");
     return this;
   }
   unique() {
-    this.#addProperty("unique");
+    this.#updateProperty("unique");
+    return this;
+  }
+  items(items) {
+    this.#updateProperty("items", items);
     return this;
   }
 }

@@ -11,9 +11,6 @@ const { models } = require("@/models");
 
 const { commonServices } = require("@/services/common");
 
-const {
-  initialOptions: { userInitialOptions },
-} = require("@/variables/others/initialOptions");
 const { errors } = require("@/variables/errors");
 
 const User = models.database.mongoDb.User;
@@ -79,10 +76,7 @@ const tryToAddContactToUserContacts = async (currentUser, targetUserData) => {
 
   return { targetUser, currentUser };
 };
-const addContactToUserContacts = async (
-  currentUser = userInitialOptions,
-  targetUserData = userInitialOptions
-) => {
+const addContactToUserContacts = async (currentUser, targetUserData) => {
   return (
     await trier(addContactToUserContacts.name).tryAsync(
       tryToAddContactToUserContacts,
@@ -125,7 +119,7 @@ const updateOneContact = async (currentUser, targetCellphone, editedValues) => {
     .result();
 };
 
-const getUserContacts = async (currentUser = userInitialOptions) => {
+const getUserContacts = async (currentUser) => {
   return currentUser.contacts;
 };
 
@@ -150,10 +144,7 @@ const tryToRemoveContactItem = async (currentUser, targetUserData) => {
   currentUser.contacts.splice(cellphoneIndex, 1);
   await currentUser.save();
 };
-const removeContactItem = async (
-  currentUser = userInitialOptions,
-  targetUserData = userInitialOptions
-) => {
+const removeContactItem = async (currentUser, targetUserData) => {
   return (
     await trier(removeContactItem.name).tryAsync(
       tryToRemoveContactItem,
@@ -200,14 +191,14 @@ const tryToAddTestUser = async ({
   countryName,
   firstName,
   lastName,
-  mainToken,
+  token,
   phoneNumber,
   userId,
 }) => {
   const user = await User.findOneAndUpdate(
     { countryCode, countryName, phoneNumber },
     {
-      tokens: [{ mainToken }],
+      sessions: [{ token }],
       userId,
       firstName,
       lastName,
@@ -223,7 +214,7 @@ const tryToAddTestUser = async ({
 
   return user;
 };
-const addTestUser = async (userData = userInitialOptions) => {
+const addTestUser = async (userData) => {
   return (await trier(addTestUser.name).tryAsync(tryToAddTestUser, userData))
     .printAndThrow()
     .result();
@@ -249,14 +240,14 @@ const getUserData = async (userId) => {
 };
 
 const logoutUser = async (currentUser) => {
-  currentUser.tokens = [];
+  currentUser.sessions = [];
   await currentUser.save();
   return { ok: true };
 };
 
-const saveNewMainToken = async (cellphone, newMainToken) => {
+const saveNewToken = async (cellphone, newToken) => {
   const user = await commonServices.userFinder(cellphone);
-  user.tokens.push({ mainToken: newMainToken });
+  user.sessions.push({ token: newToken });
   await user.save();
 };
 
@@ -272,7 +263,7 @@ const userServices = {
   getUserData,
   logoutUser,
   removeContactItem,
-  saveNewMainToken,
+  saveNewToken,
   updateOneContact,
   updatePersonalInfo,
 };

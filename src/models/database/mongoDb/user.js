@@ -17,10 +17,9 @@ const {
   countryName,
   createdAt,
   firstName,
-  // lastMessage,
   lastName,
-  mainToken,
   phoneNumber,
+  token,
   userId,
   username,
 } = {
@@ -70,13 +69,6 @@ const {
     .minlength()
     .required()
     .build(),
-  lastMessage: mongoModelBuilder
-    .create()
-    .setModelObject(commonModelsWithoutVersion.messageId)
-    .type()
-    .minlength()
-    .maxlength()
-    .build(),
   lastName: mongoModelBuilder
     .create()
     .setModelObject(userModelsWithoutVersion.lastName)
@@ -85,7 +77,7 @@ const {
     .trim()
     .defaultValue()
     .build(),
-  mainToken: mongoModelBuilder
+  token: mongoModelBuilder
     .create()
     .setModelObject(userModelsWithoutVersion.token)
     .type()
@@ -134,19 +126,17 @@ const UserSchema = new mongoose.Schema({
       phoneNumber,
     },
   ],
-  contacts: [
-    {
+  contacts: {
+    type: nativeModels.user.contacts.type.value,
+    items: {
       countryCode,
       countryName,
       firstName,
       lastName,
       phoneNumber,
-      userId: (() => {
-        const { unique, ...rest } = userId;
-        return rest;
-      })(),
+      userId,
     },
-  ],
+  },
   countryCode,
   countryName,
   createdAt,
@@ -154,9 +144,9 @@ const UserSchema = new mongoose.Schema({
   lastName,
   phoneNumber,
   userId,
-  tokens: [
+  sessions: [
     {
-      mainToken,
+      token,
     },
   ],
   username,

@@ -64,8 +64,6 @@ const getAllPrivateChats = async (
   },
   options = { lean: true }
 ) => {
-  console.log("participantId:::", participantId);
-
   const chats =
     (await PrivateChat.find(
       {

@@ -90,19 +90,6 @@ const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
   return routeObjects;
 };
 
-//TODO Move it to UserPropsUtilities
-const isDataHasEqualityWithTargetCellphone = (data, targetCellphone) => {
-  if (
-    data.phoneNumber === targetCellphone.phoneNumber &&
-    data.countryCode === targetCellphone.countryCode &&
-    data.countryName === targetCellphone.countryName
-  ) {
-    return true;
-  }
-
-  return false;
-};
-
 const executeMiddlewares = async ({ middlewares, next, req, res }) => {
   for await (const md of middlewares) {
     const result = await md(req, res, () => {});
@@ -137,7 +124,6 @@ module.exports = {
   extractVersions,
   fixResponseErrorObject,
   getHostFromRequest,
-  isDataHasEqualityWithTargetCellphone,
   isUrlMatchWithReqUrl,
   regexMaker,
   versionCalculator,

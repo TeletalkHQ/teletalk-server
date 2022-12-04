@@ -20,7 +20,7 @@ const fullName = userPropsUtilities.makeRandomFullName(
 const signInFn = async () => {
   const {
     body: {
-      user: { countryCode, countryName, phoneNumber, verifyToken },
+      user: { countryCode, countryName, phoneNumber, token },
     },
   } = await requesters
     .signInNormal()
@@ -34,33 +34,30 @@ const signInFn = async () => {
 
   return {
     verificationCode,
-    verifyToken,
+    token,
   };
 };
 
-const verifySingIn = async (verificationCode, verifyToken) => {
-  await requesters
-    .verifySignIn()
-    .setToken(verifyToken)
-    .sendFullFeaturedRequest({
-      verificationCode,
-    });
+const verifySingIn = async (verificationCode, token) => {
+  await requesters.verifySignIn().setToken(token).sendFullFeaturedRequest({
+    verificationCode,
+  });
 };
 
-const createNewUser = async (verifyToken) => {
+const createNewUser = async (token) => {
   return await requesters
     .createNewUser()
-    .setToken(verifyToken)
+    .setToken(token)
     .sendFullFeaturedRequest(fullName);
 };
 
 describe("logoutNormal success tests", () => {
   it("It should get ok:true for logging out user", async () => {
-    const { verificationCode, verifyToken } = await signInFn();
+    const { verificationCode, token: verifyToken } = await signInFn();
     await verifySingIn(verificationCode, verifyToken);
     const {
       body: {
-        user: { mainToken },
+        user: { token },
       },
     } = await createNewUser(verifyToken);
 
@@ -68,7 +65,7 @@ describe("logoutNormal success tests", () => {
       body: { ok },
     } = await requesters
       .logoutNormal()
-      .sendFullFeaturedRequest(undefined, undefined, { token: mainToken });
+      .sendFullFeaturedRequest(undefined, undefined, { token });
 
     expect(ok).to.be.true;
   });

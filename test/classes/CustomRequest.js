@@ -11,7 +11,7 @@ const { expect } = require("$/functions/utilities/testUtilities");
 const { crashServer } = require("@/functions/utilities/utilities");
 
 const getDevelopmentApp = () => require("@/app").app;
-const getProductionApp = () => require("~/build").app;
+const getProductionApp = () => require("../../build").app;
 
 const getServer = () => {
   const NODE_ENV = envManager.getNodeEnv();
@@ -68,6 +68,7 @@ class CustomRequest {
       logger.error(
         `expected ${this.responseStatusCode} to equal ${requestStatusCode};\n response body is:`
       );
+      //TODO: Add dir to logger
       console.dir(this.response.body, { depth: 5 });
     }
     expect(this.responseStatusCode).to.equal(requestStatusCode);
@@ -174,7 +175,7 @@ class CustomRequest {
 
       return this.response;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
       throw error;
     }
   }

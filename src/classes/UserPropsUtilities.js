@@ -9,7 +9,7 @@ class UserPropsUtilities extends UserPropsUtilitiesMain {
   }
 
   getTokenFromUserObject(userObject) {
-    return userObject.tokens[0]?.mainToken || "";
+    return userObject.sessions[0]?.token || "";
   }
 }
 

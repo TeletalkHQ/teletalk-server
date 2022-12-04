@@ -19,7 +19,7 @@ const cellphones = testVariablesManager.getCellphones();
 const signInFn = async () => {
   const {
     body: {
-      user: { countryCode, countryName, phoneNumber, verifyToken },
+      user: { countryCode, countryName, phoneNumber, token },
     },
   } = await requesters
     .signInNormal()
@@ -31,7 +31,7 @@ const signInFn = async () => {
     phoneNumber,
   });
 
-  return { verifyToken, verificationCode };
+  return { token, verificationCode };
 };
 
 describe("verifySignInNormalApi success test", () => {
@@ -48,12 +48,12 @@ describe("verifySignInNormalApi success test", () => {
 
     //* 1- Sign in as a new user =>
     const {
-      verifyToken: newUserVerifyToken,
+      token: newUserVerifyToken,
       verificationCode: newUserVerificationCode,
     } = await signInFn();
     await tokenVerifier(newUserVerifyToken);
 
-    //* 2- Verify user by verificationCode & verifyToken =>
+    //* 2- Verify user by verificationCode & token =>
     const newUserVerifySignInResponse = await requesters
       .verifySignIn()
       .setToken(newUserVerifyToken)
@@ -75,8 +75,7 @@ describe("verifySignInNormalApi success test", () => {
       .sendFullFeaturedRequest(fullName);
 
     //* 5- Now sign in again for test output when newUser === false =>
-    const { verifyToken: signedUserVerifyToken, verificationCode } =
-      await signInFn();
+    const { token: signedUserVerifyToken, verificationCode } = await signInFn();
     await tokenVerifier(signedUserVerifyToken);
     //* 6- Get the verification code =>
 
@@ -120,13 +119,13 @@ describe("verifySignInNormalApi failure tests", () => {
   before(async () => {
     const {
       body: {
-        user: { verifyToken },
+        user: { token },
       },
     } = await requesters
       .signInNormal()
       .sendFullFeaturedRequest(cellphones.verifySignInFailTest);
 
-    customRequest.setToken(verifyToken);
+    customRequest.setToken(token);
   });
 
   integrationHelpers

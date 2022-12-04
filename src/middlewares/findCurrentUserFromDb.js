@@ -4,7 +4,6 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
 
-//CLEANME: Use utility-store
 const { errorThrower } = require("@/functions/utilities/utilities");
 
 const { services } = require("@/services");
@@ -21,9 +20,8 @@ const tryToFindCurrentUserFromDb = async (userData, token) => {
     cellphone,
   }));
 
-  //REFACTOR: Change mainToken and verifyToken to token
-  const isTokenExistOnUserData = currentUser.tokens.find(
-    (t) => t.mainToken === token
+  const isTokenExistOnUserData = currentUser.sessions.find(
+    (t) => t.token === token
   );
   //TODO: Add test for logout
   errorThrower(!isTokenExistOnUserData, errors.CURRENT_USER_NOT_EXIST);

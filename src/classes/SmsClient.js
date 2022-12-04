@@ -10,10 +10,8 @@ const { trier } = require("utility-store/src/classes/Trier");
 class SmsClient {
   templates() {
     return {
-      verificationCode: (
-        verificationCode,
-        host
-      ) => `Verification code: ${verificationCode} \n\n ${host}        
+      verificationCode: (verificationCode, host) =>
+        `کد تایید: ${verificationCode} \n\n ${host}        
         `,
     };
   }

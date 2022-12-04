@@ -3314,6 +3314,11 @@ es6-template-strings@^2.0.1:
     es5-ext "^0.10.12"
     esniff "^1.1"
 
+esbuild-config@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/esbuild-config/-/esbuild-config-1.0.1.tgz"
+  integrity sha512-3Ha0LwC9F1Y1+rertxsDvaSWp+XyvIvI4Lrh3XNcZpuD2qz9xaHUY0yK9ESgh7AplfwVJDYAtOsAStYyArRhXA==
+
 esbuild-linux-64@0.15.14:
   version "0.15.14"
   resolved "https://registry.npmjs.org/esbuild-linux-64/-/esbuild-linux-64-0.15.14.tgz"

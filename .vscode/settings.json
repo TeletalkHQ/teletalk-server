@@ -50,7 +50,8 @@
     "aliases.sh": true,
     ".trachcan": true,
     "startupRequirements": true,
-    "temp": true
+    "temp": true,
+    "railway.json": true
   },
   "explorerExclude.backup": {},
   "cSpell.words": [],

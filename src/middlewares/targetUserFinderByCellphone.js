@@ -10,6 +10,18 @@ const { services } = require("@/services");
 
 const { errors } = require("@/variables/errors");
 
+const targetUserFinderByCellphone = async (req, res, next) => {
+  (
+    await trier(targetUserFinderByCellphone.name).tryAsync(
+      tryToFindUserByCellphone,
+      req.body
+    )
+  )
+    .executeIfNoError(executeInNoError, req, next)
+    .catch(catchFindUserByCellphone, res)
+    .result();
+};
+
 const tryToFindUserByCellphone = async (requestData) => {
   const cellphone = userPropsUtilities.extractCellphone(requestData);
 
@@ -17,7 +29,7 @@ const tryToFindUserByCellphone = async (requestData) => {
 
   errorThrower(customTypeof.isNull(targetUser), {
     ...cellphone,
-    ...errors.CELLPHONE_NOT_EXIST,
+    ...errors.TARGET_USER_NOT_EXIST,
   });
 
   return { ok: true, targetUser };
@@ -31,19 +43,6 @@ const executeInNoError = ({ targetUser }, req, next) => {
 const catchFindUserByCellphone = (error, res) => {
   commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
-};
-//DEPRECATED
-//UNUSED
-const targetUserFinderByCellphone = async (req, res, next) => {
-  (
-    await trier(targetUserFinderByCellphone.name).tryAsync(
-      tryToFindUserByCellphone,
-      req.body
-    )
-  )
-    .executeIfNoError(executeInNoError, req, next)
-    .catch(catchFindUserByCellphone, res)
-    .result();
 };
 
 module.exports = { targetUserFinderByCellphone };

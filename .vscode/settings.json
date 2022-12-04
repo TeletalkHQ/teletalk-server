@@ -51,7 +51,8 @@
     ".trachcan": true,
     "startupRequirements": true,
     "temp": true,
-    "railway.json": true
+    "railway.json": true,
+    "esbuild.config.json": true
   },
   "explorerExclude.backup": {},
   "cSpell.words": [],

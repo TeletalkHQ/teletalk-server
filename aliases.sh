@@ -10,9 +10,15 @@
 alias docb="docker build . -t stalwart95/teletalk-server"
 alias docr="docker run -it -u 0 -p 8080:8080 stalwart95/teletalk-server"
 alias doccu="docker compose up --build"
+
 #? Railway aliases
 alias rwl="railway logs"
 alias rwu="railway up"
+
+#? Liara aliases
+alias lrdd="liara deploy --platform=docker"
+alias lrdn="liara deploy --platform=node"
+alias lrl="liara logs"
 
 #? npm aliases
 alias nrb="npm run build"

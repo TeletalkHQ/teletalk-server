@@ -14,16 +14,11 @@ const tryConnectToMongodb = () => {
     );
   });
 
-  const mongodbClient = mongoose.connect(
-    configs.db.MONGO_URL_WITH_COLLECTION_NAME,
-    {
-      keepAlive: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  );
-
-  return mongodbClient;
+  return mongoose.connect(configs.db.MONGO_URL_WITH_COLLECTION_NAME, {
+    keepAlive: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 };
 const mongodbConnector = () => {
   return trier(mongodbConnector.name)

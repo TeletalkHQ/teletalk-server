@@ -1,5 +1,6 @@
-const { models } = require("@/models");
 const { trier } = require("utility-store/src/classes/Trier");
+
+const { models } = require("@/models");
 
 const addTestUser = async (userData) => {
   const tryToAddTestUser = async ({
@@ -7,11 +8,11 @@ const addTestUser = async (userData) => {
     countryName,
     firstName,
     lastName,
-    token,
     phoneNumber,
+    token,
     userId,
   }) => {
-    const user = await models.database.mongoDb.User.findOneAndUpdate(
+    return await models.database.mongoDb.User.findOneAndUpdate(
       { countryCode, countryName, phoneNumber },
       {
         sessions: [{ token }],
@@ -27,8 +28,6 @@ const addTestUser = async (userData) => {
         new: true,
       }
     );
-
-    return user;
   };
 
   return (await trier(addTestUser.name).tryAsync(tryToAddTestUser, userData))

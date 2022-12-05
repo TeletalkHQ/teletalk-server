@@ -64,16 +64,15 @@ const getAllPrivateChats = async (
   },
   options = { lean: true }
 ) => {
-  const chats =
+  return (
     (await PrivateChat.find(
       {
         "participants.participantId": participantId,
       },
       projections,
       options
-    )) || [];
-
-  return chats;
+    )) || []
+  );
 };
 
 const sendPrivateMessage = async (currentUser, participantId, message) => {

@@ -16,9 +16,6 @@ const getAllStuffs = versionControlRouteBuilder
   .method("post")
   .url("/getAllStuff")
   .statusCode(200)
-  .description(
-    "Use for get all routes, models, validation models, errors and more"
-  )
   .inputFields({
     language: fields.single.language,
   })

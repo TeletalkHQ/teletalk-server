@@ -3,8 +3,7 @@ const { services } = require("@/services");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const tryToGetAllUsers = async () => {
-  const users = await services.getAllUsers();
-  return users;
+  return await services.getAllUsers();
 };
 
 const responseToGetAllUsers = (users, res) => {

@@ -10,7 +10,7 @@
     "url": "https://github.com/S-STALWART-S/teletalk-server"
   },
   "scripts": {
-    "build": "esbuild $(esbuild-config)",
+    "build": "esbuild ./esbuildEntryPoint.js --platform=node --target=node16.0 --bundle --minify --outfile=build/index.js",
     "check:format": "prettier --write ./",
     "check:lint": "eslint ./",
     "check:security": "snyk test & snyk code test",
@@ -90,6 +90,7 @@
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-security": "^1.5.0",
+    "eslint-plugin-sonarjs": "^0.16.0",
     "eslint-plugin-testing-library": "^5.9.1",
     "husky": "^8.0.2",
     "lint-staged": "^13.0.3",

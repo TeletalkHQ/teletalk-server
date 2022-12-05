@@ -19,12 +19,10 @@ const tryToValidateVerificationCode = async (verificationCode) => {
 };
 
 const makeFullNumber = (cellphone) => {
-  const fullNumber = userPropsUtilities.concatCountryCodeWithPhoneNumber(
+  return userPropsUtilities.concatCountryCodeWithPhoneNumber(
     cellphone.countryCode,
     cellphone.phoneNumber
   );
-
-  return fullNumber;
 };
 
 const tryToSendVerificationCodeAsSms = async (
@@ -37,11 +35,10 @@ const tryToSendVerificationCodeAsSms = async (
 };
 
 const tryToSignToken = async (cellphone) => {
-  const token = await authManager.tokenSigner(
+  return await authManager.tokenSigner(
     cellphone,
     authManager.getJwtSignInSecret()
   );
-  return token;
 };
 
 const tryToAddNewTemporaryClient = async (
@@ -64,8 +61,7 @@ const tryToUpdateTemporaryClient = async (client, verificationCode, token) => {
 };
 
 const tryToFindTemporaryClient = async (cellphone) => {
-  const client = await temporaryClients.findClientByCellphone(cellphone);
-  return client;
+  return await temporaryClients.findClientByCellphone(cellphone);
 };
 
 const temporaryClientHelper = async ({

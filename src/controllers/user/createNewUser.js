@@ -22,8 +22,7 @@ const tryToExtractCellphoneFromToken = async (token) => {
   const jwtSecret = authManager.getJwtSignInSecret();
   const verifiedToken = await validators.token(token, jwtSecret);
   errorThrower(verifiedToken.ok === false, () => verifiedToken.error);
-  const cellphone = userPropsUtilities.extractCellphone(verifiedToken.payload);
-  return cellphone;
+  return userPropsUtilities.extractCellphone(verifiedToken.payload);
 };
 
 const tryToValidateFirstName = async (firstName) => {
@@ -53,20 +52,17 @@ const getRandomId = () =>
   randomMaker.randomId(userIdCommonModel.maxlength.value);
 
 const tryToSignToken = async (cellphone, userId) => {
-  const token = await authManager.tokenSigner({
+  return await authManager.tokenSigner({
     ...cellphone,
     userId,
   });
-  return token;
 };
 
 const fixUserDataForDb = ({ token, ...rest }) => {
-  const allUserData = {
+  return {
     ...rest,
     sessions: [{ token }],
   };
-
-  return allUserData;
 };
 
 const tryToCreateNewUser = async (userDataForDatabase) => {

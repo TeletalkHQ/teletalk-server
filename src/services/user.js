@@ -187,8 +187,7 @@ const createNewNormalUser = async (userData) => {
 };
 
 const getAllUsers = async () => {
-  const users = await User.find();
-  return users;
+  return await User.find();
 };
 
 const tryToGetUserData = async (userId) => {

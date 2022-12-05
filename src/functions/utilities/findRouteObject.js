@@ -16,11 +16,9 @@ const routesWithoutVersion = objectUtilities.objectValues({
 });
 
 const tryToFindRouteObject = (url) => {
-  const route = routesWithoutVersion.find((item) => {
+  return routesWithoutVersion.find((item) => {
     return item.fullUrl === url;
   });
-
-  return route;
 };
 
 const findRouteObject = (url) => {

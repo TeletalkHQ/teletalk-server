@@ -6,10 +6,9 @@ const { fixResponseErrorObject } = require("@/functions/utilities/utilities");
 const { errors } = require("@/variables/errors");
 
 const tryToCollectError = (errorObject) => {
-  const errorToSend = customTypeof.isObject(errorObject)
+  return customTypeof.isObject(errorObject)
     ? errorObject
     : errors.UNKNOWN_ERROR;
-  return errorToSend;
 };
 
 const executeIfNoError = (errorToSend, res) => {

@@ -20,7 +20,6 @@ const getCountries = otherRouteBuilder
       countries: fields.statics.array(fields.collection.country),
     },
   ])
-  .description("Use for get countries for normal account")
   .build();
 
 const getWelcomeMessage = otherRouteBuilder
@@ -28,7 +27,6 @@ const getWelcomeMessage = otherRouteBuilder
   .method("get")
   .url("/welcomeMessage")
   .statusCode(200)
-  .description("Use to get welcome message for client")
   .outputFields([
     {
       welcomeMessage: fields.single.welcomeMessage,

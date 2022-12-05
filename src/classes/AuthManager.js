@@ -9,7 +9,6 @@ const { routes } = require("@/routes");
 
 class AuthManager {
   constructor() {
-    //FIXME Is this should change by dev's ?
     this.options = { algorithm: "HS256" };
     this.tryVerifyToken = this.tryVerifyToken.bind(this);
     this.trySignToken = this.trySignToken.bind(this);

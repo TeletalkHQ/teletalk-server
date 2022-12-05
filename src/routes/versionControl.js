@@ -6,14 +6,15 @@ const {
 } = require("@/functions/utilities/utilities");
 
 const { baseUrls } = require("@/routes/baseUrls");
-
 const { fields } = require("@/routes/fields");
+
+const { METHODS } = require("@/variables/others/methods");
 
 const versionControlRouteBuilder = routeBuilder(baseUrls.versionControl);
 
 const getAllStuffs = versionControlRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/getAllStuff")
   .statusCode(200)
   .inputFields({

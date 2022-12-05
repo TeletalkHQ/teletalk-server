@@ -26,7 +26,6 @@ const allStuff = {
     ...routes.cellphone,
     ...routes.other,
     ...routes.privateChat,
-    ...routes.test,
     ...routes.user,
     ...routes.versionControl,
   },

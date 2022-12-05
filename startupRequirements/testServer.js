@@ -10,7 +10,7 @@ const {
 
 const { countries } = require("@/variables/others/countries");
 
-const { testServices } = require("$/services/user");
+const { userServices: testServices } = require("$/services/user");
 
 const tryToAddTestUser = async ({
   countryCode,

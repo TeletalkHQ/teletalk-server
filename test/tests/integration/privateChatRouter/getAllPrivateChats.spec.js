@@ -25,8 +25,6 @@ describe("get messages success tests", () => {
       body: { privateChats },
     } = await requesters.getAllPrivateChats().sendFullFeaturedRequest();
 
-    //FIXME: Length privateChats should be one or more
-
     for (const chat of privateChats) {
       const { messages } = chat;
 

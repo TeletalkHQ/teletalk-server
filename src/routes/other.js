@@ -8,11 +8,13 @@ const {
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");
 
+const { METHODS } = require("@/variables/others/methods");
+
 const otherRouteBuilder = routeBuilder(baseUrls.other);
 
 const getCountries = otherRouteBuilder
   .create()
-  .method("get")
+  .method(METHODS.GET)
   .url("/getCountries")
   .statusCode(200)
   .outputFields([
@@ -24,7 +26,7 @@ const getCountries = otherRouteBuilder
 
 const getWelcomeMessage = otherRouteBuilder
   .create()
-  .method("get")
+  .method(METHODS.GET)
   .url("/welcomeMessage")
   .statusCode(200)
   .outputFields([

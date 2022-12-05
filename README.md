@@ -2,7 +2,7 @@
 
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20CI/teletalk-server-main?label=CI)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20Build/teletalk-server-main?label=Build)
-![Test](test/badge.svg)
+![Test](test/tests.svg)
 ![Codecov branch](https://img.shields.io/codecov/c/github/s-stalwart-s/teletalk-server/teletalk-server-main?label=Coverage)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20Code%20Style/teletalk-server-main?label=Code%20style)
 ![GitHub](https://img.shields.io/github/license/s-stalwart-s/teletalk-server?label=License)

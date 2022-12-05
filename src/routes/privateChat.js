@@ -8,24 +8,25 @@ const {
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");
 
+const { METHODS } = require("@/variables/others/methods");
+
 const privateChatRouteBuilder = routeBuilder(baseUrls.privateChat);
 
 const getChatsLastMessage = privateChatRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/getChatsLastMessage")
   .statusCode(200)
   .build();
 
 const getPrivateChat = privateChatRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/getPrivateChat")
   .statusCode(200)
   .inputFields({ chatId: fields.single.chatId })
   .outputFields([
     {
-      //TODO: Top props check
       privateChat: fields.collection.privateChat,
     },
   ])
@@ -33,7 +34,7 @@ const getPrivateChat = privateChatRouteBuilder
 
 const getAllPrivateChats = privateChatRouteBuilder
   .create()
-  .method("get")
+  .method(METHODS.GET)
   .url("/getAllPrivateChats")
   .statusCode(200)
   .outputFields([
@@ -45,7 +46,7 @@ const getAllPrivateChats = privateChatRouteBuilder
 
 const sendPrivateMessage = privateChatRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/sendPrivateMessage")
   .statusCode(200)
   .inputFields({

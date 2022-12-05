@@ -35,10 +35,8 @@ const addTestUser = async (userData) => {
     .result();
 };
 
-const testServices = {
+const userServices = {
   addTestUser,
 };
 
-module.exports = {
-  testServices,
-};
+module.exports = { userServices };

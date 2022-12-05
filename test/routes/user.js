@@ -7,11 +7,13 @@ const {
 
 const { baseUrls } = require("@/routes/baseUrls");
 
-const testRouteBuilder = routeBuilder(baseUrls.test);
+const { METHODS } = require("@/variables/others/methods");
 
-const getAllUsers = testRouteBuilder
+const userRouteBuilder = routeBuilder(baseUrls.user);
+
+const getAllUsers = userRouteBuilder
   .create()
-  .method("get")
+  .method(METHODS.GET)
   .url("/getAllUsers")
   .statusCode(200)
   .build();
@@ -20,9 +22,11 @@ const routes = {
   getAllUsers,
 };
 
-const test = {
+const userRoutes = {
   ...routes,
   version: versionCalculator(extractVersions(routes)),
 };
 
-module.exports = { test };
+module.exports = {
+  user: userRoutes,
+};

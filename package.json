@@ -23,7 +23,7 @@
     "test-runner": "mocha ./index.js --delay --recursive --exit",
     "test:coverage": "cross-env COVERAGE=true nyc npm run test:dev",
     "test:dev": "cross-env NODE_ENV=test_development npm run test-runner",
-    "test:dev:with-badge": "npm run test:dev -- -- --reporter mocha-badge-generator",
+    "test:dev:with-badge": "cross-env MOCHA_BADGE_GEN_OUTPUT=./test/tests.svg npm run test:dev -- -- --reporter mocha-badge-generator",
     "test:production": "cross-env NODE_ENV=test_production npm run test-runner",
     "test:production:local": "cross-env NODE_ENV=test_production_local npm run test-runner"
   },

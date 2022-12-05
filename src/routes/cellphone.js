@@ -8,12 +8,14 @@ const {
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");
 
+const { METHODS } = require("@/variables/others/methods");
+
 const cellphoneRouteBuilder = routeBuilder(baseUrls.cellphone);
 
 const addBlock = cellphoneRouteBuilder
   .create()
   //TODO: Use METHODS
-  .method("post")
+  .method(METHODS.POST)
   .url("/addBlock")
   .statusCode(200)
   .inputFields(fields.collection.cellphone)
@@ -26,14 +28,14 @@ const addBlock = cellphoneRouteBuilder
 
 const addBlocks = cellphoneRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/addBlocks")
   .statusCode(200)
   .build();
 
 const addContact = cellphoneRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/addContact")
   .statusCode(200)
   .inputFields(fields.collection.contactWithoutUserId)
@@ -46,14 +48,14 @@ const addContact = cellphoneRouteBuilder
 
 const addContacts = cellphoneRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/addContacts")
   .statusCode(200)
   .build();
 
 const editContact = cellphoneRouteBuilder
   .create()
-  .method("patch")
+  .method(METHODS.PATCH)
   .url("/editContact")
   .statusCode(200)
   .inputFields(fields.collection.contactWithoutUserId)
@@ -68,7 +70,7 @@ const editContact = cellphoneRouteBuilder
 
 const getContacts = cellphoneRouteBuilder
   .create()
-  .method("get")
+  .method(METHODS.GET)
   .url("/getContacts")
   .statusCode(200)
   .outputFields([
@@ -80,7 +82,7 @@ const getContacts = cellphoneRouteBuilder
 
 const removeBlock = cellphoneRouteBuilder
   .create()
-  .method("delete")
+  .method(METHODS.DELETE)
   .url("/removeBlock")
   .statusCode(200)
   .inputFields(fields.collection.cellphone)
@@ -95,14 +97,14 @@ const removeBlock = cellphoneRouteBuilder
 
 const removeBlocks = cellphoneRouteBuilder
   .create()
-  .method("delete")
+  .method(METHODS.DELETE)
   .url("/removeBlocks")
   .statusCode(200)
   .build();
 
 const removeContact = cellphoneRouteBuilder
   .create()
-  .method("delete")
+  .method(METHODS.DELETE)
   .url("/removeContact")
   .statusCode(200)
   .inputFields(fields.collection.cellphone)
@@ -115,21 +117,21 @@ const removeContact = cellphoneRouteBuilder
 
 const removeContacts = cellphoneRouteBuilder
   .create()
-  .method("delete")
+  .method(METHODS.DELETE)
   .url("/removeContacts")
   .statusCode(200)
   .build();
 
 const shareContact = cellphoneRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/shareContact")
   .statusCode(200)
   .build();
 
 const shareContacts = cellphoneRouteBuilder
   .create()
-  .method("post")
+  .method(METHODS.POST)
   .url("/shareContacts")
   .statusCode(200)
   .build();

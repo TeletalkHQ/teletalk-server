@@ -2,13 +2,13 @@ const { Router } = require("express");
 
 const { controllers } = require("@/controllers");
 
-const { routes } = require("@/routes");
+const { routes } = require("$/routes");
 
-const testRouter = Router();
+const userRouter = Router();
 
-testRouter[routes.test.getAllUsers.method](
+userRouter[routes.getAllUsers.method](
   routes.test.getAllUsers.url,
   controllers.getAllUsers
 );
 
-module.exports = { testRouter };
+module.exports = { userRouter };

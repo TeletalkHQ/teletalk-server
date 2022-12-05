@@ -29,9 +29,6 @@ const { signInNormal } = require("@/controllers/user/signInNormal");
 const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
 const { verifySignInNormal } = require("@/controllers/user/verifySignInNormal");
 
-//TODO: Add to user controllers
-const { getAllUsers } = require("@/controllers/test/getAllUsers");
-
 const { getAllStuff } = require("@/controllers/versionControl/getAllStuff");
 
 const controllers = {
@@ -41,7 +38,6 @@ const controllers = {
   editContact,
   getAllPrivateChats,
   getAllStuff,
-  getAllUsers,
   getChatsLastMessage,
   getContacts,
   getCountries,

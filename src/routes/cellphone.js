@@ -16,7 +16,6 @@ const addBlock = cellphoneRouteBuilder
   .method("post")
   .url("/addBlock")
   .statusCode(200)
-  .description("Use for block single contact on user contacts list")
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
@@ -30,7 +29,6 @@ const addBlocks = cellphoneRouteBuilder
   .method("post")
   .url("/addBlocks")
   .statusCode(200)
-  .description("Use for block single contact on user contacts list")
   .build();
 
 const addContact = cellphoneRouteBuilder
@@ -38,7 +36,6 @@ const addContact = cellphoneRouteBuilder
   .method("post")
   .url("/addContact")
   .statusCode(200)
-  .description("Use for add single contact to current user contacts list")
   .inputFields(fields.collection.contactWithoutUserId)
   .outputFields([
     {
@@ -52,7 +49,6 @@ const addContacts = cellphoneRouteBuilder
   .method("post")
   .url("/addContacts")
   .statusCode(200)
-  .description("Use for add single contact to current user contacts list")
   .build();
 
 const editContact = cellphoneRouteBuilder
@@ -60,7 +56,6 @@ const editContact = cellphoneRouteBuilder
   .method("patch")
   .url("/editContact")
   .statusCode(200)
-  .description("User for edit single contact on user contacts list")
   .inputFields(fields.collection.contactWithoutUserId)
   .outputFields([
     {
@@ -76,7 +71,6 @@ const getContacts = cellphoneRouteBuilder
   .method("get")
   .url("/getContacts")
   .statusCode(200)
-  .description("User for edit single contact on user contacts list")
   .outputFields([
     {
       contacts: fields.statics.object(fields.collection.contact),
@@ -89,7 +83,6 @@ const removeBlock = cellphoneRouteBuilder
   .method("delete")
   .url("/removeBlock")
   .statusCode(200)
-  .description("Use for remove single contact on user contacts list")
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
@@ -105,7 +98,6 @@ const removeBlocks = cellphoneRouteBuilder
   .method("delete")
   .url("/removeBlocks")
   .statusCode(200)
-  .description("Use for remove single contact on user contacts list")
   .build();
 
 const removeContact = cellphoneRouteBuilder
@@ -113,7 +105,6 @@ const removeContact = cellphoneRouteBuilder
   .method("delete")
   .url("/removeContact")
   .statusCode(200)
-  .description("Use for remove single contact on user contacts list")
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
@@ -127,7 +118,6 @@ const removeContacts = cellphoneRouteBuilder
   .method("delete")
   .url("/removeContacts")
   .statusCode(200)
-  .description("Use for remove single contact on user contacts list")
   .build();
 
 const shareContact = cellphoneRouteBuilder
@@ -135,7 +125,6 @@ const shareContact = cellphoneRouteBuilder
   .method("post")
   .url("/shareContact")
   .statusCode(200)
-  .description("Use for share single contact on user contacts list")
   .build();
 
 const shareContacts = cellphoneRouteBuilder
@@ -143,7 +132,6 @@ const shareContacts = cellphoneRouteBuilder
   .method("post")
   .url("/shareContacts")
   .statusCode(200)
-  .description("Use for share single contact on user contacts list")
   .build();
 
 const routes = {

@@ -10,7 +10,7 @@ class IntegrationSuccessTestMaker {
   }
 
   successTestMaker(methodName) {
-    const successTestCallback = (
+    return (
       { clientValue, responseValue } = {},
       options = this.defaultOptions
     ) => {
@@ -26,7 +26,6 @@ class IntegrationSuccessTestMaker {
       );
       return this;
     };
-    return successTestCallback;
   }
 
   async token({ responseValue, secret } = {}, options = this.defaultOptions) {

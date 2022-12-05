@@ -56,7 +56,10 @@
     "ipynb",
     "jsonwebtoken",
     "lcov",
+    "liara",
     "linebreak",
+    "lrdd",
+    "lrdn",
     "luhn",
     "maxlength",
     "middlewares",
@@ -86,6 +89,7 @@
     "sio",
     "snyk",
     "soheil",
+    "sonarjs",
     "strikethrough",
     "stringAlphadash",
     "stringAlphanum",
@@ -97,7 +101,8 @@
     "vsintellicode",
     "zadd",
     "zoot",
-    "zrange"
+    "zrange",
+    "تایید"
   ],
   "import": [],
   "version": "0.2",

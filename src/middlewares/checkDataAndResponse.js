@@ -28,11 +28,10 @@ const tryToCheckDataAndResponse = ({
   //TODO: If there is no valid error object, throw UNKNOWN_ERROR
   if (checkResult.ok === false) {
     if (!checkResult.errorObject || !checkResult.errorObject.reason) {
-      const error = {
+      throw {
         ...errors.UNKNOWN_ERROR,
         checkResult,
       };
-      throw error;
     }
 
     throw checkResult.errorObject;

@@ -8,8 +8,7 @@ const { validators } = require("@/validators");
 
 const tryToGetPrivateChatMessages = async (currentUser, chatId) => {
   await validators.chatId(chatId);
-  const privateChat = await services.getPrivateChat(currentUser, chatId);
-  return privateChat;
+  return await services.getPrivateChat(currentUser, chatId);
 };
 
 const responseToGetMessages = (privateChat, res) => {

@@ -1,15 +1,14 @@
-const supertest = require("supertest");
-
+const { trier } = require("utility-store/src/classes/Trier");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const supertest = require("supertest");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const { expect } = require("$/functions/utilities/testUtilities");
 const { crashServer } = require("@/functions/utilities/utilities");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const getDevelopmentApp = () => require("@/app").app;
 const getProductionApp = () => require("../../build").app;
@@ -111,11 +110,14 @@ class CustomRequest {
     };
     return this;
   }
+  logSeparator() {
+    return "- - - - - - - - - - - - - - - - - - -";
+  }
   logStartTestRequest() {
     logger
-      .bgRed("- - - - - - - - - - - - - - - - - - -", logger.colors.black)
+      .bgRed(this.logSeparator(), logger.colors.black)
       .bgRed("TEST_REQUEST_BEGIN", logger.colors.black)
-      .bgRed(" - - - - - - - - - - - - - - - - - - - ", logger.colors.black)
+      .bgRed(this.logSeparator(), logger.colors.black)
       .info();
     return this;
   }
@@ -139,15 +141,9 @@ class CustomRequest {
   }
   logEndRequest() {
     logger
-      .bgYellowBright(
-        "- - - - - - - - - - - - - - - - - - -",
-        logger.colors.black
-      )
+      .bgYellowBright(this.logSeparator(), logger.colors.black)
       .bgYellowBright("TEST_REQUEST_END", logger.colors.black)
-      .bgYellowBright(
-        " - - - - - - - - - - - - - - - - - - - ",
-        logger.colors.black
-      )
+      .bgYellowBright(this.logSeparator(), logger.colors.black)
       .info();
 
     return this;

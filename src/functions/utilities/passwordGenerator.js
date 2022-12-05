@@ -10,12 +10,10 @@ const initialOptions = {
 };
 
 const passwordGenerator = (options = initialOptions) => {
-  const randomPassword = generatePassword.generate({
+  return generatePassword.generate({
     ...initialOptions,
     ...options,
   });
-
-  return randomPassword;
 };
 
 module.exports = { passwordGenerator };

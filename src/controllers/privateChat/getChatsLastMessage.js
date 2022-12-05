@@ -5,10 +5,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToGetChatsLastMessage = async (currentUser) => {
-  const chatsWithLastMessages = await services.getChatsLastMessages(
-    currentUser
-  );
-  return chatsWithLastMessages;
+  return await services.getChatsLastMessages(currentUser);
 };
 
 const responseToGetChatsLastMessage = (chatsWithLastMessages, res) => {

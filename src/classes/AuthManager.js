@@ -3,7 +3,7 @@ const JWT = require("jsonwebtoken");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const { isUrlMatchWithReqUrl } = require("@/functions/utilities/utilities");
+const { isUrlMatchWithReqUrl } = require("@/utilities/utilities");
 
 const { routes } = require("@/routes");
 

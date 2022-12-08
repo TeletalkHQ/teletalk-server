@@ -1,7 +1,7 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/utilities/utilities");
 
 const { models } = require("@/models");
 

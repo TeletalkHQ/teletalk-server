@@ -5,7 +5,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/utilities/utilities");
 
 const { models } = require("@/models");
 

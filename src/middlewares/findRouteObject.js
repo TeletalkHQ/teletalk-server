@@ -1,4 +1,4 @@
-const { findRouteObject } = require("@/functions/utilities/findRouteObject");
+const { findRouteObject } = require("@/utilities/findRouteObject");
 
 const { errors } = require("@/variables/errors");
 

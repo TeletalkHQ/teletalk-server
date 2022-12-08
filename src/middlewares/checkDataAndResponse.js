@@ -6,7 +6,7 @@ const {
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { crashServerWithCondition } = require("@/functions/utilities/utilities");
+const { crashServerWithCondition } = require("@/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 

@@ -1,6 +1,6 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { crashServer } = require("@/functions/utilities/utilities");
+const { crashServer } = require("@/utilities/utilities");
 
 const tryToResponseToError = (res) => {
   const { statusCode, ...errors } = res.errors;
@@ -10,6 +10,7 @@ const tryToResponseToError = (res) => {
 
 const catchResponseToError = () => {
   logger.redBright("CRITICAL ERROR!!!").error();
+  //TODO: Response critical error
   crashServer();
 };
 

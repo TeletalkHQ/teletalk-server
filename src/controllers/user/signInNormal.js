@@ -7,10 +7,8 @@ const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { getHostFromRequest } = require("@/functions/utilities/utilities");
-const {
-  passwordGenerator,
-} = require("@/functions/utilities/passwordGenerator");
+const { getHostFromRequest } = require("@/utilities/utilities");
+const { passwordGenerator } = require("@/utilities/passwordGenerator");
 
 const { validators } = require("@/validators");
 

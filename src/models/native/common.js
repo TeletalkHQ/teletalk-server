@@ -2,10 +2,7 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
 
-const {
-  extractVersions,
-  versionCalculator,
-} = require("@/functions/utilities/utilities");
+const { extractVersions, versionCalculator } = require("@/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 const { FIELD_TYPE } = require("@/variables/others/fieldType");

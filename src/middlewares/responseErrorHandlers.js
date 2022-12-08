@@ -1,5 +1,5 @@
-const { errorCollector } = require("@/functions/helpers/errorCollector");
-const { errorResponser } = require("@/functions/helpers/errorResponser");
+const { errorCollector } = require("@/helpers/errorCollector");
+const { errorResponser } = require("@/helpers/errorResponser");
 
 const responseErrorHandlers = (_, res, next) => {
   res.errors = {

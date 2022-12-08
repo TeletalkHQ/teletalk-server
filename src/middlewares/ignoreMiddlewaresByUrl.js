@@ -2,7 +2,7 @@ const {
   checkExecuteMiddlewaresRequirements,
   executeMiddlewares,
   isUrlMatchWithReqUrl,
-} = require("@/functions/utilities/utilities");
+} = require("@/utilities/utilities");
 
 const ignoreMiddlewaresByUrl = (url, ...middlewares) => {
   checkExecuteMiddlewaresRequirements(url, middlewares);

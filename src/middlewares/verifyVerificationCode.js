@@ -4,7 +4,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 

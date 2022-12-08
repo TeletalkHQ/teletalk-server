@@ -1,9 +1,6 @@
 const { errorBuilder } = require("@/classes/ErrorBuilder");
 
-const {
-  extractVersions,
-  versionCalculator,
-} = require("@/functions/utilities/utilities");
+const { extractVersions, versionCalculator } = require("@/utilities/utilities");
 
 const { ERROR_KEYS } = require("@/variables/others/errorKeys");
 const { UNIQUE_ERROR_IDS } = require("@/variables/others/uniqueErrorIds");

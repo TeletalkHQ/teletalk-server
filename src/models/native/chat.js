@@ -1,9 +1,6 @@
 const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
 
-const {
-  extractVersions,
-  versionCalculator,
-} = require("@/functions/utilities/utilities");
+const { extractVersions, versionCalculator } = require("@/utilities/utilities");
 
 const { common } = require("@/models/native/common");
 

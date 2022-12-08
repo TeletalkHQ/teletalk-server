@@ -1,9 +1,6 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const {
-  extractVersions,
-  versionCalculator,
-} = require("@/functions/utilities/utilities");
+const { extractVersions, versionCalculator } = require("@/utilities/utilities");
 
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");

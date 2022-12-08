@@ -8,7 +8,7 @@ const supertest = require("supertest");
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const { expect } = require("$/functions/utilities/testUtilities");
-const { crashServer } = require("@/functions/utilities/utilities");
+const { crashServer } = require("@/utilities/utilities");
 
 const getDevelopmentApp = () => require("@/app").app;
 const getProductionApp = () => require("../../build").app;

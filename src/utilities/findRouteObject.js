@@ -3,7 +3,7 @@ const {
 } = require("utility-store/src/classes/ObjectUtilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { excludeVersions } = require("@/functions/utilities/utilities");
+const { excludeVersions } = require("@/utilities/utilities");
 
 const { routes } = require("@/routes");
 

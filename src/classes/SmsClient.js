@@ -2,7 +2,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const axios = require("axios");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 const { trier } = require("utility-store/src/classes/Trier");

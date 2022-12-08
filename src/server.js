@@ -6,7 +6,7 @@ const { app } = require("@/app");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const { crashServer } = require("@/functions/utilities/utilities");
+const { crashServer } = require("@/utilities/utilities");
 
 const { ioFunctions } = require("@/socket/io");
 

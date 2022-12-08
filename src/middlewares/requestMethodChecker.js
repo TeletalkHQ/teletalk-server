@@ -5,10 +5,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const {
-  excludeVersions,
-  errorThrower,
-} = require("@/functions/utilities/utilities");
+const { excludeVersions, errorThrower } = require("@/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 const { allStuff } = require("@/variables/others/allStuff");

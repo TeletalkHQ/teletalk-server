@@ -1,4 +1,4 @@
-const { regexMaker } = require("@/functions/utilities/utilities");
+const { regexMaker } = require("@/utilities/utilities");
 
 const enNumber = regexMaker("^[0-9]+$");
 

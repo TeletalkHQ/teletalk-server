@@ -7,7 +7,7 @@ const serveFavicon = require("serve-favicon");
 //* PrettyError is error prettier in terminal.
 require("pretty-error").start();
 
-const { getIgnoredUrlsForAuth } = require("@/functions/helpers/otherHelpers");
+const { getIgnoredUrlsForAuth } = require("@/helpers/otherHelpers");
 
 const { lifeLine } = require("@/routers/lifeLine");
 

@@ -1,7 +1,7 @@
 //! This order is important ==>
 require("module-alias/register");
 require("@/variables/others/customGlobals");
-require("@/functions/helpers/requireDotenv").requireDotenv();
+require("@/helpers/requireDotenv").requireDotenv();
 //! This order is important <==
 
 const { mainServer } = require("./mainServer");

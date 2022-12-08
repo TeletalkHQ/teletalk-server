@@ -5,7 +5,7 @@ const {
 const { stateManager } = require("@/classes/StateManager");
 const { appOptions } = require("@/classes/AppOptions");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/utilities/utilities");
 const { errors } = require("@/variables/errors");
 
 class TemporaryClients {

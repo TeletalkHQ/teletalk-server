@@ -1,9 +1,6 @@
 const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
-const {
-  extractVersions,
-  versionCalculator,
-} = require("@/functions/utilities/utilities");
+const { extractVersions, versionCalculator } = require("@/utilities/utilities");
 
 const { nativeModels } = require("@/models/native");
 

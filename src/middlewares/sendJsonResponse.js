@@ -1,4 +1,4 @@
-const { sendJsonResponse } = require("@/functions/helpers/sendJsonResponse");
+const { sendJsonResponse } = require("@/helpers/sendJsonResponse");
 
 const sendJsonResponseMiddleware = (req, res, next) => {
   res.sendJsonResponse = (data) => sendJsonResponse(req, res, data);

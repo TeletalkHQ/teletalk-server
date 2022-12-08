@@ -4,7 +4,7 @@ const {
   versionCalculator,
 
   extractVersions,
-} = require("@/functions/utilities/utilities");
+} = require("@/utilities/utilities");
 
 const { common } = require("@/models/native/common");
 

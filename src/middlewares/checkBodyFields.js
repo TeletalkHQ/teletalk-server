@@ -6,7 +6,7 @@ const {
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { errorThrower } = require("@/functions/utilities/utilities");
+const { errorThrower } = require("@/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 const { appConfigs } = require("@/classes/AppConfigs");

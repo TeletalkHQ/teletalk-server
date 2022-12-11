@@ -56,7 +56,8 @@
     "tests.svg": true,
     "test/README.md": true,
     "test/tests.svg": true,
-    "test/mocha.opts": true
+    "test/mocha.opts": true,
+    "environments": true
   },
   "explorerExclude.backup": {},
   "cSpell.words": [],

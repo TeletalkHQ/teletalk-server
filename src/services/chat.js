@@ -95,7 +95,7 @@ const sendPrivateMessage = async (currentUser, participantId, message) => {
   const newMessage = {
     message,
     messageId: randomMaker.randomId(chatModels.messageId.maxlength.value),
-    messageSender: { senderId: currentUser.userId },
+    sender: { senderId: currentUser.userId },
   };
 
   if (!privateChat) {

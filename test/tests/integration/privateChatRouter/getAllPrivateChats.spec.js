@@ -30,7 +30,7 @@ describe("get messages success tests", () => {
 
       const {
         messageId,
-        messageSender: { senderId },
+        sender: { senderId },
       } = messages.at(-1);
 
       integrationHelpers

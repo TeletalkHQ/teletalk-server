@@ -65,14 +65,14 @@ const fullName = {
 
 const { userId: _userId, ...contactWithoutUserId } = contact;
 
-const messageSender = statics.object({
+const sender = statics.object({
   senderId,
 });
 
 const messageItem = {
   message,
   messageId,
-  messageSender,
+  sender,
 };
 
 const participantItem = {
@@ -144,7 +144,7 @@ const collection = {
   fullName,
   messageItem,
   messages,
-  messageSender,
+  sender,
   participants,
   privateChat,
   user,

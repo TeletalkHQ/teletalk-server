@@ -13,6 +13,7 @@
     "build": "esbuild ./esbuildEntryPoint.js --platform=node --target=node16.0 --bundle --minify --outfile=build/index.js",
     "check:format": "prettier --write ./",
     "check:lint": "eslint ./",
+    "check:lint:default": "eslint 'src/**/*.js'",
     "check:security": "snyk test & snyk code test",
     "check:style": "npm run check:format && npm run check:lint",
     "git:prepare": "husky install",

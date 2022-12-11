@@ -28,7 +28,7 @@ describe("send message success tests", () => {
           newMessage: {
             message: newMessage,
             messageId,
-            messageSender: { senderId },
+            sender: { senderId },
           },
         },
       } = await requesters.sendPrivateMessage().sendFullFeaturedRequest({

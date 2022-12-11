@@ -62,7 +62,7 @@ const PrivateChatSchema = new mongoose.Schema({
     {
       message,
       messageId,
-      messageSender: {
+      sender: {
         senderId: participantId,
       },
     },

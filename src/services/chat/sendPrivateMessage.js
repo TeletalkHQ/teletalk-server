@@ -1,5 +1,4 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const { errorThrower } = require("@/utilities/utilities");
 
@@ -11,68 +10,6 @@ const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
 const PrivateChat = models.database.mongoDb.PrivateChat;
-
-const getChatsLastMessages = async ({ currentUserId }) => {
-  const tryToGetChatsLastMessages = async () => {
-    const chats = (await getAllPrivateChats({ currentUserId })) || [];
-    const chatWithLastMessages = [];
-    //CLEANME: Update with map
-    for (const chat of chats) {
-      const { messages } = chat;
-      const lastMessage = messages?.at(-1);
-
-      chatWithLastMessages.push({
-        ...chat,
-        messages: [lastMessage],
-      });
-    }
-
-    return chatWithLastMessages;
-  };
-
-  (
-    await trier(getChatsLastMessages.name).tryAsync(tryToGetChatsLastMessages)
-  ).printAndThrow();
-};
-
-const getPrivateChat = async (
-  { chatId },
-  projections = {
-    __v: 0,
-    //TODO: Update with service classes
-    _id: 0,
-    "messages._id": 0,
-    "participants._id": 0,
-  },
-  options = { lean: true }
-) => {
-  const chat = await PrivateChat.findOne({ chatId }, projections, options);
-
-  errorThrower(!chat, () => errors.CHAT_NOT_EXIST);
-
-  return chat;
-};
-
-const getAllPrivateChats = async (
-  { currentUserId },
-  projections = {
-    __v: 0,
-    _id: 0,
-    "messages._id": 0,
-    "participants._id": 0,
-  },
-  options = { lean: true }
-) => {
-  return (
-    (await PrivateChat.find(
-      {
-        "participants.participantId": currentUserId,
-      },
-      projections,
-      options
-    )) || []
-  );
-};
 
 const sendPrivateMessage = async ({
   currentUserId,
@@ -123,11 +60,4 @@ const sendPrivateMessage = async ({
   return { newMessage, chatId };
 };
 
-const chatServices = {
-  getAllPrivateChats,
-  getChatsLastMessages,
-  getPrivateChat,
-  sendPrivateMessage,
-};
-
-module.exports = { chatServices };
+module.exports = { sendPrivateMessage };

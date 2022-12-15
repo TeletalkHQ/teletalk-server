@@ -6,7 +6,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { services } = require("@/services");
 
 const tryToRemoveBlock = async (data) => {
-  await services.removeBlock(data);
+  await services.removeBlacklistItem(data);
 };
 
 const responseToRemoveBlock = (_, res, targetUserData) => {

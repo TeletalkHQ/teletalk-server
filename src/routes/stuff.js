@@ -7,7 +7,7 @@ const { fields } = require("@/routes/fields");
 
 const { METHODS } = require("@/variables/others/methods");
 
-const versionControlRouteBuilder = routeBuilder(baseUrls.versionControl);
+const versionControlRouteBuilder = routeBuilder(baseUrls.stuff);
 
 const getAllStuffs = versionControlRouteBuilder
   .create()
@@ -23,9 +23,9 @@ const routes = {
   getAllStuffs,
 };
 
-const versionControlRoutes = {
+const stuff = {
   ...routes,
   version: versionCalculator(extractVersions(routes)),
 };
 
-module.exports = { versionControl: versionControlRoutes };
+module.exports = { stuff };

@@ -29,7 +29,7 @@ const { signInNormal } = require("@/controllers/user/signInNormal");
 const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
 const { verifySignInNormal } = require("@/controllers/user/verifySignInNormal");
 
-const { getAllStuff } = require("@/controllers/versionControl/getAllStuff");
+const { getAllStuff } = require("@/controllers/stuff/getAllStuff");
 
 const controllers = {
   addBlock,

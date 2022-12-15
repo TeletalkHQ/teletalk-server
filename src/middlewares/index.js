@@ -2,6 +2,7 @@ const { notFound } = require("@/middlewares/notFound");
 const {
   applyMiddlewaresByUrl,
 } = require("@/middlewares/applyMiddlewaresByUrl");
+const { attachCurrentUserId } = require("@/middlewares/attachCurrentUserId");
 const { authDefault } = require("@/middlewares/authDefault");
 const {
   cellphoneSelfStuffCheck,
@@ -35,6 +36,7 @@ const {
 
 const middlewares = {
   applyMiddlewaresByUrl,
+  attachCurrentUserId,
   authDefault,
   cellphoneSelfStuffCheck,
   cellphoneValidator,

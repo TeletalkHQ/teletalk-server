@@ -4,8 +4,8 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { services } = require("@/services");
 
-const tryToGetAllPrivateChats = async (participantId) => {
-  return await services.getAllPrivateChats(participantId);
+const tryToGetAllPrivateChats = async (data) => {
+  return await services.getAllPrivateChats(data);
 };
 
 const responseToGetAllPrivateChats = (privateChats, res) => {
@@ -20,14 +20,11 @@ const getAllPrivateChats = async (
   req = expressRequest,
   res = expressResponse
 ) => {
-  const {
-    currentUser: { userId },
-  } = req;
+  const { currentUserId } = req;
   (
-    await trier(getAllPrivateChats.name).tryAsync(
-      tryToGetAllPrivateChats,
-      userId
-    )
+    await trier(getAllPrivateChats.name).tryAsync(tryToGetAllPrivateChats, {
+      currentUserId,
+    })
   )
     .executeIfNoError(responseToGetAllPrivateChats, res)
     .catch(catchGetAllChats, res);

@@ -27,7 +27,7 @@ const allStuff = {
     ...routes.other,
     ...routes.privateChat,
     ...routes.user,
-    ...routes.versionControl,
+    ...routes.stuff,
   },
   validationModels,
 };

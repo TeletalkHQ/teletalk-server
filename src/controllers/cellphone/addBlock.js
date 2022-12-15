@@ -5,9 +5,10 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { services } = require("@/services");
 
-const tryToAddBlockCellphone = async (blockingCellphone, currentUser) => {
-  await services.addCellphoneToUserBlacklist(currentUser, blockingCellphone);
-  return blockingCellphone;
+const tryToAddBlockCellphone = async (data) => {
+  await services.addCellphoneToUserBlacklist.call(data);
+
+  return data.blockingCellphone;
 };
 
 const responseToAddBlockCellphone = (blockedCellphone, res) => {
@@ -19,15 +20,14 @@ const responseToAddBlockCellphone = (blockedCellphone, res) => {
 const catchAddToBlockCellphone = commonFunctionalities.controllerErrorResponse;
 
 const addBlock = async (req = expressRequest, res = expressResponse) => {
-  const { body, currentUser } = req;
+  const { body, currentUserId } = req;
   const blockingCellphone = userPropsUtilities.extractCellphone(body);
 
   (
-    await trier(addBlock.name).tryAsync(
-      tryToAddBlockCellphone,
+    await trier(addBlock.name).tryAsync(tryToAddBlockCellphone, {
       blockingCellphone,
-      currentUser
-    )
+      currentUserId,
+    })
   )
     .executeIfNoError(responseToAddBlockCellphone, res)
     .catch(catchAddToBlockCellphone, res);

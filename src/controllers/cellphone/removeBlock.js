@@ -5,8 +5,8 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
 
-const tryToRemoveBlock = async (currentUser, targetUserData) => {
-  await services.deleteBlacklistItem(currentUser, targetUserData);
+const tryToRemoveBlock = async (data) => {
+  await services.removeBlock(data);
 };
 
 const responseToRemoveBlock = (_, res, targetUserData) => {
@@ -18,15 +18,14 @@ const responseToRemoveBlock = (_, res, targetUserData) => {
 const catchRemoveBlock = commonFunctionalities.controllerErrorResponse;
 
 const removeBlock = async (req = expressRequest, res = expressResponse) => {
-  const { currentUser, body } = req;
+  const { currentUserId, body } = req;
   const targetUserData = userPropsUtilities.extractCellphone(body);
 
   (
-    await trier(removeBlock.name).tryAsync(
-      tryToRemoveBlock,
-      currentUser,
-      targetUserData
-    )
+    await trier(removeBlock.name).tryAsync(tryToRemoveBlock, {
+      currentUserId,
+      targetUserData,
+    })
   )
     .executeIfNoError(responseToRemoveBlock, res, targetUserData)
     .catch(catchRemoveBlock, res);

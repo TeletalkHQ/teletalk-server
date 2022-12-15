@@ -5,29 +5,28 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
 
-const tryToRemoveContact = async (currentUser, cellphone) => {
-  await services.removeContactItem(currentUser, cellphone);
+const tryToRemoveContact = async (data) => {
+  await services.removeContactItem(data);
 };
 
-const responseToRemoveContact = (_, res, cellphone) => {
+const responseToRemoveContact = (_, res, targetUserData) => {
   commonFunctionalities.controllerSuccessResponse(res, {
-    removedContact: cellphone,
+    removedContact: targetUserData,
   });
 };
 
 const catchRemoveContact = commonFunctionalities.controllerErrorResponse;
 
 const removeContact = async (req = expressRequest, res = expressResponse) => {
-  const { currentUser, body } = req;
-  const cellphone = userPropsUtilities.extractCellphone(body);
+  const { currentUserId, body } = req;
+  const targetUserData = userPropsUtilities.extractCellphone(body);
   (
-    await trier(removeContact.name).tryAsync(
-      tryToRemoveContact,
-      currentUser,
-      cellphone
-    )
+    await trier(removeContact.name).tryAsync(tryToRemoveContact, {
+      currentUserId,
+      targetUserData,
+    })
   )
-    .executeIfNoError(responseToRemoveContact, res, cellphone)
+    .executeIfNoError(responseToRemoveContact, res, targetUserData)
     .catch(catchRemoveContact, res);
 };
 

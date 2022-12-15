@@ -6,15 +6,12 @@ const { services } = require("@/services");
 
 const { validators } = require("@/validators");
 
-const tryToSendMessage = async (currentUser, participantId, message) => {
-  await validators.participantId(participantId);
-  await validators.messageText(message);
+const tryToSendMessage = async (data) => {
+  //CLEANME: Move to another try block
+  await validators.participantId(data.participantId);
+  await validators.messageText(data.message);
 
-  const { chatId, newMessage } = await services.sendPrivateMessage(
-    currentUser,
-    participantId,
-    message
-  );
+  const { chatId, newMessage } = await services.sendPrivateMessage(data);
 
   return {
     chatId,
@@ -33,17 +30,16 @@ const sendPrivateMessage = async (
   res = expressResponse
 ) => {
   const {
-    currentUser,
+    currentUserId,
     body: { participantId, message },
   } = req;
 
   (
-    await trier(sendPrivateMessage.name).tryAsync(
-      tryToSendMessage,
-      currentUser,
+    await trier(sendPrivateMessage.name).tryAsync(tryToSendMessage, {
+      currentUserId,
       participantId,
-      message
-    )
+      message,
+    })
   )
     .executeIfNoError(responseToSendMessage, res)
     .catch(catchSendMessage, res);

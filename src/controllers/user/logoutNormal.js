@@ -4,8 +4,8 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { services } = require("@/services");
 
-const tryToLogoutNormal = async (currentUser) => {
-  return await services.logoutUser(currentUser);
+const tryToLogoutNormal = async (data) => {
+  return await services.logoutUser(data);
 };
 
 const responseToLogoutNormal = (data, res) => {
@@ -15,9 +15,13 @@ const responseToLogoutNormal = (data, res) => {
 const catchLogoutNormal = commonFunctionalities.controllerErrorResponse;
 
 const logoutNormal = async (req = expressRequest, res = expressResponse) => {
-  const { currentUser } = req;
+  const { currentUserId } = req;
 
-  (await trier(logoutNormal.name).tryAsync(tryToLogoutNormal, currentUser))
+  (
+    await trier(logoutNormal.name).tryAsync(tryToLogoutNormal, {
+      currentUserId,
+    })
+  )
     .executeIfNoError(responseToLogoutNormal, res)
     .catch(catchLogoutNormal, res);
 };

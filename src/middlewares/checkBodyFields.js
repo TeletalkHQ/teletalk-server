@@ -11,19 +11,22 @@ const { errorThrower } = require("@/utilities/utilities");
 const { errors } = require("@/variables/errors");
 const { appConfigs } = require("@/classes/AppConfigs");
 
+//CLEANME: Add to statics
+const ioErrors = {
+  ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
+  missingFieldsError: errors.INPUT_FIELDS_MISSING,
+  overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
+  requiredFieldsNotDefinedError: errors.REQUIRED_FIELDS_NOT_DEFINED,
+  requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
+};
+
 const tryToCheckBodyFields = (body, inputFields) => {
   errorThrower(
     customTypeof.isUndefined(body),
     errors.REQUEST_BODY_IS_UNDEFINED
   );
 
-  const checkResult = ioFieldsChecker(body, inputFields, {
-    ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
-    missingFieldsError: errors.INPUT_FIELDS_MISSING,
-    overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
-    requiredFieldsNotDefinedError: errors.REQUIRED_FIELDS_NOT_DEFINED,
-    requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
-  });
+  const checkResult = ioFieldsChecker(body, inputFields, ioErrors);
 
   const configs = appConfigs.getConfigs();
   const checkResultErrorReason = checkResult.errorObject?.reason;

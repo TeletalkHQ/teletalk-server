@@ -5,8 +5,8 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { services } = require("@/services");
 
-const tryToEditContact = async (currentUser, targetCellphone, editedValues) => {
-  await services.updateOneContact(currentUser, targetCellphone, editedValues);
+const tryToEditContact = async (data) => {
+  await services.updateOneContact(data);
 };
 
 const responseToEditContact = (_, res, targetCellphone, editedValues) => {
@@ -21,18 +21,17 @@ const editContact = async (req = expressRequest, res = expressResponse) => {
   const {
     body,
     body: { firstName, lastName },
-    currentUser,
+    currentUserId,
   } = req;
   const targetCellphone = userPropsUtilities.extractCellphone(body);
   const editedValues = { firstName, lastName };
 
   (
-    await trier(editContact.name).tryAsync(
-      tryToEditContact,
-      currentUser,
+    await trier(editContact.name).tryAsync(tryToEditContact, {
+      currentUserId,
+      editedValues,
       targetCellphone,
-      editedValues
-    )
+    })
   )
     .executeIfNoError(responseToEditContact, res, targetCellphone, editedValues)
     .catch(catchEditContact, res);

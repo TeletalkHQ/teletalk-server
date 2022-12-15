@@ -12,7 +12,7 @@ const routesWithoutVersion = objectUtilities.objectValues({
   ...excludeVersions(routes.other),
   ...excludeVersions(routes.privateChat),
   ...excludeVersions(routes.user),
-  ...excludeVersions(routes.versionControl),
+  ...excludeVersions(routes.stuff),
 });
 
 const tryToFindRouteObject = (url) => {

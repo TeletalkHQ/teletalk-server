@@ -4,11 +4,11 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { services } = require("@/services");
 
-const tryToGetContacts = async (currentUser) => {
-  return await services.getUserContacts(currentUser);
+const tryToGetContacts = async (data) => {
+  return await services.getUserContacts(data);
 };
 
-const responseToGetContacts = (contacts, res) => {
+const responseToGetContacts = ({ contacts }, res) => {
   commonFunctionalities.controllerSuccessResponse(res, {
     contacts,
   });
@@ -17,9 +17,9 @@ const responseToGetContacts = (contacts, res) => {
 const catchGetContacts = commonFunctionalities.controllerErrorResponse;
 
 const getContacts = async (req = expressRequest, res = expressResponse) => {
-  const { currentUser } = req;
+  const { currentUserId } = req;
 
-  (await trier(getContacts.name).tryAsync(tryToGetContacts, currentUser))
+  (await trier(getContacts.name).tryAsync(tryToGetContacts, { currentUserId }))
     .executeIfNoError(responseToGetContacts, res)
     .catch(catchGetContacts, res);
 };

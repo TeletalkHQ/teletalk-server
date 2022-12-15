@@ -9,6 +9,6 @@ lifeLine.use(baseUrls.cellphone, routers.cellphone);
 lifeLine.use(baseUrls.other, routers.other);
 lifeLine.use(baseUrls.privateChat, routers.privateChat);
 lifeLine.use(baseUrls.user, routers.user);
-lifeLine.use(baseUrls.versionControl, routers.versionControl);
+lifeLine.use(baseUrls.stuff, routers.stuff);
 
 module.exports = { lifeLine };

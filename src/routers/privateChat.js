@@ -8,7 +8,10 @@ const { routes } = require("@/routes");
 
 const privateChatRouter = Router();
 
-privateChatRouter.use(middlewares.findCurrentUserFromDb);
+privateChatRouter.use(
+  middlewares.findCurrentUserFromDb,
+  middlewares.attachCurrentUserId
+);
 
 privateChatRouter[routes.privateChat.getChatsLastMessage.method](
   routes.privateChat.getChatsLastMessage.url,

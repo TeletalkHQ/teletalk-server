@@ -30,7 +30,7 @@ const tryToGetUserData = async (userData) => {
     ...errors.CURRENT_USER_NOT_EXIST,
     cellphone,
   };
-
+  //CLEANME: Use getUserData service
   const foundUser = await services.userFinder(
     cellphone,
     {
@@ -41,10 +41,9 @@ const tryToGetUserData = async (userData) => {
     }
   );
   errorThrower(!foundUser, currentUserNotExistError);
+
   const fixedUserData = fixUserData(foundUser);
-
   errorThrower(!fixedUserData.user.token, currentUserNotExistError);
-
   return fixedUserData;
 };
 

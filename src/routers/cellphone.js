@@ -8,7 +8,10 @@ const { routes } = require("@/routes");
 
 const cellphoneRouter = Router();
 
-cellphoneRouter.use(middlewares.findCurrentUserFromDb);
+cellphoneRouter.use(
+  middlewares.findCurrentUserFromDb,
+  middlewares.attachCurrentUserId
+);
 
 cellphoneRouter.use(
   middlewares.ignoreMiddlewaresByUrl(

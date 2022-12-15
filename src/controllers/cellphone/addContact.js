@@ -5,19 +5,16 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
 
-const tryToAddContact = async (currentUser, contact) => {
-  const { targetUser } = await services.addContactToUserContacts(
-    currentUser,
-    contact
-  );
-  return targetUser;
+const tryToAddContact = async (data) => {
+  const { newContact } = await services.addContactToUserContacts(data);
+  return newContact;
 };
 
-const responseToAddContact = (targetUser, res, contact) => {
+const responseToAddContact = (newContact, res, contact) => {
   commonFunctionalities.controllerSuccessResponse(res, {
     addedContact: {
       ...contact,
-      userId: targetUser.userId,
+      userId: newContact.userId,
     },
   });
 };
@@ -25,10 +22,17 @@ const responseToAddContact = (targetUser, res, contact) => {
 const catchAddContact = commonFunctionalities.controllerErrorResponse;
 
 const addContact = async (req = expressRequest, res = expressResponse) => {
-  const { body, currentUser } = req;
+  //CLEANME: Update using authData with UserPropsUtilities
+  const { body, currentUserId } = req;
+
   const contact = userPropsUtilities.extractContact(body);
 
-  (await trier(addContact.name).tryAsync(tryToAddContact, currentUser, contact))
+  (
+    await trier(addContact.name).tryAsync(tryToAddContact, {
+      currentUserId,
+      contact,
+    })
+  )
     .executeIfNoError(responseToAddContact, res, contact)
     .catch(catchAddContact, res);
 };

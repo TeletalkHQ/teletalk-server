@@ -6,9 +6,10 @@ const { services } = require("@/services");
 
 const { validators } = require("@/validators");
 
-const tryToGetPrivateChatMessages = async (currentUser, chatId) => {
-  await validators.chatId(chatId);
-  return await services.getPrivateChat(currentUser, chatId);
+const tryToGetPrivateChatMessages = async (data) => {
+  //TODO: Move chatId validator to somewhere else
+  await validators.chatId(data.chatId);
+  return await services.getPrivateChat(data);
 };
 
 const responseToGetMessages = (privateChat, res) => {
@@ -22,14 +23,11 @@ const catchGetMessages = commonFunctionalities.controllerErrorResponse;
 const getPrivateChat = async (req = expressRequest, res = expressResponse) => {
   const {
     body: { chatId },
-    currentUser,
   } = req;
   (
-    await trier(getPrivateChat.name).tryAsync(
-      tryToGetPrivateChatMessages,
-      currentUser,
-      chatId
-    )
+    await trier(getPrivateChat.name).tryAsync(tryToGetPrivateChatMessages, {
+      chatId,
+    })
   )
     .executeIfNoError(responseToGetMessages, res)
     .catch(catchGetMessages, res);

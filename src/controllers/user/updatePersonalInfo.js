@@ -3,11 +3,8 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
-const tryToUpdatePersonalInfo = async (currentUser, firstName, lastName) => {
-  await services.updatePersonalInfo(currentUser, {
-    firstName,
-    lastName,
-  });
+const tryToUpdatePersonalInfo = async (data) => {
+  await services.updatePersonalInfo(data);
 };
 
 const responseToUpdatePersonalInfo = (_, res, firstName, lastName) => {
@@ -27,15 +24,13 @@ const updatePersonalInfoController = async (
 ) => {
   const {
     body: { firstName, lastName },
-    currentUser,
+    currentUserId,
   } = req;
 
   (
     await trier(updatePersonalInfoController.name).tryAsync(
       tryToUpdatePersonalInfo,
-      currentUser,
-      firstName,
-      lastName
+      { currentUserId, firstName, lastName }
     )
   )
     .executeIfNoError(responseToUpdatePersonalInfo, res, firstName, lastName)

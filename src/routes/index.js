@@ -2,14 +2,14 @@ const { cellphone } = require("@/routes/cellphone");
 const { other } = require("@/routes/other");
 const { privateChat } = require("@/routes/privateChat");
 const { user } = require("@/routes/user");
-const { versionControl } = require("@/routes/versionControl");
+const { stuff } = require("@/routes/stuff");
 
 const routes = {
   cellphone,
   other,
   privateChat,
+  stuff,
   user,
-  versionControl,
 };
 
 module.exports = { routes };

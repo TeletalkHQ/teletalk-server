@@ -4,8 +4,8 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { services } = require("@/services");
 
-const tryToGetChatsLastMessage = async (currentUser) => {
-  return await services.getChatsLastMessages(currentUser);
+const tryToGetChatsLastMessage = async (data) => {
+  return await services.getChatsLastMessages(data);
 };
 
 const responseToGetChatsLastMessage = (chatsWithLastMessages, res) => {
@@ -20,13 +20,12 @@ const getChatsLastMessage = async (
   req = expressRequest,
   res = expressResponse
 ) => {
-  const { currentUser } = req;
+  const { currentUserId } = req;
 
   (
-    await trier(getChatsLastMessage.name).tryAsync(
-      tryToGetChatsLastMessage,
-      currentUser
-    )
+    await trier(getChatsLastMessage.name).tryAsync(tryToGetChatsLastMessage, {
+      currentUserId,
+    })
   )
     .executeIfNoError(responseToGetChatsLastMessage, res)
     .catch(catchGetChatsLastMessage, res);

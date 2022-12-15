@@ -4,7 +4,7 @@ const baseUrls = {
   privateChat: "/privateChat",
   test: "/test",
   user: "/user",
-  versionControl: "/versionControl",
+  stuff: "/stuff",
 };
 
 module.exports = { baseUrls };

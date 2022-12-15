@@ -11,6 +11,13 @@ class UserPropsUtilities extends UserPropsUtilitiesMain {
   getTokenFromUserObject(userObject) {
     return userObject.sessions[0]?.token || "";
   }
+
+  getDataFromVerifiedToken(verifiedToken) {
+    return verifiedToken.payload;
+  }
+  getUserIdFromVerifiedToken(verifiedToken) {
+    return this.getDataFromVerifiedToken(verifiedToken).userId;
+  }
 }
 
 const userPropsUtilities = new UserPropsUtilities();

@@ -4,18 +4,12 @@ const { models } = require("@/models");
 
 const User = models.database.mongoDb.User;
 
-const tryToFindUser = async (userData, options, projection) => {
-  return await User.findOne(userData, projection, options);
-};
 const userFinder = async (userData, options, projection) => {
-  return (
-    await trier(userFinder.name).tryAsync(
-      tryToFindUser,
-      userData,
-      options,
-      projection
-    )
-  )
+  const tryToFindUser = async () => {
+    return await User.findOne(userData, projection, options);
+  };
+
+  return (await trier(userFinder.name).tryAsync(tryToFindUser))
     .printAndThrow()
     .result();
 };

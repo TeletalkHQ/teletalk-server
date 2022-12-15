@@ -12,35 +12,34 @@ const { errors } = require("@/variables/errors");
 const chatModels = models.native.chat;
 const PrivateChat = models.database.mongoDb.PrivateChat;
 
-const tryToGetChatsLastMessages = async (participantId) => {
-  const chats = (await getAllPrivateChats(participantId)) || [];
-  const chatWithLastMessages = [];
-  for (const chat of chats) {
-    const { messages } = chat;
-    const lastMessage = messages?.at(-1);
+const getChatsLastMessages = async ({ currentUserId }) => {
+  const tryToGetChatsLastMessages = async () => {
+    const chats = (await getAllPrivateChats({ currentUserId })) || [];
+    const chatWithLastMessages = [];
+    //CLEANME: Update with map
+    for (const chat of chats) {
+      const { messages } = chat;
+      const lastMessage = messages?.at(-1);
 
-    chatWithLastMessages.push({
-      ...chat,
-      messages: [lastMessage],
-    });
-  }
+      chatWithLastMessages.push({
+        ...chat,
+        messages: [lastMessage],
+      });
+    }
 
-  return chatWithLastMessages;
-};
+    return chatWithLastMessages;
+  };
 
-const getChatsLastMessages = async (currentUser) => {
   (
-    await trier(getChatsLastMessages.name).tryAsync(
-      tryToGetChatsLastMessages,
-      currentUser
-    )
+    await trier(getChatsLastMessages.name).tryAsync(tryToGetChatsLastMessages)
   ).printAndThrow();
 };
 
 const getPrivateChat = async (
-  chatId,
+  { chatId },
   projections = {
     __v: 0,
+    //TODO: Update with service classes
     _id: 0,
     "messages._id": 0,
     "participants._id": 0,
@@ -55,7 +54,7 @@ const getPrivateChat = async (
 };
 
 const getAllPrivateChats = async (
-  participantId,
+  { currentUserId },
   projections = {
     __v: 0,
     _id: 0,
@@ -67,7 +66,7 @@ const getAllPrivateChats = async (
   return (
     (await PrivateChat.find(
       {
-        "participants.participantId": participantId,
+        "participants.participantId": currentUserId,
       },
       projections,
       options
@@ -75,7 +74,16 @@ const getAllPrivateChats = async (
   );
 };
 
-const sendPrivateMessage = async (currentUser, participantId, message) => {
+const sendPrivateMessage = async ({
+  currentUserId,
+  participantId,
+  message,
+}) => {
+  //CLEANME: Refactor + update with trier
+  const currentUser = await commonServices.userFinder({
+    userId: currentUserId,
+  });
+
   const targetUser = await commonServices.userFinder(
     { userId: participantId },
     {}

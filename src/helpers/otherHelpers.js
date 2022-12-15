@@ -2,7 +2,7 @@ const { routes } = require("@/routes");
 
 const getIgnoredUrlsForAuth = () => {
   return [
-    routes.versionControl.getAllStuffs,
+    routes.stuff.getAllStuffs,
     routes.other.getCountries,
     routes.other.getWelcomeMessage,
     routes.user.signInNormal,

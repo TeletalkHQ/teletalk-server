@@ -29,8 +29,7 @@ const tryToFindCurrentUserFromDb = async (userData, token) => {
   return { currentUser, ok: true };
 };
 
-const executeIfNoError = ({ currentUser }, req, next) => {
-  req.currentUser = currentUser;
+const executeIfNoError = (_data, next) => {
   next();
 };
 
@@ -50,7 +49,7 @@ const findCurrentUserFromDb = async (req, res, next) => {
       token
     )
   )
-    .executeIfNoError(executeIfNoError, req, next)
+    .executeIfNoError(executeIfNoError, next)
     .catch(catchFindCurrentUserFromDb, res)
     .result();
 };

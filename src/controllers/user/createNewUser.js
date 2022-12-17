@@ -6,7 +6,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower } = require("@/utilities/utilities");
+const { errorThrower } = require("utility-store/src/functions/utilities");
 
 const {
   common: { userId: userIdCommonModel },

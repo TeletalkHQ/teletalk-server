@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
@@ -31,7 +31,7 @@ class ServiceHandler {
 
   constructor(serviceBody, options) {
     this.serviceBody = serviceBody;
-    this.result = undefined;
+    this.queryResult = undefined;
     this.#setOptions(options);
   }
 
@@ -42,36 +42,58 @@ class ServiceHandler {
   async call(data, projection, options = this.options) {
     //TODO: Check input fields here
 
-    const result = await this.serviceBody(data, projection, options);
+    const queryResult = await this.serviceBody(data, projection, options);
 
-    const fixedResult = this.#objectifyResult(result);
+    const fixedQueryResult = this.#fixResult(queryResult);
     //TODO: Check output fields here
-    this.#setResult(fixedResult);
+    this.#setQueryResult(fixedQueryResult);
 
     return this;
   }
 
-  #objectifyResult(result) {
-    if (result instanceof mongoose.Document) return result.toObject();
-    else return result;
+  #fixResult(queryResult) {
+    // if (customTypeof.isArray(queryResult)) return queryResult;
+
+    // if (queryResult instanceof mongoose.Document) {
+    //   return queryResult.toObject();
+    // } else return queryResult;
+    if (customTypeof.isObjectNative(queryResult))
+      return JSON.parse(JSON.stringify(queryResult));
+
+    return queryResult;
   }
 
-  #setResult(result) {
-    this.result = result;
+  #setQueryResult(queryResult) {
+    this.queryResult = queryResult;
   }
 
   exclude(extraExcludeProps = []) {
     const excludeProps = [...this.#defaultExcludeProps, ...extraExcludeProps];
-    const filteredResult = objectUtilities.excludeProps(
-      this.result,
-      excludeProps
-    );
-    this.#setResult(filteredResult);
+
+    const excluder = this.#getExcluder();
+    const filteredResult = excluder.call(this, excludeProps);
+
+    this.#setQueryResult(filteredResult);
     return this;
+  }
+  #getExcluder() {
+    const isQueryResultArray = customTypeof.isArray(this.queryResult);
+    return isQueryResultArray
+      ? this.#excludeArrayResult
+      : this.#excludeObjectResult;
+  }
+
+  #excludeObjectResult(excludeProps) {
+    return objectUtilities.excludeProps(this.queryResult, excludeProps);
+  }
+  #excludeArrayResult(excludeProps) {
+    return this.queryResult.map((qr) =>
+      objectUtilities.excludeProps(qr, excludeProps)
+    );
   }
 
   result() {
-    return this.result;
+    return this.queryResult;
   }
 }
 

@@ -6,7 +6,7 @@ const {
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
 
-const { errorThrower } = require("@/utilities/utilities");
+const { errorThrower } = require("utility-store/src/functions/utilities");
 
 const { compiledValidators } = require("@/validators/compiledValidators");
 const {

@@ -4,13 +4,29 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { authManager } = require("@/classes/AuthManager");
 
-const { errorThrower } = require("@/utilities/utilities");
+const { errorThrower } = require("utility-store/src/functions/utilities");
 
 const { services } = require("@/services");
 
 const { errors } = require("@/variables/errors");
 
-const tryToFindCurrentUserFromDb = async (userData, token) => {
+const checkCurrentUserStatus = async (req, res, next) => {
+  const token = authManager.getTokenFromRequest(req);
+  const { payload: userData } = req.authData;
+
+  return (
+    await trier(checkCurrentUserStatus.name).tryAsync(
+      tryToCheckCurrentUserStatus,
+      userData,
+      token
+    )
+  )
+    .executeIfNoError(executeIfNoError, next)
+    .catch(catchCheckCurrentUserStatus, res)
+    .result();
+};
+
+const tryToCheckCurrentUserStatus = async (userData, token) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);
 
   const currentUser = await services.userFinder(cellphone, {});
@@ -33,25 +49,9 @@ const executeIfNoError = (_data, next) => {
   next();
 };
 
-const catchFindCurrentUserFromDb = (error, res) => {
+const catchCheckCurrentUserStatus = (error, res) => {
   commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 
-const findCurrentUserFromDb = async (req, res, next) => {
-  const token = authManager.getTokenFromRequest(req);
-  const { payload: userData } = req.authData;
-
-  return (
-    await trier(findCurrentUserFromDb.name).tryAsync(
-      tryToFindCurrentUserFromDb,
-      userData,
-      token
-    )
-  )
-    .executeIfNoError(executeIfNoError, next)
-    .catch(catchFindCurrentUserFromDb, res)
-    .result();
-};
-
-module.exports = { findCurrentUserFromDb };
+module.exports = { checkCurrentUserStatus };

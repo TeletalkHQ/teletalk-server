@@ -9,7 +9,7 @@ const { routes } = require("@/routes");
 const privateChatRouter = Router();
 
 privateChatRouter.use(
-  middlewares.findCurrentUserFromDb,
+  middlewares.checkCurrentUserStatus,
   middlewares.attachCurrentUserId
 );
 

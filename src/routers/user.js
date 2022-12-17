@@ -14,7 +14,7 @@ const userRouter = Router();
 userRouter.use(
   applyMiddlewaresByUrl(
     [routes.user.logoutNormal.url, routes.user.updatePersonalInfo.url],
-    middlewares.findCurrentUserFromDb,
+    middlewares.checkCurrentUserStatus,
     middlewares.attachCurrentUserId
   )
 );

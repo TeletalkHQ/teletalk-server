@@ -10,9 +10,7 @@ const { errors } = require("@/variables/errors");
 
 const addContactToUserContacts = async ({ currentUserId, contact }) => {
   const tryToAddContactToUserContacts = async () => {
-    const currentUser = await commonServices.userFinder({
-      userId: currentUserId,
-    });
+    const currentUser = await commonServices.findUserById(currentUserId);
 
     const { cellphone: isContactExist } = userPropsUtilities.cellphoneFinder(
       currentUser.contacts,
@@ -23,9 +21,8 @@ const addContactToUserContacts = async ({ currentUserId, contact }) => {
       targetUserData: contact,
     }));
 
-    const targetUser = await commonServices.userFinder(
-      userPropsUtilities.extractCellphone(contact)
-    );
+    const addingContact = userPropsUtilities.extractCellphone(contact);
+    const targetUser = await commonServices.findUser(addingContact);
     errorThrower(customTypeof.isNull(targetUser), () => ({
       ...errors.TARGET_USER_NOT_EXIST,
       targetUserData: contact,

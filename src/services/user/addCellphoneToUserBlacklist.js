@@ -13,9 +13,7 @@ const addCellphoneToUserBlacklist = serviceBuilder
   .create()
   .body(async ({ currentUserId, blockingCellphone }) => {
     const tryToAddCellphoneToUserBlacklist = async () => {
-      const currentUser = await commonServices.userFinder({
-        userId: currentUserId,
-      });
+      const currentUser = await commonServices.findUserById(currentUserId);
 
       const { cellphone: existBlacklistItem } =
         userPropsUtilities.cellphoneFinder(
@@ -28,7 +26,7 @@ const addCellphoneToUserBlacklist = serviceBuilder
         targetUserData: blockingCellphone,
       }));
 
-      const targetUser = await commonServices.userFinder(blockingCellphone);
+      const targetUser = await commonServices.findUser(blockingCellphone);
       errorThrower(customTypeof.isNull(targetUser), () => ({
         ...errors.TARGET_USER_NOT_EXIST,
         targetUserData: blockingCellphone,

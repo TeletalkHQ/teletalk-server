@@ -7,9 +7,7 @@ const { commonServices } = require("@/services/common");
 const { errors } = require("@/variables/errors");
 
 const removeBlacklistItem = async ({ currentUserId, targetUserData }) => {
-  const currentUser = await commonServices.userFinder({
-    userId: currentUserId,
-  });
+  const currentUser = await commonServices.findUserById(currentUserId);
 
   const { cellphone: blacklistItem, cellphoneIndex } =
     userPropsUtilities.cellphoneFinder(currentUser.blacklist, targetUserData);

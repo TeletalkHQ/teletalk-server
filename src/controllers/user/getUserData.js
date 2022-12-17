@@ -11,6 +11,7 @@ const { errors } = require("@/variables/errors");
 
 //TODO: Add some tests, this controller has no any tests
 
+//CLEANME: Duplicate in verifySignIn
 const fixUserData = (foundUser) => {
   const { sessions, ...userData } =
     userPropsUtilities.extractUserData(foundUser);
@@ -31,15 +32,7 @@ const tryToGetUserData = async (userData) => {
     cellphone,
   };
   //CLEANME: Use getUserData service
-  const foundUser = await services.userFinder(
-    cellphone,
-    {
-      lean: true,
-    },
-    {
-      "contacts._id": 0,
-    }
-  );
+  const foundUser = await services.findUser(cellphone);
   errorThrower(!foundUser, currentUserNotExistError);
 
   const fixedUserData = fixUserData(foundUser);

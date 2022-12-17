@@ -4,9 +4,7 @@ const { commonServices } = require("@/services/common");
 
 const updatePersonalInfo = async ({ currentUserId, ...updateProperties }) => {
   const tryToUpdatePersonalInfo = async () => {
-    const currentUser = await commonServices.userFinder({
-      userId: currentUserId,
-    });
+    const currentUser = await commonServices.findUserById(currentUserId);
 
     return await currentUser.updateOne(updateProperties);
   };

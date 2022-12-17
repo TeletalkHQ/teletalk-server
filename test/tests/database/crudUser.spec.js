@@ -14,9 +14,10 @@ describe("save user data in state", () => {
 
     expect(users).to.be.an(FIELD_TYPE.ARRAY);
 
-    const user = await services.userFinder({
-      userId: users[0].userId,
-    });
+    //TODO: Test all users
+    const userId = users[0].userId;
+    const user = await services.findUserById(userId);
+    //TODO: Test all fields
     expect(user).to.be.a(FIELD_TYPE.OBJECT);
   });
 });

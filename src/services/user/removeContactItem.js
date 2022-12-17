@@ -9,9 +9,7 @@ const { errors } = require("@/variables/errors");
 
 const removeContactItem = async ({ currentUserId, targetUserData }) => {
   const tryToRemoveContactItem = async () => {
-    const currentUser = await commonServices.userFinder({
-      userId: currentUserId,
-    });
+    const currentUser = await commonServices.findUserById(currentUserId);
 
     const { cellphone: contactItem, cellphoneIndex } =
       userPropsUtilities.cellphoneFinder(currentUser.contacts, targetUserData);

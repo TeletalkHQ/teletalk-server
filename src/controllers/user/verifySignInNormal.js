@@ -49,14 +49,7 @@ const fixUserData = async (isUserExist, userData, sessions) => {
 const tryToSignInNormalUser = async (tokenPayload) => {
   const cellphone = userPropsUtilities.extractCellphone(tokenPayload);
 
-  const foundUser =
-    (await services.userFinder(
-      cellphone,
-      { lean: true },
-      {
-        "contacts._id": 0,
-      }
-    )) || {};
+  const foundUser = (await services.findUser(cellphone)) || {};
   const { sessions, ...userData } =
     userPropsUtilities.extractUserData(foundUser);
 

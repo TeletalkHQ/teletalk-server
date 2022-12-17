@@ -13,9 +13,7 @@ const updateContact = async ({
   targetCellphone,
 }) => {
   const tryToUpdateOneContact = async () => {
-    const currentUser = await commonServices.userFinder({
-      userId: currentUserId,
-    });
+    const currentUser = await commonServices.findUserById(currentUserId);
 
     const { cellphone: contactItem, cellphoneIndex } =
       userPropsUtilities.cellphoneFinder(currentUser.contacts, targetCellphone);

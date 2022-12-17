@@ -1,14 +1,13 @@
 const { errorThrower } = require("utility-store/src/functions/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { User } = require("@/models/database/mongoDb/user");
+const { commonServices } = require("@/services/common");
 
 const { errors } = require("@/variables/errors");
 
 const getUserData = async (currentUserId) => {
   const tryToGetUserData = async () => {
-    //CLEANME: Update with userFinder
-    const user = await User.findOne({ userId: currentUserId }, undefined, {});
+    const user = await commonServices.findUserById(currentUserId);
 
     errorThrower(!user, errors.CURRENT_USER_NOT_EXIST);
 

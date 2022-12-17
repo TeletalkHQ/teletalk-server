@@ -43,7 +43,7 @@ const tryToFindTemporaryClient = async (cellphone) => {
 };
 
 const tryToFindUserInDb = async (cellphone) => {
-  const foundUser = await services.userFinder(cellphone);
+  const foundUser = await services.findUser(cellphone);
   errorThrower(foundUser, () => errors.USER_EXIST);
   return foundUser;
 };

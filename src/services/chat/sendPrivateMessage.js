@@ -44,10 +44,7 @@ const sendPrivateMessage = serviceBuilder
   .build();
 
 const findTargetUserId = async (participantId) => {
-  const targetUser = await commonServices.userFinder(
-    { userId: participantId },
-    {}
-  );
+  const targetUser = await commonServices.findUserById(participantId);
   //TODO Add test for TARGET_USER_NOT_EXIST
   errorThrower(!targetUser, () => errors.TARGET_USER_NOT_EXIST);
 

@@ -13,6 +13,7 @@ const users = testVariablesManager.getUsers();
 
 //TODO: Add multiple message and test
 //TODO: Use arrayUtilities instead
+//TODO: Add tests for total privateChats when sending new messages
 const messages = Array.from({ length: 20 }).map((_, index) => {
   return `Hello! Im message #${index}`;
 });

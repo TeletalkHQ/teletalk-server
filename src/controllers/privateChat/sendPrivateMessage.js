@@ -11,7 +11,9 @@ const tryToSendMessage = async (data) => {
   await validators.participantId(data.participantId);
   await validators.messageText(data.message);
 
-  const { chatId, newMessage } = await services.sendPrivateMessage(data);
+  const { chatId, newMessage } = await (
+    await services.sendPrivateMessage.call(data)
+  ).result();
 
   return {
     chatId,

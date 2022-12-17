@@ -12,8 +12,8 @@ const { checkBodyFields } = require("@/middlewares/checkBodyFields");
 const { checkDataAndResponse } = require("@/middlewares/checkDataAndResponse");
 const { contactValidator } = require("@/middlewares/contactValidator");
 const {
-  findCurrentUserFromDb,
-} = require("@/middlewares/findCurrentUserFromDb");
+  checkCurrentUserStatus,
+} = require("@/middlewares/checkCurrentUserStatus");
 const { findRouteObject } = require("@/middlewares/findRouteObject");
 const {
   ignoreMiddlewaresByUrl,
@@ -41,9 +41,9 @@ const middlewares = {
   cellphoneSelfStuffCheck,
   cellphoneValidator,
   checkBodyFields,
+  checkCurrentUserStatus,
   checkDataAndResponse,
   contactValidator,
-  findCurrentUserFromDb,
   findRouteObject,
   ignoreMiddlewaresByUrl,
   notFound,

@@ -1,6 +1,6 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { errorThrower } = require("@/utilities/utilities");
+const { errorThrower } = require("utility-store/src/functions/utilities");
 
 const { errors } = require("@/variables/errors");
 

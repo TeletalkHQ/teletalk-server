@@ -32,7 +32,7 @@ const tryToGetUserData = async (userData) => {
     cellphone,
   };
   //CLEANME: Use getUserData service
-  const foundUser = await services.findUser(cellphone);
+  const foundUser = await services.findOneUser(cellphone);
   errorThrower(!foundUser, currentUserNotExistError);
 
   const fixedUserData = fixUserData(foundUser);

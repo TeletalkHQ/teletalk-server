@@ -24,10 +24,10 @@ const { getUserData } = require("@/controllers/user/getUserData");
 const { createNewUser } = require("@/controllers/user/createNewUser");
 const { getPublicUserInfo } = require("@/controllers/user/getPublicUserInfo");
 const { getTargetUserData } = require("@/controllers/user/getTargetUserData");
-const { logoutNormal } = require("@/controllers/user/logoutNormal");
-const { signInNormal } = require("@/controllers/user/signInNormal");
+const { logout } = require("@/controllers/user/logout");
+const { signIn } = require("@/controllers/user/signIn");
 const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
-const { verifySignInNormal } = require("@/controllers/user/verifySignInNormal");
+const { verifySignIn } = require("@/controllers/user/verifySignIn");
 
 const { getAllStuff } = require("@/controllers/stuff/getAllStuff");
 
@@ -46,13 +46,13 @@ const controllers = {
   getTargetUserData,
   getUserData,
   getWelcomeMessage,
-  logoutNormal,
+  logout,
   removeBlock,
   removeContact,
   sendPrivateMessage,
-  signInNormal,
+  signIn,
   updatePersonalInfo,
-  verifySignInNormal,
+  verifySignIn,
 };
 
 module.exports = { controllers };

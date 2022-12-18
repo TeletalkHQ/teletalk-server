@@ -13,21 +13,18 @@ const generateNewToken = async (userData) => {
   });
 };
 
-const handleGetToken = async (sessions, userData) => {
+const fixToken = async (sessions, userData) => {
   const token = userPropsUtilities.getTokenFromUserObject({
     sessions,
   });
   if (token) return token;
 
   const newToken = await generateNewToken(userData);
-  await services.saveNewToken(
-    userPropsUtilities.extractCellphone(userData),
-    newToken
-  );
+  await services.saveNewToken.run({ userId: userData.userId, newToken });
   return newToken;
 };
 const dataIfUserExist = async (sessions, userData) => {
-  const token = await handleGetToken(sessions, userData);
+  const token = await fixToken(sessions, userData);
   return {
     ...userData,
     token,
@@ -46,10 +43,10 @@ const fixUserData = async (isUserExist, userData, sessions) => {
   };
 };
 
-const tryToSignInNormalUser = async (tokenPayload) => {
+const tryToSignInUser = async (tokenPayload) => {
   const cellphone = userPropsUtilities.extractCellphone(tokenPayload);
 
-  const foundUser = (await services.findUser(cellphone)) || {};
+  const foundUser = (await services.findOneUser(cellphone)) || {};
   const { sessions, ...userData } =
     userPropsUtilities.extractUserData(foundUser);
 
@@ -64,10 +61,7 @@ const tryToSignInNormalUser = async (tokenPayload) => {
   };
 };
 
-const responseToSignInNormalUser = (
-  { requiredFieldsIndex, responseData },
-  res
-) => {
+const responseToSignInUser = ({ requiredFieldsIndex, responseData }, res) => {
   commonFunctionalities.controllerSuccessResponse(
     res,
     responseData,
@@ -75,22 +69,14 @@ const responseToSignInNormalUser = (
   );
 };
 
-const catchSignInNormalUser = commonFunctionalities.controllerErrorResponse;
+const catchSignInUser = commonFunctionalities.controllerErrorResponse;
 
-const verifySignInNormal = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const verifySignIn = async (req = expressRequest, res = expressResponse) => {
   const { authData } = req;
 
-  (
-    await trier(verifySignInNormal.name).tryAsync(
-      tryToSignInNormalUser,
-      authData.payload
-    )
-  )
-    .executeIfNoError(responseToSignInNormalUser, res)
-    .catch(catchSignInNormalUser, res);
+  (await trier(verifySignIn.name).tryAsync(tryToSignInUser, authData.payload))
+    .executeIfNoError(responseToSignInUser, res)
+    .catch(catchSignInUser, res);
 };
 
-module.exports = { verifySignInNormal };
+module.exports = { verifySignIn };

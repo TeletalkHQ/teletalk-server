@@ -13,7 +13,7 @@ const userRouter = Router();
 
 userRouter.use(
   applyMiddlewaresByUrl(
-    [routes.user.logoutNormal.url, routes.user.updatePersonalInfo.url],
+    [routes.user.logout.url, routes.user.updatePersonalInfo.url],
     middlewares.checkCurrentUserStatus,
     middlewares.attachCurrentUserId
   )
@@ -39,15 +39,15 @@ userRouter[routes.user.getPublicUserInfo.method](
   controllers.getPublicUserInfo
 );
 
-userRouter[routes.user.logoutNormal.method](
-  routes.user.logoutNormal.url,
-  controllers.logoutNormal
+userRouter[routes.user.logout.method](
+  routes.user.logout.url,
+  controllers.logout
 );
 
-userRouter[routes.user.signInNormal.method](
-  routes.user.signInNormal.url,
+userRouter[routes.user.signIn.method](
+  routes.user.signIn.url,
   middlewares.cellphoneValidator,
-  controllers.signInNormal
+  controllers.signIn
 );
 
 userRouter[routes.user.updatePersonalInfo.method](
@@ -55,11 +55,11 @@ userRouter[routes.user.updatePersonalInfo.method](
   controllers.updatePersonalInfo
 );
 
-userRouter[routes.user.verifySignInNormal.method](
-  routes.user.verifySignInNormal.url,
+userRouter[routes.user.verifySignIn.method](
+  routes.user.verifySignIn.url,
   middlewares.verificationCodeValidator,
   middlewares.verifyVerificationCode,
-  controllers.verifySignInNormal
+  controllers.verifySignIn
 );
 
 module.exports = { userRouter };

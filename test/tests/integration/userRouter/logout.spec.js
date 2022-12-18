@@ -22,9 +22,7 @@ const signInFn = async () => {
     body: {
       user: { countryCode, countryName, phoneNumber, token },
     },
-  } = await requesters
-    .signInNormal()
-    .sendFullFeaturedRequest(cellphones.logoutNormal);
+  } = await requesters.signIn().sendFullFeaturedRequest(cellphones.logout);
 
   const { verificationCode } = await temporaryClients.findClientByCellphone({
     countryCode,
@@ -51,7 +49,7 @@ const createNewUser = async (token) => {
     .sendFullFeaturedRequest(fullName);
 };
 
-describe("logoutNormal success tests", () => {
+describe("logout success tests", () => {
   it("It should get ok:true for logging out user", async () => {
     const { verificationCode, token: verifyToken } = await signInFn();
     await verifySingIn(verificationCode, verifyToken);
@@ -64,7 +62,7 @@ describe("logoutNormal success tests", () => {
     const {
       body: { ok },
     } = await requesters
-      .logoutNormal()
+      .logout()
       .sendFullFeaturedRequest(undefined, undefined, { token });
 
     expect(ok).to.be.true;

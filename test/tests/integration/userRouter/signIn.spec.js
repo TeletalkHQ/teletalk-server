@@ -11,15 +11,13 @@ const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const cellphones = testVariablesManager.getCellphones();
 
-describe("signInNormalApi test success requests", () => {
+describe("signInApi test success requests", () => {
   it("It should get sign in data like token and verification code", async () => {
     const {
       body: {
         user: { countryCode, countryName, phoneNumber, token },
       },
-    } = await requesters
-      .signInNormal()
-      .sendFullFeaturedRequest(cellphones.signIn);
+    } = await requesters.signIn().sendFullFeaturedRequest(cellphones.signIn);
 
     const tempoClient = await temporaryClients.findClientByCellphone({
       countryCode,
@@ -53,9 +51,9 @@ describe("signInNormalApi test success requests", () => {
   });
 });
 
-describe("signInNormalApi test failure requests", () => {
+describe("signInApi test failure requests", () => {
   integrationHelpers
-    .createFailTest(requesters.signInNormal())
+    .createFailTest(requesters.signIn())
     .cellphone(cellphones.signIn)
     .countryCode(cellphones.signIn)
     .countryName(cellphones.signIn)

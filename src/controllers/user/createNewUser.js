@@ -1,3 +1,4 @@
+const { errorThrower } = require("utility-store/src/functions/utilities");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { trier } = require("utility-store/src/classes/Trier");
 
@@ -6,11 +7,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower } = require("utility-store/src/functions/utilities");
-
-const {
-  common: { userId: userIdCommonModel },
-} = require("@/models/native/common");
+const { models } = require("@/models");
 
 const { services } = require("@/services");
 
@@ -43,13 +40,13 @@ const tryToFindTemporaryClient = async (cellphone) => {
 };
 
 const tryToFindUserInDb = async (cellphone) => {
-  const foundUser = await services.findUser(cellphone);
+  const foundUser = await services.findOneUser(cellphone);
   errorThrower(foundUser, () => errors.USER_EXIST);
   return foundUser;
 };
 
 const getRandomId = () =>
-  randomMaker.randomId(userIdCommonModel.maxlength.value);
+  randomMaker.randomId(models.native.user.userId.maxlength.value);
 
 const tryToSignToken = async (cellphone, userId) => {
   return await authManager.tokenSigner({
@@ -66,7 +63,12 @@ const fixUserDataForDb = ({ token, ...rest }) => {
 };
 
 const tryToCreateNewUser = async (userDataForDatabase) => {
-  await services.createNewUser(userDataForDatabase);
+  try {
+    await services.createNewUser.run(userDataForDatabase);
+  } catch (error) {
+    console.log("error:::error", error);
+    throw error;
+  }
 };
 
 const responseToCreateNewUser = (user, res) => {

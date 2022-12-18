@@ -29,7 +29,7 @@ const checkCurrentUserStatus = async (req, res, next) => {
 const tryToCheckCurrentUserStatus = async (userData, token) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);
 
-  const currentUser = await services.findUser(cellphone);
+  const currentUser = await services.findOneUser(cellphone);
   //TODO Add tests when user not exist
   errorThrower(!currentUser, () => ({
     ...errors.CURRENT_USER_NOT_EXIST,

@@ -5,7 +5,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToGetUserData = async (userId) => {
-  return await services.getUserData(userId);
+  return (await services.getUserData.run({ userId })).result();
 };
 
 const responseToGetUserData = (user, res) => {
@@ -14,6 +14,7 @@ const responseToGetUserData = (user, res) => {
 
 const catchGetUserData = commonFunctionalities.controllerErrorResponse;
 
+//TODO: There are no tests for this api
 const getTargetUserData = async (
   req = expressRequest,
   res = expressResponse

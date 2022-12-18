@@ -2,30 +2,55 @@ const { errorThrower } = require("utility-store/src/functions/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-
-const { commonServices } = require("@/services/common");
+const { serviceHelper } = require("@/classes/service/ServiceHelper");
+const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 
 const { errors } = require("@/variables/errors");
 
-const removeContactItem = async ({ currentUserId, targetUserData }) => {
-  const tryToRemoveContactItem = async () => {
-    const currentUser = await commonServices.findUserById(currentUserId);
+const removeContactItem = serviceBuilder
+  .create()
+  .body(async (data) => {
+    return (
+      await trier(removeContactItem.name).tryAsync(tryToRemoveContactItem, data)
+    )
+      .printAndThrow()
+      .result();
+  })
+  .build();
 
-    const { cellphone: contactItem, cellphoneIndex } =
-      userPropsUtilities.cellphoneFinder(currentUser.contacts, targetUserData);
-    errorThrower(!contactItem, () => ({
-      ...errors.CONTACT_ITEM_NOT_EXIST,
-      targetUserData,
-    }));
+const tryToRemoveContactItem = async ({ currentUserId, targetUserData }) => {
+  const currentUser = await findCurrentUser(currentUserId);
 
-    //TODO: Remove all splice and use arrayUtilities
-    currentUser.contacts.splice(cellphoneIndex, 1);
-    await currentUser.save();
-  };
+  const { cellphoneIndex } = checkExistenceOfContactItem(
+    currentUser.contacts,
+    targetUserData
+  );
 
-  return (await trier(removeContactItem.name).tryAsync(tryToRemoveContactItem))
-    .printAndThrow()
-    .result();
+  await removeContactItemAndSave(currentUser, cellphoneIndex);
+};
+
+const findCurrentUser = async (currentUserId) => {
+  return await serviceHelper.findOneUserById(
+    currentUserId,
+    errors.CURRENT_USER_NOT_EXIST
+  );
+};
+
+const checkExistenceOfContactItem = (contacts, targetUserData) => {
+  const { cellphone: contactItem, cellphoneIndex } =
+    userPropsUtilities.cellphoneFinder(contacts, targetUserData);
+  errorThrower(!contactItem, () => ({
+    ...errors.CONTACT_ITEM_NOT_EXIST,
+    targetUserData,
+  }));
+
+  return { cellphoneIndex };
+};
+
+const removeContactItemAndSave = async (currentUser, cellphoneIndex) => {
+  //TODO: Remove all splice and use arrayUtilities
+  currentUser.contacts.splice(cellphoneIndex, 1);
+  await currentUser.save();
 };
 
 module.exports = { removeContactItem };

@@ -16,12 +16,12 @@ const requesters = {
   createNewUser: makeCustomRequest(routes.user.createNewUser),
   editContact: makeCustomRequest(routes.cellphone.editContact),
   getAllPrivateChats: makeCustomRequest(routes.privateChat.getAllPrivateChats),
-  logoutNormal: makeCustomRequest(routes.user.logoutNormal),
+  logout: makeCustomRequest(routes.user.logout),
   removeBlock: makeCustomRequest(routes.cellphone.removeBlock),
   removeContact: makeCustomRequest(routes.cellphone.removeContact),
   sendPrivateMessage: makeCustomRequest(routes.privateChat.sendPrivateMessage),
-  signInNormal: makeCustomRequest(routes.user.signInNormal),
-  verifySignIn: makeCustomRequest(routes.user.verifySignInNormal),
+  signIn: makeCustomRequest(routes.user.signIn),
+  verifySignIn: makeCustomRequest(routes.user.verifySignIn),
 };
 
 module.exports = { requesters };

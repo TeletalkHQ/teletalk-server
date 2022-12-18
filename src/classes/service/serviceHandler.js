@@ -39,7 +39,7 @@ class ServiceHandler {
     this.#options = options;
   }
 
-  async call(data, projection, options = this.options) {
+  async run(data, projection, options = this.options) {
     //TODO: Check input fields here
 
     const queryResult = await this.serviceBody(data, projection, options);

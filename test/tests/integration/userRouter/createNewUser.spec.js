@@ -24,7 +24,7 @@ const cellphones = testVariablesManager.getCellphones();
 
 //TODO Add USER_EXIST fail tests
 
-describe("success create new normal user", () => {
+describe("success create new  user", () => {
   it("should create new user in db", async () => {
     //* 1- Sign in as a new user =>
     const {
@@ -37,7 +37,7 @@ describe("success create new normal user", () => {
         },
       },
     } = await requesters
-      .signInNormal()
+      .signIn()
       .sendFullFeaturedRequest(cellphones.createNewUserSignIn);
 
     const { verificationCode: newUserVerificationCode } =
@@ -111,7 +111,7 @@ describe("success create new normal user", () => {
   });
 });
 
-describe("create new normal user failure tests", () => {
+describe("create new  user failure tests", () => {
   //* Config customRequest for fail tests
   const customRequest = requesters.createNewUser();
   before(async () => {
@@ -120,7 +120,7 @@ describe("create new normal user failure tests", () => {
         user: { token },
       },
     } = await requesters
-      .signInNormal()
+      .signIn()
       .sendFullFeaturedRequest(cellphones.createNewUserSignIn);
 
     customRequest.setToken(token);

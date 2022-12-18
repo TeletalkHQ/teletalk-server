@@ -1,50 +1,68 @@
 const { errorThrower } = require("utility-store/src/functions/utilities");
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
 const { commonServices } = require("@/services/common");
 
 const { errors } = require("@/variables/errors");
 
-const addContactToUserContacts = async ({ currentUserId, contact }) => {
-  const tryToAddContactToUserContacts = async () => {
-    const currentUser = await commonServices.findUserById(currentUserId);
-
-    const { cellphone: isContactExist } = userPropsUtilities.cellphoneFinder(
-      currentUser.contacts,
-      contact
-    );
-    errorThrower(isContactExist, () => ({
-      ...errors.CONTACT_ITEM_EXIST,
-      targetUserData: contact,
-    }));
-
-    const addingContact = userPropsUtilities.extractCellphone(contact);
-    const targetUser = await commonServices.findUser(addingContact);
-    errorThrower(customTypeof.isNull(targetUser), () => ({
-      ...errors.TARGET_USER_NOT_EXIST,
-      targetUserData: contact,
-    }));
-
-    const newContact = userPropsUtilities.extractContact({
-      ...contact,
-      userId: targetUser.userId,
-    });
-    currentUser.contacts.push(newContact);
-    await currentUser.save();
-
-    return { newContact };
-  };
-
-  return (
-    await trier(addContactToUserContacts.name).tryAsync(
-      tryToAddContactToUserContacts
+const addContactToUserContacts = serviceBuilder
+  .create()
+  .body(async (data) => {
+    return (
+      await trier(addContactToUserContacts.name).tryAsync(
+        tryToAddContactToUserContacts,
+        data
+      )
     )
-  )
-    .printAndThrow()
-    .result();
+      .printAndThrow()
+      .result();
+  })
+  .build();
+
+const tryToAddContactToUserContacts = async ({ currentUserId, contact }) => {
+  const currentUser = await commonServices.findOneUserById(currentUserId);
+
+  checkExistenceOfContactItem(currentUser.contacts, contact);
+
+  const addingContact = userPropsUtilities.extractCellphone(contact);
+
+  const targetUser = await serviceHelper.findOneUser(
+    addingContact,
+    errors.TARGET_USER_NOT_EXIST
+  );
+
+  const newContact = createNewContact(targetUser.userId, contact);
+
+  await saveNewContactItem(currentUser, newContact);
+
+  return { newContact };
+};
+
+const checkExistenceOfContactItem = (contacts, contact) => {
+  const { cellphone: isContactExist } = userPropsUtilities.cellphoneFinder(
+    contacts,
+    contact
+  );
+  errorThrower(isContactExist, () => ({
+    ...errors.CONTACT_ITEM_EXIST,
+    queryData: contact,
+  }));
+};
+
+const createNewContact = (userId, contact) => {
+  return userPropsUtilities.extractContact({
+    ...contact,
+    userId,
+  });
+};
+
+const saveNewContactItem = async (currentUser, newContact) => {
+  currentUser.contacts.push(newContact);
+  await currentUser.save();
 };
 
 module.exports = { addContactToUserContacts };

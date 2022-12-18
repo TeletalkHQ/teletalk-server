@@ -6,9 +6,9 @@ const { routes } = require("@/routes");
 
 const { testUser_0 } = testVariablesManager.getTestUsers();
 const defaultToken = userPropsUtilities.getTokenFromUserObject(testUser_0);
-const defaultCustomRequest = customRequestCreator(defaultToken);
+const defaultCustomRequestCreator = customRequestCreator(defaultToken);
 const makeCustomRequest = (routeObject) => () =>
-  defaultCustomRequest.create().setRouteObject(routeObject);
+  defaultCustomRequestCreator.create().setRouteObject(routeObject);
 
 const requesters = {
   addBlock: makeCustomRequest(routes.cellphone.addBlock),

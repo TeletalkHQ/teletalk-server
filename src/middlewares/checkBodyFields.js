@@ -1,24 +1,14 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
-const { trier } = require("utility-store/src/classes/Trier");
+const { errorThrower } = require("utility-store/src/functions/utilities");
 const {
   ioFieldsChecker,
 } = require("utility-store/src/functions/ioFieldsChecker");
+const { trier } = require("utility-store/src/classes/Trier");
 
+const { appConfigs } = require("@/classes/AppConfigs");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
-const { errorThrower } = require("utility-store/src/functions/utilities");
-
 const { errors } = require("@/variables/errors");
-const { appConfigs } = require("@/classes/AppConfigs");
-
-//CLEANME: Add to statics
-const ioErrors = {
-  ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
-  missingFieldsError: errors.INPUT_FIELDS_MISSING,
-  overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
-  requiredFieldsNotDefinedError: errors.REQUIRED_FIELDS_NOT_DEFINED,
-  requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
-};
 
 const tryToCheckBodyFields = (body, inputFields) => {
   errorThrower(
@@ -26,7 +16,7 @@ const tryToCheckBodyFields = (body, inputFields) => {
     errors.REQUEST_BODY_IS_UNDEFINED
   );
 
-  const checkResult = ioFieldsChecker(body, inputFields, ioErrors);
+  const checkResult = ioFieldsChecker(body, inputFields, errors.IO.input);
 
   const configs = appConfigs.getConfigs();
   const checkResultErrorReason = checkResult.errorObject?.reason;

@@ -17,12 +17,8 @@ const tryToCheckDataAndResponse = ({
 }) => {
   const selectedOutputFields = outputFields[requiredFieldsIndex];
   const checkResult = ioFieldsChecker(data, selectedOutputFields, {
-    ioDataFieldTypeWrongError: errors.OUTPUT_FIELD_TYPE_WRONG,
-    missingFieldsError: errors.OUTPUT_FIELDS_MISSING,
-    overloadFieldsError: errors.OUTPUT_FIELDS_OVERLOAD,
+    ...errors.IO.output,
     requiredFieldsIndex,
-    requiredFieldsNotDefinedError: errors.REQUIRED_FIELDS_NOT_DEFINED,
-    requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
   });
 
   //TODO: If there is no valid error object, throw UNKNOWN_ERROR

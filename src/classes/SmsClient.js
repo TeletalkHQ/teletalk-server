@@ -1,11 +1,13 @@
+const { errorThrower } = require("utility-store/src/functions/utilities");
+const { trier } = require("utility-store/src/classes/Trier");
+
 const { envManager } = require("@/classes/EnvironmentManager");
 
 const axios = require("axios");
 
-const { errorThrower } = require("utility-store/src/functions/utilities");
-
 const { errors } = require("@/variables/errors");
-const { trier } = require("utility-store/src/classes/Trier");
+
+const { crashServer } = require("@/utilities/utilities");
 
 class SmsClient {
   templates() {
@@ -23,9 +25,7 @@ class SmsClient {
     );
 
     const providers = [
-      () => {
-        //TODO: log something and say index is wrong
-      },
+      this.wrongProvider,
       this.#verificationCodeProvider1,
       this.#verificationCodeProvider2,
     ];
@@ -104,6 +104,13 @@ class SmsClient {
     };
 
     await axios(config);
+  }
+
+  wrongProvider() {
+    const message =
+      "SMS_PROVIDER_SELECTOR is 0 which is a wrong number, please check your environments";
+    logger.error(message);
+    crashServer(message);
   }
 }
 

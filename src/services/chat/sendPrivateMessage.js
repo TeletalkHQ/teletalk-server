@@ -15,31 +15,26 @@ const PrivateChat = models.database.mongoDb.PrivateChat;
 const sendPrivateMessage = serviceBuilder
   .create()
   .body(async ({ currentUserId, participantId, message }) => {
-    try {
-      const targetUserId = await findTargetUserId(participantId);
+    const targetUserId = await findTargetUserId(participantId);
 
-      const newMessage = createNewMessage(message, currentUserId);
+    const newMessage = createNewMessage(message, currentUserId);
 
-      const privateChat = await findPrivateChat(currentUserId, targetUserId);
-      const fixedPrivateChat = await fixPrivateChat({
-        currentUserId,
-        privateChat,
-        targetUserId,
-      });
+    const privateChat = await findPrivateChat(currentUserId, targetUserId);
+    const fixedPrivateChat = await fixPrivateChat({
+      currentUserId,
+      privateChat,
+      targetUserId,
+    });
 
-      await saveMessageOnPrivateChat({
-        privateChat: fixedPrivateChat,
-        newMessage,
-      });
+    await saveMessageOnPrivateChat({
+      privateChat: fixedPrivateChat,
+      newMessage,
+    });
 
-      return {
-        chatId: fixedPrivateChat.chatId,
-        newMessage,
-      };
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    return {
+      chatId: fixedPrivateChat.chatId,
+      newMessage,
+    };
   })
   .build();
 

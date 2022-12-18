@@ -53,7 +53,7 @@ const getUserData = userRouteBuilder
   .statusCode(200)
   .outputFields([
     {
-      user: fields.statics.object(fields.collection.user),
+      user: fields.statics.object(fields.collection.userWithoutToken),
     },
   ])
   .build();
@@ -69,10 +69,10 @@ const getTargetUserData = userRouteBuilder
     },
   ])
   .build();
-const getPublicUserInfo = userRouteBuilder
+const getPublicUserData = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/user/getPublicUserInfo")
+  .url("/user/getPublicUserData")
   .statusCode(200)
   .inputFields({
     userId: fields.single.userId,
@@ -125,7 +125,7 @@ const verifySignIn = userRouteBuilder
 const routes = {
   getUserData,
   createNewUser,
-  getPublicUserInfo,
+  getPublicUserData,
   getTargetUserData,
   logout,
   signIn,

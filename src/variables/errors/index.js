@@ -1,10 +1,12 @@
-const { serverErrors } = require("@/variables/errors/server");
+const { ioErrors } = require("@/variables/errors/ioErrors");
 const { localErrors } = require("@/variables/errors/local");
+const { serverErrors } = require("@/variables/errors/server");
 const { userErrors } = require("@/variables/errors/user");
 
 const errors = {
-  ...serverErrors,
+  IO: ioErrors,
   ...localErrors,
+  ...serverErrors,
   ...userErrors,
 };
 

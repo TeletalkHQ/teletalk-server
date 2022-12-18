@@ -11,7 +11,6 @@ const cellphoneRouteBuilder = routeBuilder(baseUrls.cellphone);
 
 const addBlock = cellphoneRouteBuilder
   .create()
-  //TODO: Use METHODS
   .method(METHODS.POST)
   .url("/addBlock")
   .statusCode(200)

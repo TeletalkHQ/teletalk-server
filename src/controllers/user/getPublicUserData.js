@@ -22,15 +22,15 @@ const responseToGetUserData = (publicUserInfo, res) => {
 
 const catchGetUserData = commonFunctionalities.controllerErrorResponse;
 
-const getPublicUserInfo = async (
+const getPublicUserData = async (
   req = expressRequest,
   res = expressResponse
 ) => {
   const { userId } = req.body;
 
-  (await trier(getPublicUserInfo.name).tryAsync(tryToGetPublicUserInfo, userId))
+  (await trier(getPublicUserData.name).tryAsync(tryToGetPublicUserInfo, userId))
     .executeIfNoError(responseToGetUserData, res)
     .catch(catchGetUserData, res);
 };
 
-module.exports = { getPublicUserInfo };
+module.exports = { getPublicUserData };

@@ -22,7 +22,7 @@ const {
 
 const { getUserData } = require("@/controllers/user/getUserData");
 const { createNewUser } = require("@/controllers/user/createNewUser");
-const { getPublicUserInfo } = require("@/controllers/user/getPublicUserInfo");
+const { getPublicUserData } = require("@/controllers/user/getPublicUserData");
 const { getTargetUserData } = require("@/controllers/user/getTargetUserData");
 const { logout } = require("@/controllers/user/logout");
 const { signIn } = require("@/controllers/user/signIn");
@@ -42,7 +42,7 @@ const controllers = {
   getContacts,
   getCountries,
   getPrivateChat,
-  getPublicUserInfo,
+  getPublicUserData,
   getTargetUserData,
   getUserData,
   getWelcomeMessage,

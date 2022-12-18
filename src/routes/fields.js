@@ -106,6 +106,8 @@ const user = {
   token,
 };
 
+const { token: _token, ...userWithoutToken } = user;
+
 const single = {
   bio,
   chatId,
@@ -144,10 +146,11 @@ const collection = {
   fullName,
   messageItem,
   messages,
-  sender,
   participants,
   privateChat,
+  sender,
   user,
+  userWithoutToken,
 };
 
 const fields = {

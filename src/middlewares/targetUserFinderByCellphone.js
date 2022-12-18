@@ -11,15 +11,11 @@ const { services } = require("@/services");
 const { errors } = require("@/variables/errors");
 
 const targetUserFinderByCellphone = async (req, res, next) => {
-  (
-    await trier(targetUserFinderByCellphone.name).tryAsync(
-      tryToFindUserByCellphone,
-      req.body
-    )
-  )
+  await trier(targetUserFinderByCellphone.name)
+    .tryAsync(tryToFindUserByCellphone, req.body)
     .executeIfNoError(executeInNoError, req, next)
     .catch(catchFindUserByCellphone, res)
-    .result();
+    .runAsync();
 };
 
 const tryToFindUserByCellphone = async (requestData) => {

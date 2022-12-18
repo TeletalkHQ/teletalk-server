@@ -6,6 +6,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { services } = require("@/services");
 
 const tryToAddContact = async (data) => {
+  //CLEANME: Remove result
   const { newContact } = await (await services.addContact.run(data)).result();
   return newContact;
 };
@@ -27,14 +28,14 @@ const addContact = async (req = expressRequest, res = expressResponse) => {
 
   const contact = userPropsUtilities.extractContact(body);
 
-  (
-    await trier(addContact.name).tryAsync(tryToAddContact, {
+  await trier(addContact.name)
+    .tryAsync(tryToAddContact, {
       currentUserId,
       contact,
     })
-  )
     .executeIfNoError(responseToAddContact, res, contact)
-    .catch(catchAddContact, res);
+    .catch(catchAddContact, res)
+    .runAsync();
 };
 
 module.exports = { addContact };

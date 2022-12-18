@@ -24,10 +24,11 @@ const catchAuthDefault = (error, res) => {
 };
 
 const authDefault = async (req, res, next) => {
-  return (await trier(authDefault.name).tryAsync(tryToValidateToken, req))
+  return await trier(authDefault.name)
+    .tryAsync(tryToValidateToken, req)
     .executeIfNoError(executeIfNoError, req, next)
     .catch(catchAuthDefault, res)
-    .result();
+    .runAsync();
 };
 
 module.exports = { authDefault };

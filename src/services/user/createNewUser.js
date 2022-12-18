@@ -13,11 +13,10 @@ const { errors } = require("@/variables/errors");
 const createNewUser = serviceBuilder
   .create()
   .body(async (userData) => {
-    return (
-      await trier(createNewUser.name).tryAsync(tryToCreateNewUser, userData)
-    )
-      .printAndThrow()
-      .result();
+    return await trier(createNewUser.name)
+      .tryAsync(tryToCreateNewUser, userData)
+      .throw()
+      .runAsync();
   })
   .build();
 

@@ -35,17 +35,19 @@ const verifyVerificationCodeMultiTry = async (
     autoThrowError: true,
   });
 
-  const tempClient = (
-    await trierInstance.tryAsync(tryToGetTemporaryClient, cellphone)
-  ).result();
+  const tempClient = await trierInstance
+    .tryAsync(tryToGetTemporaryClient, cellphone)
+    .runAsync();
 
   const { verificationCode: actualVerificationCode } = tempClient;
 
-  trierInstance.try(
-    tryToVerifyVerificationCode,
-    actualVerificationCode,
-    sentVerificationCode
-  );
+  trierInstance
+    .try(
+      tryToVerifyVerificationCode,
+      actualVerificationCode,
+      sentVerificationCode
+    )
+    .run();
 };
 
 const verifyVerificationCode = async (req, res, next) => {
@@ -55,15 +57,11 @@ const verifyVerificationCode = async (req, res, next) => {
   } = req;
   const cellphone = userPropsUtilities.extractCellphone(authData.payload);
 
-  (
-    await trier(verifyVerificationCode.name).tryAsync(
-      verifyVerificationCodeMultiTry,
-      sentVerificationCode,
-      cellphone
-    )
-  )
+  await trier(verifyVerificationCode.name)
+    .tryAsync(verifyVerificationCodeMultiTry, sentVerificationCode, cellphone)
     .executeIfNoError(() => next())
-    .catch(catchVerifyVerificationCode, res);
+    .catch(catchVerifyVerificationCode, res)
+    .runAsync();
 };
 
 module.exports = { verifyVerificationCode };

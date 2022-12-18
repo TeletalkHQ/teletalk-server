@@ -27,15 +27,11 @@ const catchValidateContact = (error, res) => {
 const contactValidatorMiddleware = async (req, res, next) => {
   const { body: userData } = req;
 
-  return (
-    await trier(contactValidatorMiddleware.name).tryAsync(
-      tryToValidateContact,
-      userData
-    )
-  )
+  return await trier(contactValidatorMiddleware.name)
+    .tryAsync(tryToValidateContact, userData)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchValidateContact, res)
-    .result();
+    .runAsync();
 };
 
 module.exports = { contactValidator: contactValidatorMiddleware };

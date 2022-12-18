@@ -15,9 +15,11 @@ const responseToGetCountries = (countries, res) => {
 const catchGetCountries = commonFunctionalities.controllerErrorResponse;
 
 const getCountries = async (_req = expressRequest, res = expressResponse) => {
-  (await trier(getCountries.name).tryAsync(tryToGetCountries))
+  await trier(getCountries.name)
+    .tryAsync(tryToGetCountries)
     .executeIfNoError(responseToGetCountries, res)
-    .catch(catchGetCountries, res);
+    .catch(catchGetCountries, res)
+    .runAsync();
 };
 
 module.exports = { getCountries };

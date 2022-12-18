@@ -28,9 +28,11 @@ const getPublicUserData = async (
 ) => {
   const { userId } = req.body;
 
-  (await trier(getPublicUserData.name).tryAsync(tryToGetPublicUserInfo, userId))
+  await trier(getPublicUserData.name)
+    .tryAsync(tryToGetPublicUserInfo, userId)
     .executeIfNoError(responseToGetUserData, res)
-    .catch(catchGetUserData, res);
+    .catch(catchGetUserData, res)
+    .runAsync();
 };
 
 module.exports = { getPublicUserData };

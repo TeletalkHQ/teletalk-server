@@ -25,9 +25,11 @@ const catchGetUserData = commonFunctionalities.controllerErrorResponse;
 const getUserData = async (req = expressRequest, res = expressResponse) => {
   const { authData } = req;
 
-  (await trier(getUserData.name).tryAsync(tryToGetUserData, authData))
+  await trier(getUserData.name)
+    .tryAsync(tryToGetUserData, authData)
     .executeIfNoError(responseToGetUserData, res)
-    .catch(catchGetUserData, res);
+    .catch(catchGetUserData, res)
+    .runAsync();
 };
 
 module.exports = { getUserData };

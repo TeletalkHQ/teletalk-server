@@ -27,14 +27,11 @@ const updatePersonalInfoController = async (
     currentUserId,
   } = req;
 
-  (
-    await trier(updatePersonalInfoController.name).tryAsync(
-      tryToUpdatePersonalInfo,
-      { currentUserId, firstName, lastName }
-    )
-  )
+  await trier(updatePersonalInfoController.name)
+    .tryAsync(tryToUpdatePersonalInfo, { currentUserId, firstName, lastName })
     .executeIfNoError(responseToUpdatePersonalInfo, res, firstName, lastName)
-    .catch(catchUpdatePersonalInfo, res);
+    .catch(catchUpdatePersonalInfo, res)
+    .runAsync();
 };
 
 module.exports = {

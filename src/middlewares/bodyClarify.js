@@ -22,7 +22,7 @@ const bodyClarify = (req, _res, next) => {
     .try(tryToClarifyBody, req.body)
     .executeIfNoError(executeIfNoError, req, next)
     .catch(catchBodyClarify)
-    .result();
+    .run();
 };
 
 module.exports = { bodyClarify };

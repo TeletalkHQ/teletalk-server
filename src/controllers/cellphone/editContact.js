@@ -26,15 +26,15 @@ const editContact = async (req = expressRequest, res = expressResponse) => {
   const targetCellphone = userPropsUtilities.extractCellphone(body);
   const editedValues = { firstName, lastName };
 
-  (
-    await trier(editContact.name).tryAsync(tryToEditContact, {
+  await trier(editContact.name)
+    .tryAsync(tryToEditContact, {
       currentUserId,
       editedValues,
       targetCellphone,
     })
-  )
     .executeIfNoError(responseToEditContact, res, targetCellphone, editedValues)
-    .catch(catchEditContact, res);
+    .catch(catchEditContact, res)
+    .runAsync();
 };
 
 module.exports = { editContact };

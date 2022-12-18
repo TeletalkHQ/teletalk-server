@@ -22,13 +22,13 @@ const getChatsLastMessage = async (
 ) => {
   const { currentUserId } = req;
 
-  (
-    await trier(getChatsLastMessage.name).tryAsync(tryToGetChatsLastMessage, {
+  await trier(getChatsLastMessage.name)
+    .tryAsync(tryToGetChatsLastMessage, {
       currentUserId,
     })
-  )
     .executeIfNoError(responseToGetChatsLastMessage, res)
-    .catch(catchGetChatsLastMessage, res);
+    .catch(catchGetChatsLastMessage, res)
+    .runAsync();
 };
 
 module.exports = { getChatsLastMessage };

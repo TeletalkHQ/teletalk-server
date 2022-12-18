@@ -14,16 +14,11 @@ const checkCurrentUserStatus = async (req, res, next) => {
   const token = authManager.getTokenFromRequest(req);
   const { payload: userData } = req.authData;
 
-  return (
-    await trier(checkCurrentUserStatus.name).tryAsync(
-      tryToCheckCurrentUserStatus,
-      userData,
-      token
-    )
-  )
+  return await trier(checkCurrentUserStatus.name)
+    .tryAsync(tryToCheckCurrentUserStatus, userData, token)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchCheckCurrentUserStatus, res)
-    .result();
+    .runAsync();
 };
 
 const tryToCheckCurrentUserStatus = async (userData, token) => {

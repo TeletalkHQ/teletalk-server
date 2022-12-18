@@ -17,7 +17,8 @@ const catchResponseToError = () => {
 const errorResponser = (res = expressResponse) => {
   trier(errorResponser.name)
     .try(tryToResponseToError, res)
-    .catch(catchResponseToError, res);
+    .catch(catchResponseToError, res)
+    .run();
 };
 
 module.exports = { errorResponser };

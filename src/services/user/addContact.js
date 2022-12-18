@@ -12,11 +12,10 @@ const { errors } = require("@/variables/errors");
 const addContact = serviceBuilder
   .create()
   .body(async (data) => {
-    return (
-      await trier(addContact.name).tryAsync(tryToAddContactToUserContacts, data)
-    )
-      .printAndThrow()
-      .result();
+    return await trier(addContact.name)
+      .tryAsync(tryToAddContactToUserContacts, data)
+      .throw()
+      .runAsync();
   })
   .build();
 

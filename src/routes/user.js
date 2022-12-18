@@ -12,7 +12,7 @@ const userRouteBuilder = routeBuilder(baseUrls.user);
 const createNewUser = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/user/createNewUser")
+  .url("/createNewUser")
   .statusCode(200)
   .inputFields(fields.collection.fullName)
   .outputFields([
@@ -25,7 +25,7 @@ const createNewUser = userRouteBuilder
 const logout = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/user/logout")
+  .url("/logout")
   .statusCode(200)
   .outputFields([{ ok: fields.single.ok }])
   .build();
@@ -33,7 +33,7 @@ const logout = userRouteBuilder
 const signIn = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/user/signInUser")
+  .url("/signInUser")
   .statusCode(200)
   .inputFields(fields.collection.cellphone)
   .outputFields([
@@ -49,7 +49,7 @@ const signIn = userRouteBuilder
 const getUserData = userRouteBuilder
   .create()
   .method(METHODS.GET)
-  .url("/user/getUserData")
+  .url("/getUserData")
   .statusCode(200)
   .outputFields([
     {
@@ -61,7 +61,7 @@ const getUserData = userRouteBuilder
 const getTargetUserData = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/user/getTargetUserData")
+  .url("/getTargetUserData")
   .statusCode(200)
   .outputFields([
     {
@@ -72,7 +72,7 @@ const getTargetUserData = userRouteBuilder
 const getPublicUserData = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/user/getPublicUserData")
+  .url("/getPublicUserData")
   .statusCode(200)
   .inputFields({
     userId: fields.single.userId,
@@ -92,7 +92,7 @@ const getPublicUserData = userRouteBuilder
 const updatePersonalInfo = userRouteBuilder
   .create()
   .method(METHODS.PATCH)
-  .url("/user/updatePersonalInfo")
+  .url("/updatePersonalInfo")
   .statusCode(200)
   .inputFields(fields.collection.fullName)
   //TODO: Add bio, username, cellphone etc...
@@ -102,7 +102,7 @@ const updatePersonalInfo = userRouteBuilder
 const verifySignIn = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/user/verifySignInUser")
+  .url("/verifySignInUser")
   .statusCode(200)
   .inputFields({
     verificationCode: fields.single.verificationCode,

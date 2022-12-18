@@ -4,11 +4,11 @@
     "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
     "containerId": "912ee1d7-89bc-46ef-aa23-c40e3498d032",
     "name": "signInNormalUser",
-    "url": "{{baseUrl}}/user/normalUser/signInNormalUser",
+    "url": "{{baseUrl}}/user/signInUser",
     "method": "POST",
     "sortNum": 15000,
     "created": "2022-04-10T19:07:05.854Z",
-    "modified": "2022-11-18T20:25:11.897Z",
+    "modified": "2022-12-18T22:20:55.085Z",
     "headers": [],
     "params": [],
     "body": {

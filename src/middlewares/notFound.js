@@ -21,7 +21,8 @@ const notFound = (req, res, next) => {
   trier(notFound.name)
     .try(tryToValidateRouteObject, req.routeObject)
     .executeIfNoError(() => next())
-    .catch(catchValidateRouteObject, res);
+    .catch(catchValidateRouteObject, res)
+    .run();
 };
 
 module.exports = { notFound };

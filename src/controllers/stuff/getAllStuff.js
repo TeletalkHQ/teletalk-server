@@ -26,7 +26,8 @@ const getAllStuff = async (req = expressRequest, res = expressResponse) => {
   trier(getAllStuff.name)
     .try(tryToGetAllStuff, language)
     .executeIfNoError(responseToGetAllStuff, res)
-    .catch(catchGetAllStuff, res);
+    .catch(catchGetAllStuff, res)
+    .run();
 };
 
 module.exports = { getAllStuff };

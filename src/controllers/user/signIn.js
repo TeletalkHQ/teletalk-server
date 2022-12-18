@@ -70,19 +70,13 @@ const temporaryClientHelper = async ({
   token,
 }) => {
   if (client) {
-    await trierInstance.tryAsync(
-      tryToUpdateTemporaryClient,
-      client,
-      verificationCode,
-      token
-    );
+    await trierInstance
+      .tryAsync(tryToUpdateTemporaryClient, client, verificationCode, token)
+      .runAsync();
   } else {
-    await trierInstance.tryAsync(
-      tryToAddNewTemporaryClient,
-      cellphone,
-      verificationCode,
-      token
-    );
+    await trierInstance
+      .tryAsync(tryToAddNewTemporaryClient, cellphone, verificationCode, token)
+      .runAsync();
   }
 };
 
@@ -96,27 +90,31 @@ const tryToSignInUser = async (req) => {
     autoThrowError: true,
   });
 
-  await trierInstance.tryAsync(tryToValidateVerificationCode, verificationCode);
+  await trierInstance
+    .tryAsync(tryToValidateVerificationCode, verificationCode)
+    .runAsync();
 
   await commonFunctionalities.checkAndExecute(
     configs.sms.shouldSendSms,
     async () => {
-      await trierInstance.tryAsync(
-        tryToSendVerificationCodeAsSms,
-        cellphone,
-        host,
-        verificationCode
-      );
+      await trierInstance
+        .tryAsync(
+          tryToSendVerificationCodeAsSms,
+          cellphone,
+          host,
+          verificationCode
+        )
+        .runAsync();
     }
   );
 
-  const token = (
-    await trierInstance.tryAsync(tryToSignToken, cellphone)
-  ).result();
+  const token = await trierInstance
+    .tryAsync(tryToSignToken, cellphone)
+    .runAsync();
 
-  const client = (
-    await trierInstance.tryAsync(tryToFindTemporaryClient, cellphone)
-  ).result();
+  const client = await trierInstance
+    .tryAsync(tryToFindTemporaryClient, cellphone)
+    .runAsync();
 
   await temporaryClientHelper({
     cellphone,
@@ -142,9 +140,11 @@ const responseToSignInUser = (user, res) => {
 const catchSignInUser = commonFunctionalities.controllerErrorResponse;
 
 const signIn = async (req = expressRequest, res = expressResponse) => {
-  (await trier(signIn.name).tryAsync(tryToSignInUser, req))
+  await trier(signIn.name)
+    .tryAsync(tryToSignInUser, req)
     .executeIfNoError(responseToSignInUser, res)
-    .catch(catchSignInUser, res);
+    .catch(catchSignInUser, res)
+    .runAsync();
 };
 
 module.exports = { signIn };

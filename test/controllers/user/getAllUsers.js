@@ -15,9 +15,11 @@ const responseToGetAllUsers = (users, res) => {
 const catchGetAllUsers = commonFunctionalities.controllerErrorResponse;
 
 const getAllUsers = async (_ = expressRequest, res = expressResponse) => {
-  (await trier(getAllUsers.name).tryAsync(tryToGetAllUsers))
+  await trier(getAllUsers.name)
+    .tryAsync(tryToGetAllUsers)
     .executeIfNoError(responseToGetAllUsers, res)
-    .catch(catchGetAllUsers, res);
+    .catch(catchGetAllUsers, res)
+    .runAsync();
 };
 
 module.exports = { getAllUsers };

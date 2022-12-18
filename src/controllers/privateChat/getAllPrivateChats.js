@@ -21,13 +21,14 @@ const getAllPrivateChats = async (
   res = expressResponse
 ) => {
   const { currentUserId } = req;
-  (
-    await trier(getAllPrivateChats.name).tryAsync(tryToGetAllPrivateChats, {
+
+  await trier(getAllPrivateChats.name)
+    .tryAsync(tryToGetAllPrivateChats, {
       currentUserId,
     })
-  )
     .executeIfNoError(responseToGetAllPrivateChats, res)
-    .catch(catchGetAllChats, res);
+    .catch(catchGetAllChats, res)
+    .runAsync();
 };
 
 module.exports = { getAllPrivateChats };

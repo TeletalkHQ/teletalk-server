@@ -26,13 +26,13 @@ const getPrivateChat = async (req = expressRequest, res = expressResponse) => {
 
   await validators.chatId(chatId);
 
-  (
-    await trier(getPrivateChat.name).tryAsync(tryToGetPrivateChatMessages, {
+  await trier(getPrivateChat.name)
+    .tryAsync(tryToGetPrivateChatMessages, {
       chatId,
     })
-  )
     .executeIfNoError(responseToGetMessages, res)
-    .catch(catchGetMessages, res);
+    .catch(catchGetMessages, res)
+    .runAsync();
 };
 
 module.exports = { getPrivateChat };

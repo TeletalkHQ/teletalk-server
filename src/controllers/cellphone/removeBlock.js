@@ -21,14 +21,14 @@ const removeBlock = async (req = expressRequest, res = expressResponse) => {
   const { currentUserId, body } = req;
   const targetUserData = userPropsUtilities.extractCellphone(body);
 
-  (
-    await trier(removeBlock.name).tryAsync(tryToRemoveBlock, {
+  await trier(removeBlock.name)
+    .tryAsync(tryToRemoveBlock, {
       currentUserId,
       targetUserData,
     })
-  )
     .executeIfNoError(responseToRemoveBlock, res, targetUserData)
-    .catch(catchRemoveBlock, res);
+    .catch(catchRemoveBlock, res)
+    .runAsync();
 };
 
 module.exports = { removeBlock };

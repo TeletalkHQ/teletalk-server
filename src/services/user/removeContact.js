@@ -7,11 +7,11 @@ const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 
 const { errors } = require("@/variables/errors");
 
-const removeContactItem = serviceBuilder
+const removeContact = serviceBuilder
   .create()
   .body(async (data) => {
     return (
-      await trier(removeContactItem.name).tryAsync(tryToRemoveContactItem, data)
+      await trier(removeContact.name).tryAsync(tryToRemoveContactItem, data)
     )
       .printAndThrow()
       .result();
@@ -26,7 +26,7 @@ const tryToRemoveContactItem = async ({ currentUserId, targetUserData }) => {
     targetUserData
   );
 
-  await removeContactItemAndSave(currentUser, cellphoneIndex);
+  await removeContactAndSave(currentUser, cellphoneIndex);
 };
 
 const findCurrentUser = async (currentUserId) => {
@@ -47,10 +47,10 @@ const checkExistenceOfContactItem = (contacts, targetUserData) => {
   return { cellphoneIndex };
 };
 
-const removeContactItemAndSave = async (currentUser, cellphoneIndex) => {
+const removeContactAndSave = async (currentUser, cellphoneIndex) => {
   //TODO: Remove all splice and use arrayUtilities
   currentUser.contacts.splice(cellphoneIndex, 1);
   await currentUser.save();
 };
 
-module.exports = { removeContactItem };
+module.exports = { removeContact };

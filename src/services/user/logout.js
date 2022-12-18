@@ -3,7 +3,7 @@ const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
 const { errors } = require("@/variables/errors");
 
-const logoutUser = serviceBuilder
+const logout = serviceBuilder
   .create()
   .body(async ({ currentUserId }) => {
     const currentUser = await serviceHelper.findOneUserById(
@@ -17,4 +17,4 @@ const logoutUser = serviceBuilder
   })
   .build();
 
-module.exports = { logoutUser };
+module.exports = { logout };

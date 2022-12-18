@@ -5,7 +5,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToLogout = async (data) => {
-  return (await services.logoutUser.run(data)).result();
+  return (await services.logout.run(data)).result();
 };
 
 const responseToLogout = (data, res) => {

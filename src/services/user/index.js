@@ -1,31 +1,27 @@
-const {
-  addCellphoneToUserBlacklist,
-} = require("@/services/user/addCellphoneToUserBlacklist");
-const {
-  addContactToUserContacts,
-} = require("@/services/user/addContactToUserContacts");
+const { addBlock } = require("@/services/user/addBlock");
+const { addContact } = require("@/services/user/addContact");
 const { createNewUser } = require("@/services/user/createNewUser");
 const { getAllUsers } = require("@/services/user/getAllUsers");
 const { getUserContacts } = require("@/services/user/getUserContacts");
 const { getUserData } = require("@/services/user/getUserData");
-const { logoutUser } = require("@/services/user/logoutUser");
-const { removeBlacklistItem } = require("@/services/user/removeBlacklistItem");
-const { removeContactItem } = require("@/services/user/removeContactItem");
-const { saveNewToken } = require("@/services/user/saveNewToken");
+const { logout } = require("@/services/user/logout");
+const { removeBlock } = require("@/services/user/removeBlock");
+const { removeContact } = require("@/services/user/removeContact");
+const { addNewToken } = require("@/services/user/addNewToken");
 const { updateContact } = require("@/services/user/updateContact");
 const { updatePersonalInfo } = require("@/services/user/updatePersonalInfo");
 
 const userServices = {
-  addCellphoneToUserBlacklist,
-  addContactToUserContacts,
+  addBlock,
+  addContact,
   createNewUser,
   getAllUsers,
   getUserContacts,
   getUserData,
-  logoutUser,
-  removeBlacklistItem,
-  removeContactItem,
-  saveNewToken,
+  logout,
+  removeBlock,
+  removeContact,
+  addNewToken,
   updateContact,
   updatePersonalInfo,
 };

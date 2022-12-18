@@ -1,6 +1,6 @@
-const { findUser } = require("@/services/common/findUser");
-const { findUserById } = require("@/services/common/findUserById");
+const { findOneUser } = require("@/services/common/findOneUser");
+const { findOneUserById } = require("@/services/common/findOneUserById");
 
-const commonServices = { findUser, findUserById };
+const commonServices = { findOneUser, findOneUserById };
 
 module.exports = { commonServices };

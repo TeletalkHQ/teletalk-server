@@ -6,10 +6,10 @@
 //? Database ==>
 require("$/tests/database/crudUser.spec");
 //? userRouter api's ==>
-require("$/tests/integration/userRouter/signInNormal.spec");
-require("$/tests/integration/userRouter/verifySignInNormal.spec");
+require("$/tests/integration/userRouter/signIn.spec");
+require("$/tests/integration/userRouter/verifySignIn.spec");
 require("$/tests/integration/userRouter/createNewUser.spec");
-require("$/tests/integration/userRouter/logoutNormal.spec");
+require("$/tests/integration/userRouter/logout.spec");
 //? cellphoneRouter api's ==>
 require("$/tests/integration/cellphoneRouter/addContact.spec");
 require("$/tests/integration/cellphoneRouter/editContact.spec");

@@ -2,37 +2,69 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { errorThrower } = require("utility-store/src/functions/utilities");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-
-const { commonServices } = require("@/services/common");
+const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
 const { errors } = require("@/variables/errors");
 
-const updateContact = async ({
+const updateContact = serviceBuilder
+  .create()
+  .body(async (data) => {
+    return (await trier().tryAsync(tryToUpdateOneContact, data))
+      .printAndThrow()
+      .result();
+  })
+  .build();
+
+const tryToUpdateOneContact = async ({
   currentUserId,
   editedValues,
   targetCellphone,
 }) => {
-  const tryToUpdateOneContact = async () => {
-    const currentUser = await commonServices.findUserById(currentUserId);
+  const currentUser = await findCurrentUser(currentUserId);
 
-    const { cellphone: contactItem, cellphoneIndex } =
-      userPropsUtilities.cellphoneFinder(currentUser.contacts, targetCellphone);
-    errorThrower(!contactItem, () => errors.CONTACT_ITEM_NOT_EXIST);
+  const { cellphoneIndex } = checkExistenceOfContactItem(
+    currentUser.contacts,
+    targetCellphone
+  );
 
-    const newContact = {
-      ...userPropsUtilities.extractContact(targetCellphone),
-      firstName: editedValues.firstName,
-      lastName: editedValues.lastName,
-    };
-    currentUser.contacts.splice(cellphoneIndex, 1, newContact);
-    await currentUser.save();
+  const newContact = createNewContact(editedValues, targetCellphone);
 
-    return { currentUser };
+  await updateAndSaveNewContact(currentUser, newContact, cellphoneIndex);
+
+  return { currentUser };
+};
+
+const findCurrentUser = async (currentUserId) => {
+  return await serviceHelper.findOneUserById(
+    currentUserId,
+    errors.CURRENT_USER_NOT_EXIST
+  );
+};
+
+const checkExistenceOfContactItem = (contacts, targetCellphone) => {
+  const { cellphone: contactItem, cellphoneIndex } =
+    userPropsUtilities.cellphoneFinder(contacts, targetCellphone);
+  errorThrower(!contactItem, () => errors.CONTACT_ITEM_NOT_EXIST);
+
+  return { cellphoneIndex };
+};
+
+const createNewContact = (editedValues, targetCellphone) => {
+  return {
+    ...userPropsUtilities.extractContact(targetCellphone),
+    firstName: editedValues.firstName,
+    lastName: editedValues.lastName,
   };
+};
 
-  return (await trier().tryAsync(tryToUpdateOneContact))
-    .printAndThrow()
-    .result();
+const updateAndSaveNewContact = async (
+  currentUser,
+  newContact,
+  cellphoneIndex
+) => {
+  currentUser.contacts.splice(cellphoneIndex, 1, newContact);
+  await currentUser.save();
 };
 
 module.exports = { updateContact };

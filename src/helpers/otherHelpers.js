@@ -5,7 +5,7 @@ const getIgnoredUrlsForAuth = () => {
     routes.stuff.getAllStuffs,
     routes.other.getCountries,
     routes.other.getWelcomeMessage,
-    routes.user.signInNormal,
+    routes.user.signIn,
     { fullUrl: "/" },
   ].map((item) => item.fullUrl);
 };

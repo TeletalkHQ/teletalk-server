@@ -12,7 +12,7 @@ const userRouteBuilder = routeBuilder(baseUrls.user);
 const createNewUser = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/normalUser/createNewNormalUser")
+  .url("/user/createNewUser")
   .statusCode(200)
   .inputFields(fields.collection.fullName)
   .outputFields([
@@ -22,18 +22,18 @@ const createNewUser = userRouteBuilder
   ])
   .build();
 
-const logoutNormal = userRouteBuilder
+const logout = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/normalUser/logoutNormalUser")
+  .url("/user/logoutUser")
   .statusCode(200)
   .outputFields([{ ok: fields.single.ok }])
   .build();
 
-const signInNormal = userRouteBuilder
+const signIn = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/normalUser/signInNormalUser")
+  .url("/user/signInUser")
   .statusCode(200)
   .inputFields(fields.collection.cellphone)
   .outputFields([
@@ -49,7 +49,7 @@ const signInNormal = userRouteBuilder
 const getUserData = userRouteBuilder
   .create()
   .method(METHODS.GET)
-  .url("/normalUser/getUserData")
+  .url("/user/getUserData")
   .statusCode(200)
   .outputFields([
     {
@@ -61,7 +61,7 @@ const getUserData = userRouteBuilder
 const getTargetUserData = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/normalUser/getTargetUserData")
+  .url("/user/getTargetUserData")
   .statusCode(200)
   .outputFields([
     {
@@ -72,7 +72,7 @@ const getTargetUserData = userRouteBuilder
 const getPublicUserInfo = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/normalUser/getPublicUserInfo")
+  .url("/user/getPublicUserInfo")
   .statusCode(200)
   .inputFields({
     userId: fields.single.userId,
@@ -92,17 +92,17 @@ const getPublicUserInfo = userRouteBuilder
 const updatePersonalInfo = userRouteBuilder
   .create()
   .method(METHODS.PATCH)
-  .url("/normalUser/updatePersonalInfo")
+  .url("/user/updatePersonalInfo")
   .statusCode(200)
   .inputFields(fields.collection.fullName)
   //TODO: Add bio, username, cellphone etc...
   .outputFields([fields.collection.fullName])
   .build();
 
-const verifySignInNormal = userRouteBuilder
+const verifySignIn = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/normalUser/verifySignInNormalUser")
+  .url("/user/verifySignInUser")
   .statusCode(200)
   .inputFields({
     verificationCode: fields.single.verificationCode,
@@ -127,10 +127,10 @@ const routes = {
   createNewUser,
   getPublicUserInfo,
   getTargetUserData,
-  logoutNormal,
-  signInNormal,
+  logout,
+  signIn,
   updatePersonalInfo,
-  verifySignInNormal,
+  verifySignIn,
 };
 
 const userRoutes = {

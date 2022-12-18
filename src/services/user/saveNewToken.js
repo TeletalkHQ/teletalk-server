@@ -1,10 +1,26 @@
-const { commonServices } = require("@/services/common");
+const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
-const saveNewToken = async (cellphone, newToken) => {
-  //FIXME: Use id instead
-  const user = await commonServices.findUser(cellphone);
-  user.sessions.push({ token: newToken });
-  await user.save();
+const { errors } = require("@/variables/errors");
+
+const saveNewToken = serviceBuilder
+  .create()
+  .body(async ({ userId, newToken }) => {
+    const currentUser = findCurrentUser(userId);
+    await addAndSaveNewToken(currentUser, newToken);
+  })
+  .build();
+
+const findCurrentUser = async (userId) => {
+  return await serviceHelper.findOneUserById(
+    userId,
+    errors.CURRENT_USER_NOT_EXIST
+  );
+};
+
+const addAndSaveNewToken = async (currentUser, newToken) => {
+  currentUser.sessions.push({ token: newToken });
+  await currentUser.save();
 };
 
 module.exports = { saveNewToken };

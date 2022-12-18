@@ -12,7 +12,7 @@ const tryToSendMessage = async (data) => {
   await validators.messageText(data.message);
 
   const { chatId, newMessage } = await (
-    await services.sendPrivateMessage.call(data)
+    await services.sendPrivateMessage.run(data)
   ).result();
 
   return {

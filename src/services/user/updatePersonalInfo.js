@@ -1,19 +1,38 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { commonServices } = require("@/services/common");
+const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
-const updatePersonalInfo = async ({ currentUserId, ...updateProperties }) => {
-  const tryToUpdatePersonalInfo = async () => {
-    const currentUser = await commonServices.findUserById(currentUserId);
+const { errors } = require("@/variables/errors");
 
-    return await currentUser.updateOne(updateProperties);
-  };
+const updatePersonalInfo = serviceBuilder
+  .create()
+  .body(async (data) => {
+    return (
+      await trier(updatePersonalInfo.name).tryAsync(
+        tryToUpdatePersonalInfo,
+        data
+      )
+    )
+      .printAndThrow()
+      .result();
+  })
+  .build();
 
-  return (
-    await trier(updatePersonalInfo.name).tryAsync(tryToUpdatePersonalInfo)
-  )
-    .printAndThrow()
-    .result();
+const tryToUpdatePersonalInfo = async ({
+  currentUserId,
+  ...updateProperties
+}) => {
+  const currentUser = await findCurrentUser(currentUserId);
+
+  return await currentUser.updateOne(updateProperties);
+};
+
+const findCurrentUser = async (currentUserId) => {
+  return await serviceHelper.findOneUserById(
+    currentUserId,
+    errors.CURRENT_USER_NOT_EXIST
+  );
 };
 
 module.exports = { updatePersonalInfo };

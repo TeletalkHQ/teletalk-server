@@ -86,13 +86,13 @@ const temporaryClientHelper = async ({
   }
 };
 
-const tryToSignInNormalUser = async (req) => {
+const tryToSignInUser = async (req) => {
   const cellphone = userPropsUtilities.extractCellphone(req.body);
   const configs = appConfigs.getConfigs();
   const host = getHostFromRequest(req);
   const verificationCode = passwordGenerator();
 
-  const trierInstance = trier(tryToSignInNormalUser, {
+  const trierInstance = trier(tryToSignInUser, {
     autoThrowError: true,
   });
 
@@ -135,16 +135,16 @@ const tryToSignInNormalUser = async (req) => {
   };
 };
 
-const responseToSignInNormalUser = (user, res) => {
+const responseToSignInUser = (user, res) => {
   commonFunctionalities.controllerSuccessResponse(res, { user });
 };
 
-const catchSignInNormalUser = commonFunctionalities.controllerErrorResponse;
+const catchSignInUser = commonFunctionalities.controllerErrorResponse;
 
-const signInNormal = async (req = expressRequest, res = expressResponse) => {
-  (await trier(signInNormal.name).tryAsync(tryToSignInNormalUser, req))
-    .executeIfNoError(responseToSignInNormalUser, res)
-    .catch(catchSignInNormalUser, res);
+const signIn = async (req = expressRequest, res = expressResponse) => {
+  (await trier(signIn.name).tryAsync(tryToSignInUser, req))
+    .executeIfNoError(responseToSignInUser, res)
+    .catch(catchSignInUser, res);
 };
 
-module.exports = { signInNormal };
+module.exports = { signIn };

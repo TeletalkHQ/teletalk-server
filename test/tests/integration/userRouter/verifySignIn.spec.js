@@ -22,7 +22,7 @@ const signInFn = async () => {
       user: { countryCode, countryName, phoneNumber, token },
     },
   } = await requesters
-    .signInNormal()
+    .signIn()
     .sendFullFeaturedRequest(cellphones.verifySignInNewUser);
 
   const { verificationCode } = await temporaryClients.findClientByCellphone({
@@ -34,7 +34,7 @@ const signInFn = async () => {
   return { token, verificationCode };
 };
 
-describe("verifySignInNormalApi success test", () => {
+describe("verifySignInApi success test", () => {
   it("should get newUser === true if there is no user with test verify token in db", async () => {
     const successTests = integrationHelpers.createSuccessTest();
 
@@ -113,7 +113,7 @@ describe("verifySignInNormalApi success test", () => {
   });
 });
 
-describe("verifySignInNormalApi failure tests", () => {
+describe("verifySignInApi failure tests", () => {
   //* Config customRequest for fail tests
   const customRequest = requesters.verifySignIn();
   before(async () => {
@@ -122,7 +122,7 @@ describe("verifySignInNormalApi failure tests", () => {
         user: { token },
       },
     } = await requesters
-      .signInNormal()
+      .signIn()
       .sendFullFeaturedRequest(cellphones.verifySignInFailTest);
 
     customRequest.setToken(token);

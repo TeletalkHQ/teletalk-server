@@ -25,7 +25,7 @@ const targetUserFinderByCellphone = async (req, res, next) => {
 const tryToFindUserByCellphone = async (requestData) => {
   const cellphone = userPropsUtilities.extractCellphone(requestData);
 
-  const targetUser = await services.findUser(cellphone);
+  const targetUser = await services.findOneUser(cellphone);
 
   errorThrower(customTypeof.isNull(targetUser), {
     ...cellphone,

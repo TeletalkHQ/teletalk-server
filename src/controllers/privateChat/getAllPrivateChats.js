@@ -5,7 +5,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToGetAllPrivateChats = async (data) => {
-  return (await services.getAllPrivateChats.call(data)).exclude().result();
+  return (await services.getAllPrivateChats.run(data)).exclude().result();
 };
 
 const responseToGetAllPrivateChats = (privateChats, res) => {

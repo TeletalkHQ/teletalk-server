@@ -3,5 +3,9 @@
   "check-coverage": true,
   "include": ["src"],
   "output": "reports",
-  "reporter": ["text", "clover"]
+  "reporter": ["text", "clover"],
+  "branches": 40,
+  "lines": 80,
+  "functions": 70,
+  "statements": 80
 }

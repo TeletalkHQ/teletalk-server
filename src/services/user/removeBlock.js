@@ -6,7 +6,7 @@ const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
 const { errors } = require("@/variables/errors");
 
-const removeBlacklistItem = serviceBuilder
+const removeBlock = serviceBuilder
   .create()
   .body(async ({ currentUserId, targetUserData }) => {
     const currentUser = await findCurrentUser(currentUserId);
@@ -16,7 +16,7 @@ const removeBlacklistItem = serviceBuilder
       targetUserData
     );
 
-    await removeBlacklistItemAndSave(currentUser, cellphoneIndex);
+    await removeBlockAndSave(currentUser, cellphoneIndex);
   })
   .build();
 
@@ -35,9 +35,9 @@ const checkExistenceOfBlacklistItem = (blacklist, targetUserData) => {
   return { cellphoneIndex };
 };
 
-const removeBlacklistItemAndSave = async (currentUser, cellphoneIndex) => {
+const removeBlockAndSave = async (currentUser, cellphoneIndex) => {
   currentUser.blacklist.splice(cellphoneIndex, 1);
   await currentUser.save();
 };
 
-module.exports = { removeBlacklistItem };
+module.exports = { removeBlock };

@@ -25,7 +25,7 @@ const createNewUser = userRouteBuilder
 const logout = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/user/logoutUser")
+  .url("/user/logout")
   .statusCode(200)
   .outputFields([{ ok: fields.single.ok }])
   .build();

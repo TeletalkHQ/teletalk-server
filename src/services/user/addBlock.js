@@ -9,11 +9,11 @@ const { commonServices } = require("@/services/common");
 
 const { errors } = require("@/variables/errors");
 
-const addCellphoneToUserBlacklist = serviceBuilder
+const addBlock = serviceBuilder
   .create()
   .body(async (data) => {
     return (
-      await trier(addCellphoneToUserBlacklist.name).tryAsync(
+      await trier(addBlock.name).tryAsync(
         tryToAddCellphoneToUserBlacklist,
         data
       )
@@ -57,4 +57,4 @@ const saveNewBlacklistItem = async (blacklistItem, currentUser) => {
   await currentUser.save();
 };
 
-module.exports = { addCellphoneToUserBlacklist };
+module.exports = { addBlock };

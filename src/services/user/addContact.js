@@ -9,14 +9,11 @@ const { commonServices } = require("@/services/common");
 
 const { errors } = require("@/variables/errors");
 
-const addContactToUserContacts = serviceBuilder
+const addContact = serviceBuilder
   .create()
   .body(async (data) => {
     return (
-      await trier(addContactToUserContacts.name).tryAsync(
-        tryToAddContactToUserContacts,
-        data
-      )
+      await trier(addContact.name).tryAsync(tryToAddContactToUserContacts, data)
     )
       .printAndThrow()
       .result();
@@ -65,4 +62,4 @@ const saveNewContactItem = async (currentUser, newContact) => {
   await currentUser.save();
 };
 
-module.exports = { addContactToUserContacts };
+module.exports = { addContact };

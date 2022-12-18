@@ -6,9 +6,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { services } = require("@/services");
 
 const tryToAddContact = async (data) => {
-  const { newContact } = await (
-    await services.addContactToUserContacts.run(data)
-  ).result();
+  const { newContact } = await (await services.addContact.run(data)).result();
   return newContact;
 };
 

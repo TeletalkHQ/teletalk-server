@@ -6,7 +6,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToAddBlockCellphone = async (data) => {
-  await services.addCellphoneToUserBlacklist.run(data);
+  await services.addBlock.run(data);
 
   return data.blockingCellphone;
 };

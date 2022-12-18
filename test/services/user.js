@@ -30,9 +30,10 @@ const addTestUser = async (userData) => {
     );
   };
 
-  return (await trier(addTestUser.name).tryAsync(tryToAddTestUser, userData))
-    .printAndThrow()
-    .result();
+  return await trier(addTestUser.name)
+    .tryAsync(tryToAddTestUser, userData)
+    .throw()
+    .runAsync();
 };
 
 const userServices = {

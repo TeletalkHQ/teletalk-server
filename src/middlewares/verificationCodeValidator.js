@@ -13,14 +13,12 @@ const catchValidateVerificationCode =
 
 const verificationCodeValidatorMiddleware = async (req, res, next) => {
   const { verificationCode } = req.body;
-  (
-    await trier(verificationCodeValidatorMiddleware.name).tryAsync(
-      tryToValidateVerificationCode,
-      verificationCode
-    )
-  )
+
+  await trier(verificationCodeValidatorMiddleware.name)
+    .tryAsync(tryToValidateVerificationCode, verificationCode)
     .executeIfNoError(() => next())
-    .catch(catchValidateVerificationCode, res);
+    .catch(catchValidateVerificationCode, res)
+    .runAsync();
 };
 
 module.exports = {

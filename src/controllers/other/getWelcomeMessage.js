@@ -15,9 +15,11 @@ const responseToGetWelcomeMessage = (message, res) => {
 const catchGetWelcomeMessage = commonFunctionalities.controllerErrorResponse;
 
 const getWelcomeMessage = async (_ = expressRequest, res = expressResponse) => {
-  (await trier(getWelcomeMessage).tryAsync(tryToGetWelcomeMessage))
+  await trier(getWelcomeMessage)
+    .tryAsync(tryToGetWelcomeMessage)
     .executeIfNoError(responseToGetWelcomeMessage, res)
-    .catch(catchGetWelcomeMessage);
+    .catch(catchGetWelcomeMessage)
+    .runAsync();
 };
 
 module.exports = { getWelcomeMessage };

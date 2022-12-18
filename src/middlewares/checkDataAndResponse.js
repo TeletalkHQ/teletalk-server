@@ -64,7 +64,7 @@ const checkDataAndResponse = (req, res, next) => {
       })
       .executeIfNoError(executeIfNoError, res)
       .catch(catchCheckDataAndResponse, res)
-      .result();
+      .run();
   };
 
   next();

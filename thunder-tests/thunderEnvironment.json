@@ -14,11 +14,11 @@
       },
       {
         "name": "port",
-        "value": "8080"
+        "value": "8090"
       },
       {
         "name": "baseUrl",
-        "value": "localhost:8080"
+        "value": "localhost:8090"
       },
       {
         "name": "token",

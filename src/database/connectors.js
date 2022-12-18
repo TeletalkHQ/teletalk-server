@@ -21,10 +21,7 @@ const tryConnectToMongodb = () => {
   });
 };
 const mongodbConnector = () => {
-  return trier(mongodbConnector.name)
-    .try(tryConnectToMongodb)
-    .printAndThrow()
-    .result();
+  return trier(mongodbConnector.name).try(tryConnectToMongodb).throw().run();
 };
 
 const makeRedisCloudOptions = () => {

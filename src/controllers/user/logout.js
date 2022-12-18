@@ -17,13 +17,13 @@ const catchLogout = commonFunctionalities.controllerErrorResponse;
 const logout = async (req = expressRequest, res = expressResponse) => {
   const { currentUserId } = req;
 
-  (
-    await trier(logout.name).tryAsync(tryToLogout, {
+  await trier(logout.name)
+    .tryAsync(tryToLogout, {
       currentUserId,
     })
-  )
     .executeIfNoError(responseToLogout, res)
-    .catch(catchLogout, res);
+    .catch(catchLogout, res)
+    .runAsync();
 };
 
 module.exports = { logout };

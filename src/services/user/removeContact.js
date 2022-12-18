@@ -10,11 +10,10 @@ const { errors } = require("@/variables/errors");
 const removeContact = serviceBuilder
   .create()
   .body(async (data) => {
-    return (
-      await trier(removeContact.name).tryAsync(tryToRemoveContactItem, data)
-    )
-      .printAndThrow()
-      .result();
+    return await trier(removeContact.name)
+      .tryAsync(tryToRemoveContactItem, data)
+      .throw()
+      .runAsync();
   })
   .build();
 

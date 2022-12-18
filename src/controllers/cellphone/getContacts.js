@@ -19,9 +19,11 @@ const catchGetContacts = commonFunctionalities.controllerErrorResponse;
 const getContacts = async (req = expressRequest, res = expressResponse) => {
   const { currentUserId } = req;
 
-  (await trier(getContacts.name).tryAsync(tryToGetContacts, { currentUserId }))
+  await trier(getContacts.name)
+    .tryAsync(tryToGetContacts, { currentUserId })
     .executeIfNoError(responseToGetContacts, res)
-    .catch(catchGetContacts, res);
+    .catch(catchGetContacts, res)
+    .runAsync();
 };
 
 module.exports = { getContacts };

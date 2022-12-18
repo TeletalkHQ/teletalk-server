@@ -7,10 +7,6 @@ const { services } = require("@/services");
 const { validators } = require("@/validators");
 
 const tryToSendMessage = async (data) => {
-  //CLEANME: Move to another try block
-  await validators.participantId(data.participantId);
-  await validators.messageText(data.message);
-
   const { chatId, newMessage } = await (
     await services.sendPrivateMessage.run(data)
   ).result();
@@ -36,15 +32,25 @@ const sendPrivateMessage = async (
     body: { participantId, message },
   } = req;
 
-  (
-    await trier(sendPrivateMessage.name).tryAsync(tryToSendMessage, {
-      currentUserId,
-      participantId,
-      message,
-    })
-  )
+  const data = {
+    currentUserId,
+    participantId,
+    message,
+  };
+
+  const trierInstance = trier(sendPrivateMessage.name)
     .executeIfNoError(responseToSendMessage, res)
     .catch(catchSendMessage, res);
+
+  await trierInstance
+    .tryAsync(tryToValidateData, data)
+    .tryAsync(tryToSendMessage, data)
+    .runAsync();
+};
+
+const tryToValidateData = async (data) => {
+  await validators.participantId(data.participantId);
+  await validators.messageText(data.message);
 };
 
 module.exports = { sendPrivateMessage };

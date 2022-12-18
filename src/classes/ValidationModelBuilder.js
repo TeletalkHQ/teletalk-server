@@ -63,8 +63,8 @@ class ValidationModelBuilder {
 
     return trier(this.validatorCompiler)
       .try(tryCompileValidator, validationModel)
-      .printAndThrow()
-      .result();
+      .throw()
+      .run();
   }
 
   setModelObject(modelObject) {

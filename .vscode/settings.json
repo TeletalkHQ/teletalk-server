@@ -68,5 +68,7 @@
   "mochaExplorer.timeout": 4000,
   "mochaExplorer.logpanel": true,
   "marquee.widgets.npm-stats.packageNames": ["teletalk-server"],
-  "dimmer.enabled": false
+  "dimmer.enabled": false,
+  "todo-tree.tree.showBadges": true,
+  "todo-tree.tree.showCountsInTree": true
 }

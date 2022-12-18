@@ -28,7 +28,8 @@ const errorCollector = (res, errorObject) => {
   trier(errorCollector.name)
     .try(tryToCollectError, errorObject)
     .executeIfNoError(executeIfNoError, res)
-    .catch(catchCollectError, res);
+    .catch(catchCollectError, res)
+    .run();
 };
 
 module.exports = { errorCollector };

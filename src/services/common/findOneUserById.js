@@ -9,9 +9,10 @@ const findOneUserById = async (userId, options, projection) => {
     return await User.findOne({ userId }, projection, options);
   };
 
-  return (await trier(findOneUserById.name).tryAsync(tryToFindUser))
-    .printAndThrow()
-    .result();
+  return await trier(findOneUserById.name)
+    .tryAsync(tryToFindUser)
+    .throw()
+    .runAsync();
 };
 
 module.exports = { findOneUserById };

@@ -8,9 +8,10 @@ const { errors } = require("@/variables/errors");
 const getUserData = serviceBuilder
   .create()
   .body(async (data) => {
-    return (await trier(getUserData.name).tryAsync(tryToGetUserData, data))
-      .printAndThrow()
-      .result();
+    return await trier(getUserData.name)
+      .tryAsync(tryToGetUserData, data)
+      .throw()
+      .runAsync();
   })
   .build();
 

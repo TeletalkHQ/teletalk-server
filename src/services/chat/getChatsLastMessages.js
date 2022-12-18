@@ -4,12 +4,10 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { PrivateChat } = require("@/models/database/mongoDb/privateChat");
 
 const getChatsLastMessages = async (data) => {
-  (
-    await trier(getChatsLastMessages.name).tryAsync(
-      tryToGetChatsLastMessages,
-      data
-    )
-  ).printAndThrow();
+  await trier(getChatsLastMessages.name)
+    .tryAsync(tryToGetChatsLastMessages, data)
+    .throw()
+    .runAsync();
 };
 
 const tryToGetChatsLastMessages = async ({ currentUserId }) => {

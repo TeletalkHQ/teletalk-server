@@ -13,9 +13,10 @@ const tryToValidateChatId = async (chatId) => {
   validatorErrorChecker.chatId(validationResult, chatId);
 };
 const chatId = async (chatIdParam) => {
-  (
-    await trier(chatId).tryAsync(tryToValidateChatId, chatIdParam)
-  ).printAndThrow();
+  await trier(chatId)
+    .tryAsync(tryToValidateChatId, chatIdParam)
+    .throw()
+    .runAsync();
 };
 
 const tryToValidateMessageText = async (messageText) => {
@@ -28,12 +29,10 @@ const tryToValidateMessageText = async (messageText) => {
 };
 
 const messageText = async (messageTextParam) => {
-  (
-    await trier(messageText.name).tryAsync(
-      tryToValidateMessageText,
-      messageTextParam
-    )
-  ).printAndThrow();
+  await trier(messageText.name)
+    .tryAsync(tryToValidateMessageText, messageTextParam)
+    .throw()
+    .runAsync();
 };
 
 const tryToValidateParticipantId = async (participantId) => {
@@ -46,12 +45,10 @@ const tryToValidateParticipantId = async (participantId) => {
 };
 
 const participantId = async (participantIdParam) => {
-  (
-    await trier(participantId.name).tryAsync(
-      tryToValidateParticipantId,
-      participantIdParam
-    )
-  ).printAndThrow();
+  await trier(participantId.name)
+    .tryAsync(tryToValidateParticipantId, participantIdParam)
+    .throw()
+    .runAsync();
 };
 
 const chatValidators = {

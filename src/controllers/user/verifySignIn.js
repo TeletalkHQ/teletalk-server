@@ -74,9 +74,11 @@ const catchSignInUser = commonFunctionalities.controllerErrorResponse;
 const verifySignIn = async (req = expressRequest, res = expressResponse) => {
   const { authData } = req;
 
-  (await trier(verifySignIn.name).tryAsync(tryToSignInUser, authData.payload))
+  await trier(verifySignIn.name)
+    .tryAsync(tryToSignInUser, authData.payload)
     .executeIfNoError(responseToSignInUser, res)
-    .catch(catchSignInUser, res);
+    .catch(catchSignInUser, res)
+    .runAsync();
 };
 
 module.exports = { verifySignIn };

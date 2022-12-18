@@ -23,14 +23,14 @@ const addBlock = async (req = expressRequest, res = expressResponse) => {
   const { body, currentUserId } = req;
   const blockingCellphone = userPropsUtilities.extractCellphone(body);
 
-  (
-    await trier(addBlock.name).tryAsync(tryToAddBlockCellphone, {
+  await trier(addBlock.name)
+    .tryAsync(tryToAddBlockCellphone, {
       blockingCellphone,
       currentUserId,
     })
-  )
     .executeIfNoError(responseToAddBlockCellphone, res)
-    .catch(catchAddToBlockCellphone, res);
+    .catch(catchAddToBlockCellphone, res)
+    .runAsync();
 };
 
 module.exports = { addBlock };

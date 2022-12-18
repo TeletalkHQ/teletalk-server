@@ -12,14 +12,10 @@ const { errors } = require("@/variables/errors");
 const addBlock = serviceBuilder
   .create()
   .body(async (data) => {
-    return (
-      await trier(addBlock.name).tryAsync(
-        tryToAddCellphoneToUserBlacklist,
-        data
-      )
-    )
-      .printAndThrow()
-      .result();
+    return await trier(addBlock.name)
+      .tryAsync(tryToAddCellphoneToUserBlacklist, data)
+      .throw()
+      .runAsync();
   })
   .build();
 

@@ -16,7 +16,10 @@ const {
 const { errors } = require("@/variables/errors");
 
 const trierInstance = async (callerName, callback, ...params) =>
-  (await trier(callerName).tryAsync(callback, ...params)).printAndThrow();
+  await trier(callerName)
+    .tryAsync(callback, ...params)
+    .throw()
+    .runAsync();
 
 const tryToValidateCountryCode = async (countryCode) => {
   const validationResult = await compiledValidators.countryCode({
@@ -152,9 +155,12 @@ const tokenValidator = async (
   token,
   secret = authManager.getJwtMainSecret()
 ) => {
-  return (
-    await trierInstance(tokenValidator.name, tryToValidateToken, token, secret)
-  ).result();
+  return await trierInstance(
+    tokenValidator.name,
+    tryToValidateToken,
+    token,
+    secret
+  );
 };
 
 const tryToValidateUsername = async (username) => {

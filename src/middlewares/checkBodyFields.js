@@ -57,7 +57,7 @@ const checkBodyFields = (req, res, next) => {
     .try(tryToCheckBodyFields, body, inputFields)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchCheckBodyFields, res)
-    .result();
+    .run();
 };
 
 module.exports = { checkBodyFields };

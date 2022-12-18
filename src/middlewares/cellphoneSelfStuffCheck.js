@@ -37,7 +37,7 @@ const cellphoneSelfStuffCheck = (req, res, next) => {
     .try(tryTo, targetCellphone, userData)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchTryTo, res)
-    .result();
+    .run();
 };
 
 module.exports = { cellphoneSelfStuffCheck };

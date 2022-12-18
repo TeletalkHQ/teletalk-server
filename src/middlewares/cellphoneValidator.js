@@ -21,15 +21,11 @@ const catchValidateCellphone = (error, res) => {
 };
 
 const cellphoneValidatorMiddleware = async (req, res, next) => {
-  return (
-    await trier(cellphoneValidatorMiddleware.name).tryAsync(
-      tryToValidateCellphone,
-      req.body
-    )
-  )
+  return await trier(cellphoneValidatorMiddleware.name)
+    .tryAsync(tryToValidateCellphone, req.body)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchValidateCellphone, res)
-    .result();
+    .runAsync();
 };
 
 module.exports = { cellphoneValidator: cellphoneValidatorMiddleware };

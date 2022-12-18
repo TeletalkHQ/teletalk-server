@@ -53,12 +53,14 @@ const testServer = async () => {
   const testUsers = {};
 
   for (let index = 0; index < users.length; index++) {
-    await trier(tryToAddTestUser.name).tryAsync(tryToAddTestUser, {
-      countryCode,
-      countryName,
-      index,
-      testUsers,
-    });
+    await trier(tryToAddTestUser.name)
+      .tryAsync(tryToAddTestUser, {
+        countryCode,
+        countryName,
+        index,
+        testUsers,
+      })
+      .runAsync();
   }
 
   testVariablesManager.setTestUsers(testUsers);

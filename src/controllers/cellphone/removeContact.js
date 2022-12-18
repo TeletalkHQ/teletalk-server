@@ -20,14 +20,15 @@ const catchRemoveContact = commonFunctionalities.controllerErrorResponse;
 const removeContact = async (req = expressRequest, res = expressResponse) => {
   const { currentUserId, body } = req;
   const targetUserData = userPropsUtilities.extractCellphone(body);
-  (
-    await trier(removeContact.name).tryAsync(tryToRemoveContact, {
+
+  await trier(removeContact.name)
+    .tryAsync(tryToRemoveContact, {
       currentUserId,
       targetUserData,
     })
-  )
     .executeIfNoError(responseToRemoveContact, res, targetUserData)
-    .catch(catchRemoveContact, res);
+    .catch(catchRemoveContact, res)
+    .runAsync();
 };
 
 module.exports = { removeContact };

@@ -171,13 +171,10 @@ class CustomRequest {
       return this.response;
     };
 
-    return (
-      await trier(this.sendFullFeaturedRequest.name).tryAsync(
-        tryToSendFullFeaturedRequest
-      )
-    )
-      .printAndThrow()
-      .result();
+    return await trier(this.sendFullFeaturedRequest.name)
+      .tryAsync(tryToSendFullFeaturedRequest)
+      .throw()
+      .runAsync();
   }
 
   getToken() {

@@ -11,10 +11,10 @@ const tryGetStatusCodeFromRouteObject = (routeObject) => {
 };
 
 const getStatusCodeFromRoute = (routeObject) => {
-  return trier()
+  return trier(getStatusCodeFromRoute.name)
     .try(tryGetStatusCodeFromRouteObject, routeObject)
-    .printAndThrow()
-    .result();
+    .throw()
+    .run();
 };
 
 module.exports = { getStatusCodeFromRoute };

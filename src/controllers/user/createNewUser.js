@@ -74,23 +74,23 @@ const catchCreateNewUser = commonFunctionalities.controllerErrorResponse;
 
 const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
   const trierInstance = trier(createNewUserTrier.name, {
+    //CLEANME: remove autoThrowError
     autoThrowError: true,
   });
 
-  const cellphone = (
-    await trierInstance.tryAsync(tryToExtractCellphoneFromToken, verifyToken)
-  ).result();
-
-  await trierInstance.tryAsync(tryToValidateFirstName, firstName);
-  await trierInstance.tryAsync(tryToValidateLastName, lastName);
-  await trierInstance.tryAsync(tryToFindTemporaryClient, cellphone);
-  await trierInstance.tryAsync(tryToFindUserInDb, cellphone);
+  const cellphone = await trierInstance
+    .tryAsync(tryToExtractCellphoneFromToken, verifyToken)
+    .runAsync();
 
   const userId = getRandomId();
 
-  const token = (
-    await trierInstance.tryAsync(tryToSignToken, cellphone, userId)
-  ).result();
+  const token = await trierInstance
+    .tryAsync(tryToValidateFirstName, firstName)
+    .tryAsync(tryToValidateLastName, lastName)
+    .tryAsync(tryToFindTemporaryClient, cellphone)
+    .tryAsync(tryToFindUserInDb, cellphone)
+    .tryAsync(tryToSignToken, cellphone, userId)
+    .runAsync();
 
   const defaultUserData = {
     ...userPropsUtilities.defaultUserData(),
@@ -103,7 +103,9 @@ const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
 
   const userDataForDatabase = fixUserDataForDb(defaultUserData);
 
-  await trierInstance.tryAsync(tryToCreateNewUser, userDataForDatabase);
+  await trierInstance
+    .tryAsync(tryToCreateNewUser, userDataForDatabase)
+    .runAsync();
 
   return defaultUserData;
 };
@@ -113,17 +115,16 @@ const createNewUser = async (req = expressRequest, res = expressResponse) => {
     body: { firstName, lastName },
   } = req;
   const token = authManager.getTokenFromRequest(req);
-  const trierInstance = trier(createNewUser.name);
 
-  (
-    await trierInstance.tryAsync(createNewUserTrier, {
+  await trier(createNewUser.name)
+    .tryAsync(createNewUserTrier, {
       firstName,
       lastName,
       verifyToken: token,
     })
-  )
     .executeIfNoError(responseToCreateNewUser, res)
-    .catch(catchCreateNewUser, res);
+    .catch(catchCreateNewUser, res)
+    .runAsync();
 };
 
 module.exports = { createNewUser };

@@ -39,7 +39,7 @@ const requestMethodChecker = (req, res, next) => {
     .try(tryToCheckRequestMethod, req.url, req.method)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchCheckRequestMethod, res)
-    .result();
+    .run();
 };
 
 module.exports = { requestMethodChecker };

@@ -21,9 +21,11 @@ const getTargetUserData = async (
 ) => {
   const { userId } = req.body;
 
-  (await trier(getTargetUserData.name).tryAsync(tryToGetUserData, userId))
+  await trier(getTargetUserData.name)
+    .tryAsync(tryToGetUserData, userId)
     .executeIfNoError(responseToGetUserData, res)
-    .catch(catchGetUserData, res);
+    .catch(catchGetUserData, res)
+    .runAsync();
 };
 
 module.exports = { getTargetUserData };

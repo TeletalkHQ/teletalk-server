@@ -22,19 +22,20 @@ app.use(middlewares.requestDetailsLogger);
 app.use(morgan("dev"));
 
 app.use(express.static("public"));
+//TODO: Update favicon
 app.use(serveFavicon("public/assets/icons/favicon/favicon.ico"));
 
 app.use(middlewares.findRouteObject);
 app.use(middlewares.responseErrorHandlers);
 app.use(middlewares.sendJsonResponse); //* Should be after 'responseErrorHandlers'
 app.use(middlewares.checkDataAndResponse); //* Should be after 'sendJsonResponse'
+app.use(middlewares.notFound); //* Should be after 'sendJsonResponse'
 app.use(
   middlewares.ignoreMiddlewaresByUrl(
     getIgnoredUrlsForAuth(),
     middlewares.authDefault
   )
 ); //* Should be after 'sendJsonResponse'
-app.use(middlewares.notFound); //* Should be after 'sendJsonResponse'
 app.use(middlewares.requestMethodChecker); //* Should be after 'notFound'
 app.use(middlewares.checkBodyFields); //* Should be after 'requestMethodChecker'
 

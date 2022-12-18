@@ -1,10 +1,10 @@
 # Teletalk messenger (server)
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20CI/teletalk-server-main?label=CI)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20Build/teletalk-server-main?label=Build)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/s-stalwart-s/teletalk-server/ci.yml?branch=teletalk-server-main&label=CI)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/s-stalwart-s/teletalk-server/build.yml?branch=teletalk-server-main)
 ![Test](test/tests.svg)
 ![Codecov branch](https://img.shields.io/codecov/c/github/s-stalwart-s/teletalk-server/teletalk-server-main?label=Coverage)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/s-stalwart-s/teletalk-server/Teletalk%20Server%20Code%20Style/teletalk-server-main?label=Code%20style)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/s-stalwart-s/teletalk-server/codeStyle.yml?branch=teletalk-server-main&label=Code%20Style)
 ![GitHub](https://img.shields.io/github/license/s-stalwart-s/teletalk-server?label=License)
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/S-STALWART-S/teletalk-server/teletalk-server-main?label=Version)
 

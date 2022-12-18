@@ -5,23 +5,6 @@ const {
 
 // const { errors } = require("@/variables/errors");
 
-//CLEANME: Add to statics
-// const inputErrors = {
-//   ioDataFieldTypeWrongError: errors.INPUT_FIELD_TYPE_WRONG,
-//   missingFieldsError: errors.INPUT_FIELDS_MISSING,
-//   overloadFieldsError: errors.INPUT_FIELDS_OVERLOAD,
-//   requiredFieldsNotDefinedError: errors.REQUIRED_FIELDS_NOT_DEFINED,
-//   requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
-// };
-
-// const outputErrors = {
-//   ioDataFieldTypeWrongError: errors.OUTPUT_FIELD_TYPE_WRONG,
-//   missingFieldsError: errors.OUTPUT_FIELDS_MISSING,
-//   overloadFieldsError: errors.OUTPUT_FIELDS_OVERLOAD,
-//   requiredFieldsNotDefinedError: errors.REQUIRED_FIELDS_NOT_DEFINED,
-//   requiredFieldTypeWrongError: errors.REQUIRED_FIELD_TYPE_WRONG,
-// };
-
 class ServiceHandler {
   #defaultExcludeProps = ["_id", "__v"];
   #options = {

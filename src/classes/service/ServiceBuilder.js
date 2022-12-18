@@ -1,4 +1,4 @@
-const { serviceHandler } = require("./serviceHandler");
+const { serviceHandler } = require("@/classes/service/serviceHandler");
 
 class ServiceBuilder {
   #options = {

@@ -13,7 +13,13 @@ const userRouter = Router();
 
 userRouter.use(
   applyMiddlewaresByUrl(
-    [routes.user.logout.url, routes.user.updatePersonalInfo.url],
+    [
+      routes.user.getPublicUserData.url,
+      routes.user.getTargetUserData.url,
+      routes.user.getUserData.url,
+      routes.user.logout.url,
+      routes.user.updatePersonalInfo.url,
+    ],
     middlewares.checkCurrentUserStatus,
     middlewares.attachCurrentUserId
   )
@@ -34,9 +40,9 @@ userRouter[routes.user.getTargetUserData.method](
   controllers.getTargetUserData
 );
 
-userRouter[routes.user.getPublicUserInfo.method](
-  routes.user.getPublicUserInfo.url,
-  controllers.getPublicUserInfo
+userRouter[routes.user.getPublicUserData.method](
+  routes.user.getPublicUserData.url,
+  controllers.getPublicUserData
 );
 
 userRouter[routes.user.logout.method](

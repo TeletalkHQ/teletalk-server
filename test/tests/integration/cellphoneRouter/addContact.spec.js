@@ -31,7 +31,6 @@ describe("add contact success tests", () => {
         },
       },
     } = await configuredAddContactRequester.sendFullFeaturedRequest(
-      //TODO Use cellphone instead
       users.addContactSuccessful
     );
 

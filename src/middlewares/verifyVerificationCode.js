@@ -31,9 +31,7 @@ const verifyVerificationCodeMultiTry = async (
   sentVerificationCode,
   cellphone
 ) => {
-  const trierInstance = trier(verifyVerificationCodeMultiTry.name, {
-    autoThrowError: true,
-  });
+  const trierInstance = trier(verifyVerificationCodeMultiTry.name).throw();
 
   const tempClient = await trierInstance
     .tryAsync(tryToGetTemporaryClient, cellphone)

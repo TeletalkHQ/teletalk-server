@@ -73,10 +73,7 @@ const responseToCreateNewUser = (user, res) => {
 const catchCreateNewUser = commonFunctionalities.controllerErrorResponse;
 
 const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
-  const trierInstance = trier(createNewUserTrier.name, {
-    //CLEANME: remove autoThrowError
-    autoThrowError: true,
-  });
+  const trierInstance = trier(createNewUserTrier.name).throw();
 
   const cellphone = await trierInstance
     .tryAsync(tryToExtractCellphoneFromToken, verifyToken)

@@ -5,12 +5,12 @@ const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 describe("save user data in state", () => {
   it("should get all users data", async () => {
-    const users = (await services.getAllUsers.run()).result();
+    const users = await services.getAllUsers().run();
     expect(users).to.be.an(FIELD_TYPE.ARRAY);
   });
 
   it("should get specified user data", async () => {
-    const users = (await services.getAllUsers.run()).result();
+    const users = await services.getAllUsers().run();
 
     expect(users).to.be.an(FIELD_TYPE.ARRAY);
 

@@ -7,7 +7,7 @@ const { services } = require("@/services");
 const { validators } = require("@/validators");
 
 const tryToGetPrivateChatMessages = async (data) => {
-  return (await services.getPrivateChat.run(data)).exclude().result();
+  return await services.getPrivateChat().exclude().run(data);
 };
 
 const responseToGetMessages = (privateChat, res) => {

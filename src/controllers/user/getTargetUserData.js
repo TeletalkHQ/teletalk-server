@@ -5,7 +5,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToGetUserData = async (userId) => {
-  return (await services.getUserData.run({ userId })).result();
+  return await services.getUserData().run({ userId });
 };
 
 const responseToGetUserData = (user, res) => {

@@ -6,7 +6,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToEditContact = async (data) => {
-  await services.updateContact.run(data);
+  await services.updateContact().run(data);
 };
 
 const responseToEditContact = (_, res, targetCellphone, editedValues) => {

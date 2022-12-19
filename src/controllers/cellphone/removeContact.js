@@ -6,7 +6,7 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { services } = require("@/services");
 
 const tryToRemoveContact = async (data) => {
-  await services.removeContact.run(data);
+  await services.removeContact().run(data);
 };
 
 const responseToRemoveContact = (_, res, targetUserData) => {

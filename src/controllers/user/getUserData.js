@@ -5,11 +5,10 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToGetUserData = async (authData) => {
-  const { sessions, ...userData } = (
-    await services.getUserData.run({ userId: authData.payload.userId })
-  )
+  const { sessions, ...userData } = await services
+    .getUserData()
     .exclude()
-    .result();
+    .run({ userId: authData.payload.userId });
 
   return {
     user: userData,

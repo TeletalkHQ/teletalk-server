@@ -22,7 +22,6 @@ app.use(middlewares.requestDetailsLogger);
 app.use(morgan("dev"));
 
 app.use(express.static("public"));
-//TODO: Update favicon
 app.use(serveFavicon("public/assets/icons/favicon/favicon.ico"));
 
 app.use(middlewares.findRouteObject);

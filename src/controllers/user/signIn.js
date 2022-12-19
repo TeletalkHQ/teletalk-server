@@ -86,9 +86,7 @@ const tryToSignInUser = async (req) => {
   const host = getHostFromRequest(req);
   const verificationCode = passwordGenerator();
 
-  const trierInstance = trier(tryToSignInUser, {
-    autoThrowError: true,
-  });
+  const trierInstance = trier(tryToSignInUser).throw();
 
   await trierInstance
     .tryAsync(tryToValidateVerificationCode, verificationCode)

@@ -8,6 +8,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 const tryConnectToMongodb = () => {
   const configs = appConfigs.getConfigs();
 
+  mongoose.set("strictQuery", false);
   mongoose.connection.once("connected", () => {
     logger.info(
       `MongoDB connected to =>  ${mongoose.connection.host}:${mongoose.connection.port}`

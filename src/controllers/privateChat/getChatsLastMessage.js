@@ -1,3 +1,4 @@
+//DEPRECATED
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");

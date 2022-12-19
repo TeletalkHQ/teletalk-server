@@ -3,13 +3,13 @@ const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 
-// const { errors } = require("@/variables/errors");
-
 class ServiceHandler {
   #defaultExcludeProps = ["_id", "__v"];
   #options = {
+    extraExcludeProps: [],
     inputFields: undefined,
     outputFields: undefined,
+    shouldExclude: false,
   };
 
   constructor(serviceBody, options) {
@@ -18,28 +18,37 @@ class ServiceHandler {
     this.#setOptions(options);
   }
 
-  #setOptions(options) {
-    this.#options = options;
+  getOptions() {
+    return this.#options;
+  }
+  #setOptions(newOptions = this.getOptions()) {
+    this.#options = { ...this.getOptions(), ...newOptions };
   }
 
-  async run(data, projection, options = this.options) {
-    //TODO: Check input fields here
-
-    const queryResult = await this.serviceBody(data, projection, options);
-
-    const fixedQueryResult = this.#fixResult(queryResult);
-    //TODO: Check output fields here
-    this.#setQueryResult(fixedQueryResult);
+  exclude(extraExcludeProps = []) {
+    this.#setOptions({
+      extraExcludeProps,
+      shouldExclude: true,
+    });
 
     return this;
   }
 
-  #fixResult(queryResult) {
-    // if (customTypeof.isArray(queryResult)) return queryResult;
+  async run(data, projection, options) {
+    const queryResult = await this.serviceBody(data, projection, options);
 
-    // if (queryResult instanceof mongoose.Document) {
-    //   return queryResult.toObject();
-    // } else return queryResult;
+    const fixedQueryResult = this.#fixResult(queryResult);
+    this.#setQueryResult(fixedQueryResult);
+
+    if (this.getOptions().shouldExclude) {
+      const filteredQueryResult = this.#excluder();
+      this.#setQueryResult(filteredQueryResult);
+    }
+
+    return this.queryResult;
+  }
+
+  #fixResult(queryResult) {
     if (customTypeof.isObjectNative(queryResult))
       return JSON.parse(JSON.stringify(queryResult));
 
@@ -50,14 +59,12 @@ class ServiceHandler {
     this.queryResult = queryResult;
   }
 
-  exclude(extraExcludeProps = []) {
+  #excluder() {
+    const { extraExcludeProps } = this.getOptions();
     const excludeProps = [...this.#defaultExcludeProps, ...extraExcludeProps];
 
     const excluder = this.#getExcluder();
-    const filteredResult = excluder.call(this, excludeProps);
-
-    this.#setQueryResult(filteredResult);
-    return this;
+    return excluder.call(this, excludeProps);
   }
   #getExcluder() {
     const isQueryResultArray = customTypeof.isArray(this.queryResult);
@@ -65,7 +72,6 @@ class ServiceHandler {
       ? this.#excludeArrayResult
       : this.#excludeObjectResult;
   }
-
   #excludeObjectResult(excludeProps) {
     return objectUtilities.excludeProps(this.queryResult, excludeProps);
   }
@@ -74,14 +80,10 @@ class ServiceHandler {
       objectUtilities.excludeProps(qr, excludeProps)
     );
   }
-
-  result() {
-    return this.queryResult;
-  }
 }
 
 const serviceHandler = {
-  create: (serviceBody, projection, options) =>
+  create: (serviceBody, projection, options) => () =>
     new ServiceHandler(serviceBody, projection, options),
 };
 

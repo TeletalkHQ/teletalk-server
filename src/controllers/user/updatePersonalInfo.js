@@ -4,7 +4,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToUpdatePersonalInfo = async (data) => {
-  await services.updatePersonalInfo.run(data);
+  await services.updatePersonalInfo().run(data);
 };
 
 const responseToUpdatePersonalInfo = (_, res, firstName, lastName) => {

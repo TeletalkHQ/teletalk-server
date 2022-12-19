@@ -7,9 +7,9 @@ const { services } = require("@/services");
 const { validators } = require("@/validators");
 
 const tryToSendMessage = async (data) => {
-  const { chatId, newMessage } = await (
-    await services.sendPrivateMessage.run(data)
-  ).result();
+  const { chatId, newMessage } = await await services
+    .sendPrivateMessage()
+    .run(data);
 
   return {
     chatId,

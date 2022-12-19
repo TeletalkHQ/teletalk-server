@@ -20,7 +20,7 @@ const fixToken = async (sessions, userData) => {
   if (token) return token;
 
   const newToken = await generateNewToken(userData);
-  await services.addNewToken.run({ userId: userData.userId, newToken });
+  await services.addNewToken().run({ userId: userData.userId, newToken });
   return newToken;
 };
 const dataIfUserExist = async (sessions, userData) => {

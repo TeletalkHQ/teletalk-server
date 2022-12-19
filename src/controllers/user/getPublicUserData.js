@@ -5,7 +5,7 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
 const tryToGetPublicUserInfo = async (userId) => {
-  const user = (await services.getUserData.run({ userId })).result();
+  const user = await services.getUserData().run({ userId });
 
   return {
     bio: user.bio,

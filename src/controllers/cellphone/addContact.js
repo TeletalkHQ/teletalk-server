@@ -7,7 +7,7 @@ const { services } = require("@/services");
 
 const tryToAddContact = async (data) => {
   //CLEANME: Remove result
-  const { newContact } = await (await services.addContact.run(data)).result();
+  const { newContact } = await services.addContact().run(data);
   return newContact;
 };
 

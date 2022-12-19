@@ -63,7 +63,7 @@ const fixUserDataForDb = ({ token, ...rest }) => {
 };
 
 const tryToCreateNewUser = async (userDataForDatabase) => {
-  await services.createNewUser.run(userDataForDatabase);
+  await services.createNewUser().run(userDataForDatabase);
 };
 
 const responseToCreateNewUser = (user, res) => {

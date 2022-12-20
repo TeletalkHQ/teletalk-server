@@ -61,11 +61,11 @@ userRouter[routes.user.updatePersonalInfo.method](
   controllers.updatePersonalInfo
 );
 
-userRouter[routes.user.verifySignIn.method](
-  routes.user.verifySignIn.url,
+userRouter[routes.user.verify.method](
+  routes.user.verify.url,
   middlewares.verificationCodeValidator,
   middlewares.verifyVerificationCode,
-  controllers.verifySignIn
+  controllers.verify
 );
 
 module.exports = { userRouter };

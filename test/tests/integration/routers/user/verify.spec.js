@@ -55,7 +55,7 @@ describe("verifySignInApi success test", () => {
 
     //* 2- Verify user by verificationCode & token =>
     const newUserVerifySignInResponse = await requesters
-      .verifySignIn()
+      .verify()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,
@@ -85,7 +85,7 @@ describe("verifySignInApi success test", () => {
         user: { newUser, ...userData },
       },
     } = await requesters
-      .verifySignIn()
+      .verify()
       .setToken(signedUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode,
@@ -115,7 +115,7 @@ describe("verifySignInApi success test", () => {
 
 describe("verifySignInApi failure tests", () => {
   //* Config customRequest for fail tests
-  const customRequest = requesters.verifySignIn();
+  const customRequest = requesters.verify();
   before(async () => {
     const {
       body: {

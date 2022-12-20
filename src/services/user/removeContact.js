@@ -47,7 +47,6 @@ const checkExistenceOfContactItem = (contacts, targetUserData) => {
 };
 
 const removeContactAndSave = async (currentUser, cellphoneIndex) => {
-  //TODO: Remove all splice and use arrayUtilities
   currentUser.contacts.splice(cellphoneIndex, 1);
   await currentUser.save();
 };

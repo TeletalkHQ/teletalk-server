@@ -21,7 +21,6 @@ const tryToCheckDataAndResponse = ({
     requiredFieldsIndex,
   });
 
-  //TODO: If there is no valid error object, throw UNKNOWN_ERROR
   if (checkResult.ok === false) {
     if (!checkResult.errorObject || !checkResult.errorObject.reason) {
       throw {

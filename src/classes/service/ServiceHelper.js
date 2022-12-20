@@ -20,4 +20,7 @@ class ServiceHelper {
 
 const serviceHelper = new ServiceHelper();
 
-module.exports = { ServiceHelper, serviceHelper };
+module.exports = {
+  serviceHelper,
+  ServiceHelper,
+};

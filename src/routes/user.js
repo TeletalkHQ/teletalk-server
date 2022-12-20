@@ -33,7 +33,7 @@ const logout = userRouteBuilder
 const signIn = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/signInUser")
+  .url("/signIn")
   .statusCode(200)
   .inputFields(fields.collection.cellphone)
   .outputFields([
@@ -95,14 +95,20 @@ const updatePersonalInfo = userRouteBuilder
   .url("/updatePersonalInfo")
   .statusCode(200)
   .inputFields(fields.collection.fullName)
-  //TODO: Add bio, username, cellphone etc...
-  .outputFields([fields.collection.fullName])
+  .outputFields([
+    {
+      ...fields.collection.fullName,
+      // ...fields.collection.cellphone,
+      bio: fields.single.bio,
+      username: fields.single.username,
+    },
+  ])
   .build();
 
-const verifySignIn = userRouteBuilder
+const verify = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/verifySignInUser")
+  .url("/verify")
   .statusCode(200)
   .inputFields({
     verificationCode: fields.single.verificationCode,
@@ -130,7 +136,7 @@ const routes = {
   logout,
   signIn,
   updatePersonalInfo,
-  verifySignIn,
+  verify,
 };
 
 const userRoutes = {

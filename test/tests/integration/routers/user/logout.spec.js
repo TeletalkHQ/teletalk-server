@@ -37,7 +37,7 @@ const signInFn = async () => {
 };
 
 const verifySingIn = async (verificationCode, token) => {
-  await requesters.verifySignIn().setToken(token).sendFullFeaturedRequest({
+  await requesters.verify().setToken(token).sendFullFeaturedRequest({
     verificationCode,
   });
 };

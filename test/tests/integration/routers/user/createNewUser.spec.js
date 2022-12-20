@@ -49,7 +49,7 @@ describe("success create new  user", () => {
 
     //* 2- Verify user by verificationCode & token =>
     const newUserVerifySignInResponse = await requesters
-      .verifySignIn()
+      .verify()
       .setToken(newUserVerifyToken)
       .sendFullFeaturedRequest({
         verificationCode: newUserVerificationCode,

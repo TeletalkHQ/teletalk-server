@@ -8,8 +8,9 @@ const tryToResponseToError = (res) => {
   res.status(statusCode || 500).json({ errors, statusCode });
 };
 
-const catchResponseToError = () => {
+const catchResponseToError = (error) => {
   logger.redBright("CRITICAL ERROR!!!").error();
+  logger.error(error);
   //TODO: Response critical error
   crashServer();
 };

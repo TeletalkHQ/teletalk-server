@@ -21,7 +21,7 @@ const requesters = {
   removeContact: makeCustomRequest(routes.cellphone.removeContact),
   sendPrivateMessage: makeCustomRequest(routes.privateChat.sendPrivateMessage),
   signIn: makeCustomRequest(routes.user.signIn),
-  verifySignIn: makeCustomRequest(routes.user.verifySignIn),
+  verify: makeCustomRequest(routes.user.verify),
 };
 
 module.exports = { requesters };

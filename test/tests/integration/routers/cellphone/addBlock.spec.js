@@ -2,9 +2,9 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const {
   integrationHelpers,
-} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
+} = require("$/tests/integration/helpers/integrationHelpers");
 
-const { requesters } = require("$/functions/helpers/requesters");
+const { requesters } = require("$/utilities/requesters");
 
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { countries } = require("@/variables/others/countries");

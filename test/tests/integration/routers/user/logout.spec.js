@@ -1,9 +1,9 @@
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { expect } = require("$/functions/utilities/testUtilities");
+const { expect } = require("$/utilities/testUtilities");
 
-const { requesters } = require("$/functions/helpers/requesters");
+const { requesters } = require("$/utilities/requesters");
 
 const { models } = require("@/models");
 

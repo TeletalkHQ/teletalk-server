@@ -4,8 +4,8 @@ const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const {
   integrationHelpers,
-} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
-const { requesters } = require("$/functions/helpers/requesters");
+} = require("$/tests/integration/helpers/integrationHelpers");
+const { requesters } = require("$/utilities/requesters");
 
 const cellphones = testVariablesManager.getCellphones();
 const signInCellphone = cellphones.signIn;

@@ -4,12 +4,12 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 
-const { expect } = require("$/functions/utilities/testUtilities");
+const { expect } = require("$/utilities/testUtilities");
 
-const { requesters } = require("$/functions/helpers/requesters");
+const { requesters } = require("$/utilities/requesters");
 const {
   integrationHelpers,
-} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
+} = require("$/tests/integration/helpers/integrationHelpers");
 
 const { models } = require("@/models");
 

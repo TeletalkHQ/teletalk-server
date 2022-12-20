@@ -7,13 +7,6 @@ const { UNIQUE_ERROR_IDS } = require("@/variables/others/uniqueErrorIds");
 
 const { INPUT_OUTPUT_FIELDS, INTERNAL_SERVER_ERROR } = ERROR_KEYS;
 
-const NO_ROUTE_OBJECT = errorBuilder
-  .create()
-  .errorKey(INTERNAL_SERVER_ERROR)
-  .errorReason(UNIQUE_ERROR_IDS.NO_ROUTE_OBJECT)
-  .statusCode(500)
-  .build();
-
 const OUTPUT_FIELDS_MISSING = errorBuilder
   .create()
   .errorKey(INPUT_OUTPUT_FIELDS)
@@ -88,7 +81,6 @@ const UNKNOWN_ERROR = errorBuilder
   .build();
 
 const errors = {
-  NO_ROUTE_OBJECT,
   OUTPUT_FIELD_TYPE_WRONG,
   OUTPUT_FIELDS_MISSING,
   OUTPUT_FIELDS_OVERLOAD,

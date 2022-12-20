@@ -2,7 +2,7 @@ const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const { extractVersions, versionCalculator } = require("@/utilities/utilities");
 
-const { baseUrls } = require("@/routes/baseUrls");
+const { baseUrls } = require("$/routes/baseUrls");
 
 const { METHODS } = require("@/variables/others/methods");
 

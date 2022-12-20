@@ -8,7 +8,7 @@ class RouteBuilder {
       description: "Default route description",
       fullUrl: undefined,
       inputFields: {},
-      method: "GET",
+      method: "get",
       outputFields: [{}],
       statusCode: undefined,
       url: undefined,

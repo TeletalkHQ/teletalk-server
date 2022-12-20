@@ -16,6 +16,8 @@ require("$/tests/integration/routers/cellphone/editContact.spec");
 require("$/tests/integration/routers/cellphone/removeContact.spec");
 require("$/tests/integration/routers/cellphone/addBlock.spec");
 require("$/tests/integration/routers/cellphone/removeBlock.spec");
-// //? privateChatRouter api's ==>
+//? privateChatRouter api's ==>
 require("$/tests/integration/routers/privateChat/sendPrivateMessage.spec");
 require("$/tests/integration/routers/privateChat/getAllPrivateChats.spec");
+//? middlewares ==>
+require("$/tests/middleware/notFound.spec");

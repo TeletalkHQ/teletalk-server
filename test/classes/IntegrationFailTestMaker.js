@@ -2,7 +2,7 @@ const {
   integrationHelpersCollection,
 } = require("$/functions/helpers/integrationHelpers/integrationCollection");
 
-class IntegrationFailTestMaker {
+class IntegrationFailTestBuilder {
   constructor(requester) {
     this.requester = requester;
   }
@@ -45,4 +45,10 @@ class IntegrationFailTestMaker {
   verificationCode = this.failTestMaker("verificationCode");
 }
 
-module.exports = { IntegrationFailTestMaker };
+const integrationFailTestBuilder = (...args) =>
+  new IntegrationFailTestBuilder(...args);
+
+module.exports = {
+  integrationFailTestBuilder,
+  IntegrationFailTestBuilder,
+};

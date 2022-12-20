@@ -50,9 +50,11 @@ const createNewUser = async (token) => {
 };
 
 describe("logout success tests", () => {
-  it("It should get ok:true for logging out user", async () => {
+  it("should get ok:true for logging out user", async () => {
     const { verificationCode, token: verifyToken } = await signInFn();
+
     await verifySingIn(verificationCode, verifyToken);
+
     const {
       body: {
         user: { token },

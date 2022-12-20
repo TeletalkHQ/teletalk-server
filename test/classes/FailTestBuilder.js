@@ -121,7 +121,7 @@ class FailTestBuilder {
   }
 
   getDefaultTestMessage(errorName) {
-    return `It should get error, ${errorName}`;
+    return `It should get error: ${errorName}`;
   }
 }
 

@@ -24,15 +24,15 @@ describe("addBlock successful tests", () => {
     integrationHelpers
       .createSuccessTest()
       .countryName({
-        clientValue: users.addBlockSuccessful.countryName,
+        requestValue: users.addBlockSuccessful.countryName,
         responseValue: countryName,
       })
       .countryCode({
-        clientValue: users.addBlockSuccessful.countryCode,
+        requestValue: users.addBlockSuccessful.countryCode,
         responseValue: countryCode,
       })
       .phoneNumber({
-        clientValue: users.addBlockSuccessful.phoneNumber,
+        requestValue: users.addBlockSuccessful.phoneNumber,
         responseValue: phoneNumber,
       });
   });

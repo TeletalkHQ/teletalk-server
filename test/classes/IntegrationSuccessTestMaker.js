@@ -4,19 +4,19 @@ const {
 
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
-class IntegrationSuccessTestMaker {
+class IntegrationSuccessTestBuilder {
   constructor() {
     this.defaultOptions = testVariablesManager.successTestDefaultOptions;
   }
 
   successTestMaker(methodName) {
     return (
-      { clientValue, responseValue } = {},
+      { requestValue, responseValue } = {},
       options = this.defaultOptions
     ) => {
       integrationHelpersCollection.success[methodName](
         {
-          clientValue,
+          requestValue,
           responseValue,
         },
         {
@@ -38,6 +38,7 @@ class IntegrationSuccessTestMaker {
     );
     return this;
   }
+
   chatId = this.successTestMaker("chatId");
   countryCode = this.successTestMaker("countryCode");
   countryName = this.successTestMaker("countryName");
@@ -52,4 +53,9 @@ class IntegrationSuccessTestMaker {
   verificationCode = this.successTestMaker("verificationCode");
 }
 
-module.exports = { IntegrationSuccessTestMaker };
+const integrationSuccessTestBuilder = () => new IntegrationSuccessTestBuilder();
+
+module.exports = {
+  integrationSuccessTestBuilder,
+  IntegrationSuccessTestBuilder,
+};

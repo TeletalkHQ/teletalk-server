@@ -1,18 +1,15 @@
 const { authManager } = require("@/classes/AuthManager");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
+const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { expect } = require("$/functions/utilities/testUtilities");
-
 const {
   integrationHelpers,
 } = require("$/functions/helpers/integrationHelpers/integrationHelpers");
-
 const { requesters } = require("$/functions/helpers/requesters");
 
 const { models } = require("@/models");
-
-const { testVariablesManager } = require("$/classes/TestVariablesManager");
-const { temporaryClients } = require("@/classes/TemporaryClients");
 
 const userModels = models.native.user;
 
@@ -88,24 +85,24 @@ describe("success create new  user", () => {
 
     successTests
       .countryCode({
-        clientValue: cellphones.createNewUserSignIn.countryCode,
+        requestValue: cellphones.createNewUserSignIn.countryCode,
         responseValue: countryCode,
       })
       .countryName({
         responseValue: countryName,
-        clientValue: cellphones.createNewUserSignIn.countryName,
+        requestValue: cellphones.createNewUserSignIn.countryName,
       })
       .phoneNumber({
-        clientValue: cellphones.createNewUserSignIn.phoneNumber,
+        requestValue: cellphones.createNewUserSignIn.phoneNumber,
         responseValue: phoneNumber,
       })
       .userId({ responseValue: userId }, { stringEquality: false })
       .firstName({
-        clientValue: fullName.firstName,
+        requestValue: fullName.firstName,
         responseValue: firstName,
       })
       .lastName({
-        clientValue: fullName.lastName,
+        requestValue: fullName.lastName,
         responseValue: lastName,
       });
   });

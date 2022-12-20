@@ -1,61 +1,72 @@
 const { authManager } = require("@/classes/AuthManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const {
   integrationHelpers,
 } = require("$/functions/helpers/integrationHelpers/integrationHelpers");
-
 const { requesters } = require("$/functions/helpers/requesters");
 
-const { testVariablesManager } = require("$/classes/TestVariablesManager");
-
 const cellphones = testVariablesManager.getCellphones();
+const signInCellphone = cellphones.signIn;
 
-describe("signInApi test success requests", () => {
-  it("It should get sign in data like token and verification code", async () => {
+describe("signInApi success test", () => {
+  it("should sign user, test tempClient and response value", async () => {
     const {
       body: {
         user: { countryCode, countryName, phoneNumber, token },
       },
-    } = await requesters.signIn().sendFullFeaturedRequest(cellphones.signIn);
+    } = await requesters.signIn().sendFullFeaturedRequest(signInCellphone);
 
-    const tempoClient = await temporaryClients.findClientByCellphone({
-      countryCode,
-      countryName,
-      phoneNumber,
-    });
-
-    const { verificationCode } = tempoClient;
+    //? Test response
     const successTest = integrationHelpers.createSuccessTest();
-
     successTest
-      .countryName({
-        clientValue: cellphones.signIn.countryName,
-        responseValue: countryName,
-      })
       .countryCode({
-        clientValue: cellphones.signIn.countryCode,
+        requestValue: signInCellphone.countryCode,
         responseValue: countryCode,
       })
-      .phoneNumber({
-        clientValue: cellphones.signIn.phoneNumber,
-        responseValue: phoneNumber,
+      .countryName({
+        requestValue: signInCellphone.countryName,
+        responseValue: countryName,
       })
-      .verificationCode({ responseValue: verificationCode });
-
+      .phoneNumber({
+        requestValue: signInCellphone.phoneNumber,
+        responseValue: phoneNumber,
+      });
     const JWT_SIGN_IN_SECRET = authManager.getJwtSignInSecret();
     await successTest.token({
       responseValue: token,
       secret: JWT_SIGN_IN_SECRET,
     });
+
+    //? Test saved temporary client
+    const temporaryClient = await temporaryClients.findClientByCellphone({
+      countryCode,
+      countryName,
+      phoneNumber,
+    });
+    successTest
+      .countryName({
+        requestValue: signInCellphone.countryName,
+        responseValue: temporaryClient.countryName,
+      })
+      .countryCode({
+        requestValue: signInCellphone.countryCode,
+        responseValue: temporaryClient.countryCode,
+      })
+      .phoneNumber({
+        requestValue: signInCellphone.phoneNumber,
+        responseValue: temporaryClient.phoneNumber,
+      })
+      .verificationCode({ responseValue: temporaryClient.verificationCode });
   });
 });
 
-describe("signInApi test failure requests", () => {
+describe("signInApi failure test", () => {
   integrationHelpers
     .createFailTest(requesters.signIn())
-    .cellphone(cellphones.signIn)
-    .countryCode(cellphones.signIn)
-    .countryName(cellphones.signIn)
-    .phoneNumber(cellphones.signIn);
+    .cellphone(signInCellphone)
+    .countryCode(signInCellphone)
+    .countryName(signInCellphone)
+    .phoneNumber(signInCellphone);
 });

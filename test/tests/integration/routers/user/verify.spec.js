@@ -35,7 +35,7 @@ const signInFn = async () => {
 };
 
 describe("verifySignInApi success test", () => {
-  it("should get newUser === true if there is no user with test verify token in db", async () => {
+  it("should do test response of both new user true|false mode", async () => {
     const successTests = integrationHelpers.createSuccessTest();
 
     const signInSecret = authManager.getJwtSignInSecret();
@@ -99,15 +99,15 @@ describe("verifySignInApi success test", () => {
     integrationHelpers
       .createSuccessTest()
       .countryCode({
-        clientValue: countryCode,
+        requestValue: countryCode,
         responseValue: userData.countryCode,
       })
       .countryName({
-        clientValue: countryName,
+        requestValue: countryName,
         responseValue: userData.countryName,
       })
       .phoneNumber({
-        clientValue: phoneNumber,
+        requestValue: phoneNumber,
         responseValue: userData.phoneNumber,
       });
   });

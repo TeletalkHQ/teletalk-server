@@ -1,13 +1,13 @@
 const {
-  IntegrationFailTestMaker,
+  integrationFailTestBuilder,
 } = require("$/classes/IntegrationFailTestMaker");
 const {
-  IntegrationSuccessTestMaker,
+  integrationSuccessTestBuilder,
 } = require("$/classes/IntegrationSuccessTestMaker");
 
 const integrationHelpers = {
-  createFailTest: (...args) => new IntegrationFailTestMaker(...args),
-  createSuccessTest: (...args) => new IntegrationSuccessTestMaker(...args),
+  createFailTest: integrationFailTestBuilder,
+  createSuccessTest: integrationSuccessTestBuilder,
 };
 
 module.exports = {

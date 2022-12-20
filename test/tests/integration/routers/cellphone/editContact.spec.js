@@ -36,27 +36,27 @@ describe("edit contact success tests", () => {
 
     successTest
       .firstName({
-        clientValue: users.editContactSuccessful.firstName,
+        requestValue: users.editContactSuccessful.firstName,
         responseValue: firstName,
       })
       .lastName({
-        clientValue: users.editContactSuccessful.lastName,
+        requestValue: users.editContactSuccessful.lastName,
         responseValue: lastName,
       })
       .phoneNumber({
-        clientValue: users.editContactSuccessful.phoneNumber,
+        requestValue: users.editContactSuccessful.phoneNumber,
         responseValue: phoneNumber,
       })
       .countryCode({
-        clientValue: users.editContactSuccessful.countryCode,
+        requestValue: users.editContactSuccessful.countryCode,
         responseValue: countryCode,
       })
       .countryName({
-        clientValue: users.editContactSuccessful.countryName,
+        requestValue: users.editContactSuccessful.countryName,
         responseValue: countryName,
       })
       .userId({
-        clientValue: users.editContactSuccessful.userId,
+        requestValue: users.editContactSuccessful.userId,
         responseValue: userId,
       });
 
@@ -76,11 +76,11 @@ describe("edit contact success tests", () => {
 
     successTest
       .lastName({
-        clientValue: editedFullName.lastName,
+        requestValue: editedFullName.lastName,
         responseValue: newLastName,
       })
       .firstName({
-        clientValue: editedFullName.firstName,
+        requestValue: editedFullName.firstName,
         responseValue: newFirstName,
       });
   });

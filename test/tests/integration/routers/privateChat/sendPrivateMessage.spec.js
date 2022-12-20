@@ -59,7 +59,7 @@ describe("send message success tests", () => {
           }
         )
         .message({
-          clientValue: message,
+          requestValue: message,
           responseValue: newMessage,
         });
     }

@@ -18,7 +18,7 @@ class SuccessTestBuilder {
   #defaultVariables() {
     return {
       model: {},
-      clientValue: null,
+      requestValue: null,
       responseValue: null,
       modelMaxLength: 0,
       modelMinLength: 0,
@@ -26,11 +26,11 @@ class SuccessTestBuilder {
     };
   }
 
-  setVariables(model, clientValue, responseValue) {
+  setVariables(model, requestValue, responseValue) {
     this.variables = {
       ...this.variables,
       model,
-      clientValue,
+      requestValue,
       responseValue,
       modelLength: model?.length?.value,
       modelMaxLength: model?.maxlength?.value,
@@ -63,12 +63,12 @@ class SuccessTestBuilder {
   stringEquality() {
     this.checkAndExecute(this.options.stringEquality, () => {
       this.tests.push(() =>
-        expect(this.variables.clientValue.length).equal(
+        expect(this.variables.requestValue.length).equal(
           this.variables.responseValue.length
         )
       );
       this.tests.push(() =>
-        expect(this.variables.clientValue).equal(this.variables.responseValue)
+        expect(this.variables.requestValue).equal(this.variables.responseValue)
       );
     });
 

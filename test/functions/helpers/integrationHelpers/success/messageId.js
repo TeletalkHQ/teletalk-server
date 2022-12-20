@@ -6,7 +6,7 @@ const { models } = require("@/models");
 const chatModels = models.native.chat;
 
 const messageId = (
-  { clientValue, responseValue } = {},
+  { requestValue, responseValue } = {},
   {
     stringEquality = true,
     modelCheck = true,
@@ -14,7 +14,7 @@ const messageId = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(chatModels.messageId, clientValue, responseValue)
+    .setVariables(chatModels.messageId, requestValue, responseValue)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
     .execute();

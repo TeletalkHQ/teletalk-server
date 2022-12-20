@@ -37,27 +37,27 @@ describe("add contact success tests", () => {
     integrationHelpers
       .createSuccessTest()
       .userId({
-        clientValue: users.addContactSuccessful.userId,
+        requestValue: users.addContactSuccessful.userId,
         responseValue: userId,
       })
       .countryCode({
-        clientValue: users.addContactSuccessful.countryCode,
+        requestValue: users.addContactSuccessful.countryCode,
         responseValue: countryCode,
       })
       .countryName({
-        clientValue: users.addContactSuccessful.countryName,
+        requestValue: users.addContactSuccessful.countryName,
         responseValue: countryName,
       })
       .phoneNumber({
-        clientValue: users.addContactSuccessful.phoneNumber,
+        requestValue: users.addContactSuccessful.phoneNumber,
         responseValue: phoneNumber,
       })
       .lastName({
-        clientValue: users.addContactSuccessful.lastName,
+        requestValue: users.addContactSuccessful.lastName,
         responseValue: lastName,
       })
       .firstName({
-        clientValue: users.addContactSuccessful.firstName,
+        requestValue: users.addContactSuccessful.firstName,
         responseValue: firstName,
       });
   });

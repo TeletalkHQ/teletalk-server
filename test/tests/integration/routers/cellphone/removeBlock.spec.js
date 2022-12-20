@@ -30,15 +30,15 @@ describe("removeContact successful test", () => {
     integrationHelpers
       .createSuccessTest()
       .countryName({
-        clientValue: users.removeBlockSuccessful.countryName,
+        requestValue: users.removeBlockSuccessful.countryName,
         responseValue: countryName,
       })
       .countryCode({
-        clientValue: users.removeBlockSuccessful.countryCode,
+        requestValue: users.removeBlockSuccessful.countryCode,
         responseValue: countryCode,
       })
       .phoneNumber({
-        clientValue: users.removeBlockSuccessful.phoneNumber,
+        requestValue: users.removeBlockSuccessful.phoneNumber,
         responseValue: phoneNumber,
       });
   });

@@ -55,7 +55,7 @@ const versionCalculator = (versions = []) => {
 const extractVersions = (object) => {
   return objectUtilities.objectKeys(object).map((key) => object[key].version);
 };
-const excludeVersions = (object) => {
+const excludeVersions = ({ version, ...object }) => {
   const tempObject = {};
   for (const key in object) {
     const { version, ...rest } = object[key];

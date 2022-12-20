@@ -21,3 +21,4 @@ require("$/tests/integration/routers/privateChat/sendPrivateMessage.spec");
 require("$/tests/integration/routers/privateChat/getAllPrivateChats.spec");
 //? middlewares ==>
 require("$/tests/middleware/notFound.spec");
+require("$/tests/middleware/authDefault.spec");

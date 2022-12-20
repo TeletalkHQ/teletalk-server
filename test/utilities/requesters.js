@@ -1,17 +1,8 @@
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-
 const { customRequestCreator } = require("$/classes/CustomRequest");
-const { routeBuilder } = require("@/classes/RouteBuilder");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { routes } = require("@/routes");
-
-const brokenRoute = routeBuilder(`/${randomMaker.randomString(10)}`)
-  .create()
-  .url(`/${randomMaker.randomString(10)}`)
-  .statusCode(404)
-  .build();
 
 const { testUser_0 } = testVariablesManager.getTestUsers();
 const defaultToken = userPropsUtilities.getTokenFromUserObject(testUser_0);
@@ -22,7 +13,6 @@ const makeCustomRequest = (routeObject) => () =>
 const requesters = {
   addBlock: makeCustomRequest(routes.cellphone.addBlock),
   addContact: makeCustomRequest(routes.cellphone.addContact),
-  brokenRoute: makeCustomRequest(brokenRoute),
   createNewUser: makeCustomRequest(routes.user.createNewUser),
   editContact: makeCustomRequest(routes.cellphone.editContact),
   getAllPrivateChats: makeCustomRequest(routes.privateChat.getAllPrivateChats),
@@ -34,4 +24,7 @@ const requesters = {
   verify: makeCustomRequest(routes.user.verify),
 };
 
-module.exports = { requesters };
+module.exports = {
+  makeCustomRequest,
+  requesters,
+};

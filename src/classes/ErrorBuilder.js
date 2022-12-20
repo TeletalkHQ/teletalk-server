@@ -7,7 +7,6 @@ class ErrorBuilder {
       statusCode: 400,
       version: "1.0.0",
       errorKey: "",
-      // errorCode: 4000,
     };
   }
 
@@ -30,8 +29,8 @@ class ErrorBuilder {
     this.#updateProperty("message", message);
     return this;
   }
-  errorReason(errorReason) {
-    this.#updateProperty("reason", errorReason);
+  reason(reason) {
+    this.#updateProperty("reason", reason);
     return this;
   }
   errorKey(errorKey) {

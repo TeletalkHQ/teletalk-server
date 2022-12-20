@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
+const { nativeModels } = require("@/models/native");
+
 const { mongooseUniqueValidator } = require("@/plugins/mongoosePlugins");
 
 const { excludeVersions } = require("@/utilities/utilities");
-
-const { nativeModels } = require("@/models/native");
 
 const userModelsWithoutVersion = excludeVersions(nativeModels.user);
 const commonModelsWithoutVersion = excludeVersions(nativeModels.common);

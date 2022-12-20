@@ -7,8 +7,12 @@ const { errorThrower } = require("utility-store/src/functions/utilities");
 
 const { errors } = require("@/variables/errors");
 
-const isRouteObjectInvalid = ({ fullUrl, inputFields, outputFields, url }) =>
-  customTypeof.isUndefined(fullUrl, inputFields, outputFields, url);
+const isRouteObjectInvalid = ({
+  fullUrl,
+  inputFields,
+  outputFields,
+  url,
+} = {}) => customTypeof.isUndefined(fullUrl, inputFields, outputFields, url);
 
 const tryToValidateRouteObject = (routeObject) => {
   errorThrower(isRouteObjectInvalid(routeObject), errors.ROUTE_NOT_FOUND);
@@ -16,7 +20,6 @@ const tryToValidateRouteObject = (routeObject) => {
 
 const catchValidateRouteObject = commonFunctionalities.controllerErrorResponse;
 
-//TODO: Add some tests
 const notFound = (req, res, next) => {
   trier(notFound.name)
     .try(tryToValidateRouteObject, req.routeObject)

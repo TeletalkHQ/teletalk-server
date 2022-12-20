@@ -1,11 +1,12 @@
+const { errorThrower } = require("utility-store/src/functions/utilities");
 const {
   isDataHasEqualityWithTargetCellphone,
 } = require("utility-store/src/functions/utilities");
 
-const { stateManager } = require("@/classes/StateManager");
 const { appOptions } = require("@/classes/AppOptions");
+const { stateManager } = require("@/classes/StateManager");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower } = require("utility-store/src/functions/utilities");
 const { errors } = require("@/variables/errors");
 
 class TemporaryClients {
@@ -38,13 +39,13 @@ class TemporaryClients {
 
   async updateClient(client, updateProps) {
     const temporaryClients = await this.getTemporaryClients();
+    const clientCellphone = userPropsUtilities.extractCellphone(client);
 
     const temporaryClientIndex = temporaryClients.findIndex(
       (temporaryClient) =>
-        !!isDataHasEqualityWithTargetCellphone(temporaryClient, client)
+        !!isDataHasEqualityWithTargetCellphone(temporaryClient, clientCellphone)
     );
 
-    //TODO: Add some tests
     errorThrower(
       temporaryClientIndex === -1,
       errors.TEMPORARY_CLIENT_NOT_FOUND

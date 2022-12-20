@@ -1,9 +1,8 @@
 const { errorThrower } = require("utility-store/src/functions/utilities");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const { authManager } = require("@/classes/AuthManager");
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
@@ -15,22 +14,46 @@ const { validators } = require("@/validators");
 
 const { errors } = require("@/variables/errors");
 
-const tryToExtractCellphoneFromToken = async (token) => {
+const tryToCreateNewUser = async (req) => {
+  const {
+    body: { firstName, lastName },
+  } = req;
+  const token = authManager.getTokenFromRequest(req);
+
+  const cellphone = await extractCellphoneFromToken(token);
+
+  const userId = getRandomId();
+
+  await validators.firstName(firstName);
+  await validators.lastName(lastName);
+  await findTemporaryClient(cellphone);
+  await findUserInDb(cellphone);
+
+  const newToken = await signToken(cellphone, userId);
+
+  const userData = {
+    ...userPropsUtilities.defaultUserData(),
+    ...cellphone,
+    firstName,
+    lastName,
+    token: newToken,
+    userId,
+  };
+
+  const userDataForDatabase = fixUserDataForDb(userData);
+  await createNewUserAndSave(userDataForDatabase);
+
+  return { user: userData };
+};
+
+const extractCellphoneFromToken = async (token) => {
   const jwtSecret = authManager.getJwtSignInSecret();
   const verifiedToken = await validators.token(token, jwtSecret);
   errorThrower(verifiedToken.ok === false, () => verifiedToken.error);
   return userPropsUtilities.extractCellphone(verifiedToken.payload);
 };
 
-const tryToValidateFirstName = async (firstName) => {
-  await validators.firstName(firstName);
-};
-
-const tryToValidateLastName = async (lastName) => {
-  await validators.lastName(lastName);
-};
-
-const tryToFindTemporaryClient = async (cellphone) => {
+const findTemporaryClient = async (cellphone) => {
   const client = await temporaryClients.findClientByCellphone(cellphone);
   errorThrower(!client, () => ({
     ...errors.CURRENT_USER_NOT_EXIST,
@@ -39,7 +62,7 @@ const tryToFindTemporaryClient = async (cellphone) => {
   return client;
 };
 
-const tryToFindUserInDb = async (cellphone) => {
+const findUserInDb = async (cellphone) => {
   const foundUser = await services.findOneUser(cellphone);
   errorThrower(foundUser, () => errors.USER_EXIST);
   return foundUser;
@@ -48,7 +71,7 @@ const tryToFindUserInDb = async (cellphone) => {
 const getRandomId = () =>
   randomMaker.randomId(models.native.user.userId.maxlength.value);
 
-const tryToSignToken = async (cellphone, userId) => {
+const signToken = async (cellphone, userId) => {
   return await authManager.tokenSigner({
     ...cellphone,
     userId,
@@ -62,66 +85,13 @@ const fixUserDataForDb = ({ token, ...rest }) => {
   };
 };
 
-const tryToCreateNewUser = async (userDataForDatabase) => {
+const createNewUserAndSave = async (userDataForDatabase) => {
   await services.createNewUser().run(userDataForDatabase);
 };
 
-const responseToCreateNewUser = (user, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, { user });
-};
-
-const catchCreateNewUser = commonFunctionalities.controllerErrorResponse;
-
-const createNewUserTrier = async ({ firstName, lastName, verifyToken }) => {
-  const trierInstance = trier(createNewUserTrier.name).throw();
-
-  const cellphone = await trierInstance
-    .tryAsync(tryToExtractCellphoneFromToken, verifyToken)
-    .runAsync();
-
-  const userId = getRandomId();
-
-  const token = await trierInstance
-    .tryAsync(tryToValidateFirstName, firstName)
-    .tryAsync(tryToValidateLastName, lastName)
-    .tryAsync(tryToFindTemporaryClient, cellphone)
-    .tryAsync(tryToFindUserInDb, cellphone)
-    .tryAsync(tryToSignToken, cellphone, userId)
-    .runAsync();
-
-  const defaultUserData = {
-    ...userPropsUtilities.defaultUserData(),
-    ...cellphone,
-    firstName,
-    lastName,
-    token,
-    userId,
-  };
-
-  const userDataForDatabase = fixUserDataForDb(defaultUserData);
-
-  await trierInstance
-    .tryAsync(tryToCreateNewUser, userDataForDatabase)
-    .runAsync();
-
-  return defaultUserData;
-};
-
-const createNewUser = async (req = expressRequest, res = expressResponse) => {
-  const {
-    body: { firstName, lastName },
-  } = req;
-  const token = authManager.getTokenFromRequest(req);
-
-  await trier(createNewUser.name)
-    .tryAsync(createNewUserTrier, {
-      firstName,
-      lastName,
-      verifyToken: token,
-    })
-    .executeIfNoError(responseToCreateNewUser, res)
-    .catch(catchCreateNewUser, res)
-    .runAsync();
-};
+const createNewUser = controllerBuilder
+  .create()
+  .body(tryToCreateNewUser)
+  .build();
 
 module.exports = { createNewUser };

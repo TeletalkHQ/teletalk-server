@@ -1,16 +1,15 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
-
 const { enErrorMessages } = require("@/translation/messages/enErrorMessages");
 
 const { allStuff } = require("@/variables/others/allStuff");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const languages = {
   en: { errorMessages: enErrorMessages },
 };
 
-const tryToGetAllStuff = (language) => {
+const tryToGetAllStuff = (req) => {
+  const { language = "en" } = req.body;
+
   const languageData = languages[language];
   return { ...allStuff, languageData };
 };
@@ -19,15 +18,10 @@ const responseToGetAllStuff = (data, res) => {
   res.sendJsonResponse(data);
 };
 
-const catchGetAllStuff = commonFunctionalities.controllerErrorResponse;
-
-const getAllStuff = async (req = expressRequest, res = expressResponse) => {
-  const { language = "en" } = req.body;
-  trier(getAllStuff.name)
-    .try(tryToGetAllStuff, language)
-    .executeIfNoError(responseToGetAllStuff, res)
-    .catch(catchGetAllStuff, res)
-    .run();
-};
+const getAllStuff = controllerBuilder
+  .create()
+  .body(tryToGetAllStuff)
+  .response(responseToGetAllStuff)
+  .build();
 
 module.exports = { getAllStuff };

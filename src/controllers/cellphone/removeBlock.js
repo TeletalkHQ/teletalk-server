@@ -1,34 +1,18 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
 
-const tryToRemoveBlock = async (data) => {
-  await services.removeBlock().run(data);
-};
-
-const responseToRemoveBlock = (_, res, targetUserData) => {
-  commonFunctionalities.controllerSuccessResponse(res, {
-    removedBlockedCellphone: targetUserData,
-  });
-};
-
-const catchRemoveBlock = commonFunctionalities.controllerErrorResponse;
-
-const removeBlock = async (req = expressRequest, res = expressResponse) => {
+const tryToRemoveBlock = async (req) => {
   const { currentUserId, body } = req;
   const targetUserData = userPropsUtilities.extractCellphone(body);
 
-  await trier(removeBlock.name)
-    .tryAsync(tryToRemoveBlock, {
-      currentUserId,
-      targetUserData,
-    })
-    .executeIfNoError(responseToRemoveBlock, res, targetUserData)
-    .catch(catchRemoveBlock, res)
-    .runAsync();
+  await services.removeBlock().run({ currentUserId, targetUserData });
+  return {
+    removedBlockedCellphone: targetUserData,
+  };
 };
+
+const removeBlock = controllerBuilder.create().body(tryToRemoveBlock).build();
 
 module.exports = { removeBlock };

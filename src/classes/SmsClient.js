@@ -29,7 +29,7 @@ class SmsClient {
       this.#verificationCodeProvider1,
       this.#verificationCodeProvider2,
     ];
-    return await trier(this.sendVerificationCode)
+    await trier(this.sendVerificationCode)
       .tryAsync(providers[providerIndex], sendTo, text)
       .catch((error) => ({
         ...errors.SEND_SMS_FAILED,

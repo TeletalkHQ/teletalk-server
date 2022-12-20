@@ -1,29 +1,17 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
 
-const tryToGetContacts = async (data) => {
-  return await services.getUserContacts().run(data);
-};
-
-const responseToGetContacts = ({ contacts }, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, {
-    contacts,
-  });
-};
-
-const catchGetContacts = commonFunctionalities.controllerErrorResponse;
-
-const getContacts = async (req = expressRequest, res = expressResponse) => {
+const tryToGetContacts = async (req) => {
   const { currentUserId } = req;
 
-  await trier(getContacts.name)
-    .tryAsync(tryToGetContacts, { currentUserId })
-    .executeIfNoError(responseToGetContacts, res)
-    .catch(catchGetContacts, res)
-    .runAsync();
+  const contacts = await services.getUserContacts().run({ currentUserId });
+
+  return {
+    contacts,
+  };
 };
+
+const getContacts = controllerBuilder.create().body(tryToGetContacts).build();
 
 module.exports = { getContacts };

@@ -1,10 +1,9 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
 
-const tryToGetUserData = async (authData) => {
+const tryToGetUserData = async (req) => {
+  const { authData } = req;
   const { sessions, ...userData } = await services
     .getUserData()
     .exclude()
@@ -15,20 +14,6 @@ const tryToGetUserData = async (authData) => {
   };
 };
 
-const responseToGetUserData = (userData, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, userData);
-};
-
-const catchGetUserData = commonFunctionalities.controllerErrorResponse;
-
-const getUserData = async (req = expressRequest, res = expressResponse) => {
-  const { authData } = req;
-
-  await trier(getUserData.name)
-    .tryAsync(tryToGetUserData, authData)
-    .executeIfNoError(responseToGetUserData, res)
-    .catch(catchGetUserData, res)
-    .runAsync();
-};
+const getUserData = controllerBuilder.create().body(tryToGetUserData).build();
 
 module.exports = { getUserData };

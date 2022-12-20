@@ -12,9 +12,7 @@ const makeCustomRequest = (routeObject) =>
 describe("authDefault middleware test", () => {
   it("should not get error: TOKEN_REQUIRED", async () => {
     for (const route of ignoredRoutesForAuth) {
-      const response = await (
-        await makeCustomRequest(route).sendRequest()
-      ).response;
+      const { response } = await makeCustomRequest(route).sendRequest();
 
       const { errors: responseErrors } = response.body;
 
@@ -37,8 +35,9 @@ describe("authDefault middleware test", () => {
 
     for (const route of filteredIgnoredRoutes) {
       await makeCustomRequest(route).sendFullFeaturedRequest(
-        {},
-        errors.TOKEN_REQUIRED
+        undefined,
+        errors.TOKEN_REQUIRED,
+        { filterDataCondition: false }
       );
     }
   });

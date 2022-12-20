@@ -29,13 +29,13 @@ app.use(middlewares.responseErrorHandlers);
 app.use(middlewares.sendJsonResponse); //* Should be after 'responseErrorHandlers'
 app.use(middlewares.checkDataAndResponse); //* Should be after 'sendJsonResponse'
 app.use(middlewares.notFound); //* Should be after 'sendJsonResponse'
+app.use(middlewares.requestMethodChecker); //* Should be after 'notFound'
 app.use(
   middlewares.ignoreMiddlewaresByUrl(
     getIgnoredUrlsForAuth(),
     middlewares.authDefault
   )
 ); //* Should be after 'sendJsonResponse'
-app.use(middlewares.requestMethodChecker); //* Should be after 'notFound'
 app.use(middlewares.checkBodyFields); //* Should be after 'requestMethodChecker'
 
 //* All routers is in lifeLine =>

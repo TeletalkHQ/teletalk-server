@@ -8,10 +8,18 @@ const { errors } = require("@/variables/errors");
 
 const { arrayOfRoutes } = require("@/routes");
 
-const tryToCheckRequestMethod = (reqUrl, reqMethod) => {
-  const routeObject = arrayOfRoutes.find((value) => value.fullUrl === reqUrl);
+const requestMethodChecker = (req, res, next) => {
+  return trier(requestMethodChecker.name)
+    .try(tryToCheckRequestMethod, req)
+    .executeIfNoError(executeIfNoError, next)
+    .catch(catchCheckRequestMethod, res)
+    .run();
+};
 
-  const requestMethod = reqMethod.toLowerCase();
+const tryToCheckRequestMethod = (req) => {
+  const routeObject = arrayOfRoutes.find((value) => value.fullUrl === req.url);
+
+  const requestMethod = req.method.toLowerCase();
   const routeObjectMethod = routeObject.method.toLowerCase();
 
   errorThrower(requestMethod !== routeObjectMethod, errors.METHOD_NOT_ALLOWED);
@@ -26,14 +34,6 @@ const executeIfNoError = (_, next) => {
 const catchCheckRequestMethod = (error, res) => {
   commonFunctionalities.controllerErrorResponse(error, res);
   return { ok: false };
-};
-
-const requestMethodChecker = (req, res, next) => {
-  return trier(requestMethodChecker.name)
-    .try(tryToCheckRequestMethod, req.url, req.method)
-    .executeIfNoError(executeIfNoError, next)
-    .catch(catchCheckRequestMethod, res)
-    .run();
 };
 
 module.exports = { requestMethodChecker };

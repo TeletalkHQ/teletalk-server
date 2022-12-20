@@ -91,21 +91,23 @@ const addFullUrlToRouteObjects = (baseRouteObject, routeObjects) => {
 };
 
 const executeMiddlewares = async ({ middlewares, next, req, res }) => {
-  for await (const md of middlewares) {
-    const result = await md(req, res, () => {});
+  for await (const m of middlewares) {
+    const result = await m(req, res, () => {});
 
     if (!result?.ok) {
       return;
     }
   }
+
   return next();
 };
 
-const checkExecuteMiddlewaresRequirements = (url, middlewares) => {
+const checkIgnoreApplyMiddlewaresRequirements = (url, middlewares) => {
   errorThrower(
     customTypeof.isNotString(url) && customTypeof.isNotArray(url),
     "url must be string or an array"
   );
+
   errorThrower(!middlewares.length, "You need to pass at least one middleware");
 };
 
@@ -113,7 +115,7 @@ const regexMaker = (pattern) => new RegExp(pattern);
 
 module.exports = {
   addFullUrlToRouteObjects,
-  checkExecuteMiddlewaresRequirements,
+  checkIgnoreApplyMiddlewaresRequirements,
   concatBaseUrlWithUrl,
   convertStringArrayToNumberArray,
   crashServer,

@@ -1,8 +1,6 @@
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 
-const {
-  getNonExistedCountryCode,
-} = require("$/functions/utilities/testUtilities");
+const { getNonExistedCountryCode } = require("$/utilities/testUtilities");
 
 const { models } = require("@/models");
 

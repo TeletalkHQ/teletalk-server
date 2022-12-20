@@ -7,7 +7,7 @@ const supertest = require("supertest");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const { expect } = require("$/functions/utilities/testUtilities");
+const { expect } = require("$/utilities/testUtilities");
 
 const { crashServer } = require("@/utilities/utilities");
 

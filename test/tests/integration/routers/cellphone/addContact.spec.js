@@ -3,10 +3,10 @@ const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const { models } = require("@/models");
 
-const { requesters } = require("$/functions/helpers/requesters");
+const { requesters } = require("$/utilities/requesters");
 const {
   integrationHelpers,
-} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
+} = require("$/tests/integration/helpers/integrationHelpers");
 
 const { countries } = require("@/variables/others/countries");
 

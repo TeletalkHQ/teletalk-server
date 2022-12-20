@@ -1,9 +1,9 @@
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
-const { requesters } = require("$/functions/helpers/requesters");
+const { requesters } = require("$/utilities/requesters");
 const {
   integrationHelpers,
-} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
+} = require("$/tests/integration/helpers/integrationHelpers");
 
 const users = testVariablesManager.getUsers();
 

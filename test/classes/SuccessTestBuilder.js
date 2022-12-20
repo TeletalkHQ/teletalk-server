@@ -1,4 +1,4 @@
-const { expect } = require("$/functions/utilities/testUtilities");
+const { expect } = require("$/utilities/testUtilities");
 
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 

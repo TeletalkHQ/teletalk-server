@@ -1,11 +1,11 @@
 const {
   integrationHelpers,
-} = require("$/functions/helpers/integrationHelpers/integrationHelpers");
+} = require("$/tests/integration/helpers/integrationHelpers");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models");
 
-const { requesters } = require("$/functions/helpers/requesters");
+const { requesters } = require("$/utilities/requesters");
 
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { countries } = require("@/variables/others/countries");

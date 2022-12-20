@@ -27,7 +27,7 @@ const { getTargetUserData } = require("@/controllers/user/getTargetUserData");
 const { logout } = require("@/controllers/user/logout");
 const { signIn } = require("@/controllers/user/signIn");
 const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
-const { verifySignIn } = require("@/controllers/user/verifySignIn");
+const { verify } = require("@/controllers/user/verify");
 
 const { getAllStuff } = require("@/controllers/stuff/getAllStuff");
 
@@ -52,7 +52,7 @@ const controllers = {
   sendPrivateMessage,
   signIn,
   updatePersonalInfo,
-  verifySignIn,
+  verify,
 };
 
 module.exports = { controllers };

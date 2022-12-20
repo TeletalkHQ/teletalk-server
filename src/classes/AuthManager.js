@@ -59,7 +59,7 @@ class AuthManager {
 
   getSecretWithUrlCondition(reqUrl) {
     const isVerificationUrl = isUrlMatchWithReqUrl(
-      [routes.user.verifySignIn.fullUrl, routes.user.createNewUser.fullUrl],
+      [routes.user.verify.fullUrl, routes.user.createNewUser.fullUrl],
       reqUrl
     );
 
@@ -70,7 +70,6 @@ class AuthManager {
 
   getTokenFromRequest(request) {
     const { authorization, Authorization } = request.headers;
-    //TODO: Throw error if authorization not exist
     return (authorization || Authorization)?.split("Bearer ")[1];
   }
 

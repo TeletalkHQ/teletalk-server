@@ -6,7 +6,7 @@ const { errors } = require("@/variables/errors");
 const addNewToken = serviceBuilder
   .create()
   .body(async ({ userId, newToken }) => {
-    const currentUser = findCurrentUser(userId);
+    const currentUser = await findCurrentUser(userId);
     await addAndSaveNewToken(currentUser, newToken);
   })
   .build();

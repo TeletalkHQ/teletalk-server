@@ -6,7 +6,6 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { services } = require("@/services");
 
 const tryToAddContact = async (data) => {
-  //CLEANME: Remove result
   const { newContact } = await services.addContact().run(data);
   return newContact;
 };
@@ -23,7 +22,6 @@ const responseToAddContact = (newContact, res, contact) => {
 const catchAddContact = commonFunctionalities.controllerErrorResponse;
 
 const addContact = async (req = expressRequest, res = expressResponse) => {
-  //CLEANME: Update using authData with UserPropsUtilities
   const { body, currentUserId } = req;
 
   const contact = userPropsUtilities.extractContact(body);

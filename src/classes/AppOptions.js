@@ -1,3 +1,4 @@
+//CLEANME: Remove...
 class AppOptions {
   #options = {
     eventKeys: {},

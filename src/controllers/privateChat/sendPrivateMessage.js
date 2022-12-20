@@ -1,15 +1,21 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
 
 const { validators } = require("@/validators");
 
-const tryToSendMessage = async (data) => {
+const tryToSendMessage = async (req) => {
+  const {
+    currentUserId,
+    body: { participantId, message },
+  } = req;
+
+  await validators.participantId(participantId);
+  await validators.messageText(message);
+
   const { chatId, newMessage } = await await services
     .sendPrivateMessage()
-    .run(data);
+    .run({ currentUserId, participantId, message });
 
   return {
     chatId,
@@ -17,40 +23,9 @@ const tryToSendMessage = async (data) => {
   };
 };
 
-const responseToSendMessage = (responseData, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, responseData);
-};
-
-const catchSendMessage = commonFunctionalities.controllerErrorResponse;
-
-const sendPrivateMessage = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
-  const {
-    currentUserId,
-    body: { participantId, message },
-  } = req;
-
-  const data = {
-    currentUserId,
-    participantId,
-    message,
-  };
-
-  const trierInstance = trier(sendPrivateMessage.name)
-    .executeIfNoError(responseToSendMessage, res)
-    .catch(catchSendMessage, res);
-
-  await trierInstance
-    .tryAsync(tryToValidateData, data)
-    .tryAsync(tryToSendMessage, data)
-    .runAsync();
-};
-
-const tryToValidateData = async (data) => {
-  await validators.participantId(data.participantId);
-  await validators.messageText(data.message);
-};
+const sendPrivateMessage = controllerBuilder
+  .create()
+  .body(tryToSendMessage)
+  .build();
 
 module.exports = { sendPrivateMessage };

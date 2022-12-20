@@ -1,25 +1,12 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
 
 const tryToGetAllUsers = async () => {
-  return await services.getAllUsers().run();
+  const users = await services.getAllUsers().run();
+  return { users };
 };
 
-const responseToGetAllUsers = (users, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, { users });
-};
-
-const catchGetAllUsers = commonFunctionalities.controllerErrorResponse;
-
-const getAllUsers = async (_ = expressRequest, res = expressResponse) => {
-  await trier(getAllUsers.name)
-    .tryAsync(tryToGetAllUsers)
-    .executeIfNoError(responseToGetAllUsers, res)
-    .catch(catchGetAllUsers, res)
-    .runAsync();
-};
+const getAllUsers = controllerBuilder.create().body(tryToGetAllUsers).build();
 
 module.exports = { getAllUsers };

@@ -13,7 +13,7 @@ class CommonFunctionalities {
     res.errorResponser();
   }
 
-  controllerSuccessResponse(res, data, requiredFieldsIndex) {
+  controllerSuccessResponse({ requiredFieldsIndex, ...data }, res) {
     res.checkDataAndResponse(data, requiredFieldsIndex);
   }
 

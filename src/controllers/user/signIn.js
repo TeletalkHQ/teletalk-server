@@ -1,8 +1,6 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
 const { appConfigs } = require("@/classes/AppConfigs");
 const { authManager } = require("@/classes/AuthManager");
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
@@ -12,7 +10,35 @@ const { passwordGenerator } = require("@/utilities/passwordGenerator");
 
 const { validators } = require("@/validators");
 
-const tryToValidateVerificationCode = async (verificationCode) => {
+const tryToSignIn = async (req) => {
+  const verificationCode = passwordGenerator();
+  await validateVerificationCode(verificationCode);
+
+  const cellphone = userPropsUtilities.extractCellphone(req.body);
+
+  const configs = appConfigs.getConfigs();
+  if (configs.sms.shouldSendSms) {
+    const host = getHostFromRequest(req);
+    const fullNumber = makeFullNumber(cellphone);
+    await sendVerificationCode(fullNumber, host, verificationCode);
+  }
+
+  const token = await signToken(cellphone);
+
+  await manageTemporaryClient(cellphone, verificationCode, token);
+
+  //TODO: Print it on log files
+  logger.debug("rm", "verificationCode", verificationCode);
+
+  return {
+    user: {
+      ...cellphone,
+      token,
+    },
+  };
+};
+
+const validateVerificationCode = async (verificationCode) => {
   await validators.verificationCode(verificationCode);
 };
 
@@ -23,27 +49,33 @@ const makeFullNumber = (cellphone) => {
   );
 };
 
-const tryToSendVerificationCodeAsSms = async (
-  cellphone,
-  host,
-  verificationCode
-) => {
-  const fullNumber = makeFullNumber(cellphone);
+const sendVerificationCode = async (fullNumber, host, verificationCode) => {
   await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 };
 
-const tryToSignToken = async (cellphone) => {
+const signToken = async (cellphone) => {
   return await authManager.tokenSigner(
     cellphone,
     authManager.getJwtSignInSecret()
   );
 };
 
-const tryToAddNewTemporaryClient = async (
-  cellphone,
-  verificationCode,
-  token
-) => {
+const manageTemporaryClient = async (cellphone, verificationCode, token) => {
+  const client = await findTemporaryClient(cellphone);
+  if (client) await updateTemporaryClient(client, verificationCode, token);
+  else await addNewTemporaryClient(cellphone, verificationCode, token);
+};
+
+const findTemporaryClient = async (cellphone) => {
+  return await temporaryClients.findClientByCellphone(cellphone);
+};
+const updateTemporaryClient = async (client, verificationCode, token) => {
+  await temporaryClients.updateClient(client, {
+    verificationCode,
+    token,
+  });
+};
+const addNewTemporaryClient = async (cellphone, verificationCode, token) => {
   await temporaryClients.addClient({
     token,
     verificationCode,
@@ -51,98 +83,6 @@ const tryToAddNewTemporaryClient = async (
   });
 };
 
-const tryToUpdateTemporaryClient = async (client, verificationCode, token) => {
-  await temporaryClients.updateClient(client, {
-    verificationCode,
-    token,
-  });
-};
-
-const tryToFindTemporaryClient = async (cellphone) => {
-  return await temporaryClients.findClientByCellphone(cellphone);
-};
-
-const temporaryClientHelper = async ({
-  cellphone,
-  client,
-  trierInstance,
-  verificationCode,
-  token,
-}) => {
-  if (client) {
-    await trierInstance
-      .tryAsync(tryToUpdateTemporaryClient, client, verificationCode, token)
-      .runAsync();
-  } else {
-    await trierInstance
-      .tryAsync(tryToAddNewTemporaryClient, cellphone, verificationCode, token)
-      .runAsync();
-  }
-};
-
-const tryToSignInUser = async (req) => {
-  const cellphone = userPropsUtilities.extractCellphone(req.body);
-  const configs = appConfigs.getConfigs();
-  const host = getHostFromRequest(req);
-  const verificationCode = passwordGenerator();
-
-  const trierInstance = trier(tryToSignInUser).throw();
-
-  await trierInstance
-    .tryAsync(tryToValidateVerificationCode, verificationCode)
-    .runAsync();
-
-  await commonFunctionalities.checkAndExecute(
-    configs.sms.shouldSendSms,
-    async () => {
-      await trierInstance
-        .tryAsync(
-          tryToSendVerificationCodeAsSms,
-          cellphone,
-          host,
-          verificationCode
-        )
-        .runAsync();
-    }
-  );
-
-  const token = await trierInstance
-    .tryAsync(tryToSignToken, cellphone)
-    .runAsync();
-
-  const client = await trierInstance
-    .tryAsync(tryToFindTemporaryClient, cellphone)
-    .runAsync();
-
-  await temporaryClientHelper({
-    cellphone,
-    client,
-    trierInstance,
-    verificationCode,
-    token,
-  });
-
-  //TODO: Print it on log files
-  logger.debug("rm", "verificationCode", verificationCode);
-
-  return {
-    ...cellphone,
-    token,
-  };
-};
-
-const responseToSignInUser = (user, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, { user });
-};
-
-const catchSignInUser = commonFunctionalities.controllerErrorResponse;
-
-const signIn = async (req = expressRequest, res = expressResponse) => {
-  await trier(signIn.name)
-    .tryAsync(tryToSignInUser, req)
-    .executeIfNoError(responseToSignInUser, res)
-    .catch(catchSignInUser, res)
-    .runAsync();
-};
+const signIn = controllerBuilder.create().body(tryToSignIn).build();
 
 module.exports = { signIn };

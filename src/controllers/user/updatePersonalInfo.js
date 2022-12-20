@@ -1,38 +1,31 @@
-const { trier } = require("utility-store/src/classes/Trier");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { services } = require("@/services");
 
-const tryToUpdatePersonalInfo = async (data) => {
-  await services.updatePersonalInfo().run(data);
-};
-
-const responseToUpdatePersonalInfo = (_, res, firstName, lastName) => {
-  commonFunctionalities.controllerSuccessResponse(res, {
-    user: {
-      firstName,
-      lastName,
-    },
-  });
-};
-
-const catchUpdatePersonalInfo = commonFunctionalities.controllerErrorResponse;
-
-const updatePersonalInfoController = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const tryToUpdatePersonalInfo = async (req) => {
   const {
     body: { firstName, lastName },
     currentUserId,
   } = req;
 
-  await trier(updatePersonalInfoController.name)
-    .tryAsync(tryToUpdatePersonalInfo, { currentUserId, firstName, lastName })
-    .executeIfNoError(responseToUpdatePersonalInfo, res, firstName, lastName)
-    .catch(catchUpdatePersonalInfo, res)
-    .runAsync();
+  await services.updatePersonalInfo().run({
+    currentUserId,
+    firstName,
+    lastName,
+  });
+
+  return {
+    user: {
+      firstName,
+      lastName,
+    },
+  };
 };
+
+const updatePersonalInfoController = controllerBuilder
+  .create()
+  .body(tryToUpdatePersonalInfo)
+  .build();
 
 module.exports = {
   updatePersonalInfo: updatePersonalInfoController,

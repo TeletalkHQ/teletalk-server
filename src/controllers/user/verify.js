@@ -1,22 +1,15 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
 const { authManager } = require("@/classes/AuthManager");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
 
-const verify = async (req = expressRequest, res = expressResponse) => {
-  const { authData } = req;
+const tryToVerify = async (req) => {
+  const {
+    authData: { payload: tokenPayload },
+  } = req;
 
-  await trier(verify.name)
-    .tryAsync(tryToSignInUser, authData.payload)
-    .executeIfNoError(responseToSignInUser, res)
-    .catch(catchSignInUser, res)
-    .runAsync();
-};
-
-const tryToSignInUser = async (tokenPayload) => {
   const cellphone = userPropsUtilities.extractCellphone(tokenPayload);
 
   const foundUser = (await services.findOneUser(cellphone)) || {};
@@ -30,7 +23,7 @@ const tryToSignInUser = async (tokenPayload) => {
 
   return {
     requiredFieldsIndex,
-    responseData,
+    ...responseData,
   };
 };
 
@@ -68,14 +61,6 @@ const fixUserData = async (isUserExist, userData) => {
   };
 };
 
-const responseToSignInUser = ({ requiredFieldsIndex, responseData }, res) => {
-  commonFunctionalities.controllerSuccessResponse(
-    res,
-    responseData,
-    requiredFieldsIndex
-  );
-};
-
-const catchSignInUser = commonFunctionalities.controllerErrorResponse;
+const verify = controllerBuilder.create().body(tryToVerify).build();
 
 module.exports = { verify };

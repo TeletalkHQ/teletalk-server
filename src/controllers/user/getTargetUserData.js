@@ -1,31 +1,17 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
 
-const tryToGetUserData = async (userId) => {
-  return await services.getUserData().run({ userId });
-};
-
-const responseToGetUserData = (user, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, { user });
-};
-
-const catchGetUserData = commonFunctionalities.controllerErrorResponse;
-
-//TODO: There are no tests for this api
-const getTargetUserData = async (
-  req = expressRequest,
-  res = expressResponse
-) => {
+const tryToGetUserData = async (req) => {
   const { userId } = req.body;
 
-  await trier(getTargetUserData.name)
-    .tryAsync(tryToGetUserData, userId)
-    .executeIfNoError(responseToGetUserData, res)
-    .catch(catchGetUserData, res)
-    .runAsync();
+  const user = await services.getUserData().run({ userId });
+  return { user };
 };
+
+const getTargetUserData = controllerBuilder
+  .create()
+  .body(tryToGetUserData)
+  .build();
 
 module.exports = { getTargetUserData };

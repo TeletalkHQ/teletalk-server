@@ -1,23 +1,9 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 
 const { services } = require("@/services");
 
-const tryToEditContact = async (data) => {
-  await services.updateContact().run(data);
-};
-
-const responseToEditContact = (_, res, targetCellphone, editedValues) => {
-  commonFunctionalities.controllerSuccessResponse(res, {
-    editedContact: { ...targetCellphone, ...editedValues },
-  });
-};
-
-const catchEditContact = commonFunctionalities.controllerErrorResponse;
-
-const editContact = async (req = expressRequest, res = expressResponse) => {
+const tryToEditContact = async (req) => {
   const {
     body,
     body: { firstName, lastName },
@@ -26,15 +12,14 @@ const editContact = async (req = expressRequest, res = expressResponse) => {
   const targetCellphone = userPropsUtilities.extractCellphone(body);
   const editedValues = { firstName, lastName };
 
-  await trier(editContact.name)
-    .tryAsync(tryToEditContact, {
-      currentUserId,
-      editedValues,
-      targetCellphone,
-    })
-    .executeIfNoError(responseToEditContact, res, targetCellphone, editedValues)
-    .catch(catchEditContact, res)
-    .runAsync();
+  await services
+    .updateContact()
+    .run({ currentUserId, editedValues, targetCellphone });
+  return {
+    editedContact: { ...targetCellphone, ...editedValues },
+  };
 };
+
+const editContact = controllerBuilder.create().body(tryToEditContact).build();
 
 module.exports = { editContact };

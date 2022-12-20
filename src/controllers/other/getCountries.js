@@ -1,25 +1,10 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
-
 const { countries } = require("@/variables/others/countries");
+const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const tryToGetCountries = async () => {
-  return countries;
+  return { countries };
 };
 
-const responseToGetCountries = (countries, res) => {
-  commonFunctionalities.controllerSuccessResponse(res, { countries });
-};
-
-const catchGetCountries = commonFunctionalities.controllerErrorResponse;
-
-const getCountries = async (_req = expressRequest, res = expressResponse) => {
-  await trier(getCountries.name)
-    .tryAsync(tryToGetCountries)
-    .executeIfNoError(responseToGetCountries, res)
-    .catch(catchGetCountries, res)
-    .runAsync();
-};
+const getCountries = controllerBuilder.create().body(tryToGetCountries).build();
 
 module.exports = { getCountries };

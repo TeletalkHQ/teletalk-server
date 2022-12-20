@@ -1,10 +1,11 @@
-const { findRouteObject } = require("@/utilities/findRouteObject");
+const { arrayOfRoutes } = require("@/routes");
 
-const { errors } = require("@/variables/errors");
+const findRouteObject = (req, _res, next) => {
+  req.routeObject = arrayOfRoutes.find((item) => {
+    return item.fullUrl === req.url;
+  });
 
-const findRouteObjectMiddleware = (req, _res, next) => {
-  req.routeObject = findRouteObject(req.url) || errors.ROUTE_NOT_FOUND;
   next();
 };
 
-module.exports = { findRouteObject: findRouteObjectMiddleware };
+module.exports = { findRouteObject };

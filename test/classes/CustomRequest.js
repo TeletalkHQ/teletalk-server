@@ -39,6 +39,7 @@ class CustomRequest {
       filterDataCondition: true,
       token,
       inputFields: {},
+      shouldIgnoreErrors: false,
     };
     this.temporaryOptions = { ...this.options };
     this.requestData = undefined;
@@ -97,7 +98,7 @@ class CustomRequest {
     return this;
   }
   checkError() {
-    if (this.responseStatusCode > 299) {
+    if (this.responseStatusCode > 299 && !this.options.shouldIgnoreErrors) {
       this.logErrorStuffs().checkErrorReason().checkErrorCode();
     }
     return this;

@@ -11,6 +11,8 @@ const { expect } = require("$/utilities/testUtilities");
 
 const { crashServer } = require("@/utilities/utilities");
 
+const { errors } = require("@/variables/errors");
+
 const getDevelopmentApp = () => require("@/app").app;
 const getProductionApp = () => require("../../build").app;
 
@@ -31,6 +33,7 @@ const getServer = () => {
 const app = getServer();
 const requester = supertest(app);
 
+//CLEANME: Need a major refactor
 class CustomRequest {
   constructor(token) {
     this.routeObject = {};
@@ -226,21 +229,37 @@ class CustomRequest {
   }
 
   filterRequestData() {
-    const convertRequiredFieldForFiltering = objectUtilities
-      .objectEntries(this.routeObject.inputFields)
-      .reduce((previousValue, currentValue) => {
-        const [requiredFieldKey, requiredFieldProperties] = currentValue;
-        previousValue[requiredFieldKey] =
-          requiredFieldProperties.value || requiredFieldKey;
-        return previousValue;
-      }, {});
+    if (this.temporaryOptions.filterDataCondition) {
+      const convertRequiredFieldForFiltering = objectUtilities
+        .objectEntries(this.routeObject.inputFields)
+        .reduce((previousValue, currentValue) => {
+          const [requiredFieldKey, requiredFieldProperties] = currentValue;
+          previousValue[requiredFieldKey] =
+            requiredFieldProperties.value || requiredFieldKey;
+          return previousValue;
+        }, {});
 
-    //FIXME: Throw error if inputData is undefined when inputFields is not
-    const filteredRequestData = objectUtilities.excludePropsPeerToPeer(
-      this.requestData,
-      convertRequiredFieldForFiltering
-    );
-    this.setRequestData(filteredRequestData);
+      if (
+        !this.requestData &&
+        objectUtilities.objectKeys(this.routeObject.inputFields).length
+      ) {
+        const error = {
+          ...errors.INPUT_FIELDS_MISSING,
+          options: this.options,
+          errorFrom: "customRequest.filterRequestData",
+        };
+
+        logger.error(error);
+        throw error;
+      }
+
+      const filteredRequestData = objectUtilities.excludePropsPeerToPeer(
+        this.requestData,
+        convertRequiredFieldForFiltering
+      );
+      this.setRequestData(filteredRequestData);
+    }
+
     return this;
   }
   setRequestData(requestData) {

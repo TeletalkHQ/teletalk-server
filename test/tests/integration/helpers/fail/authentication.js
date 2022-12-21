@@ -21,11 +21,11 @@ const authentication = (configuredCustomRequest, data = {}) => {
     );
   });
   it("should get error: TOKEN_INVALID_TYPE", async () => {
-    // await configuredCustomRequest.sendFullFeaturedRequest(
-    //   data,
-    //   TOKEN_INVALID_TYPE,
-    //   fn(123456879)
-    // );
+    await configuredCustomRequest.sendFullFeaturedRequest(
+      data,
+      errors.TOKEN_INVALID_TYPE,
+      fn(1234)
+    );
   });
   it("should get error: TOKEN_MAXLENGTH_REACH", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(

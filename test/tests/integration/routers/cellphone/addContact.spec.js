@@ -79,6 +79,7 @@ describe("addContact failure tests", () => {
   integrationHelpers
     .createFailTest(configuredAddContactRequester)
     .authentication()
+    .inputMissing(contact)
     .cellphone(contact)
     .countryCode(contact)
     .countryName(contact)

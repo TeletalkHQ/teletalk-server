@@ -49,7 +49,8 @@ describe("removeBlock failure tests", () => {
   integrationHelpers
     .createFailTest(requesters.removeBlock())
     .authentication()
-    .cellphone()
+    .inputMissing(cellphone)
+    .cellphone(cellphone)
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)

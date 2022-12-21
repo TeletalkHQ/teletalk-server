@@ -50,6 +50,7 @@ describe("addBlock failure tests", () => {
   integrationHelpers
     .createFailTest(requesters.addBlock())
     .authentication()
+    .inputMissing(cellphone)
     .selfStuff(users.selfStuff)
     .cellphone(cellphone)
     .countryCode(cellphone)

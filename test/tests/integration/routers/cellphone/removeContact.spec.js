@@ -49,7 +49,8 @@ describe("removeContact failure tests", () => {
   integrationHelpers
     .createFailTest(requesters.removeContact())
     .authentication()
-    .cellphone()
+    .inputMissing(cellphone)
+    .cellphone(cellphone)
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)

@@ -20,17 +20,18 @@ class TestVariablesManager {
 
   getUsers() {
     return {
-      addBlockSuccessful: this.testUsers.testUser_6,
-      addContactSuccessful: this.testUsers.testUser_1,
-      blacklistItemExist: this.testUsers.testUser_7,
-      contactItemExist: this.testUsers.testUser_2,
-      editContactItemNotExist: this.testUsers.testUser_4,
-      editContactSuccessful: this.testUsers.testUser_3,
-      getAllPrivateChats: this.testUsers.testUser_10,
-      removeBlockSuccessful: this.testUsers.testUser_8,
-      removeContactSuccessful: this.testUsers.testUser_5,
       selfStuff: this.testUsers.testUser_0,
+      addContactSuccessful: this.testUsers.testUser_1,
+      contactItemExist: this.testUsers.testUser_2,
+      editContactSuccessful: this.testUsers.testUser_3,
+      editContactItemNotExist: this.testUsers.testUser_4,
+      removeContactSuccessful: this.testUsers.testUser_5,
+      addBlockSuccessful: this.testUsers.testUser_6,
+      blacklistItemExist: this.testUsers.testUser_7,
+      removeBlockSuccessful: this.testUsers.testUser_8,
       sendMessageSuccessful: this.testUsers.testUser_9,
+      getAllPrivateChats: this.testUsers.testUser_10,
+      logoutFailTest: this.testUsers.testUser_11,
     };
   }
   getCellphones() {

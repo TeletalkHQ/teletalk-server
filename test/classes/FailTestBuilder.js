@@ -1,5 +1,9 @@
+const {
+  objectUtilities,
+} = require("utility-store/src/classes/ObjectUtilities");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
+//CLEANME: Major refactor
 class FailTestBuilder {
   constructor(configuredCustomRequest, data, model, testingPropertyName) {
     this.configuredCustomRequest = configuredCustomRequest;
@@ -105,17 +109,26 @@ class FailTestBuilder {
     this.initTest(mergedData, errorObject);
   }
 
+  inputMissing(errorObject, requesterOptions) {
+    const copyData = objectUtilities.objectShallowCopy(this.data);
+    const firstKey = objectUtilities.objectKeys(copyData).at(0);
+    delete copyData[firstKey];
+
+    this.initTest(copyData, errorObject, requesterOptions);
+  }
+
   custom(value, errorObject) {
     const mergedData = this.dataMerger(value);
     this.initTest(mergedData, errorObject);
     return this;
   }
 
-  initTest(data, errorObject) {
+  initTest(data, errorObject, options) {
     it(this.getDefaultTestMessage(errorObject.reason), async () => {
       await this.configuredCustomRequest.sendFullFeaturedRequest(
         data,
-        errorObject
+        errorObject,
+        options
       );
     });
   }

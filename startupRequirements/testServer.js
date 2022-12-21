@@ -15,10 +15,10 @@ const { userServices: testServices } = require("$/services/user");
 const tryToAddTestUser = async ({
   countryCode,
   countryName,
-  index,
+  index: i,
   testUsers,
 }) => {
-  const phoneNumber = `000000000${index}`;
+  const phoneNumber = `000000000${i}`;
 
   const userId = randomMaker.randomId(userIdCommonModel.maxlength.value);
 
@@ -29,18 +29,20 @@ const tryToAddTestUser = async ({
     userId,
   });
 
-  const testUserName = `testUser_${index}`;
-  testUsers[testUserName] = await testServices.addTestUser({
+  const testUserKey = `testUser_${i}`;
+  testUsers[testUserKey] = await testServices.addTestUser({
+    bio: `bio_user${i}`,
     countryCode,
     countryName,
-    firstName: "test",
-    lastName: `user_${index}`,
-    token,
+    firstName: `userFirstName_${i}`,
+    lastName: `userLastName_${i}`,
     phoneNumber,
+    token,
     userId,
+    username: `username_${i}`,
   });
 
-  logger.info(`${testUserName} added!`);
+  logger.info(`${testUserKey} added!`);
 };
 
 const testServer = async () => {

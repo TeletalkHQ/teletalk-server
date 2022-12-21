@@ -67,11 +67,14 @@ describe("send message success tests", () => {
 });
 
 describe("send message failure tests", () => {
+  const data = {
+    message: arrayUtilities.arrayLastItem(messages),
+    participantId: randomMaker.randomId(),
+  };
   integrationHelpers
     .createFailTest(requesters.sendPrivateMessage())
     .authentication()
-    .participantId({ message: arrayUtilities.arrayLastItem(messages) })
-    .message({
-      participantId: randomMaker.randomId(),
-    });
+    .inputMissing(data)
+    .participantId(data)
+    .message(data);
 });

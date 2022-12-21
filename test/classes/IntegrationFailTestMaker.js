@@ -36,6 +36,7 @@ class IntegrationFailTestBuilder {
   countryCode = this.failTestMaker("countryCode");
   countryName = this.failTestMaker("countryName");
   firstName = this.failTestMaker("firstName");
+  inputMissing = this.failTestMaker("inputMissing");
   lastName = this.failTestMaker("lastName");
   message = this.failTestMaker("message");
   participantId = this.failTestMaker("participantId");

@@ -126,10 +126,17 @@ describe("verifySignInApi failure tests", () => {
       .sendFullFeaturedRequest(cellphones.verifySignInFailTest);
 
     customRequest.setToken(token);
+
+    const { verificationCode } = await temporaryClients.findClientByCellphone(
+      cellphones.verifySignInFailTest
+    );
+
+    customRequest.setRequestData({ verificationCode });
   });
 
   integrationHelpers
     .createFailTest(customRequest)
+    .inputMissing()
     .verificationCode()
     .authentication();
 });

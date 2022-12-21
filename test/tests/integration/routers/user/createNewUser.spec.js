@@ -126,7 +126,7 @@ describe("create new  user failure tests", () => {
   integrationHelpers
     .createFailTest(customRequest)
     .authentication()
+    .inputMissing(fullName)
     .firstName(fullName)
-    //TODO Add lastName required fail test
     .lastName(fullName);
 });

@@ -28,7 +28,7 @@ const {
   verificationCode,
 } = require("$/tests/integration/helpers/success/verificationCode");
 
-const integrationHelpersSuccessCollection = {
+const successCollection = {
   authentication,
   chatId,
   countryCode,
@@ -46,4 +46,4 @@ const integrationHelpersSuccessCollection = {
   verificationCode,
 };
 
-module.exports = { integrationHelpersSuccessCollection };
+module.exports = { successCollection };

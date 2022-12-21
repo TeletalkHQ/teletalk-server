@@ -14,6 +14,9 @@ const { chatId } = require("$/tests/integration/helpers/fail/chatId");
 const { countryCode } = require("$/tests/integration/helpers/fail/countryCode");
 const { countryName } = require("$/tests/integration/helpers/fail/countryName");
 const { firstName } = require("$/tests/integration/helpers/fail/firstName");
+const {
+  inputMissing,
+} = require("$/tests/integration/helpers/fail/inputMissing");
 const { lastName } = require("$/tests/integration/helpers/fail/lastName");
 const { message } = require("$/tests/integration/helpers/fail/message");
 const {
@@ -24,7 +27,7 @@ const {
   verificationCode,
 } = require("$/tests/integration/helpers/fail/verificationCode");
 
-const integrationHelpersFailCollection = {
+const failCollection = {
   authentication,
   blacklistItemExist,
   blacklistItemNotExist,
@@ -35,6 +38,7 @@ const integrationHelpersFailCollection = {
   countryCode,
   countryName,
   firstName,
+  inputMissing,
   lastName,
   message,
   participantId,
@@ -44,4 +48,4 @@ const integrationHelpersFailCollection = {
   verificationCode,
 };
 
-module.exports = { integrationHelpersFailCollection };
+module.exports = { failCollection };

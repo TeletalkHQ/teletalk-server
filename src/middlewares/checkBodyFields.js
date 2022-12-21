@@ -23,7 +23,7 @@ const tryToCheckBodyFields = (body, inputFields) => {
   const inputDataWrongTypeErrorReason = errors.INPUT_FIELD_TYPE_WRONG.reason;
 
   if (
-    configs.server.shouldIgnoreInputFieldWrongTypeError &&
+    configs.server.shouldIgnoreInputFieldTypeWrongError &&
     inputDataWrongTypeErrorReason === checkResultErrorReason
   ) {
     return { ok: true };

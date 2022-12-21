@@ -65,6 +65,7 @@ describe("signInApi success test", () => {
 describe("signInApi failure test", () => {
   integrationHelpers
     .createFailTest(requesters.signIn())
+    .inputMissing(signInCellphone)
     .cellphone(signInCellphone)
     .countryCode(signInCellphone)
     .countryName(signInCellphone)

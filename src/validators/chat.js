@@ -2,9 +2,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { compiledValidators } = require("@/validators/compiledValidators");
 
-const {
-  validatorErrorChecker,
-} = require("@/validators/validatorErrorBuilders");
+const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
 
 const tryToValidateChatId = async (chatId) => {
   const validationResult = await compiledValidators.chatId({ chatId });

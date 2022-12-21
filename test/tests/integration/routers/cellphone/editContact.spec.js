@@ -95,6 +95,7 @@ describe("editContact failure tests", () => {
   integrationHelpers
     .createFailTest(requesters.editContact())
     .authentication()
+    .inputMissing(contact)
     .selfStuff(users.selfStuff)
     .contactItemNotExist(users.editContactItemNotExist)
     .cellphone(contact)

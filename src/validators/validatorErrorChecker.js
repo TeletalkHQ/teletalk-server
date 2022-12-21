@@ -209,10 +209,10 @@ const chatIdErrorChecker = (validationResult, chatId) => {
 const tokenErrorChecker = (errorBuilder) => {
   errorBuilder
     .required(errors.TOKEN_REQUIRED)
+    .string(errors.TOKEN_INVALID_TYPE)
     .stringMin(errors.TOKEN_MINLENGTH_REACH)
     .stringMax(errors.TOKEN_MAXLENGTH_REACH)
     .stringEmpty(errors.TOKEN_REQUIRED)
-    .string(errors.TOKEN_INVALID_TYPE)
     .throwAnyway(errors.TOKEN_INVALID)
     .execute();
 };

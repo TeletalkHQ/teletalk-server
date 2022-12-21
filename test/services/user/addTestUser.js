@@ -4,6 +4,7 @@ const { models } = require("@/models");
 
 const addTestUser = async (userData) => {
   const tryToAddTestUser = async ({
+    bio,
     countryCode,
     countryName,
     firstName,
@@ -11,16 +12,23 @@ const addTestUser = async (userData) => {
     phoneNumber,
     token,
     userId,
+    username,
   }) => {
     return await models.database.mongoDb.User.findOneAndUpdate(
       { countryCode, countryName, phoneNumber },
       {
-        sessions: [{ token }],
-        userId,
+        bio,
+        blacklist: [],
+        contacts: [],
         firstName,
         lastName,
-        contacts: [],
-        blacklist: [],
+        sessions: [
+          {
+            token,
+          },
+        ],
+        userId,
+        username,
       },
       {
         upsert: true,

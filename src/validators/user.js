@@ -9,12 +9,11 @@ const { authManager } = require("@/classes/AuthManager");
 const { errorThrower } = require("utility-store/src/functions/utilities");
 
 const { compiledValidators } = require("@/validators/compiledValidators");
-const {
-  validatorErrorChecker,
-} = require("@/validators/validatorErrorBuilders");
+const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
 
 const { errors } = require("@/variables/errors");
 
+//CLEANME: Remove
 const trierInstance = async (callerName, callback, ...params) =>
   await trier(callerName)
     .tryAsync(callback, ...params)
@@ -129,13 +128,18 @@ const userIdValidator = async (userId) => {
 };
 
 const tryToValidateToken = async (token, secret) => {
-  const validationResult = await compiledValidators.token({ token });
+  const correctedToken = +token || token;
+  const validationResult = await compiledValidators.token({
+    token: correctedToken,
+  });
 
   const errorBuilder = validationErrorBuilder
     .create()
     .setRequirements(validationResult, {
       extraErrorFields: {
-        validatedToken: token,
+        validatedToken: correctedToken,
+        correctedToken: correctedToken,
+        originalToken: token,
       },
     });
 

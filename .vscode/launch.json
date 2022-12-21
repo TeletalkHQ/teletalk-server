@@ -5,19 +5,20 @@
       "request": "launch",
       "name": "start:dev script",
       "env": {
-        "SHOULD_IGNORE_INPUT_FIELD_WRONG_TYPE_ERROR": "true",
         "JWT_MAIN_SECRET": "v5oU55e1?Ag{~!tK&}~{S]hD5",
         "JWT_SIGN_IN_SECRET": "0F~nHf-e;mYA21,.K]jO71FF",
+        "LOGGER_LEVEL": "debug",
         "MOCHA_BADGE_GEN_SUBJECT": "Tests",
         "MONGO_COLLECTION_NAME": "teletalk_db_development",
-        "MONGO_URL_TEST_DEVELOPMENT": "mongodb://localhost:27017",
-        "PORT_TEST_DEVELOPMENT": "8080",
-        "REDIS_DEFAULT_PORT": "6379",
+        "MONGO_URL": "mongodb://localhost:27017",
         "NODE_ENV": "development",
-        "LOGGER_LEVEL": "debug"
+        "PORT_DEFAULT": "8080",
+        "PORT": "8090",
+        "REDIS_DEFAULT_PORT": "6379",
+        "SHOULD_IGNORE_INPUT_FIELD_TYPE_WRONG_ERROR": "false"
       },
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/src/server.js",
+      "program": "${workspaceFolder}/index.js",
       "restart": true,
       // "runtimeExecutable": "n>odemon",
       "console": "integratedTerminal"

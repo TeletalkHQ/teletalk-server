@@ -107,6 +107,7 @@ const {
     .type()
     .trim()
     .maxlength()
+    //FIXME: default value should get one arg
     .defaultValue()
     .lowercase()
     .build(), // validate: {

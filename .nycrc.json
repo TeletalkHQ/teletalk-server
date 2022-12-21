@@ -2,6 +2,14 @@
   "all": true,
   "check-coverage": true,
   "include": ["src"],
+  "exclude": [
+    "src/server.js",
+    "src/variables/regex",
+    "src/classes/SmsClient.js",
+    "src/classes/EventManager.js",
+    "src/socket",
+    "src/services/chat/getChatsLastMessages.js"
+  ],
   "output": "reports",
   "reporter": ["text", "clover"],
   "branches": 40,

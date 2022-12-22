@@ -7,9 +7,9 @@ const { errors } = require("@/variables/errors");
 const { countries } = require("@/variables/others/countries");
 
 const countryCodeErrorChecker = (validationResult, countryCode) => {
-  const errorBuilder = validationErrorBuilder.create();
+  const errorChecker = validationErrorBuilder.create();
 
-  errorBuilder
+  errorChecker
     .setRequirements(validationResult, {
       extraErrorFields: {
         validatedCountryCode: countryCode,
@@ -18,7 +18,7 @@ const countryCodeErrorChecker = (validationResult, countryCode) => {
     .customCheck(validationResult === true, () => {
       const country = countries.find((c) => c.countryCode === countryCode);
 
-      errorBuilder.addError(
+      errorChecker.addError(
         country === undefined,
         errors.COUNTRY_CODE_NOT_SUPPORTED
       );
@@ -34,9 +34,9 @@ const countryCodeErrorChecker = (validationResult, countryCode) => {
 };
 
 const countryNameErrorChecker = (validationResult, countryName) => {
-  const errorBuilder = validationErrorBuilder.create();
+  const errorChecker = validationErrorBuilder.create();
 
-  errorBuilder
+  errorChecker
     .setRequirements(validationResult, {
       extraErrorFields: {
         validatedCountryName: countryName,
@@ -45,7 +45,7 @@ const countryNameErrorChecker = (validationResult, countryName) => {
     .customCheck(validationResult === true, () => {
       const country = countries.find((c) => c.countryName === countryName);
 
-      errorBuilder.addError(
+      errorChecker.addError(
         country === undefined,
         errors.COUNTRY_NAME_NOT_SUPPORTED
       );
@@ -206,8 +206,8 @@ const chatIdErrorChecker = (validationResult, chatId) => {
     .execute();
 };
 
-const tokenErrorChecker = (errorBuilder) => {
-  errorBuilder
+const tokenErrorChecker = (errorChecker) => {
+  errorChecker
     .required(errors.TOKEN_REQUIRED)
     .string(errors.TOKEN_INVALID_TYPE)
     .stringMin(errors.TOKEN_MINLENGTH_REACH)

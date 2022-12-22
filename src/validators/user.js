@@ -201,8 +201,8 @@ const userValidators = {
   firstName: firstNameValidator,
   lastName: lastNameValidator,
   phoneNumber: phoneNumberValidator,
-  userId: userIdValidator,
   token: tokenValidator,
+  userId: userIdValidator,
   username: usernameValidator,
   verificationCode: verificationCodeValidator,
 };

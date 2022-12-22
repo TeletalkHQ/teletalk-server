@@ -8,18 +8,6 @@ const { routes } = require("@/routes");
 
 const userRouter = Router();
 
-userRouter.use(
-  middlewares.ignoreMiddlewaresByUrl(
-    [
-      routes.user.signIn.url,
-      routes.user.createNewUser.url,
-      routes.user.verify.url,
-    ],
-    middlewares.checkCurrentUserStatus,
-    middlewares.attachCurrentUserId
-  )
-);
-
 userRouter[routes.user.getUserData.method](
   routes.user.getUserData.url,
   controllers.getUserData

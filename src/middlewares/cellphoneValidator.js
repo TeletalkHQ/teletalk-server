@@ -5,6 +5,14 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { validators } = require("@/validators");
 
+const cellphoneValidator = async (req, res, next) => {
+  return await trier(cellphoneValidator.name)
+    .tryAsync(tryToValidateCellphone, req.body)
+    .executeIfNoError(executeIfNoError, next)
+    .catch(catchValidateCellphone, res)
+    .runAsync();
+};
+
 const tryToValidateCellphone = async (userData) => {
   const cellphone = userPropsUtilities.extractCellphone(userData);
   await validators.cellphone(cellphone);
@@ -20,12 +28,4 @@ const catchValidateCellphone = (error, res) => {
   return { ok: false };
 };
 
-const cellphoneValidatorMiddleware = async (req, res, next) => {
-  return await trier(cellphoneValidatorMiddleware.name)
-    .tryAsync(tryToValidateCellphone, req.body)
-    .executeIfNoError(executeIfNoError, next)
-    .catch(catchValidateCellphone, res)
-    .runAsync();
-};
-
-module.exports = { cellphoneValidator: cellphoneValidatorMiddleware };
+module.exports = { cellphoneValidator };

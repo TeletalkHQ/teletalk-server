@@ -9,11 +9,6 @@ const { routes } = require("@/routes");
 const cellphoneRouter = Router();
 
 cellphoneRouter.use(
-  middlewares.checkCurrentUserStatus,
-  middlewares.attachCurrentUserId
-);
-
-cellphoneRouter.use(
   middlewares.ignoreMiddlewaresByUrl(
     routes.cellphone.getContacts.url,
     middlewares.cellphoneSelfStuffCheck

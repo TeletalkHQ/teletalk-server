@@ -12,6 +12,7 @@ const { getIgnoredUrlsForAuth } = require("@/helpers/otherHelpers");
 const { lifeLine } = require("@/routers/lifeLine");
 
 const { middlewares } = require("@/middlewares");
+const { routes } = require("@/routes");
 
 const app = express();
 
@@ -24,22 +25,42 @@ app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(serveFavicon("public/assets/icons/favicon/favicon.ico"));
 
-app.use(middlewares.findRouteObject);
-app.use(middlewares.responseErrorHandlers);
-app.use(middlewares.sendJsonResponse); //* Should be after 'responseErrorHandlers'
-app.use(middlewares.checkDataAndResponse); //* Should be after 'sendJsonResponse'
-app.use(middlewares.notFound); //* Should be after 'sendJsonResponse'
-app.use(middlewares.requestMethodChecker); //* Should be after 'notFound'
+//* Register response helpers =>
+app.use(
+  middlewares.responseErrorHandlers,
+  middlewares.sendJsonResponse,
+  middlewares.checkDataAndResponse
+);
+
+//* Register route object checker =>
+app.use(
+  middlewares.findRouteObject,
+  middlewares.notFound,
+  middlewares.requestMethodChecker
+);
+
 app.use(
   middlewares.ignoreMiddlewaresByUrl(
     getIgnoredUrlsForAuth(),
     middlewares.authDefault
   )
-); //* Should be after 'sendJsonResponse'
-app.use(middlewares.checkBodyFields); //* Should be after 'requestMethodChecker'
+);
+
+app.use(middlewares.checkBodyFields);
+
+app.use(
+  middlewares.ignoreMiddlewaresByUrl(
+    [
+      ...getIgnoredUrlsForAuth(),
+      routes.user.createNewUser.fullUrl,
+      routes.user.verify.fullUrl,
+    ],
+    middlewares.checkCurrentUserStatus,
+    middlewares.attachCurrentUserId
+  )
+);
 
 //* All routers is in lifeLine =>
-
 app.use(lifeLine);
 
 module.exports = { app };

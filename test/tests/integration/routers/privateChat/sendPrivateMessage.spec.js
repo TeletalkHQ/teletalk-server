@@ -75,6 +75,7 @@ describe("send message failure tests", () => {
     .createFailTest(requesters.sendPrivateMessage())
     .authentication()
     .inputMissing(data)
+    .checkCurrentUserStatus(data)
     .participantId(data)
     .message(data);
 });

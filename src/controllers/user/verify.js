@@ -1,5 +1,4 @@
 const { authManager } = require("@/classes/AuthManager");
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
@@ -27,8 +26,8 @@ const tryToVerify = async (req) => {
   };
 };
 
-const generateNewToken = async (userData) => {
-  return await authManager.tokenSigner({
+const signToken = (userData) => {
+  return authManager.signToken({
     ...userPropsUtilities.extractCellphone(userData),
     userId: userData.userId,
   });
@@ -42,7 +41,7 @@ const addNewToken = async (userId, newToken) => {
 };
 
 const dataIfUserExist = async ({ sessions, ...userData }) => {
-  const newToken = await generateNewToken(userData);
+  const newToken = signToken(userData);
   await addNewToken(userData.userId, newToken);
 
   return {

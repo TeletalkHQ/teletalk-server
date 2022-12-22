@@ -2,6 +2,7 @@ const {
   UserPropsUtilities: UserPropsUtilitiesMain,
 } = require("utility-store/src/classes/UserPropsUtilities");
 
+//TODO: Move functions from signIn, verify, createNewUser to here
 class UserPropsUtilities extends UserPropsUtilitiesMain {
   constructor(id) {
     super();
@@ -9,7 +10,10 @@ class UserPropsUtilities extends UserPropsUtilitiesMain {
   }
 
   getTokenFromUserObject(userObject) {
-    return userObject.sessions[0]?.token || "";
+    return (
+      //FIXME: System is multi session
+      userObject.sessions[0]?.token || ""
+    );
   }
 
   getDataFromVerifiedToken(verifiedToken) {

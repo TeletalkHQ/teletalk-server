@@ -50,6 +50,7 @@ describe("removeContact failure tests", () => {
     .createFailTest(requesters.removeContact())
     .authentication()
     .inputMissing(cellphone)
+    .checkCurrentUserStatus(cellphone)
     .cellphone(cellphone)
     .countryCode(cellphone)
     .countryName(cellphone)

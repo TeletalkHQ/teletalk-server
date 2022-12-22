@@ -44,5 +44,6 @@ describe("get messages success tests", () => {
 describe("getMessagesApi failure tests", () => {
   integrationHelpers
     .createFailTest(requesters.getAllPrivateChats())
-    .authentication();
+    .authentication()
+    .checkCurrentUserStatus();
 });

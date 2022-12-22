@@ -11,6 +11,9 @@ const {
   targetUserNotExist,
 } = require("$/tests/integration/helpers/fail/existences");
 const { chatId } = require("$/tests/integration/helpers/fail/chatId");
+const {
+  checkCurrentUserStatus,
+} = require("$/tests/integration/helpers/fail/checkCurrentUserStatus");
 const { countryCode } = require("$/tests/integration/helpers/fail/countryCode");
 const { countryName } = require("$/tests/integration/helpers/fail/countryName");
 const { firstName } = require("$/tests/integration/helpers/fail/firstName");
@@ -33,6 +36,7 @@ const failCollection = {
   blacklistItemNotExist,
   cellphone,
   chatId,
+  checkCurrentUserStatus,
   contactItemExist,
   contactItemNotExist,
   countryCode,

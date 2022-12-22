@@ -51,6 +51,7 @@ describe("addBlock failure tests", () => {
     .createFailTest(requesters.addBlock())
     .authentication()
     .inputMissing(cellphone)
+    .checkCurrentUserStatus(cellphone)
     .selfStuff(users.selfStuff)
     .cellphone(cellphone)
     .countryCode(cellphone)

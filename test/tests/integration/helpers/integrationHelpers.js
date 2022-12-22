@@ -1,9 +1,9 @@
 const {
   integrationFailTestBuilder,
-} = require("$/classes/IntegrationFailTestMaker");
+} = require("$/classes/IntegrationFailTestBuilder");
 const {
   integrationSuccessTestBuilder,
-} = require("$/classes/IntegrationSuccessTestMaker");
+} = require("$/classes/IntegrationSuccessTestBuilder");
 
 const integrationHelpers = {
   createFailTest: integrationFailTestBuilder,

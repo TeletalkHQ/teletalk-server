@@ -101,5 +101,8 @@ describe("logout fail tests", () => {
     requester.setToken(token);
   });
 
-  integrationHelpers.createFailTest(requester).authentication();
+  integrationHelpers
+    .createFailTest(requester)
+    .authentication()
+    .checkCurrentUserStatus();
 });

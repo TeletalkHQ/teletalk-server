@@ -1,40 +1,48 @@
 const { errorThrower } = require("utility-store/src/functions/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
+const { authManager } = require("@/classes/AuthManager");
 const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { authManager } = require("@/classes/AuthManager");
 
 const { services } = require("@/services");
 
 const { errors } = require("@/variables/errors");
 
 const checkCurrentUserStatus = async (req, res, next) => {
-  const token = authManager.getTokenFromRequest(req);
-  const { payload: userData } = req.authData;
-
   return await trier(checkCurrentUserStatus.name)
-    .tryAsync(tryToCheckCurrentUserStatus, userData, token)
+    .tryAsync(tryToCheckCurrentUserStatus, req)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchCheckCurrentUserStatus, res)
     .runAsync();
 };
 
-const tryToCheckCurrentUserStatus = async (userData, token) => {
+const tryToCheckCurrentUserStatus = async (req) => {
+  const token = authManager.getTokenFromAuthorization(req);
+  const { payload: userData } = req.authData;
+
   const cellphone = userPropsUtilities.extractCellphone(userData);
 
   const currentUser = await services.findOneUser(cellphone);
-  //TODO Add tests when user not exist
-  errorThrower(!currentUser, () => ({
-    ...errors.CURRENT_USER_NOT_EXIST,
-    cellphone,
-  }));
 
-  const isTokenExistOnUserData = currentUser.sessions.find(
-    (t) => t.token === token
-  );
-  //TODO: Add test for logout
-  errorThrower(!isTokenExistOnUserData, errors.CURRENT_USER_NOT_EXIST);
+  const error = errors.CURRENT_USER_NOT_EXIST;
+
+  errorThrower(!currentUser, {
+    ...error,
+    wrongCellphone: cellphone,
+  });
+
+  errorThrower(currentUser.userId !== userData.userId, {
+    ...error,
+    wrongUserId: userData.userId,
+  });
+
+  const isSessionExist = currentUser.sessions.some((t) => t.token === token);
+
+  errorThrower(!isSessionExist, {
+    ...error,
+    isSessionExist,
+  });
 
   return { currentUser, ok: true };
 };

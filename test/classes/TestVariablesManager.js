@@ -32,6 +32,7 @@ class TestVariablesManager {
       sendMessageSuccessful: this.testUsers.testUser_9,
       getAllPrivateChats: this.testUsers.testUser_10,
       logoutFailTest: this.testUsers.testUser_11,
+      checkCurrentUserStatus: this.testUsers.testUser_12,
     };
   }
   getCellphones() {

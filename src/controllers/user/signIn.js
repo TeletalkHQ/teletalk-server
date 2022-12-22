@@ -23,7 +23,7 @@ const tryToSignIn = async (req) => {
     await sendVerificationCode(fullNumber, host, verificationCode);
   }
 
-  const token = await signToken(cellphone);
+  const token = signToken(cellphone);
 
   await manageTemporaryClient(cellphone, verificationCode, token);
 
@@ -53,11 +53,8 @@ const sendVerificationCode = async (fullNumber, host, verificationCode) => {
   await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 };
 
-const signToken = async (cellphone) => {
-  return await authManager.tokenSigner(
-    cellphone,
-    authManager.getJwtSignInSecret()
-  );
+const signToken = (cellphone) => {
+  return authManager.signToken(cellphone, authManager.getJwtSignInSecret());
 };
 
 const manageTemporaryClient = async (cellphone, verificationCode, token) => {

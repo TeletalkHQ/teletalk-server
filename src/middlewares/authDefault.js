@@ -6,8 +6,8 @@ const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
 const { validators } = require("@/validators");
 
 const tryToValidateToken = async (req) => {
-  const token = authManager.getTokenFromRequest(req);
-  const secret = authManager.getSecretWithUrlCondition(req.url);
+  const token = authManager.getTokenFromAuthorization(req);
+  const secret = authManager.getSecret(req.url);
   const validationResult = await validators.token(token, secret);
 
   return { validationResult, ok: true };

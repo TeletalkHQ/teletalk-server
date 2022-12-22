@@ -24,3 +24,4 @@ require("$/tests/middleware/notFound.spec");
 require("$/tests/middleware/requestMethodChecker.spec");
 require("$/tests/middleware/authDefault.spec");
 require("$/tests/middleware/checkBodyFields.spec");
+require("$/tests/middleware/checkCurrentUserStatus.spec");

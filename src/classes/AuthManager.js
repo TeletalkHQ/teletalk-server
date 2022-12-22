@@ -8,29 +8,15 @@ const { isUrlMatchWithReqUrl } = require("@/utilities/utilities");
 const { routes } = require("@/routes");
 
 class AuthManager {
-  constructor() {
-    this.options = { algorithm: "HS256" };
-    this.tryVerifyToken = this.tryVerifyToken.bind(this);
-    this.trySignToken = this.trySignToken.bind(this);
-  }
+  #options = { algorithm: "HS256" };
 
-  tryVerifyToken(token, secret, options) {
-    const data = JWT.verify(token, secret, {
-      complete: true,
-      ...this.options,
-      ...options,
-    });
-
-    return { data, ok: true };
-  }
-
-  tokenVerifier(
+  verifyToken(
     token,
     secret = this.getJwtMainSecret(),
-    options = this.options
+    options = this.#options
   ) {
-    return trier(this.tokenVerifier.name)
-      .try(this.tryVerifyToken, token, secret, options)
+    return trier(this.verifyToken.name)
+      .try(this.#tryVerifyToken.bind(this), token, secret, options)
       .catch((error) => {
         return {
           error,
@@ -39,38 +25,44 @@ class AuthManager {
       })
       .run();
   }
+  #tryVerifyToken(token, secret, options) {
+    const data = JWT.verify(token, secret, {
+      complete: true,
+      ...this.#options,
+      ...options,
+    });
 
-  trySignToken(data, secret, options) {
+    return { data, ok: true };
+  }
+
+  signToken(data, secret = this.getJwtMainSecret(), options = this.#options) {
     return JWT.sign(data, secret, {
-      ...this.options,
+      ...this.#options,
       ...options,
     });
   }
-  async tokenSigner(
-    data,
-    secret = this.getJwtMainSecret(),
-    options = this.options
-  ) {
-    return trier(this.tokenSigner.name)
-      .try(this.trySignToken, data, secret, options)
-      .throw()
-      .run();
-  }
 
-  getSecretWithUrlCondition(reqUrl) {
-    const isVerificationUrl = isUrlMatchWithReqUrl(
+  getSecret(reqUrl) {
+    const isAuthenticationUrl = isUrlMatchWithReqUrl(
       [routes.user.verify.fullUrl, routes.user.createNewUser.fullUrl],
       reqUrl
     );
 
-    return isVerificationUrl
+    return isAuthenticationUrl
       ? this.getJwtSignInSecret()
       : this.getJwtMainSecret();
   }
 
-  getTokenFromRequest(request) {
+  getTokenFromAuthorization(request) {
+    const authorization = this.getAuthorizationHeader(request);
+    return this.extractTokenFromAuthorization(authorization);
+  }
+  getAuthorizationHeader(request) {
     const { authorization, Authorization } = request.headers;
-    return (authorization || Authorization)?.split("Bearer ")[1];
+    return authorization || Authorization;
+  }
+  extractTokenFromAuthorization(authorization) {
+    return authorization?.split("Bearer ").at(1);
   }
 
   getJwtSignInSecret() {

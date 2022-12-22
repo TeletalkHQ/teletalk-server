@@ -31,6 +31,7 @@ class IntegrationFailTestBuilder {
   blacklistItemNotExist = this.failTestMaker("blacklistItemNotExist");
   cellphone = this.failTestMaker("cellphone");
   chatId = this.failTestMaker("chatId");
+  checkCurrentUserStatus = this.failTestMaker("checkCurrentUserStatus");
   contactItemExist = this.failTestMaker("contactItemExist");
   contactItemNotExist = this.failTestMaker("contactItemNotExist");
   countryCode = this.failTestMaker("countryCode");

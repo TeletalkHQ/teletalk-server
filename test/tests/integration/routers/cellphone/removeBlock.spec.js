@@ -50,6 +50,7 @@ describe("removeBlock failure tests", () => {
     .createFailTest(requesters.removeBlock())
     .authentication()
     .inputMissing(cellphone)
+    .checkCurrentUserStatus(cellphone)
     .cellphone(cellphone)
     .countryCode(cellphone)
     .countryName(cellphone)

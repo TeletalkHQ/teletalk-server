@@ -18,7 +18,7 @@ const tryToCreateNewUser = async (req) => {
   const {
     body: { firstName, lastName },
   } = req;
-  const token = authManager.getTokenFromRequest(req);
+  const token = authManager.getTokenFromAuthorization(req);
 
   const cellphone = await extractCellphoneFromToken(token);
 
@@ -29,7 +29,7 @@ const tryToCreateNewUser = async (req) => {
   await findTemporaryClient(cellphone);
   await findUserInDb(cellphone);
 
-  const newToken = await signToken(cellphone, userId);
+  const newToken = signToken(cellphone, userId);
 
   const userData = {
     ...userPropsUtilities.defaultUserData(),
@@ -71,8 +71,8 @@ const findUserInDb = async (cellphone) => {
 const getRandomId = () =>
   randomMaker.randomId(models.native.user.userId.maxlength.value);
 
-const signToken = async (cellphone, userId) => {
-  return await authManager.tokenSigner({
+const signToken = (cellphone, userId) => {
+  return authManager.signToken({
     ...cellphone,
     userId,
   });

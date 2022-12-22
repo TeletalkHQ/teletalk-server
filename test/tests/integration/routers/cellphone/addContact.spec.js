@@ -80,6 +80,7 @@ describe("addContact failure tests", () => {
     .createFailTest(configuredAddContactRequester)
     .authentication()
     .inputMissing(contact)
+    .checkCurrentUserStatus(contact)
     .cellphone(contact)
     .countryCode(contact)
     .countryName(contact)

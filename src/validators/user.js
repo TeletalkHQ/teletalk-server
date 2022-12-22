@@ -145,7 +145,7 @@ const tryToValidateToken = async (token, secret) => {
 
   validatorErrorChecker.token(errorBuilder);
 
-  const verifiedToken = authManager.tokenVerifier(token, secret);
+  const verifiedToken = authManager.verifyToken(token, secret);
   if (verifiedToken.ok === true) return verifiedToken.data;
 
   errorBuilder

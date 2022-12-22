@@ -5,7 +5,7 @@ const { services } = require("@/services");
 
 const tryToLogout = async (req) => {
   const { currentUserId } = req;
-  const currentToken = authManager.getTokenFromRequest(req);
+  const currentToken = authManager.getTokenFromAuthorization(req);
 
   return await services.logout().run({
     currentToken,

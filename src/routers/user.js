@@ -5,20 +5,15 @@ const { controllers } = require("@/controllers");
 const { middlewares } = require("@/middlewares");
 
 const { routes } = require("@/routes");
-const {
-  applyMiddlewaresByUrl,
-} = require("@/middlewares/applyMiddlewaresByUrl");
 
 const userRouter = Router();
 
 userRouter.use(
-  applyMiddlewaresByUrl(
+  middlewares.ignoreMiddlewaresByUrl(
     [
-      routes.user.getPublicUserData.url,
-      routes.user.getTargetUserData.url,
-      routes.user.getUserData.url,
-      routes.user.logout.url,
-      routes.user.updatePersonalInfo.url,
+      routes.user.signIn.url,
+      routes.user.createNewUser.url,
+      routes.user.verify.url,
     ],
     middlewares.checkCurrentUserStatus,
     middlewares.attachCurrentUserId

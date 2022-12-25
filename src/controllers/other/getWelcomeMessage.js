@@ -2,7 +2,6 @@ const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const tryToGetWelcomeMessage = async () => {
   return {
-    //TODO: Add tests, move message to statics
     message: "Hey! Welcome to teletalk <3",
   };
 };

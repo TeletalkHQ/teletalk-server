@@ -6,7 +6,7 @@ const { errors } = require("@/variables/errors");
 
 const userModels = models.native.user;
 
-const lastName = (configuredCustomRequest, data) => {
+const lastNameFailTest = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(configuredCustomRequest, data, userModels.lastName, "lastName")
     .maxlength(errors.LAST_NAME_MAXLENGTH_REACH)
@@ -15,5 +15,5 @@ const lastName = (configuredCustomRequest, data) => {
 };
 
 module.exports = {
-  lastName,
+  lastNameFailTest,
 };

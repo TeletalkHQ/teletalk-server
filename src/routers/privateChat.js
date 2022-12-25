@@ -6,11 +6,6 @@ const { routes } = require("@/routes");
 
 const privateChatRouter = Router();
 
-privateChatRouter[routes.privateChat.getChatsLastMessage.method](
-  routes.privateChat.getChatsLastMessage.url,
-  controllers.getChatsLastMessage
-);
-
 privateChatRouter[routes.privateChat.sendPrivateMessage.method](
   routes.privateChat.sendPrivateMessage.url,
   controllers.sendPrivateMessage

@@ -1,16 +1,14 @@
+const { expect } = require("chai");
+
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models");
 
-const { expect } = require("$/utilities/testUtilities");
-
 const { requesters } = require("$/utilities/requesters");
 
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
 const userModels = models.native.user;
 const cellphones = testVariablesManager.getCellphones();
@@ -27,7 +25,7 @@ const signInFn = async (cellphone) => {
     },
   } = await requesters.signIn().sendFullFeaturedRequest(cellphone);
 
-  const { verificationCode } = await temporaryClients.findClientByCellphone({
+  const { verificationCode } = await temporaryClients.find({
     countryCode,
     countryName,
     phoneNumber,
@@ -101,7 +99,7 @@ describe("logout fail tests", () => {
     requester.setToken(token);
   });
 
-  integrationHelpers
+  testHelper
     .createFailTest(requester)
     .authentication()
     .checkCurrentUserStatus();

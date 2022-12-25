@@ -5,8 +5,8 @@ const { models } = require("@/models");
 
 const chatModels = models.native.chat;
 
-const messageId = (
-  { requestValue, responseValue } = {},
+const messageIdSuccessTest = (
+  { requestValue, responseValue },
   {
     stringEquality = true,
     modelCheck = true,
@@ -17,9 +17,9 @@ const messageId = (
     .setVariables(chatModels.messageId, requestValue, responseValue)
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
-    .execute();
+    .run();
 };
 
 module.exports = {
-  messageId,
+  messageIdSuccessTest,
 };

@@ -1,12 +1,6 @@
 const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
 
-const {
-  versionCalculator,
-
-  extractVersions,
-} = require("@/utilities/utilities");
-
-const { common } = require("@/models/native/common");
+const { commonModels } = require("@/models/native/common");
 
 const { errors } = require("@/variables/errors");
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
@@ -14,7 +8,8 @@ const { FIELD_TYPE } = require("@/variables/others/fieldType");
 const bio = nativeModelBuilder
   .create()
   .defaultValue("")
-  .empty(false, errors.BIO_EMPTY)
+  .minlength(0)
+  .empty(true)
   .maxlength(255, errors.BIO_MAXLENGTH_REACH)
   .required(false)
   .type(FIELD_TYPE.STRING, errors.BIO_INVALID_TYPE)
@@ -22,6 +17,7 @@ const bio = nativeModelBuilder
 
 const blacklist = nativeModelBuilder
   .create()
+  .required(false)
   .defaultValue([])
   .type(FIELD_TYPE.ARRAY, errors.BLACKLIST_INVALID_TYPE)
   .build();
@@ -55,9 +51,9 @@ const countryName = nativeModelBuilder
   .type(FIELD_TYPE.STRING, errors.COUNTRY_NAME_INVALID_TYPE)
   .build();
 
-const createdAt = common.createdAt;
+const createdAt = commonModels.createdAt;
 
-const userId = common.userId;
+const userId = commonModels.userId;
 
 const firstName = nativeModelBuilder
   .create()
@@ -72,7 +68,7 @@ const firstName = nativeModelBuilder
 const lastName = nativeModelBuilder
   .create()
   .defaultValue("")
-  .empty(false, errors.LAST_NAME_EMPTY)
+  .empty(true)
   .maxlength(18, errors.LAST_NAME_MAXLENGTH_REACH)
   .minlength(2, errors.LAST_NAME_MINLENGTH_REACH)
   .required(false, {})
@@ -105,6 +101,7 @@ const phoneNumber = nativeModelBuilder
 const token = nativeModelBuilder
   .create()
   .required(true, errors.TOKEN_REQUIRED)
+  .empty(false, errors.TOKEN_EMPTY)
   .type(FIELD_TYPE.STRING, errors.TOKEN_INVALID_TYPE)
   .minlength(100, errors.TOKEN_MINLENGTH_REACH)
   .maxlength(500, errors.TOKEN_MAXLENGTH_REACH)
@@ -114,7 +111,7 @@ const token = nativeModelBuilder
 const username = nativeModelBuilder
   .create()
   .defaultValue("")
-  .empty(false, errors.USERNAME_EMPTY)
+  .empty(true)
   .lowercase(true)
   .maxlength(12, errors.USERNAME_MAXLENGTH_REACH)
   .minlength(4, errors.USERNAME_MINLENGTH_REACH)
@@ -134,7 +131,7 @@ const verificationCode = nativeModelBuilder
   .type(FIELD_TYPE.STRING, errors.VERIFICATION_CODE_INVALID_TYPE)
   .build();
 
-const models = {
+const userModels = {
   bio,
   blacklist,
   contacts,
@@ -151,11 +148,6 @@ const models = {
   verificationCode,
 };
 
-const user = {
-  version: versionCalculator(extractVersions(models)),
-  ...models,
-};
-
 module.exports = {
-  user,
+  userModels,
 };

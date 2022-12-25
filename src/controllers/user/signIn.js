@@ -27,7 +27,6 @@ const tryToSignIn = async (req) => {
 
   await manageTemporaryClient(cellphone, verificationCode, token);
 
-  //TODO: Print it on log files
   logger.debug("rm", "verificationCode", verificationCode);
 
   return {
@@ -59,24 +58,29 @@ const signToken = (cellphone) => {
 
 const manageTemporaryClient = async (cellphone, verificationCode, token) => {
   const client = await findTemporaryClient(cellphone);
-  if (client) await updateTemporaryClient(client, verificationCode, token);
-  else await addNewTemporaryClient(cellphone, verificationCode, token);
+
+  if (client)
+    return await updateTemporaryClient(client, verificationCode, token);
+
+  await addNewTemporaryClient(cellphone, verificationCode, token);
 };
 
 const findTemporaryClient = async (cellphone) => {
-  return await temporaryClients.findClientByCellphone(cellphone);
+  return await temporaryClients.find(cellphone);
 };
 const updateTemporaryClient = async (client, verificationCode, token) => {
-  await temporaryClients.updateClient(client, {
+  await temporaryClients.update(client, {
     verificationCode,
     token,
+    isVerified: false,
   });
 };
 const addNewTemporaryClient = async (cellphone, verificationCode, token) => {
-  await temporaryClients.addClient({
+  await temporaryClients.add({
     token,
     verificationCode,
     ...cellphone,
+    isVerified: false,
   });
 };
 

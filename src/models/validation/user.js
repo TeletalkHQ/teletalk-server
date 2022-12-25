@@ -1,19 +1,15 @@
 const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { nativeModels } = require("@/models/native");
 
 const bio = {
   bio: validationModelBuilder
     .create()
     .setModelObject(nativeModels.user.bio)
-    .empty()
     .max()
     .optional()
     .type()
     .build(),
-  version: "1.0.0",
 };
 
 const countryCode = {
@@ -27,7 +23,6 @@ const countryCode = {
     .trim()
     .type()
     .build(),
-  version: "1.0.0",
 };
 
 const countryName = {
@@ -39,7 +34,6 @@ const countryName = {
     .min()
     .type()
     .build(),
-  version: "1.0.0",
 };
 
 const firstName = {
@@ -52,21 +46,18 @@ const firstName = {
     .trim()
     .type()
     .build(),
-  version: "1.0.0",
 };
 
 const lastName = {
   lastName: validationModelBuilder
     .create()
     .setModelObject(nativeModels.user.lastName)
-    .empty()
     .max()
     .min()
     .optional()
     .trim()
     .type()
     .build(),
-  version: "1.0.0",
 };
 
 const macAddress = {
@@ -80,7 +71,6 @@ const macAddress = {
     .type()
     .unique()
     .build(),
-  version: "1.0.0",
 };
 
 const phoneNumber = {
@@ -93,7 +83,6 @@ const phoneNumber = {
     .numeric()
     .type()
     .build(),
-  version: "1.0.0",
 };
 
 const userId = {
@@ -106,7 +95,6 @@ const userId = {
     .type()
     .unique()
     .build(),
-  version: "1.0.0",
 };
 
 const token = {
@@ -118,7 +106,6 @@ const token = {
     .max()
     .required()
     .build(),
-  version: "1.0.0",
 };
 
 const verificationCode = {
@@ -132,14 +119,11 @@ const verificationCode = {
     .trim()
     .type()
     .build(),
-  version: "1.0.0",
 };
 const cellphone = {
   ...countryCode,
   ...countryName,
   ...phoneNumber,
-
-  version: "1.0.0",
 };
 
 const username = {
@@ -154,11 +138,9 @@ const username = {
     .type()
     .unique()
     .build(),
-
-  version: "1.0.0",
 };
 
-const validationModels = {
+const userValidationModels = {
   bio,
   cellphone,
   countryCode,
@@ -173,11 +155,6 @@ const validationModels = {
   verificationCode,
 };
 
-const user = {
-  ...validationModels,
-  version: versionCalculator(extractVersions(validationModels)),
-};
-
 module.exports = {
-  user,
+  userValidationModels,
 };

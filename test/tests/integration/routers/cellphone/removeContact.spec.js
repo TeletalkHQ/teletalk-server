@@ -1,9 +1,7 @@
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
 const { requesters } = require("$/utilities/requesters");
 
 const { countries } = require("@/variables/others/countries");
@@ -27,7 +25,7 @@ describe("removeContact successful test", () => {
       .removeContact()
       .sendFullFeaturedRequest(users.removeContactSuccessful);
 
-    integrationHelpers
+    testHelper
       .createSuccessTest()
       .countryName({
         requestValue: users.removeContactSuccessful.countryName,
@@ -46,10 +44,10 @@ describe("removeContact successful test", () => {
 
 describe("removeContact failure tests", () => {
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
-  integrationHelpers
+  testHelper
     .createFailTest(requesters.removeContact())
     .authentication()
-    .inputMissing(cellphone)
+    .input(cellphone)
     .checkCurrentUserStatus(cellphone)
     .cellphone(cellphone)
     .countryCode(cellphone)

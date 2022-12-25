@@ -6,9 +6,22 @@ const {
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { appConfigs } = require("@/classes/AppConfigs");
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 
 const { errors } = require("@/variables/errors");
+
+const checkBodyFields = (req, res, next) => {
+  const {
+    body,
+    routeObject: { inputFields },
+  } = req;
+
+  return trier(checkBodyFields.name)
+    .try(tryToCheckBodyFields, body, inputFields)
+    .executeIfNoError(executeIfNoError, next)
+    .catch(catchCheckBodyFields, res)
+    .run();
+};
 
 const tryToCheckBodyFields = (body, inputFields) => {
   errorThrower(
@@ -43,21 +56,8 @@ const executeIfNoError = (_, next) => {
 };
 
 const catchCheckBodyFields = (error, res) => {
-  commonFunctionalities.controllerErrorResponse(error, res);
+  commonUtilities.controllerErrorResponse(error, res);
   return { ok: false };
-};
-
-const checkBodyFields = (req, res, next) => {
-  const {
-    body,
-    routeObject: { inputFields },
-  } = req;
-
-  return trier(checkBodyFields.name)
-    .try(tryToCheckBodyFields, body, inputFields)
-    .executeIfNoError(executeIfNoError, next)
-    .catch(catchCheckBodyFields, res)
-    .run();
 };
 
 module.exports = { checkBodyFields };

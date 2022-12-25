@@ -4,7 +4,6 @@ Node-gyp-build documentation
 Bcryptjs or bcrypt ?
 PassportJS for multi login, maybe for anonymous signIn, part 76
 Morgan ,part 82
-Jalali-moment, moment, or?
 Use multer or express-fileupload for get multi-data, part 96
 Upload progress-bar, part 98
 Use sharp for compress images and ...
@@ -25,11 +24,8 @@ Use lokiJS for frontend db in-memory
 Add user status into contact and user schema
 
 Fix public assets sharing
-Add getContacts tests
-Add TranslateManager class
-Make sure all validators and middlewares have ok:true/false return
-BUG: After signIn, verifyToken get validated without verifySignIn
-Update all tests engaged with db to store data
+Make sure all validators and middlewares have ok:true|false return
 Monitor test requests (total requests, count each url)
 Monitor all configs when tests start. Give it a good look!
-Add startup requirements checkup function
+Refactor folder structure and remove cellphone stuff
+//TODO: Add startup requirements checkup function

@@ -1,15 +1,13 @@
 const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
-const { common } = require("@/models/native/common");
+const { commonModels } = require("@/models/native/common");
 
 const { errors } = require("@/variables/errors");
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
-const chatId = common.chatId;
-const createdAt = common.createdAt;
-const messageId = common.messageId;
+const chatId = commonModels.chatId;
+const createdAt = commonModels.createdAt;
+const messageId = commonModels.messageId;
 
 const message = nativeModelBuilder
   .create()
@@ -21,35 +19,41 @@ const message = nativeModelBuilder
 
 const participantId = nativeModelBuilder
   .create()
-  .empty(common.userId.empty.value, errors.PARTICIPANT_EMPTY)
+  .empty(commonModels.userId.empty.value, errors.PARTICIPANT_EMPTY)
   .maxlength(
-    common.userId.maxlength.value,
+    commonModels.userId.maxlength.value,
     errors.PARTICIPANT_ID_MAX_LENGTH_REACH
   )
   .minlength(
-    common.userId.minlength.value,
+    commonModels.userId.minlength.value,
     errors.PARTICIPANT_ID_MIN_LENGTH_REACH
   )
-  .required(common.userId.required.value, errors.PARTICIPANT_ID_REQUIRED)
-  .trim(common.userId.trim.value)
-  .type(common.userId.type.value, errors.PARTICIPANT_ID_INVALID_TYPE)
-  .unique(common.userId.unique.value, errors.PARTICIPANT_ID_EXIST)
+  .required(commonModels.userId.required.value, errors.PARTICIPANT_ID_REQUIRED)
+  .trim(commonModels.userId.trim.value)
+  .type(commonModels.userId.type.value, errors.PARTICIPANT_ID_INVALID_TYPE)
+  .unique(commonModels.userId.unique.value, errors.PARTICIPANT_ID_EXIST)
   .build();
 
 const privateChats = nativeModelBuilder.create().type(FIELD_TYPE.ARRAY).build();
 
 const senderId = nativeModelBuilder
   .create()
-  .maxlength(common.userId.maxlength.value, errors.SENDER_ID_MAX_LENGTH_REACH)
-  .minlength(common.userId.minlength.value, errors.SENDER_ID_MIN_LENGTH_REACH)
-  .required(common.userId.required.value, errors.SENDER_ID_REQUIRED)
-  .trim(common.userId.trim.value)
-  .type(common.userId.type.value, errors.SENDER_ID_INVALID_TYPE)
-  .unique(common.userId.unique.value, errors.SENDER_ID_EXIST)
-  .empty(common.userId.empty.value, errors.SENDER_EMPTY)
+  .maxlength(
+    commonModels.userId.maxlength.value,
+    errors.SENDER_ID_MAX_LENGTH_REACH
+  )
+  .minlength(
+    commonModels.userId.minlength.value,
+    errors.SENDER_ID_MIN_LENGTH_REACH
+  )
+  .required(commonModels.userId.required.value, errors.SENDER_ID_REQUIRED)
+  .trim(commonModels.userId.trim.value)
+  .type(commonModels.userId.type.value, errors.SENDER_ID_INVALID_TYPE)
+  .unique(commonModels.userId.unique.value, errors.SENDER_ID_EXIST)
+  .empty(commonModels.userId.empty.value, errors.SENDER_EMPTY)
   .build();
 
-const models = {
+const chatModels = {
   chatId,
   createdAt,
   message,
@@ -59,11 +63,6 @@ const models = {
   senderId,
 };
 
-const chat = {
-  version: versionCalculator(extractVersions(models)),
-  ...models,
-};
-
 module.exports = {
-  chat,
+  chatModels,
 };

@@ -1,7 +1,5 @@
 const { notFound } = require("@/middlewares/notFound");
-const {
-  applyMiddlewaresByUrl,
-} = require("@/middlewares/applyMiddlewaresByUrl");
+const { applyMiddlewares } = require("@/middlewares/applyMiddlewares");
 const { attachCurrentUserId } = require("@/middlewares/attachCurrentUserId");
 const { authDefault } = require("@/middlewares/authDefault");
 const {
@@ -15,9 +13,7 @@ const {
   checkCurrentUserStatus,
 } = require("@/middlewares/checkCurrentUserStatus");
 const { findRouteObject } = require("@/middlewares/findRouteObject");
-const {
-  ignoreMiddlewaresByUrl,
-} = require("@/middlewares/ignoreMiddlewaresByUrl");
+const { ignoreMiddlewares } = require("@/middlewares/ignoreMiddlewares");
 const { requestDetailsLogger } = require("@/middlewares/requestDetailsLogger");
 const { requestMethodChecker } = require("@/middlewares/requestMethodChecker");
 const {
@@ -31,11 +27,11 @@ const {
   verificationCodeValidator,
 } = require("@/middlewares/verificationCodeValidator");
 const {
-  verifyVerificationCode,
-} = require("@/middlewares/verifyVerificationCode");
+  verifyTemporaryClient,
+} = require("@/middlewares/verifyTemporaryClient");
 
 const middlewares = {
-  applyMiddlewaresByUrl,
+  applyMiddlewares,
   attachCurrentUserId,
   authDefault,
   cellphoneSelfStuffCheck,
@@ -45,7 +41,7 @@ const middlewares = {
   checkDataAndResponse,
   contactValidator,
   findRouteObject,
-  ignoreMiddlewaresByUrl,
+  ignoreMiddlewares,
   notFound,
   requestDetailsLogger,
   requestMethodChecker,
@@ -53,7 +49,7 @@ const middlewares = {
   sendJsonResponse,
   targetUserFinderByCellphone,
   verificationCodeValidator,
-  verifyVerificationCode,
+  verifyTemporaryClient,
 };
 
 module.exports = { middlewares };

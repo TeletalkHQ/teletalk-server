@@ -1,7 +1,5 @@
 const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { nativeModels } = require("@/models/native");
 
 const messageId = {
@@ -14,7 +12,6 @@ const messageId = {
     .max()
     .trim()
     .build(),
-  version: "1.0.0",
 };
 
 const chatId = {
@@ -28,7 +25,6 @@ const chatId = {
     .max()
     .trim()
     .build(),
-  version: "1.0.0",
 };
 
 const messageText = {
@@ -40,7 +36,6 @@ const messageText = {
     .min()
     .max()
     .build(),
-  version: "1.0.0",
 };
 
 const participantId = {
@@ -54,19 +49,13 @@ const participantId = {
     .type()
     .unique()
     .build(),
-  version: "1.0.0",
 };
 
-const validationModels = {
+const chatValidationModels = {
   chatId,
   messageId,
   messageText,
   participantId,
 };
 
-const chat = {
-  ...validationModels,
-  version: versionCalculator(extractVersions(validationModels)),
-};
-
-module.exports = { chat };
+module.exports = { chatValidationModels };

@@ -6,7 +6,7 @@ const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
 
-const chatId = (configuredCustomRequest, data = {}) => {
+const chatIdFailTest = (configuredCustomRequest, data = {}) => {
   failTestBuilder
     .create(configuredCustomRequest, data, chatModels.chatId, "chatId")
     .required(errors.CHAT_ID_REQUIRED)
@@ -15,5 +15,5 @@ const chatId = (configuredCustomRequest, data = {}) => {
     .invalidType_typeIsString(errors.CHAT_ID_INVALID_TYPE);
 };
 module.exports = {
-  chatId,
+  chatIdFailTest,
 };

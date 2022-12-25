@@ -5,8 +5,8 @@ const { models } = require("@/models");
 
 const userModels = models.native.user;
 
-const userId = (
-  { requestValue, responseValue } = {},
+const userIdSuccessTest = (
+  { requestValue, responseValue },
   {
     stringEquality = true,
     modelCheck = true,
@@ -18,7 +18,7 @@ const userId = (
     .setOptions({ modelCheck, stringEquality })
     .emptyCheck()
     .addCommonTest()
-    .execute();
+    .run();
 };
 
-module.exports = { userId };
+module.exports = { userIdSuccessTest };

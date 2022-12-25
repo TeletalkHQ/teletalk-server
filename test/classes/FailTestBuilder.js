@@ -1,6 +1,3 @@
-const {
-  objectUtilities,
-} = require("utility-store/src/classes/ObjectUtilities");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 //CLEANME: Major refactor
@@ -107,14 +104,6 @@ class FailTestBuilder {
     const randomStringNumber = randomMaker.randomStringNumber(length);
     const mergedData = this.dataMerger(randomStringNumber);
     this.initTest(mergedData, errorObject);
-  }
-
-  inputMissing(errorObject, requesterOptions) {
-    const copyData = objectUtilities.objectShallowCopy(this.data);
-    const firstKey = objectUtilities.objectKeys(copyData).at(0);
-    delete copyData[firstKey];
-
-    this.initTest(copyData, errorObject, requesterOptions);
   }
 
   custom(value, errorObject) {

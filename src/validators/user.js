@@ -1,4 +1,3 @@
-const { trier } = require("utility-store/src/classes/Trier");
 const {
   validationErrorBuilder,
 } = require("utility-store/src/classes/ValidationErrorBuilder");
@@ -13,64 +12,33 @@ const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
 
 const { errors } = require("@/variables/errors");
 
-//CLEANME: Remove
-const trierInstance = async (callerName, callback, ...params) =>
-  await trier(callerName)
-    .tryAsync(callback, ...params)
-    .throw()
-    .runAsync();
-
-const tryToValidateCountryCode = async (countryCode) => {
+const countryCodeValidator = async (countryCode) => {
   const validationResult = await compiledValidators.countryCode({
     countryCode,
   });
   validatorErrorChecker.countryCode(validationResult, countryCode);
 };
-const countryCodeValidator = async (countryCode) => {
-  await trierInstance(
-    countryCodeValidator.name,
-    tryToValidateCountryCode,
-    countryCode
-  );
-};
 
-const tryToValidateCountryName = async (countryName) => {
+const countryNameValidator = async (countryName) => {
   const validationResult = await compiledValidators.countryName({
     countryName,
   });
   validatorErrorChecker.countryName(validationResult, countryName);
 };
-const countryNameValidator = async (countryName) => {
-  await trierInstance(
-    countryNameValidator.name,
-    tryToValidateCountryName,
-    countryName
-  );
-};
 
-const tryToValidateFirstName = async (firstName) => {
+const firstNameValidator = async (firstName) => {
   const validationResult = await compiledValidators.firstName({ firstName });
   if (validationResult === true) return;
   validatorErrorChecker.firstName(validationResult, firstName);
 };
-const firstNameValidator = async (firstName) => {
-  await trierInstance(
-    firstNameValidator.name,
-    tryToValidateFirstName,
-    firstName
-  );
-};
 
-const tryToValidateLastName = async (lastName) => {
+const lastNameValidator = async (lastName) => {
   const validationResult = await compiledValidators.lastName({ lastName });
   if (validationResult === true) return;
   validatorErrorChecker.lastName(validationResult, lastName);
 };
-const lastNameValidator = async (lastName) => {
-  await trierInstance(lastNameValidator.name, tryToValidateLastName, lastName);
-};
 
-const tryToValidatePhoneNumber = async (phoneNumber) => {
+const phoneNumberValidator = async (phoneNumber) => {
   const validationResult = await compiledValidators.phoneNumber({
     phoneNumber,
   });
@@ -79,15 +47,8 @@ const tryToValidatePhoneNumber = async (phoneNumber) => {
 
   validatorErrorChecker.phoneNumber(validationResult, phoneNumber);
 };
-const phoneNumberValidator = async (phoneNumber) => {
-  await trierInstance(
-    phoneNumberValidator.name,
-    tryToValidatePhoneNumber,
-    phoneNumber
-  );
-};
 
-const tryToValidateCellphone = async (cellphone) => {
+const cellphoneValidator = async (cellphone = {}) => {
   errorThrower(
     !cellphone.phoneNumber && !cellphone.countryCode && !cellphone.countryName,
     () => ({
@@ -100,34 +61,23 @@ const tryToValidateCellphone = async (cellphone) => {
   await countryNameValidator(cellphone.countryName);
   await phoneNumberValidator(cellphone.phoneNumber);
 };
-const cellphoneValidator = async (cellphone = {}) => {
-  await trierInstance(
-    cellphoneValidator.name,
-    tryToValidateCellphone,
-    cellphone
-  );
-};
 
-const tryToValidateContact = async (contact) => {
+const contactValidator = async (contact) => {
   await cellphoneValidator(userPropsUtilities.extractCellphone(contact));
   await firstNameValidator(contact.firstName);
   await lastNameValidator(contact.lastName);
 };
-const contactValidator = async (contact) => {
-  await trierInstance(contactValidator.name, tryToValidateContact, contact);
-};
 
-const tryToValidateUserId = async (userId) => {
+const userIdValidator = async (userId) => {
   const validationResult = await compiledValidators.userId({ userId });
   if (validationResult === true) return;
   validatorErrorChecker.userId(validationResult, userId);
 };
 
-const userIdValidator = async (userId) => {
-  await trierInstance(userIdValidator.name, tryToValidateUserId, userId);
-};
-
-const tryToValidateToken = async (token, secret) => {
+const tokenValidator = async (
+  token,
+  secret = authManager.getJwtMainSecret()
+) => {
   const correctedToken = +token || token;
   const validationResult = await compiledValidators.token({
     token: correctedToken,
@@ -155,28 +105,14 @@ const tryToValidateToken = async (token, secret) => {
     .addError(verifiedToken.ok === false, errors.TOKEN_INVALID)
     .execute();
 };
-const tokenValidator = async (
-  token,
-  secret = authManager.getJwtMainSecret()
-) => {
-  return await trierInstance(
-    tokenValidator.name,
-    tryToValidateToken,
-    token,
-    secret
-  );
-};
 
-const tryToValidateUsername = async (username) => {
+const usernameValidator = async (username) => {
   const validationResult = await compiledValidators.username({ username });
   if (validationResult === true) return;
   validatorErrorChecker.username(validationResult, username);
 };
-const usernameValidator = async (username) => {
-  await trierInstance(usernameValidator.name, tryToValidateUsername, username);
-};
 
-const tryToValidateVerificationCode = async (verificationCode) => {
+const verificationCodeValidator = async (verificationCode) => {
   const validationResult = await compiledValidators.verificationCode({
     verificationCode,
   });
@@ -184,13 +120,6 @@ const tryToValidateVerificationCode = async (verificationCode) => {
   if (validationResult === true) return;
 
   validatorErrorChecker.verificationCode(validationResult, verificationCode);
-};
-const verificationCodeValidator = async (verificationCode) => {
-  await trierInstance(
-    verificationCodeValidator.name,
-    tryToValidateVerificationCode,
-    verificationCode
-  );
 };
 
 const userValidators = {

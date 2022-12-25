@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const Redis = require("ioredis");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const { appConfigs } = require("@/classes/AppConfigs");
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const tryConnectToMongodb = () => {
+const connectToMongodb = () => {
   const configs = appConfigs.getConfigs();
 
   mongoose.set("strictQuery", false);
@@ -22,7 +21,7 @@ const tryConnectToMongodb = () => {
   });
 };
 const mongodbConnector = () => {
-  return trier(mongodbConnector.name).try(tryConnectToMongodb).throw().run();
+  return connectToMongodb();
 };
 
 const makeRedisCloudOptions = () => {

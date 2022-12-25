@@ -1,7 +1,5 @@
 const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { nativeModels } = require("@/models/native");
 
 const createdAt = {
@@ -11,14 +9,8 @@ const createdAt = {
     .type()
     .optional()
     .build(),
-  version: "1.0.0",
 };
 
-const validationModels = { createdAt };
+const commonValidationModels = { createdAt };
 
-const common = {
-  ...validationModels,
-  version: versionCalculator(extractVersions(validationModels)),
-};
-
-module.exports = { common };
+module.exports = { commonValidationModels };

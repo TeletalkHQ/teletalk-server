@@ -26,7 +26,7 @@ const tryToCreateNewUser = async (req) => {
 
   await validators.firstName(firstName);
   await validators.lastName(lastName);
-  await findTemporaryClient(cellphone);
+  await checkTemporaryClient(cellphone);
   await findUserInDb(cellphone);
 
   const newToken = signToken(cellphone, userId);
@@ -42,7 +42,7 @@ const tryToCreateNewUser = async (req) => {
 
   const userDataForDatabase = fixUserDataForDb(userData);
   await createNewUserAndSave(userDataForDatabase);
-
+  await removeTemporaryClient(cellphone);
   return { user: userData };
 };
 
@@ -53,13 +53,14 @@ const extractCellphoneFromToken = async (token) => {
   return userPropsUtilities.extractCellphone(verifiedToken.payload);
 };
 
-const findTemporaryClient = async (cellphone) => {
-  const client = await temporaryClients.findClientByCellphone(cellphone);
-  errorThrower(!client, () => ({
-    ...errors.CURRENT_USER_NOT_EXIST,
+const checkTemporaryClient = async (cellphone) => {
+  const client = await temporaryClients.find(cellphone);
+  errorThrower(!client, {
+    ...errors.TEMPORARY_CLIENT_NOT_FOUND,
     cellphone,
-  }));
-  return client;
+  });
+
+  errorThrower(!client.isVerified, errors.TEMPORARY_CLIENT_NOT_VERIFIED);
 };
 
 const findUserInDb = async (cellphone) => {
@@ -87,6 +88,10 @@ const fixUserDataForDb = ({ token, ...rest }) => {
 
 const createNewUserAndSave = async (userDataForDatabase) => {
   await services.createNewUser().run(userDataForDatabase);
+};
+
+const removeTemporaryClient = async (cellphone) => {
+  await temporaryClients.remove(cellphone);
 };
 
 const createNewUser = controllerBuilder

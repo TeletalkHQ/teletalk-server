@@ -40,7 +40,7 @@ app.use(
 );
 
 app.use(
-  middlewares.ignoreMiddlewaresByUrl(
+  middlewares.ignoreMiddlewares(
     getIgnoredUrlsForAuth(),
     middlewares.authDefault
   )
@@ -49,7 +49,7 @@ app.use(
 app.use(middlewares.checkBodyFields);
 
 app.use(
-  middlewares.ignoreMiddlewaresByUrl(
+  middlewares.ignoreMiddlewares(
     [
       ...getIgnoredUrlsForAuth(),
       routes.user.createNewUser.fullUrl,

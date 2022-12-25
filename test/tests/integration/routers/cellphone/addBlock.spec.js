@@ -1,8 +1,6 @@
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
 const { requesters } = require("$/utilities/requesters");
 
@@ -21,7 +19,7 @@ describe("addBlock successful tests", () => {
       .addBlock()
       .sendFullFeaturedRequest(users.addBlockSuccessful);
 
-    integrationHelpers
+    testHelper
       .createSuccessTest()
       .countryName({
         requestValue: users.addBlockSuccessful.countryName,
@@ -47,10 +45,11 @@ describe("addBlock failure tests", () => {
   });
 
   const cellphone = userPropsUtilities.makeRandomCellphone(countries);
-  integrationHelpers
+
+  testHelper
     .createFailTest(requesters.addBlock())
     .authentication()
-    .inputMissing(cellphone)
+    .input(cellphone)
     .checkCurrentUserStatus(cellphone)
     .selfStuff(users.selfStuff)
     .cellphone(cellphone)

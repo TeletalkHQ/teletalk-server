@@ -2,7 +2,7 @@ const { errorThrower } = require("utility-store/src/functions/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { authManager } = require("@/classes/AuthManager");
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
@@ -52,7 +52,7 @@ const executeIfNoError = (_data, next) => {
 };
 
 const catchCheckCurrentUserStatus = (error, res) => {
-  commonFunctionalities.controllerErrorResponse(error, res);
+  commonUtilities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

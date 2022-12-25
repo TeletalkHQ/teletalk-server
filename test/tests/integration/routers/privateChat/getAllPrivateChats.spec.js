@@ -1,9 +1,9 @@
+const { arrayUtilities } = require("utility-store/src/classes/ArrayUtilities");
+
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const { requesters } = require("$/utilities/requesters");
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
 const users = testVariablesManager.getUsers();
 
@@ -31,9 +31,9 @@ describe("get messages success tests", () => {
       const {
         messageId,
         sender: { senderId },
-      } = messages.at(-1);
+      } = arrayUtilities.lastItem(messages);
 
-      integrationHelpers
+      testHelper
         .createSuccessTest()
         .messageId({ responseValue: messageId }, { stringEquality: false })
         .participantId({ responseValue: senderId }, { stringEquality: false });
@@ -42,7 +42,7 @@ describe("get messages success tests", () => {
 });
 
 describe("getMessagesApi failure tests", () => {
-  integrationHelpers
+  testHelper
     .createFailTest(requesters.getAllPrivateChats())
     .authentication()
     .checkCurrentUserStatus();

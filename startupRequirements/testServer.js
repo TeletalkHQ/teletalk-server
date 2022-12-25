@@ -4,46 +4,11 @@ const { trier } = require("utility-store/src/classes/Trier");
 const { authManager } = require("@/classes/AuthManager");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
-const {
-  common: { userId: userIdCommonModel },
-} = require("@/models/native/common");
+const { models } = require("@/models");
 
 const { countries } = require("@/variables/others/countries");
 
-const { userServices: testServices } = require("$/services/user");
-
-const tryToAddTestUser = async ({
-  countryCode,
-  countryName,
-  index: i,
-  testUsers,
-}) => {
-  const phoneNumber = `000000000${i}`;
-
-  const userId = randomMaker.randomId(userIdCommonModel.maxlength.value);
-
-  const token = authManager.signToken({
-    countryCode,
-    countryName,
-    phoneNumber,
-    userId,
-  });
-
-  const testUserKey = `testUser_${i}`;
-  testUsers[testUserKey] = await testServices.addTestUser({
-    bio: `bio_user${i}`,
-    countryCode,
-    countryName,
-    firstName: `userFirstName_${i}`,
-    lastName: `userLastName_${i}`,
-    phoneNumber,
-    token,
-    userId,
-    username: `username_${i}`,
-  });
-
-  logger.info(`${testUserKey} added!`);
-};
+const { userServices } = require("$/services/user");
 
 const testServer = async () => {
   const { countryName, countryCode } = countries.find((c) =>
@@ -66,6 +31,41 @@ const testServer = async () => {
   }
 
   testVariablesManager.setTestUsers(testUsers);
+};
+
+const tryToAddTestUser = async ({
+  countryCode,
+  countryName,
+  index: i,
+  testUsers,
+}) => {
+  const phoneNumber = `000000000${i}`;
+
+  const userId = randomMaker.randomId(
+    models.native.common.userId.maxlength.value
+  );
+
+  const token = authManager.signToken({
+    countryCode,
+    countryName,
+    phoneNumber,
+    userId,
+  });
+
+  const testUserKey = `testUser_${i}`;
+  testUsers[testUserKey] = await userServices.addTestUser({
+    bio: `bio_user${i}`,
+    countryCode,
+    countryName,
+    firstName: `userFirstName_${i}`,
+    lastName: `userLastName_${i}`,
+    phoneNumber,
+    token,
+    userId,
+    username: `username_${i}`,
+  });
+
+  logger.info(`${testUserKey} added!`);
 };
 
 module.exports = { testServer };

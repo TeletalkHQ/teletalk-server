@@ -1,25 +1,30 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
 const { errors } = require("@/variables/errors");
 
-const getUserData = serviceBuilder
+const getCurrentUserData = async ({ userId }) => {
+  return await getUserDataById().exclude().run({
+    userId,
+    error: errors.CURRENT_USER_NOT_EXIST,
+  });
+};
+
+const getTargetUserData = async ({ userId }) => {
+  return await getUserDataById().exclude().run({
+    userId,
+    error: errors.TARGET_USER_NOT_EXIST,
+  });
+};
+
+const getUserDataById = serviceBuilder
   .create()
   .body(async (data) => {
-    return await trier(getUserData.name)
-      .tryAsync(tryToGetUserData, data)
-      .throw()
-      .runAsync();
+    return await serviceHelper.findOneUserById(data.userId, data.error);
   })
   .build();
 
-const tryToGetUserData = async ({ userId }) => {
-  return await serviceHelper.findOneUserById(
-    userId,
-    errors.TARGET_USER_NOT_EXIST
-  );
+module.exports = {
+  getCurrentUserData,
+  getTargetUserData,
 };
-
-module.exports = { getUserData };

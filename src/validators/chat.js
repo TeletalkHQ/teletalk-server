@@ -1,23 +1,15 @@
-const { trier } = require("utility-store/src/classes/Trier");
-
 const { compiledValidators } = require("@/validators/compiledValidators");
 
 const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
 
-const tryToValidateChatId = async (chatId) => {
+const chatIdValidator = async (chatId) => {
   const validationResult = await compiledValidators.chatId({ chatId });
 
   if (validationResult === true) return;
   validatorErrorChecker.chatId(validationResult, chatId);
 };
-const chatId = async (chatIdParam) => {
-  await trier(chatId)
-    .tryAsync(tryToValidateChatId, chatIdParam)
-    .throw()
-    .runAsync();
-};
 
-const tryToValidateMessageText = async (messageText) => {
+const messageTextValidator = async (messageText) => {
   const validationResult = await compiledValidators.messageText({
     message: messageText,
   });
@@ -26,14 +18,7 @@ const tryToValidateMessageText = async (messageText) => {
   validatorErrorChecker.messageText(validationResult, messageText);
 };
 
-const messageText = async (messageTextParam) => {
-  await trier(messageText.name)
-    .tryAsync(tryToValidateMessageText, messageTextParam)
-    .throw()
-    .runAsync();
-};
-
-const tryToValidateParticipantId = async (participantId) => {
+const participantIdValidator = async (participantId) => {
   const validationResult = await compiledValidators.participantId({
     participantId,
   });
@@ -42,17 +27,10 @@ const tryToValidateParticipantId = async (participantId) => {
   validatorErrorChecker.participantId(validationResult, participantId);
 };
 
-const participantId = async (participantIdParam) => {
-  await trier(participantId.name)
-    .tryAsync(tryToValidateParticipantId, participantIdParam)
-    .throw()
-    .runAsync();
-};
-
 const chatValidators = {
-  chatId,
-  messageText,
-  participantId,
+  chatId: chatIdValidator,
+  messageText: messageTextValidator,
+  participantId: participantIdValidator,
 };
 
 module.exports = { chatValidators };

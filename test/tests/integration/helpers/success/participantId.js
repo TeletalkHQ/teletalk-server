@@ -2,8 +2,8 @@ const { successTestBuilder } = require("$/classes/SuccessTestBuilder");
 const { models } = require("@/models");
 
 const participantIdModel = models.native.chat.participantId;
-const participantId = (
-  { requestValue, responseValue } = {},
+const participantIdSuccessTest = (
+  { requestValue, responseValue },
   { stringEquality = true, modelCheck = true } = {
     stringEquality: true,
     modelCheck: true,
@@ -16,4 +16,4 @@ const participantId = (
     .addCommonTest();
 };
 
-module.exports = { participantId };
+module.exports = { participantIdSuccessTest };

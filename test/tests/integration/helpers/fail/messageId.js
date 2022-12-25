@@ -1,6 +1,6 @@
 //TODO Add message id fail tests
-const messageId = () => {};
+const messageIdFailTest = () => {};
 
 module.exports = {
-  messageId,
+  messageIdFailTest,
 };

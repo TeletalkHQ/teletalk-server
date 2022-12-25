@@ -25,11 +25,11 @@ class AppConfigs {
 
   async runConfigs() {
     const { NODE_ENV, LOGGER_LEVEL } = envManager.getAllLocalEnvironments();
+
     logger.setLevel(LOGGER_LEVEL);
-    const shouldNotPrintCatchErrors = NODE_ENV.includes("test");
-    if (shouldNotPrintCatchErrors) {
+
+    if (NODE_ENV.includes("test"))
       Trier.changeGlobalConfigs({ canPrintError: false });
-    }
   }
 
   #getMongoUrl() {

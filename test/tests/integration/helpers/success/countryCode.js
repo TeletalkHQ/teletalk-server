@@ -6,8 +6,8 @@ const userModels = models.native.user;
 
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
-const countryCode = (
-  { requestValue, responseValue } = {},
+const countryCodeSuccessTest = (
+  { requestValue, responseValue },
   {
     stringEquality = true,
     modelCheck = true,
@@ -20,7 +20,7 @@ const countryCode = (
     .addCommonTest()
     .emptyCheck()
     .numericCheck()
-    .execute();
+    .run();
 };
 
-module.exports = { countryCode };
+module.exports = { countryCodeSuccessTest };

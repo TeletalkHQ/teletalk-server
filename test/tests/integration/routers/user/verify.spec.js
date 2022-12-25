@@ -1,142 +1,123 @@
-const { authManager } = require("@/classes/AuthManager");
+const { expect } = require("chai");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 
-const { expect } = require("$/utilities/testUtilities");
-
-const { requesters } = require("$/utilities/requesters");
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
-
 const { models } = require("@/models");
 
-const userModels = models.native.user;
+const { services } = require("@/services");
+
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
+
+const { requesters } = require("$/utilities/requesters");
+
 const cellphones = testVariablesManager.getCellphones();
-
-const signInFn = async () => {
-  const {
-    body: {
-      user: { countryCode, countryName, phoneNumber, token },
-    },
-  } = await requesters
-    .signIn()
-    .sendFullFeaturedRequest(cellphones.verifySignInNewUser);
-
-  const { verificationCode } = await temporaryClients.findClientByCellphone({
-    countryCode,
-    countryName,
-    phoneNumber,
-  });
-
-  return { token, verificationCode };
-};
+const userModels = models.native.user;
+const fullName = userPropsUtilities.makeRandomFullName(
+  userModels.firstName.maxlength.value,
+  userModels.lastName.maxlength.value
+);
+const verifyCellphone = cellphones.verifyAsNewUser;
 
 describe("verifySignInApi success test", () => {
   it("should do test response of both new user true|false mode", async () => {
-    const successTests = integrationHelpers.createSuccessTest();
+    const successTestBuilder = testHelper.createSuccessTest();
 
-    const signInSecret = authManager.getJwtSignInSecret();
-    const tokenVerifier = async (token) => {
-      return await successTests.token({
-        secret: signInSecret,
-        responseValue: token,
-      });
-    };
+    //? authenticate as newUser:true =>
+    const newUserSignData = await signInRequest(verifyCellphone);
+    const newUserVerifyData = await verifyRequest(newUserSignData);
+    expect(newUserVerifyData.newUser).to.be.equal(true);
+    await createNewUser(newUserSignData.token);
 
-    //* 1- Sign in as a new user =>
-    const {
-      token: newUserVerifyToken,
-      verificationCode: newUserVerificationCode,
-    } = await signInFn();
-    await tokenVerifier(newUserVerifyToken);
+    //? authenticate as newUser:false =>
+    const existUserSignData = await signInRequest(verifyCellphone);
+    const existUserVerifyData = await verifyRequest(existUserSignData);
+    expect(existUserVerifyData.newUser).to.be.equal(false);
 
-    //* 2- Verify user by verificationCode & token =>
-    const newUserVerifySignInResponse = await requesters
-      .verify()
-      .setToken(newUserVerifyToken)
-      .sendFullFeaturedRequest({
-        verificationCode: newUserVerificationCode,
-      });
-
-    //* 3- Test output when newUser === false =>
-    expect(newUserVerifySignInResponse.body.user.newUser).equal(true);
-
-    //* 4- Finalize new user sign in (save user in db) =>
-    const fullName = userPropsUtilities.makeRandomFullName(
-      userModels.firstName.maxlength.value,
-      userModels.lastName.maxlength.value
-    );
-    await requesters
-      .createNewUser()
-      .setToken(newUserVerifyToken)
-      .sendFullFeaturedRequest(fullName);
-
-    //* 5- Now sign in again for test output when newUser === false =>
-    const { token: signedUserVerifyToken, verificationCode } = await signInFn();
-    await tokenVerifier(signedUserVerifyToken);
-    //* 6- Get the verification code =>
-
-    //* 7- Verify sign in when newUser === false =>
-    const {
-      body: {
-        user: { newUser, ...userData },
-      },
-    } = await requesters
-      .verify()
-      .setToken(signedUserVerifyToken)
-      .sendFullFeaturedRequest({
-        verificationCode,
-      });
-
-    //* 8- Test output when newUser === false =>
-    expect(newUser).equal(false);
-    const { countryCode, countryName, phoneNumber } =
-      cellphones.verifySignInNewUser;
-
-    integrationHelpers
-      .createSuccessTest()
-      .countryCode({
-        requestValue: countryCode,
-        responseValue: userData.countryCode,
-      })
-      .countryName({
-        requestValue: countryName,
-        responseValue: userData.countryName,
-      })
-      .phoneNumber({
-        requestValue: phoneNumber,
-        responseValue: userData.phoneNumber,
-      });
+    await testExistUserData(successTestBuilder, existUserVerifyData);
+    await testExistUserSession(successTestBuilder, existUserVerifyData);
   });
 });
 
 describe("verifySignInApi failure tests", () => {
-  //* Config customRequest for fail tests
   const customRequest = requesters.verify();
   before(async () => {
-    const {
-      body: {
-        user: { token },
-      },
-    } = await requesters
-      .signIn()
-      .sendFullFeaturedRequest(cellphones.verifySignInFailTest);
+    const { token } = await signInRequest(cellphones.verifyFailTest);
 
     customRequest.setToken(token);
-
-    const { verificationCode } = await temporaryClients.findClientByCellphone(
-      cellphones.verifySignInFailTest
-    );
-
-    customRequest.setRequestData({ verificationCode });
   });
 
-  integrationHelpers
+  testHelper
     .createFailTest(customRequest)
-    .inputMissing()
+    .input({
+      verificationCode: randomMaker.randomString(
+        userModels.verificationCode.length.value
+      ),
+    })
     .verificationCode()
     .authentication();
 });
+
+const signInRequest = async (cellphone) => {
+  const {
+    body: { user },
+  } = await requesters.signIn().sendFullFeaturedRequest(cellphone);
+  return user;
+};
+
+const getTemporaryClient = async (cellphone) => {
+  return await temporaryClients.find(cellphone);
+};
+
+const verifyRequest = async (data) => {
+  const temporaryClient = await getTemporaryClient(data);
+  const {
+    body: { user },
+  } = await requesters.verify().setToken(data.token).sendFullFeaturedRequest({
+    verificationCode: temporaryClient.verificationCode,
+  });
+  return user;
+};
+
+const createNewUser = async (token) => {
+  await requesters
+    .createNewUser()
+    .setToken(token)
+    .sendFullFeaturedRequest(fullName);
+};
+
+const testExistUserData = async (builder, data) => {
+  const savedUserData = await getSavedUserData(data.userId);
+  const mergedRequestDataWithSavedUserData = {
+    ...savedUserData,
+    ...fullName,
+    ...verifyCellphone,
+  };
+  builder.userData({
+    requestValue: mergedRequestDataWithSavedUserData,
+    responseValue: data,
+  });
+};
+
+const testExistUserSession = async (builder, data) => {
+  const foundSession = await getSavedUserSession(data.userId, data.token);
+  await builder.authentication({
+    requestValue: foundSession.token,
+    responseValue: data.token,
+  });
+};
+
+const getSavedUser = async (userId) => {
+  return await services.findOneUserById(userId);
+};
+const getSavedUserData = async (userId) => {
+  const savedUser = await getSavedUser(userId);
+  return userPropsUtilities.extractUserData(savedUser);
+};
+
+const getSavedUserSession = async (userId, token) => {
+  const savedUser = await getSavedUser(userId);
+  return savedUser.sessions.find((i) => i.token === token);
+};

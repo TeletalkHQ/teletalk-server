@@ -1,18 +1,18 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
+const { expect } = require("chai");
+
 const { authManager } = require("@/classes/AuthManager");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models");
 
-const { expect } = require("$/utilities/testUtilities");
-
 const { errors } = require("@/variables/errors");
 
 const userModel = models.native.user;
 
-const checkCurrentUserStatus = (configuredCustomRequest, data = {}) => {
+const checkCurrentUserStatusFailTest = (configuredCustomRequest, data = {}) => {
   const user = testVariablesManager.getUsers().checkCurrentUserStatus;
   const cellphone = userPropsUtilities.extractCellphone(user);
   const error = errors.CURRENT_USER_NOT_EXIST;
@@ -79,4 +79,4 @@ const checkCurrentUserStatus = (configuredCustomRequest, data = {}) => {
   });
 };
 
-module.exports = { checkCurrentUserStatus };
+module.exports = { checkCurrentUserStatusFailTest };

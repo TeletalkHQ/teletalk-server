@@ -6,7 +6,7 @@ const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
 
-const message = (configuredCustomRequest, data) => {
+const messageFailTest = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(configuredCustomRequest, data, chatModels.message, "message")
     .required(errors.MESSAGE_TEXT_REQUIRED)
@@ -16,5 +16,5 @@ const message = (configuredCustomRequest, data) => {
 };
 
 module.exports = {
-  message,
+  messageFailTest,
 };

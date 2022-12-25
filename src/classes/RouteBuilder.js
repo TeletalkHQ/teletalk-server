@@ -1,5 +1,6 @@
 const { errors } = require("@/variables/errors");
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { errorThrower } = require("utility-store/src/functions/utilities");
 
 class RouteBuilder {
   constructor(baseUrl) {
@@ -12,7 +13,6 @@ class RouteBuilder {
       outputFields: [{}],
       statusCode: undefined,
       url: undefined,
-      version: "1.0.0",
     };
   }
 
@@ -32,10 +32,6 @@ class RouteBuilder {
 
   statusCode(statusCode) {
     this.#updateProperty("statusCode", statusCode);
-    return this;
-  }
-  version(version) {
-    this.#updateProperty("version", version);
     return this;
   }
   description(description) {
@@ -63,12 +59,10 @@ class RouteBuilder {
   checkRequirements() {
     const { fullUrl, url, statusCode } = this.routeObject;
 
-    if (customTypeof.isUndefined(fullUrl, url, statusCode)) {
-      throw {
-        ...errors.ROUTE_OBJECT_IS_BROKEN,
-        routeObject: this.routeObject,
-      };
-    }
+    errorThrower(customTypeof.isUndefined(fullUrl, url, statusCode), {
+      ...errors.ROUTE_OBJECT_IS_BROKEN,
+      routeObject: this.routeObject,
+    });
   }
 }
 

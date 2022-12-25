@@ -1,9 +1,7 @@
 const { arrayUtilities } = require("utility-store/src/classes/ArrayUtilities");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
 const { requesters } = require("$/utilities/requesters");
 
@@ -36,7 +34,7 @@ describe("send message success tests", () => {
         message,
       });
 
-      integrationHelpers
+      testHelper
         .createSuccessTest()
         .userId(
           {
@@ -68,13 +66,13 @@ describe("send message success tests", () => {
 
 describe("send message failure tests", () => {
   const data = {
-    message: arrayUtilities.arrayLastItem(messages),
+    message: arrayUtilities.lastItem(messages),
     participantId: randomMaker.randomId(),
   };
-  integrationHelpers
+  testHelper
     .createFailTest(requesters.sendPrivateMessage())
     .authentication()
-    .inputMissing(data)
+    .input(data)
     .checkCurrentUserStatus(data)
     .participantId(data)
     .message(data);

@@ -3,7 +3,7 @@ const {
 } = require("utility-store/src/functions/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("utility-store/src/functions/utilities");
@@ -25,7 +25,7 @@ const executeIfNoError = (_, next) => {
 };
 
 const catchTryTo = (error, res) => {
-  commonFunctionalities.controllerErrorResponse(error, res);
+  commonUtilities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

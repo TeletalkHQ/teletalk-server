@@ -1,11 +1,11 @@
-const { chat } = require("@/models/native/chat");
-const { common } = require("@/models/native/common");
-const { user } = require("@/models/native/user");
+const { chatModels } = require("@/models/native/chat");
+const { commonModels } = require("@/models/native/common");
+const { userModels } = require("@/models/native/user");
 
 const nativeModels = {
-  chat,
-  common,
-  user,
+  chat: chatModels,
+  common: commonModels,
+  user: userModels,
 };
 
 module.exports = { nativeModels };

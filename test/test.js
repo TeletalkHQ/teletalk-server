@@ -10,6 +10,8 @@ require("$/tests/integration/routers/user/signIn.spec");
 require("$/tests/integration/routers/user/verify.spec");
 require("$/tests/integration/routers/user/createNewUser.spec");
 require("$/tests/integration/routers/user/logout.spec");
+require("$/tests/integration/routers/user/getCurrentUserData.spec");
+require("$/tests/integration/routers/user/getTargetUserData.spec");
 //? cellphoneRouter api's ==>
 require("$/tests/integration/routers/cellphone/addContact.spec");
 require("$/tests/integration/routers/cellphone/editContact.spec");
@@ -24,4 +26,4 @@ require("$/tests/middleware/notFound.spec");
 require("$/tests/middleware/requestMethodChecker.spec");
 require("$/tests/middleware/authDefault.spec");
 require("$/tests/middleware/checkBodyFields.spec");
-require("$/tests/middleware/checkCurrentUserStatus.spec");
+// require("$/tests/middleware/checkCurrentUserStatus.spec");

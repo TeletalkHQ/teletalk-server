@@ -6,7 +6,7 @@ const { errors } = require("@/variables/errors");
 
 const userModels = models.native.user;
 
-const verificationCode = (configuredCustomRequest, data = {}) => {
+const verificationCodeFailTest = (configuredCustomRequest, data = {}) => {
   failTestBuilder
     .create(
       configuredCustomRequest,
@@ -22,5 +22,5 @@ const verificationCode = (configuredCustomRequest, data = {}) => {
 };
 
 module.exports = {
-  verificationCode,
+  verificationCodeFailTest,
 };

@@ -7178,10 +7178,10 @@ utila@~0.4:
   resolved "https://registry.npmjs.org/utila/-/utila-0.4.0.tgz"
   integrity sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==
 
-utility-store@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.npmjs.org/utility-store/-/utility-store-4.2.0.tgz"
-  integrity sha512-tHeL//Gn3nMaXSQOl+p1dArUwVUoqYhnqqoBYrNZTpQM2ZcnTQtoOVb4TjwrO0VpgIUUfy/Kp29vACFLgzSz3Q==
+utility-store@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/utility-store/-/utility-store-5.0.1.tgz"
+  integrity sha512-ktZmQAgzqghcxIrHLAoP+AdH5nRXQu7hgFvk2tQQdcVweCRw8sojBPEiehF/fPKCLAlup5PZz9JfjWSzN4lAJw==
   dependencies:
     custom-typeof "^1.2.0"
     logger-browser "^1.1.0"

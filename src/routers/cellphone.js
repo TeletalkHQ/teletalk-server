@@ -9,20 +9,20 @@ const { routes } = require("@/routes");
 const cellphoneRouter = Router();
 
 cellphoneRouter.use(
-  middlewares.ignoreMiddlewaresByUrl(
+  middlewares.ignoreMiddlewares(
     routes.cellphone.getContacts.url,
     middlewares.cellphoneSelfStuffCheck
   )
 );
 
 cellphoneRouter.use(
-  middlewares.ignoreMiddlewaresByUrl(
+  middlewares.ignoreMiddlewares(
     [routes.cellphone.getContacts.url, routes.cellphone.addContact.url],
     middlewares.cellphoneValidator
   )
 );
 cellphoneRouter.use(
-  middlewares.applyMiddlewaresByUrl(
+  middlewares.applyMiddlewares(
     [routes.cellphone.editContact.url, routes.cellphone.addContact.url],
     middlewares.contactValidator
   )

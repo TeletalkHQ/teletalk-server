@@ -16,11 +16,7 @@ const {
   sendPrivateMessage,
 } = require("@/controllers/privateChat/sendPrivateMessage");
 
-const {
-  getChatsLastMessage,
-} = require("@/controllers/privateChat/getChatsLastMessage");
-
-const { getUserData } = require("@/controllers/user/getUserData");
+const { getCurrentUserData } = require("@/controllers/user/getCurrentUserData");
 const { createNewUser } = require("@/controllers/user/createNewUser");
 const { getPublicUserData } = require("@/controllers/user/getPublicUserData");
 const { getTargetUserData } = require("@/controllers/user/getTargetUserData");
@@ -38,13 +34,12 @@ const controllers = {
   editContact,
   getAllPrivateChats,
   getAllStuff,
-  getChatsLastMessage,
   getContacts,
   getCountries,
   getPrivateChat,
   getPublicUserData,
   getTargetUserData,
-  getUserData,
+  getCurrentUserData,
   getWelcomeMessage,
   logout,
   removeBlock,

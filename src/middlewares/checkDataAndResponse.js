@@ -1,12 +1,9 @@
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { trier } = require("utility-store/src/classes/Trier");
 const {
   ioFieldsChecker,
 } = require("utility-store/src/functions/ioFieldsChecker");
 
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
-
-const { crashServerWithCondition } = require("@/utilities/utilities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 
 const { errors } = require("@/variables/errors");
 
@@ -40,16 +37,11 @@ const executeIfNoError = ({ data }, res) => {
 };
 
 const catchCheckDataAndResponse = (error, res) => {
-  commonFunctionalities.controllerErrorResponse(error, res);
+  commonUtilities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 
 const checkDataAndResponse = (req, res, next) => {
-  crashServerWithCondition(
-    customTypeof.isNotFunction(res.sendJsonResponse),
-    errors.SEND_JSON_RESPONSE_IS_NOT_FUNCTION
-  );
-
   res.checkDataAndResponse = (data, requiredFieldsIndex) => {
     const {
       routeObject: { outputFields },

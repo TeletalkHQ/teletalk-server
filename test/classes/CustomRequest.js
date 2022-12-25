@@ -1,13 +1,11 @@
-const { trier } = require("utility-store/src/classes/Trier");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { expect } = require("chai");
 const supertest = require("supertest");
 
 const { envManager } = require("@/classes/EnvironmentManager");
-
-const { expect } = require("$/utilities/testUtilities");
 
 const { crashServer } = require("@/utilities/utilities");
 
@@ -86,7 +84,7 @@ class CustomRequest {
       `route specs => url:${fullUrl} reason:${reason} errorKey:${errorKey}\n response.body:`
     );
     logger.info("response body =>");
-    logger.info(this.response.body);
+    console.dir(this.response.body, { depth: 8 });
 
     return this;
   }
@@ -155,31 +153,22 @@ class CustomRequest {
   }
 
   async sendFullFeaturedRequest(data, errorObject, options = this.options) {
-    const tryToSendFullFeaturedRequest = async () => {
-      (
-        await this.mergeOptions(options)
-          .logStartTestRequest()
-          .logRouteSpecs()
-          .logOptions()
-          .setRequestData(data)
-          .filterRequestData()
-          .logRequestData()
-          .setErrorObject(errorObject)
-          .makeAuthorizationHeader()
-          .sendRequest()
-      )
-        .setResponseStatusCode()
-        .checkStatusCode()
-        .checkError()
-        .logEndRequest();
-
-      return this.response;
-    };
-
-    return await trier(this.sendFullFeaturedRequest.name)
-      .tryAsync(tryToSendFullFeaturedRequest)
-      .throw()
-      .runAsync();
+    return await (
+      await this.mergeOptions(options)
+        .logStartTestRequest()
+        .logRouteSpecs()
+        .logOptions()
+        .setRequestData(data)
+        .filterRequestData()
+        .logRequestData()
+        .setErrorObject(errorObject)
+        .makeAuthorizationHeader()
+        .sendRequest()
+    )
+      .setResponseStatusCode()
+      .checkStatusCode()
+      .checkError()
+      .logEndRequest().response;
   }
 
   getToken() {
@@ -230,18 +219,18 @@ class CustomRequest {
 
   filterRequestData() {
     if (this.temporaryOptions.filterDataCondition) {
-      const convertRequiredFieldForFiltering = objectUtilities
-        .objectEntries(this.routeObject.inputFields)
-        .reduce((previousValue, currentValue) => {
-          const [requiredFieldKey, requiredFieldProperties] = currentValue;
-          previousValue[requiredFieldKey] =
-            requiredFieldProperties.value || requiredFieldKey;
-          return previousValue;
-        }, {});
+      const convertRequiredFieldForFiltering = Object.entries(
+        this.routeObject.inputFields
+      ).reduce((previousValue, currentValue) => {
+        const [requiredFieldKey, requiredFieldProperties] = currentValue;
+        previousValue[requiredFieldKey] =
+          requiredFieldProperties.value || requiredFieldKey;
+        return previousValue;
+      }, {});
 
       if (
         !this.requestData &&
-        objectUtilities.objectKeys(this.routeObject.inputFields).length
+        Object.keys(this.routeObject.inputFields).length
       ) {
         const error = {
           ...errors.INPUT_FIELDS_MISSING,

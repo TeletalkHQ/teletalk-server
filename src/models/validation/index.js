@@ -1,11 +1,11 @@
-const { chat } = require("@/models/validation/chat");
-const { common } = require("@/models/validation/common");
-const { user } = require("@/models/validation/user");
+const { chatValidationModels } = require("@/models/validation/chat");
+const { commonValidationModels } = require("@/models/validation/common");
+const { userValidationModels } = require("@/models/validation/user");
 
-const validation = {
-  chat,
-  common,
-  user,
+const validationModels = {
+  chat: chatValidationModels,
+  common: commonValidationModels,
+  user: userValidationModels,
 };
 
-module.exports = { validation };
+module.exports = { validationModels };

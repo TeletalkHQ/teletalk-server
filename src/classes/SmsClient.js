@@ -7,8 +7,6 @@ const axios = require("axios");
 
 const { errors } = require("@/variables/errors");
 
-const { crashServer } = require("@/utilities/utilities");
-
 class SmsClient {
   templates() {
     return {
@@ -25,7 +23,7 @@ class SmsClient {
     );
 
     const providers = [
-      this.wrongProvider,
+      undefined,
       this.#verificationCodeProvider1,
       this.#verificationCodeProvider2,
     ];
@@ -99,13 +97,6 @@ class SmsClient {
     };
 
     await axios(config);
-  }
-
-  wrongProvider() {
-    const message =
-      "SMS_PROVIDER_SELECTOR is 0 which is a wrong number, please check your environments";
-    logger.error(message);
-    crashServer(message);
   }
 }
 

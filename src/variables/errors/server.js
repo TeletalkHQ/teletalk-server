@@ -1,7 +1,5 @@
 const { errorBuilder } = require("@/classes/ErrorBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { ERROR_KEYS } = require("@/variables/others/errorKeys");
 const { UNIQUE_ERROR_IDS } = require("@/variables/others/uniqueErrorIds");
 
@@ -73,6 +71,13 @@ const SEND_SMS_FAILED = errorBuilder
   .statusCode(500)
   .build();
 
+const SERVER_CRITICAL_ERROR = errorBuilder
+  .create()
+  .errorKey(INTERNAL_SERVER_ERROR)
+  .reason(UNIQUE_ERROR_IDS.SERVER_CRITICAL_ERROR)
+  .statusCode(500)
+  .build();
+
 const UNKNOWN_ERROR = errorBuilder
   .create()
   .errorKey(INTERNAL_SERVER_ERROR)
@@ -80,7 +85,7 @@ const UNKNOWN_ERROR = errorBuilder
   .statusCode(500)
   .build();
 
-const errors = {
+const serverErrors = {
   OUTPUT_FIELD_TYPE_WRONG,
   OUTPUT_FIELDS_MISSING,
   OUTPUT_FIELDS_OVERLOAD,
@@ -91,12 +96,8 @@ const errors = {
   REQUIRED_IO_FIELD_IS_NOT_OBJECT,
   SEND_JSON_RESPONSE_IS_NOT_FUNCTION,
   SEND_SMS_FAILED,
+  SERVER_CRITICAL_ERROR,
   UNKNOWN_ERROR,
-};
-
-const serverErrors = {
-  ...errors,
-  version: versionCalculator(extractVersions(errors)),
 };
 
 module.exports = { serverErrors };

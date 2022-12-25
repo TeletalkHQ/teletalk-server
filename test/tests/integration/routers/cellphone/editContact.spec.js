@@ -1,6 +1,4 @@
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { models } = require("@/models");
@@ -32,7 +30,7 @@ describe("edit contact success tests", () => {
       .sendFullFeaturedRequest(users.editContactSuccessful, null, {
         token: requesters.editContact().getOptions().token,
       });
-    const successTest = integrationHelpers.createSuccessTest();
+    const successTest = testHelper.createSuccessTest();
 
     successTest
       .firstName({
@@ -92,10 +90,10 @@ describe("editContact failure tests", () => {
     userModels.lastName.maxlength.value,
     countries
   );
-  integrationHelpers
+  testHelper
     .createFailTest(requesters.editContact())
     .authentication()
-    .inputMissing(contact)
+    .input(contact)
     .checkCurrentUserStatus(contact)
     .selfStuff(users.selfStuff)
     .contactItemNotExist(users.editContactItemNotExist)

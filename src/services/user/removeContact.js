@@ -1,5 +1,4 @@
 const { errorThrower } = require("utility-store/src/functions/utilities");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
@@ -9,24 +8,17 @@ const { errors } = require("@/variables/errors");
 
 const removeContact = serviceBuilder
   .create()
-  .body(async (data) => {
-    return await trier(removeContact.name)
-      .tryAsync(tryToRemoveContactItem, data)
-      .throw()
-      .runAsync();
+  .body(async ({ currentUserId, targetUserData }) => {
+    const currentUser = await findCurrentUser(currentUserId);
+
+    const { cellphoneIndex } = checkExistenceOfContactItem(
+      currentUser.contacts,
+      targetUserData
+    );
+
+    await removeContactAndSave(currentUser, cellphoneIndex);
   })
   .build();
-
-const tryToRemoveContactItem = async ({ currentUserId, targetUserData }) => {
-  const currentUser = await findCurrentUser(currentUserId);
-
-  const { cellphoneIndex } = checkExistenceOfContactItem(
-    currentUser.contacts,
-    targetUserData
-  );
-
-  await removeContactAndSave(currentUser, cellphoneIndex);
-};
 
 const findCurrentUser = async (currentUserId) => {
   return await serviceHelper.findOneUserById(

@@ -6,7 +6,7 @@ const { errors } = require("@/variables/errors");
 
 const userModels = models.native.user;
 
-const phoneNumber = (configuredCustomRequest, data) => {
+const phoneNumberFailTest = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(
       configuredCustomRequest,
@@ -21,4 +21,4 @@ const phoneNumber = (configuredCustomRequest, data) => {
     .maxlength(errors.PHONE_NUMBER_MAXLENGTH_REACH);
 };
 
-module.exports = { phoneNumber };
+module.exports = { phoneNumberFailTest };

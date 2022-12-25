@@ -1,7 +1,5 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");
 
@@ -46,10 +44,10 @@ const signIn = userRouteBuilder
   ])
   .build();
 
-const getUserData = userRouteBuilder
+const getCurrentUserData = userRouteBuilder
   .create()
   .method(METHODS.GET)
-  .url("/getUserData")
+  .url("/getCurrentUserData")
   .statusCode(200)
   .outputFields([
     {
@@ -128,8 +126,8 @@ const verify = userRouteBuilder
   ])
   .build();
 
-const routes = {
-  getUserData,
+const userRoutes = {
+  getCurrentUserData,
   createNewUser,
   getPublicUserData,
   getTargetUserData,
@@ -139,11 +137,6 @@ const routes = {
   verify,
 };
 
-const userRoutes = {
-  ...routes,
-  version: versionCalculator(extractVersions(routes)),
-};
-
 module.exports = {
-  user: userRoutes,
+  userRoutes,
 };

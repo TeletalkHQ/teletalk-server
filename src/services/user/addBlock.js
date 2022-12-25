@@ -1,5 +1,4 @@
 const { errorThrower } = require("utility-store/src/functions/utilities");
-const { trier } = require("utility-store/src/classes/Trier");
 
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
@@ -11,31 +10,22 @@ const { errors } = require("@/variables/errors");
 
 const addBlock = serviceBuilder
   .create()
-  .body(async (data) => {
-    return await trier(addBlock.name)
-      .tryAsync(tryToAddCellphoneToUserBlacklist, data)
-      .throw()
-      .runAsync();
+  .body(async ({ currentUserId, blockingCellphone }) => {
+    const currentUser = await commonServices.findOneUserById(currentUserId);
+
+    await serviceHelper.findOneUser(
+      blockingCellphone,
+      errors.TARGET_USER_NOT_EXIST
+    );
+
+    checkExistenceOfBlacklistItem(currentUser.blacklist, blockingCellphone);
+
+    const blacklistItem =
+      userPropsUtilities.extractCellphone(blockingCellphone);
+
+    await saveNewBlacklistItem(blacklistItem, currentUser);
   })
   .build();
-
-const tryToAddCellphoneToUserBlacklist = async ({
-  currentUserId,
-  blockingCellphone,
-}) => {
-  const currentUser = await commonServices.findOneUserById(currentUserId);
-
-  await serviceHelper.findOneUser(
-    blockingCellphone,
-    errors.TARGET_USER_NOT_EXIST
-  );
-
-  checkExistenceOfBlacklistItem(currentUser.blacklist, blockingCellphone);
-
-  const blacklistItem = userPropsUtilities.extractCellphone(blockingCellphone);
-
-  await saveNewBlacklistItem(blacklistItem, currentUser);
-};
 
 const checkExistenceOfBlacklistItem = (blacklist, blockingCellphone) => {
   const isBlacklistItemExist = !!userPropsUtilities.cellphoneFinder(

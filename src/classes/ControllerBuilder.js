@@ -1,4 +1,4 @@
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 const { controllerHandler } = require("@/classes/ControllerHandler");
 
 class ControllerBuilder {
@@ -22,9 +22,9 @@ class ControllerBuilder {
     return controllerHandler.create({
       controllerName: this.controllerName,
       tryCallback: this.#body,
-      catchCallback: commonFunctionalities.controllerErrorResponse,
+      catchCallback: commonUtilities.controllerErrorResponse,
       responseCallback:
-        this.#response || commonFunctionalities.controllerSuccessResponse,
+        this.#response || commonUtilities.controllerSuccessResponse,
     });
   }
 }

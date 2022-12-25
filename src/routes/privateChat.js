@@ -1,20 +1,11 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");
 
 const { METHODS } = require("@/variables/others/methods");
 
 const privateChatRouteBuilder = routeBuilder(baseUrls.privateChat);
-
-const getChatsLastMessage = privateChatRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/getChatsLastMessage")
-  .statusCode(200)
-  .build();
 
 const getPrivateChat = privateChatRouteBuilder
   .create()
@@ -58,18 +49,12 @@ const sendPrivateMessage = privateChatRouteBuilder
   ])
   .build();
 
-const routes = {
+const privateChatRoutes = {
   getAllPrivateChats,
-  getChatsLastMessage,
   getPrivateChat,
   sendPrivateMessage,
 };
 
-const privateChat = {
-  version: versionCalculator(extractVersions(routes)),
-  ...routes,
-};
-
 module.exports = {
-  privateChat,
+  privateChatRoutes,
 };

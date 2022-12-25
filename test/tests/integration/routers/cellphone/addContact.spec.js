@@ -4,9 +4,7 @@ const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { models } = require("@/models");
 
 const { requesters } = require("$/utilities/requesters");
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
 const { countries } = require("@/variables/others/countries");
 
@@ -34,7 +32,7 @@ describe("add contact success tests", () => {
       users.addContactSuccessful
     );
 
-    integrationHelpers
+    testHelper
       .createSuccessTest()
       .userId({
         requestValue: users.addContactSuccessful.userId,
@@ -76,10 +74,10 @@ describe("addContact failure tests", () => {
     userModels.lastName.maxlength.value,
     countries
   );
-  integrationHelpers
+  testHelper
     .createFailTest(configuredAddContactRequester)
     .authentication()
-    .inputMissing(contact)
+    .input(contact)
     .checkCurrentUserStatus(contact)
     .cellphone(contact)
     .countryCode(contact)

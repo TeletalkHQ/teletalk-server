@@ -1,14 +1,13 @@
 const { successTestBuilder } = require("$/classes/SuccessTestBuilder");
+const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const { models } = require("@/models");
 
 const userModels = models.native.user;
 
-const verificationCode = (
-  { responseValue } = {},
-  { modelCheck = true } = {
-    modelCheck: true,
-  }
+const verificationCodeSuccessTest = (
+  { responseValue },
+  { modelCheck = true } = testVariablesManager.successTestDefaultOptions
 ) => {
   successTestBuilder
     .create()
@@ -18,9 +17,9 @@ const verificationCode = (
     .emptyCheck()
     .numericCheck()
     .lengthCheck()
-    .execute();
+    .run();
 };
 
 module.exports = {
-  verificationCode,
+  verificationCodeSuccessTest,
 };

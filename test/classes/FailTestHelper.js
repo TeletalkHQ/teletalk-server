@@ -1,18 +1,15 @@
 const {
-  integrationHelpersCollection,
-} = require("$/tests/integration/helpers/integrationCollection");
+  testHelperCollection,
+} = require("$/tests/integration/helpers/testHelperCollection");
 
-class IntegrationFailTestBuilder {
+class FailTestHelper {
   constructor(requester) {
     this.requester = requester;
   }
 
   failTestMaker(methodName) {
     return (...args) => {
-      integrationHelpersCollection.fail[methodName](
-        ...this.#defaultArgs(),
-        ...args
-      );
+      testHelperCollection.fail[methodName](...this.#defaultArgs(), ...args);
       return this;
     };
   }
@@ -38,6 +35,8 @@ class IntegrationFailTestBuilder {
   countryName = this.failTestMaker("countryName");
   firstName = this.failTestMaker("firstName");
   inputMissing = this.failTestMaker("inputMissing");
+  inputOverload = this.failTestMaker("inputOverload");
+  input = this.failTestMaker("input");
   lastName = this.failTestMaker("lastName");
   message = this.failTestMaker("message");
   participantId = this.failTestMaker("participantId");
@@ -47,10 +46,9 @@ class IntegrationFailTestBuilder {
   verificationCode = this.failTestMaker("verificationCode");
 }
 
-const integrationFailTestBuilder = (...args) =>
-  new IntegrationFailTestBuilder(...args);
+const failTestHelper = (...args) => new FailTestHelper(...args);
 
 module.exports = {
-  integrationFailTestBuilder,
-  IntegrationFailTestBuilder,
+  failTestHelper,
+  FailTestHelper,
 };

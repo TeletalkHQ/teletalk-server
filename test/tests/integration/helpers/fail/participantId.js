@@ -6,7 +6,7 @@ const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
 
-const participantId = (configuredCustomRequest, data = {}) => {
+const participantIdFailTest = (configuredCustomRequest, data = {}) => {
   failTestBuilder
     .create(
       configuredCustomRequest,
@@ -21,5 +21,5 @@ const participantId = (configuredCustomRequest, data = {}) => {
 };
 
 module.exports = {
-  participantId,
+  participantIdFailTest,
 };

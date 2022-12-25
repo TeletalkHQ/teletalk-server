@@ -1,55 +1,75 @@
-const { cellphone } = require("$/tests/integration/helpers/fail/cellphone");
-const { selfStuff } = require("$/tests/integration/helpers/fail/selfStuff");
 const {
-  authentication,
+  cellphoneFailTest,
+} = require("$/tests/integration/helpers/fail/cellphone");
+const {
+  selfStuffFailTest,
+} = require("$/tests/integration/helpers/fail/selfStuff");
+const {
+  authenticationFailTest,
 } = require("$/tests/integration/helpers/fail/authentication");
 const {
-  blacklistItemExist,
-  blacklistItemNotExist,
-  contactItemExist,
-  contactItemNotExist,
-  targetUserNotExist,
+  blacklistItemExistFailTest,
+  blacklistItemNotExistFailTest,
+  contactItemExistFailTest,
+  contactItemNotExistFailTest,
+  targetUserNotExistFailTest,
 } = require("$/tests/integration/helpers/fail/existences");
-const { chatId } = require("$/tests/integration/helpers/fail/chatId");
+const { chatIdFailTest } = require("$/tests/integration/helpers/fail/chatId");
 const {
-  checkCurrentUserStatus,
+  checkCurrentUserStatusFailTest,
 } = require("$/tests/integration/helpers/fail/checkCurrentUserStatus");
-const { countryCode } = require("$/tests/integration/helpers/fail/countryCode");
-const { countryName } = require("$/tests/integration/helpers/fail/countryName");
-const { firstName } = require("$/tests/integration/helpers/fail/firstName");
 const {
-  inputMissing,
+  countryCodeFailTest,
+} = require("$/tests/integration/helpers/fail/countryCode");
+const {
+  countryNameFailTest,
+} = require("$/tests/integration/helpers/fail/countryName");
+const {
+  firstNameFailTest,
+} = require("$/tests/integration/helpers/fail/firstName");
+const {
+  inputMissingFailTest,
 } = require("$/tests/integration/helpers/fail/inputMissing");
-const { lastName } = require("$/tests/integration/helpers/fail/lastName");
-const { message } = require("$/tests/integration/helpers/fail/message");
 const {
-  participantId,
+  inputOverloadFailTest,
+} = require("$/tests/integration/helpers/fail/inputOverload");
+const { inputFailTest } = require("$/tests/integration/helpers/fail/input");
+const {
+  lastNameFailTest,
+} = require("$/tests/integration/helpers/fail/lastName");
+const { messageFailTest } = require("$/tests/integration/helpers/fail/message");
+const {
+  participantIdFailTest,
 } = require("$/tests/integration/helpers/fail/participantId");
-const { phoneNumber } = require("$/tests/integration/helpers/fail/phoneNumber");
 const {
-  verificationCode,
+  phoneNumberFailTest,
+} = require("$/tests/integration/helpers/fail/phoneNumber");
+const {
+  verificationCodeFailTest,
 } = require("$/tests/integration/helpers/fail/verificationCode");
 
 const failCollection = {
-  authentication,
-  blacklistItemExist,
-  blacklistItemNotExist,
-  cellphone,
-  chatId,
-  checkCurrentUserStatus,
-  contactItemExist,
-  contactItemNotExist,
-  countryCode,
-  countryName,
-  firstName,
-  inputMissing,
-  lastName,
-  message,
-  participantId,
-  phoneNumber,
-  selfStuff,
-  targetUserNotExist,
-  verificationCode,
+  authentication: authenticationFailTest,
+  blacklistItemExist: blacklistItemExistFailTest,
+  blacklistItemNotExist: blacklistItemNotExistFailTest,
+  cellphone: cellphoneFailTest,
+  chatId: chatIdFailTest,
+  checkCurrentUserStatus: checkCurrentUserStatusFailTest,
+  contactItemExist: contactItemExistFailTest,
+  contactItemNotExist: contactItemNotExistFailTest,
+  countryCode: countryCodeFailTest,
+  countryName: countryNameFailTest,
+  firstName: firstNameFailTest,
+  inputMissing: inputMissingFailTest,
+  inputOverload: inputOverloadFailTest,
+  input: inputFailTest,
+  lastName: lastNameFailTest,
+  message: messageFailTest,
+  participantId: participantIdFailTest,
+  phoneNumber: phoneNumberFailTest,
+  selfStuff: selfStuffFailTest,
+  targetUserNotExist: targetUserNotExistFailTest,
+  verificationCode: verificationCodeFailTest,
 };
 
 module.exports = { failCollection };

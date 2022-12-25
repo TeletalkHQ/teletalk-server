@@ -5,14 +5,13 @@ const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 const { mongooseUniqueValidator } = require("@/plugins/mongoosePlugins");
 
 const { nativeModels } = require("@/models/native");
-const { excludeVersions } = require("@/utilities/utilities");
 
-const chatModelsWithoutVersion = excludeVersions(nativeModels.chat);
+const chatModels = nativeModels.chat;
 
 const { chatId, createdAt, message, messageId, participantId } = {
   chatId: mongoModelBuilder
     .create()
-    .setModelObject(chatModelsWithoutVersion.chatId)
+    .setModelObject(chatModels.chatId)
     .type()
     .maxlength()
     .minlength()
@@ -21,21 +20,21 @@ const { chatId, createdAt, message, messageId, participantId } = {
     .build(),
   createdAt: mongoModelBuilder
     .create()
-    .setModelObject(chatModelsWithoutVersion.createdAt)
+    .setModelObject(chatModels.createdAt)
     .type()
     .required()
     .defaultValue()
     .build(),
   message: mongoModelBuilder
     .create()
-    .setModelObject(chatModelsWithoutVersion.message)
+    .setModelObject(chatModels.message)
     .type()
     .maxlength()
     .minlength()
     .build(),
   messageId: mongoModelBuilder
     .create()
-    .setModelObject(chatModelsWithoutVersion.messageId)
+    .setModelObject(chatModels.messageId)
     .type()
     .minlength()
     .maxlength()
@@ -46,7 +45,7 @@ const { chatId, createdAt, message, messageId, participantId } = {
     .build(),
   participantId: mongoModelBuilder
     .create()
-    .setModelObject(chatModelsWithoutVersion.participantId)
+    .setModelObject(chatModels.participantId)
     .type()
     .maxlength()
     .minlength()

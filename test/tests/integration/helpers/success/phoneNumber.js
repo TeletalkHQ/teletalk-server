@@ -5,8 +5,8 @@ const { models } = require("@/models");
 
 const userModels = models.native.user;
 
-const phoneNumber = (
-  { requestValue, responseValue } = {},
+const phoneNumberSuccessTest = (
+  { requestValue, responseValue },
   {
     stringEquality = true,
     modelCheck = true,
@@ -19,7 +19,7 @@ const phoneNumber = (
     .emptyCheck()
     .numericCheck()
     .addCommonTest()
-    .execute();
+    .run();
 };
 
-module.exports = { phoneNumber };
+module.exports = { phoneNumberSuccessTest };

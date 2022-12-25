@@ -1,29 +1,42 @@
 const { authManager } = require("@/classes/AuthManager");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
+const { temporaryClients } = require("@/classes/TemporaryClients");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
 
 const tryToVerify = async (req) => {
-  const {
-    authData: { payload: tokenPayload },
-  } = req;
+  const { authData } = req;
+  const cellphone = userPropsUtilities.extractCellphone(authData.payload);
+  const foundUser = await services.findOneUser(cellphone);
 
-  const cellphone = userPropsUtilities.extractCellphone(tokenPayload);
+  if (foundUser) {
+    await removeTemporaryClient(foundUser);
+    return await responseIfUserExist(foundUser);
+  }
 
-  const foundUser = (await services.findOneUser(cellphone)) || {};
+  return formatResponseData(
+    {
+      newUser: true,
+    },
+    1
+  );
+};
 
-  const userData = userPropsUtilities.extractUserData(foundUser);
+const responseIfUserExist = async (foundUser) => {
+  const { sessions, ...userData } =
+    userPropsUtilities.extractUserData(foundUser);
 
-  const isUserExist = !!userData.userId;
-  const responseData = await fixUserData(isUserExist, userData);
-  //? 0 stance for newUser:false and 1 for newUser:true
-  const requiredFieldsIndex = isUserExist ? 0 : 1;
+  const token = signToken(userData);
+  await addNewToken(userData.userId, token);
 
-  return {
-    requiredFieldsIndex,
-    ...responseData,
+  const responseData = {
+    ...userData,
+    //FIXME: newUser out of userData
+    newUser: false,
+    token,
   };
+  return formatResponseData(responseData, 0);
 };
 
 const signToken = (userData) => {
@@ -40,24 +53,15 @@ const addNewToken = async (userId, newToken) => {
   });
 };
 
-const dataIfUserExist = async ({ sessions, ...userData }) => {
-  const newToken = signToken(userData);
-  await addNewToken(userData.userId, newToken);
-
+const formatResponseData = (data, requiredFieldsIndex) => {
   return {
-    ...userData,
-    newUser: false,
-    token: newToken,
+    user: data,
+    requiredFieldsIndex,
   };
 };
-const dataIfUserNotExist = () => ({
-  newUser: true,
-});
 
-const fixUserData = async (isUserExist, userData) => {
-  return {
-    user: isUserExist ? await dataIfUserExist(userData) : dataIfUserNotExist(),
-  };
+const removeTemporaryClient = async (cellphone) => {
+  await temporaryClients.remove(cellphone);
 };
 
 const verify = controllerBuilder.create().body(tryToVerify).build();

@@ -1,19 +1,14 @@
+const Validator = require("fastest-validator");
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
-const { trier } = require("utility-store/src/classes/Trier");
-const Validator = require("fastest-validator");
 
 const { errorThrower } = require("utility-store/src/functions/utilities");
 
 const { errors } = require("@/variables/errors");
 
 const fastestValidatorCompiler = new Validator();
-
-const tryCompileValidator = (validationModel) => {
-  return fastestValidatorCompiler.compile(validationModel);
-};
 
 class ValidationModelBuilder {
   constructor() {
@@ -39,7 +34,7 @@ class ValidationModelBuilder {
     this.modelObject = {};
   }
 
-  #addProperty(validationKey, modelKey, messageKey) {
+  #updateProperty(validationKey, modelKey, messageKey) {
     this.#setValue(validationKey, modelKey);
     this.#setMessage(modelKey, messageKey);
   }
@@ -55,16 +50,13 @@ class ValidationModelBuilder {
       this.modelObject[modelKey].error.message;
   }
 
-  static validatorCompiler({ version, ...validationModel }) {
+  static validatorCompiler(validationModel) {
     errorThrower(
       customTypeof.isNotObject(validationModel),
       errors.VALIDATION_MODEL_IS_NOT_OBJECT
     );
 
-    return trier(this.validatorCompiler)
-      .try(tryCompileValidator, validationModel)
-      .throw()
-      .run();
+    return fastestValidatorCompiler.compile(validationModel);
   }
 
   setModelObject(modelObject) {
@@ -72,23 +64,23 @@ class ValidationModelBuilder {
     return this;
   }
   empty() {
-    this.#addProperty("empty", "empty", "stringEmpty");
+    this.#updateProperty("empty", "empty", "stringEmpty");
     return this;
   }
   length() {
-    this.#addProperty("length", "length", "length");
+    this.#updateProperty("length", "length", "length");
     return this;
   }
   max() {
-    this.#addProperty("max", "maxlength", "stringMax");
+    this.#updateProperty("max", "maxlength", "stringMax");
     return this;
   }
   min() {
-    this.#addProperty("min", "minlength", "stringMin");
+    this.#updateProperty("min", "minlength", "stringMin");
     return this;
   }
   numeric() {
-    this.#addProperty("numeric", "numeric", "stringNumeric");
+    this.#updateProperty("numeric", "numeric", "stringNumeric");
     return this;
   }
   trim() {
@@ -96,15 +88,15 @@ class ValidationModelBuilder {
     return this;
   }
   type() {
-    this.#addProperty("type", "type", "string");
+    this.#updateProperty("type", "type", "string");
     return this;
   }
   unique() {
-    this.#addProperty("unique", "unique", "unique");
+    this.#updateProperty("unique", "unique", "unique");
     return this;
   }
   required() {
-    this.#addProperty("required", "required", "required");
+    this.#updateProperty("required", "required", "required");
     return this;
   }
   optional() {
@@ -117,7 +109,7 @@ class ValidationModelBuilder {
   }
 
   build() {
-    return objectUtilities.objectClarify(this.validationModelObject);
+    return objectUtilities.clarify(this.validationModelObject);
   }
 }
 

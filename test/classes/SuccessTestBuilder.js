@@ -1,4 +1,4 @@
-const { expect } = require("$/utilities/testUtilities");
+const { expect } = require("chai");
 
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
@@ -46,7 +46,7 @@ class SuccessTestBuilder {
     return this;
   }
 
-  execute() {
+  run() {
     this.tests.forEach((test) => {
       test();
     });
@@ -61,7 +61,7 @@ class SuccessTestBuilder {
   }
 
   stringEquality() {
-    this.checkAndExecute(this.options.stringEquality, () => {
+    this.addIf(this.options.stringEquality, () => {
       this.tests.push(() =>
         expect(this.variables.requestValue.length).equal(
           this.variables.responseValue.length
@@ -75,16 +75,9 @@ class SuccessTestBuilder {
     return this;
   }
 
-  checkAndExecute(condition, cb) {
+  addIf(condition, cb) {
     if (condition) {
       cb();
-    }
-
-    return this;
-  }
-  async checkAndExecuteAsync(condition, asyncCb) {
-    if (condition) {
-      await asyncCb();
     }
 
     return this;
@@ -101,7 +94,7 @@ class SuccessTestBuilder {
   }
 
   typeCheck(customType) {
-    this.checkAndExecute(this.options.modelCheck, () => {
+    this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
         expect(this.variables.responseValue).to.be.an(
           customType || this.variables.model.type.value
@@ -119,7 +112,7 @@ class SuccessTestBuilder {
   }
 
   emptyCheck() {
-    this.checkAndExecute(this.options.modelCheck, () => {
+    this.addIf(this.options.modelCheck, () => {
       if (this.variables.model.empty.value === false)
         this.tests.push(() =>
           expect(this.variables.responseValue.length).to.be.greaterThan(0)
@@ -130,7 +123,7 @@ class SuccessTestBuilder {
   }
 
   gteCheck() {
-    this.checkAndExecute(this.options.modelCheck, () => {
+    this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
         expect(this.variables.responseValue.length).greaterThanOrEqual(
           this.variables.modelMinLength
@@ -141,7 +134,7 @@ class SuccessTestBuilder {
     return this;
   }
   gtCheck(length) {
-    this.checkAndExecute(this.options.modelCheck, () => {
+    this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
         expect(this.variables.responseValue.length).greaterThan(length)
       );
@@ -150,7 +143,7 @@ class SuccessTestBuilder {
     return this;
   }
   lteCheck() {
-    this.checkAndExecute(this.options.modelCheck, () => {
+    this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
         expect(this.variables.responseValue.length).lessThanOrEqual(
           this.variables.modelMaxLength
@@ -162,7 +155,7 @@ class SuccessTestBuilder {
   }
 
   numericCheck() {
-    this.checkAndExecute(this.options.modelCheck, () => {
+    this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
         expect(+this.variables.responseValue).to.be.an(FIELD_TYPE.NUMBER)
       );

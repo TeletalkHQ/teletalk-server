@@ -1,6 +1,7 @@
 const { errors } = require("@/variables/errors");
 
-const selfStuff = (configuredCustomRequest, data) => {
+const selfStuffFailTest = (configuredCustomRequest, data) => {
+  //TODO: Add tests
   it("should get error: TOKEN_REQUIRED", async () => {
     await configuredCustomRequest.sendFullFeaturedRequest(
       data,
@@ -9,4 +10,4 @@ const selfStuff = (configuredCustomRequest, data) => {
   });
 };
 
-module.exports = { selfStuff };
+module.exports = { selfStuffFailTest };

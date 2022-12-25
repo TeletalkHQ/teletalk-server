@@ -15,7 +15,6 @@ class NativeModelBuilder {
       type: this.#initialValueAndError("", {}),
       unique: this.#initialValueAndError("", {}),
     };
-    this.modelVersion = "1.0.0";
   }
 
   #updateProperty(key, value = null, error) {
@@ -38,13 +37,11 @@ class NativeModelBuilder {
   build() {
     for (const key in this.modelObject) {
       const { value } = this.modelObject[key];
-      const valueType = customTypeof.check(value).type;
-      if (valueType.isNull || valueType.isUndefined) {
+      const { type } = customTypeof.check(value);
+      if (type.isNull || type.isUndefined) {
         delete this.modelObject[key];
       }
     }
-
-    this.modelObject.version = this.modelVersion;
 
     return this.modelObject;
   }
@@ -66,10 +63,6 @@ class NativeModelBuilder {
   }
   empty(value, error) {
     this.#updateProperty("empty", value, error);
-    return this;
-  }
-  version(value) {
-    this.modelVersion = value;
     return this;
   }
   required(value, error = {}) {

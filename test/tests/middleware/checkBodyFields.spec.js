@@ -1,7 +1,3 @@
-const {
-  objectUtilities,
-} = require("utility-store/src/classes/ObjectUtilities");
-
 const { makeCustomRequest } = require("$/utilities/requesters");
 
 const { arrayOfRoutes, routes } = require("@/routes");
@@ -9,12 +5,12 @@ const { arrayOfRoutes, routes } = require("@/routes");
 const { errors } = require("@/variables/errors");
 
 describe("checkBodyFields middleware tests", () => {
-  //? Filter routes has at least one input field
+  //? Filter routes which has at least one input field
   const routesWithInputFields = arrayOfRoutes.filter(
-    (i) => objectUtilities.objectKeys(i.inputFields).length
+    (i) => Object.keys(i.inputFields).length
   );
 
-  const routesWithoutAuthRoutes = routesWithInputFields.filter(
+  const routesWithoutAuth = routesWithInputFields.filter(
     (i) =>
       ![
         routes.user.signIn.fullUrl,
@@ -23,13 +19,13 @@ describe("checkBodyFields middleware tests", () => {
       ].includes(i.fullUrl)
   );
 
-  it("should get error: INPUT_FIELDS_MISSING", async () => {
-    for (const route of routesWithoutAuthRoutes) {
+  for (const route of routesWithoutAuth) {
+    it(`should get error: INPUT_FIELDS_MISSING - ${route.fullUrl}`, async () => {
       await makeCustomRequest(route)().sendFullFeaturedRequest(
         undefined,
         errors.INPUT_FIELDS_MISSING,
         { filterDataCondition: false }
       );
-    }
-  });
+    });
+  }
 });

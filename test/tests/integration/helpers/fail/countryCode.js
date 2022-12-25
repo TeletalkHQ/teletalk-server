@@ -8,7 +8,7 @@ const userModels = models.native.user;
 
 const { errors } = require("@/variables/errors");
 
-const countryCode = (configuredCustomRequest, data) => {
+const countryCodeFailTest = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(
       configuredCustomRequest,
@@ -24,4 +24,4 @@ const countryCode = (configuredCustomRequest, data) => {
     .custom(getNonExistedCountryCode(), errors.COUNTRY_CODE_NOT_SUPPORTED);
 };
 
-module.exports = { countryCode };
+module.exports = { countryCodeFailTest };

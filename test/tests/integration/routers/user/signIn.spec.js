@@ -2,72 +2,66 @@ const { authManager } = require("@/classes/AuthManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
+
 const { requesters } = require("$/utilities/requesters");
 
-const cellphones = testVariablesManager.getCellphones();
-const signInCellphone = cellphones.signIn;
+const { signIn: signInCellphone } = testVariablesManager.getCellphones();
 
-describe("signInApi success test", () => {
-  it("should sign user, test tempClient and response value", async () => {
-    const {
-      body: {
-        user: { countryCode, countryName, phoneNumber, token },
-      },
-    } = await requesters.signIn().sendFullFeaturedRequest(signInCellphone);
+describe("signIn success test", () => {
+  it("should sign as new user", async () => {
+    const successTest = testHelper.createSuccessTest();
 
-    //? Test response
-    const successTest = integrationHelpers.createSuccessTest();
-    successTest
-      .countryCode({
-        requestValue: signInCellphone.countryCode,
-        responseValue: countryCode,
-      })
-      .countryName({
-        requestValue: signInCellphone.countryName,
-        responseValue: countryName,
-      })
-      .phoneNumber({
-        requestValue: signInCellphone.phoneNumber,
-        responseValue: phoneNumber,
-      });
-    const JWT_SIGN_IN_SECRET = authManager.getJwtSignInSecret();
-    await successTest.token({
-      responseValue: token,
-      secret: JWT_SIGN_IN_SECRET,
-    });
+    const responseData = await signInRequest();
 
-    //? Test saved temporary client
-    const temporaryClient = await temporaryClients.findClientByCellphone({
-      countryCode,
-      countryName,
-      phoneNumber,
-    });
-    successTest
-      .countryName({
-        requestValue: signInCellphone.countryName,
-        responseValue: temporaryClient.countryName,
-      })
-      .countryCode({
-        requestValue: signInCellphone.countryCode,
-        responseValue: temporaryClient.countryCode,
-      })
-      .phoneNumber({
-        requestValue: signInCellphone.phoneNumber,
-        responseValue: temporaryClient.phoneNumber,
-      })
-      .verificationCode({ responseValue: temporaryClient.verificationCode });
+    await testResponseData(successTest, responseData);
+    await testSavedTemporaryClient(successTest, responseData);
   });
 });
 
-describe("signInApi failure test", () => {
-  integrationHelpers
+describe("signIn failure test", () => {
+  testHelper
     .createFailTest(requesters.signIn())
-    .inputMissing(signInCellphone)
+    .input(signInCellphone)
     .cellphone(signInCellphone)
     .countryCode(signInCellphone)
     .countryName(signInCellphone)
     .phoneNumber(signInCellphone);
 });
+
+const signInRequest = async () => {
+  const response = await requesters
+    .signIn()
+    .sendFullFeaturedRequest(signInCellphone);
+  return response.body;
+};
+
+const testResponseData = async (builder, responseData) => {
+  const {
+    user: { token, ...userData },
+  } = responseData;
+
+  builder.cellphone({
+    requestValue: signInCellphone,
+    responseValue: userData,
+  });
+
+  await builder.authentication(
+    {
+      responseValue: token,
+      secret: authManager.getJwtSignInSecret(),
+    },
+    { stringEquality: false }
+  );
+};
+
+const testSavedTemporaryClient = async (builder, responseData) => {
+  const temporaryClient = await temporaryClients.find(responseData.user);
+
+  builder
+    .cellphone({
+      requestValue: signInCellphone,
+      responseValue: temporaryClient,
+    })
+    .verificationCode({ responseValue: temporaryClient.verificationCode });
+};

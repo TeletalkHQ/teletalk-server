@@ -2,8 +2,6 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { errors } = require("@/variables/errors");
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
@@ -47,18 +45,13 @@ const messageId = nativeModelBuilder
   .unique(true, errors.MESSAGE_ID_EXIST)
   .build();
 
-const models = {
+const commonModels = {
   chatId,
   createdAt,
   messageId,
   userId,
 };
 
-const common = {
-  version: versionCalculator(extractVersions(models)),
-  ...models,
-};
-
 module.exports = {
-  common,
+  commonModels,
 };

@@ -1,15 +1,13 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");
 
 const { METHODS } = require("@/variables/others/methods");
 
-const versionControlRouteBuilder = routeBuilder(baseUrls.stuff);
+const stuffRouteBuilder = routeBuilder(baseUrls.stuff);
 
-const getAllStuffs = versionControlRouteBuilder
+const getAllStuffs = stuffRouteBuilder
   .create()
   .method(METHODS.POST)
   .url("/getAllStuff")
@@ -19,13 +17,8 @@ const getAllStuffs = versionControlRouteBuilder
   })
   .build();
 
-const routes = {
+const stuffRoutes = {
   getAllStuffs,
 };
 
-const stuff = {
-  ...routes,
-  version: versionCalculator(extractVersions(routes)),
-};
-
-module.exports = { stuff };
+module.exports = { stuffRoutes };

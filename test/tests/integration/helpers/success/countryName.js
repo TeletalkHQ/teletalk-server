@@ -5,8 +5,8 @@ const { models } = require("@/models");
 
 const userModels = models.native.user;
 
-const countryName = (
-  { requestValue, responseValue } = {},
+const countryNameSuccessTest = (
+  { requestValue, responseValue },
   {
     stringEquality = true,
     modelCheck = true,
@@ -18,7 +18,7 @@ const countryName = (
     .setOptions({ modelCheck, stringEquality })
     .addCommonTest()
     .emptyCheck()
-    .execute();
+    .run();
 };
 
-module.exports = { countryName };
+module.exports = { countryNameSuccessTest };

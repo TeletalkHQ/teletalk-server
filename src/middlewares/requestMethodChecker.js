@@ -1,8 +1,7 @@
 const { trier } = require("utility-store/src/classes/Trier");
+const { errorThrower } = require("utility-store/src/functions/utilities");
 
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
-
-const { errorThrower } = require("@/utilities/utilities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 
 const { errors } = require("@/variables/errors");
 
@@ -32,7 +31,7 @@ const executeIfNoError = (_, next) => {
 };
 
 const catchCheckRequestMethod = (error, res) => {
-  commonFunctionalities.controllerErrorResponse(error, res);
+  commonUtilities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

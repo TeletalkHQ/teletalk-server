@@ -6,7 +6,7 @@ const userModels = models.native.user;
 
 const { errors } = require("@/variables/errors");
 
-const firstName = (configuredCustomRequest, data) => {
+const firstNameFailTest = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(configuredCustomRequest, data, userModels.firstName, "firstName")
     .required(errors.FIRST_NAME_REQUIRED)
@@ -15,4 +15,4 @@ const firstName = (configuredCustomRequest, data) => {
     .invalidType_typeIsString(errors.FIRST_NAME_INVALID_TYPE);
 };
 
-module.exports = { firstName };
+module.exports = { firstNameFailTest };

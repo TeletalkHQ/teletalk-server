@@ -1,7 +1,5 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { baseUrls } = require("$/routes/baseUrls");
 
 const { METHODS } = require("@/variables/others/methods");
@@ -15,13 +13,8 @@ const getAllUsers = userRouteBuilder
   .statusCode(200)
   .build();
 
-const routes = {
-  getAllUsers,
-};
-
 const userRoutes = {
-  ...routes,
-  version: versionCalculator(extractVersions(routes)),
+  getAllUsers,
 };
 
 module.exports = {

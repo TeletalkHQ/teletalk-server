@@ -39,7 +39,7 @@ class TestVariablesManager {
     const randomCountry = countries[0];
 
     return {
-      createNewUserSignIn:
+      createNewUser:
         userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
       logout: userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
       notExistedContact: {
@@ -50,9 +50,9 @@ class TestVariablesManager {
         phoneNumber: "1234567890",
       },
       signIn: userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
-      verifySignInFailTest:
+      verifyFailTest:
         userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
-      verifySignInNewUser:
+      verifyAsNewUser:
         userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
     };
   }

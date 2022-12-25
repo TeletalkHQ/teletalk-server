@@ -1,7 +1,7 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 
 const { errorThrower } = require("utility-store/src/functions/utilities");
 
@@ -18,7 +18,7 @@ const tryToValidateRouteObject = (routeObject) => {
   errorThrower(isRouteObjectInvalid(routeObject), errors.ROUTE_NOT_FOUND);
 };
 
-const catchValidateRouteObject = commonFunctionalities.controllerErrorResponse;
+const catchValidateRouteObject = commonUtilities.controllerErrorResponse;
 
 const notFound = (req, res, next) => {
   trier(notFound.name)

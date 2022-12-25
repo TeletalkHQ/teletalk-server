@@ -6,10 +6,8 @@ const { nativeModels } = require("@/models/native");
 
 const { mongooseUniqueValidator } = require("@/plugins/mongoosePlugins");
 
-const { excludeVersions } = require("@/utilities/utilities");
-
-const userModelsWithoutVersion = excludeVersions(nativeModels.user);
-const commonModelsWithoutVersion = excludeVersions(nativeModels.common);
+const userModels = nativeModels.user;
+const commonModels = nativeModels.common;
 
 const {
   bio,
@@ -25,14 +23,14 @@ const {
 } = {
   bio: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.bio)
+    .setModelObject(userModels.bio)
     .type()
     .maxlength()
     .defaultValue()
     .build(),
   chatId: mongoModelBuilder
     .create()
-    .setModelObject(commonModelsWithoutVersion.chatId)
+    .setModelObject(commonModels.chatId)
     .type()
     .maxlength()
     .minlength()
@@ -41,7 +39,7 @@ const {
     .build(),
   countryCode: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.countryCode)
+    .setModelObject(userModels.countryCode)
     .type()
     .maxlength()
     .minlength()
@@ -49,7 +47,7 @@ const {
     .build(),
   countryName: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.countryName)
+    .setModelObject(userModels.countryName)
     .type()
     .maxlength()
     .minlength()
@@ -57,13 +55,13 @@ const {
     .build(),
   createdAt: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.createdAt)
+    .setModelObject(userModels.createdAt)
     .type()
     .defaultValue()
     .build(),
   firstName: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.firstName)
+    .setModelObject(userModels.firstName)
     .type()
     .maxlength()
     .minlength()
@@ -71,7 +69,7 @@ const {
     .build(),
   lastName: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.lastName)
+    .setModelObject(userModels.lastName)
     .type()
     .maxlength()
     .trim()
@@ -79,13 +77,13 @@ const {
     .build(),
   token: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.token)
+    .setModelObject(userModels.token)
     .type()
     .required()
     .build(),
   phoneNumber: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.phoneNumber)
+    .setModelObject(userModels.phoneNumber)
     .type()
     .maxlength()
     .minlength()
@@ -93,7 +91,7 @@ const {
     .build(),
   userId: mongoModelBuilder
     .create()
-    .setModelObject(commonModelsWithoutVersion.userId)
+    .setModelObject(commonModels.userId)
     .type()
     .minlength()
     .maxlength()
@@ -103,7 +101,7 @@ const {
     .build(),
   username: mongoModelBuilder
     .create()
-    .setModelObject(userModelsWithoutVersion.username)
+    .setModelObject(userModels.username)
     .type()
     .trim()
     .maxlength()
@@ -120,6 +118,7 @@ const {
 
 const UserSchema = new mongoose.Schema({
   bio,
+  //FIXME: All arrays in db, same as contacts
   blacklist: [
     {
       countryCode,

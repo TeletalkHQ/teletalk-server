@@ -2,6 +2,6 @@ const { routeBuilder } = require("@/classes/RouteBuilder");
 
 const root = routeBuilder("/").create().url("").build();
 
-const server = { root };
+const serverRoutes = { root };
 
-module.exports = { server };
+module.exports = { serverRoutes };

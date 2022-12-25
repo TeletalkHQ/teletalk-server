@@ -1,7 +1,5 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");
 
@@ -33,14 +31,9 @@ const getWelcomeMessage = otherRouteBuilder
   ])
   .build();
 
-const routes = {
+const otherRoutes = {
   getCountries,
   getWelcomeMessage,
 };
 
-const other = {
-  version: versionCalculator(extractVersions(routes)),
-  ...routes,
-};
-
-module.exports = { other };
+module.exports = { otherRoutes };

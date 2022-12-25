@@ -1,7 +1,5 @@
 const { errorBuilder } = require("@/classes/ErrorBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const {
   ERROR_KEYS: {
     BIO_VALIDATION,
@@ -120,6 +118,11 @@ const CHATS_INVALID_TYPE = errorBuilder
 const CONTACT_INVALID_TYPE = errorBuilder
   .create()
   .reason(UNIQUE_ERROR_IDS.CONTACT_INVALID_TYPE)
+  .errorKey(CONTACT_VALIDATION)
+  .build();
+const CONTACTS_INVALID_TYPE = errorBuilder
+  .create()
+  .reason(UNIQUE_ERROR_IDS.CONTACTS_INVALID_TYPE)
   .errorKey(CONTACT_VALIDATION)
   .build();
 
@@ -486,6 +489,12 @@ const TOKEN_INVALID = errorBuilder
   .reason(UNIQUE_ERROR_IDS.TOKEN_INVALID)
   .errorKey(TOKEN_VALIDATION)
   .build();
+const TOKEN_EMPTY = errorBuilder
+  .create()
+  .statusCode(401)
+  .reason(UNIQUE_ERROR_IDS.TOKEN_INVALID)
+  .errorKey(TOKEN_VALIDATION)
+  .build();
 
 const TOKEN_CAN_NOT_VERIFIED = errorBuilder
   .create()
@@ -607,7 +616,14 @@ const VERIFICATION_CODE_MAXLENGTH_REACH = errorBuilder
 
 const TEMPORARY_CLIENT_NOT_FOUND = errorBuilder
   .create()
+  .statusCode(401)
   .reason(UNIQUE_ERROR_IDS.TEMPORARY_CLIENT_NOT_FOUND)
+  .errorKey(TEMPORARY_CLIENT_VALIDATION)
+  .build();
+const TEMPORARY_CLIENT_NOT_VERIFIED = errorBuilder
+  .create()
+  .statusCode(401)
+  .reason(UNIQUE_ERROR_IDS.TEMPORARY_CLIENT_NOT_VERIFIED)
   .errorKey(TEMPORARY_CLIENT_VALIDATION)
   .build();
 
@@ -853,7 +869,7 @@ const METHOD_NOT_ALLOWED = errorBuilder
   .statusCode(405)
   .build();
 
-const errors = {
+const userErrors = {
   BIO_EMPTY,
   BIO_INVALID_TYPE,
   BIO_MAXLENGTH_REACH,
@@ -879,6 +895,7 @@ const errors = {
   CONTACT_INVALID_TYPE,
   CONTACT_ITEM_EXIST,
   CONTACT_ITEM_NOT_EXIST,
+  CONTACTS_INVALID_TYPE,
   COUNTRY_CODE_EMPTY,
   COUNTRY_CODE_INVALID,
   COUNTRY_CODE_INVALID_TYPE,
@@ -958,7 +975,9 @@ const errors = {
   SENDER_ID_REQUIRED,
   TARGET_USER_NOT_EXIST,
   TEMPORARY_CLIENT_NOT_FOUND,
+  TEMPORARY_CLIENT_NOT_VERIFIED,
   TOKEN_CAN_NOT_VERIFIED,
+  TOKEN_EMPTY,
   TOKEN_EXIST,
   TOKEN_INVALID,
   TOKEN_INVALID_TYPE,
@@ -988,11 +1007,6 @@ const errors = {
   VERIFICATION_CODE_MAXLENGTH_REACH,
   VERIFICATION_CODE_NUMERIC,
   VERIFICATION_CODE_REQUIRED,
-};
-
-const userErrors = {
-  version: versionCalculator(extractVersions(errors)),
-  ...errors,
 };
 
 module.exports = {

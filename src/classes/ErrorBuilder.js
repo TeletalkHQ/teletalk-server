@@ -5,7 +5,6 @@ class ErrorBuilder {
       message: "",
       reason: "UNKNOWN_ERROR",
       statusCode: 400,
-      version: "1.0.0",
       errorKey: "",
     };
   }
@@ -35,10 +34,6 @@ class ErrorBuilder {
   }
   errorKey(errorKey) {
     this.#updateProperty("errorKey", errorKey);
-    return this;
-  }
-  version(version) {
-    this.#updateProperty("version", version);
     return this;
   }
   description(description) {

@@ -1,13 +1,21 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { fixResponseErrorObject } = require("@/utilities/utilities");
-
 const { errors } = require("@/variables/errors");
+
+const errorCollector = (res, errorObject) => {
+  trier(errorCollector.name)
+    .try(tryToCollectError, errorObject)
+    .executeIfNoError(executeIfNoError, res)
+    .catch(catchCollectError, res)
+    .run();
+};
 
 const tryToCollectError = (errorObject) => {
   if (customTypeof.isObject(errorObject) && errorObject.reason)
     return errorObject;
+
+  logger.error("unknownError:::", errorObject);
 
   return {
     ...errors.UNKNOWN_ERROR,
@@ -24,12 +32,13 @@ const catchCollectError = (error, res) => {
   res.errorResponser();
 };
 
-const errorCollector = (res, errorObject) => {
-  trier(errorCollector.name)
-    .try(tryToCollectError, errorObject)
-    .executeIfNoError(executeIfNoError, res)
-    .catch(catchCollectError, res)
-    .run();
+const fixResponseErrorObject = (errorObject, extraData = {}, statusCode) => {
+  const { errorKey, ...error } = errorObject;
+
+  return {
+    [errorKey]: { ...error, ...extraData },
+    statusCode: statusCode || errorObject.statusCode,
+  };
 };
 
 module.exports = { errorCollector };

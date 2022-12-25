@@ -5,8 +5,8 @@ const { models } = require("@/models");
 
 const userModels = models.native.user;
 
-const lastName = (
-  { requestValue, responseValue } = {},
+const lastNameSuccessTest = (
+  { requestValue, responseValue },
   {
     stringEquality = true,
     modelCheck = true,
@@ -21,12 +21,10 @@ const lastName = (
     .stringEquality()
     .typeCheck()
     .emptyCheck()
-    .checkAndExecute(userModels.lastName.empty.value === false, () =>
-      builder.lteCheck()
-    )
-    .execute();
+    .addIf(userModels.lastName.empty.value === false, () => builder.lteCheck())
+    .run();
 };
 
 module.exports = {
-  lastName,
+  lastNameSuccessTest,
 };

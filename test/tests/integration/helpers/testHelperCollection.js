@@ -1,9 +1,9 @@
 const { failCollection } = require("$/tests/integration/helpers/fail");
 const { successCollection } = require("$/tests/integration/helpers/success");
 
-const integrationHelpersCollection = {
+const testHelperCollection = {
   fail: failCollection,
   success: successCollection,
 };
 
-module.exports = { integrationHelpersCollection };
+module.exports = { testHelperCollection };

@@ -344,5 +344,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "2ade3ccd-d07b-425b-b704-71739da1c14e",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/other/welcomeMessage",
+    "url": "{{baseUrl}}/other/welcomeMessage",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-12-24T18:35:25.449Z",
+    "modified": "2022-12-24T18:35:25.449Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

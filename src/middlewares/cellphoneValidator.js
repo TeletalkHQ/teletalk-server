@@ -1,6 +1,6 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { validators } = require("@/validators");
@@ -24,7 +24,7 @@ const executeIfNoError = (_, next) => {
 };
 
 const catchValidateCellphone = (error, res) => {
-  commonFunctionalities.controllerErrorResponse(error, res);
+  commonUtilities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

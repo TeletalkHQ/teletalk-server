@@ -1,39 +1,33 @@
-const {
-  objectUtilities,
-} = require("utility-store/src/classes/ObjectUtilities");
+const { cellphoneRoutes } = require("@/routes/cellphone");
+const { otherRoutes } = require("@/routes/other");
+const { privateChatRoutes } = require("@/routes/privateChat");
+const { serverRoutes } = require("@/routes/server");
+const { stuffRoutes } = require("@/routes/stuff");
+const { userRoutes } = require("@/routes/user");
 
-const { cellphone } = require("@/routes/cellphone");
-const { other } = require("@/routes/other");
-const { privateChat } = require("@/routes/privateChat");
-const { server } = require("@/routes/server");
-const { stuff } = require("@/routes/stuff");
-const { user } = require("@/routes/user");
-
-const { excludeVersions } = require("@/utilities/utilities");
-
-const arrayOfRoutes = objectUtilities.objectValues({
-  ...excludeVersions(cellphone),
-  ...excludeVersions(other),
-  ...excludeVersions(privateChat),
-  ...excludeVersions(user),
-  ...excludeVersions(stuff),
+const arrayOfRoutes = Object.values({
+  ...cellphoneRoutes,
+  ...otherRoutes,
+  ...privateChatRoutes,
+  ...userRoutes,
+  ...stuffRoutes,
 });
 
 const ignoredRoutesForAuth = [
-  stuff.getAllStuffs,
-  other.getCountries,
-  other.getWelcomeMessage,
-  user.signIn,
-  server.root,
+  stuffRoutes.getAllStuffs,
+  otherRoutes.getCountries,
+  otherRoutes.getWelcomeMessage,
+  userRoutes.signIn,
+  serverRoutes.root,
 ];
 
 const routes = {
-  cellphone,
-  other,
-  privateChat,
-  server,
-  stuff,
-  user,
+  cellphone: cellphoneRoutes,
+  other: otherRoutes,
+  privateChat: privateChatRoutes,
+  server: serverRoutes,
+  stuff: stuffRoutes,
+  user: userRoutes,
 };
 
 module.exports = {

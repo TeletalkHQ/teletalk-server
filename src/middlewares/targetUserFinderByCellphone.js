@@ -1,7 +1,7 @@
 const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
-const { commonFunctionalities } = require("@/classes/CommonFunctionalities");
+const { commonUtilities } = require("@/classes/CommonUtilities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { errorThrower } = require("utility-store/src/functions/utilities");
@@ -37,7 +37,7 @@ const executeInNoError = ({ targetUser }, req, next) => {
 };
 
 const catchFindUserByCellphone = (error, res) => {
-  commonFunctionalities.controllerErrorResponse(error, res);
+  commonUtilities.controllerErrorResponse(error, res);
   return { ok: false };
 };
 

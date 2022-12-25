@@ -1,110 +1,45 @@
-const { authManager } = require("@/classes/AuthManager");
+const { expect } = require("chai");
+
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { expect } = require("$/utilities/testUtilities");
-const {
-  integrationHelpers,
-} = require("$/tests/integration/helpers/integrationHelpers");
-const { requesters } = require("$/utilities/requesters");
-
 const { models } = require("@/models");
 
-const userModels = models.native.user;
+const { services } = require("@/services");
 
+const { testHelper } = require("$/tests/integration/helpers/testHelper");
+
+const { requesters } = require("$/utilities/requesters");
+
+const userModels = models.native.user;
 const fullName = userPropsUtilities.makeRandomFullName(
   userModels.firstName.maxlength.value,
   userModels.lastName.maxlength.value
 );
 const cellphones = testVariablesManager.getCellphones();
+const { createNewUser: createNewUserCellphone } = cellphones;
 
 //TODO Add USER_EXIST fail tests
 
-describe("success create new  user", () => {
+describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
-    //* 1- Sign in as a new user =>
-    const {
-      body: {
-        user: {
-          countryCode: newUserCountryCode,
-          countryName: newUserCountryName,
-          phoneNumber: newUserPhoneNumber,
-          token: newUserVerifyToken,
-        },
-      },
-    } = await requesters
-      .signIn()
-      .sendFullFeaturedRequest(cellphones.createNewUserSignIn);
+    const signInResponse = await signInRequest(createNewUserCellphone);
+    const temporaryClient = await temporaryClients.find(signInResponse);
+    const verifyResponse = await verifyRequest(
+      signInResponse.token,
+      temporaryClient.verificationCode
+    );
+    expect(verifyResponse.newUser).to.be.equal(true);
 
-    const { verificationCode: newUserVerificationCode } =
-      await temporaryClients.findClientByCellphone({
-        countryCode: newUserCountryCode,
-        countryName: newUserCountryName,
-        phoneNumber: newUserPhoneNumber,
-      });
-
-    //* 2- Verify user by verificationCode & token =>
-    const newUserVerifySignInResponse = await requesters
-      .verify()
-      .setToken(newUserVerifyToken)
-      .sendFullFeaturedRequest({
-        verificationCode: newUserVerificationCode,
-      });
-
-    //* 3- Test output when newUser === false =>
-    expect(newUserVerifySignInResponse.body.user.newUser).equal(true);
-
-    //* 4- Finalize new user sign in (save user in db) =>
-    const {
-      body: {
-        user: {
-          countryCode,
-          countryName,
-          firstName,
-          lastName,
-          token,
-          phoneNumber,
-          userId,
-        },
-      },
-    } = await requesters
-      .createNewUser()
-      .setToken(newUserVerifyToken)
-      .sendFullFeaturedRequest(fullName);
-
-    const successTests = integrationHelpers.createSuccessTest(
-      requesters.createNewUser()
+    const createNewUserResponse = await createNewUserRequest(
+      signInResponse.token
     );
 
-    const JWT_MAIN_SECRET = authManager.getJwtMainSecret();
-    await successTests.token({
-      responseValue: token,
-      secret: JWT_MAIN_SECRET,
-    });
+    const successTestBuilder = testHelper.createSuccessTest();
 
-    successTests
-      .countryCode({
-        requestValue: cellphones.createNewUserSignIn.countryCode,
-        responseValue: countryCode,
-      })
-      .countryName({
-        responseValue: countryName,
-        requestValue: cellphones.createNewUserSignIn.countryName,
-      })
-      .phoneNumber({
-        requestValue: cellphones.createNewUserSignIn.phoneNumber,
-        responseValue: phoneNumber,
-      })
-      .userId({ responseValue: userId }, { stringEquality: false })
-      .firstName({
-        requestValue: fullName.firstName,
-        responseValue: firstName,
-      })
-      .lastName({
-        requestValue: fullName.lastName,
-        responseValue: lastName,
-      });
+    await testCreatedUserSession(successTestBuilder, createNewUserResponse);
+    testCreatedUserData(successTestBuilder, createNewUserResponse);
   });
 });
 
@@ -112,21 +47,71 @@ describe("create new  user failure tests", () => {
   //* Config customRequest for fail tests
   const customRequest = requesters.createNewUser();
   before(async () => {
-    const {
-      body: {
-        user: { token },
-      },
-    } = await requesters
-      .signIn()
-      .sendFullFeaturedRequest(cellphones.createNewUserSignIn);
+    const { token } = await signInRequest(createNewUserCellphone);
 
     customRequest.setToken(token);
   });
 
-  integrationHelpers
+  testHelper
     .createFailTest(customRequest)
     .authentication()
-    .inputMissing(fullName)
+    .input(fullName)
     .firstName(fullName)
     .lastName(fullName);
 });
+
+const signInRequest = async (cellphone) => {
+  const {
+    body: { user },
+  } = await requesters.signIn().sendFullFeaturedRequest(cellphone);
+  return user;
+};
+
+const verifyRequest = async (token, verificationCode) => {
+  const {
+    body: { user },
+  } = await requesters.verify().setToken(token).sendFullFeaturedRequest({
+    verificationCode,
+  });
+  return user;
+};
+
+const createNewUserRequest = async (token) => {
+  const {
+    body: { user },
+  } = await requesters
+    .createNewUser()
+    .setToken(token)
+    .sendFullFeaturedRequest(fullName);
+  return user;
+};
+
+const testCreatedUserSession = async (builder, data) => {
+  const foundSession = await getSavedUserSession(data.userId, data.token);
+
+  await builder.authentication({
+    requestValue: foundSession.token,
+    responseValue: data.token,
+  });
+};
+
+const getSavedUserSession = async (userId, token) => {
+  const savedUser = await getSavedUser(userId);
+  return savedUser.sessions.find((i) => i.token === token);
+};
+const getSavedUser = async (userId) => {
+  return await services.findOneUserById(userId);
+};
+
+const testCreatedUserData = (builder, data) => {
+  builder
+    .cellphone({
+      requestValue: createNewUserCellphone,
+      responseValue: data,
+    })
+    .fullName({
+      requestValue: fullName,
+      responseValue: data,
+    })
+    .userId({ responseValue: data.userId }, { stringEquality: false });
+};

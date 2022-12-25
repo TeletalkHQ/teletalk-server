@@ -10,7 +10,7 @@ const { errors } = require("@/variables/errors");
 
 const countryNameMaxlength = userModels.countryName.maxlength.value;
 
-const countryName = (configuredCustomRequest, data) => {
+const countryNameFailTest = (configuredCustomRequest, data) => {
   failTestBuilder
     .create(
       configuredCustomRequest,
@@ -28,4 +28,4 @@ const countryName = (configuredCustomRequest, data) => {
     );
 };
 
-module.exports = { countryName };
+module.exports = { countryNameFailTest };

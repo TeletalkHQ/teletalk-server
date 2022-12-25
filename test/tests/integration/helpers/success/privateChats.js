@@ -5,8 +5,8 @@ const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 const chatModels = models.native.chat;
 
-const privateChats = (
-  { responseValue } = {},
+const privateChatsSuccessTest = (
+  { responseValue },
   { modelCheck = true } = {
     modelCheck: true,
   }
@@ -16,7 +16,7 @@ const privateChats = (
     .setVariables(chatModels.privateChats, undefined, responseValue)
     .setOptions({ modelCheck });
 
-  builder.typeCheck().execute();
+  builder.typeCheck().run();
 
   responseValue.forEach((privateChat) => {
     builder
@@ -26,8 +26,8 @@ const privateChats = (
       .typeCheck()
       .gteCheck()
       .lteCheck()
-      .execute();
+      .run();
   });
 };
 
-module.exports = { privateChats };
+module.exports = { privateChatsSuccessTest };

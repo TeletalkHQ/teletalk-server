@@ -1,7 +1,5 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const { extractVersions, versionCalculator } = require("@/utilities/utilities");
-
 const { baseUrls } = require("@/routes/baseUrls");
 const { fields } = require("@/routes/fields");
 
@@ -132,7 +130,7 @@ const shareContacts = cellphoneRouteBuilder
   .statusCode(200)
   .build();
 
-const routes = {
+const cellphoneRoutes = {
   addBlock,
   addBlocks,
   addContact,
@@ -147,11 +145,6 @@ const routes = {
   shareContacts,
 };
 
-const cellphone = {
-  version: versionCalculator(extractVersions(routes)),
-  ...routes,
-};
-
 module.exports = {
-  cellphone,
+  cellphoneRoutes,
 };

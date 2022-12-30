@@ -20,8 +20,6 @@ const fullName = userPropsUtilities.makeRandomFullName(
 const cellphones = testVariablesManager.getCellphones();
 const { createNewUser: createNewUserCellphone } = cellphones;
 
-//TODO Add USER_EXIST fail tests
-
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
     const signInResponse = await signInRequest(createNewUserCellphone);
@@ -44,16 +42,15 @@ describe("createNewUser success tests", () => {
 });
 
 describe("create new  user failure tests", () => {
-  //* Config customRequest for fail tests
-  const customRequest = requesters.createNewUser();
+  const requester = requesters.createNewUser();
   before(async () => {
     const { token } = await signInRequest(createNewUserCellphone);
 
-    customRequest.setToken(token);
+    requester.setToken(token);
   });
 
   testHelper
-    .createFailTest(customRequest)
+    .createFailTest(requester)
     .authentication()
     .input(fullName)
     .firstName(fullName)

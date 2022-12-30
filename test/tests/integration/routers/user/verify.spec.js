@@ -42,15 +42,15 @@ describe("verifySignInApi success test", () => {
 });
 
 describe("verifySignInApi failure tests", () => {
-  const customRequest = requesters.verify();
+  const requester = requesters.verify();
   before(async () => {
     const { token } = await signInRequest(cellphones.verifyFailTest);
 
-    customRequest.setToken(token);
+    requester.setToken(token);
   });
 
   testHelper
-    .createFailTest(customRequest)
+    .createFailTest(requester)
     .input({
       verificationCode: randomMaker.randomString(
         userModels.verificationCode.length.value

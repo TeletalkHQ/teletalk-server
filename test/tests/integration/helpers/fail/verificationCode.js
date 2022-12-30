@@ -6,10 +6,10 @@ const { errors } = require("@/variables/errors");
 
 const userModels = models.native.user;
 
-const verificationCodeFailTest = (configuredCustomRequest, data = {}) => {
+const verificationCodeFailTest = (configuredRequester, data = {}) => {
   failTestBuilder
     .create(
-      configuredCustomRequest,
+      configuredRequester,
       data,
       userModels.verificationCode,
       "verificationCode"

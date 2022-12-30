@@ -3,7 +3,7 @@ const { expect } = require("chai");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { authManager } = require("@/classes/AuthManager");
-const { customRequestCreator } = require("$/classes/CustomRequest");
+const { requesterCreator } = require("$/classes/Requester");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
@@ -14,8 +14,7 @@ const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/routes");
 
 const userModel = models.native.user;
 
-const customRequest = (routeObject) =>
-  customRequestCreator().create().setRouteObject(routeObject);
+const requester = (routeObject) => requesterCreator().create(routeObject);
 
 describe("checkCurrentUserStatus middleware success tests", () => {
   //TODO: Add tests: checkCurrentUserStatus middleware success tests
@@ -45,7 +44,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
         userId: wrongUserId,
       });
 
-      const { body } = await customRequest(route).sendFullFeaturedRequest(
+      const { body } = await requester(route).sendFullFeaturedRequest(
         // data,
         error,
         {
@@ -64,7 +63,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
         userId: user.userId,
       });
 
-      const { body } = await customRequest(route).sendFullFeaturedRequest(
+      const { body } = await requester(route).sendFullFeaturedRequest(
         // data,
         error,
         {
@@ -85,7 +84,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
         userId: user.userId,
       });
 
-      const { body } = await customRequest(route).sendFullFeaturedRequest(
+      const { body } = await requester(route).sendFullFeaturedRequest(
         // data,
         error,
         {

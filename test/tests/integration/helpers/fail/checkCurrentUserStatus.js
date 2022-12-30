@@ -12,7 +12,7 @@ const { errors } = require("@/variables/errors");
 
 const userModel = models.native.user;
 
-const checkCurrentUserStatusFailTest = (configuredCustomRequest, data = {}) => {
+const checkCurrentUserStatusFailTest = (configuredRequester, data = {}) => {
   const user = testVariablesManager.getUsers().checkCurrentUserStatus;
   const cellphone = userPropsUtilities.extractCellphone(user);
   const error = errors.CURRENT_USER_NOT_EXIST;
@@ -24,7 +24,7 @@ const checkCurrentUserStatusFailTest = (configuredCustomRequest, data = {}) => {
 
     const token = authManager.signToken({ ...cellphone, userId: wrongUserId });
 
-    const { body } = await configuredCustomRequest.sendFullFeaturedRequest(
+    const { body } = await configuredRequester.sendFullFeaturedRequest(
       data,
       error,
       {
@@ -38,7 +38,7 @@ const checkCurrentUserStatusFailTest = (configuredCustomRequest, data = {}) => {
   it("should get error: CURRENT_USER_NOT_EXIST when token is not exist on user sessions", async () => {
     const token = authManager.signToken({ ...cellphone, userId: user.userId });
 
-    const { body } = await configuredCustomRequest.sendFullFeaturedRequest(
+    const { body } = await configuredRequester.sendFullFeaturedRequest(
       data,
       error,
       {
@@ -57,7 +57,7 @@ const checkCurrentUserStatusFailTest = (configuredCustomRequest, data = {}) => {
       userId: user.userId,
     });
 
-    const { body } = await configuredCustomRequest.sendFullFeaturedRequest(
+    const { body } = await configuredRequester.sendFullFeaturedRequest(
       data,
       error,
       {

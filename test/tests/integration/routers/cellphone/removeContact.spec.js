@@ -13,7 +13,7 @@ describe("removeContact successful test", () => {
   it("should add testUser_3 to testUser_0 contact list", async () => {
     await requesters
       .addContact()
-      .sendFullFeaturedRequest(users.removeContactSuccessful, null, {
+      .sendFullFeaturedRequest(users.removeContactSuccessful, undefined, {
         token: requesters.removeContact().getOptions().token,
       });
 

@@ -18,8 +18,8 @@ class SuccessTestBuilder {
   #defaultVariables() {
     return {
       model: {},
-      requestValue: null,
-      responseValue: null,
+      requestValue: undefined,
+      responseValue: undefined,
       modelMaxLength: 0,
       modelMinLength: 0,
       modelLength: 0,

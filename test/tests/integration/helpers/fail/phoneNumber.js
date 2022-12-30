@@ -6,14 +6,9 @@ const { errors } = require("@/variables/errors");
 
 const userModels = models.native.user;
 
-const phoneNumberFailTest = (configuredCustomRequest, data) => {
+const phoneNumberFailTest = (configuredRequester, data) => {
   failTestBuilder
-    .create(
-      configuredCustomRequest,
-      data,
-      userModels.phoneNumber,
-      "phoneNumber"
-    )
+    .create(configuredRequester, data, userModels.phoneNumber, "phoneNumber")
     .required(errors.PHONE_NUMBER_REQUIRED)
     .invalidType_typeIsString(errors.PHONE_NUMBER_INVALID_TYPE)
     .numeric(errors.PHONE_NUMBER_NUMERIC)

@@ -1,43 +1,43 @@
 const { errors } = require("@/variables/errors");
 
-const blacklistItemNotExistFailTest = (configuredCustomRequest, data) => {
+const blacklistItemNotExistFailTest = (configuredRequester, data) => {
   it("should get error: BLACKLIST_ITEM_NOT_EXIST", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
+    await configuredRequester.sendFullFeaturedRequest(
       data,
       errors.BLACKLIST_ITEM_NOT_EXIST
     );
   });
 };
 
-const blacklistItemExistFailTest = (configuredCustomRequest, data) => {
+const blacklistItemExistFailTest = (configuredRequester, data) => {
   it("should get error: BLACKLIST_ITEM_EXIST", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
+    await configuredRequester.sendFullFeaturedRequest(
       data,
       errors.BLACKLIST_ITEM_EXIST
     );
   });
 };
 
-const contactItemNotExistFailTest = (configuredCustomRequest, data) => {
+const contactItemNotExistFailTest = (configuredRequester, data) => {
   it("should get error: CONTACT_ITEM_NOT_EXIST", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
+    await configuredRequester.sendFullFeaturedRequest(
       data,
       errors.CONTACT_ITEM_NOT_EXIST
     );
   });
 };
-const contactItemExistFailTest = (configuredCustomRequest, data) => {
+const contactItemExistFailTest = (configuredRequester, data) => {
   it("should get error: CONTACT_ITEM_EXIST", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
+    await configuredRequester.sendFullFeaturedRequest(
       data,
       errors.CONTACT_ITEM_EXIST
     );
   });
 };
 
-const targetUserNotExistFailTest = (configuredCustomRequest, data) => {
+const targetUserNotExistFailTest = (configuredRequester, data) => {
   it("should get error: TARGET_USER_NOT_EXIST", async () => {
-    await configuredCustomRequest.sendFullFeaturedRequest(
+    await configuredRequester.sendFullFeaturedRequest(
       data,
       errors.TARGET_USER_NOT_EXIST
     );

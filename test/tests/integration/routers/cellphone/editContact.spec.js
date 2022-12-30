@@ -27,7 +27,7 @@ describe("edit contact success tests", () => {
       },
     } = await requesters
       .addContact()
-      .sendFullFeaturedRequest(users.editContactSuccessful, null, {
+      .sendFullFeaturedRequest(users.editContactSuccessful, undefined, {
         token: requesters.editContact().getOptions().token,
       });
     const successTest = testHelper.createSuccessTest();

@@ -6,9 +6,9 @@ const userModels = models.native.user;
 
 const { errors } = require("@/variables/errors");
 
-const firstNameFailTest = (configuredCustomRequest, data) => {
+const firstNameFailTest = (configuredRequester, data) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, userModels.firstName, "firstName")
+    .create(configuredRequester, data, userModels.firstName, "firstName")
     .required(errors.FIRST_NAME_REQUIRED)
     .minlength(errors.FIRST_NAME_MINLENGTH_REACH)
     .maxlength(errors.FIRST_NAME_MAXLENGTH_REACH)

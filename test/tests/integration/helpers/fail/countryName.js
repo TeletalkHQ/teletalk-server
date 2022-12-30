@@ -10,14 +10,9 @@ const { errors } = require("@/variables/errors");
 
 const countryNameMaxlength = userModels.countryName.maxlength.value;
 
-const countryNameFailTest = (configuredCustomRequest, data) => {
+const countryNameFailTest = (configuredRequester, data) => {
   failTestBuilder
-    .create(
-      configuredCustomRequest,
-      data,
-      userModels.countryName,
-      "countryName"
-    )
+    .create(configuredRequester, data, userModels.countryName, "countryName")
     .required(errors.COUNTRY_NAME_REQUIRED)
     .maxlength(errors.COUNTRY_NAME_MAXLENGTH_REACH)
     .minlength(errors.COUNTRY_NAME_MINLENGTH_REACH)

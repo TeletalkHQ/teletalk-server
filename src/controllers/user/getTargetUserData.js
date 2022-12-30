@@ -5,7 +5,7 @@ const { services } = require("@/services");
 const tryToGetUserData = async (req) => {
   const { userId } = req.body;
 
-  const user = await services.getTargetUserData().run({ userId });
+  const user = await services.getTargetUserData({ userId });
   return { user };
 };
 

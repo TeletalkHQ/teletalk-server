@@ -10,19 +10,23 @@ const { errors } = require("@/variables/errors");
 
 const addContact = serviceBuilder
   .create()
-  .body(async ({ currentUserId, contact }) => {
+  .body(async ({ currentUserId, newContactData }) => {
     const currentUser = await commonServices.findOneUserById(currentUserId);
 
-    checkExistenceOfContactItem(currentUser.contacts, contact);
+    checkExistenceOfContactItem(currentUser.contacts, newContactData);
 
-    const addingContact = userPropsUtilities.extractCellphone(contact);
+    const targetUserCellphone =
+      userPropsUtilities.extractCellphone(newContactData);
 
     const targetUser = await serviceHelper.findOneUser(
-      addingContact,
+      targetUserCellphone,
       errors.TARGET_USER_NOT_EXIST
     );
 
-    const newContact = createNewContact(targetUser.userId, contact);
+    const newContact = {
+      ...newContactData,
+      userId: targetUser.userId,
+    };
 
     await saveNewContactItem(currentUser, newContact);
 
@@ -39,13 +43,6 @@ const checkExistenceOfContactItem = (contacts, contact) => {
     ...errors.CONTACT_ITEM_EXIST,
     queryData: contact,
   }));
-};
-
-const createNewContact = (userId, contact) => {
-  return userPropsUtilities.extractContact({
-    ...contact,
-    userId,
-  });
 };
 
 const saveNewContactItem = async (currentUser, newContact) => {

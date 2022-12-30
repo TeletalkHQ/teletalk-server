@@ -1,14 +1,15 @@
 const { UNIQUE_ERROR_IDS } = require("@/variables/others/uniqueErrorIds");
 
 const getEnErrorMessages = () => {
-  const enErrorMessages = { ...UNIQUE_ERROR_IDS };
-
-  for (const key in UNIQUE_ERROR_IDS) {
-    const errorUniqueId = UNIQUE_ERROR_IDS[key];
-    enErrorMessages[key] = `MESSAGE: ${errorUniqueId}`;
-  }
-
-  return enErrorMessages;
+  return Object.entries(UNIQUE_ERROR_IDS).reduce(
+    (prevValue, [key, value]) => {
+      prevValue[key] = `MESSAGE: ${value}`;
+      return prevValue;
+    },
+    {
+      ...UNIQUE_ERROR_IDS,
+    }
+  );
 };
 
 const enErrorMessages = getEnErrorMessages();

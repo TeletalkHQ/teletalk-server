@@ -1,3 +1,5 @@
+const { crashServer } = require("./src/utilities/utilities");
+
 const startApp = async () => {
   const NODE_ENV = process.env.NODE_ENV;
 
@@ -9,8 +11,12 @@ const startApp = async () => {
 
   if (NODE_ENV.includes("test")) {
     await startupRequirements.testServer();
-    require("$/test");
-    run();
+    try {
+      require("$/test");
+      run();
+    } catch (error) {
+      crashServer(error);
+    }
   } else require("@/server");
 };
 

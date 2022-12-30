@@ -18,7 +18,7 @@ const checkCurrentUserStatus = async (req, res, next) => {
 };
 
 const tryToCheckCurrentUserStatus = async (req) => {
-  const token = authManager.getTokenFromAuthorization(req);
+  const token = authManager.getTokenFromRequest(req);
   const { payload: userData } = req.authData;
 
   const cellphone = userPropsUtilities.extractCellphone(userData);

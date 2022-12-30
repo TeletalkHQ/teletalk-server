@@ -29,3 +29,4 @@ Monitor test requests (total requests, count each url)
 Monitor all configs when tests start. Give it a good look!
 Refactor folder structure and remove cellphone stuff
 //TODO: Add startup requirements checkup function
+AppSignal

@@ -16,10 +16,6 @@ class ErrorBuilder {
   build() {
     return this.errorObject;
   }
-  // errorCode(errorCode) {
-  //   this.#updateProperty("errorCode", errorCode);
-  //   return this;
-  // }
   statusCode(statusCode) {
     this.#updateProperty("statusCode", statusCode);
     return this;

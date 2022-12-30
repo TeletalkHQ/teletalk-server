@@ -29,13 +29,10 @@ class MongoModelBuilder {
   }
 
   build() {
-    const finalMongoModel = {};
-    for (const key in this.mongoModel) {
-      const prop = this.mongoModel[key];
-      finalMongoModel[key] = prop.length > 1 ? prop : prop[0];
-    }
-
-    return finalMongoModel;
+    return Object.entries(this.mongoModel).reduce((prevValue, [key, value]) => {
+      prevValue[key] = value.length > 1 ? value : value[0];
+      return prevValue;
+    }, {});
   }
   setModelObject(modelObject) {
     this.modelObject = modelObject;

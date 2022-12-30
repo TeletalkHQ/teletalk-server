@@ -39,6 +39,7 @@ const { chatId, createdAt, message, messageId, participantId } = {
     .minlength()
     .maxlength()
     .required()
+    //FIXME: Should be unique
     // .unique()
     .trim()
     .defaultValue()

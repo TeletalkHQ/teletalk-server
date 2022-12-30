@@ -96,7 +96,6 @@ const updatePersonalInfo = userRouteBuilder
   .outputFields([
     {
       ...fields.collection.fullName,
-      // ...fields.collection.cellphone,
       bio: fields.single.bio,
       username: fields.single.username,
     },

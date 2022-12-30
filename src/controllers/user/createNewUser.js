@@ -18,7 +18,7 @@ const tryToCreateNewUser = async (req) => {
   const {
     body: { firstName, lastName },
   } = req;
-  const token = authManager.getTokenFromAuthorization(req);
+  const token = authManager.getTokenFromRequest(req);
 
   const cellphone = await extractCellphoneFromToken(token);
 

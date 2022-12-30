@@ -4,7 +4,6 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const serveFavicon = require("serve-favicon");
 
-//* PrettyError is error prettier in terminal.
 require("pretty-error").start();
 
 const { getIgnoredUrlsForAuth } = require("@/helpers/otherHelpers");
@@ -60,7 +59,6 @@ app.use(
   )
 );
 
-//* All routers is in lifeLine =>
 app.use(lifeLine);
 
 module.exports = { app };

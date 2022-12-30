@@ -2,25 +2,25 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 //CLEANME: Major refactor
 class FailTestBuilder {
-  constructor(configuredCustomRequest, data, model, testingPropertyName) {
-    this.configuredCustomRequest = configuredCustomRequest;
+  constructor(configuredRequester, data, model, testingPropertyName) {
+    this.configuredRequester = configuredRequester;
     this.data = data;
     this.model = model;
     this.testingPropertyName = testingPropertyName;
   }
-  setRequirements(configuredCustomRequest, model, data, testingPropertyName) {
+  setRequirements(configuredRequester, model, data, testingPropertyName) {
     this.setModel(model)
       .setData(data)
-      .setConfiguredCustomRequest(configuredCustomRequest)
+      .setConfiguredRequester(configuredRequester)
       .setTestingPropertyName(testingPropertyName);
     return this;
   }
-  setConfiguredCustomRequest(configuredCustomRequest) {
-    this.configuredCustomRequest = configuredCustomRequest;
+  setConfiguredRequester(configuredRequester) {
+    this.configuredRequester = configuredRequester;
     return this;
   }
-  getConfiguredCustomRequest() {
-    return this.configuredCustomRequest;
+  getConfiguredRequester() {
+    return this.configuredRequester;
   }
   setModel(model) {
     this.model = model;
@@ -114,7 +114,7 @@ class FailTestBuilder {
 
   initTest(data, errorObject, options) {
     it(this.getDefaultTestMessage(errorObject.reason), async () => {
-      await this.configuredCustomRequest.sendFullFeaturedRequest(
+      await this.configuredRequester.sendFullFeaturedRequest(
         data,
         errorObject,
         options
@@ -128,13 +128,8 @@ class FailTestBuilder {
 }
 
 const failTestBuilder = {
-  create: (configuredCustomRequest, data, model, testingPropertyName) =>
-    new FailTestBuilder(
-      configuredCustomRequest,
-      data,
-      model,
-      testingPropertyName
-    ),
+  create: (configuredRequester, data, model, testingPropertyName) =>
+    new FailTestBuilder(configuredRequester, data, model, testingPropertyName),
 };
 
 module.exports = { FailTestBuilder, failTestBuilder };

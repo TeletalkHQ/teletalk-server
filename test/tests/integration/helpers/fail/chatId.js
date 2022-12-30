@@ -6,9 +6,9 @@ const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
 
-const chatIdFailTest = (configuredCustomRequest, data = {}) => {
+const chatIdFailTest = (configuredRequester, data = {}) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, chatModels.chatId, "chatId")
+    .create(configuredRequester, data, chatModels.chatId, "chatId")
     .required(errors.CHAT_ID_REQUIRED)
     .minlength(errors.CHAT_ID_MIN_LENGTH_REACH)
     .maxlength(errors.CHAT_ID_MAX_LENGTH_REACH)

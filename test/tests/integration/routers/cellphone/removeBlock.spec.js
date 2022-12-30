@@ -14,7 +14,7 @@ describe("removeContact successful test", () => {
   it("should add testUser_3 to testUser_0 contact list", async () => {
     await requesters
       .addBlock()
-      .sendFullFeaturedRequest(users.removeBlockSuccessful, null, {
+      .sendFullFeaturedRequest(users.removeBlockSuccessful, undefined, {
         token: requesters.removeBlock().getOptions().token,
       });
     const {

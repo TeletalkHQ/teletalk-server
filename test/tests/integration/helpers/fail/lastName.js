@@ -6,9 +6,9 @@ const { errors } = require("@/variables/errors");
 
 const userModels = models.native.user;
 
-const lastNameFailTest = (configuredCustomRequest, data) => {
+const lastNameFailTest = (configuredRequester, data) => {
   failTestBuilder
-    .create(configuredCustomRequest, data, userModels.lastName, "lastName")
+    .create(configuredRequester, data, userModels.lastName, "lastName")
     .maxlength(errors.LAST_NAME_MAXLENGTH_REACH)
     .minlength(errors.LAST_NAME_MINLENGTH_REACH)
     .invalidType_typeIsString(errors.LAST_NAME_INVALID_TYPE);

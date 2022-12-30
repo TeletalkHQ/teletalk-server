@@ -8,14 +8,9 @@ const userModels = models.native.user;
 
 const { errors } = require("@/variables/errors");
 
-const countryCodeFailTest = (configuredCustomRequest, data) => {
+const countryCodeFailTest = (configuredRequester, data) => {
   failTestBuilder
-    .create(
-      configuredCustomRequest,
-      data,
-      userModels.countryCode,
-      "countryCode"
-    )
+    .create(configuredRequester, data, userModels.countryCode, "countryCode")
     .required(errors.COUNTRY_CODE_REQUIRED)
     .numeric(errors.COUNTRY_CODE_NUMERIC)
     .invalidType_typeIsString(errors.COUNTRY_CODE_INVALID_TYPE)

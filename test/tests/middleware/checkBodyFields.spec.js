@@ -1,4 +1,4 @@
-const { makeCustomRequest } = require("$/utilities/requesters");
+const { makeRequester } = require("$/utilities/requesters");
 
 const { arrayOfRoutes, routes } = require("@/routes");
 
@@ -21,10 +21,10 @@ describe("checkBodyFields middleware tests", () => {
 
   for (const route of routesWithoutAuth) {
     it(`should get error: INPUT_FIELDS_MISSING - ${route.fullUrl}`, async () => {
-      await makeCustomRequest(route)().sendFullFeaturedRequest(
+      await makeRequester(route)().sendFullFeaturedRequest(
         undefined,
         errors.INPUT_FIELDS_MISSING,
-        { filterDataCondition: false }
+        { shouldFilterRequestData: false }
       );
     });
   }

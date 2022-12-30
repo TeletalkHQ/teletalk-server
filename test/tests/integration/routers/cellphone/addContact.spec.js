@@ -62,7 +62,6 @@ describe("add contact success tests", () => {
 });
 
 describe("addContact failure tests", () => {
-  //* Add someone to contacts for contactItemExist fail tests
   before(async () => {
     await configuredAddContactRequester.sendFullFeaturedRequest(
       users.contactItemExist

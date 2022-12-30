@@ -38,7 +38,6 @@ describe("addBlock successful tests", () => {
 
 describe("addBlock failure tests", () => {
   before(async () => {
-    //* Add someone to blacklist for blacklistItemExist error
     await requesters
       .addBlock()
       .sendFullFeaturedRequest(users.blacklistItemExist);

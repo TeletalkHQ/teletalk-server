@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-const { customRequestCreator } = require("$/classes/CustomRequest");
+const { requesterCreator } = require("$/classes/requester/Requester");
 
 const { arrayOfRoutes } = require("@/routes");
 const { routes } = require("$/routes");
@@ -8,12 +8,11 @@ const { routes } = require("$/routes");
 const { errors } = require("@/variables/errors");
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
-const customRequest = (routeObject) =>
-  customRequestCreator().create().setRouteObject(routeObject);
+const requester = (routeObject) => requesterCreator().create(routeObject);
 
 describe("notFound middleware fail test", () => {
   it("should get error: ROUTE_NOT_FOUND", async () => {
-    await customRequest(routes.test.unknownRoute).sendFullFeaturedRequest(
+    await requester(routes.test.unknownRoute).sendFullFeaturedRequest(
       undefined,
       errors.ROUTE_NOT_FOUND
     );
@@ -21,7 +20,7 @@ describe("notFound middleware fail test", () => {
 
   for (const route of arrayOfRoutes) {
     it(`should not get error: ROUTE_NOT_FOUND - ${route.fullUrl}`, async () => {
-      const { response } = await customRequest(route).sendRequest();
+      const { response } = await requester(route).sendRequest();
 
       const { errors: responseErrors } = response.body;
 

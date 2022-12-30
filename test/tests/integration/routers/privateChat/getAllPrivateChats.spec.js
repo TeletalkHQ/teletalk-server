@@ -11,7 +11,7 @@ describe("get messages success tests", () => {
   it("Should get messages for testUser_0", async () => {
     const message = "Hello! Im messages!";
 
-    //? First start a chat and send some messages to testUser_1 =>
+    //? First start a chat and send some messages =>
     // eslint-disable-next-line no-unused-vars
     for (const _ of Array.from({ length: 10 })) {
       await requesters.sendPrivateMessage().sendFullFeaturedRequest({

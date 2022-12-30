@@ -9,23 +9,23 @@ const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 describe("getCurrentUserData success tests", () => {
   it("should get current user data", async () => {
-    const customRequest = requesters.getCurrentUserData();
+    const requester = requesters.getCurrentUserData();
 
     const {
       body: { user: responseUserData },
-    } = await customRequest.sendFullFeaturedRequest();
+    } = await requester.sendFullFeaturedRequest();
 
-    const requestUser = await serviceHelper.findOneUser(
+    const user = await serviceHelper.findOneUser(
       {
-        "sessions.token": customRequest.getToken(),
+        "sessions.token": requester.getToken(),
       },
       errors.CURRENT_USER_NOT_EXIST
     );
 
-    const requestUserData = userPropsUtilities.extractUserData(requestUser);
+    const userData = userPropsUtilities.extractUserData(user);
 
     testHelper.createSuccessTest().userData({
-      requestValue: requestUserData,
+      requestValue: userData,
       responseValue: responseUserData,
     });
   });

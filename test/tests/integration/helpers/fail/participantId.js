@@ -6,10 +6,10 @@ const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
 
-const participantIdFailTest = (configuredCustomRequest, data = {}) => {
+const participantIdFailTest = (configuredRequester, data = {}) => {
   failTestBuilder
     .create(
-      configuredCustomRequest,
+      configuredRequester,
       data,
       chatModels.participantId,
       "participantId"

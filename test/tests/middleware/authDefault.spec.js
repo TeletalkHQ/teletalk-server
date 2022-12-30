@@ -1,18 +1,17 @@
 const { expect } = require("chai");
 
-const { customRequestCreator } = require("$/classes/CustomRequest");
+const { requesterCreator } = require("$/classes/requester/Requester");
 
 const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/routes");
 
 const { errors } = require("@/variables/errors");
 
-const customRequest = (routeObject) =>
-  customRequestCreator().create().setRouteObject(routeObject);
+const requester = (routeObject) => requesterCreator().create(routeObject);
 
 describe("authDefault middleware test", () => {
   for (const route of ignoredRoutesForAuth) {
     it(`should not get error: TOKEN_REQUIRED - ${route.fullUrl}`, async () => {
-      const { response } = await customRequest(route).sendRequest();
+      const { response } = await requester(route).sendRequest();
 
       const { errors: responseErrors } = response.body;
 
@@ -34,10 +33,10 @@ describe("authDefault middleware test", () => {
 
   for (const route of filteredIgnoredRoutes) {
     it(`should get error: TOKEN_REQUIRED - ${route.fullUrl}`, async () => {
-      await customRequest(route).sendFullFeaturedRequest(
+      await requester(route).sendFullFeaturedRequest(
         undefined,
         errors.TOKEN_REQUIRED,
-        { filterDataCondition: false }
+        { shouldFilterRequestData: false }
       );
     });
   }

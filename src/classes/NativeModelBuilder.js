@@ -1,5 +1,3 @@
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
-
 class NativeModelBuilder {
   constructor() {
     this.modelObject = {
@@ -17,14 +15,14 @@ class NativeModelBuilder {
     };
   }
 
-  #updateProperty(key, value = null, error) {
+  #updateProperty(key, value = undefined, error) {
     this.modelObject[key].value = value;
     if (error) this.modelObject[key].error = error;
   }
 
   #initialValueAndError() {
     return {
-      value: null,
+      value: undefined,
       error: {
         code: 0,
         errorKey: "",
@@ -35,15 +33,11 @@ class NativeModelBuilder {
   }
 
   build() {
-    for (const key in this.modelObject) {
-      const { value } = this.modelObject[key];
-      const { type } = customTypeof.check(value);
-      if (type.isNull || type.isUndefined) {
-        delete this.modelObject[key];
-      }
-    }
-
-    return this.modelObject;
+    return Object.entries(this.modelObject).reduce((prevValue, [key, prop]) => {
+      if (prop.value) prevValue[key] = prop;
+      return prevValue;
+      // eslint-disable-next-line no-empty-pattern
+    }, ({} = this.modelObject));
   }
   maxlength(value, error) {
     this.#updateProperty("maxlength", value, error);

@@ -108,12 +108,7 @@ const {
     //FIXME: default value should get one arg
     .defaultValue()
     .lowercase()
-    .build(), // validate: {
-  // 	validator: function (value) {
-  // 		return /^[a-z\s]{0,255}$/i.test(value);
-  // 	},
-  // 	message: "{VALUE} is not a valid string!",
-  // },
+    .build(),
 };
 
 const UserSchema = new mongoose.Schema({
@@ -151,17 +146,6 @@ const UserSchema = new mongoose.Schema({
   ],
   username,
 });
-
-// UserRegisterSchema.post("save", function (error, doc, next) {
-// 	const keys = {};
-// 	Object.keys(error).forEach((key) => (keys[key] = error[key]));
-// 	if (error.code === 11000) {
-// 		next(new Error(error));
-// 	} else {
-// 		next(error);
-// 	}
-// });
-//
 
 UserSchema.plugin(mongooseUniqueValidator);
 

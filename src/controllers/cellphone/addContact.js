@@ -5,11 +5,11 @@ const { services } = require("@/services");
 
 const tryToAddContact = async (req) => {
   const { body, currentUserId } = req;
-  const contact = userPropsUtilities.extractContact(body);
+  const newContactData = userPropsUtilities.extractContact(body);
 
   const { newContact } = await services
     .addContact()
-    .run({ currentUserId, contact });
+    .run({ currentUserId, newContactData });
   return {
     addedContact: {
       ...newContact,

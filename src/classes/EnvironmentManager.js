@@ -53,13 +53,13 @@ class EnvironmentManager extends EnvironmentManagerMain {
   }
 
   getAllLocalEnvironments() {
-    const environments = { ...this.ENVIRONMENT_KEYS };
-
-    for (const key in this.ENVIRONMENT_KEYS) {
-      environments[key] = this.getEnvironment(key);
-    }
-
-    return environments;
+    return Object.keys(this.ENVIRONMENT_KEYS).reduce(
+      (prevValue, key) => {
+        prevValue[key] = this.getEnvironment(key);
+        return prevValue;
+      },
+      { ...this.ENVIRONMENT_KEYS }
+    );
   }
 
   getNodeEnv() {

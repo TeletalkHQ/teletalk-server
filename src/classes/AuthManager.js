@@ -53,7 +53,7 @@ class AuthManager {
       : this.getJwtMainSecret();
   }
 
-  getTokenFromAuthorization(request) {
+  getTokenFromRequest(request) {
     const authorization = this.getAuthorizationHeader(request);
     return this.extractTokenFromAuthorization(authorization);
   }

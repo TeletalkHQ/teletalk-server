@@ -8,7 +8,6 @@ const { ioFunctions } = require("@/socket/io");
 
 const server = http.createServer(app);
 
-//* PORT coming from heroku, so don't touch it!
 const { NODE_ENV, PORT } = envManager.getAllLocalEnvironments();
 
 const EXACT_PORT =

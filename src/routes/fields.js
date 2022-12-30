@@ -18,7 +18,6 @@ const countryCode = statics.string;
 const countryName = statics.string;
 const countryShortName = statics.string;
 const description = statics.string;
-const errorCode = statics.string;
 const errorReason = statics.string;
 const firstName = statics.string;
 const language = statics.string;
@@ -115,7 +114,6 @@ const single = {
   countryName,
   countryShortName,
   description,
-  errorCode,
   errorReason,
   firstName,
   language,

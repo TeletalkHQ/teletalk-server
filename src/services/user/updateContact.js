@@ -11,14 +11,14 @@ const updateContact = serviceBuilder
   .body(async ({ currentUserId, editedValues, targetCellphone }) => {
     const currentUser = await findCurrentUser(currentUserId);
 
-    const { cellphoneIndex } = checkExistenceOfContactItem(
+    const { contactIndex, contact: oldContact } = findContact(
       currentUser.contacts,
       targetCellphone
     );
 
-    const newContact = createNewContact(editedValues, targetCellphone);
+    const newContact = updateContactFields(editedValues, oldContact);
 
-    await updateAndSaveNewContact(currentUser, newContact, cellphoneIndex);
+    await updateAndSaveNewContact(currentUser, newContact, contactIndex);
 
     return { currentUser };
   })
@@ -31,17 +31,17 @@ const findCurrentUser = async (currentUserId) => {
   );
 };
 
-const checkExistenceOfContactItem = (contacts, targetCellphone) => {
-  const { cellphone: contactItem, cellphoneIndex } =
+const findContact = (contacts, targetCellphone) => {
+  const { cellphone: contact, cellphoneIndex: contactIndex } =
     userPropsUtilities.cellphoneFinder(contacts, targetCellphone);
-  errorThrower(!contactItem, () => errors.CONTACT_ITEM_NOT_EXIST);
+  errorThrower(!contact, () => errors.CONTACT_ITEM_NOT_EXIST);
 
-  return { cellphoneIndex };
+  return { contact, contactIndex };
 };
 
-const createNewContact = (editedValues, targetCellphone) => {
+const updateContactFields = (editedValues, oldContact) => {
   return {
-    ...userPropsUtilities.extractContact(targetCellphone),
+    ...oldContact,
     firstName: editedValues.firstName,
     lastName: editedValues.lastName,
   };
@@ -50,9 +50,9 @@ const createNewContact = (editedValues, targetCellphone) => {
 const updateAndSaveNewContact = async (
   currentUser,
   newContact,
-  cellphoneIndex
+  contactIndex
 ) => {
-  currentUser.contacts.splice(cellphoneIndex, 1, newContact);
+  currentUser.contacts.splice(contactIndex, 1, newContact);
   await currentUser.save();
 };
 

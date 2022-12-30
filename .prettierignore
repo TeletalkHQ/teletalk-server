@@ -4,9 +4,9 @@
 .trashCan
 build
 built
+coverage
 dist
 node_modules
 public
-thunder-tests
-badge.svg
 tests.svg
+thunder-tests

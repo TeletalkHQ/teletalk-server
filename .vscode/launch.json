@@ -5,8 +5,8 @@
       "request": "launch",
       "name": "start:dev script",
       "env": {
-        "JWT_MAIN_SECRET": "v5oU55e1?Ag{~!tK&}~{S]hD5",
-        "JWT_SIGN_IN_SECRET": "0F~nHf-e;mYA21,.K]jO71FF",
+        "JWT_MAIN_SECRET": "1fa4e2a111fd47aea847e9b853db7a4d",
+        "JWT_SIGN_IN_SECRET": "7d34818105504e9c82d6ac0b7cd2932a",
         "LOGGER_LEVEL": "debug",
         "MOCHA_BADGE_GEN_SUBJECT": "Tests",
         "MONGO_COLLECTION_NAME": "teletalk_db_development",

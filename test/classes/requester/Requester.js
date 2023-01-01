@@ -1,12 +1,12 @@
 const { expect } = require("chai");
 const supertest = require("supertest");
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { customTypeof } = require("custom-typeof");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 
-const { requesterLogger } = require("$/classes/requester/RequesterLogger");
+const { loggerHelper } = require("@/utilities/logHelper");
 
 const { getApp } = require("$/utilities/testUtilities");
 
@@ -137,14 +137,15 @@ class Requester {
   ) {
     const finalOptions = this.mergeOptions(options);
 
-    requesterLogger
-      .logStartRequest()
-      .logRouteSpecs(this.getRouteObject())
-      .logOptions(finalOptions, this.getInputFields());
+    loggerHelper
+      .logStartTestRequest()
+      .logRequestDetails(
+        finalOptions,
+        this.getRouteObject(),
+        this.getErrorObject()
+      );
 
     this.setRequestData(data).handleRequestDataFields(finalOptions);
-
-    requesterLogger.logRequestData(this.getRequestData());
 
     this.setErrorObject(errorObject);
 
@@ -152,7 +153,7 @@ class Requester {
 
     this.checkStatusCode().checkErrors();
 
-    requesterLogger.logEndRequest();
+    loggerHelper.logEndTestRequest();
 
     return this.getResponse();
   }
@@ -182,10 +183,6 @@ class Requester {
   checkErrors() {
     const statusCode = this.getResponseStatusCode();
     if (statusCode >= 400) {
-      requesterLogger.logErrorStuffs(
-        this.getRouteObject(),
-        this.getErrorObject()
-      );
       this.checkErrorReason();
     }
     return this;

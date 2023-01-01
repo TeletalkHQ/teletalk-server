@@ -2,7 +2,7 @@ const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 
 const { models } = require("@/models");
 
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 

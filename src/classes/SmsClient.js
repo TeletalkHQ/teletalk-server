@@ -1,4 +1,4 @@
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { envManager } = require("@/classes/EnvironmentManager");
@@ -7,11 +7,13 @@ const axios = require("axios");
 
 const { errors } = require("@/variables/errors");
 
+const { loggerHelper } = require("@/utilities/logHelper");
+
 class SmsClient {
   templates() {
     return {
       verificationCode: (verificationCode, host) =>
-        `کد تایید: ${verificationCode} \n\n ${host}        
+        `کد تایید: ${verificationCode} ${loggerHelper.newLine()}${loggerHelper.newLine()} ${host}        
         `,
     };
   }

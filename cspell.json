@@ -39,6 +39,7 @@
     "bcrypt",
     "bcryptjs",
     "camelcase",
+    "chalker",
     "codecov",
     "codeql",
     "codestream",

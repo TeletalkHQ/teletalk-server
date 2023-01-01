@@ -1,4 +1,4 @@
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { authManager } = require("@/classes/AuthManager");

@@ -1,10 +1,10 @@
 const Validator = require("fastest-validator");
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { customTypeof } = require("custom-typeof");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 

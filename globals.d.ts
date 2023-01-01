@@ -1,10 +1,8 @@
 import { request, response } from "express";
-import { LoggerNode } from "utility-store/src/classes/LoggerNode";
-
-const loggerInstance = new LoggerNode();
+import { LoggerChalker } from "logger-chalker";
 
 declare global {
-  const logger = loggerInstance;
+  const logger = new LoggerChalker();
   const expressResponse = response;
   const expressRequest = request;
 }

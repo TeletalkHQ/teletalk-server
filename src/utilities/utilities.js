@@ -1,5 +1,5 @@
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { customTypeof } = require("custom-typeof");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const getHostFromRequest = (request) => request.get("host");
 
@@ -8,7 +8,7 @@ const isUrlMatchWithReqUrl = (url, reqUrl) =>
   url === reqUrl;
 
 const crashServer = (message) => {
-  logger.error(message).error();
+  logger.error(message);
   process.exit(1);
 };
 

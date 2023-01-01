@@ -1,10 +1,10 @@
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { customTypeof } = require("custom-typeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { services } = require("@/services");
 

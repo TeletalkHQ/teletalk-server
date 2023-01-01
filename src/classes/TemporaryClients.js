@@ -1,7 +1,7 @@
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 const {
   isDataHasEqualityWithTargetCellphone,
-} = require("utility-store/src/functions/utilities");
+} = require("utility-store/src/utilities/utilities");
 
 const { stateManager } = require("@/classes/StateManager");
 

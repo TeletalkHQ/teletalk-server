@@ -1,8 +1,7 @@
 const { response, request } = require("express");
-const { LoggerNode } = require("utility-store/src/classes/LoggerNode");
+const { LoggerChalker } = require("logger-chalker");
 
-const logger = new LoggerNode();
-global.logger = logger;
+global.logger = new LoggerChalker();
 
 global.expressRequest = request;
 global.expressResponse = response;

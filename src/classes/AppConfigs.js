@@ -26,7 +26,7 @@ class AppConfigs {
   async runConfigs() {
     const { NODE_ENV, LOGGER_LEVEL } = envManager.getAllLocalEnvironments();
 
-    logger.setLevel(LOGGER_LEVEL);
+    logger.setLevel(logger.levels[LOGGER_LEVEL]);
 
     if (NODE_ENV.includes("test"))
       Trier.changeGlobalConfigs({ canPrintError: false });

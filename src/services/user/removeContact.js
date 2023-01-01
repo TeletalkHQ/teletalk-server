@@ -1,4 +1,4 @@
-const { errorThrower } = require("utility-store/src/functions/utilities");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");

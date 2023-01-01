@@ -1,7 +1,7 @@
 const { trier } = require("utility-store/src/classes/Trier");
 const {
   ioFieldsChecker,
-} = require("utility-store/src/functions/ioFieldsChecker");
+} = require("utility-store/src/utilities/ioFieldsChecker");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
 

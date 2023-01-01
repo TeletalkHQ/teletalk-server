@@ -62,9 +62,6 @@ class EnvironmentManager extends EnvironmentManagerMain {
     );
   }
 
-  getNodeEnv() {
-    return this.getEnvironment(this.ENVIRONMENT_KEYS.NODE_ENV);
-  }
   getNodeEnvValues() {
     return this.ENVIRONMENT_VALUES.NODE_ENV;
   }

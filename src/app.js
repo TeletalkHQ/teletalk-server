@@ -6,19 +6,21 @@ const serveFavicon = require("serve-favicon");
 
 require("pretty-error").start();
 
-const { getIgnoredUrlsForAuth } = require("@/helpers/otherHelpers");
+const { loggerHelper } = require("@/utilities/logHelper");
+
+const { middlewares } = require("@/middlewares");
 
 const { lifeLine } = require("@/routers/lifeLine");
 
-const { middlewares } = require("@/middlewares");
-const { routes } = require("@/routes");
+const { routes, ignoredUrlsForAuth } = require("@/routes");
 
 const app = express();
+
+app.use(middlewares.logSeparator);
 
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-app.use(middlewares.requestDetailsLogger);
 app.use(morgan("dev"));
 
 app.use(express.static("public"));
@@ -38,11 +40,10 @@ app.use(
   middlewares.requestMethodChecker
 );
 
+app.use(loggerHelper.logRequestBody);
+
 app.use(
-  middlewares.ignoreMiddlewares(
-    getIgnoredUrlsForAuth(),
-    middlewares.authDefault
-  )
+  middlewares.ignoreMiddlewares(ignoredUrlsForAuth, middlewares.authDefault)
 );
 
 app.use(middlewares.checkBodyFields);
@@ -50,7 +51,7 @@ app.use(middlewares.checkBodyFields);
 app.use(
   middlewares.ignoreMiddlewares(
     [
-      ...getIgnoredUrlsForAuth(),
+      ...ignoredUrlsForAuth,
       routes.user.createNewUser.fullUrl,
       routes.user.verify.fullUrl,
     ],
@@ -60,5 +61,7 @@ app.use(
 );
 
 app.use(lifeLine);
+
+app.use(middlewares.logSeparator);
 
 module.exports = { app };

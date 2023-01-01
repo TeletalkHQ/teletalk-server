@@ -1,4 +1,4 @@
-const { customTypeof } = require("utility-store/src/classes/CustomTypeof");
+const { customTypeof } = require("custom-typeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { errors } = require("@/variables/errors");

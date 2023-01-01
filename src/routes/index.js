@@ -21,6 +21,8 @@ const ignoredRoutesForAuth = [
   serverRoutes.root,
 ];
 
+const ignoredUrlsForAuth = ignoredRoutesForAuth.map((item) => item.fullUrl);
+
 const routes = {
   cellphone: cellphoneRoutes,
   other: otherRoutes,
@@ -33,5 +35,6 @@ const routes = {
 module.exports = {
   arrayOfRoutes,
   ignoredRoutesForAuth,
+  ignoredUrlsForAuth,
   routes,
 };

@@ -15,6 +15,7 @@ const createNewUser = userRouteBuilder
   .inputFields(fields.collection.fullName)
   .outputFields([
     {
+      token: fields.single.token,
       user: fields.statics.object(fields.collection.user),
     },
   ])
@@ -25,7 +26,6 @@ const logout = userRouteBuilder
   .method(METHODS.POST)
   .url("/logout")
   .statusCode(200)
-  .outputFields([{ ok: fields.single.ok }])
   .build();
 
 const signIn = userRouteBuilder
@@ -36,10 +36,7 @@ const signIn = userRouteBuilder
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
-      user: fields.statics.object({
-        ...fields.collection.cellphone,
-        token: fields.single.token,
-      }),
+      token: fields.single.token,
     },
   ])
   .build();
@@ -54,16 +51,12 @@ const verify = userRouteBuilder
   })
   .outputFields([
     {
-      user: fields.statics.object({
-        ...fields.collection.user,
-        //TODO: Token and newUser out of userData
-        newUser: fields.single.newUser,
-      }),
+      newUser: fields.single.newUser,
+      token: fields.single.token,
+      user: fields.statics.object(fields.collection.user),
     },
     {
-      user: fields.statics.object({
-        newUser: fields.single.newUser,
-      }),
+      newUser: fields.single.newUser,
     },
   ])
   .build();

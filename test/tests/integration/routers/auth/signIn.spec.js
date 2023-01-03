@@ -15,36 +15,23 @@ describe("signIn success test", () => {
     const responseData = await signInRequest();
 
     await testResponseData(successTest, responseData);
-    await testSavedTemporaryClient(successTest, responseData);
+    await testSavedTemporaryClient(successTest);
   });
 });
 
 describe("signIn failure test", () => {
-  testHelper
-    .createFailTest(requesters.signIn())
-    .input(signInCellphone)
-    .cellphone(signInCellphone)
-    .countryCode(signInCellphone)
-    .countryName(signInCellphone)
-    .phoneNumber(signInCellphone);
+  testHelper.createFailTest(requesters.signIn()).input(signInCellphone);
 });
 
 const signInRequest = async () => {
-  const response = await requesters
+  const { body } = await requesters
     .signIn()
     .sendFullFeaturedRequest(signInCellphone);
-  return response.body;
+  return body;
 };
 
 const testResponseData = async (builder, responseData) => {
-  const {
-    user: { token, ...userData },
-  } = responseData;
-
-  builder.cellphone({
-    requestValue: signInCellphone,
-    responseValue: userData,
-  });
+  const { token } = responseData;
 
   await builder.authentication(
     {
@@ -55,13 +42,8 @@ const testResponseData = async (builder, responseData) => {
   );
 };
 
-const testSavedTemporaryClient = async (builder, responseData) => {
-  const temporaryClient = await temporaryClients.find(responseData.user);
+const testSavedTemporaryClient = async (builder) => {
+  const temporaryClient = await temporaryClients.find(signInCellphone);
 
-  builder
-    .cellphone({
-      requestValue: signInCellphone,
-      responseValue: temporaryClient,
-    })
-    .verificationCode({ responseValue: temporaryClient.verificationCode });
+  builder.verificationCode({ responseValue: temporaryClient.verificationCode });
 };

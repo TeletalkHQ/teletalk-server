@@ -1,6 +1,6 @@
 {
   "extension": ["js", "cjs", "mjs"],
-  "timeout": 30000,
+  "timeout": 5000,
   "ui": "bdd",
   "watch-files": ["lib/**/*.js", "test/**/*.js"],
   "watch-ignore": "",

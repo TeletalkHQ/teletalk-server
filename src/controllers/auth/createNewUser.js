@@ -31,19 +31,21 @@ const tryToCreateNewUser = async (req) => {
 
   const newToken = signToken(cellphone, userId);
 
-  const userData = {
-    ...userPropsUtilities.defaultUserData(),
-    ...cellphone,
-    firstName,
-    lastName,
+  const data = {
+    user: {
+      ...userPropsUtilities.defaultUserData(),
+      ...cellphone,
+      firstName,
+      lastName,
+      userId,
+    },
     token: newToken,
-    userId,
   };
 
-  const userDataForDatabase = fixUserDataForDb(userData);
+  const userDataForDatabase = fixUserDataForDb(data);
   await createNewUserAndSave(userDataForDatabase);
   await removeTemporaryClient(cellphone);
-  return { user: userData };
+  return data;
 };
 
 const extractCellphoneFromToken = async (token) => {
@@ -81,7 +83,7 @@ const signToken = (cellphone, userId) => {
 
 const fixUserDataForDb = ({ token, ...rest }) => {
   return {
-    ...rest,
+    ...rest.user,
     sessions: [{ token }],
   };
 };

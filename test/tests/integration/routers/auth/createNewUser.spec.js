@@ -22,17 +22,15 @@ const { createNewUser: createNewUserCellphone } = cellphones;
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
-    const signInResponse = await signInRequest(createNewUserCellphone);
-    const temporaryClient = await temporaryClients.find(signInResponse);
+    const signInToken = await signInRequest(createNewUserCellphone);
+    const temporaryClient = await temporaryClients.find(createNewUserCellphone);
     const verifyResponse = await verifyRequest(
-      signInResponse.token,
+      signInToken,
       temporaryClient.verificationCode
     );
     expect(verifyResponse.newUser).to.be.equal(true);
 
-    const createNewUserResponse = await createNewUserRequest(
-      signInResponse.token
-    );
+    const createNewUserResponse = await createNewUserRequest(signInToken);
 
     const successTestBuilder = testHelper.createSuccessTest();
 
@@ -44,8 +42,7 @@ describe("createNewUser success tests", () => {
 describe("create new  user failure tests", () => {
   const requester = requesters.createNewUser();
   before(async () => {
-    const { token } = await signInRequest(createNewUserCellphone);
-
+    const token = await signInRequest(createNewUserCellphone);
     requester.setToken(token);
   });
 
@@ -59,36 +56,35 @@ describe("create new  user failure tests", () => {
 
 const signInRequest = async (cellphone) => {
   const {
-    body: { user },
+    body: { token },
   } = await requesters.signIn().sendFullFeaturedRequest(cellphone);
-  return user;
+  return token;
 };
 
 const verifyRequest = async (token, verificationCode) => {
-  const {
-    body: { user },
-  } = await requesters.verify().setToken(token).sendFullFeaturedRequest({
-    verificationCode,
-  });
-  return user;
+  const { body } = await requesters
+    .verify()
+    .setToken(token)
+    .sendFullFeaturedRequest({
+      verificationCode,
+    });
+  return body;
 };
 
 const createNewUserRequest = async (token) => {
-  const {
-    body: { user },
-  } = await requesters
+  const { body } = await requesters
     .createNewUser()
     .setToken(token)
     .sendFullFeaturedRequest(fullName);
-  return user;
+  return body;
 };
 
-const testCreatedUserSession = async (builder, data) => {
-  const foundSession = await getSavedUserSession(data.userId, data.token);
+const testCreatedUserSession = async (builder, { token, user }) => {
+  const foundSession = await getSavedUserSession(user.userId, token);
 
   await builder.authentication({
     requestValue: foundSession.token,
-    responseValue: data.token,
+    responseValue: token,
   });
 };
 
@@ -100,15 +96,15 @@ const getSavedUser = async (userId) => {
   return await services.findOneUserById(userId);
 };
 
-const testCreatedUserData = (builder, data) => {
+const testCreatedUserData = (builder, { user }) => {
   builder
     .cellphone({
       requestValue: createNewUserCellphone,
-      responseValue: data,
+      responseValue: user,
     })
     .fullName({
       requestValue: fullName,
-      responseValue: data,
+      responseValue: user,
     })
-    .userId({ responseValue: data.userId }, { stringEquality: false });
+    .userId({ responseValue: user.userId }, { stringEquality: false });
 };

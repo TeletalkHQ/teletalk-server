@@ -102,10 +102,7 @@ const user = {
   phoneNumber,
   userId,
   username,
-  token,
 };
-
-const { token: _token, ...userWithoutToken } = user;
 
 const single = {
   bio,
@@ -148,7 +145,6 @@ const collection = {
   privateChat,
   sender,
   user,
-  userWithoutToken,
 };
 
 const fields = {

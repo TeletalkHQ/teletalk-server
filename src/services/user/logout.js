@@ -14,7 +14,6 @@ const logout = serviceBuilder
       (i) => i.token !== currentToken
     );
     await currentUser.save();
-    return { ok: true };
   })
   .build();
 

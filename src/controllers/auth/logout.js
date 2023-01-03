@@ -7,7 +7,7 @@ const tryToLogout = async (req) => {
   const { currentUserId } = req;
   const currentToken = authManager.getTokenFromRequest(req);
 
-  return await services.logout().run({
+  await services.logout().run({
     currentToken,
     currentUserId,
   });

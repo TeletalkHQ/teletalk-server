@@ -137,7 +137,7 @@ const getCurrentUserData = userRouteBuilder
   .statusCode(200)
   .outputFields([
     {
-      user: fields.statics.object(fields.collection.userWithoutToken),
+      user: fields.statics.object(fields.collection.user),
     },
   ])
   .build();

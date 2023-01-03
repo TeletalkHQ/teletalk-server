@@ -9,7 +9,6 @@ const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const users = testVariablesManager.getUsers();
 
-//TODO: Use arrayUtilities instead
 //TODO: Add tests for total privateChats and total messages
 const messages = Array.from({ length: 20 }).map((_, index) => {
   return `Hello! Im message #${index}`;

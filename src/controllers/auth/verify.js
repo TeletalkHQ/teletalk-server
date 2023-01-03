@@ -12,31 +12,25 @@ const tryToVerify = async (req) => {
 
   if (foundUser) {
     await removeTemporaryClient(foundUser);
-    return await responseIfUserExist(foundUser);
+
+    const { sessions, ...userData } =
+      userPropsUtilities.extractUserData(foundUser);
+
+    const token = signToken(userData);
+    await addNewToken(userData.userId, token);
+
+    return {
+      newUser: false,
+      requiredFieldsIndex: 0,
+      token,
+      user: userData,
+    };
   }
 
-  return formatResponseData(
-    {
-      newUser: true,
-    },
-    1
-  );
-};
-
-const responseIfUserExist = async (foundUser) => {
-  const { sessions, ...userData } =
-    userPropsUtilities.extractUserData(foundUser);
-
-  const token = signToken(userData);
-  await addNewToken(userData.userId, token);
-
-  const responseData = {
-    ...userData,
-    //FIXME: newUser out of userData
-    newUser: false,
-    token,
+  return {
+    newUser: true,
+    requiredFieldsIndex: 1,
   };
-  return formatResponseData(responseData, 0);
 };
 
 const signToken = (userData) => {
@@ -51,13 +45,6 @@ const addNewToken = async (userId, newToken) => {
     newToken,
     userId,
   });
-};
-
-const formatResponseData = (data, requiredFieldsIndex) => {
-  return {
-    user: data,
-    requiredFieldsIndex,
-  };
 };
 
 const removeTemporaryClient = async (cellphone) => {

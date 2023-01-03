@@ -2,6 +2,7 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
+//TODO Rename
 class CommonUtilities {
   randomStringWithMinLengthOne(length) {
     const finalLength = length === 0 ? 1 : length;
@@ -13,7 +14,7 @@ class CommonUtilities {
     res.errorResponser();
   }
 
-  controllerSuccessResponse({ requiredFieldsIndex, ...data }, res) {
+  controllerSuccessResponse({ requiredFieldsIndex, ...data } = {}, res) {
     res.checkDataAndResponse(data, requiredFieldsIndex);
   }
 

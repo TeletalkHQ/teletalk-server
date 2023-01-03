@@ -13,9 +13,9 @@ describe("checkBodyFields middleware tests", () => {
   const routesWithoutAuth = routesWithInputFields.filter(
     (i) =>
       ![
-        routes.user.signIn.fullUrl,
-        routes.user.verify.fullUrl,
-        routes.user.createNewUser.fullUrl,
+        routes.auth.signIn.fullUrl,
+        routes.auth.verify.fullUrl,
+        routes.auth.createNewUser.fullUrl,
       ].includes(i.fullUrl)
   );
 

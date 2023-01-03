@@ -1,15 +1,15 @@
-const { cellphoneRoutes } = require("@/routes/cellphone");
+const { userRoutes } = require("@/routes/user");
 const { otherRoutes } = require("@/routes/other");
 const { privateChatRoutes } = require("@/routes/privateChat");
 const { serverRoutes } = require("@/routes/server");
 const { stuffRoutes } = require("@/routes/stuff");
-const { userRoutes } = require("@/routes/user");
+const { authRoutes } = require("@/routes/auth");
 
 const arrayOfRoutes = Object.values({
-  ...cellphoneRoutes,
+  ...userRoutes,
   ...otherRoutes,
   ...privateChatRoutes,
-  ...userRoutes,
+  ...authRoutes,
   ...stuffRoutes,
 });
 
@@ -17,19 +17,19 @@ const ignoredRoutesForAuth = [
   stuffRoutes.getAllStuffs,
   otherRoutes.getCountries,
   otherRoutes.getWelcomeMessage,
-  userRoutes.signIn,
+  authRoutes.signIn,
   serverRoutes.root,
 ];
 
 const ignoredUrlsForAuth = ignoredRoutesForAuth.map((item) => item.fullUrl);
 
 const routes = {
-  cellphone: cellphoneRoutes,
+  user: userRoutes,
   other: otherRoutes,
   privateChat: privateChatRoutes,
   server: serverRoutes,
   stuff: stuffRoutes,
-  user: userRoutes,
+  auth: authRoutes,
 };
 
 module.exports = {

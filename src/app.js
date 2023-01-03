@@ -52,8 +52,8 @@ app.use(
   middlewares.ignoreMiddlewares(
     [
       ...ignoredUrlsForAuth,
-      routes.user.createNewUser.fullUrl,
-      routes.user.verify.fullUrl,
+      routes.auth.createNewUser.fullUrl,
+      routes.auth.verify.fullUrl,
     ],
     middlewares.checkCurrentUserStatus,
     middlewares.attachCurrentUserId

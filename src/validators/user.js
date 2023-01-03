@@ -1,11 +1,10 @@
 const {
   validationErrorBuilder,
 } = require("utility-store/src/classes/ValidationErrorBuilder");
-
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { authManager } = require("@/classes/AuthManager");
-
 const { errorThrower } = require("utility-store/src/utilities/utilities");
+
+const { authManager } = require("@/classes/AuthManager");
+const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { compiledValidators } = require("@/validators/compiledValidators");
 const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");

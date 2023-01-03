@@ -44,7 +44,7 @@ class AuthManager {
 
   getSecret(reqUrl) {
     const isAuthenticationUrl = isUrlMatchWithReqUrl(
-      [routes.user.verify.fullUrl, routes.user.createNewUser.fullUrl],
+      [routes.auth.verify.fullUrl, routes.auth.createNewUser.fullUrl],
       reqUrl
     );
 

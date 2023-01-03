@@ -1,10 +1,10 @@
 const baseUrls = {
-  cellphone: "/cellphone",
+  auth: "/auth",
   other: "/other",
   privateChat: "/privateChat",
+  stuff: "/stuff",
   test: "/test",
   user: "/user",
-  stuff: "/stuff",
 };
 
 module.exports = { baseUrls };

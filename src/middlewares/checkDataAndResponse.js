@@ -13,8 +13,9 @@ const tryToCheckDataAndResponse = ({
   requiredFieldsIndex = 0,
 }) => {
   const selectedOutputFields = outputFields[requiredFieldsIndex];
+
   const checkResult = ioFieldsChecker(data, selectedOutputFields, {
-    ...errors.IO.output,
+    ...errors.io.output,
     requiredFieldsIndex,
   });
 

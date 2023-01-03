@@ -32,8 +32,8 @@ const signInFn = async (cellphone) => {
   });
 
   return {
-    verificationCode,
     token,
+    verificationCode,
   };
 };
 
@@ -52,7 +52,6 @@ const createNewUser = async (token) => {
 
 const signInVerify = async (cellphone) => {
   const { verificationCode, token: verifyToken } = await signInFn(cellphone);
-
   const response = await verifySingIn(verificationCode, verifyToken);
 
   return {
@@ -74,7 +73,7 @@ const signVerifyCreate = async (cellphone) => {
 
 describe("logout success tests", () => {
   it("should get ok:true for logging out user", async () => {
-    const token = await signVerifyCreate(cellphones.logout);
+    const token = await signVerifyCreate(cellphones.logoutSuccessTest);
 
     const {
       body: { ok },

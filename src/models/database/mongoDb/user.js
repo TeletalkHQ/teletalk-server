@@ -4,7 +4,7 @@ const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 
 const { nativeModels } = require("@/models/native");
 
-const { mongooseUniqueValidator } = require("@/plugins/mongoosePlugins");
+const { mongooseUniqueValidator } = require("@/plugins/mongoose");
 
 const userModels = nativeModels.user;
 const commonModels = nativeModels.common;

@@ -56,7 +56,7 @@ const loggerHelper = {
   },
 };
 
-loggerHelper.newLine = loggerHelper.newLine.bind(loggerHelper);
 loggerHelper.logRequestBody = loggerHelper.logRequestBody.bind(loggerHelper);
+loggerHelper.newLine = loggerHelper.newLine.bind(loggerHelper);
 
 module.exports = { loggerHelper };

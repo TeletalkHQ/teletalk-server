@@ -16,7 +16,7 @@ const executeMiddlewares = async ({ middlewares, next, req, res }) => {
   for await (const m of middlewares) {
     const result = await m(req, res, () => {});
 
-    if (!result?.ok) {
+    if (result.ok === false) {
       return;
     }
   }

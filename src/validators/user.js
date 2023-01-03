@@ -94,15 +94,7 @@ const tokenValidator = async (
 
   validatorErrorChecker.token(errorBuilder);
 
-  const verifiedToken = authManager.verifyToken(token, secret);
-  if (verifiedToken.ok === true) return verifiedToken.data;
-
-  errorBuilder
-    .addExtraErrorFields({
-      tokenError: verifiedToken.error,
-    })
-    .addError(verifiedToken.ok === false, errors.TOKEN_INVALID)
-    .execute();
+  return authManager.verifyToken(token, secret).data;
 };
 
 const usernameValidator = async (username) => {

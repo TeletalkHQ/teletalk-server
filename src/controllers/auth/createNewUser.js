@@ -51,7 +51,6 @@ const tryToCreateNewUser = async (req) => {
 const extractCellphoneFromToken = async (token) => {
   const jwtSecret = authManager.getJwtSignInSecret();
   const verifiedToken = await validators.token(token, jwtSecret);
-  errorThrower(verifiedToken.ok === false, () => verifiedToken.error);
   return userPropsUtilities.extractCellphone(verifiedToken.payload);
 };
 

@@ -7,6 +7,8 @@ const { isUrlMatchWithReqUrl } = require("@/utilities/utilities");
 
 const { routes } = require("@/routes");
 
+const { errors } = require("@/variables/errors");
+
 class AuthManager {
   #options = { algorithm: "HS256" };
 
@@ -19,10 +21,11 @@ class AuthManager {
       .try(this.#tryVerifyToken.bind(this), token, secret, options)
       .catch((error) => {
         return {
-          error,
-          ok: false,
+          ...errors.TOKEN_INVALID,
+          tokenError: error,
         };
       })
+      .throw()
       .run();
   }
   #tryVerifyToken(token, secret, options) {
@@ -32,7 +35,7 @@ class AuthManager {
       ...options,
     });
 
-    return { data, ok: true };
+    return { data };
   }
 
   signToken(data, secret = this.getJwtMainSecret(), options = this.#options) {

@@ -12,10 +12,7 @@ const createNewUser = serviceBuilder
   .create()
   .body(async (userData) => {
     await checkExistenceOfCurrentUser(userData.userId);
-
     await User.create(userData);
-    //CLEANME: Remove all ok:true
-    return { ok: true };
   })
   .build();
 

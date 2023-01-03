@@ -24,16 +24,10 @@ const tryToSignIn = async (req) => {
   }
 
   const token = signToken(cellphone);
-
   await manageTemporaryClient(cellphone, verificationCode, token);
-
   logger.debug("rm", "verificationCode", verificationCode);
-
   return {
-    user: {
-      ...cellphone,
-      token,
-    },
+    token,
   };
 };
 

@@ -20,16 +20,10 @@ const fullName = userPropsUtilities.makeRandomFullName(
 
 const signInFn = async (cellphone) => {
   const {
-    body: {
-      user: { countryCode, countryName, phoneNumber, token },
-    },
+    body: { token },
   } = await requesters.signIn().sendFullFeaturedRequest(cellphone);
 
-  const { verificationCode } = await temporaryClients.find({
-    countryCode,
-    countryName,
-    phoneNumber,
-  });
+  const { verificationCode } = await temporaryClients.find(cellphone);
 
   return {
     token,
@@ -63,9 +57,7 @@ const signVerifyCreate = async (cellphone) => {
   const { verifyToken } = await signInVerify(cellphone);
 
   const {
-    body: {
-      user: { token },
-    },
+    body: { token },
   } = await createNewUser(verifyToken);
 
   return token;
@@ -75,13 +67,11 @@ describe("logout success tests", () => {
   it("should get ok:true for logging out user", async () => {
     const token = await signVerifyCreate(cellphones.logoutSuccessTest);
 
-    const {
-      body: { ok },
-    } = await requesters
+    const response = await requesters
       .logout()
       .sendFullFeaturedRequest(undefined, undefined, { token });
 
-    expect(ok).to.be.true;
+    expect(response.ok).to.be.true;
   });
 });
 

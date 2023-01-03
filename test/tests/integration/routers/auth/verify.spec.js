@@ -26,14 +26,21 @@ describe("verifySignInApi success test", () => {
     const successTestBuilder = testHelper.createSuccessTest();
 
     //? authenticate as newUser:true =>
-    const newUserSignData = await signInRequest(verifyCellphone);
-    const newUserVerifyData = await verifyRequest(newUserSignData);
+    const newUserToken = await signInRequest(verifyCellphone);
+    const newUserVerifyData = await verifyRequest(
+      newUserToken,
+      verifyCellphone
+    );
+
     expect(newUserVerifyData.newUser).to.be.equal(true);
-    await createNewUser(newUserSignData.token);
+    await createNewUser(newUserToken);
 
     //? authenticate as newUser:false =>
-    const existUserSignData = await signInRequest(verifyCellphone);
-    const existUserVerifyData = await verifyRequest(existUserSignData);
+    const existUserToken = await signInRequest(verifyCellphone);
+    const existUserVerifyData = await verifyRequest(
+      existUserToken,
+      verifyCellphone
+    );
     expect(existUserVerifyData.newUser).to.be.equal(false);
 
     await testExistUserData(successTestBuilder, existUserVerifyData);
@@ -44,7 +51,7 @@ describe("verifySignInApi success test", () => {
 describe("verifySignInApi failure tests", () => {
   const requester = requesters.verify();
   before(async () => {
-    const { token } = await signInRequest(cellphones.verifyFailTest);
+    const token = await signInRequest(cellphones.verifyFailTest);
 
     requester.setToken(token);
   });
@@ -62,23 +69,24 @@ describe("verifySignInApi failure tests", () => {
 
 const signInRequest = async (cellphone) => {
   const {
-    body: { user },
+    body: { token },
   } = await requesters.signIn().sendFullFeaturedRequest(cellphone);
-  return user;
+  return token;
 };
 
 const getTemporaryClient = async (cellphone) => {
   return await temporaryClients.find(cellphone);
 };
 
-const verifyRequest = async (data) => {
-  const temporaryClient = await getTemporaryClient(data);
-  const {
-    body: { user },
-  } = await requesters.verify().setToken(data.token).sendFullFeaturedRequest({
-    verificationCode: temporaryClient.verificationCode,
-  });
-  return user;
+const verifyRequest = async (token, cellphone) => {
+  const temporaryClient = await getTemporaryClient(cellphone);
+  const { body } = await requesters
+    .verify()
+    .setToken(token)
+    .sendFullFeaturedRequest({
+      verificationCode: temporaryClient.verificationCode,
+    });
+  return body;
 };
 
 const createNewUser = async (token) => {
@@ -88,8 +96,8 @@ const createNewUser = async (token) => {
     .sendFullFeaturedRequest(fullName);
 };
 
-const testExistUserData = async (builder, data) => {
-  const savedUserData = await getSavedUserData(data.userId);
+const testExistUserData = async (builder, { user }) => {
+  const savedUserData = await getSavedUserData(user.userId);
   const mergedRequestDataWithSavedUserData = {
     ...savedUserData,
     ...fullName,
@@ -97,15 +105,15 @@ const testExistUserData = async (builder, data) => {
   };
   builder.userData({
     requestValue: mergedRequestDataWithSavedUserData,
-    responseValue: data,
+    responseValue: user,
   });
 };
 
-const testExistUserSession = async (builder, data) => {
-  const foundSession = await getSavedUserSession(data.userId, data.token);
+const testExistUserSession = async (builder, { user, token }) => {
+  const foundSession = await getSavedUserSession(user.userId, token);
   await builder.authentication({
     requestValue: foundSession.token,
-    responseValue: data.token,
+    responseValue: token,
   });
 };
 

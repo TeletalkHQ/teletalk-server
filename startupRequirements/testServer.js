@@ -9,8 +9,13 @@ const { models } = require("@/models");
 const { countries } = require("@/variables/others/countries");
 
 const { userServices } = require("$/services/user");
+const { User } = require("@/models/database/mongoDb/user");
+const { PrivateChat } = require("@/models/database/mongoDb/privateChat");
 
 const testServer = async () => {
+  await deleteAllUsers();
+  await deleteAllPrivateChats();
+
   const { countryName, countryCode } = countries.find((c) =>
     c.countryName.toLowerCase().includes("iran")
   );
@@ -31,6 +36,14 @@ const testServer = async () => {
   }
 
   testVariablesManager.setTestUsers(testUsers);
+};
+
+const deleteAllUsers = async () => {
+  await User.deleteMany();
+};
+
+const deleteAllPrivateChats = async () => {
+  await PrivateChat.deleteMany();
 };
 
 const tryToAddTestUser = async ({

@@ -24,3 +24,4 @@ AppSignal
 
 FIXME public assets sharing
 TODO: Add startup requirements checkup function
+TODO: Update thunder client

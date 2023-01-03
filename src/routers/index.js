@@ -1,15 +1,15 @@
-const { cellphoneRouter } = require("@/routers/cellphone");
+const { authRouter } = require("@/routers/auth");
 const { otherRouter } = require("@/routers/other");
 const { privateChatRouter } = require("@/routers/privateChat");
-const { userRouter } = require("@/routers/user");
 const { stuffRouter } = require("@/routers/stuff");
+const { userRouter } = require("@/routers/user");
 
 const routers = {
-  cellphone: cellphoneRouter,
+  auth: authRouter,
   other: otherRouter,
   privateChat: privateChatRouter,
-  user: userRouter,
   stuff: stuffRouter,
+  user: userRouter,
 };
 
 module.exports = {

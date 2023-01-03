@@ -41,7 +41,8 @@ class TestVariablesManager {
     return {
       createNewUser:
         userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
-      logout: userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
+      logoutSuccessTest:
+        userPropsUtilities.makeUnusedRandomCellphoneAndUpdateUsage(),
       notExistedContact: {
         countryCode: randomCountry.countryCode,
         countryName: randomCountry.countryName,

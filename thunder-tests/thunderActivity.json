@@ -358,5 +358,43 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "f61bbae7-ca8e-45a9-9b1a-c53e67ec1a0c",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/user/signInUser",
+    "url": "{{baseUrl}}/user/signInUser",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-01-02T18:30:27.692Z",
+    "modified": "2023-01-02T18:30:27.692Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"phoneNumber\": \"9012700470\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "c6bf404a-7760-4056-a92b-e63b099cc360",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{baseUrl}}/user/signIn",
+    "url": "{{baseUrl}}/user/signIn",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-01-02T18:30:35.367Z",
+    "modified": "2023-01-02T18:30:35.367Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"phoneNumber\": \"9012700470\",\n  \"countryName\": \"Iran, Islamic Republic of\",\n  \"countryCode\": \"98\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]

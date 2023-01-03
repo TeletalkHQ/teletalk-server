@@ -8,24 +8,25 @@ const { routes } = require("@/routes");
 
 const userRouter = Router();
 
-userRouter[routes.user.signIn.method](
-  routes.user.signIn.url,
-  middlewares.cellphoneValidator,
-  controllers.signIn
+userRouter.use(
+  middlewares.applyMiddlewares(
+    [
+      routes.user.addContact.url,
+      routes.user.addBlock.url,
+      routes.user.removeBlock.url,
+      routes.user.removeContact.url,
+      routes.user.editContact.url,
+    ],
+    middlewares.cellphoneSelfStuffCheck,
+    middlewares.cellphoneValidator
+  )
 );
-userRouter[routes.user.verify.method](
-  routes.user.verify.url,
-  middlewares.verificationCodeValidator,
-  middlewares.verifyTemporaryClient,
-  controllers.verify
-);
-userRouter[routes.user.createNewUser.method](
-  routes.user.createNewUser.url,
-  controllers.createNewUser
-);
-userRouter[routes.user.logout.method](
-  routes.user.logout.url,
-  controllers.logout
+
+userRouter.use(
+  middlewares.applyMiddlewares(
+    [routes.user.editContact.url, routes.user.addContact.url],
+    middlewares.contactValidator
+  )
 );
 
 userRouter[routes.user.getCurrentUserData.method](
@@ -43,6 +44,36 @@ userRouter[routes.user.getPublicUserData.method](
 userRouter[routes.user.updatePersonalInfo.method](
   routes.user.updatePersonalInfo.url,
   controllers.updatePersonalInfo
+);
+
+userRouter[routes.user.getContacts.method](
+  routes.user.getContacts.url,
+  controllers.getContacts
+);
+
+userRouter[routes.user.addContact.method](
+  routes.user.addContact.url,
+  controllers.addContact
+);
+
+userRouter[routes.user.addBlock.method](
+  routes.user.addBlock.url,
+  controllers.addBlock
+);
+
+userRouter[routes.user.removeBlock.method](
+  routes.user.removeBlock.url,
+  controllers.removeBlock
+);
+
+userRouter[routes.user.removeContact.method](
+  routes.user.removeContact.url,
+  controllers.removeContact
+);
+
+userRouter[routes.user.editContact.method](
+  routes.user.editContact.url,
+  controllers.editContact
 );
 
 module.exports = { userRouter };

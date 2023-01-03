@@ -7,41 +7,127 @@ const { METHODS } = require("@/variables/others/methods");
 
 const userRouteBuilder = routeBuilder(baseUrls.user);
 
-const createNewUser = userRouteBuilder
+const addBlock = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/createNewUser")
-  .statusCode(200)
-  .inputFields(fields.collection.fullName)
-  .outputFields([
-    {
-      user: fields.statics.object(fields.collection.user),
-    },
-  ])
-  .build();
-
-const logout = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/logout")
-  .statusCode(200)
-  .outputFields([{ ok: fields.single.ok }])
-  .build();
-
-const signIn = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/signIn")
+  .url("/addBlock")
   .statusCode(200)
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
-      user: fields.statics.object({
-        ...fields.collection.cellphone,
-        token: fields.single.token,
-      }),
+      blockedCellphone: fields.statics.object(fields.collection.cellphone),
     },
   ])
+  .build();
+
+const addBlocks = userRouteBuilder
+  .create()
+  .method(METHODS.POST)
+  .url("/addBlocks")
+  .statusCode(200)
+  .build();
+
+const addContact = userRouteBuilder
+  .create()
+  .method(METHODS.POST)
+  .url("/addContact")
+  .statusCode(200)
+  .inputFields(fields.collection.contactWithoutUserId)
+  .outputFields([
+    {
+      addedContact: fields.statics.object(fields.collection.contact),
+    },
+  ])
+  .build();
+
+const addContacts = userRouteBuilder
+  .create()
+  .method(METHODS.POST)
+  .url("/addContacts")
+  .statusCode(200)
+  .build();
+
+const editContact = userRouteBuilder
+  .create()
+  .method(METHODS.PATCH)
+  .url("/editContact")
+  .statusCode(200)
+  .inputFields(fields.collection.contactWithoutUserId)
+  .outputFields([
+    {
+      editedContact: fields.statics.object(
+        fields.collection.contactWithoutUserId
+      ),
+    },
+  ])
+  .build();
+
+const getContacts = userRouteBuilder
+  .create()
+  .method(METHODS.GET)
+  .url("/getContacts")
+  .statusCode(200)
+  .outputFields([
+    {
+      contacts: fields.statics.object(fields.collection.contact),
+    },
+  ])
+  .build();
+
+const removeBlock = userRouteBuilder
+  .create()
+  .method(METHODS.DELETE)
+  .url("/removeBlock")
+  .statusCode(200)
+  .inputFields(fields.collection.cellphone)
+  .outputFields([
+    {
+      removedBlockedCellphone: fields.statics.object(
+        fields.collection.cellphone
+      ),
+    },
+  ])
+  .build();
+
+const removeBlocks = userRouteBuilder
+  .create()
+  .method(METHODS.DELETE)
+  .url("/removeBlocks")
+  .statusCode(200)
+  .build();
+
+const removeContact = userRouteBuilder
+  .create()
+  .method(METHODS.DELETE)
+  .url("/removeContact")
+  .statusCode(200)
+  .inputFields(fields.collection.cellphone)
+  .outputFields([
+    {
+      removedContact: fields.statics.object(fields.collection.cellphone),
+    },
+  ])
+  .build();
+
+const removeContacts = userRouteBuilder
+  .create()
+  .method(METHODS.DELETE)
+  .url("/removeContacts")
+  .statusCode(200)
+  .build();
+
+const shareContact = userRouteBuilder
+  .create()
+  .method(METHODS.POST)
+  .url("/shareContact")
+  .statusCode(200)
+  .build();
+
+const shareContacts = userRouteBuilder
+  .create()
+  .method(METHODS.POST)
+  .url("/shareContacts")
+  .statusCode(200)
   .build();
 
 const getCurrentUserData = userRouteBuilder
@@ -56,6 +142,7 @@ const getCurrentUserData = userRouteBuilder
   ])
   .build();
 
+//FIXME: Security issues
 const getTargetUserData = userRouteBuilder
   .create()
   .method(METHODS.POST)
@@ -102,38 +189,23 @@ const updatePersonalInfo = userRouteBuilder
   ])
   .build();
 
-const verify = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/verify")
-  .statusCode(200)
-  .inputFields({
-    verificationCode: fields.single.verificationCode,
-  })
-  .outputFields([
-    {
-      user: fields.statics.object({
-        ...fields.collection.user,
-        newUser: fields.single.newUser,
-      }),
-    },
-    {
-      user: fields.statics.object({
-        newUser: fields.single.newUser,
-      }),
-    },
-  ])
-  .build();
-
 const userRoutes = {
+  addBlock,
+  addBlocks,
+  addContact,
+  addContacts,
+  editContact,
+  getContacts,
   getCurrentUserData,
-  createNewUser,
   getPublicUserData,
   getTargetUserData,
-  logout,
-  signIn,
+  removeBlock,
+  removeBlocks,
+  removeContact,
+  removeContacts,
+  shareContact,
+  shareContacts,
   updatePersonalInfo,
-  verify,
 };
 
 module.exports = {

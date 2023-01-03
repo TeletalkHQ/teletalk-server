@@ -21,10 +21,10 @@ const allStuff = {
     ...models.native.user,
   },
   routes: {
-    ...routes.cellphone,
+    ...routes.user,
     ...routes.other,
     ...routes.privateChat,
-    ...routes.user,
+    ...routes.auth,
     ...routes.stuff,
   },
   validationModels,

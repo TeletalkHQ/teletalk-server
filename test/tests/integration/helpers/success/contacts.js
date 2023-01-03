@@ -7,7 +7,7 @@ const {
 
 const contactsSuccessTest = ({ requestValue, responseValue }) => {
   requestValue.forEach((contact) => {
-    const responseContact = responseValue.contacts.find(
+    const responseContact = responseValue.find(
       (c) => c.userId === contact.userId
     );
 

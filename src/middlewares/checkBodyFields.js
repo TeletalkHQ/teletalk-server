@@ -29,7 +29,7 @@ const tryToCheckBodyFields = (body, inputFields) => {
     errors.REQUEST_BODY_IS_UNDEFINED
   );
 
-  const checkResult = ioFieldsChecker(body, inputFields, errors.IO.input);
+  const checkResult = ioFieldsChecker(body, inputFields, errors.io.input);
 
   const configs = appConfigs.getConfigs();
   const checkResultErrorReason = checkResult.errorObject?.reason;

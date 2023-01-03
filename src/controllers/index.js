@@ -1,9 +1,7 @@
-const { addBlock } = require("@/controllers/cellphone/addBlock");
-const { addContact } = require("@/controllers/cellphone/addContact");
-const { editContact } = require("@/controllers/cellphone/editContact");
-const { getContacts } = require("@/controllers/cellphone/getContacts");
-const { removeBlock } = require("@/controllers/cellphone/removeBlock");
-const { removeContact } = require("@/controllers/cellphone/removeContact");
+const { createNewUser } = require("@/controllers/auth/createNewUser");
+const { logout } = require("@/controllers/auth/logout");
+const { signIn } = require("@/controllers/auth/signIn");
+const { verify } = require("@/controllers/auth/verify");
 
 const { getCountries } = require("@/controllers/other/getCountries");
 const { getWelcomeMessage } = require("@/controllers/other/getWelcomeMessage");
@@ -16,16 +14,18 @@ const {
   sendPrivateMessage,
 } = require("@/controllers/privateChat/sendPrivateMessage");
 
+const { getAllStuff } = require("@/controllers/stuff/getAllStuff");
+
+const { addBlock } = require("@/controllers/user/addBlock");
+const { addContact } = require("@/controllers/user/addContact");
+const { editContact } = require("@/controllers/user/editContact");
+const { getContacts } = require("@/controllers/user/getContacts");
 const { getCurrentUserData } = require("@/controllers/user/getCurrentUserData");
-const { createNewUser } = require("@/controllers/user/createNewUser");
 const { getPublicUserData } = require("@/controllers/user/getPublicUserData");
 const { getTargetUserData } = require("@/controllers/user/getTargetUserData");
-const { logout } = require("@/controllers/user/logout");
-const { signIn } = require("@/controllers/user/signIn");
+const { removeBlock } = require("@/controllers/user/removeBlock");
+const { removeContact } = require("@/controllers/user/removeContact");
 const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
-const { verify } = require("@/controllers/user/verify");
-
-const { getAllStuff } = require("@/controllers/stuff/getAllStuff");
 
 const controllers = {
   addBlock,
@@ -36,10 +36,10 @@ const controllers = {
   getAllStuff,
   getContacts,
   getCountries,
+  getCurrentUserData,
   getPrivateChat,
   getPublicUserData,
   getTargetUserData,
-  getCurrentUserData,
   getWelcomeMessage,
   logout,
   removeBlock,

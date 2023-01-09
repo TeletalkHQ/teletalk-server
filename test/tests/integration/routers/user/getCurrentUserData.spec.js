@@ -1,15 +1,18 @@
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
+const { userUtilities } = require("@/classes/UserUtilities");
+const { randomMaker } = require("$/classes/RandomMaker");
 
 const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
-const { requesters } = require("$/utilities/requesters");
+const { requesters } = require("$/utilities");
 
 const { errors } = require("@/variables/errors");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 describe("getCurrentUserData success tests", () => {
-  it("should get current user data", async () => {
+  it("should get currentUser data", async () => {
+    const { token } = await randomMaker.user();
     const requester = requesters.getCurrentUserData();
+    requester.setToken(token);
 
     const {
       body: { user: responseUserData },
@@ -22,11 +25,11 @@ describe("getCurrentUserData success tests", () => {
       errors.CURRENT_USER_NOT_EXIST
     );
 
-    const userData = userPropsUtilities.extractUserData(user);
+    const userData = userUtilities.extractUserData(user);
 
     testHelper.createSuccessTest().userData({
-      requestValue: userData,
-      responseValue: responseUserData,
+      equalValue: userData,
+      testValue: responseUserData,
     });
   });
 });

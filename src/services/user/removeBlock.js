@@ -1,6 +1,6 @@
 const { errorThrower } = require("utility-store/src/utilities/utilities");
 
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
@@ -11,12 +11,12 @@ const removeBlock = serviceBuilder
   .body(async ({ currentUserId, targetUserData }) => {
     const currentUser = await findCurrentUser(currentUserId);
 
-    const { cellphoneIndex } = checkExistenceOfBlacklistItem(
+    const { index } = checkExistenceOfBlacklistItem(
       currentUser.blacklist,
       targetUserData
     );
 
-    await removeBlockAndSave(currentUser, cellphoneIndex);
+    await removeBlockAndSave(currentUser, index);
   })
   .build();
 
@@ -28,15 +28,17 @@ const findCurrentUser = async (currentUserId) => {
 };
 
 const checkExistenceOfBlacklistItem = (blacklist, targetUserData) => {
-  const { cellphone: blacklistItem, cellphoneIndex } =
-    userPropsUtilities.cellphoneFinder(blacklist, targetUserData);
+  const { item: blacklistItem, index } = userUtilities.findByCellphone(
+    blacklist,
+    targetUserData
+  );
   errorThrower(!blacklistItem, () => errors.BLACKLIST_ITEM_NOT_EXIST);
 
-  return { cellphoneIndex };
+  return { index };
 };
 
-const removeBlockAndSave = async (currentUser, cellphoneIndex) => {
-  currentUser.blacklist.splice(cellphoneIndex, 1);
+const removeBlockAndSave = async (currentUser, index) => {
+  currentUser.blacklist.splice(index, 1);
   await currentUser.save();
 };
 

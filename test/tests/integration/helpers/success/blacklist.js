@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const {
   cellphoneSuccessTest,
@@ -8,16 +8,18 @@ const {
 
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
-const blacklistSuccessTest = ({ requestValue, responseValue }) => {
-  requestValue.forEach((blacklistItem) => {
-    const { cellphone: foundBlacklistItem } =
-      userPropsUtilities.cellphoneFinder(responseValue, blacklistItem);
+const blacklistSuccessTest = ({ equalValue, testValue }) => {
+  equalValue.forEach((blacklistItem) => {
+    const { item: foundBlacklistItem } = userUtilities.findByCellphone(
+      testValue,
+      blacklistItem
+    );
 
     expect(foundBlacklistItem).to.be.an(FIELD_TYPE.OBJECT);
 
     cellphoneSuccessTest({
-      requestValue: blacklistItem,
-      responseValue: foundBlacklistItem,
+      equalValue: blacklistItem,
+      testValue: foundBlacklistItem,
     });
   });
 };

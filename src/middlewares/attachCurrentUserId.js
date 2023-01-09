@@ -1,9 +1,7 @@
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const attachCurrentUserId = (req, _res, next) => {
-  req.currentUserId = userPropsUtilities.getUserIdFromVerifiedToken(
-    req.authData
-  );
+  req.currentUserId = userUtilities.getUserIdFromVerifiedToken(req.authData);
 
   next();
 

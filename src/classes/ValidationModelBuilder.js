@@ -17,7 +17,6 @@ class ValidationModelBuilder {
       max: undefined,
       min: undefined,
       numeric: undefined,
-      optional: undefined,
       required: undefined,
       trim: undefined,
       type: undefined,
@@ -97,14 +96,6 @@ class ValidationModelBuilder {
   }
   required() {
     this.#updateProperty("required", "required", "required");
-    return this;
-  }
-  optional() {
-    this.validationModelObject.optional = !this.modelObject.required.value;
-    return this;
-  }
-  lowercase() {
-    this.validationModelObject.lowercase = !this.modelObject.lowercase.value;
     return this;
   }
 

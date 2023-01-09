@@ -2,7 +2,7 @@ const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { commonServices } = require("@/services/common");
 
@@ -20,18 +20,17 @@ const addBlock = serviceBuilder
 
     checkExistenceOfBlacklistItem(currentUser.blacklist, blockingCellphone);
 
-    const blacklistItem =
-      userPropsUtilities.extractCellphone(blockingCellphone);
+    const blacklistItem = userUtilities.extractCellphone(blockingCellphone);
 
     await saveNewBlacklistItem(blacklistItem, currentUser);
   })
   .build();
 
 const checkExistenceOfBlacklistItem = (blacklist, blockingCellphone) => {
-  const isBlacklistItemExist = !!userPropsUtilities.cellphoneFinder(
+  const { item: isBlacklistItemExist } = userUtilities.findByCellphone(
     blacklist,
     blockingCellphone
-  ).cellphone;
+  );
   errorThrower(isBlacklistItemExist, () => ({
     ...errors.BLACKLIST_ITEM_EXIST,
     targetUserData: blockingCellphone,

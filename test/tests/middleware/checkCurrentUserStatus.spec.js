@@ -4,7 +4,7 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { authManager } = require("@/classes/AuthManager");
 const { requesterCreator } = require("$/classes/Requester");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const { models } = require("@/models");
@@ -23,7 +23,7 @@ describe("checkCurrentUserStatus middleware success tests", () => {
 //FIXME: Need to make dynamic data
 describe("checkCurrentUserStatus middleware fail tests", () => {
   const user = testVariablesManager.getUsers().checkCurrentUserStatus;
-  const cellphone = userPropsUtilities.extractCellphone(user);
+  const cellphone = userUtilities.extractCellphone(user);
   const error = errors.CURRENT_USER_NOT_EXIST;
 
   const filteredIgnoredRoutes = arrayOfRoutes.filter(
@@ -35,9 +35,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
 
   for (const route of filteredIgnoredRoutes) {
     it("should get error: CURRENT_USER_NOT_EXIST when userId is wrong", async () => {
-      const wrongUserId = randomMaker.randomString(
-        userModel.userId.maxlength.value
-      );
+      const wrongUserId = randomMaker.string(userModel.userId.maxlength.value);
 
       const token = authManager.signToken({
         ...cellphone,
@@ -76,32 +74,18 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
   }
 
   for (const route of filteredIgnoredRoutes) {
-    it("should get error: CURRENT_USER_NOT_EXIST when cellphone is wrong", async () => {
-      const wrongCellphone = userPropsUtilities.makeUnusedRandomCellphone();
-
+    it("should get error: CURRENT_USER_NOT_EXIST when userId is wrong", async () => {
+      const wrongUserId = randomMaker.string(userModel.userId.maxlength.value);
       const token = authManager.signToken({
-        ...wrongCellphone,
-        userId: user.userId,
+        userId: wrongUserId,
       });
 
-      const { body } = await requester(route).sendFullFeaturedRequest(
+      await requester(route).sendFullFeaturedRequest(
         // data,
         error,
         {
           token,
         }
-      );
-
-      const responseCellphone = body.errors[error.errorKey].wrongCellphone;
-
-      expect(responseCellphone.countryCode).to.be.equal(
-        wrongCellphone.countryCode
-      );
-      expect(responseCellphone.countryName).to.be.equal(
-        wrongCellphone.countryName
-      );
-      expect(responseCellphone.phoneNumber).to.be.equal(
-        wrongCellphone.phoneNumber
       );
     });
   }

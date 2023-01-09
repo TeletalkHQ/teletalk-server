@@ -112,7 +112,6 @@ const username = nativeModelBuilder
   .create()
   .defaultValue("")
   .empty(true)
-  .lowercase(true)
   .maxlength(12, errors.USERNAME_MAXLENGTH_REACH)
   .minlength(4, errors.USERNAME_MINLENGTH_REACH)
   .required(false)

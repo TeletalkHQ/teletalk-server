@@ -6,12 +6,12 @@ const { models } = require("@/models");
 const userModels = models.native.user;
 
 const verificationCodeSuccessTest = (
-  { responseValue },
+  { testValue },
   { modelCheck = true } = testVariablesManager.successTestDefaultOptions
 ) => {
   successTestBuilder
     .create()
-    .setVariables(userModels.verificationCode, "", responseValue)
+    .setVariables(userModels.verificationCode, "", testValue)
     .setOptions({ modelCheck })
     .typeCheck()
     .emptyCheck()

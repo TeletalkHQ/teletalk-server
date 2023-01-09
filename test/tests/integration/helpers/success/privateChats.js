@@ -6,23 +6,25 @@ const { FIELD_TYPE } = require("@/variables/others/fieldType");
 const chatModels = models.native.chat;
 
 const privateChatsSuccessTest = (
-  { responseValue },
+  { testValue },
   { modelCheck = true } = {
     modelCheck: true,
   }
 ) => {
   const builder = successTestBuilder
     .create()
-    .setVariables(chatModels.privateChats, undefined, responseValue)
+    .setModel(chatModels.privateChats)
+    .setTestValue(testValue)
     .setOptions({ modelCheck });
 
   builder.typeCheck().run();
 
-  responseValue.forEach((privateChat) => {
+  testValue.forEach((privateChat) => {
     builder
       .customTypeCheck(privateChat, FIELD_TYPE.OBJECT)
       //TODO: Add all parts
-      .setVariables(chatModels.chatId, undefined, privateChat.chatId)
+      .setModel(chatModels.chatId)
+      .setTestValue(privateChat.chatId)
       .typeCheck()
       .gteCheck()
       .lteCheck()

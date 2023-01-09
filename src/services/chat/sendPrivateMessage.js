@@ -1,20 +1,21 @@
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 const { errorThrower } = require("utility-store/src/utilities/utilities");
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 
 const { models } = require("@/models");
 
 const { commonServices } = require("@/services/common");
+const { createPrivateChat } = require("@/services/chat/createPrivateChat");
+const { findOnePrivateChat } = require("@/services/chat/findOnePrivateChat");
 
 const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
-const PrivateChat = models.database.mongoDb.PrivateChat;
 
 const sendPrivateMessage = serviceBuilder
   .create()
-  .body(async ({ currentUserId, participantId, message }) => {
+  .body(async ({ currentUserId, message, participantId }) => {
     const targetUserId = await findTargetUserId(participantId);
 
     const newMessage = createNewMessage(message, currentUserId);
@@ -27,8 +28,8 @@ const sendPrivateMessage = serviceBuilder
     });
 
     await saveMessageOnPrivateChat({
-      privateChat: fixedPrivateChat,
       newMessage,
+      privateChat: fixedPrivateChat,
     });
 
     return {
@@ -47,7 +48,7 @@ const findTargetUserId = async (participantId) => {
 };
 
 const findPrivateChat = async (currentUserId, targetUserId) => {
-  return await PrivateChat.findOne({
+  return await findOnePrivateChat({ shouldFixQueryResult: false }).run({
     "participants.participantId": {
       $all: [currentUserId, targetUserId],
     },
@@ -56,23 +57,20 @@ const findPrivateChat = async (currentUserId, targetUserId) => {
 
 const createNewMessage = (message, currentUserId) => ({
   message,
-  messageId: randomMaker.randomId(chatModels.messageId.maxlength.value),
+  messageId: randomMaker.id(chatModels.messageId.maxlength.value),
   sender: { senderId: currentUserId },
 });
 
 const fixPrivateChat = async ({ currentUserId, privateChat, targetUserId }) =>
   privateChat ||
-  (await PrivateChat.create({
+  (await createPrivateChat({ shouldFixQueryResult: false }).run({
     chatId: createChatId(),
-    participants: [
-      { participantId: currentUserId },
-      { participantId: targetUserId },
-    ],
+    currentUserId,
+    targetUserId,
   }));
-const createChatId = () =>
-  randomMaker.randomId(chatModels.chatId.maxlength.value);
+const createChatId = () => randomMaker.id(chatModels.chatId.maxlength.value);
 
-const saveMessageOnPrivateChat = async ({ privateChat, newMessage }) => {
+const saveMessageOnPrivateChat = async ({ newMessage, privateChat }) => {
   privateChat.messages.push(newMessage);
   await privateChat.save();
 };

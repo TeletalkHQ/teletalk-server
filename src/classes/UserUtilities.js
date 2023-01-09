@@ -1,8 +1,8 @@
 const {
-  UserPropsUtilities: UserPropsUtilitiesMain,
-} = require("utility-store/src/classes/UserPropsUtilities");
+  UserUtilities: UserUtilitiesMain,
+} = require("utility-store/src/classes/UserUtilities");
 
-class UserPropsUtilities extends UserPropsUtilitiesMain {
+class UserUtilities extends UserUtilitiesMain {
   constructor(id) {
     super();
     this.id = id;
@@ -16,6 +16,6 @@ class UserPropsUtilities extends UserPropsUtilitiesMain {
   }
 }
 
-const userPropsUtilities = new UserPropsUtilities();
+const userUtilities = new UserUtilities();
 
-module.exports = { userPropsUtilities };
+module.exports = { userUtilities };

@@ -2,7 +2,7 @@ const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 
-const { User } = require("@/models/database/mongoDb/user");
+const { models } = require("@/models");
 
 const { commonServices } = require("@/services/common");
 
@@ -12,7 +12,7 @@ const createNewUser = serviceBuilder
   .create()
   .body(async (userData) => {
     await checkExistenceOfCurrentUser(userData.userId);
-    await User.create(userData);
+    await models.database.mongoDb.User.create(userData);
   })
   .build();
 

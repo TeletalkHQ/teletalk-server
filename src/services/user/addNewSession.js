@@ -3,7 +3,7 @@ const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
 const { errors } = require("@/variables/errors");
 
-const addNewToken = serviceBuilder
+const addNewSession = serviceBuilder
   .create()
   .body(async ({ userId, newToken }) => {
     const currentUser = await findCurrentUser(userId);
@@ -23,4 +23,4 @@ const addAndSaveNewToken = async (currentUser, newToken) => {
   await currentUser.save();
 };
 
-module.exports = { addNewToken };
+module.exports = { addNewSession };

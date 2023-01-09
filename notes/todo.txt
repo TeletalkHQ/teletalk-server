@@ -22,6 +22,12 @@ Monitor test requests (total requests, count each url)
 Monitor all configs when tests start. Give it a good look!
 AppSignal
 
+CLEANME: index files
 FIXME public assets sharing
+FIXME: Return this on serviceHandler.run
+REFACTOR: models
+REFACTOR: Remove cellphone from main jwt
+REFACTOR: Rename services like mongodb
 TODO: Add startup requirements checkup function
 TODO: Update thunder client
+TODO: Create MiddlewareHandler, MiddlewareBuilder

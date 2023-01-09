@@ -1,14 +1,29 @@
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+
+const { models } = require("@/models");
+
 const { requesterCreator } = require("$/classes/requester/Requester");
-const { testVariablesManager } = require("$/classes/TestVariablesManager");
 
 const { routes } = require("@/routes");
 
-const { testUser_0 } = testVariablesManager.getTestUsers();
-//TODO: Remove default token
-const defaultToken = testUser_0.sessions[0].token;
-const defaultRequesterCreator = requesterCreator(defaultToken);
-const makeRequester = (routeObject) => () =>
-  defaultRequesterCreator.create(routeObject);
+const { countries } = require("@/variables/others/countries");
+
+const getWrongCountryCode = () => {
+  const randomCountryCode = randomMaker.stringNumber(
+    models.native.user.countryCode.maxlength.value
+  );
+
+  const isCountryExist = countries.some(
+    (c) => c.countryCode === randomCountryCode
+  );
+
+  if (isCountryExist) return getWrongCountryCode();
+
+  return randomCountryCode;
+};
+
+const makeRequester = (routeObject) => (token) =>
+  requesterCreator(token).create(routeObject);
 
 const requesters = {
   addBlock: makeRequester(routes.user.addBlock),
@@ -17,7 +32,7 @@ const requesters = {
   editContact: makeRequester(routes.user.editContact),
   getAllPrivateChats: makeRequester(routes.privateChat.getAllPrivateChats),
   getCurrentUserData: makeRequester(routes.user.getCurrentUserData),
-  getTargetUserData: makeRequester(routes.user.getTargetUserData),
+  getPublicUserData: makeRequester(routes.user.getTargetUserData),
   logout: makeRequester(routes.auth.logout),
   removeBlock: makeRequester(routes.user.removeBlock),
   removeContact: makeRequester(routes.user.removeContact),
@@ -26,7 +41,12 @@ const requesters = {
   verify: makeRequester(routes.auth.verify),
 };
 
-module.exports = {
+const otherUtilities = {
+  getWrongCountryCode,
   makeRequester,
   requesters,
+};
+
+module.exports = {
+  otherUtilities,
 };

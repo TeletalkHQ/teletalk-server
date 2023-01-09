@@ -1,15 +1,15 @@
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
 const tryToRemoveBlock = async (req) => {
   const { currentUserId, body } = req;
-  const targetUserData = userPropsUtilities.extractCellphone(body);
+  const targetUserData = userUtilities.extractCellphone(body);
 
   await services.removeBlock().run({ currentUserId, targetUserData });
   return {
-    removedBlockedCellphone: targetUserData,
+    removedBlock: targetUserData,
   };
 };
 

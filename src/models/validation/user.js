@@ -7,7 +7,6 @@ const bio = {
     .create()
     .setModelObject(nativeModels.user.bio)
     .max()
-    .optional()
     .type()
     .build(),
 };
@@ -54,7 +53,6 @@ const lastName = {
     .setModelObject(nativeModels.user.lastName)
     .max()
     .min()
-    .optional()
     .trim()
     .type()
     .build(),
@@ -82,6 +80,7 @@ const phoneNumber = {
     .min()
     .numeric()
     .type()
+    .required()
     .build(),
 };
 
@@ -131,9 +130,7 @@ const username = {
     .create()
     .setModelObject(nativeModels.user.username)
     .empty()
-    .lowercase()
     .max()
-    .optional()
     .trim()
     .type()
     .unique()

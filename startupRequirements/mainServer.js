@@ -1,14 +1,13 @@
 const { appConfigs } = require("@/classes/AppConfigs");
-const { stateManager } = require("@/classes/StateManager");
+const { temporaryClients } = require("@/classes/TemporaryClients");
 
 const { mongodbConnector, redisConnector } = require("@/database/connectors");
 
 const mainServer = async () => {
   await appConfigs.runConfigs();
 
-  const redisClient = redisConnector();
-  stateManager.setStorage(redisClient);
-  await stateManager.initializeStates();
+  const redisClient = await redisConnector();
+  await temporaryClients.initializeClients(redisClient);
 
   mongodbConnector();
 };

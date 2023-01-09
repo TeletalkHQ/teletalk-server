@@ -6,7 +6,7 @@ const { models } = require("@/models");
 const userModels = models.native.user;
 
 const lastNameSuccessTest = (
-  { requestValue, responseValue },
+  { equalValue, testValue },
   {
     stringEquality = true,
     modelCheck = true,
@@ -14,7 +14,7 @@ const lastNameSuccessTest = (
 ) => {
   const builder = successTestBuilder
     .create()
-    .setVariables(userModels.lastName, requestValue, responseValue)
+    .setVariables(userModels.lastName, equalValue, testValue)
     .setOptions({ modelCheck, stringEquality });
 
   builder

@@ -1,21 +1,20 @@
 const { expect } = require("chai");
 const supertest = require("supertest");
 const { customTypeof } = require("custom-typeof");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
 
 const { loggerHelper } = require("@/utilities/logHelper");
 
-const { getApp } = require("$/utilities/testUtilities");
+const { getApp } = require("$/helpers/getApp");
 
 const { errors } = require("@/variables/errors");
 
 const requester = supertest(getApp());
 
 class Requester {
-  #requestData = undefined;
+  #requestData;
   #routeObject = {};
   #errorObject = {};
   response = {};
@@ -97,10 +96,16 @@ class Requester {
     }
   }
   checkRequestDataFields(options = this.getOptions(), inputFields) {
-    errorThrower(!this.getRequestData() && Object.keys(inputFields).length, {
-      ...errors.INPUT_FIELDS_MISSING,
-      options,
-    });
+    if (!this.getRequestData() && Object.keys(inputFields).length) {
+      const error = {
+        ...errors.INPUT_FIELDS_MISSING,
+        options,
+        requestData: this.getRequestData(),
+      };
+      logger.error(error);
+      loggerHelper.logEndTestRequest();
+      throw error;
+    }
   }
   filterRequestData(inputFields) {
     const requestData = this.getRequestData();
@@ -135,19 +140,20 @@ class Requester {
     errorObject,
     options = this.getOptions()
   ) {
-    const finalOptions = this.mergeOptions(options);
+    loggerHelper.logStartTestRequest();
 
-    loggerHelper
-      .logStartTestRequest()
-      .logRequestDetails(
-        finalOptions,
-        this.getRouteObject(),
-        this.getErrorObject()
-      );
+    const finalOptions = this.mergeOptions(options);
 
     this.setRequestData(data).handleRequestDataFields(finalOptions);
 
-    this.setErrorObject(errorObject);
+    loggerHelper.logRequestDetails(
+      finalOptions,
+      this.getRequestData(),
+      this.getRouteObject(),
+      this.getErrorObject()
+    );
+
+    if (errorObject) this.setErrorObject(errorObject);
 
     await this.sendRequest(finalOptions);
 

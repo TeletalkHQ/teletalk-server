@@ -1,6 +1,6 @@
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 
-const { getNonExistedCountryCode } = require("$/utilities/testUtilities");
+const { getWrongCountryCode } = require("$/utilities");
 
 const { models } = require("@/models");
 
@@ -16,7 +16,7 @@ const countryCodeFailTest = (configuredRequester, data) => {
     .invalidType_typeIsString(errors.COUNTRY_CODE_INVALID_TYPE)
     .minlength(errors.COUNTRY_CODE_MINLENGTH_REACH)
     .maxlength(errors.COUNTRY_CODE_MAXLENGTH_REACH)
-    .custom(getNonExistedCountryCode(), errors.COUNTRY_CODE_NOT_SUPPORTED);
+    .custom(getWrongCountryCode(), errors.COUNTRY_CODE_NOT_SUPPORTED);
 };
 
 module.exports = { countryCodeFailTest };

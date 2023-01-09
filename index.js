@@ -12,7 +12,7 @@ const startApp = async () => {
   if (NODE_ENV.includes("test")) {
     await startupRequirements.testServer();
     try {
-      require("$/test");
+      require("$");
       run();
     } catch (error) {
       crashServer(error);

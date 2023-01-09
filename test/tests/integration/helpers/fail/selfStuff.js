@@ -1,8 +1,7 @@
 const { errors } = require("@/variables/errors");
 
 const selfStuffFailTest = (configuredRequester, data) => {
-  //TODO: Add tests
-  it("should get error: TOKEN_REQUIRED", async () => {
+  it("should get error: SELF_STUFF", async () => {
     await configuredRequester.sendFullFeaturedRequest(data, errors.SELF_STUFF);
   });
 };

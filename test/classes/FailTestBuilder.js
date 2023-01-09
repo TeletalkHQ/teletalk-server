@@ -60,48 +60,43 @@ class FailTestBuilder {
     return this;
   }
   invalidType_typeIsString(errorObject) {
-    const mergedData = this.dataMerger(
-      randomMaker.randomNumber(this.getMaxlength)
-    );
+    const mergedData = this.dataMerger(randomMaker.number(this.getMaxlength));
     this.initTest(mergedData, errorObject);
     return this;
   }
   numeric(errorObject) {
-    const randomMixedString =
-      randomMaker.randomString(this.getMaxlength() - 1) + "!";
+    const randomMixedString = randomMaker.string(this.getMaxlength() - 1) + "!";
     const mergedData = this.dataMerger(randomMixedString);
     this.initTest(mergedData, errorObject);
     return this;
   }
   minlength(errorObject) {
     if (this.getMinlength() > 1) {
-      const randomString = randomMaker.randomStringNumber(
+      const randomStringNumber = randomMaker.stringNumber(
         this.getMinlength() - 1
       );
-      const mergedData = this.dataMerger(randomString);
+      const mergedData = this.dataMerger(randomStringNumber);
       this.initTest(mergedData, errorObject);
     }
     return this;
   }
   maxlength(errorObject) {
-    const randomString = randomMaker.randomStringNumber(
+    const randomStringNumber = randomMaker.stringNumber(
       this.getMaxlength() + 1
     );
-    const mergedData = this.dataMerger(randomString);
+    const mergedData = this.dataMerger(randomStringNumber);
     this.initTest(mergedData, errorObject);
     return this;
   }
   length(errorObject) {
-    const randomStringNumber = randomMaker.randomStringNumber(
-      this.getLength() + 1
-    );
+    const randomStringNumber = randomMaker.stringNumber(this.getLength() + 1);
     const mergedData = this.dataMerger(randomStringNumber);
     this.initTest(mergedData, errorObject);
     return this;
   }
   invalidNumber(errorObject) {
     const length = this.getLength() || this.getMaxlength();
-    const randomStringNumber = randomMaker.randomStringNumber(length);
+    const randomStringNumber = randomMaker.stringNumber(length);
     const mergedData = this.dataMerger(randomStringNumber);
     this.initTest(mergedData, errorObject);
   }
@@ -113,17 +108,23 @@ class FailTestBuilder {
   }
 
   initTest(data, errorObject, options) {
-    it(this.getDefaultTestMessage(errorObject.reason), async () => {
-      await this.configuredRequester.sendFullFeaturedRequest(
-        data,
+    it(
+      this.createTestMessage(
         errorObject,
-        options
-      );
-    });
+        this.configuredRequester.getRouteObject().fullUrl
+      ),
+      async () => {
+        await this.configuredRequester.sendFullFeaturedRequest(
+          data,
+          errorObject,
+          options
+        );
+      }
+    );
   }
 
-  getDefaultTestMessage(errorName) {
-    return `It should get error: ${errorName}`;
+  createTestMessage(errorObject, url) {
+    return `expected error: [url|${url}] [errorKey|${errorObject.errorKey}] [reason|${errorObject.reason}] - [statusCode|${errorObject.statusCode}] `;
   }
 }
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Redis = require("ioredis");
+const redis = require("redis");
 
 const { appConfigs } = require("@/classes/AppConfigs");
 const { envManager } = require("@/classes/EnvironmentManager");
@@ -46,10 +46,9 @@ const examineRedisConnectionOptions = () => {
 
   return REDIS_PORT || REDIS_CLOUD_OPTIONS || REDIS_DEFAULT_PORT;
 };
-const redisConnector = () => {
+const redisConnector = async () => {
   const REDIS_CONNECTION_OPTIONS = examineRedisConnectionOptions();
-  const storage = new Redis(REDIS_CONNECTION_OPTIONS);
-
+  const storage = redis.createClient(REDIS_CONNECTION_OPTIONS);
   storage.on("connect", () =>
     logger.info(
       `Redis connected to => ${
@@ -60,6 +59,8 @@ const redisConnector = () => {
     )
   );
   storage.on("error", (error) => logger.error(error));
+
+  await storage.connect();
 
   return storage;
 };

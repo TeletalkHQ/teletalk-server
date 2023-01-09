@@ -5,17 +5,15 @@ const {
   oneContactSuccessTest,
 } = require("$/tests/integration/helpers/success/oneContact");
 
-const contactsSuccessTest = ({ requestValue, responseValue }) => {
-  requestValue.forEach((contact) => {
-    const responseContact = responseValue.find(
-      (c) => c.userId === contact.userId
-    );
+const contactsSuccessTest = ({ equalValue, testValue }) => {
+  equalValue.forEach((contact) => {
+    const responseContact = testValue.find((c) => c.userId === contact.userId);
 
     expect(responseContact).to.be.an(FIELD_TYPE.OBJECT);
 
     oneContactSuccessTest({
-      requestValue: contact,
-      responseValue: responseContact,
+      equalValue: contact,
+      testValue: responseContact,
     });
   });
 };

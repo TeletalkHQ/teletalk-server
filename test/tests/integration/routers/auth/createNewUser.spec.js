@@ -1,51 +1,38 @@
-const { expect } = require("chai");
-
-const { testVariablesManager } = require("$/classes/TestVariablesManager");
-const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-
-const { models } = require("@/models");
+const { authHelper } = require("$/classes/AuthHelper");
+const { randomMaker } = require("$/classes/RandomMaker");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
 const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
-const { requesters } = require("$/utilities/requesters");
-
-const userModels = models.native.user;
-const fullName = userPropsUtilities.makeRandomFullName(
-  userModels.firstName.maxlength.value,
-  userModels.lastName.maxlength.value
-);
-const cellphones = testVariablesManager.getCellphones();
-const { createNewUser: createNewUserCellphone } = cellphones;
+const { requesters } = require("$/utilities");
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
-    const signInToken = await signInRequest(createNewUserCellphone);
-    const temporaryClient = await temporaryClients.find(createNewUserCellphone);
-    const verifyResponse = await verifyRequest(
-      signInToken,
-      temporaryClient.verificationCode
-    );
-    expect(verifyResponse.newUser).to.be.equal(true);
+    const cellphone = randomMaker.unusedCellphone();
+    const fullName = randomMaker.fullName();
 
-    const createNewUserResponse = await createNewUserRequest(signInToken);
+    const helper = authHelper(cellphone, fullName);
 
-    const successTestBuilder = testHelper.createSuccessTest();
+    const {
+      createResponse: { body },
+    } = await helper.createComplete();
 
-    await testCreatedUserSession(successTestBuilder, createNewUserResponse);
-    testCreatedUserData(successTestBuilder, createNewUserResponse);
+    await testCreatedUserSession(body);
+    testCreatedUserData(body, cellphone, fullName);
   });
 });
 
-describe("create new  user failure tests", () => {
+describe("createNewUser fail tests", () => {
   const requester = requesters.createNewUser();
   before(async () => {
-    const token = await signInRequest(createNewUserCellphone);
+    const cellphone = randomMaker.unusedCellphone();
+    const token = (await authHelper(cellphone).signIn()).getSignInToken();
     requester.setToken(token);
   });
 
+  const fullName = randomMaker.fullName();
   testHelper
     .createFailTest(requester)
     .authentication()
@@ -54,37 +41,12 @@ describe("create new  user failure tests", () => {
     .lastName(fullName);
 });
 
-const signInRequest = async (cellphone) => {
-  const {
-    body: { token },
-  } = await requesters.signIn().sendFullFeaturedRequest(cellphone);
-  return token;
-};
-
-const verifyRequest = async (token, verificationCode) => {
-  const { body } = await requesters
-    .verify()
-    .setToken(token)
-    .sendFullFeaturedRequest({
-      verificationCode,
-    });
-  return body;
-};
-
-const createNewUserRequest = async (token) => {
-  const { body } = await requesters
-    .createNewUser()
-    .setToken(token)
-    .sendFullFeaturedRequest(fullName);
-  return body;
-};
-
-const testCreatedUserSession = async (builder, { token, user }) => {
+const testCreatedUserSession = async ({ token, user }) => {
   const foundSession = await getSavedUserSession(user.userId, token);
 
-  await builder.authentication({
-    requestValue: foundSession.token,
-    responseValue: token,
+  await testHelper.createSuccessTest().authentication({
+    equalValue: foundSession.token,
+    testValue: token,
   });
 };
 
@@ -96,15 +58,35 @@ const getSavedUser = async (userId) => {
   return await services.findOneUserById(userId);
 };
 
-const testCreatedUserData = (builder, { user }) => {
-  builder
+const testCreatedUserData = ({ user }, cellphone, fullName) => {
+  const requestUserData = {
+    ...userUtilities.defaultUserData(),
+    ...cellphone,
+    ...fullName,
+  };
+
+  testHelper
+    .createSuccessTest()
+    .bio({ equalValue: requestUserData.bio, testValue: user.bio })
+    .blacklist({
+      equalValue: requestUserData.blacklist,
+      testValue: user.blacklist,
+    })
     .cellphone({
-      requestValue: createNewUserCellphone,
-      responseValue: user,
+      equalValue: requestUserData,
+      testValue: user,
+    })
+    .contacts({
+      equalValue: requestUserData.contacts,
+      testValue: user.contacts,
     })
     .fullName({
-      requestValue: fullName,
-      responseValue: user,
+      equalValue: requestUserData,
+      testValue: user,
     })
-    .userId({ responseValue: user.userId }, { stringEquality: false });
+    .userId({ testValue: user.userId }, { stringEquality: false })
+    .username({
+      equalValue: requestUserData.username,
+      testValue: user.username,
+    });
 };

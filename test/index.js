@@ -8,7 +8,7 @@ require("$/tests/database/crudUser.spec");
 //#endregion
 
 //#region //? Routers ==>
-//? authRouter api's ==>
+// ? authRouter api's ==>
 require("$/tests/integration/routers/auth/signIn.spec");
 require("$/tests/integration/routers/auth/verify.spec");
 require("$/tests/integration/routers/auth/createNewUser.spec");
@@ -19,13 +19,12 @@ require("$/tests/integration/routers/privateChat/sendPrivateMessage.spec");
 require("$/tests/integration/routers/privateChat/getAllPrivateChats.spec");
 
 //? userRouter api's ==>
+require("$/tests/integration/routers/user/addBlock.spec");
+require("$/tests/integration/routers/user/removeBlock.spec");
 require("$/tests/integration/routers/user/addContact.spec");
 require("$/tests/integration/routers/user/editContact.spec");
 require("$/tests/integration/routers/user/removeContact.spec");
-require("$/tests/integration/routers/user/addBlock.spec");
-require("$/tests/integration/routers/user/removeBlock.spec");
 require("$/tests/integration/routers/user/getCurrentUserData.spec");
-require("$/tests/integration/routers/user/getTargetUserData.spec");
 
 //#endregion
 

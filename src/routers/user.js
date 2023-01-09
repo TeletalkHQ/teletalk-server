@@ -17,8 +17,8 @@ userRouter.use(
       routes.user.removeContact.url,
       routes.user.editContact.url,
     ],
-    middlewares.cellphoneSelfStuffCheck,
-    middlewares.cellphoneValidator
+    middlewares.cellphoneValidator,
+    middlewares.selfStuffCheck
   )
 );
 
@@ -32,10 +32,6 @@ userRouter.use(
 userRouter[routes.user.getCurrentUserData.method](
   routes.user.getCurrentUserData.url,
   controllers.getCurrentUserData
-);
-userRouter[routes.user.getTargetUserData.method](
-  routes.user.getTargetUserData.url,
-  controllers.getTargetUserData
 );
 userRouter[routes.user.getPublicUserData.method](
   routes.user.getPublicUserData.url,

@@ -1,11 +1,11 @@
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
 const tryToAddContact = async (req) => {
   const { body, currentUserId } = req;
-  const newContactData = userPropsUtilities.extractContact(body);
+  const newContactData = userUtilities.extractContact(body);
 
   const { newContact } = await services
     .addContact()

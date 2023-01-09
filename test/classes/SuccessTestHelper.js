@@ -10,14 +10,11 @@ class SuccessTestHelper {
   }
 
   #successTestMaker(methodName) {
-    return (
-      { requestValue, responseValue } = {},
-      options = this.defaultOptions
-    ) => {
+    return ({ equalValue, testValue } = {}, options = this.defaultOptions) => {
       testHelperCollection.success[methodName](
         {
-          requestValue,
-          responseValue,
+          equalValue,
+          testValue,
         },
         {
           ...this.defaultOptions,
@@ -29,11 +26,11 @@ class SuccessTestHelper {
   }
 
   async authentication(
-    { requestValue, responseValue, secret } = {},
+    { equalValue, testValue, secret } = {},
     options = this.defaultOptions
   ) {
     await testHelperCollection.success.authentication(
-      { requestValue, responseValue, secret },
+      { equalValue, testValue, secret },
       {
         ...this.defaultOptions,
         ...options,
@@ -55,7 +52,6 @@ class SuccessTestHelper {
   message = this.#successTestMaker("message");
   messageId = this.#successTestMaker("messageId");
   oneContact = this.#successTestMaker("oneContact");
-  participantId = this.#successTestMaker("participantId");
   phoneNumber = this.#successTestMaker("phoneNumber");
   privateChats = this.#successTestMaker("privateChats");
   userData = this.#successTestMaker("userData");

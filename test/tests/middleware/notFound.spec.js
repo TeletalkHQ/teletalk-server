@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 
+const { failTestBuilder } = require("$/classes/FailTestBuilder");
 const { requesterCreator } = require("$/classes/requester/Requester");
 
 const { arrayOfRoutes } = require("@/routes");
@@ -11,11 +12,16 @@ const { FIELD_TYPE } = require("@/variables/others/fieldType");
 const requester = (routeObject) => requesterCreator().create(routeObject);
 
 describe("notFound middleware fail test", () => {
-  it("should get error: ROUTE_NOT_FOUND", async () => {
-    await requester(routes.test.unknownRoute).sendFullFeaturedRequest(
-      undefined,
-      errors.ROUTE_NOT_FOUND
+  const message = failTestBuilder
+    .create()
+    .createTestMessage(
+      errors.ROUTE_NOT_FOUND,
+      routes.test.unknownRoute.fullUrl
     );
+  it(message, async () => {
+    await requester(routes.test.unknownRoute)
+      .setErrorObject(errors.ROUTE_NOT_FOUND)
+      .sendFullFeaturedRequest();
   });
 
   for (const route of arrayOfRoutes) {

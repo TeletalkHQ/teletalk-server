@@ -8,18 +8,18 @@ const {
   phoneNumberSuccessTest,
 } = require("$/tests/integration/helpers/success/phoneNumber");
 
-const cellphoneSuccessTest = ({ requestValue, responseValue }) => {
+const cellphoneSuccessTest = ({ equalValue, testValue }) => {
   countryCodeSuccessTest({
-    requestValue: requestValue.countryCode,
-    responseValue: responseValue.countryCode,
+    equalValue: equalValue.countryCode,
+    testValue: testValue.countryCode,
   });
   countryNameSuccessTest({
-    requestValue: requestValue.countryName,
-    responseValue: responseValue.countryName,
+    equalValue: equalValue.countryName,
+    testValue: testValue.countryName,
   });
   phoneNumberSuccessTest({
-    requestValue: requestValue.phoneNumber,
-    responseValue: responseValue.phoneNumber,
+    equalValue: equalValue.phoneNumber,
+    testValue: testValue.phoneNumber,
   });
 };
 

@@ -1,5 +1,5 @@
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
@@ -9,12 +9,13 @@ const tryToEditContact = async (req) => {
     body: { firstName, lastName },
     currentUserId,
   } = req;
-  const targetCellphone = userPropsUtilities.extractCellphone(body);
+  const targetCellphone = userUtilities.extractCellphone(body);
   const editedValues = { firstName, lastName };
 
   await services
     .updateContact()
     .run({ currentUserId, editedValues, targetCellphone });
+
   return {
     editedContact: { ...targetCellphone, ...editedValues },
   };

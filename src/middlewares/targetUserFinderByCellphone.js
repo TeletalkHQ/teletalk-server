@@ -2,7 +2,7 @@ const { customTypeof } = require("custom-typeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { errorThrower } = require("utility-store/src/utilities/utilities");
 
@@ -19,7 +19,7 @@ const targetUserFinderByCellphone = async (req, res, next) => {
 };
 
 const tryToFindUserByCellphone = async (requestData) => {
-  const cellphone = userPropsUtilities.extractCellphone(requestData);
+  const cellphone = userUtilities.extractCellphone(requestData);
 
   const targetUser = await services.findOneUser(cellphone);
 

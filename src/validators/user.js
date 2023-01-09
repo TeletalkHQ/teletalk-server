@@ -4,7 +4,7 @@ const {
 const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { authManager } = require("@/classes/AuthManager");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { compiledValidators } = require("@/validators/compiledValidators");
 const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
@@ -62,7 +62,7 @@ const cellphoneValidator = async (cellphone = {}) => {
 };
 
 const contactValidator = async (contact) => {
-  await cellphoneValidator(userPropsUtilities.extractCellphone(contact));
+  await cellphoneValidator(userUtilities.extractCellphone(contact));
   await firstNameValidator(contact.firstName);
   await lastNameValidator(contact.lastName);
 };

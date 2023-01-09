@@ -1,51 +1,62 @@
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { testVariablesManager } = require("$/classes/TestVariablesManager");
+const { expect } = require("chai");
+const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("utility-store/src/utilities/utilities");
+
+const { randomMaker } = require("$/classes/RandomMaker");
+const { userUtilities } = require("@/classes/UserUtilities");
+
+const { services } = require("@/services");
 
 const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
-const { requesters } = require("$/utilities/requesters");
-
-const { countries } = require("@/variables/others/countries");
-
-const users = testVariablesManager.getUsers();
-const cellphones = testVariablesManager.getCellphones();
+const { requesters } = require("$/utilities");
 
 describe("removeContact successful test", () => {
-  it("should add testUser_3 to testUser_0 contact list", async () => {
-    await requesters
-      .addBlock()
-      .sendFullFeaturedRequest(users.removeBlockSuccessful, undefined, {
-        token: requesters.removeBlock().getOptions().token,
-      });
-    const {
-      body: {
-        removedBlockedCellphone: { phoneNumber, countryCode, countryName },
-      },
-    } = await requesters
-      .removeBlock()
-      .sendFullFeaturedRequest(users.removeBlockSuccessful);
+  it("should add users to blacklist", async () => {
+    const blacklistLength = 10;
+    const cellphones = await createCellphones(blacklistLength);
 
-    testHelper
-      .createSuccessTest()
-      .countryName({
-        requestValue: users.removeBlockSuccessful.countryName,
-        responseValue: countryName,
-      })
-      .countryCode({
-        requestValue: users.removeBlockSuccessful.countryCode,
-        responseValue: countryCode,
-      })
-      .phoneNumber({
-        requestValue: users.removeBlockSuccessful.phoneNumber,
-        responseValue: phoneNumber,
+    const currentUser = await randomMaker.user();
+
+    const addBlockRequester = requesters.addBlock();
+    addBlockRequester.setToken(currentUser.token);
+    for (const cellphone of cellphones) {
+      await addBlockRequester.sendFullFeaturedRequest(cellphone);
+    }
+
+    const removeBlockRequester = requesters.removeBlock();
+    removeBlockRequester.setToken(currentUser.token);
+
+    for (const blacklistItem of [...cellphones]) {
+      const {
+        body: { removedBlock },
+      } = await removeBlockRequester.sendFullFeaturedRequest(blacklistItem);
+
+      testRemovedBlock({
+        testValue: removedBlock,
+        equalValue: blacklistItem,
       });
+
+      cellphones.shift();
+      await testBlacklistAfterRemoveOneItem(currentUser, cellphones);
+    }
+
+    await testBlacklistAfterRemoveAll(currentUser.user.userId);
   });
 });
 
-describe("removeBlock failure tests", () => {
-  const cellphone = userPropsUtilities.makeRandomCellphone(countries);
+describe("removeBlock fail tests", () => {
+  const cellphone = randomMaker.unusedCellphone();
+  const requester = requesters.removeBlock();
+
+  before(async () => {
+    const { token } = await randomMaker.user(cellphone);
+    requester.setToken(token);
+  });
+
   testHelper
-    .createFailTest(requesters.removeBlock())
+    .createFailTest(requester)
     .authentication()
     .input(cellphone)
     .checkCurrentUserStatus(cellphone)
@@ -53,6 +64,52 @@ describe("removeBlock failure tests", () => {
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)
-    .selfStuff(users.selfStuff)
-    .blacklistItemNotExist(cellphones.notExistedContact);
+    .selfStuff(cellphone)
+    .blacklistItemNotExist(randomMaker.unusedCellphone());
 });
+
+const createCellphones = async (length) => {
+  const users = await randomMaker.users(length);
+  return users.map((i) => userUtilities.extractCellphone(i.user));
+};
+
+const testRemovedBlock = ({ equalValue, testValue }) => {
+  testHelper
+    .createSuccessTest()
+    .countryName({
+      equalValue: equalValue.countryName,
+      testValue: testValue.countryName,
+    })
+    .countryCode({
+      equalValue: equalValue.countryCode,
+      testValue: testValue.countryCode,
+    })
+    .phoneNumber({
+      equalValue: equalValue.phoneNumber,
+      testValue: testValue.phoneNumber,
+    });
+};
+
+const testBlacklistAfterRemoveOneItem = async (currentUser, blacklist) => {
+  const blacklistAfterRemove = await findBlacklist(currentUser.user.userId);
+  expect(blacklistAfterRemove.length).to.be.equal(blacklist.length);
+
+  blacklist.forEach((i) => {
+    const removedCellphone = blacklistAfterRemove.find((j) =>
+      isDataHasEqualityWithTargetCellphone(i, j)
+    );
+    expect(i).to.be.deep.equal(
+      userUtilities.extractCellphone(removedCellphone)
+    );
+  });
+};
+
+const testBlacklistAfterRemoveAll = async (userId) => {
+  const blacklistAfterRemoveAll = await findBlacklist(userId);
+  expect(blacklistAfterRemoveAll.length).to.be.equal(0);
+};
+
+const findBlacklist = async (userId) => {
+  const { blacklist } = await services.findOneUserById(userId);
+  return blacklist;
+};

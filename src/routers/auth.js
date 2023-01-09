@@ -16,7 +16,7 @@ authRouter[routes.auth.signIn.method](
 authRouter[routes.auth.verify.method](
   routes.auth.verify.url,
   middlewares.verificationCodeValidator,
-  middlewares.verifyTemporaryClient,
+  middlewares.verifyVerificationCode,
   controllers.verify
 );
 authRouter[routes.auth.createNewUser.method](

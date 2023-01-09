@@ -9,6 +9,8 @@ jobs:
   build:
     env:
       CI: true
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
 
     strategy:
       matrix:
@@ -16,6 +18,15 @@ jobs:
         operations: [ubuntu-latest]
 
     runs-on: ${{ matrix.operations }}
+
+    services:
+      redis:
+        image: redis/redis-stack
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v3

@@ -27,12 +27,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-04-10T19:07:05.855Z",
-    "modified": "2023-01-03T21:21:17.212Z",
+    "modified": "2023-01-05T01:35:41.320Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"verificationCode\":\"298400\"\n}",
+      "raw": "{\n    \"verificationCode\":\"813159\"\n}",
       "form": []
     },
     "auth": {

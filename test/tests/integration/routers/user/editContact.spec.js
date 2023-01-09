@@ -1,106 +1,132 @@
+const { expect } = require("chai");
+const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("utility-store/src/utilities/utilities");
+
+const { randomMaker } = require("$/classes/RandomMaker");
+const { userUtilities } = require("@/classes/UserUtilities");
+
+const { helpers } = require("$/helpers");
+
+const { services } = require("@/services");
+
 const { testHelper } = require("$/tests/integration/helpers/testHelper");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
-const { models } = require("@/models");
-
-const { requesters } = require("$/utilities/requesters");
-
-const { testVariablesManager } = require("$/classes/TestVariablesManager");
-const { countries } = require("@/variables/others/countries");
-
-const userModels = models.native.user;
-
-const users = testVariablesManager.getUsers();
+const { requesters } = require("$/utilities");
 
 describe("edit contact success tests", () => {
-  it("should add and edit testUser_1 on testUser_0 contact list", async () => {
-    const {
-      body: {
-        addedContact: {
-          countryCode,
-          countryName,
-          firstName,
-          lastName,
-          phoneNumber,
-          userId,
-        },
-      },
-    } = await requesters
-      .addContact()
-      .sendFullFeaturedRequest(users.editContactSuccessful, undefined, {
-        token: requesters.editContact().getOptions().token,
-      });
-    const successTest = testHelper.createSuccessTest();
+  it("should edit users in contacts", async () => {
+    const currentUser = await randomMaker.user();
 
-    successTest
-      .firstName({
-        requestValue: users.editContactSuccessful.firstName,
-        responseValue: firstName,
-      })
-      .lastName({
-        requestValue: users.editContactSuccessful.lastName,
-        responseValue: lastName,
-      })
-      .phoneNumber({
-        requestValue: users.editContactSuccessful.phoneNumber,
-        responseValue: phoneNumber,
-      })
-      .countryCode({
-        requestValue: users.editContactSuccessful.countryCode,
-        responseValue: countryCode,
-      })
-      .countryName({
-        requestValue: users.editContactSuccessful.countryName,
-        responseValue: countryName,
-      })
-      .userId({
-        requestValue: users.editContactSuccessful.userId,
-        responseValue: userId,
-      });
+    const contactsLength = 10;
+    const contacts = await createContacts(contactsLength);
 
-    const editedFullName = {
-      firstName: "new firstName",
-      lastName: "new lastName",
-    };
+    const addContactRequester = requesters.addContact();
+    addContactRequester.setToken(currentUser.token);
+    for (const contact of contacts) {
+      await addContactRequester.sendFullFeaturedRequest(contact);
+    }
 
-    const {
-      body: {
-        editedContact: { firstName: newFirstName, lastName: newLastName },
-      },
-    } = await requesters.editContact().sendFullFeaturedRequest({
-      ...users.editContactSuccessful,
-      ...editedFullName,
-    });
+    const editContactRequester = requesters.editContact();
+    editContactRequester.setToken(currentUser.token);
+    for (const contact of contacts) {
+      const fullName = randomMaker.fullName();
+      const data = { ...contact, ...fullName };
+      const {
+        body: { editedContact },
+      } = await editContactRequester.sendFullFeaturedRequest(data);
 
-    successTest
-      .lastName({
-        requestValue: editedFullName.lastName,
-        responseValue: newLastName,
-      })
-      .firstName({
-        requestValue: editedFullName.firstName,
-        responseValue: newFirstName,
-      });
+      testContact(data, editedContact);
+
+      contact.firstName = data.firstName;
+      contact.lastName = data.lastName;
+
+      const { contacts: currentUserContacts } = await services.findOneUserById(
+        currentUser.user.userId
+      );
+      const foundEditedContact = currentUserContacts.find((i) =>
+        isDataHasEqualityWithTargetCellphone(i, data)
+      );
+      testContact(data, foundEditedContact);
+
+      testContacts(data, contacts, currentUserContacts);
+    }
   });
 });
 
-describe("editContact failure tests", () => {
-  const contact = userPropsUtilities.makeRandomContact(
-    userModels.firstName.maxlength.value,
-    userModels.lastName.maxlength.value,
-    countries
-  );
+describe("editContact fail tests", () => {
+  const contact = randomMaker.contact();
+  const currentUserSignData = randomMaker.contact();
+
+  const requester = requesters.editContact();
+  helpers.configureFailTestRequester(requester);
+  before(async () => {
+    const { token } = await randomMaker.user(currentUserSignData);
+    requester.setToken(token);
+  });
+
   testHelper
-    .createFailTest(requesters.editContact())
+    .createFailTest(requester)
     .authentication()
     .input(contact)
     .checkCurrentUserStatus(contact)
-    .selfStuff(users.selfStuff)
-    .contactItemNotExist(users.editContactItemNotExist)
     .cellphone(contact)
     .countryCode(contact)
     .countryName(contact)
     .phoneNumber(contact)
     .firstName(contact)
-    .lastName(contact);
+    .lastName(contact)
+    .selfStuff(currentUserSignData)
+    .contactItemNotExist(contact);
 });
+
+const createContacts = async (length) => {
+  const users = await randomMaker.users(length);
+  return users.map((i) => userUtilities.extractContact(i.user));
+};
+
+const testContact = (equalValue, testValue) => {
+  testHelper
+    .createSuccessTest()
+    .firstName({
+      equalValue: equalValue.firstName,
+      testValue: testValue.firstName,
+    })
+    .lastName({
+      equalValue: equalValue.lastName,
+      testValue: testValue.lastName,
+    })
+    .countryCode({
+      equalValue: equalValue.countryCode,
+      testValue: testValue.countryCode,
+    })
+    .countryName({
+      equalValue: equalValue.countryName,
+      testValue: testValue.countryName,
+    })
+    .phoneNumber({
+      equalValue: equalValue.phoneNumber,
+      testValue: testValue.phoneNumber,
+    });
+};
+
+const testContacts = (data, contacts, currentUserContacts) => {
+  const filterEditedContacts = contacts.filter(
+    (i) => !isDataHasEqualityWithTargetCellphone(i, data)
+  );
+  const filterEditedCurrentUserContacts = currentUserContacts.filter(
+    (i) => !isDataHasEqualityWithTargetCellphone(i, data)
+  );
+
+  expect(filterEditedCurrentUserContacts.length).to.be.equal(
+    filterEditedContacts.length
+  );
+
+  filterEditedContacts.forEach((i) => {
+    const j = filterEditedCurrentUserContacts.find((m) =>
+      isDataHasEqualityWithTargetCellphone(m, i)
+    );
+
+    testContact(i, j);
+  });
+};

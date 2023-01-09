@@ -6,7 +6,7 @@ const { models } = require("@/models");
 const userModels = models.native.user;
 
 const phoneNumberSuccessTest = (
-  { requestValue, responseValue },
+  { equalValue, testValue },
   {
     stringEquality = true,
     modelCheck = true,
@@ -14,7 +14,7 @@ const phoneNumberSuccessTest = (
 ) => {
   successTestBuilder
     .create()
-    .setVariables(userModels.phoneNumber, requestValue, responseValue)
+    .setVariables(userModels.phoneNumber, equalValue, testValue)
     .setOptions({ modelCheck, stringEquality })
     .emptyCheck()
     .numericCheck()

@@ -1,15 +1,14 @@
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
 const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { errors } = require("@/variables/errors");
 
-const verifyTemporaryClient = async (req, res, next) => {
-  await trier(verifyTemporaryClient.name)
+const verifyVerificationCode = async (req, res, next) => {
+  await trier(verifyVerificationCode.name)
     .tryAsync(tryToVerifyVerificationCode, req)
     .executeIfNoError(() => next())
     .catch(catchVerifyVerificationCode, res)
@@ -22,8 +21,8 @@ const tryToVerifyVerificationCode = async (req) => {
     body: { verificationCode: sentVerificationCode },
   } = req;
 
-  const cellphone = userPropsUtilities.extractCellphone(authData.payload);
-  const tempClient = await getTemporaryClient(cellphone);
+  const cellphone = userUtilities.extractCellphone(authData.payload);
+  const tempClient = await findTemporaryClient(cellphone);
   const { verificationCode: actualVerificationCode } = tempClient;
 
   errorThrower(sentVerificationCode !== actualVerificationCode, {
@@ -31,15 +30,15 @@ const tryToVerifyVerificationCode = async (req) => {
     sentVerificationCode,
   });
 
-  temporaryClients.update(tempClient, { isVerified: true });
+  await temporaryClients.update(tempClient, { isVerified: true });
 };
 
-const getTemporaryClient = async (cellphone) => {
+const findTemporaryClient = async (cellphone) => {
   const tempClient = await temporaryClients.find(cellphone);
-  errorThrower(!tempClient, errors.CURRENT_USER_NOT_EXIST);
+  errorThrower(!tempClient, errors.TEMPORARY_CLIENT_NOT_FOUND);
   return tempClient;
 };
 
 const catchVerifyVerificationCode = commonUtilities.controllerErrorResponse;
 
-module.exports = { verifyTemporaryClient };
+module.exports = { verifyVerificationCode };

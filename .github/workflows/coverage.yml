@@ -9,8 +9,6 @@ jobs:
   coverage:
     env:
       CI: true
-      REDIS_CLOUD_HOST: redis
-      REDIS_CLOUD_PORT: 6379
 
     strategy:
       matrix:
@@ -53,6 +51,8 @@ jobs:
 
       - name: Generate coverage files
         run: npm run test:coverage
-
+        env:
+          REDIS_CLOUD_HOST: redis
+          REDIS_CLOUD_PORT: 6379
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3

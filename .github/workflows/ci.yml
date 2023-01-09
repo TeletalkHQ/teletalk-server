@@ -9,8 +9,6 @@ jobs:
   ci:
     env:
       CI: true
-      REDIS_CLOUD_HOST: redis
-      REDIS_CLOUD_PORT: 6379
 
     strategy:
       matrix:
@@ -52,9 +50,14 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
 
       - name: Test development app
+        env:
+          REDIS_CLOUD_HOST: redis
+          REDIS_CLOUD_PORT: 6379
         run: npm run test:dev
-
       - name: Generate build
         run: npm run build
       - name: Test built app
+        env:
+          REDIS_CLOUD_HOST: redis
+          REDIS_CLOUD_PORT: 6379
         run: npm run test:production:local

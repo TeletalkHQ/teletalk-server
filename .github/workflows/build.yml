@@ -9,8 +9,8 @@ jobs:
   build:
     env:
       CI: true
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      # REDIS_HOST: redis
+      # REDIS_PORT: 6379
 
     strategy:
       matrix:
@@ -19,14 +19,14 @@ jobs:
 
     runs-on: ${{ matrix.operations }}
 
-    services:
-      redis:
-        image: redis/redis-stack
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    # services:
+    #   redis:
+    #     image: redis/redis-stack
+    #     options: >-
+    #       --health-cmd "redis-cli ping"
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
 
     steps:
       - uses: actions/checkout@v3

@@ -9,8 +9,8 @@ jobs:
   ci:
     env:
       CI: true
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      REDIS_CLOUD_HOST: redis
+      REDIS_CLOUD_PORT: 6379
 
     strategy:
       matrix:

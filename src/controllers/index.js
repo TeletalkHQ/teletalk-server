@@ -22,7 +22,6 @@ const { editContact } = require("@/controllers/user/editContact");
 const { getContacts } = require("@/controllers/user/getContacts");
 const { getCurrentUserData } = require("@/controllers/user/getCurrentUserData");
 const { getPublicUserData } = require("@/controllers/user/getPublicUserData");
-const { getTargetUserData } = require("@/controllers/user/getTargetUserData");
 const { removeBlock } = require("@/controllers/user/removeBlock");
 const { removeContact } = require("@/controllers/user/removeContact");
 const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
@@ -39,7 +38,6 @@ const controllers = {
   getCurrentUserData,
   getPrivateChat,
   getPublicUserData,
-  getTargetUserData,
   getWelcomeMessage,
   logout,
   removeBlock,

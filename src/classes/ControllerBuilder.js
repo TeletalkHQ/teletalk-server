@@ -5,8 +5,8 @@ class ControllerBuilder {
   constructor(callerName) {
     this.controllerName = callerName;
   }
-  #response = undefined;
-  #body = undefined;
+  #response;
+  #body;
 
   body(callback) {
     this.#body = callback;

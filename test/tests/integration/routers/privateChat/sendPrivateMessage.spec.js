@@ -1,78 +1,127 @@
-const { arrayUtilities } = require("utility-store/src/classes/ArrayUtilities");
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+const { expect } = require("chai");
+
+const { randomMaker } = require("$/classes/RandomMaker");
+
+const { helpers } = require("$/helpers");
+
+const { services } = require("@/services");
 
 const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
-const { requesters } = require("$/utilities/requesters");
-
-const { testVariablesManager } = require("$/classes/TestVariablesManager");
-
-const users = testVariablesManager.getUsers();
-
-//TODO: Add tests for total privateChats and total messages
-const messages = Array.from({ length: 20 }).map((_, index) => {
-  return `Hello! Im message #${index}`;
-});
+const { requesters } = require("$/utilities");
 
 describe("send message success tests", () => {
-  it("Should start new chat with selected test users and send message", async () => {
-    const { userId } = users.sendMessageSuccessful;
+  it("should start new chat and send message", async () => {
+    const { token: currentUserToken, user: currentUser } =
+      await randomMaker.user();
+    const { user: targetUser } = await randomMaker.user();
 
-    for (const message of messages) {
-      const {
-        body: {
-          chatId,
-          newMessage: {
-            message: newMessage,
-            messageId,
-            sender: { senderId },
-          },
-        },
-      } = await requesters.sendPrivateMessage().sendFullFeaturedRequest({
-        participantId: userId,
-        message,
-      });
+    const requester = requesters
+      .sendPrivateMessage()
+      .setToken(currentUserToken);
 
-      testHelper
-        .createSuccessTest()
-        .userId(
-          {
-            responseValue: senderId,
-          },
-          { stringEquality: false }
-        )
-        .chatId(
-          {
-            responseValue: chatId,
-          },
-          { stringEquality: false }
-        )
-        .messageId(
-          {
-            responseValue: messageId,
-          },
-          {
-            stringEquality: false,
-          }
-        )
-        .message({
-          requestValue: message,
-          responseValue: newMessage,
+    const messagesLength = 20;
+    for (let i = 0; i < messagesLength; i++) {
+      const text = createMessage(i);
+      const { body: sendMessageResponse } =
+        await requester.sendFullFeaturedRequest({
+          participantId: targetUser.userId,
+          message: text,
         });
+
+      await testData({
+        currentUser,
+        sendMessageResponse,
+        targetUser,
+        text,
+      });
     }
+
+    const chat = await findOnePrivateChat(
+      currentUser.userId,
+      targetUser.userId
+    );
+    expect(chat.messages.length).to.be.equal(messagesLength);
   });
 });
 
-describe("send message failure tests", () => {
+describe("send message fail tests", () => {
+  const requester = requesters.sendPrivateMessage();
+  helpers.configureFailTestRequester(requester);
+
   const data = {
-    message: arrayUtilities.lastItem(messages),
-    participantId: randomMaker.randomId(),
+    message: randomMaker.string(10),
+    participantId: randomMaker.id(),
   };
+
   testHelper
-    .createFailTest(requesters.sendPrivateMessage())
+    .createFailTest(requester)
     .authentication()
     .input(data)
     .checkCurrentUserStatus(data)
     .participantId(data)
     .message(data);
 });
+
+const createMessage = (index) => `Hello! Im message #${index}`;
+
+const testData = async ({
+  currentUser,
+  sendMessageResponse,
+  targetUser,
+  text,
+}) => {
+  const chat = await findOnePrivateChat(currentUser.userId, targetUser.userId);
+
+  const currentParticipant = chat.participants.find(
+    (i) => i.participantId === currentUser.userId
+  );
+  const targetParticipant = chat.participants.find(
+    (i) => i.participantId === targetUser.userId
+  );
+  const foundMessage = chat.messages.find(
+    (m) => m.messageId === sendMessageResponse.newMessage.messageId
+  );
+
+  testHelper
+    .createSuccessTest()
+    .chatId({
+      equalValue: sendMessageResponse.chatId,
+      testValue: chat.chatId,
+    })
+    .message({
+      equalValue: text,
+      testValue: foundMessage.message,
+    })
+    .message({
+      equalValue: text,
+      testValue: sendMessageResponse.newMessage.message,
+    })
+    .messageId({
+      equalValue: sendMessageResponse.newMessage.messageId,
+      testValue: foundMessage.messageId,
+    })
+    .userId({
+      equalValue: targetUser.userId,
+      testValue: targetParticipant.participantId,
+    })
+    .userId({
+      equalValue: currentUser.userId,
+      testValue: currentParticipant.participantId,
+    })
+    .userId({
+      equalValue: currentUser.userId,
+      testValue: sendMessageResponse.newMessage.sender.senderId,
+    });
+};
+
+const findOnePrivateChat = async (currentUserId, targetUserId) => {
+  return await services
+    .findOnePrivateChat()
+    .exclude()
+    .run({
+      "participants.participantId": {
+        $all: [currentUserId, targetUserId],
+      },
+    });
+};

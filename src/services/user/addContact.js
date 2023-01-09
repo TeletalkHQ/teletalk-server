@@ -1,6 +1,6 @@
 const { errorThrower } = require("utility-store/src/utilities/utilities");
 
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
@@ -15,8 +15,7 @@ const addContact = serviceBuilder
 
     checkExistenceOfContactItem(currentUser.contacts, newContactData);
 
-    const targetUserCellphone =
-      userPropsUtilities.extractCellphone(newContactData);
+    const targetUserCellphone = userUtilities.extractCellphone(newContactData);
 
     const targetUser = await serviceHelper.findOneUser(
       targetUserCellphone,
@@ -35,7 +34,7 @@ const addContact = serviceBuilder
   .build();
 
 const checkExistenceOfContactItem = (contacts, contact) => {
-  const { cellphone: isContactExist } = userPropsUtilities.cellphoneFinder(
+  const { item: isContactExist } = userUtilities.findByCellphone(
     contacts,
     contact
   );

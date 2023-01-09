@@ -15,7 +15,7 @@ class NativeModelBuilder {
     };
   }
 
-  #updateProperty(key, value = undefined, error) {
+  #updateProperty(key, value, error) {
     this.modelObject[key].value = value;
     if (error) this.modelObject[key].error = error;
   }

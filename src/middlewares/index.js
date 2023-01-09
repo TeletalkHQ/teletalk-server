@@ -2,9 +2,7 @@ const { notFound } = require("@/middlewares/notFound");
 const { applyMiddlewares } = require("@/middlewares/applyMiddlewares");
 const { attachCurrentUserId } = require("@/middlewares/attachCurrentUserId");
 const { authDefault } = require("@/middlewares/authDefault");
-const {
-  cellphoneSelfStuffCheck,
-} = require("@/middlewares/cellphoneSelfStuffCheck");
+const { selfStuffCheck } = require("@/middlewares/selfStuffCheck");
 const { cellphoneValidator } = require("@/middlewares/cellphoneValidator");
 const { checkBodyFields } = require("@/middlewares/checkBodyFields");
 const { checkDataAndResponse } = require("@/middlewares/checkDataAndResponse");
@@ -27,14 +25,14 @@ const {
   verificationCodeValidator,
 } = require("@/middlewares/verificationCodeValidator");
 const {
-  verifyTemporaryClient,
-} = require("@/middlewares/verifyTemporaryClient");
+  verifyVerificationCode,
+} = require("@/middlewares/verifyVerificationCode");
 
 const middlewares = {
   applyMiddlewares,
   attachCurrentUserId,
   authDefault,
-  cellphoneSelfStuffCheck,
+  selfStuffCheck,
   cellphoneValidator,
   checkBodyFields,
   checkCurrentUserStatus,
@@ -49,7 +47,7 @@ const middlewares = {
   sendJsonResponse,
   targetUserFinderByCellphone,
   verificationCodeValidator,
-  verifyTemporaryClient,
+  verifyVerificationCode,
 };
 
 module.exports = { middlewares };

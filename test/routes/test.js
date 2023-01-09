@@ -2,9 +2,9 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const unknownRoute = routeBuilder(`/${randomMaker.randomString(10)}`)
+const unknownRoute = routeBuilder(`/${randomMaker.string(10)}`)
   .create()
-  .url(`/${randomMaker.randomString(10)}`)
+  .url(`/${randomMaker.string(10)}`)
   .statusCode(404)
   .build();
 

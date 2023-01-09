@@ -18,25 +18,37 @@ class SuccessTestBuilder {
   #defaultVariables() {
     return {
       model: {},
-      requestValue: undefined,
-      responseValue: undefined,
+      equalValue: undefined,
+      testValue: undefined,
       modelMaxLength: 0,
       modelMinLength: 0,
       modelLength: 0,
     };
   }
 
-  setVariables(model, requestValue, responseValue) {
+  setVariables(model, equalValue, testValue) {
     this.variables = {
       ...this.variables,
       model,
-      requestValue,
-      responseValue,
+      equalValue,
+      testValue,
       modelLength: model?.length?.value,
       modelMaxLength: model?.maxlength?.value,
       modelMinLength: model?.minlength?.value,
     };
 
+    return this;
+  }
+  setModel(model) {
+    this.variables.model = model;
+    return this;
+  }
+  setEqualValue(equalValue) {
+    this.variables.equalValue = equalValue;
+    return this;
+  }
+  setTestValue(testValue) {
+    this.variables.testValue = testValue;
     return this;
   }
 
@@ -63,12 +75,12 @@ class SuccessTestBuilder {
   stringEquality() {
     this.addIf(this.options.stringEquality, () => {
       this.tests.push(() =>
-        expect(this.variables.requestValue.length).equal(
-          this.variables.responseValue.length
+        expect(this.variables.equalValue.length).equal(
+          this.variables.testValue.length
         )
       );
       this.tests.push(() =>
-        expect(this.variables.requestValue).equal(this.variables.responseValue)
+        expect(this.variables.equalValue).equal(this.variables.testValue)
       );
     });
 
@@ -85,9 +97,7 @@ class SuccessTestBuilder {
 
   lengthCheck() {
     this.tests.push(() =>
-      expect(this.variables.responseValue.length).equal(
-        +this.variables.modelLength
-      )
+      expect(this.variables.testValue.length).equal(+this.variables.modelLength)
     );
 
     return this;
@@ -96,7 +106,7 @@ class SuccessTestBuilder {
   typeCheck(customType) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.responseValue).to.be.an(
+        expect(this.variables.testValue).to.be.an(
           customType || this.variables.model.type.value
         )
       );
@@ -115,7 +125,7 @@ class SuccessTestBuilder {
     this.addIf(this.options.modelCheck, () => {
       if (this.variables.model.empty.value === false)
         this.tests.push(() =>
-          expect(this.variables.responseValue.length).to.be.greaterThan(0)
+          expect(this.variables.testValue.length).to.be.greaterThan(0)
         );
     });
 
@@ -125,7 +135,7 @@ class SuccessTestBuilder {
   gteCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.responseValue.length).greaterThanOrEqual(
+        expect(this.variables.testValue.length).greaterThanOrEqual(
           this.variables.modelMinLength
         )
       );
@@ -136,7 +146,7 @@ class SuccessTestBuilder {
   gtCheck(length) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.responseValue.length).greaterThan(length)
+        expect(this.variables.testValue.length).greaterThan(length)
       );
     });
 
@@ -145,7 +155,7 @@ class SuccessTestBuilder {
   lteCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.responseValue.length).lessThanOrEqual(
+        expect(this.variables.testValue.length).lessThanOrEqual(
           this.variables.modelMaxLength
         )
       );
@@ -157,7 +167,7 @@ class SuccessTestBuilder {
   numericCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(+this.variables.responseValue).to.be.an(FIELD_TYPE.NUMBER)
+        expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER)
       );
     });
     return this;

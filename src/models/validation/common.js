@@ -7,7 +7,6 @@ const createdAt = {
     .create()
     .setModelObject(nativeModels.common.createdAt)
     .type()
-    .optional()
     .build(),
 };
 

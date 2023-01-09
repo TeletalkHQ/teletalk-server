@@ -2,7 +2,7 @@ const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
 
-const tryToGetPublicUserInfo = async (req) => {
+const tryToGetPublicUserData = async (req) => {
   const { userId } = req.body;
 
   const user = await services.getTargetUserData({
@@ -10,7 +10,7 @@ const tryToGetPublicUserInfo = async (req) => {
   });
 
   return {
-    publicUserInfo: {
+    publicUserData: {
       bio: user.bio,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -22,7 +22,7 @@ const tryToGetPublicUserInfo = async (req) => {
 
 const getPublicUserData = controllerBuilder
   .create()
-  .body(tryToGetPublicUserInfo)
+  .body(tryToGetPublicUserData)
   .build();
 
 module.exports = { getPublicUserData };

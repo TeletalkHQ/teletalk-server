@@ -1,51 +1,65 @@
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
-const { testVariablesManager } = require("$/classes/TestVariablesManager");
+const { expect } = require("chai");
+const {
+  isDataHasEqualityWithTargetCellphone,
+} = require("utility-store/src/utilities/utilities");
+
+const { randomMaker } = require("$/classes/RandomMaker");
+const { userUtilities } = require("@/classes/UserUtilities");
+
+const { services } = require("@/services");
 
 const { testHelper } = require("$/tests/integration/helpers/testHelper");
-const { requesters } = require("$/utilities/requesters");
 
-const { countries } = require("@/variables/others/countries");
-
-const users = testVariablesManager.getUsers();
-const cellphones = testVariablesManager.getCellphones();
+const { requesters } = require("$/utilities");
 
 describe("removeContact successful test", () => {
-  it("should add testUser_3 to testUser_0 contact list", async () => {
-    await requesters
-      .addContact()
-      .sendFullFeaturedRequest(users.removeContactSuccessful, undefined, {
-        token: requesters.removeContact().getOptions().token,
+  it("should remove users from contacts", async () => {
+    const contactsLength = 10;
+    const cellphones = await createCellphones(contactsLength);
+
+    const currentUser = await randomMaker.user();
+
+    const addContactRequester = requesters.addContact();
+    addContactRequester.setToken(currentUser.token);
+    for (const cellphone of cellphones) {
+      const fullName = randomMaker.fullName();
+      await addContactRequester.sendFullFeaturedRequest({
+        ...cellphone,
+        ...fullName,
+      });
+    }
+
+    const removeContactRequester = requesters.removeContact();
+    removeContactRequester.setToken(currentUser.token);
+    for (const cellphone of [...cellphones]) {
+      const {
+        body: { removedContact },
+      } = await removeContactRequester.sendFullFeaturedRequest(cellphone);
+
+      testRemovedContact({
+        testValue: removedContact,
+        equalValue: cellphone,
       });
 
-    const {
-      body: {
-        removedContact: { phoneNumber, countryCode, countryName },
-      },
-    } = await requesters
-      .removeContact()
-      .sendFullFeaturedRequest(users.removeContactSuccessful);
+      cellphones.shift();
+      await testContactsAfterRemoveOneItem(currentUser, cellphones);
+    }
 
-    testHelper
-      .createSuccessTest()
-      .countryName({
-        requestValue: users.removeContactSuccessful.countryName,
-        responseValue: countryName,
-      })
-      .countryCode({
-        requestValue: users.removeContactSuccessful.countryCode,
-        responseValue: countryCode,
-      })
-      .phoneNumber({
-        requestValue: users.removeContactSuccessful.phoneNumber,
-        responseValue: phoneNumber,
-      });
+    await testContactsAfterRemoveAll(currentUser.user.userId);
   });
 });
 
-describe("removeContact failure tests", () => {
-  const cellphone = userPropsUtilities.makeRandomCellphone(countries);
+describe("removeContact fail tests", () => {
+  const cellphone = randomMaker.unusedCellphone();
+  const requester = requesters.removeContact();
+
+  before(async () => {
+    const { token } = await randomMaker.user(cellphone);
+    requester.setToken(token);
+  });
+
   testHelper
-    .createFailTest(requesters.removeContact())
+    .createFailTest(requester)
     .authentication()
     .input(cellphone)
     .checkCurrentUserStatus(cellphone)
@@ -53,6 +67,53 @@ describe("removeContact failure tests", () => {
     .countryCode(cellphone)
     .countryName(cellphone)
     .phoneNumber(cellphone)
-    .selfStuff(users.selfStuff)
-    .contactItemNotExist(cellphones.notExistedContact);
+    .selfStuff(cellphone)
+    .contactItemNotExist(randomMaker.unusedCellphone());
 });
+
+const createCellphones = async (length) => {
+  const users = await randomMaker.users(length);
+  return users.map((i) => userUtilities.extractCellphone(i.user));
+};
+
+const testRemovedContact = ({ equalValue, testValue }) => {
+  testHelper
+    .createSuccessTest()
+    .countryName({
+      equalValue: equalValue.countryName,
+      testValue: testValue.countryName,
+    })
+    .countryCode({
+      equalValue: equalValue.countryCode,
+      testValue: testValue.countryCode,
+    })
+    .phoneNumber({
+      equalValue: equalValue.phoneNumber,
+      testValue: testValue.phoneNumber,
+    });
+};
+
+const testContactsAfterRemoveOneItem = async (currentUser, cellphones) => {
+  const contactsAfterRemove = await findContacts(currentUser.user.userId);
+  expect(contactsAfterRemove.length).to.be.equal(cellphones.length);
+
+  cellphones.forEach((i) => {
+    const removedCellphone = contactsAfterRemove.find((j) =>
+      isDataHasEqualityWithTargetCellphone(i, j)
+    );
+
+    expect(i).to.be.deep.equal(
+      userUtilities.extractCellphone(removedCellphone)
+    );
+  });
+};
+
+const testContactsAfterRemoveAll = async (userId) => {
+  const contactsAfterRemoveAll = await findContacts(userId);
+  expect(contactsAfterRemoveAll.length).to.be.equal(0);
+};
+
+const findContacts = async (userId) => {
+  const { contacts } = await services.findOneUserById(userId);
+  return contacts;
+};

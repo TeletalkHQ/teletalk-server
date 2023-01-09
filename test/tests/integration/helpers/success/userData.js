@@ -18,34 +18,34 @@ const {
   usernameSuccessTest,
 } = require("$/tests/integration/helpers/success/username");
 
-const userDataSuccessTest = ({ requestValue, responseValue }) => {
+const userDataSuccessTest = ({ equalValue, testValue }) => {
   bioSuccessTest({
-    requestValue: requestValue.bio,
-    responseValue: responseValue.bio,
+    equalValue: equalValue.bio,
+    testValue: testValue.bio,
   });
 
   blacklistSuccessTest({
-    requestValue: requestValue.blacklist,
-    responseValue: responseValue.blacklist,
+    equalValue: equalValue.blacklist,
+    testValue: testValue.blacklist,
   });
 
-  cellphoneSuccessTest({ requestValue, responseValue });
+  cellphoneSuccessTest({ equalValue, testValue });
 
   contactsSuccessTest({
-    requestValue: requestValue.contacts,
-    responseValue: responseValue.contacts,
+    equalValue: equalValue.contacts,
+    testValue: testValue.contacts,
   });
 
-  fullNameSuccessTest({ requestValue, responseValue });
+  fullNameSuccessTest({ equalValue, testValue });
 
   userIdSuccessTest({
-    requestValue: requestValue.userId,
-    responseValue: responseValue.userId,
+    equalValue: equalValue.userId,
+    testValue: testValue.userId,
   });
 
   usernameSuccessTest({
-    requestValue: requestValue.username,
-    responseValue: responseValue.username,
+    equalValue: equalValue.username,
+    testValue: testValue.username,
   });
 };
 

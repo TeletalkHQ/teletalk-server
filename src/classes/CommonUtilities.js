@@ -6,7 +6,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 class CommonUtilities {
   randomStringWithMinLengthOne(length) {
     const finalLength = length === 0 ? 1 : length;
-    return randomMaker.randomString(finalLength);
+    return randomMaker.string(finalLength);
   }
 
   controllerErrorResponse(error, res) {

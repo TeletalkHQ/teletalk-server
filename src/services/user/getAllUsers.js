@@ -1,11 +1,11 @@
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 
-const { User } = require("@/models/database/mongoDb/user");
+const { models } = require("@/models");
 
 const getAllUsers = serviceBuilder
   .create()
   .body(async () => {
-    return await User.find();
+    return await models.database.mongoDb.User.find();
   })
   .build();
 

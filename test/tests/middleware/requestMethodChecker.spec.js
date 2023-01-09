@@ -1,8 +1,10 @@
 const { expect } = require("chai");
 
+const { failTestBuilder } = require("$/classes/FailTestBuilder");
+
 const { arrayOfRoutes } = require("@/routes");
 
-const { makeRequester } = require("$/utilities/requesters");
+const { makeRequester } = require("$/utilities");
 
 const { errors } = require("@/variables/errors");
 const { METHODS } = require("@/variables/others/methods");
@@ -11,7 +13,10 @@ describe("requestMethodChecker middleware tests", () => {
   const methods = Object.values(METHODS);
 
   for (const route of arrayOfRoutes) {
-    it(`should get error: METHOD_NOT_ALLOWED - ${route.fullUrl}`, async () => {
+    const message = failTestBuilder
+      .create()
+      .createTestMessage(errors.METHOD_NOT_ALLOWED, route.fullUrl);
+    it(message, async () => {
       const foundWrongMethod = methods.find((m) => m !== route.method);
 
       const brokenRoute = {
@@ -20,11 +25,10 @@ describe("requestMethodChecker middleware tests", () => {
       };
 
       const requester = makeRequester(brokenRoute);
-      await requester().sendFullFeaturedRequest(
-        undefined,
-        errors.METHOD_NOT_ALLOWED,
-        { shouldFilterRequestData: false }
-      );
+      await requester()
+        .setOptions({ shouldFilterRequestData: false })
+        .setErrorObject(errors.METHOD_NOT_ALLOWED)
+        .sendFullFeaturedRequest();
     });
   }
 

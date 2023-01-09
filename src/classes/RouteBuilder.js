@@ -46,10 +46,6 @@ class RouteBuilder {
     this.#updateProperty("outputFields", outputFields);
     return this;
   }
-  optionalFields(optionalFields = this.routeObject.optionalFields) {
-    this.#updateProperty("optionalFields", optionalFields);
-    return this;
-  }
 
   build() {
     this.checkRequirements();

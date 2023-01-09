@@ -1,11 +1,11 @@
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
 const tryToAddBlockCellphone = async (req) => {
   const { body, currentUserId } = req;
-  const blockingCellphone = userPropsUtilities.extractCellphone(body);
+  const blockingCellphone = userUtilities.extractCellphone(body);
 
   await services.addBlock().run({ blockingCellphone, currentUserId });
 

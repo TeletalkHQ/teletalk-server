@@ -5,15 +5,15 @@ const {
   lastNameSuccessTest,
 } = require("$/tests/integration/helpers/success/lastName");
 
-const fullNameSuccessTest = ({ requestValue, responseValue }) => {
+const fullNameSuccessTest = ({ equalValue, testValue }) => {
   firstNameSuccessTest({
-    requestValue: requestValue.firstName,
-    responseValue: responseValue.firstName,
+    equalValue: equalValue.firstName,
+    testValue: testValue.firstName,
   });
 
   lastNameSuccessTest({
-    requestValue: requestValue.lastName,
-    responseValue: responseValue.lastName,
+    equalValue: equalValue.lastName,
+    testValue: testValue.lastName,
   });
 };
 

@@ -1,7 +1,7 @@
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { validators } = require("@/validators");
 
@@ -14,7 +14,7 @@ const cellphoneValidator = async (req, res, next) => {
 };
 
 const tryToValidateCellphone = async (userData) => {
-  const cellphone = userPropsUtilities.extractCellphone(userData);
+  const cellphone = userUtilities.extractCellphone(userData);
   await validators.cellphone(cellphone);
   return { ok: true };
 };

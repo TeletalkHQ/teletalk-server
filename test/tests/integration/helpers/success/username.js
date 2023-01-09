@@ -6,7 +6,7 @@ const { models } = require("@/models");
 const userModels = models.native.user;
 
 const usernameSuccessTest = (
-  { requestValue, responseValue },
+  { equalValue, testValue },
   {
     modelCheck = true,
     stringEquality = true,
@@ -14,12 +14,12 @@ const usernameSuccessTest = (
 ) => {
   const builder = successTestBuilder
     .create()
-    .setVariables(userModels.username, requestValue, responseValue)
+    .setVariables(userModels.username, equalValue, testValue)
     .setOptions({ modelCheck, stringEquality });
 
   builder.stringEquality().typeCheck().lteCheck();
 
-  if (requestValue) builder.gteCheck();
+  if (equalValue) builder.gteCheck();
 
   builder.run();
 };

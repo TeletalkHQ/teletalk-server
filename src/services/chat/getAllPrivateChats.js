@@ -1,16 +1,18 @@
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 
-const { models } = require("@/models");
-
-const PrivateChat = models.database.mongoDb.PrivateChat;
+const {
+  findPrivateChatByParticipantId,
+} = require("@/services/chat/findPrivateChatByParticipantId");
 
 const getAllPrivateChats = serviceBuilder
   .create()
   .body(async ({ currentUserId }) => {
-    return await PrivateChat.find({
-      "participants.participantId": currentUserId,
+    return await findPrivateChatByParticipantId().run({
+      participantId: currentUserId,
     });
   })
   .build();
 
-module.exports = { getAllPrivateChats };
+module.exports = {
+  getAllPrivateChats,
+};

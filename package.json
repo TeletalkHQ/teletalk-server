@@ -21,7 +21,7 @@
     "start:dev": "cross-env NODE_ENV=development nodemon --trace-warnings ./index.js",
     "start:production": "cross-env NODE_ENV=production node ./index.js",
     "start:production:local": "cross-env NODE_ENV=production_local node ./index.js",
-    "test-runner": "mocha ./index.js --delay --recursive --exit",
+    "test-runner": "mocha ./index.js -- --trace-warnings --delay --recursive --exit",
     "test:coverage": "cross-env COVERAGE=true nyc npm run test:dev",
     "test:dev": "cross-env NODE_ENV=test_development npm run test-runner",
     "test:dev:with-badge": "cross-env MOCHA_BADGE_GEN_OUTPUT=./test/tests.svg npm run test:dev -- -- --reporter mocha-badge-generator",
@@ -29,6 +29,7 @@
     "test:production:local": "cross-env NODE_ENV=test_production_local npm run test-runner"
   },
   "dependencies": {
+    "@redis/json": "^1.0.4",
     "@sindresorhus/is": "^5.3.0",
     "axios": "^1.2.2",
     "chai": "^4.3.7",
@@ -43,7 +44,6 @@
     "fs-extra": "^11.1.0",
     "generate-password": "^1.7.0",
     "helmet": "^6.0.1",
-    "ioredis": "^5.2.4",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "logger-chalker": "^2.0.0",
@@ -55,10 +55,11 @@
     "nodemailer": "^6.8.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "pretty-error": "^4.0.0",
+    "redis": "^4.5.1",
     "serve-favicon": "^2.5.0",
     "snyk": "^1.1080.0",
     "socket.io": "^4.5.4",
-    "utility-store": "^6.0.1",
+    "utility-store": "^7.1.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {

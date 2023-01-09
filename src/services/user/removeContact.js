@@ -1,6 +1,6 @@
 const { errorThrower } = require("utility-store/src/utilities/utilities");
 
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 
@@ -11,12 +11,12 @@ const removeContact = serviceBuilder
   .body(async ({ currentUserId, targetUserData }) => {
     const currentUser = await findCurrentUser(currentUserId);
 
-    const { cellphoneIndex } = checkExistenceOfContactItem(
+    const { index } = checkExistenceOfContactItem(
       currentUser.contacts,
       targetUserData
     );
 
-    await removeContactAndSave(currentUser, cellphoneIndex);
+    await removeContactAndSave(currentUser, index);
   })
   .build();
 
@@ -28,18 +28,20 @@ const findCurrentUser = async (currentUserId) => {
 };
 
 const checkExistenceOfContactItem = (contacts, targetUserData) => {
-  const { cellphone: contactItem, cellphoneIndex } =
-    userPropsUtilities.cellphoneFinder(contacts, targetUserData);
+  const { item: contactItem, index } = userUtilities.findByCellphone(
+    contacts,
+    targetUserData
+  );
   errorThrower(!contactItem, () => ({
     ...errors.CONTACT_ITEM_NOT_EXIST,
     targetUserData,
   }));
 
-  return { cellphoneIndex };
+  return { index };
 };
 
-const removeContactAndSave = async (currentUser, cellphoneIndex) => {
-  currentUser.contacts.splice(cellphoneIndex, 1);
+const removeContactAndSave = async (currentUser, index) => {
+  currentUser.contacts.splice(index, 1);
   await currentUser.save();
 };
 

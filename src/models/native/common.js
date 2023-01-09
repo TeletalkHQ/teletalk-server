@@ -36,7 +36,7 @@ const chatId = nativeModelBuilder
 
 const messageId = nativeModelBuilder
   .create()
-  .defaultValue(randomMaker.randomId)
+  .defaultValue(randomMaker.id)
   .maxlength(45, errors.MESSAGE_ID_MAX_LENGTH_REACH)
   .minlength(40, errors.MESSAGE_ID_MIN_LENGTH_REACH)
   .required(true, errors.MESSAGE_ID_REQUIRED)

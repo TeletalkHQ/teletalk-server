@@ -1,6 +1,6 @@
 const { errorThrower } = require("utility-store/src/utilities/utilities");
 
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
 const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
@@ -11,14 +11,19 @@ const updateContact = serviceBuilder
   .body(async ({ currentUserId, editedValues, targetCellphone }) => {
     const currentUser = await findCurrentUser(currentUserId);
 
-    const { contactIndex, contact: oldContact } = findContact(
+    const { index, contact: oldContact } = findContact(
       currentUser.contacts,
       targetCellphone
     );
 
+    errorThrower(!oldContact, {
+      ...errors.CONTACT_ITEM_NOT_EXIST,
+      targetCellphone,
+    });
+
     const newContact = updateContactFields(editedValues, oldContact);
 
-    await updateAndSaveNewContact(currentUser, newContact, contactIndex);
+    await updateAndSaveNewContact(currentUser, newContact, index);
 
     return { currentUser };
   })
@@ -32,11 +37,12 @@ const findCurrentUser = async (currentUserId) => {
 };
 
 const findContact = (contacts, targetCellphone) => {
-  const { cellphone: contact, cellphoneIndex: contactIndex } =
-    userPropsUtilities.cellphoneFinder(contacts, targetCellphone);
-  errorThrower(!contact, () => errors.CONTACT_ITEM_NOT_EXIST);
+  const { item: contact, index } = userUtilities.findByCellphone(
+    contacts,
+    targetCellphone
+  );
 
-  return { contact, contactIndex };
+  return { contact, index };
 };
 
 const updateContactFields = (editedValues, oldContact) => {
@@ -47,12 +53,8 @@ const updateContactFields = (editedValues, oldContact) => {
   };
 };
 
-const updateAndSaveNewContact = async (
-  currentUser,
-  newContact,
-  contactIndex
-) => {
-  currentUser.contacts.splice(contactIndex, 1, newContact);
+const updateAndSaveNewContact = async (currentUser, newContact, index) => {
+  currentUser.contacts.splice(index, 1, newContact);
   await currentUser.save();
 };
 

@@ -23,14 +23,17 @@ const loggerHelper = {
       .info();
     return this;
   },
-  logRequestDetails(options, routeObject, errorObject) {
-    logger
-      .bgRed(`${this.newLine()}request details:`, logger.colors.black)
-      .info({
+  logRequestDetails(options, requestData, routeObject, errorObject) {
+    logger.bgRed(`${this.newLine()}request details:`, logger.colors.black).dir(
+      logger.levels.debug,
+      {
         options,
+        requestData,
         routeObject,
         errorObject,
-      });
+      },
+      { depth: 10 }
+    );
     return this;
   },
   logEndTestRequest() {

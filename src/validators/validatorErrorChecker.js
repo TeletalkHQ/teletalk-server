@@ -1,3 +1,4 @@
+const { customTypeof } = require("custom-typeof");
 const {
   validationErrorBuilder,
 } = require("utility-store/src/classes/ValidationErrorBuilder");
@@ -19,7 +20,7 @@ const countryCodeErrorChecker = (validationResult, countryCode) => {
       const country = countries.find((c) => c.countryCode === countryCode);
 
       errorChecker.addError(
-        country === undefined,
+        customTypeof.isUndefined(country),
         errors.COUNTRY_CODE_NOT_SUPPORTED
       );
     })
@@ -46,7 +47,7 @@ const countryNameErrorChecker = (validationResult, countryName) => {
       const country = countries.find((c) => c.countryName === countryName);
 
       errorChecker.addError(
-        country === undefined,
+        customTypeof.isUndefined(country),
         errors.COUNTRY_NAME_NOT_SUPPORTED
       );
     })
@@ -97,6 +98,7 @@ const phoneNumberErrorChecker = (validationResult, phoneNumber) => {
       },
     })
     .required(errors.PHONE_NUMBER_REQUIRED)
+    //FIXME: Throw PHONE_NUMBER_EMPTY
     .stringEmpty(errors.PHONE_NUMBER_REQUIRED)
     .string(errors.PHONE_NUMBER_INVALID_TYPE)
     .stringMax(errors.PHONE_NUMBER_MAXLENGTH_REACH)

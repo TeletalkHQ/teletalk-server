@@ -3,7 +3,6 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { authManager } = require("@/classes/AuthManager");
 const { commonUtilities } = require("@/classes/CommonUtilities");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
 
 const { services } = require("@/services");
 
@@ -21,15 +20,13 @@ const tryToCheckCurrentUserStatus = async (req) => {
   const token = authManager.getTokenFromRequest(req);
   const { payload: userData } = req.authData;
 
-  const cellphone = userPropsUtilities.extractCellphone(userData);
-
-  const currentUser = await services.findOneUser(cellphone);
+  const currentUser = await services.findOneUser({ userId: userData.userId });
 
   const error = errors.CURRENT_USER_NOT_EXIST;
 
   errorThrower(!currentUser, {
     ...error,
-    wrongCellphone: cellphone,
+    wrongUserId: userData.userId,
   });
 
   errorThrower(currentUser.userId !== userData.userId, {
@@ -44,7 +41,10 @@ const tryToCheckCurrentUserStatus = async (req) => {
     isSessionExist,
   });
 
-  return { currentUser, ok: true };
+  return {
+    currentUser,
+    ok: true,
+  };
 };
 
 const executeIfNoError = (_data, next) => {

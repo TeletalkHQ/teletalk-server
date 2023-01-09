@@ -3,7 +3,7 @@ const { authManager } = require("@/classes/AuthManager");
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { getHostFromRequest } = require("@/utilities/utilities");
 const { passwordGenerator } = require("@/utilities/passwordGenerator");
@@ -14,12 +14,15 @@ const tryToSignIn = async (req) => {
   const verificationCode = passwordGenerator();
   await validateVerificationCode(verificationCode);
 
-  const cellphone = userPropsUtilities.extractCellphone(req.body);
+  const cellphone = userUtilities.extractCellphone(req.body);
 
   const configs = appConfigs.getConfigs();
   if (configs.sms.shouldSendSms) {
     const host = getHostFromRequest(req);
-    const fullNumber = makeFullNumber(cellphone);
+    const fullNumber = userUtilities.makeFullNumber(
+      cellphone.countryCode,
+      cellphone.phoneNumber
+    );
     await sendVerificationCode(fullNumber, host, verificationCode);
   }
 
@@ -35,19 +38,18 @@ const validateVerificationCode = async (verificationCode) => {
   await validators.verificationCode(verificationCode);
 };
 
-const makeFullNumber = (cellphone) => {
-  return userPropsUtilities.concatCountryCodeWithPhoneNumber(
-    cellphone.countryCode,
-    cellphone.phoneNumber
-  );
-};
-
 const sendVerificationCode = async (fullNumber, host, verificationCode) => {
   await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 };
 
 const signToken = (cellphone) => {
-  return authManager.signToken(cellphone, authManager.getJwtSignInSecret());
+  return authManager.signToken(
+    {
+      ...cellphone,
+      date: Date.now(),
+    },
+    authManager.getJwtSignInSecret()
+  );
 };
 
 const manageTemporaryClient = async (cellphone, verificationCode, token) => {

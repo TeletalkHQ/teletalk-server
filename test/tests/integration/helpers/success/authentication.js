@@ -18,50 +18,52 @@ const { FIELD_TYPE } = require("@/variables/others/fieldType");
 const userModels = models.native.user;
 
 const authenticationSuccessTest = async (
-  { requestValue, responseValue, secret },
-  {
-    modelCheck = true,
-    stringEquality = true,
-  } = testVariablesManager.successTestDefaultOptions
+  { equalValue, testValue, secret },
+  options = testVariablesManager.successTestDefaultOptions
 ) => {
   const builder = successTestBuilder
     .create()
-    .setVariables(userModels.token, requestValue, responseValue)
-    .setOptions({ modelCheck });
+    .setVariables(userModels.token, equalValue, testValue)
+    .setOptions(options);
 
-  builder.typeCheck().gteCheck().lteCheck();
+  builder.typeCheck().gteCheck().lteCheck().stringEquality();
 
-  const verifiedResponseToken = await validators.token(responseValue, secret);
-  tokenCustomTypeCheck(builder, verifiedResponseToken, secret);
+  const verifiedResponseToken = await validators.token(testValue, secret);
+  tokenPartsTypeCheck(builder, verifiedResponseToken, secret);
+  const verifiedRequestToken = await validators.token(equalValue, secret);
+  tokenPartsTypeCheck(builder, verifiedRequestToken, secret);
 
-  if (stringEquality) {
-    builder.stringEquality();
-
-    const verifiedRequestToken = await validators.token(requestValue, secret);
-    tokenCustomTypeCheck(builder, verifiedRequestToken, secret);
-
+  if (secret === authManager.getJwtMainSecret()) {
     userIdSuccessTest({
-      requestValue: verifiedRequestToken.payload.userId,
-      responseValue: verifiedResponseToken.payload.userId,
+      equalValue: verifiedRequestToken.payload.userId,
+      testValue: verifiedResponseToken.payload.userId,
     });
+  }
+
+  if (secret === authManager.getJwtSignInSecret()) {
     cellphoneSuccessTest({
-      requestValue: verifiedRequestToken.payload,
-      responseValue: verifiedResponseToken.payload,
+      equalValue: verifiedRequestToken.payload,
+      testValue: verifiedResponseToken.payload,
     });
   }
 
   builder.run();
 };
 
-const tokenCustomTypeCheck = (builder, token, secret) => {
+const tokenPartsTypeCheck = (builder, token, secret) => {
   builder
     .customTypeCheck(token, FIELD_TYPE.OBJECT)
     .customTypeCheck(token.signature, FIELD_TYPE.STRING)
-    .customTypeCheck(token.payload, FIELD_TYPE.OBJECT)
-    .customTypeCheck(token.payload.countryCode, FIELD_TYPE.STRING)
-    .customTypeCheck(token.payload.countryName, FIELD_TYPE.STRING)
-    .customTypeCheck(token.payload.phoneNumber, FIELD_TYPE.STRING);
-  if (secret === authManager.getJwtMainSecret)
+    .customTypeCheck(token.payload, FIELD_TYPE.OBJECT);
+
+  if (secret === authManager.getJwtSignInSecret()) {
+    builder
+      .customTypeCheck(token.payload.countryCode, FIELD_TYPE.STRING)
+      .customTypeCheck(token.payload.countryName, FIELD_TYPE.STRING)
+      .customTypeCheck(token.payload.phoneNumber, FIELD_TYPE.STRING);
+  }
+
+  if (secret === authManager.getJwtMainSecret())
     builder.customTypeCheck(token.payload.userId, FIELD_TYPE.STRING);
 };
 

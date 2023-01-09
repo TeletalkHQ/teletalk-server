@@ -107,7 +107,6 @@ const {
     .maxlength()
     //FIXME: default value should get one arg
     .defaultValue()
-    .lowercase()
     .build(),
 };
 
@@ -151,4 +150,6 @@ UserSchema.plugin(mongooseUniqueValidator);
 
 const User = mongoose.model("User", UserSchema, "users");
 
-module.exports = { User };
+module.exports = {
+  User,
+};

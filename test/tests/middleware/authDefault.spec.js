@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 
+const { failTestBuilder } = require("$/classes/FailTestBuilder");
 const { requesterCreator } = require("$/classes/requester/Requester");
 
 const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/routes");
@@ -32,12 +33,14 @@ describe("authDefault middleware test", () => {
   );
 
   for (const route of filteredIgnoredRoutes) {
-    it(`should get error: TOKEN_REQUIRED - ${route.fullUrl}`, async () => {
-      await requester(route).sendFullFeaturedRequest(
-        undefined,
-        errors.TOKEN_REQUIRED,
-        { shouldFilterRequestData: false }
-      );
+    const message = failTestBuilder
+      .create()
+      .createTestMessage(errors.TOKEN_REQUIRED, route.fullUrl);
+    it(message, async () => {
+      await requester(route)
+        .setOptions({ shouldFilterRequestData: false })
+        .setErrorObject(errors.TOKEN_REQUIRED)
+        .sendFullFeaturedRequest();
     });
   }
 });

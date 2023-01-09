@@ -39,17 +39,11 @@ const {
   oneContactSuccessTest,
 } = require("$/tests/integration/helpers/success/oneContact");
 const {
-  participantIdSuccessTest,
-} = require("$/tests/integration/helpers/success/participantId");
-const {
   phoneNumberSuccessTest,
 } = require("$/tests/integration/helpers/success/phoneNumber");
 const {
   privateChatsSuccessTest,
 } = require("$/tests/integration/helpers/success/privateChats");
-const {
-  senderIdSuccessTest,
-} = require("$/tests/integration/helpers/success/senderId");
 const {
   userDataSuccessTest,
 } = require("$/tests/integration/helpers/success/userData");
@@ -78,10 +72,8 @@ const successCollection = {
   message: messageSuccessTest,
   messageId: messageIdSuccessTest,
   oneContact: oneContactSuccessTest,
-  participantId: participantIdSuccessTest,
   phoneNumber: phoneNumberSuccessTest,
   privateChats: privateChatsSuccessTest,
-  senderId: senderIdSuccessTest,
   userData: userDataSuccessTest,
   userId: userIdSuccessTest,
   username: usernameSuccessTest,

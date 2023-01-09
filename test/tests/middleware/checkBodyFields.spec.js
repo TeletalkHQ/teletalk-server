@@ -1,10 +1,17 @@
-const { makeRequester } = require("$/utilities/requesters");
+const { failTestBuilder } = require("$/classes/FailTestBuilder");
+const { randomMaker } = require("$/classes/RandomMaker");
+
+const { makeRequester } = require("$/utilities");
 
 const { arrayOfRoutes, routes } = require("@/routes");
 
 const { errors } = require("@/variables/errors");
 
 describe("checkBodyFields middleware tests", () => {
+  let token;
+  before(async () => {
+    token = (await randomMaker.user()).token;
+  });
   //? Filter routes which has at least one input field
   const routesWithInputFields = arrayOfRoutes.filter(
     (i) => Object.keys(i.inputFields).length
@@ -20,12 +27,14 @@ describe("checkBodyFields middleware tests", () => {
   );
 
   for (const route of routesWithoutAuth) {
-    it(`should get error: INPUT_FIELDS_MISSING - ${route.fullUrl}`, async () => {
-      await makeRequester(route)().sendFullFeaturedRequest(
-        undefined,
-        errors.INPUT_FIELDS_MISSING,
-        { shouldFilterRequestData: false }
-      );
+    const message = failTestBuilder
+      .create()
+      .createTestMessage(errors.INPUT_FIELDS_MISSING, route.fullUrl);
+    it(message, async () => {
+      await makeRequester(route)(token)
+        .setErrorObject(errors.INPUT_FIELDS_MISSING)
+        .setOptions({ shouldFilterRequestData: false })
+        .sendFullFeaturedRequest();
     });
   }
 });

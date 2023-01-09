@@ -82,9 +82,7 @@ const removeBlock = userRouteBuilder
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
-      removedBlockedCellphone: fields.statics.object(
-        fields.collection.cellphone
-      ),
+      removedBlock: fields.statics.object(fields.collection.cellphone),
     },
   ])
   .build();
@@ -142,18 +140,6 @@ const getCurrentUserData = userRouteBuilder
   ])
   .build();
 
-//FIXME: Security issues
-const getTargetUserData = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/getTargetUserData")
-  .statusCode(200)
-  .outputFields([
-    {
-      user: fields.statics.object(fields.collection.user),
-    },
-  ])
-  .build();
 const getPublicUserData = userRouteBuilder
   .create()
   .method(METHODS.POST)
@@ -164,7 +150,7 @@ const getPublicUserData = userRouteBuilder
   })
   .outputFields([
     {
-      publicUserInfo: fields.statics.object({
+      publicUserData: fields.statics.object({
         ...fields.collection.fullName,
         bio: fields.single.bio,
         userId: fields.single.userId,
@@ -198,7 +184,6 @@ const userRoutes = {
   getContacts,
   getCurrentUserData,
   getPublicUserData,
-  getTargetUserData,
   removeBlock,
   removeBlocks,
   removeContact,

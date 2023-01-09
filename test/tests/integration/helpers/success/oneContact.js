@@ -8,14 +8,14 @@ const {
   userIdSuccessTest,
 } = require("$/tests/integration/helpers/success/userId");
 
-const oneContactSuccessTest = ({ requestValue, responseValue }) => {
-  cellphoneSuccessTest({ requestValue, responseValue });
+const oneContactSuccessTest = ({ equalValue, testValue }) => {
+  cellphoneSuccessTest({ equalValue, testValue });
 
-  fullNameSuccessTest({ requestValue, responseValue });
+  fullNameSuccessTest({ equalValue, testValue });
 
   userIdSuccessTest({
-    requestValue: requestValue.userId,
-    responseValue: responseValue.userId,
+    equalValue: equalValue.userId,
+    testValue: testValue.userId,
   });
 };
 

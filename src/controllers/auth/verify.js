@@ -1,23 +1,23 @@
 const { authManager } = require("@/classes/AuthManager");
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userPropsUtilities } = require("@/classes/UserPropsUtilities");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
 const tryToVerify = async (req) => {
   const { authData } = req;
-  const cellphone = userPropsUtilities.extractCellphone(authData.payload);
+  const cellphone = userUtilities.extractCellphone(authData.payload);
   const foundUser = await services.findOneUser(cellphone);
 
   if (foundUser) {
     await removeTemporaryClient(foundUser);
 
-    const { sessions, ...userData } =
-      userPropsUtilities.extractUserData(foundUser);
+    const userData = userUtilities.extractUserData(foundUser);
 
-    const token = signToken(userData);
-    await addNewToken(userData.userId, token);
+    const token = signToken(userData.userId);
+
+    await addNewSession(userData.userId, token);
 
     return {
       newUser: false,
@@ -33,15 +33,18 @@ const tryToVerify = async (req) => {
   };
 };
 
-const signToken = (userData) => {
-  return authManager.signToken({
-    ...userPropsUtilities.extractCellphone(userData),
-    userId: userData.userId,
-  });
+const signToken = (userId) => {
+  return authManager.signToken(
+    {
+      userId,
+      date: Date.now(),
+    },
+    authManager.getJwtMainSecret()
+  );
 };
 
-const addNewToken = async (userId, newToken) => {
-  await services.addNewToken().run({
+const addNewSession = async (userId, newToken) => {
+  await services.addNewSession().run({
     newToken,
     userId,
   });

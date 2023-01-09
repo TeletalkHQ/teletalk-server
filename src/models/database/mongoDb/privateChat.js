@@ -76,12 +76,13 @@ const PrivateChatSchema = new mongoose.Schema({
 
 PrivateChatSchema.plugin(mongooseUniqueValidator);
 
-module.exports = { PrivateChatSchema };
-
 const PrivateChat = mongoose.model(
   "PrivateChat",
   PrivateChatSchema,
   "privateChats"
 );
 
-module.exports = { PrivateChat };
+module.exports = {
+  PrivateChat,
+  PrivateChatSchema,
+};

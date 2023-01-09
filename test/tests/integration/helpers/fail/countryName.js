@@ -18,7 +18,7 @@ const countryNameFailTest = (configuredRequester, data) => {
     .minlength(errors.COUNTRY_NAME_MINLENGTH_REACH)
     .invalidType_typeIsString(errors.COUNTRY_NAME_INVALID_TYPE)
     .custom(
-      randomMaker.randomString(countryNameMaxlength),
+      randomMaker.string(countryNameMaxlength),
       errors.COUNTRY_NAME_NOT_SUPPORTED
     );
 };

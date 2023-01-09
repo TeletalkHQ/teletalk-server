@@ -40,16 +40,6 @@ const redisConnector = async () => {
   return storage;
 };
 
-const makeRedisCloudOptions = () => {
-  const { REDIS_CLOUD_HOST, REDIS_CLOUD_PASSWORD, REDIS_CLOUD_PORT } =
-    envManager.getAllLocalEnvironments();
-
-  return {
-    host: REDIS_CLOUD_HOST,
-    password: REDIS_CLOUD_PASSWORD,
-    port: REDIS_CLOUD_PORT,
-  };
-};
 const examineRedisConnectionOptions = () => {
   const {
     REDIS_CLOUD_HOST,
@@ -58,9 +48,20 @@ const examineRedisConnectionOptions = () => {
     REDIS_PORT,
   } = envManager.getAllLocalEnvironments();
 
-  const REDIS_CLOUD_OPTIONS = REDIS_CLOUD_HOST && makeRedisCloudOptions();
+  const REDIS_OPTIONS = REDIS_CLOUD_HOST && makeRedisOptions();
 
-  return REDIS_PORT || REDIS_CLOUD_OPTIONS || REDIS_DEFAULT_PORT;
+  return REDIS_PORT || REDIS_OPTIONS || REDIS_DEFAULT_PORT;
+};
+
+const makeRedisOptions = () => {
+  const { REDIS_CLOUD_HOST, REDIS_CLOUD_PASSWORD, REDIS_CLOUD_PORT } =
+    envManager.getAllLocalEnvironments();
+
+  return {
+    host: REDIS_CLOUD_HOST,
+    password: REDIS_CLOUD_PASSWORD,
+    port: REDIS_CLOUD_PORT,
+  };
 };
 
 module.exports = {

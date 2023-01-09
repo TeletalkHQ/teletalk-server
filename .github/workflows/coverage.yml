@@ -23,15 +23,10 @@ jobs:
 
     services:
       redis:
-        image: redis/redis-stack
+        image: redis/redis-stack-server
         ports:
           - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-          --entrypoint redis-server
+        options: --entrypoint redis-stack
 
     steps:
       - uses: actions/checkout@v3
@@ -52,7 +47,7 @@ jobs:
       - name: Generate coverage files
         run: npm run test:coverage
         env:
-          REDIS_CLOUD_HOST: redis
+          REDIS_CLOUD_HOST: localhost
           REDIS_CLOUD_PORT: ${{ job.services.redis.ports[6379] }}
 
       - name: Upload coverage to codecov

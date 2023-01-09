@@ -3,6 +3,7 @@ const redis = require("redis");
 
 const { appConfigs } = require("@/classes/AppConfigs");
 const { envManager } = require("@/classes/EnvironmentManager");
+const { crashServer } = require("@/utilities/utilities");
 
 const mongodbConnector = () => {
   const configs = appConfigs.getConfigs();
@@ -33,7 +34,7 @@ const redisConnector = async () => {
       }`
     )
   );
-  storage.on("error", (error) => logger.error(error));
+  storage.on("error", crashServer);
 
   await storage.connect();
 

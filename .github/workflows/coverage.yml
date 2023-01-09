@@ -22,10 +22,10 @@ jobs:
       image: node:18-alpine
 
     services:
-      redis:
+      redis-stack-server:
         image: redis/redis-stack-server
-        # ports:
-        #   - 6379:6379
+        ports:
+          - 6379/tcp
         # options: --entrypoint redis-stack
 
     steps:
@@ -47,7 +47,7 @@ jobs:
       - name: Generate coverage files
         run: npm run test:coverage
         env:
-          REDIS_CLOUD_HOST: localhost
+          REDIS_CLOUD_HOST: redis-stack-server
           REDIS_CLOUD_PORT: 6379
 
       - name: Upload coverage to codecov

@@ -9,8 +9,6 @@ jobs:
   ci:
     env:
       CI: true
-      REDIS_CLOUD_HOST: redis
-      REDIS_CLOUD_PORT: 6379
 
     strategy:
       matrix:
@@ -53,8 +51,13 @@ jobs:
 
       - name: Test development app
         run: npm run test:dev
-
+        env:
+          REDIS_CLOUD_HOST: redis
+          REDIS_CLOUD_PORT: 6379
       - name: Generate build
         run: npm run build
       - name: Test built app
         run: npm run test:production:local
+        env:
+          REDIS_CLOUD_HOST: redis
+          REDIS_CLOUD_PORT: 6379

@@ -4,7 +4,7 @@ const redis = require("redis");
 const { appConfigs } = require("@/classes/AppConfigs");
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const connectToMongodb = () => {
+const mongodbConnector = () => {
   const configs = appConfigs.getConfigs();
 
   mongoose.set("strictQuery", false);
@@ -20,8 +20,24 @@ const connectToMongodb = () => {
     useUnifiedTopology: true,
   });
 };
-const mongodbConnector = () => {
-  return connectToMongodb();
+
+const redisConnector = async () => {
+  const REDIS_CONNECTION_OPTIONS = examineRedisConnectionOptions();
+  const storage = redis.createClient(REDIS_CONNECTION_OPTIONS);
+  storage.on("connect", () =>
+    logger.info(
+      `Redis connected to => ${
+        REDIS_CONNECTION_OPTIONS.host
+          ? `${REDIS_CONNECTION_OPTIONS.host}:${REDIS_CONNECTION_OPTIONS.port}`
+          : `localhost:${REDIS_CONNECTION_OPTIONS}`
+      }`
+    )
+  );
+  storage.on("error", (error) => logger.error(error));
+
+  await storage.connect();
+
+  return storage;
 };
 
 const makeRedisCloudOptions = () => {
@@ -45,24 +61,6 @@ const examineRedisConnectionOptions = () => {
   const REDIS_CLOUD_OPTIONS = REDIS_CLOUD_HOST && makeRedisCloudOptions();
 
   return REDIS_PORT || REDIS_CLOUD_OPTIONS || REDIS_DEFAULT_PORT;
-};
-const redisConnector = async () => {
-  const REDIS_CONNECTION_OPTIONS = examineRedisConnectionOptions();
-  const storage = redis.createClient(REDIS_CONNECTION_OPTIONS);
-  storage.on("connect", () =>
-    logger.info(
-      `Redis connected to => ${
-        REDIS_CONNECTION_OPTIONS.port
-          ? `${REDIS_CONNECTION_OPTIONS.host}:${REDIS_CONNECTION_OPTIONS.port}`
-          : `localhost:${REDIS_CONNECTION_OPTIONS}`
-      }`
-    )
-  );
-  storage.on("error", (error) => logger.error(error));
-
-  await storage.connect();
-
-  return storage;
 };
 
 module.exports = {

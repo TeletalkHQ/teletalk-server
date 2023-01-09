@@ -9,8 +9,6 @@ jobs:
   coverage:
     env:
       CI: true
-      REDIS_CLOUD_HOST: redis
-      REDIS_CLOUD_PORT: 6379
 
     strategy:
       matrix:
@@ -52,7 +50,9 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
 
       - name: Generate coverage files
+        env:
+          REDIS_CLOUD_HOST: redis
+          REDIS_CLOUD_PORT: 6379
         run: npm run test:coverage
-
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3

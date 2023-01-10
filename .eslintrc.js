@@ -27,7 +27,6 @@ module.exports = {
     "sonarjs", //  "security"
   ],
   rules: {
-    "no-restricted-globals": ["error"].concat(restrictedGlobals),
     "@cspell/spellchecker": [
       "warn",
       {
@@ -37,9 +36,10 @@ module.exports = {
     ],
     "arrow-parens": "warn",
     "chai-friendly/no-unused-expressions": 2,
-    // "indent": ["error", 2],
+    indent: ["error", 2],
     "linebreak-style": ["error", "unix"],
     "no-delete-var": "warn",
+    "no-restricted-globals": ["error"].concat(restrictedGlobals),
     "no-unused-expressions": 0,
     "no-unused-vars": [
       "warn",
@@ -60,6 +60,7 @@ module.exports = {
       },
     ],
     "no-var": "warn",
+    "object-shorthand": ["error", "always"],
     quotes: ["warn", "double"],
     semi: ["error", "always"],
   }, //   "node/exports-style": ["error", "module.exports"],

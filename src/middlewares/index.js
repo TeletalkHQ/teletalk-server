@@ -19,9 +19,6 @@ const {
 } = require("@/middlewares/responseErrorHandlers");
 const { sendJsonResponse } = require("@/middlewares/sendJsonResponse");
 const {
-  targetUserFinderByCellphone,
-} = require("@/middlewares/targetUserFinderByCellphone");
-const {
   verificationCodeValidator,
 } = require("@/middlewares/verificationCodeValidator");
 const {
@@ -32,7 +29,6 @@ const middlewares = {
   applyMiddlewares,
   attachCurrentUserId,
   authDefault,
-  selfStuffCheck,
   cellphoneValidator,
   checkBodyFields,
   checkCurrentUserStatus,
@@ -44,8 +40,8 @@ const middlewares = {
   notFound,
   requestMethodChecker,
   responseErrorHandlers,
+  selfStuffCheck,
   sendJsonResponse,
-  targetUserFinderByCellphone,
   verificationCodeValidator,
   verifyVerificationCode,
 };

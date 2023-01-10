@@ -87,7 +87,7 @@ const tokenValidator = async (
     .setRequirements(validationResult, {
       extraErrorFields: {
         validatedToken: correctedToken,
-        correctedToken: correctedToken,
+        correctedToken,
         originalToken: token,
       },
     });

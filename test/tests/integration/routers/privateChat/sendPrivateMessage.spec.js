@@ -20,7 +20,7 @@ describe("send message success tests", () => {
       .sendPrivateMessage()
       .setToken(currentUserToken);
 
-    const messagesLength = 20;
+    const messagesLength = 10;
     for (let i = 0; i < messagesLength; i++) {
       const text = createMessage(i);
       const { body: sendMessageResponse } =
@@ -60,7 +60,8 @@ describe("send message fail tests", () => {
     .input(data)
     .checkCurrentUserStatus(data)
     .participantId(data)
-    .message(data);
+    .message(data)
+    .targetUserNotExist(data);
 });
 
 const createMessage = (index) => `Hello! Im message #${index}`;

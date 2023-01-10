@@ -29,16 +29,17 @@ class ControllerHandler {
 
 const controllerHandler = {
   create:
+    // prettier-ignore
     ({ controllerName, tryCallback, responseCallback, catchCallback }) =>
-    (req = expressRequest, res = expressResponse) =>
-      new ControllerHandler({
-        req,
-        res,
-        controllerName,
-        tryCallback,
-        responseCallback,
-        catchCallback,
-      }).run(),
+      (req = expressRequest, res = expressResponse) =>
+        new ControllerHandler({
+          req,
+          res,
+          controllerName,
+          tryCallback,
+          responseCallback,
+          catchCallback,
+        }).run(),
 };
 
 module.exports = {

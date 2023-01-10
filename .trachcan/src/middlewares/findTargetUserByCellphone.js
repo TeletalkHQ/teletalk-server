@@ -1,17 +1,17 @@
+//UNUSED
 const { customTypeof } = require("custom-typeof");
 const { trier } = require("utility-store/src/classes/Trier");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
 const { userUtilities } = require("@/classes/UserUtilities");
-
-const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { services } = require("@/services");
 
 const { errors } = require("@/variables/errors");
 
-const targetUserFinderByCellphone = async (req, res, next) => {
-  await trier(targetUserFinderByCellphone.name)
+const findTargetUserByCellphone = async (req, res, next) => {
+  await trier(findTargetUserByCellphone.name)
     .tryAsync(tryToFindUserByCellphone, req.body)
     .executeIfNoError(executeInNoError, req, next)
     .catch(catchFindUserByCellphone, res)
@@ -41,4 +41,4 @@ const catchFindUserByCellphone = (error, res) => {
   return { ok: false };
 };
 
-module.exports = { targetUserFinderByCellphone };
+module.exports = { findTargetUserByCellphone };

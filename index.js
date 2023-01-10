@@ -7,8 +7,6 @@ const startApp = async () => {
 
   const startupRequirements = require("./startupRequirements");
 
-  console.log(process.env);
-
   await startupRequirements.mainServer();
 
   if (NODE_ENV.includes("test")) {

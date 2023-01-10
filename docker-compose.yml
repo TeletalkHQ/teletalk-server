@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   redis:
-    image: redis/redis-stack
-    container_name: redis-server
+    image: redis/redis-stack-server
+    container_name: redis-stack-server
     restart: always
     network_mode: bridge
     expose:
@@ -26,6 +26,3 @@ services:
     links:
       - redis
       - mongo
-    # volumes:
-    #   - .:/app
-    #   - /app/node_modules

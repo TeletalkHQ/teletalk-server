@@ -16,14 +16,11 @@ describe("add contact success tests", () => {
     const currentUser = await randomMaker.user();
 
     const addContactRequester = requesters.addContact();
+    addContactRequester.setToken(currentUser.token);
 
     const contactsLength = 10;
     for (let i = 0; i < contactsLength; i++) {
       const targetUser = await randomMaker.user();
-      expect(targetUser.user.contacts).to.be.an(FIELD_TYPE.ARRAY).and.to.be
-        .empty;
-
-      addContactRequester.setToken(currentUser.token);
 
       const targetUserCellphone = userUtilities.extractCellphone(
         targetUser.user
@@ -102,8 +99,8 @@ const testAddContactResponse = async ({
   await testTargetUserContacts(targetUser.user.userId);
 
   const savedContact = await findSavedContact(currentUser, addedContact);
-  testContactItem(addedContact, savedContact);
-  testContactItem(addedContact, {
+  testOneContact(addedContact, savedContact);
+  testOneContact(addedContact, {
     ...sentData,
     userId: targetUser.user.userId,
   });
@@ -125,7 +122,7 @@ const findSavedContact = async (currentUser, addedContact) => {
   return item;
 };
 
-const testContactItem = (testValue, equalValue) => {
+const testOneContact = (testValue, equalValue) => {
   testHelper
     .createSuccessTest()
     .userId({

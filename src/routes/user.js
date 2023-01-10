@@ -69,7 +69,7 @@ const getContacts = userRouteBuilder
   .statusCode(200)
   .outputFields([
     {
-      contacts: fields.statics.object(fields.collection.contact),
+      contacts: fields.statics.array(fields.collection.contact),
     },
   ])
   .build();

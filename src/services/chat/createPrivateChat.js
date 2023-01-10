@@ -11,10 +11,10 @@ const createPrivateChat = serviceBuilder
       chatId: data.chatId,
       participants: [
         {
-          participantId: data.currentUserId,
+          participantId: data.currentParticipantId,
         },
         {
-          participantId: data.targetUserId,
+          participantId: data.targetParticipantId,
         },
       ],
     });

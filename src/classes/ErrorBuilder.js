@@ -1,6 +1,6 @@
 class ErrorBuilder {
   constructor() {
-    this.errorObject = {
+    this.error = {
       description: "Default route description",
       message: "",
       reason: "UNKNOWN_ERROR",
@@ -10,11 +10,11 @@ class ErrorBuilder {
   }
 
   #updateProperty(key, value) {
-    this.errorObject[key] = value;
+    this.error[key] = value;
   }
 
   build() {
-    return this.errorObject;
+    return this.error;
   }
   statusCode(statusCode) {
     this.#updateProperty("statusCode", statusCode);

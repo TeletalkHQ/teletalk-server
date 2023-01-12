@@ -160,17 +160,24 @@ const getPublicUserData = userRouteBuilder
   ])
   .build();
 
-const updatePersonalInfo = userRouteBuilder
+const updatePublicUserData = userRouteBuilder
   .create()
   .method(METHODS.PATCH)
-  .url("/updatePersonalInfo")
+  .url("/updatePublicUserData")
   .statusCode(200)
-  .inputFields(fields.collection.fullName)
+  .inputFields({
+    ...fields.collection.fullName,
+    bio: fields.single.bio,
+    username: fields.single.username,
+  })
   .outputFields([
     {
-      ...fields.collection.fullName,
-      bio: fields.single.bio,
-      username: fields.single.username,
+      publicUserData: fields.statics.object({
+        ...fields.collection.fullName,
+        bio: fields.single.bio,
+        userId: fields.single.userId,
+        username: fields.single.username,
+      }),
     },
   ])
   .build();
@@ -190,7 +197,7 @@ const userRoutes = {
   removeContacts,
   shareContact,
   shareContacts,
-  updatePersonalInfo,
+  updatePublicUserData,
 };
 
 module.exports = {

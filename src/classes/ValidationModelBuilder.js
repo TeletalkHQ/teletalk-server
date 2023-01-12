@@ -12,7 +12,7 @@ const fastestValidatorCompiler = new Validator();
 
 class ValidationModelBuilder {
   constructor() {
-    this.validationModelObject = {
+    this.validationModel = {
       empty: undefined,
       max: undefined,
       min: undefined,
@@ -30,7 +30,7 @@ class ValidationModelBuilder {
         stringNumeric: undefined,
       },
     };
-    this.modelObject = {};
+    this.model = {};
   }
 
   #updateProperty(validationKey, modelKey, messageKey) {
@@ -41,12 +41,11 @@ class ValidationModelBuilder {
     this.#setValue(validationKey, modelKey);
   }
   #setValue(validationKey, modelKey) {
-    this.validationModelObject[validationKey] =
-      this.modelObject[modelKey].value;
+    this.validationModel[validationKey] = this.model[modelKey].value;
   }
   #setMessage(modelKey, messageKey) {
-    this.validationModelObject.messages[messageKey] =
-      this.modelObject[modelKey].error.message;
+    this.validationModel.messages[messageKey] =
+      this.model[modelKey].error.message;
   }
 
   static validatorCompiler(validationModel) {
@@ -58,8 +57,8 @@ class ValidationModelBuilder {
     return fastestValidatorCompiler.compile(validationModel);
   }
 
-  setModelObject(modelObject) {
-    this.modelObject = modelObject;
+  setModel(model) {
+    this.model = model;
     return this;
   }
   empty() {
@@ -100,7 +99,7 @@ class ValidationModelBuilder {
   }
 
   build() {
-    return objectUtilities.clarify(this.validationModelObject);
+    return objectUtilities.clarify(this.validationModel);
   }
 }
 

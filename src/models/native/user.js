@@ -7,48 +7,32 @@ const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 const bio = nativeModelBuilder
   .create()
-  .defaultValue("")
-  .minlength(0)
-  .empty(true)
-  .maxlength(255, errors.BIO_MAXLENGTH_REACH)
-  .required(false)
   .type(FIELD_TYPE.STRING, errors.BIO_INVALID_TYPE)
-  .build();
-
-const blacklist = nativeModelBuilder
-  .create()
-  .required(false)
-  .defaultValue([])
-  .type(FIELD_TYPE.ARRAY, errors.BLACKLIST_INVALID_TYPE)
-  .build();
-
-const contacts = nativeModelBuilder
-  .create()
-  .defaultValue([])
-  .maxlength(14)
-  .minlength(10)
-  .required(false)
-  .type(FIELD_TYPE.ARRAY, errors.CONTACT_INVALID_TYPE)
+  .required(true, errors.BIO_REQUIRED)
+  .empty(true, errors.BIO_EMPTY)
+  .minlength(0)
+  .maxlength(255, errors.BIO_MAXLENGTH_REACH)
+  .defaultValue("")
   .build();
 
 const countryCode = nativeModelBuilder
   .create()
-  .empty(false, errors.COUNTRY_CODE_EMPTY)
-  .maxlength(4, errors.COUNTRY_CODE_MAXLENGTH_REACH)
-  .minlength(1, errors.COUNTRY_CODE_MINLENGTH_REACH)
-  .numeric(true, errors.COUNTRY_CODE_NUMERIC)
-  .required(true, errors.COUNTRY_CODE_REQUIRED)
-  .trim(true)
   .type(FIELD_TYPE.STRING, errors.COUNTRY_CODE_INVALID_TYPE)
+  .required(true, errors.COUNTRY_CODE_REQUIRED)
+  .empty(false, errors.COUNTRY_CODE_EMPTY)
+  .minlength(1, errors.COUNTRY_CODE_MINLENGTH_REACH)
+  .maxlength(4, errors.COUNTRY_CODE_MAXLENGTH_REACH)
+  .numeric(true, errors.COUNTRY_CODE_NUMERIC)
+  .trim(true)
   .build();
 
 const countryName = nativeModelBuilder
   .create()
-  .empty(false, errors.COUNTRY_NAME_EMPTY)
-  .maxlength(50, errors.COUNTRY_NAME_MAXLENGTH_REACH)
-  .minlength(2, errors.COUNTRY_NAME_MINLENGTH_REACH)
-  .required(true, errors.COUNTRY_NAME_REQUIRED)
   .type(FIELD_TYPE.STRING, errors.COUNTRY_NAME_INVALID_TYPE)
+  .required(true, errors.COUNTRY_NAME_REQUIRED)
+  .empty(false, errors.COUNTRY_NAME_EMPTY)
+  .minlength(2, errors.COUNTRY_NAME_MINLENGTH_REACH)
+  .maxlength(50, errors.COUNTRY_NAME_MAXLENGTH_REACH)
   .build();
 
 const createdAt = commonModels.createdAt;
@@ -57,52 +41,52 @@ const userId = commonModels.userId;
 
 const firstName = nativeModelBuilder
   .create()
-  .empty(false, errors.FIRST_NAME_EMPTY)
-  .maxlength(18, errors.FIRST_NAME_MAXLENGTH_REACH)
-  .minlength(2, errors.FIRST_NAME_MINLENGTH_REACH)
-  .required(true, errors.FIRST_NAME_REQUIRED)
-  .trim(false)
   .type(FIELD_TYPE.STRING, errors.FIRST_NAME_INVALID_TYPE)
+  .required(true, errors.FIRST_NAME_REQUIRED)
+  .empty(false, errors.FIRST_NAME_EMPTY)
+  .minlength(2, errors.FIRST_NAME_MINLENGTH_REACH)
+  .maxlength(18, errors.FIRST_NAME_MAXLENGTH_REACH)
+  .trim(true)
   .build();
 
 const lastName = nativeModelBuilder
   .create()
-  .defaultValue("")
-  .empty(true)
-  .maxlength(18, errors.LAST_NAME_MAXLENGTH_REACH)
-  .minlength(2, errors.LAST_NAME_MINLENGTH_REACH)
-  .required(false, {})
-  .trim(false)
   .type(FIELD_TYPE.STRING, errors.LAST_NAME_INVALID_TYPE)
+  .required(true, errors.LAST_NAME_REQUIRED)
+  .empty(true)
+  .minlength(2, errors.LAST_NAME_MINLENGTH_REACH)
+  .maxlength(18, errors.LAST_NAME_MAXLENGTH_REACH)
+  .trim(true)
+  .defaultValue("")
   .build();
 
 const macAddress = nativeModelBuilder
   .create()
-  .empty(false, errors.MAC_ADDRESS_EMPTY)
-  .maxlength(16, errors.MAC_ADDRESS_MAXLENGTH_REACH)
-  .minlength(12, errors.MAC_ADDRESS_MINLENGTH_REACH)
-  .required(true, errors.MAC_ADDRESS_REQUIRED)
-  .trim(true)
   .type(FIELD_TYPE.STRING, errors.MAC_ADDRESS_INVALID_TYPE)
+  .required(true, errors.MAC_ADDRESS_REQUIRED)
+  .empty(false, errors.MAC_ADDRESS_EMPTY)
+  .minlength(12, errors.MAC_ADDRESS_MINLENGTH_REACH)
+  .maxlength(16, errors.MAC_ADDRESS_MAXLENGTH_REACH)
+  .trim(true)
   .unique(true, errors.MAC_ADDRESS_EXIST)
   .build();
 
 const phoneNumber = nativeModelBuilder
   .create()
-  .empty(false, errors.PHONE_NUMBER_EMPTY)
-  .maxlength(14, errors.PHONE_NUMBER_MAXLENGTH_REACH)
-  .minlength(10, errors.PHONE_NUMBER_MINLENGTH_REACH)
-  .numeric(true, errors.PHONE_NUMBER_NUMERIC)
-  .required(true, errors.PHONE_NUMBER_REQUIRED)
   .type(FIELD_TYPE.STRING, errors.PHONE_NUMBER_INVALID_TYPE)
+  .required(true, errors.PHONE_NUMBER_REQUIRED)
+  .empty(false, errors.PHONE_NUMBER_EMPTY)
+  .minlength(10, errors.PHONE_NUMBER_MINLENGTH_REACH)
+  .maxlength(14, errors.PHONE_NUMBER_MAXLENGTH_REACH)
+  .numeric(true, errors.PHONE_NUMBER_NUMERIC)
   .unique(true, errors.PHONE_NUMBER_EXIST)
   .build();
 
 const token = nativeModelBuilder
   .create()
+  .type(FIELD_TYPE.STRING, errors.TOKEN_INVALID_TYPE)
   .required(true, errors.TOKEN_REQUIRED)
   .empty(false, errors.TOKEN_EMPTY)
-  .type(FIELD_TYPE.STRING, errors.TOKEN_INVALID_TYPE)
   .minlength(100, errors.TOKEN_MINLENGTH_REACH)
   .maxlength(500, errors.TOKEN_MAXLENGTH_REACH)
   .unique(true, errors.TOKEN_EXIST)
@@ -110,24 +94,50 @@ const token = nativeModelBuilder
 
 const username = nativeModelBuilder
   .create()
-  .defaultValue("")
-  .empty(true)
-  .maxlength(12, errors.USERNAME_MAXLENGTH_REACH)
-  .minlength(4, errors.USERNAME_MINLENGTH_REACH)
-  .required(false)
-  .trim(true)
   .type(FIELD_TYPE.STRING, errors.USERNAME_INVALID_TYPE)
+  .required(true)
+  .empty(true)
+  .minlength(4, errors.USERNAME_MINLENGTH_REACH)
+  .maxlength(12, errors.USERNAME_MAXLENGTH_REACH)
+  .trim(true)
   .unique(false, errors.USERNAME_EXIST)
+  .defaultValue("")
   .build();
 
 const verificationCode = nativeModelBuilder
   .create()
+  .type(FIELD_TYPE.STRING, errors.VERIFICATION_CODE_INVALID_TYPE)
+  .required(true, errors.VERIFICATION_CODE_REQUIRED)
   .empty(false, errors.VERIFICATION_CODE_EMPTY)
   .length(6, errors.VERIFICATION_CODE_INVALID_LENGTH)
+  //TODO: Remove maxlength
   .maxlength(6, errors.VERIFICATION_CODE_MAXLENGTH_REACH)
   .numeric(true, errors.VERIFICATION_CODE_NUMERIC)
   .trim(true)
-  .type(FIELD_TYPE.STRING, errors.VERIFICATION_CODE_INVALID_TYPE)
+  .build();
+
+const blacklist = nativeModelBuilder
+  .create()
+  .type(FIELD_TYPE.ARRAY, errors.BLACKLIST_INVALID_TYPE)
+  .required(true, errors.BLACKLIST_REQUIRED)
+  .empty(true)
+  .defaultValue([])
+  .build();
+
+const contacts = nativeModelBuilder
+  .create()
+  .type(FIELD_TYPE.ARRAY, errors.CONTACTS_INVALID_TYPE)
+  .required(true, errors.CONTACTS_REQUIRED)
+  .empty(true)
+  .defaultValue([])
+  .build();
+
+const sessions = nativeModelBuilder
+  .create()
+  .type(FIELD_TYPE.ARRAY, errors.SESSIONS_INVALID_TYPE)
+  .required(true, errors.SESSIONS_REQUIRED)
+  .empty(true)
+  .defaultValue([])
   .build();
 
 const userModels = {
@@ -141,6 +151,7 @@ const userModels = {
   lastName,
   macAddress,
   phoneNumber,
+  sessions,
   token,
   userId,
   username,

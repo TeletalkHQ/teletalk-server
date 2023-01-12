@@ -22,8 +22,8 @@ const getWrongCountryCode = () => {
   return randomCountryCode;
 };
 
-const makeRequester = (routeObject) => (token) =>
-  requesterCreator(token).create(routeObject);
+const makeRequester = (route) => (token) =>
+  requesterCreator(token).create(route);
 
 const requesters = {
   addBlock: makeRequester(routes.user.addBlock),
@@ -39,6 +39,7 @@ const requesters = {
   removeContact: makeRequester(routes.user.removeContact),
   sendPrivateMessage: makeRequester(routes.privateChat.sendPrivateMessage),
   signIn: makeRequester(routes.auth.signIn),
+  updatePublicUserData: makeRequester(routes.user.updatePublicUserData),
   verify: makeRequester(routes.auth.verify),
 };
 

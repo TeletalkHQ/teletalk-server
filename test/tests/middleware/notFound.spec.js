@@ -9,7 +9,7 @@ const { routes } = require("$/routes");
 const { errors } = require("@/variables/errors");
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
-const requester = (routeObject) => requesterCreator().create(routeObject);
+const requester = (route) => requesterCreator().create(route);
 
 describe("notFound middleware fail test", () => {
   const message = failTestBuilder
@@ -20,7 +20,7 @@ describe("notFound middleware fail test", () => {
     );
   it(message, async () => {
     await requester(routes.test.unknownRoute)
-      .setErrorObject(errors.ROUTE_NOT_FOUND)
+      .setError(errors.ROUTE_NOT_FOUND)
       .sendFullFeaturedRequest();
   });
 

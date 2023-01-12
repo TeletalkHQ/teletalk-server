@@ -16,12 +16,10 @@ const requestMethodChecker = (req, res, next) => {
 };
 
 const tryToCheckRequestMethod = (req) => {
-  const actualRouteObject = arrayOfRoutes.find(
-    (value) => value.fullUrl === req.url
-  );
+  const actualRoute = arrayOfRoutes.find((value) => value.fullUrl === req.url);
 
   const requestMethod = req.method.toLowerCase();
-  const actualMethod = actualRouteObject.method.toLowerCase();
+  const actualMethod = actualRoute.method.toLowerCase();
 
   errorThrower(requestMethod !== actualMethod, errors.METHOD_NOT_ALLOWED);
 

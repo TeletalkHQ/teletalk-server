@@ -10,140 +10,138 @@ const userModels = nativeModels.user;
 const commonModels = nativeModels.common;
 
 const {
-  bio,
   countryCode,
   countryName,
   createdAt,
   firstName,
   lastName,
   phoneNumber,
-  token,
   userId,
-  username,
 } = {
-  bio: mongoModelBuilder
-    .create()
-    .setModelObject(userModels.bio)
-    .type()
-    .maxlength()
-    .defaultValue()
-    .build(),
-  chatId: mongoModelBuilder
-    .create()
-    .setModelObject(commonModels.chatId)
-    .type()
-    .maxlength()
-    .minlength()
-    .required()
-    .trim()
-    .build(),
   countryCode: mongoModelBuilder
     .create()
-    .setModelObject(userModels.countryCode)
+    .setModel(userModels.countryCode)
     .type()
-    .maxlength()
-    .minlength()
     .required()
+    .minlength()
+    .maxlength()
     .build(),
   countryName: mongoModelBuilder
     .create()
-    .setModelObject(userModels.countryName)
+    .setModel(userModels.countryName)
     .type()
-    .maxlength()
-    .minlength()
     .required()
+    .minlength()
+    .maxlength()
     .build(),
   createdAt: mongoModelBuilder
     .create()
-    .setModelObject(userModels.createdAt)
+    .setModel(userModels.createdAt)
     .type()
+    .required()
     .defaultValue()
     .build(),
   firstName: mongoModelBuilder
     .create()
-    .setModelObject(userModels.firstName)
+    .setModel(userModels.firstName)
     .type()
-    .maxlength()
-    .minlength()
     .required()
+    .minlength()
+    .maxlength()
     .build(),
   lastName: mongoModelBuilder
     .create()
-    .setModelObject(userModels.lastName)
+    .setModel(userModels.lastName)
     .type()
+    .required()
     .maxlength()
     .trim()
     .defaultValue()
-    .build(),
-  token: mongoModelBuilder
-    .create()
-    .setModelObject(userModels.token)
-    .type()
-    .required()
     .build(),
   phoneNumber: mongoModelBuilder
     .create()
-    .setModelObject(userModels.phoneNumber)
+    .setModel(userModels.phoneNumber)
     .type()
-    .maxlength()
-    .minlength()
     .required()
+    .minlength()
+    .maxlength()
     .build(),
   userId: mongoModelBuilder
     .create()
-    .setModelObject(commonModels.userId)
+    .setModel(commonModels.userId)
     .type()
+    .required()
     .minlength()
     .maxlength()
-    .required()
     .unique()
     .trim()
-    .build(),
-  username: mongoModelBuilder
-    .create()
-    .setModelObject(userModels.username)
-    .type()
-    .trim()
-    .maxlength()
-    //FIXME: default value should get one arg
-    .defaultValue()
     .build(),
 };
 
 const UserSchema = new mongoose.Schema({
-  bio,
-  //FIXME: All arrays in db, same as contacts
-  blacklist: [
-    {
+  bio: mongoModelBuilder
+    .create()
+    .setModel(userModels.bio)
+    .type()
+    .required()
+    .maxlength()
+    .defaultValue()
+    .build(),
+  blacklist: mongoModelBuilder
+    .create()
+    .setModel(userModels.blacklist)
+    .type()
+    .required()
+    .items({
       countryCode,
       countryName,
       phoneNumber,
-    },
-  ],
-  contacts: {
-    type: nativeModels.user.contacts.type.value,
-    items: {
+    })
+    .build(),
+  contacts: mongoModelBuilder
+    .create()
+    .setModel(userModels.contacts)
+    .type()
+    .required()
+    .items({
       countryCode,
       countryName,
       firstName,
       lastName,
       phoneNumber,
       userId,
-    },
-  },
+    })
+    .build(),
   countryCode,
   countryName,
   createdAt,
   firstName,
   lastName,
   phoneNumber,
+  sessions: mongoModelBuilder
+    .create()
+    .setModel(userModels.sessions)
+    .type()
+    .required()
+    .items({
+      token: mongoModelBuilder
+        .create()
+        .setModel(userModels.token)
+        .type()
+        .required()
+        .build(),
+    })
+    .build(),
   userId,
-  sessions: [
-    {
-      token,
-    },
-  ],
-  username,
+  username: mongoModelBuilder
+    .create()
+    .setModel(userModels.username)
+    .type()
+    .required()
+    .maxlength()
+    .trim()
+    .defaultValue()
+    .build(),
 });
 
 UserSchema.plugin(mongooseUniqueValidator);

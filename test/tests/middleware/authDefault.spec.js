@@ -7,7 +7,7 @@ const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/routes");
 
 const { errors } = require("@/variables/errors");
 
-const requester = (routeObject) => requesterCreator().create(routeObject);
+const requester = (route) => requesterCreator().create(route);
 
 describe("authDefault middleware test", () => {
   for (const route of ignoredRoutesForAuth) {
@@ -39,7 +39,7 @@ describe("authDefault middleware test", () => {
     it(message, async () => {
       await requester(route)
         .setOptions({ shouldFilterRequestData: false })
-        .setErrorObject(errors.TOKEN_REQUIRED)
+        .setError(errors.TOKEN_REQUIRED)
         .sendFullFeaturedRequest();
     });
   }

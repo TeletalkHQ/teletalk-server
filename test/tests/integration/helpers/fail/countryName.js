@@ -13,10 +13,12 @@ const countryNameMaxlength = userModels.countryName.maxlength.value;
 const countryNameFailTest = (configuredRequester, data) => {
   failTestBuilder
     .create(configuredRequester, data, userModels.countryName, "countryName")
-    .required(errors.COUNTRY_NAME_REQUIRED)
-    .maxlength(errors.COUNTRY_NAME_MAXLENGTH_REACH)
-    .minlength(errors.COUNTRY_NAME_MINLENGTH_REACH)
-    .invalidType_typeIsString(errors.COUNTRY_NAME_INVALID_TYPE)
+    .missing()
+    .overload()
+    .invalidType()
+    .empty()
+    .maxlength()
+    .minlength()
     .custom(
       randomMaker.string(countryNameMaxlength),
       errors.COUNTRY_NAME_NOT_SUPPORTED

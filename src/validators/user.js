@@ -10,6 +10,15 @@ const { compiledValidators } = require("@/validators/compiledValidators");
 const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
 
 const { errors } = require("@/variables/errors");
+const { models } = require("@/models");
+
+const bioValidator = async (bio) => {
+  const validationResult = await compiledValidators.bio({
+    bio,
+  });
+
+  validatorErrorChecker.bio(validationResult, bio);
+};
 
 const countryCodeValidator = async (countryCode) => {
   const validationResult = await compiledValidators.countryCode({
@@ -27,13 +36,13 @@ const countryNameValidator = async (countryName) => {
 
 const firstNameValidator = async (firstName) => {
   const validationResult = await compiledValidators.firstName({ firstName });
-  if (validationResult === true) return;
+
   validatorErrorChecker.firstName(validationResult, firstName);
 };
 
 const lastNameValidator = async (lastName) => {
   const validationResult = await compiledValidators.lastName({ lastName });
-  if (validationResult === true) return;
+
   validatorErrorChecker.lastName(validationResult, lastName);
 };
 
@@ -41,8 +50,6 @@ const phoneNumberValidator = async (phoneNumber) => {
   const validationResult = await compiledValidators.phoneNumber({
     phoneNumber,
   });
-
-  if (validationResult === true) return;
 
   validatorErrorChecker.phoneNumber(validationResult, phoneNumber);
 };
@@ -69,7 +76,7 @@ const contactValidator = async (contact) => {
 
 const userIdValidator = async (userId) => {
   const validationResult = await compiledValidators.userId({ userId });
-  if (validationResult === true) return;
+
   validatorErrorChecker.userId(validationResult, userId);
 };
 
@@ -77,20 +84,23 @@ const tokenValidator = async (
   token,
   secret = authManager.getJwtMainSecret()
 ) => {
+  //REFACTOR:INVALID_TYPE_ERROR
   const correctedToken = +token || token;
   const validationResult = await compiledValidators.token({
     token: correctedToken,
   });
 
-  const errorBuilder = validationErrorBuilder
-    .create()
-    .setRequirements(validationResult, {
+  const errorBuilder = validationErrorBuilder.create().setRequirements(
+    validationResult,
+    {
       extraErrorFields: {
         validatedToken: correctedToken,
         correctedToken,
         originalToken: token,
       },
-    });
+    },
+    models.native.user.token
+  );
 
   validatorErrorChecker.token(errorBuilder);
 
@@ -99,7 +109,7 @@ const tokenValidator = async (
 
 const usernameValidator = async (username) => {
   const validationResult = await compiledValidators.username({ username });
-  if (validationResult === true) return;
+
   validatorErrorChecker.username(validationResult, username);
 };
 
@@ -108,12 +118,11 @@ const verificationCodeValidator = async (verificationCode) => {
     verificationCode,
   });
 
-  if (validationResult === true) return;
-
   validatorErrorChecker.verificationCode(validationResult, verificationCode);
 };
 
 const userValidators = {
+  bio: bioValidator,
   cellphone: cellphoneValidator,
   contact: contactValidator,
   countryCode: countryCodeValidator,
@@ -126,4 +135,5 @@ const userValidators = {
   username: usernameValidator,
   verificationCode: verificationCodeValidator,
 };
+
 module.exports = { userValidators };

@@ -15,17 +15,17 @@ const requester = supertest(getApp());
 
 class Requester {
   #requestData;
-  #routeObject = {};
-  #errorObject = {};
+  route = {};
+  error = {};
   response = {};
   #options = {
-    shouldFilterRequestData: true,
+    shouldFilterRequestData: false,
     token: undefined,
   };
 
-  constructor(token, routeObject) {
+  constructor(token, route) {
     this.setToken(token);
-    this.setRouteObject(routeObject);
+    this.setRoute(route);
   }
 
   getOptions() {
@@ -50,34 +50,27 @@ class Requester {
     return this;
   }
 
-  getRouteObject() {
-    return this.#routeObject;
+  getRoute() {
+    return this.route;
   }
-  setRouteObject(routeObject) {
-    this.#routeObject = routeObject;
+  setRoute(route) {
+    this.route = route;
     return this;
   }
   getInputFields() {
-    return this.getRouteObject().inputFields;
-  }
-  convertInputField(inputFields) {
-    return Object.entries(inputFields).reduce((prevValue, currentValue) => {
-      const [requiredFieldKey, requiredFieldProperties] = currentValue;
-      prevValue[requiredFieldKey] = requiredFieldProperties.value;
-      return prevValue;
-    }, {});
+    return this.getRoute().inputFields;
   }
 
-  getErrorObject() {
-    return this.#errorObject;
+  getError() {
+    return this.error;
   }
-  setErrorObject(errorObject = {}) {
-    this.#errorObject = errorObject;
+  setError(error = {}) {
+    this.error = error;
     return this;
   }
 
   getRequestStatusCode() {
-    return this.getErrorObject().statusCode || this.getRouteObject().statusCode;
+    return this.getError().statusCode || this.getRoute().statusCode;
   }
 
   getRequestData() {
@@ -88,12 +81,18 @@ class Requester {
     return this;
   }
 
-  handleRequestDataFields(options = this.getOptions()) {
-    if (options.shouldFilterRequestData) {
-      const inputFields = this.convertInputField(this.getInputFields());
-      this.checkRequestDataFields(options, inputFields);
-      this.filterRequestData(inputFields);
-    }
+  handleFilterRequestData(options = this.getOptions()) {
+    const inputFields = this.convertInputField(this.getInputFields());
+    const requestData = this.getRequestData();
+    this.checkRequestDataFields(options, inputFields);
+    return this.filterRequestData(requestData, inputFields);
+  }
+  convertInputField(inputFields) {
+    return Object.entries(inputFields).reduce((prevValue, currentValue) => {
+      const [requiredFieldKey, requiredFieldProperties] = currentValue;
+      prevValue[requiredFieldKey] = requiredFieldProperties.value;
+      return prevValue;
+    }, {});
   }
   checkRequestDataFields(options = this.getOptions(), inputFields) {
     if (!this.getRequestData() && Object.keys(inputFields).length) {
@@ -102,19 +101,13 @@ class Requester {
         options,
         requestData: this.getRequestData(),
       };
-      logger.error(error);
+      logger.dir(logger.levels.error, error, { depth: 10 });
       loggerHelper.logEndTestRequest();
       throw error;
     }
   }
-  filterRequestData(inputFields) {
-    const requestData = this.getRequestData();
-    const filteredRequestData = objectUtilities.excludePropsPeerToPeer(
-      requestData,
-      inputFields
-    );
-    this.setRequestData(filteredRequestData);
-    return this;
+  filterRequestData(requestData, inputFields) {
+    return objectUtilities.excludePropsPeerToPeer(requestData, inputFields);
   }
 
   fixToken(token) {
@@ -122,7 +115,7 @@ class Requester {
   }
 
   async sendRequest(options = this.getOptions()) {
-    const { method, fullUrl } = this.getRouteObject();
+    const { method, fullUrl } = this.getRoute();
     const requestData = this.getRequestData();
 
     const token = this.fixToken(options.token);
@@ -135,25 +128,26 @@ class Requester {
 
     return this;
   }
-  async sendFullFeaturedRequest(
-    data,
-    errorObject,
-    options = this.getOptions()
-  ) {
+  async sendFullFeaturedRequest(data, error, options = this.getOptions()) {
     loggerHelper.logStartTestRequest();
 
     const finalOptions = this.mergeOptions(options);
 
-    this.setRequestData(data).handleRequestDataFields(finalOptions);
+    this.setRequestData(data);
+
+    if (options.shouldFilterRequestData) {
+      const filteredRequestData = this.handleFilterRequestData(finalOptions);
+      this.setRequestData(filteredRequestData);
+    }
 
     loggerHelper.logRequestDetails(
       finalOptions,
       this.getRequestData(),
-      this.getRouteObject(),
-      this.getErrorObject()
+      this.getRoute(),
+      this.getError()
     );
 
-    if (errorObject) this.setErrorObject(errorObject);
+    if (error) this.setError(error);
 
     await this.sendRequest(finalOptions);
 
@@ -194,7 +188,7 @@ class Requester {
     return this;
   }
   checkErrorReason() {
-    const { errorKey, reason } = this.getErrorObject();
+    const { errorKey, reason } = this.getError();
     const { errors } = this.getResponseBody();
     expect(errors[errorKey]?.reason).to.equal(reason);
     return this;
@@ -203,7 +197,7 @@ class Requester {
 
 const requesterCreator = (token) => {
   return {
-    create: (routeObject) => new Requester(token, routeObject),
+    create: (route) => new Requester(token, route),
   };
 };
 

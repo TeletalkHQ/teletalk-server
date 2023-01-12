@@ -3,12 +3,14 @@ const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
 const { errors } = require("@/variables/errors");
 
-const updatePersonalInfo = serviceBuilder
+const updatePublicUserData = serviceBuilder
   .create()
   .body(async ({ currentUserId, ...updateProperties }) => {
     const currentUser = await findCurrentUser(currentUserId);
 
-    return await currentUser.updateOne(updateProperties);
+    await currentUser.updateOne(updateProperties);
+
+    return await findCurrentUser(currentUserId);
   })
   .build();
 
@@ -19,4 +21,4 @@ const findCurrentUser = async (currentUserId) => {
   );
 };
 
-module.exports = { updatePersonalInfo };
+module.exports = { updatePublicUserData };

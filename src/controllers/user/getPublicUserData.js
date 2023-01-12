@@ -1,9 +1,12 @@
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
+const { validators } = require("@/validators");
 
 const tryToGetPublicUserData = async (req) => {
   const { userId } = req.body;
+
+  await validators.userId(userId);
 
   const user = await services.getTargetUserData({
     userId,

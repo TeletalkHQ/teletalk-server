@@ -3,28 +3,27 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { errors } = require("@/variables/errors");
 
-const errorCollector = (res, errorObject) => {
+const errorCollector = (res, error) => {
   trier(errorCollector.name)
-    .try(tryToCollectError, errorObject)
+    .try(tryToCollectError, error)
     .executeIfNoError(executeIfNoError, res)
     .catch(catchCollectError, res)
     .run();
 };
 
-const tryToCollectError = (errorObject) => {
-  if (customTypeof.isObject(errorObject) && errorObject.reason)
-    return errorObject;
+const tryToCollectError = (error) => {
+  if (customTypeof.isObject(error) && error.reason) return error;
 
-  logger.error("unknownError:::", errorObject);
+  logger.error("unknownError:::", error);
 
   return {
     ...errors.UNKNOWN_ERROR,
-    unknownError: errorObject,
+    unknownError: error,
   };
 };
 
 const executeIfNoError = (errorToSend, res) => {
-  res.errors = fixResponseErrorObject(errorToSend);
+  res.errors = fixResponseError(errorToSend);
 };
 
 const catchCollectError = (error, res) => {
@@ -32,12 +31,12 @@ const catchCollectError = (error, res) => {
   res.errorResponser();
 };
 
-const fixResponseErrorObject = (errorObject, extraData = {}, statusCode) => {
-  const { errorKey, ...error } = errorObject;
+const fixResponseError = (error, extraData = {}, statusCode) => {
+  const { errorKey, ...rest } = error;
 
   return {
-    [errorKey]: { ...error, ...extraData },
-    statusCode: statusCode || errorObject.statusCode,
+    [errorKey]: { ...rest, ...extraData },
+    statusCode: statusCode || error.statusCode,
   };
 };
 

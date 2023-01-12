@@ -1,7 +1,6 @@
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 const { randomMaker } = require("$/classes/RandomMaker");
-
-const { makeRequester } = require("$/utilities");
+const { requesterCreator } = require("$/classes/requester/Requester");
 
 const { arrayOfRoutes, routes } = require("@/routes");
 
@@ -31,8 +30,9 @@ describe("checkBodyFields middleware tests", () => {
       .create()
       .createTestMessage(errors.INPUT_FIELDS_MISSING, route.fullUrl);
     it(message, async () => {
-      await makeRequester(route)(token)
-        .setErrorObject(errors.INPUT_FIELDS_MISSING)
+      await requesterCreator(token)
+        .create(route)
+        .setError(errors.INPUT_FIELDS_MISSING)
         .setOptions({ shouldFilterRequestData: false })
         .sendFullFeaturedRequest();
     });

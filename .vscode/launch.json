@@ -14,8 +14,7 @@
         "NODE_ENV": "development",
         "PORT_DEFAULT": "8080",
         "PORT": "8090",
-        "REDIS_DEFAULT_PORT": "6379",
-        "SHOULD_IGNORE_INPUT_FIELD_TYPE_WRONG_ERROR": "false"
+        "REDIS_DEFAULT_PORT": "6379"
       },
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/index.js",

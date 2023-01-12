@@ -37,9 +37,9 @@ userRouter[routes.user.getPublicUserData.method](
   routes.user.getPublicUserData.url,
   controllers.getPublicUserData
 );
-userRouter[routes.user.updatePersonalInfo.method](
-  routes.user.updatePersonalInfo.url,
-  controllers.updatePersonalInfo
+userRouter[routes.user.updatePublicUserData.method](
+  routes.user.updatePublicUserData.url,
+  controllers.updatePublicUserData
 );
 
 userRouter[routes.user.getContacts.method](

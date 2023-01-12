@@ -11,11 +11,7 @@ class AppConfigs {
     sms: {
       shouldSendSms: this.isProduction(),
     },
-    server: {
-      shouldIgnoreInputFieldTypeWrongError: envManager.getEnvironment(
-        envManager.ENVIRONMENT_KEYS.SHOULD_IGNORE_INPUT_FIELD_TYPE_WRONG_ERROR
-      ),
-    },
+    server: {},
   };
 
   isProduction() {

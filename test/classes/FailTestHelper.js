@@ -24,6 +24,7 @@ class FailTestHelper {
   }
 
   authentication = this.failTestMaker("authentication");
+  bio = this.failTestMaker("bio");
   blacklistItemExist = this.failTestMaker("blacklistItemExist");
   blacklistItemNotExist = this.failTestMaker("blacklistItemNotExist");
   cellphone = this.failTestMaker("cellphone");
@@ -34,15 +35,17 @@ class FailTestHelper {
   countryCode = this.failTestMaker("countryCode");
   countryName = this.failTestMaker("countryName");
   firstName = this.failTestMaker("firstName");
+  input = this.failTestMaker("input");
   inputMissing = this.failTestMaker("inputMissing");
   inputOverload = this.failTestMaker("inputOverload");
-  input = this.failTestMaker("input");
   lastName = this.failTestMaker("lastName");
   message = this.failTestMaker("message");
   participantId = this.failTestMaker("participantId");
   phoneNumber = this.failTestMaker("phoneNumber");
   selfStuff = this.failTestMaker("selfStuff");
   targetUserNotExist = this.failTestMaker("targetUserNotExist");
+  userId = this.failTestMaker("userId");
+  username = this.failTestMaker("username");
   verificationCode = this.failTestMaker("verificationCode");
 }
 

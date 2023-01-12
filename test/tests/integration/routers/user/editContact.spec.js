@@ -23,7 +23,7 @@ describe("edit contact success tests", () => {
 
     const addContactRequester = requesters.addContact();
     addContactRequester.setToken(currentUser.token);
-    for (const contact of contacts) {
+    for (const { userId, ...contact } of contacts) {
       await addContactRequester.sendFullFeaturedRequest(contact);
     }
 
@@ -31,7 +31,7 @@ describe("edit contact success tests", () => {
     editContactRequester.setToken(currentUser.token);
     for (const contact of contacts) {
       const fullName = randomMaker.fullName();
-      const data = { ...contact, ...fullName };
+      const { userId, ...data } = { ...contact, ...fullName };
       const {
         body: { editedContact },
       } = await editContactRequester.sendFullFeaturedRequest(data);
@@ -55,8 +55,8 @@ describe("edit contact success tests", () => {
 });
 
 describe("editContact fail tests", () => {
-  const contact = randomMaker.contact();
-  const currentUserSignData = randomMaker.contact();
+  const contact = randomMaker.unusedContact();
+  const currentUserSignData = randomMaker.unusedCellphone();
 
   const requester = requesters.editContact();
   helpers.configureFailTestRequester(requester);
@@ -76,7 +76,10 @@ describe("editContact fail tests", () => {
     .phoneNumber(contact)
     .firstName(contact)
     .lastName(contact)
-    .selfStuff(currentUserSignData)
+    .selfStuff({
+      ...currentUserSignData,
+      ...randomMaker.fullName(),
+    })
     .contactItemNotExist(contact);
 });
 

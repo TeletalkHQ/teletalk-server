@@ -11,10 +11,11 @@ const { models } = require("@/models");
 
 const { errors } = require("@/variables/errors");
 const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/routes");
+const { failTestBuilder } = require("$/classes/FailTestBuilder");
 
 const userModel = models.native.user;
 
-const requester = (routeObject) => requesterCreator().create(routeObject);
+const requester = (route) => requesterCreator().create(route);
 
 describe("checkCurrentUserStatus middleware success tests", () => {
   //TODO: Add tests: checkCurrentUserStatus middleware success tests
@@ -34,59 +35,74 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
   );
 
   for (const route of filteredIgnoredRoutes) {
-    it("should get error: CURRENT_USER_NOT_EXIST when userId is wrong", async () => {
-      const wrongUserId = randomMaker.string(userModel.userId.maxlength.value);
+    it(
+      failTestBuilder.create().createTestMessage(errors.TOKEN_REQUIRED, route),
+      async () => {
+        const wrongUserId = randomMaker.string(
+          userModel.userId.maxlength.value
+        );
 
-      const token = authManager.signToken({
-        ...cellphone,
-        userId: wrongUserId,
-      });
+        const token = authManager.signToken({
+          ...cellphone,
+          userId: wrongUserId,
+        });
 
-      const { body } = await requester(route).sendFullFeaturedRequest(
-        // data,
-        error,
-        {
-          token,
-        }
-      );
+        const { body } = await requester(route).sendFullFeaturedRequest(
+          // data,
+          error,
+          {
+            token,
+          }
+        );
 
-      expect(body.errors[error.errorKey].wrongUserId).to.be.equal(wrongUserId);
-    });
+        expect(body.errors[error.errorKey].wrongUserId).to.be.equal(
+          wrongUserId
+        );
+      }
+    );
   }
 
   for (const route of filteredIgnoredRoutes) {
-    it("should get error: CURRENT_USER_NOT_EXIST when token is not exist on user sessions", async () => {
-      const token = authManager.signToken({
-        ...cellphone,
-        userId: user.userId,
-      });
+    it(
+      failTestBuilder.create().createTestMessage(errors.TOKEN_REQUIRED, route),
+      async () => {
+        const token = authManager.signToken({
+          ...cellphone,
+          userId: user.userId,
+        });
 
-      const { body } = await requester(route).sendFullFeaturedRequest(
-        // data,
-        error,
-        {
-          token,
-        }
-      );
+        const { body } = await requester(route).sendFullFeaturedRequest(
+          // data,
+          error,
+          {
+            token,
+          }
+        );
 
-      expect(body.errors[error.errorKey].isSessionExist).to.be.false;
-    });
+        expect(body.errors[error.errorKey].isSessionExist).to.be.false;
+      }
+    );
   }
 
   for (const route of filteredIgnoredRoutes) {
-    it("should get error: CURRENT_USER_NOT_EXIST when userId is wrong", async () => {
-      const wrongUserId = randomMaker.string(userModel.userId.maxlength.value);
-      const token = authManager.signToken({
-        userId: wrongUserId,
-      });
+    it(
+      failTestBuilder.create().createTestMessage(errors.TOKEN_REQUIRED, route),
+      async () => {
+        const wrongUserId = randomMaker.string(
+          userModel.userId.maxlength.value
+        );
+        const token = authManager.signToken({
+          userId: wrongUserId,
+        });
 
-      await requester(route).sendFullFeaturedRequest(
-        // data,
-        error,
-        {
-          token,
-        }
-      );
-    });
+        await requester(route).sendFullFeaturedRequest(
+          // data,
+          error,
+          {
+            token,
+          }
+        );
+      }
+    );
   }
 });

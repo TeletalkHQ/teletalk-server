@@ -3,7 +3,7 @@
     "_id": "8487f295-e64b-433b-91b5-48135a8b4729",
     "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
     "containerId": "912ee1d7-89bc-46ef-aa23-c40e3498d032",
-    "name": "signInNormalUser",
+    "name": "signIn",
     "url": "{{baseUrl}}/auth/signIn",
     "method": "POST",
     "sortNum": 15000,

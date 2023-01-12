@@ -1,6 +1,8 @@
 const sendJsonResponse = (req, res, data) => {
-  const { routeObject } = req;
-  res.status(routeObject.statusCode).json(data);
+  const {
+    custom: { route },
+  } = req;
+  res.status(route.statusCode).json(data);
 };
 
 module.exports = { sendJsonResponse };

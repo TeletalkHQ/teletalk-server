@@ -24,7 +24,9 @@ const { getCurrentUserData } = require("@/controllers/user/getCurrentUserData");
 const { getPublicUserData } = require("@/controllers/user/getPublicUserData");
 const { removeBlock } = require("@/controllers/user/removeBlock");
 const { removeContact } = require("@/controllers/user/removeContact");
-const { updatePersonalInfo } = require("@/controllers/user/updatePersonalInfo");
+const {
+  updatePublicUserData,
+} = require("@/controllers/user/updatePublicUserData");
 
 const controllers = {
   addBlock,
@@ -44,7 +46,7 @@ const controllers = {
   removeContact,
   sendPrivateMessage,
   signIn,
-  updatePersonalInfo,
+  updatePublicUserData,
   verify,
 };
 

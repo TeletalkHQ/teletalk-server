@@ -4,15 +4,14 @@ const { models } = require("@/models");
 
 const userModels = models.native.user;
 
-const firstNameFailTest = (configuredRequester, data) => {
+const usernameFailTest = (configuredRequester, data) => {
   failTestBuilder
-    .create(configuredRequester, data, userModels.firstName, "firstName")
+    .create(configuredRequester, data, userModels.username, "username")
     .missing()
     .overload()
     .invalidType()
-    .empty()
     .minlength()
     .maxlength();
 };
 
-module.exports = { firstNameFailTest };
+module.exports = { usernameFailTest };

@@ -1,6 +1,7 @@
+const { errors } = require("@/variables/errors");
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-//CLEANME: Major refactor
+//REFACTOR:Major
 class FailTestBuilder {
   constructor(configuredRequester, data, model, testingPropertyName) {
     this.configuredRequester = configuredRequester;
@@ -53,78 +54,84 @@ class FailTestBuilder {
   dataMerger(newValue) {
     return { ...this.data, [this.testingPropertyName]: newValue };
   }
+  resolveError(key) {
+    return this.model[key].error;
+  }
 
-  required(errorObject) {
-    const mergedData = this.dataMerger("");
-    this.initTest(mergedData, errorObject);
+  custom(value, error) {
+    const mergedData = this.dataMerger(value);
+    this.initTest(mergedData, error);
     return this;
   }
-  invalidType_typeIsString(errorObject) {
-    const mergedData = this.dataMerger(randomMaker.number(this.getMaxlength));
-    this.initTest(mergedData, errorObject);
+  empty(value = "") {
+    this.custom(value, this.resolveError("empty"));
     return this;
   }
-  numeric(errorObject) {
-    const randomMixedString = randomMaker.string(this.getMaxlength() - 1) + "!";
-    const mergedData = this.dataMerger(randomMixedString);
-    this.initTest(mergedData, errorObject);
+  missing() {
+    const mergedData = this.dataMerger();
+    this.initTest(mergedData, errors.INPUT_FIELDS_MISSING);
     return this;
   }
-  minlength(errorObject) {
+  overload() {
+    const overloadedData = {
+      ...this.data,
+      [randomMaker.string(10)]: randomMaker.string(10),
+    };
+    this.initTest(overloadedData, errors.INPUT_FIELDS_OVERLOAD);
+    return this;
+  }
+  invalidType(value) {
+    const valueWithIncorrectType =
+      value || randomMaker.number(this.getMaxlength);
+    const mergedData = this.dataMerger(valueWithIncorrectType);
+    this.initTest(mergedData, errors.INPUT_FIELD_INVALID_TYPE);
+    return this;
+  }
+  numeric() {
+    const randomValue = randomMaker.string(this.getMaxlength() - 1) + "!";
+    const mergedData = this.dataMerger(randomValue);
+    this.initTest(mergedData, this.resolveError("numeric"));
+    return this;
+  }
+  minlength() {
     if (this.getMinlength() > 1) {
-      const randomStringNumber = randomMaker.stringNumber(
-        this.getMinlength() - 1
-      );
-      const mergedData = this.dataMerger(randomStringNumber);
-      this.initTest(mergedData, errorObject);
+      const randomValue = randomMaker.string(this.getMinlength() - 1);
+      const mergedData = this.dataMerger(randomValue);
+      this.initTest(mergedData, this.resolveError("minlength"));
     }
     return this;
   }
-  maxlength(errorObject) {
-    const randomStringNumber = randomMaker.stringNumber(
-      this.getMaxlength() + 1
-    );
-    const mergedData = this.dataMerger(randomStringNumber);
-    this.initTest(mergedData, errorObject);
+  maxlength(value) {
+    const randomValue = value || randomMaker.string(this.getMaxlength() + 1);
+    const mergedData = this.dataMerger(randomValue);
+    this.initTest(mergedData, this.resolveError("maxlength"));
     return this;
   }
-  length(errorObject) {
-    const randomStringNumber = randomMaker.stringNumber(this.getLength() + 1);
-    const mergedData = this.dataMerger(randomStringNumber);
-    this.initTest(mergedData, errorObject);
-    return this;
-  }
-  invalidNumber(errorObject) {
-    const length = this.getLength() || this.getMaxlength();
-    const randomStringNumber = randomMaker.stringNumber(length);
-    const mergedData = this.dataMerger(randomStringNumber);
-    this.initTest(mergedData, errorObject);
-  }
-
-  custom(value, errorObject) {
-    const mergedData = this.dataMerger(value);
-    this.initTest(mergedData, errorObject);
+  length(value) {
+    const randomValue = value || randomMaker.string(this.getLength() + 1);
+    const mergedData = this.dataMerger(randomValue);
+    this.initTest(mergedData, this.resolveError("length"));
     return this;
   }
 
-  initTest(data, errorObject, options) {
+  initTest(data, error, options) {
     it(
       this.createTestMessage(
-        errorObject,
-        this.configuredRequester.getRouteObject().fullUrl
+        error,
+        this.configuredRequester.getRoute().fullUrl
       ),
       async () => {
         await this.configuredRequester.sendFullFeaturedRequest(
           data,
-          errorObject,
+          error,
           options
         );
       }
     );
   }
 
-  createTestMessage(errorObject, url) {
-    return `expected error: [url|${url}] [errorKey|${errorObject.errorKey}] [reason|${errorObject.reason}] - [statusCode|${errorObject.statusCode}] `;
+  createTestMessage(error, url) {
+    return `expected error: [url|${url}] [errorKey|${error.errorKey}] [reason|${error.reason}] - [statusCode|${error.statusCode}] `;
   }
 }
 

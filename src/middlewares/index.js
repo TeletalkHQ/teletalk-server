@@ -10,7 +10,7 @@ const { contactValidator } = require("@/middlewares/contactValidator");
 const {
   checkCurrentUserStatus,
 } = require("@/middlewares/checkCurrentUserStatus");
-const { findRouteObject } = require("@/middlewares/findRouteObject");
+const { findRoute } = require("@/middlewares/findRoute");
 const { ignoreMiddlewares } = require("@/middlewares/ignoreMiddlewares");
 const { logSeparator } = require("@/middlewares/logSeparator");
 const { requestMethodChecker } = require("@/middlewares/requestMethodChecker");
@@ -34,7 +34,7 @@ const middlewares = {
   checkCurrentUserStatus,
   checkDataAndResponse,
   contactValidator,
-  findRouteObject,
+  findRoute,
   ignoreMiddlewares,
   logSeparator,
   notFound,

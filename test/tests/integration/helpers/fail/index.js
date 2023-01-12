@@ -44,12 +44,18 @@ const {
 const {
   phoneNumberFailTest,
 } = require("$/tests/integration/helpers/fail/phoneNumber");
+const { userIdFailTest } = require("$/tests/integration/helpers/fail/userId");
 const {
   verificationCodeFailTest,
 } = require("$/tests/integration/helpers/fail/verificationCode");
+const { bioFailTest } = require("$/tests/integration/helpers/fail/bio");
+const {
+  usernameFailTest,
+} = require("$/tests/integration/helpers/fail/username");
 
 const failCollection = {
   authentication: authenticationFailTest,
+  bio: bioFailTest,
   blacklistItemExist: blacklistItemExistFailTest,
   blacklistItemNotExist: blacklistItemNotExistFailTest,
   cellphone: cellphoneFailTest,
@@ -60,15 +66,17 @@ const failCollection = {
   countryCode: countryCodeFailTest,
   countryName: countryNameFailTest,
   firstName: firstNameFailTest,
+  input: inputFailTest,
   inputMissing: inputMissingFailTest,
   inputOverload: inputOverloadFailTest,
-  input: inputFailTest,
   lastName: lastNameFailTest,
   message: messageFailTest,
   participantId: participantIdFailTest,
   phoneNumber: phoneNumberFailTest,
   selfStuff: selfStuffFailTest,
   targetUserNotExist: targetUserNotExistFailTest,
+  userId: userIdFailTest,
+  username: usernameFailTest,
   verificationCode: verificationCodeFailTest,
 };
 

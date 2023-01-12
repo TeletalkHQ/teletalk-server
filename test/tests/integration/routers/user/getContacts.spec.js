@@ -27,7 +27,7 @@ describe("getContacts success tests", () => {
     const addContactRequester = requesters.addContact();
     addContactRequester.setToken(currentUser.token);
 
-    for (const contact of contacts) {
+    for (const { userId, ...contact } of contacts) {
       await addContactRequester.sendFullFeaturedRequest(contact);
     }
 

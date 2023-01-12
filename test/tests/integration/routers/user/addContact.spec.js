@@ -52,27 +52,28 @@ describe("add contact success tests", () => {
 describe("addContact fail tests", () => {
   const requester = requesters.addContact();
 
-  const currentUserSignData = randomMaker.contact();
-  const targetUserSignData = randomMaker.contact();
+  const currentUserSignData = randomMaker.unusedCellphone();
+  const targetUserSignData = randomMaker.unusedCellphone();
   const data = {
-    addedContact: targetUserSignData,
-    selfStuffData: currentUserSignData,
+    addedContact: {
+      ...targetUserSignData,
+      ...randomMaker.fullName(),
+    },
+    selfStuffData: { ...currentUserSignData, ...randomMaker.fullName() },
   };
 
   before(async () => {
-    const { token } = await randomMaker.user(
-      userUtilities.extractCellphone(currentUserSignData)
-    );
+    const { token } = await randomMaker.user(currentUserSignData);
     requester.setToken(token);
 
-    const targetUser = await randomMaker.user(
-      userUtilities.extractCellphone(targetUserSignData)
+    const targetUser = await randomMaker.user(targetUserSignData);
+    const { userId, ...contact } = userUtilities.extractContact(
+      targetUser.user
     );
-    const contact = userUtilities.extractContact(targetUser.user);
     await requester.sendFullFeaturedRequest(contact);
   });
 
-  const contact = randomMaker.contact();
+  const contact = randomMaker.unusedContact();
 
   testHelper
     .createFailTest(requester)

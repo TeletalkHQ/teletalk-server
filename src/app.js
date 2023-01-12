@@ -30,12 +30,16 @@ app.use(serveFavicon("public/assets/icons/favicon/favicon.ico"));
 app.use(
   middlewares.responseErrorHandlers,
   middlewares.sendJsonResponse,
-  middlewares.checkDataAndResponse
+  middlewares.checkDataAndResponse,
+  (req, _res, next) => {
+    req.custom = {};
+    next();
+  }
 );
 
 //* Register route object checker =>
 app.use(
-  middlewares.findRouteObject,
+  middlewares.findRoute,
   middlewares.notFound,
   middlewares.requestMethodChecker
 );

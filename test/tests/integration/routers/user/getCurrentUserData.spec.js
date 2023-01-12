@@ -14,22 +14,24 @@ describe("getCurrentUserData success tests", () => {
     const requester = requesters.getCurrentUserData();
     requester.setToken(token);
 
-    const {
-      body: { user: responseUserData },
-    } = await requester.sendFullFeaturedRequest();
+    for (let i = 0; i < 10; i++) {
+      const {
+        body: { user: responseUserData },
+      } = await requester.sendFullFeaturedRequest();
 
-    const user = await serviceHelper.findOneUser(
-      {
-        "sessions.token": requester.getToken(),
-      },
-      errors.CURRENT_USER_NOT_EXIST
-    );
+      const user = await serviceHelper.findOneUser(
+        {
+          "sessions.token": requester.getToken(),
+        },
+        errors.CURRENT_USER_NOT_EXIST
+      );
 
-    const userData = userUtilities.extractUserData(user);
+      const userData = userUtilities.extractUserData(user);
 
-    testHelper.createSuccessTest().userData({
-      equalValue: userData,
-      testValue: responseUserData,
-    });
+      testHelper.createSuccessTest().userData({
+        equalValue: userData,
+        testValue: responseUserData,
+      });
+    }
   });
 });

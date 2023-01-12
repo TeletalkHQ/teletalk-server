@@ -5,11 +5,13 @@ const { nativeModels } = require("@/models/native");
 const messageId = {
   messageId: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.chat.messageId)
+    .setModel(nativeModels.chat.messageId)
     .type()
-    .unique()
+    .required()
+    .empty()
     .min()
     .max()
+    .unique()
     .trim()
     .build(),
 };
@@ -17,12 +19,13 @@ const messageId = {
 const chatId = {
   chatId: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.chat.chatId)
+    .setModel(nativeModels.chat.chatId)
     .type()
-    .unique()
+    .required()
     .empty()
     .min()
     .max()
+    .unique()
     .trim()
     .build(),
 };
@@ -30,23 +33,26 @@ const chatId = {
 const messageText = {
   message: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.chat.message)
+    .setModel(nativeModels.chat.message)
     .type()
+    .required()
     .empty()
     .min()
     .max()
+    .trim()
     .build(),
 };
 
 const participantId = {
   participantId: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.chat.participantId)
-    .empty()
-    .max()
-    .min()
-    .trim()
+    .setModel(nativeModels.chat.participantId)
     .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
     .unique()
     .build(),
 };

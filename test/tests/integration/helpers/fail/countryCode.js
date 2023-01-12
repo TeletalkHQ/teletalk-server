@@ -1,4 +1,5 @@
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
+const { randomMaker } = require("$/classes/RandomMaker");
 
 const { getWrongCountryCode } = require("$/utilities");
 
@@ -11,11 +12,15 @@ const { errors } = require("@/variables/errors");
 const countryCodeFailTest = (configuredRequester, data) => {
   failTestBuilder
     .create(configuredRequester, data, userModels.countryCode, "countryCode")
-    .required(errors.COUNTRY_CODE_REQUIRED)
-    .numeric(errors.COUNTRY_CODE_NUMERIC)
-    .invalidType_typeIsString(errors.COUNTRY_CODE_INVALID_TYPE)
-    .minlength(errors.COUNTRY_CODE_MINLENGTH_REACH)
-    .maxlength(errors.COUNTRY_CODE_MAXLENGTH_REACH)
+    .missing()
+    .overload()
+    .invalidType()
+    .empty()
+    .numeric()
+    .minlength()
+    .maxlength(
+      randomMaker.stringNumber(userModels.countryCode.maxlength.value + 1)
+    )
     .custom(getWrongCountryCode(), errors.COUNTRY_CODE_NOT_SUPPORTED);
 };
 

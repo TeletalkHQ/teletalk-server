@@ -68,15 +68,17 @@ describe("verifySignIn fail tests", () => {
     requester.setToken(token);
   });
 
+  const data = {
+    verificationCode: randomMaker.string(
+      models.native.user.verificationCode.length.value
+    ),
+  };
+
   testHelper
     .createFailTest(requester)
     .authentication()
-    .input({
-      verificationCode: randomMaker.string(
-        models.native.user.verificationCode.length.value
-      ),
-    })
-    .verificationCode();
+    .input(data)
+    .verificationCode(data);
 });
 
 const testUserData = async (builder, userData) => {
@@ -96,14 +98,16 @@ const testUserSession = async (builder, { user, token }) => {
   });
 };
 
-const getSavedUser = async (userId) => {
-  return await services.findOneUserById(userId);
+const getSavedUserSession = async (userId, token) => {
+  const savedUser = await getSavedUser(userId);
+  return savedUser.sessions.find((i) => i.token === token);
 };
+
 const getSavedUserData = async (userId) => {
   const savedUser = await getSavedUser(userId);
   return userUtilities.extractUserData(savedUser);
 };
-const getSavedUserSession = async (userId, token) => {
-  const savedUser = await getSavedUser(userId);
-  return savedUser.sessions.find((i) => i.token === token);
+
+const getSavedUser = async (userId) => {
+  return await services.findOneUserById(userId);
 };

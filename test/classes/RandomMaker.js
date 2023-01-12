@@ -39,6 +39,14 @@ class RandomMaker extends RandomMakerMain {
     }
     return users;
   }
+
+  publicUserData() {
+    return {
+      ...randomMaker.fullName(),
+      bio: randomMaker.string(userModels.bio.maxlength.value),
+      username: randomMaker.string(userModels.username.maxlength.value),
+    };
+  }
 }
 
 const randomMaker = new RandomMaker();

@@ -8,70 +8,71 @@ const { nativeModels } = require("@/models/native");
 
 const chatModels = nativeModels.chat;
 
-const { chatId, createdAt, message, messageId, participantId } = {
-  chatId: mongoModelBuilder
-    .create()
-    .setModelObject(chatModels.chatId)
-    .type()
-    .maxlength()
-    .minlength()
-    .required()
-    .unique()
-    .build(),
-  createdAt: mongoModelBuilder
-    .create()
-    .setModelObject(chatModels.createdAt)
-    .type()
-    .required()
-    .defaultValue()
-    .build(),
-  message: mongoModelBuilder
-    .create()
-    .setModelObject(chatModels.message)
-    .type()
-    .maxlength()
-    .minlength()
-    .build(),
-  messageId: mongoModelBuilder
-    .create()
-    .setModelObject(chatModels.messageId)
-    .type()
-    .minlength()
-    .maxlength()
-    .required()
-    //FIXME: Should be unique
-    // .unique()
-    .trim()
-    .defaultValue()
-    .build(),
+const { participantId } = {
   participantId: mongoModelBuilder
     .create()
-    .setModelObject(chatModels.participantId)
+    .setModel(chatModels.participantId)
     .type()
-    .maxlength()
-    .minlength()
     .required()
+    .minlength()
+    .maxlength()
     .trim()
     .build(),
 };
 
 const PrivateChatSchema = new mongoose.Schema({
-  chatId,
-  createdAt,
-  messages: [
-    {
-      message,
-      messageId,
+  chatId: mongoModelBuilder
+    .create()
+    .setModel(chatModels.chatId)
+    .type()
+    .required()
+    .minlength()
+    .maxlength()
+    .unique()
+    .build(),
+  createdAt: mongoModelBuilder
+    .create()
+    .setModel(chatModels.createdAt)
+    .type()
+    .required()
+    .defaultValue()
+    .build(),
+  messages: mongoModelBuilder
+    .create()
+    .setModel(chatModels.messages)
+    .type()
+    .required()
+    .items({
+      message: mongoModelBuilder
+        .create()
+        .setModel(chatModels.message)
+        .type()
+        .required()
+        .minlength()
+        .maxlength()
+        .build(),
+      messageId: mongoModelBuilder
+        .create()
+        .setModel(chatModels.messageId)
+        .type()
+        .required()
+        .minlength()
+        .maxlength()
+        .trim()
+        .defaultValue()
+        .build(),
       sender: {
         senderId: participantId,
       },
-    },
-  ],
-  participants: [
-    {
-      participantId,
-    },
-  ],
+    })
+    .build(),
+  participants: mongoModelBuilder
+    .create()
+    .setModel(chatModels.participants)
+    .type()
+    .required()
+    .items({ participantId })
+    .build(),
 });
 
 PrivateChatSchema.plugin(mongooseUniqueValidator);

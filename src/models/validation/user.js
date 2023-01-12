@@ -5,68 +5,75 @@ const { nativeModels } = require("@/models/native");
 const bio = {
   bio: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.bio)
-    .max()
+    .setModel(nativeModels.user.bio)
     .type()
+    .required()
+    .max()
     .build(),
 };
 
 const countryCode = {
   countryCode: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.countryCode)
+    .setModel(nativeModels.user.countryCode)
+    .type()
+    .required()
     .empty()
-    .max()
     .min()
+    .max()
     .numeric()
     .trim()
-    .type()
     .build(),
 };
 
 const countryName = {
   countryName: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.countryName)
-    .empty()
-    .max()
-    .min()
+    .setModel(nativeModels.user.countryName)
     .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
     .build(),
 };
 
 const firstName = {
   firstName: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.firstName)
-    .empty()
-    .max()
-    .min()
-    .trim()
+    .setModel(nativeModels.user.firstName)
     .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
     .build(),
 };
 
 const lastName = {
   lastName: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.lastName)
-    .max()
-    .min()
-    .trim()
+    .setModel(nativeModels.user.lastName)
     .type()
+    .required()
+    .min()
+    .max()
+    .trim()
     .build(),
 };
 
 const macAddress = {
   macAddress: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.macAddress)
-    .empty()
-    .max()
-    .min()
-    .trim()
+    .setModel(nativeModels.user.macAddress)
     .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
     .unique()
     .build(),
 };
@@ -74,24 +81,26 @@ const macAddress = {
 const phoneNumber = {
   phoneNumber: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.phoneNumber)
-    .empty()
-    .max()
-    .min()
-    .numeric()
+    .setModel(nativeModels.user.phoneNumber)
     .type()
     .required()
+    .empty()
+    .min()
+    .max()
+    .numeric()
     .build(),
 };
 
 const userId = {
   userId: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.userId)
-    .max()
-    .min()
-    .trim()
+    .setModel(nativeModels.user.userId)
+    .required()
     .type()
+    .empty()
+    .min()
+    .max()
+    .trim()
     .unique()
     .build(),
 };
@@ -99,18 +108,19 @@ const userId = {
 const token = {
   token: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.token)
+    .setModel(nativeModels.user.token)
     .type()
+    .required()
+    .empty()
     .min()
     .max()
-    .required()
     .build(),
 };
 
 const verificationCode = {
   verificationCode: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.verificationCode)
+    .setModel(nativeModels.user.verificationCode)
     .empty()
     .length()
     .max()
@@ -128,11 +138,12 @@ const cellphone = {
 const username = {
   username: validationModelBuilder
     .create()
-    .setModelObject(nativeModels.user.username)
-    .empty()
+    .setModel(nativeModels.user.username)
+    .type()
+    .required()
+    .min()
     .max()
     .trim()
-    .type()
     .unique()
     .build(),
 };
@@ -146,8 +157,8 @@ const userValidationModels = {
   lastName,
   macAddress,
   phoneNumber,
-  userId,
   token,
+  userId,
   username,
   verificationCode,
 };

@@ -2,6 +2,7 @@ const { trier } = require("utility-store/src/classes/Trier");
 const {
   ioFieldsChecker,
 } = require("utility-store/src/utilities/ioFieldsChecker");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
 
@@ -20,14 +21,12 @@ const tryToCheckDataAndResponse = ({
   });
 
   if (checkResult.ok === false) {
-    if (!checkResult.errorObject || !checkResult.errorObject.reason) {
-      throw {
-        ...errors.UNKNOWN_ERROR,
-        checkResult,
-      };
-    }
+    errorThrower(!checkResult.error || !checkResult.error.reason, {
+      ...errors.UNKNOWN_ERROR,
+      checkResult,
+    });
 
-    throw checkResult.errorObject;
+    throw checkResult.error;
   }
 
   return { data };
@@ -45,7 +44,9 @@ const catchCheckDataAndResponse = (error, res) => {
 const checkDataAndResponse = (req, res, next) => {
   res.checkDataAndResponse = (data, requiredFieldsIndex) => {
     const {
-      routeObject: { outputFields },
+      custom: {
+        route: { outputFields },
+      },
     } = req;
 
     return trier(checkDataAndResponse.name)

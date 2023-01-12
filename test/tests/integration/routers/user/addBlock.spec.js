@@ -45,22 +45,18 @@ describe("addBlock successful tests", () => {
 describe("addBlock fail tests", () => {
   const requester = requesters.addBlock();
 
-  const currentUserSignData = randomMaker.contact();
-  const targetUserSignData = randomMaker.contact();
+  const currentUserSignData = randomMaker.unusedCellphone();
+  const targetUserSignData = randomMaker.unusedCellphone();
   const data = {
     blockedCellphone: targetUserSignData,
     selfStuffData: currentUserSignData,
   };
 
   before(async () => {
-    const { token } = await randomMaker.user(
-      userUtilities.extractCellphone(currentUserSignData)
-    );
+    const { token } = await randomMaker.user(currentUserSignData);
     requester.setToken(token);
 
-    const targetUser = await randomMaker.user(
-      userUtilities.extractCellphone(targetUserSignData)
-    );
+    const targetUser = await randomMaker.user(targetUserSignData);
     const cellphone = userUtilities.extractCellphone(targetUser.user);
     await requester.sendFullFeaturedRequest(cellphone);
   });

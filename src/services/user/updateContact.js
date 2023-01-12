@@ -8,24 +8,20 @@ const { errors } = require("@/variables/errors");
 
 const updateContact = serviceBuilder
   .create()
-  .body(async ({ currentUserId, editedValues, targetCellphone }) => {
+  .body(async ({ currentUserId, editValues }) => {
     const currentUser = await findCurrentUser(currentUserId);
 
     const { index, contact: oldContact } = findContact(
       currentUser.contacts,
-      targetCellphone
+      editValues
     );
 
     errorThrower(!oldContact, {
       ...errors.CONTACT_ITEM_NOT_EXIST,
-      targetCellphone,
+      editValues,
     });
 
-    const newContact = updateContactFields(editedValues, oldContact);
-
-    await updateAndSaveNewContact(currentUser, newContact, index);
-
-    return { currentUser };
+    await saveNewContact(currentUser, editValues, index);
   })
   .build();
 
@@ -45,16 +41,8 @@ const findContact = (contacts, targetCellphone) => {
   return { contact, index };
 };
 
-const updateContactFields = (editedValues, oldContact) => {
-  return {
-    ...oldContact,
-    firstName: editedValues.firstName,
-    lastName: editedValues.lastName,
-  };
-};
-
-const updateAndSaveNewContact = async (currentUser, newContact, index) => {
-  currentUser.contacts.splice(index, 1, newContact);
+const saveNewContact = async (currentUser, editValues, index) => {
+  currentUser.contacts.splice(index, 1, editValues);
   await currentUser.save();
 };
 

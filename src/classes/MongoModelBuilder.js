@@ -1,9 +1,10 @@
 class MongoModelBuilder {
   constructor() {
-    this.modelObject = {};
+    this.model = {};
 
     this.mongoModel = {
       defaultValue: [],
+      items: [],
       lowercase: [],
       maxlength: [],
       minlength: [],
@@ -15,17 +16,17 @@ class MongoModelBuilder {
   }
 
   #updateProperty(name) {
-    this.#setProperty(name);
+    this.#setValue(name);
     this.#setMessage(name);
   }
   #updatePropertyWithoutMessage(name) {
-    this.#setProperty(name);
+    this.#setValue(name);
   }
-  #setProperty(key) {
-    this.mongoModel[key].push(this.modelObject[key].value);
+  #setValue(key) {
+    this.mongoModel[key].push(this.model[key].value);
   }
   #setMessage(key) {
-    this.mongoModel[key].push(this.modelObject[key].error?.reason);
+    this.mongoModel[key].push(this.model[key].error?.reason);
   }
 
   build() {
@@ -34,8 +35,8 @@ class MongoModelBuilder {
       return prevValue;
     }, {});
   }
-  setModelObject(modelObject) {
-    this.modelObject = modelObject;
+  setModel(model) {
+    this.model = model;
     return this;
   }
 
@@ -72,7 +73,7 @@ class MongoModelBuilder {
     return this;
   }
   items(items) {
-    this.#updateProperty("items", items);
+    this.mongoModel.items.push(items);
     return this;
   }
 }

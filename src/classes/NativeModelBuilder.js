@@ -1,43 +1,48 @@
 class NativeModelBuilder {
   constructor() {
-    this.modelObject = {
-      defaultValue: this.#initialValueAndError("", {}),
-      empty: this.#initialValueAndError(false, {}),
-      lowercase: this.#initialValueAndError("", {}),
-      length: this.#initialValueAndError("", {}),
-      maxlength: this.#initialValueAndError(0, {}),
-      minlength: this.#initialValueAndError(0, {}),
-      numeric: this.#initialValueAndError(false, {}),
-      required: this.#initialValueAndError(false, {}),
-      trim: this.#initialValueAndError(false, {}),
-      type: this.#initialValueAndError("", {}),
-      unique: this.#initialValueAndError("", {}),
+    this.model = {
+      defaultValue: this.#initialValueAndError(),
+      empty: this.#initialValueAndError(),
+      lowercase: this.#initialValueAndError(),
+      length: this.#initialValueAndError(),
+      maxlength: this.#initialValueAndError(),
+      minlength: this.#initialValueAndError(),
+      numeric: this.#initialValueAndError(),
+      required: this.#initialValueAndError(),
+      trim: this.#initialValueAndError(),
+      type: this.#initialValueAndError(),
+      unique: this.#initialValueAndError(),
+      items: this.#initialValueAndError(),
     };
   }
 
   #updateProperty(key, value, error) {
-    this.modelObject[key].value = value;
-    if (error) this.modelObject[key].error = error;
+    this.model[key].value = value;
+    if (error) this.model[key].error = error;
   }
 
   #initialValueAndError() {
     return {
       value: undefined,
       error: {
-        code: 0,
+        description: "",
         errorKey: "",
         message: "",
         reason: "",
+        statusCode: "",
       },
     };
   }
 
   build() {
-    return Object.entries(this.modelObject).reduce((prevValue, [key, prop]) => {
-      if (prop.value) prevValue[key] = prop;
-      return prevValue;
+    return Object.entries(this.model).reduce(
+      (prevValue, [key, prop]) => {
+        if (prop.value) prevValue[key] = prop;
+        return prevValue;
+      },
       // eslint-disable-next-line no-empty-pattern
-    }, ({} = this.modelObject));
+      ({} = this.model)
+    );
   }
   maxlength(value, error) {
     this.#updateProperty("maxlength", value, error);
@@ -57,6 +62,10 @@ class NativeModelBuilder {
   }
   empty(value, error) {
     this.#updateProperty("empty", value, error);
+    return this;
+  }
+  items(value) {
+    this.#updateProperty("length", value);
     return this;
   }
   required(value, error = {}) {

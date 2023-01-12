@@ -5,7 +5,7 @@ const { errorThrower } = require("utility-store/src/utilities/utilities");
 class RouteBuilder {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    this.routeObject = {
+    this.route = {
       description: "Default route description",
       fullUrl: undefined,
       inputFields: {},
@@ -17,7 +17,7 @@ class RouteBuilder {
   }
 
   #updateProperty(key, value) {
-    this.routeObject[key] = value;
+    this.route[key] = value;
   }
 
   method(method) {
@@ -38,26 +38,26 @@ class RouteBuilder {
     this.#updateProperty("description", description);
     return this;
   }
-  inputFields(inputFields = this.routeObject.inputFields) {
+  inputFields(inputFields = this.route.inputFields) {
     this.#updateProperty("inputFields", inputFields);
     return this;
   }
-  outputFields(outputFields = this.routeObject.outputFields) {
+  outputFields(outputFields = this.route.outputFields) {
     this.#updateProperty("outputFields", outputFields);
     return this;
   }
 
   build() {
     this.checkRequirements();
-    return this.routeObject;
+    return this.route;
   }
 
   checkRequirements() {
-    const { fullUrl, url, statusCode } = this.routeObject;
+    const { fullUrl, url, statusCode } = this.route;
 
     errorThrower(customTypeof.isUndefined(fullUrl, url, statusCode), {
       ...errors.ROUTE_OBJECT_IS_BROKEN,
-      routeObject: this.routeObject,
+      route: this.route,
     });
   }
 }

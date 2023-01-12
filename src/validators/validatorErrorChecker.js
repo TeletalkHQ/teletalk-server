@@ -1,35 +1,67 @@
 const { customTypeof } = require("custom-typeof");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
 const {
   validationErrorBuilder,
 } = require("utility-store/src/classes/ValidationErrorBuilder");
 
-const { errors } = require("@/variables/errors");
+const { models } = require("@/models");
 
+const { errors } = require("@/variables/errors");
 const { countries } = require("@/variables/others/countries");
+
+const userModels = models.native.user;
+const chatModels = models.native.chat;
+
+const bioErrorChecker = (validationResult, bio) => {
+  const errorChecker = validationErrorBuilder.create();
+
+  errorChecker
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedBio: bio,
+        },
+      },
+      userModels.bio
+    )
+    .required()
+    .string()
+    .stringMax()
+    .stringMin()
+    .throwAnyway(errors.BIO_INVALID)
+    .execute();
+};
 
 const countryCodeErrorChecker = (validationResult, countryCode) => {
   const errorChecker = validationErrorBuilder.create();
 
-  errorChecker
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedCountryCode: countryCode,
-      },
-    })
-    .customCheck(validationResult === true, () => {
-      const country = countries.find((c) => c.countryCode === countryCode);
+  if (validationResult === true) {
+    const country = countries.find((c) => c.countryCode === countryCode);
+    errorThrower(
+      customTypeof.isUndefined(country),
+      errors.COUNTRY_CODE_NOT_SUPPORTED
+    );
 
-      errorChecker.addError(
-        customTypeof.isUndefined(country),
-        errors.COUNTRY_CODE_NOT_SUPPORTED
-      );
-    })
-    .stringEmpty(errors.COUNTRY_CODE_REQUIRED)
-    .required(errors.COUNTRY_CODE_REQUIRED)
-    .string(errors.COUNTRY_CODE_INVALID_TYPE)
-    .stringNumeric(errors.COUNTRY_CODE_NUMERIC)
-    .stringMin(errors.COUNTRY_CODE_MINLENGTH_REACH)
-    .stringMax(errors.COUNTRY_CODE_MAXLENGTH_REACH)
+    return;
+  }
+
+  errorChecker
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedCountryCode: countryCode,
+        },
+      },
+      userModels.countryCode
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringNumeric()
+    .stringMin()
+    .stringMax()
     .throwAnyway(errors.COUNTRY_CODE_INVALID)
     .execute();
 };
@@ -37,25 +69,31 @@ const countryCodeErrorChecker = (validationResult, countryCode) => {
 const countryNameErrorChecker = (validationResult, countryName) => {
   const errorChecker = validationErrorBuilder.create();
 
-  errorChecker
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedCountryName: countryName,
-      },
-    })
-    .customCheck(validationResult === true, () => {
-      const country = countries.find((c) => c.countryName === countryName);
+  if (validationResult === true) {
+    const country = countries.find((c) => c.countryName === countryName);
+    errorThrower(
+      customTypeof.isUndefined(country),
+      errors.COUNTRY_NAME_NOT_SUPPORTED
+    );
 
-      errorChecker.addError(
-        customTypeof.isUndefined(country),
-        errors.COUNTRY_NAME_NOT_SUPPORTED
-      );
-    })
-    .required(errors.COUNTRY_NAME_REQUIRED)
-    .stringEmpty(errors.COUNTRY_NAME_REQUIRED)
-    .string(errors.COUNTRY_NAME_INVALID_TYPE)
-    .stringMax(errors.COUNTRY_NAME_MAXLENGTH_REACH)
-    .stringMin(errors.COUNTRY_NAME_MINLENGTH_REACH)
+    return;
+  }
+
+  errorChecker
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedCountryName: countryName,
+        },
+      },
+      userModels.countryName
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMax()
+    .stringMin()
     .throwAnyway(errors.COUNTRY_NAME_INVALID)
     .execute();
 };
@@ -63,28 +101,38 @@ const countryNameErrorChecker = (validationResult, countryName) => {
 const firstNameErrorChecker = (validationResult, firstName) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedFirstName: firstName,
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedFirstName: firstName,
+        },
       },
-    })
-    .required(errors.FIRST_NAME_REQUIRED)
-    .stringEmpty(errors.FIRST_NAME_REQUIRED)
-    .string(errors.FIRST_NAME_INVALID_TYPE)
-    .stringMin(errors.FIRST_NAME_MINLENGTH_REACH)
-    .stringMax(errors.FIRST_NAME_MAXLENGTH_REACH)
+      userModels.firstName
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMin()
+    .stringMax()
+    .throwAnyway(errors.FIRST_NAME_INVALID)
     .execute();
 };
 
 const lastNameErrorChecker = (validationResult, lastName) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: { validatedLastName: lastName },
-    })
-    .string(errors.LAST_NAME_INVALID_TYPE)
-    .stringMin(errors.LAST_NAME_MINLENGTH_REACH)
-    .stringMax(errors.LAST_NAME_MAXLENGTH_REACH)
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: { validatedLastName: lastName },
+      },
+      userModels.lastName
+    )
+    .required()
+    .string()
+    .stringMin()
+    .stringMax()
     .throwAnyway(errors.LAST_NAME_INVALID)
     .execute();
 };
@@ -92,18 +140,21 @@ const lastNameErrorChecker = (validationResult, lastName) => {
 const phoneNumberErrorChecker = (validationResult, phoneNumber) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedPhoneNumber: phoneNumber,
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedPhoneNumber: phoneNumber,
+        },
       },
-    })
-    .required(errors.PHONE_NUMBER_REQUIRED)
-    //FIXME: Throw PHONE_NUMBER_EMPTY
-    .stringEmpty(errors.PHONE_NUMBER_REQUIRED)
-    .string(errors.PHONE_NUMBER_INVALID_TYPE)
-    .stringMax(errors.PHONE_NUMBER_MAXLENGTH_REACH)
-    .stringMin(errors.PHONE_NUMBER_MINLENGTH_REACH)
-    .stringNumeric(errors.PHONE_NUMBER_NUMERIC)
+      userModels.phoneNumber
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMax()
+    .stringMin()
+    .stringNumeric()
     .throwAnyway(errors.PHONE_NUMBER_INVALID)
     .execute();
 };
@@ -111,16 +162,20 @@ const phoneNumberErrorChecker = (validationResult, phoneNumber) => {
 const userIdErrorChecker = (validationResult, userId) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedUserId: userId,
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedUserId: userId,
+        },
       },
-    })
-    .required(errors.USER_ID_REQUIRED)
-    .stringEmpty(errors.USER_ID_REQUIRED)
-    .string(errors.USER_ID_INVALID_TYPE)
-    .stringMin(errors.USER_ID_MIN_LENGTH_REACH)
-    .stringMax(errors.USER_ID_MAX_LENGTH_REACH)
+      userModels.userId
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMin()
+    .stringMax()
     .throwAnyway(errors.USER_ID_INVALID)
     .execute();
 };
@@ -128,14 +183,18 @@ const userIdErrorChecker = (validationResult, userId) => {
 const usernameErrorChecker = (validationResult, username) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: { validatedUsername: username },
-    })
-    .required(errors.USERNAME_REQUIRED)
-    .stringEmpty(errors.USERNAME_REQUIRED)
-    .string(errors.USERNAME_INVALID_TYPE)
-    .stringMin(errors.USERNAME_MINLENGTH_REACH)
-    .stringMax(errors.USERNAME_MAXLENGTH_REACH)
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: { validatedUsername: username },
+      },
+      userModels.username
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMin()
+    .stringMax()
     .throwAnyway(errors.USERNAME_INVALID)
     .execute();
 };
@@ -143,16 +202,20 @@ const usernameErrorChecker = (validationResult, username) => {
 const verificationCodeErrorChecker = (validationResult, verificationCode) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedVerificationCode: verificationCode,
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedVerificationCode: verificationCode,
+        },
       },
-    })
-    .required(errors.VERIFICATION_CODE_REQUIRED)
-    .stringEmpty(errors.VERIFICATION_CODE_REQUIRED)
-    .string(errors.VERIFICATION_CODE_INVALID_TYPE)
-    .stringNumeric(errors.VERIFICATION_CODE_NUMERIC)
-    .stringLength(errors.VERIFICATION_CODE_INVALID_LENGTH)
+      userModels.verificationCode
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringNumeric()
+    .stringLength()
     .throwAnyway(errors.VERIFICATION_CODE_INVALID)
     .execute();
 };
@@ -160,33 +223,41 @@ const verificationCodeErrorChecker = (validationResult, verificationCode) => {
 const participantIdErrorChecker = (validationResult, participantId) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedParticipantId: participantId,
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedParticipantId: participantId,
+        },
       },
-    })
-    .required(errors.PARTICIPANT_ID_REQUIRED)
-    .stringEmpty(errors.PARTICIPANT_ID_REQUIRED)
-    .string(errors.PARTICIPANT_ID_INVALID_TYPE)
-    .stringMin(errors.PARTICIPANT_ID_MIN_LENGTH_REACH)
-    .stringMax(errors.PARTICIPANT_ID_MAX_LENGTH_REACH)
+      chatModels.participantId
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMin()
+    .stringMax()
     .throwAnyway(errors.PARTICIPANT_ID_INVALID)
     .execute();
 };
 
-const messageTextErrorChecker = (validationResult, messageText) => {
+const messageErrorChecker = (validationResult, messageText) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedMessageText: messageText,
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedMessageText: messageText,
+        },
       },
-    })
-    .required(errors.MESSAGE_TEXT_REQUIRED)
-    .stringEmpty(errors.MESSAGE_TEXT_REQUIRED)
-    .string(errors.MESSAGE_TEXT_INVALID_TYPE)
-    .stringMin(errors.MESSAGE_ID_MIN_LENGTH_REACH)
-    .stringMax(errors.MESSAGE_TEXT_MAX_LENGTH_REACH)
+      chatModels.message
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMin()
+    .stringMax()
     .throwAnyway(errors.MESSAGE_TEXT_INVALID)
     .execute();
 };
@@ -194,38 +265,43 @@ const messageTextErrorChecker = (validationResult, messageText) => {
 const chatIdErrorChecker = (validationResult, chatId) => {
   validationErrorBuilder
     .create()
-    .setRequirements(validationResult, {
-      extraErrorFields: {
-        validatedChatId: chatId,
+    .setRequirements(
+      validationResult,
+      {
+        extraErrorFields: {
+          validatedChatId: chatId,
+        },
       },
-    })
-    .required(errors.CHAT_ID_REQUIRED)
-    .stringEmpty(errors.CHAT_ID_REQUIRED)
-    .string(errors.CHAT_ID_INVALID_TYPE)
-    .stringMin(errors.CHAT_ID_MIN_LENGTH_REACH)
-    .stringMax(errors.CHAT_ID_MAX_LENGTH_REACH)
+      chatModels.chatId
+    )
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMin()
+    .stringMax()
     .throwAnyway(errors.CHAT_ID_INVALID)
     .execute();
 };
 
 const tokenErrorChecker = (errorChecker) => {
   errorChecker
-    .required(errors.TOKEN_REQUIRED)
-    .string(errors.TOKEN_INVALID_TYPE)
-    .stringMin(errors.TOKEN_MINLENGTH_REACH)
-    .stringMax(errors.TOKEN_MAXLENGTH_REACH)
-    .stringEmpty(errors.TOKEN_REQUIRED)
+    .required()
+    .stringEmpty()
+    .string()
+    .stringMin()
+    .stringMax()
     .throwAnyway(errors.TOKEN_INVALID)
     .execute();
 };
 
 const validatorErrorChecker = {
+  bio: bioErrorChecker,
   chatId: chatIdErrorChecker,
   countryCode: countryCodeErrorChecker,
   countryName: countryNameErrorChecker,
   firstName: firstNameErrorChecker,
   lastName: lastNameErrorChecker,
-  messageText: messageTextErrorChecker,
+  message: messageErrorChecker,
   participantId: participantIdErrorChecker,
   phoneNumber: phoneNumberErrorChecker,
   token: tokenErrorChecker,

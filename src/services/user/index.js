@@ -10,7 +10,9 @@ const {
 const { removeBlock } = require("@/services/user/removeBlock");
 const { removeContact } = require("@/services/user/removeContact");
 const { updateContact } = require("@/services/user/updateContact");
-const { updatePersonalInfo } = require("@/services/user/updatePersonalInfo");
+const {
+  updatePublicUserData,
+} = require("@/services/user/updatePublicUserData");
 
 const userServices = {
   addBlock,
@@ -23,7 +25,7 @@ const userServices = {
   removeBlock,
   removeContact,
   updateContact,
-  updatePersonalInfo,
+  updatePublicUserData,
 };
 
 module.exports = {

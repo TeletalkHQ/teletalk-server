@@ -16,17 +16,21 @@ const chatModels = models.native.chat;
 const sendPrivateMessage = serviceBuilder
   .create()
   .body(async ({ currentUserId, message, participantId }) => {
-    const targetUserId = await findTargetUserId(participantId);
+    const targetParticipantId = await findTargetParticipantId(participantId);
 
     const newMessage = createNewMessage(message, currentUserId);
 
-    const privateChat = await findPrivateChat(currentUserId, targetUserId);
+    const privateChat = await findPrivateChat(
+      currentUserId,
+      targetParticipantId
+    );
     const fixedPrivateChat = await fixPrivateChat({
       currentUserId,
       privateChat,
-      targetUserId,
+      targetParticipantId,
     });
 
+    console.log("fixedPrivateChat:::", fixedPrivateChat);
     await saveMessageOnPrivateChat({
       newMessage,
       privateChat: fixedPrivateChat,
@@ -39,18 +43,16 @@ const sendPrivateMessage = serviceBuilder
   })
   .build();
 
-const findTargetUserId = async (participantId) => {
-  const targetUser = await commonServices.findOneUserById(participantId);
-  //TODO Add test for TARGET_USER_NOT_EXIST
-  errorThrower(!targetUser, () => errors.TARGET_USER_NOT_EXIST);
-
-  return targetUser.userId;
+const findTargetParticipantId = async (participantId) => {
+  const targetParticipant = await commonServices.findOneUserById(participantId);
+  errorThrower(!targetParticipant, () => errors.TARGET_USER_NOT_EXIST);
+  return targetParticipant.userId;
 };
 
-const findPrivateChat = async (currentUserId, targetUserId) => {
+const findPrivateChat = async (currentUserId, targetParticipantId) => {
   return await findOnePrivateChat({ shouldFixQueryResult: false }).run({
     "participants.participantId": {
-      $all: [currentUserId, targetUserId],
+      $all: [currentUserId, targetParticipantId],
     },
   });
 };
@@ -58,15 +60,21 @@ const findPrivateChat = async (currentUserId, targetUserId) => {
 const createNewMessage = (message, currentUserId) => ({
   message,
   messageId: randomMaker.id(chatModels.messageId.maxlength.value),
-  sender: { senderId: currentUserId },
+  sender: {
+    senderId: currentUserId,
+  },
 });
 
-const fixPrivateChat = async ({ currentUserId, privateChat, targetUserId }) =>
+const fixPrivateChat = async ({
+  currentUserId,
+  privateChat,
+  targetParticipantId,
+}) =>
   privateChat ||
   (await createPrivateChat({ shouldFixQueryResult: false }).run({
     chatId: createChatId(),
-    currentUserId,
-    targetUserId,
+    currentParticipantId: currentUserId,
+    targetParticipantId,
   }));
 const createChatId = () => randomMaker.id(chatModels.chatId.maxlength.value);
 

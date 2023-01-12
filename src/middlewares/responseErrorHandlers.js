@@ -7,8 +7,8 @@ const responseErrorHandlers = (_, res, next) => {
     statusCode: 500,
   };
 
-  res.errorCollector = (errorObject) => {
-    errorCollector(res, errorObject);
+  res.errorCollector = (error) => {
+    errorCollector(res, error);
   };
   res.errorResponser = () => {
     errorResponser(res);

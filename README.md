@@ -8,20 +8,37 @@
 ![GitHub](https://img.shields.io/github/license/s-stalwart-s/teletalk-server?label=License)
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/S-STALWART-S/teletalk-server/teletalk-server-main?label=Version)
 
-<!-- [![GitHub Super-Linter](https://github.com/<OWNER>/<REPOSITORY>/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter) -->
-<!-- [![Known Vulnerabilities](https://snyk.io/test/github/s-stalwart-s/teletalk-server/badge.svg)](https://snyk.io/test/github/s-stalwart-s/teletalk-server) -->
-<!-- [![Code style](https://github.com/S-STALWART-S/teletalk-server/actions/workflows/codeStyle.yml/badge.svg?branch=teletalk-server-main)](https://github.com/S-STALWART-S/teletalk-server/actions/workflows/codeStyle.yml) -->
+## About
 
-### Technical details
+An app that offers a private messaging service with lots of bugs and insecure connections :D .
 
-The app is based on the ExpressJS NodeJS framework.
+Currently it is written in `JavaScript`. There will be no `typescript` at this time, but some integration tests have been written to avoid most errors.
 
-### Running locally
+`ExpressJS` is used for web server development, `JWT` for authenticate, `MongoDB` for store user data and `Redis` is also used to store temporary stuffs.
 
-1. **Install node.js & npm.**
-   Probably, you should use [nvm](https://github.com/nvm-sh/nvm).
+I'm working on this project part-time and it is a hobby, But I have some interesting and exciting ideas for it in the future.
 
-2. **Install dependencies:**
+### Features
+
+The following features are available:
+
+- **add**, **edit** and **delete** contacts
+- **add** users to blacklist, also **remove**
+- **private chat**
+  simple :)
+
+## How to use
+
+**Requirements**
+
+Docker files are included. You can use docker or install these:
+
+- NodeJS +16.x
+- MongoDB +4.4
+- Redis +6.x (with ReJSON modules)
+- SMS Provider (only needed for production)
+
+**Install node app dependencies**
 
 ```bash
 npm install
@@ -30,43 +47,47 @@ npm install
 or
 
 ```bash
-yarn install
+yarn
 ```
 
-3. **Set environments**
-   All required environments for run dev|test server existed on environments folder.
+All environments required to run **development** servers can be found in the environments folder.
 
-**Run app in development mode:**
+### Running development server
+
+**Start**
 
 ```bash
 npm run start:dev
 ```
 
-**Run tests:**
+**Test**
 
 ```bash
 npm run test:dev
 ```
 
-**Run in production mode:**
+### Running production server
 
-1. **Setup sms provider:**
-   A sms provider needed for send verification code to clients. Buy for your own and set the settings and stuffs on SmsClient class (located in /src/classes). The functionality of SmsClient is up to you and your provider. Im working on it to replace this requirement with free version and also adding verification system with email.
-2. **Setup .env file:**
-   Create production.env on environments folder at root of project. Setup this environments:
+**Setup SMS Provider**
 
-- JWT_MAIN_SECRET for jwt main secret
-- JWT_SIGN_IN_SECRET for verification secret
-- MONGO_URL for your mongoDB database address
+An SMS provider is required to send verification codes to your clients.
+You can buy your own or use the free ones and update functions and other things in the SmsClient class. The functionality of this class depends on your SMS provider.
 
-3. Build production app:
+**Setup production environments**
+
+Create production.env in environments folder. Model the environment variables of development server and make changes in the value based on your needs.
+The value of some of these environments depends on the program execution environment, the version of some dependencies and also your SMS provider
+
+**Build**
 
 ```bash
 npm run build
 ```
 
-4. Start app:
+**Start**
 
 ```bash
 npm run start:production
 ```
+
+If you were lucky, you good to go :)

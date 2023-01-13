@@ -31,7 +31,7 @@ const participants = nativeModelBuilder
   .type(FIELD_TYPE.ARRAY, errors.PARTICIPANTS_INVALID_TYPE)
   .required(true, errors.PARTICIPANTS_REQUIRED)
   .length(2, errors.PARTICIPANTS_INVALID_LENGTH)
-  .empty(false)
+  .empty(false, errors.PARTICIPANTS_EMPTY)
   .build();
 
 const participantId = nativeModelBuilder

@@ -1,7 +1,8 @@
+const { customTypeof } = require("custom-typeof");
+
 class NativeModelBuilder {
   constructor() {
     this.model = {
-      defaultValue: this.#initialValueAndError(),
       empty: this.#initialValueAndError(),
       lowercase: this.#initialValueAndError(),
       length: this.#initialValueAndError(),
@@ -9,7 +10,7 @@ class NativeModelBuilder {
       minlength: this.#initialValueAndError(),
       numeric: this.#initialValueAndError(),
       required: this.#initialValueAndError(),
-      trim: this.#initialValueAndError(),
+      trim: { value: undefined },
       type: this.#initialValueAndError(),
       unique: this.#initialValueAndError(),
       items: this.#initialValueAndError(),
@@ -28,21 +29,20 @@ class NativeModelBuilder {
         description: "",
         errorKey: "",
         message: "",
-        reason: "",
-        statusCode: "",
+        reason: undefined,
+        statusCode: undefined,
       },
     };
   }
 
   build() {
-    return Object.entries(this.model).reduce(
-      (prevValue, [key, prop]) => {
-        if (prop.value) prevValue[key] = prop;
-        return prevValue;
-      },
-      // eslint-disable-next-line no-empty-pattern
-      ({} = this.model)
-    );
+    Object.entries(this.model).forEach(([key, prop]) => {
+      if (customTypeof.isUndefined(prop.error?.reason, prop.error?.statusCode))
+        delete this.model[key].error;
+      if (customTypeof.isUndefined(prop.value)) delete this.model[key];
+    });
+
+    return this.model;
   }
   maxlength(value, error) {
     this.#updateProperty("maxlength", value, error);
@@ -72,16 +72,12 @@ class NativeModelBuilder {
     this.#updateProperty("required", value, error);
     return this;
   }
-  trim(value, error) {
-    this.#updateProperty("trim", value, error);
+  trim(value) {
+    this.model.trim = { value };
     return this;
   }
   unique(value, error) {
     this.#updateProperty("unique", value, error);
-    return this;
-  }
-  defaultValue(value, error) {
-    this.#updateProperty("defaultValue", value, error);
     return this;
   }
   lowercase(value, error) {

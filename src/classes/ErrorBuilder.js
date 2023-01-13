@@ -1,11 +1,11 @@
 class ErrorBuilder {
   constructor() {
     this.error = {
-      description: "Default route description",
+      description: "Default error description",
+      errorKey: "",
       message: "",
       reason: "UNKNOWN_ERROR",
       statusCode: 400,
-      errorKey: "",
     };
   }
 

@@ -35,7 +35,6 @@ const PrivateChatSchema = new mongoose.Schema({
     .setModel(chatModels.createdAt)
     .type()
     .required()
-    .defaultValue()
     .build(),
   messages: mongoModelBuilder
     .create()
@@ -59,7 +58,6 @@ const PrivateChatSchema = new mongoose.Schema({
         .minlength()
         .maxlength()
         .trim()
-        .defaultValue()
         .build(),
       sender: {
         senderId: participantId,

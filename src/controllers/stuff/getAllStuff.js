@@ -1,7 +1,8 @@
 const { enErrorMessages } = require("@/translation/messages/enErrorMessages");
 
-const { allStuff } = require("@/variables/others/allStuff");
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
+
+const { allStuff } = require("@/variables/others/allStuff");
 
 const languages = {
   en: { errorMessages: enErrorMessages },

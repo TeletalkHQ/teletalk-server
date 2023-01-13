@@ -121,6 +121,7 @@ const verificationCode = {
   verificationCode: validationModelBuilder
     .create()
     .setModel(nativeModels.user.verificationCode)
+    .required()
     .empty()
     .length()
     .max()

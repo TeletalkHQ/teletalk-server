@@ -39,7 +39,6 @@ const {
     .setModel(userModels.createdAt)
     .type()
     .required()
-    .defaultValue()
     .build(),
   firstName: mongoModelBuilder
     .create()
@@ -56,7 +55,6 @@ const {
     .required()
     .maxlength()
     .trim()
-    .defaultValue()
     .build(),
   phoneNumber: mongoModelBuilder
     .create()
@@ -85,7 +83,6 @@ const UserSchema = new mongoose.Schema({
     .type()
     .required()
     .maxlength()
-    .defaultValue()
     .build(),
   blacklist: mongoModelBuilder
     .create()
@@ -140,7 +137,6 @@ const UserSchema = new mongoose.Schema({
     .required()
     .maxlength()
     .trim()
-    .defaultValue()
     .build(),
 });
 

@@ -31,6 +31,7 @@ const requesters = {
   createNewUser: makeRequester(routes.auth.createNewUser),
   editContact: makeRequester(routes.user.editContact),
   getAllPrivateChats: makeRequester(routes.privateChat.getAllPrivateChats),
+  getAllStuff: makeRequester(routes.stuff.getAllStuffs),
   getContacts: makeRequester(routes.user.getContacts),
   getCurrentUserData: makeRequester(routes.user.getCurrentUserData),
   getPublicUserData: makeRequester(routes.user.getPublicUserData),

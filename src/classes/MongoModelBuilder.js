@@ -3,7 +3,6 @@ class MongoModelBuilder {
     this.model = {};
 
     this.mongoModel = {
-      defaultValue: [],
       items: [],
       lowercase: [],
       maxlength: [],
@@ -40,10 +39,6 @@ class MongoModelBuilder {
     return this;
   }
 
-  defaultValue() {
-    this.#updateProperty("defaultValue");
-    return this;
-  }
   lowercase() {
     this.#updateProperty("lowercase");
     return this;

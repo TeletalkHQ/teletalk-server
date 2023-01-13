@@ -11,27 +11,26 @@ const { errors } = require("@/variables/errors");
 const fastestValidatorCompiler = new Validator();
 
 class ValidationModelBuilder {
-  constructor() {
-    this.validationModel = {
-      empty: undefined,
-      max: undefined,
-      min: undefined,
-      numeric: undefined,
+  #model = {};
+
+  #validationModel = {
+    empty: undefined,
+    max: undefined,
+    min: undefined,
+    numeric: undefined,
+    required: undefined,
+    trim: undefined,
+    type: undefined,
+    unique: undefined,
+    messages: {
       required: undefined,
-      trim: undefined,
-      type: undefined,
-      unique: undefined,
-      messages: {
-        required: undefined,
-        string: undefined,
-        stringEmpty: undefined,
-        stringMax: undefined,
-        stringMin: undefined,
-        stringNumeric: undefined,
-      },
-    };
-    this.model = {};
-  }
+      string: undefined,
+      stringEmpty: undefined,
+      stringMax: undefined,
+      stringMin: undefined,
+      stringNumeric: undefined,
+    },
+  };
 
   #updateProperty(validationKey, modelKey, messageKey) {
     this.#setValue(validationKey, modelKey);
@@ -41,11 +40,11 @@ class ValidationModelBuilder {
     this.#setValue(validationKey, modelKey);
   }
   #setValue(validationKey, modelKey) {
-    this.validationModel[validationKey] = this.model[modelKey].value;
+    this.#validationModel[validationKey] = this.#model[modelKey].value;
   }
   #setMessage(modelKey, messageKey) {
-    this.validationModel.messages[messageKey] =
-      this.model[modelKey].error.message;
+    this.#validationModel.messages[messageKey] =
+      this.#model[modelKey].error.message;
   }
 
   static validatorCompiler(validationModel) {
@@ -58,7 +57,7 @@ class ValidationModelBuilder {
   }
 
   setModel(model) {
-    this.model = model;
+    this.#model = model;
     return this;
   }
   empty() {
@@ -99,7 +98,7 @@ class ValidationModelBuilder {
   }
 
   build() {
-    return objectUtilities.clarify(this.validationModel);
+    return objectUtilities.clarify(this.#validationModel);
   }
 }
 

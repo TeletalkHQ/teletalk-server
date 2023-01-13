@@ -9,10 +9,9 @@ const bio = nativeModelBuilder
   .create()
   .type(FIELD_TYPE.STRING, errors.BIO_INVALID_TYPE)
   .required(true, errors.BIO_REQUIRED)
-  .empty(true, errors.BIO_EMPTY)
+  .empty(true)
   .minlength(0)
   .maxlength(255, errors.BIO_MAXLENGTH_REACH)
-  .defaultValue("")
   .build();
 
 const countryCode = nativeModelBuilder
@@ -33,6 +32,7 @@ const countryName = nativeModelBuilder
   .empty(false, errors.COUNTRY_NAME_EMPTY)
   .minlength(2, errors.COUNTRY_NAME_MINLENGTH_REACH)
   .maxlength(50, errors.COUNTRY_NAME_MAXLENGTH_REACH)
+  .trim(true)
   .build();
 
 const createdAt = commonModels.createdAt;
@@ -57,7 +57,6 @@ const lastName = nativeModelBuilder
   .minlength(2, errors.LAST_NAME_MINLENGTH_REACH)
   .maxlength(18, errors.LAST_NAME_MAXLENGTH_REACH)
   .trim(true)
-  .defaultValue("")
   .build();
 
 const macAddress = nativeModelBuilder
@@ -95,13 +94,12 @@ const token = nativeModelBuilder
 const username = nativeModelBuilder
   .create()
   .type(FIELD_TYPE.STRING, errors.USERNAME_INVALID_TYPE)
-  .required(true)
+  .required(true, errors.USERNAME_REQUIRED)
   .empty(true)
   .minlength(4, errors.USERNAME_MINLENGTH_REACH)
   .maxlength(12, errors.USERNAME_MAXLENGTH_REACH)
-  .trim(true)
   .unique(false, errors.USERNAME_EXIST)
-  .defaultValue("")
+  .trim(true)
   .build();
 
 const verificationCode = nativeModelBuilder
@@ -121,7 +119,6 @@ const blacklist = nativeModelBuilder
   .type(FIELD_TYPE.ARRAY, errors.BLACKLIST_INVALID_TYPE)
   .required(true, errors.BLACKLIST_REQUIRED)
   .empty(true)
-  .defaultValue([])
   .build();
 
 const contacts = nativeModelBuilder
@@ -129,7 +126,6 @@ const contacts = nativeModelBuilder
   .type(FIELD_TYPE.ARRAY, errors.CONTACTS_INVALID_TYPE)
   .required(true, errors.CONTACTS_REQUIRED)
   .empty(true)
-  .defaultValue([])
   .build();
 
 const sessions = nativeModelBuilder
@@ -137,7 +133,6 @@ const sessions = nativeModelBuilder
   .type(FIELD_TYPE.ARRAY, errors.SESSIONS_INVALID_TYPE)
   .required(true, errors.SESSIONS_REQUIRED)
   .empty(true)
-  .defaultValue([])
   .build();
 
 const userModels = {

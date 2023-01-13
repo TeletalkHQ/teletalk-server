@@ -30,7 +30,6 @@ const sendPrivateMessage = serviceBuilder
       targetParticipantId,
     });
 
-    console.log("fixedPrivateChat:::", fixedPrivateChat);
     await saveMessageOnPrivateChat({
       newMessage,
       privateChat: fixedPrivateChat,

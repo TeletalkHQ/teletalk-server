@@ -1,5 +1,3 @@
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
-
 const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
 
 const { errors } = require("@/variables/errors");
@@ -10,7 +8,6 @@ const createdAt = nativeModelBuilder
   .type(FIELD_TYPE.DATE, errors.CREATED_AT_INVALID_TYPE)
   .required(true, errors.CREATED_AT_REQUIRED)
   .empty(false, errors.CREATED_AT_EMPTY)
-  .defaultValue(Date.now)
   .build();
 
 const userId = nativeModelBuilder
@@ -40,7 +37,6 @@ const messageId = nativeModelBuilder
   .type(FIELD_TYPE.STRING, errors.MESSAGE_ID_INVALID_TYPE)
   .required(true, errors.MESSAGE_ID_REQUIRED)
   .empty(false, errors.MESSAGE_ID_EMPTY)
-  .defaultValue(randomMaker.id)
   .maxlength(45, errors.MESSAGE_ID_MAX_LENGTH_REACH)
   .minlength(40, errors.MESSAGE_ID_MIN_LENGTH_REACH)
   .trim(true)

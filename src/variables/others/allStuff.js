@@ -9,12 +9,8 @@ const validationModels = {
   ...models.validation.user,
 };
 
-const errors = {
-  ...userErrors,
-};
-
 const allStuff = {
-  errors,
+  errors: userErrors,
   models: {
     ...models.native.chat,
     ...models.native.common,
@@ -32,7 +28,4 @@ const allStuff = {
 
 module.exports = {
   allStuff,
-  errors,
-  models,
-  routes,
 };

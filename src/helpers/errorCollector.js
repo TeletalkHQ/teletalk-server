@@ -1,4 +1,3 @@
-const { customTypeof } = require("custom-typeof");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { errors } = require("@/variables/errors");
@@ -12,9 +11,9 @@ const errorCollector = (res, error) => {
 };
 
 const tryToCollectError = (error) => {
-  if (customTypeof.isObject(error) && error.reason) return error;
+  if (error?.reason) return error;
 
-  logger.error("unknownError:::", error);
+  logger.dir(logger.levels.error, { unknownError: error }, { depth: 10 });
 
   return {
     ...errors.UNKNOWN_ERROR,

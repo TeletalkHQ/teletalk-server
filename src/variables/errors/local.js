@@ -3,8 +3,11 @@ const localErrors = {
     message: "You must pass validationModel as a object",
     reason: "VALIDATION_MODEL_IS_NOT_OBJECT",
   },
-  ROUTE_OBJECT_IS_BROKEN: {
-    reason: "ROUTE_OBJECT_IS_BROKEN",
+  ROUTE_IS_BROKEN: {
+    reason: "ROUTE_IS_BROKEN",
+  },
+  ERROR_IS_BROKEN: {
+    reason: "ERROR_IS_BROKEN",
   },
 };
 

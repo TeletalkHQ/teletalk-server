@@ -108,8 +108,6 @@ const verificationCode = nativeModelBuilder
   .required(true, errors.VERIFICATION_CODE_REQUIRED)
   .empty(false, errors.VERIFICATION_CODE_EMPTY)
   .length(6, errors.VERIFICATION_CODE_INVALID_LENGTH)
-  //TODO: Remove maxlength
-  .maxlength(6, errors.VERIFICATION_CODE_MAXLENGTH_REACH)
   .numeric(true, errors.VERIFICATION_CODE_NUMERIC)
   .trim(true)
   .build();

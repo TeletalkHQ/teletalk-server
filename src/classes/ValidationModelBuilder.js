@@ -44,7 +44,7 @@ class ValidationModelBuilder {
   }
   #setMessage(modelKey, messageKey) {
     this.#validationModel.messages[messageKey] =
-      this.#model[modelKey].error.message;
+      this.#model[modelKey].error.reason;
   }
 
   static validatorCompiler(validationModel) {

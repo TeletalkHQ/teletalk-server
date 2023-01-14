@@ -15,7 +15,7 @@ const mongodbConnector = () => {
     );
   });
 
-  return mongoose.connect(configs.db.MONGO_URL_WITH_COLLECTION_NAME, {
+  return mongoose.connect(configs.db.MONGO_URL_FULL, {
     keepAlive: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,

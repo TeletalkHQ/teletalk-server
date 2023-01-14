@@ -6,7 +6,6 @@ class RouteBuilder {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
     this.route = {
-      description: "Default route description",
       fullUrl: undefined,
       inputFields: {},
       method: "get",
@@ -34,10 +33,6 @@ class RouteBuilder {
     this.#updateProperty("statusCode", statusCode);
     return this;
   }
-  description(description) {
-    this.#updateProperty("description", description);
-    return this;
-  }
   inputFields(inputFields = this.route.inputFields) {
     this.#updateProperty("inputFields", inputFields);
     return this;
@@ -56,7 +51,7 @@ class RouteBuilder {
     const { fullUrl, url, statusCode } = this.route;
 
     errorThrower(customTypeof.isUndefined(fullUrl, url, statusCode), {
-      ...errors.ROUTE_OBJECT_IS_BROKEN,
+      ...errors.ROUTE_IS_BROKEN,
       route: this.route,
     });
   }

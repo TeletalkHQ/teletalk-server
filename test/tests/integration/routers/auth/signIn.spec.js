@@ -8,15 +8,41 @@ const { requesters } = require("$/utilities");
 const { expect } = require("chai");
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 const { authHelper } = require("$/classes/AuthHelper");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 describe("signIn success test", () => {
-  const signInCellphone = randomMaker.unusedCellphone();
   it("should sign as new user", async () => {
-    const result = await authHelper(signInCellphone).signIn();
+    const cellphone = randomMaker.unusedCellphone();
+    const result = await authHelper(cellphone).signIn();
     const { body } = result.signInResponse;
     const successTest = testHelper.createSuccessTest();
-    await testSavedTemporaryClient(successTest, body, signInCellphone);
-    await testResponseData(successTest, body, signInCellphone);
+    await testSavedTemporaryClient(successTest, body, cellphone);
+    await testResponseData(successTest, body, cellphone);
+  });
+
+  it("should sign as existed user", async () => {
+    const { user } = await randomMaker.user();
+    const cellphone = userUtilities.extractCellphone(user);
+    const result = await authHelper(cellphone).signIn();
+    const { body } = result.signInResponse;
+    const successTest = testHelper.createSuccessTest();
+    await testSavedTemporaryClient(successTest, body, cellphone);
+    await testResponseData(successTest, body, cellphone);
+  });
+
+  it("should sign multiple time, so temporary client get updated", async () => {
+    const cellphone = randomMaker.unusedCellphone();
+    const helper = authHelper(cellphone);
+
+    for (let i = 0; i < 10; i++) {
+      await helper.signIn();
+    }
+
+    const result = await helper.signIn();
+    const { body } = result.signInResponse;
+    const successTest = testHelper.createSuccessTest();
+    await testSavedTemporaryClient(successTest, body, cellphone);
+    await testResponseData(successTest, body, cellphone);
   });
 });
 

@@ -1,9 +1,11 @@
+const { envManager } = require("@/classes/EnvironmentManager");
 const { crashServer } = require("./src/utilities/utilities");
 
 const startApp = async () => {
-  const NODE_ENV = process.env.NODE_ENV;
+  const NODE_ENV = envManager.getNodeEnv();
 
-  if (NODE_ENV === "production") return require("./build");
+  if (NODE_ENV === envManager.getNodeEnvValues().production)
+    return require("./build");
 
   const startupRequirements = require("./startupRequirements");
 

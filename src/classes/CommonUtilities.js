@@ -11,10 +11,14 @@ class CommonUtilities {
     res.checkDataAndResponse(data, requiredFieldsIndex);
   }
 
-  // isTestServerRunning() {
+  // isProduction() {
+  //   const NODE_ENV = envManager.getNodeEnv();
+  //   return NODE_ENV === envManager.getNodeEnvValues().production;
+  // }
+
+  // isTest() {
   //   const serverNodeEnvValue = envManager.getNodeEnv();
   //   const { test_development, test_production } = envManager.getNodeEnvValues();
-
   //   return [test_development, test_production].includes(serverNodeEnvValue);
   // }
 }

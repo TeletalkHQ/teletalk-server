@@ -1,4 +1,3 @@
-const { appConfigs } = require("@/classes/AppConfigs");
 const { authManager } = require("@/classes/AuthManager");
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { smsClient } = require("@/classes/SmsClient");
@@ -16,19 +15,16 @@ const tryToSignIn = async (req) => {
 
   const cellphone = userUtilities.extractCellphone(req.body);
 
-  const configs = appConfigs.getConfigs();
-  if (configs.sms.shouldSendSms) {
-    const host = getHostFromRequest(req);
-    const fullNumber = userUtilities.makeFullNumber(
-      cellphone.countryCode,
-      cellphone.phoneNumber
-    );
-    await sendVerificationCode(fullNumber, host, verificationCode);
-  }
+  const host = getHostFromRequest(req);
+  const fullNumber = userUtilities.makeFullNumber(
+    cellphone.countryCode,
+    cellphone.phoneNumber
+  );
+  await sendVerificationCode(fullNumber, host, verificationCode);
 
   const token = signToken(cellphone);
   await manageTemporaryClient(cellphone, verificationCode, token);
-  logger.debug("rm", "verificationCode", verificationCode);
+
   return {
     token,
   };

@@ -16,6 +16,7 @@ require("$/tests/integration/routers/auth/logout.spec");
 //? privateChatRouter api's =>
 require("$/tests/integration/routers/privateChat/sendPrivateMessage.spec");
 require("$/tests/integration/routers/privateChat/getAllPrivateChats.spec");
+require("$/tests/integration/routers/privateChat/getPrivateChat.spec");
 //? userRouter api's =>
 require("$/tests/integration/routers/user/addBlock.spec");
 require("$/tests/integration/routers/user/removeBlock.spec");
@@ -35,5 +36,5 @@ require("$/tests/middleware/notFound.spec");
 require("$/tests/middleware/requestMethodChecker.spec");
 require("$/tests/middleware/authDefault.spec");
 require("$/tests/middleware/checkBodyFields.spec");
-// // require("$/tests/middleware/checkCurrentUserStatus.spec");
+// require("$/tests/middleware/checkCurrentUserStatus.spec");
 //#endregion

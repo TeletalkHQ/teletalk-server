@@ -42,6 +42,7 @@ const requesters = {
   signIn: makeRequester(routes.auth.signIn),
   updatePublicUserData: makeRequester(routes.user.updatePublicUserData),
   verify: makeRequester(routes.auth.verify),
+  getPrivateChat: makeRequester(routes.privateChat.getPrivateChat),
 };
 
 const otherUtilities = {

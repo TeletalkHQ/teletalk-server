@@ -29,4 +29,4 @@ REFACTOR: Rename services like mongodb
 TODO: Add startup requirements checkup function
 TODO: Update thunder client
 TODO: Create MiddlewareHandler, MiddlewareBuilder
-TODO: Update README
+TODO: new instance for each failTest props

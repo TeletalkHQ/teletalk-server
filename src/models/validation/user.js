@@ -124,7 +124,7 @@ const verificationCode = {
     .required()
     .empty()
     .length()
-    .max()
+    // .max()
     .numeric()
     .trim()
     .type()

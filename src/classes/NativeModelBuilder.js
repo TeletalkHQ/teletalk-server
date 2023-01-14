@@ -4,7 +4,7 @@ class NativeModelBuilder {
   constructor() {
     this.model = {
       empty: this.#initialValueAndError(),
-      lowercase: this.#initialValueAndError(),
+      // lowercase: this.#initialValueAndError(),
       length: this.#initialValueAndError(),
       maxlength: this.#initialValueAndError(),
       minlength: this.#initialValueAndError(),
@@ -64,10 +64,6 @@ class NativeModelBuilder {
     this.#updateProperty("empty", value, error);
     return this;
   }
-  items(value) {
-    this.#updateProperty("length", value);
-    return this;
-  }
   required(value, error = {}) {
     this.#updateProperty("required", value, error);
     return this;
@@ -80,10 +76,10 @@ class NativeModelBuilder {
     this.#updateProperty("unique", value, error);
     return this;
   }
-  lowercase(value, error) {
-    this.#updateProperty("lowercase", value, error);
-    return this;
-  }
+  // lowercase(value, error) {
+  //   this.#updateProperty("lowercase", value, error);
+  //   return this;
+  // }
   length(value, error) {
     this.#updateProperty("length", value, error);
     return this;

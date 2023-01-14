@@ -15,15 +15,15 @@ class ServiceBuilder {
     return this;
   }
 
-  inputFields(fields) {
-    this.#options.inputFields = fields;
-    return this;
-  }
+  // inputFields(fields) {
+  //   this.#options.inputFields = fields;
+  //   return this;
+  // }
 
-  outputFields(fields) {
-    this.#options.outputFields = fields;
-    return this;
-  }
+  // outputFields(fields) {
+  //   this.#options.outputFields = fields;
+  //   return this;
+  // }
 
   build() {
     return serviceHandler.create(this.#serviceBody, this.#options);

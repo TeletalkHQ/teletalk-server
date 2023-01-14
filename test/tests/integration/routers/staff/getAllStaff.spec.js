@@ -22,7 +22,6 @@ describe("getAllStuff success tests", () => {
 
 const testRoutes = (routes) => {
   Object.values(routes).forEach((route) => {
-    expect(route.description).to.be.an(FIELD_TYPE.STRING);
     expect(route.fullUrl).to.be.an(FIELD_TYPE.STRING);
     expect(route.method).to.be.an(FIELD_TYPE.STRING);
     expect(route.statusCode).to.be.an(FIELD_TYPE.NUMBER);
@@ -41,9 +40,7 @@ const testModels = (models) => {
       expect(prop.value).not.be.null;
       if (prop.error) {
         expect(prop.error).to.be.an(FIELD_TYPE.OBJECT);
-        expect(prop.error.description).to.be.an(FIELD_TYPE.STRING);
         expect(prop.error.errorKey).to.be.an(FIELD_TYPE.STRING);
-        expect(prop.error.message).to.be.an(FIELD_TYPE.STRING);
         expect(prop.error.reason).to.be.an(FIELD_TYPE.STRING);
         expect(prop.error.statusCode).to.be.an(FIELD_TYPE.NUMBER);
       }
@@ -54,9 +51,7 @@ const testModels = (models) => {
 const testErrors = (errors) => {
   Object.values(errors).forEach((error) => {
     expect(error).to.be.an(FIELD_TYPE.OBJECT);
-    expect(error.description).to.be.an(FIELD_TYPE.STRING);
     expect(error.errorKey).to.be.an(FIELD_TYPE.STRING);
-    expect(error.message).to.be.an(FIELD_TYPE.STRING);
     expect(error.reason).to.be.an(FIELD_TYPE.STRING);
     expect(error.statusCode).to.be.an(FIELD_TYPE.NUMBER);
   });

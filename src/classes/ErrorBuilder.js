@@ -1,9 +1,11 @@
+const { customTypeof } = require("custom-typeof");
+const { errorThrower } = require("utility-store/src/utilities/utilities");
+
+const { localErrors } = require("@/variables/errors/local");
 class ErrorBuilder {
   constructor() {
     this.error = {
-      description: "Default error description",
       errorKey: "",
-      message: "",
       reason: "UNKNOWN_ERROR",
       statusCode: 400,
     };
@@ -13,28 +15,25 @@ class ErrorBuilder {
     this.error[key] = value;
   }
 
-  build() {
-    return this.error;
-  }
-  statusCode(statusCode) {
-    this.#updateProperty("statusCode", statusCode);
-    return this;
-  }
-  message(message) {
-    this.#updateProperty("message", message);
+  errorKey(errorKey) {
+    this.#updateProperty("errorKey", errorKey);
     return this;
   }
   reason(reason) {
     this.#updateProperty("reason", reason);
     return this;
   }
-  errorKey(errorKey) {
-    this.#updateProperty("errorKey", errorKey);
+  statusCode(statusCode) {
+    this.#updateProperty("statusCode", statusCode);
     return this;
   }
-  description(description) {
-    this.#updateProperty("description", description);
-    return this;
+
+  build() {
+    const values = Object.values(this.error);
+    const isUndefined = customTypeof.isUndefined(...values);
+    errorThrower(isUndefined, localErrors.ERROR_IS_BROKEN);
+
+    return this.error;
   }
 }
 

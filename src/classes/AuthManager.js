@@ -51,9 +51,10 @@ class AuthManager {
       reqUrl
     );
 
+    const secrets = this.getJwtSecrets();
     return isAuthenticationUrl
-      ? this.getJwtSignInSecret()
-      : this.getJwtMainSecret();
+      ? secrets.JWT_SIGN_IN_SECRET
+      : secrets.JWT_MAIN_SECRET;
   }
 
   getTokenFromRequest(request) {

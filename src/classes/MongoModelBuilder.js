@@ -39,10 +39,10 @@ class MongoModelBuilder {
     return this;
   }
 
-  lowercase() {
-    this.#updateProperty("lowercase");
-    return this;
-  }
+  // lowercase() {
+  //   this.#updateProperty("lowercase");
+  //   return this;
+  // }
   maxlength() {
     this.#updateProperty("maxlength");
     return this;

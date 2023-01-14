@@ -15,7 +15,7 @@ const getPrivateChat = privateChatRouteBuilder
   .inputFields({ chatId: fields.single.chatId })
   .outputFields([
     {
-      privateChat: fields.collection.privateChat,
+      privateChat: fields.statics.object(fields.collection.privateChat),
     },
   ])
   .build();

@@ -72,5 +72,7 @@
   "marquee.widgets.npm-stats.packageNames": ["teletalk-server"],
   "dimmer.enabled": false,
   "todo-tree.tree.showBadges": true,
-  "todo-tree.tree.showCountsInTree": true
+  "todo-tree.tree.showCountsInTree": true,
+  "editor.fontFamily": "Fira code",
+  "editor.fontSize": 14
 }

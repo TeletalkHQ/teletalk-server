@@ -43,6 +43,7 @@ class EnvironmentManager extends EnvironmentManagerMain {
         build: "build",
         development: "development",
         production: "production",
+        production_local: "production_local",
         test_development: "test_development",
         test_production: "test_production",
         test_production_local: "test_production_local",

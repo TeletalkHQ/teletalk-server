@@ -1,2 +1,2 @@
-require("./startupRequirements").mainServer();
+require("./requirements").mainServer();
 module.exports = require("@/server");

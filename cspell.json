@@ -68,6 +68,7 @@
     "middlewares",
     "monospace",
     "multer",
+    "newrelic",
     "nodemailer",
     "nodemon",
     "nrcf",

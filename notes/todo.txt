@@ -2,12 +2,10 @@ Node-gyp-build documentation
 Bcryptjs or bcrypt ?
 PassportJS for multi login, maybe for anonymous signIn, part 76
 Morgan ,part 82
-Use multer or express-fileupload for get multi-data, part 96
+multer or express-fileupload for get multi-data, part 96
 Upload progress-bar, part 98
-Use sharp for compress images
-NodeMailer, nodemailer-smtp-transport for send email, part 119
-nest-js, swagger doc;
-Browser back control, part 129
+sharp for compress images
+NodeMailer, nodemailer-smtp-transport, part 119
 Handle error part 134
 Set headers part 135
 Restify part 136
@@ -15,9 +13,7 @@ Use firewall part 146
 PM2 for nodeJS process manager part 149
 FTP part 150, nginx part 149
 Using ms for convert time to ms and reverse
-ClipboardJS documentation
 Make api for log server errors
-Use lokiJS for frontend db in-memory
 Monitor test requests (total requests, count each url)
 Monitor all configs when tests start. Give it a good look!
 AppSignal
@@ -26,7 +22,7 @@ CLEANME: index files
 FIXME public assets sharing
 FIXME: Return this on serviceHandler.run
 REFACTOR: Rename services like mongodb
-TODO: Add startup requirements checkup function
+TODO: Add startup requirements check function
 TODO: Update thunder client
 TODO: Create MiddlewareHandler, MiddlewareBuilder
 TODO: new instance for each failTest props

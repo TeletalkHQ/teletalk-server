@@ -1,4 +1,4 @@
-// const { envManager } = require("@/classes/EnvironmentManager");
+const { envManager } = require("@/classes/EnvironmentManager");
 
 //TODO Rename
 class CommonUtilities {
@@ -11,10 +11,14 @@ class CommonUtilities {
     res.checkDataAndResponse(data, requiredFieldsIndex);
   }
 
-  // isProduction() {
-  //   const NODE_ENV = envManager.getNodeEnv();
-  //   return NODE_ENV === envManager.getNodeEnvValues().production;
-  // }
+  isProduction() {
+    const NODE_ENV = envManager.getNodeEnv();
+    const nodeEnvValues = envManager.getNodeEnvValues();
+    return (
+      NODE_ENV === nodeEnvValues.production ||
+      NODE_ENV === nodeEnvValues.production_local
+    );
+  }
 
   // isTest() {
   //   const serverNodeEnvValue = envManager.getNodeEnv();

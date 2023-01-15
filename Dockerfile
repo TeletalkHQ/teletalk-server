@@ -12,7 +12,7 @@ RUN yarn
 COPY jsconfig.json ./
 COPY environments/ environments/
 
-COPY startupRequirements/ startupRequirements/
+COPY requirements/ requirements/
 
 COPY src/ src/
 COPY public/ public/

@@ -10,6 +10,7 @@ COPY yarn* ./
 RUN yarn
 
 COPY jsconfig.json ./
+
 COPY environments/ environments/
 
 COPY requirements/ requirements/
@@ -18,7 +19,7 @@ COPY src/ src/
 COPY public/ public/
 COPY index.js ./
 
-COPY test/ test/
+# COPY test/ test/
 
 COPY esbuild.config.json ./
 COPY esbuildEntryPoint.js ./
@@ -27,6 +28,6 @@ RUN npm run build
 
 USER node
 
-CMD [ "npm","run","start:production" ]
+CMD [ "npm","run","start:production:local" ]
 
 EXPOSE 8080

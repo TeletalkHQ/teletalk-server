@@ -26,3 +26,4 @@ TODO: Add startup requirements check function
 TODO: Update thunder client
 TODO: Create MiddlewareHandler, MiddlewareBuilder
 TODO: new instance for each failTest props
+TODO: Restructure folders, index, and more

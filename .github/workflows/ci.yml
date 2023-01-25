@@ -9,12 +9,10 @@ jobs:
   ci:
     env:
       CI: true
-      REDIS_CLOUD_HOST: redis-stack-server
-      REDIS_CLOUD_PORT: 6379
 
     strategy:
       matrix:
-        mongodb-version: [4.4, 5.0, 6.0]
+        mongodb-version: [4.4, 5.x, 6.x]
         node-version: [16.x, 18.x]
         operations: [ubuntu-latest]
 
@@ -23,9 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: |
-          chmod +x ./temp/redisLoader.sh
-          ./temp/redisLoader.sh
+      - name: Install redis
+        run: |
+          chmod +x ./scripts/redisLoader.sh
+          ./scripts/redisLoader.sh
 
       - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v3

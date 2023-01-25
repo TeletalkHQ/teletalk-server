@@ -16,6 +16,7 @@
     "check:lint:default": "eslint 'src/**/*.js'",
     "check:security": "snyk test & snyk code test",
     "check:style": "npm run check:format && npm run check:lint",
+    "dev": "npm run start:dev",
     "git:prepare": "husky install",
     "start": "npm run start:production",
     "start:dev": "cross-env NODE_ENV=development nodemon --trace-warnings ./index.js",

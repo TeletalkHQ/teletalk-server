@@ -13,7 +13,7 @@ class SmsClient {
   templates() {
     return {
       verificationCode: (verificationCode, host) =>
-        `کد تایید: ${verificationCode} ${loggerHelper.newLine()}${loggerHelper.newLine()} ${host}        
+        `verification code: ${verificationCode} ${loggerHelper.newLine()}${loggerHelper.newLine()} ${host}        
         `,
     };
   }

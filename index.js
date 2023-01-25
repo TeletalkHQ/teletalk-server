@@ -8,6 +8,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 const { crashServer } = require("@/utilities/utilities");
 
 const startApp = async () => {
+  console.log(process.env);
   if (commonUtilities.isProduction()) return require("./build");
 
   const requirements = require("./requirements");

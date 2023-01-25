@@ -23,11 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install redis
-      run: |
-        chmod +x ./temp/redisLoader.sh
-        ./temp/redisLoader.sh
-
+      - run: |
+          chmod +x ./temp/redisLoader.sh
+          ./temp/redisLoader.sh
 
       - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v3

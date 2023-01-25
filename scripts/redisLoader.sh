@@ -9,7 +9,7 @@ sudo apt-get install redis -y
 
 sudo systemctl stop redis-server.service
 sudo mkdir /etc/redis/modules
-sudo cp ./scripts/rejson.so /etc/redis/modules
+sudo cp ./modules/redis/rejson.so /etc/redis/modules
 sudo tee -a /etc/redis/redis.conf >/dev/null <<EOT
 loadmodule /etc/redis/modules/rejson.so
 EOT

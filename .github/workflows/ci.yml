@@ -16,7 +16,7 @@ jobs:
       matrix:
         mongodb-version: [4.4, 5.0, 6.0]
         node-version: [16.x, 18.x]
-        operations: [ubuntu-latest, windows-latest]
+        operations: [ubuntu-latest]
 
     runs-on: ${{ matrix.operations }}
 

@@ -7,7 +7,7 @@ const {
 const { errors } = require("@/variables/errors");
 
 class TemporaryClients {
-  #STATE_KEY = "temporaryClients";
+  #STATE_KEY = "temporary_clients";
   #STATE_PATH = ".";
 
   async initializeClients(storage) {
@@ -35,7 +35,8 @@ class TemporaryClients {
     );
   }
   async findIndex(client) {
-    return (await this.getAll()).findIndex(
+    const temporaryClients = await this.getAll();
+    return temporaryClients.findIndex(
       (i) => !!isDataHasEqualityWithTargetCellphone(i, client)
     );
   }
@@ -50,6 +51,7 @@ class TemporaryClients {
 
   async update(oldData, newData) {
     const index = await this.findIndex(oldData);
+
     errorThrower(index === -1, errors.TEMPORARY_CLIENT_NOT_FOUND);
 
     await this.remove(index);
@@ -60,7 +62,12 @@ class TemporaryClients {
   }
 
   async remove(index) {
-    await this.storage.json.arrPop(this.#STATE_KEY, this.#STATE_PATH, index);
+    await this.storage.json.arrPop(this.#STATE_KEY, this.#STATE_PATH, +index);
+  }
+
+  async removeByCellphone(cellphone) {
+    const index = await this.findIndex(cellphone);
+    await this.remove(index);
   }
 }
 

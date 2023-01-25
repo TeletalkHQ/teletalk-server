@@ -92,7 +92,7 @@ const createNewUserAndSave = async (userDataForDatabase) => {
 };
 
 const removeTemporaryClient = async (cellphone) => {
-  await temporaryClients.remove(cellphone);
+  await temporaryClients.removeByCellphone(cellphone);
 };
 
 const createNewUser = controllerBuilder

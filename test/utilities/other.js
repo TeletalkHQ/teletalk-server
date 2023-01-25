@@ -2,7 +2,7 @@ const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { models } = require("@/models");
 
-const { requesterCreator } = require("$/classes/requester/Requester");
+const { requesterCreator } = require("$/classes/Requester");
 
 const { routes } = require("@/routes");
 

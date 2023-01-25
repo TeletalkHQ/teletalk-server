@@ -51,7 +51,7 @@ const addNewSession = async (userId, newToken) => {
 };
 
 const removeTemporaryClient = async (cellphone) => {
-  await temporaryClients.remove(cellphone);
+  await temporaryClients.removeByCellphone(cellphone);
 };
 
 const verify = controllerBuilder.create().body(tryToVerify).build();

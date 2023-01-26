@@ -9,12 +9,10 @@ jobs:
   ci:
     env:
       CI: true
-      REDIS_CLOUD_HOST: redis-stack-server
-      REDIS_CLOUD_PORT: 6379
 
     strategy:
       matrix:
-        mongodb-version: [4.4, 5.x, 6.x]
+        mongodb-version: [4.4, 5.0, 6.0]
         node-version: [16.x, 18.x]
         operations: [ubuntu-latest]
 

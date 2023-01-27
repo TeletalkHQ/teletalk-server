@@ -9,8 +9,6 @@ jobs:
   coverage:
     env:
       CI: true
-      REDIS_CLOUD_HOST: redis-stack-server
-      REDIS_CLOUD_PORT: 6379
 
     strategy:
       matrix:
@@ -20,14 +18,13 @@ jobs:
 
     runs-on: ${{ matrix.operations }}
 
-    services:
-      redis-stack-server:
-        image: redis/redis-stack-server
-        ports:
-          - 6379:6379
-
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install redis
+        run: |
+          chmod +x ./scripts/redisLoader.sh
+          ./scripts/redisLoader.sh
 
       - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v3

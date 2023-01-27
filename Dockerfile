@@ -28,6 +28,7 @@ RUN npm run build
 
 USER node
 
-CMD [ "npm","run","start:production:local" ]
+CMD npm run start:production:local
+# CMD npm run test:production:local && npm run start:production:local
 
-EXPOSE 8080
+EXPOSE 8081

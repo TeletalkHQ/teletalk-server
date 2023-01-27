@@ -3,6 +3,7 @@ const redis = require("redis");
 
 const { appConfigs } = require("@/classes/AppConfigs");
 const { envManager } = require("@/classes/EnvironmentManager");
+
 const { crashServer } = require("@/utilities/utilities");
 
 const mongodbConnector = () => {
@@ -23,15 +24,15 @@ const mongodbConnector = () => {
 };
 
 const redisConnector = async () => {
-  const REDIS_CONNECTION_OPTIONS = examineRedisConnectionOptions();
-  const storage = redis.createClient(REDIS_CONNECTION_OPTIONS);
+  const REDIS_CONNECTION_OPTIONS = fixRedisConnection();
+
+  const storage = redis.createClient({
+    socket: REDIS_CONNECTION_OPTIONS,
+  });
+
   storage.on("connect", () =>
     logger.info(
-      `Redis connected to => ${
-        REDIS_CONNECTION_OPTIONS.host
-          ? `${REDIS_CONNECTION_OPTIONS.host}:${REDIS_CONNECTION_OPTIONS.port}`
-          : `localhost:${REDIS_CONNECTION_OPTIONS}`
-      }`
+      `Redis connected to => ${REDIS_CONNECTION_OPTIONS.host}:${REDIS_CONNECTION_OPTIONS.port}`
     )
   );
   storage.on("error", crashServer);
@@ -41,28 +42,38 @@ const redisConnector = async () => {
   return storage;
 };
 
-const examineRedisConnectionOptions = () => {
-  const {
-    REDIS_CLOUD_HOST,
-    REDIS_DEFAULT_PORT,
-    //? This is actually redis tcp url from docker!
-    REDIS_PORT,
-  } = envManager.getAllLocalEnvironments();
+const fixRedisConnection = () => {
+  const { REDIS_PASSWORD } = envManager.getAllLocalEnvironments();
 
-  const REDIS_OPTIONS = REDIS_CLOUD_HOST && makeRedisOptions();
-
-  return REDIS_PORT || REDIS_OPTIONS || REDIS_DEFAULT_PORT;
-};
-
-const makeRedisOptions = () => {
-  const { REDIS_CLOUD_HOST, REDIS_CLOUD_PASSWORD, REDIS_CLOUD_PORT } =
-    envManager.getAllLocalEnvironments();
+  const fixedHost = fixRedisHost();
+  const fixedPort = fixRedisPort();
 
   return {
-    host: REDIS_CLOUD_HOST,
-    password: REDIS_CLOUD_PASSWORD,
-    port: REDIS_CLOUD_PORT,
+    host: fixedHost,
+    password: REDIS_PASSWORD,
+    port: fixedPort,
   };
+};
+const fixRedisHost = () => {
+  const { REDIS_DEFAULT_HOST, REDIS_HOST, REDIS_PORT } =
+    envManager.getAllLocalEnvironments();
+
+  if ([REDIS_HOST, REDIS_PORT].some((item = "") => item.includes("tcp://"))) {
+    return (REDIS_HOST || REDIS_PORT).replace("tcp://", "").split(":")[0];
+  }
+
+  return REDIS_HOST || REDIS_DEFAULT_HOST;
+};
+
+const fixRedisPort = () => {
+  const { REDIS_DEFAULT_PORT, REDIS_PORT } =
+    envManager.getAllLocalEnvironments();
+
+  if (REDIS_PORT?.includes("tcp://")) {
+    return REDIS_PORT.split(":")[2];
+  }
+
+  return REDIS_PORT || REDIS_DEFAULT_PORT;
 };
 
 module.exports = {

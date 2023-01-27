@@ -8,7 +8,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 const { crashServer } = require("@/utilities/utilities");
 
 const startApp = async () => {
-  console.log(process.env);
+  logEnvironments();
   if (commonUtilities.isProduction()) return require("./build");
 
   const requirements = require("./requirements");
@@ -26,5 +26,19 @@ const startApp = async () => {
     }
   } else require("@/server");
 };
+
+const logEnvironments = () => {
+  const envs = sortEnvironments();
+  console.log(envs);
+};
+
+const sortEnvironments = () =>
+  Object.entries(process.env)
+    .map(([key, value]) => ({ key, value }))
+    .sort((a, b) => a.key.localeCompare(b.key))
+    .reduce((prevValue, currentValue) => {
+      prevValue[currentValue.key] = currentValue.value;
+      return prevValue;
+    }, {});
 
 startApp();

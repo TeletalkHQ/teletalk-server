@@ -25,9 +25,11 @@ const mongodbConnector = () => {
 
 const redisConnector = async () => {
   const REDIS_CONNECTION_OPTIONS = fixRedisConnection();
+  const { REDIS_PASSWORD } = envManager.getAllLocalEnvironments();
 
   const storage = redis.createClient({
     socket: REDIS_CONNECTION_OPTIONS,
+    password: REDIS_PASSWORD,
   });
 
   storage.on("connect", () =>
@@ -43,14 +45,11 @@ const redisConnector = async () => {
 };
 
 const fixRedisConnection = () => {
-  const { REDIS_PASSWORD } = envManager.getAllLocalEnvironments();
-
   const fixedHost = fixRedisHost();
   const fixedPort = fixRedisPort();
 
   return {
     host: fixedHost,
-    password: REDIS_PASSWORD,
     port: fixedPort,
   };
 };

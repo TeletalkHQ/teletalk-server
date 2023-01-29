@@ -3,6 +3,7 @@
   "dictionaryDefinitions": [],
   "ignorePaths": [],
   "ignoreWords": [
+    "ARCHS",
     "Alland",
     "Alphadash",
     "Alphanum",
@@ -43,6 +44,7 @@
     "codecov",
     "codeql",
     "codestream",
+    "cvfz",
     "d'Ivoire",
     "dccache",
     "docb",

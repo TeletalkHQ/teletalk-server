@@ -23,8 +23,8 @@ jobs:
 
       - name: Install redis
         run: |
-          chmod +x ./scripts/redisLoader.sh
-          ./scripts/redisLoader.sh
+          chmod +x ./scripts/redis-loader/portable.sh
+          ./scripts/redis-loader/portable.sh
 
       - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v3

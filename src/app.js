@@ -1,3 +1,4 @@
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
@@ -18,11 +19,16 @@ const app = express();
 
 app.use(middlewares.logSeparator);
 
-app.use(cors());
 app.use(helmet());
-app.use(express.json());
+app.use(
+  cors({
+    credentials: true,
+    origin: true,
+  })
+);
 app.use(morgan("dev"));
-
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.static("public"));
 app.use(serveFavicon("public/assets/icons/favicon/favicon.ico"));
 

@@ -131,7 +131,9 @@ class FailTestBuilder {
   }
 
   createTestMessage(error, url) {
-    return `expected error: [url|${url}] [errorKey|${error.errorKey}] [reason|${error.reason}] - [statusCode|${error.statusCode}] `;
+    return `expected error: [url|${url.fullUrl || url}] [errorKey|${
+      error.errorKey
+    }] [reason|${error.reason}] - [statusCode|${error.statusCode}] `;
   }
 }
 

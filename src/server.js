@@ -5,7 +5,7 @@ const { app } = require("@/app");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const { ioFunctions } = require("@/socket/io");
+// const { ioFunctions } = require("@/socket/io");
 
 const httpServer = http.createServer(app);
 

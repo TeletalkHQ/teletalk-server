@@ -15,7 +15,6 @@ const createNewUser = userRouteBuilder
   .inputFields(fields.collection.fullName)
   .outputFields([
     {
-      token: fields.single.token,
       user: fields.statics.object(fields.collection.user),
     },
   ])
@@ -34,11 +33,6 @@ const signIn = userRouteBuilder
   .url("/signIn")
   .statusCode(200)
   .inputFields(fields.collection.cellphone)
-  .outputFields([
-    {
-      token: fields.single.token,
-    },
-  ])
   .build();
 
 const verify = userRouteBuilder
@@ -52,7 +46,6 @@ const verify = userRouteBuilder
   .outputFields([
     {
       newUser: fields.single.newUser,
-      token: fields.single.token,
       user: fields.statics.object(fields.collection.user),
     },
     {

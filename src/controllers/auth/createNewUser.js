@@ -14,13 +14,12 @@ const { validators } = require("@/validators");
 
 const { errors } = require("@/variables/errors");
 
-const tryToCreateNewUser = async (req) => {
+const tryToCreateNewUser = async (req, res) => {
   const {
+    authData,
     body: { firstName, lastName },
   } = req;
-  const token = authManager.getTokenFromRequest(req);
-
-  const cellphone = await extractCellphoneFromToken(token);
+  const cellphone = await extractCellphoneFromToken(authData.payload);
 
   const userId = getRandomId();
 
@@ -29,7 +28,8 @@ const tryToCreateNewUser = async (req) => {
   await checkTemporaryClient(cellphone);
   await checkExistenceOfUser(cellphone);
 
-  const newToken = signToken(userId);
+  const token = signToken(userId);
+  authManager.setTokenToResponse(res, token);
 
   const data = {
     user: {
@@ -39,19 +39,16 @@ const tryToCreateNewUser = async (req) => {
       lastName,
       userId,
     },
-    token: newToken,
   };
 
-  const userDataForDatabase = fixUserDataForDb(data);
+  const userDataForDatabase = fixUserDataForDb(data, token);
   await createNewUserAndSave(userDataForDatabase);
   await removeTemporaryClient(cellphone);
   return data;
 };
 
-const extractCellphoneFromToken = async (token) => {
-  const jwtSecret = authManager.getJwtSignInSecret();
-  const verifiedToken = await validators.token(token, jwtSecret);
-  return userUtilities.extractCellphone(verifiedToken.payload);
+const extractCellphoneFromToken = async (authData) => {
+  return userUtilities.extractCellphone(authData);
 };
 
 const checkTemporaryClient = async (cellphone) => {
@@ -80,9 +77,9 @@ const signToken = (userId) => {
   });
 };
 
-const fixUserDataForDb = ({ token, ...rest }) => {
+const fixUserDataForDb = (data, token) => {
   return {
-    ...rest.user,
+    ...data.user,
     sessions: [{ token }],
   };
 };

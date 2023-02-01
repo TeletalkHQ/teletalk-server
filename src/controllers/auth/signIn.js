@@ -9,7 +9,7 @@ const { passwordGenerator } = require("@/utilities/passwordGenerator");
 
 const { validators } = require("@/validators");
 
-const tryToSignIn = async (req) => {
+const tryToSignIn = async (req, res = expressResponse) => {
   const verificationCode = passwordGenerator();
   await validateVerificationCode(verificationCode);
 
@@ -23,11 +23,10 @@ const tryToSignIn = async (req) => {
   await sendVerificationCode(fullNumber, host, verificationCode);
 
   const token = signToken(cellphone);
-  await manageTemporaryClient(cellphone, verificationCode, token);
 
-  return {
-    token,
-  };
+  authManager.setTokenToResponse(res, token);
+
+  await manageTemporaryClient(cellphone, verificationCode, token);
 };
 
 const validateVerificationCode = async (verificationCode) => {

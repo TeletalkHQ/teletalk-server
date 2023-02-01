@@ -10,12 +10,23 @@ const { routes } = require("@/routes");
 const { errors } = require("@/variables/errors");
 
 class AuthManager {
-  #options = { algorithm: "HS256" };
+  #options = {
+    jwt: {
+      algorithm: "HS256",
+    },
+    cookie: {
+      SESSION_NAME: "SESSION",
+    },
+  };
+
+  getOptions() {
+    return this.#options;
+  }
 
   verifyToken(
     token,
     secret = this.getJwtMainSecret(),
-    options = this.#options
+    options = this.getOptions().jwt
   ) {
     return trier(this.verifyToken.name)
       .try(this.#tryVerifyToken.bind(this), token, secret, options)
@@ -31,16 +42,20 @@ class AuthManager {
   #tryVerifyToken(token, secret, options) {
     const data = JWT.verify(token, secret, {
       complete: true,
-      ...this.#options,
+      ...this.getOptions().jwt,
       ...options,
     });
 
     return { data };
   }
 
-  signToken(data, secret = this.getJwtMainSecret(), options = this.#options) {
+  signToken(
+    data,
+    secret = this.getJwtMainSecret(),
+    options = this.getOptions().jwt
+  ) {
     return JWT.sign(data, secret, {
-      ...this.#options,
+      ...this.getOptions().jwt,
       ...options,
     });
   }
@@ -57,16 +72,11 @@ class AuthManager {
       : secrets.JWT_MAIN_SECRET;
   }
 
-  getTokenFromRequest(request) {
-    const authorization = this.getAuthorizationHeader(request);
-    return this.extractTokenFromAuthorization(authorization);
+  getTokenFromRequest(req = expressRequest) {
+    return req.cookies[this.getOptions().cookie.SESSION_NAME];
   }
-  getAuthorizationHeader(request) {
-    const { authorization, Authorization } = request.headers;
-    return authorization || Authorization;
-  }
-  extractTokenFromAuthorization(authorization) {
-    return authorization?.split("Bearer ").at(1);
+  setTokenToResponse(res, token, options = { httpOnly: true, secure: true }) {
+    res.cookie(this.getOptions().cookie.SESSION_NAME, token, options);
   }
 
   getJwtSignInSecret() {

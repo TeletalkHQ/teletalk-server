@@ -1,14 +1,16 @@
+const { expect } = require("chai");
+
 const { authManager } = require("@/classes/AuthManager");
 const { randomMaker } = require("$/classes/RandomMaker");
 const { temporaryClients } = require("@/classes/TemporaryClients");
+const { authHelper } = require("$/classes/AuthHelper");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
 const { requesters } = require("$/utilities");
-const { expect } = require("chai");
+
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
-const { authHelper } = require("$/classes/AuthHelper");
-const { userUtilities } = require("@/classes/UserUtilities");
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {

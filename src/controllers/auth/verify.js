@@ -5,7 +5,7 @@ const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
-const tryToVerify = async (req) => {
+const tryToVerify = async (req, res) => {
   const { authData } = req;
   const cellphone = userUtilities.extractCellphone(authData.payload);
   const foundUser = await services.findOneUser(cellphone);
@@ -17,18 +17,20 @@ const tryToVerify = async (req) => {
 
     const token = signToken(userData.userId);
 
+    authManager.setTokenToResponse(res, token);
+
     await addNewSession(userData.userId, token);
 
     return {
       newUser: false,
       requiredFieldsIndex: 0,
-      token,
       user: userData,
     };
   }
 
   return {
     newUser: true,
+    //CLEANME: ...
     requiredFieldsIndex: 1,
   };
 };

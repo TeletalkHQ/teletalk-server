@@ -20,7 +20,7 @@ class ControllerHandler {
   async run() {
     //FIXME: Add trier wrapper and throw unknown error
     await trier(this.controllerName)
-      .tryAsync(this.tryCallback, this.req)
+      .tryAsync(this.tryCallback, this.req, this.res)
       .executeIfNoError(this.responseCallback, this.res)
       .catch(this.catchCallback, this.res)
       .runAsync();

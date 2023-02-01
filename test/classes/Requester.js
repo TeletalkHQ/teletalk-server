@@ -1,6 +1,5 @@
 const { expect } = require("chai");
 const supertest = require("supertest");
-const { customTypeof } = require("custom-typeof");
 const {
   objectUtilities,
 } = require("utility-store/src/classes/ObjectUtilities");
@@ -10,6 +9,7 @@ const { loggerHelper } = require("@/utilities/logHelper");
 const { getApp } = require("$/helpers/getApp");
 
 const { errors } = require("@/variables/errors");
+const { authManager } = require("@/classes/AuthManager");
 
 const requester = supertest(getApp());
 
@@ -110,24 +110,25 @@ class Requester {
     return objectUtilities.excludePropsPeerToPeer(requestData, inputFields);
   }
 
-  fixToken(token) {
-    return customTypeof.isTruthy(token) ? `Bearer ${token}` : null;
-  }
-
   async sendRequest(options = this.getOptions()) {
     const { method, fullUrl } = this.getRoute();
     const requestData = this.getRequestData();
 
-    const token = this.fixToken(options.token);
+    const agent = requester[method](fullUrl);
+    agent.set("Content-Type", "application/json");
 
-    const response = await requester[method](fullUrl)
-      .send(requestData)
-      .set("Content-Type", "application/json")
-      .set("Authorization", token);
+    if (options.token)
+      agent.set("Cookie", [
+        `${authManager.getOptions().cookie.SESSION_NAME}=${options.token}`,
+      ]);
+
+    const response = await agent.send(requestData);
+
     this.setResponse(response);
 
     return this;
   }
+
   async sendFullFeaturedRequest(data, error, options = this.getOptions()) {
     loggerHelper.logStartTestRequest();
 

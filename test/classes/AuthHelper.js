@@ -13,30 +13,39 @@ class AuthHelper {
   }
 
   async signIn() {
-    const response = await requesters
-      .signIn()
-      .sendFullFeaturedRequest(this.cellphone);
+    const requester = requesters.signIn();
+    const response = await requester.sendFullFeaturedRequest(this.cellphone);
+
+    response.body.token = this.fixToken(response);
     this.signInResponse = response;
+
     return this;
   }
 
   async verify() {
     const temporaryClient = await temporaryClients.find(this.cellphone);
-    const response = await requesters
-      .verify()
+    const requester = requesters.verify();
+    const response = await requester
       .setToken(this.signInResponse.body.token)
       .sendFullFeaturedRequest({
         verificationCode: temporaryClient.verificationCode,
       });
+
+    if (!response.body.newUser) {
+      response.body.token = this.fixToken(response);
+    }
+
     this.verifyResponse = response;
     return this;
   }
 
   async create() {
-    const response = await requesters
-      .createNewUser()
+    const requester = requesters.createNewUser();
+    const response = await requester
       .setToken(this.signInResponse.body.token)
       .sendFullFeaturedRequest(this.fullName);
+
+    response.body.token = this.fixToken(response);
     this.createResponse = response;
     return this;
   }
@@ -46,6 +55,28 @@ class AuthHelper {
     await this.verify();
     await this.create();
     return this;
+  }
+
+  fixToken(response) {
+    return this.extractCookies(response.headers).SESSION.value;
+  }
+
+  extractCookies(headers) {
+    return headers["set-cookie"].reduce((shapedCookies, cookieString) => {
+      const [rawCookie, ...flags] = cookieString.split("; ");
+      const [cookieName, value] = rawCookie.split("=");
+      return {
+        ...shapedCookies,
+        [cookieName]: { value, flags: this.shapeFlags(flags) },
+      };
+    }, {});
+  }
+  shapeFlags(flags) {
+    return flags.reduce((shapedFlags, flag) => {
+      const [flagName, rawValue] = flag.split("=");
+      const value = rawValue ? rawValue.replace(";", "") : true;
+      return { ...shapedFlags, [flagName]: value };
+    }, {});
   }
 
   getSignInToken() {

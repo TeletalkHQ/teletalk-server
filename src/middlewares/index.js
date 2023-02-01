@@ -1,12 +1,12 @@
-const { notFound } = require("@/middlewares/notFound");
 const { applyMiddlewares } = require("@/middlewares/applyMiddlewares");
 const { attachCurrentUserId } = require("@/middlewares/attachCurrentUserId");
 const { authDefault } = require("@/middlewares/authDefault");
-const { selfStuffCheck } = require("@/middlewares/selfStuffCheck");
 const { cellphoneValidator } = require("@/middlewares/cellphoneValidator");
 const { checkBodyFields } = require("@/middlewares/checkBodyFields");
 const { checkDataAndResponse } = require("@/middlewares/checkDataAndResponse");
 const { contactValidator } = require("@/middlewares/contactValidator");
+const { notFound } = require("@/middlewares/notFound");
+const { selfStuffCheck } = require("@/middlewares/selfStuffCheck");
 const {
   checkCurrentUserStatus,
 } = require("@/middlewares/checkCurrentUserStatus");

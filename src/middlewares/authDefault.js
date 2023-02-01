@@ -15,6 +15,7 @@ const authDefault = async (req, res, next) => {
 
 const tryToValidateToken = async (req) => {
   const token = authManager.getTokenFromRequest(req);
+
   const secret = authManager.getSecret(req.url);
   const validationResult = await validators.token(token, secret);
 

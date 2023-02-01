@@ -6,11 +6,12 @@ const { errorThrower } = require("utility-store/src/utilities/utilities");
 const { authManager } = require("@/classes/AuthManager");
 const { userUtilities } = require("@/classes/UserUtilities");
 
+const { models } = require("@/models");
+
 const { compiledValidators } = require("@/validators/compiledValidators");
 const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
 
 const { errors } = require("@/variables/errors");
-const { models } = require("@/models");
 
 const bioValidator = async (bio) => {
   const validationResult = await compiledValidators.bio({

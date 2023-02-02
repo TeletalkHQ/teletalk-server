@@ -28,7 +28,10 @@ describe("createNewUser fail tests", () => {
   const requester = requesters.createNewUser();
   before(async () => {
     const cellphone = randomMaker.unusedCellphone();
-    const token = (await authHelper(cellphone).signIn()).getSignInToken();
+    const helper = authHelper(cellphone);
+    await helper.signIn();
+    await helper.verify();
+    const token = helper.getSignInToken();
     requester.setToken(token);
   });
 

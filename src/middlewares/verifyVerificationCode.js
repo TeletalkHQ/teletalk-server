@@ -3,7 +3,6 @@ const { trier } = require("utility-store/src/classes/Trier");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
 const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userUtilities } = require("@/classes/UserUtilities");
 
 const { errors } = require("@/variables/errors");
 
@@ -17,12 +16,13 @@ const verifyVerificationCode = async (req, res, next) => {
 
 const tryToVerifyVerificationCode = async (req) => {
   const {
-    authData,
+    authData: {
+      payload: { tokenId },
+    },
     body: { verificationCode: sentVerificationCode },
   } = req;
 
-  const cellphone = userUtilities.extractCellphone(authData.payload);
-  const tempClient = await findTemporaryClient(cellphone);
+  const tempClient = await findTemporaryClient(tokenId);
   const { verificationCode: actualVerificationCode } = tempClient;
 
   errorThrower(sentVerificationCode !== actualVerificationCode, {
@@ -30,11 +30,11 @@ const tryToVerifyVerificationCode = async (req) => {
     sentVerificationCode,
   });
 
-  await temporaryClients.update(tempClient, { isVerified: true });
+  await temporaryClients.update(tokenId, { ...tempClient, isVerified: true });
 };
 
-const findTemporaryClient = async (cellphone) => {
-  const tempClient = await temporaryClients.find(cellphone);
+const findTemporaryClient = async (tokenId) => {
+  const tempClient = await temporaryClients.find(tokenId);
   errorThrower(!tempClient, errors.TEMPORARY_CLIENT_NOT_FOUND);
   return tempClient;
 };

@@ -33,14 +33,14 @@ const authenticationSuccessTest = async (
   const verifiedRequestToken = await validators.token(equalValue, secret);
   tokenPartsTypeCheck(builder, verifiedRequestToken, secret);
 
-  if (secret === authManager.getJwtMainSecret()) {
+  if (secret === authManager.getMainSecret()) {
     userIdSuccessTest({
       equalValue: verifiedRequestToken.payload.userId,
       testValue: verifiedResponseToken.payload.userId,
     });
   }
 
-  if (secret === authManager.getJwtSignInSecret()) {
+  if (secret === authManager.getSignInSecret()) {
     cellphoneSuccessTest({
       equalValue: verifiedRequestToken.payload,
       testValue: verifiedResponseToken.payload,
@@ -56,14 +56,14 @@ const tokenPartsTypeCheck = (builder, token, secret) => {
     .customTypeCheck(token.signature, FIELD_TYPE.STRING)
     .customTypeCheck(token.payload, FIELD_TYPE.OBJECT);
 
-  if (secret === authManager.getJwtSignInSecret()) {
+  if (secret === authManager.getSignInSecret()) {
     builder
       .customTypeCheck(token.payload.countryCode, FIELD_TYPE.STRING)
       .customTypeCheck(token.payload.countryName, FIELD_TYPE.STRING)
       .customTypeCheck(token.payload.phoneNumber, FIELD_TYPE.STRING);
   }
 
-  if (secret === authManager.getJwtMainSecret())
+  if (secret === authManager.getMainSecret())
     builder.customTypeCheck(token.payload.userId, FIELD_TYPE.STRING);
 };
 

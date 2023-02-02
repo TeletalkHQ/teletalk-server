@@ -18,20 +18,22 @@ const checkCurrentUserStatus = async (req, res, next) => {
 
 const tryToCheckCurrentUserStatus = async (req) => {
   const token = authManager.getTokenFromRequest(req);
-  const { payload: userData } = req.authData;
+  const {
+    payload: { tokenId },
+  } = req.authData;
 
-  const currentUser = await services.findOneUser({ userId: userData.userId });
+  const currentUser = await services.findOneUser({ userId: tokenId });
 
   const error = errors.CURRENT_USER_NOT_EXIST;
 
   errorThrower(!currentUser, {
     ...error,
-    wrongUserId: userData.userId,
+    wrongTokenId: tokenId,
   });
 
-  errorThrower(currentUser.userId !== userData.userId, {
+  errorThrower(currentUser.userId !== tokenId, {
     ...error,
-    wrongUserId: userData.userId,
+    wrongTokenId: tokenId,
   });
 
   const isSessionExist = currentUser.sessions.some((t) => t.token === token);

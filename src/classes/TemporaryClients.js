@@ -1,23 +1,11 @@
 const redis = require("redis");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const {
-  isDataHasEqualityWithTargetCellphone,
-} = require("utility-store/src/utilities/utilities");
-
-const { errors } = require("@/variables/errors");
 
 class TemporaryClients {
-  #STATE_KEY = "temporary_clients";
+  #STATE_KEY = "temporary_client";
   #STATE_PATH = ".";
 
   async initializeClients(storage) {
     this.setStorage(storage);
-
-    const clients = await this.storage.json.get(this.#STATE_KEY);
-    if (!clients) {
-      await this.storage.json.set(this.#STATE_KEY, this.#STATE_PATH, []);
-    }
-
     return this;
   }
 
@@ -25,49 +13,33 @@ class TemporaryClients {
     this.storage = storage;
   }
 
-  async getAll() {
-    return await this.storage.json.get(this.#STATE_KEY);
+  #makeStateKey(clientId) {
+    return `${this.#STATE_KEY}:${clientId}`;
   }
 
-  async find(data) {
-    return (await this.getAll()).find(
-      (i) => !!isDataHasEqualityWithTargetCellphone(i, data)
-    );
-  }
-  async findIndex(client) {
-    const temporaryClients = await this.getAll();
-    return temporaryClients.findIndex(
-      (i) => !!isDataHasEqualityWithTargetCellphone(i, client)
-    );
+  async find(clientId) {
+    return this.storage.json.get(this.#makeStateKey(clientId));
   }
 
-  async add(client) {
-    await this.storage.json.arrAppend(
-      this.#STATE_KEY,
+  async add(clientId, data) {
+    const stateKey = this.#makeStateKey(clientId);
+    await this.storage
+      .multi()
+      .json.set(stateKey, this.#STATE_PATH, data)
+      .expire(stateKey, 180)
+      .exec();
+  }
+
+  async update(clientId, newData) {
+    await this.storage.json.set(
+      this.#makeStateKey(clientId),
       this.#STATE_PATH,
-      client
+      newData
     );
   }
 
-  async update(oldData, newData) {
-    const index = await this.findIndex(oldData);
-
-    errorThrower(index === -1, errors.TEMPORARY_CLIENT_NOT_FOUND);
-
-    await this.remove(index);
-    await this.storage.json.arrAppend(this.#STATE_KEY, this.#STATE_PATH, {
-      ...oldData,
-      ...newData,
-    });
-  }
-
-  async remove(index) {
-    await this.storage.json.arrPop(this.#STATE_KEY, this.#STATE_PATH, +index);
-  }
-
-  async removeByCellphone(cellphone) {
-    const index = await this.findIndex(cellphone);
-    await this.remove(index);
+  async remove(clientId) {
+    this.storage.json.del(this.#makeStateKey(clientId), this.#STATE_PATH);
   }
 }
 

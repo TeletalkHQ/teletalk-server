@@ -1,8 +1,12 @@
+const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+
 const { authManager } = require("@/classes/AuthManager");
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userUtilities } = require("@/classes/UserUtilities");
+
+const { models } = require("@/models");
 
 const { getHostFromRequest } = require("@/utilities/utilities");
 const { passwordGenerator } = require("@/utilities/passwordGenerator");
@@ -22,11 +26,17 @@ const tryToSignIn = async (req, res = expressResponse) => {
   );
   await sendVerificationCode(fullNumber, host, verificationCode);
 
-  const token = signToken(cellphone);
-
+  const tokenId = createClientId();
+  const token = signToken({
+    tokenId,
+    date: Date.now(),
+  });
   authManager.setTokenToResponse(res, token);
-
-  await manageTemporaryClient(cellphone, verificationCode, token);
+  await addClient(tokenId, {
+    ...cellphone,
+    isVerified: false,
+    verificationCode,
+  });
 };
 
 const validateVerificationCode = async (verificationCode) => {
@@ -37,43 +47,15 @@ const sendVerificationCode = async (fullNumber, host, verificationCode) => {
   await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 };
 
-const signToken = (cellphone) => {
-  return authManager.signToken(
-    {
-      ...cellphone,
-      date: Date.now(),
-    },
-    authManager.getJwtSignInSecret()
-  );
+const createClientId = () =>
+  randomMaker.id(models.native.user.userId.maxlength.value);
+
+const signToken = (data) => {
+  return authManager.signToken(data, authManager.getSignInSecret());
 };
 
-const manageTemporaryClient = async (cellphone, verificationCode, token) => {
-  const client = await findTemporaryClient(cellphone);
-
-  if (client)
-    return await updateTemporaryClient(client, verificationCode, token);
-
-  await addNewTemporaryClient(cellphone, verificationCode, token);
-};
-
-const findTemporaryClient = async (cellphone) => {
-  return await temporaryClients.find(cellphone);
-};
-const updateTemporaryClient = async (client, verificationCode, token) => {
-  await temporaryClients.update(client, {
-    verificationCode,
-    token,
-    isVerified: false,
-  });
-};
-const addNewTemporaryClient = async (cellphone, verificationCode, token) => {
-  await temporaryClients.add({
-    token,
-    verificationCode,
-    ...cellphone,
-    isVerified: false,
-  });
-};
+const addClient = async (tokenId, data) =>
+  await temporaryClients.add(tokenId, data);
 
 const signIn = controllerBuilder.create().body(tryToSignIn).build();
 

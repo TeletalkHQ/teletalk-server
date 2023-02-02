@@ -10,6 +10,7 @@ const logout = serviceBuilder
       currentUserId,
       errors.CURRENT_USER_NOT_EXIST
     );
+    //FIXME: Remove specific session
     currentUser.sessions = currentUser.sessions.filter(
       (i) => i.token !== currentToken
     );

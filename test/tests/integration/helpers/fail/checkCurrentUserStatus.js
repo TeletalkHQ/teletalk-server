@@ -21,9 +21,9 @@ const checkCurrentUserStatusFailTest = (configuredRequester, data = {}) => {
         configuredRequester.getRoute()
       ),
     async () => {
-      const wrongUserId = randomMaker.string(userModel.userId.maxlength.value);
+      const wrongTokenId = randomMaker.string(userModel.userId.maxlength.value);
       const token = authManager.signToken({
-        userId: wrongUserId,
+        tokenId: wrongTokenId,
       });
 
       const { body } = await configuredRequester.sendFullFeaturedRequest(
@@ -35,7 +35,9 @@ const checkCurrentUserStatusFailTest = (configuredRequester, data = {}) => {
       );
 
       expect(error.reason).to.be.equal(body.errors[error.errorKey].reason);
-      expect(body.errors[error.errorKey].wrongUserId).to.be.equal(wrongUserId);
+      expect(body.errors[error.errorKey].wrongTokenId).to.be.equal(
+        wrongTokenId
+      );
     }
   );
 
@@ -49,7 +51,7 @@ const checkCurrentUserStatusFailTest = (configuredRequester, data = {}) => {
     async () => {
       const { user } = await randomMaker.user();
       const token = authManager.signToken({
-        userId: user.userId,
+        tokenId: user.userId,
       });
 
       const { body } = await configuredRequester.sendFullFeaturedRequest(

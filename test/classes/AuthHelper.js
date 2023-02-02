@@ -1,3 +1,4 @@
+const { authManager } = require("@/classes/AuthManager");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 
 const { requesters } = require("$/utilities");
@@ -23,10 +24,16 @@ class AuthHelper {
   }
 
   async verify() {
-    const temporaryClient = await temporaryClients.find(this.cellphone);
+    const signInToken = this.signInResponse.body.token;
+    const tokenId = authManager.getTokenId(
+      signInToken,
+      authManager.getSignInSecret()
+    );
+
+    const temporaryClient = await temporaryClients.find(tokenId);
     const requester = requesters.verify();
     const response = await requester
-      .setToken(this.signInResponse.body.token)
+      .setToken(signInToken)
       .sendFullFeaturedRequest({
         verificationCode: temporaryClient.verificationCode,
       });

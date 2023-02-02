@@ -21,9 +21,11 @@ const selfStuffCheck = async (req, res, next) => {
 
 const tryTo = async (req) => {
   const targetCellphone = req.body;
-  const { payload: userData } = req.authData;
+  const {
+    payload: { tokenId },
+  } = req.authData;
 
-  const currentUser = await services.findOneUserById(userData.userId);
+  const currentUser = await services.findOneUserById(tokenId);
   const currentUserCellphone = userUtilities.extractCellphone(currentUser);
   errorThrower(
     isDataHasEqualityWithTargetCellphone(currentUserCellphone, targetCellphone),

@@ -12,7 +12,7 @@ class UserUtilities extends UserUtilitiesMain {
     return verifiedToken.payload;
   }
   getUserIdFromVerifiedToken(verifiedToken) {
-    return this.getDataFromVerifiedToken(verifiedToken).userId;
+    return this.getDataFromVerifiedToken(verifiedToken).tokenId;
   }
 }
 

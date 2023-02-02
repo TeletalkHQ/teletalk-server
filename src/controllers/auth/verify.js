@@ -6,19 +6,23 @@ const { userUtilities } = require("@/classes/UserUtilities");
 const { services } = require("@/services");
 
 const tryToVerify = async (req, res) => {
-  const { authData } = req;
-  const cellphone = userUtilities.extractCellphone(authData.payload);
+  const {
+    authData: {
+      payload: { tokenId },
+    },
+  } = req;
+  const client = await temporaryClients.find(tokenId);
+
+  const cellphone = userUtilities.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);
 
   if (foundUser) {
-    await removeTemporaryClient(foundUser);
+    await removeTemporaryClient(tokenId);
 
     const userData = userUtilities.extractUserData(foundUser);
 
     const token = signToken(userData.userId);
-
     authManager.setTokenToResponse(res, token);
-
     await addNewSession(userData.userId, token);
 
     return {
@@ -35,13 +39,13 @@ const tryToVerify = async (req, res) => {
   };
 };
 
-const signToken = (userId) => {
+const signToken = (tokenId) => {
   return authManager.signToken(
     {
-      userId,
+      tokenId,
       date: Date.now(),
     },
-    authManager.getJwtMainSecret()
+    authManager.getMainSecret()
   );
 };
 
@@ -52,8 +56,8 @@ const addNewSession = async (userId, newToken) => {
   });
 };
 
-const removeTemporaryClient = async (cellphone) => {
-  await temporaryClients.removeByCellphone(cellphone);
+const removeTemporaryClient = async (tokenId) => {
+  await temporaryClients.remove(tokenId);
 };
 
 const verify = controllerBuilder.create().body(tryToVerify).build();

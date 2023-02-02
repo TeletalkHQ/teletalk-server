@@ -12,6 +12,7 @@ const { services } = require("@/services");
 const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
 const { requesters } = require("$/utilities");
+const { authManager } = require("@/classes/AuthManager");
 
 describe("verifySignInApi success test", () => {
   it("should sign and verify as new user", async () => {
@@ -23,7 +24,13 @@ describe("verifySignInApi success test", () => {
     await helper.verify();
     const { body: newUserVerifyData } = helper.verifyResponse;
     expect(newUserVerifyData.newUser).to.be.equal(true);
-    const client = await temporaryClients.find(cellphone);
+
+    const tokenId = authManager.getTokenId(
+      helper.signInResponse.body.token,
+      authManager.getSignInSecret()
+    );
+
+    const client = await temporaryClients.find(tokenId);
     expect(client.isVerified).to.be.equal(true);
   });
 

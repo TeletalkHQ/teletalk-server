@@ -81,10 +81,7 @@ const userIdValidator = async (userId) => {
   validatorErrorChecker.userId(validationResult, userId);
 };
 
-const tokenValidator = async (
-  token,
-  secret = authManager.getJwtMainSecret()
-) => {
+const tokenValidator = async (token, secret = authManager.getMainSecret()) => {
   //REFACTOR:INVALID_TYPE_ERROR
   const correctedToken = +token || token;
   const validationResult = await compiledValidators.token({

@@ -16,18 +16,21 @@ const { errors } = require("@/variables/errors");
 
 const tryToCreateNewUser = async (req, res) => {
   const {
-    authData,
+    authData: {
+      payload: { tokenId },
+    },
     body: { firstName, lastName },
   } = req;
-  const cellphone = await extractCellphoneFromToken(authData.payload);
 
-  const userId = getRandomId();
+  const client = await findClient(tokenId);
+  checkClient(client);
+  const cellphone = userUtilities.extractCellphone(client);
 
   await validators.firstName(firstName);
   await validators.lastName(lastName);
-  await checkTemporaryClient(cellphone);
   await checkExistenceOfUser(cellphone);
 
+  const userId = getRandomId();
   const token = signToken(userId);
   authManager.setTokenToResponse(res, token);
 
@@ -43,22 +46,18 @@ const tryToCreateNewUser = async (req, res) => {
 
   const userDataForDatabase = fixUserDataForDb(data, token);
   await createNewUserAndSave(userDataForDatabase);
-  await removeTemporaryClient(cellphone);
+  await removeTemporaryClient(client.tokenId);
   return data;
 };
 
-const extractCellphoneFromToken = async (authData) => {
-  return userUtilities.extractCellphone(authData);
-};
+const findClient = async (tokenId) => await temporaryClients.find(tokenId);
 
-const checkTemporaryClient = async (cellphone) => {
-  const client = await temporaryClients.find(cellphone);
-  errorThrower(!client, {
-    ...errors.TEMPORARY_CLIENT_NOT_FOUND,
-    cellphone,
+const checkClient = (client) => {
+  errorThrower(!client, errors.TEMPORARY_CLIENT_NOT_FOUND);
+  errorThrower(!client.isVerified, {
+    ...errors.TEMPORARY_CLIENT_NOT_VERIFIED,
+    createNewUser: "failed",
   });
-
-  errorThrower(!client.isVerified, errors.TEMPORARY_CLIENT_NOT_VERIFIED);
 };
 
 const checkExistenceOfUser = async (cellphone) => {
@@ -70,9 +69,9 @@ const checkExistenceOfUser = async (cellphone) => {
 const getRandomId = () =>
   randomMaker.id(models.native.user.userId.maxlength.value);
 
-const signToken = (userId) => {
+const signToken = (tokenId) => {
   return authManager.signToken({
-    userId,
+    tokenId,
     date: Date.now(),
   });
 };
@@ -89,7 +88,7 @@ const createNewUserAndSave = async (userDataForDatabase) => {
 };
 
 const removeTemporaryClient = async (cellphone) => {
-  await temporaryClients.removeByCellphone(cellphone);
+  await temporaryClients.remove(cellphone);
 };
 
 const createNewUser = controllerBuilder

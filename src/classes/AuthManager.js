@@ -25,7 +25,7 @@ class AuthManager {
 
   verifyToken(
     token,
-    secret = this.getJwtMainSecret(),
+    secret = this.getMainSecret(),
     options = this.getOptions().jwt
   ) {
     return trier(this.verifyToken.name)
@@ -51,7 +51,7 @@ class AuthManager {
 
   signToken(
     data,
-    secret = this.getJwtMainSecret(),
+    secret = this.getMainSecret(),
     options = this.getOptions().jwt
   ) {
     return JWT.sign(data, secret, {
@@ -66,7 +66,7 @@ class AuthManager {
       reqUrl
     );
 
-    const secrets = this.getJwtSecrets();
+    const secrets = this.getSecrets();
     return isAuthenticationUrl
       ? secrets.JWT_SIGN_IN_SECRET
       : secrets.JWT_MAIN_SECRET;
@@ -79,19 +79,24 @@ class AuthManager {
     res.cookie(this.getOptions().cookie.SESSION_NAME, token, options);
   }
 
-  getJwtSignInSecret() {
+  getSignInSecret() {
     const { JWT_SIGN_IN_SECRET } = envManager.ENVIRONMENT_KEYS;
     return envManager.getEnvironment(JWT_SIGN_IN_SECRET);
   }
-  getJwtMainSecret() {
+  getMainSecret() {
     const { JWT_MAIN_SECRET } = envManager.ENVIRONMENT_KEYS;
     return envManager.getEnvironment(JWT_MAIN_SECRET);
   }
-  getJwtSecrets() {
+  getSecrets() {
     return {
-      JWT_MAIN_SECRET: this.getJwtMainSecret(),
-      JWT_SIGN_IN_SECRET: this.getJwtSignInSecret(),
+      //TODO: Rename
+      JWT_MAIN_SECRET: this.getMainSecret(),
+      JWT_SIGN_IN_SECRET: this.getSignInSecret(),
     };
+  }
+
+  getTokenId(token, secret) {
+    return authManager.verifyToken(token, secret).data.payload.tokenId;
   }
 }
 

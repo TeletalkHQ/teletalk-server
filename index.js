@@ -24,7 +24,7 @@ const startApp = async () => {
     } catch (error) {
       crashServer(error);
     }
-  } else require("@/server");
+  } else require("@/servers/server");
 };
 
 const logEnvironments = () => {

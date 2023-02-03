@@ -1,10 +1,15 @@
+require("module-alias/register");
+require("@/variables/others/customGlobals");
+require("@/helpers/requireDotenv").requireDotenv();
+require("@/../requirements").mainServer();
+
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const { httpServer } = require("@/servers/http");
 const { expressServer } = require("@/servers/express");
+const { httpServer } = require("@/servers/http");
 const { socketServer } = require("@/servers/socket");
 
-const { NODE_ENV, PORT } = envManager.getAllLocalEnvironments();
+const { NODE_ENV, PORT, SELF_EXEC } = envManager.getAllLocalEnvironments();
 
 const EXACT_PORT =
   PORT || envManager.getEnvironment(envManager.ENVIRONMENT_KEYS.PORT_DEFAULT);
@@ -18,6 +23,8 @@ const runner = () => {
   http.listen(EXACT_PORT, serverListenerCb);
   socketServer(http);
 };
+
+if (SELF_EXEC) runner();
 
 module.exports = {
   runner,

@@ -1,6 +1,6 @@
 {
   "bundle": true,
-  "entry": "./esbuildEntryPoint.js",
+  "entry": "./src/servers/index.js",
   "minify": true,
   "outfile": "build/index.js",
   "platform": "node",

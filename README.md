@@ -25,7 +25,7 @@ The following features are available:
 - **add**, **edit** and **delete** contacts
 - **add** users to blacklist, also **remove**
 - **private chat**
-  simple :)
+- simple :)
 
 ## How to use
 

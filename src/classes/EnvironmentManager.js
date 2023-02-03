@@ -9,6 +9,7 @@ class EnvironmentManager extends EnvironmentManagerMain {
       COVERAGE: "COVERAGE",
       JWT_MAIN_SECRET: "JWT_MAIN_SECRET",
       JWT_SIGN_IN_SECRET: "JWT_SIGN_IN_SECRET",
+      SELF_EXEC: "SELF_EXEC",
       LOGGER_LEVEL: "LOGGER_LEVEL",
       MONGO_COLLECTION_NAME: "MONGO_COLLECTION_NAME",
       MONGO_PORT: "MONGO_PORT",

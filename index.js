@@ -1,36 +1,37 @@
-require("module-alias/register");
-require("@/variables/others/customGlobals");
-require("@/helpers/requireDotenv").requireDotenv();
+const path = require("path");
 
-const { commonUtilities } = require("@/classes/CommonUtilities");
-const { envManager } = require("@/classes/EnvironmentManager");
-
-const { crashServer } = require("@/utilities/utilities");
+const NODE_ENV = process.env.NODE_ENV;
+const nodeEnvValues = {
+  production: "production",
+  production_local: "production_local",
+};
 
 const startApp = async () => {
   logEnvironments();
-  if (commonUtilities.isProduction()) return require("./build");
 
-  const requirements = require("./requirements");
+  if (isProduction()) {
+    const { runner } = require(path.join(__dirname, "build"));
+    return runner();
+  }
 
-  await requirements.mainServer();
-
-  const NODE_ENV = envManager.getNodeEnv();
   if (NODE_ENV.includes("test")) {
+    const requirements = require(path.join(__dirname, "requirements"));
+    await requirements.mainServer();
     await requirements.testServer();
     try {
-      require("$");
+      require(path.join(__dirname, "test"));
       run();
     } catch (error) {
-      crashServer(error);
+      console.error(error);
+      process.exit(1);
     }
-  } else require("@/server");
+  } else {
+    const { runner } = require(path.join(__dirname, "src", "servers"));
+    runner();
+  }
 };
 
-const logEnvironments = () => {
-  const envs = sortEnvironments();
-  console.log(envs);
-};
+const logEnvironments = () => console.log(sortEnvironments());
 
 const sortEnvironments = () =>
   Object.entries(process.env)
@@ -40,5 +41,9 @@ const sortEnvironments = () =>
       prevValue[currentValue.key] = currentValue.value;
       return prevValue;
     }, {});
+
+const isProduction = () =>
+  NODE_ENV === nodeEnvValues.production ||
+  NODE_ENV === nodeEnvValues.production_local;
 
 startApp();

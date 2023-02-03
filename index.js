@@ -9,7 +9,10 @@ const { crashServer } = require("@/utilities/utilities");
 
 const startApp = async () => {
   logEnvironments();
-  if (commonUtilities.isProduction()) return require("./build");
+  if (commonUtilities.isProduction()) {
+    const { runner } = require("./build");
+    return runner();
+  }
 
   const requirements = require("./requirements");
 
@@ -24,7 +27,11 @@ const startApp = async () => {
     } catch (error) {
       crashServer(error);
     }
-  } else require("@/servers/server");
+  } else {
+    const { runner } = require("@/servers");
+
+    runner();
+  }
 };
 
 const logEnvironments = () => {

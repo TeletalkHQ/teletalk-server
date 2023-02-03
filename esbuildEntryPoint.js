@@ -1,2 +1,2 @@
 require("./requirements").mainServer();
-module.exports = require("@/servers/server");
+module.exports = require("@/servers");

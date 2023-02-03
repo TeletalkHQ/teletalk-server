@@ -74,4 +74,4 @@ app.use(lifeLine);
 
 app.use(middlewares.logSeparator);
 
-module.exports = { app };
+module.exports = { expressServer: app };

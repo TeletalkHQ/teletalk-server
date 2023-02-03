@@ -12,7 +12,7 @@ const getApp = () => {
     return require("@/servers/express").expressServer;
 
   if ([test_production, test_production_local].includes(NODE_ENV))
-    return require("../../build").servers.expressServer;
+    return require("@/../build").servers.expressServer;
 
   const message = "No server found! check your environments...";
   crashServer(message);

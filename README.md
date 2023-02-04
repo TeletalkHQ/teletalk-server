@@ -7,6 +7,7 @@
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/s-stalwart-s/teletalk-server/codeStyle.yml?branch=teletalk-server-main&label=Code%20Style)
 ![GitHub](https://img.shields.io/github/license/s-stalwart-s/teletalk-server?label=License)
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/S-STALWART-S/teletalk-server/teletalk-server-main?label=Version)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FS-STALWART-S%2Fteletalk-server.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FS-STALWART-S%2Fteletalk-server?ref=badge_shield)
 
 ## About
 
@@ -91,3 +92,7 @@ npm run start:production
 ```
 
 If you were lucky, you good to go :)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FS-STALWART-S%2Fteletalk-server.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FS-STALWART-S%2Fteletalk-server?ref=badge_large)

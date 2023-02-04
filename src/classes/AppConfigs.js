@@ -19,7 +19,7 @@ class AppConfigs {
 
     if (NODE_ENV.includes("test"))
       Trier.changeGlobalConfigs({
-        canPrintError: true,
+        canPrintError: false,
       });
   }
 

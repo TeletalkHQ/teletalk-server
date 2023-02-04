@@ -18,19 +18,34 @@ describe("add contact success tests", () => {
     const addContactRequester = requesters.addContact();
     addContactRequester.setToken(currentUser.token);
 
-    const contactsLength = 10;
+    const contactsLength = 100;
+    const users = [];
     for (let i = 0; i < contactsLength; i++) {
       const targetUser = await randomMaker.user();
+      users.push(targetUser);
+    }
 
+    const responses = [];
+    for (const targetUser of users) {
       const targetUserCellphone = userUtilities.extractCellphone(
         targetUser.user
       );
       const fullName = randomMaker.fullName();
       const data = { ...targetUserCellphone, ...fullName };
 
+      const response = addContactRequester.sendFullFeaturedRequest(data);
+
+      responses.push({
+        data,
+        res: response,
+        targetUser,
+      });
+    }
+
+    for (const { data, res, targetUser } of responses) {
       const {
         body: { addedContact },
-      } = await addContactRequester.sendFullFeaturedRequest(data);
+      } = await res;
 
       await testAddContactResponse({
         addedContact,

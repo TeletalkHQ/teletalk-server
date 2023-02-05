@@ -11,7 +11,10 @@ const isRouteInvalid = ({ fullUrl, inputFields, outputFields, url } = {}) =>
   customTypeof.isUndefined(fullUrl, inputFields, outputFields, url);
 
 const tryToValidateRoute = (req) => {
-  errorThrower(isRouteInvalid(req.custom.route), errors.ROUTE_NOT_FOUND);
+  errorThrower(isRouteInvalid(req.custom.route), {
+    ...errors.ROUTE_NOT_FOUND,
+    route: req.custom.route,
+  });
 };
 
 const catchValidateRoute = commonUtilities.controllerErrorResponse;

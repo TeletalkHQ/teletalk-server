@@ -10,7 +10,7 @@
     "url": "https://github.com/S-STALWART-S/teletalk-server"
   },
   "scripts": {
-    "build": "esbuild ./src/servers/index.js --platform=node --target=node16.0 --bundle --minify --outfile=build/index.js",
+    "build": "node ./esbuild/index.js",
     "check:format": "prettier --write ./",
     "check:lint": "eslint ./",
     "check:lint:default": "eslint 'src/**/*.js'",
@@ -32,6 +32,8 @@
   "dependencies": {
     "@redis/json": "^1.0.4",
     "@sindresorhus/is": "^5.3.0",
+    "@socket.io/cluster-adapter": "^0.2.1",
+    "@socket.io/sticky": "^1.0.2",
     "axios": "^1.2.2",
     "chai": "^4.3.7",
     "cookie-parser": "^1.4.6",

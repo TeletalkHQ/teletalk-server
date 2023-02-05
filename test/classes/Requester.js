@@ -6,12 +6,12 @@ const {
 
 const { loggerHelper } = require("@/utilities/logHelper");
 
-const { getApp } = require("$/helpers/getApp");
+const { expressServer } = require("@/servers/express");
 
 const { errors } = require("@/variables/errors");
 const { authManager } = require("@/classes/AuthManager");
 
-const requester = supertest(getApp());
+const requester = supertest(expressServer);
 
 class Requester {
   #requestData;

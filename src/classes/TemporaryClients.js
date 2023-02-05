@@ -4,7 +4,7 @@ class TemporaryClients {
   #STATE_KEY = "temporary_client";
   #STATE_PATH = ".";
 
-  async initializeClients(storage) {
+  async initialize(storage) {
     this.setStorage(storage);
     return this;
   }

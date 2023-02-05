@@ -10,11 +10,11 @@ const mongodbConnector = () => {
   const configs = appConfigs.getConfigs();
 
   mongoose.set("strictQuery", false);
-  mongoose.connection.once("connected", () => {
+  mongoose.connection.once("connected", () =>
     logger.info(
       `MongoDB connected to =>  ${mongoose.connection.host}:${mongoose.connection.port}`
-    );
-  });
+    )
+  );
 
   return mongoose.connect(configs.db.MONGO_URL_FULL, {
     keepAlive: true,
@@ -53,6 +53,7 @@ const fixRedisConnection = () => {
     port: fixedPort,
   };
 };
+
 const fixRedisHost = () => {
   const { REDIS_DEFAULT_HOST, REDIS_HOST, REDIS_PORT } =
     envManager.getAllLocalEnvironments();

@@ -1,3 +1,12 @@
+require("module-alias/register");
+require("@/variables/others/customGlobals");
+require("@/helpers/requireDotenv");
+
+const { User } = require("@/models/database/mongoDb/user");
+const { PrivateChat } = require("@/models/database/mongoDb/privateChat");
+
+const { database } = require("@/requirements");
+
 /*
  * All test files are independent to each other, so orders not matter
  * Require test files as your wish
@@ -38,3 +47,23 @@ require("$/tests/middleware/authDefault.spec");
 require("$/tests/middleware/checkBodyFields.spec");
 // require("$/tests/middleware/checkCurrentUserStatus.spec");
 //#endregion
+
+const testServer = async () => {
+  await deleteAllUsers();
+  await deleteAllPrivateChats();
+};
+
+const deleteAllUsers = async () => {
+  await User.deleteMany();
+};
+
+const deleteAllPrivateChats = async () => {
+  await PrivateChat.deleteMany();
+};
+
+module.exports = {
+  requirements: {
+    database,
+    testServer,
+  },
+};

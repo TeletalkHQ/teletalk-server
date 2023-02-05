@@ -35,11 +35,24 @@ const checkIgnoreApplyMiddlewaresRequirements = (url, middlewares) => {
 
 const regexMaker = (pattern) => new RegExp(pattern);
 
+const logEnvironments = () => console.log(sortEnvironments());
+
+const sortEnvironments = () =>
+  Object.entries(process.env)
+    .map(([key, value]) => ({ key, value }))
+    .sort((a, b) => a.key.localeCompare(b.key))
+    .reduce((prevValue, currentValue) => {
+      prevValue[currentValue.key] = currentValue.value;
+      return prevValue;
+    }, {});
+
 module.exports = {
   checkIgnoreApplyMiddlewaresRequirements,
   crashServer,
   executeMiddlewares,
   getHostFromRequest,
   isUrlMatchWithReqUrl,
+  logEnvironments,
   regexMaker,
+  sortEnvironments,
 };

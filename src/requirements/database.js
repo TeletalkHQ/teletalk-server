@@ -3,13 +3,11 @@ const { temporaryClients } = require("@/classes/TemporaryClients");
 
 const { mongodbConnector, redisConnector } = require("@/database/connectors");
 
-const mainServer = async () => {
+const databaseRequirements = async () => {
   await appConfigs.runConfigs();
-
   const redisClient = await redisConnector();
-  await temporaryClients.initializeClients(redisClient);
-
-  mongodbConnector();
+  await temporaryClients.initialize(redisClient);
+  await mongodbConnector();
 };
 
-module.exports = { mainServer };
+module.exports = { databaseRequirements };

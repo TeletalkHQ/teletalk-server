@@ -1,7 +1,7 @@
 const http = require("http");
 
-const httpServer = (app) => http.createServer(app);
+const crateHttpServer = (app) => http.createServer(app);
 
 module.exports = {
-  httpServer,
+  crateHttpServer,
 };

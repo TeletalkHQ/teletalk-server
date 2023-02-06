@@ -1,21 +1,45 @@
 const esbuild = require("esbuild");
 
-esbuild.build({
+const defaultOptions = {
   allowOverwrite: true,
   bundle: true,
-  entryPoints: ["./src/servers/index.js"],
   minify: true,
-  outfile: "build/index.js",
   platform: "node",
-  target: "node16.0",
-});
+};
 
-esbuild.build({
-  allowOverwrite: true,
-  bundle: true,
-  entryPoints: ["./test/index.js"],
-  minify: true,
-  outfile: "build/test.js",
-  platform: "node",
-  target: "node16.0",
-});
+const calcNodeVersion = () => {
+  return process.env.npm_config_user_agent
+    ?.split("node/v")[1]
+    ?.split(" ")[0]
+    ?.slice(0, 2);
+};
+
+const NODE_VERSION = calcNodeVersion();
+
+const targets = {
+  [`node${NODE_VERSION}`]: `node${NODE_VERSION}.0`,
+  default: "node18.0",
+  node14: "node14.0",
+  node16: "node16.0",
+  node18: "node18.0",
+  node20: "node20.0",
+};
+
+const appBuilder = ([key, value]) =>
+  esbuild.build({
+    ...defaultOptions,
+    entryPoints: ["./src/servers/index.js"],
+    outfile: `build/${key}/app.js`,
+    target: value,
+  });
+
+const testBuilder = ([key, value]) =>
+  esbuild.build({
+    ...defaultOptions,
+    entryPoints: ["./test/index.js"],
+    outfile: `build/${key}/test.js`,
+    target: value,
+  });
+
+Object.entries(targets).forEach(appBuilder);
+Object.entries(targets).forEach(testBuilder);

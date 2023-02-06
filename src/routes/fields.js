@@ -17,6 +17,7 @@ const chatId = statics.string;
 const countryCode = statics.string;
 const countryName = statics.string;
 const countryShortName = statics.string;
+const createdAt = statics.number;
 const description = statics.string;
 const errorReason = statics.string;
 const firstName = statics.string;
@@ -69,6 +70,7 @@ const sender = statics.object({
 });
 
 const messageItem = {
+  createdAt,
   message,
   messageId,
   sender,
@@ -87,6 +89,7 @@ const participants = statics.array(participantItem);
 
 const privateChat = {
   chatId,
+  createdAt,
   messages,
   participants,
 };
@@ -102,6 +105,7 @@ const user = {
   phoneNumber,
   userId,
   username,
+  createdAt,
 };
 
 const single = {
@@ -110,6 +114,7 @@ const single = {
   countryCode,
   countryName,
   countryShortName,
+  createdAt,
   description,
   errorReason,
   firstName,

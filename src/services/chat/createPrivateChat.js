@@ -8,6 +8,7 @@ const createPrivateChat = serviceBuilder
   .create()
   .body(async (data) => {
     return await PrivateChat.create({
+      createdAt: data.createdAt,
       chatId: data.chatId,
       participants: [
         {

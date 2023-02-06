@@ -8,7 +8,13 @@ const { nativeModels } = require("@/models/native");
 
 const chatModels = nativeModels.chat;
 
-const { participantId } = {
+const { createdAt, participantId } = {
+  createdAt: mongoModelBuilder
+    .create()
+    .setModel(chatModels.createdAt)
+    .type()
+    .required()
+    .build(),
   participantId: mongoModelBuilder
     .create()
     .setModel(chatModels.participantId)
@@ -30,18 +36,14 @@ const PrivateChatSchema = new mongoose.Schema({
     .maxlength()
     .unique()
     .build(),
-  createdAt: mongoModelBuilder
-    .create()
-    .setModel(chatModels.createdAt)
-    .type()
-    .required()
-    .build(),
+  createdAt,
   messages: mongoModelBuilder
     .create()
     .setModel(chatModels.messages)
     .type()
     .required()
     .items({
+      createdAt,
       message: mongoModelBuilder
         .create()
         .setModel(chatModels.message)

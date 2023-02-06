@@ -11,6 +11,7 @@ const bio = nativeModelBuilder
   .required(true, errors.BIO_REQUIRED)
   .empty(true)
   .minlength(0)
+  .defaultValue("")
   .maxlength(255, errors.BIO_MAXLENGTH_REACH)
   .build();
 
@@ -70,6 +71,13 @@ const macAddress = nativeModelBuilder
   .unique(true, errors.MAC_ADDRESS_EXIST)
   .build();
 
+const online = nativeModelBuilder
+  .create()
+  .type(FIELD_TYPE.BOOLEAN)
+  .required(true, errors.ONLINE_REQUIRED)
+  .defaultValue(false)
+  .build();
+
 const phoneNumber = nativeModelBuilder
   .create()
   .type(FIELD_TYPE.STRING, errors.PHONE_NUMBER_INVALID_TYPE)
@@ -79,6 +87,13 @@ const phoneNumber = nativeModelBuilder
   .maxlength(14, errors.PHONE_NUMBER_MAXLENGTH_REACH)
   .numeric(true, errors.PHONE_NUMBER_NUMERIC)
   .unique(true, errors.PHONE_NUMBER_EXIST)
+  .build();
+
+const status = nativeModelBuilder
+  .create()
+  .type(FIELD_TYPE.OBJECT, errors.STATUS_INVALID_TYPE)
+  .required(true, errors.STATUS_REQUIRED)
+  .defaultValue({})
   .build();
 
 const token = nativeModelBuilder
@@ -143,8 +158,10 @@ const userModels = {
   firstName,
   lastName,
   macAddress,
+  online,
   phoneNumber,
   sessions,
+  status,
   token,
   userId,
   username,

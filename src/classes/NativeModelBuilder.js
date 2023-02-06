@@ -3,17 +3,18 @@ const { customTypeof } = require("custom-typeof");
 class NativeModelBuilder {
   constructor() {
     this.model = {
-      empty: this.#initialValueAndError(),
+      defaultValue: this.#initialValue(),
+      empty: this.#initialValue(),
+      items: this.#initialValue(),
+      length: this.#initialValue(),
       // lowercase: this.#initialValueAndError(),
-      length: this.#initialValueAndError(),
-      maxlength: this.#initialValueAndError(),
-      minlength: this.#initialValueAndError(),
-      numeric: this.#initialValueAndError(),
-      required: this.#initialValueAndError(),
+      maxlength: this.#initialValue(),
+      minlength: this.#initialValue(),
+      numeric: this.#initialValue(),
+      required: this.#initialValue(),
       trim: { value: undefined },
-      type: this.#initialValueAndError(),
-      unique: this.#initialValueAndError(),
-      items: this.#initialValueAndError(),
+      type: this.#initialValue(),
+      unique: this.#initialValue(),
     };
   }
 
@@ -22,7 +23,7 @@ class NativeModelBuilder {
     if (error) this.model[key].error = error;
   }
 
-  #initialValueAndError() {
+  #initialValue() {
     return {
       value: undefined,
       error: {
@@ -35,14 +36,9 @@ class NativeModelBuilder {
     };
   }
 
-  build() {
-    Object.entries(this.model).forEach(([key, prop]) => {
-      if (customTypeof.isUndefined(prop.error?.reason, prop.error?.statusCode))
-        delete this.model[key].error;
-      if (customTypeof.isUndefined(prop.value)) delete this.model[key];
-    });
-
-    return this.model;
+  defaultValue(value) {
+    this.#updateProperty("defaultValue", value);
+    return this;
   }
   maxlength(value, error) {
     this.#updateProperty("maxlength", value, error);
@@ -83,6 +79,16 @@ class NativeModelBuilder {
   length(value, error) {
     this.#updateProperty("length", value, error);
     return this;
+  }
+
+  build() {
+    Object.entries(this.model).forEach(([key, prop]) => {
+      if (customTypeof.isUndefined(prop.error?.reason, prop.error?.statusCode))
+        delete this.model[key].error;
+      if (customTypeof.isUndefined(prop.value)) delete this.model[key];
+    });
+
+    return this.model;
   }
 }
 

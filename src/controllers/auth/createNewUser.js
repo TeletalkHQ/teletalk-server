@@ -40,6 +40,7 @@ const tryToCreateNewUser = async (req, res) => {
       ...cellphone,
       firstName,
       lastName,
+      createdAt: Date.now(),
       userId,
     },
   };

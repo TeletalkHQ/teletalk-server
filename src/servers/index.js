@@ -11,7 +11,7 @@ const requirements = require("@/requirements");
 
 const { expressServer } = require("@/servers/express");
 const { crateHttpServer } = require("@/servers/http");
-// const { socketServer } = require("@/servers/socket");
+const { socketServer } = require("@/servers/socket");
 
 const { logEnvironments } = require("@/utilities/utilities");
 // const { setupMaster, setupWorker } = require("@socket.io/sticky");
@@ -49,7 +49,7 @@ const runner = async () => {
   // } else {
   await requirements.database();
   const httpServer = crateHttpServer(expressServer);
-  // socketServer(httpServer);
+  socketServer(httpServer);
   httpServer.listen(EXACT_PORT, serverListenerCb);
 
   // console.log(`Worker ${process.pid} started`);

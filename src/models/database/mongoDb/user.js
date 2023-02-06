@@ -5,19 +5,31 @@ const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
 const { nativeModels } = require("@/models/native");
 
 const { mongooseUniqueValidator } = require("@/plugins/mongoose");
+mongoose.Schema.Types.String.checkRequired((v) => v !== null);
 
 const userModels = nativeModels.user;
 const commonModels = nativeModels.common;
 
 const {
+  bio,
   countryCode,
   countryName,
   createdAt,
   firstName,
   lastName,
+  online,
   phoneNumber,
+  status,
   userId,
 } = {
+  bio: mongoModelBuilder
+    .create()
+    .setModel(userModels.bio)
+    .type()
+    .required()
+    .minlength()
+    .maxlength()
+    .build(),
   countryCode: mongoModelBuilder
     .create()
     .setModel(userModels.countryCode)
@@ -64,6 +76,13 @@ const {
     .minlength()
     .maxlength()
     .build(),
+  status: mongoModelBuilder
+    .create()
+    .setModel(userModels.status)
+    .type()
+    .required()
+    .defaultValue()
+    .build(),
   userId: mongoModelBuilder
     .create()
     .setModel(commonModels.userId)
@@ -74,16 +93,16 @@ const {
     .unique()
     .trim()
     .build(),
+  online: mongoModelBuilder
+    .create()
+    .setModel(userModels.online)
+    .type()
+    .required()
+    .build(),
 };
 
 const UserSchema = new mongoose.Schema({
-  bio: mongoModelBuilder
-    .create()
-    .setModel(userModels.bio)
-    .type()
-    .required()
-    .maxlength()
-    .build(),
+  bio,
   blacklist: mongoModelBuilder
     .create()
     .setModel(userModels.blacklist)
@@ -115,6 +134,7 @@ const UserSchema = new mongoose.Schema({
   firstName,
   lastName,
   phoneNumber,
+  status,
   sessions: mongoModelBuilder
     .create()
     .setModel(userModels.sessions)

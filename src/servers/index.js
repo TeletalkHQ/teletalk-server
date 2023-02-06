@@ -1,5 +1,5 @@
-const cluster = require("cluster");
-const os = require("os");
+// const cluster = require("cluster");
+// const os = require("os");
 
 require("module-alias/register");
 require("@/variables/others/customGlobals");
@@ -28,43 +28,43 @@ const serverListenerCb = () => {
 };
 
 const runner = async () => {
-  if (cluster.isPrimary) {
-    logEnvironments();
+  // if (cluster.isPrimary) {
+  logEnvironments();
 
-    const NUM_WORKERS = os.cpus().length;
+  // const NUM_WORKERS = os.cpus().length;
 
-    // console.log(`Master ${process.pid} is running`);
+  // console.log(`Master ${process.pid} is running`);
 
-    // const httpServer = crateHttpServer(expressServer);
+  // const httpServer = crateHttpServer(expressServer);
 
-    // setupMaster(httpServer, {
-    //   loadBalancingMethod: "round-robin",
-    // });
+  // setupMaster(httpServer, {
+  //   loadBalancingMethod: "round-robin",
+  // });
 
-    // setupPrimary();
+  // setupPrimary();
 
-    // httpServer.listen(EXACT_PORT);
+  // httpServer.listen(EXACT_PORT);
 
-    for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
-  } else {
-    await requirements.database();
-    const httpServer = crateHttpServer(expressServer);
-    // socketServer(httpServer);
-    httpServer.listen(EXACT_PORT, serverListenerCb);
+  // for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
+  // } else {
+  await requirements.database();
+  const httpServer = crateHttpServer(expressServer);
+  // socketServer(httpServer);
+  httpServer.listen(EXACT_PORT, serverListenerCb);
 
-    console.log(`Worker ${process.pid} started`);
+  // console.log(`Worker ${process.pid} started`);
 
-    // const httpServer = crateHttpServer(expressServer);
-    // const io = new Server(httpServer, {
-    //   cors: { credentials: true, origin: true },
-    // });
-    // io.adapter(createAdapter());
-    // setupWorker(io);
+  // const httpServer = crateHttpServer(expressServer);
+  // const io = new Server(httpServer, {
+  //   cors: { credentials: true, origin: true },
+  // });
+  // io.adapter(createAdapter());
+  // setupWorker(io);
 
-    // io.on("connection", (socket) => {
-    //   console.log("user connected", socket.id);
-    // });
-  }
+  // io.on("connection", (socket) => {
+  //   console.log("user connected", socket.id);
+  // });
+  // }
 };
 
 if (SELF_EXEC) runner();

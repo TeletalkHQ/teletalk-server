@@ -175,6 +175,7 @@ const updatePublicUserData = userRouteBuilder
       publicUserData: fields.statics.object({
         ...fields.collection.fullName,
         bio: fields.single.bio,
+        status: fields.collection.status,
         userId: fields.single.userId,
         username: fields.single.username,
       }),

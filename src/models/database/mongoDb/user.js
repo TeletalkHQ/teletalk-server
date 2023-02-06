@@ -19,7 +19,6 @@ const {
   lastName,
   online,
   phoneNumber,
-  status,
   userId,
 } = {
   bio: mongoModelBuilder
@@ -97,6 +96,7 @@ const {
     .create()
     .setModel(userModels.online)
     .type()
+    .defaultValue()
     .required()
     .build(),
 };
@@ -134,7 +134,9 @@ const UserSchema = new mongoose.Schema({
   firstName,
   lastName,
   phoneNumber,
-  status,
+  status: {
+    online,
+  },
   sessions: mongoModelBuilder
     .create()
     .setModel(userModels.sessions)

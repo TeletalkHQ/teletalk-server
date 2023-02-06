@@ -8,6 +8,10 @@ const socketServer = (httpServer) => {
     },
   });
 
+  io.use((socket = ioSocket, next) => {
+    next();
+  });
+
   io.on("connection", (socket) => {
     console.log("a user connected");
     socket.on("disconnect", () => {

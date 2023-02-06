@@ -13,6 +13,7 @@ const { updateContact } = require("@/services/user/updateContact");
 const {
   updatePublicUserData,
 } = require("@/services/user/updatePublicUserData");
+const { updateOnlineStatus } = require("@/services/user/updateOnlineStatus");
 
 const userServices = {
   addBlock,
@@ -25,6 +26,7 @@ const userServices = {
   removeBlock,
   removeContact,
   updateContact,
+  updateOnlineStatus,
   updatePublicUserData,
 };
 

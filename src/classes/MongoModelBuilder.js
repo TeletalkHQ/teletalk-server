@@ -3,42 +3,48 @@ class MongoModelBuilder {
     this.model = {};
 
     this.mongoModel = {
+      default: [],
+      empty: [],
       items: [],
       lowercase: [],
       maxlength: [],
       minlength: [],
-      required: [false],
+      required: [],
       trim: [],
       type: [],
       unique: [],
     };
   }
 
-  #updateProperty(name) {
-    this.#setValue(name);
-    this.#setMessage(name);
+  #updateProperty(modelKey, mongoModelKey) {
+    this.#setValue(modelKey, mongoModelKey);
+    this.#setMessage(modelKey, mongoModelKey);
   }
-  #updatePropertyWithoutMessage(name) {
-    this.#setValue(name);
+  #updatePropertyWithoutMessage(modelKey, mongoModelKey) {
+    this.#setValue(modelKey, mongoModelKey);
   }
-  #setValue(key) {
-    this.mongoModel[key].push(this.model[key].value);
+  #setValue(modelKey, mongoModelKey) {
+    this.mongoModel[mongoModelKey || modelKey].push(this.model[modelKey].value);
   }
-  #setMessage(key) {
-    this.mongoModel[key].push(this.model[key].error?.reason);
+  #setMessage(modelKey, mongoModelKey) {
+    this.mongoModel[mongoModelKey || modelKey].push(
+      this.model[modelKey].error?.reason
+    );
   }
 
-  build() {
-    return Object.entries(this.mongoModel).reduce((prevValue, [key, value]) => {
-      prevValue[key] = value.length > 1 ? value : value[0];
-      return prevValue;
-    }, {});
-  }
   setModel(model) {
     this.model = model;
     return this;
   }
 
+  defaultValue() {
+    this.#updatePropertyWithoutMessage("defaultValue", "default");
+    return this;
+  }
+  empty() {
+    this.#updatePropertyWithoutMessage("empty");
+    return this;
+  }
   // lowercase() {
   //   this.#updateProperty("lowercase");
   //   return this;
@@ -70,6 +76,13 @@ class MongoModelBuilder {
   items(items) {
     this.mongoModel.items.push(items);
     return this;
+  }
+
+  build() {
+    return Object.entries(this.mongoModel).reduce((prevValue, [key, value]) => {
+      if (value.length) prevValue[key] = value.length > 1 ? value : value[0];
+      return prevValue;
+    }, {});
   }
 }
 

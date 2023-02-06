@@ -5,7 +5,7 @@ const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 const createdAt = nativeModelBuilder
   .create()
-  .type(FIELD_TYPE.DATE, errors.CREATED_AT_INVALID_TYPE)
+  .type(FIELD_TYPE.NUMBER, errors.CREATED_AT_INVALID_TYPE)
   .required(true, errors.CREATED_AT_REQUIRED)
   .empty(false, errors.CREATED_AT_EMPTY)
   .build();

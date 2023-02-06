@@ -9,8 +9,8 @@
       "$/*": ["./test/*"]
     }
   },
-  "exclude": ["./node_modules"],
+  "exclude": ["./node_modules", "./build"],
   "typeAcquisition": {
-    "exclude": []
+    "exclude": ["./build"]
   }
 }

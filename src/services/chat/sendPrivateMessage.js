@@ -57,6 +57,7 @@ const findPrivateChat = async (currentUserId, targetParticipantId) => {
 };
 
 const createNewMessage = (message, currentUserId) => ({
+  createdAt: Date.now(),
   message,
   messageId: randomMaker.id(chatModels.messageId.maxlength.value),
   sender: {
@@ -72,6 +73,7 @@ const fixPrivateChat = async ({
   privateChat ||
   (await createPrivateChat({ shouldFixQueryResult: false }).run({
     chatId: createChatId(),
+    createdAt: Date.now(),
     currentParticipantId: currentUserId,
     targetParticipantId,
   }));

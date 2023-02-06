@@ -17,6 +17,7 @@ const chatId = statics.string;
 const countryCode = statics.string;
 const countryName = statics.string;
 const countryShortName = statics.string;
+const createdAt = statics.number;
 const description = statics.string;
 const errorReason = statics.string;
 const firstName = statics.string;
@@ -26,10 +27,10 @@ const message = statics.string;
 const messageId = statics.string;
 const newUser = statics.boolean;
 const ok = statics.boolean;
+const online = statics.boolean;
 const participantId = statics.string;
 const phoneNumber = statics.string;
 const senderId = statics.string;
-const status = statics.string;
 const token = statics.string;
 const userId = statics.string;
 const username = statics.string;
@@ -69,6 +70,7 @@ const sender = statics.object({
 });
 
 const messageItem = {
+  createdAt,
   message,
   messageId,
   sender,
@@ -82,11 +84,13 @@ const blacklist = statics.array(cellphone);
 const contacts = statics.array(contact);
 const countries = statics.array(country);
 const messages = statics.array(messageItem);
+const status = statics.object({ online });
 
 const participants = statics.array(participantItem);
 
 const privateChat = {
   chatId,
+  createdAt,
   messages,
   participants,
 };
@@ -97,9 +101,11 @@ const user = {
   contacts,
   countryCode,
   countryName,
+  createdAt,
   firstName,
   lastName,
   phoneNumber,
+  status,
   userId,
   username,
 };
@@ -110,6 +116,7 @@ const single = {
   countryCode,
   countryName,
   countryShortName,
+  createdAt,
   description,
   errorReason,
   firstName,
@@ -119,6 +126,7 @@ const single = {
   messageId,
   newUser,
   ok,
+  online,
   participantId,
   phoneNumber,
   senderId,
@@ -144,6 +152,7 @@ const collection = {
   participants,
   privateChat,
   sender,
+  status,
   user,
 };
 

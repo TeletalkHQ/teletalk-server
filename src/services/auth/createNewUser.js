@@ -18,7 +18,6 @@ const createNewUser = serviceBuilder
 
 const checkExistenceOfCurrentUser = async (userId) => {
   const currentUser = await commonServices.findOneUserById(userId);
-
   errorThrower(currentUser, errors.CURRENT_USER_EXIST);
 };
 

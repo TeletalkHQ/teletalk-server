@@ -3,11 +3,15 @@ const { serviceHelper } = require("@/classes/service/ServiceHelper");
 
 const { errors } = require("@/variables/errors");
 
-const updatePublicUserData = serviceBuilder
+const updateOnlineStatus = serviceBuilder
   .create()
-  .body(async ({ currentUserId, ...updateProperties }) => {
+  .body(async ({ currentUserId, online }) => {
     const currentUser = await findCurrentUser(currentUserId);
-    await currentUser.updateOne(updateProperties);
+
+    await currentUser.updateOne({
+      status: { ...currentUser.status, online },
+    });
+
     return await findCurrentUser(currentUserId);
   })
   .build();
@@ -19,4 +23,4 @@ const findCurrentUser = async (currentUserId) => {
   );
 };
 
-module.exports = { updatePublicUserData };
+module.exports = { updateOnlineStatus };

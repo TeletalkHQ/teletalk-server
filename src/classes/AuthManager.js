@@ -75,8 +75,15 @@ class AuthManager {
   getTokenFromRequest(req = expressRequest) {
     return req.cookies[this.getOptions().cookie.SESSION_NAME];
   }
-  setTokenToResponse(res, token, options = { httpOnly: true, secure: true }) {
+  setTokenToResponse(
+    res = expressResponse,
+    token,
+    options = { httpOnly: true, secure: true }
+  ) {
     res.cookie(this.getOptions().cookie.SESSION_NAME, token, options);
+  }
+  removeSession(res) {
+    res.clearCookie(this.getOptions().cookie.SESSION_NAME);
   }
 
   getSignInSecret() {

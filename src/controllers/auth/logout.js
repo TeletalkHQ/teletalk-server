@@ -3,7 +3,7 @@ const { controllerBuilder } = require("@/classes/ControllerBuilder");
 
 const { services } = require("@/services");
 
-const tryToLogout = async (req) => {
+const tryToLogout = async (req, res) => {
   const { currentUserId } = req;
   const currentToken = authManager.getTokenFromRequest(req);
 
@@ -11,6 +11,8 @@ const tryToLogout = async (req) => {
     currentToken,
     currentUserId,
   });
+
+  authManager.removeSession(res);
 };
 
 const logout = controllerBuilder.create().body(tryToLogout).build();

@@ -75,6 +75,11 @@ class AuthManager {
   getTokenFromRequest(req = expressRequest) {
     return req.cookies[this.getOptions().cookie.SESSION_NAME];
   }
+  getTokenFromSocket(socket) {
+    return socket.handshake.headers.cookie.split(
+      `${this.getOptions().cookie.SESSION_NAME}=`
+    )[1];
+  }
   setTokenToResponse(
     res = expressResponse,
     token,

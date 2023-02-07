@@ -3,13 +3,13 @@ const { attachCurrentUserId } = require("@/middlewares/attachCurrentUserId");
 const { authDefault } = require("@/middlewares/authDefault");
 const { cellphoneValidator } = require("@/middlewares/cellphoneValidator");
 const { checkBodyFields } = require("@/middlewares/checkBodyFields");
+const {
+  checkCurrentUserStatus,
+} = require("@/middlewares/checkCurrentUserStatus");
 const { checkDataAndResponse } = require("@/middlewares/checkDataAndResponse");
 const { contactValidator } = require("@/middlewares/contactValidator");
 const { notFound } = require("@/middlewares/notFound");
 const { selfStuffCheck } = require("@/middlewares/selfStuffCheck");
-const {
-  checkCurrentUserStatus,
-} = require("@/middlewares/checkCurrentUserStatus");
 const { findRoute } = require("@/middlewares/findRoute");
 const { ignoreMiddlewares } = require("@/middlewares/ignoreMiddlewares");
 const { logSeparator } = require("@/middlewares/logSeparator");

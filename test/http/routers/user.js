@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const { controllers } = require("@/http/controllers");
 
-const { routes } = require("$/routes");
+const { routes } = require("$/http/routes");
 
 const userRouter = Router();
 

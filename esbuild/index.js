@@ -7,6 +7,22 @@ const defaultOptions = {
   platform: "node",
 };
 
+const appBuilder = ([key, value]) =>
+  esbuild.build({
+    ...defaultOptions,
+    entryPoints: ["./src/servers/index.js"],
+    outfile: `build/${key}/app.js`,
+    target: value,
+  });
+
+const testBuilder = ([key, value]) =>
+  esbuild.build({
+    ...defaultOptions,
+    entryPoints: ["./test/index.js"],
+    outfile: `build/${key}/test.js`,
+    target: value,
+  });
+
 const calcNodeVersion = () => {
   return process.env.npm_config_user_agent
     ?.split("node/v")[1]
@@ -24,22 +40,6 @@ const targets = {
   node18: "node18.0",
   node20: "node20.0",
 };
-
-const appBuilder = ([key, value]) =>
-  esbuild.build({
-    ...defaultOptions,
-    entryPoints: ["./src/servers/index.js"],
-    outfile: `build/${key}/app.js`,
-    target: value,
-  });
-
-const testBuilder = ([key, value]) =>
-  esbuild.build({
-    ...defaultOptions,
-    entryPoints: ["./test/index.js"],
-    outfile: `build/${key}/test.js`,
-    target: value,
-  });
 
 Object.entries(targets).forEach(appBuilder);
 Object.entries(targets).forEach(testBuilder);

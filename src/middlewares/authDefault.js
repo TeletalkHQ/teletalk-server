@@ -27,7 +27,7 @@ const executeIfNoError = ({ validationResult }, req, next) => {
   next();
 };
 
-const catchAuthDefault = (error, res) => {
+const catchAuthDefault = (error, res = expressResponse) => {
   commonUtilities.controllerErrorResponse(error, res);
   return { ok: false };
 };

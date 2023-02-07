@@ -1,8 +1,10 @@
 const { envManager } = require("@/classes/EnvironmentManager");
+const { authManager } = require("@/classes/AuthManager");
 
-//TODO Rename
 class CommonUtilities {
   controllerErrorResponse(error, res) {
+    if (error?.statusCode === 401) authManager.removeSession(res);
+
     res.errorCollector(error);
     res.errorResponser();
   }

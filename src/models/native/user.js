@@ -111,7 +111,7 @@ const username = nativeModelBuilder
   .type(FIELD_TYPE.STRING, errors.USERNAME_INVALID_TYPE)
   .required(true, errors.USERNAME_REQUIRED)
   .empty(true)
-  .minlength(4, errors.USERNAME_MINLENGTH_REACH)
+  .minlength(0, errors.USERNAME_MINLENGTH_REACH)
   .maxlength(12, errors.USERNAME_MAXLENGTH_REACH)
   .unique(false, errors.USERNAME_EXIST)
   .trim(true)

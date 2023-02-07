@@ -5,7 +5,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const { isUrlMatchWithReqUrl } = require("@/utilities/utilities");
 
-const { routes } = require("@/routes");
+const { routes } = require("@/http/routes");
 
 const { errors } = require("@/variables/errors");
 

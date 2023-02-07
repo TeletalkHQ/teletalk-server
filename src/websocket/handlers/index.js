@@ -1,4 +1,4 @@
-const { userHandlers } = require("@/socket/handlers/user");
+const { userHandlers } = require("@/websocket/handlers/user");
 
 const handlers = {
   userHandlers,

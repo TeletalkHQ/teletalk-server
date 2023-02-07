@@ -5,7 +5,7 @@ const { commonUtilities } = require("@/classes/CommonUtilities");
 
 const { errors } = require("@/variables/errors");
 
-const { arrayOfRoutes } = require("@/routes");
+const { arrayOfRoutes } = require("@/http/routes");
 
 const requestMethodChecker = (req, res, next) => {
   return trier(requestMethodChecker.name)

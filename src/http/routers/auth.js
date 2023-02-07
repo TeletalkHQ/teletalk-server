@@ -1,10 +1,10 @@
 const { Router } = require("express");
 
-const { controllers } = require("@/controllers");
+const { controllers } = require("@/http/controllers");
 
-const { middlewares } = require("@/middlewares");
+const { middlewares } = require("@/http/middlewares");
 
-const { routes } = require("@/routes");
+const { routes } = require("@/http/routes");
 
 const authRouter = Router();
 

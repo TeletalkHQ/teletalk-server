@@ -1,6 +1,6 @@
 const {
   updateOnlineStatus,
-} = require("@/socket/handlers/user/updateOnlineStatus");
+} = require("@/websocket/handlers/user/updateOnlineStatus");
 
 const userHandlers = {
   updateOnlineStatus,

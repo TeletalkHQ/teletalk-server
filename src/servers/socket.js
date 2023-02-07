@@ -1,4 +1,4 @@
-const { middlewares } = require("@/socket/middlewares");
+const { middlewares } = require("@/websocket/middlewares");
 const socket = require("socket.io");
 
 const socketServer = (httpServer) => {

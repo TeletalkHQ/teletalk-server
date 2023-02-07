@@ -7,9 +7,7 @@ const updatePublicUserData = serviceBuilder
   .create()
   .body(async ({ currentUserId, ...updateProperties }) => {
     const currentUser = await findCurrentUser(currentUserId);
-
     await currentUser.updateOne(updateProperties);
-
     return await findCurrentUser(currentUserId);
   })
   .build();

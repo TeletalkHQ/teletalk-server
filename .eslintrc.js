@@ -15,7 +15,8 @@ module.exports = {
   globals: {
     expressRequest: true,
     expressResponse: true,
-    logger: false,
+    ioSocket: true,
+    logger: true,
   },
   overrides: [],
   parserOptions: {

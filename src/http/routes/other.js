@@ -1,17 +1,16 @@
-const { routeBuilder } = require("@/classes/RouteBuilder");
+const { httpRouteBuilder } = require("@/classes/RouteBuilder");
 
 const { baseUrls } = require("@/http/routes/baseUrls");
 const { fields } = require("@/http/routes/fields");
 
 const { METHODS } = require("@/variables/others/methods");
 
-const otherRouteBuilder = routeBuilder(baseUrls.other);
+const otherRouteBuilder = httpRouteBuilder(baseUrls.other);
 
 const getCountries = otherRouteBuilder
   .create()
   .method(METHODS.GET)
   .url("/getCountries")
-  .statusCode(200)
   .outputFields([
     {
       countries: fields.statics.array(fields.collection.country),
@@ -23,7 +22,6 @@ const getWelcomeMessage = otherRouteBuilder
   .create()
   .method(METHODS.GET)
   .url("/welcomeMessage")
-  .statusCode(200)
   .outputFields([
     {
       welcomeMessage: fields.single.welcomeMessage,

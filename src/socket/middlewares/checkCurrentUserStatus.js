@@ -2,26 +2,25 @@ const { errorThrower } = require("utility-store/src/utilities/utilities");
 const { trier } = require("utility-store/src/classes/Trier");
 
 const { authManager } = require("@/classes/AuthManager");
-const { commonUtilities } = require("@/classes/CommonUtilities");
 
 const { services } = require("@/services");
 
 const { errors } = require("@/variables/errors");
 
-const checkCurrentUserStatus = async (req, res, next) => {
+const checkCurrentUserStatus = async (socket, next) => {
   return await trier(checkCurrentUserStatus.name)
-    .tryAsync(tryToCheckCurrentUserStatus, req)
+    .tryAsync(tryBlock, socket)
     .executeIfNoError(executeIfNoError, next)
-    .catch(catchCheckCurrentUserStatus, res)
+    .catch(catchBlock, socket)
     .runAsync();
 };
 
-const tryToCheckCurrentUserStatus = async (req) => {
-  const {
-    payload: { tokenId },
-  } = req.authData;
+const tryBlock = async (socket) => {
   const error = errors.CURRENT_USER_NOT_EXIST;
 
+  const {
+    payload: { tokenId },
+  } = socket.authData;
   const currentUser = await services.findOneUser({ userId: tokenId });
   errorThrower(!currentUser, {
     ...error,
@@ -32,7 +31,7 @@ const tryToCheckCurrentUserStatus = async (req) => {
     wrongTokenId: tokenId,
   });
 
-  const token = authManager.getTokenFromRequest(req);
+  const token = authManager.getTokenFromSocket(socket);
   const isSessionExist = currentUser.sessions.some((t) => t.token === token);
   errorThrower(!isSessionExist, {
     ...error,
@@ -41,7 +40,6 @@ const tryToCheckCurrentUserStatus = async (req) => {
 
   return {
     currentUser,
-    ok: true,
   };
 };
 
@@ -49,9 +47,8 @@ const executeIfNoError = (_data, next) => {
   next();
 };
 
-const catchCheckCurrentUserStatus = (error, res) => {
-  commonUtilities.controllerErrorResponse(error, res);
-  return { ok: false };
+const catchBlock = (error, socket) => {
+  socket.emit("unauthorized", error);
 };
 
 module.exports = { checkCurrentUserStatus };

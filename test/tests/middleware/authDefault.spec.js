@@ -3,7 +3,7 @@ const { expect } = require("chai");
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 const { requesterCreator } = require("$/classes/Requester");
 
-const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/routes");
+const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/http/routes");
 
 const { errors } = require("@/variables/errors");
 

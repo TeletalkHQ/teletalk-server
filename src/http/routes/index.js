@@ -1,9 +1,9 @@
-const { userRoutes } = require("@/routes/user");
-const { otherRoutes } = require("@/routes/other");
-const { privateChatRoutes } = require("@/routes/privateChat");
-const { serverRoutes } = require("@/routes/server");
-const { stuffRoutes } = require("@/routes/stuff");
-const { authRoutes } = require("@/routes/auth");
+const { userRoutes } = require("@/http/routes/user");
+const { otherRoutes } = require("@/http/routes/other");
+const { privateChatRoutes } = require("@/http/routes/privateChat");
+const { serverRoutes } = require("@/http/routes/server");
+const { stuffRoutes } = require("@/http/routes/stuff");
+const { authRoutes } = require("@/http/routes/auth");
 
 const arrayOfRoutes = Object.values({
   ...userRoutes,

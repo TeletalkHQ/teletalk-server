@@ -1,4 +1,4 @@
-const { arrayOfRoutes } = require("@/routes");
+const { arrayOfRoutes } = require("@/http/routes");
 
 const findRoute = (req = expressRequest, _res, next) => {
   req.custom.route = arrayOfRoutes.find((item) => {

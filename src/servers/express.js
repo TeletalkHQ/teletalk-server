@@ -9,11 +9,11 @@ require("pretty-error").start();
 
 const { loggerHelper } = require("@/utilities/logHelper");
 
-const { middlewares } = require("@/middlewares");
+const { middlewares } = require("@/http/middlewares");
 
-const { lifeLine } = require("@/routers/lifeLine");
+const { lifeLine } = require("@/http/routers/lifeLine");
 
-const { routes, ignoredUrlsForAuth } = require("@/routes");
+const { routes, ignoredUrlsForAuth } = require("@/http/routes");
 
 const app = express();
 

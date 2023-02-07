@@ -1,8 +1,8 @@
 const { Router } = require("express");
 
-const { routers } = require("@/routers");
+const { routers } = require("@/http/routers");
 
-const { baseUrls } = require("@/routes/baseUrls");
+const { baseUrls } = require("@/http/routes/baseUrls");
 
 const lifeLine = Router();
 

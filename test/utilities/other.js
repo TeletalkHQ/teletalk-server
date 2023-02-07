@@ -4,7 +4,7 @@ const { models } = require("@/models");
 
 const { requesterCreator } = require("$/classes/Requester");
 
-const { routes } = require("@/routes");
+const { routes } = require("@/http/routes");
 
 const { countries } = require("@/variables/others/countries");
 

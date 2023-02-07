@@ -2,7 +2,7 @@ const { failTestBuilder } = require("$/classes/FailTestBuilder");
 const { randomMaker } = require("$/classes/RandomMaker");
 const { requesterCreator } = require("$/classes/Requester");
 
-const { arrayOfRoutes, routes } = require("@/routes");
+const { arrayOfRoutes, routes } = require("@/http/routes");
 
 const { errors } = require("@/variables/errors");
 

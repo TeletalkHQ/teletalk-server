@@ -10,7 +10,7 @@ const { testVariablesManager } = require("$/classes/TestVariablesManager");
 const { models } = require("@/models");
 
 const { errors } = require("@/variables/errors");
-const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/routes");
+const { arrayOfRoutes, ignoredRoutesForAuth } = require("@/http/routes");
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 
 const userModel = models.native.user;

@@ -1,6 +1,6 @@
 const { models } = require("@/models");
 
-const { routes } = require("@/routes");
+const { routes } = require("@/http/routes");
 
 const { userErrors } = require("@/variables/errors/user");
 

@@ -5,7 +5,7 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const { isUrlMatchWithReqUrl } = require("@/utilities/utilities");
 
-const { routes } = require("@/routes");
+const { routes } = require("@/http/routes");
 
 const { errors } = require("@/variables/errors");
 
@@ -75,8 +75,20 @@ class AuthManager {
   getTokenFromRequest(req = expressRequest) {
     return req.cookies[this.getOptions().cookie.SESSION_NAME];
   }
-  setTokenToResponse(res, token, options = { httpOnly: true, secure: true }) {
+  getTokenFromSocket(socket) {
+    return socket.handshake.headers.cookie.split(
+      `${this.getOptions().cookie.SESSION_NAME}=`
+    )[1];
+  }
+  setTokenToResponse(
+    res = expressResponse,
+    token,
+    options = { httpOnly: true, secure: true }
+  ) {
     res.cookie(this.getOptions().cookie.SESSION_NAME, token, options);
+  }
+  removeSession(res) {
+    res.clearCookie(this.getOptions().cookie.SESSION_NAME);
   }
 
   getSignInSecret() {

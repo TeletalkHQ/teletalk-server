@@ -1,17 +1,16 @@
-const { routeBuilder } = require("@/classes/RouteBuilder");
+const { httpRouteBuilder } = require("@/classes/RouteBuilder");
 
 const { baseUrls } = require("@/http/routes/baseUrls");
 const { fields } = require("@/http/routes/fields");
 
 const { METHODS } = require("@/variables/others/methods");
 
-const userRouteBuilder = routeBuilder(baseUrls.user);
+const userRouteBuilder = httpRouteBuilder(baseUrls.user);
 
 const addBlock = userRouteBuilder
   .create()
   .method(METHODS.POST)
   .url("/addBlock")
-  .statusCode(200)
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
@@ -24,14 +23,12 @@ const addBlocks = userRouteBuilder
   .create()
   .method(METHODS.POST)
   .url("/addBlocks")
-  .statusCode(200)
   .build();
 
 const addContact = userRouteBuilder
   .create()
   .method(METHODS.POST)
   .url("/addContact")
-  .statusCode(200)
   .inputFields(fields.collection.contactWithoutUserId)
   .outputFields([
     {
@@ -44,14 +41,12 @@ const addContacts = userRouteBuilder
   .create()
   .method(METHODS.POST)
   .url("/addContacts")
-  .statusCode(200)
   .build();
 
 const editContact = userRouteBuilder
   .create()
   .method(METHODS.PATCH)
   .url("/editContact")
-  .statusCode(200)
   .inputFields(fields.collection.contactWithoutUserId)
   .outputFields([
     {
@@ -66,7 +61,6 @@ const getContacts = userRouteBuilder
   .create()
   .method(METHODS.GET)
   .url("/getContacts")
-  .statusCode(200)
   .outputFields([
     {
       contacts: fields.statics.array(fields.collection.contact),
@@ -78,7 +72,6 @@ const removeBlock = userRouteBuilder
   .create()
   .method(METHODS.DELETE)
   .url("/removeBlock")
-  .statusCode(200)
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
@@ -91,14 +84,12 @@ const removeBlocks = userRouteBuilder
   .create()
   .method(METHODS.DELETE)
   .url("/removeBlocks")
-  .statusCode(200)
   .build();
 
 const removeContact = userRouteBuilder
   .create()
   .method(METHODS.DELETE)
   .url("/removeContact")
-  .statusCode(200)
   .inputFields(fields.collection.cellphone)
   .outputFields([
     {
@@ -111,28 +102,24 @@ const removeContacts = userRouteBuilder
   .create()
   .method(METHODS.DELETE)
   .url("/removeContacts")
-  .statusCode(200)
   .build();
 
 const shareContact = userRouteBuilder
   .create()
   .method(METHODS.POST)
   .url("/shareContact")
-  .statusCode(200)
   .build();
 
 const shareContacts = userRouteBuilder
   .create()
   .method(METHODS.POST)
   .url("/shareContacts")
-  .statusCode(200)
   .build();
 
 const getCurrentUserData = userRouteBuilder
   .create()
   .method(METHODS.GET)
   .url("/getCurrentUserData")
-  .statusCode(200)
   .outputFields([
     {
       user: fields.statics.object(fields.collection.user),
@@ -144,7 +131,6 @@ const getPublicUserData = userRouteBuilder
   .create()
   .method(METHODS.POST)
   .url("/getPublicUserData")
-  .statusCode(200)
   .inputFields({
     userId: fields.single.userId,
   })
@@ -164,7 +150,6 @@ const updatePublicUserData = userRouteBuilder
   .create()
   .method(METHODS.PATCH)
   .url("/updatePublicUserData")
-  .statusCode(200)
   .inputFields({
     ...fields.collection.fullName,
     bio: fields.single.bio,

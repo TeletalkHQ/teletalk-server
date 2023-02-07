@@ -1,4 +1,4 @@
-const { getAllUsers } = require("$/controllers/user/getAllUsers");
+const { getAllUsers } = require("$/http/controllers/user/getAllUsers");
 
 const testControllers = { getAllUsers };
 

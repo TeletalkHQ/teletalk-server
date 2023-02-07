@@ -1,6 +1,6 @@
 const { routeBuilder } = require("@/classes/RouteBuilder");
 
-const { baseUrls } = require("$/routes/baseUrls");
+const { baseUrls } = require("$/http/routes/baseUrls");
 
 const { METHODS } = require("@/variables/others/methods");
 

@@ -2,6 +2,8 @@ const {
   UserUtilities: UserUtilitiesMain,
 } = require("utility-store/src/classes/UserUtilities");
 
+const { authManager } = require("@/classes/AuthManager");
+
 class UserUtilities extends UserUtilitiesMain {
   constructor(id) {
     super();
@@ -9,10 +11,17 @@ class UserUtilities extends UserUtilitiesMain {
   }
 
   getDataFromVerifiedToken(verifiedToken) {
-    return verifiedToken.payload;
+    return verifiedToken.data;
+  }
+  getPayloadFromVerifiedToken(verifiedToken) {
+    return this.getDataFromVerifiedToken(verifiedToken).payload;
   }
   getUserIdFromVerifiedToken(verifiedToken) {
-    return this.getDataFromVerifiedToken(verifiedToken).tokenId;
+    return this.getPayloadFromVerifiedToken(verifiedToken).tokenId;
+  }
+  getUserIdFromToken(token) {
+    const verifiedToken = authManager.verifyToken(token);
+    return this.getUserIdFromVerifiedToken(verifiedToken);
   }
 }
 

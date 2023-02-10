@@ -2,15 +2,15 @@ const { handlers } = require("@/websocket/handlers");
 
 const { routes } = require("@/websocket/routes");
 
-const otherRouter = (socket = ioSocket) => {
+const privateChatRouter = (socket = ioSocket) => {
   [
     {
-      event: routes.other.ping.event,
-      handler: handlers.pong,
+      event: routes.privateChat.sendPrivateMessage.event,
+      handler: handlers.sendPrivateMessage,
     },
   ].forEach((item) => {
     socket.on(item.event, (...args) => item.handler(socket, ...args));
   });
 };
 
-module.exports = { otherRouter };
+module.exports = { privateChatRouter };

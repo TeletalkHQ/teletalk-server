@@ -22,7 +22,9 @@ const selfStuffCheck = async (req, res, next) => {
 const tryTo = async (req) => {
   const targetCellphone = req.body;
   const {
-    payload: { tokenId },
+    data: {
+      payload: { tokenId },
+    },
   } = req.authData;
 
   const currentUser = await services.findOneUserById(tokenId);

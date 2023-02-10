@@ -8,7 +8,9 @@ const { services } = require("@/services");
 const tryToVerify = async (req, res) => {
   const {
     authData: {
-      payload: { tokenId },
+      data: {
+        payload: { tokenId },
+      },
     },
   } = req;
   const client = await temporaryClients.find(tokenId);

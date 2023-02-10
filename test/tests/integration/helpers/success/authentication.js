@@ -21,6 +21,7 @@ const authenticationSuccessTest = async (
   { equalValue, testValue, secret },
   options = testVariablesManager.successTestDefaultOptions
 ) => {
+  //FIXME: secret is undefined
   const builder = successTestBuilder
     .create()
     .setVariables(userModels.token, equalValue, testValue)
@@ -53,18 +54,21 @@ const authenticationSuccessTest = async (
 const tokenPartsTypeCheck = (builder, token, secret) => {
   builder
     .customTypeCheck(token, FIELD_TYPE.OBJECT)
-    .customTypeCheck(token.signature, FIELD_TYPE.STRING)
-    .customTypeCheck(token.payload, FIELD_TYPE.OBJECT);
+    .customTypeCheck(token.data, FIELD_TYPE.OBJECT)
+    .customTypeCheck(token.data.signature, FIELD_TYPE.STRING)
+    .customTypeCheck(token.data.payload, FIELD_TYPE.OBJECT);
 
+  //TODO: Need to remove
   if (secret === authManager.getSignInSecret()) {
     builder
-      .customTypeCheck(token.payload.countryCode, FIELD_TYPE.STRING)
-      .customTypeCheck(token.payload.countryName, FIELD_TYPE.STRING)
-      .customTypeCheck(token.payload.phoneNumber, FIELD_TYPE.STRING);
+      .customTypeCheck(token.data.payload.countryCode, FIELD_TYPE.STRING)
+      .customTypeCheck(token.data.payload.countryName, FIELD_TYPE.STRING)
+      .customTypeCheck(token.data.payload.phoneNumber, FIELD_TYPE.STRING);
   }
 
+  console.log("secret:::", secret);
   if (secret === authManager.getMainSecret())
-    builder.customTypeCheck(token.payload.userId, FIELD_TYPE.STRING);
+    builder.customTypeCheck(token.data.payload.tokenId, FIELD_TYPE.STRING);
 };
 
 module.exports = {

@@ -18,7 +18,9 @@ const checkCurrentUserStatus = async (req, res, next) => {
 
 const tryToCheckCurrentUserStatus = async (req) => {
   const {
-    payload: { tokenId },
+    data: {
+      payload: { tokenId },
+    },
   } = req.authData;
   const error = errors.CURRENT_USER_NOT_EXIST;
 

@@ -19,7 +19,9 @@ const tryBlock = async (socket) => {
   const error = errors.CURRENT_USER_NOT_EXIST;
 
   const {
-    payload: { tokenId },
+    data: {
+      payload: { tokenId },
+    },
   } = socket.authData;
   const currentUser = await services.findOneUser({ userId: tokenId });
   errorThrower(!currentUser, {

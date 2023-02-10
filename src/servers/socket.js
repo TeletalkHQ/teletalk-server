@@ -1,6 +1,7 @@
 const socket = require("socket.io");
 
 const { middlewares } = require("@/websocket/middlewares");
+
 const { routers } = require("@/websocket/routers");
 
 const socketServer = (httpServer) => {
@@ -12,9 +13,8 @@ const socketServer = (httpServer) => {
   });
 
   io.on("connection", (socket) => {
-    socket.use((_event, next) => middlewares.connection(socket, next));
-
     socket.use((_event, next) => middlewares.auth(socket, next));
+
     socket.use((_event, next) =>
       middlewares.checkCurrentUserStatus(socket, next)
     );
@@ -22,7 +22,6 @@ const socketServer = (httpServer) => {
 
     routers(socket);
   });
-
   return io;
 };
 

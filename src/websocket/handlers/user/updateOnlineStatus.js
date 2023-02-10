@@ -1,8 +1,9 @@
 const { services } = require("@/services");
 
-const updateOnlineStatus = async ({ userId }) => {
+const updateOnlineStatus = async (socket) => {
   await services.updateOnlineStatus().run({
-    currentUserId: userId,
+    currentUserId: socket.currentUserId,
+    online: socket.connected,
   });
 };
 

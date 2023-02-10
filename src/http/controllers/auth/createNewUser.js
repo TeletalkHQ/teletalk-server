@@ -17,7 +17,9 @@ const { errors } = require("@/variables/errors");
 const tryToCreateNewUser = async (req, res) => {
   const {
     authData: {
-      payload: { tokenId },
+      data: {
+        payload: { tokenId },
+      },
     },
     body: { firstName, lastName },
   } = req;

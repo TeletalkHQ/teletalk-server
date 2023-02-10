@@ -5,6 +5,7 @@ const { commonUtilities } = require("@/classes/CommonUtilities");
 
 const { validators } = require("@/validators");
 
+//TODO: Rename to authHttp
 const authDefault = async (req, res, next) => {
   return await trier(authDefault.name)
     .tryAsync(tryToValidateToken, req)

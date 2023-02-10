@@ -1,5 +1,7 @@
-const { middlewares } = require("@/websocket/middlewares");
 const socket = require("socket.io");
+
+const { middlewares } = require("@/websocket/middlewares");
+const { routers } = require("@/websocket/routers");
 
 const socketServer = (httpServer) => {
   const io = new socket.Server(httpServer, {
@@ -10,32 +12,20 @@ const socketServer = (httpServer) => {
   });
 
   io.on("connection", (socket) => {
+    socket.use((_event, next) => middlewares.connection(socket, next));
+
     socket.use((_event, next) => middlewares.auth(socket, next));
+    socket.use((_event, next) =>
+      middlewares.checkCurrentUserStatus(socket, next)
+    );
+    socket.use((_event, next) => middlewares.attachCurrentUserId(socket, next));
 
-    socket.use((event, next) => {
-      console.log("event:::", event);
-      next();
-    });
-
-    socket.on("ping", () => {
-      socket.emit("pong", "YAY!");
-    });
-
-    console.log("a user connected");
-    socket.on("disconnect", () => {
-      console.log("user disconnected");
-    });
-
-    socket.on("authorize-me", (userId) => {
-      console.log("userId:::", userId);
-    });
-
-    socket.on("logout", () => {
-      socket.handshake.headers.cookie = undefined;
-    });
+    routers(socket);
   });
 
   return io;
 };
 
-module.exports = { socketServer };
+module.exports = {
+  socketServer,
+};

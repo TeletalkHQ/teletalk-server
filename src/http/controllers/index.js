@@ -36,6 +36,7 @@ const {
   updatePublicUserData,
 } = require("@/http/controllers/user/updatePublicUserData");
 
+//TODO: index
 const controllers = {
   addBlock,
   addContact,

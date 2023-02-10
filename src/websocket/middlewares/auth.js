@@ -17,7 +17,7 @@ const auth = async (socket, next) => {
 const tryToValidateToken = async (socket = ioSocket) => {
   if (!socket.handshake.headers.cookie) throw errors.TOKEN_REQUIRED;
 
-  const token = authManager.getTokenFromSocket();
+  const token = authManager.getTokenFromSocket(socket);
 
   const validationResult = await validators.token(
     token,

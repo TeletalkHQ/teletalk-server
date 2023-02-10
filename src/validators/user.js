@@ -102,7 +102,7 @@ const tokenValidator = async (token, secret = authManager.getMainSecret()) => {
 
   validatorErrorChecker.token(errorBuilder);
 
-  return authManager.verifyToken(token, secret).data;
+  return authManager.verifyToken(token, secret);
 };
 
 const usernameValidator = async (username) => {

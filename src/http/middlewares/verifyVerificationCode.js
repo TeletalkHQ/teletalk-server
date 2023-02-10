@@ -17,7 +17,9 @@ const verifyVerificationCode = async (req, res, next) => {
 const tryToVerifyVerificationCode = async (req) => {
   const {
     authData: {
-      payload: { tokenId },
+      data: {
+        payload: { tokenId },
+      },
     },
     body: { verificationCode: sentVerificationCode },
   } = req;

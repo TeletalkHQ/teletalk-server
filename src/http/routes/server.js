@@ -1,4 +1,4 @@
-const { httpRouteBuilder } = require("@/classes/RouteBuilder");
+const { httpRouteBuilder } = require("@/classes/routeBuilder/HttpRouteBuilder");
 
 const root = httpRouteBuilder("/").create().url("").build();
 

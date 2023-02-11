@@ -1,4 +1,6 @@
-const { socketRouteBuilder } = require("@/classes/RouteBuilder");
+const {
+  socketRouteBuilder,
+} = require("@/classes/routeBuilder/SocketRouteBuilder");
 
 const builder = socketRouteBuilder();
 

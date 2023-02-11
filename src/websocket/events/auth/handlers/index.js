@@ -1,4 +1,4 @@
-const { logout } = require("@/websocket/handlers/auth/logout");
+const { logout } = require("@/websocket/events/auth/handlers/logout");
 
 const authHandlers = {
   logout,

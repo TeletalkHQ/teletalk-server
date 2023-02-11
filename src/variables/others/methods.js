@@ -1,9 +1,12 @@
 const METHODS = {
+  DELETE: "delete",
   GET: "get",
+  ON: "on",
+  ON_ANY: "onAny",
+  ONCE: "once",
+  PATCH: "patch",
   POST: "post",
   PUT: "put",
-  PATCH: "patch",
-  DELETE: "delete",
 };
 
 module.exports = { METHODS };

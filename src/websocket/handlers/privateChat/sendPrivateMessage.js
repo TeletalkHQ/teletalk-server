@@ -13,10 +13,11 @@ const sendPrivateMessage = async (socket = ioSocket, data) => {
     .sendPrivateMessage()
     .run({ currentUserId, participantId, message });
 
-  socket.to(currentUserId).to(participantId).emit("newMessage", {
+  socket.to(participantId).emit("newPrivateChatMessage", {
     chatId,
     newMessage,
   });
+  socket.emit("newPrivateChatMessage", { chatId, newMessage });
 };
 
 module.exports = { sendPrivateMessage };

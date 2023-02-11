@@ -13,7 +13,7 @@ const sendPrivateMessage = async (socket = ioSocket, data) => {
     .sendPrivateMessage()
     .run({ currentUserId, participantId, message });
 
-  socket.to(currentUserId).to(participantId).broadcast({
+  socket.to(currentUserId).to(participantId).emit("newMessage", {
     chatId,
     newMessage,
   });

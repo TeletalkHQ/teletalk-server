@@ -29,6 +29,7 @@ userRouter.use(
   )
 );
 
+//CLEANME: With some classes
 userRouter[routes.user.getCurrentUserData.method](
   routes.user.getCurrentUserData.url,
   controllers.getCurrentUserData

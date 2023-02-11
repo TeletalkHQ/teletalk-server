@@ -1,6 +1,6 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
-const { httpRouteBuilder } = require("@/classes/RouteBuilder");
+const { httpRouteBuilder } = require("@/classes/routeBuilder/HttpRouteBuilder");
 
 const unknownRoute = httpRouteBuilder(`/${randomMaker.string(10)}`)
   .create()

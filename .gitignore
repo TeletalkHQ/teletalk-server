@@ -9,3 +9,4 @@ built
 dist
 .dccache
 dump.rdb
+redis-portable

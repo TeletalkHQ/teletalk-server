@@ -13,6 +13,7 @@ const { errors } = require("@/variables/errors");
 
 const chatModels = models.native.chat;
 
+//CLEANME: Separate createPrivateChat parts
 const sendPrivateMessage = serviceBuilder
   .create()
   .body(async ({ currentUserId, message, participantId }) => {

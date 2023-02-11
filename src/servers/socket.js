@@ -20,6 +20,10 @@ const socketServer = (httpServer) => {
     );
     socket.use((_event, next) => middlewares.attachCurrentUserId(socket, next));
 
+    socket.once("joinRoom", async () => {
+      await socket.join(socket.currentUserId);
+    });
+
     routers(socket);
   });
   return io;

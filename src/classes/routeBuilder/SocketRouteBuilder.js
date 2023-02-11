@@ -1,24 +1,38 @@
 const { RouteBuilder } = require("@/classes/routeBuilder/RouteBuilder");
+const { METHODS } = require("@/variables/others/methods");
 
 class SocketRouteBuilder extends RouteBuilder {
   constructor() {
     super();
     this.route = {
-      event: "",
+      handler: undefined,
       inputFields: {},
+      method: METHODS.ON,
+      name: undefined,
       outputFields: {},
       statusCode: 200,
     };
   }
 
-  event(name) {
-    this.updateProperty("event", name);
+  method(method) {
+    this.updateProperty("method", method);
+    return this;
+  }
+
+  name(name) {
+    this.updateProperty("name", name);
+    return this;
+  }
+
+  handler(handler) {
+    this.updateProperty("handler", handler);
     return this;
   }
 
   build() {
-    const { event, statusCode } = this.route;
-    this.checkRequirements(event, statusCode);
+    const { handler, method, name, statusCode } = this.route;
+
+    this.checkRequirements(handler, method, name, statusCode);
     return this.route;
   }
 }

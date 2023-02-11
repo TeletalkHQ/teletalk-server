@@ -2,7 +2,7 @@ const socket = require("socket.io");
 
 const { middlewares } = require("@/websocket/middlewares");
 
-const { routers } = require("@/websocket/routers");
+const { events } = require("@/websocket/events");
 
 const socketServer = (httpServer) => {
   const io = new socket.Server(httpServer, {
@@ -20,9 +20,7 @@ const socketServer = (httpServer) => {
     );
     socket.use((_event, next) => middlewares.attachCurrentUserId(socket, next));
 
-    socket.on("joinRoom", () => socket.join(socket.currentUserId));
-
-    routers(socket);
+    events(socket);
   });
   return io;
 };

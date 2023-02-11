@@ -84,9 +84,9 @@ const blacklist = statics.array(cellphone);
 const contacts = statics.array(contact);
 const countries = statics.array(country);
 const messages = statics.array(messageItem);
-const status = statics.object({ online });
-
 const participants = statics.array(participantItem);
+
+const status = statics.object({ online });
 
 const privateChat = {
   chatId,

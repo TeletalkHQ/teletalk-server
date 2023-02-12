@@ -17,6 +17,12 @@ const joinRoom = builder
   .method(METHODS.ONCE)
   .build();
 
+const getPrivateChats = builder
+  .create()
+  .handler(privateChatHandlers.getPrivateChats)
+  .name("getPrivateChats")
+  .build();
+
 const sendPrivateMessage = builder
   .create()
   .handler(privateChatHandlers.sendPrivateMessage)
@@ -24,6 +30,7 @@ const sendPrivateMessage = builder
   .build();
 
 const privateChatRoutes = {
+  getPrivateChats,
   joinRoom,
   sendPrivateMessage,
 };

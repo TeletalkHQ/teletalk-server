@@ -1,4 +1,7 @@
 const {
+  getPrivateChats,
+} = require("@/websocket/events/privateChat/handlers/getPrivateChats");
+const {
   joinRoom,
 } = require("@/websocket/events/privateChat/handlers/joinRoom");
 const {
@@ -6,6 +9,7 @@ const {
 } = require("@/websocket/events/privateChat/handlers/sendPrivateMessage");
 
 const privateChatHandlers = {
+  getPrivateChats,
   joinRoom,
   sendPrivateMessage,
 };

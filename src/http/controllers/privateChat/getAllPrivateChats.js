@@ -1,5 +1,6 @@
-const { services } = require("@/services");
 const { controllerBuilder } = require("@/classes/ControllerBuilder");
+
+const { services } = require("@/services");
 
 const tryToGetAllPrivateChats = async (req) => {
   const { currentUserId } = req;

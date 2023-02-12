@@ -14,7 +14,7 @@ const auth = async (socket, next) => {
     .runAsync();
 };
 
-const tryToValidateToken = async (socket = ioSocket) => {
+const tryToValidateToken = async (socket = socketIntellisense) => {
   if (!socket.handshake.headers.cookie) throw errors.TOKEN_REQUIRED;
 
   const token = authManager.getTokenFromSocket(socket);
@@ -27,12 +27,16 @@ const tryToValidateToken = async (socket = ioSocket) => {
   return { validationResult };
 };
 
-const executeIfNoError = ({ validationResult }, socket = ioSocket, next) => {
+const executeIfNoError = (
+  { validationResult },
+  socket = socketIntellisense,
+  next
+) => {
   socket.authData = validationResult;
   next();
 };
 
-const catchAuthDefault = (error, socket = ioSocket) => {
+const catchAuthDefault = (error, socket = socketIntellisense) => {
   socket.emit("unauthorized", error);
 };
 

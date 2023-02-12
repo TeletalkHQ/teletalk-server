@@ -8,16 +8,6 @@ const {
   getWelcomeMessage,
 } = require("@/http/controllers/other/getWelcomeMessage");
 
-const {
-  getPrivateChat,
-} = require("@/http/controllers/privateChat/getPrivateChat");
-const {
-  getAllPrivateChats,
-} = require("@/http/controllers/privateChat/getAllPrivateChats");
-const {
-  sendPrivateMessage,
-} = require("@/http/controllers/privateChat/sendPrivateMessage");
-
 const { getAllStuff } = require("@/http/controllers/stuff/getAllStuff");
 
 const { addBlock } = require("@/http/controllers/user/addBlock");
@@ -42,18 +32,15 @@ const controllers = {
   addContact,
   createNewUser,
   editContact,
-  getAllPrivateChats,
   getAllStuff,
   getContacts,
   getCountries,
   getCurrentUserData,
-  getPrivateChat,
   getPublicUserData,
   getWelcomeMessage,
   logout,
   removeBlock,
   removeContact,
-  sendPrivateMessage,
   signIn,
   updatePublicUserData,
   verify,

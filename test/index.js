@@ -23,9 +23,9 @@ require("$/tests/integration/routers/auth/verify.spec");
 require("$/tests/integration/routers/auth/createNewUser.spec");
 require("$/tests/integration/routers/auth/logout.spec");
 //? privateChatRouter api's =>
-require("$/tests/integration/routers/privateChat/sendPrivateMessage.spec");
-require("$/tests/integration/routers/privateChat/getAllPrivateChats.spec");
-require("$/tests/integration/routers/privateChat/getPrivateChat.spec");
+// require("$/tests/integration/routers/privateChat/sendPrivateMessage.spec");
+// require("$/tests/integration/routers/privateChat/getAllPrivateChats.spec");
+// require("$/tests/integration/routers/privateChat/getPrivateChat.spec");
 //? userRouter api's =>
 require("$/tests/integration/routers/user/addBlock.spec");
 require("$/tests/integration/routers/user/removeBlock.spec");

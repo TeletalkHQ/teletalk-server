@@ -6,7 +6,7 @@ const { userHandlers } = require("@/websocket/events/user/handlers");
 
 const builder = socketRouteBuilder();
 
-const disconnect = builder.create().name("disconnect").build();
+// const disconnect = builder.create().name("disconnect").build();
 
 const updateOnlineStatus = builder
   .create()
@@ -15,7 +15,7 @@ const updateOnlineStatus = builder
   .build();
 
 const userRoutes = {
-  disconnect,
+  // disconnect,
   updateOnlineStatus,
 };
 

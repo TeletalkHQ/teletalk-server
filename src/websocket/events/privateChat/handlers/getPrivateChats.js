@@ -1,6 +1,6 @@
 const { services } = require("@/services");
 
-const getPrivateChats = async (socket, callback) => {
+const getPrivateChats = async (socket, _io, _data, callback) => {
   const { currentUserId } = socket;
 
   const privateChats = await services

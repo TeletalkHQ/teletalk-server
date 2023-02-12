@@ -2,7 +2,7 @@ const { services } = require("@/services");
 
 const { validators } = require("@/validators");
 
-const sendPrivateMessage = async (socket = ioSocket, data) => {
+const sendPrivateMessage = async (socket = ioSocket, _io, data) => {
   const { currentUserId } = socket;
   const { participantId, message } = data;
 

@@ -20,7 +20,7 @@ const socketServer = (httpServer) => {
     );
     socket.use((_event, next) => middlewares.attachCurrentUserId(socket, next));
 
-    events(socket);
+    events(socket, io);
   });
   return io;
 };

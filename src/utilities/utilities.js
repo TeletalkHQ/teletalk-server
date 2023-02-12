@@ -46,6 +46,17 @@ const sortEnvironments = () =>
       return prevValue;
     }, {});
 
+const utilities = {
+  checkIgnoreApplyMiddlewaresRequirements,
+  crashServer,
+  executeMiddlewares,
+  getHostFromRequest,
+  isUrlMatchWithReqUrl,
+  logEnvironments,
+  regexMaker,
+  sortEnvironments,
+};
+
 module.exports = {
   checkIgnoreApplyMiddlewaresRequirements,
   crashServer,
@@ -55,4 +66,5 @@ module.exports = {
   logEnvironments,
   regexMaker,
   sortEnvironments,
+  utilities,
 };

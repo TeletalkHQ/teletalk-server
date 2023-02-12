@@ -1,9 +1,7 @@
+const { socketRouterBuilder } = require("@/helpers/socketRouterBuilder");
+
 const { authRoutes } = require("@/websocket/events/auth/routes");
 
-const authRouter = (socket = ioSocket) => {
-  Object.values(authRoutes).forEach((item) => {
-    socket[item.method](item.name, (...args) => item.handler(socket, ...args));
-  });
-};
+const authRouter = socketRouterBuilder(authRoutes);
 
 module.exports = { authRouter };

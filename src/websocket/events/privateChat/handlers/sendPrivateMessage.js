@@ -2,7 +2,11 @@ const { services } = require("@/services");
 
 const { validators } = require("@/validators");
 
-const sendPrivateMessage = async (socket = ioSocket, _io, data) => {
+const sendPrivateMessage = async (
+  socket = socketIntellisense,
+  io = ioIntellisense,
+  data
+) => {
   const { currentUserId } = socket;
   const { participantId, message } = data;
 
@@ -13,11 +17,9 @@ const sendPrivateMessage = async (socket = ioSocket, _io, data) => {
     .sendPrivateMessage()
     .run({ currentUserId, participantId, message });
 
-  socket.to(participantId).emit("newPrivateChatMessage", {
-    chatId,
-    newMessage,
-  });
-  socket.emit("newPrivateChatMessage", { chatId, newMessage });
+  io.to(currentUserId)
+    .to(participantId)
+    .emit("newPrivateChatMessage", { chatId, newMessage });
 };
 
 module.exports = { sendPrivateMessage };

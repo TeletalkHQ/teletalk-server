@@ -1,7 +1,7 @@
 const { httpRouteBuilder } = require("@/classes/routeBuilder/HttpRouteBuilder");
 
 const { baseUrls } = require("@/http/routes/baseUrls");
-const { fields } = require("@/http/routes/fields");
+const { fields } = require("@/variables/others/fields");
 
 const { METHODS } = require("@/variables/others/methods");
 

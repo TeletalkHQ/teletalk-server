@@ -15,7 +15,8 @@ module.exports = {
   globals: {
     expressRequest: true,
     expressResponse: true,
-    ioSocket: true,
+    ioIntellisense: true,
+    socketIntellisense: true,
     logger: true,
   },
   overrides: [],

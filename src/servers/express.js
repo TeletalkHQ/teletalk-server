@@ -11,7 +11,7 @@ const { loggerHelper } = require("@/utilities/logHelper");
 
 const { middlewares } = require("@/http/middlewares");
 
-const { lifeLine } = require("@/http/routers/lifeLine");
+const { lifeLine } = require("@/http/routers");
 
 const { routes, ignoredUrlsForAuth } = require("@/http/routes");
 

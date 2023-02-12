@@ -3,9 +3,9 @@ const { otherRouter } = require("@/websocket/events/other/router");
 const { privateChatRouter } = require("@/websocket/events/privateChat/router");
 const { userRouter } = require("@/websocket/events/user/router");
 
-const events = (socket) => {
+const events = (socket, io) => {
   [otherRouter, authRouter, userRouter, privateChatRouter].forEach((router) =>
-    router(socket)
+    router(socket, io)
   );
 };
 

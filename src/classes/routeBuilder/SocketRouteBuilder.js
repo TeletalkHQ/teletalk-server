@@ -7,7 +7,7 @@ class SocketRouteBuilder extends RouteBuilder {
     this.route = {
       handler: undefined,
       inputFields: {},
-      method: METHODS.ON,
+      method: METHODS.CUSTOM_ON,
       name: undefined,
       outputFields: {},
       statusCode: 200,

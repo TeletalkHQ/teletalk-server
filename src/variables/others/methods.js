@@ -1,4 +1,5 @@
 const METHODS = {
+  CUSTOM_ON: "customOn",
   DELETE: "delete",
   GET: "get",
   ON: "on",

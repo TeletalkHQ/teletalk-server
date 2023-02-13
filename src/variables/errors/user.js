@@ -305,6 +305,13 @@ const CURRENT_USER_NOT_EXIST = errorBuilder
   .errorKey(ERROR_KEYS.USER_VALIDATION)
   .build();
 
+const EVENT_NOT_FOUND = errorBuilder
+  .create()
+  .errorKey(ERROR_KEYS.UNKNOWN_EVENT)
+  .reason(UNIQUE_ERROR_IDS.EVENT_NOT_FOUND)
+  .statusCode(404)
+  .build();
+
 const FIRST_NAME_INVALID_TYPE = errorBuilder
   .create()
   .reason(UNIQUE_ERROR_IDS.FIRST_NAME_INVALID_TYPE)
@@ -1002,6 +1009,7 @@ const userErrors = {
   CREATED_AT_REQUIRED,
   CURRENT_USER_EXIST,
   CURRENT_USER_NOT_EXIST,
+  EVENT_NOT_FOUND,
   FIRST_NAME_EMPTY,
   FIRST_NAME_INVALID,
   FIRST_NAME_INVALID_TYPE,

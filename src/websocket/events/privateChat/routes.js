@@ -4,7 +4,7 @@ const {
 
 const { fields } = require("@/variables/others/fields");
 
-const { METHODS } = require("@/variables/others/methods");
+const { EVENTS } = require("@/variables/others/events");
 
 const {
   privateChatHandlers,
@@ -16,7 +16,19 @@ const joinRoom = builder
   .create()
   .name("joinRoom")
   .handler(privateChatHandlers.joinRoom)
-  .method(METHODS.ONCE)
+  .method(EVENTS.ONCE)
+  .build();
+
+const getPrivateChat = builder
+  .create()
+  .handler(privateChatHandlers.getPrivateChats)
+  .name("getPrivateChat")
+  .inputFields({ chatId: fields.single.chatId })
+  .outputFields([
+    {
+      privateChat: fields.statics.object(fields.collection.privateChat),
+    },
+  ])
   .build();
 
 const getPrivateChats = builder
@@ -26,18 +38,6 @@ const getPrivateChats = builder
   .outputFields([
     {
       privateChats: fields.statics.array(fields.collection.privateChat),
-    },
-  ])
-  .build();
-
-const getPrivateChat = builder
-  .create()
-  .handler(privateChatHandlers.getPrivateChats)
-  .name("getPrivateChats")
-  .inputFields({ chatId: fields.single.chatId })
-  .outputFields([
-    {
-      privateChat: fields.statics.object(fields.collection.privateChat),
     },
   ])
   .build();

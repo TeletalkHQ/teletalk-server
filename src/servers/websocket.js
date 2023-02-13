@@ -2,7 +2,7 @@ const socket = require("socket.io");
 
 const { middlewares } = require("@/websocket/middlewares");
 
-const { events } = require("@/websocket/events");
+const { routers } = require("@/websocket/events");
 const { customMethods } = require("@/websocket/custom/methods");
 
 const websocketServer = (httpServer) => {
@@ -24,7 +24,7 @@ const websocketServer = (httpServer) => {
     socket.customUse(middlewares.checkCurrentUserStatus);
     socket.customUse(middlewares.attachCurrentUserId);
 
-    events(socket, io);
+    routers(socket, io);
   });
   return io;
 };

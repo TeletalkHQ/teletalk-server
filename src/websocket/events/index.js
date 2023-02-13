@@ -7,17 +7,23 @@ const { otherRoutes } = require("@/websocket/events/other/routes");
 const { privateChatRoutes } = require("@/websocket/events/privateChat/routes");
 const { userRoutes } = require("@/websocket/events/user/routes");
 
-const events = (socket, io) => {
+const routers = (socket, io) => {
   [otherRouter, authRouter, userRouter, privateChatRouter].forEach((router) =>
     router(socket, io)
   );
 };
 
-const arrayOfRoutes = Object.values({
+const routes = {
   ...authRoutes,
   ...otherRoutes,
   ...privateChatRoutes,
   ...userRoutes,
-});
+};
 
-module.exports = { events, arrayOfRoutes };
+const arrayOfRoutes = Object.values(routes);
+
+module.exports = {
+  arrayOfRoutes,
+  routers,
+  routes,
+};

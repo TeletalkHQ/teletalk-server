@@ -4,7 +4,10 @@ const customOn = (socket) => (event, callback) => {
       const returnValue = await callback(...args);
 
       const cb = args[1];
-      if (cb && returnValue) cb(returnValue);
+      if (returnValue) {
+        if (cb) cb(returnValue);
+        else socket.emit(event, returnValue);
+      }
     } catch (error) {
       console.log("socket.customOn.error:", error);
       socket.emit("error", error);

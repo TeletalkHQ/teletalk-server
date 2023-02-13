@@ -11,7 +11,7 @@ const checkCurrentUserStatus = async (socket, next) => {
   return await trier(checkCurrentUserStatus.name)
     .tryAsync(tryBlock, socket)
     .executeIfNoError(executeIfNoError, next)
-    .catch(catchBlock, socket)
+    .throw()
     .runAsync();
 };
 
@@ -47,10 +47,6 @@ const tryBlock = async (socket) => {
 
 const executeIfNoError = (_data, next) => {
   next();
-};
-
-const catchBlock = (error, socket) => {
-  socket.emit("unauthorized", error);
 };
 
 module.exports = { checkCurrentUserStatus };

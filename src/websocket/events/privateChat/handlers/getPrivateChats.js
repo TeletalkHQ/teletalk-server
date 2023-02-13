@@ -1,14 +1,10 @@
 const { services } = require("@/services");
 
-const getPrivateChats = async (socket, _io, _data, callback) => {
-  const { currentUserId } = socket;
-
-  const privateChats = await services
+const getPrivateChats = async (socket) => {
+  return await services
     .getAllPrivateChats()
     .exclude()
-    .run({ currentUserId });
-
-  callback(privateChats);
+    .run({ currentUserId: socket.currentUserId });
 };
 
 module.exports = { getPrivateChats };

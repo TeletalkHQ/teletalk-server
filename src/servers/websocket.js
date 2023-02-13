@@ -4,7 +4,7 @@ const { middlewares } = require("@/websocket/middlewares");
 
 const { events } = require("@/websocket/events");
 
-const socketServer = (httpServer) => {
+const websocketServer = (httpServer) => {
   const io = new socket.Server(httpServer, {
     cors: {
       credentials: true,
@@ -26,5 +26,5 @@ const socketServer = (httpServer) => {
 };
 
 module.exports = {
-  socketServer,
+  websocketServer,
 };

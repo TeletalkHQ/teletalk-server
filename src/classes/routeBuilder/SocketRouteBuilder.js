@@ -1,5 +1,6 @@
 const { RouteBuilder } = require("@/classes/routeBuilder/RouteBuilder");
-const { METHODS } = require("@/variables/others/methods");
+
+const { EVENTS } = require("@/variables/others/events");
 
 class SocketRouteBuilder extends RouteBuilder {
   constructor() {
@@ -7,7 +8,7 @@ class SocketRouteBuilder extends RouteBuilder {
     this.route = {
       handler: undefined,
       inputFields: {},
-      method: METHODS.ON,
+      method: EVENTS.CUSTOM_ON,
       name: undefined,
       outputFields: {},
       statusCode: 200,

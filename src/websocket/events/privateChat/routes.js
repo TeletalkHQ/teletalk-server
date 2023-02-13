@@ -4,7 +4,7 @@ const {
 
 const { fields } = require("@/variables/others/fields");
 
-const { METHODS } = require("@/variables/others/methods");
+const { EVENTS } = require("@/variables/others/events");
 
 const {
   privateChatHandlers,
@@ -16,7 +16,7 @@ const joinRoom = builder
   .create()
   .name("joinRoom")
   .handler(privateChatHandlers.joinRoom)
-  .method(METHODS.ONCE)
+  .method(EVENTS.ONCE)
   .build();
 
 const getPrivateChat = builder

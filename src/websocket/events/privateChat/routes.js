@@ -19,6 +19,18 @@ const joinRoom = builder
   .method(METHODS.ONCE)
   .build();
 
+const getPrivateChat = builder
+  .create()
+  .handler(privateChatHandlers.getPrivateChats)
+  .name("getPrivateChat")
+  .inputFields({ chatId: fields.single.chatId })
+  .outputFields([
+    {
+      privateChat: fields.statics.object(fields.collection.privateChat),
+    },
+  ])
+  .build();
+
 const getPrivateChats = builder
   .create()
   .handler(privateChatHandlers.getPrivateChats)
@@ -26,18 +38,6 @@ const getPrivateChats = builder
   .outputFields([
     {
       privateChats: fields.statics.array(fields.collection.privateChat),
-    },
-  ])
-  .build();
-
-const getPrivateChat = builder
-  .create()
-  .handler(privateChatHandlers.getPrivateChats)
-  .name("getPrivateChats")
-  .inputFields({ chatId: fields.single.chatId })
-  .outputFields([
-    {
-      privateChat: fields.statics.object(fields.collection.privateChat),
     },
   ])
   .build();

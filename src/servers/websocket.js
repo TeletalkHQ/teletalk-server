@@ -3,6 +3,7 @@ const socket = require("socket.io");
 const { middlewares } = require("@/websocket/middlewares");
 
 const { events } = require("@/websocket/events");
+const { customMethods } = require("@/websocket/custom/methods");
 
 const websocketServer = (httpServer) => {
   const io = new socket.Server(httpServer, {
@@ -13,12 +14,14 @@ const websocketServer = (httpServer) => {
   });
 
   io.on("connection", (socket) => {
-    socket.use((_event, next) => middlewares.auth(socket, next));
+    socket.customUse = customMethods.use(socket);
+    socket.customOn = customMethods.on(socket);
 
-    socket.use((_event, next) =>
-      middlewares.checkCurrentUserStatus(socket, next)
-    );
-    socket.use((_event, next) => middlewares.attachCurrentUserId(socket, next));
+    socket.customUse(middlewares.checkEventAvailability);
+    socket.customUse(middlewares.auth);
+    socket.customUse(middlewares.checkDataFields);
+    socket.customUse(middlewares.checkCurrentUserStatus);
+    socket.customUse(middlewares.attachCurrentUserId);
 
     events(socket, io);
   });

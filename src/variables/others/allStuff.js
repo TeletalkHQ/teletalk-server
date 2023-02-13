@@ -1,8 +1,19 @@
 const { models } = require("@/models");
 
-const { routes } = require("@/http/routes");
+const { routes: httpRoutes } = require("@/http/routes");
 
 const { userErrors } = require("@/variables/errors/user");
+
+const { routes: websocketRoutes } = require("@/websocket/events");
+
+const filteredWebsocketRoutes = Object.entries(websocketRoutes).reduce(
+  (prevValue, [key, value]) => {
+    const { handler, method, statusCode, ...rest } = value;
+    prevValue[key] = rest;
+    return prevValue;
+  },
+  {}
+);
 
 const validationModels = {
   ...models.validation.chat,
@@ -17,13 +28,13 @@ const allStuff = {
     ...models.native.user,
   },
   routes: {
-    ...routes.user,
-    ...routes.other,
-    ...routes.privateChat,
-    ...routes.auth,
-    ...routes.stuff,
+    ...httpRoutes.user,
+    ...httpRoutes.other,
+    ...httpRoutes.auth,
+    ...httpRoutes.stuff,
   },
   validationModels,
+  events: filteredWebsocketRoutes,
 };
 
 module.exports = {

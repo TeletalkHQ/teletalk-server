@@ -8,13 +8,13 @@ const { errors } = require("@/variables/errors");
 
 const auth = async (socket, next) => {
   await trier(auth.name)
-    .tryAsync(tryToValidateToken, socket)
+    .tryAsync(tryBlock, socket)
     .executeIfNoError(executeIfNoError, socket, next)
-    .catch(catchAuthDefault, socket, next)
+    .throw()
     .runAsync();
 };
 
-const tryToValidateToken = async (socket = socketIntellisense) => {
+const tryBlock = async (socket = socketIntellisense) => {
   if (!socket.handshake.headers.cookie) throw errors.TOKEN_REQUIRED;
 
   const token = authManager.getTokenFromSocket(socket);
@@ -34,10 +34,6 @@ const executeIfNoError = (
 ) => {
   socket.authData = validationResult;
   next();
-};
-
-const catchAuthDefault = (error, socket = socketIntellisense) => {
-  socket.emit("unauthorized", error);
 };
 
 module.exports = {

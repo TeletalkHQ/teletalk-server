@@ -9,24 +9,19 @@ const { errors } = require("@/variables/errors");
 
 const { arrayOfRoutes } = require("@/websocket/events");
 
-const checkDataFields = (_socket, next, [name, data]) => {
-  const foundRoute = arrayOfRoutes.find((item) => item.name === name);
-
-  return trier(checkDataFields.name)
-    .try(tryBlock, data || {}, foundRoute.inputFields)
+const checkDataFields = (_socket, next, event) =>
+  trier(checkDataFields.name)
+    .try(tryBlock, event)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchBlock)
     .run();
-};
 
-const tryBlock = (data, inputFields) => {
-  errorThrower(
-    customTypeof.isUndefined(data),
-    errors.REQUEST_BODY_IS_UNDEFINED
-  );
+const tryBlock = ([name, data, callback]) => {
+  if (callback && customTypeof.isNotFunction(callback))
+    throw errors.IS_NOT_A_CALLBACK;
 
-  const checkResult = ioFieldsChecker(data, inputFields, errors.io.input);
-
+  const { inputFields } = arrayOfRoutes.find((item) => item.name === name);
+  const checkResult = ioFieldsChecker(data || {}, inputFields, errors.io.input);
   errorThrower(checkResult.ok === false, () => ({
     ...checkResult.error,
     inputFields,

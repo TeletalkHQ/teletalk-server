@@ -5,8 +5,9 @@ const customOn = (socket) => (event, callback) => {
 
       const cb = args[1];
       if (returnValue) {
-        if (cb) cb(returnValue);
-        else socket.emit(event, returnValue);
+        const response = { data: returnValue };
+        if (cb) cb(response);
+        else socket.emit(event, response);
       }
     } catch (error) {
       console.log("socket.customOn.error:", error);

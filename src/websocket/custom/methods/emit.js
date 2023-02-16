@@ -29,8 +29,8 @@ const tryBlock = (data, inputFields) => {
   }));
 };
 
-const executeIfNoError = (_, socket, event, ...args) => {
-  socket.emit(event, ...args);
+const executeIfNoError = (_, socket, event, data, ...args) => {
+  socket.emit(event, { data }, ...args);
 };
 
 const catchBlock = (error, socket) => {

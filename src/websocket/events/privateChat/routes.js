@@ -12,16 +12,25 @@ const {
 
 const builder = socketRouteBuilder();
 
-const joinRoom = builder
+const getChatInfo = builder
   .create()
-  .name("joinRoom")
-  .handler(privateChatHandlers.joinRoom)
-  .method(EVENTS.ONCE)
+  .handler(privateChatHandlers.getChatInfo)
+  .name("getChatInfo")
+  .inputFields({ chatId: fields.single.chatId })
+  .outputFields([
+    {
+      chatInfo: fields.statics.object({
+        chatId: fields.single.chatId,
+        createdAt: fields.single.createdAt,
+        participants: fields.collection.participants,
+      }),
+    },
+  ])
   .build();
 
 const getPrivateChat = builder
   .create()
-  .handler(privateChatHandlers.getPrivateChats)
+  .handler(privateChatHandlers.getPrivateChat)
   .name("getPrivateChat")
   .inputFields({ chatId: fields.single.chatId })
   .outputFields([
@@ -42,6 +51,13 @@ const getPrivateChats = builder
   ])
   .build();
 
+const joinRoom = builder
+  .create()
+  .name("joinRoom")
+  .handler(privateChatHandlers.joinRoom)
+  .method(EVENTS.ONCE)
+  .build();
+
 const sendPrivateMessage = builder
   .create()
   .handler(privateChatHandlers.sendPrivateMessage)
@@ -59,6 +75,7 @@ const sendPrivateMessage = builder
   .build();
 
 const privateChatRoutes = {
+  getChatInfo,
   getPrivateChat,
   getPrivateChats,
   joinRoom,

@@ -1,5 +1,5 @@
 const ping = (socket) => {
-  socket.emit("pong", "YAY!");
+  return `ping request from socketId:${socket.id}`;
 };
 
 module.exports = { ping };

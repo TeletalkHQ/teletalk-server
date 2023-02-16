@@ -1,4 +1,4 @@
-const { trier } = require("utility-store/src/classes/Trier");
+const { trier } = require("simple-trier");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
 

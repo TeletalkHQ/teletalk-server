@@ -2,7 +2,7 @@ const { errorThrower } = require("utility-store/src/utilities/utilities");
 const {
   isDataHasEqualityWithTargetCellphone,
 } = require("utility-store/src/utilities/utilities");
-const { trier } = require("utility-store/src/classes/Trier");
+const { trier } = require("simple-trier");
 
 const { commonUtilities } = require("@/classes/CommonUtilities");
 const { userUtilities } = require("@/classes/UserUtilities");

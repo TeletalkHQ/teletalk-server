@@ -9,7 +9,9 @@ const { routes: websocketRoutes } = require("@/websocket/events");
 const filteredWebsocketRoutes = Object.entries(websocketRoutes).reduce(
   (prevValue, [key, value]) => {
     const { handler, method, statusCode, ...rest } = value;
-    prevValue[key] = rest;
+    if (rest.name) {
+      prevValue[key] = rest;
+    }
     return prevValue;
   },
   {}

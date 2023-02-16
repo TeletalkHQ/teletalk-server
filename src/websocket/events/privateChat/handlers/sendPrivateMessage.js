@@ -19,6 +19,7 @@ const sendPrivateMessage = async (
 
   io.to(currentUserId)
     .to(participantId)
+    //TODO: Use customEmit
     .emit("newPrivateChatMessage", { chatId, newMessage });
 };
 

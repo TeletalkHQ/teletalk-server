@@ -1,4 +1,4 @@
-const { Trier } = require("utility-store/src/classes/Trier");
+const { Trier } = require("simple-trier");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 

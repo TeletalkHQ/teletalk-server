@@ -64,7 +64,7 @@
     "simple-trier": "^2.6.0",
     "snyk": "^1.1080.0",
     "socket.io": "^4.5.4",
-    "utility-store": "^9.3.0",
+    "utility-store": "^10.0.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {

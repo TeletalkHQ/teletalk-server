@@ -1,10 +1,10 @@
 const customUse =
   //prettier-ignore
-  (socket) =>
+  (socket= socketIntellisense) =>
     (middleware, ...args) => {
-      socket.use((event, next) => {
+      socket.use(async (event, next) => {
         try {
-          middleware(socket, next, event, ...args);
+          await middleware(socket, next, event, ...args);
         } catch (error) {
           console.log("error in mld:", error);
           socket.emit("error", error);

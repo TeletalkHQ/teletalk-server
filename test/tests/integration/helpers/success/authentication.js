@@ -66,7 +66,6 @@ const tokenPartsTypeCheck = (builder, token, secret) => {
       .customTypeCheck(token.data.payload.phoneNumber, FIELD_TYPE.STRING);
   }
 
-  console.log("secret:::", secret);
   if (secret === authManager.getMainSecret())
     builder.customTypeCheck(token.data.payload.tokenId, FIELD_TYPE.STRING);
 };

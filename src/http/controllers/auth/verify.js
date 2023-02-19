@@ -21,23 +21,17 @@ const tryToVerify = async (req, res) => {
   if (foundUser) {
     await removeTemporaryClient(tokenId);
 
-    const userData = userUtilities.extractUserData(foundUser);
-
-    const token = signToken(userData.userId);
+    const token = signToken(foundUser.userId);
     authManager.setTokenToResponse(res, token);
-    await addNewSession(userData.userId, token);
+    await addNewSession(foundUser.userId, token);
 
     return {
       newUser: false,
-      requiredFieldsIndex: 0,
-      user: userData,
     };
   }
 
   return {
     newUser: true,
-    //CLEANME: ...
-    requiredFieldsIndex: 1,
   };
 };
 

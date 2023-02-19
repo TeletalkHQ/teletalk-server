@@ -20,7 +20,14 @@ describe("createNewUser success tests", () => {
     } = await helper.createComplete();
 
     await testCreatedUserSession(body);
-    testCreatedUserData(body, cellphone, fullName);
+
+    const {
+      body: { user },
+    } = await requesters
+      .getCurrentUserData(body.token)
+      .sendFullFeaturedRequest();
+
+    testCreatedUserData(user, cellphone, fullName);
   });
 });
 
@@ -44,8 +51,9 @@ describe("createNewUser fail tests", () => {
     .lastName(fullName);
 });
 
-const testCreatedUserSession = async ({ token, user }) => {
-  const foundSession = await getSavedUserSession(user.userId, token);
+const testCreatedUserSession = async ({ token }) => {
+  const userId = userUtilities.getUserIdFromToken(token);
+  const foundSession = await getSavedUserSession(userId, token);
 
   await testHelper.createSuccessTest().authentication({
     equalValue: foundSession.token,
@@ -61,7 +69,7 @@ const getSavedUser = async (userId) => {
   return await services.findOneUserById(userId);
 };
 
-const testCreatedUserData = ({ user }, cellphone, fullName) => {
+const testCreatedUserData = (user, cellphone, fullName) => {
   const requestUserData = {
     ...userUtilities.defaultUserData(),
     ...cellphone,

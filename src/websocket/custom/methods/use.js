@@ -6,7 +6,7 @@ const customUse =
         try {
           await middleware(socket, next, event, ...args);
         } catch (error) {
-          console.log("error in mld:", error);
+          logger.log("error in mld:", error);
           socket.emit("error", error);
         }
       });

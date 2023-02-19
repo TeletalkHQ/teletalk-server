@@ -1,13 +1,12 @@
 const { services } = require("@/services");
 
-const getChatInfo = async (socket) => {
-  const chat = await services
-    .findPrivateChatByParticipantId({ participantId: socket.currentUserId })
+const getChatInfo = async (_socket, _io, data) => {
+  const { messages, ...chatInfo } = await services
+    .findOnePrivateChatByChatId()
     .exclude()
-    .run({ currentUserId: socket.currentUserId });
+    .run({ chatId: data.chatId });
 
-  console.log(chat);
-  return chat;
+  return { chatInfo };
 };
 
 module.exports = { getChatInfo };

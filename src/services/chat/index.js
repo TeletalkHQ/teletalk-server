@@ -4,17 +4,17 @@ const { findOnePrivateChat } = require("@/services/chat/findOnePrivateChat");
 const {
   findPrivateChatByParticipantId,
 } = require("@/services/chat/findPrivateChatByParticipantId");
-const { getAllPrivateChats } = require("@/services/chat/getAllPrivateChats");
-const { getPrivateChat } = require("@/services/chat/getPrivateChat");
+const {
+  findOnePrivateChatByChatId,
+} = require("@/services/chat/findOnePrivateChatByChatId");
 const { sendPrivateMessage } = require("@/services/chat/sendPrivateMessage");
 
 const chatServices = {
   createPrivateChat,
   findOnePrivateChat,
   findPrivateChat,
+  findOnePrivateChatByChatId,
   findPrivateChatByParticipantId,
-  getAllPrivateChats,
-  getPrivateChat,
   sendPrivateMessage,
 };
 

@@ -10,7 +10,7 @@ const customOn = (socket) => (event, callback) => {
         else socket.emit(event, response);
       }
     } catch (error) {
-      console.log("socket.customOn.error:", error);
+      logger.log("socket.customOn.error:", error);
       socket.emit("error", error);
     }
   });

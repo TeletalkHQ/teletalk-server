@@ -2,9 +2,9 @@ const { services } = require("@/services");
 
 const getPrivateChats = async (socket) => {
   const privateChats = await services
-    .getAllPrivateChats()
+    .findPrivateChatByParticipantId()
     .exclude()
-    .run({ currentUserId: socket.currentUserId });
+    .run({ participantId: socket.currentUserId });
 
   return { privateChats };
 };

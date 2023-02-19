@@ -36,21 +36,17 @@ const tryToCreateNewUser = async (req, res) => {
   const token = signToken(userId);
   authManager.setTokenToResponse(res, token);
 
-  const data = {
-    user: {
-      ...userUtilities.defaultUserData(),
-      ...cellphone,
-      firstName,
-      lastName,
-      createdAt: Date.now(),
-      userId,
-    },
-  };
+  await saveNewUser({
+    ...userUtilities.defaultUserData(),
+    ...cellphone,
+    firstName,
+    lastName,
+    createdAt: Date.now(),
+    userId,
+    sessions: [{ token }],
+  });
 
-  const userDataForDatabase = fixUserDataForDb(data, token);
-  await createNewUserAndSave(userDataForDatabase);
   await removeTemporaryClient(client.tokenId);
-  return data;
 };
 
 const findClient = async (tokenId) => await temporaryClients.find(tokenId);
@@ -79,14 +75,7 @@ const signToken = (tokenId) => {
   });
 };
 
-const fixUserDataForDb = (data, token) => {
-  return {
-    ...data.user,
-    sessions: [{ token }],
-  };
-};
-
-const createNewUserAndSave = async (userDataForDatabase) => {
+const saveNewUser = async (userDataForDatabase) => {
   await services.createNewUser().run(userDataForDatabase);
 };
 

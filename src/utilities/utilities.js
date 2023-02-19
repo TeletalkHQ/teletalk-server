@@ -35,7 +35,7 @@ const checkIgnoreApplyMiddlewaresRequirements = (url, middlewares) => {
 
 const regexMaker = (pattern) => new RegExp(pattern);
 
-const logEnvironments = () => console.log(sortEnvironments());
+const logEnvironments = () => logger.log(sortEnvironments());
 
 const sortEnvironments = () =>
   Object.entries(process.env)

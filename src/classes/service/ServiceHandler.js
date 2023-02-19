@@ -42,8 +42,11 @@ class ServiceHandler {
     const queryResult = await this.#serviceBody(data, projection, options);
     this.#setQueryResult(queryResult);
 
-    this.#handleFixQueryResult();
-    this.#handleExclude();
+    const { type } = customTypeof.check(queryResult);
+    if (type.isObject || type.isArray) {
+      this.#handleFixQueryResult();
+      this.#handleExclude();
+    }
 
     return this.#getQueryResult();
   }

@@ -1,7 +1,6 @@
 const { expect } = require("chai");
 
 const { authHelper } = require("$/classes/AuthHelper");
-const { userUtilities } = require("@/classes/UserUtilities");
 const { randomMaker } = require("$/classes/RandomMaker");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 
@@ -13,6 +12,7 @@ const { testHelper } = require("$/tests/integration/helpers/testHelper");
 
 const { requesters } = require("$/utilities");
 const { authManager } = require("@/classes/AuthManager");
+const { userUtilities } = require("@/classes/UserUtilities");
 
 describe("verifySignInApi success test", () => {
   it("should sign and verify as new user", async () => {
@@ -51,7 +51,6 @@ describe("verifySignInApi success test", () => {
 
       sessions.push(helper.getMainTokenFromVerify());
       const successTestBuilder = testHelper.createSuccessTest();
-      await testUserData(successTestBuilder, helper.verifyResponse.body.user);
       await testUserSession(successTestBuilder, helper.verifyResponse.body);
     }
 
@@ -88,17 +87,9 @@ describe("verifySignIn fail tests", () => {
     .verificationCode(data);
 });
 
-const testUserData = async (builder, userData) => {
-  const savedUserData = await getSavedUserData(userData.userId);
-
-  builder.userData({
-    equalValue: savedUserData,
-    testValue: userData,
-  });
-};
-
-const testUserSession = async (builder, { user, token }) => {
-  const foundSession = await getSavedUserSession(user.userId, token);
+const testUserSession = async (builder, { token }) => {
+  const userId = userUtilities.getUserIdFromToken(token);
+  const foundSession = await getSavedUserSession(userId, token);
   await builder.authentication({
     equalValue: foundSession.token,
     testValue: token,
@@ -108,11 +99,6 @@ const testUserSession = async (builder, { user, token }) => {
 const getSavedUserSession = async (userId, token) => {
   const savedUser = await getSavedUser(userId);
   return savedUser.sessions.find((i) => i.token === token);
-};
-
-const getSavedUserData = async (userId) => {
-  const savedUser = await getSavedUser(userId);
-  return userUtilities.extractUserData(savedUser);
 };
 
 const getSavedUser = async (userId) => {

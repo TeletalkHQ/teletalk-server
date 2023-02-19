@@ -5,6 +5,7 @@ const {
 const { authHelper } = require("$/classes/AuthHelper");
 
 const { userModels } = require("@/models/native/user");
+const { requesters } = require("$/utilities");
 
 class RandomMaker extends RandomMakerMain {
   constructor() {
@@ -28,7 +29,15 @@ class RandomMaker extends RandomMakerMain {
   async user(cellphone = this.unusedCellphone(), fullName = this.fullName()) {
     const helper = authHelper(cellphone, fullName);
     await helper.createComplete();
-    return helper.createResponse.body;
+
+    const response = await requesters
+      .getCurrentUserData(helper.createResponse.body.token)
+      .sendFullFeaturedRequest();
+
+    return {
+      ...helper.createResponse.body,
+      user: response.body.user,
+    };
   }
 
   async users(length) {

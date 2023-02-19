@@ -33,7 +33,7 @@ const runner = async () => {
 
   // const NUM_WORKERS = os.cpus().length;
 
-  // console.log(`Master ${process.pid} is running`);
+  // logger.log(`Master ${process.pid} is running`);
 
   // const httpServer = crateHttpServer(expressServer);
 
@@ -52,7 +52,7 @@ const runner = async () => {
   websocketServer(httpServer);
   httpServer.listen(EXACT_PORT, serverListenerCb);
 
-  // console.log(`Worker ${process.pid} started`);
+  // logger.log(`Worker ${process.pid} started`);
 
   // const httpServer = crateHttpServer(expressServer);
   // const io = new Server(httpServer, {
@@ -62,7 +62,7 @@ const runner = async () => {
   // setupWorker(io);
 
   // io.on("connection", (socket) => {
-  //   console.log("user connected", socket.id);
+  //   logger.log("user connected", socket.id);
   // });
   // }
 };

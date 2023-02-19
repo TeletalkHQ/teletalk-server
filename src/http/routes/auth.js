@@ -10,13 +10,8 @@ const userRouteBuilder = httpRouteBuilder(baseUrls.auth);
 const createNewUser = userRouteBuilder
   .create()
   .method(METHODS.POST)
-  .url("/createNewUser")
+  .url("/create")
   .inputFields(fields.collection.fullName)
-  .outputFields([
-    {
-      user: fields.statics.object(fields.collection.user),
-    },
-  ])
   .build();
 
 const logout = userRouteBuilder
@@ -40,10 +35,6 @@ const verify = userRouteBuilder
     verificationCode: fields.single.verificationCode,
   })
   .outputFields([
-    {
-      newUser: fields.single.newUser,
-      user: fields.statics.object(fields.collection.user),
-    },
     {
       newUser: fields.single.newUser,
     },

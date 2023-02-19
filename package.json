@@ -2,7 +2,7 @@
   "name": "teletalk-server",
   "author": "S-STALWART-S",
   "description": "teletalk messenger app (server)",
-  "license": "MIT",
+  "license": "GPT-3",
   "version": "1.0.0",
   "main": "index.js",
   "repository": {
@@ -39,7 +39,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
-    "custom-typeof": "^1.2.0",
+    "custom-typeof": "^1.4.1",
     "debug": "^4.3.4",
     "defer-to-connect": "^2.0.1",
     "dotenv": "^16.0.3",
@@ -64,7 +64,7 @@
     "simple-trier": "^2.6.0",
     "snyk": "^1.1080.0",
     "socket.io": "^4.5.4",
-    "utility-store": "^10.0.0",
+    "utility-store": "^10.0.1",
     "winston": "^3.8.2"
   },
   "devDependencies": {

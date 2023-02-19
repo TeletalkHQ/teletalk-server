@@ -9,8 +9,8 @@ class CommonUtilities {
     res.errorResponser();
   }
 
-  controllerSuccessResponse({ requiredFieldsIndex, ...data } = {}, res) {
-    res.checkDataAndResponse(data, requiredFieldsIndex);
+  controllerSuccessResponse(data = {}, res) {
+    res.checkDataAndResponse(data);
   }
 
   isProduction() {

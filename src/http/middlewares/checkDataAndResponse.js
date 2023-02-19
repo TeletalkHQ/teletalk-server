@@ -8,16 +8,11 @@ const { commonUtilities } = require("@/classes/CommonUtilities");
 
 const { errors } = require("@/variables/errors");
 
-const tryToCheckDataAndResponse = ({
-  data,
-  outputFields,
-  requiredFieldsIndex = 0,
-}) => {
-  const selectedOutputFields = outputFields[requiredFieldsIndex];
+const tryToCheckDataAndResponse = ({ data, outputFields }) => {
+  const selectedOutputFields = outputFields[0];
 
   const checkResult = ioFieldsChecker(data, selectedOutputFields, {
     ...errors.io.output,
-    requiredFieldsIndex,
   });
 
   if (checkResult.ok === false) {
@@ -42,7 +37,7 @@ const catchCheckDataAndResponse = (error, res) => {
 };
 
 const checkDataAndResponse = (req, res, next) => {
-  res.checkDataAndResponse = (data, requiredFieldsIndex) => {
+  res.checkDataAndResponse = (data) => {
     const {
       custom: {
         route: { outputFields },
@@ -52,7 +47,6 @@ const checkDataAndResponse = (req, res, next) => {
     return trier(checkDataAndResponse.name)
       .try(tryToCheckDataAndResponse, {
         data,
-        requiredFieldsIndex,
         outputFields,
       })
       .executeIfNoError(executeIfNoError, res)

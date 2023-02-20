@@ -7,13 +7,6 @@ const { METHODS } = require("@/variables/others/methods");
 
 const userRouteBuilder = httpRouteBuilder(baseUrls.auth);
 
-const createNewUser = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/create")
-  .inputFields(fields.collection.fullName)
-  .build();
-
 const logout = userRouteBuilder
   .create()
   .method(METHODS.POST)
@@ -42,7 +35,6 @@ const verify = userRouteBuilder
   .build();
 
 const authRoutes = {
-  createNewUser,
   logout,
   signIn,
   verify,

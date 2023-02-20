@@ -62,6 +62,24 @@ const getContacts = builder
   .handler(userHandlers.getContacts)
   .build();
 
+const getPublicUserData = builder
+  .create()
+  .name("getPublicUserData")
+  .inputFields({
+    userId: fields.single.userId,
+  })
+  .outputFields([
+    {
+      publicUserData: fields.statics.object({
+        ...fields.collection.fullName,
+        bio: fields.single.bio,
+        userId: fields.single.userId,
+        username: fields.single.username,
+      }),
+    },
+  ])
+  .build();
+
 const removeBlock = builder
   .create()
   .name("removeBlock")
@@ -120,6 +138,7 @@ const userRoutes = {
   disconnect,
   editContact,
   getContacts,
+  getPublicUserData,
   removeBlock,
   removeContact,
   updateOnlineStatus,

@@ -1,10 +1,9 @@
-const { controllerBuilder } = require("@/classes/ControllerBuilder");
-
 const { services } = require("@/services");
+
 const { validators } = require("@/validators");
 
-const tryToGetPublicUserData = async (req) => {
-  const { userId } = req.body;
+const getPublicUserData = async (_socket, data) => {
+  const { userId } = data;
 
   await validators.userId(userId);
 
@@ -22,10 +21,5 @@ const tryToGetPublicUserData = async (req) => {
     },
   };
 };
-
-const getPublicUserData = controllerBuilder
-  .create()
-  .body(tryToGetPublicUserData)
-  .build();
 
 module.exports = { getPublicUserData };

@@ -13,16 +13,12 @@ const { getAllStuff } = require("@/http/controllers/stuff/getAllStuff");
 const {
   getCurrentUserData,
 } = require("@/http/controllers/user/getCurrentUserData");
-const {
-  getPublicUserData,
-} = require("@/http/controllers/user/getPublicUserData");
 
 const controllers = {
   createNewUser,
   getAllStuff,
   getCountries,
   getCurrentUserData,
-  getPublicUserData,
   getWelcomeMessage,
   logout,
   signIn,

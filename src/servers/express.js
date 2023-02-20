@@ -60,11 +60,7 @@ app.use(middlewares.checkBodyFields);
 
 app.use(
   middlewares.ignoreMiddlewares(
-    [
-      ...ignoredUrlsForAuth,
-      routes.auth.createNewUser.fullUrl,
-      routes.auth.verify.fullUrl,
-    ],
+    [...ignoredUrlsForAuth, routes.auth.verify.fullUrl],
     middlewares.checkCurrentUserStatus,
     middlewares.attachCurrentUserId
   )

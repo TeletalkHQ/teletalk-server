@@ -1,4 +1,3 @@
-const { logout } = require("@/http/controllers/auth/logout");
 const { signIn } = require("@/http/controllers/auth/signIn");
 const { verify } = require("@/http/controllers/auth/verify");
 
@@ -13,7 +12,6 @@ const controllers = {
   getAllStuff,
   getCountries,
   getWelcomeMessage,
-  logout,
   signIn,
   verify,
 };

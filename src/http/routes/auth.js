@@ -7,12 +7,6 @@ const { METHODS } = require("@/variables/others/methods");
 
 const userRouteBuilder = httpRouteBuilder(baseUrls.auth);
 
-const logout = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/logout")
-  .build();
-
 const signIn = userRouteBuilder
   .create()
   .method(METHODS.POST)
@@ -35,7 +29,6 @@ const verify = userRouteBuilder
   .build();
 
 const authRoutes = {
-  logout,
   signIn,
   verify,
 };

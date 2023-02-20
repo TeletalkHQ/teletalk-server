@@ -1,4 +1,3 @@
-const { expect } = require("chai");
 const {
   isDataHasEqualityWithTargetCellphone,
 } = require("utility-store/src/utilities/utilities");
@@ -56,8 +55,8 @@ describe("getContacts fail tests", () => {
 });
 
 const testContacts = (equalValue, testValue) => {
-  expect(testValue).to.be.an(FIELD_TYPE.ARRAY);
-  expect(testValue.length).to.be.equal(equalValue.length);
+  expect(testValue).toBeInstanceOf(FIELD_TYPE.ARRAY);
+  expect(testValue.length).toBe(equalValue.length);
 
   equalValue.forEach((i) => {
     const savedContact = testValue.find((j) =>

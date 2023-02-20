@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { userUtilities } = require("@/classes/UserUtilities");
 
 const {
@@ -15,7 +13,7 @@ const blacklistSuccessTest = ({ equalValue, testValue }) => {
       blacklistItem
     );
 
-    expect(foundBlacklistItem).to.be.an(FIELD_TYPE.OBJECT);
+    expect(foundBlacklistItem).toBeInstanceOf(FIELD_TYPE.OBJECT);
 
     cellphoneSuccessTest({
       equalValue: blacklistItem,

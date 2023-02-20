@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { authHelper } = require("$/classes/AuthHelper");
 const { authManager } = require("@/classes/AuthManager");
 const { randomMaker } = require("$/classes/RandomMaker");
@@ -63,11 +61,11 @@ const testSavedTemporaryClient = async (builder, token, cellphone) => {
 
   const temporaryClient = await temporaryClients.find(tokenId);
 
-  expect(temporaryClient).to.be.an(FIELD_TYPE.OBJECT);
-  expect(temporaryClient.countryCode).to.be.equal(cellphone.countryCode);
-  expect(temporaryClient.countryName).to.be.equal(cellphone.countryName);
-  expect(temporaryClient.phoneNumber).to.be.equal(cellphone.phoneNumber);
-  expect(temporaryClient.isVerified).to.be.equal(false);
+  expect(temporaryClient).toBeInstanceOf(FIELD_TYPE.OBJECT);
+  expect(temporaryClient.countryCode).toBe(cellphone.countryCode);
+  expect(temporaryClient.countryName).toBe(cellphone.countryName);
+  expect(temporaryClient.phoneNumber).toBe(cellphone.phoneNumber);
+  expect(temporaryClient.isVerified).toBe(false);
 
   builder.verificationCode({ testValue: temporaryClient.verificationCode });
 };

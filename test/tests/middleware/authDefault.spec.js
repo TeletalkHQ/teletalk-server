@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 const { requesterCreator } = require("$/classes/Requester");
 
@@ -18,7 +16,7 @@ describe("authDefault middleware test", () => {
 
       const { errorKey } = errors.TOKEN_REQUIRED;
       if (responseErrors && responseErrors[errorKey]) {
-        expect(responseErrors[errorKey].reason).not.equal(
+        expect(responseErrors[errorKey].reason).not.toBe(
           errors.TOKEN_REQUIRED.reason
         );
       }

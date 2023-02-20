@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 
 const { errors } = require("@/variables/errors");
@@ -20,9 +18,9 @@ const cellphoneFailTest = (configuredRequester, data = {}) => {
 
       const error = response.body.errors[errors.CELLPHONE_REQUIRED.errorKey];
 
-      expect(error.validatedCellphone.countryCode).to.be.equal("");
-      expect(error.validatedCellphone.countryName).to.be.equal("");
-      expect(error.validatedCellphone.phoneNumber).to.be.equal("");
+      expect(error.validatedCellphone.countryCode).toBe("");
+      expect(error.validatedCellphone.countryName).toBe("");
+      expect(error.validatedCellphone.phoneNumber).toBe("");
     }
   );
 };

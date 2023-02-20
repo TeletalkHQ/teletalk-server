@@ -8,7 +8,7 @@ const { errors } = require("@/variables/errors");
 
 describe("checkBodyFields middleware tests", () => {
   let token;
-  before(async () => {
+  beforeAll(async () => {
     token = (await randomMaker.user()).token;
   });
   //? Filter routes which has at least one input field

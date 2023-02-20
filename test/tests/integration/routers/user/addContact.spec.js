@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { randomMaker } = require("$/classes/RandomMaker");
 const { userUtilities } = require("@/classes/UserUtilities");
 
@@ -59,8 +57,8 @@ describe("add contact success tests", () => {
       currentUser.user.userId
     );
 
-    expect(contacts).to.be.an(FIELD_TYPE.ARRAY);
-    expect(contacts.length).to.be.equal(contactsLength);
+    expect(contacts).toBeInstanceOf(FIELD_TYPE.ARRAY);
+    expect(contacts.length).toBe(contactsLength);
   });
 });
 
@@ -77,7 +75,7 @@ describe("addContact fail tests", () => {
     selfStuffData: { ...currentUserSignData, ...randomMaker.fullName() },
   };
 
-  before(async () => {
+  beforeAll(async () => {
     const { token } = await randomMaker.user(currentUserSignData);
     requester.setToken(token);
 
@@ -129,7 +127,7 @@ const findContacts = async (userId) => {
 
 const testTargetUserContacts = async (targetUserId) => {
   const targetUserContacts = await findContacts(targetUserId);
-  expect(targetUserContacts).an(FIELD_TYPE.ARRAY).and.to.be.empty;
+  expect(Object.keys(targetUserContacts)).toHaveLength(0);
 };
 
 const findSavedContact = async (currentUser, addedContact) => {

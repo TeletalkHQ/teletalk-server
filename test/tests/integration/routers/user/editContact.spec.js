@@ -1,4 +1,3 @@
-const { expect } = require("chai");
 const {
   isDataHasEqualityWithTargetCellphone,
 } = require("utility-store/src/utilities/utilities");
@@ -60,7 +59,7 @@ describe("editContact fail tests", () => {
 
   const requester = requesters.editContact();
   helpers.configureFailTestRequester(requester);
-  before(async () => {
+  beforeAll(async () => {
     const { token } = await randomMaker.user(currentUserSignData);
     requester.setToken(token);
   });
@@ -121,7 +120,7 @@ const testContacts = (data, contacts, currentUserContacts) => {
     (i) => !isDataHasEqualityWithTargetCellphone(i, data)
   );
 
-  expect(filterEditedCurrentUserContacts.length).to.be.equal(
+  expect(filterEditedCurrentUserContacts.length).toBe(
     filterEditedContacts.length
   );
 

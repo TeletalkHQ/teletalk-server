@@ -7,17 +7,6 @@ const { METHODS } = require("@/variables/others/methods");
 
 const otherRouteBuilder = httpRouteBuilder(baseUrls.other);
 
-const getCountries = otherRouteBuilder
-  .create()
-  .method(METHODS.GET)
-  .url("/getCountries")
-  .outputFields([
-    {
-      countries: fields.statics.array(fields.collection.country),
-    },
-  ])
-  .build();
-
 const getWelcomeMessage = otherRouteBuilder
   .create()
   .method(METHODS.GET)
@@ -30,7 +19,6 @@ const getWelcomeMessage = otherRouteBuilder
   .build();
 
 const otherRoutes = {
-  getCountries,
   getWelcomeMessage,
 };
 

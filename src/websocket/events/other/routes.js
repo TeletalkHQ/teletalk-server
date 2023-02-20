@@ -3,6 +3,7 @@ const {
 } = require("@/classes/routeBuilder/SocketRouteBuilder");
 
 const { EVENTS } = require("@/variables/others/events");
+const { fields } = require("@/variables/others/fields");
 
 const { otherHandlers } = require("@/websocket/events/other/handlers");
 
@@ -14,6 +15,17 @@ const builder = socketRouteBuilder();
 //   .handler(otherHandlers.disconnect)
 //   .build();
 
+const getCountries = builder
+  .create()
+  .name("getCountries")
+  .outputFields([
+    {
+      countries: fields.statics.array(fields.collection.country),
+    },
+  ])
+  .handler(otherHandlers.getCountries)
+  .build();
+
 const logEvent = builder
   .create()
   .name("")
@@ -24,6 +36,7 @@ const logEvent = builder
 const ping = builder.create().name("ping").handler(otherHandlers.ping).build();
 
 const otherRoutes = {
+  getCountries,
   logEvent,
   // disconnect,
   ping,

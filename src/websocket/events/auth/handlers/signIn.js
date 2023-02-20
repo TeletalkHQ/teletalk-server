@@ -12,7 +12,7 @@ const { passwordGenerator } = require("@/utilities/passwordGenerator");
 
 const { validators } = require("@/validators");
 
-const signIn = async (req, res = expressResponse) => {
+const signIn = async (req, res) => {
   const verificationCode = passwordGenerator();
   await validateVerificationCode(verificationCode);
 

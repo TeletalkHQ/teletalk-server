@@ -70,7 +70,7 @@ class AuthManager {
   //     : secrets.JWT_MAIN_SECRET;
   // }
 
-  getTokenFromRequest(req = expressRequest) {
+  getTokenFromRequest(req) {
     return req.cookies[this.getOptions().cookie.SESSION_NAME];
   }
   getTokenFromSocket(socket) {
@@ -78,11 +78,7 @@ class AuthManager {
       `${this.getOptions().cookie.SESSION_NAME}=`
     )[1];
   }
-  setTokenToResponse(
-    res = expressResponse,
-    token,
-    options = { httpOnly: true, secure: true }
-  ) {
+  setTokenToResponse(res, token, options = { httpOnly: true, secure: true }) {
     res.cookie(this.getOptions().cookie.SESSION_NAME, token, options);
   }
   removeSession(res) {

@@ -42,3 +42,22 @@ userRouter.use(
  ];
 
  const ignoredUrlsForAuth = ignoredRoutesForAuth.map((item) => item.fullUrl);
+
+
+// app.use(
+//   middlewares.ignoreMiddlewares(ignoredUrlsForAuth, middlewares.authDefault)
+// );
+
+
+// app.use(
+//   middlewares.ignoreMiddlewares(
+//     [...ignoredUrlsForAuth, routes.auth.verify.fullUrl],
+//     middlewares.checkCurrentUserStatus,
+//     middlewares.attachCurrentUserId
+//   )
+// );
+
+app.use(morgan("dev"));
+
+app.use(helmet());
+app.use(cookieParser());

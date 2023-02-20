@@ -1,5 +1,3 @@
-const { verify } = require("@/http/controllers/auth/verify");
-
 const { getCountries } = require("@/http/controllers/other/getCountries");
 const {
   getWelcomeMessage,
@@ -11,7 +9,6 @@ const controllers = {
   getAllStuff,
   getCountries,
   getWelcomeMessage,
-  verify,
 };
 
 module.exports = { controllers };

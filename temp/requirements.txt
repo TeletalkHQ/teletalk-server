@@ -1,0 +1,12 @@
+ authRouter[routes.auth.signIn.method](
+   routes.auth.signIn.url,
+   middlewares.cellphoneValidator,
+   controllers.signIn
+ );
+
+ authRouter[routes.auth.verify.method](
+   routes.auth.verify.url,
+   middlewares.verificationCodeValidator,
+   middlewares.verifyVerificationCode,
+   controllers.verify
+ );

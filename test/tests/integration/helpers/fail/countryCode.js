@@ -15,8 +15,7 @@ const countryCodeFailTest = (configuredRequester, data) => {
     .missing()
     .overload()
     .invalidType()
-    .empty()
-    .numeric()
+    .empty.numeric()
     .minlength()
     .maxlength(
       randomMaker.stringNumber(userModels.countryCode.maxlength.value + 1)

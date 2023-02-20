@@ -33,7 +33,7 @@ describe("createNewUser success tests", () => {
 
 describe("createNewUser fail tests", () => {
   const requester = requesters.createNewUser();
-  before(async () => {
+  beforeAll(async () => {
     const cellphone = randomMaker.unusedCellphone();
     const helper = authHelper(cellphone);
     await helper.signIn();

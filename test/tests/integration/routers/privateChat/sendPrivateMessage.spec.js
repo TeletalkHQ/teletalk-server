@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { randomMaker } = require("$/classes/RandomMaker");
 
 const { helpers } = require("$/helpers");
@@ -41,7 +39,7 @@ describe("send message success tests", () => {
       currentUser.userId,
       targetUser.userId
     );
-    expect(chat.messages.length).to.be.equal(messagesLength);
+    expect(chat.messages.length).toBe(messagesLength);
   });
 });
 

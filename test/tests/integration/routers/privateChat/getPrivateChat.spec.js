@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { randomMaker } = require("$/classes/RandomMaker");
 
 const { helpers } = require("$/helpers");
@@ -64,19 +62,19 @@ const testPrivateChat = async ({
   targetUser,
 }) => {
   const { privateChat } = await getPrivateChat(currentUserToken, chatId);
-  expect(privateChat).to.be.an(FIELD_TYPE.OBJECT);
-  expect(privateChat.participants).to.be.an(FIELD_TYPE.ARRAY);
-  expect(privateChat.participants).to.be.an(FIELD_TYPE.ARRAY).and.length(2);
+  expect(privateChat).toBeInstanceOf(FIELD_TYPE.OBJECT);
+  expect(privateChat.participants).toBeInstanceOf(FIELD_TYPE.ARRAY);
+  expect(privateChat.participants).to.be.an(FIELD_TYPE.ARRAY).toHaveLength(2);
 
   const privateChatFromDb = await findStoredPrivateChat(
     currentUser.userId,
     targetUser.userId
   );
-  expect(privateChatFromDb).to.be.an(FIELD_TYPE.OBJECT);
-  expect(privateChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY);
+  expect(privateChatFromDb).toBeInstanceOf(FIELD_TYPE.OBJECT);
+  expect(privateChatFromDb.participants).toBeInstanceOf(FIELD_TYPE.ARRAY);
   expect(privateChatFromDb.participants)
     .to.be.an(FIELD_TYPE.ARRAY)
-    .and.length(2);
+    .toHaveLength(2);
 
   tesChatId(chatId, privateChat, privateChatFromDb);
   testMessages(privateChat, privateChatFromDb);

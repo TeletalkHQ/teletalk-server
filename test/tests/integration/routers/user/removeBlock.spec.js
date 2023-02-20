@@ -1,4 +1,3 @@
-const { expect } = require("chai");
 const {
   isDataHasEqualityWithTargetCellphone,
 } = require("utility-store/src/utilities/utilities");
@@ -50,7 +49,7 @@ describe("removeBlock fail tests", () => {
   const cellphone = randomMaker.unusedCellphone();
   const requester = requesters.removeBlock();
 
-  before(async () => {
+  beforeAll(async () => {
     const { token } = await randomMaker.user(cellphone);
     requester.setToken(token);
   });
@@ -92,21 +91,19 @@ const testRemovedBlock = ({ equalValue, testValue }) => {
 
 const testBlacklistAfterRemoveOneItem = async (currentUser, blacklist) => {
   const blacklistAfterRemove = await findBlacklist(currentUser.user.userId);
-  expect(blacklistAfterRemove.length).to.be.equal(blacklist.length);
+  expect(blacklistAfterRemove.length).toBe(blacklist.length);
 
   blacklist.forEach((i) => {
     const removedCellphone = blacklistAfterRemove.find((j) =>
       isDataHasEqualityWithTargetCellphone(i, j)
     );
-    expect(i).to.be.deep.equal(
-      userUtilities.extractCellphone(removedCellphone)
-    );
+    expect(i).toEqual(userUtilities.extractCellphone(removedCellphone));
   });
 };
 
 const testBlacklistAfterRemoveAll = async (userId) => {
   const blacklistAfterRemoveAll = await findBlacklist(userId);
-  expect(blacklistAfterRemoveAll.length).to.be.equal(0);
+  expect(blacklistAfterRemoveAll.length).toBe(0);
 };
 
 const findBlacklist = async (userId) => {

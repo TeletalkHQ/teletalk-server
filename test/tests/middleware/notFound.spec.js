@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 const { requesterCreator } = require("$/classes/Requester");
 
@@ -32,8 +30,10 @@ describe("notFound middleware fail test", () => {
 
       const { errorKey } = errors.ROUTE_NOT_FOUND;
       if (responseErrors && responseErrors[errorKey]) {
-        expect(responseErrors[errorKey].reason).to.be.an(FIELD_TYPE.STRING);
-        expect(responseErrors[errorKey].reason).not.equal(
+        expect(responseErrors[errorKey].reason).toBeInstanceOf(
+          FIELD_TYPE.STRING
+        );
+        expect(responseErrors[errorKey].reason).not.toBe(
           errors.ROUTE_NOT_FOUND.reason
         );
       }

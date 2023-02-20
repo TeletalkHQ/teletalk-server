@@ -10,8 +10,7 @@ const phoneNumberFailTest = (configuredRequester, data) => {
     .missing()
     .overload()
     .invalidType()
-    .empty()
-    .numeric()
+    .empty.numeric()
     .minlength()
     .maxlength();
 };

@@ -23,10 +23,17 @@ const customEmit = (socket = socketIntellisense) => {
 const tryBlock = (data, inputFields) => {
   const checkResult = ioFieldsChecker(data, inputFields, errors.io.output);
 
-  errorThrower(checkResult.ok === false, () => ({
-    ...checkResult.error,
-    inputFields,
-  }));
+  if (checkResult.ok === false) {
+    errorThrower(!checkResult.error || !checkResult.error.reason, {
+      ...errors.UNKNOWN_ERROR,
+      checkResult,
+    });
+
+    throw {
+      ...checkResult.error,
+      inputFields,
+    };
+  }
 };
 
 const executeIfNoError = (_, socket, event, data, ...args) => {

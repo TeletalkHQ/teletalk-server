@@ -11,10 +11,6 @@ const { loggerHelper } = require("@/utilities/logHelper");
 
 const { middlewares } = require("@/http/middlewares");
 
-const { lifeLine } = require("@/http/routers");
-
-const { routes, ignoredUrlsForAuth } = require("@/http/routes");
-
 const app = express();
 
 app.use(middlewares.logSeparator);
@@ -52,21 +48,19 @@ app.use(
 
 app.use(loggerHelper.logRequestBody);
 
-app.use(
-  middlewares.ignoreMiddlewares(ignoredUrlsForAuth, middlewares.authDefault)
-);
+// app.use(
+//   middlewares.ignoreMiddlewares(ignoredUrlsForAuth, middlewares.authDefault)
+// );
 
 app.use(middlewares.checkBodyFields);
 
-app.use(
-  middlewares.ignoreMiddlewares(
-    [...ignoredUrlsForAuth, routes.auth.verify.fullUrl],
-    middlewares.checkCurrentUserStatus,
-    middlewares.attachCurrentUserId
-  )
-);
-
-app.use(lifeLine);
+// app.use(
+//   middlewares.ignoreMiddlewares(
+//     [...ignoredUrlsForAuth, routes.auth.verify.fullUrl],
+//     middlewares.checkCurrentUserStatus,
+//     middlewares.attachCurrentUserId
+//   )
+// );
 
 app.use(middlewares.logSeparator);
 

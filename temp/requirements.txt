@@ -32,3 +32,13 @@ userRouter.use(
      middlewares.contactValidator
    )
  );
+
+ const ignoredRoutesForAuth = [
+   stuffRoutes.getAllStuffs,
+   otherRoutes.getCountries,
+   otherRoutes.getWelcomeMessage,
+   authRoutes.signIn,
+   serverRoutes.root,
+ ];
+
+ const ignoredUrlsForAuth = ignoredRoutesForAuth.map((item) => item.fullUrl);

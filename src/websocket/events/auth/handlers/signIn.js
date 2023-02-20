@@ -1,7 +1,6 @@
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { authManager } = require("@/classes/AuthManager");
-const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { smsClient } = require("@/classes/SmsClient");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userUtilities } = require("@/classes/UserUtilities");
@@ -13,7 +12,7 @@ const { passwordGenerator } = require("@/utilities/passwordGenerator");
 
 const { validators } = require("@/validators");
 
-const tryToSignIn = async (req, res = expressResponse) => {
+const signIn = async (req, res) => {
   const verificationCode = passwordGenerator();
   await validateVerificationCode(verificationCode);
 
@@ -56,7 +55,5 @@ const signToken = (data) => {
 
 const addClient = async (tokenId, data) =>
   await temporaryClients.add(tokenId, data);
-
-const signIn = controllerBuilder.create().body(tryToSignIn).build();
 
 module.exports = { signIn };

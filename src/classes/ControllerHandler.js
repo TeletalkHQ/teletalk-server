@@ -31,7 +31,7 @@ const controllerHandler = {
   create:
     // prettier-ignore
     ({ controllerName, tryCallback, responseCallback, catchCallback }) =>
-      (req = expressRequest, res = expressResponse) =>
+      (req , res ) =>
         new ControllerHandler({
           req,
           res,

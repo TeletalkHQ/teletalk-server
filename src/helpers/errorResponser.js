@@ -2,7 +2,7 @@ const { trier } = require("simple-trier");
 
 const { errors } = require("@/variables/errors");
 
-const errorResponser = (res = expressResponse) => {
+const errorResponser = (res) => {
   trier(errorResponser.name).try(tryBlock, res).catch(catchBlock, res).run();
 };
 

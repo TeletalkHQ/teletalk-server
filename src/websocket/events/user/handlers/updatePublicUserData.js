@@ -1,15 +1,12 @@
-const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
 const { validators } = require("@/validators");
 
-const tryToUpdatePublicUserData = async (req) => {
-  const {
-    body: { bio, firstName, lastName, username },
-    currentUserId,
-  } = req;
+const updatePublicUserData = async (socket, _io, data) => {
+  const { currentUserId } = socket;
+  const { bio, firstName, lastName, username } = data;
 
   await validators.firstName(firstName);
   await validators.lastName(lastName);
@@ -30,11 +27,6 @@ const tryToUpdatePublicUserData = async (req) => {
     publicUserData,
   };
 };
-
-const updatePublicUserData = controllerBuilder
-  .create()
-  .body(tryToUpdatePublicUserData)
-  .build();
 
 module.exports = {
   updatePublicUserData,

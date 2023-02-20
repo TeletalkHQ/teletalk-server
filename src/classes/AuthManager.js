@@ -3,9 +3,7 @@ const JWT = require("jsonwebtoken");
 
 const { envManager } = require("@/classes/EnvironmentManager");
 
-const { isUrlMatchWithReqUrl } = require("@/utilities/utilities");
-
-const { routes } = require("@/http/routes");
+// const { isUrlMatchWithReqUrl } = require("@/utilities/utilities");
 
 const { errors } = require("@/variables/errors");
 
@@ -60,19 +58,19 @@ class AuthManager {
     });
   }
 
-  getSecret(reqUrl) {
-    const isAuthenticationUrl = isUrlMatchWithReqUrl(
-      [routes.auth.verify.fullUrl, routes.auth.createNewUser.fullUrl],
-      reqUrl
-    );
+  // getSecret(reqUrl) {
+  //   const isAuthenticationUrl = isUrlMatchWithReqUrl(
+  //     [routes.auth.verify.fullUrl, routes.auth.createNewUser.fullUrl],
+  //     reqUrl
+  //   );
 
-    const secrets = this.getSecrets();
-    return isAuthenticationUrl
-      ? secrets.JWT_SIGN_IN_SECRET
-      : secrets.JWT_MAIN_SECRET;
-  }
+  //   const secrets = this.getSecrets();
+  //   return isAuthenticationUrl
+  //     ? secrets.JWT_SIGN_IN_SECRET
+  //     : secrets.JWT_MAIN_SECRET;
+  // }
 
-  getTokenFromRequest(req = expressRequest) {
+  getTokenFromRequest(req) {
     return req.cookies[this.getOptions().cookie.SESSION_NAME];
   }
   getTokenFromSocket(socket) {
@@ -80,11 +78,7 @@ class AuthManager {
       `${this.getOptions().cookie.SESSION_NAME}=`
     )[1];
   }
-  setTokenToResponse(
-    res = expressResponse,
-    token,
-    options = { httpOnly: true, secure: true }
-  ) {
+  setTokenToResponse(res, token, options = { httpOnly: true, secure: true }) {
     res.cookie(this.getOptions().cookie.SESSION_NAME, token, options);
   }
   removeSession(res) {

@@ -11,9 +11,4 @@ otherRouter[routes.other.getWelcomeMessage.method](
   controllers.getWelcomeMessage
 );
 
-otherRouter[routes.other.getCountries.method](
-  routes.other.getCountries.url,
-  controllers.getCountries
-);
-
 module.exports = { otherRouter };

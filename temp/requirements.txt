@@ -10,3 +10,25 @@
    middlewares.verifyVerificationCode,
    controllers.verify
  );
+
+
+userRouter.use(
+  middlewares.applyMiddlewares(
+    [
+       routes.user.addContact.url,
+       routes.user.addBlock.url,
+       routes.user.removeBlock.url,
+       routes.user.removeContact.url,
+       routes.user.editContact.url,
+    ],
+    middlewares.cellphoneValidator,
+    middlewares.selfStuffCheck
+  )
+);
+
+ userRouter.use(
+   middlewares.applyMiddlewares(
+     [routes.user.editContact.url, routes.user.addContact.url],
+     middlewares.contactValidator
+   )
+ );

@@ -14,7 +14,7 @@ userRouter.use(
       //FIXME: Add this two middleware into websocket
       // routes.user.addContact.url,
       // routes.user.addBlock.url,
-      routes.user.removeBlock.url,
+      // routes.user.removeBlock.url,
       routes.user.removeContact.url,
       // routes.user.editContact.url,
     ],
@@ -43,11 +43,6 @@ userRouter[routes.user.getPublicUserData.method](
 userRouter[routes.user.updatePublicUserData.method](
   routes.user.updatePublicUserData.url,
   controllers.updatePublicUserData
-);
-
-userRouter[routes.user.removeBlock.method](
-  routes.user.removeBlock.url,
-  controllers.removeBlock
 );
 
 userRouter[routes.user.removeContact.method](

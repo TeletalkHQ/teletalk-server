@@ -7,18 +7,6 @@ const { METHODS } = require("@/variables/others/methods");
 
 const userRouteBuilder = httpRouteBuilder(baseUrls.user);
 
-const removeBlock = userRouteBuilder
-  .create()
-  .method(METHODS.DELETE)
-  .url("/removeBlock")
-  .inputFields(fields.collection.cellphone)
-  .outputFields([
-    {
-      removedBlock: fields.statics.object(fields.collection.cellphone),
-    },
-  ])
-  .build();
-
 const removeContact = userRouteBuilder
   .create()
   .method(METHODS.DELETE)
@@ -86,7 +74,6 @@ const updatePublicUserData = userRouteBuilder
 const userRoutes = {
   getCurrentUserData,
   getPublicUserData,
-  removeBlock,
   removeContact,
   updatePublicUserData,
 };

@@ -18,28 +18,8 @@ const getCurrentUserData = userRouteBuilder
   ])
   .build();
 
-const getPublicUserData = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/getPublicUserData")
-  .inputFields({
-    userId: fields.single.userId,
-  })
-  .outputFields([
-    {
-      publicUserData: fields.statics.object({
-        ...fields.collection.fullName,
-        bio: fields.single.bio,
-        userId: fields.single.userId,
-        username: fields.single.username,
-      }),
-    },
-  ])
-  .build();
-
 const userRoutes = {
   getCurrentUserData,
-  getPublicUserData,
 };
 
 module.exports = {

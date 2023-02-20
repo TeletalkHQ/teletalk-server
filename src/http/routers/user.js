@@ -36,9 +36,5 @@ userRouter[routes.user.getCurrentUserData.method](
   routes.user.getCurrentUserData.url,
   controllers.getCurrentUserData
 );
-userRouter[routes.user.getPublicUserData.method](
-  routes.user.getPublicUserData.url,
-  controllers.getPublicUserData
-);
 
 module.exports = { userRouter };

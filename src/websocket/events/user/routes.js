@@ -62,6 +62,18 @@ const getContacts = builder
   .handler(userHandlers.getContacts)
   .build();
 
+const removeBlock = builder
+  .create()
+  .name("removeBlock")
+  .inputFields(fields.collection.cellphone)
+  .outputFields([
+    {
+      removedBlock: fields.statics.object(fields.collection.cellphone),
+    },
+  ])
+  .handler(userHandlers.removeBlock)
+  .build();
+
 const updateOnlineStatus = builder
   .create()
   .name("updateOnlineStatus")
@@ -74,6 +86,7 @@ const userRoutes = {
   disconnect,
   editContact,
   getContacts,
+  removeBlock,
   updateOnlineStatus,
 };
 

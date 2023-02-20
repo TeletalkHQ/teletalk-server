@@ -10,7 +10,6 @@ const {
 
 const { getAllStuff } = require("@/http/controllers/stuff/getAllStuff");
 
-const { getContacts } = require("@/http/controllers/user/getContacts");
 const {
   getCurrentUserData,
 } = require("@/http/controllers/user/getCurrentUserData");
@@ -26,7 +25,6 @@ const {
 const controllers = {
   createNewUser,
   getAllStuff,
-  getContacts,
   getCountries,
   getCurrentUserData,
   getPublicUserData,

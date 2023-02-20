@@ -31,6 +31,12 @@ const addContact = builder
   .handler(userHandlers.addContact)
   .build();
 
+const disconnect = builder
+  .create()
+  .name("disconnect")
+  .handler(userHandlers.disconnect)
+  .build();
+
 const editContact = builder
   .create()
   .name("editContact")
@@ -45,10 +51,15 @@ const editContact = builder
   .handler(userHandlers.editContact)
   .build();
 
-const disconnect = builder
+const getContacts = builder
   .create()
-  .name("disconnect")
-  .handler(userHandlers.disconnect)
+  .name("getContacts")
+  .outputFields([
+    {
+      contacts: fields.statics.array(fields.collection.contact),
+    },
+  ])
+  .handler(userHandlers.getContacts)
   .build();
 
 const updateOnlineStatus = builder
@@ -62,6 +73,7 @@ const userRoutes = {
   addContact,
   disconnect,
   editContact,
+  getContacts,
   updateOnlineStatus,
 };
 

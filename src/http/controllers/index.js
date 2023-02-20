@@ -10,15 +10,10 @@ const {
 
 const { getAllStuff } = require("@/http/controllers/stuff/getAllStuff");
 
-const {
-  getCurrentUserData,
-} = require("@/http/controllers/user/getCurrentUserData");
-
 const controllers = {
   createNewUser,
   getAllStuff,
   getCountries,
-  getCurrentUserData,
   getWelcomeMessage,
   logout,
   signIn,

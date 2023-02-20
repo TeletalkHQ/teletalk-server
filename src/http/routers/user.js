@@ -11,8 +11,8 @@ const userRouter = Router();
 userRouter.use(
   middlewares.applyMiddlewares(
     [
-      routes.user.addContact.url,
       //FIXME: Add this two middleware into websocket
+      // routes.user.addContact.url,
       // routes.user.addBlock.url,
       routes.user.removeBlock.url,
       routes.user.removeContact.url,
@@ -23,12 +23,13 @@ userRouter.use(
   )
 );
 
-userRouter.use(
-  middlewares.applyMiddlewares(
-    [routes.user.editContact.url, routes.user.addContact.url],
-    middlewares.contactValidator
-  )
-);
+// userRouter.use(
+//   middlewares.applyMiddlewares(
+//     //FIXME: Add this two middleware into websocket
+//     [routes.user.editContact.url, routes.user.addContact.url],
+//     middlewares.contactValidator
+//   )
+// );
 
 //CLEANME: With some classes
 userRouter[routes.user.getCurrentUserData.method](
@@ -47,11 +48,6 @@ userRouter[routes.user.updatePublicUserData.method](
 userRouter[routes.user.getContacts.method](
   routes.user.getContacts.url,
   controllers.getContacts
-);
-
-userRouter[routes.user.addContact.method](
-  routes.user.addContact.url,
-  controllers.addContact
 );
 
 userRouter[routes.user.removeBlock.method](

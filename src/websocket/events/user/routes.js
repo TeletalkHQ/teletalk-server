@@ -1,6 +1,7 @@
 const {
   socketRouteBuilder,
 } = require("@/classes/routeBuilder/SocketRouteBuilder");
+
 const { fields } = require("@/variables/others/fields");
 
 const { userHandlers } = require("@/websocket/events/user/handlers");
@@ -62,6 +63,17 @@ const getContacts = builder
   .handler(userHandlers.getContacts)
   .build();
 
+const getCurrentUserData = builder
+  .create()
+  .name("getCurrentUserData")
+  .outputFields([
+    {
+      user: fields.statics.object(fields.collection.user),
+    },
+  ])
+  .handler(userHandlers.getCurrentUserData)
+  .build();
+
 const getPublicUserData = builder
   .create()
   .name("getPublicUserData")
@@ -78,6 +90,7 @@ const getPublicUserData = builder
       }),
     },
   ])
+  .handler(userHandlers.getPublicUserData)
   .build();
 
 const removeBlock = builder
@@ -138,6 +151,7 @@ const userRoutes = {
   disconnect,
   editContact,
   getContacts,
+  getCurrentUserData,
   getPublicUserData,
   removeBlock,
   removeContact,

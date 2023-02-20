@@ -1,10 +1,6 @@
 const { Router } = require("express");
 
-const { controllers } = require("@/http/controllers");
-
 const { middlewares } = require("@/http/middlewares");
-
-const { routes } = require("@/http/routes");
 
 const userRouter = Router();
 
@@ -32,9 +28,5 @@ userRouter.use(
 // );
 
 //CLEANME: With some classes
-userRouter[routes.user.getCurrentUserData.method](
-  routes.user.getCurrentUserData.url,
-  controllers.getCurrentUserData
-);
 
 module.exports = { userRouter };

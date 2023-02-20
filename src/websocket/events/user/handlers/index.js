@@ -4,6 +4,9 @@ const { disconnect } = require("@/websocket/events/user/handlers/disconnect");
 const { editContact } = require("@/websocket/events/user/handlers/editContact");
 const { getContacts } = require("@/websocket/events/user/handlers/getContacts");
 const {
+  getCurrentUserData,
+} = require("@/websocket/events/user/handlers/getCurrentUserData");
+const {
   getPublicUserData,
 } = require("@/websocket/events/user/handlers/getPublicUserData");
 const { removeBlock } = require("@/websocket/events/user/handlers/removeBlock");
@@ -23,6 +26,7 @@ const userHandlers = {
   disconnect,
   editContact,
   getContacts,
+  getCurrentUserData,
   getPublicUserData,
   removeBlock,
   removeContact,

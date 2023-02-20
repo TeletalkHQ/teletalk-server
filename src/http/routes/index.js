@@ -1,4 +1,3 @@
-const { userRoutes } = require("@/http/routes/user");
 const { otherRoutes } = require("@/http/routes/other");
 const { serverRoutes } = require("@/http/routes/server");
 const { stuffRoutes } = require("@/http/routes/stuff");
@@ -8,7 +7,6 @@ const arrayOfRoutes = Object.values({
   ...authRoutes,
   ...otherRoutes,
   ...stuffRoutes,
-  ...userRoutes,
 });
 
 const ignoredRoutesForAuth = [
@@ -22,7 +20,6 @@ const ignoredRoutesForAuth = [
 const ignoredUrlsForAuth = ignoredRoutesForAuth.map((item) => item.fullUrl);
 
 const routes = {
-  user: userRoutes,
   other: otherRoutes,
   server: serverRoutes,
   stuff: stuffRoutes,

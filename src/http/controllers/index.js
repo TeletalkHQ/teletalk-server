@@ -16,9 +16,6 @@ const {
 const {
   getPublicUserData,
 } = require("@/http/controllers/user/getPublicUserData");
-const {
-  updatePublicUserData,
-} = require("@/http/controllers/user/updatePublicUserData");
 
 const controllers = {
   createNewUser,
@@ -29,7 +26,6 @@ const controllers = {
   getWelcomeMessage,
   logout,
   signIn,
-  updatePublicUserData,
   verify,
 };
 

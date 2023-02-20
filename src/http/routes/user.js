@@ -37,32 +37,9 @@ const getPublicUserData = userRouteBuilder
   ])
   .build();
 
-const updatePublicUserData = userRouteBuilder
-  .create()
-  .method(METHODS.PATCH)
-  .url("/updatePublicUserData")
-  .inputFields({
-    ...fields.collection.fullName,
-    bio: fields.single.bio,
-    username: fields.single.username,
-  })
-  .outputFields([
-    {
-      publicUserData: fields.statics.object({
-        ...fields.collection.fullName,
-        bio: fields.single.bio,
-        status: fields.collection.status,
-        userId: fields.single.userId,
-        username: fields.single.username,
-      }),
-    },
-  ])
-  .build();
-
 const userRoutes = {
   getCurrentUserData,
   getPublicUserData,
-  updatePublicUserData,
 };
 
 module.exports = {

@@ -16,8 +16,7 @@ const countryNameFailTest = (configuredRequester, data) => {
     .missing()
     .overload()
     .invalidType()
-    .empty()
-    .maxlength()
+    .empty.maxlength()
     .minlength()
     .custom(
       randomMaker.string(countryNameMaxlength),

@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { authManager } = require("@/classes/AuthManager");
 const { randomMaker } = require("$/classes/RandomMaker");
 
@@ -34,10 +32,8 @@ const checkCurrentUserStatusFailTest = (configuredRequester, data = {}) => {
         }
       );
 
-      expect(error.reason).to.be.equal(body.errors[error.errorKey].reason);
-      expect(body.errors[error.errorKey].wrongTokenId).to.be.equal(
-        wrongTokenId
-      );
+      expect(error.reason).toBe(body.errors[error.errorKey].reason);
+      expect(body.errors[error.errorKey].wrongTokenId).toBe(wrongTokenId);
     }
   );
 
@@ -61,8 +57,8 @@ const checkCurrentUserStatusFailTest = (configuredRequester, data = {}) => {
           token,
         }
       );
-      expect(error.reason).to.be.equal(body.errors[error.errorKey].reason);
-      expect(body.errors[error.errorKey].isSessionExist).to.be.false;
+      expect(error.reason).toBe(body.errors[error.errorKey].reason);
+      expect(body.errors[error.errorKey].isSessionExist).toBe(false);
     }
   );
 };

@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { authHelper } = require("$/classes/AuthHelper");
 const { randomMaker } = require("$/classes/RandomMaker");
 const { temporaryClients } = require("@/classes/TemporaryClients");
@@ -23,7 +21,7 @@ describe("verifySignInApi success test", () => {
     await helper.signIn();
     await helper.verify();
     const { body: newUserVerifyData } = helper.verifyResponse;
-    expect(newUserVerifyData.newUser).to.be.equal(true);
+    expect(newUserVerifyData.newUser).toBe(true);
 
     const tokenId = authManager.getTokenId(
       helper.signInResponse.body.token,
@@ -31,7 +29,7 @@ describe("verifySignInApi success test", () => {
     );
 
     const client = await temporaryClients.find(tokenId);
-    expect(client.isVerified).to.be.equal(true);
+    expect(client.isVerified).toBe(true);
   });
 
   it("should verify as exist user", async () => {
@@ -47,7 +45,7 @@ describe("verifySignInApi success test", () => {
       await helper.signIn();
       await helper.verify();
 
-      expect(helper.verifyResponse.body.newUser).to.be.equal(false);
+      expect(helper.verifyResponse.body.newUser).toBe(false);
 
       sessions.push(helper.getMainTokenFromVerify());
       const successTestBuilder = testHelper.createSuccessTest();
@@ -56,18 +54,18 @@ describe("verifySignInApi success test", () => {
 
     const user = await services.findOneUser(cellphone);
 
-    expect(sessions.length).to.be.equal(user.sessions.length);
+    expect(sessions.length).toBe(user.sessions.length);
 
     sessions.forEach((item) => {
       const isTokenExist = user.sessions.some(({ token }) => token === item);
-      expect(isTokenExist).to.be.true;
+      expect(isTokenExist).toBe(true);
     });
   });
 });
 
 describe("verifySignIn fail tests", () => {
   const requester = requesters.verify();
-  before(async () => {
+  beforeAll(async () => {
     const cellphone = randomMaker.unusedCellphone();
     const token = (await authHelper(cellphone).signIn()).getSignInToken();
 

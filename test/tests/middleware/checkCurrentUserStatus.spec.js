@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { randomMaker } = require("utility-store/src/classes/RandomMaker");
 
 const { authManager } = require("@/classes/AuthManager");
@@ -55,9 +53,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
           }
         );
 
-        expect(body.errors[error.errorKey].wrongUserId).to.be.equal(
-          wrongUserId
-        );
+        expect(body.errors[error.errorKey].wrongUserId).toBe(wrongUserId);
       }
     );
   }
@@ -79,7 +75,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
           }
         );
 
-        expect(body.errors[error.errorKey].isSessionExist).to.be.false;
+        expect(body.errors[error.errorKey].isSessionExist).toBe(false);
       }
     );
   }

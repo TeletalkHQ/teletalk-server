@@ -10,8 +10,7 @@ const chatIdFailTest = (configuredRequester, data = {}) => {
     .missing()
     .overload()
     .invalidType()
-    .empty()
-    .minlength()
+    .empty.minlength()
     .maxlength();
 };
 module.exports = {

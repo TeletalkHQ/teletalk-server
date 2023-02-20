@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { randomMaker } = require("$/classes/RandomMaker");
 const { userUtilities } = require("@/classes/UserUtilities");
 
@@ -37,8 +35,8 @@ describe("addBlock successful tests", () => {
       currentUser.user.userId
     );
 
-    expect(blacklist).to.be.an(FIELD_TYPE.ARRAY);
-    expect(blacklist.length).to.be.equal(blacklistLength);
+    expect(blacklist).toBeInstanceOf(FIELD_TYPE.ARRAY);
+    expect(blacklist.length).toBe(blacklistLength);
   });
 });
 
@@ -52,7 +50,7 @@ describe("addBlock fail tests", () => {
     selfStuffData: currentUserSignData,
   };
 
-  before(async () => {
+  beforeAll(async () => {
     const { token } = await randomMaker.user(currentUserSignData);
     requester.setToken(token);
 
@@ -99,7 +97,7 @@ const findBlacklist = async (userId) => {
 
 const testTargetUserBlacklist = async (targetUserId) => {
   const blacklist = await findBlacklist(targetUserId);
-  expect(blacklist).to.be.an(FIELD_TYPE.ARRAY).and.to.be.empty;
+  expect(Object.keys(blacklist)).toHaveLength(0);
   return blacklist;
 };
 

@@ -1,4 +1,3 @@
-const { expect } = require("chai");
 const supertest = require("supertest");
 const {
   objectUtilities,
@@ -177,7 +176,7 @@ class Requester {
   checkStatusCode() {
     const requestStatusCode = this.getRequestStatusCode();
     const responseStatusCode = this.getResponseStatusCode();
-    expect(responseStatusCode).to.be.equal(requestStatusCode);
+    expect(responseStatusCode).toBe(requestStatusCode);
     return this;
   }
 
@@ -191,7 +190,7 @@ class Requester {
   checkErrorReason() {
     const { errorKey, reason } = this.getError();
     const { errors } = this.getResponseBody();
-    expect(errors[errorKey]?.reason).to.equal(reason);
+    expect(errors[errorKey]?.reason).toBe(reason);
     return this;
   }
 }

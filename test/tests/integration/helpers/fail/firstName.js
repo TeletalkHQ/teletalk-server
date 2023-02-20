@@ -10,8 +10,7 @@ const firstNameFailTest = (configuredRequester, data) => {
     .missing()
     .overload()
     .invalidType()
-    .empty()
-    .minlength()
+    .empty.minlength()
     .maxlength();
 };
 

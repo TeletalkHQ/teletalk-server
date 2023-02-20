@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { failTestBuilder } = require("$/classes/FailTestBuilder");
 const { requesterCreator } = require("$/classes/Requester");
 
@@ -40,7 +38,7 @@ describe("requestMethodChecker middleware tests", () => {
 
       const { errorKey } = errors.METHOD_NOT_ALLOWED;
       if (responseErrors && responseErrors[errorKey]) {
-        expect(responseErrors[errorKey].reason).not.equal(
+        expect(responseErrors[errorKey].reason).not.toBe(
           errors.METHOD_NOT_ALLOWED.reason
         );
       }

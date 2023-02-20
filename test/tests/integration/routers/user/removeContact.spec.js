@@ -1,4 +1,3 @@
-const { expect } = require("chai");
 const {
   isDataHasEqualityWithTargetCellphone,
 } = require("utility-store/src/utilities/utilities");
@@ -53,7 +52,7 @@ describe("removeContact fail tests", () => {
   const cellphone = randomMaker.unusedCellphone();
   const requester = requesters.removeContact();
 
-  before(async () => {
+  beforeAll(async () => {
     const { token } = await randomMaker.user(cellphone);
     requester.setToken(token);
   });
@@ -95,22 +94,20 @@ const testRemovedContact = ({ equalValue, testValue }) => {
 
 const testContactsAfterRemoveOneItem = async (currentUser, cellphones) => {
   const contactsAfterRemove = await findContacts(currentUser.user.userId);
-  expect(contactsAfterRemove.length).to.be.equal(cellphones.length);
+  expect(contactsAfterRemove.length).toBe(cellphones.length);
 
   cellphones.forEach((i) => {
     const removedCellphone = contactsAfterRemove.find((j) =>
       isDataHasEqualityWithTargetCellphone(i, j)
     );
 
-    expect(i).to.be.deep.equal(
-      userUtilities.extractCellphone(removedCellphone)
-    );
+    expect(i).toEqual(userUtilities.extractCellphone(removedCellphone));
   });
 };
 
 const testContactsAfterRemoveAll = async (userId) => {
   const contactsAfterRemoveAll = await findContacts(userId);
-  expect(contactsAfterRemoveAll.length).to.be.equal(0);
+  expect(contactsAfterRemoveAll.length).toBe(0);
 };
 
 const findContacts = async (userId) => {

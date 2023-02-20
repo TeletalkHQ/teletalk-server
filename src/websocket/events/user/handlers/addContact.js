@@ -1,15 +1,15 @@
-const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
-const tryToAddContact = async (req) => {
-  const { body, currentUserId } = req;
-  const newContactData = userUtilities.extractContact(body);
+const addContact = async (socket, _io, data) => {
+  const { currentUserId } = socket;
+  const newContactData = userUtilities.extractContact(data);
 
   const { newContact } = await services
     .addContact()
     .run({ currentUserId, newContactData });
+
   return {
     addedContact: {
       ...newContact,
@@ -17,7 +17,5 @@ const tryToAddContact = async (req) => {
     },
   };
 };
-
-const addContact = controllerBuilder.create().body(tryToAddContact).build();
 
 module.exports = { addContact };

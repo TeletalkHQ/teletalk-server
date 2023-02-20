@@ -7,24 +7,6 @@ const { METHODS } = require("@/variables/others/methods");
 
 const userRouteBuilder = httpRouteBuilder(baseUrls.user);
 
-const addBlocks = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/addBlocks")
-  .build();
-
-const addContact = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/addContact")
-  .inputFields(fields.collection.contactWithoutUserId)
-  .outputFields([
-    {
-      addedContact: fields.statics.object(fields.collection.contact),
-    },
-  ])
-  .build();
-
 const addContacts = userRouteBuilder
   .create()
   .method(METHODS.POST)
@@ -157,8 +139,6 @@ const updatePublicUserData = userRouteBuilder
   .build();
 
 const userRoutes = {
-  addBlocks,
-  addContact,
   addContacts,
   editContact,
   getContacts,

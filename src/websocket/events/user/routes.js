@@ -92,6 +92,28 @@ const updateOnlineStatus = builder
   .handler(userHandlers.updateOnlineStatus)
   .build();
 
+const updatePublicUserData = builder
+  .create()
+  .name("updatePublicUserData")
+  .inputFields({
+    ...fields.collection.fullName,
+    bio: fields.single.bio,
+    username: fields.single.username,
+  })
+  .outputFields([
+    {
+      publicUserData: fields.statics.object({
+        ...fields.collection.fullName,
+        bio: fields.single.bio,
+        status: fields.collection.status,
+        userId: fields.single.userId,
+        username: fields.single.username,
+      }),
+    },
+  ])
+  .handler(userHandlers.updatePublicUserData)
+  .build();
+
 const userRoutes = {
   addBlock,
   addContact,
@@ -101,6 +123,7 @@ const userRoutes = {
   removeBlock,
   removeContact,
   updateOnlineStatus,
+  updatePublicUserData,
 };
 
 module.exports = {

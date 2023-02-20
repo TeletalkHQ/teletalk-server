@@ -10,6 +10,9 @@ const {
 const {
   updateOnlineStatus,
 } = require("@/websocket/events/user/handlers/updateOnlineStatus");
+const {
+  updatePublicUserData,
+} = require("@/websocket/events/user/handlers/updatePublicUserData");
 
 const userHandlers = {
   addBlock,
@@ -20,6 +23,7 @@ const userHandlers = {
   removeBlock,
   removeContact,
   updateOnlineStatus,
+  updatePublicUserData,
 };
 
 module.exports = {

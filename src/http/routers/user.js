@@ -12,7 +12,8 @@ userRouter.use(
   middlewares.applyMiddlewares(
     [
       routes.user.addContact.url,
-      routes.user.addBlock.url,
+      //FIXME: Add this two middleware into websocket
+      // routes.user.addBlock.url,
       routes.user.removeBlock.url,
       routes.user.removeContact.url,
       routes.user.editContact.url,
@@ -51,11 +52,6 @@ userRouter[routes.user.getContacts.method](
 userRouter[routes.user.addContact.method](
   routes.user.addContact.url,
   controllers.addContact
-);
-
-userRouter[routes.user.addBlock.method](
-  routes.user.addBlock.url,
-  controllers.addBlock
 );
 
 userRouter[routes.user.removeBlock.method](

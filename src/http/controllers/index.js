@@ -10,7 +10,6 @@ const {
 
 const { getAllStuff } = require("@/http/controllers/stuff/getAllStuff");
 
-const { addBlock } = require("@/http/controllers/user/addBlock");
 const { addContact } = require("@/http/controllers/user/addContact");
 const { editContact } = require("@/http/controllers/user/editContact");
 const { getContacts } = require("@/http/controllers/user/getContacts");
@@ -28,7 +27,6 @@ const {
 
 //TODO: index
 const controllers = {
-  addBlock,
   addContact,
   createNewUser,
   editContact,

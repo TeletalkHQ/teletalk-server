@@ -26,6 +26,15 @@ const getCountries = builder
   .handler(otherHandlers.getCountries)
   .build();
 
+const getStuff = builder
+  .create()
+  .name("getStuff")
+  .inputFields({
+    language: fields.single.language,
+  })
+  .handler(otherHandlers.getStuff)
+  .build();
+
 const getWelcomeMessage = builder
   .create()
   .name("welcomeMessage")
@@ -48,6 +57,7 @@ const ping = builder.create().name("ping").handler(otherHandlers.ping).build();
 
 const otherRoutes = {
   getCountries,
+  getStuff,
   getWelcomeMessage,
   logEvent,
   // disconnect,

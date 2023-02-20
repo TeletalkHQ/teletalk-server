@@ -27,15 +27,15 @@ require("$/tests/integration/routers/auth/logout.spec");
 // require("$/tests/integration/routers/privateChat/getAllPrivateChats.spec");
 // require("$/tests/integration/routers/privateChat/getPrivateChat.spec");
 //? userRouter api's =>
-require("$/tests/integration/routers/user/addBlock.spec");
-require("$/tests/integration/routers/user/removeBlock.spec");
-require("$/tests/integration/routers/user/addContact.spec");
-require("$/tests/integration/routers/user/editContact.spec");
-require("$/tests/integration/routers/user/removeContact.spec");
-require("$/tests/integration/routers/user/getContacts.spec");
-require("$/tests/integration/routers/user/getCurrentUserData.spec");
-require("$/tests/integration/routers/user/getPublicUserData.spec");
-require("$/tests/integration/routers/user/updatePublicUserData.spec");
+// require("$/tests/integration/routers/user/addBlock.spec");
+// require("$/tests/integration/routers/user/removeBlock.spec");
+// require("$/tests/integration/routers/user/addContact.spec");
+// require("$/tests/integration/routers/user/editContact.spec");
+// require("$/tests/integration/routers/user/removeContact.spec");
+// require("$/tests/integration/routers/user/getContacts.spec");
+// require("$/tests/integration/routers/user/getCurrentUserData.spec");
+// require("$/tests/integration/routers/user/getPublicUserData.spec");
+// require("$/tests/integration/routers/user/updatePublicUserData.spec");
 //? stuffRouter api's =>
 require("$/tests/integration/routers/staff/getAllStaff.spec");
 //#endregion

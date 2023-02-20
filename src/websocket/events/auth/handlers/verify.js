@@ -1,11 +1,10 @@
 const { authManager } = require("@/classes/AuthManager");
-const { controllerBuilder } = require("@/classes/ControllerBuilder");
 const { temporaryClients } = require("@/classes/TemporaryClients");
 const { userUtilities } = require("@/classes/UserUtilities");
 
 const { services } = require("@/services");
 
-const tryToVerify = async (req, res) => {
+const verify = async (req, res) => {
   const {
     authData: {
       data: {
@@ -55,7 +54,5 @@ const addNewSession = async (userId, newToken) => {
 const removeTemporaryClient = async (tokenId) => {
   await temporaryClients.remove(tokenId);
 };
-
-const verify = controllerBuilder.create().body(tryToVerify).build();
 
 module.exports = { verify };

@@ -28,10 +28,25 @@ const signIn = builder
   .handler(authHandlers.signIn)
   .build();
 
+const verify = builder
+  .create()
+  .name("verify")
+  .inputFields({
+    verificationCode: fields.single.verificationCode,
+  })
+  .outputFields([
+    {
+      newUser: fields.single.newUser,
+    },
+  ])
+  .handler(authHandlers.verify)
+  .build();
+
 const authRoutes = {
   createNewUser,
   logout,
   signIn,
+  verify,
 };
 
 module.exports = {

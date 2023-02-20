@@ -1,6 +1,8 @@
 // const cluster = require("cluster");
 // const os = require("os");
 
+require("pretty-error").start();
+
 require("module-alias/register");
 require("@/variables/others/customGlobals");
 require("@/helpers/requireDotenv");
@@ -9,7 +11,6 @@ const { envManager } = require("@/classes/EnvironmentManager");
 
 const requirements = require("@/requirements");
 
-const { expressServer } = require("@/servers/express");
 const { crateHttpServer } = require("@/servers/http");
 const { websocketServer } = require("@/servers/websocket");
 
@@ -35,7 +36,7 @@ const runner = async () => {
 
   // logger.log(`Master ${process.pid} is running`);
 
-  // const httpServer = crateHttpServer(expressServer);
+  // const httpServer = crateHttpServer();
 
   // setupMaster(httpServer, {
   //   loadBalancingMethod: "round-robin",
@@ -48,13 +49,13 @@ const runner = async () => {
   // for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
   // } else {
   await requirements.database();
-  const httpServer = crateHttpServer(expressServer);
+  const httpServer = crateHttpServer();
   websocketServer(httpServer);
   httpServer.listen(EXACT_PORT, serverListenerCb);
 
   // logger.log(`Worker ${process.pid} started`);
 
-  // const httpServer = crateHttpServer(expressServer);
+  // const httpServer = crateHttpServer();
   // const io = new Server(httpServer, {
   //   cors: { credentials: true, origin: true },
   // });

@@ -45,11 +45,6 @@ userRouter[routes.user.updatePublicUserData.method](
   controllers.updatePublicUserData
 );
 
-userRouter[routes.user.getContacts.method](
-  routes.user.getContacts.url,
-  controllers.getContacts
-);
-
 userRouter[routes.user.removeBlock.method](
   routes.user.removeBlock.url,
   controllers.removeBlock

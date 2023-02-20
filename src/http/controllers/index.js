@@ -10,7 +10,6 @@ const {
 
 const { getAllStuff } = require("@/http/controllers/stuff/getAllStuff");
 
-const { editContact } = require("@/http/controllers/user/editContact");
 const { getContacts } = require("@/http/controllers/user/getContacts");
 const {
   getCurrentUserData,
@@ -24,10 +23,8 @@ const {
   updatePublicUserData,
 } = require("@/http/controllers/user/updatePublicUserData");
 
-//TODO: index
 const controllers = {
   createNewUser,
-  editContact,
   getAllStuff,
   getContacts,
   getCountries,

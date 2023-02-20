@@ -31,6 +31,20 @@ const addContact = builder
   .handler(userHandlers.addContact)
   .build();
 
+const editContact = builder
+  .create()
+  .name("editContact")
+  .inputFields(fields.collection.contactWithoutUserId)
+  .outputFields([
+    {
+      editedContact: fields.statics.object(
+        fields.collection.contactWithoutUserId
+      ),
+    },
+  ])
+  .handler(userHandlers.editContact)
+  .build();
+
 const disconnect = builder
   .create()
   .name("disconnect")
@@ -47,6 +61,7 @@ const userRoutes = {
   addBlock,
   addContact,
   disconnect,
+  editContact,
   updateOnlineStatus,
 };
 

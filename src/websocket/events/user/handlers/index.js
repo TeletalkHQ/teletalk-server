@@ -5,6 +5,9 @@ const { editContact } = require("@/websocket/events/user/handlers/editContact");
 const { getContacts } = require("@/websocket/events/user/handlers/getContacts");
 const { removeBlock } = require("@/websocket/events/user/handlers/removeBlock");
 const {
+  removeContact,
+} = require("@/websocket/events/user/handlers/removeContact");
+const {
   updateOnlineStatus,
 } = require("@/websocket/events/user/handlers/updateOnlineStatus");
 
@@ -15,6 +18,7 @@ const userHandlers = {
   editContact,
   getContacts,
   removeBlock,
+  removeContact,
   updateOnlineStatus,
 };
 

@@ -21,9 +21,17 @@ const logout = builder
   .handler(authHandlers.logout)
   .build();
 
+const signIn = builder
+  .create()
+  .name("signIn")
+  .inputFields(fields.collection.cellphone)
+  .handler(authHandlers.signIn)
+  .build();
+
 const authRoutes = {
   createNewUser,
   logout,
+  signIn,
 };
 
 module.exports = {

@@ -1,4 +1,3 @@
-const { signIn } = require("@/http/controllers/auth/signIn");
 const { verify } = require("@/http/controllers/auth/verify");
 
 const { getCountries } = require("@/http/controllers/other/getCountries");
@@ -12,7 +11,6 @@ const controllers = {
   getAllStuff,
   getCountries,
   getWelcomeMessage,
-  signIn,
   verify,
 };
 

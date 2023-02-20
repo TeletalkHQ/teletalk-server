@@ -16,7 +16,7 @@ userRouter.use(
       // routes.user.addBlock.url,
       routes.user.removeBlock.url,
       routes.user.removeContact.url,
-      routes.user.editContact.url,
+      // routes.user.editContact.url,
     ],
     middlewares.cellphoneValidator,
     middlewares.selfStuffCheck
@@ -58,11 +58,6 @@ userRouter[routes.user.removeBlock.method](
 userRouter[routes.user.removeContact.method](
   routes.user.removeContact.url,
   controllers.removeContact
-);
-
-userRouter[routes.user.editContact.method](
-  routes.user.editContact.url,
-  controllers.editContact
 );
 
 module.exports = { userRouter };

@@ -7,26 +7,6 @@ const { METHODS } = require("@/variables/others/methods");
 
 const userRouteBuilder = httpRouteBuilder(baseUrls.user);
 
-const addContacts = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/addContacts")
-  .build();
-
-const editContact = userRouteBuilder
-  .create()
-  .method(METHODS.PATCH)
-  .url("/editContact")
-  .inputFields(fields.collection.contactWithoutUserId)
-  .outputFields([
-    {
-      editedContact: fields.statics.object(
-        fields.collection.contactWithoutUserId
-      ),
-    },
-  ])
-  .build();
-
 const getContacts = userRouteBuilder
   .create()
   .method(METHODS.GET)
@@ -50,12 +30,6 @@ const removeBlock = userRouteBuilder
   ])
   .build();
 
-const removeBlocks = userRouteBuilder
-  .create()
-  .method(METHODS.DELETE)
-  .url("/removeBlocks")
-  .build();
-
 const removeContact = userRouteBuilder
   .create()
   .method(METHODS.DELETE)
@@ -66,24 +40,6 @@ const removeContact = userRouteBuilder
       removedContact: fields.statics.object(fields.collection.cellphone),
     },
   ])
-  .build();
-
-const removeContacts = userRouteBuilder
-  .create()
-  .method(METHODS.DELETE)
-  .url("/removeContacts")
-  .build();
-
-const shareContact = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/shareContact")
-  .build();
-
-const shareContacts = userRouteBuilder
-  .create()
-  .method(METHODS.POST)
-  .url("/shareContacts")
   .build();
 
 const getCurrentUserData = userRouteBuilder
@@ -139,17 +95,11 @@ const updatePublicUserData = userRouteBuilder
   .build();
 
 const userRoutes = {
-  addContacts,
-  editContact,
   getContacts,
   getCurrentUserData,
   getPublicUserData,
   removeBlock,
-  removeBlocks,
   removeContact,
-  removeContacts,
-  shareContact,
-  shareContacts,
   updatePublicUserData,
 };
 

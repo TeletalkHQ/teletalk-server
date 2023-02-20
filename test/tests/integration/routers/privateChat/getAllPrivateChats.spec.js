@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { randomMaker } = require("$/classes/RandomMaker");
 
 const { services } = require("@/services");
@@ -60,8 +58,8 @@ const testEmptinessOfPrivateChats = async (token) => {
     body: { privateChats },
   } = await requester.sendFullFeaturedRequest();
 
-  expect(privateChats).to.be.an(FIELD_TYPE.ARRAY);
-  expect(privateChats).to.be.empty;
+  expect(privateChats).toBeInstanceOf(FIELD_TYPE.ARRAY);
+  expect(Object.keys(privateChats)).toHaveLength(0);
 };
 
 const testPrivateChats = async ({
@@ -70,7 +68,7 @@ const testPrivateChats = async ({
   targetUser,
 }) => {
   const { privateChats } = await getAllPrivateChats(currentUserToken);
-  expect(privateChats).to.be.an(FIELD_TYPE.ARRAY);
+  expect(privateChats).toBeInstanceOf(FIELD_TYPE.ARRAY);
 
   const foundChatFromDb = await findStoredPrivateChat(
     currentUser.userId,
@@ -111,9 +109,11 @@ const findStoredPrivateChat = async (currentUserId, targetUserId) => {
 };
 
 const testFoundChatFromDb = (foundChatFromDb) => {
-  expect(foundChatFromDb).to.be.an(FIELD_TYPE.OBJECT);
-  expect(foundChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY);
-  expect(foundChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY).and.length(2);
+  expect(foundChatFromDb).toBeInstanceOf(FIELD_TYPE.OBJECT);
+  expect(foundChatFromDb.participants).toBeInstanceOf(FIELD_TYPE.ARRAY);
+  expect(foundChatFromDb.participants)
+    .to.be.an(FIELD_TYPE.ARRAY)
+    .toHaveLength(2);
 };
 
 const testOnePrivateChat = ({
@@ -122,8 +122,8 @@ const testOnePrivateChat = ({
   foundChatFromDb,
   targetUser,
 }) => {
-  expect(foundChat).to.be.an(FIELD_TYPE.OBJECT);
-  expect(foundChat.participants).to.be.an(FIELD_TYPE.ARRAY).and.length(2);
+  expect(foundChat).toBeInstanceOf(FIELD_TYPE.OBJECT);
+  expect(foundChat.participants).to.be.an(FIELD_TYPE.ARRAY).toHaveLength(2);
 
   tesChatId(foundChat, foundChatFromDb);
   testMessages(foundChat, foundChatFromDb);

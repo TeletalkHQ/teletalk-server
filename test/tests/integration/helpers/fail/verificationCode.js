@@ -18,8 +18,7 @@ const verificationCodeFailTest = (configuredRequester, data = {}) => {
     .missing()
     .overload()
     .invalidType()
-    .empty()
-    .numeric()
+    .empty.numeric()
     .length(
       randomMaker.stringNumber(userModels.verificationCode.length.value + 1)
     );

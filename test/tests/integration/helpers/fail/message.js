@@ -10,8 +10,7 @@ const messageFailTest = (configuredRequester, data) => {
     .missing()
     .overload()
     .invalidType()
-    .empty()
-    .maxlength()
+    .empty.maxlength()
     .minlength();
 };
 

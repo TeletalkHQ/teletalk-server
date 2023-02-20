@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { authHelper } = require("$/classes/AuthHelper");
 const { randomMaker } = require("$/classes/RandomMaker");
 
@@ -34,20 +32,20 @@ describe("logout success tests", () => {
       .setToken(popToken)
       .sendFullFeaturedRequest();
 
-    expect(response.ok).to.be.true;
+    expect(response.ok).toBe(true);
 
     const user = await services.findOneUser(cellphone);
 
     const isSessionExist = user.sessions.some(
       ({ token }) => token === popToken
     );
-    expect(isSessionExist).to.be.false;
+    expect(isSessionExist).toBe(false);
 
-    expect(sessions.length).to.be.equal(user.sessions.length);
+    expect(sessions.length).toBe(user.sessions.length);
 
     sessions.forEach((item) => {
       const isSessionExist = user.sessions.some((i) => i.token === item);
-      expect(isSessionExist).to.be.true;
+      expect(isSessionExist).toBe(true);
     });
   });
 });

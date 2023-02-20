@@ -1,5 +1,3 @@
-const { expect } = require("chai");
-
 const { FIELD_TYPE } = require("@/variables/others/fieldType");
 
 class SuccessTestBuilder {
@@ -75,12 +73,12 @@ class SuccessTestBuilder {
   stringEquality() {
     this.addIf(this.options.stringEquality, () => {
       this.tests.push(() =>
-        expect(this.variables.equalValue.length).equal(
+        expect(this.variables.equalValue.length).toBe(
           this.variables.testValue.length
         )
       );
       this.tests.push(() =>
-        expect(this.variables.equalValue).equal(this.variables.testValue)
+        expect(this.variables.equalValue).toBe(this.variables.testValue)
       );
     });
 
@@ -97,7 +95,7 @@ class SuccessTestBuilder {
 
   lengthCheck() {
     this.tests.push(() =>
-      expect(this.variables.testValue.length).equal(+this.variables.modelLength)
+      expect(this.variables.testValue.length).toBe(+this.variables.modelLength)
     );
 
     return this;
@@ -106,7 +104,7 @@ class SuccessTestBuilder {
   typeCheck(customType) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue).to.be.an(
+        expect(this.variables.testValue).toBeInstanceOf(
           customType || this.variables.model.type.value
         )
       );
@@ -116,7 +114,7 @@ class SuccessTestBuilder {
   }
 
   customTypeCheck(value, customType) {
-    this.tests.push(() => expect(value).to.be.an(customType));
+    this.tests.push(() => expect(value).toBeInstanceOf(customType));
 
     return this;
   }
@@ -125,7 +123,7 @@ class SuccessTestBuilder {
     this.addIf(this.options.modelCheck, () => {
       if (this.variables.model.empty.value === false)
         this.tests.push(() =>
-          expect(this.variables.testValue.length).to.be.greaterThan(0)
+          expect(this.variables.testValue.length).toBeGreaterThan(0)
         );
     });
 
@@ -146,7 +144,7 @@ class SuccessTestBuilder {
   gtCheck(length) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue.length).greaterThan(length)
+        expect(this.variables.testValue.length).toBeGreaterThan(length)
       );
     });
 
@@ -167,7 +165,7 @@ class SuccessTestBuilder {
   numericCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER)
+        expect(+this.variables.testValue).toBeInstanceOf(FIELD_TYPE.NUMBER)
       );
     });
     return this;

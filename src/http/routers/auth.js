@@ -21,9 +21,4 @@ authRouter[routes.auth.verify.method](
   controllers.verify
 );
 
-authRouter[routes.auth.logout.method](
-  routes.auth.logout.url,
-  controllers.logout
-);
-
 module.exports = { authRouter };

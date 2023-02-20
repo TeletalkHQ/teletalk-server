@@ -16,7 +16,6 @@ const {
 const {
   getPublicUserData,
 } = require("@/http/controllers/user/getPublicUserData");
-const { removeContact } = require("@/http/controllers/user/removeContact");
 const {
   updatePublicUserData,
 } = require("@/http/controllers/user/updatePublicUserData");
@@ -29,7 +28,6 @@ const controllers = {
   getPublicUserData,
   getWelcomeMessage,
   logout,
-  removeContact,
   signIn,
   updatePublicUserData,
   verify,

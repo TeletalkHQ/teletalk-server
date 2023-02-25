@@ -10,3 +10,4 @@ dist
 .dccache
 dump.rdb
 redis-portable
+/lib

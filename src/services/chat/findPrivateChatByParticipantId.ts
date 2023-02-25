@@ -1,6 +1,6 @@
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
 
-const { findPrivateChat } = require("@/services/chat/findPrivateChat");
+import { findPrivateChat } from "@/services/chat/findPrivateChat";
 
 const findPrivateChatByParticipantId = serviceBuilder
   .create()
@@ -11,4 +11,4 @@ const findPrivateChatByParticipantId = serviceBuilder
   })
   .build();
 
-module.exports = { findPrivateChatByParticipantId };
+export { findPrivateChatByParticipantId };

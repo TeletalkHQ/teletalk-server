@@ -1,8 +1,8 @@
-const {
+import {
   checkIgnoreApplyMiddlewaresRequirements,
   executeMiddlewares,
   isUrlMatchWithReqUrl,
-} = require("@/utilities/utilities");
+} from "@/utilities/utilities";
 
 const applyMiddlewares = (url, ...middlewares) => {
   checkIgnoreApplyMiddlewaresRequirements(url, middlewares);
@@ -21,4 +21,4 @@ const applyMiddlewares = (url, ...middlewares) => {
   };
 };
 
-module.exports = { applyMiddlewares };
+export { applyMiddlewares };

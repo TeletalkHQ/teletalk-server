@@ -1,7 +1,7 @@
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
-const { serviceHelper } = require("@/classes/service/ServiceHelper");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
+import { serviceHelper } from "@/classes/service/ServiceHelper";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const getCurrentUserData = async ({ userId }) => {
   return await getUserDataById().exclude().run({
@@ -24,7 +24,4 @@ const getUserDataById = serviceBuilder
   })
   .build();
 
-module.exports = {
-  getCurrentUserData,
-  getTargetUserData,
-};
+export { getCurrentUserData, getTargetUserData };

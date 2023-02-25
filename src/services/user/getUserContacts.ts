@@ -1,7 +1,7 @@
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
-const { serviceHelper } = require("@/classes/service/ServiceHelper");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
+import { serviceHelper } from "@/classes/service/ServiceHelper";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const getUserContacts = serviceBuilder
   .create()
@@ -15,4 +15,4 @@ const getUserContacts = serviceBuilder
   })
   .build();
 
-module.exports = { getUserContacts };
+export { getUserContacts };

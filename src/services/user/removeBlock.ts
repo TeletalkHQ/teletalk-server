@@ -1,10 +1,10 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { userUtilities } = require("@/classes/UserUtilities");
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
-const { serviceHelper } = require("@/classes/service/ServiceHelper");
+import { userUtilities } from "@/classes/UserUtilities";
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
+import { serviceHelper } from "@/classes/service/ServiceHelper";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const removeBlock = serviceBuilder
   .create()
@@ -42,4 +42,4 @@ const removeBlockAndSave = async (currentUser, index) => {
   await currentUser.save();
 };
 
-module.exports = { removeBlock };
+export { removeBlock };

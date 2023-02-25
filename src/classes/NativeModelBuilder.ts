@@ -1,4 +1,4 @@
-const { customTypeof } = require("custom-typeof");
+import { customTypeof } from "custom-typeof";
 
 class NativeModelBuilder {
   constructor() {
@@ -94,4 +94,4 @@ class NativeModelBuilder {
 
 const nativeModelBuilder = { create: () => new NativeModelBuilder() };
 
-module.exports = { nativeModelBuilder, NativeModelBuilder };
+export { nativeModelBuilder, NativeModelBuilder };

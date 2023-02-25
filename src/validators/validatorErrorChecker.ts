@@ -1,13 +1,11 @@
-const { customTypeof } = require("custom-typeof");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const {
-  validationErrorBuilder,
-} = require("utility-store/src/classes/ValidationErrorBuilder");
+import { customTypeof } from "custom-typeof";
+import { errorThrower } from "utility-store/src/utilities/utilities";
+import { validationErrorBuilder } from "utility-store/src/classes/ValidationErrorBuilder";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
-const { errors } = require("@/variables/errors");
-const { countries } = require("@/variables/others/countries");
+import { errors } from "@/variables/errors";
+import { countries } from "@/variables/others/countries";
 
 const userModels = models.native.user;
 const chatModels = models.native.chat;
@@ -310,6 +308,4 @@ const validatorErrorChecker = {
   verificationCode: verificationCodeErrorChecker,
 };
 
-module.exports = {
-  validatorErrorChecker,
-};
+export { validatorErrorChecker };

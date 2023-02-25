@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const redis = require("redis");
+import mongoose from "mongoose";
+import redis from "redis";
 
-const { appConfigs } = require("@/classes/AppConfigs");
-const { envManager } = require("@/classes/EnvironmentManager");
+import { appConfigs } from "@/classes/AppConfigs";
+import { envManager } from "@/classes/EnvironmentManager";
 
-const { crashServer } = require("@/utilities/utilities");
+import { crashServer } from "@/utilities/utilities";
 
 const mongodbConnector = () => {
   const configs = appConfigs.getConfigs();
@@ -76,7 +76,4 @@ const fixRedisPort = () => {
   return REDIS_PORT || REDIS_DEFAULT_PORT;
 };
 
-module.exports = {
-  mongodbConnector,
-  redisConnector,
-};
+export { mongodbConnector, redisConnector };

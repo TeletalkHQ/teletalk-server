@@ -1,4 +1,4 @@
-const { serviceHandler } = require("@/classes/service/ServiceHandler");
+import { serviceHandler } from "@/classes/service/ServiceHandler";
 
 class ServiceBuilder {
   #options = {
@@ -32,7 +32,4 @@ class ServiceBuilder {
 
 const serviceBuilder = { create: () => new ServiceBuilder() };
 
-module.exports = {
-  serviceBuilder,
-  ServiceBuilder,
-};
+export { serviceBuilder, ServiceBuilder };

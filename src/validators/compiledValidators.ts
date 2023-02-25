@@ -1,6 +1,6 @@
-const { ValidationModelBuilder } = require("@/classes/ValidationModelBuilder");
+import { ValidationModelBuilder } from "@/classes/ValidationModelBuilder";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
 const validationModels = models.validation;
 
@@ -85,4 +85,4 @@ const compiledValidators = {
   verificationCode,
 };
 
-module.exports = { compiledValidators };
+export { compiledValidators };

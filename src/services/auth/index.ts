@@ -1,11 +1,9 @@
-const { createNewUser } = require("@/services/auth/createNewUser");
-const { logout } = require("@/services/auth/logout");
+import { createNewUser } from "@/services/auth/createNewUser";
+import { logout } from "@/services/auth/logout";
 
 const authServices = {
   createNewUser,
   logout,
 };
 
-module.exports = {
-  authServices,
-};
+export { authServices };

@@ -1,6 +1,6 @@
-const { models } = require("@/models");
+import { models } from "@/models";
 
-const { userErrors } = require("@/variables/errors/user");
+import { userErrors } from "@/variables/errors/user";
 
 // const { routes: websocketRoutes } = require("@/websocket/events");
 
@@ -37,6 +37,4 @@ const allStuff = {
   // events: filteredWebsocketRoutes,
 };
 
-module.exports = {
-  allStuff,
-};
+export { allStuff };

@@ -1,6 +1,6 @@
-const { findOneUser } = require("@/services/common/findOneUser");
-const { findOneUserById } = require("@/services/common/findOneUserById");
+import { findOneUser } from "@/services/common/findOneUser";
+import { findOneUserById } from "@/services/common/findOneUserById";
 
 const commonServices = { findOneUser, findOneUserById };
 
-module.exports = { commonServices };
+export { commonServices };

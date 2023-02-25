@@ -1,6 +1,6 @@
-const { chatValidationModels } = require("@/models/validation/chat");
-const { commonValidationModels } = require("@/models/validation/common");
-const { userValidationModels } = require("@/models/validation/user");
+import { chatValidationModels } from "@/models/validation/chat";
+import { commonValidationModels } from "@/models/validation/common";
+import { userValidationModels } from "@/models/validation/user";
 
 const validationModels = {
   chat: chatValidationModels,
@@ -8,4 +8,4 @@ const validationModels = {
   user: userValidationModels,
 };
 
-module.exports = { validationModels };
+export { validationModels };

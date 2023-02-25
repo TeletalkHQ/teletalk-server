@@ -1,6 +1,6 @@
-const { userUtilities } = require("@/classes/UserUtilities");
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const addContact = async (socket, _io, data) => {
   const { currentUserId } = socket;
@@ -18,4 +18,4 @@ const addContact = async (socket, _io, data) => {
   };
 };
 
-module.exports = { addContact };
+export { addContact };

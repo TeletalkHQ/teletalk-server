@@ -1,6 +1,6 @@
-const { enErrorMessages } = require("@/translation/messages/enErrorMessages");
+import { enErrorMessages } from "@/translation/messages/enErrorMessages";
 
-const { allStuff } = require("@/variables/others/allStuff");
+import { allStuff } from "@/variables/others/allStuff";
 
 const languages = {
   en: { errorMessages: enErrorMessages },
@@ -13,4 +13,4 @@ const getAllStuff = (_socket, data) => {
   return { ...allStuff, languageData };
 };
 
-module.exports = { getAllStuff };
+export { getAllStuff };

@@ -88,7 +88,4 @@ class MongoModelBuilder {
 
 const mongoModelBuilder = { create: () => new MongoModelBuilder() };
 
-module.exports = {
-  mongoModelBuilder,
-  MongoModelBuilder,
-};
+export { mongoModelBuilder, MongoModelBuilder };

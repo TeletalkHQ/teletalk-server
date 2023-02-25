@@ -1,7 +1,7 @@
-const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
+import { nativeModelBuilder } from "@/classes/NativeModelBuilder";
 
-const { errors } = require("@/variables/errors");
-const { FIELD_TYPE } = require("@/variables/others/fieldType");
+import { errors } from "@/variables/errors";
+import { FIELD_TYPE } from "@/variables/others/fieldType";
 
 const createdAt = nativeModelBuilder
   .create()
@@ -50,6 +50,4 @@ const commonModels = {
   userId,
 };
 
-module.exports = {
-  commonModels,
-};
+export { commonModels };

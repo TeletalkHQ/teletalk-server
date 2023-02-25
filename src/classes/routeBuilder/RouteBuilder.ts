@@ -1,7 +1,7 @@
-const { customTypeof } = require("custom-typeof");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { customTypeof } from "custom-typeof";
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 class RouteBuilder {
   constructor() {
@@ -41,6 +41,4 @@ class RouteBuilder {
   }
 }
 
-module.exports = {
-  RouteBuilder,
-};
+export { RouteBuilder };

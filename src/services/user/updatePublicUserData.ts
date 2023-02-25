@@ -1,7 +1,7 @@
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
-const { serviceHelper } = require("@/classes/service/ServiceHelper");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
+import { serviceHelper } from "@/classes/service/ServiceHelper";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const updatePublicUserData = serviceBuilder
   .create()
@@ -19,4 +19,4 @@ const findCurrentUser = async (currentUserId) => {
   );
 };
 
-module.exports = { updatePublicUserData };
+export { updatePublicUserData };

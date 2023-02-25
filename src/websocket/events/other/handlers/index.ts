@@ -1,12 +1,8 @@
-const {
-  getCountries,
-} = require("@/websocket/events/other/handlers/getCountries");
-const { getStuff } = require("@/websocket/events/other/handlers/getStuff");
-const {
-  getWelcomeMessage,
-} = require("@/websocket/events/other/handlers/getWelcomeMessage");
-const { logEvent } = require("@/websocket/events/other/handlers/logEvent");
-const { ping } = require("@/websocket/events/other/handlers/ping");
+import { getCountries } from "@/websocket/events/other/handlers/getCountries";
+import { getStuff } from "@/websocket/events/other/handlers/getStuff";
+import { getWelcomeMessage } from "@/websocket/events/other/handlers/getWelcomeMessage";
+import { logEvent } from "@/websocket/events/other/handlers/logEvent";
+import { ping } from "@/websocket/events/other/handlers/ping";
 
 const otherHandlers = {
   getCountries,
@@ -16,6 +12,4 @@ const otherHandlers = {
   ping,
 };
 
-module.exports = {
-  otherHandlers,
-};
+export { otherHandlers };

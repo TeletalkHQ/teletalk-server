@@ -1,7 +1,7 @@
-const { customTypeof } = require("custom-typeof");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { customTypeof } from "custom-typeof";
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { localErrors } = require("@/variables/errors/local");
+import { localErrors } from "@/variables/errors/local";
 class ErrorBuilder {
   constructor() {
     this.error = {
@@ -39,4 +39,4 @@ class ErrorBuilder {
 
 const errorBuilder = { create: () => new ErrorBuilder() };
 
-module.exports = { errorBuilder, ErrorBuilder };
+export { errorBuilder, ErrorBuilder };

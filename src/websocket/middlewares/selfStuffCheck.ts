@@ -1,15 +1,13 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const {
-  isDataHasEqualityWithTargetCellphone,
-} = require("utility-store/src/utilities/utilities");
-const { trier } = require("simple-trier");
+import { errorThrower } from "utility-store/src/utilities/utilities";
+import { isDataHasEqualityWithTargetCellphone } from "utility-store/src/utilities/utilities";
+import { trier } from "simple-trier";
 
-const { commonUtilities } = require("@/classes/CommonUtilities");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { commonUtilities } from "@/classes/CommonUtilities";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const selfStuffCheck = async (req, res, next) => {
   return await trier(selfStuffCheck.name)
@@ -46,4 +44,4 @@ const catchTryTo = (error, res) => {
   return { ok: false };
 };
 
-module.exports = { selfStuffCheck };
+export { selfStuffCheck };

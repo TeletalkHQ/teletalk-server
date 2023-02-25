@@ -5,4 +5,4 @@ const sendJsonResponse = (req, res, data) => {
   res.status(route.statusCode).json(data);
 };
 
-module.exports = { sendJsonResponse };
+export { sendJsonResponse };

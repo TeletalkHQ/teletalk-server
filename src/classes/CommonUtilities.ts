@@ -1,5 +1,5 @@
-const { envManager } = require("@/classes/EnvironmentManager");
-const { authManager } = require("@/classes/AuthManager");
+import { envManager } from "@/classes/EnvironmentManager";
+import { authManager } from "@/classes/AuthManager";
 
 class CommonUtilities {
   controllerErrorResponse(error, res) {
@@ -31,7 +31,4 @@ class CommonUtilities {
 
 const commonUtilities = new CommonUtilities();
 
-module.exports = {
-  commonUtilities,
-  CommonUtilities,
-};
+export { commonUtilities, CommonUtilities };

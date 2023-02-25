@@ -1,6 +1,6 @@
-const { database } = require("@/models/database");
-const { nativeModels } = require("@/models/native");
-const { validationModels } = require("@/models/validation");
+import { database } from "@/models/database";
+import { nativeModels } from "@/models/native";
+import { validationModels } from "@/models/validation";
 
 const models = {
   database,
@@ -8,4 +8,4 @@ const models = {
   validation: validationModels,
 };
 
-module.exports = { models };
+export { models };

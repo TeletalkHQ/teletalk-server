@@ -1,4 +1,4 @@
-const redis = require("redis");
+import redis from "redis";
 
 class TemporaryClients {
   #STATE_KEY = "temporary_client";
@@ -45,4 +45,4 @@ class TemporaryClients {
 
 const temporaryClients = new TemporaryClients();
 
-module.exports = { temporaryClients, TemporaryClients };
+export { temporaryClients, TemporaryClients };

@@ -1,14 +1,9 @@
-const {
-  socketRouteBuilder,
-} = require("@/classes/routeBuilder/SocketRouteBuilder");
+import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
-const { fields } = require("@/variables/others/fields");
+import { fields } from "@/variables/others/fields";
+import { EVENTS } from "@/variables/others/events";
 
-const { EVENTS } = require("@/variables/others/events");
-
-const {
-  privateChatHandlers,
-} = require("@/websocket/events/privateChat/handlers");
+import { privateChatHandlers } from "@/websocket/events/privateChat/handlers";
 
 const builder = socketRouteBuilder();
 
@@ -82,6 +77,4 @@ const privateChatRoutes = {
   sendPrivateMessage,
 };
 
-module.exports = {
-  privateChatRoutes,
-};
+export { privateChatRoutes };

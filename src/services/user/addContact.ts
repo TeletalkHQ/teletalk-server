@@ -1,12 +1,12 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { userUtilities } = require("@/classes/UserUtilities");
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
-const { serviceHelper } = require("@/classes/service/ServiceHelper");
+import { userUtilities } from "@/classes/UserUtilities";
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
+import { serviceHelper } from "@/classes/service/ServiceHelper";
 
-const { commonServices } = require("@/services/common");
+import { commonServices } from "@/services/common";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const addContact = serviceBuilder
   .create()
@@ -49,4 +49,4 @@ const saveNewContactItem = async (currentUser, newContact) => {
   await currentUser.save();
 };
 
-module.exports = { addContact };
+export { addContact };

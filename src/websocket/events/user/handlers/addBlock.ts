@@ -1,6 +1,6 @@
-const { userUtilities } = require("@/classes/UserUtilities");
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const addBlock = async (socket, _io, data) => {
   const { currentUserId } = socket;
@@ -11,4 +11,4 @@ const addBlock = async (socket, _io, data) => {
   return { blockedCellphone: blockingCellphone };
 };
 
-module.exports = { addBlock };
+export { addBlock };

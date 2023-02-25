@@ -1,15 +1,15 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+import { errorThrower } from "utility-store/src/utilities/utilities";
+import { randomMaker } from "utility-store/src/classes/RandomMaker";
 
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
-const { commonServices } = require("@/services/common");
-const { createPrivateChat } = require("@/services/chat/createPrivateChat");
-const { findOnePrivateChat } = require("@/services/chat/findOnePrivateChat");
+import { commonServices } from "@/services/common";
+import { createPrivateChat } from "@/services/chat/createPrivateChat";
+import { findOnePrivateChat } from "@/services/chat/findOnePrivateChat";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const chatModels = models.native.chat;
 
@@ -85,4 +85,4 @@ const saveMessageOnPrivateChat = async ({ newMessage, privateChat }) => {
   await privateChat.save();
 };
 
-module.exports = { sendPrivateMessage };
+export { sendPrivateMessage };

@@ -6,4 +6,4 @@ const METHODS = {
   PUT: "put",
 };
 
-module.exports = { METHODS };
+export { METHODS };

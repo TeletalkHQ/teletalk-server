@@ -1,6 +1,6 @@
-const { ioFieldMaker } = require("utility-store/src/classes/IoFieldMaker");
+import { ioFieldMaker } from "utility-store/src/classes/IoFieldMaker";
 
-const { FIELD_TYPE } = require("@/variables/others/fieldType");
+import { FIELD_TYPE } from "@/variables/others/fieldType";
 
 const statics = {
   array: (value) =>
@@ -162,4 +162,4 @@ const fields = {
   statics,
 };
 
-module.exports = { fields };
+export { fields };

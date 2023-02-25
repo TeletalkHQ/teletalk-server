@@ -1,6 +1,6 @@
-const { RouteBuilder } = require("@/classes/routeBuilder/RouteBuilder");
+import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
 
-const { EVENTS } = require("@/variables/others/events");
+import { EVENTS } from "@/variables/others/events";
 
 class SocketRouteBuilder extends RouteBuilder {
   constructor() {
@@ -42,7 +42,4 @@ const socketRouteBuilder = () => ({
   create: () => new SocketRouteBuilder(),
 });
 
-module.exports = {
-  socketRouteBuilder,
-  SocketRouteBuilder,
-};
+export { socketRouteBuilder, SocketRouteBuilder };

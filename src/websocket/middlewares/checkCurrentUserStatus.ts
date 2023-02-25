@@ -1,11 +1,11 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const { trier } = require("simple-trier");
+import { errorThrower } from "utility-store/src/utilities/utilities";
+import { trier } from "simple-trier";
 
-const { authManager } = require("@/classes/AuthManager");
+import { authManager } from "@/classes/AuthManager";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const checkCurrentUserStatus = async (socket, next) => {
   return await trier(checkCurrentUserStatus.name)
@@ -49,4 +49,4 @@ const executeIfNoError = (_data, next) => {
   next();
 };
 
-module.exports = { checkCurrentUserStatus };
+export { checkCurrentUserStatus };

@@ -1,6 +1,6 @@
-const { authManager } = require("@/classes/AuthManager");
+import { authManager } from "@/classes/AuthManager";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const logout = async (socket) => {
   const { currentUserId } = socket;
@@ -16,6 +16,4 @@ const logout = async (socket) => {
   socket.handshake.headers.cookie = undefined;
 };
 
-module.exports = {
-  logout,
-};
+export { logout };

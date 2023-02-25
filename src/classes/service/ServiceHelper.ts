@@ -1,7 +1,7 @@
-const { customTypeof } = require("custom-typeof");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { customTypeof } from "custom-typeof";
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { commonServices } = require("@/services/common");
+import { commonServices } from "@/services/common";
 
 class ServiceHelper {
   async findOneUser(queryData, error) {
@@ -20,7 +20,4 @@ class ServiceHelper {
 
 const serviceHelper = new ServiceHelper();
 
-module.exports = {
-  serviceHelper,
-  ServiceHelper,
-};
+export { serviceHelper, ServiceHelper };

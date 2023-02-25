@@ -1,6 +1,4 @@
-const {
-  EventManager: EventManagerMain,
-} = require("utility-store/src/classes/EventManager");
+import { EventManager as EventManagerMain } from "utility-store/src/classes/EventManager";
 
 class EventManager extends EventManagerMain {
   constructor() {
@@ -10,4 +8,4 @@ class EventManager extends EventManagerMain {
 
 const eventManager = new EventManager();
 
-module.exports = { eventManager };
+export { eventManager };

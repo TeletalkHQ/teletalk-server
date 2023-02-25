@@ -1,9 +1,10 @@
-const path = require("path");
+import path from "path";
+import dotenv from "dotenv";
 
-const { envManager } = require("@/classes/EnvironmentManager");
+import { envManager } from "@/classes/EnvironmentManager";
 
 const cwd = process.cwd();
 
-require("dotenv").config({
+dotenv.config({
   path: path.join(cwd, "environments", `${envManager.getNodeEnv()}.env`),
 });

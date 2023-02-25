@@ -1,7 +1,7 @@
-const { errorBuilder } = require("@/classes/ErrorBuilder");
+import { errorBuilder } from "@/classes/ErrorBuilder";
 
-const { ERROR_KEYS } = require("@/variables/others/errorKeys");
-const { UNIQUE_ERROR_IDS } = require("@/variables/others/uniqueErrorIds");
+import { ERROR_KEYS } from "@/variables/others/errorKeys";
+import { UNIQUE_ERROR_IDS } from "@/variables/others/uniqueErrorIds";
 
 const BIO_INVALID_TYPE = errorBuilder
   .create()
@@ -1125,6 +1125,4 @@ const userErrors = {
   VERIFICATION_CODE_REQUIRED,
 };
 
-module.exports = {
-  userErrors,
-};
+export { userErrors };

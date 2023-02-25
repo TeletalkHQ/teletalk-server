@@ -1,5 +1,5 @@
-const { customTypeof } = require("custom-typeof");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { customTypeof } from "custom-typeof";
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
 const getHostFromRequest = (request) => request.get("host");
 
@@ -57,7 +57,7 @@ const utilities = {
   sortEnvironments,
 };
 
-module.exports = {
+export {
   checkIgnoreApplyMiddlewaresRequirements,
   crashServer,
   executeMiddlewares,

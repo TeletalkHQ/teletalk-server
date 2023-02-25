@@ -1,8 +1,8 @@
-const { Trier } = require("simple-trier");
+import { Trier, trier } from "simple-trier";
 
-const { envManager } = require("@/classes/EnvironmentManager");
+import { envManager } from "@/classes/EnvironmentManager";
 
-const { helpers } = require("@/helpers");
+import { helpers } from "@/helpers";
 
 class AppConfigs {
   #configs = {
@@ -30,7 +30,4 @@ class AppConfigs {
 
 const appConfigs = new AppConfigs();
 
-module.exports = {
-  appConfigs,
-  AppConfigs,
-};
+export { appConfigs, AppConfigs };

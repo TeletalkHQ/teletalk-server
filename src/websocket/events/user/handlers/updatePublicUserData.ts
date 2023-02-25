@@ -1,8 +1,8 @@
-const { userUtilities } = require("@/classes/UserUtilities");
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
 const updatePublicUserData = async (socket, _io, data) => {
   const { currentUserId } = socket;
@@ -28,6 +28,4 @@ const updatePublicUserData = async (socket, _io, data) => {
   };
 };
 
-module.exports = {
-  updatePublicUserData,
-};
+export { updatePublicUserData };

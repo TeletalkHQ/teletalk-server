@@ -1243,4 +1243,4 @@ const countries = [
   },
 ];
 
-module.exports = { countries };
+export { countries };

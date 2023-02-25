@@ -1,17 +1,15 @@
-const {
-  validationErrorBuilder,
-} = require("utility-store/src/classes/ValidationErrorBuilder");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { validationErrorBuilder } from "utility-store/src/classes/ValidationErrorBuilder";
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { authManager } = require("@/classes/AuthManager");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { authManager } from "@/classes/AuthManager";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
-const { compiledValidators } = require("@/validators/compiledValidators");
-const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
+import { compiledValidators } from "@/validators/compiledValidators";
+import { validatorErrorChecker } from "@/validators/validatorErrorChecker";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const bioValidator = async (bio) => {
   const validationResult = await compiledValidators.bio({
@@ -134,4 +132,4 @@ const userValidators = {
   verificationCode: verificationCodeValidator,
 };
 
-module.exports = { userValidators };
+export { userValidators };

@@ -1,7 +1,5 @@
-const { customTypeof } = require("custom-typeof");
-const {
-  objectUtilities,
-} = require("utility-store/src/classes/ObjectUtilities");
+import { customTypeof } from "custom-typeof";
+import { objectUtilities } from "utility-store/src/classes/ObjectUtilities";
 
 //REFACTOR Major on methods, options, especially on run method
 class ServiceHandler {
@@ -105,4 +103,4 @@ const serviceHandler = {
     new ServiceHandler(serviceBody, buildTimeOptions, runtimeOptions),
 };
 
-module.exports = { serviceHandler, ServiceHandler };
+export { serviceHandler, ServiceHandler };

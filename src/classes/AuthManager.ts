@@ -1,12 +1,9 @@
-const { trier } = require("simple-trier");
-const JWT = require("jsonwebtoken");
+import { trier } from "simple-trier";
+import JWT from "jsonwebtoken";
 
-const { envManager } = require("@/classes/EnvironmentManager");
+import { envManager } from "@/classes/EnvironmentManager";
 
-// const { isUrlMatchWithReqUrl } = require("@/utilities/utilities");
-
-const { errors } = require("@/variables/errors");
-
+import { errors } from "@/variables/errors";
 class AuthManager {
   #options = {
     jwt: {
@@ -108,4 +105,4 @@ class AuthManager {
 
 const authManager = new AuthManager();
 
-module.exports = { authManager, AuthManager };
+export { authManager, AuthManager };

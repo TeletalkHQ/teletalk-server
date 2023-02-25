@@ -1,5 +1,5 @@
-const { commonUtilities } = require("@/classes/CommonUtilities");
-const { controllerHandler } = require("@/classes/ControllerHandler");
+import { commonUtilities } from "@/classes/CommonUtilities";
+import { controllerHandler } from "@/classes/ControllerHandler";
 
 class ControllerBuilder {
   constructor(callerName) {
@@ -33,7 +33,4 @@ const controllerBuilder = {
   create: (callerName) => new ControllerBuilder(callerName),
 };
 
-module.exports = {
-  controllerBuilder,
-  ControllerBuilder,
-};
+export { controllerBuilder, ControllerBuilder };

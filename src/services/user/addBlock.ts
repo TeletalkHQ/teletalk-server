@@ -1,12 +1,12 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
-const { serviceHelper } = require("@/classes/service/ServiceHelper");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
+import { serviceHelper } from "@/classes/service/ServiceHelper";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { commonServices } = require("@/services/common");
+import { commonServices } from "@/services/common";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const addBlock = serviceBuilder
   .create()
@@ -42,4 +42,4 @@ const saveNewBlacklistItem = async (blacklistItem, currentUser) => {
   await currentUser.save();
 };
 
-module.exports = { addBlock };
+export { addBlock };

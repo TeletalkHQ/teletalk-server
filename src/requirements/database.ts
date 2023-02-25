@@ -1,7 +1,7 @@
-const { appConfigs } = require("@/classes/AppConfigs");
-const { temporaryClients } = require("@/classes/TemporaryClients");
+import { appConfigs } from "@/classes/AppConfigs";
+import { temporaryClients } from "@/classes/TemporaryClients";
 
-const { mongodbConnector, redisConnector } = require("@/database/connectors");
+import { mongodbConnector, redisConnector } from "@/database/connectors";
 
 const databaseRequirements = async () => {
   await appConfigs.runConfigs();
@@ -10,4 +10,4 @@ const databaseRequirements = async () => {
   await mongodbConnector();
 };
 
-module.exports = { databaseRequirements };
+export { databaseRequirements };

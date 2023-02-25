@@ -1,4 +1,4 @@
-const { RouteBuilder } = require("@/classes/routeBuilder/RouteBuilder");
+import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
 
 class HttpRouteBuilder extends RouteBuilder {
   constructor(baseUrl) {
@@ -35,7 +35,4 @@ const httpRouteBuilder = (baseUrl) => ({
   create: (...args) => new HttpRouteBuilder(baseUrl, ...args),
 });
 
-module.exports = {
-  httpRouteBuilder,
-  HttpRouteBuilder,
-};
+export { httpRouteBuilder, HttpRouteBuilder };

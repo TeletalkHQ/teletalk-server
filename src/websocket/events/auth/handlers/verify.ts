@@ -1,8 +1,8 @@
-const { authManager } = require("@/classes/AuthManager");
-const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { authManager } from "@/classes/AuthManager";
+import { temporaryClients } from "@/classes/TemporaryClients";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const verify = async (req, res) => {
   const {
@@ -55,4 +55,4 @@ const removeTemporaryClient = async (tokenId) => {
   await temporaryClients.remove(tokenId);
 };
 
-module.exports = { verify };
+export { verify };

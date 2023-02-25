@@ -1,7 +1,7 @@
-const { socketRouterBuilder } = require("@/helpers/socketRouterBuilder");
+import { socketRouterBuilder } from "@/helpers/socketRouterBuilder";
 
-const { privateChatRoutes } = require("@/websocket/events/privateChat/routes");
+import { privateChatRoutes } from "@/websocket/events/privateChat/routes";
 
 const privateChatRouter = socketRouterBuilder(privateChatRoutes);
 
-module.exports = { privateChatRouter };
+export { privateChatRouter };

@@ -14,4 +14,4 @@ const localErrors = {
   },
 };
 
-module.exports = { localErrors };
+export { localErrors };

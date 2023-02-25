@@ -1,4 +1,4 @@
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const getPrivateChats = async (socket) => {
   const privateChats = await services
@@ -9,4 +9,4 @@ const getPrivateChats = async (socket) => {
   return { privateChats };
 };
 
-module.exports = { getPrivateChats };
+export { getPrivateChats };

@@ -1,6 +1,6 @@
-const { chatValidators } = require("@/validators/chat");
-const { userValidators } = require("@/validators/user");
+import { chatValidators } from "@/validators/chat";
+import { userValidators } from "@/validators/user";
 
 const validators = { ...chatValidators, ...userValidators };
 
-module.exports = { validators };
+export { validators };

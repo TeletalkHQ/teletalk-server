@@ -1,10 +1,10 @@
-const { trier } = require("simple-trier");
+import { trier } from "simple-trier";
 
-const { authManager } = require("@/classes/AuthManager");
+import { authManager } from "@/classes/AuthManager";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const auth = async (socket, next) => {
   await trier(auth.name)
@@ -36,6 +36,4 @@ const executeIfNoError = (
   next();
 };
 
-module.exports = {
-  auth,
-};
+export { auth };

@@ -1,6 +1,6 @@
-const { services } = require("@/services");
+import { services } from "@/services";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
 const getPublicUserData = async (_socket, data) => {
   const { userId } = data;
@@ -22,4 +22,4 @@ const getPublicUserData = async (_socket, data) => {
   };
 };
 
-module.exports = { getPublicUserData };
+export { getPublicUserData };

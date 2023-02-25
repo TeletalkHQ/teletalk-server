@@ -4,4 +4,4 @@ const getWelcomeMessage = async () => {
   };
 };
 
-module.exports = { getWelcomeMessage };
+export { getWelcomeMessage };

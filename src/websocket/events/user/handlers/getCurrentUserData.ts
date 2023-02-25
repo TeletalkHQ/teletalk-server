@@ -1,4 +1,4 @@
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const getCurrentUserData = async (socket) => {
   const { currentUserId } = socket;
@@ -12,4 +12,4 @@ const getCurrentUserData = async (socket) => {
   };
 };
 
-module.exports = { getCurrentUserData };
+export { getCurrentUserData };

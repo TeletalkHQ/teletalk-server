@@ -1,12 +1,12 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
-const { commonServices } = require("@/services/common");
+import { commonServices } from "@/services/common";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const createNewUser = serviceBuilder
   .create()
@@ -21,4 +21,4 @@ const checkExistenceOfCurrentUser = async (userId) => {
   errorThrower(currentUser, errors.CURRENT_USER_EXIST);
 };
 
-module.exports = { createNewUser };
+export { createNewUser };

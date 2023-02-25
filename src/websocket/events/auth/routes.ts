@@ -1,10 +1,8 @@
-const {
-  socketRouteBuilder,
-} = require("@/classes/routeBuilder/SocketRouteBuilder");
+import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
-const { fields } = require("@/variables/others/fields");
+import { fields } from "@/variables/others/fields";
 
-const { authHandlers } = require("@/websocket/events/auth/handlers");
+import { authHandlers } from "@/websocket/events/auth/handlers";
 
 const builder = socketRouteBuilder();
 
@@ -49,6 +47,4 @@ const authRoutes = {
   verify,
 };
 
-module.exports = {
-  authRoutes,
-};
+export { authRoutes };

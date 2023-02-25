@@ -1,7 +1,7 @@
-const { socketRouterBuilder } = require("@/helpers/socketRouterBuilder");
+import { socketRouterBuilder } from "@/helpers/socketRouterBuilder";
 
-const { otherRoutes } = require("@/websocket/events/other/routes");
+import { otherRoutes } from "@/websocket/events/other/routes";
 
 const otherRouter = socketRouterBuilder(otherRoutes);
 
-module.exports = { otherRouter };
+export { otherRouter };

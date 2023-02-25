@@ -1,4 +1,4 @@
-const generatePassword = require("generate-password");
+import generatePassword from "generate-password";
 
 const initialOptions = {
   exclude: "",
@@ -16,4 +16,4 @@ const passwordGenerator = (options = initialOptions) => {
   });
 };
 
-module.exports = { passwordGenerator };
+export { passwordGenerator };

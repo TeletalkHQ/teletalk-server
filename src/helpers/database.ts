@@ -1,4 +1,4 @@
-const { envManager } = require("@/classes/EnvironmentManager");
+import { envManager } from "@/classes/EnvironmentManager";
 
 const getMongoUrl = () => {
   return envManager.getEnvironment(envManager.ENVIRONMENT_KEYS.MONGO_URL);
@@ -23,6 +23,4 @@ const databaseHelpers = {
   getMongoUrl,
 };
 
-module.exports = {
-  databaseHelpers,
-};
+export { databaseHelpers };

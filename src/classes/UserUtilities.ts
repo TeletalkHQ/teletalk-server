@@ -1,8 +1,6 @@
-const {
-  UserUtilities: UserUtilitiesMain,
-} = require("utility-store/src/classes/UserUtilities");
+import { UserUtilities as UserUtilitiesMain } from "utility-store/src/classes/UserUtilities";
 
-const { authManager } = require("@/classes/AuthManager");
+import { authManager } from "@/classes/AuthManager";
 
 class UserUtilities extends UserUtilitiesMain {
   constructor(id) {
@@ -27,4 +25,4 @@ class UserUtilities extends UserUtilitiesMain {
 
 const userUtilities = new UserUtilities();
 
-module.exports = { userUtilities };
+export { userUtilities };

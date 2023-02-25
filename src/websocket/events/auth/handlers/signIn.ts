@@ -1,16 +1,16 @@
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+import { randomMaker } from "utility-store/src/classes/RandomMaker";
 
-const { authManager } = require("@/classes/AuthManager");
-const { smsClient } = require("@/classes/SmsClient");
-const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { authManager } from "@/classes/AuthManager";
+import { smsClient } from "@/classes/SmsClient";
+import { temporaryClients } from "@/classes/TemporaryClients";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
-const { getHostFromRequest } = require("@/utilities/utilities");
-const { passwordGenerator } = require("@/utilities/passwordGenerator");
+import { getHostFromRequest } from "@/utilities/utilities";
+import { passwordGenerator } from "@/utilities/passwordGenerator";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
 const signIn = async (req, res) => {
   const verificationCode = passwordGenerator();
@@ -56,4 +56,4 @@ const signToken = (data) => {
 const addClient = async (tokenId, data) =>
   await temporaryClients.add(tokenId, data);
 
-module.exports = { signIn };
+export { signIn };

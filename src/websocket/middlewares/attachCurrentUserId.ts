@@ -1,4 +1,4 @@
-const { userUtilities } = require("@/classes/UserUtilities");
+import { userUtilities } from "@/classes/UserUtilities";
 
 const attachCurrentUserId = (socket, next) => {
   socket.currentUserId = userUtilities.getUserIdFromVerifiedToken(
@@ -8,4 +8,4 @@ const attachCurrentUserId = (socket, next) => {
   next();
 };
 
-module.exports = { attachCurrentUserId };
+export { attachCurrentUserId };

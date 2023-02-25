@@ -1,9 +1,9 @@
-const { trier } = require("simple-trier");
+import { trier } from "simple-trier";
 
-const { commonUtilities } = require("@/classes/CommonUtilities");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { commonUtilities } from "@/classes/CommonUtilities";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
 const cellphoneValidator = async (req, res, next) => {
   return await trier(cellphoneValidator.name)
@@ -28,4 +28,4 @@ const catchValidateCellphone = (error, res) => {
   return { ok: false };
 };
 
-module.exports = { cellphoneValidator };
+export { cellphoneValidator };

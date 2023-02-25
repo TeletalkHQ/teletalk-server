@@ -1,24 +1,14 @@
-const { addBlock } = require("@/websocket/events/user/handlers/addBlock");
-const { addContact } = require("@/websocket/events/user/handlers/addContact");
-const { disconnect } = require("@/websocket/events/user/handlers/disconnect");
-const { editContact } = require("@/websocket/events/user/handlers/editContact");
-const { getContacts } = require("@/websocket/events/user/handlers/getContacts");
-const {
-  getCurrentUserData,
-} = require("@/websocket/events/user/handlers/getCurrentUserData");
-const {
-  getPublicUserData,
-} = require("@/websocket/events/user/handlers/getPublicUserData");
-const { removeBlock } = require("@/websocket/events/user/handlers/removeBlock");
-const {
-  removeContact,
-} = require("@/websocket/events/user/handlers/removeContact");
-const {
-  updateOnlineStatus,
-} = require("@/websocket/events/user/handlers/updateOnlineStatus");
-const {
-  updatePublicUserData,
-} = require("@/websocket/events/user/handlers/updatePublicUserData");
+import { addBlock } from "@/websocket/events/user/handlers/addBlock";
+import { addContact } from "@/websocket/events/user/handlers/addContact";
+import { disconnect } from "@/websocket/events/user/handlers/disconnect";
+import { editContact } from "@/websocket/events/user/handlers/editContact";
+import { getContacts } from "@/websocket/events/user/handlers/getContacts";
+import { getCurrentUserData } from "@/websocket/events/user/handlers/getCurrentUserData";
+import { getPublicUserData } from "@/websocket/events/user/handlers/getPublicUserData";
+import { removeBlock } from "@/websocket/events/user/handlers/removeBlock";
+import { removeContact } from "@/websocket/events/user/handlers/removeContact";
+import { updateOnlineStatus } from "@/websocket/events/user/handlers/updateOnlineStatus";
+import { updatePublicUserData } from "@/websocket/events/user/handlers/updatePublicUserData";
 
 const userHandlers = {
   addBlock,
@@ -34,6 +24,4 @@ const userHandlers = {
   updatePublicUserData,
 };
 
-module.exports = {
-  userHandlers,
-};
+export { userHandlers };

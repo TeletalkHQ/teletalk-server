@@ -1,7 +1,7 @@
-const { otherHandlers } = require("@/websocket/events/other/handlers");
-const { otherRouter } = require("@/websocket/events/other/router");
-const { otherRoutes } = require("@/websocket/events/other/routes");
+import { otherHandlers } from "@/websocket/events/other/handlers";
+import { otherRouter } from "@/websocket/events/other/router";
+import { otherRoutes } from "@/websocket/events/other/routes";
 
 const otherEvents = { otherRouter, otherRoutes, otherHandlers };
 
-module.exports = { otherEvents };
+export { otherEvents };

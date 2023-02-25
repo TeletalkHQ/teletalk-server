@@ -1,12 +1,10 @@
-const Validator = require("fastest-validator");
-const { customTypeof } = require("custom-typeof");
-const {
-  objectUtilities,
-} = require("utility-store/src/classes/ObjectUtilities");
+import Validator from "fastest-validator";
+import { customTypeof } from "custom-typeof";
+import { objectUtilities } from "utility-store/src/classes/ObjectUtilities";
 
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const fastestValidatorCompiler = new Validator();
 
@@ -104,7 +102,4 @@ class ValidationModelBuilder {
 
 const validationModelBuilder = { create: () => new ValidationModelBuilder() };
 
-module.exports = {
-  validationModelBuilder,
-  ValidationModelBuilder,
-};
+export { validationModelBuilder, ValidationModelBuilder };

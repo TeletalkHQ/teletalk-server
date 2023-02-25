@@ -1,8 +1,8 @@
-const { trier } = require("simple-trier");
+import { trier } from "simple-trier";
 
-const { commonUtilities } = require("@/classes/CommonUtilities");
+import { commonUtilities } from "@/classes/CommonUtilities";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
 const tryToValidateVerificationCode = async (verificationCode) => {
   await validators.verificationCode(verificationCode);
@@ -20,6 +20,4 @@ const verificationCodeValidatorMiddleware = async (req, res, next) => {
     .runAsync();
 };
 
-module.exports = {
-  verificationCodeValidator: verificationCodeValidatorMiddleware,
-};
+export { verificationCodeValidatorMiddleware as verificationCodeValidator };

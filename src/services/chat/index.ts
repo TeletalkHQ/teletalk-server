@@ -1,13 +1,9 @@
-const { createPrivateChat } = require("@/services/chat/createPrivateChat");
-const { findPrivateChat } = require("@/services/chat/findPrivateChat");
-const { findOnePrivateChat } = require("@/services/chat/findOnePrivateChat");
-const {
-  findPrivateChatByParticipantId,
-} = require("@/services/chat/findPrivateChatByParticipantId");
-const {
-  findOnePrivateChatByChatId,
-} = require("@/services/chat/findOnePrivateChatByChatId");
-const { sendPrivateMessage } = require("@/services/chat/sendPrivateMessage");
+import { createPrivateChat } from "@/services/chat/createPrivateChat";
+import { findPrivateChat } from "@/services/chat/findPrivateChat";
+import { findOnePrivateChat } from "@/services/chat/findOnePrivateChat";
+import { findPrivateChatByParticipantId } from "@/services/chat/findPrivateChatByParticipantId";
+import { findOnePrivateChatByChatId } from "@/services/chat/findOnePrivateChatByChatId";
+import { sendPrivateMessage } from "@/services/chat/sendPrivateMessage";
 
 const chatServices = {
   createPrivateChat,
@@ -18,4 +14,4 @@ const chatServices = {
   sendPrivateMessage,
 };
 
-module.exports = { chatServices };
+export { chatServices };

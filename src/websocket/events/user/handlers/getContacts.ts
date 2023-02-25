@@ -1,4 +1,4 @@
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const getContacts = async (socket) => {
   const { currentUserId } = socket;
@@ -10,4 +10,4 @@ const getContacts = async (socket) => {
   };
 };
 
-module.exports = { getContacts };
+export { getContacts };

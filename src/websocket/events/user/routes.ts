@@ -1,10 +1,8 @@
-const {
-  socketRouteBuilder,
-} = require("@/classes/routeBuilder/SocketRouteBuilder");
+import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
-const { fields } = require("@/variables/others/fields");
+import { fields } from "@/variables/others/fields";
 
-const { userHandlers } = require("@/websocket/events/user/handlers");
+import { userHandlers } from "@/websocket/events/user/handlers";
 
 const builder = socketRouteBuilder();
 
@@ -159,6 +157,4 @@ const userRoutes = {
   updatePublicUserData,
 };
 
-module.exports = {
-  userRoutes,
-};
+export { userRoutes };

@@ -15,4 +15,4 @@ const customOn = (socket) => (event, callback) => {
   });
 };
 
-module.exports = { customOn };
+export { customOn };

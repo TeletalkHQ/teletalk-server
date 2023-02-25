@@ -1,18 +1,18 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const { randomMaker } = require("utility-store/src/classes/RandomMaker");
+import { errorThrower } from "utility-store/src/utilities/utilities";
+import { randomMaker } from "utility-store/src/classes/RandomMaker";
 
-const { authManager } = require("@/classes/AuthManager");
-const { controllerBuilder } = require("@/classes/ControllerBuilder");
-const { temporaryClients } = require("@/classes/TemporaryClients");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { authManager } from "@/classes/AuthManager";
+import { controllerBuilder } from "@/classes/ControllerBuilder";
+import { temporaryClients } from "@/classes/TemporaryClients";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const tryToCreateNewUser = async (req, res) => {
   const {
@@ -88,4 +88,4 @@ const createNewUser = controllerBuilder
   .body(tryToCreateNewUser)
   .build();
 
-module.exports = { createNewUser };
+export { createNewUser };

@@ -1,9 +1,9 @@
-const { trier } = require("simple-trier");
+import { trier } from "simple-trier";
 
-const { commonUtilities } = require("@/classes/CommonUtilities");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { commonUtilities } from "@/classes/CommonUtilities";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
 const tryToValidateContact = async (userData) => {
   const { firstName, lastName } = userData;
@@ -34,4 +34,4 @@ const contactValidatorMiddleware = async (req, res, next) => {
     .runAsync();
 };
 
-module.exports = { contactValidator: contactValidatorMiddleware };
+export { contactValidatorMiddleware as contactValidator };

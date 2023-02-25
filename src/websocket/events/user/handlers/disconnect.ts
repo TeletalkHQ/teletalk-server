@@ -2,4 +2,4 @@ const disconnect = (socket = socketIntellisense) => {
   socket.disconnect();
 };
 
-module.exports = { disconnect };
+export { disconnect };

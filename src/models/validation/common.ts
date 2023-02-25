@@ -1,6 +1,6 @@
-const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
+import { validationModelBuilder } from "@/classes/ValidationModelBuilder";
 
-const { nativeModels } = require("@/models/native");
+import { nativeModels } from "@/models/native";
 
 const createdAt = {
   createdAt: validationModelBuilder
@@ -14,4 +14,4 @@ const createdAt = {
 
 const commonValidationModels = { createdAt };
 
-module.exports = { commonValidationModels };
+export { commonValidationModels };

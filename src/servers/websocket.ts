@@ -1,9 +1,9 @@
-const socket = require("socket.io");
+import socket from "socket.io";
 
-const { middlewares } = require("@/websocket/middlewares");
+import { middlewares } from "@/websocket/middlewares";
 
-const { routers } = require("@/websocket/events");
-const { customMethods } = require("@/websocket/custom/methods");
+import { routers } from "@/websocket/events";
+import { customMethods } from "@/websocket/custom/methods";
 
 const websocketServer = (httpServer) => {
   const io = new socket.Server(httpServer, {
@@ -29,6 +29,4 @@ const websocketServer = (httpServer) => {
   return io;
 };
 
-module.exports = {
-  websocketServer,
-};
+export { websocketServer };

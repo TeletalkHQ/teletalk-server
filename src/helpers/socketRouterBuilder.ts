@@ -11,4 +11,4 @@ const socketRouterBuilder =
         socket[item.method](...params);
       });
 
-module.exports = { socketRouterBuilder };
+export { socketRouterBuilder };

@@ -1,6 +1,6 @@
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
 const findPrivateChat = serviceBuilder
   .create()
@@ -9,4 +9,4 @@ const findPrivateChat = serviceBuilder
   })
   .build();
 
-module.exports = { findPrivateChat };
+export { findPrivateChat };

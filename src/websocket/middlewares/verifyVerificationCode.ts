@@ -1,10 +1,10 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const { trier } = require("simple-trier");
+import { errorThrower } from "utility-store/src/utilities/utilities";
+import { trier } from "simple-trier";
 
-const { commonUtilities } = require("@/classes/CommonUtilities");
-const { temporaryClients } = require("@/classes/TemporaryClients");
+import { commonUtilities } from "@/classes/CommonUtilities";
+import { temporaryClients } from "@/classes/TemporaryClients";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const verifyVerificationCode = async (req, res, next) => {
   await trier(verifyVerificationCode.name)
@@ -43,4 +43,4 @@ const findTemporaryClient = async (tokenId) => {
 
 const catchVerifyVerificationCode = commonUtilities.controllerErrorResponse;
 
-module.exports = { verifyVerificationCode };
+export { verifyVerificationCode };

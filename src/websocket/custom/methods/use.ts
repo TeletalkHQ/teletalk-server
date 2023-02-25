@@ -12,4 +12,4 @@ const customUse =
       });
     };
 
-module.exports = { customUse };
+export { customUse };

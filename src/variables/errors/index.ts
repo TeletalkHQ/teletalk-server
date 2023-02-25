@@ -1,6 +1,6 @@
-const { localErrors } = require("@/variables/errors/local");
-const { serverErrors } = require("@/variables/errors/server");
-const { userErrors } = require("@/variables/errors/user");
+import { localErrors } from "@/variables/errors/local";
+import { serverErrors } from "@/variables/errors/server";
+import { userErrors } from "@/variables/errors/user";
 
 const ioErrors = {
   input: {
@@ -26,4 +26,4 @@ const errors = {
   ...userErrors,
 };
 
-module.exports = { errors };
+export { errors };

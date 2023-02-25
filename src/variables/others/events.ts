@@ -5,4 +5,4 @@ const EVENTS = {
   ONCE: "once",
 };
 
-module.exports = { EVENTS };
+export { EVENTS };

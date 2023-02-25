@@ -1,13 +1,13 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const { trier } = require("simple-trier");
+import { trier } from "simple-trier";
+import { customTypeof } from "custom-typeof";
+import axios from "axios";
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { envManager } = require("@/classes/EnvironmentManager");
+import { envManager } from "@/classes/EnvironmentManager";
 
-const axios = require("axios");
+import { errors } from "@/variables/errors";
 
-const { errors } = require("@/variables/errors");
-
-const { loggerHelper } = require("@/utilities/logHelper");
+import { loggerHelper } from "@/utilities/logHelper";
 
 class SmsClient {
   templates() {
@@ -104,4 +104,4 @@ class SmsClient {
 
 const smsClient = new SmsClient();
 
-module.exports = { smsClient };
+export { smsClient };

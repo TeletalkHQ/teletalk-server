@@ -1,19 +1,17 @@
-const { addBlock } = require("@/services/user/addBlock");
-const { addContact } = require("@/services/user/addContact");
-const { addNewSession } = require("@/services/user/addNewSession");
-const { getAllUsers } = require("@/services/user/getAllUsers");
-const { getUserContacts } = require("@/services/user/getUserContacts");
-const {
+import { addBlock } from "@/services/user/addBlock";
+import { addContact } from "@/services/user/addContact";
+import { addNewSession } from "@/services/user/addNewSession";
+import { getAllUsers } from "@/services/user/getAllUsers";
+import { getUserContacts } from "@/services/user/getUserContacts";
+import {
   getCurrentUserData,
   getTargetUserData,
-} = require("@/services/user/getUserData");
-const { removeBlock } = require("@/services/user/removeBlock");
-const { removeContact } = require("@/services/user/removeContact");
-const { updateContact } = require("@/services/user/updateContact");
-const {
-  updatePublicUserData,
-} = require("@/services/user/updatePublicUserData");
-const { updateOnlineStatus } = require("@/services/user/updateOnlineStatus");
+} from "@/services/user/getUserData";
+import { removeBlock } from "@/services/user/removeBlock";
+import { removeContact } from "@/services/user/removeContact";
+import { updateContact } from "@/services/user/updateContact";
+import { updatePublicUserData } from "@/services/user/updatePublicUserData";
+import { updateOnlineStatus } from "@/services/user/updateOnlineStatus";
 
 const userServices = {
   addBlock,
@@ -30,6 +28,4 @@ const userServices = {
   updatePublicUserData,
 };
 
-module.exports = {
-  userServices,
-};
+export { userServices };

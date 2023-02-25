@@ -1,5 +1,5 @@
-const { mongoDb } = require("@/models/database/mongoDb");
+import { mongoDb } from "@/models/database/mongoDb";
 
 const database = { mongoDb };
 
-module.exports = { database };
+export { database };

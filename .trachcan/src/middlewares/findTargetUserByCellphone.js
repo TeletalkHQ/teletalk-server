@@ -1,14 +1,15 @@
 //UNUSED
-const { customTypeof } = require("custom-typeof");
-const { trier } = require("");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { customTypeof } from "custom-typeof";
 
-const { commonUtilities } = require("@/classes/CommonUtilities");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { trier } from "simple-trier";
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
-const { services } = require("@/services");
+import { commonUtilities } from "@/classes/CommonUtilities";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { errors } = require("@/variables/errors");
+import { services } from "@/services";
+
+import { errors } from "@/variables/errors";
 
 const findTargetUserByCellphone = async (req, res, next) => {
   await trier(findTargetUserByCellphone.name)
@@ -41,4 +42,4 @@ const catchFindUserByCellphone = (error, res) => {
   return { ok: false };
 };
 
-module.exports = { findTargetUserByCellphone };
+export { findTargetUserByCellphone };

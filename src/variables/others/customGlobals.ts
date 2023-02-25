@@ -1,3 +1,3 @@
-const { LoggerChalker } = require("logger-chalker");
+import { LoggerChalker } from "logger-chalker";
 
 global.logger = new LoggerChalker();

@@ -1,4 +1,4 @@
-const { trier } = require("simple-trier");
+import { trier } from "simple-trier";
 
 class ControllerHandler {
   constructor({
@@ -42,7 +42,4 @@ const controllerHandler = {
         }).run(),
 };
 
-module.exports = {
-  controllerHandler,
-  ControllerHandler,
-};
+export { controllerHandler, ControllerHandler };

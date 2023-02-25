@@ -1,6 +1,4 @@
-const {
-  EnvironmentManager: EnvironmentManagerMain,
-} = require("utility-store/src/classes/EnvironmentManager");
+import { EnvironmentManager as EnvironmentManagerMain } from "utility-store/src/classes/EnvironmentManager";
 
 class EnvironmentManager extends EnvironmentManagerMain {
   constructor() {
@@ -67,9 +65,6 @@ class EnvironmentManager extends EnvironmentManagerMain {
   }
 }
 
-const environmentManager = new EnvironmentManager();
+const envManager = new EnvironmentManager();
 
-module.exports = {
-  environmentManager,
-  envManager: environmentManager,
-};
+export { envManager };

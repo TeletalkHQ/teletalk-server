@@ -1,7 +1,7 @@
-const { authServices } = require("@/services/auth");
-const { chatServices } = require("@/services/chat");
-const { commonServices } = require("@/services/common");
-const { userServices } = require("@/services/user");
+import { authServices } from "@/services/auth";
+import { chatServices } from "@/services/chat";
+import { commonServices } from "@/services/common";
+import { userServices } from "@/services/user";
 
 const services = {
   ...authServices,
@@ -10,4 +10,4 @@ const services = {
   ...userServices,
 };
 
-module.exports = { services };
+export { services };

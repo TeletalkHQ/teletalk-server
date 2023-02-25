@@ -1,14 +1,8 @@
-const {
-  attachCurrentUserId,
-} = require("@/websocket/middlewares/attachCurrentUserId");
-const { auth } = require("@/websocket/middlewares/auth");
-const { checkDataFields } = require("@/websocket/middlewares/checkDataFields");
-const {
-  checkCurrentUserStatus,
-} = require("@/websocket/middlewares/checkCurrentUserStatus");
-const {
-  checkEventAvailability,
-} = require("@/websocket/middlewares/checkEventAvailability");
+import { attachCurrentUserId } from "@/websocket/middlewares/attachCurrentUserId";
+import { auth } from "@/websocket/middlewares/auth";
+import { checkDataFields } from "@/websocket/middlewares/checkDataFields";
+import { checkCurrentUserStatus } from "@/websocket/middlewares/checkCurrentUserStatus";
+import { checkEventAvailability } from "@/websocket/middlewares/checkEventAvailability";
 
 const middlewares = {
   attachCurrentUserId,
@@ -18,6 +12,4 @@ const middlewares = {
   checkEventAvailability,
 };
 
-module.exports = {
-  middlewares,
-};
+export { middlewares };

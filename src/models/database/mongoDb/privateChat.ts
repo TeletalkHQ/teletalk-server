@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const { mongoModelBuilder } = require("@/classes/MongoModelBuilder");
+import { mongoModelBuilder } from "@/classes/MongoModelBuilder";
 
-const { mongooseUniqueValidator } = require("@/plugins/mongoose");
+import { mongooseUniqueValidator } from "@/plugins/mongoose";
 
-const { nativeModels } = require("@/models/native");
+import { nativeModels } from "@/models/native";
 
 const chatModels = nativeModels.chat;
 
@@ -83,7 +83,4 @@ const PrivateChat = mongoose.model(
   "privateChats"
 );
 
-module.exports = {
-  PrivateChat,
-  PrivateChatSchema,
-};
+export { PrivateChat, PrivateChatSchema };

@@ -1,18 +1,8 @@
-const {
-  getChatInfo,
-} = require("@/websocket/events/privateChat/handlers/getChatInfo");
-const {
-  getPrivateChat,
-} = require("@/websocket/events/privateChat/handlers/getPrivateChat");
-const {
-  getPrivateChats,
-} = require("@/websocket/events/privateChat/handlers/getPrivateChats");
-const {
-  joinRoom,
-} = require("@/websocket/events/privateChat/handlers/joinRoom");
-const {
-  sendPrivateMessage,
-} = require("@/websocket/events/privateChat/handlers/sendPrivateMessage");
+import { getChatInfo } from "@/websocket/events/privateChat/handlers/getChatInfo";
+import { getPrivateChat } from "@/websocket/events/privateChat/handlers/getPrivateChat";
+import { getPrivateChats } from "@/websocket/events/privateChat/handlers/getPrivateChats";
+import { joinRoom } from "@/websocket/events/privateChat/handlers/joinRoom";
+import { sendPrivateMessage } from "@/websocket/events/privateChat/handlers/sendPrivateMessage";
 
 const privateChatHandlers = {
   getChatInfo,
@@ -22,4 +12,4 @@ const privateChatHandlers = {
   sendPrivateMessage,
 };
 
-module.exports = { privateChatHandlers };
+export { privateChatHandlers };

@@ -1,23 +1,24 @@
 // const cluster = require("cluster");
 // const os = require("os");
 
-require("pretty-error").start();
+import PrettyError from "pretty-error";
 
-require("module-alias/register");
-require("@/variables/others/customGlobals");
-require("@/helpers/requireDotenv");
+import "@/variables/others/customGlobals";
+import "@/helpers/requireDotenv";
 
-const { envManager } = require("@/classes/EnvironmentManager");
+import { envManager } from "@/classes/EnvironmentManager";
 
-const requirements = require("@/requirements");
+import { database } from "@/requirements";
 
-const { crateHttpServer } = require("@/servers/http");
-const { websocketServer } = require("@/servers/websocket");
+import { crateHttpServer } from "@/servers/http";
+import { websocketServer } from "@/servers/websocket";
 
-const { logEnvironments } = require("@/utilities/utilities");
+import { logEnvironments } from "@/utilities/utilities";
 // const { setupMaster, setupWorker } = require("@socket.io/sticky");
 // const { setupPrimary, createAdapter } = require("@socket.io/cluster-adapter");
 // const { Server } = require("socket.io");
+
+PrettyError.start();
 
 const { NODE_ENV, PORT, SELF_EXEC } = envManager.getAllLocalEnvironments();
 
@@ -48,7 +49,7 @@ const runner = async () => {
 
   // for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
   // } else {
-  await requirements.database();
+  await database();
   const httpServer = crateHttpServer();
   websocketServer(httpServer);
   httpServer.listen(EXACT_PORT, serverListenerCb);
@@ -70,6 +71,4 @@ const runner = async () => {
 
 if (SELF_EXEC) runner();
 
-module.exports = {
-  runner,
-};
+export { runner };

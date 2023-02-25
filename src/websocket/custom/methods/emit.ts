@@ -1,12 +1,10 @@
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const {
-  ioFieldsChecker,
-} = require("utility-store/src/utilities/ioFieldsChecker");
-const { trier } = require("simple-trier");
+import { errorThrower } from "utility-store/src/utilities/utilities";
+import { ioFieldsChecker } from "utility-store/src/utilities/ioFieldsChecker";
+import { trier } from "simple-trier";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
-const { arrayOfRoutes } = require("@/websocket/events");
+import { arrayOfRoutes } from "@/websocket/events";
 
 const customEmit = (socket = socketIntellisense) => {
   return (event, data, ...args) => {
@@ -44,4 +42,4 @@ const catchBlock = (error, socket) => {
   socket.emit("error", error);
 };
 
-module.exports = { customEmit };
+export { customEmit };

@@ -1,9 +1,9 @@
-const { PrivateChat } = require("@/models/database/mongoDb/privateChat");
-const { User } = require("@/models/database/mongoDb/user");
+import { PrivateChat } from "@/models/database/mongoDb/privateChat";
+import { User } from "@/models/database/mongoDb/user";
 
 const mongoDb = {
   PrivateChat,
   User,
 };
 
-module.exports = { mongoDb };
+export { mongoDb };

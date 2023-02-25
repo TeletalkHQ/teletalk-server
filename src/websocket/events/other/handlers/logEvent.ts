@@ -6,4 +6,4 @@ const logEvent = (_socket, _io, event, data, _callback, ...args) => {
   }
 };
 
-module.exports = { logEvent };
+export { logEvent };

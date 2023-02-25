@@ -1,11 +1,9 @@
-const {
-  socketRouteBuilder,
-} = require("@/classes/routeBuilder/SocketRouteBuilder");
+import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
-const { EVENTS } = require("@/variables/others/events");
-const { fields } = require("@/variables/others/fields");
+import { EVENTS } from "@/variables/others/events";
+import { fields } from "@/variables/others/fields";
 
-const { otherHandlers } = require("@/websocket/events/other/handlers");
+import { otherHandlers } from "@/websocket/events/other/handlers";
 
 const builder = socketRouteBuilder();
 
@@ -64,6 +62,4 @@ const otherRoutes = {
   ping,
 };
 
-module.exports = {
-  otherRoutes,
-};
+export { otherRoutes };

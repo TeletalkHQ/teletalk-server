@@ -1,6 +1,6 @@
-const { chatModels } = require("@/models/native/chat");
-const { commonModels } = require("@/models/native/common");
-const { userModels } = require("@/models/native/user");
+import { chatModels } from "@/models/native/chat";
+import { commonModels } from "@/models/native/common";
+import { userModels } from "@/models/native/user";
 
 const nativeModels = {
   chat: chatModels,
@@ -8,4 +8,4 @@ const nativeModels = {
   user: userModels,
 };
 
-module.exports = { nativeModels };
+export { nativeModels };

@@ -1,5 +1,3 @@
-const { databaseRequirements } = require("@/requirements/database");
+import { databaseRequirements as database } from "@/requirements/database";
 
-module.exports = {
-  database: databaseRequirements,
-};
+export { database };

@@ -1,7 +1,7 @@
-const { authManager } = require("@/classes/AuthManager");
-const { userUtilities } = require("@/classes/UserUtilities");
+import { authManager } from "@/classes/AuthManager";
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const updateOnlineStatus = async (socket) => {
   const token = authManager.getTokenFromSocket(socket);
@@ -14,6 +14,4 @@ const updateOnlineStatus = async (socket) => {
   });
 };
 
-module.exports = {
-  updateOnlineStatus,
-};
+export { updateOnlineStatus };

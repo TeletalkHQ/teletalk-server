@@ -7,4 +7,4 @@ const FIELD_TYPE = {
   STRING: "string",
 };
 
-module.exports = { FIELD_TYPE };
+export { FIELD_TYPE };

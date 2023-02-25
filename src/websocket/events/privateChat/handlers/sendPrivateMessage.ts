@@ -1,6 +1,6 @@
-const { services } = require("@/services");
+import { services } from "@/services";
 
-const { validators } = require("@/validators");
+import { validators } from "@/validators";
 
 const sendPrivateMessage = async (
   socket = socketIntellisense,
@@ -23,4 +23,4 @@ const sendPrivateMessage = async (
     .emit("newPrivateChatMessage", { chatId, newMessage });
 };
 
-module.exports = { sendPrivateMessage };
+export { sendPrivateMessage };

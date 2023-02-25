@@ -1,9 +1,9 @@
-const { customTypeof } = require("custom-typeof");
+import { customTypeof } from "custom-typeof";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
-const { arrayOfRoutes } = require("@/websocket/events");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
+import { arrayOfRoutes } from "@/websocket/events";
+import { errorThrower } from "utility-store/src/utilities/utilities";
 
 const checkEventAvailability = (_socket, next, [name]) => {
   const foundEvent = arrayOfRoutes.find((item) => item.name === name);
@@ -25,4 +25,4 @@ const isEventInvalid = ({
 } = {}) =>
   customTypeof.isUndefined(inputFields, method, name, outputFields, statusCode);
 
-module.exports = { checkEventAvailability };
+export { checkEventAvailability };

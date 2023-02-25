@@ -1,6 +1,6 @@
-const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
+import { validationModelBuilder } from "@/classes/ValidationModelBuilder";
 
-const { nativeModels } = require("@/models/native");
+import { nativeModels } from "@/models/native";
 
 const bio = {
   bio: validationModelBuilder
@@ -164,6 +164,4 @@ const userValidationModels = {
   verificationCode,
 };
 
-module.exports = {
-  userValidationModels,
-};
+export { userValidationModels };

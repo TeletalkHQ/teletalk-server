@@ -1,6 +1,6 @@
-const { trier } = require("simple-trier");
+import { trier } from "simple-trier";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const errorCollector = (res, error) => {
   trier(errorCollector.name)
@@ -39,4 +39,4 @@ const fixResponseError = (error, extraData = {}, statusCode) => {
   };
 };
 
-module.exports = { errorCollector };
+export { errorCollector };

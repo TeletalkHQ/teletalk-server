@@ -1,8 +1,6 @@
-const {
-  privateChatHandlers,
-} = require("@/websocket/events/privateChat/handlers");
-const { privateChatRouter } = require("@/websocket/events/privateChat/router");
-const { privateChatRoutes } = require("@/websocket/events/privateChat/routes");
+import { privateChatHandlers } from "@/websocket/events/privateChat/handlers";
+import { privateChatRouter } from "@/websocket/events/privateChat/router";
+import { privateChatRoutes } from "@/websocket/events/privateChat/routes";
 
 const privateChatEvents = {
   privateChatRouter,
@@ -10,4 +8,4 @@ const privateChatEvents = {
   privateChatHandlers,
 };
 
-module.exports = { privateChatEvents };
+export { privateChatEvents };

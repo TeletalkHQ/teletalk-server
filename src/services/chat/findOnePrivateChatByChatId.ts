@@ -1,6 +1,6 @@
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
 const PrivateChat = models.database.mongoDb.PrivateChat;
 
@@ -9,4 +9,4 @@ const findOnePrivateChatByChatId = serviceBuilder
   .body(async ({ chatId }) => await PrivateChat.findOne({ chatId }))
   .build();
 
-module.exports = { findOnePrivateChatByChatId };
+export { findOnePrivateChatByChatId };

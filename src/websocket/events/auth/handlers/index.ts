@@ -1,9 +1,7 @@
-const {
-  createNewUser,
-} = require("@/websocket/events/auth/handlers/createNewUser");
-const { logout } = require("@/websocket/events/auth/handlers/logout");
-const { signIn } = require("@/websocket/events/auth/handlers/signIn");
-const { verify } = require("@/websocket/events/auth/handlers/verify");
+import { createNewUser } from "@/websocket/events/auth/handlers/createNewUser";
+import { logout } from "@/websocket/events/auth/handlers/logout";
+import { signIn } from "@/websocket/events/auth/handlers/signIn";
+import { verify } from "@/websocket/events/auth/handlers/verify";
 
 const authHandlers = {
   createNewUser,
@@ -12,6 +10,4 @@ const authHandlers = {
   verify,
 };
 
-module.exports = {
-  authHandlers,
-};
+export { authHandlers };

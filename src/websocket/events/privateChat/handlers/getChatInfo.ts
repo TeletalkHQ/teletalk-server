@@ -1,4 +1,4 @@
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const getChatInfo = async (_socket, _io, data) => {
   const { messages, ...chatInfo } = await services
@@ -9,4 +9,4 @@ const getChatInfo = async (_socket, _io, data) => {
   return { chatInfo };
 };
 
-module.exports = { getChatInfo };
+export { getChatInfo };

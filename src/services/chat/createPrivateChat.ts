@@ -1,6 +1,6 @@
-const { serviceBuilder } = require("@/classes/service/ServiceBuilder");
+import { serviceBuilder } from "@/classes/service/ServiceBuilder";
 
-const { models } = require("@/models");
+import { models } from "@/models";
 
 const PrivateChat = models.database.mongoDb.PrivateChat;
 
@@ -22,6 +22,4 @@ const createPrivateChat = serviceBuilder
   })
   .build();
 
-module.exports = {
-  createPrivateChat,
-};
+export { createPrivateChat };

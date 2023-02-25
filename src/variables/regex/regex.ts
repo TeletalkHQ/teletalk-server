@@ -1,5 +1,5 @@
-const { numbers } = require("@/variables/regex/numbers");
+import { numbers } from "@/variables/regex/numbers";
 
 const regex = { numbers };
 
-module.exports = { regex };
+export { regex };

@@ -1,6 +1,6 @@
-const { userUtilities } = require("@/classes/UserUtilities");
+import { userUtilities } from "@/classes/UserUtilities";
 
-const { services } = require("@/services");
+import { services } from "@/services";
 
 const removeContact = async (socket, _io, data) => {
   const { currentUserId } = socket;
@@ -16,4 +16,4 @@ const removeContact = async (socket, _io, data) => {
   };
 };
 
-module.exports = { removeContact };
+export { removeContact };

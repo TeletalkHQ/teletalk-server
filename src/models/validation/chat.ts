@@ -1,6 +1,6 @@
-const { validationModelBuilder } = require("@/classes/ValidationModelBuilder");
+import { validationModelBuilder } from "@/classes/ValidationModelBuilder";
 
-const { nativeModels } = require("@/models/native");
+import { nativeModels } from "@/models/native";
 
 const messageId = {
   messageId: validationModelBuilder
@@ -64,4 +64,4 @@ const chatValidationModels = {
   participantId,
 };
 
-module.exports = { chatValidationModels };
+export { chatValidationModels };

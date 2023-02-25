@@ -1,6 +1,6 @@
-const { authHandlers } = require("@/websocket/events/auth/handlers");
-const { authRouter } = require("@/websocket/events/auth/router");
-const { authRoutes } = require("@/websocket/events/auth/routes");
+import { authHandlers } from "@/websocket/events/auth/handlers";
+import { authRouter } from "@/websocket/events/auth/router";
+import { authRoutes } from "@/websocket/events/auth/routes";
 
 const authEvents = {
   authHandlers,
@@ -8,4 +8,4 @@ const authEvents = {
   authRoutes,
 };
 
-module.exports = { authEvents };
+export { authEvents };

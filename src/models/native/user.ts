@@ -1,9 +1,9 @@
-const { nativeModelBuilder } = require("@/classes/NativeModelBuilder");
+import { nativeModelBuilder } from "@/classes/NativeModelBuilder";
 
-const { commonModels } = require("@/models/native/common");
+import { commonModels } from "@/models/native/common";
 
-const { errors } = require("@/variables/errors");
-const { FIELD_TYPE } = require("@/variables/others/fieldType");
+import { errors } from "@/variables/errors";
+import { FIELD_TYPE } from "@/variables/others/fieldType";
 
 const bio = nativeModelBuilder
   .create()
@@ -168,6 +168,4 @@ const userModels = {
   verificationCode,
 };
 
-module.exports = {
-  userModels,
-};
+export { userModels };

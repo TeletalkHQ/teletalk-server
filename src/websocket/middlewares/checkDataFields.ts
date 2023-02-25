@@ -1,13 +1,11 @@
-const { customTypeof } = require("custom-typeof");
-const { errorThrower } = require("utility-store/src/utilities/utilities");
-const {
-  ioFieldsChecker,
-} = require("utility-store/src/utilities/ioFieldsChecker");
-const { trier } = require("simple-trier");
+import { customTypeof } from "custom-typeof";
+import { errorThrower } from "utility-store/src/utilities/utilities";
+import { ioFieldsChecker } from "utility-store/src/utilities/ioFieldsChecker";
+import { trier } from "simple-trier";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
-const { arrayOfRoutes } = require("@/websocket/events");
+import { arrayOfRoutes } from "@/websocket/events";
 
 const checkDataFields = (_socket, next, event) =>
   trier(checkDataFields.name)
@@ -36,4 +34,4 @@ const catchBlock = (error) => {
   throw error;
 };
 
-module.exports = { checkDataFields };
+export { checkDataFields };

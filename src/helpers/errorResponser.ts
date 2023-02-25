@@ -1,6 +1,6 @@
-const { trier } = require("simple-trier");
+import { trier } from "simple-trier";
 
-const { errors } = require("@/variables/errors");
+import { errors } from "@/variables/errors";
 
 const errorResponser = (res) => {
   trier(errorResponser.name).try(tryBlock, res).catch(catchBlock, res).run();
@@ -20,4 +20,4 @@ const catchBlock = (error, res) => {
   res.status(critError.statusCode).json({ errors: critError });
 };
 
-module.exports = { errorResponser };
+export { errorResponser };

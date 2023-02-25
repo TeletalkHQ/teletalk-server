@@ -1,7 +1,5 @@
-const http = require("http");
+import http from "http";
 
 const crateHttpServer = (app) => http.createServer(app);
 
-module.exports = {
-  crateHttpServer,
-};
+export { crateHttpServer };

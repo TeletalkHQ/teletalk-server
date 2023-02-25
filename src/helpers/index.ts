@@ -1,9 +1,7 @@
-const { databaseHelpers } = require("@/helpers/database");
+import { databaseHelpers } from "@/helpers/database";
 
 const helpers = {
   ...databaseHelpers,
 };
 
-module.exports = {
-  helpers,
-};
+export { helpers };

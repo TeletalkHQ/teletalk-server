@@ -1,4 +1,4 @@
-const { UNIQUE_ERROR_IDS } = require("@/variables/others/uniqueErrorIds");
+import { UNIQUE_ERROR_IDS } from "@/variables/others/uniqueErrorIds";
 
 const getEnErrorMessages = () => {
   return Object.entries(UNIQUE_ERROR_IDS).reduce(
@@ -14,4 +14,4 @@ const getEnErrorMessages = () => {
 
 const enErrorMessages = getEnErrorMessages();
 
-module.exports = { enErrorMessages };
+export { enErrorMessages };

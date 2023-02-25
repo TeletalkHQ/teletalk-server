@@ -1,7 +1,7 @@
-const { errorBuilder } = require("@/classes/ErrorBuilder");
+import { errorBuilder } from "@/classes/ErrorBuilder";
 
-const { ERROR_KEYS } = require("@/variables/others/errorKeys");
-const { UNIQUE_ERROR_IDS } = require("@/variables/others/uniqueErrorIds");
+import { ERROR_KEYS } from "@/variables/others/errorKeys";
+import { UNIQUE_ERROR_IDS } from "@/variables/others/uniqueErrorIds";
 
 const { INPUT_OUTPUT_FIELDS, INTERNAL_SERVER_ERROR } = ERROR_KEYS;
 
@@ -100,4 +100,4 @@ const serverErrors = {
   UNKNOWN_ERROR,
 };
 
-module.exports = { serverErrors };
+export { serverErrors };

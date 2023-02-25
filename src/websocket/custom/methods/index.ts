@@ -1,6 +1,6 @@
-const { customOn } = require("@/websocket/custom/methods/on");
-const { customEmit } = require("@/websocket/custom/methods/emit");
-const { customUse } = require("@/websocket/custom/methods/use");
+import { customOn } from "@/websocket/custom/methods/on";
+import { customEmit } from "@/websocket/custom/methods/emit";
+import { customUse } from "@/websocket/custom/methods/use";
 
 const customMethods = {
   emit: customEmit,
@@ -8,4 +8,4 @@ const customMethods = {
   use: customUse,
 };
 
-module.exports = { customMethods };
+export { customMethods };

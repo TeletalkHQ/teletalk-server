@@ -1,11 +1,11 @@
-const { authRouter } = require("@/websocket/events/auth/router");
-const { otherRouter } = require("@/websocket/events/other/router");
-const { privateChatRouter } = require("@/websocket/events/privateChat/router");
-const { userRouter } = require("@/websocket/events/user/router");
-const { authRoutes } = require("@/websocket/events/auth/routes");
-const { otherRoutes } = require("@/websocket/events/other/routes");
-const { privateChatRoutes } = require("@/websocket/events/privateChat/routes");
-const { userRoutes } = require("@/websocket/events/user/routes");
+import { authRouter } from "@/websocket/events/auth/router";
+import { otherRouter } from "@/websocket/events/other/router";
+import { privateChatRouter } from "@/websocket/events/privateChat/router";
+import { userRouter } from "@/websocket/events/user/router";
+import { authRoutes } from "@/websocket/events/auth/routes";
+import { otherRoutes } from "@/websocket/events/other/routes";
+import { privateChatRoutes } from "@/websocket/events/privateChat/routes";
+import { userRoutes } from "@/websocket/events/user/routes";
 
 const routers = (socket, io) => {
   [otherRouter, authRouter, userRouter, privateChatRouter].forEach((router) =>
@@ -22,8 +22,4 @@ const routes = {
 
 const arrayOfRoutes = Object.values(routes);
 
-module.exports = {
-  arrayOfRoutes,
-  routers,
-  routes,
-};
+export { arrayOfRoutes, routers, routes };

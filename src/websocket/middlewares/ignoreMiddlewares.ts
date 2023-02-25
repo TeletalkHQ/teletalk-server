@@ -1,9 +1,9 @@
 /* eslint-disable indent */
-const {
+import {
   checkIgnoreApplyMiddlewaresRequirements,
   executeMiddlewares,
   isUrlMatchWithReqUrl,
-} = require("@/utilities/utilities");
+} from "@/utilities/utilities";
 
 const ignoreMiddlewares = (url, ...middlewares) => {
   checkIgnoreApplyMiddlewaresRequirements(url, middlewares);
@@ -20,4 +20,4 @@ const ignoreMiddlewares = (url, ...middlewares) => {
   };
 };
 
-module.exports = { ignoreMiddlewares };
+export { ignoreMiddlewares };

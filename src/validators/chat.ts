@@ -1,6 +1,6 @@
-const { compiledValidators } = require("@/validators/compiledValidators");
+import { compiledValidators } from "@/validators/compiledValidators";
 
-const { validatorErrorChecker } = require("@/validators/validatorErrorChecker");
+import { validatorErrorChecker } from "@/validators/validatorErrorChecker";
 
 const chatIdValidator = async (chatId) => {
   const validationResult = await compiledValidators.chatId({ chatId });
@@ -27,4 +27,4 @@ const chatValidators = {
   participantId: participantIdValidator,
 };
 
-module.exports = { chatValidators };
+export { chatValidators };

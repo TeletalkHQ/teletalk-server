@@ -1,4 +1,4 @@
-const esbuild = require("esbuild");
+import { build } from "esbuild";
 
 const defaultOptions = {
   allowOverwrite: true,
@@ -8,7 +8,7 @@ const defaultOptions = {
 };
 
 const appBuilder = ([key, value]) =>
-  esbuild.build({
+  build({
     ...defaultOptions,
     entryPoints: ["./src/servers/index.js"],
     outfile: `build/${key}/app.js`,
@@ -16,7 +16,7 @@ const appBuilder = ([key, value]) =>
   });
 
 const testBuilder = ([key, value]) =>
-  esbuild.build({
+  build({
     ...defaultOptions,
     entryPoints: ["./test/index.js"],
     outfile: `build/${key}/test.js`,

@@ -1,24 +1,17 @@
-const path = require("path");
+import { join } from "path";
 
-const nodeExternals = require("webpack-node-externals");
+import nodeExternals from "webpack-node-externals";
 
-const srcPath = path.join(__dirname, "src");
+const srcPath = join(__dirname, "src");
 
-module.exports = {
-  externals: [nodeExternals()],
-  // externals: {
-  //   bufferutil: "bufferutil",
-  //   "utf-8-validate": "utf-8-validate",
-  //   "mongodb-client-encryption": "mongodb-client-encryption",
-  // },
-  externalsPresets: {
-    node: true,
-  },
-  mode: "development",
-  resolve: {
-    alias: {
-      "@": srcPath,
-    },
-  },
-  target: "node",
+export const externals = [nodeExternals()];
+export const externalsPresets = {
+  node: true,
 };
+export const mode = "development";
+export const resolve = {
+  alias: {
+    "@": srcPath,
+  },
+};
+export const target = "node";

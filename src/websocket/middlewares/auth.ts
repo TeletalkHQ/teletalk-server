@@ -14,7 +14,7 @@ const auth = async (socket, next) => {
     .runAsync();
 };
 
-const tryBlock = async (socket = socketIntellisense) => {
+const tryBlock = async (socket) => {
   if (!socket.handshake.headers.cookie) throw errors.TOKEN_REQUIRED;
 
   const token = authManager.getTokenFromSocket(socket);
@@ -27,11 +27,7 @@ const tryBlock = async (socket = socketIntellisense) => {
   return { validationResult };
 };
 
-const executeIfNoError = (
-  { validationResult },
-  socket = socketIntellisense,
-  next
-) => {
+const executeIfNoError = ({ validationResult }, socket, next) => {
   socket.authData = validationResult;
   next();
 };

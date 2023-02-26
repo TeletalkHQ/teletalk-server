@@ -16,6 +16,4 @@ const userRoutes = {
   getAllUsers,
 };
 
-export {
-  user: userRoutes,
-};
+export { userRoutes as user };

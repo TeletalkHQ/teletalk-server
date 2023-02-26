@@ -1,5 +1,1 @@
-import { otherUtilities } from "$/utilities/other";
-
-export {
-  ...otherUtilities,
-};
+export { otherUtilities } from "$/utilities/other";

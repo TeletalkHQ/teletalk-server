@@ -1,7 +1,7 @@
 const socketRouterBuilder =
   //prettier-ignore
   (routes) =>
-    (socket = socketIntellisense, io) =>
+    (socket , io) =>
       Object.values(routes).forEach((item) => {
         const params = [
           item.name,

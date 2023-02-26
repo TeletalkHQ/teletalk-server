@@ -6,7 +6,7 @@ import { errors } from "@/variables/errors";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
-const customEmit = (socket = socketIntellisense) => {
+const customEmit = (socket) => {
   return (event, data, ...args) => {
     const foundRoute = arrayOfRoutes.find((item) => item.name === event);
 

@@ -6,9 +6,9 @@ class ServiceBuilder {
     outputFields: undefined,
   };
 
-  constructor() {}
+  // constructor() {}
 
-  #serviceBody = async () => {};
+  #serviceBody = async () => logger.debug("service_body");
 
   body(callback) {
     this.#serviceBody = callback;

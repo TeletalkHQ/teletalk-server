@@ -2,11 +2,7 @@ import { services } from "@/services";
 
 import { validators } from "@/validators";
 
-const sendPrivateMessage = async (
-  socket = socketIntellisense,
-  io = ioIntellisense,
-  data
-) => {
+const sendPrivateMessage = async (socket, io, data) => {
   const { currentUserId } = socket;
   const { participantId, message } = data;
 

@@ -60,9 +60,9 @@ const deleteAllPrivateChats = async () => {
   await PrivateChat.deleteMany();
 };
 
-export {
-  requirements: {
-    database,
-    testServer,
-  },
+const requirements = {
+  database,
+  testServer,
 };
+
+export { requirements };

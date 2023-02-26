@@ -14,7 +14,7 @@ const crashServer = (message) => {
 
 const executeMiddlewares = async ({ middlewares, next, req, res }) => {
   for await (const m of middlewares) {
-    const result = await m(req, res, () => {});
+    const result = await m(req, res, () => logger.debug("middleware executed"));
 
     if (result.ok === false) {
       return;

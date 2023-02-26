@@ -13,15 +13,15 @@ const NODE_VERSION =
   process.env.NODE_VERSION ||
   process.env.NODE_VERSION_DEFAULT ||
   calcNodeVersion() ||
-  18;
+  "18";
 
 const BUILD_FOLDER_NAME = `node${NODE_VERSION.slice(0, 2)}`;
 
 const start = async () => {
   try {
-    if (isProduction()) return runProduction();
+    if (isProduction()) return await runProduction();
 
-    if (NODE_ENV.includes("test")) return runTest();
+    if (NODE_ENV?.includes("test")) return runTest();
 
     runDev();
   } catch (error) {
@@ -33,14 +33,16 @@ const start = async () => {
 const isProduction = () =>
   ["production", "production_local"].some((i) => i === NODE_ENV);
 
-const runProduction = () =>
-  require(path.join(__dirname, "build", BUILD_FOLDER_NAME, "app.js")).runner();
+const runProduction = async () => {
+  const appPath = path.join(__dirname, "build", BUILD_FOLDER_NAME, "app.js");
+  const app = import(appPath);
+  (await app).runner();
+};
 
 const runTest = async () => {
   const path = getTestServerPath();
-  const requirements = getTestServerRequirements(path);
+  const requirements = await getTestServerRequirements(path);
   await runRequirements(requirements);
-  run();
 };
 const getTestServerPath = () => {
   const paths = [__dirname];
@@ -49,14 +51,15 @@ const getTestServerPath = () => {
   paths.push("test");
   return path.join(...paths);
 };
-const getTestServerRequirements = (path) => {
-  return require(path).requirements;
+const getTestServerRequirements = async (path) => {
+  return (await import(path)).requirements;
 };
 const runRequirements = async (requirements) => {
   await requirements.database();
   await requirements.testServer();
 };
 
-const runDev = () => require(path.join(__dirname, "src", "servers")).runner();
+const runDev = async () =>
+  (await import(path.join(__dirname, "src", "servers"))).runner();
 
 start();

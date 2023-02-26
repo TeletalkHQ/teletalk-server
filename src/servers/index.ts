@@ -1,5 +1,5 @@
-// const cluster = require("cluster");
-// const os = require("os");
+import cluster from "cluster";
+import os from "os";
 
 import PrettyError from "pretty-error";
 
@@ -14,9 +14,9 @@ import { crateHttpServer } from "@/servers/http";
 import { websocketServer } from "@/servers/websocket";
 
 import { logEnvironments } from "@/utilities/utilities";
-// const { setupMaster, setupWorker } = require("@socket.io/sticky");
-// const { setupPrimary, createAdapter } = require("@socket.io/cluster-adapter");
-// const { Server } = require("socket.io");
+import { setupMaster, setupWorker } from "@socket.io/sticky";
+import { setupPrimary, createAdapter } from "@socket.io/cluster-adapter";
+import { Server } from "socket.io";
 
 PrettyError.start();
 

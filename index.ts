@@ -1,4 +1,4 @@
-const path = require("path");
+import path from "path";
 
 const calcNodeVersion = () => {
   return process.env.npm_config_user_agent

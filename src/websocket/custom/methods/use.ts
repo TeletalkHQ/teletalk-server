@@ -1,6 +1,6 @@
 const customUse =
   //prettier-ignore
-  (socket= socketIntellisense) =>
+  (socket) =>
     (middleware, ...args) => {
       socket.use(async (event, next) => {
         try {

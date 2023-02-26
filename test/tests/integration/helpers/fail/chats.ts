@@ -1,4 +1,4 @@
 //TODO: Add chats fail tests
-const chatsFailTest = () => {};
+// const chatsFailTest = () => {};
 
-export { chatsFailTest };
+// export { chatsFailTest };

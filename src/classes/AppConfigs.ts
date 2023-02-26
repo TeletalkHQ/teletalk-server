@@ -1,11 +1,11 @@
-import { Trier, trier } from "simple-trier";
+import { Trier } from "simple-trier";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
 import { helpers } from "@/helpers";
 
 class AppConfigs {
-  #configs = {
+  private configs = {
     db: {
       MONGO_URL: helpers.getMongoUrl(),
       MONGO_URL_FULL: helpers.contactMongoUrlWithCollectionName(),
@@ -20,11 +20,12 @@ class AppConfigs {
     if (NODE_ENV.includes("test"))
       Trier.changeGlobalConfigs({
         canPrintError: false,
+        callerName: "unknownCaller",
       });
   }
 
   getConfigs() {
-    return this.#configs;
+    return this.configs;
   }
 }
 

@@ -2,7 +2,7 @@ import { models } from "@/models";
 
 import { userErrors } from "@/variables/errors/user";
 
-import { routes as websocketRoutes } from "@/websocket/events";
+// import { routes as websocketRoutes } from "@/websocket/events";
 
 // const filteredWebsocketRoutes = Object.entries(websocketRoutes).reduce(
 //   (prevValue, [key, value]) => {

@@ -1,4 +1,4 @@
-const disconnect = (socket = socketIntellisense) => {
+const disconnect = (socket) => {
   socket.disconnect();
 };
 

@@ -1,5 +1,4 @@
 import { trier } from "simple-trier";
-import { customTypeof } from "custom-typeof";
 import axios from "axios";
 import { errorThrower } from "utility-store/src/utilities/utilities";
 

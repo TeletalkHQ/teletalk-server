@@ -1,6 +1,6 @@
 import { failTestBuilder } from "$/classes/FailTestBuilder";
 import { errors } from "@/variables/errors";
-import { randomMaker } from "utility-store/src/classes/RandomMaker";
+import { randomMaker } from "utility-store";
 
 const inputOverloadFailTest = (configuredRequester, data = {}) => {
   it(

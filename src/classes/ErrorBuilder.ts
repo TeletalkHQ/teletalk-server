@@ -1,7 +1,8 @@
 import { customTypeof } from "custom-typeof";
-import { errorThrower } from "utility-store/src/utilities/utilities";
+import { errorThrower } from "utility-store";
 
 import { localErrors } from "@/variables/errors/local";
+
 class ErrorBuilder {
   constructor() {
     this.error = {

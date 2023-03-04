@@ -1,8 +1,8 @@
 import Validator from "fastest-validator";
 import { customTypeof } from "custom-typeof";
-import { objectUtilities } from "utility-store/src/classes/ObjectUtilities";
+import { objectUtilities } from "utility-store";
 
-import { errorThrower } from "utility-store/src/utilities/utilities";
+import { errorThrower } from "utility-store";
 
 import { errors } from "@/variables/errors";
 

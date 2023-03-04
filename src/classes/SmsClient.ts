@@ -1,6 +1,6 @@
 import { trier } from "simple-trier";
 import axios from "axios";
-import { errorThrower } from "utility-store/src/utilities/utilities";
+import { errorThrower } from "utility-store";
 
 import { envManager } from "@/classes/EnvironmentManager";
 

@@ -1,5 +1,5 @@
-import { errorThrower } from "utility-store/src/utilities/utilities";
-import { randomMaker } from "utility-store/src/classes/RandomMaker";
+import { errorThrower } from "utility-store";
+import { randomMaker } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
 import { controllerBuilder } from "@/classes/ControllerBuilder";

@@ -1,5 +1,5 @@
-import { errorThrower } from "utility-store/src/utilities/utilities";
-import { isDataHasEqualityWithTargetCellphone } from "utility-store/src/utilities/utilities";
+import { errorThrower } from "utility-store";
+import { isDataHasEqualityWithTargetCellphone } from "utility-store";
 import { trier } from "simple-trier";
 
 import { commonUtilities } from "@/classes/CommonUtilities";

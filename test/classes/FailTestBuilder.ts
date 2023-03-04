@@ -1,5 +1,5 @@
 import { errors } from "@/variables/errors";
-import { randomMaker } from "utility-store/src/classes/RandomMaker";
+import { randomMaker } from "utility-store";
 
 //REFACTOR:Major
 class FailTestBuilder {

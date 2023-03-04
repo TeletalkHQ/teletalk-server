@@ -36,9 +36,9 @@ describe("requestMethodChecker middleware tests", () => {
 
       const { errors: responseErrors } = response.body;
 
-      const { errorKey } = errors.METHOD_NOT_ALLOWED;
-      if (responseErrors && responseErrors[errorKey]) {
-        expect(responseErrors[errorKey].reason).not.toBe(
+      const { key } = errors.METHOD_NOT_ALLOWED;
+      if (responseErrors && responseErrors[key]) {
+        expect(responseErrors[key].reason).not.toBe(
           errors.METHOD_NOT_ALLOWED.reason
         );
       }

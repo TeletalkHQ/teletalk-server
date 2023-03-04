@@ -28,12 +28,10 @@ describe("notFound middleware fail test", () => {
 
       const { errors: responseErrors } = response.body;
 
-      const { errorKey } = errors.ROUTE_NOT_FOUND;
-      if (responseErrors && responseErrors[errorKey]) {
-        expect(responseErrors[errorKey].reason).toBeInstanceOf(
-          FIELD_TYPE.STRING
-        );
-        expect(responseErrors[errorKey].reason).not.toBe(
+      const { key } = errors.ROUTE_NOT_FOUND;
+      if (responseErrors && responseErrors[key]) {
+        expect(responseErrors[key].reason).toBeInstanceOf(FIELD_TYPE.STRING);
+        expect(responseErrors[key].reason).not.toBe(
           errors.ROUTE_NOT_FOUND.reason
         );
       }

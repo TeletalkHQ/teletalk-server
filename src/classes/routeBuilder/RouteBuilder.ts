@@ -1,31 +1,31 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
+import { IoField, Route } from "@/interfaces";
+
 import { errors } from "@/variables/errors";
 
-class RouteBuilder {
+abstract class RouteBuilder {
+  protected route: Route;
+
   constructor() {
     this.route = {
       inputFields: {},
-      outputFields: [{}],
+      outputFields: {},
       statusCode: 200,
     };
   }
 
-  updateProperty(key, value) {
-    this.route[key] = value;
-  }
-
-  statusCode(statusCode) {
-    this.updateProperty("statusCode", statusCode);
+  statusCode(statusCode: number) {
+    this.route.statusCode = statusCode;
     return this;
   }
-  inputFields(inputFields = this.route.inputFields) {
-    this.updateProperty("inputFields", inputFields);
+  inputFields(inputFields: IoField) {
+    this.route.inputFields = inputFields;
     return this;
   }
-  outputFields(outputFields = this.route.outputFields) {
-    this.updateProperty("outputFields", outputFields);
+  outputFields(outputFields: IoField) {
+    this.route.outputFields = outputFields;
     return this;
   }
 
@@ -33,7 +33,7 @@ class RouteBuilder {
     return this.route;
   }
 
-  checkRequirements(...requirements) {
+  checkRequirements(...requirements: unknown[]) {
     errorThrower(customTypeof.isUndefined(...requirements), {
       ...errors.ROUTE_IS_BROKEN,
       route: this.route,

@@ -34,7 +34,7 @@ const tryToCreateNewUser = async (req, res) => {
 
   const userId = getRandomId();
   const token = signToken(userId);
-  authManager.setTokenToResponse(res, token);
+  authManager.setTokenOnSocket(res, token);
 
   await saveNewUser({
     ...userUtilities.defaultUserData(),

@@ -21,7 +21,7 @@ const verify = async (req, res) => {
     await removeTemporaryClient(tokenId);
 
     const token = signToken(foundUser.userId);
-    authManager.setTokenToResponse(res, token);
+    authManager.setTokenOnSocket(res, token);
     await addNewSession(foundUser.userId, token);
 
     return {

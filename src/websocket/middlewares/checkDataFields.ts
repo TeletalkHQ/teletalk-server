@@ -1,6 +1,6 @@
 import { customTypeof } from "custom-typeof";
-import { errorThrower } from "utility-store/src/utilities/utilities";
-import { ioFieldsChecker } from "utility-store/src/utilities/ioFieldsChecker";
+import { errorThrower } from "utility-store";
+import { ioFieldsChecker } from "utility-store";
 import { trier } from "simple-trier";
 
 import { errors } from "@/variables/errors";

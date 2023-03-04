@@ -1,4 +1,4 @@
-import { EventManager as EventManagerMain } from "utility-store/src/classes/EventManager";
+import { EventManager as EventManagerMain } from "utility-store";
 
 class EventManager extends EventManagerMain {
   constructor() {

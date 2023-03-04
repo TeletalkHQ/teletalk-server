@@ -1,5 +1,5 @@
-import { validationErrorBuilder } from "utility-store/src/classes/ValidationErrorBuilder";
-import { errorThrower } from "utility-store/src/utilities/utilities";
+import { validationErrorBuilder } from "utility-store";
+import { errorThrower } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
 import { userUtilities } from "@/classes/UserUtilities";
@@ -86,7 +86,7 @@ const tokenValidator = async (token, secret = authManager.getMainSecret()) => {
     token: correctedToken,
   });
 
-  const errorBuilder = validationErrorBuilder.create().setRequirements(
+  const errorBuilder = validationErrorBuilder.create().prepare(
     validationResult,
     {
       extraErrorFields: {

@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { objectUtilities } from "utility-store/src/classes/ObjectUtilities";
+import { objectUtilities } from "utility-store";
 
 import { loggerHelper } from "@/utilities/logHelper";
 

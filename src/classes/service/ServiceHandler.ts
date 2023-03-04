@@ -1,5 +1,5 @@
 import { customTypeof } from "custom-typeof";
-import { objectUtilities } from "utility-store/src/classes/ObjectUtilities";
+import { objectUtilities } from "utility-store";
 
 //REFACTOR Major on methods, options, especially on run method
 class ServiceHandler {

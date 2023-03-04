@@ -1,45 +1,48 @@
-import redis from "redis";
+import { RedisClientType } from "redis";
 
 class TemporaryClients {
-  #STATE_KEY = "temporary_client";
-  #STATE_PATH = ".";
+  private STATE_KEY = "temporary_client";
+  private STATE_PATH = ".";
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  private storage: RedisClientType;
 
-  async initialize(storage) {
+  async initialize(storage: RedisClientType) {
     this.setStorage(storage);
     return this;
   }
 
-  setStorage(storage = redis.createClient()) {
+  setStorage(storage: RedisClientType) {
     this.storage = storage;
   }
 
-  #makeStateKey(clientId) {
-    return `${this.#STATE_KEY}:${clientId}`;
+  private makeStateKey(clientId: string) {
+    return `${this.STATE_KEY}:${clientId}`;
   }
 
-  async find(clientId) {
-    return this.storage.json.get(this.#makeStateKey(clientId));
+  async find(clientId: string) {
+    return this.storage.json.get(this.makeStateKey(clientId));
   }
 
-  async add(clientId, data) {
-    const stateKey = this.#makeStateKey(clientId);
+  async add(clientId: string, data: object) {
+    const stateKey = this.makeStateKey(clientId);
     await this.storage
       .multi()
-      .json.set(stateKey, this.#STATE_PATH, data)
+      .json.set(stateKey, this.STATE_PATH, JSON.stringify(data))
       .expire(stateKey, 180)
       .exec();
   }
 
-  async update(clientId, newData) {
+  async update(clientId: string, newData: object) {
     await this.storage.json.set(
-      this.#makeStateKey(clientId),
-      this.#STATE_PATH,
-      newData
+      this.makeStateKey(clientId),
+      this.STATE_PATH,
+      JSON.stringify(newData)
     );
   }
 
-  async remove(clientId) {
-    this.storage.json.del(this.#makeStateKey(clientId), this.#STATE_PATH);
+  async remove(clientId: string) {
+    this.storage.json.del(this.makeStateKey(clientId), this.STATE_PATH);
   }
 }
 

@@ -25,7 +25,7 @@ const mongodbConnector = () => {
 
 const redisConnector = async () => {
   const REDIS_CONNECTION_OPTIONS = fixRedisConnection();
-  const { REDIS_PASSWORD } = envManager.getAllLocalEnvironments();
+  const { REDIS_PASSWORD } = envManager.getEnvironment();
 
   const storage = redis.createClient({
     socket: REDIS_CONNECTION_OPTIONS,
@@ -56,7 +56,7 @@ const fixRedisConnection = () => {
 
 const fixRedisHost = () => {
   const { REDIS_DEFAULT_HOST, REDIS_HOST, REDIS_PORT } =
-    envManager.getAllLocalEnvironments();
+    envManager.getEnvironment();
 
   if ([REDIS_HOST, REDIS_PORT].some((item = "") => item.includes("tcp://"))) {
     return (REDIS_HOST || REDIS_PORT).replace("tcp://", "").split(":")[0];
@@ -66,8 +66,7 @@ const fixRedisHost = () => {
 };
 
 const fixRedisPort = () => {
-  const { REDIS_DEFAULT_PORT, REDIS_PORT } =
-    envManager.getAllLocalEnvironments();
+  const { REDIS_DEFAULT_PORT, REDIS_PORT } = envManager.getEnvironment();
 
   if (REDIS_PORT?.includes("tcp://")) {
     return REDIS_PORT.split(":")[2];

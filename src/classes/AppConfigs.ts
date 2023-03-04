@@ -13,7 +13,7 @@ class AppConfigs {
   };
 
   async setup() {
-    const { NODE_ENV, LOG_LEVEL } = envManager.getAllLocalEnvironments();
+    const { NODE_ENV, LOG_LEVEL } = envManager.getEnvironment();
     const level: string = LOG_LEVEL;
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore

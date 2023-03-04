@@ -19,13 +19,11 @@ class SmsClient {
 
   async sendVerificationCode(sendTo, host, verificationCode) {
     const text = this.templates().verificationCode(verificationCode, host);
-    const providerIndex = envManager.getEnvironment(
-      envManager.ENVIRONMENT_KEYS.SMS_PROVIDER_SELECTOR
-    );
+    const { SMS_PROVIDER_SELECTOR } = envManager.getEnvironment();
 
     const providers = [this.devProvider, this.#provider1, this.#provider2];
     await trier(this.sendVerificationCode.name)
-      .tryAsync(providers[providerIndex].bind(this), sendTo, text)
+      .tryAsync(providers[SMS_PROVIDER_SELECTOR].bind(this), sendTo, text)
       .catch((error) => ({
         ...errors.SEND_SMS_FAILED,
         providerError: error,
@@ -44,7 +42,7 @@ class SmsClient {
       SMS_PROVIDER_1_ROUTE,
       SMS_PROVIDER_1_SENDER,
       SMS_PROVIDER_1_TOKEN,
-    } = envManager.getAllLocalEnvironments();
+    } = envManager.getEnvironment();
 
     const { method, sendFrom, url } = {
       method: "POST",
@@ -72,7 +70,7 @@ class SmsClient {
       SMS_PROVIDER_2_REPORT_URL,
       SMS_PROVIDER_2_ROUTE,
       SMS_PROVIDER_2_TOKEN,
-    } = envManager.getAllLocalEnvironments();
+    } = envManager.getEnvironment();
 
     const config = {
       data: {

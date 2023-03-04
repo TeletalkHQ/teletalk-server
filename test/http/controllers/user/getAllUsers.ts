@@ -1,12 +1,11 @@
-import { controllerBuilder } from "@/classes/ControllerBuilder";
-
 import { services } from "@/services";
 
+//FIXME: Convert to websocket
 const tryToGetAllUsers = async () => {
   const users = await services.getAllUsers().run();
   return { users };
 };
 
-const getAllUsers = controllerBuilder.create().body(tryToGetAllUsers).build();
+const getAllUsers = tryToGetAllUsers;
 
 export { getAllUsers };

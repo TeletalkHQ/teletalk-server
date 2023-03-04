@@ -1,6 +1,8 @@
 import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
 
-import { SocketRoute, SocketMethods } from "@/interfaces";
+import { SocketRoute } from "@/interfaces";
+
+import { SocketMethods } from "@/types";
 
 class SocketRouteBuilder extends RouteBuilder {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

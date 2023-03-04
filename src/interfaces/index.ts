@@ -1,3 +1,5 @@
+import { SocketMethods } from "@/types";
+
 interface IoField {
   type: string;
   value: undefined | IoField | IoField[];
@@ -10,12 +12,10 @@ interface Route {
   statusCode: number;
 }
 
-type SocketMethods = "on" | "onAny" | "customOn" | "once";
-
 interface SocketRoute extends Route {
   name: string;
   handler: () => void;
   method: SocketMethods;
 }
 
-export { IoField, Route, SocketRoute, SocketMethods };
+export { IoField, Route, SocketRoute };

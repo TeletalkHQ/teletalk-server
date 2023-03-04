@@ -1,6 +1,6 @@
 import { customTypeof } from "custom-typeof";
-import { errorThrower } from "utility-store/src/utilities/utilities";
-import { validationErrorBuilder } from "utility-store/src/classes/ValidationErrorBuilder";
+import { errorThrower } from "utility-store";
+import { validationErrorBuilder } from "utility-store";
 
 import { models } from "@/models";
 
@@ -14,7 +14,7 @@ const bioErrorChecker = (validationResult, bio) => {
   const errorChecker = validationErrorBuilder.create();
 
   errorChecker
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -45,7 +45,7 @@ const countryCodeErrorChecker = (validationResult, countryCode) => {
   }
 
   errorChecker
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -78,7 +78,7 @@ const countryNameErrorChecker = (validationResult, countryName) => {
   }
 
   errorChecker
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -99,7 +99,7 @@ const countryNameErrorChecker = (validationResult, countryName) => {
 const firstNameErrorChecker = (validationResult, firstName) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -120,7 +120,7 @@ const firstNameErrorChecker = (validationResult, firstName) => {
 const lastNameErrorChecker = (validationResult, lastName) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: { validatedLastName: lastName },
@@ -138,7 +138,7 @@ const lastNameErrorChecker = (validationResult, lastName) => {
 const phoneNumberErrorChecker = (validationResult, phoneNumber) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -160,7 +160,7 @@ const phoneNumberErrorChecker = (validationResult, phoneNumber) => {
 const userIdErrorChecker = (validationResult, userId) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -181,7 +181,7 @@ const userIdErrorChecker = (validationResult, userId) => {
 const usernameErrorChecker = (validationResult, username) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: { validatedUsername: username },
@@ -200,7 +200,7 @@ const usernameErrorChecker = (validationResult, username) => {
 const verificationCodeErrorChecker = (validationResult, verificationCode) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -221,7 +221,7 @@ const verificationCodeErrorChecker = (validationResult, verificationCode) => {
 const participantIdErrorChecker = (validationResult, participantId) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -242,7 +242,7 @@ const participantIdErrorChecker = (validationResult, participantId) => {
 const messageErrorChecker = (validationResult, messageText) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {
@@ -263,7 +263,7 @@ const messageErrorChecker = (validationResult, messageText) => {
 const chatIdErrorChecker = (validationResult, chatId) => {
   validationErrorBuilder
     .create()
-    .setRequirements(
+    .prepare(
       validationResult,
       {
         extraErrorFields: {

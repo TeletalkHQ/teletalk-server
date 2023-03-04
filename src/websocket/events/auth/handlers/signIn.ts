@@ -1,4 +1,4 @@
-import { randomMaker } from "utility-store/src/classes/RandomMaker";
+import { randomMaker } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
 import { smsClient } from "@/classes/SmsClient";
@@ -30,7 +30,7 @@ const signIn = async (req, res) => {
     tokenId,
     date: Date.now(),
   });
-  authManager.setTokenToResponse(res, token);
+  authManager.setTokenOnSocket(res, token);
   await addClient(tokenId, {
     ...cellphone,
     isVerified: false,

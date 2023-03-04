@@ -3,7 +3,7 @@ import { customTypeof } from "custom-typeof";
 import { errors } from "@/variables/errors";
 
 import { arrayOfRoutes } from "@/websocket/events";
-import { errorThrower } from "utility-store/src/utilities/utilities";
+import { errorThrower } from "utility-store";
 
 const checkEventAvailability = (_socket, next, [name]) => {
   const foundEvent = arrayOfRoutes.find((item) => item.name === name);

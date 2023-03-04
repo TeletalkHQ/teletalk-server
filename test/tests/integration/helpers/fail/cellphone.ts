@@ -16,7 +16,7 @@ const cellphoneFailTest = (configuredRequester, data = {}) => {
         errors.CELLPHONE_REQUIRED
       );
 
-      const error = response.body.errors[errors.CELLPHONE_REQUIRED.errorKey];
+      const error = response.body.errors[errors.CELLPHONE_REQUIRED.key];
 
       expect(error.validatedCellphone.countryCode).toBe("");
       expect(error.validatedCellphone.countryName).toBe("");

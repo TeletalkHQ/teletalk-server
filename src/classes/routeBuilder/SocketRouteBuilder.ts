@@ -1,38 +1,35 @@
 import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
 
-import { EVENTS } from "@/variables/others/events";
+import { SocketRoute } from "@/interfaces";
+
+import { SocketMethods } from "@/types";
 
 class SocketRouteBuilder extends RouteBuilder {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  protected route: SocketRoute;
+
   constructor() {
     super();
-    this.route = {
-      handler: undefined,
-      inputFields: {},
-      method: EVENTS.CUSTOM_ON,
-      name: undefined,
-      outputFields: {},
-      statusCode: 200,
-    };
   }
 
-  method(method) {
-    this.updateProperty("method", method);
+  method(method: SocketMethods) {
+    this.route.method = method;
     return this;
   }
 
-  name(name) {
-    this.updateProperty("name", name);
+  name(name: string) {
+    this.route.name = name;
     return this;
   }
 
-  handler(handler) {
-    this.updateProperty("handler", handler);
+  handler(handler: () => void) {
+    this.route.handler = handler;
     return this;
   }
 
   build() {
     const { handler, method, name, statusCode } = this.route;
-
     this.checkRequirements(handler, method, name, statusCode);
     return this.route;
   }

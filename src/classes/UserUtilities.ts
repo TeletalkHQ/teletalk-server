@@ -1,4 +1,4 @@
-import { UserUtilities as UserUtilitiesMain } from "utility-store/src/classes/UserUtilities";
+import { UserUtilities as UserUtilitiesMain } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
 

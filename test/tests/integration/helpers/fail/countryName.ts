@@ -1,4 +1,4 @@
-import { randomMaker } from "utility-store/src/classes/RandomMaker";
+import { randomMaker } from "utility-store";
 
 import { failTestBuilder } from "$/classes/FailTestBuilder";
 

@@ -1,4 +1,4 @@
-import { isDataHasEqualityWithTargetCellphone } from "utility-store/src/utilities/utilities";
+import { isDataHasEqualityWithTargetCellphone } from "utility-store";
 
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";

@@ -1,7 +1,7 @@
 import { envManager } from "@/classes/EnvironmentManager";
 
 const getMongoUrl = () => {
-  return envManager.getEnvironment(envManager.ENVIRONMENT_KEYS.MONGO_URL);
+  return envManager.getEnvironment().MONGO_URL;
 };
 
 const contactMongoUrlWithCollectionName = () => {
@@ -9,7 +9,7 @@ const contactMongoUrlWithCollectionName = () => {
     MONGO_COLLECTION_NAME,
     //? This is actually mongoDb tcp url from docker!
     MONGO_PORT,
-  } = envManager.getAllLocalEnvironments();
+  } = envManager.getEnvironment();
 
   const CORRECTED_MONGO_URL_FROM_DOCKER =
     MONGO_PORT && MONGO_PORT.replace("tcp://", "mongodb://");

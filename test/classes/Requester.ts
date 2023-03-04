@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { objectUtilities } from "utility-store/src/classes/ObjectUtilities";
+import { objectUtilities } from "utility-store";
 
 import { loggerHelper } from "@/utilities/logHelper";
 
@@ -186,9 +186,9 @@ class Requester {
     return this;
   }
   checkErrorReason() {
-    const { errorKey, reason } = this.getError();
+    const { key, reason } = this.getError();
     const { errors } = this.getResponseBody();
-    expect(errors[errorKey]?.reason).toBe(reason);
+    expect(errors[key]?.reason).toBe(reason);
     return this;
   }
 }

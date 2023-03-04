@@ -39,7 +39,7 @@ const testModels = (models) => {
       expect(prop.value).not.toBeNull();
       if (prop.error) {
         expect(prop.error).toBeInstanceOf(FIELD_TYPE.OBJECT);
-        expect(prop.error.errorKey).toBeInstanceOf(FIELD_TYPE.STRING);
+        expect(prop.error.key).toBeInstanceOf(FIELD_TYPE.STRING);
         expect(prop.error.reason).toBeInstanceOf(FIELD_TYPE.STRING);
         expect(prop.error.statusCode).toBeInstanceOf(FIELD_TYPE.NUMBER);
       }
@@ -50,7 +50,7 @@ const testModels = (models) => {
 const testErrors = (errors) => {
   Object.values(errors).forEach((error) => {
     expect(error).toBeInstanceOf(FIELD_TYPE.OBJECT);
-    expect(error.errorKey).toBeInstanceOf(FIELD_TYPE.STRING);
+    expect(error.key).toBeInstanceOf(FIELD_TYPE.STRING);
     expect(error.reason).toBeInstanceOf(FIELD_TYPE.STRING);
     expect(error.statusCode).toBeInstanceOf(FIELD_TYPE.NUMBER);
   });

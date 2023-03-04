@@ -1,4 +1,4 @@
-import { EnvironmentManager as EnvironmentManagerMain } from "utility-store/src/classes/EnvironmentManager";
+import { EnvironmentManager as EnvironmentManagerMain } from "utility-store";
 
 class EnvironmentManager extends EnvironmentManagerMain {
   constructor() {
@@ -8,7 +8,7 @@ class EnvironmentManager extends EnvironmentManagerMain {
       JWT_MAIN_SECRET: "JWT_MAIN_SECRET",
       JWT_SIGN_IN_SECRET: "JWT_SIGN_IN_SECRET",
       SELF_EXEC: "SELF_EXEC",
-      LOGGER_LEVEL: "LOGGER_LEVEL",
+      LOG_LEVEL: "LOG_LEVEL",
       MONGO_COLLECTION_NAME: "MONGO_COLLECTION_NAME",
       MONGO_PORT: "MONGO_PORT",
       MONGO_URL: "MONGO_URL",
@@ -32,7 +32,7 @@ class EnvironmentManager extends EnvironmentManagerMain {
     };
 
     this.ENVIRONMENT_VALUES = {
-      LOGGER_LEVEL: {
+      LOG_LEVEL: {
         debug: "debug",
         error: "error",
         info: "info",

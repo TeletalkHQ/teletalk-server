@@ -12,10 +12,10 @@ class AppConfigs {
     },
   };
 
-  async runConfigs() {
-    const { NODE_ENV, LOGGER_LEVEL } = envManager.getAllLocalEnvironments();
+  async setup() {
+    const { NODE_ENV, LOG_LEVEL } = envManager.getAllLocalEnvironments();
 
-    logger.setLevel(logger.levels[LOGGER_LEVEL]);
+    logger.setLevel(logger.levels[LOG_LEVEL]);
 
     if (NODE_ENV.includes("test"))
       Trier.changeGlobalConfigs({

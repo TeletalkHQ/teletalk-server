@@ -1,11 +1,11 @@
-import { trier } from "simple-trier";
 import JWT from "jsonwebtoken";
+import { trier } from "simple-trier";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
 import { errors } from "@/variables/errors";
 class AuthManager {
-  #options = {
+  private options = {
     jwt: {
       algorithm: "HS256",
     },
@@ -15,7 +15,7 @@ class AuthManager {
   };
 
   getOptions() {
-    return this.#options;
+    return this.options;
   }
 
   verifyToken(
@@ -24,7 +24,7 @@ class AuthManager {
     options = this.getOptions().jwt
   ) {
     return trier(this.verifyToken.name)
-      .try(this.#tryVerifyToken.bind(this), token, secret, options)
+      .try(this.tryVerifyToken.bind(this), token, secret, options)
       .catch((error) => {
         return {
           ...errors.TOKEN_INVALID,
@@ -34,7 +34,11 @@ class AuthManager {
       .throw()
       .run();
   }
-  #tryVerifyToken(token, secret, options) {
+  private tryVerifyToken(
+    token: string,
+    secret: string,
+    options: Partial<typeof this.options>
+  ) {
     const data = JWT.verify(token, secret, {
       complete: true,
       ...this.getOptions().jwt,
@@ -44,8 +48,8 @@ class AuthManager {
     return { data };
   }
 
-  signToken(
-    data,
+  signToken<T extends object>(
+    data: T,
     secret = this.getMainSecret(),
     options = this.getOptions().jwt
   ) {
@@ -83,12 +87,10 @@ class AuthManager {
   }
 
   getSignInSecret() {
-    const { JWT_SIGN_IN_SECRET } = envManager.ENVIRONMENT_KEYS;
-    return envManager.getEnvironment(JWT_SIGN_IN_SECRET);
+    return envManager.getEnvironment().JWT_SIGN_IN_SECRET;
   }
   getMainSecret() {
-    const { JWT_MAIN_SECRET } = envManager.ENVIRONMENT_KEYS;
-    return envManager.getEnvironment(JWT_MAIN_SECRET);
+    return envManager.getEnvironment().JWT_MAIN_SECRET;
   }
   getSecrets() {
     return {
@@ -99,7 +101,7 @@ class AuthManager {
   }
 
   getTokenId(token, secret) {
-    return authManager.verifyToken(token, secret).data.payload.tokenId;
+    return this.verifyToken(token, secret).data.payload.tokenId;
   }
 }
 

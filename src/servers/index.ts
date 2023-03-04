@@ -20,10 +20,9 @@ import { logEnvironments } from "@/utilities/utilities";
 
 PrettyError.start();
 
-const { NODE_ENV, PORT, SELF_EXEC } = envManager.getAllLocalEnvironments();
+const { NODE_ENV, PORT, SELF_EXEC } = envManager.getEnvironment();
 
-const EXACT_PORT =
-  PORT || envManager.getEnvironment(envManager.ENVIRONMENT_KEYS.PORT_DEFAULT);
+const EXACT_PORT = PORT || envManager.getEnvironment().PORT_DEFAULT;
 
 const serverListenerCb = () => {
   logger.info(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);

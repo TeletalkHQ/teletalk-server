@@ -1,14 +1,14 @@
 import JWT from "jsonwebtoken";
+import { Socket } from "socket.io";
 import { trier } from "simple-trier";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
+import { VerifiedToken } from "@/interfaces";
+
 import { errors } from "@/variables/errors";
 class AuthManager {
   private options = {
-    jwt: {
-      algorithm: "HS256",
-    },
     cookie: {
       SESSION_NAME: "SESSION",
     },
@@ -18,13 +18,20 @@ class AuthManager {
     return this.options;
   }
 
-  verifyToken(
-    token,
-    secret = this.getMainSecret(),
-    options = this.getOptions().jwt
-  ) {
+  verifyToken(token: string, secret = this.getMainSecret()) {
     return trier(this.verifyToken.name)
-      .try(this.tryVerifyToken.bind(this), token, secret, options)
+      .try(
+        () => {
+          const data = JWT.verify(token, secret, {
+            complete: true,
+            algorithms: ["HS256"],
+          });
+
+          return { data };
+        },
+        token,
+        secret
+      )
       .catch((error) => {
         return {
           ...errors.TOKEN_INVALID,
@@ -32,30 +39,12 @@ class AuthManager {
         };
       })
       .throw()
-      .run();
-  }
-  private tryVerifyToken(
-    token: string,
-    secret: string,
-    options: Partial<typeof this.options>
-  ) {
-    const data = JWT.verify(token, secret, {
-      complete: true,
-      ...this.getOptions().jwt,
-      ...options,
-    });
-
-    return { data };
+      .run() as VerifiedToken;
   }
 
-  signToken<T extends object>(
-    data: T,
-    secret = this.getMainSecret(),
-    options = this.getOptions().jwt
-  ) {
+  signToken<T extends object>(data: T, secret = this.getMainSecret()) {
     return JWT.sign(data, secret, {
-      ...this.getOptions().jwt,
-      ...options,
+      algorithm: "HS256",
     });
   }
 
@@ -67,40 +56,50 @@ class AuthManager {
 
   //   const secrets = this.getSecrets();
   //   return isAuthenticationUrl
-  //     ? secrets.JWT_SIGN_IN_SECRET
-  //     : secrets.JWT_MAIN_SECRET;
+  //     ?  secrets.SESSION_SIGN_IN_SECRET
+  //     : secrets.SESSION_MAIN_SECRET;
   // }
 
-  getTokenFromRequest(req) {
-    return req.cookies[this.getOptions().cookie.SESSION_NAME];
-  }
-  getTokenFromSocket(socket) {
-    return socket.handshake.headers.cookie.split(
+  // getTokenFromRequest(req) {
+  //   return req.cookies[this.getOptions().cookie.SESSION_NAME];
+  // }
+
+  getTokenFromSocket(socket: Socket) {
+    return socket.handshake.headers.cookie?.split(
       `${this.getOptions().cookie.SESSION_NAME}=`
     )[1];
   }
-  setTokenToResponse(res, token, options = { httpOnly: true, secure: true }) {
-    res.cookie(this.getOptions().cookie.SESSION_NAME, token, options);
+  setTokenOnSocket(
+    socket: Socket,
+    token: string
+    //FIXME: Options need to set
+    // options = { httpOnly: true, secure: true }
+  ) {
+    socket.handshake.headers["set-cookie"] = [
+      `${this.getOptions().cookie.SESSION_NAME}=${token}`,
+    ];
+    // (this.getOptions().cookie.SESSION_NAME, token, options);
   }
-  removeSession(res) {
-    res.clearCookie(this.getOptions().cookie.SESSION_NAME);
+  removeSession(socket: Socket) {
+    socket.handshake.headers.cookie = "";
+    // clearCookie(this.getOptions().cookie.SESSION_NAME);
   }
 
   getSignInSecret() {
-    return envManager.getEnvironment().JWT_SIGN_IN_SECRET;
+    return envManager.getEnvironment().SESSION_SIGN_IN_SECRET;
   }
   getMainSecret() {
-    return envManager.getEnvironment().JWT_MAIN_SECRET;
+    return envManager.getEnvironment().SESSION_MAIN_SECRET;
   }
   getSecrets() {
     return {
       //TODO: Rename
-      JWT_MAIN_SECRET: this.getMainSecret(),
-      JWT_SIGN_IN_SECRET: this.getSignInSecret(),
+      SESSION_MAIN_SECRET: this.getMainSecret(),
+      SESSION_SIGN_IN_SECRET: this.getSignInSecret(),
     };
   }
 
-  getTokenId(token, secret) {
+  getTokenId(token: string, secret: string) {
     return this.verifyToken(token, secret).data.payload.tokenId;
   }
 }

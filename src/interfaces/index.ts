@@ -1,21 +1,21 @@
 import { SocketMethods } from "@/types";
 
 interface Environments {
-  JWT_MAIN_SECRET: string;
-  JWT_SIGN_IN_SECRET: string;
-  SELF_EXEC: boolean;
   LOG_LEVEL: string;
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;
   MONGO_URL: string;
   NODE_ENV: string;
-  PORT: number;
   PORT_DEFAULT: number;
-  REDIS_DEFAULT_PORT: number;
+  PORT: number;
   REDIS_DEFAULT_HOST: string;
+  REDIS_DEFAULT_PORT: number;
   REDIS_HOST: string;
   REDIS_PASSWORD: string;
   REDIS_PORT: number;
+  SELF_EXEC: boolean;
+  SESSION_MAIN_SECRET: string;
+  SESSION_SIGN_IN_SECRET: string;
   SMS_PROVIDER_1_HOST: string;
   SMS_PROVIDER_1_ROUTE: string;
   SMS_PROVIDER_1_SENDER: string;
@@ -44,4 +44,8 @@ interface SocketRoute extends Route {
   method: SocketMethods;
 }
 
-export { Environments, IoField, Route, SocketRoute };
+interface VerifiedToken {
+  data: { payload: { tokenId: string } };
+}
+
+export { Environments, IoField, Route, SocketRoute, VerifiedToken };

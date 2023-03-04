@@ -30,7 +30,7 @@ const signIn = async (req, res) => {
     tokenId,
     date: Date.now(),
   });
-  authManager.setTokenToResponse(res, token);
+  authManager.setTokenOnSocket(res, token);
   await addClient(tokenId, {
     ...cellphone,
     isVerified: false,

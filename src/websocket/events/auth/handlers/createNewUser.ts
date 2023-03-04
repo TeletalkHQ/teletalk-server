@@ -1,8 +1,7 @@
-import { errorThrower } from "utility-store/src/utilities/utilities";
-import { randomMaker } from "utility-store/src/classes/RandomMaker";
+import { errorThrower } from "utility-store";
+import { randomMaker } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
-import { controllerBuilder } from "@/classes/ControllerBuilder";
 import { temporaryClients } from "@/classes/TemporaryClients";
 import { userUtilities } from "@/classes/UserUtilities";
 
@@ -14,6 +13,7 @@ import { validators } from "@/validators";
 
 import { errors } from "@/variables/errors";
 
+//FIXME: Convert to websocket
 const tryToCreateNewUser = async (req, res) => {
   const {
     authData: {
@@ -34,7 +34,7 @@ const tryToCreateNewUser = async (req, res) => {
 
   const userId = getRandomId();
   const token = signToken(userId);
-  authManager.setTokenToResponse(res, token);
+  authManager.setTokenOnSocket(res, token);
 
   await saveNewUser({
     ...userUtilities.defaultUserData(),
@@ -83,9 +83,6 @@ const removeTemporaryClient = async (cellphone) => {
   await temporaryClients.remove(cellphone);
 };
 
-const createNewUser = controllerBuilder
-  .create()
-  .body(tryToCreateNewUser)
-  .build();
+const createNewUser = tryToCreateNewUser;
 
 export { createNewUser };

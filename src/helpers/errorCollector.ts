@@ -31,10 +31,10 @@ const catchCollectError = (error, res) => {
 };
 
 const fixResponseError = (error, extraData = {}, statusCode) => {
-  const { errorKey, ...rest } = error;
+  const { key, ...rest } = error;
 
   return {
-    [errorKey]: { ...rest, ...extraData },
+    [key]: { ...rest, ...extraData },
     statusCode: statusCode || error.statusCode,
   };
 };

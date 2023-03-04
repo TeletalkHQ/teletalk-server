@@ -1,4 +1,4 @@
-import { ioFieldMaker } from "utility-store/src/classes/IoFieldMaker";
+import { ioFieldMaker } from "utility-store";
 
 import { FIELD_TYPE } from "@/variables/others/fieldType";
 

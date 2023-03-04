@@ -1,5 +1,5 @@
 import { customTypeof } from "custom-typeof";
-import { errorThrower } from "utility-store/src/utilities/utilities";
+import { errorThrower } from "utility-store";
 
 import { commonServices } from "@/services/common";
 

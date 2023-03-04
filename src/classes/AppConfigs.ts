@@ -12,10 +12,12 @@ class AppConfigs {
     },
   };
 
-  async runConfigs() {
-    const { NODE_ENV, LOGGER_LEVEL } = envManager.getAllLocalEnvironments();
-
-    logger.setLevel(logger.levels[LOGGER_LEVEL]);
+  async setup() {
+    const { NODE_ENV, LOG_LEVEL } = envManager.getEnvironment();
+    const level: string = LOG_LEVEL;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    logger.setLevel(logger.levels[level]);
 
     if (NODE_ENV.includes("test"))
       Trier.changeGlobalConfigs({

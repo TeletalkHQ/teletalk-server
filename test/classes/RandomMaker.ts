@@ -1,4 +1,4 @@
-import { RandomMaker as RandomMakerMain } from "utility-store/src/classes/RandomMaker";
+import { RandomMaker as RandomMakerMain } from "utility-store";
 
 import { authHelper } from "$/classes/AuthHelper";
 

@@ -1,4 +1,4 @@
-import { errorThrower } from "utility-store/src/utilities/utilities";
+import { errorThrower } from "utility-store";
 
 import { serviceBuilder } from "@/classes/service/ServiceBuilder";
 

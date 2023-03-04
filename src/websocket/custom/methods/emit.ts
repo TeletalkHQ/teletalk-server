@@ -1,6 +1,6 @@
-import { errorThrower } from "utility-store/src/utilities/utilities";
-import { ioFieldsChecker } from "utility-store/src/utilities/ioFieldsChecker";
+import { checkFields } from "check-fields";
 import { trier } from "simple-trier";
+import { errorThrower } from "utility-store";
 
 import { errors } from "@/variables/errors";
 
@@ -19,7 +19,7 @@ const customEmit = (socket) => {
 };
 
 const tryBlock = (data, inputFields) => {
-  const checkResult = ioFieldsChecker(data, inputFields, errors.io.output);
+  const checkResult = checkFields(data, inputFields, errors.io.output);
 
   if (checkResult.ok === false) {
     errorThrower(!checkResult.error || !checkResult.error.reason, {

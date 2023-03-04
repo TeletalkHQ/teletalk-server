@@ -1,5 +1,5 @@
 import { errors } from "@/variables/errors";
-import { randomMaker } from "utility-store/src/classes/RandomMaker";
+import { randomMaker } from "utility-store";
 
 //REFACTOR:Major
 class FailTestBuilder {
@@ -131,8 +131,8 @@ class FailTestBuilder {
   }
 
   createTestMessage(error, url) {
-    return `expected error: [url|${url.fullUrl || url}] [errorKey|${
-      error.errorKey
+    return `expected error: [url|${url.fullUrl || url}] [key|${
+      error.key
     }] [reason|${error.reason}] - [statusCode|${error.statusCode}] `;
   }
 }

@@ -32,8 +32,8 @@ const checkCurrentUserStatusFailTest = (configuredRequester, data = {}) => {
         }
       );
 
-      expect(error.reason).toBe(body.errors[error.errorKey].reason);
-      expect(body.errors[error.errorKey].wrongTokenId).toBe(wrongTokenId);
+      expect(error.reason).toBe(body.errors[error.key].reason);
+      expect(body.errors[error.key].wrongTokenId).toBe(wrongTokenId);
     }
   );
 
@@ -57,8 +57,8 @@ const checkCurrentUserStatusFailTest = (configuredRequester, data = {}) => {
           token,
         }
       );
-      expect(error.reason).toBe(body.errors[error.errorKey].reason);
-      expect(body.errors[error.errorKey].isSessionExist).toBe(false);
+      expect(error.reason).toBe(body.errors[error.key].reason);
+      expect(body.errors[error.key].isSessionExist).toBe(false);
     }
   );
 };

@@ -35,7 +35,7 @@ abstract class RouteBuilder {
 
   checkRequirements(...requirements: unknown[]) {
     errorThrower(customTypeof.isUndefined(...requirements), {
-      ...errors.ROUTE_IS_BROKEN,
+      ...errors.ROUTE_IS_INVALID,
       route: this.route,
     });
   }

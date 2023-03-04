@@ -14,9 +14,9 @@ describe("authDefault middleware test", () => {
 
       const { errors: responseErrors } = response.body;
 
-      const { errorKey } = errors.TOKEN_REQUIRED;
-      if (responseErrors && responseErrors[errorKey]) {
-        expect(responseErrors[errorKey].reason).not.toBe(
+      const { key } = errors.TOKEN_REQUIRED;
+      if (responseErrors && responseErrors[key]) {
+        expect(responseErrors[key].reason).not.toBe(
           errors.TOKEN_REQUIRED.reason
         );
       }

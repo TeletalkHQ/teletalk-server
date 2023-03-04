@@ -28,7 +28,7 @@ class NativeModelBuilder {
       value: undefined,
       error: {
         description: "",
-        errorKey: "",
+        key: "",
         message: "",
         reason: undefined,
         statusCode: undefined,

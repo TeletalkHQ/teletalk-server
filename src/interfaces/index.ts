@@ -26,6 +26,12 @@ interface Environments {
   SMS_PROVIDER_2_TOKEN: string;
   SMS_PROVIDER_SELECTOR: number;
 }
+
+interface IError {
+  key: string;
+  reason: string;
+  statusCode: number;
+}
 interface IoField {
   type: string;
   value: undefined | IoField | IoField[];
@@ -48,4 +54,4 @@ interface VerifiedToken {
   data: { payload: { tokenId: string } };
 }
 
-export { Environments, IoField, Route, SocketRoute, VerifiedToken };
+export { Environments, IError, IoField, Route, SocketRoute, VerifiedToken };

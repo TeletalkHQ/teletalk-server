@@ -53,7 +53,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
           }
         );
 
-        expect(body.errors[error.errorKey].wrongUserId).toBe(wrongUserId);
+        expect(body.errors[error.key].wrongUserId).toBe(wrongUserId);
       }
     );
   }
@@ -75,7 +75,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
           }
         );
 
-        expect(body.errors[error.errorKey].isSessionExist).toBe(false);
+        expect(body.errors[error.key].isSessionExist).toBe(false);
       }
     );
   }

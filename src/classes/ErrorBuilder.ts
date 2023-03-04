@@ -1,38 +1,32 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
+import { IError } from "@/interfaces";
+
 import { localErrors } from "@/variables/errors/local";
 
 class ErrorBuilder {
-  constructor() {
-    this.error = {
-      errorKey: "",
-      reason: "UNKNOWN_ERROR",
-      statusCode: 400,
-    };
-  }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  error: IError;
 
-  #updateProperty(key, value) {
-    this.error[key] = value;
-  }
-
-  errorKey(errorKey) {
-    this.#updateProperty("errorKey", errorKey);
+  key(key: string) {
+    this.error.key = key;
     return this;
   }
-  reason(reason) {
-    this.#updateProperty("reason", reason);
+  reason(reason: string) {
+    this.error.reason = reason;
     return this;
   }
-  statusCode(statusCode) {
-    this.#updateProperty("statusCode", statusCode);
+  statusCode(statusCode: number) {
+    this.error.statusCode = statusCode;
     return this;
   }
 
   build() {
     const values = Object.values(this.error);
     const isUndefined = customTypeof.isUndefined(...values);
-    errorThrower(isUndefined, localErrors.ERROR_IS_BROKEN);
+    errorThrower(isUndefined, localErrors.ERROR_IS_INVALID);
 
     return this.error;
   }

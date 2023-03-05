@@ -3,8 +3,6 @@ import { RedisClientType } from "redis";
 class TemporaryClients {
   private STATE_KEY = "temporary_client";
   private STATE_PATH = ".";
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
   private storage: RedisClientType;
 
   async initialize(storage: RedisClientType) {

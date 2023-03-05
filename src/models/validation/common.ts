@@ -1,4 +1,4 @@
-import { validationModelBuilder } from "@/classes/ValidationModelBuilder";
+import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
 
 import { nativeModels } from "@/models/native";
 

@@ -6,8 +6,6 @@ import { IError } from "@/interfaces";
 import { localErrors } from "@/variables/errors/local";
 
 class ErrorBuilder {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
   error: IError;
 
   key(key: string) {

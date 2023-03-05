@@ -5,6 +5,7 @@ import { mongoModelBuilder } from "@/classes/MongoModelBuilder";
 import { nativeModels } from "@/models/native";
 
 import { mongooseUniqueValidator } from "@/plugins/mongoose";
+
 mongoose.Schema.Types.String.checkRequired((v) => v !== null);
 
 const userModels = nativeModels.user;

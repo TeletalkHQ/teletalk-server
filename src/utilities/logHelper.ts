@@ -18,13 +18,13 @@ const loggerHelper = {
     logger
       .bgRed(
         `${this.newLine()}${this.makeSeparator("TEST_REQUEST_BEGIN")}`,
-        logger.colors.black
+        "black"
       )
       .info();
     return this;
   },
   logRequestDetails(options, requestData, route, error) {
-    logger.bgRed(`${this.newLine()}request details:`, logger.colors.black).dir(
+    logger.bgRed(`${this.newLine()}request details:`, "black").dir(
       logger.levels.debug,
       {
         options,
@@ -40,7 +40,7 @@ const loggerHelper = {
     logger
       .bgYellow(
         `${this.newLine()}${this.makeSeparator("TEST_REQUEST_END")}`,
-        logger.colors.black
+        "black"
       )
       .info();
 
@@ -49,13 +49,13 @@ const loggerHelper = {
 
   logRequestBody(req, _res, next) {
     logger
-      .bgGreen(`${this.newLine()}body:`, logger.colors.black)
-      .dir(req.body, { depth: 8 });
+      .bgGreen(`${this.newLine()}body:`, "black")
+      .dir(logger.levels.debug, req.body, { depth: 8 });
     next();
   },
 
   logSeparator() {
-    logger.bgMagenta(this.makeSeparator(), logger.colors.black).info();
+    logger.bgMagenta(this.makeSeparator(), "black").info();
   },
 };
 

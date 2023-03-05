@@ -5,8 +5,6 @@ import { SocketRoute } from "@/interfaces";
 import { SocketMethods } from "@/types";
 
 class SocketRouteBuilder extends RouteBuilder {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
   protected route: SocketRoute;
 
   constructor() {

@@ -45,6 +45,11 @@ interface NativeModelError {
   reason: string;
   statusCode: number;
 }
+
+interface NativeModelItem {
+  error: NativeModelError;
+  value: any;
+}
 interface NativeModel {
   defaultValue: {
     value: any;
@@ -78,7 +83,7 @@ interface NativeModel {
     value: boolean;
     error: NativeModelError;
   };
-  trim: { value: boolean };
+  trim: { value: boolean; error?: NativeModelError };
   type: {
     value: string;
     error: NativeModelError;
@@ -126,6 +131,8 @@ export {
   IError,
   IoField,
   NativeModel,
+  NativeModelError,
+  NativeModelItem,
   Route,
   SocketRoute,
   VerifiedToken,

@@ -1,94 +1,94 @@
 import { customTypeof } from "custom-typeof";
 
-class NativeModelBuilder {
-  constructor() {
-    this.model = {
-      defaultValue: this.#initialValue(),
-      empty: this.#initialValue(),
-      items: this.#initialValue(),
-      length: this.#initialValue(),
-      // lowercase: this.#initialValueAndError(),
-      maxlength: this.#initialValue(),
-      minlength: this.#initialValue(),
-      numeric: this.#initialValue(),
-      required: this.#initialValue(),
-      trim: { value: undefined },
-      type: this.#initialValue(),
-      unique: this.#initialValue(),
-    };
-  }
+import { NativeModel, NativeModelError, NativeModelItem } from "@/interfaces";
 
-  #updateProperty(key, value, error) {
+class NativeModelBuilder {
+  model: NativeModel;
+
+  private updateProperty<T>(
+    key: keyof NativeModel,
+    value: T,
+    error?: NativeModelError
+  ) {
     this.model[key].value = value;
     if (error) this.model[key].error = error;
   }
 
-  #initialValue() {
-    return {
-      value: undefined,
-      error: {
-        description: "",
-        key: "",
-        message: "",
-        reason: undefined,
-        statusCode: undefined,
-      },
-    };
-  }
-
-  defaultValue(value) {
-    this.#updateProperty("defaultValue", value);
+  defaultValue(value: NativeModel["defaultValue"]["value"]) {
+    this.updateProperty<NativeModel["defaultValue"]["value"]>(
+      "defaultValue",
+      value
+    );
     return this;
   }
-  maxlength(value, error) {
-    this.#updateProperty("maxlength", value, error);
+  maxlength(value: NativeModel["maxlength"]["value"], error: NativeModelError) {
+    this.updateProperty<NativeModel["maxlength"]["value"]>(
+      "maxlength",
+      value,
+      error
+    );
     return this;
   }
-  minlength(value, error) {
-    this.#updateProperty("minlength", value, error);
+  minlength(value: NativeModel["minlength"]["value"], error: NativeModelError) {
+    this.updateProperty<NativeModel["minlength"]["value"]>(
+      "minlength",
+      value,
+      error
+    );
     return this;
   }
-  numeric(value, error) {
-    this.#updateProperty("numeric", value, error);
+  numeric(value: NativeModel["numeric"]["value"], error: NativeModelError) {
+    this.updateProperty<NativeModel["numeric"]["value"]>(
+      "numeric",
+      value,
+      error
+    );
     return this;
   }
-  type(value, error) {
-    this.#updateProperty("type", value, error);
+  type(value: NativeModel["type"]["value"], error: NativeModelError) {
+    this.updateProperty<NativeModel["type"]["value"]>("type", value, error);
     return this;
   }
-  empty(value, error) {
-    this.#updateProperty("empty", value, error);
+  empty(value: NativeModel["empty"]["value"], error: NativeModelError) {
+    this.updateProperty<NativeModel["empty"]["value"]>("empty", value, error);
     return this;
   }
-  required(value, error = {}) {
-    this.#updateProperty("required", value, error);
+  required(value: NativeModel["required"]["value"], error: NativeModelError) {
+    this.updateProperty<NativeModel["required"]["value"]>(
+      "required",
+      value,
+      error
+    );
     return this;
   }
-  trim(value) {
+  trim(value: NativeModel["trim"]["value"]) {
     this.model.trim = { value };
     return this;
   }
-  unique(value, error) {
-    this.#updateProperty("unique", value, error);
+  unique(value: NativeModel["unique"]["value"], error: NativeModelError) {
+    this.updateProperty<NativeModel["unique"]["value"]>("unique", value, error);
     return this;
   }
-  // lowercase(value, error) {
-  //   this.#updateProperty("lowercase", value, error);
+  // lowercase(value: NativeModel["lowercase"]["value"], error) {
+  //   this.#updateProperty<NativeModel["maxlength"]["value"]>("lowercase", value, error);//
   //   return this;
   // }
-  length(value, error) {
-    this.#updateProperty("length", value, error);
+  length(value: NativeModel["length"]["value"], error: NativeModelError) {
+    this.updateProperty<NativeModel["length"]["value"]>("length", value, error);
     return this;
   }
 
   build() {
-    Object.entries(this.model).forEach(([key, prop]) => {
+    Object.entries(this.model).forEach((item) => {
+      const key = item[0] as keyof NativeModel;
+      const prop = item[1] as NativeModelItem;
+
       if (customTypeof.isUndefined(prop.error?.reason, prop.error?.statusCode))
         delete this.model[key].error;
       if (customTypeof.isUndefined(prop.value)) delete this.model[key];
     });
 
-    return this.model;
+    return this.model as Partial<NativeModel>;
   }
 }
 

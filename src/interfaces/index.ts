@@ -38,6 +38,69 @@ interface IoField {
   required: boolean;
 }
 
+interface NativeModelError {
+  description: string;
+  key: string;
+  message: string;
+  reason: string;
+  statusCode: number;
+}
+interface NativeModel {
+  defaultValue: {
+    value: any;
+    error: NativeModelError;
+  };
+  empty: {
+    value: boolean;
+    error: NativeModelError;
+  };
+  items: {
+    value: any[];
+    error: NativeModelError;
+  };
+  length: {
+    value: number;
+    error: NativeModelError;
+  };
+  maxlength: {
+    value: number;
+    error: NativeModelError;
+  };
+  minlength: {
+    value: number;
+    error: NativeModelError;
+  };
+  numeric: {
+    value: boolean;
+    error: NativeModelError;
+  };
+  required: {
+    value: boolean;
+    error: NativeModelError;
+  };
+  trim: { value: boolean };
+  type: {
+    value: string;
+    error: NativeModelError;
+  };
+  unique: {
+    value: boolean;
+    error: NativeModelError;
+  };
+}
+interface MongoModel {
+  default: [unknown, IError];
+  empty: [boolean, IError];
+  items: [];
+  lowercase: [];
+  maxlength: [];
+  minlength: [];
+  required: [];
+  trim: [];
+  type: [];
+  unique: [];
+}
+
 interface Route {
   inputFields: IoField | Record<string, never>;
   outputFields: IoField | Record<string, never>;
@@ -51,7 +114,19 @@ interface SocketRoute extends Route {
 }
 
 interface VerifiedToken {
-  data: { payload: { tokenId: string } };
+  data: {
+    payload: {
+      tokenId: string;
+    };
+  };
 }
 
-export { Environments, IError, IoField, Route, SocketRoute, VerifiedToken };
+export {
+  Environments,
+  IError,
+  IoField,
+  NativeModel,
+  Route,
+  SocketRoute,
+  VerifiedToken,
+};

@@ -16,17 +16,17 @@ class MongoModelBuilder {
     };
   }
 
-  #updateProperty(modelKey, mongoModelKey) {
-    this.#setValue(modelKey, mongoModelKey);
-    this.#setMessage(modelKey, mongoModelKey);
+  private updateProperty(modelKey, mongoModelKey) {
+    this.setValue(modelKey, mongoModelKey);
+    this.setMessage(modelKey, mongoModelKey);
   }
-  #updatePropertyWithoutMessage(modelKey, mongoModelKey) {
-    this.#setValue(modelKey, mongoModelKey);
+  private updatePropertyWithoutMessage(modelKey, mongoModelKey) {
+    this.setValue(modelKey, mongoModelKey);
   }
-  #setValue(modelKey, mongoModelKey) {
+  private setValue(modelKey, mongoModelKey) {
     this.mongoModel[mongoModelKey || modelKey].push(this.model[modelKey].value);
   }
-  #setMessage(modelKey, mongoModelKey) {
+  private setMessage(modelKey, mongoModelKey) {
     this.mongoModel[mongoModelKey || modelKey].push(
       this.model[modelKey].error?.reason
     );
@@ -38,11 +38,11 @@ class MongoModelBuilder {
   }
 
   defaultValue() {
-    this.#updatePropertyWithoutMessage("defaultValue", "default");
+    this.updatePropertyWithoutMessage("defaultValue", "default");
     return this;
   }
   empty() {
-    this.#updatePropertyWithoutMessage("empty");
+    this.updatePropertyWithoutMessage("empty");
     return this;
   }
   // lowercase() {
@@ -50,27 +50,27 @@ class MongoModelBuilder {
   //   return this;
   // }
   maxlength() {
-    this.#updateProperty("maxlength");
+    this.updateProperty("maxlength");
     return this;
   }
   minlength() {
-    this.#updateProperty("minlength");
+    this.updateProperty("minlength");
     return this;
   }
   required() {
-    this.#updateProperty("required");
+    this.updateProperty("required");
     return this;
   }
   trim() {
-    this.#updatePropertyWithoutMessage("trim");
+    this.updatePropertyWithoutMessage("trim");
     return this;
   }
   type() {
-    this.#updatePropertyWithoutMessage("type");
+    this.updatePropertyWithoutMessage("type");
     return this;
   }
   unique() {
-    this.#updateProperty("unique");
+    this.updateProperty("unique");
     return this;
   }
   items(items) {

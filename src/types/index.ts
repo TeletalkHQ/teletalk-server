@@ -9,6 +9,6 @@ type NodeEnvValue =
   | "test_production"
   | "test_production_local";
 
-type LogLevel = "debug" | "error" | "info" | "warning";
+type LogLevel = "debug" | "error" | "info" | "warn";
 
 export { LogLevel, NodeEnvValue, SocketMethods };

@@ -1,6 +1,6 @@
-import { trier } from "simple-trier";
 import axios from "axios";
 import { errorThrower } from "utility-store";
+import { trier } from "simple-trier";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
@@ -11,17 +11,21 @@ import { loggerHelper } from "@/utilities/logHelper";
 class SmsClient {
   templates() {
     return {
-      verificationCode: (verificationCode, host) =>
+      verificationCode: (verificationCode: number, host: string) =>
         `verification code: ${verificationCode} ${loggerHelper.newLine()}${loggerHelper.newLine()} ${host}        
         `,
     };
   }
 
-  async sendVerificationCode(sendTo, host, verificationCode) {
+  async sendVerificationCode(
+    sendTo: string,
+    host: string,
+    verificationCode: number
+  ) {
     const text = this.templates().verificationCode(verificationCode, host);
     const { SMS_PROVIDER_SELECTOR } = envManager.getEnvironment();
 
-    const providers = [this.devProvider, this.#provider1, this.#provider2];
+    const providers = [this.devProvider, this.provider1, this.provider2];
     await trier(this.sendVerificationCode.name)
       .tryAsync(providers[SMS_PROVIDER_SELECTOR].bind(this), sendTo, text)
       .catch((error) => ({
@@ -32,11 +36,11 @@ class SmsClient {
       .runAsync();
   }
 
-  devProvider(sendTo, text) {
+  private async devProvider(sendTo: string, text: string) {
     logger.debug(`verificationCode sending to:${sendTo}`, `text:${text}`);
   }
 
-  async #provider1(sendTo, text) {
+  private async provider1(sendTo: string, text: string) {
     const {
       SMS_PROVIDER_1_HOST,
       SMS_PROVIDER_1_ROUTE,
@@ -64,7 +68,7 @@ class SmsClient {
 
     errorThrower(smsResult.status !== 200, errors.SEND_SMS_FAILED);
   }
-  async #provider2(sendTo, text) {
+  private async provider2(sendTo: string, text: string) {
     const {
       SMS_PROVIDER_2_HOST,
       SMS_PROVIDER_2_REPORT_URL,

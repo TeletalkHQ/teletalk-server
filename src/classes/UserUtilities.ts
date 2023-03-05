@@ -1,23 +1,23 @@
 import { UserUtilities as UserUtilitiesMain } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
+import { VerifiedToken } from "@/interfaces";
 
 class UserUtilities extends UserUtilitiesMain {
-  constructor(id) {
+  constructor() {
     super();
-    this.id = id;
   }
 
-  getDataFromVerifiedToken(verifiedToken) {
+  getDataFromVerifiedToken(verifiedToken: VerifiedToken) {
     return verifiedToken.data;
   }
-  getPayloadFromVerifiedToken(verifiedToken) {
+  getPayloadFromVerifiedToken(verifiedToken: VerifiedToken) {
     return this.getDataFromVerifiedToken(verifiedToken).payload;
   }
-  getUserIdFromVerifiedToken(verifiedToken) {
+  getUserIdFromVerifiedToken(verifiedToken: VerifiedToken) {
     return this.getPayloadFromVerifiedToken(verifiedToken).tokenId;
   }
-  getUserIdFromToken(token) {
+  getTokenId(token: string) {
     const verifiedToken = authManager.verifyToken(token);
     return this.getUserIdFromVerifiedToken(verifiedToken);
   }

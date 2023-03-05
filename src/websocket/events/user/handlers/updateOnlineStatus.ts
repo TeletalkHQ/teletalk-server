@@ -6,7 +6,7 @@ import { services } from "@/services";
 const updateOnlineStatus = async (socket) => {
   const token = authManager.getTokenFromSocket(socket);
 
-  const currentUserId = userUtilities.getUserIdFromToken(token);
+  const currentUserId = userUtilities.getTokenId(token);
 
   await services.updateOnlineStatus().run({
     currentUserId,

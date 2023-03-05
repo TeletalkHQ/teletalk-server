@@ -3,6 +3,7 @@ import { Trier } from "simple-trier";
 import { envManager } from "@/classes/EnvironmentManager";
 
 import { helpers } from "@/helpers";
+import { LogLevel } from "@/types";
 
 class AppConfigs {
   private configs = {
@@ -14,15 +15,12 @@ class AppConfigs {
 
   async setup() {
     const { NODE_ENV, LOG_LEVEL } = envManager.getEnvironment();
-    const level: string = LOG_LEVEL;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    logger.setLevel(logger.levels[level]);
+    logger.setLevel(logger.levels[LOG_LEVEL as LogLevel]);
 
     if (NODE_ENV.includes("test"))
       Trier.changeGlobalConfigs({
-        canPrintError: false,
         callerName: "unknownCaller",
+        canPrintError: false,
       });
   }
 

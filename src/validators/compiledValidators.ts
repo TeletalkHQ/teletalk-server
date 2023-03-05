@@ -1,4 +1,4 @@
-import { ValidationModelBuilder } from "@/classes/ValidationModelBuilder";
+import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
 
 import { models } from "@/models";
 

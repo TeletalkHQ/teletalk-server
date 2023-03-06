@@ -1,3 +1,5 @@
+import { NativeModel } from "@/interfaces";
+
 type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
 type NodeEnvValue =
@@ -11,4 +13,6 @@ type NodeEnvValue =
 
 type LogLevel = "debug" | "error" | "info" | "warn";
 
-export { LogLevel, NodeEnvValue, SocketMethods };
+type NativeModelKey = keyof NativeModel;
+
+export { LogLevel, NativeModelKey, NodeEnvValue, SocketMethods };

@@ -118,6 +118,10 @@ interface SocketRoute extends Route {
   method: SocketMethods;
 }
 
+interface StringMap {
+  [key: string]: any;
+}
+
 interface VerifiedToken {
   data: {
     payload: {
@@ -135,5 +139,6 @@ export {
   NativeModelItem,
   Route,
   SocketRoute,
+  StringMap,
   VerifiedToken,
 };

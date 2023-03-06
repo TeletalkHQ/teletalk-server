@@ -4,65 +4,59 @@ import { models } from "@/models";
 
 const validationModels = models.validation;
 
-const bio = ValidationModelBuilder.validatorCompiler(validationModels.user.bio);
+const bio = ValidationModelBuilder.compiler(validationModels.user.bio);
 
-const chatId = ValidationModelBuilder.validatorCompiler(
-  validationModels.chat.chatId
-);
+const chatId = ValidationModelBuilder.compiler(validationModels.chat.chatId);
 
-const messageId = ValidationModelBuilder.validatorCompiler(
+const messageId = ValidationModelBuilder.compiler(
   validationModels.chat.messageId
 );
 
-const messageText = ValidationModelBuilder.validatorCompiler(
+const messageText = ValidationModelBuilder.compiler(
   validationModels.chat.messageText
 );
 
-const participantId = ValidationModelBuilder.validatorCompiler(
+const participantId = ValidationModelBuilder.compiler(
   validationModels.chat.participantId
 );
 
-const countryCode = ValidationModelBuilder.validatorCompiler(
+const countryCode = ValidationModelBuilder.compiler(
   validationModels.user.countryCode
 );
 
-const countryName = ValidationModelBuilder.validatorCompiler(
+const countryName = ValidationModelBuilder.compiler(
   validationModels.user.countryName
 );
 
-const createdAt = ValidationModelBuilder.validatorCompiler(
+const createdAt = ValidationModelBuilder.compiler(
   validationModels.common.createdAt
 );
 
-const firstName = ValidationModelBuilder.validatorCompiler(
+const firstName = ValidationModelBuilder.compiler(
   validationModels.user.firstName
 );
 
-const lastName = ValidationModelBuilder.validatorCompiler(
+const lastName = ValidationModelBuilder.compiler(
   validationModels.user.lastName
 );
 
-const macAddress = ValidationModelBuilder.validatorCompiler(
+const macAddress = ValidationModelBuilder.compiler(
   validationModels.user.macAddress
 );
 
-const phoneNumber = ValidationModelBuilder.validatorCompiler(
+const phoneNumber = ValidationModelBuilder.compiler(
   validationModels.user.phoneNumber
 );
 
-const userId = ValidationModelBuilder.validatorCompiler(
-  validationModels.user.userId
-);
+const userId = ValidationModelBuilder.compiler(validationModels.user.userId);
 
-const token = ValidationModelBuilder.validatorCompiler(
-  validationModels.user.token
-);
+const token = ValidationModelBuilder.compiler(validationModels.user.token);
 
-const username = ValidationModelBuilder.validatorCompiler(
+const username = ValidationModelBuilder.compiler(
   validationModels.user.username
 );
 
-const verificationCode = ValidationModelBuilder.validatorCompiler(
+const verificationCode = ValidationModelBuilder.compiler(
   validationModels.user.verificationCode
 );
 
@@ -79,8 +73,8 @@ const compiledValidators = {
   messageText,
   participantId,
   phoneNumber,
-  userId,
   token,
+  userId,
   username,
   verificationCode,
 };

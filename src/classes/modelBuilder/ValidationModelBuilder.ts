@@ -5,19 +5,18 @@ import Validator, {
 } from "fastest-validator";
 import { objectUtilities, errorThrower } from "utility-store";
 
-import { NativeModel, StringMap } from "@/interfaces";
+import { NativeModel } from "@/interfaces";
 
 import { NativeModelKey } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const compiler = new Validator({
-  useNewCustomCheckerFunction: true,
-});
-
 type MessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationRuleObject;
 
+const compiler = new Validator({
+  useNewCustomCheckerFunction: true,
+});
 class ValidationModelBuilder {
   private model: NativeModel;
   private validationModel: ValidationRuleObject;
@@ -99,8 +98,10 @@ class ValidationModelBuilder {
     return this;
   }
 
-  build(): StringMap {
-    return objectUtilities.clarify(this.validationModel);
+  build() {
+    return objectUtilities.clarify(
+      this.validationModel
+    ) as ValidationRuleObject;
   }
 }
 

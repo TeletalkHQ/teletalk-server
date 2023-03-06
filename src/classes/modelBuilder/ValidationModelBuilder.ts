@@ -1,102 +1,106 @@
-import Validator from "fastest-validator";
 import { customTypeof } from "custom-typeof";
-import { objectUtilities } from "utility-store";
+import Validator, {
+  ValidationRuleObject,
+  MessagesType,
+} from "fastest-validator";
+import { objectUtilities, errorThrower } from "utility-store";
 
-import { errorThrower } from "utility-store";
+import { NativeModel, StringMap } from "@/interfaces";
+
+import { NativeModelKey } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const fastestValidatorCompiler = new Validator();
+const compiler = new Validator({
+  useNewCustomCheckerFunction: true,
+});
+
+type MessageKey = keyof MessagesType;
+type ValidationSchemaKey = keyof ValidationRuleObject;
 
 class ValidationModelBuilder {
-  #model = {};
+  private model: NativeModel;
+  private validationModel: ValidationRuleObject;
 
-  #validationModel = {
-    empty: undefined,
-    max: undefined,
-    min: undefined,
-    numeric: undefined,
-    required: undefined,
-    trim: undefined,
-    type: undefined,
-    unique: undefined,
-    messages: {
-      required: undefined,
-      string: undefined,
-      stringEmpty: undefined,
-      stringMax: undefined,
-      stringMin: undefined,
-      stringNumeric: undefined,
-    },
-  };
-
-  #updateProperty(validationKey, modelKey, messageKey) {
-    this.#setValue(validationKey, modelKey);
-    this.#setMessage(modelKey, messageKey);
+  private updateProperty(
+    validationKey: ValidationSchemaKey,
+    modelKey: NativeModelKey,
+    messageKey: MessageKey
+  ) {
+    this.setValue(modelKey, validationKey);
+    this.setMessage(modelKey, messageKey);
   }
-  #addPropertyWithoutMessage(validationKey, modelKey) {
-    this.#setValue(validationKey, modelKey);
+  private updatePropertyWithoutMessage(
+    modelKey: NativeModelKey,
+    validationKey: ValidationSchemaKey
+  ) {
+    this.setValue(modelKey, validationKey);
   }
-  #setValue(validationKey, modelKey) {
-    this.#validationModel[validationKey] = this.#model[modelKey].value;
+  private setValue(
+    modelKey: NativeModelKey,
+    validationKey: ValidationSchemaKey
+  ) {
+    this.validationModel[validationKey] = this.model[modelKey].value;
   }
-  #setMessage(modelKey, messageKey) {
-    this.#validationModel.messages[messageKey] =
-      this.#model[modelKey].error.reason;
+  private setMessage(modelKey: NativeModelKey, messageKey: MessageKey) {
+    if (this.validationModel.messages)
+      this.validationModel.messages[messageKey] =
+        this.model[modelKey].error?.reason || "UNKNOWN_REASON";
   }
 
-  static validatorCompiler(validationModel) {
+  static compiler(validationModel: ValidationRuleObject) {
     errorThrower(
       customTypeof.isNotObject(validationModel),
       errors.VALIDATION_MODEL_IS_NOT_OBJECT
     );
 
-    return fastestValidatorCompiler.compile(validationModel);
+    return compiler.compile(validationModel);
   }
 
-  setModel(model) {
-    this.#model = model;
+  setModel(model: NativeModel) {
+    this.model = model;
     return this;
   }
+
   empty() {
-    this.#updateProperty("empty", "empty", "stringEmpty");
+    this.updateProperty("empty", "empty", "stringEmpty");
     return this;
   }
   length() {
-    this.#updateProperty("length", "length", "length");
+    this.updateProperty("length", "length", "length");
     return this;
   }
   max() {
-    this.#updateProperty("max", "maxlength", "stringMax");
+    this.updateProperty("max", "maxlength", "stringMax");
     return this;
   }
   min() {
-    this.#updateProperty("min", "minlength", "stringMin");
+    this.updateProperty("min", "minlength", "stringMin");
     return this;
   }
   numeric() {
-    this.#updateProperty("numeric", "numeric", "stringNumeric");
+    this.updateProperty("numeric", "numeric", "stringNumeric");
     return this;
   }
   trim() {
-    this.#addPropertyWithoutMessage("trim", "trim");
+    this.updatePropertyWithoutMessage("trim", "trim");
     return this;
   }
   type() {
-    this.#updateProperty("type", "type", "string");
+    this.updateProperty("type", "type", "string");
     return this;
   }
   unique() {
-    this.#updateProperty("unique", "unique", "unique");
+    this.updateProperty("unique", "unique", "unique");
     return this;
   }
   required() {
-    this.#updateProperty("required", "required", "required");
+    this.updateProperty("required", "required", "required");
     return this;
   }
 
-  build() {
-    return objectUtilities.clarify(this.#validationModel);
+  build(): StringMap {
+    return objectUtilities.clarify(this.validationModel);
   }
 }
 

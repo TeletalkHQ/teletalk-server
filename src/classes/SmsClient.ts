@@ -6,7 +6,7 @@ import { envManager } from "@/classes/EnvironmentManager";
 
 import { errors } from "@/variables/errors";
 
-import { loggerHelper } from "@/utilities/logHelper";
+import { loggerHelper } from "@/helpers/logHelper";
 
 class SmsClient {
   templates() {

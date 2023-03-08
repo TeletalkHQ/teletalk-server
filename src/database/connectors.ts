@@ -4,7 +4,7 @@ import redis from "redis";
 import { appConfigs } from "@/classes/AppConfigs";
 import { envManager } from "@/classes/EnvironmentManager";
 
-import { crashServer } from "@/utilities/utilities";
+import { utilities } from "@/utilities";
 
 //REFACTOR: all major
 
@@ -25,7 +25,7 @@ const mongodbConnector = () => {
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
     },
-    crashServer
+    utilities.crashServer
   );
 };
 

@@ -25,11 +25,6 @@ interface Environments {
   SMS_PROVIDER_SELECTOR: number;
 }
 
-interface IError {
-  key: string;
-  reason: string;
-  statusCode: number;
-}
 interface IoField {
   type: string;
   value: undefined | IoField | IoField[];
@@ -91,18 +86,18 @@ interface NativeModel {
     error: NativeModelError;
   };
 }
-interface MongoModel {
-  default: [unknown, IError];
-  empty: [boolean, IError];
-  items: [];
-  lowercase: [];
-  maxlength: [];
-  minlength: [];
-  required: [];
-  trim: [];
-  type: [];
-  unique: [];
-}
+// interface MongoModel {
+//   default: [unknown, IError];
+//   empty: [boolean, IError];
+//   items: [];
+//   lowercase: [];
+//   maxlength: [];
+//   minlength: [];
+//   required: [];
+//   trim: [];
+//   type: [];
+//   unique: [];
+// }
 
 interface Route {
   inputFields: IoField | Record<string, never>;
@@ -146,7 +141,6 @@ export { LogLevel, NativeModelKey, NodeEnvValue, SocketMethods };
 
 export {
   Environments,
-  IError,
   IoField,
   NativeModel,
   NativeModelError,

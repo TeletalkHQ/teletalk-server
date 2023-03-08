@@ -9,7 +9,7 @@ class AppConfigs {
   private configs = {
     db: {
       MONGO_URL: helpers.getMongoUrl(),
-      MONGO_URL_FULL: helpers.contactMongoUrlWithCollectionName(),
+      MONGO_URL_FULL: helpers.makeMongoFullUrl(),
     },
   };
 

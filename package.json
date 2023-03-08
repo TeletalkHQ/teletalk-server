@@ -63,7 +63,7 @@
     "serve-favicon": "^2.5.0",
     "simple-trier": "^3.1.1",
     "socket.io": "^4.6.1",
-    "utility-store": "^11.0.11",
+    "utility-store": "^11.1.2",
     "winston": "^3.8.2"
   },
   "devDependencies": {

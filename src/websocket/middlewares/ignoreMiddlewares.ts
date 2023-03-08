@@ -1,17 +1,11 @@
 /* eslint-disable indent */
-import {
-  checkIgnoreApplyMiddlewaresRequirements,
-  executeMiddlewares,
-  isUrlMatchWithReqUrl,
-} from "@/utilities/utilities";
+import { utilities } from "@/utilities";
 
 const ignoreMiddlewares = (url, ...middlewares) => {
-  checkIgnoreApplyMiddlewaresRequirements(url, middlewares);
-
   return async (req, res, next) => {
-    return isUrlMatchWithReqUrl(url, req.url)
+    return utilities.isUrlMatchWithReqUrl(url, req.url)
       ? next()
-      : await executeMiddlewares({
+      : await utilities.executeMiddlewares({
           middlewares,
           next,
           req,

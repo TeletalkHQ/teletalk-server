@@ -23,7 +23,12 @@ const loggerHelper = {
       .info();
     return this;
   },
-  logRequestDetails(options, requestData, route, error) {
+  logRequestDetails(
+    options: object,
+    requestData: unknown,
+    route: object,
+    error: unknown
+  ) {
     logger.bgRed(`${this.newLine()}request details:`, "black").dir(
       logger.levels.debug,
       {
@@ -47,19 +52,18 @@ const loggerHelper = {
     return this;
   },
 
-  logRequestBody(req, _res, next) {
-    logger
-      .bgGreen(`${this.newLine()}body:`, "black")
-      .dir(logger.levels.debug, req.body, { depth: 8 });
-    next();
-  },
+  // logRequestBody(req, _res, next) {
+  //   logger
+  //     .bgGreen(`${this.newLine()}body:`, "black")
+  //     .dir(logger.levels.debug, req.body, { depth: 8 });
+  //   next();
+  // },
 
   logSeparator() {
     logger.bgMagenta(this.makeSeparator(), "black").info();
   },
 };
 
-loggerHelper.logRequestBody = loggerHelper.logRequestBody.bind(loggerHelper);
 loggerHelper.newLine = loggerHelper.newLine.bind(loggerHelper);
 
 export { loggerHelper };

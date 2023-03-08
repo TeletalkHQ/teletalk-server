@@ -541,6 +541,12 @@ const METHOD_NOT_ALLOWED = errorBuilder
   .statusCode(405)
   .build();
 
+const ONLINE_INVALID_TYPE = errorBuilder
+  .create()
+  .reason(UNIQUE_ERROR_IDS.ONLINE_INVALID_TYPE)
+  .key(ERROR_KEYS.ONLINE_VALIDATION)
+  .build();
+
 const ONLINE_REQUIRED = errorBuilder
   .create()
   .reason(UNIQUE_ERROR_IDS.ONLINE_REQUIRED)
@@ -1054,6 +1060,7 @@ const userErrors = {
   MESSAGES_INVALID_TYPE,
   MESSAGES_REQUIRED,
   METHOD_NOT_ALLOWED,
+  ONLINE_INVALID_TYPE,
   ONLINE_REQUIRED,
   PARTICIPANT_EMPTY,
   PARTICIPANT_ID_EMPTY,

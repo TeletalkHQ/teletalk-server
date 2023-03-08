@@ -2,13 +2,15 @@ import { customTypeof } from "custom-typeof";
 
 import { NativeModel, NativeModelError, NativeModelItem } from "@/types";
 
+type ModelError = NativeModelError;
+
 class NativeModelBuilder {
   model: NativeModel;
 
   private updateProperty<T>(
     key: keyof NativeModel,
     value: T,
-    error?: NativeModelError
+    error?: ModelError
   ) {
     this.model[key].value = value;
     if (error) this.model[key].error = error;
@@ -21,7 +23,7 @@ class NativeModelBuilder {
     );
     return this;
   }
-  maxlength(value: NativeModel["maxlength"]["value"], error: NativeModelError) {
+  maxlength(value: NativeModel["maxlength"]["value"], error: ModelError) {
     this.updateProperty<NativeModel["maxlength"]["value"]>(
       "maxlength",
       value,
@@ -29,7 +31,7 @@ class NativeModelBuilder {
     );
     return this;
   }
-  minlength(value: NativeModel["minlength"]["value"], error: NativeModelError) {
+  minlength(value: NativeModel["minlength"]["value"], error?: ModelError) {
     this.updateProperty<NativeModel["minlength"]["value"]>(
       "minlength",
       value,
@@ -37,7 +39,7 @@ class NativeModelBuilder {
     );
     return this;
   }
-  numeric(value: NativeModel["numeric"]["value"], error: NativeModelError) {
+  numeric(value: NativeModel["numeric"]["value"], error: ModelError) {
     this.updateProperty<NativeModel["numeric"]["value"]>(
       "numeric",
       value,
@@ -45,15 +47,15 @@ class NativeModelBuilder {
     );
     return this;
   }
-  type(value: NativeModel["type"]["value"], error: NativeModelError) {
+  type(value: NativeModel["type"]["value"], error: ModelError) {
     this.updateProperty<NativeModel["type"]["value"]>("type", value, error);
     return this;
   }
-  empty(value: NativeModel["empty"]["value"], error: NativeModelError) {
+  empty(value: NativeModel["empty"]["value"], error?: ModelError) {
     this.updateProperty<NativeModel["empty"]["value"]>("empty", value, error);
     return this;
   }
-  required(value: NativeModel["required"]["value"], error: NativeModelError) {
+  required(value: NativeModel["required"]["value"], error: ModelError) {
     this.updateProperty<NativeModel["required"]["value"]>(
       "required",
       value,
@@ -65,7 +67,7 @@ class NativeModelBuilder {
     this.model.trim = { value };
     return this;
   }
-  unique(value: NativeModel["unique"]["value"], error: NativeModelError) {
+  unique(value: NativeModel["unique"]["value"], error: ModelError) {
     this.updateProperty<NativeModel["unique"]["value"]>("unique", value, error);
     return this;
   }
@@ -73,7 +75,7 @@ class NativeModelBuilder {
   //   this.#updateProperty<NativeModel["maxlength"]["value"]>("lowercase", value, error);//
   //   return this;
   // }
-  length(value: NativeModel["length"]["value"], error: NativeModelError) {
+  length(value: NativeModel["length"]["value"], error: ModelError) {
     this.updateProperty<NativeModel["length"]["value"]>("length", value, error);
     return this;
   }
@@ -88,7 +90,7 @@ class NativeModelBuilder {
       if (customTypeof.isUndefined(prop.value)) delete this.model[key];
     });
 
-    return this.model as Partial<NativeModel>;
+    return this.model as NativeModel;
   }
 }
 

@@ -77,7 +77,6 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/lodash": "^4.14.191",
     "@types/module-alias": "^2.0.1",
-    "@types/mongoose": "^5.11.97",
     "@types/mongoose-unique-validator": "^1.0.7",
     "@types/node": "^18.14.1",
     "@types/socket.io": "^3.0.2",

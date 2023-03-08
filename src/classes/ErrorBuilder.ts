@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { IError } from "@/interfaces";
+import { IError } from "@/types";
 
 import { localErrors } from "@/variables/errors/local";
 

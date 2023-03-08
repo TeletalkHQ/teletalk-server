@@ -1,6 +1,6 @@
 import { customTypeof } from "custom-typeof";
 
-import { NativeModel, NativeModelError, NativeModelItem } from "@/interfaces";
+import { NativeModel, NativeModelError, NativeModelItem } from "@/types";
 
 class NativeModelBuilder {
   model: NativeModel;

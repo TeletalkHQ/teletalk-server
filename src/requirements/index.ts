@@ -1,3 +1,5 @@
 import { databaseRequirements as database } from "@/requirements/database";
 
-export { database };
+const requirements = { database };
+
+export { requirements };

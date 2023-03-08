@@ -1,7 +1,7 @@
 import { UserUtilities as UserUtilitiesMain } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
-import { VerifiedToken } from "@/interfaces";
+import { VerifiedToken } from "@/types";
 
 class UserUtilities extends UserUtilitiesMain {
   constructor() {

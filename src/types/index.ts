@@ -1,3 +1,16 @@
+import { ValidationError } from "fastest-validator";
+
+interface Cellphone {
+  countryCode: string;
+  countryName: string;
+  phoneNumber: string;
+}
+
+interface Contact extends Cellphone {
+  firstName: string;
+  lastName: string;
+}
+
 interface Environments {
   LOG_LEVEL: string;
   MONGO_COLLECTION_NAME: string;
@@ -137,16 +150,26 @@ type LogLevel = "debug" | "error" | "info" | "warn";
 
 type NativeModelKey = keyof NativeModel;
 
-export { LogLevel, NativeModelKey, NodeEnvValue, SocketMethods };
+type ValidationResult =
+  | true
+  | ValidationError[]
+  | Promise<true | ValidationError[]>;
 
 export {
+  Cellphone,
+  Contact,
   Environments,
   IoField,
+  LogLevel,
   NativeModel,
   NativeModelError,
   NativeModelItem,
+  NativeModelKey,
+  NodeEnvValue,
   Route,
+  SocketMethods,
   SocketRoute,
   StringMap,
+  ValidationResult,
   VerifiedToken,
 };

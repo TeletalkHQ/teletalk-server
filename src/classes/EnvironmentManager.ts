@@ -1,4 +1,4 @@
-import { Environments } from "@/interfaces";
+import { Environments } from "@/types";
 
 import { NodeEnvValue } from "@/types";
 

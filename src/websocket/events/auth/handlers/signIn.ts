@@ -7,13 +7,12 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { models } from "@/models";
 
-import { getHostFromRequest } from "@/utilities/utilities";
-import { passwordGenerator } from "@/utilities/passwordGenerator";
+import { utilities } from "@/utilities";
 
 import { validators } from "@/validators";
 
 const signIn = async (req, res) => {
-  const verificationCode = passwordGenerator();
+  const verificationCode = utilities.passwordGenerator();
   await validateVerificationCode(verificationCode);
 
   const cellphone = userUtilities.extractCellphone(req.body);

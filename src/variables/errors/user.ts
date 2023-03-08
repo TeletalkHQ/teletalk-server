@@ -3,15 +3,21 @@ import { errorBuilder } from "@/classes/ErrorBuilder";
 import { ERROR_KEYS } from "@/variables/others/errorKeys";
 import { UNIQUE_ERROR_IDS } from "@/variables/others/uniqueErrorIds";
 
-const BIO_INVALID_TYPE = errorBuilder
-  .create()
-  .reason(UNIQUE_ERROR_IDS.BIO_INVALID_TYPE)
-  .key(ERROR_KEYS.BIO_VALIDATION)
-  .build();
-
 const BIO_EMPTY = errorBuilder
   .create()
   .reason(UNIQUE_ERROR_IDS.BIO_EMPTY)
+  .key(ERROR_KEYS.BIO_VALIDATION)
+  .build();
+
+const BIO_INVALID = errorBuilder
+  .create()
+  .reason(UNIQUE_ERROR_IDS.BIO_INVALID)
+  .key(ERROR_KEYS.BIO_VALIDATION)
+  .build();
+
+const BIO_INVALID_TYPE = errorBuilder
+  .create()
+  .reason(UNIQUE_ERROR_IDS.BIO_INVALID_TYPE)
   .key(ERROR_KEYS.BIO_VALIDATION)
   .build();
 
@@ -541,6 +547,12 @@ const METHOD_NOT_ALLOWED = errorBuilder
   .statusCode(405)
   .build();
 
+const ONLINE_INVALID_TYPE = errorBuilder
+  .create()
+  .reason(UNIQUE_ERROR_IDS.ONLINE_INVALID_TYPE)
+  .key(ERROR_KEYS.ONLINE_VALIDATION)
+  .build();
+
 const ONLINE_REQUIRED = errorBuilder
   .create()
   .reason(UNIQUE_ERROR_IDS.ONLINE_REQUIRED)
@@ -966,6 +978,7 @@ const VERIFICATION_CODE_MAXLENGTH_REACH = errorBuilder
 
 const userErrors = {
   BIO_EMPTY,
+  BIO_INVALID,
   BIO_INVALID_TYPE,
   BIO_MAXLENGTH_REACH,
   BIO_MINLENGTH_REACH,
@@ -1054,6 +1067,7 @@ const userErrors = {
   MESSAGES_INVALID_TYPE,
   MESSAGES_REQUIRED,
   METHOD_NOT_ALLOWED,
+  ONLINE_INVALID_TYPE,
   ONLINE_REQUIRED,
   PARTICIPANT_EMPTY,
   PARTICIPANT_ID_EMPTY,

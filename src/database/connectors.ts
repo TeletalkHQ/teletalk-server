@@ -6,6 +6,8 @@ import { envManager } from "@/classes/EnvironmentManager";
 
 import { crashServer } from "@/utilities/utilities";
 
+//REFACTOR: all major
+
 const mongodbConnector = () => {
   const configs = appConfigs.getConfigs();
 
@@ -16,11 +18,15 @@ const mongodbConnector = () => {
     )
   );
 
-  return mongoose.connect(configs.db.MONGO_URL_FULL, {
-    keepAlive: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  return mongoose.connect(
+    configs.db.MONGO_URL_FULL,
+    {
+      keepAlive: true,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
+    },
+    crashServer
+  );
 };
 
 const redisConnector = async () => {
@@ -28,7 +34,11 @@ const redisConnector = async () => {
   const { REDIS_PASSWORD } = envManager.getEnvironment();
 
   const storage = redis.createClient({
-    socket: REDIS_CONNECTION_OPTIONS,
+    socket: {
+      tls: true,
+      port: +REDIS_CONNECTION_OPTIONS.port,
+      host: REDIS_CONNECTION_OPTIONS.host,
+    },
     password: REDIS_PASSWORD,
   });
 
@@ -58,8 +68,14 @@ const fixRedisHost = () => {
   const { REDIS_DEFAULT_HOST, REDIS_HOST, REDIS_PORT } =
     envManager.getEnvironment();
 
-  if ([REDIS_HOST, REDIS_PORT].some((item = "") => item.includes("tcp://"))) {
-    return (REDIS_HOST || REDIS_PORT).replace("tcp://", "").split(":")[0];
+  if (
+    [REDIS_HOST, REDIS_PORT.toString()].some((item = "") =>
+      item.includes("tcp://")
+    )
+  ) {
+    return (REDIS_HOST || REDIS_PORT.toString())
+      .replace("tcp://", "")
+      .split(":")[0];
   }
 
   return REDIS_HOST || REDIS_DEFAULT_HOST;
@@ -68,11 +84,11 @@ const fixRedisHost = () => {
 const fixRedisPort = () => {
   const { REDIS_DEFAULT_PORT, REDIS_PORT } = envManager.getEnvironment();
 
-  if (REDIS_PORT?.includes("tcp://")) {
-    return REDIS_PORT.split(":")[2];
+  if (REDIS_PORT?.toString().includes("tcp://")) {
+    return REDIS_PORT.toString().split(":")[2];
   }
 
-  return REDIS_PORT || REDIS_DEFAULT_PORT;
+  return REDIS_PORT.toString() || REDIS_DEFAULT_PORT.toString();
 };
 
 export { mongodbConnector, redisConnector };

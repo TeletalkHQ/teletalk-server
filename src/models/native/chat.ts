@@ -1,4 +1,4 @@
-import { nativeModelBuilder } from "@/classes/NativeModelBuilder";
+import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
 
 import { commonModels } from "@/models/native/common";
 

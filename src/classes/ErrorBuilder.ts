@@ -1,12 +1,12 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { IError } from "@/interfaces";
+import { NativeModelError } from "@/types";
 
 import { localErrors } from "@/variables/errors/local";
 
 class ErrorBuilder {
-  error: IError;
+  error: NativeModelError;
 
   key(key: string) {
     this.error.key = key;

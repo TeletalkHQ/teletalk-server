@@ -1,4 +1,4 @@
-import { nativeModelBuilder } from "@/classes/NativeModelBuilder";
+import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
 
 import { commonModels } from "@/models/native/common";
 
@@ -73,7 +73,7 @@ const macAddress = nativeModelBuilder
 
 const online = nativeModelBuilder
   .create()
-  .type(FIELD_TYPE.BOOLEAN)
+  .type(FIELD_TYPE.BOOLEAN, errors.ONLINE_INVALID_TYPE)
   .required(true, errors.ONLINE_REQUIRED)
   .defaultValue(false)
   .build();

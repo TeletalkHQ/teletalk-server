@@ -1,6 +1,6 @@
 import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
 
-import { SocketRoute } from "@/interfaces";
+import { SocketRoute } from "@/types";
 
 import { SocketMethods } from "@/types";
 

@@ -5,7 +5,7 @@ import Validator, {
 } from "fastest-validator";
 import { objectUtilities, errorThrower } from "utility-store";
 
-import { NativeModel } from "@/interfaces";
+import { NativeModel } from "@/types";
 
 import { NativeModelKey } from "@/types";
 

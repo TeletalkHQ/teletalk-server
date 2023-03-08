@@ -1,4 +1,4 @@
-import { nativeModelBuilder } from "@/classes/NativeModelBuilder";
+import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
 
 import { errors } from "@/variables/errors";
 import { FIELD_TYPE } from "@/variables/others/fieldType";

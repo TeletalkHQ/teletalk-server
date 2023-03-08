@@ -4,7 +4,7 @@ import { trier } from "simple-trier";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
-import { VerifiedToken } from "@/interfaces";
+import { VerifiedToken } from "@/types";
 
 import { errors } from "@/variables/errors";
 class AuthManager {

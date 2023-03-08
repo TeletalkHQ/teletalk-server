@@ -1,24 +1,22 @@
 import { compiledValidators } from "@/validators/compiledValidators";
 
-import { validatorErrorChecker } from "@/validators/validatorErrorChecker";
+import { validationChecker } from "@/validators/validationChecker";
 
-const chatIdValidator = async (chatId) => {
-  const validationResult = await compiledValidators.chatId({ chatId });
-  validatorErrorChecker.chatId(validationResult, chatId);
+const chatIdValidator = async (chatId: unknown) => {
+  const validationResult = await compiledValidators.chatId(chatId);
+  validationChecker.chatId(validationResult, chatId);
 };
 
-const messageTextValidator = async (messageText) => {
-  const validationResult = await compiledValidators.messageText({
-    message: messageText,
-  });
-  validatorErrorChecker.message(validationResult, messageText);
+const messageTextValidator = async (messageText: unknown) => {
+  const validationResult = await compiledValidators.messageText(messageText);
+  validationChecker.message(validationResult, messageText);
 };
 
-const participantIdValidator = async (participantId) => {
-  const validationResult = await compiledValidators.participantId({
-    participantId,
-  });
-  validatorErrorChecker.participantId(validationResult, participantId);
+const participantIdValidator = async (participantId: unknown) => {
+  const validationResult = await compiledValidators.participantId(
+    participantId
+  );
+  validationChecker.participantId(validationResult, participantId);
 };
 
 const chatValidators = {

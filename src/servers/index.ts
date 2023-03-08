@@ -3,17 +3,18 @@
 
 import PrettyError from "pretty-error";
 
+import http from "http";
+
 import "@/variables/others/customGlobals";
 import "@/helpers/requireDotenv";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
-import { database } from "@/requirements";
+import { requirements } from "@/requirements";
 
-import { crateHttpServer } from "@/servers/http";
 import { websocketServer } from "@/servers/websocket";
 
-import { logEnvironments } from "@/utilities/utilities";
+import { utilities } from "@/utilities";
 // import { setupMaster, setupWorker } from "@socket.io/sticky";
 // import { setupPrimary, createAdapter } from "@socket.io/cluster-adapter";
 // import { Server } from "socket.io";
@@ -30,7 +31,7 @@ const serverListenerCb = () => {
 
 const runner = async () => {
   // if (cluster.isPrimary) {
-  logEnvironments();
+  utilities.logEnvironments();
 
   // const NUM_WORKERS = os.cpus().length;
 
@@ -48,8 +49,8 @@ const runner = async () => {
 
   // for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
   // } else {
-  await database();
-  const httpServer = crateHttpServer();
+  await requirements.database();
+  const httpServer = http.createServer();
   websocketServer(httpServer);
   httpServer.listen(EXACT_PORT, serverListenerCb);
 

@@ -1,5 +1,7 @@
-import { validationErrorBuilder } from "utility-store";
-import { errorThrower } from "utility-store";
+import {
+  errorThrower,
+  validationChecker as validationCheckerMain,
+} from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
 import { userUtilities } from "@/classes/UserUtilities";
@@ -7,53 +9,49 @@ import { userUtilities } from "@/classes/UserUtilities";
 import { models } from "@/models";
 
 import { compiledValidators } from "@/validators/compiledValidators";
-import { validatorErrorChecker } from "@/validators/validatorErrorChecker";
+import { validationChecker } from "@/validators/validationChecker";
+
+import { Cellphone, Contact } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const bioValidator = async (bio) => {
+const bioValidator = async (bio: unknown) => {
   const validationResult = await compiledValidators.bio({
     bio,
   });
 
-  validatorErrorChecker.bio(validationResult, bio);
+  validationChecker.bio(validationResult, bio);
 };
 
-const countryCodeValidator = async (countryCode) => {
-  const validationResult = await compiledValidators.countryCode({
-    countryCode,
-  });
-  validatorErrorChecker.countryCode(validationResult, countryCode);
+const countryCodeValidator = async (countryCode: unknown) => {
+  const validationResult = await compiledValidators.countryCode(countryCode);
+  validationChecker.countryCode(validationResult, countryCode);
 };
 
-const countryNameValidator = async (countryName) => {
-  const validationResult = await compiledValidators.countryName({
-    countryName,
-  });
-  validatorErrorChecker.countryName(validationResult, countryName);
+const countryNameValidator = async (countryName: unknown) => {
+  const validationResult = await compiledValidators.countryName(countryName);
+  validationChecker.countryName(validationResult, countryName);
 };
 
-const firstNameValidator = async (firstName) => {
-  const validationResult = await compiledValidators.firstName({ firstName });
+const firstNameValidator = async (firstName: unknown) => {
+  const validationResult = await compiledValidators.firstName(firstName);
 
-  validatorErrorChecker.firstName(validationResult, firstName);
+  validationChecker.firstName(validationResult, firstName);
 };
 
-const lastNameValidator = async (lastName) => {
-  const validationResult = await compiledValidators.lastName({ lastName });
+const lastNameValidator = async (lastName: unknown) => {
+  const validationResult = await compiledValidators.lastName(lastName);
 
-  validatorErrorChecker.lastName(validationResult, lastName);
+  validationChecker.lastName(validationResult, lastName);
 };
 
-const phoneNumberValidator = async (phoneNumber) => {
-  const validationResult = await compiledValidators.phoneNumber({
-    phoneNumber,
-  });
+const phoneNumberValidator = async (phoneNumber: unknown) => {
+  const validationResult = await compiledValidators.phoneNumber(phoneNumber);
 
-  validatorErrorChecker.phoneNumber(validationResult, phoneNumber);
+  validationChecker.phoneNumber(validationResult, phoneNumber);
 };
 
-const cellphoneValidator = async (cellphone = {}) => {
+const cellphoneValidator = async (cellphone: Cellphone) => {
   errorThrower(
     !cellphone.phoneNumber && !cellphone.countryCode && !cellphone.countryName,
     () => ({
@@ -67,54 +65,62 @@ const cellphoneValidator = async (cellphone = {}) => {
   await phoneNumberValidator(cellphone.phoneNumber);
 };
 
-const contactValidator = async (contact) => {
+const contactValidator = async (contact: Contact) => {
   await cellphoneValidator(userUtilities.extractCellphone(contact));
   await firstNameValidator(contact.firstName);
   await lastNameValidator(contact.lastName);
 };
 
-const userIdValidator = async (userId) => {
-  const validationResult = await compiledValidators.userId({ userId });
+const userIdValidator = async (userId: unknown) => {
+  const validationResult = await compiledValidators.userId(userId);
 
-  validatorErrorChecker.userId(validationResult, userId);
+  validationChecker.userId(validationResult, userId);
 };
 
-const tokenValidator = async (token, secret = authManager.getMainSecret()) => {
+const tokenValidator = async (
+  token: string,
+  secret = authManager.getMainSecret()
+) => {
   //REFACTOR:INVALID_TYPE_ERROR
   const correctedToken = +token || token;
   const validationResult = await compiledValidators.token({
     token: correctedToken,
   });
 
-  const errorBuilder = validationErrorBuilder.create().prepare(
+  validationCheckerMain(
     validationResult,
     {
       extraErrorFields: {
-        validatedToken: correctedToken,
         correctedToken,
         originalToken: token,
+        validatedToken: correctedToken,
       },
     },
     models.native.user.token
-  );
-
-  validatorErrorChecker.token(errorBuilder);
+  ).check(function () {
+    this.required()
+      .stringEmpty()
+      .string()
+      .stringMin()
+      .stringMax()
+      .throwAnyway(errors.TOKEN_INVALID);
+  });
 
   return authManager.verifyToken(token, secret);
 };
 
-const usernameValidator = async (username) => {
-  const validationResult = await compiledValidators.username({ username });
+const usernameValidator = async (username: unknown) => {
+  const validationResult = await compiledValidators.username(username);
 
-  validatorErrorChecker.username(validationResult, username);
+  validationChecker.username(validationResult, username);
 };
 
-const verificationCodeValidator = async (verificationCode) => {
-  const validationResult = await compiledValidators.verificationCode({
-    verificationCode,
-  });
+const verificationCodeValidator = async (verificationCode: unknown) => {
+  const validationResult = await compiledValidators.verificationCode(
+    verificationCode
+  );
 
-  validatorErrorChecker.verificationCode(validationResult, verificationCode);
+  validationChecker.verificationCode(validationResult, verificationCode);
 };
 
 const userValidators = {

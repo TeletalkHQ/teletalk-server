@@ -1,15 +1,9 @@
-import {
-  checkIgnoreApplyMiddlewaresRequirements,
-  executeMiddlewares,
-  isUrlMatchWithReqUrl,
-} from "@/utilities/utilities";
+import { utilities } from "@/utilities";
 
 const applyMiddlewares = (url, ...middlewares) => {
-  checkIgnoreApplyMiddlewaresRequirements(url, middlewares);
-
   return async (req, res, next) => {
-    if (isUrlMatchWithReqUrl(url, req.url)) {
-      return await executeMiddlewares({
+    if (utilities.isUrlMatchWithReqUrl(url, req.url)) {
+      return await utilities.executeMiddlewares({
         middlewares,
         next,
         req,

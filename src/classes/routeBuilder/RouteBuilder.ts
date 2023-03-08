@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { IoField, Route } from "@/interfaces";
+import { IoField, Route } from "@/types";
 
 import { errors } from "@/variables/errors";
 

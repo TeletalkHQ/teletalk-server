@@ -1,25 +1,33 @@
-import { schems } from "mongoose";
-
 import { NativeModel } from "@/types";
 
-import { Schema, model, connect } from "mongoose";
+import { Schema, model, connect, HydratedDocument } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
 interface IUser {
   name: string;
   email: string;
   avatar?: string;
+  db: string;
 }
 
 // 2. Create a Schema corresponding to the document interface.
-const userSchema = new SchemaType<IUser>({
-  name: { type: "", required: [true] },
+const userSchema = new Schema<IUser>({
+  name: { type: "string", required: true },
   email: { type: String, required: true },
   avatar: String,
+  db: String,
 });
 
 // 3. Create a Model.cost
 const User = model<IUser>("User", userSchema);
+
+const user: HydratedDocument<IUser> = new User({
+  email: "bill@initech.com",
+  avatar: "https://i.imgur.com/dM7Thhn.png",
+  name: true,
+});
+
+user.name;
 
 run().catch((err) => console.log(err));
 
@@ -39,7 +47,7 @@ async function run() {
 
 class MongoModelBuilder {
   model: NativeModel;
-  mongoModel;
+  mongoModel: Schema;
 
   private updateProperty(modelKey, mongoModelKey) {
     this.setValue(modelKey, mongoModelKey);

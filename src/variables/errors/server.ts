@@ -1,7 +1,7 @@
 import { errorBuilder } from "@/classes/ErrorBuilder";
 
-import { ERROR_KEYS } from "@/variables/others/errorKeys";
-import { UNIQUE_ERROR_IDS } from "@/variables/others/uniqueErrorIds";
+import { ERROR_KEYS } from "@/variables/errors/errorKeys";
+import { UNIQUE_ERROR_IDS } from "@/variables/errors/uniqueErrorIds";
 
 const { INPUT_OUTPUT_FIELDS, INTERNAL_SERVER_ERROR } = ERROR_KEYS;
 

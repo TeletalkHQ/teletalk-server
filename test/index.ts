@@ -1,4 +1,4 @@
-import "@/variables/others/customGlobals";
+import "@/configs/customGlobals";
 import "@/helpers/requireDotenv";
 
 import { User } from "@/models/database/mongoDb/user";

@@ -1,11 +1,13 @@
 // import cluster from "cluster";
 // import os from "os";
+// import { setupMaster, setupWorker } from "@socket.io/sticky";
+// import { setupPrimary, createAdapter } from "@socket.io/cluster-adapter";
+// import { Server } from "socket.io";
 
 import PrettyError from "pretty-error";
 
 import http from "http";
 
-import "@/variables/others/customGlobals";
 import "@/helpers/requireDotenv";
 
 import { envManager } from "@/classes/EnvironmentManager";
@@ -15,9 +17,8 @@ import { requirements } from "@/requirements";
 import { websocketServer } from "@/servers/websocket";
 
 import { utilities } from "@/utilities";
-// import { setupMaster, setupWorker } from "@socket.io/sticky";
-// import { setupPrimary, createAdapter } from "@socket.io/cluster-adapter";
-// import { Server } from "socket.io";
+
+import "@/configs/customGlobals";
 
 PrettyError.start();
 

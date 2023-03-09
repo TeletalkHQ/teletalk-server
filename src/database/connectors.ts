@@ -47,7 +47,7 @@ const redisConnector = async () => {
       `Redis connected to => ${REDIS_CONNECTION_OPTIONS.host}:${REDIS_CONNECTION_OPTIONS.port}`
     )
   );
-  storage.on("error", crashServer);
+  storage.on("error", utilities.crashServer);
 
   await storage.connect();
 

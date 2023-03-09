@@ -1,86 +1,86 @@
-import mongoose from "mongoose";
-
-import { mongoModelBuilder } from "@/classes/MongoModelBuilder";
+import { Document, model, Model, Schema } from "mongoose";
 
 import { mongooseUniqueValidator } from "@/plugins/mongoose";
 
 import { nativeModels } from "@/models/native";
 
-const chatModels = nativeModels.chat;
+import { NativeModel, PrivateChatMongo } from "@/types";
 
-const { createdAt, participantId } = {
-  createdAt: mongoModelBuilder
-    .create()
-    .setModel(chatModels.createdAt)
-    .type()
-    .required()
-    .build(),
-  participantId: mongoModelBuilder
-    .create()
-    .setModel(chatModels.participantId)
-    .type()
-    .required()
-    .minlength()
-    .maxlength()
-    .trim()
-    .build(),
-};
+interface IUserDoc extends PrivateChatMongo, Document {}
+type IPrivateChatModel = Model<IUserDoc>;
 
-const PrivateChatSchema = new mongoose.Schema({
-  chatId: mongoModelBuilder
-    .create()
-    .setModel(chatModels.chatId)
-    .type()
-    .required()
-    .minlength()
-    .maxlength()
-    .unique()
-    .build(),
-  createdAt,
-  messages: mongoModelBuilder
-    .create()
-    .setModel(chatModels.messages)
-    .type()
-    .required()
-    .items({
-      createdAt,
-      message: mongoModelBuilder
-        .create()
-        .setModel(chatModels.message)
-        .type()
-        .required()
-        .minlength()
-        .maxlength()
-        .build(),
-      messageId: mongoModelBuilder
-        .create()
-        .setModel(chatModels.messageId)
-        .type()
-        .required()
-        .minlength()
-        .maxlength()
-        .trim()
-        .build(),
-      sender: {
-        senderId: participantId,
+const chatNativeModels = nativeModels.chat;
+
+function makePropValue(prop: NativeModel) {
+  return function <T extends keyof NativeModel>(
+    key: T
+  ): [NativeModel[T]["value"], string] {
+    return [prop[key].value, prop[key].error?.reason as string];
+  };
+}
+
+const chatIdMaker = makePropValue(chatNativeModels.chatId);
+const messageMaker = makePropValue(chatNativeModels.message);
+const messageIdMaker = makePropValue(chatNativeModels.messageId);
+const participantIdMaker = makePropValue(chatNativeModels.participantId);
+
+const PrivateChatSchema = new Schema<IUserDoc, IPrivateChatModel>({
+  chatId: {
+    type: String,
+    required: chatIdMaker("required"),
+    minlength: chatIdMaker("minlength"),
+    maxlength: chatIdMaker("maxlength"),
+    unique: chatNativeModels.chatId.required.value,
+  },
+  createdAt: {
+    required: chatNativeModels.createdAt.required.value,
+    type: Number,
+  },
+  messages: [
+    {
+      createdAt: {
+        required: chatNativeModels.createdAt.required.value,
+        type: Number,
       },
-    })
-    .build(),
-  participants: mongoModelBuilder
-    .create()
-    .setModel(chatModels.participants)
-    .type()
-    .required()
-    .items({ participantId })
-    .build(),
+      message: {
+        type: String,
+        minlength: messageMaker("minlength"),
+        maxlength: messageMaker("maxlength"),
+        required: chatNativeModels.message.required.value,
+      },
+      messageId: {
+        type: String,
+        minlength: messageIdMaker("minlength"),
+        maxlength: messageIdMaker("maxlength"),
+        trim: chatNativeModels.messageId.trim.value,
+        required: chatNativeModels.messageId.required.value,
+      },
+      sender: {
+        senderId: {
+          type: String,
+          minlength: participantIdMaker("minlength"),
+          maxlength: participantIdMaker("maxlength"),
+          trim: chatNativeModels.participantId.trim.value,
+          required: chatNativeModels.participantId.required.value,
+        },
+      },
+    },
+  ],
+  participants: [
+    {
+      participantId: {
+        type: String,
+        minlength: participantIdMaker("minlength"),
+        maxlength: participantIdMaker("maxlength"),
+        trim: chatNativeModels.participantId.trim.value,
+        required: chatNativeModels.participantId.required.value,
+      },
+    },
+  ],
 });
 
 PrivateChatSchema.plugin(mongooseUniqueValidator);
 
-const PrivateChat = mongoose.model(
-  "PrivateChat",
-  PrivateChatSchema,
-  "privateChats"
-);
+const PrivateChat = model("PrivateChat", PrivateChatSchema, "privateChats");
 
 export { PrivateChat, PrivateChatSchema };

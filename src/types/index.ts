@@ -1,4 +1,5 @@
 import { ValidationError } from "fastest-validator";
+import { Types } from "mongoose";
 
 interface Cellphone {
   countryCode: string;
@@ -6,10 +7,14 @@ interface Cellphone {
   phoneNumber: string;
 }
 
-interface Contact extends Cellphone {
+interface FullName {
   firstName: string;
   lastName: string;
 }
+
+interface Contact extends Cellphone, FullName {}
+
+type CreatedAt = number;
 
 interface Environments {
   LOG_LEVEL: string;
@@ -112,6 +117,25 @@ interface NativeModel {
 //   unique: [];
 // }
 
+interface Sender {
+  senderId: string;
+}
+interface Message {
+  createdAt: CreatedAt;
+  message: string;
+  messageId: string;
+  sender: Sender;
+}
+
+interface Participant {
+  participantId: string;
+}
+interface PrivateChatMongo {
+  chatId: string;
+  createdAt: CreatedAt;
+  messages: Types.Array<Message>;
+  participants: Types.Array<Participant>;
+}
 interface Route {
   inputFields: IoField | Record<string, never>;
   outputFields: IoField | Record<string, never>;
@@ -125,8 +149,27 @@ interface SocketRoute extends Route {
   method: SocketMethods;
 }
 
+interface Session {
+  token: string;
+}
+
+interface Status {
+  isOnline: boolean;
+}
+
 interface StringMap {
   [key: string]: any;
+}
+
+interface UserMongo extends Cellphone, FullName {
+  bio: string;
+  contacts: Types.Array<Contact>;
+  blacklist: Types.Array<Cellphone>;
+  userId: string;
+  createdAt: CreatedAt;
+  username: string;
+  sessions: Session;
+  status: Status;
 }
 
 interface VerifiedToken {
@@ -166,10 +209,12 @@ export {
   NativeModelItem,
   NativeModelKey,
   NodeEnvValue,
+  PrivateChatMongo,
   Route,
   SocketMethods,
   SocketRoute,
   StringMap,
+  UserMongo,
   ValidationResult,
   VerifiedToken,
 };

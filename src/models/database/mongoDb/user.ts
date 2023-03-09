@@ -1,170 +1,172 @@
-import mongoose from "mongoose";
-
-import { mongoModelBuilder } from "@/classes/MongoModelBuilder";
+import { Document, Model, model, Schema } from "mongoose";
 
 import { nativeModels } from "@/models/native";
 
-import { mongooseUniqueValidator } from "@/plugins/mongoose";
+import { NativeModel, UserMongo } from "@/types";
 
-mongoose.Schema.Types.String.checkRequired((v) => v !== null);
+interface IUserDoc extends UserMongo, Document {}
+type IUserModel = Model<IUserDoc>;
 
-const userModels = nativeModels.user;
-const commonModels = nativeModels.common;
+const userNativeModel = nativeModels.user;
 
-const {
-  bio,
-  countryCode,
-  countryName,
-  createdAt,
-  firstName,
-  lastName,
-  online,
-  phoneNumber,
-  userId,
-} = {
-  bio: mongoModelBuilder
-    .create()
-    .setModel(userModels.bio)
-    .type()
-    .required()
-    .minlength()
-    .maxlength()
-    .build(),
-  countryCode: mongoModelBuilder
-    .create()
-    .setModel(userModels.countryCode)
-    .type()
-    .required()
-    .minlength()
-    .maxlength()
-    .build(),
-  countryName: mongoModelBuilder
-    .create()
-    .setModel(userModels.countryName)
-    .type()
-    .required()
-    .minlength()
-    .maxlength()
-    .build(),
-  createdAt: mongoModelBuilder
-    .create()
-    .setModel(userModels.createdAt)
-    .type()
-    .required()
-    .build(),
-  firstName: mongoModelBuilder
-    .create()
-    .setModel(userModels.firstName)
-    .type()
-    .required()
-    .minlength()
-    .maxlength()
-    .build(),
-  lastName: mongoModelBuilder
-    .create()
-    .setModel(userModels.lastName)
-    .type()
-    .required()
-    .maxlength()
-    .trim()
-    .build(),
-  phoneNumber: mongoModelBuilder
-    .create()
-    .setModel(userModels.phoneNumber)
-    .type()
-    .required()
-    .minlength()
-    .maxlength()
-    .build(),
-  status: mongoModelBuilder
-    .create()
-    .setModel(userModels.status)
-    .type()
-    .required()
-    .defaultValue()
-    .build(),
-  userId: mongoModelBuilder
-    .create()
-    .setModel(commonModels.userId)
-    .type()
-    .required()
-    .minlength()
-    .maxlength()
-    .unique()
-    .trim()
-    .build(),
-  online: mongoModelBuilder
-    .create()
-    .setModel(userModels.online)
-    .type()
-    .defaultValue()
-    .required()
-    .build(),
-};
+function makePropValue(prop: NativeModel) {
+  return function <T extends keyof NativeModel>(
+    key: T
+  ): [NativeModel[T]["value"], string] {
+    return [prop[key].value, prop[key].error?.reason as string];
+  };
+}
 
-const UserSchema = new mongoose.Schema({
-  bio,
-  blacklist: mongoModelBuilder
-    .create()
-    .setModel(userModels.blacklist)
-    .type()
-    .required()
-    .items({
-      countryCode,
-      countryName,
-      phoneNumber,
-    })
-    .build(),
-  contacts: mongoModelBuilder
-    .create()
-    .setModel(userModels.contacts)
-    .type()
-    .required()
-    .items({
-      countryCode,
-      countryName,
-      firstName,
-      lastName,
-      phoneNumber,
-      userId,
-    })
-    .build(),
-  countryCode,
-  countryName,
-  createdAt,
-  firstName,
-  lastName,
-  phoneNumber,
-  status: {
-    online,
+const bioMaker = makePropValue(userNativeModel.bio);
+const countryCodeMaker = makePropValue(userNativeModel.countryCode);
+const countryNameMaker = makePropValue(userNativeModel.countryName);
+const firstNameMaker = makePropValue(userNativeModel.firstName);
+const lastNameMaker = makePropValue(userNativeModel.lastName);
+const phoneNumberMaker = makePropValue(userNativeModel.phoneNumber);
+const userIdMaker = makePropValue(userNativeModel.userId);
+const usernameMaker = makePropValue(userNativeModel.username);
+
+const userSchema = new Schema<IUserDoc, IUserModel>({
+  bio: {
+    maxlength: bioMaker("maxlength"),
+    minlength: bioMaker("minlength"),
+    required: bioMaker("required"),
+    trim: userNativeModel.bio.trim.value,
+    type: String,
   },
-  sessions: mongoModelBuilder
-    .create()
-    .setModel(userModels.sessions)
-    .type()
-    .required()
-    .items({
-      token: mongoModelBuilder
-        .create()
-        .setModel(userModels.token)
-        .type()
-        .required()
-        .build(),
-    })
-    .build(),
-  userId,
-  username: mongoModelBuilder
-    .create()
-    .setModel(userModels.username)
-    .type()
-    .required()
-    .maxlength()
-    .trim()
-    .build(),
+  blacklist: [
+    {
+      countryCode: {
+        maxlength: countryCodeMaker("maxlength"),
+        minlength: countryCodeMaker("minlength"),
+        required: countryCodeMaker("required"),
+        type: String,
+      },
+      countryName: {
+        maxlength: countryNameMaker("maxlength"),
+        minlength: countryNameMaker("minlength"),
+        required: countryNameMaker("required"),
+        type: String,
+      },
+      phoneNumber: {
+        maxlength: phoneNumberMaker("maxlength"),
+        minlength: phoneNumberMaker("minlength"),
+        required: phoneNumberMaker("required"),
+        trim: userNativeModel.firstName.trim.value,
+        type: String,
+      },
+    },
+  ],
+  contacts: [
+    {
+      firstName: {
+        maxlength: firstNameMaker("maxlength"),
+        minlength: firstNameMaker("minlength"),
+        required: firstNameMaker("required"),
+        trim: userNativeModel.firstName.trim.value,
+        type: String,
+      },
+      lastName: {
+        // minlength: lastNameMaker("minlength"),
+        maxlength: lastNameMaker("maxlength"),
+        required: lastNameMaker("required"),
+        trim: userNativeModel.lastName.trim.value,
+        type: String,
+      },
+      userId: {
+        maxlength: userIdMaker("maxlength"),
+        minlength: userIdMaker("minlength"),
+        required: userIdMaker("required"),
+        trim: userNativeModel.userId.trim.value,
+        type: String,
+        unique: userNativeModel.userId.unique.value,
+      },
+    },
+  ],
+  countryCode: {
+    maxlength: countryCodeMaker("maxlength"),
+    minlength: countryCodeMaker("minlength"),
+    required: countryCodeMaker("required"),
+    type: String,
+  },
+  countryName: {
+    maxlength: countryNameMaker("maxlength"),
+    minlength: countryNameMaker("minlength"),
+    required: countryNameMaker("required"),
+    type: String,
+  },
+  createdAt: {
+    required: userNativeModel.createdAt.required.value,
+    type: Number,
+  },
+  firstName: {
+    maxlength: firstNameMaker("maxlength"),
+    minlength: firstNameMaker("minlength"),
+    required: firstNameMaker("required"),
+    trim: userNativeModel.firstName.trim.value,
+    type: String,
+  },
+  lastName: {
+    // minlength: lastNameMaker("minlength"),
+    maxlength: lastNameMaker("maxlength"),
+    required: lastNameMaker("required"),
+    trim: userNativeModel.lastName.trim.value,
+    type: String,
+  },
+  phoneNumber: {
+    maxlength: phoneNumberMaker("maxlength"),
+    minlength: phoneNumberMaker("minlength"),
+    required: phoneNumberMaker("required"),
+    trim: userNativeModel.firstName.trim.value,
+    type: String,
+  },
+  sessions: [
+    {
+      token: {
+        required: userNativeModel.token.required.value,
+        type: String,
+      },
+    },
+  ],
+  status: {
+    online: {
+      default: userNativeModel.online.defaultValue.value as boolean,
+      type: Boolean,
+    },
+    required: [
+      userNativeModel.status.required.value,
+      userNativeModel.status.required.error.reason,
+    ],
+    type: Object,
+  },
+  userId: {
+    maxlength: userIdMaker("maxlength"),
+    minlength: userIdMaker("minlength"),
+    required: userIdMaker("required"),
+    trim: userNativeModel.userId.trim.value,
+    type: String,
+    unique: userNativeModel.userId.unique.value,
+  },
+  username: {
+    maxlength: usernameMaker("maxlength"),
+    required: usernameMaker("required"),
+    trim: userNativeModel.userId.trim.value,
+    type: String,
+    unique: userNativeModel.userId.unique.value,
+  },
 });
 
-UserSchema.plugin(mongooseUniqueValidator);
+Schema.Types.String.checkRequired((v) => v !== null);
+// UserSchema.plugin(mongooseUniqueValidator);
 
-const User = mongoose.model("User", UserSchema, "users");
+const UserModel = model<IUserDoc, IUserModel>("User", userSchema, "users");
 
-export { User };
+export { UserModel as User };
+
+// userSchema.post("save", function (error: any, doc: any, next: any) {
+//   if (error.name === "MongoError" && error.code === 11000) {
+//     next(new Error("user_exists"));
+//   } else {
+//     next();
+//   }
+// });

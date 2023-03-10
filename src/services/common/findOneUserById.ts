@@ -1,10 +1,20 @@
+import { ProjectionType, QueryOptions } from "mongoose";
+
 import { models } from "@/models";
 
-const User = models.database.mongoDb.User;
+import { UserMongo } from "@/types";
 
 //TODO: Update with serviceBuilder
-const findOneUserById = async (userId, options, projection) => {
-  return await User.findOne({ userId }, projection, options);
+const findOneUserById = async (
+  userId: string,
+  options: QueryOptions,
+  projection: ProjectionType<UserMongo>
+) => {
+  return await models.database.mongoDb.User.findOne(
+    { userId },
+    projection,
+    options
+  );
 };
 
 export { findOneUserById };

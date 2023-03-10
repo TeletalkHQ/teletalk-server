@@ -1,25 +1,25 @@
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-
 import { models } from "@/models";
 
-const PrivateChat = models.database.mongoDb.PrivateChat;
+interface Data {
+  chatId: string;
+  createdAt: number;
+  currentParticipantId: string;
+  targetParticipantId: string;
+}
 
-const createPrivateChat = serviceBuilder
-  .create()
-  .body(async (data) => {
-    return await PrivateChat.create({
-      createdAt: data.createdAt,
-      chatId: data.chatId,
-      participants: [
-        {
-          participantId: data.currentParticipantId,
-        },
-        {
-          participantId: data.targetParticipantId,
-        },
-      ],
-    });
-  })
-  .build();
+const createPrivateChat = async (data: Data) => {
+  return await models.database.mongoDb.PrivateChat.create({
+    createdAt: data.createdAt,
+    chatId: data.chatId,
+    participants: [
+      {
+        participantId: data.currentParticipantId,
+      },
+      {
+        participantId: data.targetParticipantId,
+      },
+    ],
+  });
+};
 
 export { createPrivateChat };

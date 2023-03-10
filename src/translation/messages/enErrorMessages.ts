@@ -1,4 +1,4 @@
-import { UNIQUE_ERROR_IDS } from "@/variables/others/uniqueErrorIds";
+import { UNIQUE_ERROR_IDS } from "@/variables/errors/uniqueErrorIds";
 
 type UniqueErrorIds = typeof UNIQUE_ERROR_IDS;
 type Key = keyof UniqueErrorIds;

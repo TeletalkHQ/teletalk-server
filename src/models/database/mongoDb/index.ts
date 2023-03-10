@@ -1,5 +1,5 @@
-import { PrivateChat } from "@/models/database/mongoDb/privateChat";
-import { User } from "@/models/database/mongoDb/user";
+import { PrivateChat } from "@/models/database/mongoDb/PrivateChat";
+import { User } from "@/models/database/mongoDb/User";
 
 const mongoDb = {
   PrivateChat,

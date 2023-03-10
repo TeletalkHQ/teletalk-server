@@ -6,10 +6,10 @@ import {
 import { authManager } from "@/classes/AuthManager";
 import { userUtilities } from "@/classes/UserUtilities";
 
-import { models } from "@/models";
+import { compiledValidators } from "@/helpers/compiledValidators";
+import { validationChecker } from "@/helpers/validationChecker";
 
-import { compiledValidators } from "@/validators/compiledValidators";
-import { validationChecker } from "@/validators/validationChecker";
+import { models } from "@/models";
 
 import { Cellphone, Contact } from "@/types";
 

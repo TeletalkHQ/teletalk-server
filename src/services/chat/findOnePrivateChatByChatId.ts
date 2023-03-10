@@ -1,12 +1,6 @@
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-
 import { models } from "@/models";
 
-const PrivateChat = models.database.mongoDb.PrivateChat;
-
-const findOnePrivateChatByChatId = serviceBuilder
-  .create()
-  .body(async ({ chatId }) => await PrivateChat.findOne({ chatId }))
-  .build();
+const findOnePrivateChatByChatId = async (data: { chatId: string }) =>
+  await models.database.mongoDb.PrivateChat.findOne({ chatId: data.chatId });
 
 export { findOnePrivateChatByChatId };

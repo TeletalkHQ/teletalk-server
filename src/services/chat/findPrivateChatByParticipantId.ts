@@ -1,14 +1,14 @@
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-
 import { findPrivateChat } from "@/services/chat/findPrivateChat";
 
-const findPrivateChatByParticipantId = serviceBuilder
-  .create()
-  .body(async ({ participantId }) => {
-    return await findPrivateChat().run({
-      "participants.participantId": participantId,
-    });
-  })
-  .build();
+import { PrivateChatMongo } from "@/types";
+
+const findPrivateChatByParticipantId = async (data: {
+  participantId: string;
+}) => {
+  const key = "participants.participantId" as keyof PrivateChatMongo;
+  return await findPrivateChat({
+    [key]: data.participantId,
+  });
+};
 
 export { findPrivateChatByParticipantId };

@@ -1,15 +1,11 @@
-import { ioFieldMaker } from "utility-store";
-
-import { FIELD_TYPE } from "@/variables/others/fieldType";
+import { ioFieldMaker } from "check-fields";
 
 const statics = {
-  array: (value) =>
-    ioFieldMaker.create().type(FIELD_TYPE.ARRAY).value([value]).build(),
-  boolean: ioFieldMaker.create().type(FIELD_TYPE.BOOLEAN).build(),
-  number: ioFieldMaker.create().type(FIELD_TYPE.NUMBER).build(),
-  object: (value) =>
-    ioFieldMaker.create().type(FIELD_TYPE.OBJECT).value(value).build(),
-  string: ioFieldMaker.create().type(FIELD_TYPE.STRING).build(),
+  array: (value: object) => ioFieldMaker().type("array").value([value]).build(),
+  boolean: ioFieldMaker().type("boolean").build(),
+  number: ioFieldMaker().type("number").build(),
+  object: (value: object) => ioFieldMaker().type("object").value(value).build(),
+  string: ioFieldMaker().type("string").build(),
 };
 
 const bio = statics.string;

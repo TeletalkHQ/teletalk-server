@@ -1,6 +1,5 @@
-import { compiledValidators } from "@/validators/compiledValidators";
-
-import { validationChecker } from "@/validators/validationChecker";
+import { compiledValidators } from "@/helpers/compiledValidators";
+import { validationChecker } from "@/helpers/validationChecker";
 
 const chatIdValidator = async (chatId: unknown) => {
   const validationResult = await compiledValidators.chatId(chatId);

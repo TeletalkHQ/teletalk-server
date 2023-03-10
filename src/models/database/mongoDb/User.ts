@@ -129,15 +129,14 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
     },
   ],
   status: {
-    online: {
+    isOnline: {
       default: userNativeModel.online.defaultValue.value as boolean,
       type: Boolean,
+      required: [
+        userNativeModel.online.required.value,
+        userNativeModel.online.required.error.reason,
+      ],
     },
-    required: [
-      userNativeModel.status.required.value,
-      userNativeModel.status.required.error.reason,
-    ],
-    type: Object,
   },
   userId: {
     maxlength: userIdMaker("maxlength"),

@@ -6,8 +6,8 @@ import { nativeModels } from "@/models/native";
 
 import { NativeModel, PrivateChatMongo } from "@/types";
 
-interface IUserDoc extends PrivateChatMongo, Document {}
-type IPrivateChatModel = Model<IUserDoc>;
+interface IPrivateChatDoc extends PrivateChatMongo, Document {}
+type IPrivateChatModel = Model<IPrivateChatDoc>;
 
 const chatNativeModels = nativeModels.chat;
 
@@ -24,7 +24,7 @@ const messageMaker = makePropValue(chatNativeModels.message);
 const messageIdMaker = makePropValue(chatNativeModels.messageId);
 const participantIdMaker = makePropValue(chatNativeModels.participantId);
 
-const PrivateChatSchema = new Schema<IUserDoc, IPrivateChatModel>({
+const PrivateChatSchema = new Schema<IPrivateChatDoc, IPrivateChatModel>({
   chatId: {
     type: String,
     required: chatIdMaker("required"),
@@ -81,6 +81,10 @@ const PrivateChatSchema = new Schema<IUserDoc, IPrivateChatModel>({
 
 PrivateChatSchema.plugin(mongooseUniqueValidator);
 
-const PrivateChat = model("PrivateChat", PrivateChatSchema, "privateChats");
+const PrivateChat = model<IPrivateChatDoc, IPrivateChatModel>(
+  "PrivateChat",
+  PrivateChatSchema,
+  "privateChats"
+);
 
 export { PrivateChat, PrivateChatSchema };

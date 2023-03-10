@@ -1,24 +1,19 @@
 import { errorThrower } from "utility-store";
 
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-
 import { models } from "@/models";
 
-import { commonServices } from "@/services/common";
+import { UserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const createNewUser = serviceBuilder
-  .create()
-  .body(async (userData) => {
-    await checkExistenceOfCurrentUser(userData.userId);
-    await models.database.mongoDb.User.create(userData);
-  })
-  .build();
+const createNewUser = async (userData: UserMongo) => {
+  await checkExistenceOfCurrentUser(userData.userId);
+  await models.database.mongoDb.User.create(userData);
+};
 
-const checkExistenceOfCurrentUser = async (userId) => {
-  const currentUser = await commonServices.findOneUserById(userId);
-  errorThrower(currentUser, errors.CURRENT_USER_EXIST);
+const checkExistenceOfCurrentUser = async (userId: UserMongo["userId"]) => {
+  const currentUser = await models.database.mongoDb.User.findOne({ userId });
+  errorThrower(!!currentUser, errors.CURRENT_USER_EXIST);
 };
 
 export { createNewUser };

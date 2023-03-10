@@ -168,7 +168,7 @@ interface UserMongo extends Cellphone, FullName {
   userId: string;
   createdAt: CreatedAt;
   username: string;
-  sessions: Session;
+  sessions: Session[];
   status: Status;
 }
 

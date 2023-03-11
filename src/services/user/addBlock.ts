@@ -1,32 +1,33 @@
 import { errorThrower } from "utility-store";
 
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-import { serviceHelper } from "@/classes/service/ServiceHelper";
 import { userUtilities } from "@/classes/UserUtilities";
+
+import { Cellphone, HydratedUserMongo, UserMongo } from "@/types";
 
 import { commonServices } from "@/services/common";
 
 import { errors } from "@/variables/errors";
 
-const addBlock = serviceBuilder
-  .create()
-  .body(async ({ currentUserId, blockingCellphone }) => {
-    const currentUser = await commonServices.findOneUserById(currentUserId);
+const addBlock = async (data: {
+  blockingCellphone: Cellphone;
+  currentUserId: string;
+}) => {
+  const currentUser = await commonServices.findOneUserById(data.currentUserId);
 
-    await serviceHelper.findOneUser(
-      blockingCellphone,
-      errors.TARGET_USER_NOT_EXIST
-    );
+  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-    checkExistenceOfBlacklistItem(currentUser.blacklist, blockingCellphone);
+  const targetUser = await commonServices.findOneUser(data.blockingCellphone);
+  errorThrower(!targetUser, errors.TARGET_USER_NOT_EXIST);
 
-    const blacklistItem = userUtilities.extractCellphone(blockingCellphone);
+  checkExistenceOfBlacklistItem(data.blockingCellphone, currentUser.blacklist);
 
-    await saveNewBlacklistItem(blacklistItem, currentUser);
-  })
-  .build();
+  await saveNewBlacklistItem(data.blockingCellphone, currentUser);
+};
 
-const checkExistenceOfBlacklistItem = (blacklist, blockingCellphone) => {
+const checkExistenceOfBlacklistItem = (
+  blockingCellphone: Cellphone,
+  blacklist: UserMongo["blacklist"]
+) => {
   const { item: isBlacklistItemExist } = userUtilities.findByCellphone(
     blacklist,
     blockingCellphone
@@ -37,8 +38,11 @@ const checkExistenceOfBlacklistItem = (blacklist, blockingCellphone) => {
   }));
 };
 
-const saveNewBlacklistItem = async (blacklistItem, currentUser) => {
-  currentUser.blacklist.push(blacklistItem);
+const saveNewBlacklistItem = async (
+  blockingCellphone: Cellphone,
+  currentUser: HydratedUserMongo
+) => {
+  currentUser.blacklist.push(blockingCellphone);
   await currentUser.save();
 };
 

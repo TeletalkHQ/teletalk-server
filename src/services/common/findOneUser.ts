@@ -6,8 +6,8 @@ const User = models.database.mongoDb.User;
 
 const findOneUser = async (
   userData: Partial<UserMongo>,
-  projection: ProjectionType<UserMongo>,
-  options: QueryOptions
+  projection?: ProjectionType<UserMongo>,
+  options?: QueryOptions
 ) => {
   return await User.findOne(userData, projection, options);
 };

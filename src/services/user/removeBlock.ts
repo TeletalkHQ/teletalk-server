@@ -10,13 +10,13 @@ import { errors } from "@/variables/errors";
 
 const removeBlock = async (data: {
   currentUserId: string;
-  targetUserCellphone: Cellphone;
+  targetCellphone: Cellphone;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
   const { index } = checkExistenceOfBlacklistItem(
-    data.targetUserCellphone,
+    data.targetCellphone,
     currentUser.blacklist
   );
 
@@ -31,12 +31,12 @@ const findCurrentUser = async (currentUserId: string) => {
 };
 
 const checkExistenceOfBlacklistItem = (
-  targetUserCellphone: Cellphone,
+  targetCellphone: Cellphone,
   blacklist: UserMongo["blacklist"]
 ) => {
   const { item: blacklistItem, index } = userUtilities.findByCellphone(
     blacklist,
-    targetUserCellphone
+    targetCellphone
   );
   errorThrower(!blacklistItem, () => errors.BLACKLIST_ITEM_NOT_EXIST);
 

@@ -142,7 +142,13 @@ interface Route {
   statusCode: number;
 }
 
-type SocketHandler = (socket: Socket, io: Server, data: object) => void;
+type SocketHandler = (
+  socket: Socket,
+  io: Server,
+  event: string,
+  data: object,
+  callback: () => void
+) => void;
 type SocketMethods = "on" | "onAny" | "customOn" | "once";
 interface SocketRoute extends Route {
   name: string;

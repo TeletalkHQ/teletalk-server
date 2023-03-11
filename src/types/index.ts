@@ -1,5 +1,6 @@
+/* eslint-disable no-use-before-define */
 import { ValidationError } from "fastest-validator";
-import { Types } from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
 
 interface Cellphone {
   countryCode: string;
@@ -42,6 +43,8 @@ interface Environments {
   SMS_PROVIDER_2_TOKEN: string;
   SMS_PROVIDER_SELECTOR: number;
 }
+
+type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
 
 interface IoField {
   type: string;
@@ -202,8 +205,10 @@ export {
   Cellphone,
   Contact,
   Environments,
+  HydratedPrivateChatMongo,
   IoField,
   LogLevel,
+  Message,
   NativeModel,
   NativeModelError,
   NativeModelItem,

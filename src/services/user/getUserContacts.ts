@@ -1,18 +1,12 @@
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-import { serviceHelper } from "@/classes/service/ServiceHelper";
+import { commonServices } from "@/services/common";
 
 import { errors } from "@/variables/errors";
 
-const getUserContacts = serviceBuilder
-  .create()
-  .body(async ({ currentUserId }) => {
-    const currentUser = await serviceHelper.findOneUserById(
-      currentUserId,
-      errors.CURRENT_USER_NOT_EXIST
-    );
+const getUserContacts = async (data: { currentUserId: string }) => {
+  const currentUser = await commonServices.findOneUserById(data.currentUserId);
+  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-    return currentUser.contacts;
-  })
-  .build();
+  return currentUser.contacts;
+};
 
 export { getUserContacts };

@@ -45,6 +45,7 @@ interface Environments {
 }
 
 type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
+type HydratedUserMongo = HydratedDocument<UserMongo>;
 
 interface IoField {
   type: string;
@@ -206,6 +207,7 @@ export {
   Contact,
   Environments,
   HydratedPrivateChatMongo,
+  HydratedUserMongo,
   IoField,
   LogLevel,
   Message,

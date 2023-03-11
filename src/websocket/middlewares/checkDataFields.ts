@@ -7,12 +7,13 @@ import { errors } from "@/variables/errors";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
-const checkDataFields = (_socket, next, event) =>
+const checkDataFields = (_socket, next, event) => {
   trier(checkDataFields.name)
     .try(tryBlock, event)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchBlock)
     .run();
+};
 
 const tryBlock = ([name, data, callback]) => {
   if (callback && customTypeof.isNotFunction(callback))

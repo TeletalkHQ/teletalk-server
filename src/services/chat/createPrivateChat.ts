@@ -1,4 +1,5 @@
 import { models } from "@/models";
+import { HydratedPrivateChatMongo } from "@/types";
 
 interface Data {
   chatId: string;
@@ -7,7 +8,9 @@ interface Data {
   targetParticipantId: string;
 }
 
-const createPrivateChat = async (data: Data) => {
+const createPrivateChat = async (
+  data: Data
+): Promise<HydratedPrivateChatMongo> => {
   return await models.database.mongoDb.PrivateChat.create({
     createdAt: data.createdAt,
     chatId: data.chatId,

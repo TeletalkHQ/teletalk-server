@@ -2,8 +2,6 @@ import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
 
 import { SocketRoute } from "@/types";
 
-import { SocketMethods } from "@/types";
-
 class SocketRouteBuilder extends RouteBuilder {
   protected route: SocketRoute;
 
@@ -11,7 +9,7 @@ class SocketRouteBuilder extends RouteBuilder {
     super();
   }
 
-  method(method: SocketMethods) {
+  method(method: SocketRoute["method"]) {
     this.route.method = method;
     return this;
   }
@@ -21,7 +19,7 @@ class SocketRouteBuilder extends RouteBuilder {
     return this;
   }
 
-  handler(handler: () => void) {
+  handler(handler: SocketRoute["handler"]) {
     this.route.handler = handler;
     return this;
   }

@@ -1,7 +1,8 @@
+import { IoFields } from "check-fields";
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { IoField, Route } from "@/types";
+import { Route } from "@/types";
 
 import { errors } from "@/variables/errors";
 
@@ -10,8 +11,6 @@ abstract class RouteBuilder {
 
   constructor() {
     this.route = {
-      inputFields: {},
-      outputFields: {},
       statusCode: 200,
     };
   }
@@ -20,11 +19,11 @@ abstract class RouteBuilder {
     this.route.statusCode = statusCode;
     return this;
   }
-  inputFields(inputFields: IoField) {
+  inputFields(inputFields: IoFields) {
     this.route.inputFields = inputFields;
     return this;
   }
-  outputFields(outputFields: IoField) {
+  outputFields(outputFields: IoFields) {
     this.route.outputFields = outputFields;
     return this;
   }

@@ -7,8 +7,8 @@ import { UserMongo } from "@/types";
 //TODO: Update with serviceBuilder
 const findOneUserById = async (
   userId: string,
-  options: QueryOptions,
-  projection: ProjectionType<UserMongo>
+  options?: QueryOptions,
+  projection?: ProjectionType<UserMongo>
 ) => {
   return await models.database.mongoDb.User.findOne(
     { userId },

@@ -10,11 +10,9 @@ const addBlock = builder
   .create()
   .name("addBlock")
   .inputFields(fields.collection.cellphone)
-  .outputFields([
-    {
-      blockedCellphone: fields.statics.object(fields.collection.cellphone),
-    },
-  ])
+  .outputFields({
+    blockedCellphone: fields.statics.object(fields.collection.cellphone),
+  })
   .handler(userHandlers.addBlock)
   .build();
 
@@ -22,11 +20,9 @@ const addContact = builder
   .create()
   .name("addContact")
   .inputFields(fields.collection.contactWithoutUserId)
-  .outputFields([
-    {
-      addedContact: fields.statics.object(fields.collection.contact),
-    },
-  ])
+  .outputFields({
+    addedContact: fields.statics.object(fields.collection.contact),
+  })
   .handler(userHandlers.addContact)
   .build();
 
@@ -40,35 +36,29 @@ const editContact = builder
   .create()
   .name("editContact")
   .inputFields(fields.collection.contactWithoutUserId)
-  .outputFields([
-    {
-      editedContact: fields.statics.object(
-        fields.collection.contactWithoutUserId
-      ),
-    },
-  ])
+  .outputFields({
+    editedContact: fields.statics.object(
+      fields.collection.contactWithoutUserId
+    ),
+  })
   .handler(userHandlers.editContact)
   .build();
 
 const getContacts = builder
   .create()
   .name("getContacts")
-  .outputFields([
-    {
-      contacts: fields.statics.array(fields.collection.contact),
-    },
-  ])
+  .outputFields({
+    contacts: fields.statics.array(fields.collection.contact),
+  })
   .handler(userHandlers.getContacts)
   .build();
 
 const getCurrentUserData = builder
   .create()
   .name("getCurrentUserData")
-  .outputFields([
-    {
-      user: fields.statics.object(fields.collection.user),
-    },
-  ])
+  .outputFields({
+    user: fields.statics.object(fields.collection.user),
+  })
   .handler(userHandlers.getCurrentUserData)
   .build();
 
@@ -78,16 +68,14 @@ const getPublicUserData = builder
   .inputFields({
     userId: fields.single.userId,
   })
-  .outputFields([
-    {
-      publicUserData: fields.statics.object({
-        ...fields.collection.fullName,
-        bio: fields.single.bio,
-        userId: fields.single.userId,
-        username: fields.single.username,
-      }),
-    },
-  ])
+  .outputFields({
+    publicUserData: fields.statics.object({
+      ...fields.collection.fullName,
+      bio: fields.single.bio,
+      userId: fields.single.userId,
+      username: fields.single.username,
+    }),
+  })
   .handler(userHandlers.getPublicUserData)
   .build();
 
@@ -95,11 +83,9 @@ const removeBlock = builder
   .create()
   .name("removeBlock")
   .inputFields(fields.collection.cellphone)
-  .outputFields([
-    {
-      removedBlock: fields.statics.object(fields.collection.cellphone),
-    },
-  ])
+  .outputFields({
+    removedBlock: fields.statics.object(fields.collection.cellphone),
+  })
   .handler(userHandlers.removeBlock)
   .build();
 
@@ -107,11 +93,9 @@ const removeContact = builder
   .create()
   .name("removeContact")
   .inputFields(fields.collection.cellphone)
-  .outputFields([
-    {
-      removedContact: fields.statics.object(fields.collection.cellphone),
-    },
-  ])
+  .outputFields({
+    removedContact: fields.statics.object(fields.collection.cellphone),
+  })
   .handler(userHandlers.removeContact)
   .build();
 
@@ -129,17 +113,15 @@ const updatePublicUserData = builder
     bio: fields.single.bio,
     username: fields.single.username,
   })
-  .outputFields([
-    {
-      publicUserData: fields.statics.object({
-        ...fields.collection.fullName,
-        bio: fields.single.bio,
-        status: fields.collection.status,
-        userId: fields.single.userId,
-        username: fields.single.username,
-      }),
-    },
-  ])
+  .outputFields({
+    publicUserData: fields.statics.object({
+      ...fields.collection.fullName,
+      bio: fields.single.bio,
+      status: fields.collection.status,
+      userId: fields.single.userId,
+      username: fields.single.username,
+    }),
+  })
   .handler(userHandlers.updatePublicUserData)
   .build();
 

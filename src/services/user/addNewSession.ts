@@ -1,24 +1,26 @@
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-import { serviceHelper } from "@/classes/service/ServiceHelper";
+import { commonServices } from "@/services/common";
+import { HydratedUserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const addNewSession = serviceBuilder
-  .create()
-  .body(async ({ userId, newToken }) => {
-    const currentUser = await findCurrentUser(userId);
-    await addAndSaveNewToken(currentUser, newToken);
-  })
-  .build();
+const addNewSession = async (data: { userId: string; newToken: string }) => {
+  const currentUser = await findCurrentUser(data.userId);
+  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-const findCurrentUser = async (userId) => {
-  return await serviceHelper.findOneUserById(
+  await addAndSaveNewToken(currentUser, data.newToken);
+};
+
+const findCurrentUser = async (userId: string) => {
+  return await commonServices.findOneUserById(
     userId,
     errors.CURRENT_USER_NOT_EXIST
   );
 };
 
-const addAndSaveNewToken = async (currentUser, newToken) => {
+const addAndSaveNewToken = async (
+  currentUser: HydratedUserMongo,
+  newToken: string
+) => {
   currentUser.sessions.push({ token: newToken });
   await currentUser.save();
 };

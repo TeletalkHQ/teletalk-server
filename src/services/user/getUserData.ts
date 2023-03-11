@@ -1,27 +1,27 @@
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-import { serviceHelper } from "@/classes/service/ServiceHelper";
+import { commonServices } from "@/services/common";
+import { NativeModelError } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const getCurrentUserData = async ({ userId }) => {
-  return await getUserDataById().exclude().run({
-    userId,
+const getCurrentUserData = async (data: { userId: string }) => {
+  return await getUserDataById({
+    userId: data.userId,
     error: errors.CURRENT_USER_NOT_EXIST,
   });
 };
 
-const getTargetUserData = async ({ userId }) => {
-  return await getUserDataById().exclude().run({
-    userId,
+const getTargetUserData = async (data: { userId: string }) => {
+  return await getUserDataById({
+    userId: data.userId,
     error: errors.TARGET_USER_NOT_EXIST,
   });
 };
 
-const getUserDataById = serviceBuilder
-  .create()
-  .body(async (data) => {
-    return await serviceHelper.findOneUserById(data.userId, data.error);
-  })
-  .build();
+const getUserDataById = async (data: {
+  userId: string;
+  error: NativeModelError;
+}) => {
+  return await commonServices.findOneUserById(data.userId, data.error);
+};
 
 export { getCurrentUserData, getTargetUserData };

@@ -1,11 +1,19 @@
+import http from "http";
+
 import socket from "socket.io";
+
+import { customMethods } from "@/websocket/custom/methods";
+
+import { routers } from "@/websocket/events";
 
 import { middlewares } from "@/websocket/middlewares";
 
-import { routers } from "@/websocket/events";
-import { customMethods } from "@/websocket/custom/methods";
+type HttpServer = http.Server<
+  typeof http.IncomingMessage,
+  typeof http.ServerResponse
+>;
 
-const websocketServer = (httpServer) => {
+const websocketServer = (httpServer: HttpServer) => {
   const io = new socket.Server(httpServer, {
     cors: {
       credentials: true,

@@ -1,46 +1,55 @@
 import { errorThrower } from "utility-store";
 
 import { userUtilities } from "@/classes/UserUtilities";
-import { serviceHelper } from "@/classes/service/ServiceHelper";
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
+
+import { commonServices } from "@/services/common";
+
+import { Contact, HydratedUserMongo, UserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const removeContact = serviceBuilder
-  .create()
-  .body(async ({ currentUserId, targetUserData }) => {
-    const currentUser = await findCurrentUser(currentUserId);
+const removeContact = async (data: {
+  currentUserId: string;
+  targetContact: Contact;
+}) => {
+  const currentUser = await findCurrentUser(data.currentUserId);
+  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-    const { index } = checkExistenceOfContactItem(
-      currentUser.contacts,
-      targetUserData
-    );
+  const { index } = checkExistenceOfContactItem(
+    data.targetContact,
+    currentUser.contacts
+  );
 
-    await removeContactAndSave(currentUser, index);
-  })
-  .build();
+  await removeContactAndSave(currentUser, index);
+};
 
-const findCurrentUser = async (currentUserId) => {
-  return await serviceHelper.findOneUserById(
+const findCurrentUser = async (currentUserId: string) => {
+  return await commonServices.findOneUserById(
     currentUserId,
     errors.CURRENT_USER_NOT_EXIST
   );
 };
 
-const checkExistenceOfContactItem = (contacts, targetUserData) => {
+const checkExistenceOfContactItem = (
+  targetContact: Contact,
+  contacts: UserMongo["contacts"]
+) => {
   const { item: contactItem, index } = userUtilities.findByCellphone(
     contacts,
-    targetUserData
+    targetContact
   );
   errorThrower(!contactItem, () => ({
     ...errors.CONTACT_ITEM_NOT_EXIST,
-    targetUserData,
+    targetContact,
   }));
 
   return { index };
 };
 
-const removeContactAndSave = async (currentUser, index) => {
+const removeContactAndSave = async (
+  currentUser: HydratedUserMongo,
+  index: number
+) => {
   currentUser.contacts.splice(index, 1);
   await currentUser.save();
 };

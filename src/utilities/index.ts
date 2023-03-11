@@ -48,14 +48,16 @@ const passwordGenerator = (options = initialOptions) => {
   });
 };
 
-const sortEnvironments = (): Environments =>
+const sortEnvironments = () =>
   Object.entries(envManager.getEnvironment())
     .map(([key, value]) => ({ key, value }))
     .sort((a, b) => a.key.localeCompare(b.key))
     .reduce((prevValue, currentValue) => {
-      const key = currentValue.key as keyof Environments;
+      type Key = keyof Environments;
+      const key = currentValue.key as Key;
+      const value = currentValue.value as Environments[Key];
+      (prevValue as any)[key] = value;
 
-      (prevValue as any)[key] = currentValue.value;
       return prevValue;
     }, {} as Environments);
 
@@ -64,6 +66,7 @@ const utilities = {
   // executeMiddlewares,
   isUrlMatchWithReqUrl,
   logEnvironments,
+  passwordGenerator,
   regexMaker,
   sortEnvironments,
 };

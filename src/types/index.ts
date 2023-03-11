@@ -1,5 +1,8 @@
+/* eslint-disable no-use-before-define */
+import { IoFields } from "check-fields";
 import { ValidationError } from "fastest-validator";
-import { Types } from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
+import { Server, Socket } from "socket.io";
 
 interface Cellphone {
   countryCode: string;
@@ -43,11 +46,8 @@ interface Environments {
   SMS_PROVIDER_SELECTOR: number;
 }
 
-interface IoField {
-  type: string;
-  value: undefined | IoField | IoField[];
-  required: boolean;
-}
+type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
+type HydratedUserMongo = HydratedDocument<UserMongo>;
 
 interface NativeModelError {
   description: string;
@@ -137,15 +137,22 @@ interface PrivateChatMongo {
   participants: Types.Array<Participant>;
 }
 interface Route {
-  inputFields: IoField | Record<string, never>;
-  outputFields: IoField | Record<string, never>;
+  inputFields?: IoFields | Record<string, never>;
+  outputFields?: IoFields | Record<string, never>;
   statusCode: number;
 }
 
+type SocketHandler = (
+  socket: Socket,
+  io: Server,
+  event: string,
+  data: object,
+  callback: () => void
+) => void;
 type SocketMethods = "on" | "onAny" | "customOn" | "once";
 interface SocketRoute extends Route {
   name: string;
-  handler: () => void;
+  handler: SocketHandler;
   method: SocketMethods;
 }
 
@@ -202,8 +209,10 @@ export {
   Cellphone,
   Contact,
   Environments,
-  IoField,
+  HydratedPrivateChatMongo,
+  HydratedUserMongo,
   LogLevel,
+  Message,
   NativeModel,
   NativeModelError,
   NativeModelItem,

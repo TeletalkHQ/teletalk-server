@@ -8,7 +8,7 @@ import { services } from "@/services";
 import { errors } from "@/variables/errors";
 
 const checkCurrentUserStatus = async (socket, next) => {
-  return await trier(checkCurrentUserStatus.name)
+  await trier(checkCurrentUserStatus.name)
     .tryAsync(tryBlock, socket)
     .executeIfNoError(executeIfNoError, next)
     .throw()

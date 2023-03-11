@@ -1,6 +1,5 @@
 import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
-import { EVENTS } from "@/variables/others/events";
 import { fields } from "@/variables/others/fields";
 
 import { otherHandlers } from "@/websocket/events/other/handlers";
@@ -16,11 +15,9 @@ const builder = socketRouteBuilder();
 const getCountries = builder
   .create()
   .name("getCountries")
-  .outputFields([
-    {
-      countries: fields.statics.array(fields.collection.country),
-    },
-  ])
+  .outputFields({
+    countries: fields.statics.array(fields.collection.country),
+  })
   .handler(otherHandlers.getCountries)
   .build();
 
@@ -30,24 +27,22 @@ const getStuff = builder
   .inputFields({
     language: fields.single.language,
   })
-  .handler(otherHandlers.getStuff)
+  .handler(otherHandlers.getAllStuff)
   .build();
 
 const getWelcomeMessage = builder
   .create()
   .name("welcomeMessage")
-  .outputFields([
-    {
-      welcomeMessage: fields.single.welcomeMessage,
-    },
-  ])
+  .outputFields({
+    welcomeMessage: fields.single.welcomeMessage,
+  })
   .handler(otherHandlers.getWelcomeMessage)
   .build();
 
 const logEvent = builder
   .create()
   .name("")
-  .method(EVENTS.ON_ANY)
+  .method("onAny")
   .handler(otherHandlers.logEvent)
   .build();
 

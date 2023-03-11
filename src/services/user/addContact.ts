@@ -1,39 +1,42 @@
 import { errorThrower } from "utility-store";
 
 import { userUtilities } from "@/classes/UserUtilities";
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-import { serviceHelper } from "@/classes/service/ServiceHelper";
 
 import { commonServices } from "@/services/common";
 
+import { Contact, HydratedUserMongo, UserMongo } from "@/types";
+
 import { errors } from "@/variables/errors";
 
-const addContact = serviceBuilder
-  .create()
-  .body(async ({ currentUserId, newContactData }) => {
-    const currentUser = await commonServices.findOneUserById(currentUserId);
+const addContact = async (data: {
+  currentUserId: string;
+  newContact: Contact;
+}) => {
+  const currentUser = await commonServices.findOneUserById(data.currentUserId);
 
-    checkExistenceOfContactItem(currentUser.contacts, newContactData);
+  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-    const targetUserCellphone = userUtilities.extractCellphone(newContactData);
+  checkExistenceOfContactItem(data.newContact, currentUser.contacts);
 
-    const targetUser = await serviceHelper.findOneUser(
-      targetUserCellphone,
-      errors.TARGET_USER_NOT_EXIST
-    );
+  const targetUserCellphone = userUtilities.extractCellphone(data.newContact);
 
-    const newContact = {
-      ...newContactData,
-      userId: targetUser.userId,
-    };
+  const targetUser = await commonServices.findOneUser(targetUserCellphone);
+  if (!targetUser) throw errors.TARGET_USER_NOT_EXIST;
 
-    await saveNewContactItem(currentUser, newContact);
+  const contact = {
+    ...data.newContact,
+    userId: targetUser.userId,
+  };
 
-    return { newContact };
-  })
-  .build();
+  await saveNewContactItem(currentUser, contact);
 
-const checkExistenceOfContactItem = (contacts, contact) => {
+  return { newContact: contact };
+};
+
+const checkExistenceOfContactItem = (
+  contact: Contact,
+  contacts: UserMongo["contacts"]
+) => {
   const { item: isContactExist } = userUtilities.findByCellphone(
     contacts,
     contact
@@ -44,7 +47,10 @@ const checkExistenceOfContactItem = (contacts, contact) => {
   }));
 };
 
-const saveNewContactItem = async (currentUser, newContact) => {
+const saveNewContactItem = async (
+  currentUser: HydratedUserMongo,
+  newContact: Contact
+) => {
   currentUser.contacts.push(newContact);
   await currentUser.save();
 };

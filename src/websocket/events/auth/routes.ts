@@ -32,11 +32,9 @@ const verify = builder
   .inputFields({
     verificationCode: fields.single.verificationCode,
   })
-  .outputFields([
-    {
-      newUser: fields.single.newUser,
-    },
-  ])
+  .outputFields({
+    newUser: fields.single.newUser,
+  })
   .handler(authHandlers.verify)
   .build();
 

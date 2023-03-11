@@ -1,43 +1,52 @@
 import { errorThrower } from "utility-store";
 
 import { userUtilities } from "@/classes/UserUtilities";
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-import { serviceHelper } from "@/classes/service/ServiceHelper";
+
+import { commonServices } from "@/services/common";
+
+import { Cellphone, HydratedUserMongo, UserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const removeBlock = serviceBuilder
-  .create()
-  .body(async ({ currentUserId, targetUserData }) => {
-    const currentUser = await findCurrentUser(currentUserId);
+const removeBlock = async (data: {
+  currentUserId: string;
+  targetUserCellphone: Cellphone;
+}) => {
+  const currentUser = await findCurrentUser(data.currentUserId);
+  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-    const { index } = checkExistenceOfBlacklistItem(
-      currentUser.blacklist,
-      targetUserData
-    );
+  const { index } = checkExistenceOfBlacklistItem(
+    data.targetUserCellphone,
+    currentUser.blacklist
+  );
 
-    await removeBlockAndSave(currentUser, index);
-  })
-  .build();
+  await removeBlockAndSave(currentUser, index);
+};
 
-const findCurrentUser = async (currentUserId) => {
-  return await serviceHelper.findOneUserById(
+const findCurrentUser = async (currentUserId: string) => {
+  return await commonServices.findOneUserById(
     currentUserId,
     errors.CURRENT_USER_NOT_EXIST
   );
 };
 
-const checkExistenceOfBlacklistItem = (blacklist, targetUserData) => {
+const checkExistenceOfBlacklistItem = (
+  targetUserCellphone: Cellphone,
+  blacklist: UserMongo["blacklist"]
+) => {
   const { item: blacklistItem, index } = userUtilities.findByCellphone(
     blacklist,
-    targetUserData
+    targetUserCellphone
   );
   errorThrower(!blacklistItem, () => errors.BLACKLIST_ITEM_NOT_EXIST);
 
   return { index };
 };
 
-const removeBlockAndSave = async (currentUser, index) => {
+const removeBlockAndSave = async (
+  currentUser: HydratedUserMongo,
+  index: number
+) => {
   currentUser.blacklist.splice(index, 1);
   await currentUser.save();
 };

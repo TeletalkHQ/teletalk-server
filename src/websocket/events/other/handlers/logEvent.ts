@@ -1,4 +1,4 @@
-const logEvent = (_socket, _io, event, data, _callback, ...args) => {
+const logEvent = async (_socket, _io, event, data, ...args) => {
   logger.debug(`socket.event:${event}`, ...args);
   if (data) {
     logger.log("data:");

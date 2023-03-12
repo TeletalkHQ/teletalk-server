@@ -2,7 +2,7 @@
 import { IoFields } from "check-fields";
 import { ValidationError } from "fastest-validator";
 import { HydratedDocument, Types } from "mongoose";
-import { Socket } from "socket.io";
+import { Socket, Event } from "socket.io";
 
 interface Cellphone {
   countryCode: string;
@@ -14,10 +14,25 @@ type CustomEmit = (event: string, data: StringMap) => void;
 
 type CustomOn = (event: string, callback: SocketHandler) => void;
 
-type CustomUse = (
-  middleware: (...args: any[]) => Promise<void> | void,
-  ...args: any[]
-) => void;
+type SocketNext = (err?: Error | undefined) => void;
+
+type SocketEvent = Event;
+
+type SocketMiddlewareReturnValue = {
+  ok: boolean;
+};
+
+type SocketMiddleware = (
+  socket: Socket,
+  next: SocketNext,
+  event: SocketEvent
+) =>
+  | void
+  | SocketMiddlewareReturnValue
+  | Promise<void>
+  | Promise<SocketMiddlewareReturnValue>;
+
+type CustomUse = (middleware: SocketMiddleware) => void;
 
 interface FullName {
   firstName: string;
@@ -146,8 +161,8 @@ interface PrivateChatMongo {
   participants: Types.Array<Participant>;
 }
 interface Route {
-  inputFields?: IoFields | Record<string, never>;
-  outputFields?: IoFields | Record<string, never>;
+  inputFields: IoFields | Record<string, never>;
+  outputFields: IoFields | Record<string, never>;
   statusCode: number;
 }
 
@@ -231,8 +246,12 @@ export {
   NodeEnvValue,
   PrivateChatMongo,
   Route,
+  SocketEvent,
   SocketHandler,
   SocketMethods,
+  SocketMiddleware,
+  SocketMiddlewareReturnValue,
+  SocketNext,
   SocketRoute,
   StringMap,
   UserMongo,

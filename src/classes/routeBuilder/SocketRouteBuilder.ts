@@ -1,13 +1,21 @@
 import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
 
 import { SocketRoute } from "@/types";
-import { customTypeof } from "custom-typeof";
 
 class SocketRouteBuilder extends RouteBuilder {
   protected route: SocketRoute;
 
   constructor() {
     super();
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    this.route = {
+      method: "customOn",
+      inputFields: {},
+      outputFields: {},
+      statusCode: 200,
+    };
   }
 
   method(method: SocketRoute["method"]) {
@@ -26,8 +34,6 @@ class SocketRouteBuilder extends RouteBuilder {
   }
 
   build() {
-    if (customTypeof.isUndefined(this.route.method)) this.method("customOn");
-
     const { handler, name, statusCode } = this.route;
     this.checkRequirements(handler, name, statusCode);
     return this.route;

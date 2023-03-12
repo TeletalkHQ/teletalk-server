@@ -16,10 +16,12 @@ type CustomOn = (event: string, callback: SocketHandler) => void;
 
 type SocketNext = (err?: Error | undefined) => void;
 
+type SocketEvent = Event;
+
 type SocketMiddleware = (
   socket: Socket,
   next: SocketNext,
-  event: Event
+  event: SocketEvent
 ) => Promise<void> | void;
 
 type CustomUse = (middleware: SocketMiddleware) => void;
@@ -151,8 +153,8 @@ interface PrivateChatMongo {
   participants: Types.Array<Participant>;
 }
 interface Route {
-  inputFields?: IoFields | Record<string, never>;
-  outputFields?: IoFields | Record<string, never>;
+  inputFields: IoFields | Record<string, never>;
+  outputFields: IoFields | Record<string, never>;
   statusCode: number;
 }
 
@@ -236,6 +238,7 @@ export {
   NodeEnvValue,
   PrivateChatMongo,
   Route,
+  SocketEvent,
   SocketHandler,
   SocketMethods,
   SocketMiddleware,

@@ -239,6 +239,7 @@ export {
   SocketHandler,
   SocketMethods,
   SocketMiddleware,
+  SocketNext,
   SocketRoute,
   StringMap,
   UserMongo,

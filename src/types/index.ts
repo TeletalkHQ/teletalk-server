@@ -18,11 +18,19 @@ type SocketNext = (err?: Error | undefined) => void;
 
 type SocketEvent = Event;
 
+type SocketMiddlewareReturnValue = {
+  ok: boolean;
+};
+
 type SocketMiddleware = (
   socket: Socket,
   next: SocketNext,
   event: SocketEvent
-) => Promise<void> | void;
+) =>
+  | void
+  | SocketMiddlewareReturnValue
+  | Promise<void>
+  | Promise<SocketMiddlewareReturnValue>;
 
 type CustomUse = (middleware: SocketMiddleware) => void;
 
@@ -242,6 +250,7 @@ export {
   SocketHandler,
   SocketMethods,
   SocketMiddleware,
+  SocketMiddlewareReturnValue,
   SocketNext,
   SocketRoute,
   StringMap,

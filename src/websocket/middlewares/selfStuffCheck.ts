@@ -1,47 +1,54 @@
-import { errorThrower } from "utility-store";
-import { isDataHasEqualityWithTargetCellphone } from "utility-store";
 import { trier } from "simple-trier";
+import { Socket } from "socket.io";
+import {
+  errorThrower,
+  isDataHasEqualityWithTargetCellphone,
+} from "utility-store";
 
-import { commonUtilities } from "@/classes/CommonUtilities";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
+import {
+  Cellphone,
+  HydratedUserMongo,
+  SocketMiddleware,
+  SocketMiddlewareReturnValue,
+  SocketNext,
+} from "@/types";
+
 import { errors } from "@/variables/errors";
 
-const selfStuffCheck = async (req, res, next) => {
-  return await trier(selfStuffCheck.name)
-    .tryAsync(tryTo, req)
+const selfStuffCheck: SocketMiddleware = async (
+  socket,
+  next,
+  [_name, data]
+) => {
+  return await trier<SocketMiddlewareReturnValue>(selfStuffCheck.name)
+    .tryAsync(tryBlock, socket, data)
     .executeIfNoError(executeIfNoError, next)
-    .catch(catchTryTo, res)
+    .throw()
     .runAsync();
 };
 
-const tryTo = async (req) => {
-  const targetCellphone = req.body;
-  const {
-    data: {
-      payload: { tokenId },
-    },
-  } = req.authData;
+const tryBlock = async (socket: Socket, data: Cellphone) => {
+  const { tokenId } = socket.authData.data.payload;
 
-  const currentUser = await services.findOneUserById(tokenId);
+  const currentUser = (await services.findOneUserById(
+    tokenId
+  )) as HydratedUserMongo;
+
   const currentUserCellphone = userUtilities.extractCellphone(currentUser);
   errorThrower(
-    isDataHasEqualityWithTargetCellphone(currentUserCellphone, targetCellphone),
-    () => ({ ...errors.SELF_STUFF, targetCellphone })
+    isDataHasEqualityWithTargetCellphone(currentUserCellphone, data),
+    () => ({ ...errors.SELF_STUFF, targetCellphone: data })
   );
 
   return { ok: true };
 };
 
-const executeIfNoError = (_, next) => {
+const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
   next();
-};
-
-const catchTryTo = (error, res) => {
-  commonUtilities.controllerErrorResponse(error, res);
-  return { ok: false };
 };
 
 export { selfStuffCheck };

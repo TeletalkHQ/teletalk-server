@@ -10,6 +10,18 @@ interface Cellphone {
   phoneNumber: string;
 }
 
+type CustomEmit = (event: string, data: any) => void;
+
+type CustomOn = (
+  event: string,
+  callback: (...args: any[]) => Promise<void | object>
+) => void;
+
+type CustomUse = (
+  middleware: (...args: any[]) => Promise<void> | void,
+  ...args: any[]
+) => void;
+
 interface FullName {
   firstName: string;
   lastName: string;
@@ -146,7 +158,7 @@ type SocketHandler = (
   socket: Socket,
   io: Server,
   event: string,
-  data: object,
+  data: StringMap,
   callback: () => void
 ) => void;
 type SocketMethods = "on" | "onAny" | "customOn" | "once";
@@ -208,6 +220,9 @@ type ValidationResult =
 export {
   Cellphone,
   Contact,
+  CustomEmit,
+  CustomOn,
+  CustomUse,
   Environments,
   HydratedPrivateChatMongo,
   HydratedUserMongo,
@@ -220,6 +235,7 @@ export {
   NodeEnvValue,
   PrivateChatMongo,
   Route,
+  SocketHandler,
   SocketMethods,
   SocketRoute,
   StringMap,

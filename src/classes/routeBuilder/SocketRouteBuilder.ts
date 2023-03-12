@@ -1,6 +1,7 @@
 import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
 
 import { SocketRoute } from "@/types";
+import { customTypeof } from "custom-typeof";
 
 class SocketRouteBuilder extends RouteBuilder {
   protected route: SocketRoute;
@@ -25,8 +26,10 @@ class SocketRouteBuilder extends RouteBuilder {
   }
 
   build() {
-    const { handler, method, name, statusCode } = this.route;
-    this.checkRequirements(handler, method, name, statusCode);
+    if (customTypeof.isUndefined(this.route.method)) this.method("customOn");
+
+    const { handler, name, statusCode } = this.route;
+    this.checkRequirements(handler, name, statusCode);
     return this.route;
   }
 }

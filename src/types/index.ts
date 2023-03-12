@@ -2,7 +2,7 @@
 import { IoFields } from "check-fields";
 import { ValidationError } from "fastest-validator";
 import { HydratedDocument, Types } from "mongoose";
-import { Server, Socket } from "socket.io";
+import { Socket } from "socket.io";
 
 interface Cellphone {
   countryCode: string;
@@ -10,12 +10,9 @@ interface Cellphone {
   phoneNumber: string;
 }
 
-type CustomEmit = (event: string, data: any) => void;
+type CustomEmit = (event: string, data: StringMap) => void;
 
-type CustomOn = (
-  event: string,
-  callback: (...args: any[]) => Promise<void | object>
-) => void;
+type CustomOn = (event: string, callback: SocketHandler) => void;
 
 type CustomUse = (
   middleware: (...args: any[]) => Promise<void> | void,
@@ -154,14 +151,12 @@ interface Route {
   statusCode: number;
 }
 
-type SocketHandler = (
-  socket: Socket,
-  io: Server,
-  event: string,
-  data: StringMap,
-  callback: () => void
-) => void;
+type SocketHandler = (socket: Socket, data: StringMap) => any | Promise<any>;
+
+type ClientCallback = (...args: unknown[]) => unknown;
+
 type SocketMethods = "on" | "onAny" | "customOn" | "once";
+
 interface SocketRoute extends Route {
   name: string;
   handler: SocketHandler;
@@ -219,6 +214,7 @@ type ValidationResult =
 
 export {
   Cellphone,
+  ClientCallback,
   Contact,
   CustomEmit,
   CustomOn,

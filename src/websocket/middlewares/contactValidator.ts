@@ -1,37 +1,39 @@
 import { trier } from "simple-trier";
 
-import { commonUtilities } from "@/classes/CommonUtilities";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { validators } from "@/validators";
+import {
+  Contact,
+  SocketMiddleware,
+  SocketMiddlewareReturnValue,
+  SocketNext,
+} from "@/types";
 
-const tryToValidateContact = async (userData) => {
-  const { firstName, lastName } = userData;
+const contactValidator: SocketMiddleware = async (
+  _socket,
+  next,
+  [_name, data]
+) => {
+  return await trier<SocketMiddlewareReturnValue>(contactValidator.name)
+    .tryAsync(tryBlock, data)
+    .executeIfNoError(executeIfNoError, next)
+    .throw()
+    .runAsync();
+};
+
+const tryBlock = async (data: Contact & object) => {
+  const { firstName, lastName } = data;
   await validators.contact({
-    ...userUtilities.extractCellphone(userData),
+    ...userUtilities.extractCellphone(data),
     firstName,
     lastName,
   });
   return { ok: true };
 };
 
-const executeIfNoError = (_, next) => {
+const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
   next();
 };
 
-const catchValidateContact = (error, res) => {
-  commonUtilities.controllerErrorResponse(error, res);
-  return { ok: false };
-};
-
-const contactValidatorMiddleware = async (req, res, next) => {
-  const { body: userData } = req;
-
-  return await trier(contactValidatorMiddleware.name)
-    .tryAsync(tryToValidateContact, userData)
-    .executeIfNoError(executeIfNoError, next)
-    .catch(catchValidateContact, res)
-    .runAsync();
-};
-
-export { contactValidatorMiddleware as contactValidator };
+export { contactValidator };

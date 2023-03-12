@@ -1,31 +1,31 @@
 import { trier } from "simple-trier";
 
-import { commonUtilities } from "@/classes/CommonUtilities";
 import { userUtilities } from "@/classes/UserUtilities";
+
+import { Cellphone, SocketMiddleware, SocketNext } from "@/types";
 
 import { validators } from "@/validators";
 
-const cellphoneValidator = async (req, res, next) => {
-  return await trier(cellphoneValidator.name)
-    .tryAsync(tryToValidateCellphone, req.body)
+const cellphoneValidator: SocketMiddleware = async (
+  _socket,
+  next,
+  [_name, data]
+) => {
+  await trier(cellphoneValidator.name)
+    .tryAsync(tryBlock, data)
     .executeIfNoError(executeIfNoError, next)
-    .catch(catchValidateCellphone, res)
+    .throw()
     .runAsync();
 };
 
-const tryToValidateCellphone = async (userData) => {
-  const cellphone = userUtilities.extractCellphone(userData);
+const tryBlock = async (data: Cellphone & object) => {
+  const cellphone = userUtilities.extractCellphone(data);
   await validators.cellphone(cellphone);
   return { ok: true };
 };
 
-const executeIfNoError = (_, next) => {
+const executeIfNoError = (_: unknown, next: SocketNext) => {
   next();
-};
-
-const catchValidateCellphone = (error, res) => {
-  commonUtilities.controllerErrorResponse(error, res);
-  return { ok: false };
 };
 
 export { cellphoneValidator };

@@ -1,23 +1,29 @@
 import { trier } from "simple-trier";
 
-import { commonUtilities } from "@/classes/CommonUtilities";
+import { SocketMiddleware, SocketNext } from "@/types";
 
 import { validators } from "@/validators";
 
-const tryToValidateVerificationCode = async (verificationCode) => {
-  await validators.verificationCode(verificationCode);
-};
+const verificationCodeValidator: SocketMiddleware = async (
+  _socket,
+  next,
+  [_name, data]
+) => {
+  const { verificationCode } = data;
 
-const catchValidateVerificationCode = commonUtilities.controllerErrorResponse;
-
-const verificationCodeValidatorMiddleware = async (req, res, next) => {
-  const { verificationCode } = req.body;
-
-  await trier(verificationCodeValidatorMiddleware.name)
-    .tryAsync(tryToValidateVerificationCode, verificationCode)
-    .executeIfNoError(() => next())
-    .catch(catchValidateVerificationCode, res)
+  await trier<void>(verificationCodeValidator.name)
+    .tryAsync(tryBlock, verificationCode)
+    .executeIfNoError(executeIfNoError, next)
+    .throw()
     .runAsync();
 };
 
-export { verificationCodeValidatorMiddleware as verificationCodeValidator };
+const tryBlock = async (verificationCode: string) => {
+  await validators.verificationCode(verificationCode);
+};
+
+const executeIfNoError = (_: void, next: SocketNext) => {
+  next();
+};
+
+export { verificationCodeValidator };

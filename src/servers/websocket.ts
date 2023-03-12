@@ -22,6 +22,8 @@ const websocketServer = (httpServer: HttpServer) => {
   });
 
   io.on("connection", (socket) => {
+    socket.io = io;
+
     socket.customUse = customMethods.use(socket);
     socket.customOn = customMethods.on(socket);
     socket.customEmit = customMethods.emit(socket);
@@ -32,7 +34,7 @@ const websocketServer = (httpServer: HttpServer) => {
     socket.customUse(middlewares.checkCurrentUserStatus);
     socket.customUse(middlewares.attachCurrentUserId);
 
-    routers(socket, io);
+    routers(socket);
   });
   return io;
 };

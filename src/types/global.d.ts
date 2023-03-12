@@ -12,6 +12,7 @@ export {};
 declare module "socket.io" {
   interface Socket {
     authData: VerifiedToken;
+    currentUserId: string;
     customEmit: CustomEmit;
     customOn: CustomOn;
     customUse: CustomUse;

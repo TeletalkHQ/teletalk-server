@@ -1,6 +1,8 @@
 import { userUtilities } from "@/classes/UserUtilities";
 
-const attachCurrentUserId = (socket, next) => {
+import { SocketMiddleware } from "@/types";
+
+const attachCurrentUserId: SocketMiddleware = (socket, next) => {
   socket.currentUserId = userUtilities.getUserIdFromVerifiedToken(
     socket.authData
   );

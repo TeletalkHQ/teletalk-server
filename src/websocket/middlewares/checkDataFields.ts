@@ -1,38 +1,43 @@
-import { customTypeof } from "custom-typeof";
-import { errorThrower } from "utility-store";
-import { ioFieldsChecker } from "utility-store";
+import { checkFields, IoFields } from "check-fields";
 import { trier } from "simple-trier";
+
+import {
+  NativeModelError,
+  SocketEvent,
+  SocketMiddleware,
+  SocketNext,
+  SocketRoute,
+} from "@/types";
 
 import { errors } from "@/variables/errors";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
-const checkDataFields = (_socket, next, event) => {
-  trier(checkDataFields.name)
-    .try(tryBlock, event)
+const checkDataFields: SocketMiddleware = (_socket, next, [name, data]) => {
+  const { inputFields } = arrayOfRoutes.find(
+    (item) => item.name === name
+  ) as SocketRoute;
+
+  trier<void>(checkDataFields.name)
+    .try(tryBlock, data, inputFields)
     .executeIfNoError(executeIfNoError, next)
-    .catch(catchBlock)
+    .catch(catchBlock, inputFields)
     .run();
 };
 
-const tryBlock = ([name, data, callback]) => {
-  if (callback && customTypeof.isNotFunction(callback))
-    throw errors.IS_NOT_A_CALLBACK;
-
-  const { inputFields } = arrayOfRoutes.find((item) => item.name === name);
-  const checkResult = ioFieldsChecker(data || {}, inputFields, errors.io.input);
-  errorThrower(checkResult.ok === false, () => ({
-    ...checkResult.error,
-    inputFields,
-  }));
+const tryBlock = (data: SocketEvent["1"], inputFields: IoFields) => {
+  checkFields(data || {}, inputFields, errors.io.input);
 };
 
-const executeIfNoError = (_, next) => {
+const executeIfNoError = (_: void, next: SocketNext) => {
   next();
 };
 
-const catchBlock = (error) => {
-  throw error;
+const catchBlock = (error: NativeModelError, inputFields: IoFields) => {
+  throw {
+    ...error,
+    inputFields,
+  };
 };
 
 export { checkDataFields };

@@ -2,7 +2,7 @@
 import { IoFields } from "check-fields";
 import { ValidationError } from "fastest-validator";
 import { HydratedDocument, Types } from "mongoose";
-import { Socket } from "socket.io";
+import { Socket, Event } from "socket.io";
 
 interface Cellphone {
   countryCode: string;
@@ -14,10 +14,15 @@ type CustomEmit = (event: string, data: StringMap) => void;
 
 type CustomOn = (event: string, callback: SocketHandler) => void;
 
-type CustomUse = (
-  middleware: (...args: any[]) => Promise<void> | void,
-  ...args: any[]
-) => void;
+type SocketNext = (err?: Error | undefined) => void;
+
+type SocketMiddleware = (
+  socket: Socket,
+  next: SocketNext,
+  event: Event
+) => Promise<void> | void;
+
+type CustomUse = (middleware: SocketMiddleware) => void;
 
 interface FullName {
   firstName: string;
@@ -233,6 +238,7 @@ export {
   Route,
   SocketHandler,
   SocketMethods,
+  SocketMiddleware,
   SocketRoute,
   StringMap,
   UserMongo,

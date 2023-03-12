@@ -6,16 +6,18 @@ import { authManager } from "@/classes/AuthManager";
 import { services } from "@/services";
 
 import { errors } from "@/variables/errors";
+import { SocketMiddleware, SocketNext } from "@/types";
+import { Socket } from "socket.io";
 
-const checkCurrentUserStatus = async (socket, next) => {
-  await trier(checkCurrentUserStatus.name)
+const checkCurrentUserStatus: SocketMiddleware = async (socket, next) => {
+  await trier<void>(checkCurrentUserStatus.name)
     .tryAsync(tryBlock, socket)
     .executeIfNoError(executeIfNoError, next)
     .throw()
     .runAsync();
 };
 
-const tryBlock = async (socket) => {
+const tryBlock = async (socket: Socket) => {
   const error = errors.CURRENT_USER_NOT_EXIST;
 
   const {
@@ -23,11 +25,14 @@ const tryBlock = async (socket) => {
       payload: { tokenId },
     },
   } = socket.authData;
+
   const currentUser = await services.findOneUser({ userId: tokenId });
-  errorThrower(!currentUser, {
-    ...error,
-    wrongTokenId: tokenId,
-  });
+  if (!currentUser)
+    throw {
+      ...error,
+      wrongTokenId: tokenId,
+    };
+
   errorThrower(currentUser.userId !== tokenId, {
     ...error,
     wrongTokenId: tokenId,
@@ -39,13 +44,9 @@ const tryBlock = async (socket) => {
     ...error,
     isSessionExist,
   });
-
-  return {
-    currentUser,
-  };
 };
 
-const executeIfNoError = (_data, next) => {
+const executeIfNoError = (_: void, next: SocketNext) => {
   next();
 };
 

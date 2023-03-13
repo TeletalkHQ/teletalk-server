@@ -192,8 +192,8 @@ interface StringMap {
 
 interface UserMongo extends Cellphone, FullName {
   bio: string;
-  contacts: Types.Array<Contact>;
-  blacklist: Types.Array<Cellphone>;
+  contacts: Contact[];
+  blacklist: Cellphone[];
   userId: string;
   createdAt: CreatedAt;
   username: string;

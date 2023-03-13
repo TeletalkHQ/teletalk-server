@@ -166,13 +166,16 @@ interface Route {
   statusCode: number;
 }
 
-type SocketOnHandler = (socket: Socket, data: StringMap) => any | Promise<any>;
+type SocketOnHandler = (
+  socket: Socket,
+  data: StringMap
+) => void | StringMap | Promise<StringMap>;
 
 type SocketOnAnyHandler = (
   socket: Socket,
   data: StringMap,
   event: string
-) => any | Promise<any>;
+) => void | StringMap | Promise<StringMap>;
 
 type ClientCallback = (...args: unknown[]) => unknown;
 

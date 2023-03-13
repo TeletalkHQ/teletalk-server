@@ -2,20 +2,18 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
-const addContact = async (socket, _io, data) => {
+import { Contact, SocketOnHandler } from "@/types";
+
+const addContact: SocketOnHandler = async (socket, data) => {
   const { currentUserId } = socket;
-  const newContactData = userUtilities.extractContact(data);
+  const newContact = userUtilities.extractContact(data as Contact);
 
-  const { newContact } = await services
-    .addContact()
-    .run({ currentUserId, newContactData });
+  const { addedContact } = await services.addContact({
+    currentUserId,
+    newContact,
+  });
 
-  return {
-    addedContact: {
-      ...newContact,
-      userId: newContact.userId,
-    },
-  };
+  return { addedContact };
 };
 
 export { addContact };

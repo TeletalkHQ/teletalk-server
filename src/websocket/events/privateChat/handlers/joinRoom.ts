@@ -1,3 +1,5 @@
-const joinRoom = (socket) => socket.join(socket.currentUserId);
+import { SocketOnHandler } from "@/types";
+
+const joinRoom: SocketOnHandler = (socket) => socket.join(socket.currentUserId);
 
 export { joinRoom };

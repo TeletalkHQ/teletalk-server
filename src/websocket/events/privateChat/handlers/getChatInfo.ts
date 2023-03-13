@@ -1,11 +1,25 @@
 import { services } from "@/services";
 
-const getChatInfo = async (_socket, _io, data) => {
-  const { messages, ...chatInfo } = await services.findOnePrivateChatByChatId({
+import { SocketOnHandler } from "@/types";
+
+import { errors } from "@/variables/errors";
+
+const getChatInfo: SocketOnHandler = async (_socket, data) => {
+  const privateChat = await services.findOnePrivateChatByChatId({
     chatId: data.chatId,
   });
 
-  return { chatInfo };
+  if (!privateChat) throw errors.CHAT_NOT_EXIST;
+
+  const { chatId, createdAt, participants } = privateChat;
+
+  return {
+    chatInfo: {
+      chatId,
+      createdAt,
+      participants,
+    },
+  };
 };
 
 export { getChatInfo };

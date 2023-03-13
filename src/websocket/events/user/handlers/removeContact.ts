@@ -2,17 +2,19 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
-const removeContact = async (socket, _io, data) => {
-  const { currentUserId } = socket;
-  const targetUserData = userUtilities.extractCellphone(data);
+import { Cellphone, SocketOnHandler } from "@/types";
 
-  await services.removeContact().run({
+const removeContact: SocketOnHandler = async (socket, data) => {
+  const { currentUserId } = socket;
+  const targetContact = userUtilities.extractCellphone(data as Cellphone);
+
+  await services.removeContact({
     currentUserId,
-    targetUserData,
+    targetCellphone: targetContact,
   });
 
   return {
-    removedContact: targetUserData,
+    removedContact: targetContact,
   };
 };
 

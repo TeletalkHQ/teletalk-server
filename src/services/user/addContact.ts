@@ -30,7 +30,7 @@ const addContact = async (data: {
 
   await saveNewContactItem(currentUser, contact);
 
-  return { newContact: contact };
+  return { addedContact: contact };
 };
 
 const checkExistenceOfContactItem = (

@@ -11,7 +11,7 @@ import { loggerHelper } from "@/helpers/logHelper";
 class SmsClient {
   templates() {
     return {
-      verificationCode: (verificationCode: number, host: string) =>
+      verificationCode: (verificationCode: string, host: string) =>
         `verification code: ${verificationCode} ${loggerHelper.newLine()}${loggerHelper.newLine()} ${host}        
         `,
     };
@@ -20,7 +20,7 @@ class SmsClient {
   async sendVerificationCode(
     sendTo: string,
     host: string,
-    verificationCode: number
+    verificationCode: string
   ) {
     const text = this.templates().verificationCode(verificationCode, host);
     const { SMS_PROVIDER_SELECTOR } = envManager.getEnvironment();

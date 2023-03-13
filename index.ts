@@ -51,7 +51,7 @@ const getTestServerPath = () => {
   paths.push("test");
   return path.join(...paths);
 };
-const getTestServerRequirements = async (path) => {
+const getTestServerRequirements = async (path: string) => {
   return (await import(path)).requirements;
 };
 const runRequirements = async (requirements) => {

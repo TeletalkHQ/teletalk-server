@@ -1,9 +1,15 @@
 import generatePassword from "generate-password";
 import { isArray } from "lodash";
+import { Socket } from "socket.io";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
-import { Environments } from "@/types";
+import {
+  Environments,
+  SocketEvent,
+  SocketMiddleware,
+  SocketNext,
+} from "@/types";
 
 // const getHostFromRequest = (request) => request.get("host");
 
@@ -16,17 +22,29 @@ const crashServer = (message: unknown) => {
   process.exit(1);
 };
 
-// const executeMiddlewares = async ({ middlewares, next, req, res }) => {
-//   for await (const m of middlewares) {
-//     const result = await m(req, res, () => logger.debug("middleware executed"));
+interface ExecuteMiddlewaresArgs {
+  middlewares: SocketMiddleware[];
+  next: SocketNext;
+  socket: Socket;
+  event: SocketEvent;
+}
 
-//     if (result.ok === false) {
-//       return;
-//     }
-//   }
+const executeMiddlewares = async ({
+  event,
+  middlewares,
+  next,
+  socket,
+}: ExecuteMiddlewaresArgs) => {
+  for await (const m of middlewares) {
+    const result = await m(socket, next, event);
 
-//   return next();
-// };
+    if (result?.ok === false) {
+      return;
+    }
+  }
+
+  return next();
+};
 
 const regexMaker = (pattern: string) => new RegExp(pattern);
 
@@ -63,7 +81,7 @@ const sortEnvironments = () =>
 
 const utilities = {
   crashServer,
-  // executeMiddlewares,
+  executeMiddlewares,
   isUrlMatchWithReqUrl,
   logEnvironments,
   passwordGenerator,

@@ -1,38 +1,42 @@
 import { errorThrower } from "utility-store";
 
 import { userUtilities } from "@/classes/UserUtilities";
-import { serviceBuilder } from "@/classes/service/ServiceBuilder";
-import { serviceHelper } from "@/classes/service/ServiceHelper";
+
+import { findOneUserById } from "@/services/common/findOneUserById";
+
+import { Contact, HydratedUserMongo, UserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const updateContact = serviceBuilder
-  .create()
-  .body(async ({ currentUserId, editValues }) => {
-    const currentUser = await findCurrentUser(currentUserId);
+const updateContact = async (data: {
+  currentUserId: string;
+  editValues: Contact;
+}) => {
+  const currentUser = (await findCurrentUser(
+    data.currentUserId
+  )) as HydratedUserMongo;
 
-    const { index, contact: oldContact } = findContact(
-      currentUser.contacts,
-      editValues
-    );
-
-    errorThrower(!oldContact, {
-      ...errors.CONTACT_ITEM_NOT_EXIST,
-      editValues,
-    });
-
-    await saveNewContact(currentUser, editValues, index);
-  })
-  .build();
-
-const findCurrentUser = async (currentUserId) => {
-  return await serviceHelper.findOneUserById(
-    currentUserId,
-    errors.CURRENT_USER_NOT_EXIST
+  const { index, contact: oldContact } = findContact(
+    currentUser.contacts,
+    data.editValues
   );
+
+  errorThrower(!oldContact, {
+    ...errors.CONTACT_ITEM_NOT_EXIST,
+    editValues: data.editValues,
+  });
+
+  await saveNewContact(currentUser, data.editValues, index);
 };
 
-const findContact = (contacts, targetCellphone) => {
+const findCurrentUser = async (currentUserId: string) => {
+  return await findOneUserById(currentUserId, errors.CURRENT_USER_NOT_EXIST);
+};
+
+const findContact = (
+  contacts: UserMongo["contacts"],
+  targetCellphone: Contact
+) => {
   const { item: contact, index } = userUtilities.findByCellphone(
     contacts,
     targetCellphone
@@ -41,7 +45,11 @@ const findContact = (contacts, targetCellphone) => {
   return { contact, index };
 };
 
-const saveNewContact = async (currentUser, editValues, index) => {
+const saveNewContact = async (
+  currentUser: HydratedUserMongo,
+  editValues: Contact,
+  index: number
+) => {
   currentUser.contacts.splice(index, 1, editValues);
   await currentUser.save();
 };

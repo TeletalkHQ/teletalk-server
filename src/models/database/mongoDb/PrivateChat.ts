@@ -1,6 +1,6 @@
 import { Document, model, Model, Schema } from "mongoose";
 
-import { mongooseUniqueValidator } from "@/plugins/mongoose";
+// import { mongooseUniqueValidator } from "@/plugins/mongoose";
 
 import { nativeModels } from "@/models/native";
 
@@ -79,7 +79,7 @@ const PrivateChatSchema = new Schema<IPrivateChatDoc, IPrivateChatModel>({
   ],
 });
 
-PrivateChatSchema.plugin(mongooseUniqueValidator);
+// PrivateChatSchema.plugin(mongooseUniqueValidator);
 
 const PrivateChat = model<IPrivateChatDoc, IPrivateChatModel>(
   "PrivateChat",

@@ -2,7 +2,7 @@
 import { IoFields } from "check-fields";
 import { ValidationError } from "fastest-validator";
 import { HydratedDocument, Types } from "mongoose";
-import { Socket, Event, Server } from "socket.io";
+import { Socket, Event } from "socket.io";
 
 interface Cellphone {
   countryCode: string;

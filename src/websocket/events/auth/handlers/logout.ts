@@ -2,9 +2,9 @@ import { authManager } from "@/classes/AuthManager";
 
 import { services } from "@/services";
 
-import { SocketHandler } from "@/types";
+import { SocketOnHandler } from "@/types";
 
-const logout: SocketHandler = async (socket) => {
+const logout: SocketOnHandler = async (socket) => {
   const { currentUserId } = socket;
   const currentToken = authManager.getTokenFromSocket(socket) as string;
 

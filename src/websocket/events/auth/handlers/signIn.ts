@@ -7,13 +7,13 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { models } from "@/models";
 
-import { Cellphone, SocketHandler, TemporaryClient } from "@/types";
+import { Cellphone, SocketOnHandler, TemporaryClient } from "@/types";
 
 import { utilities } from "@/utilities";
 
 import { validators } from "@/validators";
 
-const signIn: SocketHandler = async (socket, data) => {
+const signIn: SocketOnHandler = async (socket, data) => {
   const verificationCode = utilities.passwordGenerator();
   await validateVerificationCode(verificationCode);
 

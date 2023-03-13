@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 
-import { SocketRoute } from "@/types";
+import { SocketOnHandler, SocketRoute } from "@/types";
 
 type Routes = {
   [prop: string]: SocketRoute;
@@ -8,7 +8,7 @@ type Routes = {
 
 const socketRouterBuilder = (routes: Routes) => (socket: Socket) =>
   Object.values(routes).forEach((item) => {
-    socket["customOn"](item.name, item.handler);
+    socket["customOn"](item.name, item.handler as SocketOnHandler);
   });
 
 export { socketRouterBuilder };

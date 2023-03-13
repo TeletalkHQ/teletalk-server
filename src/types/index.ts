@@ -2,7 +2,7 @@
 import { IoFields } from "check-fields";
 import { ValidationError } from "fastest-validator";
 import { HydratedDocument, Types } from "mongoose";
-import { Socket, Event } from "socket.io";
+import { Socket, Event, Server } from "socket.io";
 
 interface Cellphone {
   countryCode: string;
@@ -12,7 +12,7 @@ interface Cellphone {
 
 type CustomEmit = (event: string, data: StringMap) => void;
 
-type CustomOn = (event: string, callback: SocketHandler) => void;
+type CustomOn = (event: string, callback: SocketOnHandler) => void;
 
 type SocketNext = (err?: Error | undefined) => void;
 
@@ -166,7 +166,13 @@ interface Route {
   statusCode: number;
 }
 
-type SocketHandler = (socket: Socket, data: StringMap) => any | Promise<any>;
+type SocketOnHandler = (socket: Socket, data: StringMap) => any | Promise<any>;
+
+type SocketOnAnyHandler = (
+  socket: Socket,
+  data: StringMap,
+  event: string
+) => any | Promise<any>;
 
 type ClientCallback = (...args: unknown[]) => unknown;
 
@@ -174,7 +180,7 @@ type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
 interface SocketRoute extends Route {
   name: string;
-  handler: SocketHandler;
+  handler: SocketOnHandler | SocketOnAnyHandler;
   method: SocketMethods;
 }
 
@@ -252,11 +258,12 @@ export {
   PrivateChatMongo,
   Route,
   SocketEvent,
-  SocketHandler,
   SocketMethods,
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
+  SocketOnAnyHandler,
+  SocketOnHandler,
   SocketRoute,
   StringMap,
   TemporaryClient,

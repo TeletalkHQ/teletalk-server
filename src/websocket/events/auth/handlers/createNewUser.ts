@@ -9,13 +9,18 @@ import { models } from "@/models";
 
 import { services } from "@/services";
 
-import { Cellphone, SocketHandler, TemporaryClient, UserMongo } from "@/types";
+import {
+  Cellphone,
+  SocketOnHandler,
+  TemporaryClient,
+  UserMongo,
+} from "@/types";
 
 import { validators } from "@/validators";
 
 import { errors } from "@/variables/errors";
 
-const createNewUser: SocketHandler = async (
+const createNewUser: SocketOnHandler = async (
   socket,
   { firstName, lastName }
 ) => {

@@ -4,9 +4,9 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
-import { SocketHandler, TemporaryClient } from "@/types";
+import { SocketOnHandler, TemporaryClient } from "@/types";
 
-const verify: SocketHandler = async (socket) => {
+const verify: SocketOnHandler = async (socket) => {
   const { tokenId } = socket.authData.data.payload;
 
   const client = (await temporaryClients.find(tokenId)) as TemporaryClient;

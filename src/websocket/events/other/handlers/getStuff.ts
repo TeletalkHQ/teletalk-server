@@ -1,5 +1,5 @@
 import { enErrorMessages } from "@/translation/messages/enErrorMessages";
-import { SocketHandler } from "@/types";
+import { SocketOnHandler } from "@/types";
 
 import { allStuff } from "@/variables/others/allStuff";
 
@@ -9,7 +9,7 @@ const languages = {
 
 type LanguageKey = keyof typeof languages;
 
-const getAllStuff: SocketHandler = (_socket, data) => {
+const getAllStuff: SocketOnHandler = (_socket, data) => {
   const { language = "en" } = data;
   const languageData = languages[language as LanguageKey];
 

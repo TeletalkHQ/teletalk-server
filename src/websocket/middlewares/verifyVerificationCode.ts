@@ -1,46 +1,47 @@
-import { errorThrower } from "utility-store";
 import { trier } from "simple-trier";
+import { Socket } from "socket.io";
+import { errorThrower } from "utility-store";
 
-import { commonUtilities } from "@/classes/CommonUtilities";
 import { temporaryClients } from "@/classes/TemporaryClients";
+
+import { SocketMiddleware, StringMap } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const verifyVerificationCode = async (req, res, next) => {
+const verifyVerificationCode: SocketMiddleware = async (
+  socket,
+  next,
+  [_name, data]
+) => {
   await trier(verifyVerificationCode.name)
-    .tryAsync(tryToVerifyVerificationCode, req)
+    .tryAsync(tryBlock, socket, data)
     .executeIfNoError(() => next())
-    .catch(catchVerifyVerificationCode, res)
+    .throw()
     .runAsync();
 };
 
-const tryToVerifyVerificationCode = async (req) => {
-  const {
-    authData: {
-      data: {
-        payload: { tokenId },
-      },
-    },
-    body: { verificationCode: sentVerificationCode },
-  } = req;
+const tryBlock = async (socket: Socket, data: StringMap) => {
+  const { tokenId } = socket.authData.data.payload;
+  const { verificationCode: sentVerificationCode } = data;
 
-  const tempClient = await findTemporaryClient(tokenId);
-  const { verificationCode: actualVerificationCode } = tempClient;
+  const temporaryClient = await findTemporaryClient(tokenId);
+  const { verificationCode: actualVerificationCode } = temporaryClient;
 
   errorThrower(sentVerificationCode !== actualVerificationCode, {
     ...errors.VERIFICATION_CODE_INVALID,
     sentVerificationCode,
   });
 
-  await temporaryClients.update(tokenId, { ...tempClient, isVerified: true });
+  await temporaryClients.update(tokenId, {
+    ...temporaryClient,
+    isVerified: true,
+  });
 };
 
-const findTemporaryClient = async (tokenId) => {
-  const tempClient = await temporaryClients.find(tokenId);
-  errorThrower(!tempClient, errors.TEMPORARY_CLIENT_NOT_FOUND);
-  return tempClient;
+const findTemporaryClient = async (tokenId: string) => {
+  const temporaryClient = await temporaryClients.find(tokenId);
+  if (!temporaryClient) throw errors.TEMPORARY_CLIENT_NOT_FOUND;
+  return temporaryClient;
 };
-
-const catchVerifyVerificationCode = commonUtilities.controllerErrorResponse;
 
 export { verifyVerificationCode };

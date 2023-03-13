@@ -4,7 +4,7 @@ import { nativeModels } from "@/models/native";
 
 import { NativeModel, UserMongo } from "@/types";
 
-interface IUserDoc extends UserMongo, Document {}
+type IUserDoc = UserMongo & Document;
 type IUserModel = Model<IUserDoc>;
 
 const userNativeModel = nativeModels.user;

@@ -1,9 +1,11 @@
 import { services } from "@/services";
 
-const getContacts = async (socket) => {
+import { SocketOnHandler } from "@/types";
+
+const getContacts: SocketOnHandler = async (socket) => {
   const { currentUserId } = socket;
 
-  const contacts = await services.getUserContacts().run({ currentUserId });
+  const contacts = await services.getUserContacts({ currentUserId });
 
   return {
     contacts,

@@ -3,14 +3,16 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
-const updateOnlineStatus = async (socket) => {
-  const token = authManager.getTokenFromSocket(socket);
+import { SocketOnHandler } from "@/types";
+
+const updateOnlineStatus: SocketOnHandler = async (socket) => {
+  const token = authManager.getTokenFromSocket(socket) as string;
 
   const currentUserId = userUtilities.getTokenId(token);
 
-  await services.updateOnlineStatus().run({
+  await services.updateOnlineStatus({
     currentUserId,
-    online: socket.connected,
+    isOnline: socket.connected,
   });
 };
 

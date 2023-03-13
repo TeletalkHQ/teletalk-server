@@ -1,18 +1,23 @@
+import { SocketMiddleware, SocketMiddlewareEvent } from "@/types";
+
 import { utilities } from "@/utilities";
 
-const applyMiddlewares = (url, ...middlewares) => {
-  return async (req, res, next) => {
-    if (utilities.isUrlMatchWithReqUrl(url, req.url)) {
+const applyMiddlewares = (
+  events: SocketMiddlewareEvent,
+  ...middlewares: SocketMiddleware[]
+) => {
+  return (async (socket, next, event) => {
+    if (utilities.isUrlMatchWithReqUrl(events, event[0])) {
       return await utilities.executeMiddlewares({
+        event,
         middlewares,
         next,
-        req,
-        res,
+        socket,
       });
     }
 
     next();
-  };
+  }) as SocketMiddleware;
 };
 
 export { applyMiddlewares };

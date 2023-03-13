@@ -2,11 +2,13 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
-const addBlock = async (socket, _io, data) => {
-  const { currentUserId } = socket;
-  const blockingCellphone = userUtilities.extractCellphone(data);
+import { Cellphone, SocketOnHandler } from "@/types";
 
-  await services.addBlock().run({ blockingCellphone, currentUserId });
+const addBlock: SocketOnHandler = async (socket, data) => {
+  const { currentUserId } = socket;
+  const blockingCellphone = userUtilities.extractCellphone(data as Cellphone);
+
+  await services.addBlock({ blockingCellphone, currentUserId });
 
   return { blockedCellphone: blockingCellphone };
 };

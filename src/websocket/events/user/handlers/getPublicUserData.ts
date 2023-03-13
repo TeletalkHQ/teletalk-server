@@ -1,8 +1,14 @@
+import { userUtilities } from "utility-store";
+
 import { services } from "@/services";
+
+import { SocketOnHandler } from "@/types";
 
 import { validators } from "@/validators";
 
-const getPublicUserData = async (_socket, data) => {
+import { errors } from "@/variables/errors";
+
+const getPublicUserData: SocketOnHandler = async (_socket, data) => {
   const { userId } = data;
 
   await validators.userId(userId);
@@ -10,15 +16,10 @@ const getPublicUserData = async (_socket, data) => {
   const user = await services.getTargetUserData({
     userId,
   });
+  if (!user) throw errors.TARGET_USER_NOT_EXIST;
 
   return {
-    publicUserData: {
-      bio: user.bio,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      userId: user.userId,
-      username: user.username,
-    },
+    publicUserData: userUtilities.extractPublicUserData(user),
   };
 };
 

@@ -69,7 +69,7 @@ class AuthManager {
       `${this.getOptions().cookie.SESSION_NAME}=`
     )[1];
   }
-  setTokenOnSocket(
+  setSessionOnSocket(
     socket: Socket,
     token: string
     //FIXME: Options need to set

@@ -6,7 +6,7 @@ import { nativeModels } from "@/models/native";
 
 import { NativeModel, PrivateChatMongo } from "@/types";
 
-interface IPrivateChatDoc extends PrivateChatMongo, Document {}
+type IPrivateChatDoc = PrivateChatMongo & Document;
 type IPrivateChatModel = Model<IPrivateChatDoc>;
 
 const chatNativeModels = nativeModels.chat;

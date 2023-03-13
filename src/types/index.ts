@@ -12,7 +12,7 @@ interface Cellphone {
 
 type CustomEmit = (event: string, data: StringMap) => void;
 
-type CustomOn = (event: string, callback: SocketHandler) => void;
+type CustomOn = (event: string, callback: SocketOnHandler) => void;
 
 type SocketNext = (err?: Error | undefined) => void;
 
@@ -40,6 +40,7 @@ interface FullName {
 }
 
 interface Contact extends Cellphone, FullName {}
+type SocketMiddlewareEvent = string | string[];
 
 type CreatedAt = number;
 
@@ -166,7 +167,16 @@ interface Route {
   statusCode: number;
 }
 
-type SocketHandler = (socket: Socket, data: StringMap) => any | Promise<any>;
+type SocketOnHandler = (
+  socket: Socket,
+  data: StringMap
+) => void | StringMap | Promise<StringMap>;
+
+type SocketOnAnyHandler = (
+  socket: Socket,
+  data: StringMap,
+  event: string
+) => void | StringMap | Promise<StringMap>;
 
 type ClientCallback = (...args: unknown[]) => unknown;
 
@@ -174,7 +184,7 @@ type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
 interface SocketRoute extends Route {
   name: string;
-  handler: SocketHandler;
+  handler: SocketOnHandler | SocketOnAnyHandler;
   method: SocketMethods;
 }
 
@@ -192,8 +202,8 @@ interface StringMap {
 
 interface UserMongo extends Cellphone, FullName {
   bio: string;
-  contacts: Types.Array<Contact>;
-  blacklist: Types.Array<Cellphone>;
+  contacts: Contact[];
+  blacklist: Cellphone[];
   userId: string;
   createdAt: CreatedAt;
   username: string;
@@ -227,6 +237,22 @@ type ValidationResult =
   | ValidationError[]
   | Promise<true | ValidationError[]>;
 
+interface TemporaryClient extends Cellphone {
+  isVerified: boolean;
+  verificationCode: string;
+}
+
+interface PublicUserData {
+  bio: string;
+  firstName: string;
+  lastName: string;
+  userId: string;
+  username: string;
+  status: {
+    isOnline: boolean;
+  };
+}
+
 export {
   Cellphone,
   ClientCallback,
@@ -235,6 +261,7 @@ export {
   CustomOn,
   CustomUse,
   Environments,
+  FullName,
   HydratedPrivateChatMongo,
   HydratedUserMongo,
   LogLevel,
@@ -245,15 +272,19 @@ export {
   NativeModelKey,
   NodeEnvValue,
   PrivateChatMongo,
+  PublicUserData,
   Route,
   SocketEvent,
-  SocketHandler,
   SocketMethods,
   SocketMiddleware,
+  SocketMiddlewareEvent,
   SocketMiddlewareReturnValue,
   SocketNext,
+  SocketOnAnyHandler,
+  SocketOnHandler,
   SocketRoute,
   StringMap,
+  TemporaryClient,
   UserMongo,
   ValidationResult,
   VerifiedToken,

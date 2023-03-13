@@ -1,8 +1,10 @@
-const logEvent = async (_socket, _io, event, data, ...args) => {
-  logger.debug(`socket.event:${event}`, ...args);
+import { SocketOnAnyHandler } from "@/types";
+
+const logEvent: SocketOnAnyHandler = async (_socket, data, event) => {
+  logger.debug(`socket.event:${event}`);
   if (data) {
-    logger.log("data:");
-    console.dir(data, { depth: 12 });
+    logger.debug("data:");
+    logger.dir(logger.levels.debug, data, { depth: 12 });
   }
 };
 

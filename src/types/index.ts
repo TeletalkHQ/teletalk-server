@@ -227,6 +227,11 @@ type ValidationResult =
   | ValidationError[]
   | Promise<true | ValidationError[]>;
 
+interface TemporaryClient extends Cellphone {
+  isVerified: boolean;
+  verificationCode: string;
+}
+
 export {
   Cellphone,
   ClientCallback,
@@ -254,6 +259,7 @@ export {
   SocketNext,
   SocketRoute,
   StringMap,
+  TemporaryClient,
   UserMongo,
   ValidationResult,
   VerifiedToken,

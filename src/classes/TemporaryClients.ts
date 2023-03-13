@@ -1,5 +1,7 @@
 import { RedisClientType } from "redis";
 
+import { TemporaryClient } from "@/types";
+
 class TemporaryClients {
   private STATE_KEY = "temporary_client";
   private STATE_PATH = ".";
@@ -19,10 +21,12 @@ class TemporaryClients {
   }
 
   async find(clientId: string) {
-    return this.storage.json.get(this.makeStateKey(clientId));
+    return (await this.storage.json.get(
+      this.makeStateKey(clientId)
+    )) as TemporaryClient | null;
   }
 
-  async add(clientId: string, data: object) {
+  async add(clientId: string, data: TemporaryClient) {
     const stateKey = this.makeStateKey(clientId);
     await this.storage
       .multi()
@@ -31,7 +35,7 @@ class TemporaryClients {
       .exec();
   }
 
-  async update(clientId: string, newData: object) {
+  async update(clientId: string, newData: TemporaryClient) {
     await this.storage.json.set(
       this.makeStateKey(clientId),
       this.STATE_PATH,

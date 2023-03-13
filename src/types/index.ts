@@ -261,6 +261,7 @@ export {
   CustomOn,
   CustomUse,
   Environments,
+  FullName,
   HydratedPrivateChatMongo,
   HydratedUserMongo,
   LogLevel,

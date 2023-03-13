@@ -5,6 +5,7 @@ import { services } from "@/services";
 import { SocketOnHandler } from "@/types";
 
 import { validators } from "@/validators";
+
 import { errors } from "@/variables/errors";
 
 const getPublicUserData: SocketOnHandler = async (_socket, data) => {

@@ -2,11 +2,13 @@ import { authManager } from "@/classes/AuthManager";
 
 import { services } from "@/services";
 
-const logout = async (socket) => {
-  const { currentUserId } = socket;
-  const currentToken = authManager.getTokenFromRequest(socket);
+import { SocketHandler } from "@/types";
 
-  await services.logout().run({
+const logout: SocketHandler = async (socket) => {
+  const { currentUserId } = socket;
+  const currentToken = authManager.getTokenFromSocket(socket) as string;
+
+  await services.logout({
     currentToken,
     currentUserId,
   });

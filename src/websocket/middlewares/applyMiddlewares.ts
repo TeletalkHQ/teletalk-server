@@ -1,8 +1,6 @@
-import { SocketMiddleware } from "@/types";
+import { SocketMiddleware, SocketMiddlewareEvent } from "@/types";
 
 import { utilities } from "@/utilities";
-
-type SocketMiddlewareEvent = string | string[];
 
 const applyMiddlewares = (
   events: SocketMiddlewareEvent,

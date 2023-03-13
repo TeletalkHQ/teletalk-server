@@ -40,6 +40,7 @@ interface FullName {
 }
 
 interface Contact extends Cellphone, FullName {}
+type SocketMiddlewareEvent = string | string[];
 
 type CreatedAt = number;
 
@@ -270,10 +271,12 @@ export {
   NativeModelKey,
   NodeEnvValue,
   PrivateChatMongo,
+  PublicUserData,
   Route,
   SocketEvent,
   SocketMethods,
   SocketMiddleware,
+  SocketMiddlewareEvent,
   SocketMiddlewareReturnValue,
   SocketNext,
   SocketOnAnyHandler,
@@ -284,5 +287,4 @@ export {
   UserMongo,
   ValidationResult,
   VerifiedToken,
-  PublicUserData,
 };

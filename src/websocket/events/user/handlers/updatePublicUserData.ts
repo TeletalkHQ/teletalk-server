@@ -26,6 +26,8 @@ const updatePublicUserData: SocketOnHandler = async (socket, data) => {
   });
 
   const publicUserData = userUtilities.extractPublicUserData(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     updatedUser as PublicUserData
   );
 

@@ -1,13 +1,13 @@
 import { commonServices } from "@/services/common";
 
-import { UserMongo } from "@/types";
+import { PublicUserData } from "@/types";
 
 import { errors } from "@/variables/errors";
 
 const updatePublicUserData = async (data: {
   currentUserId: string;
   //FIXME: public data interface
-  updateProperties: Partial<UserMongo>;
+  updateProperties: Partial<PublicUserData>;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;

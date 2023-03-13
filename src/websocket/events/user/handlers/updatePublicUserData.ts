@@ -2,9 +2,11 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
+import { PublicUserData, SocketOnHandler } from "@/types";
+
 import { validators } from "@/validators";
 
-const updatePublicUserData = async (socket, _io, data) => {
+const updatePublicUserData: SocketOnHandler = async (socket, data) => {
   const { currentUserId } = socket;
   const { bio, firstName, lastName, username } = data;
 
@@ -13,15 +15,19 @@ const updatePublicUserData = async (socket, _io, data) => {
   await validators.bio(bio);
   await validators.username(username);
 
-  const updatedUser = await services.updatePublicUserData().run({
+  const updatedUser = await services.updatePublicUserData({
     currentUserId,
-    bio,
-    firstName,
-    lastName,
-    username,
+    updateProperties: {
+      bio,
+      firstName,
+      lastName,
+      username,
+    },
   });
 
-  const publicUserData = userUtilities.extractPublicUserData(updatedUser);
+  const publicUserData = userUtilities.extractPublicUserData(
+    updatedUser as PublicUserData
+  );
 
   return {
     publicUserData,

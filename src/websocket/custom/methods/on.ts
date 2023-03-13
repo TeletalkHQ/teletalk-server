@@ -3,10 +3,10 @@ import { Socket } from "socket.io";
 import { ClientCallback, CustomOn, StringMap } from "@/types";
 
 const customOn = (socket: Socket) => {
-  return ((event, callback) => {
+  return ((event, handler) => {
     socket.on(event, async (data: StringMap, cb: ClientCallback) => {
       try {
-        const returnValue = await callback(socket, data);
+        const returnValue = await handler(socket, data);
 
         if (returnValue) {
           if (cb) cb(returnValue);

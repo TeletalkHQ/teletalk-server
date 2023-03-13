@@ -241,6 +241,17 @@ interface TemporaryClient extends Cellphone {
   verificationCode: string;
 }
 
+interface PublicUserData {
+  bio: string;
+  firstName: string;
+  lastName: string;
+  userId: string;
+  username: string;
+  status: {
+    isOnline: boolean;
+  };
+}
+
 export {
   Cellphone,
   ClientCallback,
@@ -273,4 +284,5 @@ export {
   UserMongo,
   ValidationResult,
   VerifiedToken,
+  PublicUserData,
 };

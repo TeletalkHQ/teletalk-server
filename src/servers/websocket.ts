@@ -1,6 +1,6 @@
 import http from "http";
 
-import socket from "socket.io";
+import { Server } from "socket.io";
 
 import { customMethods } from "@/websocket/custom/methods";
 
@@ -14,7 +14,7 @@ type HttpServer = http.Server<
 >;
 
 const websocketServer = (httpServer: HttpServer) => {
-  const io = new socket.Server(httpServer, {
+  const io = new Server(httpServer, {
     cors: {
       credentials: true,
       origin: true,

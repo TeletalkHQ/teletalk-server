@@ -54,7 +54,7 @@ const getTestServerPath = () => {
 const getTestServerRequirements = async (path: string) => {
   return (await import(path)).requirements;
 };
-const runRequirements = async (requirements) => {
+const runRequirements = async (requirements: any) => {
   await requirements.database();
   await requirements.testServer();
 };

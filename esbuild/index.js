@@ -10,9 +10,10 @@ const defaultOptions = {
 const appBuilder = ([key, value]) =>
   build({
     ...defaultOptions,
-    entryPoints: ["./src/servers/index.js"],
+    entryPoints: ["./lib/index.js"],
     outfile: `build/${key}/app.js`,
     target: value,
+    // tsconfig: "./tsconfig.json",
   });
 
 const testBuilder = ([key, value]) =>
@@ -42,4 +43,4 @@ const targets = {
 };
 
 Object.entries(targets).forEach(appBuilder);
-Object.entries(targets).forEach(testBuilder);
+// Object.entries(targets).forEach(testBuilder);

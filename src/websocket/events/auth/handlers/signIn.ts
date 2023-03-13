@@ -7,29 +7,32 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { models } from "@/models";
 
+import { Cellphone, SocketHandler, TemporaryClient } from "@/types";
+
 import { utilities } from "@/utilities";
 
 import { validators } from "@/validators";
 
-const signIn = async (req, res) => {
+const signIn: SocketHandler = async (socket, data) => {
   const verificationCode = utilities.passwordGenerator();
   await validateVerificationCode(verificationCode);
 
-  const cellphone = userUtilities.extractCellphone(req.body);
+  const cellphone = userUtilities.extractCellphone(data as Cellphone);
 
-  const host = getHostFromRequest(req);
+  //FIXME: Get host from socket
+  // const host = getHostFromRequest(req);
   const fullNumber = userUtilities.makeFullNumber(
     cellphone.countryCode,
     cellphone.phoneNumber
   );
-  await sendVerificationCode(fullNumber, host, verificationCode);
+  await sendVerificationCode(fullNumber, "host", verificationCode);
 
   const tokenId = createClientId();
   const token = signToken({
     tokenId,
     date: Date.now(),
   });
-  authManager.setSessionOnSocket(res, token);
+  authManager.setSessionOnSocket(socket, token);
   await addClient(tokenId, {
     ...cellphone,
     isVerified: false,
@@ -37,22 +40,26 @@ const signIn = async (req, res) => {
   });
 };
 
-const validateVerificationCode = async (verificationCode) => {
+const validateVerificationCode = async (verificationCode: string) => {
   await validators.verificationCode(verificationCode);
 };
 
-const sendVerificationCode = async (fullNumber, host, verificationCode) => {
+const sendVerificationCode = async (
+  fullNumber: string,
+  host: string,
+  verificationCode: string
+) => {
   await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 };
 
 const createClientId = () =>
   randomMaker.id(models.native.user.userId.maxlength.value);
 
-const signToken = (data) => {
+const signToken = (data: { tokenId: string; date: number }) => {
   return authManager.signToken(data, authManager.getSignInSecret());
 };
 
-const addClient = async (tokenId, data) =>
+const addClient = async (tokenId: string, data: TemporaryClient) =>
   await temporaryClients.add(tokenId, data);
 
 export { signIn };

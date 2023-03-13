@@ -4,19 +4,19 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { commonServices } from "@/services/common";
 
-import { Contact, HydratedUserMongo, UserMongo } from "@/types";
+import { Cellphone, HydratedUserMongo, UserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
 const removeContact = async (data: {
   currentUserId: string;
-  targetContact: Contact;
+  targetCellphone: Cellphone;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
   const { index } = checkExistenceOfContactItem(
-    data.targetContact,
+    data.targetCellphone,
     currentUser.contacts
   );
 
@@ -31,7 +31,7 @@ const findCurrentUser = async (currentUserId: string) => {
 };
 
 const checkExistenceOfContactItem = (
-  targetContact: Contact,
+  targetContact: Cellphone,
   contacts: UserMongo["contacts"]
 ) => {
   const { item: contactItem, index } = userUtilities.findByCellphone(

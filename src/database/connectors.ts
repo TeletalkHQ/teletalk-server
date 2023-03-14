@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import redis from "redis";
+import { createClient } from "redis";
 
 import { appConfigs } from "@/classes/AppConfigs";
 import { envManager } from "@/classes/EnvironmentManager";
@@ -33,7 +33,7 @@ const redisConnector = async () => {
   const REDIS_CONNECTION_OPTIONS = fixRedisConnection();
   const { REDIS_PASSWORD } = envManager.getEnvironment();
 
-  const storage = redis.createClient({
+  const storage = createClient({
     socket: {
       tls: true,
       port: +REDIS_CONNECTION_OPTIONS.port,
@@ -69,7 +69,7 @@ const fixRedisHost = () => {
     envManager.getEnvironment();
 
   if (
-    [REDIS_HOST, REDIS_PORT.toString()].some((item = "") =>
+    [REDIS_HOST, REDIS_PORT?.toString()].some((item = "") =>
       item.includes("tcp://")
     )
   ) {
@@ -88,7 +88,7 @@ const fixRedisPort = () => {
     return REDIS_PORT.toString().split(":")[2];
   }
 
-  return REDIS_PORT.toString() || REDIS_DEFAULT_PORT.toString();
+  return REDIS_PORT?.toString() || REDIS_DEFAULT_PORT.toString();
 };
 
 export { mongodbConnector, redisConnector };

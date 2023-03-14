@@ -6,21 +6,21 @@
 
 #* How to run aliasLoader.sh? E.g. bash ./aliasLoader.sh
 
-#? Docker aliases
+#? Docker
 alias docb="docker build . -t stalwart95/teletalk-server"
 alias docr="docker run -it -u 0 -p 8080:8080 stalwart95/teletalk-server"
 alias doccu="docker compose up --build"
 
-#? Railway aliases
+#? Railway
 alias rwl="railway logs"
 alias rwu="railway up"
 
-#? Liara aliases
+#? Liara
 alias lrdd="liara deploy --platform=docker"
 alias lrdn="liara deploy --platform=node"
 alias lrl="liara logs"
 
-#? npm aliases
+#? npm
 alias nrb="npm run build"
 alias nrcf="npm run check:format"
 alias nrcl="npm run check:lint"
@@ -34,7 +34,7 @@ alias nrtdwb="npm run test:dev:with-badge"
 alias nrtp="nrb&&npm run test:production"
 alias nrtpl="nrb&&npm run test:production:local"
 
-#? yarn aliases
+#? yarn
 alias ya="yarn add"
 alias yd="yarn dev"
 alias ys="yarn start"

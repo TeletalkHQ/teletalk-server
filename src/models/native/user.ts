@@ -10,6 +10,7 @@ const bio = nativeModelBuilder
   .type(FIELD_TYPE.STRING, errors.BIO_INVALID_TYPE)
   .required(true, errors.BIO_REQUIRED)
   .empty(true)
+  .trim(true)
   .minlength(0)
   .defaultValue("")
   .maxlength(255, errors.BIO_MAXLENGTH_REACH)

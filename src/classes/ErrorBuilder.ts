@@ -7,6 +7,11 @@ import { localErrors } from "@/variables/errors/local";
 
 class ErrorBuilder {
   error: NativeModelError;
+  constructor() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    this.error = {};
+  }
 
   key(key: string) {
     this.error.key = key;

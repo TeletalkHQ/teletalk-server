@@ -14,12 +14,21 @@ import { errors } from "@/variables/errors";
 type MessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationRuleObject;
 
+interface ValidationModel {
+  [prop: string]: ValidationRuleObject;
+}
 const compiler = new Validator({
   useNewCustomCheckerFunction: true,
 });
 class ValidationModelBuilder {
   private model: NativeModel;
-  private validationModel: ValidationRuleObject;
+  private validationModel: ValidationModel;
+
+  constructor() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    this.validationModel = {};
+  }
 
   private updateProperty(
     validationKey: ValidationSchemaKey,
@@ -47,7 +56,7 @@ class ValidationModelBuilder {
         this.model[modelKey].error?.reason || "UNKNOWN_REASON";
   }
 
-  static compiler(validationModel: ValidationRuleObject) {
+  static compiler(validationModel: ValidationModel) {
     errorThrower(
       customTypeof.isNotObject(validationModel),
       errors.VALIDATION_MODEL_IS_NOT_OBJECT

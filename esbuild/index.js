@@ -1,16 +1,18 @@
-import { build } from "esbuild";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { build } = require("esbuild");
 
 const defaultOptions = {
   allowOverwrite: true,
   bundle: true,
   minify: true,
+  sourcemap: true,
   platform: "node",
 };
 
 const appBuilder = ([key, value]) =>
   build({
     ...defaultOptions,
-    entryPoints: ["./lib/index.js"],
+    entryPoints: ["./src/servers/index.ts"],
     outfile: `build/${key}/app.js`,
     target: value,
     // tsconfig: "./tsconfig.json",

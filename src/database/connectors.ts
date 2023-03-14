@@ -18,15 +18,11 @@ const mongodbConnector = () => {
     )
   );
 
-  return mongoose.connect(
-    configs.db.MONGO_URL_FULL,
-    {
-      keepAlive: true,
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
-    },
-    utilities.crashServer
-  );
+  return mongoose.connect(configs.db.MONGO_URL_FULL, {
+    keepAlive: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+  });
 };
 
 const redisConnector = async () => {
@@ -35,7 +31,7 @@ const redisConnector = async () => {
 
   const storage = createClient({
     socket: {
-      tls: true,
+      tls: false,
       port: +REDIS_CONNECTION_OPTIONS.port,
       host: REDIS_CONNECTION_OPTIONS.host,
     },

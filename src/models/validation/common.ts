@@ -2,13 +2,15 @@ import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { nativeModels } from "@/models/native";
 
-const createdAt = validationModelBuilder
-  .create()
-  .setModel(nativeModels.common.createdAt)
-  .type()
-  .required()
-  .empty()
-  .build();
+const createdAt = {
+  createdAt: validationModelBuilder
+    .create()
+    .setModel(nativeModels.common.createdAt)
+    .type()
+    .required()
+    .empty()
+    .build(),
+};
 
 const commonValidationModels = { createdAt };
 

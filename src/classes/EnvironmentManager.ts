@@ -1,6 +1,4 @@
-import { Environments } from "@/types";
-
-import { NodeEnvValue } from "@/types";
+import { Environments, NodeEnvValue } from "@/types";
 
 class EnvironmentManager {
   getEnvironment(): Environments {

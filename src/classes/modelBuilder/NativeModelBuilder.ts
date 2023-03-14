@@ -7,11 +7,22 @@ type ModelError = NativeModelError;
 class NativeModelBuilder {
   model: NativeModel;
 
+  constructor() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    this.model = {};
+  }
+
   private updateProperty<T>(
     key: keyof NativeModel,
     value: T,
     error?: ModelError
   ) {
+    this.model = {
+      ...this.model,
+      [key]: {},
+    };
+
     this.model[key].value = value;
     if (error) this.model[key].error = error;
   }

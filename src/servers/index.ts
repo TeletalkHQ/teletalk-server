@@ -4,11 +4,12 @@
 // import { setupPrimary, createAdapter } from "@socket.io/cluster-adapter";
 // import { Server } from "socket.io";
 
+import "@/configs/customGlobals";
+import "@/helpers/requireDotenv";
+
 import PrettyError from "pretty-error";
 
 import http from "http";
-
-import "@/helpers/requireDotenv";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
@@ -18,20 +19,23 @@ import { websocketServer } from "@/servers/websocket";
 
 import { utilities } from "@/utilities";
 
-import "@/configs/customGlobals";
-
 PrettyError.start();
 
-const { NODE_ENV, PORT, SELF_EXEC } = envManager.getEnvironment();
+const {
+  // NODE_ENV,
+  // PORT,
+  SELF_EXEC,
+} = envManager.getEnvironment();
 
-const EXACT_PORT = PORT || envManager.getEnvironment().PORT_DEFAULT;
+// const EXACT_PORT = PORT || envManager.getEnvironment().PORT_DEFAULT;
 
-const serverListenerCb = () => {
-  logger.info(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
-};
+// const serverListenerCb = () => {
+//   logger.info(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
+// };
 
 const runner = async () => {
   // if (cluster.isPrimary) {
+
   utilities.logEnvironments();
 
   // const NUM_WORKERS = os.cpus().length;
@@ -53,7 +57,8 @@ const runner = async () => {
   await requirements.database();
   const httpServer = http.createServer();
   websocketServer(httpServer);
-  httpServer.listen(EXACT_PORT, serverListenerCb);
+
+  // httpServer.listen(EXACT_PORT, serverListenerCb);
 
   // logger.log(`Worker ${process.pid} started`);
 

@@ -7,7 +7,7 @@ import { errors } from "@/variables/errors";
 import { countries } from "@/variables/others/countries";
 
 const userModels = models.native.user;
-const chatModels = models.native.chat;
+const chatModels = models.native.privateChat;
 
 const bioChecker = (result: Result, bio: unknown) => {
   validationChecker(

@@ -23,7 +23,7 @@ const validationModels = {
 const allStuff = {
   errors: userErrors,
   models: {
-    ...models.native.chat,
+    ...models.native.privateChat,
     ...models.native.common,
     ...models.native.user,
   },

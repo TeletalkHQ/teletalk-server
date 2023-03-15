@@ -9,7 +9,7 @@ import { NativeModel, PrivateChatMongo } from "@/types";
 type IPrivateChatDoc = PrivateChatMongo & Document;
 type IPrivateChatModel = Model<IPrivateChatDoc>;
 
-const chatNativeModels = nativeModels.chat;
+const chatNativeModels = nativeModels.privateChat;
 
 function makePropValue(prop: NativeModel) {
   return function <T extends keyof NativeModel>(

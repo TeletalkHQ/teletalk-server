@@ -73,7 +73,7 @@ const senderId = nativeModelBuilder
   .unique(commonModels.userId.unique.value, errors.SENDER_ID_EXIST)
   .build();
 
-const chatModels = {
+const privateChatModels = {
   chatId,
   createdAt,
   messageText,
@@ -85,4 +85,4 @@ const chatModels = {
   participants,
 };
 
-export { chatModels };
+export { privateChatModels };

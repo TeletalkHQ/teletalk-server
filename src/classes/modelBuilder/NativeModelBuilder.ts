@@ -1,6 +1,4 @@
-import { customTypeof } from "custom-typeof";
-
-import { NativeModel, NativeModelError, NativeModelItem } from "@/types";
+import { NativeModel, NativeModelError } from "@/types";
 
 type ModelError = NativeModelError;
 
@@ -92,16 +90,7 @@ class NativeModelBuilder {
   }
 
   build() {
-    Object.entries(this.model).forEach((item) => {
-      const key = item[0] as keyof NativeModel;
-      const prop = item[1] as NativeModelItem;
-
-      if (customTypeof.isUndefined(prop.error?.reason, prop.error?.statusCode))
-        delete this.model[key].error;
-      if (customTypeof.isUndefined(prop.value)) delete this.model[key];
-    });
-
-    return this.model as NativeModel;
+    return this.model;
   }
 }
 

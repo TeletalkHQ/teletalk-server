@@ -223,7 +223,7 @@ const messageChecker = (result: Result, messageText: unknown) => {
         validatedMessageText: messageText,
       },
     },
-    chatModels.message
+    chatModels.messageText
   ).check(function () {
     this.required()
       .stringEmpty()

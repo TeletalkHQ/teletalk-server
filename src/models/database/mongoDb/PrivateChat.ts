@@ -20,7 +20,7 @@ function makePropValue(prop: NativeModel) {
 }
 
 const chatIdMaker = makePropValue(chatNativeModels.chatId);
-const messageMaker = makePropValue(chatNativeModels.message);
+const messageMaker = makePropValue(chatNativeModels.messageText);
 const messageIdMaker = makePropValue(chatNativeModels.messageId);
 const participantIdMaker = makePropValue(chatNativeModels.participantId);
 
@@ -46,7 +46,7 @@ const PrivateChatSchema = new Schema<IPrivateChatDoc, IPrivateChatModel>({
         type: String,
         minlength: messageMaker("minlength"),
         maxlength: messageMaker("maxlength"),
-        required: chatNativeModels.message.required.value,
+        required: chatNativeModels.messageText.required.value,
       },
       messageId: {
         type: String,

@@ -9,7 +9,7 @@ const chatId = commonModels.chatId;
 const createdAt = commonModels.createdAt;
 const messageId = commonModels.messageId;
 
-const message = nativeModelBuilder
+const messageText = nativeModelBuilder
   .create()
   .type(FIELD_TYPE.STRING, errors.MESSAGE_TEXT_INVALID_TYPE)
   .required(true, errors.MESSAGE_TEXT_REQUIRED)
@@ -76,7 +76,7 @@ const senderId = nativeModelBuilder
 const chatModels = {
   chatId,
   createdAt,
-  message,
+  messageText,
   messageId,
   messages,
   participantId,

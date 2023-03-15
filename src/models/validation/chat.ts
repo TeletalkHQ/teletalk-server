@@ -33,7 +33,7 @@ const chatId = {
 const messageText = {
   messageText: validationModelBuilder
     .create()
-    .setModel(nativeModels.chat.message)
+    .setModel(nativeModels.chat.messageText)
     .type()
     .required()
     .empty()

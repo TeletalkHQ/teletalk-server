@@ -19,13 +19,13 @@ const createdAt = statics.number;
 const description = statics.string;
 const errorReason = statics.string;
 const firstName = statics.string;
+const isOnline = statics.boolean;
 const language = statics.string;
 const lastName = statics.string;
 const message = statics.string;
 const messageId = statics.string;
 const newUser = statics.boolean;
 const ok = statics.boolean;
-const online = statics.boolean;
 const participantId = statics.string;
 const phoneNumber = statics.string;
 const senderId = statics.string;
@@ -84,7 +84,7 @@ const countries = statics.array(country);
 const messages = statics.array(messageItem);
 const participants = statics.array(participantItem);
 
-const status = statics.object({ online });
+const status = statics.object({ isOnline });
 
 const privateChat = {
   chatId,
@@ -118,13 +118,13 @@ const single = {
   description,
   errorReason,
   firstName,
+  isOnline,
   language,
   lastName,
   message,
   messageId,
   newUser,
   ok,
-  online,
   participantId,
   phoneNumber,
   senderId,

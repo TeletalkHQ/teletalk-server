@@ -1,15 +1,11 @@
-import { customTypeof } from "custom-typeof";
 import Validator, {
-  ValidationRuleObject,
   MessagesType,
+  ValidationRuleObject,
 } from "fastest-validator";
-import { objectUtilities, errorThrower } from "utility-store";
 
 import { NativeModel } from "@/types";
 
 import { NativeModelKey } from "@/types";
-
-import { errors } from "@/variables/errors";
 
 type MessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationRuleObject;
@@ -17,17 +13,19 @@ type ValidationSchemaKey = keyof ValidationRuleObject;
 interface ValidationModel {
   [prop: string]: ValidationRuleObject;
 }
+
 const compiler = new Validator({
   useNewCustomCheckerFunction: true,
 });
+
 class ValidationModelBuilder {
   private model: NativeModel;
-  private validationModel: ValidationModel;
+  private validationRuleObject: ValidationRuleObject;
 
   constructor() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    this.validationModel = {};
+    this.validationRuleObject = {};
   }
 
   private updateProperty(
@@ -48,20 +46,15 @@ class ValidationModelBuilder {
     modelKey: NativeModelKey,
     validationKey: ValidationSchemaKey
   ) {
-    this.validationModel[validationKey] = this.model[modelKey].value;
+    this.validationRuleObject[validationKey] = this.model[modelKey].value;
   }
   private setMessage(modelKey: NativeModelKey, messageKey: MessageKey) {
-    if (this.validationModel.messages)
-      this.validationModel.messages[messageKey] =
+    if (this.validationRuleObject.messages)
+      this.validationRuleObject.messages[messageKey] =
         this.model[modelKey].error?.reason || "UNKNOWN_REASON";
   }
 
   static compiler(validationModel: ValidationModel) {
-    errorThrower(
-      customTypeof.isNotObject(validationModel),
-      errors.VALIDATION_MODEL_IS_NOT_OBJECT
-    );
-
     return compiler.compile(validationModel);
   }
 
@@ -108,9 +101,7 @@ class ValidationModelBuilder {
   }
 
   build() {
-    return objectUtilities.clarify(
-      this.validationModel
-    ) as ValidationRuleObject;
+    return this.validationRuleObject;
   }
 }
 

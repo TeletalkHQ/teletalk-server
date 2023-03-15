@@ -1,67 +1,59 @@
 import { Document, model, Model, Schema } from "mongoose";
 
-// import { mongooseUniqueValidator } from "@/plugins/mongoose";
+import { makeMongoSchemaValue } from "@/helpers/makeMongoSchemaValue";
 
 import { nativeModels } from "@/models/native";
 
-import { NativeModel, PrivateChatMongo } from "@/types";
+import { PrivateChatMongo } from "@/types";
 
 type IPrivateChatDoc = PrivateChatMongo & Document;
 type IPrivateChatModel = Model<IPrivateChatDoc>;
 
 const chatNativeModels = nativeModels.privateChat;
 
-function makePropValue(prop: NativeModel) {
-  return function <T extends keyof NativeModel>(
-    key: T
-  ): [NativeModel[T]["value"], string] {
-    return [prop[key].value, prop[key].error?.reason as string];
-  };
-}
-
-const chatIdMaker = makePropValue(chatNativeModels.chatId);
-const messageMaker = makePropValue(chatNativeModels.messageText);
-const messageIdMaker = makePropValue(chatNativeModels.messageId);
-const participantIdMaker = makePropValue(chatNativeModels.participantId);
+const chatIdMaker = makeMongoSchemaValue(chatNativeModels.chatId);
+const messageIdMaker = makeMongoSchemaValue(chatNativeModels.messageId);
+const messageTextMaker = makeMongoSchemaValue(chatNativeModels.messageText);
+const participantIdMaker = makeMongoSchemaValue(chatNativeModels.participantId);
 
 const PrivateChatSchema = new Schema<IPrivateChatDoc, IPrivateChatModel>({
   chatId: {
-    type: String,
-    required: chatIdMaker("required"),
-    minlength: chatIdMaker("minlength"),
     maxlength: chatIdMaker("maxlength"),
+    minlength: chatIdMaker("minlength"),
+    required: chatIdMaker("required"),
+    type: "string",
     unique: chatNativeModels.chatId.required.value,
   },
   createdAt: {
     required: chatNativeModels.createdAt.required.value,
-    type: Number,
+    type: "number",
   },
   messages: [
     {
       createdAt: {
         required: chatNativeModels.createdAt.required.value,
-        type: Number,
+        type: "number",
       },
       message: {
-        type: String,
-        minlength: messageMaker("minlength"),
-        maxlength: messageMaker("maxlength"),
+        maxlength: messageTextMaker("maxlength"),
+        minlength: messageTextMaker("minlength"),
         required: chatNativeModels.messageText.required.value,
+        type: "string",
       },
       messageId: {
-        type: String,
-        minlength: messageIdMaker("minlength"),
         maxlength: messageIdMaker("maxlength"),
-        trim: chatNativeModels.messageId.trim.value,
+        minlength: messageIdMaker("minlength"),
         required: chatNativeModels.messageId.required.value,
+        trim: chatNativeModels.messageId.trim.value,
+        type: "string",
       },
       sender: {
         senderId: {
-          type: String,
-          minlength: participantIdMaker("minlength"),
           maxlength: participantIdMaker("maxlength"),
-          trim: chatNativeModels.participantId.trim.value,
+          minlength: participantIdMaker("minlength"),
           required: chatNativeModels.participantId.required.value,
+          trim: chatNativeModels.participantId.trim.value,
+          type: "string",
         },
       },
     },
@@ -69,17 +61,15 @@ const PrivateChatSchema = new Schema<IPrivateChatDoc, IPrivateChatModel>({
   participants: [
     {
       participantId: {
-        type: String,
-        minlength: participantIdMaker("minlength"),
         maxlength: participantIdMaker("maxlength"),
-        trim: chatNativeModels.participantId.trim.value,
+        minlength: participantIdMaker("minlength"),
         required: chatNativeModels.participantId.required.value,
+        trim: chatNativeModels.participantId.trim.value,
+        type: "string",
       },
     },
   ],
 });
-
-// PrivateChatSchema.plugin(mongooseUniqueValidator);
 
 const PrivateChat = model<IPrivateChatDoc, IPrivateChatModel>(
   "PrivateChat",

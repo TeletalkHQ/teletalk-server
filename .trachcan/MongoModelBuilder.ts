@@ -1,64 +1,3 @@
-import { NativeModel } from "@/types";
-
-const userSchema = new Schema<IUserDoc, IUserModel>({
-  name: {
-    type: String,
-    required: [true, "Name is required"],
-    validate: {
-      validator: (value: string) => /^[a-zA-Z ]+$/.test(value),
-      message: "Invalid name format",
-    },
-  },
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    validate: {
-      validator: (value: string) => /^\S+@\S+\.\S+$/.test(value),
-      message: "Invalid email format",
-    },
-  },
-});
-
-const user = new UserModel({
-  name: true,
-  email: "ss",
-  ss: "ss",
-});
-
-export { IUser, IUserDoc, IUserModel, UserModel };
-// 1. Create an interface representing a document in MongoDB.
-
-// 3. Create a Model.cost
-// const User = model<IUser>("User", userSchema);
-
-// const user: HydratedDocument<IUser> = new User(
-//   {
-//     email: "bill@initech.com",
-//     avatar: "https://i.imgur.com/dM7Thhn.png",
-//     // name: true,
-//   },
-//   undefined,
-//   { timestamps: true }
-// );
-
-// user.name;
-
-run().catch((err) => console.log(err));
-
-async function run() {
-  // 4. Connect to MongoDB
-  await connect("mongodb://127.0.0.1:27017/test");
-
-  const user = new User({
-    name: "Bill",
-    email: "bill@initech.com",
-    avatar: "https://i.imgur.com/dM7Thhn.png",
-  });
-  await user.save();
-
-  console.log(user.email); // 'bill@initech.com'
-}
-
 class MongoModelBuilder {
   model: NativeModel;
   mongoModel: Schema;
@@ -77,11 +16,6 @@ class MongoModelBuilder {
     this.mongoModel[mongoModelKey || modelKey].push(
       this.model[modelKey].error?.reason
     );
-  }
-
-  setModel(model) {
-    this.model = model;
-    return this;
   }
 
   defaultValue() {
@@ -130,6 +64,85 @@ class MongoModelBuilder {
       if (value.length) prevValue[key] = value.length > 1 ? value : value[0];
       return prevValue;
     }, {});
+  }
+}
+
+type MongoModelKey =
+  | "default"
+  | "empty"
+  | "maxlength"
+  | "minlength"
+  | "required"
+  | "trim"
+  | "type"
+  | "unique";
+
+class MongoModelBuilder<T extends NativeModelKey> {
+  private model: NativeModel;
+  private mongoModel: {
+    [prop: string]: [NativeModel[T]["value"], string];
+    // | NativeModel[T]["value"];
+  };
+
+  constructor(model: NativeModel) {
+    this.model = model;
+    this.mongoModel = {};
+  }
+
+  private updateProperty(
+    modelKey: NativeModelKey,
+    mongoModelKey: MongoModelKey
+  ) {
+    this.setValue(modelKey, mongoModelKey);
+    this.setMessage(modelKey, mongoModelKey);
+  }
+
+  private setValue(modelKey: NativeModelKey, mongoModelKey: MongoModelKey) {
+    this.mongoModel[mongoModelKey].push(this.model[modelKey].value);
+  }
+  private setMessage(modelKey: NativeModelKey, mongoModelKey: MongoModelKey) {
+    this.mongoModel[mongoModelKey].push(this.model[modelKey].error?.reason);
+  }
+
+  defaultValue() {
+    this.setValue("defaultValue", "default");
+    return this;
+  }
+  empty() {
+    this.setValue("empty", "empty");
+    return this;
+  }
+  // lowercase() {
+  //   this.#updateProperty("lowercase");
+  //   return this;
+  // }
+  maxlength() {
+    this.updateProperty("maxlength", "maxlength");
+    return this;
+  }
+  minlength() {
+    this.updateProperty("minlength", "minlength");
+    return this;
+  }
+  required() {
+    this.updateProperty("required", "required");
+    return this;
+  }
+  trim() {
+    this.setValue("trim", "trim");
+    return this;
+  }
+  type() {
+    this.setValue("type", "type");
+    return this;
+  }
+  unique() {
+    this.updateProperty("unique", "unique");
+    return this;
+  }
+
+  build() {
+    return this.mongoModel;
   }
 }
 

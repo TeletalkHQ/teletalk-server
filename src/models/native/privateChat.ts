@@ -3,7 +3,6 @@ import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
 import { commonModels } from "@/models/native/common";
 
 import { errors } from "@/variables/errors";
-import { FIELD_TYPE } from "@/variables/others/fieldType";
 
 const chatId = commonModels.chatId;
 const createdAt = commonModels.createdAt;
@@ -11,7 +10,7 @@ const messageId = commonModels.messageId;
 
 const messageText = nativeModelBuilder
   .create()
-  .type(FIELD_TYPE.STRING, errors.MESSAGE_TEXT_INVALID_TYPE)
+  .type("string", errors.MESSAGE_TEXT_INVALID_TYPE)
   .required(true, errors.MESSAGE_TEXT_REQUIRED)
   .empty(false, errors.MESSAGE_TEXT_EMPTY)
   .minlength(1, errors.MESSAGE_TEXT_MIN_LENGTH_REACH)
@@ -21,14 +20,14 @@ const messageText = nativeModelBuilder
 
 const messages = nativeModelBuilder
   .create()
-  .type(FIELD_TYPE.ARRAY, errors.MESSAGES_INVALID_TYPE)
+  .type("array", errors.MESSAGES_INVALID_TYPE)
   .required(true, errors.MESSAGES_REQUIRED)
   .empty(true)
   .build();
 
 const participants = nativeModelBuilder
   .create()
-  .type(FIELD_TYPE.ARRAY, errors.PARTICIPANTS_INVALID_TYPE)
+  .type("array", errors.PARTICIPANTS_INVALID_TYPE)
   .required(true, errors.PARTICIPANTS_REQUIRED)
   .length(2, errors.PARTICIPANTS_INVALID_LENGTH)
   .empty(false, errors.PARTICIPANTS_EMPTY)
@@ -53,7 +52,7 @@ const participantId = nativeModelBuilder
 
 const privateChats = nativeModelBuilder
   .create()
-  .type(FIELD_TYPE.ARRAY, errors.PRIVATE_CHATS_INVALID_TYPE)
+  .type("array", errors.PRIVATE_CHATS_INVALID_TYPE)
   .build();
 
 const senderId = nativeModelBuilder

@@ -10,6 +10,8 @@ interface Cellphone {
   phoneNumber: string;
 }
 
+type FieldType = "array" | "boolean" | "date" | "number" | "object" | "string";
+
 type CustomEmit = (event: string, data: StringMap) => void;
 
 type CustomOn = (event: string, callback: SocketOnHandler) => void;
@@ -121,7 +123,7 @@ interface NativeModel {
   };
   trim: { value: boolean; error?: NativeModelError };
   type: {
-    value: string;
+    value: FieldType;
     error: NativeModelError;
   };
   unique: {

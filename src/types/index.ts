@@ -149,7 +149,7 @@ interface Sender {
 }
 interface Message {
   createdAt: CreatedAt;
-  message: string;
+  messageText: string;
   messageId: string;
   sender: Sender;
 }

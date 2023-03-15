@@ -67,6 +67,7 @@ class MongoModelBuilder {
   }
 }
 
+
 type MongoModelKey =
   | "default"
   | "empty"
@@ -77,16 +78,15 @@ type MongoModelKey =
   | "type"
   | "unique";
 
-class MongoModelBuilder<T extends NativeModelKey> {
+class MongoModelBuilder {
   private model: NativeModel;
-  private mongoModel: {
-    [prop: string]: [NativeModel[T]["value"], string];
-    // | NativeModel[T]["value"];
-  };
+  private mongoModel: SchemaDefinitionProperty;
 
   constructor(model: NativeModel) {
     this.model = model;
-    this.mongoModel = {};
+    this.mongoModel = {
+    };
+    
   }
 
   private updateProperty(
@@ -98,7 +98,7 @@ class MongoModelBuilder<T extends NativeModelKey> {
   }
 
   private setValue(modelKey: NativeModelKey, mongoModelKey: MongoModelKey) {
-    this.mongoModel[mongoModelKey].push(this.model[modelKey].value);
+    this.mongoModel[].push(this.model[modelKey].value);
   }
   private setMessage(modelKey: NativeModelKey, mongoModelKey: MongoModelKey) {
     this.mongoModel[mongoModelKey].push(this.model[modelKey].error?.reason);

@@ -1,30 +1,24 @@
 import { Document, Model, model, Schema } from "mongoose";
 
+import { makeMongoSchemaValue } from "@/helpers/makeMongoSchemaValue";
+
 import { nativeModels } from "@/models/native";
 
-import { NativeModel, UserMongo } from "@/types";
+import { UserMongo } from "@/types";
 
 type IUserDoc = UserMongo & Document;
 type IUserModel = Model<IUserDoc>;
 
 const userNativeModel = nativeModels.user;
 
-function makePropValue(prop: NativeModel) {
-  return function <T extends keyof NativeModel>(
-    key: T
-  ): [NativeModel[T]["value"], string] {
-    return [prop[key].value, prop[key].error?.reason as string];
-  };
-}
-
-const bioMaker = makePropValue(userNativeModel.bio);
-const countryCodeMaker = makePropValue(userNativeModel.countryCode);
-const countryNameMaker = makePropValue(userNativeModel.countryName);
-const firstNameMaker = makePropValue(userNativeModel.firstName);
-const lastNameMaker = makePropValue(userNativeModel.lastName);
-const phoneNumberMaker = makePropValue(userNativeModel.phoneNumber);
-const userIdMaker = makePropValue(userNativeModel.userId);
-const usernameMaker = makePropValue(userNativeModel.username);
+const bioMaker = makeMongoSchemaValue(userNativeModel.bio);
+const countryCodeMaker = makeMongoSchemaValue(userNativeModel.countryCode);
+const countryNameMaker = makeMongoSchemaValue(userNativeModel.countryName);
+const firstNameMaker = makeMongoSchemaValue(userNativeModel.firstName);
+const lastNameMaker = makeMongoSchemaValue(userNativeModel.lastName);
+const phoneNumberMaker = makeMongoSchemaValue(userNativeModel.phoneNumber);
+const userIdMaker = makeMongoSchemaValue(userNativeModel.userId);
+const usernameMaker = makeMongoSchemaValue(userNativeModel.username);
 
 const userSchema = new Schema<IUserDoc, IUserModel>({
   bio: {
@@ -32,7 +26,7 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
     minlength: bioMaker("minlength"),
     required: bioMaker("required"),
     trim: userNativeModel.bio.trim.value,
-    type: String,
+    type: "string",
   },
   blacklist: [
     {
@@ -40,20 +34,20 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
         maxlength: countryCodeMaker("maxlength"),
         minlength: countryCodeMaker("minlength"),
         required: countryCodeMaker("required"),
-        type: String,
+        type: "string",
       },
       countryName: {
         maxlength: countryNameMaker("maxlength"),
         minlength: countryNameMaker("minlength"),
         required: countryNameMaker("required"),
-        type: String,
+        type: "string",
       },
       phoneNumber: {
         maxlength: phoneNumberMaker("maxlength"),
         minlength: phoneNumberMaker("minlength"),
         required: phoneNumberMaker("required"),
         trim: userNativeModel.firstName.trim.value,
-        type: String,
+        type: "string",
       },
     },
   ],
@@ -64,21 +58,21 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
         minlength: firstNameMaker("minlength"),
         required: firstNameMaker("required"),
         trim: userNativeModel.firstName.trim.value,
-        type: String,
+        type: "string",
       },
       lastName: {
         // minlength: lastNameMaker("minlength"),
         maxlength: lastNameMaker("maxlength"),
         required: lastNameMaker("required"),
         trim: userNativeModel.lastName.trim.value,
-        type: String,
+        type: "string",
       },
       userId: {
         maxlength: userIdMaker("maxlength"),
         minlength: userIdMaker("minlength"),
         required: userIdMaker("required"),
         trim: userNativeModel.userId.trim.value,
-        type: String,
+        type: "string",
         unique: userNativeModel.userId.unique.value,
       },
     },
@@ -87,55 +81,55 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
     maxlength: countryCodeMaker("maxlength"),
     minlength: countryCodeMaker("minlength"),
     required: countryCodeMaker("required"),
-    type: String,
+    type: "string",
   },
   countryName: {
     maxlength: countryNameMaker("maxlength"),
     minlength: countryNameMaker("minlength"),
     required: countryNameMaker("required"),
-    type: String,
+    type: "string",
   },
   createdAt: {
     required: userNativeModel.createdAt.required.value,
-    type: Number,
+    type: "number",
   },
   firstName: {
     maxlength: firstNameMaker("maxlength"),
     minlength: firstNameMaker("minlength"),
     required: firstNameMaker("required"),
     trim: userNativeModel.firstName.trim.value,
-    type: String,
+    type: "string",
   },
   lastName: {
     // minlength: lastNameMaker("minlength"),
     maxlength: lastNameMaker("maxlength"),
     required: lastNameMaker("required"),
     trim: userNativeModel.lastName.trim.value,
-    type: String,
+    type: "string",
   },
   phoneNumber: {
     maxlength: phoneNumberMaker("maxlength"),
     minlength: phoneNumberMaker("minlength"),
     required: phoneNumberMaker("required"),
     trim: userNativeModel.firstName.trim.value,
-    type: String,
+    type: "string",
   },
   sessions: [
     {
       token: {
         required: userNativeModel.token.required.value,
-        type: String,
+        type: "string",
       },
     },
   ],
   status: {
     isOnline: {
       default: userNativeModel.online.defaultValue.value as boolean,
-      type: Boolean,
       required: [
         userNativeModel.online.required.value,
         userNativeModel.online.required.error.reason,
       ],
+      type: "boolean",
     },
   },
   userId: {
@@ -143,14 +137,14 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
     minlength: userIdMaker("minlength"),
     required: userIdMaker("required"),
     trim: userNativeModel.userId.trim.value,
-    type: String,
+    type: "string",
     unique: userNativeModel.userId.unique.value,
   },
   username: {
     maxlength: usernameMaker("maxlength"),
     required: usernameMaker("required"),
     trim: userNativeModel.userId.trim.value,
-    type: String,
+    type: "string",
     unique: userNativeModel.userId.unique.value,
   },
 });

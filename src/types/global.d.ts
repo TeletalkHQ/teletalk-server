@@ -7,7 +7,6 @@ import { CustomEmit, CustomOn, CustomUse, VerifiedToken } from "@/types";
 declare global {
   var logger: LoggerChalker;
 }
-export {};
 
 declare module "socket.io" {
   interface Socket {
@@ -19,3 +18,5 @@ declare module "socket.io" {
     io: Server;
   }
 }
+
+export {};

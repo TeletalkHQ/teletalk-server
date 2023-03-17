@@ -21,10 +21,7 @@ const signIn: SocketOnHandler = async (socket, data) => {
 
   //FIXME: Get host from socket
   // const host = getHostFromRequest(req);
-  const fullNumber = userUtilities.makeFullNumber(
-    cellphone.countryCode,
-    cellphone.phoneNumber
-  );
+  const fullNumber = `+${cellphone.countryCode}${cellphone.phoneNumber}`;
   await sendVerificationCode(fullNumber, "host", verificationCode);
 
   const tokenId = createClientId();

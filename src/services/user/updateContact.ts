@@ -1,7 +1,5 @@
 import { errorThrower } from "utility-store";
 
-import { userUtilities } from "@/classes/UserUtilities";
-
 import { findOneUserById } from "@/services/common/findOneUserById";
 
 import { Contact, HydratedUserMongo, UserMongo } from "@/types";
@@ -18,7 +16,7 @@ const updateContact = async (data: {
 
   const { index, contact: oldContact } = findContact(
     currentUser.contacts,
-    data.editValues
+    data.editValues.userId
   );
 
   errorThrower(!oldContact, {
@@ -33,16 +31,10 @@ const findCurrentUser = async (currentUserId: string) => {
   return await findOneUserById(currentUserId, errors.CURRENT_USER_NOT_EXIST);
 };
 
-const findContact = (
-  contacts: UserMongo["contacts"],
-  targetCellphone: Contact
-) => {
-  const { item: contact, index } = userUtilities.findByCellphone(
-    contacts,
-    targetCellphone
-  );
+const findContact = (contacts: UserMongo["contacts"], targetUserId: string) => {
+  const index = contacts.findIndex((c) => c.userId === targetUserId);
 
-  return { contact, index };
+  return { contact: contacts[index], index };
 };
 
 const saveNewContact = async (

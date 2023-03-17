@@ -1,7 +1,5 @@
 import { trier } from "simple-trier";
 
-import { userUtilities } from "@/classes/UserUtilities";
-
 import { validators } from "@/validators";
 import {
   Contact,
@@ -22,13 +20,8 @@ const contactValidator: SocketMiddleware = async (
     .runAsync();
 };
 
-const tryBlock = async (data: Contact & object) => {
-  const { firstName, lastName } = data;
-  await validators.contact({
-    ...userUtilities.extractCellphone(data),
-    firstName,
-    lastName,
-  });
+const tryBlock = async (data: Contact) => {
+  await validators.contact(data);
   return { ok: true };
 };
 

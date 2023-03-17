@@ -41,7 +41,9 @@ interface FullName {
   lastName: string;
 }
 
-interface Contact extends Cellphone, FullName {}
+interface Contact extends FullName {
+  userId: string;
+}
 type SocketMiddlewareEvent = string | string[];
 
 type CreatedAt = number;
@@ -205,7 +207,7 @@ interface StringMap {
 interface UserMongo extends Cellphone, FullName {
   bio: string;
   contacts: Contact[];
-  blacklist: Cellphone[];
+  blacklist: { userId: string }[];
   userId: string;
   createdAt: CreatedAt;
   username: string;

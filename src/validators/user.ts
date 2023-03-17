@@ -66,9 +66,9 @@ const cellphoneValidator = async (cellphone: Cellphone) => {
 };
 
 const contactValidator = async (contact: Contact) => {
-  await cellphoneValidator(userUtilities.extractCellphone(contact));
   await firstNameValidator(contact.firstName);
   await lastNameValidator(contact.lastName);
+  await userIdValidator(contact.userId);
 };
 
 const userIdValidator = async (userId: unknown) => {

@@ -10,7 +10,7 @@ const removeBlock: SocketOnHandler = async (socket, data) => {
 
   await services.removeBlock({
     currentUserId,
-    targetCellphone,
+    targetBlacklistItem: targetCellphone,
   });
 
   return {

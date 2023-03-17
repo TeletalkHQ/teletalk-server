@@ -204,10 +204,14 @@ interface StringMap {
   [key: string]: any;
 }
 
+interface BlackListItem {
+  userId: string;
+}
+
 interface UserMongo extends Cellphone, FullName {
   bio: string;
   contacts: Contact[];
-  blacklist: { userId: string }[];
+  blacklist: BlackListItem[];
   userId: string;
   createdAt: CreatedAt;
   username: string;
@@ -258,6 +262,7 @@ interface PublicUserData {
 }
 
 export {
+  BlackListItem,
   Cellphone,
   ClientCallback,
   Contact,

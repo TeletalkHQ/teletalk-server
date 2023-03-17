@@ -1,23 +1,21 @@
 import { errorThrower } from "utility-store";
 
-import { userUtilities } from "@/classes/UserUtilities";
-
 import { commonServices } from "@/services/common";
 
-import { Cellphone, HydratedUserMongo, UserMongo } from "@/types";
+import { BlackListItem, HydratedUserMongo, UserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
 const removeBlock = async (data: {
   currentUserId: string;
-  targetCellphone: Cellphone;
+  targetBlacklistItem: BlackListItem;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
   const { index } = checkExistenceOfBlacklistItem(
-    data.targetCellphone,
-    currentUser.blacklist
+    currentUser.blacklist,
+    data.targetBlacklistItem
   );
 
   await removeBlockAndSave(currentUser, index);
@@ -31,14 +29,13 @@ const findCurrentUser = async (currentUserId: string) => {
 };
 
 const checkExistenceOfBlacklistItem = (
-  targetCellphone: Cellphone,
-  blacklist: UserMongo["blacklist"]
+  blacklist: UserMongo["blacklist"],
+  targetBlacklistItem: BlackListItem
 ) => {
-  const { item: blacklistItem, index } = userUtilities.findByCellphone(
-    blacklist,
-    targetCellphone
+  const index = blacklist.findIndex(
+    (i) => i.userId === targetBlacklistItem.userId
   );
-  errorThrower(!blacklistItem, () => errors.BLACKLIST_ITEM_NOT_EXIST);
+  errorThrower(index === -1, () => errors.BLACKLIST_ITEM_NOT_EXIST);
 
   return { index };
 };

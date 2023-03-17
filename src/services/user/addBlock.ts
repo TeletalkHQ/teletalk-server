@@ -1,48 +1,43 @@
 import { errorThrower } from "utility-store";
 
-import { userUtilities } from "@/classes/UserUtilities";
-
-import { Cellphone, HydratedUserMongo, UserMongo } from "@/types";
+import { HydratedUserMongo, UserMongo } from "@/types";
 
 import { commonServices } from "@/services/common";
 
 import { errors } from "@/variables/errors";
 
 const addBlock = async (data: {
-  blockingCellphone: Cellphone;
+  blockingUserId: string;
   currentUserId: string;
 }) => {
   const currentUser = await commonServices.findOneUserById(data.currentUserId);
 
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-  const targetUser = await commonServices.findOneUser(data.blockingCellphone);
+  const targetUser = await commonServices.findOneUserById(data.blockingUserId);
   errorThrower(!targetUser, errors.TARGET_USER_NOT_EXIST);
 
-  checkExistenceOfBlacklistItem(data.blockingCellphone, currentUser.blacklist);
+  checkExistenceOfBlacklistItem(currentUser.blacklist, data.blockingUserId);
 
-  await saveNewBlacklistItem(data.blockingCellphone, currentUser);
+  await saveNewBlacklistItem(currentUser, data.blockingUserId);
 };
 
 const checkExistenceOfBlacklistItem = (
-  blockingCellphone: Cellphone,
-  blacklist: UserMongo["blacklist"]
+  blacklist: UserMongo["blacklist"],
+  userId: string
 ) => {
-  const { item: isBlacklistItemExist } = userUtilities.findByCellphone(
-    blacklist,
-    blockingCellphone
-  );
-  errorThrower(isBlacklistItemExist, () => ({
+  const index = blacklist.findIndex((i) => i.userId === userId);
+  errorThrower(index === -1, () => ({
     ...errors.BLACKLIST_ITEM_EXIST,
-    targetUserData: blockingCellphone,
+    targetUserData: userId,
   }));
 };
 
 const saveNewBlacklistItem = async (
-  blockingCellphone: Cellphone,
-  currentUser: HydratedUserMongo
+  currentUser: HydratedUserMongo,
+  userId: string
 ) => {
-  currentUser.blacklist.push(blockingCellphone);
+  currentUser.blacklist.push({ userId });
   await currentUser.save();
 };
 

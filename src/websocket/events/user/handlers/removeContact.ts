@@ -2,15 +2,16 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
-import { Cellphone, SocketOnHandler } from "@/types";
+import { Contact, SocketOnHandler } from "@/types";
 
 const removeContact: SocketOnHandler = async (socket, data) => {
   const { currentUserId } = socket;
-  const targetContact = userUtilities.extractCellphone(data as Cellphone);
+
+  const targetContact = userUtilities.extractContact(data as Contact);
 
   await services.removeContact({
     currentUserId,
-    targetContact: targetContact,
+    targetContact,
   });
 
   return {

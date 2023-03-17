@@ -8,7 +8,10 @@ const addBlock: SocketOnHandler = async (socket, data) => {
   const { currentUserId } = socket;
   const blockingCellphone = userUtilities.extractCellphone(data as Cellphone);
 
-  await services.addBlock({ blockingCellphone, currentUserId });
+  await services.addBlock({
+    blockingUserId: blockingCellphone,
+    currentUserId,
+  });
 
   return { blockedCellphone: blockingCellphone };
 };

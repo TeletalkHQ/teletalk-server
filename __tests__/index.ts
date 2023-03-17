@@ -1,10 +1,10 @@
 import "@/configs/customGlobals";
 import "@/helpers/requireDotenv";
 
-import { User } from "@/models/database/mongoDb/user";
-import { PrivateChat } from "@/models/database/mongoDb/privateChat";
+import { User } from "@/models/database/mongoDb/User";
+import { PrivateChat } from "@/models/database/mongoDb/PrivateChat";
 
-import { database } from "@/requirements";
+import { requirements } from "@/requirements";
 
 /*
  * All test files are independent to each other, so orders not matter
@@ -60,9 +60,4 @@ const deleteAllPrivateChats = async () => {
   await PrivateChat.deleteMany();
 };
 
-const requirements = {
-  database,
-  testServer,
-};
-
-export { requirements };
+export { requirements, testServer };

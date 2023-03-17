@@ -6,7 +6,7 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { testHelper } from "$/tests/integration/helpers/testHelper";
 
-import { requesters } from "$/utilities";
+import { utilities } from "$/utilities";
 
 import { FIELD_TYPE } from "@/variables/others/fieldType";
 
@@ -49,7 +49,7 @@ describe("signIn success test", () => {
 describe("signIn fail test", () => {
   const signInCellphone = randomMaker.unusedCellphone();
   testHelper
-    .createFailTest(requesters.signIn())
+    .createFailTest(utilities.requesters.signIn())
     .input(signInCellphone)
     .countryCode(signInCellphone)
     .countryName(signInCellphone)

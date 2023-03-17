@@ -1,7 +1,5 @@
 import { errorThrower } from "utility-store";
 
-import { userUtilities } from "@/classes/UserUtilities";
-
 import { commonServices } from "@/services/common";
 
 import { Contact, HydratedUserMongo, UserMongo } from "@/types";
@@ -16,11 +14,11 @@ const addContact = async (data: {
 
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-  checkExistenceOfContactItem(data.newContact, currentUser.contacts);
+  checkExistenceOfContactItem(currentUser.contacts, data.newContact);
 
-  const targetUserCellphone = userUtilities.extractCellphone(data.newContact);
-
-  const targetUser = await commonServices.findOneUser(targetUserCellphone);
+  const targetUser = await commonServices.findOneUserById(
+    data.newContact.userId
+  );
   if (!targetUser) throw errors.TARGET_USER_NOT_EXIST;
 
   const contact = {
@@ -34,14 +32,11 @@ const addContact = async (data: {
 };
 
 const checkExistenceOfContactItem = (
-  contact: Contact,
-  contacts: UserMongo["contacts"]
+  contacts: UserMongo["contacts"],
+  contact: Contact
 ) => {
-  const { item: isContactExist } = userUtilities.findByCellphone(
-    contacts,
-    contact
-  );
-  errorThrower(isContactExist, () => ({
+  const index = contacts.findIndex((i) => i.userId == contact.userId);
+  errorThrower(index === -1, () => ({
     ...errors.CONTACT_ITEM_EXIST,
     queryData: contact,
   }));

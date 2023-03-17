@@ -1,23 +1,21 @@
 import { errorThrower } from "utility-store";
 
-import { userUtilities } from "@/classes/UserUtilities";
-
 import { commonServices } from "@/services/common";
 
-import { Cellphone, HydratedUserMongo, UserMongo } from "@/types";
+import { Contact, HydratedUserMongo, UserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
 const removeContact = async (data: {
   currentUserId: string;
-  targetCellphone: Cellphone;
+  targetContact: Contact;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
   const { index } = checkExistenceOfContactItem(
-    data.targetCellphone,
-    currentUser.contacts
+    currentUser.contacts,
+    data.targetContact
   );
 
   await removeContactAndSave(currentUser, index);
@@ -31,14 +29,11 @@ const findCurrentUser = async (currentUserId: string) => {
 };
 
 const checkExistenceOfContactItem = (
-  targetContact: Cellphone,
-  contacts: UserMongo["contacts"]
+  contacts: UserMongo["contacts"],
+  targetContact: Contact
 ) => {
-  const { item: contactItem, index } = userUtilities.findByCellphone(
-    contacts,
-    targetContact
-  );
-  errorThrower(!contactItem, () => ({
+  const index = contacts.findIndex((c) => c.userId === targetContact.userId);
+  errorThrower(index === -1, () => ({
     ...errors.CONTACT_ITEM_NOT_EXIST,
     targetContact,
   }));

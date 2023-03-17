@@ -10,7 +10,7 @@ const removeContact: SocketOnHandler = async (socket, data) => {
 
   await services.removeContact({
     currentUserId,
-    targetCellphone: targetContact,
+    targetContact: targetContact,
   });
 
   return {

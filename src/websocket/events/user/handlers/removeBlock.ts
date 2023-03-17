@@ -1,20 +1,17 @@
-import { userUtilities } from "@/classes/UserUtilities";
-
 import { services } from "@/services";
 
-import { Cellphone, SocketOnHandler } from "@/types";
+import { BlackListItem, SocketOnHandler } from "@/types";
 
 const removeBlock: SocketOnHandler = async (socket, data) => {
   const { currentUserId } = socket;
-  const targetCellphone = userUtilities.extractCellphone(data as Cellphone);
 
   await services.removeBlock({
     currentUserId,
-    targetBlacklistItem: targetCellphone,
+    targetBlacklistItem: data as BlackListItem,
   });
 
   return {
-    removedBlock: targetCellphone,
+    removedBlock: data,
   };
 };
 

@@ -64,9 +64,9 @@ const findPrivateChat = async (
   });
 };
 
-const createNewMessage = (message: string, currentUserId: string) => ({
+const createNewMessage = (messageText: string, currentUserId: string) => ({
   createdAt: Date.now(),
-  message,
+  messageText,
   messageId: randomMaker.id(chatModels.messageId.maxlength.value),
   sender: {
     senderId: currentUserId,

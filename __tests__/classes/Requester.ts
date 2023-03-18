@@ -1,38 +1,44 @@
-import supertest from "supertest";
+import { IoFields } from "check-fields";
+import { Socket } from "socket.io-client";
 import { objectUtilities } from "utility-store";
 
 import { loggerHelper } from "@/helpers/logHelper";
 
-import { expressServer } from "@/servers/express";
+import {
+  NativeModelError,
+  SocketResponse,
+  SocketResponseErrors,
+  SocketRoute,
+  StringMap,
+} from "@/types";
 
 import { errors } from "@/variables/errors";
-import { authManager } from "@/classes/AuthManager";
 
-const requester = supertest(expressServer);
+interface Options {
+  shouldFilterRequestData: boolean;
+}
 
 class Requester {
-  #requestData;
-  route = {};
-  error = {};
-  response = {};
-  #options = {
-    shouldFilterRequestData: false,
-    token: undefined,
-  };
+  private error: NativeModelError;
+  private options: Options = { shouldFilterRequestData: true };
+  private requestData: StringMap;
+  private response: SocketResponse;
+  private route: SocketRoute;
+  private socket: Socket;
 
-  constructor(token, route) {
-    this.setToken(token);
+  constructor(socket: Socket, route: SocketRoute) {
+    this.setSocket(socket);
     this.setRoute(route);
   }
 
   getOptions() {
-    return this.#options;
+    return { ...this.options };
   }
-  setOptions(newOptions) {
-    this.#options = this.mergeOptions(newOptions);
+  setOptions(newOptions: Partial<Options>) {
+    this.options = this.mergeOptions(newOptions);
     return this;
   }
-  mergeOptions(newOptions) {
+  mergeOptions(newOptions: Partial<Options>) {
     return {
       ...this.getOptions(),
       ...newOptions,
@@ -40,17 +46,18 @@ class Requester {
   }
 
   getToken() {
-    return this.getOptions().token;
+    // return this.getOptions().token;
   }
-  setToken(token) {
-    this.setOptions({ token });
+
+  setSocket(socket: Socket) {
+    this.socket = socket;
     return this;
   }
 
   getRoute() {
     return this.route;
   }
-  setRoute(route) {
+  setRoute(route: SocketRoute) {
     this.route = route;
     return this;
   }
@@ -61,7 +68,7 @@ class Requester {
   getError() {
     return this.error;
   }
-  setError(error = {}) {
+  setError(error: NativeModelError) {
     this.error = error;
     return this;
   }
@@ -71,10 +78,10 @@ class Requester {
   }
 
   getRequestData() {
-    return this.#requestData;
+    return this.requestData;
   }
-  setRequestData(requestData) {
-    this.#requestData = requestData;
+  setRequestData(requestData: StringMap) {
+    this.requestData = requestData;
     return this;
   }
 
@@ -84,14 +91,14 @@ class Requester {
     this.checkRequestDataFields(options, inputFields);
     return this.filterRequestData(requestData, inputFields);
   }
-  convertInputField(inputFields) {
+  convertInputField(inputFields: IoFields) {
     return Object.entries(inputFields).reduce((prevValue, currentValue) => {
       const [requiredFieldKey, requiredFieldProperties] = currentValue;
       prevValue[requiredFieldKey] = requiredFieldProperties.value;
       return prevValue;
-    }, {});
+    }, {} as StringMap);
   }
-  checkRequestDataFields(options = this.getOptions(), inputFields) {
+  checkRequestDataFields(options = this.getOptions(), inputFields: StringMap) {
     if (!this.getRequestData() && Object.keys(inputFields).length) {
       const error = {
         ...errors.INPUT_FIELDS_MISSING,
@@ -103,30 +110,33 @@ class Requester {
       throw error;
     }
   }
-  filterRequestData(requestData, inputFields) {
-    return objectUtilities.excludePropsPeerToPeer(requestData, inputFields);
+  filterRequestData(requestData: StringMap, inputFields: StringMap) {
+    return objectUtilities.excludePropsPeerToPeer(
+      requestData,
+      inputFields
+    ) as StringMap;
   }
 
-  async sendRequest(options = this.getOptions()) {
-    const { method, fullUrl } = this.getRoute();
+  async sendRequest() {
+    const { name } = this.getRoute();
     const requestData = this.getRequestData();
 
-    const agent = requester[method](fullUrl);
-    agent.set("Content-Type", "application/json");
+    const request = new Promise((resolve, _reject) => {
+      this.socket.emit(name, requestData, resolve);
+    });
 
-    if (options.token)
-      agent.set("Cookie", [
-        `${authManager.getOptions().cookie.SESSION_NAME}=${options.token}`,
-      ]);
-
-    const response = await agent.send(requestData);
+    const response = (await request) as SocketResponse;
 
     this.setResponse(response);
 
     return this;
   }
 
-  async sendFullFeaturedRequest(data, error, options = this.getOptions()) {
+  async sendFullFeaturedRequest(
+    data: StringMap,
+    error: NativeModelError,
+    options = this.getOptions()
+  ) {
     loggerHelper.logStartTestRequest();
 
     const finalOptions = this.mergeOptions(options);
@@ -147,7 +157,7 @@ class Requester {
 
     if (error) this.setError(error);
 
-    await this.sendRequest(finalOptions);
+    await this.sendRequest();
 
     this.checkStatusCode().checkErrors();
 
@@ -159,14 +169,10 @@ class Requester {
   getResponse() {
     return this.response;
   }
-  getResponseBody() {
-    return this.getResponse().body;
-  }
   getResponseStatusCode() {
-    const response = this.getResponse();
-    return response.statusCode || response.body.statusCode;
+    return this.getResponse().statusCode;
   }
-  setResponse(response) {
+  setResponse(response: SocketResponse) {
     this.response = response;
     return this;
   }
@@ -187,16 +193,13 @@ class Requester {
   }
   checkErrorReason() {
     const { key, reason } = this.getError();
-    const { errors } = this.getResponseBody();
+    const errors = this.getResponse().errors as SocketResponseErrors;
     expect(errors[key]?.reason).toBe(reason);
     return this;
   }
 }
 
-const requesterCreator = (token) => {
-  return {
-    create: (route) => new Requester(token, route),
-  };
-};
+const requesterCreator = (socket: Socket, route: SocketRoute) =>
+  new Requester(socket, route);
 
 export { Requester, requesterCreator };

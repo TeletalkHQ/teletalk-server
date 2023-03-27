@@ -1,4 +1,5 @@
-import { errorThrower } from "utility-store";
+import { errorThrower, userUtilities } from "utility-store";
+import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { findOneUserById } from "@/services/common/findOneUserById";
 
@@ -19,16 +20,21 @@ const updateContact = async (data: {
     data.editValues.userId
   );
 
-  errorThrower(!oldContact, {
+  errorThrower(index === -1, {
     ...errors.CONTACT_ITEM_NOT_EXIST,
     editValues: data.editValues,
   });
 
-  await saveNewContact(currentUser, data.editValues, index);
+  const newContact = {
+    ...userUtilities.extractCellphone(oldContact as ContactWithCellphone),
+    ...data.editValues,
+  };
+
+  await saveNewContact(currentUser, newContact, index);
 };
 
 const findCurrentUser = async (currentUserId: string) => {
-  return await findOneUserById(currentUserId, errors.CURRENT_USER_NOT_EXIST);
+  return await findOneUserById(currentUserId);
 };
 
 const findContact = (contacts: UserMongo["contacts"], targetUserId: string) => {
@@ -39,7 +45,7 @@ const findContact = (contacts: UserMongo["contacts"], targetUserId: string) => {
 
 const saveNewContact = async (
   currentUser: HydratedUserMongo,
-  editValues: Contact,
+  editValues: ContactWithCellphone | Contact,
   index: number
 ) => {
   currentUser.contacts.splice(index, 1, editValues);

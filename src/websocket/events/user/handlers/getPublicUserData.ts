@@ -19,9 +19,9 @@ const getPublicUserData: SocketOnHandler = async (_socket, data) => {
   if (!user) throw errors.TARGET_USER_NOT_EXIST;
 
   return {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    publicUserData: userUtilities.extractPublicUserData(user),
+    data: {
+      publicUserData: userUtilities.extractPublicUserData(user),
+    },
   };
 };
 

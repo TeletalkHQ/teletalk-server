@@ -11,7 +11,7 @@ const getPrivateChats: SocketOnHandler = async (socket) => {
     { lean: true }
   );
 
-  return { privateChats };
+  return { data: { privateChats } };
 };
 
 export { getPrivateChats };

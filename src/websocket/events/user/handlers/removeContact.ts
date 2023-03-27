@@ -4,8 +4,12 @@ import { services } from "@/services";
 
 import { Contact, SocketOnHandler } from "@/types";
 
+import { validators } from "@/validators";
+
 const removeContact: SocketOnHandler = async (socket, data) => {
   const { currentUserId } = socket;
+
+  await validators.userId(data.userId);
 
   const targetContact = userUtilities.extractContact(data as Contact);
 
@@ -15,7 +19,9 @@ const removeContact: SocketOnHandler = async (socket, data) => {
   });
 
   return {
-    removedContact: targetContact,
+    data: {
+      removedContact: targetContact,
+    },
   };
 };
 

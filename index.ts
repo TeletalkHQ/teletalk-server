@@ -1,5 +1,7 @@
 import path from "path";
 
+import { run } from "mocha";
+
 const calcNodeVersion = () => {
   return process.env.npm_config_user_agent
     ?.split("node/v")[1]
@@ -41,21 +43,25 @@ const runProduction = async () => {
 
 const runTest = async () => {
   const path = getTestServerPath();
-  const requirements = await getTestServerRequirements(path);
+  const { requirements } = await getTestServerRequirements(path);
+
   await runRequirements(requirements);
+
+  run();
 };
 const getTestServerPath = () => {
   const paths = [__dirname];
   if (NODE_ENV === "test_production_local")
     paths.push("build", BUILD_FOLDER_NAME);
-  paths.push("test");
+
+  paths.push("__tests__");
   return path.join(...paths);
 };
 const getTestServerRequirements = async (path: string) => {
   return (await import(path)).requirements;
 };
 const runRequirements = async (requirements: any) => {
-  await requirements.database();
+  await requirements.runner();
   await requirements.testServer();
 };
 

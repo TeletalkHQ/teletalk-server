@@ -2,16 +2,16 @@ import { commonServices } from "@/services/common";
 
 import { errors } from "@/variables/errors";
 
-const updateOnlineStatus = async (data: {
+const updateActiveStatus = async (data: {
   currentUserId: string;
-  isOnline: boolean;
+  isActive: boolean;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
   await currentUser.updateOne({
     $set: {
-      status: { ...currentUser.status, isOnline: data.isOnline },
+      status: { ...currentUser.status, isActive: data.isActive },
     },
   });
 
@@ -25,4 +25,4 @@ const findCurrentUser = async (currentUserId: string) => {
   );
 };
 
-export { updateOnlineStatus };
+export { updateActiveStatus };

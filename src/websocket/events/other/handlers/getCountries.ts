@@ -1,7 +1,7 @@
 import { countries } from "@/variables/others/countries";
 
 const getCountries = async () => {
-  return { countries };
+  return { data: { countries } };
 };
 
 export { getCountries };

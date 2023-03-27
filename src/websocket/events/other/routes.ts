@@ -27,7 +27,7 @@ const getStuff = builder
   .inputFields({
     language: fields.single.language,
   })
-  .handler(otherHandlers.getAllStuff)
+  .handler(otherHandlers.getStuff)
   .build();
 
 const getWelcomeMessage = builder

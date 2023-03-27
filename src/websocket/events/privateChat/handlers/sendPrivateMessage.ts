@@ -22,6 +22,10 @@ const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
     .to(participantId)
     //TODO: Use customEmit
     .emit("newPrivateChatMessage", { chatId, newMessage });
+
+  return {
+    data: { chatId, newMessage },
+  };
 };
 
 export { sendPrivateMessage };

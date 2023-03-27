@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "declaration": true,
-    "declarationMap": true,
-    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "declarationMap": false,
+    "emitDecoratorMetadata": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -12,8 +12,8 @@
     "noImplicitReturns": true,
     "outDir": "./lib",
     "paths": {
-      "@/*": ["./src/*"],
-      "#/*": ["./public/*"],
+      "@/*": ["src/*"],
+      "#/*": ["public/*"],
       "$/*": ["__tests__/*"]
     },
     "removeComments": true,

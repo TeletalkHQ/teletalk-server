@@ -2,9 +2,10 @@ import { trier } from "simple-trier";
 
 import { userUtilities } from "@/classes/UserUtilities";
 
-import { Cellphone, SocketMiddleware, SocketNext } from "@/types";
+import { SocketMiddleware, SocketNext } from "@/types";
 
 import { validators } from "@/validators";
+import { ExtendedCellphone } from "utility-store/lib/types";
 
 const cellphoneValidator: SocketMiddleware = async (
   _socket,
@@ -18,7 +19,7 @@ const cellphoneValidator: SocketMiddleware = async (
     .runAsync();
 };
 
-const tryBlock = async (data: Cellphone & object) => {
+const tryBlock = async (data: ExtendedCellphone) => {
   const cellphone = userUtilities.extractCellphone(data);
   await validators.cellphone(cellphone);
   return { ok: true };

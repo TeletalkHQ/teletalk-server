@@ -1,17 +1,8 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
-import {
-  errorThrower,
-  isDataHasEqualityWithTargetCellphone,
-} from "utility-store";
-
-import { userUtilities } from "@/classes/UserUtilities";
-
-import { services } from "@/services";
+import { errorThrower } from "utility-store";
 
 import {
-  Cellphone,
-  HydratedUserMongo,
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
@@ -31,18 +22,13 @@ const selfStuffCheck: SocketMiddleware = async (
     .runAsync();
 };
 
-const tryBlock = async (socket: Socket, data: Cellphone) => {
+const tryBlock = async (socket: Socket, data: { userId: string }) => {
   const { tokenId } = socket.authData.data.payload;
 
-  const currentUser = (await services.findOneUserById(
-    tokenId
-  )) as HydratedUserMongo;
-
-  const currentUserCellphone = userUtilities.extractCellphone(currentUser);
-  errorThrower(
-    isDataHasEqualityWithTargetCellphone(currentUserCellphone, data),
-    () => ({ ...errors.SELF_STUFF, targetCellphone: data })
-  );
+  errorThrower(tokenId === data.userId, () => ({
+    ...errors.SELF_STUFF,
+    targetUserId: data.userId,
+  }));
 
   return { ok: true };
 };

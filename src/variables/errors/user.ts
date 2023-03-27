@@ -299,14 +299,14 @@ const CREATED_AT_REQUIRED = errorBuilder
 
 const CURRENT_USER_EXIST = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.CURRENT_USER_EXIST)
   .key(ERROR_KEYS.USER_VALIDATION)
   .build();
 
 const CURRENT_USER_NOT_EXIST = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.CURRENT_USER_NOT_EXIST)
   .key(ERROR_KEYS.USER_VALIDATION)
   .build();
@@ -315,7 +315,6 @@ const EVENT_NOT_FOUND = errorBuilder
   .create()
   .key(ERROR_KEYS.UNKNOWN_EVENT)
   .reason(UNIQUE_ERROR_IDS.EVENT_NOT_FOUND)
-  .statusCode(404)
   .build();
 
 const FIRST_NAME_INVALID_TYPE = errorBuilder
@@ -546,13 +545,6 @@ const MESSAGES_REQUIRED = errorBuilder
   .key(ERROR_KEYS.MESSAGES_VALIDATION)
   .build();
 
-const METHOD_NOT_ALLOWED = errorBuilder
-  .create()
-  .key(ERROR_KEYS.EXTERNAL_APP_ERROR)
-  .reason(UNIQUE_ERROR_IDS.METHOD_NOT_ALLOWED)
-  .statusCode(405)
-  .build();
-
 const ONLINE_INVALID_TYPE = errorBuilder
   .create()
   .reason(UNIQUE_ERROR_IDS.ONLINE_INVALID_TYPE)
@@ -713,7 +705,6 @@ const ROUTE_NOT_FOUND = errorBuilder
   .create()
   .key(ERROR_KEYS.UNKNOWN_ROUTE)
   .reason(UNIQUE_ERROR_IDS.ROUTE_NOT_FOUND)
-  .statusCode(404)
   .build();
 
 const SENDER_EMPTY = errorBuilder
@@ -790,62 +781,62 @@ const TOKEN_EXIST = errorBuilder
 
 const TOKEN_REQUIRED = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TOKEN_REQUIRED)
   .key(ERROR_KEYS.TOKEN_VALIDATION)
   .build();
 
 const TOKEN_INVALID = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TOKEN_INVALID)
   .key(ERROR_KEYS.TOKEN_VALIDATION)
   .build();
 
 const TOKEN_EMPTY = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TOKEN_INVALID)
   .key(ERROR_KEYS.TOKEN_VALIDATION)
   .build();
 
 const TOKEN_CAN_NOT_VERIFIED = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TOKEN_CAN_NOT_VERIFIED)
   .key(ERROR_KEYS.TOKEN_VALIDATION)
   .build();
 
 const TOKEN_INVALID_TYPE = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TOKEN_INVALID_TYPE)
   .key(ERROR_KEYS.TOKEN_VALIDATION)
   .build();
 
 const TOKEN_MINLENGTH_REACH = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TOKEN_MINLENGTH_REACH)
   .key(ERROR_KEYS.TOKEN_VALIDATION)
   .build();
 
 const TOKEN_MAXLENGTH_REACH = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TOKEN_MAXLENGTH_REACH)
   .key(ERROR_KEYS.TOKEN_VALIDATION)
   .build();
 
 const TEMPORARY_CLIENT_NOT_FOUND = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TEMPORARY_CLIENT_NOT_FOUND)
   .key(ERROR_KEYS.TEMPORARY_CLIENT_VALIDATION)
   .build();
 const TEMPORARY_CLIENT_NOT_VERIFIED = errorBuilder
   .create()
-  .statusCode(401)
+  .authError()
   .reason(UNIQUE_ERROR_IDS.TEMPORARY_CLIENT_NOT_VERIFIED)
   .key(ERROR_KEYS.TEMPORARY_CLIENT_VALIDATION)
   .build();
@@ -1079,7 +1070,6 @@ const userErrors = {
   MESSAGE_TEXT_REQUIRED,
   MESSAGES_INVALID_TYPE,
   MESSAGES_REQUIRED,
-  METHOD_NOT_ALLOWED,
   ONLINE_INVALID_TYPE,
   ONLINE_REQUIRED,
   OUTPUT_DATA_NOT_DEFINED,

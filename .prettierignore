@@ -1,11 +1,12 @@
 .git
 .github
 .nyc_output
-.trashCan
+.trashcan
 build
 built
 coverage
 dist
+lib
 node_modules
 public
 tests.svg

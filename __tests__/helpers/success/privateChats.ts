@@ -1,27 +1,28 @@
 import { successTestBuilder } from "$/classes/SuccessTestBuilder";
 
 import { models } from "@/models";
-import { FIELD_TYPE } from "@/variables/others/fieldType";
 
-const chatModels = models.native.chat;
+import { SuccessTestExecutor } from "$/types";
 
-const privateChatsSuccessTest = (
+import { PrivateChatMongo } from "@/types";
+
+const chatModels = models.native.privateChat;
+
+const privateChatsSuccessTest: SuccessTestExecutor = (
   { testValue },
-  { modelCheck = true } = {
-    modelCheck: true,
-  }
+  options
 ) => {
   const builder = successTestBuilder
     .create()
     .setModel(chatModels.privateChats)
     .setTestValue(testValue)
-    .setOptions({ modelCheck });
+    .setOptions(options);
 
   builder.typeCheck().run();
 
-  testValue.forEach((privateChat) => {
+  testValue.forEach((privateChat: PrivateChatMongo) => {
     builder
-      .customTypeCheck(privateChat, FIELD_TYPE.OBJECT)
+      .customTypeCheck(privateChat, "object")
       //TODO: Add all parts
       .setModel(chatModels.chatId)
       .setTestValue(privateChat.chatId)

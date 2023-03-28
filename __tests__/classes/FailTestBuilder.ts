@@ -1,47 +1,22 @@
-import { errors } from "@/variables/errors";
 import { randomMaker } from "utility-store";
 
+import { Requester } from "$/classes/Requester";
+
+import { FieldType, NativeModel, NativeError } from "@/types";
+import { RequesterOptions } from "$/types";
+
+import { utilities } from "$/utilities";
+
+import { errors } from "@/variables/errors";
 //REFACTOR:Major
 class FailTestBuilder {
-  constructor(configuredRequester, data, model, testingPropertyName) {
-    this.configuredRequester = configuredRequester;
-    this.data = data;
-    this.model = model;
-    this.testingPropertyName = testingPropertyName;
-  }
-  setRequirements(configuredRequester, model, data, testingPropertyName) {
-    this.setModel(model)
-      .setData(data)
-      .setConfiguredRequester(configuredRequester)
-      .setTestingPropertyName(testingPropertyName);
-    return this;
-  }
-  setConfiguredRequester(configuredRequester) {
-    this.configuredRequester = configuredRequester;
-    return this;
-  }
-  getConfiguredRequester() {
-    return this.configuredRequester;
-  }
-  setModel(model) {
-    this.model = model;
-    return this;
-  }
-  getModel() {
-    return this.model;
-  }
+  constructor(
+    private configuredRequester: Requester,
+    private data = {},
+    private model: NativeModel,
+    private testingPropertyName: string
+  ) {}
 
-  setData(data) {
-    this.data(data);
-    return this;
-  }
-  setTestingPropertyName(testingPropertyName) {
-    this.testingPropertyName = testingPropertyName;
-    return this;
-  }
-  getTestingPropertyName() {
-    return this.testingPropertyName;
-  }
   getMinlength() {
     return this.model.minlength?.value;
   }
@@ -51,20 +26,20 @@ class FailTestBuilder {
   getLength() {
     return this.model.length?.value;
   }
-  dataMerger(newValue) {
+  dataMerger(newValue?: any) {
     return { ...this.data, [this.testingPropertyName]: newValue };
   }
-  resolveError(key) {
-    return this.model[key].error;
+  resolveError(key: keyof NativeModel) {
+    return this.model[key].error as NativeError;
   }
 
-  custom(value, error) {
+  custom(value: any, error: NativeError) {
     const mergedData = this.dataMerger(value);
     this.initTest(mergedData, error);
     return this;
   }
-  empty(value = "") {
-    this.custom(value, this.resolveError("empty"));
+  empty() {
+    this.custom("", this.resolveError("empty"));
     return this;
   }
   missing() {
@@ -77,12 +52,14 @@ class FailTestBuilder {
       ...this.data,
       [randomMaker.string(10)]: randomMaker.string(10),
     };
-    this.initTest(overloadedData, errors.INPUT_FIELDS_OVERLOAD);
+    this.initTest(overloadedData, errors.INPUT_FIELDS_OVERLOAD, {
+      shouldFilterRequestData: false,
+    });
     return this;
   }
-  invalidType(value) {
+  invalidType(value?: FieldType) {
     const valueWithIncorrectType =
-      value || randomMaker.number(this.getMaxlength);
+      value || randomMaker.number(this.getMaxlength());
     const mergedData = this.dataMerger(valueWithIncorrectType);
     this.initTest(mergedData, errors.INPUT_FIELD_INVALID_TYPE);
     return this;
@@ -101,44 +78,42 @@ class FailTestBuilder {
     }
     return this;
   }
-  maxlength(value) {
+  maxlength(value?: any) {
     const randomValue = value || randomMaker.string(this.getMaxlength() + 1);
     const mergedData = this.dataMerger(randomValue);
     this.initTest(mergedData, this.resolveError("maxlength"));
     return this;
   }
-  length(value) {
+  length(value?: any) {
     const randomValue = value || randomMaker.string(this.getLength() + 1);
     const mergedData = this.dataMerger(randomValue);
     this.initTest(mergedData, this.resolveError("length"));
     return this;
   }
 
-  initTest(data, error, options) {
-    it(
-      this.createTestMessage(
-        error,
-        this.configuredRequester.getRoute().fullUrl
-      ),
-      async () => {
-        await this.configuredRequester.sendFullFeaturedRequest(
-          data,
-          error,
-          options
-        );
-      }
+  initTest(data: any, error: NativeError, options?: Partial<RequesterOptions>) {
+    const message = utilities.createFailTestMessage(
+      error,
+      this.configuredRequester.getRoute()
     );
-  }
 
-  createTestMessage(error, url) {
-    return `expected error: [url|${url.fullUrl || url}] [key|${
-      error.key
-    }] [reason|${error.reason}] - [statusCode|${error.statusCode}] `;
+    it(message, async () => {
+      await this.configuredRequester.sendFullFeaturedRequest(
+        data,
+        error,
+        options
+      );
+    });
   }
 }
 
 const failTestBuilder = {
-  create: (configuredRequester, data, model, testingPropertyName) =>
+  create: (
+    configuredRequester: Requester,
+    data: any,
+    model: NativeModel,
+    testingPropertyName: string
+  ) =>
     new FailTestBuilder(configuredRequester, data, model, testingPropertyName),
 };
 

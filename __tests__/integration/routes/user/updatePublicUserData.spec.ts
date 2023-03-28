@@ -1,33 +1,35 @@
 import { randomMaker } from "$/classes/RandomMaker";
-import { helpers } from "$/helpers";
-
+import { socketHelper } from "$/classes/SocketHelper";
 import { userUtilities } from "@/classes/UserUtilities";
+
+import { testHelper } from "$/helpers/testHelper";
 
 import { services } from "@/services";
 
-import { requesters } from "$/utilities";
+import { PublicUserData, UserMongo } from "@/types";
 
-import { testHelper } from "$/tests/integration/helpers/testHelper";
+import { utilities } from "$/utilities";
 
 describe("getCurrentUserData success tests", () => {
   it("should get currentUser data", async () => {
     const users = await randomMaker.users(10);
 
-    for (const { token, user } of users) {
+    for (const { socket, user } of users) {
       const data = randomMaker.publicUserData();
 
-      const requester = requesters.updatePublicUserData(token);
+      const requester = utilities.requesters.updatePublicUserData(socket);
       const {
-        body: { publicUserData: publicDataFromApi },
+        data: { publicUserData: publicDataFromApi },
       } = await requester.sendFullFeaturedRequest(data);
 
       const equalValue = { ...data, userId: user.userId };
 
       testPublicUserData(equalValue, publicDataFromApi);
 
-      const targetUserDataInDb = await services.getTargetUserData({
+      const targetUserDataInDb = (await services.getTargetUserData({
         userId: user.userId,
-      });
+      })) as UserMongo;
+
       const publicDataFromDb =
         userUtilities.extractPublicUserData(targetUserDataInDb);
       testPublicUserData(equalValue, publicDataFromDb);
@@ -35,7 +37,32 @@ describe("getCurrentUserData success tests", () => {
   });
 });
 
-const testPublicUserData = (equalValue, testValue) => {
+describe("getPublicUserData fail tests", () => {
+  const clientSocket = socketHelper.createClient();
+  const requester = utilities.requesters.updatePublicUserData(clientSocket);
+
+  before(async () => {
+    const { socket } = await randomMaker.user();
+    requester.setSocket(socket);
+  });
+
+  const { status, ...updatablePublicData } = randomMaker.publicUserData();
+
+  testHelper
+    .createFailTest(requester)
+    .authentication()
+    .input(updatablePublicData)
+    .checkCurrentUserStatus(updatablePublicData)
+    .bio(updatablePublicData)
+    .firstName(updatablePublicData)
+    .lastName(updatablePublicData)
+    .username(updatablePublicData);
+});
+
+const testPublicUserData = (
+  equalValue: PublicUserData,
+  testValue: PublicUserData
+) => {
   testHelper
     .createSuccessTest()
     .firstName({
@@ -59,20 +86,3 @@ const testPublicUserData = (equalValue, testValue) => {
       testValue: testValue.userId,
     });
 };
-
-describe("getPublicUserData fail tests", () => {
-  const requester = requesters.updatePublicUserData();
-  helpers.configureFailTestRequester(requester);
-
-  const data = randomMaker.publicUserData();
-
-  testHelper
-    .createFailTest(requester)
-    .authentication()
-    .input(data)
-    .checkCurrentUserStatus(data)
-    .bio(data)
-    .firstName(data)
-    .lastName(data)
-    .username(data);
-});

@@ -1,21 +1,19 @@
 import { successTestBuilder } from "$/classes/SuccessTestBuilder";
-import { testVariablesManager } from "$/classes/TestVariablesManager";
 
 import { models } from "@/models";
 
-const chatModels = models.native.chat;
+import { SuccessTestExecutor } from "$/types";
 
-const chatIdSuccessTest = (
+const chatModels = models.native.privateChat;
+
+const chatIdSuccessTest: SuccessTestExecutor = (
   { equalValue, testValue },
-  {
-    stringEquality = true,
-    modelCheck = true,
-  } = testVariablesManager.successTestDefaultOptions
+  options
 ) => {
   successTestBuilder
     .create()
     .setVariables(chatModels.chatId, equalValue, testValue)
-    .setOptions({ modelCheck, stringEquality })
+    .setOptions(options)
     .addCommonTest()
     .run();
 };

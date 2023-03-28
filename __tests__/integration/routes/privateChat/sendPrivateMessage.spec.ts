@@ -1,10 +1,12 @@
+import { expect } from "chai";
+
 import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
-import { testHelper } from "$/tests/integration/helpers/testHelper";
+import { testHelper } from "$/helpers/testHelper";
 
 import { requesters } from "$/utilities";
 
@@ -39,7 +41,7 @@ describe("send message success tests", () => {
       currentUser.userId,
       targetUser.userId
     );
-    expect(chat.messages.length).toBe(messagesLength);
+    expect(chat.messages.length).to.be.equal(messagesLength);
   });
 });
 
@@ -115,12 +117,9 @@ const testData = async ({
 };
 
 const findOnePrivateChat = async (currentUserId, targetUserId) => {
-  return await services
-    .findOnePrivateChat()
-    .exclude()
-    .run({
-      "participants.participantId": {
-        $all: [currentUserId, targetUserId],
-      },
-    });
+  return await services.findOnePrivateChat({
+    "participants.participantId": {
+      $all: [currentUserId, targetUserId],
+    },
+  });
 };

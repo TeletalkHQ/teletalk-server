@@ -1,21 +1,19 @@
 import { successTestBuilder } from "$/classes/SuccessTestBuilder";
-import { testVariablesManager } from "$/classes/TestVariablesManager";
 
 import { models } from "@/models";
 
+import { SuccessTestExecutor } from "$/types";
+
 const userModels = models.native.user;
 
-const firstNameSuccessTest = (
+const firstNameSuccessTest: SuccessTestExecutor = (
   { equalValue, testValue },
-  {
-    stringEquality = true,
-    modelCheck = true,
-  } = testVariablesManager.successTestDefaultOptions
+  options
 ) => {
   successTestBuilder
     .create()
     .setVariables(userModels.firstName, equalValue, testValue)
-    .setOptions({ modelCheck, stringEquality })
+    .setOptions(options)
     .addCommonTest()
     .emptyCheck()
     .run();

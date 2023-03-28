@@ -12,15 +12,9 @@ abstract class RouteBuilder {
   constructor() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    this.route = {
-      statusCode: 200,
-    };
+    this.route = {};
   }
 
-  statusCode(statusCode: number) {
-    this.route.statusCode = statusCode;
-    return this;
-  }
   inputFields(inputFields: IoFields) {
     this.route.inputFields = inputFields;
     return this;

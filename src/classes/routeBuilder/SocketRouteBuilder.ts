@@ -14,7 +14,6 @@ class SocketRouteBuilder extends RouteBuilder {
       method: "customOn",
       inputFields: {},
       outputFields: {},
-      statusCode: 200,
     };
   }
 
@@ -34,8 +33,8 @@ class SocketRouteBuilder extends RouteBuilder {
   }
 
   build() {
-    const { handler, name, statusCode } = this.route;
-    this.checkRequirements(handler, name, statusCode);
+    const { handler, name } = this.route;
+    this.checkRequirements(handler, name);
     return this.route;
   }
 }

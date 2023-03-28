@@ -4,19 +4,22 @@ import { failTestBuilder } from "$/classes/FailTestBuilder";
 
 import { models } from "@/models";
 
-const userModels = models.native.user;
+import { FailTestExecutor } from "$/types";
 
 import { errors } from "@/variables/errors";
 
+const userModels = models.native.user;
+
 const countryNameMaxlength = userModels.countryName.maxlength.value;
 
-const countryNameFailTest = (configuredRequester, data) => {
+const countryNameFailTest: FailTestExecutor = (configuredRequester, data) => {
   failTestBuilder
     .create(configuredRequester, data, userModels.countryName, "countryName")
     .missing()
     .overload()
     .invalidType()
-    .empty.maxlength()
+    .empty()
+    .maxlength()
     .minlength()
     .custom(
       randomMaker.string(countryNameMaxlength),

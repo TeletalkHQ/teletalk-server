@@ -1,24 +1,22 @@
-import { testHelperCollection } from "$/tests/integration/helpers/testHelperCollection";
+import { Requester } from "$/classes/Requester";
+
+import { testHelperCollection } from "$/helpers/testHelperCollection";
+
+type MethodName = keyof typeof testHelperCollection.fail;
 
 class FailTestHelper {
-  constructor(requester) {
-    this.requester = requester;
-  }
+  constructor(private requester: Requester) {}
 
-  failTestMaker(methodName) {
-    return (...args) => {
-      testHelperCollection.fail[methodName](...this.#defaultArgs(), ...args);
-      return this;
-    };
-  }
-
-  #defaultArgs() {
-    return [this.requester];
-  }
-
-  setRequirements(requester) {
+  setRequirements(requester: Requester) {
     this.requester = requester;
     return this;
+  }
+
+  private failTestMaker(methodName: MethodName) {
+    return (data?: any) => {
+      testHelperCollection.fail[methodName](this.requester, data);
+      return this;
+    };
   }
 
   authentication = this.failTestMaker("authentication");
@@ -47,6 +45,6 @@ class FailTestHelper {
   verificationCode = this.failTestMaker("verificationCode");
 }
 
-const failTestHelper = (...args) => new FailTestHelper(...args);
+const failTestHelper = (requester: Requester) => new FailTestHelper(requester);
 
 export { failTestHelper, FailTestHelper };

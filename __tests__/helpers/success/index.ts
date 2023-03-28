@@ -8,8 +8,8 @@ import { countryNameSuccessTest } from "$/helpers/success/countryName";
 import { firstNameSuccessTest } from "$/helpers/success/firstName";
 import { fullNameSuccessTest } from "$/helpers/success/fullName";
 import { lastNameSuccessTest } from "$/helpers/success/lastName";
+import { messageTextSuccessTest } from "$/helpers/success/message";
 import { messageIdSuccessTest } from "$/helpers/success/messageId";
-import { messageSuccessTest } from "$/helpers/success/message";
 import { oneContactSuccessTest } from "$/helpers/success/oneContact";
 import { phoneNumberSuccessTest } from "$/helpers/success/phoneNumber";
 import { privateChatsSuccessTest } from "$/helpers/success/privateChats";
@@ -29,7 +29,7 @@ const successCollection = {
   firstName: firstNameSuccessTest,
   fullName: fullNameSuccessTest,
   lastName: lastNameSuccessTest,
-  message: messageSuccessTest,
+  message: messageTextSuccessTest,
   messageId: messageIdSuccessTest,
   oneContact: oneContactSuccessTest,
   phoneNumber: phoneNumberSuccessTest,

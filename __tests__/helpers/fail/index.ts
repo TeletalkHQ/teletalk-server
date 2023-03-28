@@ -1,6 +1,10 @@
-import { cellphoneFailTest } from "$/helpers/fail/cellphone";
-import { selfStuffFailTest } from "$/helpers/fail/selfStuff";
 import { authenticationFailTest } from "$/helpers/fail/authentication";
+import { bioFailTest } from "$/helpers/fail/bio";
+import { cellphoneFailTest } from "$/helpers/fail/cellphone";
+import { chatIdFailTest } from "$/helpers/fail/chatId";
+import { checkCurrentUserStatusFailTest } from "$/helpers/fail/checkCurrentUserStatus";
+import { countryCodeFailTest } from "$/helpers/fail/countryCode";
+import { countryNameFailTest } from "$/helpers/fail/countryName";
 import {
   blacklistItemExistFailTest,
   blacklistItemNotExistFailTest,
@@ -8,22 +12,18 @@ import {
   contactItemNotExistFailTest,
   targetUserNotExistFailTest,
 } from "$/helpers/fail/existences";
-import { chatIdFailTest } from "$/helpers/fail/chatId";
-import { checkCurrentUserStatusFailTest } from "$/helpers/fail/checkCurrentUserStatus";
-import { countryCodeFailTest } from "$/helpers/fail/countryCode";
-import { countryNameFailTest } from "$/helpers/fail/countryName";
 import { firstNameFailTest } from "$/helpers/fail/firstName";
+import { inputFailTest } from "$/helpers/fail/input";
 import { inputMissingFailTest } from "$/helpers/fail/inputMissing";
 import { inputOverloadFailTest } from "$/helpers/fail/inputOverload";
-import { inputFailTest } from "$/helpers/fail/input";
 import { lastNameFailTest } from "$/helpers/fail/lastName";
-import { messageFailTest } from "$/helpers/fail/message";
+import { messageTextFailTest } from "$/helpers/fail/message";
 import { participantIdFailTest } from "$/helpers/fail/participantId";
 import { phoneNumberFailTest } from "$/helpers/fail/phoneNumber";
+import { selfStuffFailTest } from "$/helpers/fail/selfStuff";
 import { userIdFailTest } from "$/helpers/fail/userId";
-import { verificationCodeFailTest } from "$/helpers/fail/verificationCode";
-import { bioFailTest } from "$/helpers/fail/bio";
 import { usernameFailTest } from "$/helpers/fail/username";
+import { verificationCodeFailTest } from "$/helpers/fail/verificationCode";
 
 const failCollection = {
   authentication: authenticationFailTest,
@@ -42,7 +42,7 @@ const failCollection = {
   inputMissing: inputMissingFailTest,
   inputOverload: inputOverloadFailTest,
   lastName: lastNameFailTest,
-  message: messageFailTest,
+  message: messageTextFailTest,
   participantId: participantIdFailTest,
   phoneNumber: phoneNumberFailTest,
   selfStuff: selfStuffFailTest,

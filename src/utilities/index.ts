@@ -36,7 +36,12 @@ const executeMiddlewares = async ({
   socket,
 }: ExecuteMiddlewaresArgs) => {
   for await (const m of middlewares) {
-    const result = await m(socket, next, event);
+    const result = await m(
+      socket,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      () => {},
+      event
+    );
 
     if (result?.ok === false) {
       return;

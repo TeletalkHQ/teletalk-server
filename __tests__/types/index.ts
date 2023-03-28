@@ -1,10 +1,11 @@
 import { Requester } from "$/classes/Requester";
-import { testVariablesManager } from "$/classes/TestVariablesManager";
 
 type FailTestExecutor = (configuredRequester: Requester, data: object) => void;
 
-type SuccessTestExecutorOptions =
-  typeof testVariablesManager.successTestDefaultOptions;
+type SuccessTestExecutorOptions = {
+  modelCheck: boolean;
+  stringEquality: boolean;
+};
 interface SuccessTestExecuterArgs {
   equalValue?: any;
   testValue: any;

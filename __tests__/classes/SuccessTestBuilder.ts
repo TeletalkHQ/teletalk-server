@@ -1,30 +1,33 @@
-import { FIELD_TYPE } from "@/variables/others/fieldType";
+import { FieldType, NativeModel } from "@/types";
+
+import { FIELD_TYPE } from "$/variables/fieldType";
+import { expect } from "chai";
+
+type TestItem = () => void;
+
+interface Variables {
+  model: NativeModel;
+  modelMaxLength: number;
+  modelMinLength: number;
+  modelLength: number;
+  equalValue: any;
+  testValue: any;
+}
 
 class SuccessTestBuilder {
-  constructor() {
-    this.tests = [];
-    this.options = this.#defaultOptions();
-    this.variables = this.#defaultVariables();
-  }
+  tests: TestItem[] = [];
 
-  #defaultOptions() {
+  options = this.defaultOptions();
+  variables: Variables;
+
+  private defaultOptions() {
     return {
       modelCheck: true,
       stringEquality: true,
     };
   }
-  #defaultVariables() {
-    return {
-      model: {},
-      equalValue: undefined,
-      testValue: undefined,
-      modelMaxLength: 0,
-      modelMinLength: 0,
-      modelLength: 0,
-    };
-  }
 
-  setVariables(model, equalValue, testValue) {
+  setVariables(model: NativeModel, equalValue: any, testValue: any) {
     this.variables = {
       ...this.variables,
       model,
@@ -37,15 +40,15 @@ class SuccessTestBuilder {
 
     return this;
   }
-  setModel(model) {
+  setModel(model: NativeModel) {
     this.variables.model = model;
     return this;
   }
-  setEqualValue(equalValue) {
+  setEqualValue(equalValue: any) {
     this.variables.equalValue = equalValue;
     return this;
   }
-  setTestValue(testValue) {
+  setTestValue(testValue: any) {
     this.variables.testValue = testValue;
     return this;
   }
@@ -73,19 +76,19 @@ class SuccessTestBuilder {
   stringEquality() {
     this.addIf(this.options.stringEquality, () => {
       this.tests.push(() =>
-        expect(this.variables.equalValue.length).toBe(
+        expect(this.variables.equalValue.length).to.be.equal(
           this.variables.testValue.length
         )
       );
       this.tests.push(() =>
-        expect(this.variables.equalValue).toBe(this.variables.testValue)
+        expect(this.variables.equalValue).to.be.equal(this.variables.testValue)
       );
     });
 
     return this;
   }
 
-  addIf(condition, cb) {
+  addIf(condition: any, cb: () => void) {
     if (condition) {
       cb();
     }
@@ -95,16 +98,18 @@ class SuccessTestBuilder {
 
   lengthCheck() {
     this.tests.push(() =>
-      expect(this.variables.testValue.length).toBe(+this.variables.modelLength)
+      expect(this.variables.testValue.length).to.be.equal(
+        +this.variables.modelLength
+      )
     );
 
     return this;
   }
 
-  typeCheck(customType) {
+  typeCheck(customType?: FieldType) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue).toBeInstanceOf(
+        expect(this.variables.testValue).to.be.an(
           customType || this.variables.model.type.value
         )
       );
@@ -113,8 +118,8 @@ class SuccessTestBuilder {
     return this;
   }
 
-  customTypeCheck(value, customType) {
-    this.tests.push(() => expect(value).toBeInstanceOf(customType));
+  customTypeCheck(value: any, customType: FieldType) {
+    this.tests.push(() => expect(value).to.be.an(customType));
 
     return this;
   }
@@ -123,7 +128,7 @@ class SuccessTestBuilder {
     this.addIf(this.options.modelCheck, () => {
       if (this.variables.model.empty.value === false)
         this.tests.push(() =>
-          expect(this.variables.testValue.length).toBeGreaterThan(0)
+          expect(this.variables.testValue.length).to.be.greaterThan(0)
         );
     });
 
@@ -141,10 +146,10 @@ class SuccessTestBuilder {
 
     return this;
   }
-  gtCheck(length) {
+  gtCheck(length: number) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue.length).toBeGreaterThan(length)
+        expect(this.variables.testValue.length).to.be.greaterThan(length)
       );
     });
 
@@ -165,7 +170,7 @@ class SuccessTestBuilder {
   numericCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(+this.variables.testValue).toBeInstanceOf(FIELD_TYPE.NUMBER)
+        expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER)
       );
     });
     return this;

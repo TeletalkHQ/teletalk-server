@@ -1,59 +1,58 @@
-import { authManager } from "@/classes/AuthManager";
+import { socketHelper } from "$/classes/SocketHelper";
 import { temporaryClients } from "@/classes/TemporaryClients";
 
-import { requesters } from "$/utilities";
+import {
+  Cellphone,
+  ClientSocket,
+  FullName,
+  SocketResponse,
+  TemporaryClient,
+} from "@/types";
+
+import { utilities } from "$/utilities";
+import { authManager } from "@/classes/AuthManager";
 
 class AuthHelper {
-  constructor(cellphone, fullName) {
-    this.cellphone = cellphone;
-    this.fullName = fullName;
+  private clientSocket: ClientSocket;
+  private createResponse: SocketResponse;
+  private signInResponse: SocketResponse;
+  private verifyResponse: SocketResponse;
 
-    this.signInResponse = undefined;
-    this.verifyResponse = undefined;
-    this.createResponse = undefined;
+  constructor(private cellphone: Cellphone, private fullName?: FullName) {
+    this.clientSocket = socketHelper.createClient();
   }
 
   async signIn() {
-    const requester = requesters.signIn();
-    const response = await requester.sendFullFeaturedRequest(this.cellphone);
-
-    response.body.token = this.fixToken(response);
-    this.signInResponse = response;
+    this.signInResponse = await utilities.requesters
+      .signIn(this.clientSocket)
+      .sendFullFeaturedRequest(this.cellphone);
 
     return this;
   }
 
   async verify() {
-    const signInToken = this.signInResponse.body.token;
-    const tokenId = authManager.getTokenId(
-      signInToken,
+    const clientId = authManager.getTokenId(
+      this.signInResponse.data.token,
       authManager.getSignInSecret()
     );
+    const temporaryClient = (await temporaryClients.find(
+      clientId
+    )) as TemporaryClient;
 
-    const temporaryClient = await temporaryClients.find(tokenId);
-    const requester = requesters.verify();
-    const response = await requester
-      .setToken(signInToken)
+    this.verifyResponse = await utilities.requesters
+      .verify(this.clientSocket)
       .sendFullFeaturedRequest({
         verificationCode: temporaryClient.verificationCode,
       });
 
-    if (!response.body.newUser) {
-      response.body.token = this.fixToken(response);
-    }
-
-    this.verifyResponse = response;
     return this;
   }
 
   async create() {
-    const requester = requesters.createNewUser();
-    const response = await requester
-      .setToken(this.signInResponse.body.token)
-      .sendFullFeaturedRequest(this.fullName);
+    this.createResponse = await utilities.requesters
+      .createNewUser(this.clientSocket)
+      .sendFullFeaturedRequest(this.fullName as FullName);
 
-    response.body.token = this.fixToken(response);
-    this.createResponse = response;
     return this;
   }
 
@@ -64,39 +63,38 @@ class AuthHelper {
     return this;
   }
 
-  fixToken(response) {
-    return this.extractCookies(response.headers).SESSION.value;
+  getResponses() {
+    return {
+      create: this.createResponse,
+      signIn: this.signInResponse,
+      verify: this.verifyResponse,
+    };
   }
 
-  extractCookies(headers) {
-    return headers["set-cookie"].reduce((shapedCookies, cookieString) => {
-      const [rawCookie, ...flags] = cookieString.split("; ");
-      const [cookieName, value] = rawCookie.split("=");
-      return {
-        ...shapedCookies,
-        [cookieName]: { value, flags: this.shapeFlags(flags) },
-      };
-    }, {});
-  }
-  shapeFlags(flags) {
-    return flags.reduce((shapedFlags, flag) => {
-      const [flagName, rawValue] = flag.split("=");
-      const value = rawValue ? rawValue.replace(";", "") : true;
-      return { ...shapedFlags, [flagName]: value };
-    }, {});
-  }
-
-  getSignInToken() {
-    return this.signInResponse.body.token;
-  }
-  getMainTokenFromCreate() {
-    return this.createResponse.body.token;
-  }
-  getMainTokenFromVerify() {
-    return this.verifyResponse.body.token;
+  getClientSocket() {
+    return this.clientSocket;
   }
 }
 
-const authHelper = (cellphone, fullName) => new AuthHelper(cellphone, fullName);
+const authHelper = (cellphone: Cellphone, fullName?: FullName) =>
+  new AuthHelper(cellphone, fullName);
 
 export { authHelper, AuthHelper };
+
+// extractCookies(headers) {
+//   return headers["set-cookie"].reduce((shapedCookies, cookieString) => {
+//     const [rawCookie, ...flags] = cookieString.split("; ");
+//     const [cookieName, value] = rawCookie.split("=");
+//     return {
+//       ...shapedCookies,
+//       [cookieName]: { value, flags: this.shapeFlags(flags) },
+//     };
+//   }, {});
+// }
+// shapeFlags(flags) {
+//   return flags.reduce((shapedFlags, flag) => {
+//     const [flagName, rawValue] = flag.split("=");
+//     const value = rawValue ? rawValue.replace(";", "") : true;
+//     return { ...shapedFlags, [flagName]: value };
+//   }, {});
+// }

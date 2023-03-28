@@ -10,7 +10,7 @@ const messageTextValidator = async (messageText: unknown) => {
   const validationResult = await compiledValidators.messageText({
     messageText,
   });
-  validationChecker.message(validationResult, messageText);
+  validationChecker.messageText(validationResult, messageText);
 };
 
 const participantIdValidator = async (participantId: unknown) => {

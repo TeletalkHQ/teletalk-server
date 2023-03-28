@@ -51,7 +51,7 @@ const sendPrivateMessage = builder
   .handler(privateChatHandlers.sendPrivateMessage)
   .name("sendPrivateMessage")
   .inputFields({
-    message: fields.single.message,
+    messageText: fields.single.messageText,
     participantId: fields.single.participantId,
   })
   .outputFields({

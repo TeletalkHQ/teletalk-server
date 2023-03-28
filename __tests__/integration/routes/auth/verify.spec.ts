@@ -1,10 +1,10 @@
 import { expect } from "chai";
 
 import { authHelper } from "$/classes/AuthHelper";
-import { authManager } from "@/classes/AuthManager";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
 import { SuccessTestHelper } from "$/classes/SuccessTestHelper";
+import { authManager } from "@/classes/AuthManager";
 import { temporaryClients } from "@/classes/TemporaryClients";
 import { userUtilities } from "@/classes/UserUtilities";
 
@@ -18,7 +18,7 @@ import { Session, TemporaryClient, UserMongo } from "@/types";
 
 import { utilities } from "$/utilities";
 
-describe("verifySignInApi success test", () => {
+describe("verifySignIn success test", () => {
   it("should sign and verify as new user", async () => {
     const cellphone = randomMaker.unusedCellphone();
     const fullName = randomMaker.fullName();

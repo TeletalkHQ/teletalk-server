@@ -22,7 +22,7 @@ const firstName = statics.string;
 const isActive = statics.boolean;
 const language = statics.string;
 const lastName = statics.string;
-const message = statics.string;
+const messageText = statics.string;
 const messageId = statics.string;
 const newUser = statics.boolean;
 const ok = statics.boolean;
@@ -68,8 +68,8 @@ const sender = statics.object({
 
 const messageItem = {
   createdAt,
-  message,
   messageId,
+  messageText,
   sender,
 };
 
@@ -120,7 +120,7 @@ const single = {
   isActive,
   language,
   lastName,
-  message,
+  messageText,
   messageId,
   newUser,
   ok,

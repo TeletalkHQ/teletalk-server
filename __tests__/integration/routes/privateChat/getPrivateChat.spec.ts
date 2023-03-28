@@ -2,6 +2,9 @@ import { expect } from "chai";
 import { Socket } from "socket.io-client";
 
 import { randomMaker } from "$/classes/RandomMaker";
+import { socketHelper } from "$/classes/SocketHelper";
+
+import { privateChatModels } from "@/models/native/privateChat";
 
 import { services } from "@/services";
 
@@ -18,14 +21,14 @@ describe("get messages success tests", () => {
     const { user: currentUser, socket } = await randomMaker.user();
     const { user: targetUser } = await randomMaker.user();
 
-    const message = "Hello! Im messages!";
+    const messageText = "Hello! Im messages!";
     for (let i = 0; i < 10; i++) {
       const {
         data: { chatId },
       } = await utilities.requesters
         .sendPrivateMessage(socket)
         .sendFullFeaturedRequest({
-          message,
+          messageText,
           participantId: targetUser.userId,
         });
 
@@ -34,20 +37,25 @@ describe("get messages success tests", () => {
   });
 });
 
-// describe("getMessagesApi fail tests", () => {
-//   const requester = utilities.requesters.getPrivateChat();
-//   helpers.configureFailTestRequester(requester);
+describe("getPrivateChat fail tests", () => {
+  const clientSocket = socketHelper.createClient();
+  const requester = utilities.requesters.getPrivateChat(clientSocket);
 
-//   const data = {
-//     chatId: randomMaker.string(privateChatModels.chatId.maxlength.value),
-//   };
+  before(async () => {
+    const { socket } = await randomMaker.user();
+    requester.setSocket(socket);
+  });
 
-//   testHelper
-//     .createFailTest(requester)
-//     .authentication()
-//     .checkCurrentUserStatus(data)
-//     .chatId(data);
-// });
+  const data = {
+    chatId: randomMaker.string(privateChatModels.chatId.maxlength.value),
+  };
+
+  testHelper
+    .createFailTest(requester)
+    .authentication()
+    .checkCurrentUserStatus(data)
+    .chatId(data);
+});
 
 const testPrivateChat = async (
   chatId: string,
@@ -70,7 +78,7 @@ const testPrivateChat = async (
     .to.be.an(FIELD_TYPE.ARRAY)
     .and.length(2);
 
-  tesChatId(chatId, privateChat, privateChatFromDb);
+  testChatId(chatId, privateChat, privateChatFromDb);
   testMessages(privateChat, privateChatFromDb);
   testParticipants(
     currentUser.userId,
@@ -98,7 +106,7 @@ const findStoredPrivateChat = async (
   })) as PrivateChatMongo;
 };
 
-const tesChatId = (
+const testChatId = (
   chatId: string,
   privateChat: PrivateChatMongo,
   privateChatFromDb: PrivateChatMongo
@@ -129,7 +137,7 @@ const testMessages = (
 
     testHelper
       .createSuccessTest()
-      .message({
+      .messageText({
         equalValue: foundMessageFromDb.messageText,
         testValue: messageText,
       })
@@ -151,9 +159,9 @@ const testParticipants = (
   targetUserId: string
 ) => {
   const {
-    currentParticipantFromApi,
+    currentParticipantFromEvent,
     currentParticipantFromDb,
-    targetParticipantFromApi,
+    targetParticipantFromEvent,
     targetParticipantFromDb,
   } = findAllParticipants(
     currentUserId,
@@ -174,11 +182,11 @@ const testParticipants = (
     })
     .userId({
       equalValue: currentUserId,
-      testValue: currentParticipantFromApi.participantId,
+      testValue: currentParticipantFromEvent.participantId,
     })
     .userId({
       equalValue: targetUserId,
-      testValue: targetParticipantFromApi.participantId,
+      testValue: targetParticipantFromEvent.participantId,
     });
 };
 
@@ -189,9 +197,9 @@ const findAllParticipants = (
   targetUserId: string
 ) => {
   return {
-    currentParticipantFromApi: findParticipant(foundChat, currentUserId),
+    currentParticipantFromEvent: findParticipant(foundChat, currentUserId),
     currentParticipantFromDb: findParticipant(privateChatFromDb, currentUserId),
-    targetParticipantFromApi: findParticipant(foundChat, targetUserId),
+    targetParticipantFromEvent: findParticipant(foundChat, targetUserId),
     targetParticipantFromDb: findParticipant(privateChatFromDb, targetUserId),
   };
 };

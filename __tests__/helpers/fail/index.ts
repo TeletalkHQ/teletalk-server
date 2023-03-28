@@ -42,7 +42,7 @@ const failCollection = {
   inputMissing: inputMissingFailTest,
   inputOverload: inputOverloadFailTest,
   lastName: lastNameFailTest,
-  message: messageTextFailTest,
+  messageText: messageTextFailTest,
   participantId: participantIdFailTest,
   phoneNumber: phoneNumberFailTest,
   selfStuff: selfStuffFailTest,

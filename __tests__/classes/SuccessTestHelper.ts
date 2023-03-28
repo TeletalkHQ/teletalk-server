@@ -38,7 +38,7 @@ class SuccessTestHelper {
   firstName = this.successTestMaker("firstName");
   fullName = this.successTestMaker("fullName");
   lastName = this.successTestMaker("lastName");
-  message = this.successTestMaker("message");
+  messageText = this.successTestMaker("messageText");
   messageId = this.successTestMaker("messageId");
   oneContact = this.successTestMaker("oneContact");
   phoneNumber = this.successTestMaker("phoneNumber");

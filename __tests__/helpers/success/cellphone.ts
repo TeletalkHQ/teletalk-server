@@ -1,8 +1,13 @@
-import { countryCodeSuccessTest } from "$/tests/integration/helpers/success/countryCode";
-import { countryNameSuccessTest } from "$/tests/integration/helpers/success/countryName";
-import { phoneNumberSuccessTest } from "$/tests/integration/helpers/success/phoneNumber";
+import { countryCodeSuccessTest } from "$/helpers/success/countryCode";
+import { countryNameSuccessTest } from "$/helpers/success/countryName";
+import { phoneNumberSuccessTest } from "$/helpers/success/phoneNumber";
 
-const cellphoneSuccessTest = ({ equalValue, testValue }) => {
+import { SuccessTestExecutor } from "$/types";
+
+const cellphoneSuccessTest: SuccessTestExecutor = ({
+  equalValue,
+  testValue,
+}) => {
   countryCodeSuccessTest({
     equalValue: equalValue.countryCode,
     testValue: testValue.countryCode,

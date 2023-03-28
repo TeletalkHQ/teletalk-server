@@ -71,7 +71,7 @@ const macAddress = nativeModelBuilder
   .unique(true, errors.MAC_ADDRESS_EXIST)
   .build();
 
-const isOnline = nativeModelBuilder
+const isActive = nativeModelBuilder
   .create()
   .type("boolean", errors.ONLINE_INVALID_TYPE)
   .required(true, errors.ONLINE_REQUIRED)
@@ -156,9 +156,9 @@ const userModels = {
   countryName,
   createdAt,
   firstName,
+  isActive,
   lastName,
   macAddress,
-  isOnline,
   phoneNumber,
   sessions,
   status,

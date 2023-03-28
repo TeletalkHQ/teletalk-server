@@ -12,6 +12,9 @@ class TemporaryClients {
     return this;
   }
 
+  getStorage() {
+    return this.storage;
+  }
   setStorage(storage: RedisClientType) {
     this.storage = storage;
   }
@@ -20,10 +23,12 @@ class TemporaryClients {
     return `${this.STATE_KEY}:${clientId}`;
   }
 
-  async find(clientId: string) {
-    return (await this.storage.json.get(
+  async find(clientId: string): Promise<TemporaryClient | null> {
+    const client = (await this.storage.json.get(
       this.makeStateKey(clientId)
-    )) as TemporaryClient | null;
+    )) as string;
+
+    return client ? JSON.parse(client) : null;
   }
 
   async add(clientId: string, data: TemporaryClient) {

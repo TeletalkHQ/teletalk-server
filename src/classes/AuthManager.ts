@@ -1,6 +1,7 @@
 import JWT from "jsonwebtoken";
 import { Socket } from "socket.io";
 import { trier } from "simple-trier";
+import cookie from "cookie";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
@@ -50,7 +51,7 @@ class AuthManager {
 
   // getSecret(reqUrl) {
   //   const isAuthenticationUrl = isUrlMatchWithReqUrl(
-  //     [routes.auth.verify.fullUrl, routes.auth.createNewUser.fullUrl],
+  //     [routes.auth.verify.name, routes.auth.createNewUser.name],
   //     reqUrl
   //   );
 
@@ -64,7 +65,7 @@ class AuthManager {
   //   return req.cookies[this.getOptions().cookie.SESSION_NAME];
   // }
 
-  getTokenFromSocket(socket: Socket) {
+  getSessionFromSocket(socket: Socket) {
     return socket.handshake.headers.cookie?.split(
       `${this.getOptions().cookie.SESSION_NAME}=`
     )[1];
@@ -75,9 +76,12 @@ class AuthManager {
     //FIXME: Options need to set
     // options = { httpOnly: true, secure: true }
   ) {
-    socket.handshake.headers["set-cookie"] = [
-      `${this.getOptions().cookie.SESSION_NAME}=${token}`,
-    ];
+    const session = cookie.serialize(
+      this.getOptions().cookie.SESSION_NAME,
+      token
+    );
+
+    socket.handshake.headers.cookie = session;
     // (this.getOptions().cookie.SESSION_NAME, token, options);
   }
   removeSession(socket: Socket) {
@@ -99,7 +103,7 @@ class AuthManager {
     };
   }
 
-  getTokenId(token: string, secret: string) {
+  getTokenId(token: string, secret: string = this.getMainSecret()) {
     return this.verifyToken(token, secret).data.payload.tokenId;
   }
 }

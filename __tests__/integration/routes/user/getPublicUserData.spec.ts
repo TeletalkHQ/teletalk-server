@@ -1,38 +1,42 @@
 import { randomMaker } from "$/classes/RandomMaker";
-import { helpers } from "$/helpers";
+import { socketHelper } from "$/classes/SocketHelper";
 
-import { testHelper } from "$/tests/integration/helpers/testHelper";
+import { testHelper } from "$/helpers/testHelper";
 
-import { requesters } from "$/utilities";
+import { utilities } from "$/utilities";
 
 import { services } from "@/services";
 
+import { PublicUserData, UserMongo } from "@/types";
+
 describe("getCurrentUserData success tests", () => {
   it("should get currentUser data", async () => {
-    const { token } = await randomMaker.user();
-    const requester = requesters.getPublicUserData();
-    requester.setToken(token);
+    const { socket } = await randomMaker.user();
+    const requester = utilities.requesters.getPublicUserData(socket);
 
     const users = await randomMaker.users(10);
 
     for (const { user: targetUserData } of users) {
       const {
-        body: { publicUserData },
+        data: { publicUserData },
       } = await requester.sendFullFeaturedRequest({
         userId: targetUserData.userId,
       });
 
-      const targetUserDataInDb = await services.getTargetUserData({
+      const targetUserDataInDb = (await services.getTargetUserData({
         userId: targetUserData.userId,
-      });
+      })) as UserMongo;
 
-      testPublicUserData(targetUserDataInDb, publicUserData);
-      testPublicUserData(targetUserData, publicUserData);
+      testPublicUserData(targetUserDataInDb, publicUserData as PublicUserData);
+      testPublicUserData(targetUserData, publicUserData as PublicUserData);
     }
   });
 });
 
-const testPublicUserData = (equalValue, testValue) => {
+const testPublicUserData = (
+  equalValue: PublicUserData,
+  testValue: PublicUserData
+) => {
   testHelper
     .createSuccessTest()
     .firstName({
@@ -58,8 +62,12 @@ const testPublicUserData = (equalValue, testValue) => {
 };
 
 describe("getPublicUserData fail tests", () => {
-  const requester = requesters.getPublicUserData();
-  helpers.configureFailTestRequester(requester);
+  const clientSocket = socketHelper.createClient();
+  const requester = utilities.requesters.getPublicUserData(clientSocket);
+  before(async () => {
+    const { socket } = await randomMaker.user();
+    requester.setSocket(socket);
+  });
 
   const data = {
     userId: randomMaker.id(),

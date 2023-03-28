@@ -1,32 +1,32 @@
+import { expect } from "chai";
 import { IoFields } from "check-fields";
-import { Socket } from "socket.io-client";
 import { objectUtilities } from "utility-store";
+import { Socket as Client } from "socket.io-client";
 
 import { loggerHelper } from "@/helpers/logHelper";
 
 import {
-  NativeModelError,
+  NativeError,
   SocketResponse,
   SocketResponseErrors,
   SocketRoute,
   StringMap,
 } from "@/types";
+import { RequesterOptions } from "$/types";
 
 import { errors } from "@/variables/errors";
 
-interface Options {
-  shouldFilterRequestData: boolean;
-}
-
 class Requester {
-  private error: NativeModelError;
-  private options: Options = { shouldFilterRequestData: true };
+  private error?: NativeError;
+  private options: RequesterOptions = {
+    shouldFilterRequestData: true,
+  };
   private requestData: StringMap;
   private response: SocketResponse;
   private route: SocketRoute;
-  private socket: Socket;
+  private socket: Client;
 
-  constructor(socket: Socket, route: SocketRoute) {
+  constructor(socket: Client, route: SocketRoute) {
     this.setSocket(socket);
     this.setRoute(route);
   }
@@ -34,11 +34,11 @@ class Requester {
   getOptions() {
     return { ...this.options };
   }
-  setOptions(newOptions: Partial<Options>) {
+  setOptions(newOptions: Partial<RequesterOptions>) {
     this.options = this.mergeOptions(newOptions);
     return this;
   }
-  mergeOptions(newOptions: Partial<Options>) {
+  mergeOptions(newOptions: Partial<RequesterOptions>) {
     return {
       ...this.getOptions(),
       ...newOptions,
@@ -49,7 +49,7 @@ class Requester {
     // return this.getOptions().token;
   }
 
-  setSocket(socket: Socket) {
+  setSocket(socket: Client) {
     this.socket = socket;
     return this;
   }
@@ -68,13 +68,9 @@ class Requester {
   getError() {
     return this.error;
   }
-  setError(error: NativeModelError) {
+  setError(error: NativeError) {
     this.error = error;
     return this;
-  }
-
-  getRequestStatusCode() {
-    return this.getError().statusCode || this.getRoute().statusCode;
   }
 
   getRequestData() {
@@ -121,11 +117,9 @@ class Requester {
     const { name } = this.getRoute();
     const requestData = this.getRequestData();
 
-    const request = new Promise((resolve, _reject) => {
+    const response = (await new Promise((resolve, _reject) => {
       this.socket.emit(name, requestData, resolve);
-    });
-
-    const response = (await request) as SocketResponse;
+    })) as SocketResponse;
 
     this.setResponse(response);
 
@@ -133,15 +127,15 @@ class Requester {
   }
 
   async sendFullFeaturedRequest(
-    data: StringMap,
-    error: NativeModelError,
-    options = this.getOptions()
+    data?: StringMap,
+    error?: NativeError,
+    options: Partial<RequesterOptions> = this.getOptions()
   ) {
     loggerHelper.logStartTestRequest();
 
     const finalOptions = this.mergeOptions(options);
 
-    this.setRequestData(data);
+    if (data) this.setRequestData(data);
 
     if (options.shouldFilterRequestData) {
       const filteredRequestData = this.handleFilterRequestData(finalOptions);
@@ -159,7 +153,7 @@ class Requester {
 
     await this.sendRequest();
 
-    this.checkStatusCode().checkErrors();
+    this.checkOk().checkErrors();
 
     loggerHelper.logEndTestRequest();
 
@@ -169,37 +163,39 @@ class Requester {
   getResponse() {
     return this.response;
   }
-  getResponseStatusCode() {
-    return this.getResponse().statusCode;
-  }
+
   setResponse(response: SocketResponse) {
     this.response = response;
     return this;
   }
 
-  checkStatusCode() {
-    const requestStatusCode = this.getRequestStatusCode();
-    const responseStatusCode = this.getResponseStatusCode();
-    expect(responseStatusCode).toBe(requestStatusCode);
+  checkOk() {
+    const requestOk = this.getError() ? false : true;
+    const responseOk = this.getResponse().ok;
+    expect(responseOk).to.be.equal(requestOk);
     return this;
   }
 
   checkErrors() {
-    const statusCode = this.getResponseStatusCode();
-    if (statusCode >= 400) {
-      this.checkErrorReason();
-    }
+    const responseOk = this.getResponse().ok;
+    if (responseOk !== true) this.checkErrorReason();
+
     return this;
   }
   checkErrorReason() {
-    const { key, reason } = this.getError();
-    const errors = this.getResponse().errors as SocketResponseErrors;
-    expect(errors[key]?.reason).toBe(reason);
+    const error = this.getError();
+    if (!error) throw "Error is not defined";
+
+    const { key, reason } = error;
+    const errors = this.getResponse().data.errors as SocketResponseErrors;
+
+    expect(errors[key]?.reason).to.be.equal(reason);
+
     return this;
   }
 }
 
-const requesterCreator = (socket: Socket, route: SocketRoute) =>
+const requesterCreator = (socket: Client, route: SocketRoute) =>
   new Requester(socket, route);
 
 export { Requester, requesterCreator };

@@ -3,11 +3,16 @@ import { randomMaker } from "$/classes/RandomMaker";
 
 import { models } from "@/models";
 
+import { FailTestExecutor } from "$/types";
+
 import { errors } from "@/variables/errors";
 
 const userModels = models.native.user;
 
-const verificationCodeFailTest = (configuredRequester, data = {}) => {
+const verificationCodeFailTest: FailTestExecutor = (
+  configuredRequester,
+  data = {}
+) => {
   const builder = failTestBuilder.create(
     configuredRequester,
     data,

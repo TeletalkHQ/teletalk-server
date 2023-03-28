@@ -1,12 +1,16 @@
 import { authHelper } from "$/classes/AuthHelper";
+import { authManager } from "@/classes/AuthManager";
 import { randomMaker } from "$/classes/RandomMaker";
+import { socketHelper } from "$/classes/SocketHelper";
 import { userUtilities } from "@/classes/UserUtilities";
+
+import { testHelper } from "$/helpers/testHelper";
 
 import { services } from "@/services";
 
-import { testHelper } from "$/tests/integration/helpers/testHelper";
+import { Cellphone, FullName, Session, UserMongo } from "@/types";
 
-import { requesters } from "$/utilities";
+import { utilities } from "$/utilities";
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
@@ -15,31 +19,28 @@ describe("createNewUser success tests", () => {
 
     const helper = authHelper(cellphone, fullName);
 
-    const {
-      createResponse: { body },
-    } = await helper.createComplete();
+    await helper.createComplete();
 
-    await testCreatedUserSession(body);
+    const { token } = helper.getResponses().create.data;
+    await testCreatedUserSession(token);
 
-    const {
-      body: { user },
-    } = await requesters
-      .getCurrentUserData(body.token)
+    const { data } = await utilities.requesters
+      .getCurrentUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 
-    testCreatedUserData(user, cellphone, fullName);
+    testCreatedUserData(data.user, cellphone, fullName);
   });
 });
 
 describe("createNewUser fail tests", () => {
-  const requester = requesters.createNewUser();
-  beforeAll(async () => {
+  const clientSocket = socketHelper.createClient();
+  const requester = utilities.requesters.createNewUser(clientSocket);
+  before(async () => {
     const cellphone = randomMaker.unusedCellphone();
     const helper = authHelper(cellphone);
     await helper.signIn();
     await helper.verify();
-    const token = helper.getSignInToken();
-    requester.setToken(token);
+    requester.setSocket(helper.getClientSocket());
   });
 
   const fullName = randomMaker.fullName();
@@ -51,25 +52,31 @@ describe("createNewUser fail tests", () => {
     .lastName(fullName);
 });
 
-const testCreatedUserSession = async ({ token }) => {
-  const userId = userUtilities.getUserIdFromToken(token);
-  const foundSession = await getSavedUserSession(userId, token);
+const testCreatedUserSession = async (token: string) => {
+  const verifiedToken = authManager.verifyToken(token);
+  const userId = userUtilities.getUserIdFromVerifiedToken(verifiedToken);
+  const foundSession = (await getSavedUserSession(userId, token)) as Session;
 
-  await testHelper.createSuccessTest().authentication({
+  testHelper.createSuccessTest().authentication({
     equalValue: foundSession.token,
     testValue: token,
+    secret: authManager.getMainSecret(),
   });
 };
 
-const getSavedUserSession = async (userId, token) => {
-  const savedUser = await getSavedUser(userId);
+const getSavedUserSession = async (userId: string, token: string) => {
+  const savedUser = (await getSavedUser(userId)) as UserMongo;
   return savedUser.sessions.find((i) => i.token === token);
 };
-const getSavedUser = async (userId) => {
+const getSavedUser = async (userId: string) => {
   return await services.findOneUserById(userId);
 };
 
-const testCreatedUserData = (user, cellphone, fullName) => {
+const testCreatedUserData = (
+  user: UserMongo,
+  cellphone: Cellphone,
+  fullName: FullName
+) => {
   const requestUserData = {
     ...userUtilities.defaultUserData(),
     ...cellphone,
@@ -95,7 +102,10 @@ const testCreatedUserData = (user, cellphone, fullName) => {
       equalValue: requestUserData,
       testValue: user,
     })
-    .userId({ testValue: user.userId }, { stringEquality: false })
+    .userId(
+      { testValue: user.userId },
+      { stringEquality: false, modelCheck: true }
+    )
     .username({
       equalValue: requestUserData.username,
       testValue: user.username,

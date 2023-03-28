@@ -1,18 +1,19 @@
 import { successTestBuilder } from "$/classes/SuccessTestBuilder";
-import { testVariablesManager } from "$/classes/TestVariablesManager";
 
 import { models } from "@/models";
 
+import { SuccessTestExecutor } from "$/types";
+
 const userModels = models.native.user;
 
-const verificationCodeSuccessTest = (
+const verificationCodeSuccessTest: SuccessTestExecutor = (
   { testValue },
-  { modelCheck = true } = testVariablesManager.successTestDefaultOptions
+  options
 ) => {
   successTestBuilder
     .create()
     .setVariables(userModels.verificationCode, "", testValue)
-    .setOptions({ modelCheck })
+    .setOptions(options)
     .typeCheck()
     .emptyCheck()
     .numericCheck()

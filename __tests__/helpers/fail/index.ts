@@ -17,7 +17,7 @@ import { inputFailTest } from "$/helpers/fail/input";
 import { inputMissingFailTest } from "$/helpers/fail/inputMissing";
 import { inputOverloadFailTest } from "$/helpers/fail/inputOverload";
 import { lastNameFailTest } from "$/helpers/fail/lastName";
-import { messageTextFailTest } from "$/helpers/fail/message";
+import { messageTextFailTest } from "$/helpers/fail/messageText";
 import { participantIdFailTest } from "$/helpers/fail/participantId";
 import { phoneNumberFailTest } from "$/helpers/fail/phoneNumber";
 import { selfStuffFailTest } from "$/helpers/fail/selfStuff";

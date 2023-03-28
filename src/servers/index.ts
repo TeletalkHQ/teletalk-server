@@ -22,18 +22,17 @@ import { utilities } from "@/utilities";
 
 PrettyError.start();
 
-const {
-  // NODE_ENV
-  SELF_EXEC,
-} = envManager.getEnvironment();
+const { NODE_ENV, PORT, PORT_DEFAULT, SELF_EXEC } = envManager.getEnvironment();
 
-// const serverListenerCb = () => {
-//   logger.info(
-//     `Server is running in ${NODE_ENV} mode on port ${
-//       appConfigs.getConfigs().server.exactPort
-//     }`
-//   );
-// };
+const EXACT_PORT = PORT || PORT_DEFAULT;
+
+const serverListenerCb = () => {
+  logger.info(
+    `Server is running in ${NODE_ENV} mode on port ${
+      appConfigs.getConfigs().server.exactPort
+    }`
+  );
+};
 
 const runner = async () => {
   // if (cluster.isPrimary) {
@@ -60,7 +59,7 @@ const runner = async () => {
   await requirements.database();
   const httpServer = http.createServer();
   websocketServer(httpServer);
-  // httpServer.listen(EXACT_PORT, serverListenerCb);
+  httpServer.listen(EXACT_PORT, serverListenerCb);
 
   // logger.debug(`Worker ${process.pid} started`);
 

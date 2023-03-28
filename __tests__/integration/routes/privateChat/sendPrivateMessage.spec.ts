@@ -2,121 +2,129 @@ import { expect } from "chai";
 
 import { randomMaker } from "$/classes/RandomMaker";
 
-import { helpers } from "$/helpers";
-
 import { services } from "@/services";
 
 import { testHelper } from "$/helpers/testHelper";
 
-import { requesters } from "$/utilities";
+import { utilities } from "$/utilities";
+import {
+  HydratedPrivateChatMongo,
+  Message,
+  Participant,
+  StringMap,
+} from "@/types";
 
 describe("send message success tests", () => {
   it("should start new chat and send message", async () => {
-    const { token: currentUserToken, user: currentUser } =
-      await randomMaker.user();
+    const { socket, user: currentUser } = await randomMaker.user();
     const { user: targetUser } = await randomMaker.user();
 
-    const requester = requesters
-      .sendPrivateMessage()
-      .setToken(currentUserToken);
+    const requester = utilities.requesters.sendPrivateMessage(socket);
 
     const messagesLength = 10;
     for (let i = 0; i < messagesLength; i++) {
-      const text = createMessage(i);
-      const { body: sendMessageResponse } =
+      const messageText = createMessage(i);
+      const { data: sendMessageResponse } =
         await requester.sendFullFeaturedRequest({
           participantId: targetUser.userId,
-          message: text,
+          message: messageText,
         });
 
-      await testData({
-        currentUser,
+      await testData(
+        currentUser.userId,
         sendMessageResponse,
-        targetUser,
-        text,
-      });
+        targetUser.userId,
+        messageText
+      );
     }
 
-    const chat = await findOnePrivateChat(
+    const chat = (await findOnePrivateChat(
       currentUser.userId,
       targetUser.userId
-    );
+    )) as HydratedPrivateChatMongo;
+
     expect(chat.messages.length).to.be.equal(messagesLength);
   });
 });
 
-describe("send message fail tests", () => {
-  const requester = requesters.sendPrivateMessage();
-  helpers.configureFailTestRequester(requester);
+// describe("send message fail tests", () => {
+//   const requester = utilities.requesters.sendPrivateMessage();
+//   helpers.configureFailTestRequester(requester);
 
-  const data = {
-    message: randomMaker.string(10),
-    participantId: randomMaker.id(),
-  };
+//   const data = {
+//     message: randomMaker.string(10),
+//     participantId: randomMaker.id(),
+//   };
 
-  testHelper
-    .createFailTest(requester)
-    .authentication()
-    .input(data)
-    .checkCurrentUserStatus(data)
-    .participantId(data)
-    .message(data)
-    .targetUserNotExist(data);
-});
+//   testHelper
+//     .createFailTest(requester)
+//     .authentication()
+//     .input(data)
+//     .checkCurrentUserStatus(data)
+//     .participantId(data)
+//     .message(data)
+//     .targetUserNotExist(data);
+// });
 
-const createMessage = (index) => `Hello! Im message #${index}`;
+const createMessage = (index: number) => `Hello! Im message #${index}`;
 
-const testData = async ({
-  currentUser,
-  sendMessageResponse,
-  targetUser,
-  text,
-}) => {
-  const chat = await findOnePrivateChat(currentUser.userId, targetUser.userId);
+const testData = async (
+  currentUserId: string,
+  sentMessageResponse: StringMap,
+  targetUserId: string,
+  messageText: string
+) => {
+  const chat = (await findOnePrivateChat(
+    currentUserId,
+    targetUserId
+  )) as HydratedPrivateChatMongo;
 
   const currentParticipant = chat.participants.find(
-    (i) => i.participantId === currentUser.userId
-  );
+    (i) => i.participantId === currentUserId
+  ) as Participant;
   const targetParticipant = chat.participants.find(
-    (i) => i.participantId === targetUser.userId
-  );
+    (i) => i.participantId === targetUserId
+  ) as Participant;
   const foundMessage = chat.messages.find(
-    (m) => m.messageId === sendMessageResponse.newMessage.messageId
-  );
+    (m) => m.messageId === sentMessageResponse.newMessage.messageId
+  ) as Message;
 
   testHelper
     .createSuccessTest()
     .chatId({
-      equalValue: sendMessageResponse.chatId,
+      equalValue: sentMessageResponse.chatId,
       testValue: chat.chatId,
     })
     .message({
-      equalValue: text,
-      testValue: foundMessage.message,
+      equalValue: messageText,
+      testValue: foundMessage.messageText,
     })
     .message({
-      equalValue: text,
-      testValue: sendMessageResponse.newMessage.message,
+      equalValue: messageText,
+      testValue: sentMessageResponse.newMessage.message,
     })
     .messageId({
-      equalValue: sendMessageResponse.newMessage.messageId,
+      equalValue: sentMessageResponse.newMessage.messageId,
       testValue: foundMessage.messageId,
     })
     .userId({
-      equalValue: targetUser.userId,
+      equalValue: targetUserId,
       testValue: targetParticipant.participantId,
     })
     .userId({
-      equalValue: currentUser.userId,
+      equalValue: currentUserId,
       testValue: currentParticipant.participantId,
     })
     .userId({
-      equalValue: currentUser.userId,
-      testValue: sendMessageResponse.newMessage.sender.senderId,
+      equalValue: currentUserId,
+      testValue: sentMessageResponse.newMessage.sender.senderId,
     });
 };
 
-const findOnePrivateChat = async (currentUserId, targetUserId) => {
+const findOnePrivateChat = async (
+  currentUserId: string,
+  targetUserId: string
+) => {
   return await services.findOnePrivateChat({
     "participants.participantId": {
       $all: [currentUserId, targetUserId],

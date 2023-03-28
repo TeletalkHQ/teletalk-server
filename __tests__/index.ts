@@ -9,7 +9,7 @@ import { User } from "@/models/database/mongoDb/User";
 import { runner } from "@/servers";
 
 //#region //? Database =>
-// import "$/integration/database/crudUser.spec";
+import "$/integration/database/crudUser.spec";
 //#endregion
 
 // The big hack

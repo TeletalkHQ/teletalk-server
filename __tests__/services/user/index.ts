@@ -1,7 +1,3 @@
-import { addTestUser } from "$/services/user/addTestUser";
-
-const userServices = {
-  addTestUser,
-};
+const userServices = {};
 
 export { userServices };

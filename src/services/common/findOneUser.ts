@@ -1,15 +1,13 @@
 import { models } from "@/models";
-import { UserMongo } from "@/types";
-import { ProjectionType, QueryOptions } from "mongoose";
+import { PrivateChatService, UserMongo } from "@/types";
 
 const User = models.database.mongoDb.User;
 
-const findOneUser = async (
-  userData: Partial<UserMongo>,
-  projection?: ProjectionType<UserMongo>,
-  options?: QueryOptions
-) => {
-  return await User.findOne(userData, projection, options);
+const findOneUser: PrivateChatService<
+  Partial<UserMongo>,
+  Promise<UserMongo | null>
+> = async (data, projection, options) => {
+  return await User.findOne(data, projection, options);
 };
 
 export { findOneUser };

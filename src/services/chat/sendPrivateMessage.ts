@@ -2,11 +2,11 @@ import { randomMaker } from "utility-store";
 
 import { models } from "@/models";
 
-import { commonServices } from "@/services/common";
 import { createPrivateChat } from "@/services/chat/createPrivateChat";
 import { findOnePrivateChat } from "@/services/chat/findOnePrivateChat";
+import { commonServices } from "@/services/common";
 
-import { PrivateChatMongo, HydratedPrivateChatMongo, Message } from "@/types";
+import { HydratedPrivateChatMongo, Message, PrivateChatMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
@@ -75,7 +75,7 @@ const createNewMessage = (messageText: string, currentUserId: string) => ({
 
 const fixPrivateChat = async (data: {
   currentUserId: string;
-  privateChat?: HydratedPrivateChatMongo | null;
+  privateChat: HydratedPrivateChatMongo | null;
   targetParticipantId: string;
 }) =>
   data.privateChat ||

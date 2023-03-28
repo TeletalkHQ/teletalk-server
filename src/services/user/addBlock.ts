@@ -27,7 +27,7 @@ const checkExistenceOfBlacklistItem = (
   userId: string
 ) => {
   const index = blacklist.findIndex((i) => i.userId === userId);
-  errorThrower(index === -1, () => ({
+  errorThrower(index !== -1, () => ({
     ...errors.BLACKLIST_ITEM_EXIST,
     targetUserData: userId,
   }));

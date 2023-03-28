@@ -6,13 +6,14 @@ import { services } from "@/services";
 
 import { testHelper } from "$/helpers/testHelper";
 
-import { utilities } from "$/utilities";
 import {
   HydratedPrivateChatMongo,
   Message,
   Participant,
   StringMap,
 } from "@/types";
+
+import { utilities } from "$/utilities";
 
 describe("send message success tests", () => {
   it("should start new chat and send message", async () => {
@@ -27,7 +28,7 @@ describe("send message success tests", () => {
       const { data: sendMessageResponse } =
         await requester.sendFullFeaturedRequest({
           participantId: targetUser.userId,
-          message: messageText,
+          messageText,
         });
 
       await testData(
@@ -95,13 +96,13 @@ const testData = async (
       equalValue: sentMessageResponse.chatId,
       testValue: chat.chatId,
     })
-    .message({
+    .messageText({
       equalValue: messageText,
       testValue: foundMessage.messageText,
     })
-    .message({
+    .messageText({
       equalValue: messageText,
-      testValue: sentMessageResponse.newMessage.message,
+      testValue: sentMessageResponse.newMessage.messageText,
     })
     .messageId({
       equalValue: sentMessageResponse.newMessage.messageId,

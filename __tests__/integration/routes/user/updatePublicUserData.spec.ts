@@ -19,12 +19,12 @@ describe("getCurrentUserData success tests", () => {
 
       const requester = utilities.requesters.updatePublicUserData(socket);
       const {
-        data: { publicUserData: publicDataFromApi },
+        data: { publicUserData: publicDataFromEvent },
       } = await requester.sendFullFeaturedRequest(data);
 
       const equalValue = { ...data, userId: user.userId };
 
-      testPublicUserData(equalValue, publicDataFromApi);
+      testPublicUserData(equalValue, publicDataFromEvent);
 
       const targetUserDataInDb = (await services.getTargetUserData({
         userId: user.userId,

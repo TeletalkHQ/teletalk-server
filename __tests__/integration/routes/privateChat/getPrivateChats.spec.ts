@@ -23,19 +23,19 @@ describe("get messages success tests", () => {
     await testEmptinessOfPrivateChats(currentUserSocket);
     await testEmptinessOfPrivateChats(targetUserSocket);
 
-    const message = "Hello! Im messages!";
+    const messageText = "Hello! Im messages!";
     for (let i = 0; i < 10; i++) {
       await utilities.requesters
         .sendPrivateMessage(currentUserSocket)
         .sendFullFeaturedRequest({
-          message,
+          messageText,
           participantId: targetUser.userId,
         });
 
       await utilities.requesters
         .sendPrivateMessage(targetUserSocket)
         .sendFullFeaturedRequest({
-          message,
+          messageText,
           participantId: currentUser.userId,
         });
 
@@ -44,7 +44,7 @@ describe("get messages success tests", () => {
   });
 });
 
-// describe("getMessagesApi fail tests", () => {
+// describe("getMessages fail tests", () => {
 //   testHelper
 //     .createFailTest(utilities.requesters.getAllPrivateChats())
 //     .authentication()
@@ -154,7 +154,7 @@ const testMessages = (
 
     testHelper
       .createSuccessTest()
-      .message({
+      .messageText({
         equalValue: foundMessageFromDb.messageText,
         testValue: messageText,
       })
@@ -176,9 +176,9 @@ const testParticipants = (data: {
   targetUserId: string;
 }) => {
   const {
-    currentParticipantFromApi,
+    currentParticipantFromEvent,
     currentParticipantFromDb,
-    targetParticipantFromApi,
+    targetParticipantFromEvent,
     targetParticipantFromDb,
   } = findAllParticipants({
     currentUserId: data.currentUserId,
@@ -199,11 +199,11 @@ const testParticipants = (data: {
     })
     .userId({
       equalValue: data.currentUserId,
-      testValue: currentParticipantFromApi.participantId,
+      testValue: currentParticipantFromEvent.participantId,
     })
     .userId({
       equalValue: data.targetUserId,
-      testValue: targetParticipantFromApi.participantId,
+      testValue: targetParticipantFromEvent.participantId,
     });
 };
 
@@ -214,7 +214,7 @@ const findAllParticipants = (data: {
   targetUserId: string;
 }) => {
   return {
-    currentParticipantFromApi: findParticipant(
+    currentParticipantFromEvent: findParticipant(
       data.foundChat,
       data.currentUserId
     ),
@@ -222,7 +222,7 @@ const findAllParticipants = (data: {
       data.foundChatFromDb,
       data.currentUserId
     ),
-    targetParticipantFromApi: findParticipant(
+    targetParticipantFromEvent: findParticipant(
       data.foundChat,
       data.targetUserId
     ),

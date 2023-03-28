@@ -38,9 +38,9 @@ describe("getContacts success tests", () => {
 
     const getContactsRequester = utilities.requesters.getContacts(socket);
     const {
-      data: { contacts: contactsFromApi },
+      data: { contacts: contactsFromEvent },
     } = await getContactsRequester.sendFullFeaturedRequest();
-    testContacts(addingContacts, contactsFromApi);
+    testContacts(addingContacts, contactsFromEvent);
   });
 });
 

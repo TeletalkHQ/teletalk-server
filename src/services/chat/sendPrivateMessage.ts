@@ -15,12 +15,12 @@ const chatModels = models.native.privateChat;
 //REFACTOR: Separate createPrivateChat parts
 const sendPrivateMessage = async (data: {
   currentUserId: string;
-  message: string;
+  messageText: string;
   participantId: string;
 }) => {
   const targetParticipantId = await findTargetParticipantId(data.participantId);
 
-  const newMessage = createNewMessage(data.message, data.currentUserId);
+  const newMessage = createNewMessage(data.messageText, data.currentUserId);
 
   const privateChat = await findPrivateChat(
     data.currentUserId,

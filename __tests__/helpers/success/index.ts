@@ -29,7 +29,7 @@ const successCollection = {
   firstName: firstNameSuccessTest,
   fullName: fullNameSuccessTest,
   lastName: lastNameSuccessTest,
-  message: messageTextSuccessTest,
+  messageText: messageTextSuccessTest,
   messageId: messageIdSuccessTest,
   oneContact: oneContactSuccessTest,
   phoneNumber: phoneNumberSuccessTest,

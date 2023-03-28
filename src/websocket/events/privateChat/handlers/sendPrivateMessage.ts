@@ -6,15 +6,15 @@ import { validators } from "@/validators";
 
 const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
   const { currentUserId } = socket;
-  const { participantId, message } = data;
+  const { participantId, messageText } = data;
 
   await validators.participantId(participantId);
-  await validators.messageText(message);
+  await validators.messageText(messageText);
 
   const { chatId, newMessage } = await services.sendPrivateMessage({
     currentUserId,
     participantId,
-    message,
+    messageText,
   });
 
   socket.io

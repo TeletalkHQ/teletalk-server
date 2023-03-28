@@ -2,21 +2,18 @@ import { successTestBuilder } from "$/classes/SuccessTestBuilder";
 
 import { models } from "@/models";
 
+import { SuccessTestExecutor } from "$/types";
+
 const userModels = models.native.user;
 
-import { testVariablesManager } from "$/classes/TestVariablesManager";
-
-const countryCodeSuccessTest = (
+const countryCodeSuccessTest: SuccessTestExecutor = (
   { equalValue, testValue },
-  {
-    stringEquality = true,
-    modelCheck = true,
-  } = testVariablesManager.successTestDefaultOptions
+  options
 ) => {
   successTestBuilder
     .create()
     .setVariables(userModels.countryCode, equalValue, testValue)
-    .setOptions({ modelCheck, stringEquality })
+    .setOptions(options)
     .addCommonTest()
     .emptyCheck()
     .numericCheck()

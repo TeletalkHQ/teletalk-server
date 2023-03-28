@@ -1,10 +1,12 @@
+import { expect } from "chai";
+
+import { FIELD_TYPE } from "$/variables/fieldType";
 import { services } from "@/services";
-import { FIELD_TYPE } from "@/variables/others/fieldType";
 
 describe("save user data in state", () => {
   it("should get all users data", async () => {
-    const users = await services.getAllUsers().run();
-    expect(users).toBeInstanceOf(FIELD_TYPE.ARRAY);
+    const users = await services.getAllUsers();
+    expect(users).to.be.an(FIELD_TYPE.ARRAY);
   });
 
   // it("should get specified user data", async () => {

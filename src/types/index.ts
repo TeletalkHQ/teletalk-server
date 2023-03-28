@@ -1,13 +1,27 @@
 /* eslint-disable no-use-before-define */
 import { IoFields } from "check-fields";
-import { ValidationError } from "fastest-validator";
-import { HydratedDocument, Types } from "mongoose";
-import { Socket, Event } from "socket.io";
+import { ValidationError, ValidationRuleObject } from "fastest-validator";
+import {
+  Document,
+  FilterQuery,
+  HydratedDocument,
+  Model,
+  ProjectionType,
+  QueryOptions,
+  Types,
+} from "mongoose";
+import { Event, Socket as ServerSocket } from "socket.io";
+import { Socket as ClientSocket } from "socket.io-client";
+import { ContactWithCellphone } from "utility-store/lib/types";
 
 interface Cellphone {
   countryCode: string;
   countryName: string;
   phoneNumber: string;
+}
+
+interface ValidationModel {
+  [prop: string]: ValidationRuleObject;
 }
 
 type FieldType = "array" | "boolean" | "date" | "number" | "object" | "string";
@@ -25,7 +39,7 @@ type SocketMiddlewareReturnValue = {
 };
 
 type SocketMiddleware = (
-  socket: Socket,
+  socket: ServerSocket,
   next: SocketNext,
   event: SocketEvent
 ) =>
@@ -44,6 +58,7 @@ interface FullName {
 interface Contact extends FullName {
   userId: string;
 }
+
 type SocketMiddlewareEvent = string | string[];
 
 type CreatedAt = number;
@@ -78,59 +93,60 @@ interface Environments {
 type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
 type HydratedUserMongo = HydratedDocument<UserMongo>;
 
-interface NativeModelError {
-  description: string;
+interface NativeError {
+  description?: string;
+  isAuthError: boolean;
   key: string;
-  message: string;
+  message?: string;
   reason: string;
-  statusCode: number;
+  side: "server" | "client";
 }
 
 interface NativeModelItem {
-  error: NativeModelError;
+  error: NativeError;
   value: any;
 }
 interface NativeModel {
   defaultValue: {
     value: any;
-    error: NativeModelError;
+    error: NativeError;
   };
   empty: {
     value: boolean;
-    error: NativeModelError;
+    error: NativeError;
   };
   items: {
     value: any[];
-    error: NativeModelError;
+    error: NativeError;
   };
   length: {
     value: number;
-    error: NativeModelError;
+    error: NativeError;
   };
   maxlength: {
     value: number;
-    error: NativeModelError;
+    error: NativeError;
   };
   minlength: {
     value: number;
-    error: NativeModelError;
+    error: NativeError;
   };
   numeric: {
     value: boolean;
-    error: NativeModelError;
+    error: NativeError;
   };
   required: {
     value: boolean;
-    error: NativeModelError;
+    error: NativeError;
   };
-  trim: { value: boolean; error?: NativeModelError };
+  trim: { value: boolean; error?: NativeError };
   type: {
     value: FieldType;
-    error: NativeModelError;
+    error: NativeError;
   };
   unique: {
     value: boolean;
-    error: NativeModelError;
+    error: NativeError;
   };
 }
 // interface MongoModel {
@@ -168,21 +184,32 @@ interface PrivateChatMongo {
 interface Route {
   inputFields: IoFields | Record<string, never>;
   outputFields: IoFields | Record<string, never>;
-  statusCode: number;
+}
+
+interface SocketHandlerReturnValue {
+  data: StringMap;
 }
 
 type SocketOnHandler = (
-  socket: Socket,
+  socket: ServerSocket,
   data: StringMap
-) => void | StringMap | Promise<StringMap>;
+) =>
+  | void
+  | Promise<void>
+  | SocketHandlerReturnValue
+  | Promise<SocketHandlerReturnValue>;
 
 type SocketOnAnyHandler = (
-  socket: Socket,
+  socket: ServerSocket,
   data: StringMap,
   event: string
-) => void | StringMap | Promise<StringMap>;
+) =>
+  | void
+  | SocketHandlerReturnValue
+  | Promise<SocketHandlerReturnValue>
+  | Promise<void>;
 
-type ClientCallback = (...args: unknown[]) => unknown;
+type ClientCallback = (data: SocketResponse) => void;
 
 type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
@@ -197,7 +224,7 @@ interface Session {
 }
 
 interface Status {
-  isOnline: boolean;
+  isActive: boolean;
 }
 
 interface StringMap {
@@ -210,7 +237,7 @@ interface BlackListItem {
 
 interface UserMongo extends Cellphone, FullName {
   bio: string;
-  contacts: Contact[];
+  contacts: Contact[] | ContactWithCellphone[];
   blacklist: BlackListItem[];
   userId: string;
   createdAt: CreatedAt;
@@ -224,6 +251,7 @@ interface VerifiedToken {
     payload: {
       tokenId: string;
     };
+    signature: string;
   };
 }
 
@@ -257,33 +285,75 @@ interface PublicUserData {
   userId: string;
   username: string;
   status: {
-    isOnline: boolean;
+    isActive: boolean;
   };
+}
+
+type IPrivateChatDoc = PrivateChatMongo & Document;
+type IPrivateChatModel = Model<IPrivateChatDoc>;
+type IUserDoc = UserMongo & Document;
+type IUserModel = Model<IUserDoc>;
+
+type ServiceFunction<T, U, V> = (
+  data: T,
+  projection?: ProjectionType<U>,
+  options?: QueryOptions
+) => V;
+
+type PrivateChatService<T, U> = ServiceFunction<
+  FilterQuery<T>,
+  PrivateChatMongo,
+  U
+>;
+
+type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
+
+interface SocketResponse {
+  data: StringMap & {
+    errors?: SocketResponseErrors;
+  };
+  ok: boolean;
+}
+
+interface SocketResponseErrors {
+  [prop: string]: NativeError & StringMap;
 }
 
 export {
   BlackListItem,
   Cellphone,
   ClientCallback,
+  ClientSocket,
   Contact,
   CustomEmit,
   CustomOn,
   CustomUse,
   Environments,
+  FieldType,
   FullName,
   HydratedPrivateChatMongo,
   HydratedUserMongo,
+  IPrivateChatDoc,
+  IPrivateChatModel,
+  IUserDoc,
+  IUserModel,
   LogLevel,
   Message,
+  NativeError,
   NativeModel,
-  NativeModelError,
   NativeModelItem,
   NativeModelKey,
   NodeEnvValue,
+  Participant,
   PrivateChatMongo,
+  PrivateChatService,
   PublicUserData,
   Route,
+  ServerSocket,
+  ServiceFunction,
+  Session,
   SocketEvent,
+  SocketHandlerReturnValue,
   SocketMethods,
   SocketMiddleware,
   SocketMiddlewareEvent,
@@ -291,10 +361,14 @@ export {
   SocketNext,
   SocketOnAnyHandler,
   SocketOnHandler,
+  SocketResponse,
+  SocketResponseErrors,
   SocketRoute,
   StringMap,
   TemporaryClient,
   UserMongo,
+  UserService,
+  ValidationModel,
   ValidationResult,
   VerifiedToken,
 };

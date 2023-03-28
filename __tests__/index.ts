@@ -1,51 +1,52 @@
+import "module-alias/register";
+
 import "@/configs/customGlobals";
 import "@/helpers/requireDotenv";
 
-import { User } from "@/models/database/mongoDb/User";
 import { PrivateChat } from "@/models/database/mongoDb/PrivateChat";
+import { User } from "@/models/database/mongoDb/User";
 
-import { requirements } from "@/requirements";
-
-/*
- * All test files are independent to each other, so orders not matter
- * Require test files as your wish
- */
+import { runner } from "@/servers";
 
 //#region //? Database =>
-import "$/tests/database/crudUser.spec";
+// import "$/integration/database/crudUser.spec";
 //#endregion
+
+// The big hack
 
 //#region //? Routers =>
 // ? authRouter api's =>
-import "$/tests/integration/routers/auth/signIn.spec";
-import "$/tests/integration/routers/auth/verify.spec";
-import "$/tests/integration/routers/auth/createNewUser.spec";
-import "$/tests/integration/routers/auth/logout.spec";
-//? privateChatRouter api's =>
-import "$/tests/integration/routers/privateChat/sendPrivateMessage.spec";
-import "$/tests/integration/routers/privateChat/getAllPrivateChats.spec";
-import "$/tests/integration/routers/privateChat/getPrivateChat.spec";
-//? userRouter api's =>
-import "$/tests/integration/routers/user/addBlock.spec";
-import "$/tests/integration/routers/user/removeBlock.spec";
-import "$/tests/integration/routers/user/addContact.spec";
-import "$/tests/integration/routers/user/editContact.spec";
-import "$/tests/integration/routers/user/removeContact.spec";
-import "$/tests/integration/routers/user/getContacts.spec";
-import "$/tests/integration/routers/user/getCurrentUserData.spec";
-import "$/tests/integration/routers/user/getPublicUserData.spec";
-import "$/tests/integration/routers/user/updatePublicUserData.spec";
-//? stuffRouter api's =>
-import "$/tests/integration/routers/staff/getAllStaff.spec";
-//#endregion
+// import "$/integration/routes/auth/signIn.spec";
+// import "$/integration/routes/auth/verify.spec";
+// import "$/integration/routes/auth/createNewUser.spec";
+// import "$/integration/routes/auth/logout.spec";
+// ? privateChatRouter api's =>
+// import "$/integration/routes/privateChat/sendPrivateMessage.spec";
+// import "$/integration/routes/privateChat/getPrivateChats.spec";
+import "$/integration/routes/privateChat/getPrivateChat.spec";
+// ? userRouter api's =>
+// import "$/integration/routes/user/addBlock.spec";
+// import "$/integration/routes/user/addContact.spec";
+// import "$/integration/routes/user/editContact.spec";
+// import "$/integration/routes/user/getContacts.spec";
+// import "$/integration/routes/user/getCurrentUserData.spec";
+// import "$/integration/routes/user/getPublicUserData.spec";
+// import "$/integration/routes/user/removeBlock.spec";
+// import "$/integration/routes/user/removeContact.spec";
+// import "$/integration/routes/user/updatePublicUserData.spec";
+// ? otherRouter api's =>
+//TODO: Add getCountries
+//TODO: Add getWelcomeMessage
+// import "$/integration/routes/other/getStaff.spec";
+// #endregion
 
-//#region //? middlewares =>
-import "$/tests/middleware/notFound.spec";
-import "$/tests/middleware/requestMethodChecker.spec";
-import "$/tests/middleware/authDefault.spec";
-import "$/tests/middleware/checkBodyFields.spec";
-import "$/tests/middleware/checkCurrentUserStatus.spec";
-//#endregion
+// #region //? middlewares =>
+// import "$/integration/middleware/notFound.spec";
+// import "$/integration/middleware/requestMethodChecker.spec";
+// import "$/integration/middleware/authDefault.spec";
+// import "$/integration/middleware/checkDataFields.spec";
+// import "$/integration/middleware/checkCurrentUserStatus.spec";
+// #endregion
 
 const testServer = async () => {
   await deleteAllUsers();
@@ -60,4 +61,10 @@ const deleteAllPrivateChats = async () => {
   await PrivateChat.deleteMany();
 };
 
-export { requirements, testServer };
+const data = {
+  requirements: {
+    runner,
+    testServer,
+  },
+};
+export { data as requirements };

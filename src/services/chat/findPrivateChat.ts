@@ -1,14 +1,11 @@
-import { ProjectionType, QueryOptions } from "mongoose";
-
 import { models } from "@/models";
 
-import { PrivateChatMongo } from "@/types";
+import { HydratedPrivateChatMongo, PrivateChatService } from "@/types";
 
-const findPrivateChat = async (
-  data: Partial<PrivateChatMongo>,
-  projection?: ProjectionType<PrivateChatMongo>,
-  options?: QueryOptions
-) => {
+const findPrivateChat: PrivateChatService<
+  Partial<HydratedPrivateChatMongo>,
+  Promise<HydratedPrivateChatMongo[] | null>
+> = async (data, projection, options) => {
   return await models.database.mongoDb.PrivateChat.find(
     data,
     projection,

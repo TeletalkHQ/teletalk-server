@@ -3,7 +3,8 @@ import { RandomMaker as RandomMakerMain } from "utility-store";
 import { authHelper } from "$/classes/AuthHelper";
 
 import { userModels } from "@/models/native/user";
-import { requesters } from "$/utilities";
+import { utilities } from "$/utilities";
+import { UserMongo } from "@/types";
 
 class RandomMaker extends RandomMakerMain {
   constructor() {
@@ -24,21 +25,26 @@ class RandomMaker extends RandomMakerMain {
     );
   }
 
+  userId() {
+    return super.id(userModels.userId.maxlength.value);
+  }
+
   async user(cellphone = this.unusedCellphone(), fullName = this.fullName()) {
     const helper = authHelper(cellphone, fullName);
     await helper.createComplete();
 
-    const response = await requesters
-      .getCurrentUserData(helper.createResponse.body.token)
+    const response = await utilities.requesters
+      .getCurrentUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 
     return {
-      ...helper.createResponse.body,
-      user: response.body.user,
+      ...helper.getResponses().create.data,
+      user: response.data.user as UserMongo,
+      socket: helper.getClientSocket(),
     };
   }
 
-  async users(length) {
+  async users(length: number) {
     const users = [];
     for (let i = 0; i < length; i++) {
       const user = await this.user();
@@ -52,6 +58,10 @@ class RandomMaker extends RandomMakerMain {
       ...randomMaker.fullName(),
       bio: randomMaker.string(userModels.bio.maxlength.value),
       username: randomMaker.string(userModels.username.maxlength.value),
+      userId: super.id(userModels.userId.maxlength.value),
+      status: {
+        isActive: true,
+      },
     };
   }
 }

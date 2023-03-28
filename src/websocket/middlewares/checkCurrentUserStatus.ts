@@ -38,7 +38,7 @@ const tryBlock = async (socket: Socket) => {
     wrongTokenId: tokenId,
   });
 
-  const token = authManager.getTokenFromSocket(socket);
+  const token = authManager.getSessionFromSocket(socket);
   const isSessionExist = currentUser.sessions.some((t) => t.token === token);
   errorThrower(!isSessionExist, {
     ...error,

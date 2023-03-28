@@ -2,7 +2,7 @@ import { checkFields, IoFields } from "check-fields";
 import { trier } from "simple-trier";
 
 import {
-  NativeModelError,
+  NativeError,
   SocketEvent,
   SocketMiddleware,
   SocketNext,
@@ -33,7 +33,7 @@ const executeIfNoError = (_: void, next: SocketNext) => {
   next();
 };
 
-const catchBlock = (error: NativeModelError, inputFields: IoFields) => {
+const catchBlock = (error: NativeError, inputFields: IoFields) => {
   throw {
     ...error,
     inputFields,

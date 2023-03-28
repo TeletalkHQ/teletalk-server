@@ -22,6 +22,7 @@ const addAndSaveNewToken = async (
   newToken: string
 ) => {
   currentUser.sessions.push({ token: newToken });
+
   await currentUser.save();
 };
 

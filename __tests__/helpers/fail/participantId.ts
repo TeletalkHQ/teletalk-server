@@ -2,9 +2,14 @@ import { failTestBuilder } from "$/classes/FailTestBuilder";
 
 import { models } from "@/models";
 
-const chatModels = models.native.chat;
+import { FailTestExecutor } from "$/types";
 
-const participantIdFailTest = (configuredRequester, data = {}) => {
+const chatModels = models.native.privateChat;
+
+const participantIdFailTest: FailTestExecutor = (
+  configuredRequester,
+  data = {}
+) => {
   failTestBuilder
     .create(
       configuredRequester,
@@ -15,7 +20,8 @@ const participantIdFailTest = (configuredRequester, data = {}) => {
     .missing()
     .overload()
     .invalidType()
-    .empty.minlength()
+    .empty()
+    .minlength()
     .maxlength();
 };
 

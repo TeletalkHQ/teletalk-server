@@ -14,7 +14,7 @@
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["public/*"],
-      "$/*": ["__tests__/*"]
+      "$/*": ["testSrc/*"]
     },
     "removeComments": true,
     "resolveJsonModule": true,
@@ -25,7 +25,7 @@
     "target": "ESNext"
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*.ts", "./index.ts", "__tests__/**/*.ts"],
+  "include": ["src/**/*.ts", "./index.ts", "testSrc/**/*.ts"],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

@@ -8,34 +8,30 @@ import { User } from "@/models/database/mongoDb/User";
 
 import { runner } from "@/servers";
 
-//#region //? Database =>
-import "$/integration/database/crudUser.spec";
-//#endregion
-
 //#region //? Routers =>
 // ? authRouter =>
-import "$/integration/routes/auth/createNewUser.spec";
+import "$/integration/events/auth/createNewUser.spec";
 // import "$/integration/routes/auth/logout.spec";
-import "$/integration/routes/auth/signIn.spec";
-import "$/integration/routes/auth/verify.spec";
+import "$/integration/events/auth/signIn.spec";
+import "$/integration/events/auth/verify.spec";
 // ? privateChatRouter =>
-import "$/integration/routes/privateChat/getPrivateChat.spec";
-import "$/integration/routes/privateChat/getPrivateChats.spec";
-import "$/integration/routes/privateChat/sendPrivateMessage.spec";
+import "$/integration/events/privateChat/getPrivateChat.spec";
+import "$/integration/events/privateChat/getPrivateChats.spec";
+import "$/integration/events/privateChat/sendPrivateMessage.spec";
 // ? userRouter =>
-import "$/integration/routes/user/addBlock.spec";
-import "$/integration/routes/user/addContact.spec";
-import "$/integration/routes/user/editContact.spec";
-import "$/integration/routes/user/getContacts.spec";
-import "$/integration/routes/user/getCurrentUserData.spec";
-import "$/integration/routes/user/getPublicUserData.spec";
-import "$/integration/routes/user/removeBlock.spec";
-import "$/integration/routes/user/removeContact.spec";
-import "$/integration/routes/user/updatePublicUserData.spec";
+import "$/integration/events/user/addBlock.spec";
+import "$/integration/events/user/addContact.spec";
+import "$/integration/events/user/editContact.spec";
+import "$/integration/events/user/getContacts.spec";
+import "$/integration/events/user/getCurrentUserData.spec";
+import "$/integration/events/user/getPublicUserData.spec";
+import "$/integration/events/user/removeBlock.spec";
+import "$/integration/events/user/removeContact.spec";
+import "$/integration/events/user/updatePublicUserData.spec";
 // ? otherRouter =>
 //TODO: Add getCountries
 //TODO: Add getWelcomeMessage
-import "$/integration/routes/other/getStaff.spec";
+import "$/integration/events/other/getStaff.spec";
 // #endregion
 
 // #region //? middlewares =>

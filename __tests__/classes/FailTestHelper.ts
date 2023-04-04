@@ -35,7 +35,7 @@ class FailTestHelper {
   inputMissing = this.failTestMaker("inputMissing");
   inputOverload = this.failTestMaker("inputOverload");
   lastName = this.failTestMaker("lastName");
-  message = this.failTestMaker("message");
+  message = this.failTestMaker("messageText");
   participantId = this.failTestMaker("participantId");
   phoneNumber = this.failTestMaker("phoneNumber");
   selfStuff = this.failTestMaker("selfStuff");

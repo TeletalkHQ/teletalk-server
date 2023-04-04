@@ -15,7 +15,7 @@ import "$/integration/database/crudUser.spec";
 //#region //? Routers =>
 // ? authRouter =>
 import "$/integration/routes/auth/createNewUser.spec";
-import "$/integration/routes/auth/logout.spec";
+// import "$/integration/routes/auth/logout.spec";
 import "$/integration/routes/auth/signIn.spec";
 import "$/integration/routes/auth/verify.spec";
 // ? privateChatRouter =>

@@ -54,7 +54,7 @@ const getTestServerPath = () => {
   if (NODE_ENV === "test_production_local")
     paths.push("build", BUILD_FOLDER_NAME);
 
-  paths.push("__tests__");
+  paths.push("testSrc");
   return path.join(...paths);
 };
 const getTestServerRequirements = async (path: string) => {

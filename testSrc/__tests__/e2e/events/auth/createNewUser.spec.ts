@@ -1,7 +1,7 @@
 import { authHelper } from "$/classes/AuthHelper";
-import { authManager } from "@/classes/AuthManager";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
+import { authManager } from "@/classes/AuthManager";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { testHelper } from "$/helpers/testHelper";

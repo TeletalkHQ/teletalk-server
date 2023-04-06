@@ -1,7 +1,6 @@
-import { userUtilities } from "@/classes/UserUtilities";
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-
-import { testHelper } from "$/helpers/testHelper";
+import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
@@ -27,7 +26,7 @@ describe("getCurrentUserData success tests", () => {
 
       const userData = userUtilities.extractUserData(user);
 
-      testHelper.createSuccessTest().userData({
+      assertionInitializerHelper().userData({
         equalValue: userData,
         testValue: responseUserData,
       });

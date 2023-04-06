@@ -1,10 +1,10 @@
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
 import { authManager } from "@/classes/AuthManager";
 import { userUtilities } from "@/classes/UserUtilities";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { services } from "@/services";
 
@@ -44,8 +44,7 @@ describe("createNewUser fail tests", () => {
   });
 
   const fullName = randomMaker.fullName();
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .input(fullName)
     .firstName(fullName)
@@ -57,7 +56,7 @@ const testCreatedUserSession = async (token: string) => {
   const userId = userUtilities.getUserIdFromVerifiedToken(verifiedToken);
   const foundSession = (await getSavedUserSession(userId, token)) as Session;
 
-  testHelper.createSuccessTest().authentication({
+  assertionInitializerHelper().authentication({
     equalValue: foundSession.token,
     testValue: token,
     secret: authManager.getMainSecret(),
@@ -83,8 +82,7 @@ const testCreatedUserData = (
     ...fullName,
   };
 
-  testHelper
-    .createSuccessTest()
+  assertionInitializerHelper()
     .bio({ equalValue: requestUserData.bio, testValue: user.bio })
     .blacklist({
       equalValue: requestUserData.blacklist,

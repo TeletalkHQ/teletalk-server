@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { UserMongo } from "@/types";
 
@@ -64,8 +64,7 @@ describe("removeContact fail tests", () => {
     },
   };
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .input(data.random)
     .checkCurrentUserStatus(data.random)
@@ -80,7 +79,7 @@ const createContacts = async (length: number) => {
 };
 
 const testRemovedContact = (equalValue: string, testValue: string) => {
-  testHelper.createSuccessTest().userId({ equalValue, testValue });
+  assertionInitializerHelper().userId({ equalValue, testValue });
 };
 
 const testContactsAfterRemoveOneItem = async (

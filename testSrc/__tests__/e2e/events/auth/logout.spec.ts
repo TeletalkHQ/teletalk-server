@@ -1,15 +1,14 @@
 import { expect } from "chai";
 
 import { authHelper } from "$/classes/AuthHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
 import { services } from "@/services";
 
-import { testHelper } from "$/helpers/testHelper";
-
+import { socketHelper } from "$/classes/SocketHelper";
 import { utilities } from "$/utilities";
 import { ClientSocket, UserMongo } from "@/types";
-import { socketHelper } from "$/classes/SocketHelper";
 
 describe("logout success tests", () => {
   it("should get response.ok:true logging out user", async () => {
@@ -64,8 +63,7 @@ describe("logout fail tests", () => {
   const clientSocket = socketHelper.createClient();
   const requester = utilities.requesters.logout(clientSocket);
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .checkCurrentUserStatus();
 });

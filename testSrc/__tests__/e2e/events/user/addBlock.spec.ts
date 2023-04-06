@@ -1,9 +1,9 @@
 import { expect } from "chai";
 
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { services } from "@/services";
 
@@ -76,8 +76,7 @@ describe("addBlock fail tests", () => {
 
   const randomUserId = randomMaker.userId();
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .input({ userId: randomUserId })
     .checkCurrentUserStatus(cellphone)
@@ -121,7 +120,7 @@ const findBlacklist = async (userId: string) => {
 };
 
 const testBlockItem = (testValue: string, equalValue: string) => {
-  testHelper.createSuccessTest().userId({
+  assertionInitializerHelper().userId({
     equalValue,
     testValue,
   });

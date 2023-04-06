@@ -1,11 +1,10 @@
 import { expect } from "chai";
 import { Socket } from "socket.io-client";
 
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
 import { services } from "@/services";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
 
@@ -132,7 +131,7 @@ const tesChatId = (
   foundChat: PrivateChatMongo,
   foundChatFromDb: PrivateChatMongo
 ) => {
-  testHelper.createSuccessTest().chatId({
+  assertionInitializerHelper().chatId({
     equalValue: foundChat.chatId,
     testValue: foundChatFromDb.chatId,
   });
@@ -152,8 +151,7 @@ const testMessages = (
       (i) => i.messageId === messageId
     ) as Message;
 
-    testHelper
-      .createSuccessTest()
+    assertionInitializerHelper()
       .messageText({
         equalValue: foundMessageFromDb.messageText,
         testValue: messageText,
@@ -187,8 +185,7 @@ const testParticipants = (data: {
     targetUserId: data.targetUserId,
   });
 
-  testHelper
-    .createSuccessTest()
+  assertionInitializerHelper()
     .userId({
       equalValue: data.currentUserId,
       testValue: currentParticipantFromDb.participantId,

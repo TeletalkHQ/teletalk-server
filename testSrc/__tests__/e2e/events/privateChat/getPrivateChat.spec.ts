@@ -1,14 +1,14 @@
 import { expect } from "chai";
 import { Socket } from "socket.io-client";
 
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
 
 import { privateChatModels } from "@/models/native/privateChat";
 
 import { services } from "@/services";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
 
@@ -50,8 +50,7 @@ describe("getPrivateChat fail tests", () => {
     chatId: randomMaker.string(privateChatModels.chatId.maxlength.value),
   };
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .checkCurrentUserStatus(data)
     .chatId(data);
@@ -111,11 +110,11 @@ const testChatId = (
   privateChat: PrivateChatMongo,
   privateChatFromDb: PrivateChatMongo
 ) => {
-  testHelper.createSuccessTest().chatId({
+  assertionInitializerHelper().chatId({
     equalValue: chatId,
     testValue: privateChatFromDb.chatId,
   });
-  testHelper.createSuccessTest().chatId({
+  assertionInitializerHelper().chatId({
     equalValue: chatId,
     testValue: privateChat.chatId,
   });
@@ -135,8 +134,7 @@ const testMessages = (
       (i) => i.messageId === messageId
     ) as Message;
 
-    testHelper
-      .createSuccessTest()
+    assertionInitializerHelper()
       .messageText({
         equalValue: foundMessageFromDb.messageText,
         testValue: messageText,
@@ -170,8 +168,7 @@ const testParticipants = (
     targetUserId
   );
 
-  testHelper
-    .createSuccessTest()
+  assertionInitializerHelper()
     .userId({
       equalValue: currentUserId,
       testValue: currentParticipantFromDb.participantId,

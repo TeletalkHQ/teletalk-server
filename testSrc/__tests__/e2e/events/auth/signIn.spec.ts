@@ -1,14 +1,16 @@
 import { expect } from "chai";
 
+import {
+  AssertionInitializerHelper,
+  assertionInitializerHelper,
+} from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
-import { SuccessTestHelper } from "$/classes/SuccessTestHelper";
 import { authManager } from "@/classes/AuthManager";
 import { temporaryClients } from "@/classes/TemporaryClients";
 import { userUtilities } from "@/classes/UserUtilities";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { Cellphone, TemporaryClient } from "@/types";
 
@@ -23,9 +25,9 @@ describe("signIn success test", () => {
 
     await helper.signIn();
     const { data } = helper.getResponses().signIn;
-    const successTest = testHelper.createSuccessTest();
-    await testSavedTemporaryClient(successTest, data.token, cellphone);
-    await testResponseToken(successTest, data.token);
+    const assertHelper = assertionInitializerHelper();
+    await testSavedTemporaryClient(assertHelper, data.token, cellphone);
+    await testResponseToken(assertHelper, data.token);
   });
 
   it("should sign as existed user", async () => {
@@ -35,9 +37,9 @@ describe("signIn success test", () => {
     const helper = authHelper(cellphone);
     await helper.signIn();
     const { data } = helper.getResponses().signIn;
-    const successTest = testHelper.createSuccessTest();
-    await testSavedTemporaryClient(successTest, data.token, cellphone);
-    await testResponseToken(successTest, data.token);
+    const assertHelper = assertionInitializerHelper();
+    await testSavedTemporaryClient(assertHelper, data.token, cellphone);
+    await testResponseToken(assertHelper, data.token);
   });
 
   it("should sign multiple time, so temporary client get updated", async () => {
@@ -50,9 +52,9 @@ describe("signIn success test", () => {
 
     await helper.signIn();
     const { token } = helper.getResponses().signIn.data;
-    const successTest = testHelper.createSuccessTest();
-    await testSavedTemporaryClient(successTest, token, cellphone);
-    await testResponseToken(successTest, token);
+    const assertHelper = assertionInitializerHelper();
+    await testSavedTemporaryClient(assertHelper, token, cellphone);
+    await testResponseToken(assertHelper, token);
   });
 });
 
@@ -61,8 +63,7 @@ describe("signIn fail test", () => {
   const clientSocket = socketHelper.createClient();
   const requester = utilities.requesters.signIn(clientSocket);
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .input(signInCellphone)
     .countryCode(signInCellphone)
     .countryName(signInCellphone)
@@ -70,7 +71,7 @@ describe("signIn fail test", () => {
 });
 
 const testSavedTemporaryClient = async (
-  builder: SuccessTestHelper,
+  builder: AssertionInitializerHelper,
   token: string,
   cellphone: Cellphone
 ) => {
@@ -89,7 +90,10 @@ const testSavedTemporaryClient = async (
   builder.verificationCode({ testValue: temporaryClient.verificationCode });
 };
 
-const testResponseToken = async (builder: SuccessTestHelper, token: string) => {
+const testResponseToken = async (
+  builder: AssertionInitializerHelper,
+  token: string
+) => {
   const tokenId = authManager.getTokenId(token, authManager.getSignInSecret());
 
   builder.userId(

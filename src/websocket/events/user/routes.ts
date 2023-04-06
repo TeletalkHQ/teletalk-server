@@ -9,9 +9,11 @@ const builder = socketRouteBuilder();
 const addBlock = builder
   .create()
   .name("addBlock")
-  .inputFields(fields.collection.cellphone)
+  .inputFields({ userId: fields.single.userId })
   .outputFields({
-    blockedCellphone: fields.statics.object(fields.collection.cellphone),
+    blockedUser: fields.statics.object({
+      userId: fields.single.userId,
+    }),
   })
   .handler(userHandlers.addBlock)
   .build();
@@ -19,11 +21,21 @@ const addBlock = builder
 const addContact = builder
   .create()
   .name("addContact")
-  .inputFields(fields.collection.contactWithoutUserId)
+  .inputFields(fields.collection.contact)
   .outputFields({
     addedContact: fields.statics.object(fields.collection.contact),
   })
   .handler(userHandlers.addContact)
+  .build();
+
+const addContactWithCellphone = builder
+  .create()
+  .name("addContactWithCellphone")
+  .inputFields(fields.collection.contactWithCellphone)
+  .outputFields({
+    addedContact: fields.statics.object(fields.collection.contactWithCellphone),
+  })
+  .handler(userHandlers.addContactWithCellphone)
   .build();
 
 const disconnect = builder
@@ -35,11 +47,9 @@ const disconnect = builder
 const editContact = builder
   .create()
   .name("editContact")
-  .inputFields(fields.collection.contactWithoutUserId)
+  .inputFields(fields.collection.contact)
   .outputFields({
-    editedContact: fields.statics.object(
-      fields.collection.contactWithoutUserId
-    ),
+    editedContact: fields.statics.object(fields.collection.contact),
   })
   .handler(userHandlers.editContact)
   .build();
@@ -82,9 +92,11 @@ const getPublicUserData = builder
 const removeBlock = builder
   .create()
   .name("removeBlock")
-  .inputFields(fields.collection.cellphone)
+  .inputFields({ userId: fields.single.userId })
   .outputFields({
-    removedBlock: fields.statics.object(fields.collection.cellphone),
+    removedBlock: fields.statics.object({
+      userId: fields.single.userId,
+    }),
   })
   .handler(userHandlers.removeBlock)
   .build();
@@ -92,9 +104,13 @@ const removeBlock = builder
 const removeContact = builder
   .create()
   .name("removeContact")
-  .inputFields(fields.collection.cellphone)
+  .inputFields({
+    userId: fields.single.userId,
+  })
   .outputFields({
-    removedContact: fields.statics.object(fields.collection.cellphone),
+    removedContact: fields.statics.object({
+      userId: fields.single.userId,
+    }),
   })
   .handler(userHandlers.removeContact)
   .build();
@@ -128,6 +144,7 @@ const updatePublicUserData = builder
 const userRoutes = {
   addBlock,
   addContact,
+  addContactWithCellphone,
   disconnect,
   editContact,
   getContacts,

@@ -20,15 +20,15 @@ const getChatInfo = builder
   })
   .build();
 
-// const getPrivateChat = builder
-//   .create()
-//   .handler(privateChatHandlers.getPrivateChat)
-//   .name("getPrivateChat")
-//   .inputFields({ chatId: fields.single.chatId })
-//   .outputFields({
-//     privateChat: fields.statics.object(fields.collection.privateChat),
-//   })
-//   .build();
+const getPrivateChat = builder
+  .create()
+  .handler(privateChatHandlers.getPrivateChat)
+  .name("getPrivateChat")
+  .inputFields({ chatId: fields.single.chatId })
+  .outputFields({
+    privateChat: fields.statics.object(fields.collection.privateChat),
+  })
+  .build();
 
 const getPrivateChats = builder
   .create()
@@ -51,7 +51,7 @@ const sendPrivateMessage = builder
   .handler(privateChatHandlers.sendPrivateMessage)
   .name("sendPrivateMessage")
   .inputFields({
-    message: fields.single.message,
+    messageText: fields.single.messageText,
     participantId: fields.single.participantId,
   })
   .outputFields({
@@ -62,7 +62,7 @@ const sendPrivateMessage = builder
 
 const privateChatRoutes = {
   getChatInfo,
-  // getPrivateChat,
+  getPrivateChat,
   getPrivateChats,
   joinRoom,
   sendPrivateMessage,

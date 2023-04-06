@@ -8,7 +8,7 @@ const getContacts: SocketOnHandler = async (socket) => {
   const contacts = await services.getUserContacts({ currentUserId });
 
   return {
-    contacts,
+    data: { contacts },
   };
 };
 

@@ -4,7 +4,13 @@ import { Socket } from "socket.io";
 
 import { errors } from "@/variables/errors";
 
-import { CustomEmit, NativeModelError, SocketRoute, StringMap } from "@/types";
+import {
+  CustomEmit,
+  NativeError,
+  SocketResponse,
+  SocketRoute,
+  StringMap,
+} from "@/types";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
@@ -17,7 +23,7 @@ const customEmit = (socket: Socket) => {
     trier(customEmit.name)
       .try(tryBlock, data, foundRoute.outputFields)
       .executeIfNoError(executeIfNoError, socket, event, data)
-      .catch(catchBlock, socket, foundRoute.outputFields)
+      .catch(catchBlock, socket)
       .run();
   }) as CustomEmit;
 };
@@ -32,28 +38,35 @@ const executeIfNoError = (
   event: string,
   data: StringMap
 ) => {
-  socket.emit(event, { data });
+  const response: SocketResponse = { data, ok: true };
+  socket.emit(event, response);
 };
 
-const catchBlock = (
-  error: NativeModelError,
-  socket: Socket,
-  outputFields: IoFields
-) => {
+const catchBlock = (error: NativeError, socket: Socket) => {
   const isErrorValid = !error || !error.reason;
 
   //prettier-ignore
   const sendingError = isErrorValid
     ? {
-      ...error,
-      outputFields,
+      data: {
+        errors: {
+          [error.key]: error
+        }
+      },
     }
     : {
-      ...errors.UNKNOWN_ERROR,
+      data: {
+        errors: { [error.key]: errors.UNKNOWN_ERROR },
+      },
       checkResult: error,
     };
 
-  socket.emit("error", sendingError);
+  const response: SocketResponse = {
+    ...sendingError,
+    ok: false,
+  };
+
+  socket.emit("error", response);
 };
 
 export { customEmit };

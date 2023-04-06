@@ -1,16 +1,18 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { NativeModelError } from "@/types";
+import { NativeError } from "@/types";
 
 import { localErrors } from "@/variables/errors/local";
 
 class ErrorBuilder {
-  error: NativeModelError;
+  error: NativeError;
   constructor() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    this.error = {};
+    this.error = {
+      side: "client",
+    };
   }
 
   key(key: string) {
@@ -21,14 +23,21 @@ class ErrorBuilder {
     this.error.reason = reason;
     return this;
   }
-  statusCode(statusCode: number) {
-    this.error.statusCode = statusCode;
+  authError() {
+    this.error.isAuthError = true;
+    return this;
+  }
+  side(side: NativeError["side"]) {
+    this.error.side = side;
     return this;
   }
 
   build() {
-    const values = Object.values(this.error);
-    const isUndefined = customTypeof.isUndefined(...values);
+    const { description, message, ...rest } = this.error;
+    const values = Object.values(rest);
+    const isUndefined = values.some(
+      customTypeof.isUndefined.bind(customTypeof)
+    );
     errorThrower(isUndefined, localErrors.ERROR_IS_INVALID);
 
     return this.error;

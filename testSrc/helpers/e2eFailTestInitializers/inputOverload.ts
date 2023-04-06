@@ -1,0 +1,34 @@
+import { randomMaker } from "utility-store";
+
+import { E2eFailTestInitializer } from "$/types";
+
+import { utilities } from "$/utilities";
+
+import { errors } from "@/variables/errors";
+
+const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
+  configuredRequester,
+  data = {}
+) => {
+  it(
+    utilities.createFailTestMessage(
+      errors.INPUT_FIELDS_OVERLOAD,
+      configuredRequester.getRoute()
+    ),
+    async () => {
+      const copyData = { ...data };
+      const randomKey = randomMaker.string(8);
+      const randomValue = randomMaker.string(8);
+      (copyData as any)[randomKey] = randomValue;
+      await configuredRequester.sendFullFeaturedRequest(
+        copyData,
+        errors.INPUT_FIELDS_OVERLOAD,
+        {
+          shouldFilterRequestData: false,
+        }
+      );
+    }
+  );
+};
+
+export { inputOverloadE2eFailTestInitializer };

@@ -1,19 +1,10 @@
-import {
-  Document,
-  model,
-  Model,
-  Schema,
-  SchemaDefinitionProperty,
-} from "mongoose";
+import { model, Schema, SchemaDefinitionProperty } from "mongoose";
 
 import { makeMongoSchemaValue } from "@/helpers/makeMongoSchemaValue";
 
 import { nativeModels } from "@/models/native";
 
-import { UserMongo } from "@/types";
-
-type IUserDoc = UserMongo & Document;
-type IUserModel = Model<IUserDoc>;
+import { IUserDoc, IUserModel } from "@/types";
 
 const userNativeModel = nativeModels.user;
 
@@ -26,10 +17,11 @@ const phoneNumberMaker = makeMongoSchemaValue(userNativeModel.phoneNumber);
 const userIdMaker = makeMongoSchemaValue(userNativeModel.userId);
 const usernameMaker = makeMongoSchemaValue(userNativeModel.username);
 
+//FIXME: Do something with unique property
 const bio: SchemaDefinitionProperty = {
   maxlength: bioMaker("maxlength"),
   minlength: bioMaker("minlength"),
-  required: bioMaker("required"),
+  // required: bioMaker("required"),
   trim: userNativeModel.bio.trim.value,
   type: "string",
 };
@@ -37,42 +29,42 @@ const bio: SchemaDefinitionProperty = {
 const countryCode: SchemaDefinitionProperty = {
   maxlength: countryCodeMaker("maxlength"),
   minlength: countryCodeMaker("minlength"),
-  required: countryCodeMaker("required"),
+  // required: countryCodeMaker("required"),
   type: "string",
 };
 
 const createdAt: SchemaDefinitionProperty = {
-  required: userNativeModel.createdAt.required.value,
+  // required: userNativeModel.createdAt.required.value,
   type: "number",
 };
 
 const countryName: SchemaDefinitionProperty = {
   maxlength: countryNameMaker("maxlength"),
   minlength: countryNameMaker("minlength"),
-  required: countryNameMaker("required"),
+  // required: countryNameMaker("required"),
   type: "string",
 };
 
 const firstName: SchemaDefinitionProperty = {
   maxlength: firstNameMaker("maxlength"),
   minlength: firstNameMaker("minlength"),
-  required: firstNameMaker("required"),
+  // required: firstNameMaker("required"),
   trim: userNativeModel.firstName.trim.value,
   type: "string",
 };
 
-const isOnline: SchemaDefinitionProperty = {
-  default: userNativeModel.isOnline.defaultValue.value as boolean,
-  required: [
-    userNativeModel.isOnline.required.value,
-    userNativeModel.isOnline.required.error.reason,
-  ],
+const isActive: SchemaDefinitionProperty = {
+  default: userNativeModel.isActive.defaultValue.value as boolean,
+  // required: [
+  // userNativeModel.isActive.required.value,
+  // userNativeModel.isActive.required.error.reason,
+  // ],
   type: "boolean",
 };
 
 const lastName: SchemaDefinitionProperty = {
   maxlength: lastNameMaker("maxlength"),
-  required: lastNameMaker("required"),
+  // required: lastNameMaker("required"),
   trim: userNativeModel.lastName.trim.value,
   type: "string",
 };
@@ -80,13 +72,13 @@ const lastName: SchemaDefinitionProperty = {
 const phoneNumber: SchemaDefinitionProperty = {
   maxlength: phoneNumberMaker("maxlength"),
   minlength: phoneNumberMaker("minlength"),
-  required: phoneNumberMaker("required"),
+  // required: phoneNumberMaker("required"),
   trim: userNativeModel.firstName.trim.value,
   type: "string",
 };
 
 const token: SchemaDefinitionProperty = {
-  required: userNativeModel.token.required.value,
+  // required: userNativeModel.token.required.value,
   type: "string",
 };
 
@@ -96,15 +88,15 @@ const userId: SchemaDefinitionProperty = {
   required: userIdMaker("required"),
   trim: userNativeModel.userId.trim.value,
   type: "string",
-  unique: userNativeModel.userId.unique.value,
+  // unique: userNativeModel.userId.unique.value,
 };
 
 const username: SchemaDefinitionProperty = {
   maxlength: usernameMaker("maxlength"),
-  required: usernameMaker("required"),
+  // required: usernameMaker("required"),
   trim: userNativeModel.username.trim.value,
   type: "string",
-  unique: userNativeModel.username.unique.value,
+  // unique: userNativeModel.username.unique.value,
 };
 
 const userSchema = new Schema<IUserDoc, IUserModel>({
@@ -119,6 +111,9 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
       firstName,
       lastName,
       userId,
+      countryCode: { ...countryCode, required: false },
+      countryName: { ...countryName, required: false },
+      phoneNumber: { ...phoneNumber, required: false },
     },
   ],
   countryCode,
@@ -133,7 +128,7 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
     },
   ],
   status: {
-    isOnline,
+    isActive,
   },
   userId,
   username,

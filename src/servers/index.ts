@@ -11,6 +11,7 @@ import PrettyError from "pretty-error";
 
 import http from "http";
 
+import { appConfigs } from "@/classes/AppConfigs";
 import { envManager } from "@/classes/EnvironmentManager";
 
 import { requirements } from "@/requirements";
@@ -21,26 +22,27 @@ import { utilities } from "@/utilities";
 
 PrettyError.start();
 
-const {
-  // NODE_ENV,
-  // PORT,
-  SELF_EXEC,
-} = envManager.getEnvironment();
+const { NODE_ENV, PORT, PORT_DEFAULT, SELF_EXEC } = envManager.getEnvironment();
 
-// const EXACT_PORT = PORT || envManager.getEnvironment().PORT_DEFAULT;
+const EXACT_PORT = PORT || PORT_DEFAULT;
 
-// const serverListenerCb = () => {
-//   logger.info(`Server is running in ${NODE_ENV} mode on port ${EXACT_PORT}`);
-// };
+const serverListenerCb = () => {
+  logger.info(
+    `Server is running in ${NODE_ENV} mode on port ${
+      appConfigs.getConfigs().server.exactPort
+    }`
+  );
+};
 
 const runner = async () => {
   // if (cluster.isPrimary) {
+  await appConfigs.setup();
 
   utilities.logEnvironments();
 
   // const NUM_WORKERS = os.cpus().length;
 
-  // logger.log(`Master ${process.pid} is running`);
+  // logger.debug(`Master ${process.pid} is running`);
 
   // const httpServer = crateHttpServer();
 
@@ -57,10 +59,9 @@ const runner = async () => {
   await requirements.database();
   const httpServer = http.createServer();
   websocketServer(httpServer);
+  httpServer.listen(EXACT_PORT, serverListenerCb);
 
-  // httpServer.listen(EXACT_PORT, serverListenerCb);
-
-  // logger.log(`Worker ${process.pid} started`);
+  // logger.debug(`Worker ${process.pid} started`);
 
   // const httpServer = crateHttpServer();
   // const io = new Server(httpServer, {
@@ -70,7 +71,7 @@ const runner = async () => {
   // setupWorker(io);
 
   // io.on("connection", (socket) => {
-  //   logger.log("user connected", socket.id);
+  //   logger.debug("user connected", socket.id);
   // });
   // }
 };

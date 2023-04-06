@@ -22,6 +22,13 @@ const routes = {
   ...userRoutes,
 };
 
+const ignoredRoutesForAuth = [
+  routes.getCountries,
+  routes.getStuff,
+  routes.getWelcomeMessage,
+  routes.signIn,
+];
+
 const arrayOfRoutes = Object.values(routes);
 
-export { arrayOfRoutes, routers, routes };
+export { arrayOfRoutes, ignoredRoutesForAuth, routers, routes };

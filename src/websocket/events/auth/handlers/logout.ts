@@ -6,7 +6,7 @@ import { SocketOnHandler } from "@/types";
 
 const logout: SocketOnHandler = async (socket) => {
   const { currentUserId } = socket;
-  const currentToken = authManager.getTokenFromSocket(socket) as string;
+  const currentToken = authManager.getSessionFromSocket(socket) as string;
 
   await services.logout({
     currentToken,

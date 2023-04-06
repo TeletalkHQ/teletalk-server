@@ -260,7 +260,7 @@ const checkers = {
   countryName: countryNameChecker,
   firstName: firstNameChecker,
   lastName: lastNameChecker,
-  message: messageChecker,
+  messageText: messageChecker,
   participantId: participantIdChecker,
   phoneNumber: phoneNumberChecker,
   userId: userIdChecker,

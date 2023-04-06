@@ -6,15 +6,15 @@ import { validators } from "@/validators";
 
 const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
   const { currentUserId } = socket;
-  const { participantId, message } = data;
+  const { participantId, messageText } = data;
 
   await validators.participantId(participantId);
-  await validators.messageText(message);
+  await validators.messageText(messageText);
 
   const { chatId, newMessage } = await services.sendPrivateMessage({
     currentUserId,
     participantId,
-    message,
+    messageText,
   });
 
   socket.io
@@ -22,6 +22,10 @@ const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
     .to(participantId)
     //TODO: Use customEmit
     .emit("newPrivateChatMessage", { chatId, newMessage });
+
+  return {
+    data: { chatId, newMessage },
+  };
 };
 
 export { sendPrivateMessage };

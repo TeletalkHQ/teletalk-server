@@ -20,12 +20,17 @@ const verify: SocketOnHandler = async (socket) => {
     await addNewSession(foundUser.userId, token);
 
     return {
-      newUser: false,
+      data: {
+        newUser: false,
+        token,
+      },
     };
   }
 
   return {
-    newUser: true,
+    data: {
+      newUser: true,
+    },
   };
 };
 

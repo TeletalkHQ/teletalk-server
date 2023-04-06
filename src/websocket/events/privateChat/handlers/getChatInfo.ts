@@ -14,10 +14,12 @@ const getChatInfo: SocketOnHandler = async (_socket, data) => {
   const { chatId, createdAt, participants } = privateChat;
 
   return {
-    chatInfo: {
-      chatId,
-      createdAt,
-      participants,
+    data: {
+      chatInfo: {
+        chatId,
+        createdAt,
+        participants,
+      },
     },
   };
 };

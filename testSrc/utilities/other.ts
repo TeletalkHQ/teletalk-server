@@ -46,6 +46,8 @@ const requesters = {
   editContact: makeRequester(routes.editContact),
   getContacts: makeRequester(routes.getContacts),
   getCurrentUserData: makeRequester(routes.getCurrentUserData),
+  getPrivateChat: makeRequester(routes.getPrivateChat),
+  getPrivateChats: makeRequester(routes.getPrivateChats),
   getPublicUserData: makeRequester(routes.getPublicUserData),
   getStuff: makeRequester(routes.getStuff),
   logout: makeRequester(routes.logout),
@@ -55,8 +57,6 @@ const requesters = {
   signIn: makeRequester(routes.signIn),
   updatePublicUserData: makeRequester(routes.updatePublicUserData),
   verify: makeRequester(routes.verify),
-  getPrivateChats: makeRequester(routes.getPrivateChats),
-  getPrivateChat: makeRequester(routes.getPrivateChat),
 };
 
 const otherUtilities = {

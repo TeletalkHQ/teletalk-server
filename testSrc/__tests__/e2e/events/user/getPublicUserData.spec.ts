@@ -1,7 +1,7 @@
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { utilities } from "$/utilities";
 
@@ -37,8 +37,7 @@ const testPublicUserData = (
   equalValue: PublicUserData,
   testValue: PublicUserData
 ) => {
-  testHelper
-    .createSuccessTest()
+  assertionInitializerHelper()
     .firstName({
       equalValue: equalValue.firstName,
       testValue: testValue.firstName,
@@ -73,8 +72,7 @@ describe("getPublicUserData fail tests", () => {
     userId: randomMaker.id(),
   };
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .input(data)
     .checkCurrentUserStatus(data)

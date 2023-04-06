@@ -1,14 +1,16 @@
 import { expect } from "chai";
 
+import {
+  AssertionInitializerHelper,
+  assertionInitializerHelper,
+} from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
-import { SuccessTestHelper } from "$/classes/SuccessTestHelper";
 import { authManager } from "@/classes/AuthManager";
 import { temporaryClients } from "@/classes/TemporaryClients";
 import { userUtilities } from "@/classes/UserUtilities";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { models } from "@/models";
 
@@ -55,9 +57,9 @@ describe("verifySignIn success test", () => {
       expect(helper.getResponses().verify.data.newUser).to.be.equal(false);
 
       sessions.push(helper.getResponses().verify.data.token);
-      const successTestBuilder = testHelper.createSuccessTest();
+      const assertHelper = assertionInitializerHelper();
       await testUserSession(
-        successTestBuilder,
+        assertHelper,
         helper.getResponses().verify.data.token
       );
     }
@@ -90,14 +92,16 @@ describe("verifySignIn fail tests", () => {
     ),
   };
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .input(data)
     .verificationCode(data);
 });
 
-const testUserSession = async (builder: SuccessTestHelper, token: string) => {
+const testUserSession = async (
+  builder: AssertionInitializerHelper,
+  token: string
+) => {
   const verifiedToken = authManager.verifyToken(token);
   const userId = userUtilities.getUserIdFromVerifiedToken(verifiedToken);
   const foundSession = await getSavedUserSession(userId, token);

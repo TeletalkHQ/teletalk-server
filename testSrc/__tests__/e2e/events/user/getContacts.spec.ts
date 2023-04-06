@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
 import { userUtilities } from "@/classes/UserUtilities";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { services } from "@/services";
 
@@ -48,8 +48,7 @@ describe("getContacts fail tests", () => {
   const clientSocket = socketHelper.createClient();
   const requester = utilities.requesters.getContacts(clientSocket);
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .checkCurrentUserStatus();
 });
@@ -74,8 +73,7 @@ const testOneContact = (
   testValue: ContactWithCellphone,
   equalValue: ContactWithCellphone
 ) => {
-  testHelper
-    .createSuccessTest()
+  assertionInitializerHelper()
     .userId({
       equalValue: equalValue.userId,
       testValue: testValue.userId,

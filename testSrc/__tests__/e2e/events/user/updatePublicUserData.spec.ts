@@ -1,8 +1,8 @@
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { socketHelper } from "$/classes/SocketHelper";
 import { userUtilities } from "@/classes/UserUtilities";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { services } from "@/services";
 
@@ -48,8 +48,7 @@ describe("getPublicUserData fail tests", () => {
 
   const { status, ...updatablePublicData } = randomMaker.publicUserData();
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .input(updatablePublicData)
     .checkCurrentUserStatus(updatablePublicData)
@@ -63,8 +62,7 @@ const testPublicUserData = (
   equalValue: PublicUserData,
   testValue: PublicUserData
 ) => {
-  testHelper
-    .createSuccessTest()
+  assertionInitializerHelper()
     .firstName({
       equalValue: equalValue.firstName,
       testValue: testValue.firstName,

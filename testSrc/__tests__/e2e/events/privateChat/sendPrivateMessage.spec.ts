@@ -1,10 +1,9 @@
 import { expect } from "chai";
 
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
 import { services } from "@/services";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import {
   HydratedPrivateChatMongo,
@@ -90,8 +89,7 @@ const testData = async (
     (m) => m.messageId === sentMessageResponse.newMessage.messageId
   ) as Message;
 
-  testHelper
-    .createSuccessTest()
+  assertionInitializerHelper()
     .chatId({
       equalValue: sentMessageResponse.chatId,
       testValue: chat.chatId,

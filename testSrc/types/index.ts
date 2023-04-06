@@ -1,18 +1,21 @@
 import { Requester } from "$/classes/Requester";
 
-type FailTestExecutor = (configuredRequester: Requester, data: object) => void;
+type E2eFailTestInitializer = (
+  configuredRequester: Requester,
+  data: object
+) => void;
 
-type SuccessTestExecutorOptions = {
+type AssertionInitializerOptions = {
   modelCheck: boolean;
   stringEquality: boolean;
 };
-interface SuccessTestExecuterArgs {
+interface AssertionInitializerArgs {
   equalValue?: any;
   testValue: any;
 }
-type SuccessTestExecutor = (
-  data: SuccessTestExecuterArgs,
-  options?: SuccessTestExecutorOptions
+type AssertionInitializer = (
+  data: AssertionInitializerArgs,
+  options?: AssertionInitializerOptions
 ) => void;
 
 interface RequesterOptions {
@@ -20,9 +23,9 @@ interface RequesterOptions {
 }
 
 export {
-  type FailTestExecutor,
-  type SuccessTestExecutor,
+  type AssertionInitializer,
+  type AssertionInitializerArgs,
+  type AssertionInitializerOptions,
+  type E2eFailTestInitializer,
   type RequesterOptions,
-  type SuccessTestExecutorOptions,
-  type SuccessTestExecuterArgs,
 };

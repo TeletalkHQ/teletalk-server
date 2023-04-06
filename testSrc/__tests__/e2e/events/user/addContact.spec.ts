@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
-
-import { testHelper } from "$/helpers/testHelper";
 
 import { UserMongo } from "@/types";
 
@@ -108,8 +108,7 @@ describe("addContact fail tests", () => {
     userId: randomMaker.id(),
   };
 
-  testHelper
-    .createFailTest(requester)
+  e2eFailTestInitializerHelper(requester)
     .authentication()
     .input(randomContact)
     .checkCurrentUserStatus(randomContact)
@@ -167,8 +166,7 @@ const testOneContact = (
   testValue: ContactWithCellphone,
   equalValue: ContactWithCellphone
 ) => {
-  testHelper
-    .createSuccessTest()
+  assertionInitializerHelper()
     .userId({
       equalValue: equalValue.userId,
       testValue: testValue.userId,

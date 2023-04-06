@@ -36,7 +36,7 @@ const checkExistenceOfContactItem = (
   contact: Contact
 ) => {
   const index = contacts.findIndex((i) => i.userId == contact.userId);
-  errorThrower(index === -1, () => ({
+  errorThrower(index !== -1, () => ({
     ...errors.CONTACT_ITEM_EXIST,
     queryData: contact,
   }));
@@ -46,7 +46,7 @@ const saveNewContactItem = async (
   currentUser: HydratedUserMongo,
   newContact: Contact
 ) => {
-  currentUser.contacts.push(newContact);
+  (currentUser.contacts as Contact[]).push(newContact);
   await currentUser.save();
 };
 

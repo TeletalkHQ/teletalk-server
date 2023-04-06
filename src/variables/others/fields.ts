@@ -19,10 +19,10 @@ const createdAt = statics.number;
 const description = statics.string;
 const errorReason = statics.string;
 const firstName = statics.string;
-const isOnline = statics.boolean;
+const isActive = statics.boolean;
 const language = statics.string;
 const lastName = statics.string;
-const message = statics.string;
+const messageText = statics.string;
 const messageId = statics.string;
 const newUser = statics.boolean;
 const ok = statics.boolean;
@@ -47,21 +47,20 @@ const cellphone = {
   phoneNumber,
 };
 
-const contact = {
-  countryCode,
-  countryName,
-  firstName,
-  lastName,
-  phoneNumber,
-  userId,
-};
-
 const fullName = {
   firstName,
   lastName,
 };
 
-const { userId: _userId, ...contactWithoutUserId } = contact;
+const contact = {
+  ...fullName,
+  userId,
+};
+
+const contactWithCellphone = {
+  ...contact,
+  ...cellphone,
+};
 
 const sender = statics.object({
   senderId,
@@ -69,8 +68,8 @@ const sender = statics.object({
 
 const messageItem = {
   createdAt,
-  message,
   messageId,
+  messageText,
   sender,
 };
 
@@ -84,7 +83,7 @@ const countries = statics.array(country);
 const messages = statics.array(messageItem);
 const participants = statics.array(participantItem);
 
-const status = statics.object({ isOnline });
+const status = statics.object({ isActive });
 
 const privateChat = {
   chatId,
@@ -118,10 +117,10 @@ const single = {
   description,
   errorReason,
   firstName,
-  isOnline,
+  isActive,
   language,
   lastName,
-  message,
+  messageText,
   messageId,
   newUser,
   ok,
@@ -140,8 +139,8 @@ const collection = {
   blacklist,
   cellphone,
   contact,
+  contactWithCellphone,
   contacts,
-  contactWithoutUserId,
   countries,
   country,
   fullName,

@@ -1,19 +1,10 @@
-import {
-  Document,
-  model,
-  Model,
-  Schema,
-  SchemaDefinitionProperty,
-} from "mongoose";
+import { model, Schema, SchemaDefinitionProperty } from "mongoose";
 
 import { makeMongoSchemaValue } from "@/helpers/makeMongoSchemaValue";
 
 import { nativeModels } from "@/models/native";
 
-import { PrivateChatMongo } from "@/types";
-
-type IPrivateChatDoc = PrivateChatMongo & Document;
-type IPrivateChatModel = Model<IPrivateChatDoc>;
+import { IPrivateChatDoc, IPrivateChatModel } from "@/types";
 
 const chatNativeModels = nativeModels.privateChat;
 

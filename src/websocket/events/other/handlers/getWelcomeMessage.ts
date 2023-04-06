@@ -1,6 +1,10 @@
-const getWelcomeMessage = async () => {
+import { SocketOnHandler } from "@/types";
+
+const getWelcomeMessage: SocketOnHandler = async () => {
   return {
-    message: "Hey! Welcome to teletalk <3",
+    data: {
+      message: "Hey! Welcome to teletalk <3",
+    },
   };
 };
 

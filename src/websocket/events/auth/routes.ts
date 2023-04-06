@@ -10,6 +10,9 @@ const createNewUser = builder
   .create()
   .name("create")
   .inputFields(fields.collection.fullName)
+  .outputFields({
+    token: fields.single.userId,
+  })
   .handler(authHandlers.createNewUser)
   .build();
 
@@ -23,6 +26,9 @@ const signIn = builder
   .create()
   .name("signIn")
   .inputFields(fields.collection.cellphone)
+  .outputFields({
+    token: fields.single.userId,
+  })
   .handler(authHandlers.signIn)
   .build();
 

@@ -7,6 +7,8 @@ import { customMethods } from "@/websocket/custom/methods";
 import { routers } from "@/websocket/events";
 
 import { middlewares } from "@/websocket/middlewares";
+import { applyMiddlewares } from "@/websocket/middlewares/applyMiddlewares";
+import { ignoreMiddlewares } from "@/websocket/middlewares/ignoreMiddlewares";
 
 type HttpServer = http.Server<
   typeof http.IncomingMessage,
@@ -29,13 +31,51 @@ const websocketServer = (httpServer: HttpServer) => {
     socket.customUse = customMethods.use(socket);
 
     socket.customUse(middlewares.checkEventAvailability);
-    socket.customUse(middlewares.auth);
+    socket.customUse(
+      //CLEANME: Use ignored routes for auth
+      ignoreMiddlewares(["signIn", "getStuff"], middlewares.auth)
+    );
+
     socket.customUse(middlewares.checkDataFields);
-    socket.customUse(middlewares.checkCurrentUserStatus);
-    socket.customUse(middlewares.attachCurrentUserId);
+
+    socket.customUse(
+      //CLEANME: Use ignored routes for auth
+      ignoreMiddlewares(
+        ["create", "getStuff", "signIn", "verify"],
+        middlewares.checkCurrentUserStatus,
+        middlewares.attachCurrentUserId
+      )
+    );
+
+    socket.customUse(
+      applyMiddlewares(
+        "verify",
+        middlewares.verificationCodeValidator,
+        middlewares.verifyVerificationCode
+      )
+    );
+
+    socket.customUse(
+      applyMiddlewares(
+        [
+          "addBlock",
+          "addContact",
+          "addContactWithCellphone",
+          "editContact",
+          "removeBlock",
+          "removeContact",
+        ],
+        middlewares.selfStuffCheck
+      )
+    );
+
+    socket.customUse(
+      applyMiddlewares("signIn", middlewares.cellphoneValidator)
+    );
 
     routers(socket);
   });
+
   return io;
 };
 

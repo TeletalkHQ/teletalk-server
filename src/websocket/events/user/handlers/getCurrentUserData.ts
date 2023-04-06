@@ -5,12 +5,17 @@ import { HydratedUserMongo, SocketOnHandler } from "@/types";
 const getCurrentUserData: SocketOnHandler = async (socket) => {
   const { currentUserId } = socket;
 
-  const { sessions, ...userData } = (await services.getCurrentUserData({
-    userId: currentUserId,
-  })) as HydratedUserMongo;
+  const { sessions, ...userData } = (await services.getCurrentUserData(
+    {
+      userId: currentUserId,
+    },
+    { lean: true }
+  )) as HydratedUserMongo;
 
   return {
-    user: userData,
+    data: {
+      user: userData,
+    },
   };
 };
 

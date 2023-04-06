@@ -1,7 +1,13 @@
-import { enErrorMessages } from "@/translation/messages/enErrorMessages";
-import { SocketOnHandler } from "@/types";
+import { models } from "@/models";
 
-import { allStuff } from "@/variables/others/allStuff";
+import { userErrors } from "@/variables/errors/user";
+
+import { enErrorMessages } from "@/translation/messages/enErrorMessages";
+
+import { SocketOnHandler, SocketResponse } from "@/types";
+
+import { routes } from "@/websocket/events";
+import { serverErrors } from "@/variables/errors/server";
 
 const languages = {
   en: { errorMessages: enErrorMessages },
@@ -9,11 +15,34 @@ const languages = {
 
 type LanguageKey = keyof typeof languages;
 
-const getAllStuff: SocketOnHandler = (_socket, data) => {
+const getStuff: SocketOnHandler = (_socket, data) => {
   const { language = "en" } = data;
   const languageData = languages[language as LanguageKey];
 
-  return { ...allStuff, languageData };
+  const stuff = {
+    appErrors: {
+      ...userErrors,
+      ...serverErrors,
+    },
+    models: {
+      ...models.native.common,
+      ...models.native.privateChat,
+      ...models.native.user,
+    },
+    routes,
+    validationModels: {
+      ...models.validation.chat,
+      ...models.validation.common,
+      ...models.validation.user,
+    },
+  };
+
+  return {
+    data: {
+      ...stuff,
+      languageData,
+    },
+  };
 };
 
-export { getAllStuff };
+export { getStuff };

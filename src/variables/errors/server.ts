@@ -9,95 +9,95 @@ const OUTPUT_FIELDS_MISSING = errorBuilder
   .create()
   .key(INPUT_OUTPUT_FIELDS)
   .reason(UNIQUE_ERROR_IDS.OUTPUT_FIELDS_MISSING)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const OUTPUT_FIELDS_OVERLOAD = errorBuilder
   .create()
   .key(INPUT_OUTPUT_FIELDS)
   .reason(UNIQUE_ERROR_IDS.OUTPUT_FIELDS_OVERLOAD)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const REQUEST_BODY_IS_UNDEFINED = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.REQUEST_BODY_IS_UNDEFINED)
-  .statusCode(500)
+  .side("server")
   .build();
 const REQUIRED_FIELDS_NOT_DEFINED = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.REQUIRED_FIELDS_NOT_DEFINED)
-  .statusCode(500)
+  .side("server")
   .build();
 const REQUIRED_IO_FIELD_IS_NOT_OBJECT = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.REQUIRED_IO_FIELD_IS_NOT_OBJECT)
-  .statusCode(500)
+  .side("server")
   .build();
 const REQUIRED_IO_FIELD_IS_NOT_ARRAY = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.REQUIRED_IO_FIELD_IS_NOT_ARRAY)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const OUTPUT_FIELD_TYPE_WRONG = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.OUTPUT_FIELD_TYPE_WRONG)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const OUTPUT_FIELD_INVALID_TYPE = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.OUTPUT_FIELD_INVALID_TYPE)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const REQUIRED_FIELD_INVALID = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.REQUIRED_FIELD_INVALID)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const REQUIRED_FIELD_INVALID_TYPE = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.REQUIRED_FIELD_INVALID_TYPE)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const SEND_JSON_RESPONSE_IS_NOT_FUNCTION = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.SEND_JSON_RESPONSE_IS_NOT_FUNCTION)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const SEND_SMS_FAILED = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.SEND_SMS_FAILED)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const SERVER_CRITICAL_ERROR = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.SERVER_CRITICAL_ERROR)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const UNKNOWN_ERROR = errorBuilder
   .create()
   .key(INTERNAL_SERVER_ERROR)
   .reason(UNIQUE_ERROR_IDS.UNKNOWN_ERROR)
-  .statusCode(500)
+  .side("server")
   .build();
 
 const serverErrors = {

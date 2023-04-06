@@ -9,22 +9,30 @@ import { validators } from "@/validators";
 
 import { errors } from "@/variables/errors";
 
-const auth: SocketMiddleware = async (socket, next) => {
+import { routes } from "@/websocket/events";
+
+const auth: SocketMiddleware = async (socket, next, [name]) => {
   await trier<VerifiedToken>(auth.name)
-    .tryAsync(tryBlock, socket)
+    .tryAsync(tryBlock, socket, name)
     .executeIfNoError(executeIfNoError, socket, next)
     .throw()
     .runAsync();
 };
 
-const tryBlock = async (socket: Socket) => {
+const tryBlock = async (socket: Socket, eventName: string) => {
   if (!socket.handshake.headers.cookie) throw errors.TOKEN_REQUIRED;
 
-  const token = authManager.getTokenFromSocket(socket);
+  const session = authManager.getSessionFromSocket(socket);
 
-  if (!token) throw errors.TOKEN_REQUIRED;
+  if (!session) throw errors.TOKEN_REQUIRED;
 
-  return await validators.token(token, authManager.getMainSecret());
+  const secret = [routes.verify.name, routes.createNewUser.name].includes(
+    eventName
+  )
+    ? authManager.getSignInSecret()
+    : authManager.getMainSecret();
+
+  return await validators.token(session, secret);
 };
 
 const executeIfNoError = (

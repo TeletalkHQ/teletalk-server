@@ -1,19 +1,16 @@
 import { findPrivateChat } from "@/services/chat/findPrivateChat";
 
-import { PrivateChatMongo } from "@/types";
-import { ProjectionType, QueryOptions } from "mongoose";
+import { HydratedPrivateChatMongo, PrivateChatService } from "@/types";
 
-const findPrivateChatByParticipantId = async (
-  data: {
+const findPrivateChatByParticipantId: PrivateChatService<
+  {
     participantId: string;
   },
-  projection?: ProjectionType<PrivateChatMongo>,
-  options?: QueryOptions
-) => {
-  const key = "participants.participantId" as keyof PrivateChatMongo;
+  Promise<HydratedPrivateChatMongo[] | null>
+> = async (data, projection, options) => {
   return await findPrivateChat(
     {
-      [key]: data.participantId,
+      "participants.participantId": data.participantId,
     },
     projection,
     options

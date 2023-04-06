@@ -1,5 +1,4 @@
-import { errorThrower } from "utility-store";
-import { randomMaker } from "utility-store";
+import { errorThrower, randomMaker } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
 import { temporaryClients } from "@/classes/TemporaryClients";
@@ -46,10 +45,16 @@ const createNewUser: SocketOnHandler = async (
     createdAt: Date.now(),
     userId,
     sessions: [{ token }],
-    status: { isOnline: false },
+    status: { isActive: false },
   });
 
   await removeTemporaryClient(tokenId);
+
+  return {
+    data: {
+      token,
+    },
+  };
 };
 
 const findClient = async (tokenId: string) => {

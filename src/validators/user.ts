@@ -4,7 +4,6 @@ import {
 } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
-import { userUtilities } from "@/classes/UserUtilities";
 
 import { compiledValidators } from "@/helpers/compiledValidators";
 import { validationChecker } from "@/helpers/validationChecker";
@@ -24,29 +23,35 @@ const bioValidator = async (bio: unknown) => {
 };
 
 const countryCodeValidator = async (countryCode: unknown) => {
-  const validationResult = await compiledValidators.countryCode(countryCode);
+  const validationResult = await compiledValidators.countryCode({
+    countryCode,
+  });
   validationChecker.countryCode(validationResult, countryCode);
 };
 
 const countryNameValidator = async (countryName: unknown) => {
-  const validationResult = await compiledValidators.countryName(countryName);
+  const validationResult = await compiledValidators.countryName({
+    countryName,
+  });
   validationChecker.countryName(validationResult, countryName);
 };
 
 const firstNameValidator = async (firstName: unknown) => {
-  const validationResult = await compiledValidators.firstName(firstName);
+  const validationResult = await compiledValidators.firstName({ firstName });
 
   validationChecker.firstName(validationResult, firstName);
 };
 
 const lastNameValidator = async (lastName: unknown) => {
-  const validationResult = await compiledValidators.lastName(lastName);
+  const validationResult = await compiledValidators.lastName({ lastName });
 
   validationChecker.lastName(validationResult, lastName);
 };
 
 const phoneNumberValidator = async (phoneNumber: unknown) => {
-  const validationResult = await compiledValidators.phoneNumber(phoneNumber);
+  const validationResult = await compiledValidators.phoneNumber({
+    phoneNumber,
+  });
 
   validationChecker.phoneNumber(validationResult, phoneNumber);
 };
@@ -72,7 +77,7 @@ const contactValidator = async (contact: Contact) => {
 };
 
 const userIdValidator = async (userId: unknown) => {
-  const validationResult = await compiledValidators.userId(userId);
+  const validationResult = await compiledValidators.userId({ userId });
 
   validationChecker.userId(validationResult, userId);
 };
@@ -110,15 +115,15 @@ const tokenValidator = async (
 };
 
 const usernameValidator = async (username: unknown) => {
-  const validationResult = await compiledValidators.username(username);
+  const validationResult = await compiledValidators.username({ username });
 
   validationChecker.username(validationResult, username);
 };
 
 const verificationCodeValidator = async (verificationCode: unknown) => {
-  const validationResult = await compiledValidators.verificationCode(
-    verificationCode
-  );
+  const validationResult = await compiledValidators.verificationCode({
+    verificationCode,
+  });
 
   validationChecker.verificationCode(validationResult, verificationCode);
 };

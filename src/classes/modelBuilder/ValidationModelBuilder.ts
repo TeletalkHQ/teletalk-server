@@ -3,16 +3,12 @@ import Validator, {
   ValidationRuleObject,
 } from "fastest-validator";
 
-import { NativeModel } from "@/types";
+import { NativeModel, ValidationModel } from "@/types";
 
 import { NativeModelKey } from "@/types";
 
 type MessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationRuleObject;
-
-interface ValidationModel {
-  [prop: string]: ValidationRuleObject;
-}
 
 const compiler = new Validator({
   useNewCustomCheckerFunction: true,
@@ -25,7 +21,9 @@ class ValidationModelBuilder {
   constructor() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    this.validationRuleObject = {};
+    this.validationRuleObject = {
+      messages: {},
+    };
   }
 
   private updateProperty(

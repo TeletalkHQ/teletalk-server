@@ -1,30 +1,35 @@
 module.exports = {
   env: {
-    node: true,
-    jest: true,
     es2021: true,
+    jest: false,
+    mocha: true,
+    node: true,
   },
-  globals: { logger: true },
   extends: [
     "eslint:recommended",
+    "plugin:@cspell/recommended",
     "plugin:@typescript-eslint/recommended",
-    "eslint:recommended",
-    // "plugin:@cspell/recommended",
     "plugin:sonarjs/recommended",
+    "prettier",
   ],
+  globals: {
+    logger: true,
+  },
   overrides: [],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: [
-    "@typescript-eslint",
-    "sonarjs",
-    // "security",
-    // "@cspell",
-  ],
+  plugins: ["@typescript-eslint", "@cspell", "sonarjs"],
   rules: {
+    "@cspell/spellchecker": [
+      "warn",
+      {
+        autoFix: false,
+        checkComments: false,
+      },
+    ],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -59,8 +64,7 @@ module.exports = {
     "no-var": "warn",
     "object-shorthand": ["error", "always"],
     quotes: ["warn", "double"],
-    semi: ["error", "always"],
-    // "@cspell/spellchecker": [
+    semi: ["error", "always"], // "@cspell/spellchecker": [
     //   "warn",
     //   {
     //     ignoreImportProperties: false,

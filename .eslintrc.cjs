@@ -21,8 +21,22 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["@typescript-eslint", "@cspell", "sonarjs"],
+  plugins: ["@typescript-eslint", "@cspell", "sonarjs", "unused-imports"],
   rules: {
+    "unused-imports/no-unused-imports": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        args: "after-used",
+        argsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+        vars: "all",
+        varsIgnorePattern: "^_",
+      },
+    ],
+
     "@cspell/spellchecker": [
       "warn",
       {
@@ -30,28 +44,10 @@ module.exports = {
         checkComments: false,
       },
     ],
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        args: "after-used",
-        argsIgnorePattern: "^_",
-        ignoreRestSiblings: true,
-        vars: "all",
-      },
-    ],
     "arrow-parens": "warn",
     indent: ["error", 2],
     "linebreak-style": ["error", "unix"],
     "no-delete-var": "warn",
-    "no-unused-vars": [
-      "warn",
-      {
-        args: "after-used",
-        argsIgnorePattern: "^_",
-        ignoreRestSiblings: true,
-        vars: "all",
-      },
-    ],
     "no-use-before-define": [
       "error",
       {

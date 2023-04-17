@@ -21,6 +21,8 @@ const getTargetUserData = async (
   data: { userId: string },
   options?: QueryOptions,
   projection?: ProjectionType<UserMongo>
+
+  // eslint-disable-next-line sonarjs/no-identical-functions
 ) => {
   return await getUserDataById(
     {

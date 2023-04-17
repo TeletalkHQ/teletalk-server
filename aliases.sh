@@ -30,7 +30,7 @@ alias nrsp="nrb&&npm run start:production"
 alias nrspl="nrb&&npm run start:production:local"
 alias nrtc="npm run test:coverage"
 alias nrtd="npm run test:dev"
-alias nrtdwb="npm run test:dev:with-badge"
+alias nrtdgb="npm run test:dev:generate-badge"
 alias nrtp="nrb&&npm run test:production"
 alias nrtpl="nrb&&npm run test:production:local"
 

@@ -8,6 +8,7 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@cspell/recommended",
+    "plugin:json/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:sonarjs/recommended",
     "prettier",
@@ -42,6 +43,8 @@ module.exports = {
       {
         autoFix: false,
         checkComments: false,
+        ignoreImportProperties: false,
+        // ignoreImports: false,
       },
     ],
     "arrow-parens": "warn",
@@ -60,13 +63,7 @@ module.exports = {
     "no-var": "warn",
     "object-shorthand": ["error", "always"],
     quotes: ["warn", "double"],
-    semi: ["error", "always"], // "@cspell/spellchecker": [
-    //   "warn",
-    //   {
-    //     ignoreImportProperties: false,
-    //     ignoreImports: false,
-    //   },
-    // ],
+    semi: ["error", "always"],
     // "no-restricted-globals": ["error"].concat(restrictedGlobals),
     // "no-unused-expressions": 0,
   },

@@ -13,3 +13,4 @@ thunder-tests
 *.md
 *.svg
 /lib
+*.txt

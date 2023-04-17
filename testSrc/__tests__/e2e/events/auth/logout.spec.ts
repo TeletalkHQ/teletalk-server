@@ -6,7 +6,7 @@ import { randomMaker } from "$/classes/RandomMaker";
 
 import { services } from "@/services";
 
-import { socketHelper } from "$/classes/SocketHelper";
+import { clientInitializer } from "$/classes/ClientInitializer";
 import { utilities } from "$/utilities";
 import { ClientSocket, UserMongo } from "@/types";
 
@@ -60,7 +60,7 @@ describe("logout success tests", () => {
 });
 
 describe("logout fail tests", () => {
-  const clientSocket = socketHelper.createClient();
+  const clientSocket = clientInitializer.createClient();
   const requester = utilities.requesters.logout(clientSocket);
 
   e2eFailTestInitializerHelper(requester)

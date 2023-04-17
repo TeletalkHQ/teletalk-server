@@ -12,7 +12,7 @@ import { UserMongo } from "@/types";
 
 import { utilities } from "$/utilities";
 
-import { socketHelper } from "$/classes/SocketHelper";
+import { clientInitializer } from "$/classes/ClientInitializer";
 import { FIELD_TYPE } from "$/variables/fieldType";
 import { models } from "@/models";
 
@@ -70,7 +70,7 @@ describe("add contact success tests", () => {
 });
 
 describe("addContact fail tests", () => {
-  const clientSocket = socketHelper.createClient();
+  const clientSocket = clientInitializer.createClient();
   const requester = utilities.requesters.addContactWithCellphone(clientSocket);
 
   const currentUserSignData = randomMaker.unusedCellphone();

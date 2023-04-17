@@ -2,9 +2,9 @@ import { expect } from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { socketHelper } from "$/classes/SocketHelper";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
@@ -65,7 +65,7 @@ describe("edit contact success tests", () => {
 });
 
 describe("editContact fail tests", () => {
-  const clientSocket = socketHelper.createClient();
+  const clientSocket = clientInitializer.createClient();
   const requester = utilities.requesters.editContact(clientSocket);
 
   const randomContact = randomMaker.unusedContact();

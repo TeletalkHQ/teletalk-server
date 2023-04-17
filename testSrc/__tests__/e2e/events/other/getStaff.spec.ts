@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { customTypeof } from "custom-typeof";
 
-import { socketHelper } from "$/classes/SocketHelper";
+import { clientInitializer } from "$/classes/ClientInitializer";
 
 import {
   NativeError,
@@ -16,7 +16,7 @@ import { FIELD_TYPE } from "$/variables/fieldType";
 
 describe("getAllStuff success tests", () => {
   it("should get all requirements for clients", async () => {
-    const clientSocket = socketHelper.createClient();
+    const clientSocket = clientInitializer.createClient();
     const requester = utilities.requesters.getStuff(clientSocket);
 
     const { data } = await requester.sendFullFeaturedRequest({

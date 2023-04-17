@@ -5,12 +5,13 @@
 .nyc_output
 .trashCan
 .vscode
+*.env
+*.md
+*.svg
+*.txt
+/lib
 build
 dist
 node_modules
 public
 thunder-tests
-*.md
-*.svg
-/lib
-*.txt

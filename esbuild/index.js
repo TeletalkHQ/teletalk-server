@@ -18,13 +18,13 @@ const appBuilder = ([key, value]) =>
     // tsconfig: "./tsconfig.json",
   });
 
-const testBuilder = ([key, value]) =>
-  build({
-    ...defaultOptions,
-    entryPoints: ["./test/index.js"],
-    outfile: `build/${key}/test.js`,
-    target: value,
-  });
+// const testBuilder = ([key, value]) =>
+//   build({
+//     ...defaultOptions,
+//     entryPoints: ["./testSrc/index.js"],
+//     outfile: `build/${key}/test.js`,
+//     target: value,
+//   });
 
 const calcNodeVersion = () => {
   return process.env.npm_config_user_agent

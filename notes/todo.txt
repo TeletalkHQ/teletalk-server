@@ -17,6 +17,7 @@ Make api for log server errors
 Monitor test requests (total requests, count each url)
 Monitor all configs when tests start. Give it a good look!
 AppSignal
+Mutation test tools
 
 CLEANME: index files
 FIXME public assets sharing

@@ -11,6 +11,5 @@ node_modules
 public
 thunder-tests
 *.md
-badge.svg
-tests.svg
+*.svg
 /lib

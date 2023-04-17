@@ -1,7 +1,7 @@
 import { expect } from "chai";
 
+import { clientInitializer } from "$/classes/ClientInitializer";
 import { requesterCreator } from "$/classes/Requester";
-import { socketHelper } from "$/classes/SocketHelper";
 
 import { ClientSocket, SocketRoute } from "@/types";
 
@@ -17,7 +17,7 @@ const createRequester = (socket: ClientSocket, route: SocketRoute) =>
   requesterCreator(socket, route);
 
 describe("notFound middleware fail test", () => {
-  const clientSocket = socketHelper.createClient();
+  const clientSocket = clientInitializer.createClient();
 
   const message = utilities.createFailTestMessage(
     errors.ROUTE_NOT_FOUND,

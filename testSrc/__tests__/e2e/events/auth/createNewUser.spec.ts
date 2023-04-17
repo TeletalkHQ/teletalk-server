@@ -1,8 +1,8 @@
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
+import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { socketHelper } from "$/classes/SocketHelper";
 import { authManager } from "@/classes/AuthManager";
 import { userUtilities } from "@/classes/UserUtilities";
 
@@ -33,7 +33,7 @@ describe("createNewUser success tests", () => {
 });
 
 describe("createNewUser fail tests", () => {
-  const clientSocket = socketHelper.createClient();
+  const clientSocket = clientInitializer.createClient();
   const requester = utilities.requesters.createNewUser(clientSocket);
   before(async () => {
     const cellphone = randomMaker.unusedCellphone();

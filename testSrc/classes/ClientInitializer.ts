@@ -6,7 +6,7 @@ import { ServerSocket } from "@/types";
 
 let serverSocket: ServerSocket;
 
-class SocketHelper {
+class ClientInitializer {
   static initialize(socket: ServerSocket) {
     serverSocket = socket;
   }
@@ -30,6 +30,6 @@ class SocketHelper {
   }
 }
 
-const socketHelper = new SocketHelper();
+const clientInitializer = new ClientInitializer();
 
-export { socketHelper };
+export { clientInitializer };

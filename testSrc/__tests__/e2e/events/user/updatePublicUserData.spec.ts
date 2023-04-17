@@ -1,7 +1,7 @@
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
+import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { socketHelper } from "$/classes/SocketHelper";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
@@ -38,7 +38,7 @@ describe("getCurrentUserData success tests", () => {
 });
 
 describe("getPublicUserData fail tests", () => {
-  const clientSocket = socketHelper.createClient();
+  const clientSocket = clientInitializer.createClient();
   const requester = utilities.requesters.updatePublicUserData(clientSocket);
 
   before(async () => {

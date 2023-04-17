@@ -5,9 +5,9 @@ import {
   assertionInitializerHelper,
 } from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
+import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { socketHelper } from "$/classes/SocketHelper";
 import { authManager } from "@/classes/AuthManager";
 import { temporaryClients } from "@/classes/TemporaryClients";
 import { userUtilities } from "@/classes/UserUtilities";
@@ -60,7 +60,7 @@ describe("signIn success test", () => {
 
 describe("signIn fail test", () => {
   const signInCellphone = randomMaker.unusedCellphone();
-  const clientSocket = socketHelper.createClient();
+  const clientSocket = clientInitializer.createClient();
   const requester = utilities.requesters.signIn(clientSocket);
 
   e2eFailTestInitializerHelper(requester)

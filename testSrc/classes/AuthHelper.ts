@@ -1,4 +1,4 @@
-import { socketHelper } from "$/classes/SocketHelper";
+import { clientInitializer } from "$/classes/ClientInitializer";
 import { temporaryClients } from "@/classes/TemporaryClients";
 
 import {
@@ -19,7 +19,7 @@ class AuthHelper {
   private verifyResponse: SocketResponse;
 
   constructor(private cellphone: Cellphone, private fullName?: FullName) {
-    this.clientSocket = socketHelper.createClient();
+    this.clientSocket = clientInitializer.createClient();
   }
 
   async signIn() {

@@ -9,8 +9,6 @@ import "@/helpers/requireDotenv";
 
 import PrettyError from "pretty-error";
 
-import http from "http";
-
 import { appConfigs } from "@/classes/AppConfigs";
 import { envManager } from "@/classes/EnvironmentManager";
 
@@ -18,7 +16,9 @@ import { requirements } from "@/requirements";
 
 import { websocketServer } from "@/servers/websocket";
 
+import { helpers } from "@/helpers";
 import { utilities } from "@/utilities";
+import { crateHttpServer } from "./http";
 
 PrettyError.start();
 
@@ -26,7 +26,7 @@ const { NODE_ENV, PORT, PORT_DEFAULT, SELF_EXEC } = envManager.getEnvironment();
 
 const EXACT_PORT = PORT || PORT_DEFAULT;
 
-const serverListenerCb = () => {
+const listeningListener = () => {
   logger.info(
     `Server is running in ${NODE_ENV} mode on port ${
       appConfigs.getConfigs().server.exactPort
@@ -57,9 +57,10 @@ const runner = async () => {
   // for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
   // } else {
   await requirements.database();
-  const httpServer = http.createServer();
+
+  const httpServer = crateHttpServer(helpers.clientIdGenerator);
+  httpServer.listen(EXACT_PORT, listeningListener);
   websocketServer(httpServer);
-  httpServer.listen(EXACT_PORT, serverListenerCb);
 
   // logger.debug(`Worker ${process.pid} started`);
 

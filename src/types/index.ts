@@ -64,6 +64,7 @@ type SocketMiddlewareEvent = string | string[];
 type CreatedAt = number;
 
 interface Environments {
+  CLIENT_ID_LENGTH: number;
   LOG_LEVEL: string;
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;

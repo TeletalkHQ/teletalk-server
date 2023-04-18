@@ -1,16 +1,15 @@
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { authManager } from "@/classes/AuthManager";
 import { userUtilities } from "@/classes/UserUtilities";
 
+import { helpers } from "$/helpers";
+
 import { services } from "@/services";
 
 import { Cellphone, FullName, Session, UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
@@ -24,7 +23,7 @@ describe("createNewUser success tests", () => {
     const { token } = helper.getResponses().create.data;
     await testCreatedUserSession(token);
 
-    const { data } = await utilities.requesters
+    const { data } = await helpers.requesters
       .getCurrentUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 
@@ -32,23 +31,21 @@ describe("createNewUser success tests", () => {
   });
 });
 
-describe("createNewUser fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.createNewUser(clientSocket);
-  before(async () => {
-    const cellphone = randomMaker.unusedCellphone();
-    const helper = authHelper(cellphone);
-    await helper.signIn();
-    await helper.verify();
-    requester.setSocket(helper.getClientSocket());
-  });
+await helpers.asyncDescribe("createNewUser fail tests", async () => {
+  const cellphone = randomMaker.unusedCellphone();
+  const helper = authHelper(cellphone);
+  await helper.signIn();
+  await helper.verify();
+  const requester = helpers.requesters.createNewUser(helper.getClientSocket());
 
-  const fullName = randomMaker.fullName();
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input(fullName)
-    .firstName(fullName)
-    .lastName(fullName);
+  return () => {
+    const fullName = randomMaker.fullName();
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input(fullName)
+      .firstName(fullName)
+      .lastName(fullName);
+  };
 });
 
 const testCreatedUserSession = async (token: string) => {

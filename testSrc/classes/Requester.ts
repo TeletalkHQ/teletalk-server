@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import chai from "chai";
 import { IoFields } from "check-fields";
 import { objectUtilities } from "utility-store";
 import { Socket as Client } from "socket.io-client";
@@ -172,7 +172,7 @@ class Requester {
   checkOk() {
     const requestOk = this.getError() ? false : true;
     const responseOk = this.getResponse().ok;
-    expect(responseOk).to.be.equal(requestOk);
+    chai.expect(responseOk).to.be.equal(requestOk);
     return this;
   }
 
@@ -189,7 +189,7 @@ class Requester {
     const { key, reason } = error;
     const errors = this.getResponse().data.errors as SocketResponseErrors;
 
-    expect(errors[key]?.reason).to.be.equal(reason);
+    chai.expect(errors[key]?.reason).to.be.equal(reason);
 
     return this;
   }

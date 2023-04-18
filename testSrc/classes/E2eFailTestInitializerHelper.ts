@@ -34,7 +34,7 @@ class E2eFailTestInitializerHelper {
   inputMissing = this.initializer("inputMissing");
   inputOverload = this.initializer("inputOverload");
   lastName = this.initializer("lastName");
-  message = this.initializer("messageText");
+  messageText = this.initializer("messageText");
   participantId = this.initializer("participantId");
   phoneNumber = this.initializer("phoneNumber");
   selfStuff = this.initializer("selfStuff");

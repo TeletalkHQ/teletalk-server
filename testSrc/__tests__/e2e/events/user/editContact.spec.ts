@@ -1,17 +1,16 @@
-import { expect } from "chai";
+import chai from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";
 
+import { helpers } from "$/helpers";
+
 import { services } from "@/services";
 
 import { Contact, UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 describe("edit contact success tests", () => {
   it("should edit users in contacts", async () => {
@@ -21,12 +20,12 @@ describe("edit contact success tests", () => {
     const addingContacts = await createContacts(contactsLength);
 
     const addContactWithCellphoneRequester =
-      utilities.requesters.addContactWithCellphone(socket);
+      helpers.requesters.addContactWithCellphone(socket);
     for (const contact of addingContacts) {
       await addContactWithCellphoneRequester.sendFullFeaturedRequest(contact);
     }
 
-    const editContactRequester = utilities.requesters.editContact(socket);
+    const editContactRequester = helpers.requesters.editContact(socket);
     for (const addingContact of addingContacts) {
       const fullName = randomMaker.fullName();
       const sendingData = {
@@ -64,34 +63,28 @@ describe("edit contact success tests", () => {
   });
 });
 
-describe("editContact fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.editContact(clientSocket);
-
-  const randomContact = randomMaker.unusedContact();
-
-  const data = {
-    self: {
-      ...randomMaker.fullName(),
-      userId: "",
-    },
+await helpers.asyncDescribe("editContact fail tests", async () => {
+  const { requester, user } = await helpers.setupRequester(
+    helpers.requesters.editContact
+  );
+  const selfStuffData = {
+    ...randomMaker.fullName(),
+    userId: user.userId,
   };
 
-  before(async () => {
-    const { socket, user } = await randomMaker.user();
-    requester.setSocket(socket);
-    data.self.userId = user.userId;
-  });
+  return () => {
+    const randomContact = randomMaker.unusedContact();
 
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input(randomContact)
-    .checkCurrentUserStatus(randomContact)
-    .firstName(randomContact)
-    .lastName(randomContact)
-    .userId(randomContact)
-    .selfStuff(data.self)
-    .contactItemNotExist(randomContact);
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input(randomContact)
+      .checkCurrentUserStatus(randomContact)
+      .firstName(randomContact)
+      .lastName(randomContact)
+      .userId(randomContact)
+      .selfStuff(selfStuffData)
+      .contactItemNotExist(randomContact);
+  };
 });
 
 const createContacts = async (length: number) => {
@@ -111,9 +104,9 @@ const testNonEditedContacts = (
     (i) => i.userId !== sendingData.userId
   );
 
-  expect(filterNonEditedCurrentUserContacts.length).to.be.equal(
-    filterNonEditedContacts.length
-  );
+  chai
+    .expect(filterNonEditedCurrentUserContacts.length)
+    .to.be.equal(filterNonEditedContacts.length);
 
   filterNonEditedContacts.forEach((contactItem) => {
     const foundCurrentUserContactItem = filterNonEditedCurrentUserContacts.find(

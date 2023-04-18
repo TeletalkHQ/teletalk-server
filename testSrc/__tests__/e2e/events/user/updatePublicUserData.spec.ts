@@ -1,14 +1,13 @@
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";
 
+import { helpers } from "$/helpers";
+
 import { services } from "@/services";
 
 import { PublicUserData, UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 describe("getCurrentUserData success tests", () => {
   it("should get currentUser data", async () => {
@@ -17,7 +16,7 @@ describe("getCurrentUserData success tests", () => {
     for (const { socket, user } of users) {
       const data = randomMaker.publicUserData();
 
-      const requester = utilities.requesters.updatePublicUserData(socket);
+      const requester = helpers.requesters.updatePublicUserData(socket);
       const {
         data: { publicUserData: publicDataFromEvent },
       } = await requester.sendFullFeaturedRequest(data);
@@ -37,25 +36,23 @@ describe("getCurrentUserData success tests", () => {
   });
 });
 
-describe("getPublicUserData fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.updatePublicUserData(clientSocket);
+await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
+  const { requester } = await helpers.setupRequester(
+    helpers.requesters.updatePublicUserData
+  );
 
-  before(async () => {
-    const { socket } = await randomMaker.user();
-    requester.setSocket(socket);
-  });
+  return () => {
+    const { status, ...updatablePublicData } = randomMaker.publicUserData();
 
-  const { status, ...updatablePublicData } = randomMaker.publicUserData();
-
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input(updatablePublicData)
-    .checkCurrentUserStatus(updatablePublicData)
-    .bio(updatablePublicData)
-    .firstName(updatablePublicData)
-    .lastName(updatablePublicData)
-    .username(updatablePublicData);
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input(updatablePublicData)
+      .checkCurrentUserStatus(updatablePublicData)
+      .bio(updatablePublicData)
+      .firstName(updatablePublicData)
+      .lastName(updatablePublicData)
+      .username(updatablePublicData);
+  };
 });
 
 const testPublicUserData = (

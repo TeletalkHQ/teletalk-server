@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import chai from "chai";
 
 import { authHelper } from "$/classes/AuthHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
@@ -7,8 +7,9 @@ import { randomMaker } from "$/classes/RandomMaker";
 import { services } from "@/services";
 
 import { clientInitializer } from "$/classes/ClientInitializer";
-import { utilities } from "$/utilities";
+
 import { ClientSocket, UserMongo } from "@/types";
+import { helpers } from "$/helpers";
 
 describe("logout success tests", () => {
   it("should get response.ok:true logging out user", async () => {
@@ -37,33 +38,35 @@ describe("logout success tests", () => {
     const popUser = users.pop();
 
     // const response =
-    await utilities.requesters
+    await helpers.requesters
       .logout(popUser?.socket as ClientSocket)
       .sendFullFeaturedRequest();
 
-    // expect(response.ok).to.be.true;
+    // chai.expect(response.ok).to.be.true;
 
     const user = (await services.findOneUser(cellphone)) as UserMongo;
 
     const isSessionExist = user.sessions.some(
       ({ token }) => token === popUser?.token
     );
-    expect(isSessionExist).to.be.false;
+    chai.expect(isSessionExist).to.be.false;
 
-    expect(users.length).to.be.equal(user.sessions.length);
+    chai.expect(users.length).to.be.equal(user.sessions.length);
 
     users.forEach((item) => {
       const isSessionExist = user.sessions.some((i) => i.token === item.token);
-      expect(isSessionExist).to.be.true;
+      chai.expect(isSessionExist).to.be.true;
     });
   });
 });
 
-describe("logout fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.logout(clientSocket);
+await helpers.asyncDescribe("logout fail tests", async () => {
+  const clientSocket = await clientInitializer.createClient();
+  const requester = helpers.requesters.logout(clientSocket);
 
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .checkCurrentUserStatus();
+  return () => {
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .checkCurrentUserStatus();
+  };
 });

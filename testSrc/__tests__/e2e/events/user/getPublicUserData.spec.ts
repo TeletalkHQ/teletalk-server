@@ -1,9 +1,8 @@
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
-import { utilities } from "$/utilities";
+import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
@@ -12,7 +11,7 @@ import { PublicUserData, UserMongo } from "@/types";
 describe("getCurrentUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
-    const requester = utilities.requesters.getPublicUserData(socket);
+    const requester = helpers.requesters.getPublicUserData(socket);
 
     const users = await randomMaker.users(10);
 
@@ -60,21 +59,20 @@ const testPublicUserData = (
     });
 };
 
-describe("getPublicUserData fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.getPublicUserData(clientSocket);
-  before(async () => {
-    const { socket } = await randomMaker.user();
-    requester.setSocket(socket);
-  });
+await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
+  const { requester } = await helpers.setupRequester(
+    helpers.requesters.getPublicUserData
+  );
 
-  const data = {
-    userId: randomMaker.id(),
+  return () => {
+    const data = {
+      userId: randomMaker.id(),
+    };
+
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input(data)
+      .checkCurrentUserStatus(data)
+      .userId(data);
   };
-
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input(data)
-    .checkCurrentUserStatus(data)
-    .userId(data);
 });

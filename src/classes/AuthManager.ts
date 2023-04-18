@@ -1,7 +1,7 @@
-import JWT from "jsonwebtoken";
-import { Socket } from "socket.io";
-import { trier } from "simple-trier";
 import cookie from "cookie";
+import JWT from "jsonwebtoken";
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
@@ -97,7 +97,6 @@ class AuthManager {
   }
   getSecrets() {
     return {
-      //TODO: Rename
       SESSION_MAIN_SECRET: this.getMainSecret(),
       SESSION_SIGN_IN_SECRET: this.getSignInSecret(),
     };

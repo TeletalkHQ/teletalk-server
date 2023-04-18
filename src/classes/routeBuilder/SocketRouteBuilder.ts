@@ -8,7 +8,6 @@ class SocketRouteBuilder extends RouteBuilder {
   constructor() {
     super();
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.route = {
       method: "customOn",

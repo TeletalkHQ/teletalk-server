@@ -1,24 +1,23 @@
-import { expect } from "chai";
+import chai from "chai";
 
 import {
   AssertionInitializerHelper,
   assertionInitializerHelper,
 } from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { authManager } from "@/classes/AuthManager";
 import { temporaryClients } from "@/classes/TemporaryClients";
 import { userUtilities } from "@/classes/UserUtilities";
 
+import { helpers } from "$/helpers";
+
 import { models } from "@/models";
 
 import { services } from "@/services";
 
 import { Session, TemporaryClient, UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 describe("verifySignIn success test", () => {
   it("should sign and verify as new user", async () => {
@@ -28,7 +27,7 @@ describe("verifySignIn success test", () => {
     const helper = authHelper(cellphone, fullName);
     await helper.signIn();
     await helper.verify();
-    expect(helper.getResponses().verify.data.newUser).to.be.equal(true);
+    chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(true);
 
     const tokenId = authManager.getTokenId(
       helper.getResponses().signIn.data.token,
@@ -36,7 +35,7 @@ describe("verifySignIn success test", () => {
     );
 
     const client = (await temporaryClients.find(tokenId)) as TemporaryClient;
-    expect(client.isVerified).to.be.equal(true);
+    chai.expect(client.isVerified).to.be.equal(true);
   });
 
   it("should verify as exist user", async () => {
@@ -54,7 +53,7 @@ describe("verifySignIn success test", () => {
       await helper.signIn();
       await helper.verify();
 
-      expect(helper.getResponses().verify.data.newUser).to.be.equal(false);
+      chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(false);
 
       sessions.push(helper.getResponses().verify.data.token);
       const assertHelper = assertionInitializerHelper();
@@ -66,36 +65,33 @@ describe("verifySignIn success test", () => {
 
     const user = (await services.findOneUser(cellphone)) as UserMongo;
 
-    expect(sessions.length).to.be.equal(user.sessions.length);
+    chai.expect(sessions.length).to.be.equal(user.sessions.length);
 
     sessions.forEach((item) => {
       const isTokenExist = user.sessions.some(({ token }) => token === item);
-      expect(isTokenExist).to.be.true;
+      chai.expect(isTokenExist).to.be.true;
     });
   });
 });
 
-describe("verifySignIn fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.verify(clientSocket);
+await helpers.asyncDescribe("verifySignIn fail tests", async () => {
+  const cellphone = randomMaker.unusedCellphone();
+  const helper = authHelper(cellphone);
+  await helper.signIn();
+  const requester = helpers.requesters.verify(helper.getClientSocket());
 
-  before(async () => {
-    const cellphone = randomMaker.unusedCellphone();
-    const helper = authHelper(cellphone);
-    await helper.signIn();
-    requester.setSocket(helper.getClientSocket());
-  });
+  return () => {
+    const data = {
+      verificationCode: randomMaker.string(
+        models.native.user.verificationCode.length.value
+      ),
+    };
 
-  const data = {
-    verificationCode: randomMaker.string(
-      models.native.user.verificationCode.length.value
-    ),
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input(data)
+      .verificationCode(data);
   };
-
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input(data)
-    .verificationCode(data);
 });
 
 const testUserSession = async (

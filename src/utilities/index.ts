@@ -1,5 +1,5 @@
+//@ts-ignore
 import generatePassword from "generate-password";
-import { isArray } from "lodash";
 import { Socket } from "socket.io";
 
 import { envManager } from "@/classes/EnvironmentManager";
@@ -15,7 +15,7 @@ import {
 
 type Url = string | string[];
 const isUrlMatchWithReqUrl = (url: Url, reqUrl: string) =>
-  (isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
+  (Array.isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
 
 const crashServer = (message: unknown) => {
   logger.error(message);

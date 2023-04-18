@@ -4,7 +4,7 @@
 // import { setupPrimary, createAdapter } from "@socket.io/cluster-adapter";
 // import { Server } from "socket.io";
 
-import "@/configs/customGlobals";
+import "@/configs/customGlobals.ts";
 import "@/helpers/requireDotenv";
 
 import PrettyError from "pretty-error";
@@ -12,13 +12,13 @@ import PrettyError from "pretty-error";
 import { appConfigs } from "@/classes/AppConfigs";
 import { envManager } from "@/classes/EnvironmentManager";
 
+import { helpers } from "@/helpers";
+
 import { requirements } from "@/requirements";
 
+import { crateHttpServer } from "@/servers/http";
 import { websocketServer } from "@/servers/websocket";
 
-import { helpers } from "@/helpers";
-import { utilities } from "@/utilities";
-import { crateHttpServer } from "./http";
 
 PrettyError.start();
 
@@ -38,7 +38,7 @@ const runner = async () => {
   // if (cluster.isPrimary) {
   await appConfigs.setup();
 
-  utilities.logEnvironments();
+  // utilities.logEnvironments();
 
   // const NUM_WORKERS = os.cpus().length;
 

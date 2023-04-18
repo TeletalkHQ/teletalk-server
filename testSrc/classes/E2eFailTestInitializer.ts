@@ -2,10 +2,10 @@ import { randomMaker } from "utility-store";
 
 import { Requester } from "$/classes/Requester";
 
+import { helpers } from "$/helpers";
+
 import { RequesterOptions } from "$/types";
 import { FieldType, NativeError, NativeModel } from "@/types";
-
-import { utilities } from "$/utilities";
 
 import { errors } from "@/variables/errors";
 
@@ -92,7 +92,7 @@ class E2eFailTestInitializer {
   }
 
   initTest(data: any, error: NativeError, options?: Partial<RequesterOptions>) {
-    const message = utilities.createFailTestMessage(
+    const message = helpers.createFailTestMessage(
       error,
       this.configuredRequester.getRoute()
     );

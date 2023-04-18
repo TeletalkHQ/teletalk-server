@@ -10,7 +10,6 @@ abstract class RouteBuilder {
   protected route: Route;
 
   constructor() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     this.route = {};
   }

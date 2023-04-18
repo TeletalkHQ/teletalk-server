@@ -1,22 +1,21 @@
-import { expect } from "chai";
+import chai from "chai";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
+
+import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
 import { BlackListItem, UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 import { FIELD_TYPE } from "$/variables/fieldType";
 
 describe("addBlock successful tests", () => {
   it("should add users to blacklist", async () => {
     const { socket, user } = await randomMaker.user();
-    const requester = utilities.requesters.addBlock(socket);
+    const requester = helpers.requesters.addBlock(socket);
 
     const blacklistLength = 10;
     for (let i = 0; i < blacklistLength; i++) {
@@ -38,52 +37,41 @@ describe("addBlock successful tests", () => {
       user.userId
     )) as UserMongo;
 
-    expect(blacklist).to.be.an(FIELD_TYPE.ARRAY);
-    expect(blacklist.length).to.be.equal(blacklistLength);
+    chai.expect(blacklist).to.be.an(FIELD_TYPE.ARRAY);
+    chai.expect(blacklist.length).to.be.equal(blacklistLength);
   });
 });
 
-describe("addBlock fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.addBlock(clientSocket);
+await helpers.asyncDescribe("addBlock fail tests", async () => {
+  const { user: currentUser, requester } = await helpers.setupRequester(
+    helpers.requesters.addBlock
+  );
 
-  const currentUserSignData = randomMaker.unusedCellphone();
-  const targetUserSignData = randomMaker.unusedCellphone();
-
-  before(async () => {
-    const { socket, user: currentUser } = await randomMaker.user(
-      currentUserSignData
-    );
-    requester.setSocket(socket);
-    data.selfStuffData.userId = currentUser.userId;
-
-    const { user: targetUser } = await randomMaker.user(targetUserSignData);
-    data.blockedUser.userId = targetUser.userId;
-
-    await requester.sendFullFeaturedRequest({ userId: targetUser.userId });
-  });
-
-  const cellphone = randomMaker.unusedCellphone();
-
-  const data = {
-    blockedUser: {
-      userId: "",
-    },
-    selfStuffData: {
-      userId: "",
-    },
+  const selfStuffData = {
+    userId: currentUser.userId,
   };
 
-  const randomUserId = randomMaker.userId();
+  const targetUserSignData = randomMaker.unusedCellphone();
+  const { user: targetUser } = await randomMaker.user(targetUserSignData);
+  const blockedUserData = {
+    userId: targetUser.userId,
+  };
 
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input({ userId: randomUserId })
-    .checkCurrentUserStatus(cellphone)
-    .selfStuff(data.selfStuffData)
-    .userId({ userId: randomUserId })
-    .targetUserNotExist({ userId: randomUserId })
-    .blacklistItemExist(data.blockedUser);
+  await requester.sendFullFeaturedRequest({ userId: targetUser.userId });
+
+  return () => {
+    const cellphone = randomMaker.unusedCellphone();
+    const randomUserId = randomMaker.userId();
+
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input({ userId: randomUserId })
+      .checkCurrentUserStatus(cellphone)
+      .selfStuff(selfStuffData)
+      .userId({ userId: randomUserId })
+      .targetUserNotExist({ userId: randomUserId })
+      .blacklistItemExist(blockedUserData);
+  };
 });
 
 const testAddBlockResponse = async (data: {
@@ -102,7 +90,7 @@ const testAddBlockResponse = async (data: {
 
 const testTargetUserBlacklist = async (targetUserId: string) => {
   const blacklist = await findBlacklist(targetUserId);
-  expect(blacklist).to.be.an(FIELD_TYPE.ARRAY).and.to.be.empty;
+  chai.expect(blacklist).to.be.an(FIELD_TYPE.ARRAY).and.to.be.empty;
   return blacklist;
 };
 

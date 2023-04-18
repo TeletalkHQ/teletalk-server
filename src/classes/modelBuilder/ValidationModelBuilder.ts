@@ -19,7 +19,6 @@ class ValidationModelBuilder {
   private validationRuleObject: ValidationRuleObject;
 
   constructor() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     this.validationRuleObject = {
       messages: {},

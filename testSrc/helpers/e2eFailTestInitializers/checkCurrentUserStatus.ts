@@ -1,4 +1,4 @@
-// import { expect } from "chai";
+// import chai from "chai";
 
 // import { authManager } from "@/classes/AuthManager";
 // import { randomMaker } from "$/classes/RandomMaker";
@@ -7,7 +7,7 @@
 
 import { E2eFailTestInitializer } from "$/types";
 
-// import { utilities } from "$/utilities";
+//
 
 // import { errors } from "@/variables/errors";
 
@@ -19,7 +19,7 @@ const checkCurrentUserStatusE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
   // const error = errors.CURRENT_USER_NOT_EXIST;
   // it(
-  //   utilities.createFailTestMessage(
+  //   helpers.createFailTestMessage(
   //     errors.CURRENT_USER_NOT_EXIST,
   //     configuredRequester.getRoute()
   //   ),
@@ -35,12 +35,12 @@ const checkCurrentUserStatusE2eFailTestInitializer: E2eFailTestInitializer = (
   //         token,
   //       }
   //     );
-  //     expect(error.reason).to.be.equal(body.errors[error.key].reason);
-  //     expect(body.errors[error.key].wrongTokenId).to.be.equal(wrongTokenId);
+  //     chai.expect(error.reason).to.be.equal(body.errors[error.key].reason);
+  //     chai.expect(body.errors[error.key].wrongTokenId).to.be.equal(wrongTokenId);
   //   }
   // );
   // it(
-  //   utilities.createFailTestMessage(
+  //   helpers.createFailTestMessage(
   //     errors.CURRENT_USER_NOT_EXIST,
   //     configuredRequester.getRoute()
   //   ),
@@ -53,8 +53,8 @@ const checkCurrentUserStatusE2eFailTestInitializer: E2eFailTestInitializer = (
   //       data,
   //       error
   //     );
-  //     expect(error.reason).to.be.equal(body.errors[error.key].reason);
-  //     expect(body.errors[error.key].isSessionExist).to.be.false;
+  //     chai.expect(error.reason).to.be.equal(body.errors[error.key].reason);
+  //     chai.expect(body.errors[error.key].isSessionExist).to.be.false;
   //   }
   // );
 };

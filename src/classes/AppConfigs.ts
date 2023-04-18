@@ -15,7 +15,7 @@ class AppConfigs {
       MONGO_URL: helpers.getMongoUrl(),
       MONGO_URL_FULL: helpers.makeMongoFullUrl(),
     },
-    server: { exactPort },
+    server: { exactPort, hostname: "localhost" },
   };
 
   async setup() {

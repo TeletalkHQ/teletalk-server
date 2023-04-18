@@ -8,7 +8,6 @@ import { localErrors } from "@/variables/errors/local";
 class ErrorBuilder {
   error: NativeError;
   constructor() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     this.error = {
       side: "client",

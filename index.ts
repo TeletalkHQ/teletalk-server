@@ -19,6 +19,8 @@ const NODE_VERSION =
 
 const BUILD_FOLDER_NAME = `node${NODE_VERSION.slice(0, 2)}`;
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
 const start = async () => {
   try {
     if (isProduction()) return await runProduction();
@@ -43,8 +45,7 @@ const runProduction = async () => {
 
 const runTest = async () => {
   const path = getTestServerPath();
-  const { requirements } = await getTestServerRequirements(path);
-
+  const requirements = await getTestServerRequirements(path);
   await runRequirements(requirements);
 
   run();
@@ -62,10 +63,11 @@ const getTestServerRequirements = async (path: string) => {
 };
 const runRequirements = async (requirements: any) => {
   await requirements.runner();
-  await requirements.testServer();
+  await requirements.resetDatabase();
+  await requirements.registerTestSuits();
 };
 
 const runDev = async () =>
-  (await import(path.join(__dirname, "src", "servers"))).runner();
+  (await import(path.join(__dirname, "src", "servers", "index"))).runner();
 
 start();

@@ -2,18 +2,18 @@ import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";
 
+import { helpers } from "$/helpers";
+
 import { services } from "@/services";
 
 import { UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 //TODO: Add fail tests
 
 describe("getCurrentUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
-    const requester = utilities.requesters.getCurrentUserData(socket);
+    const requester = helpers.requesters.getCurrentUserData(socket);
 
     for (let i = 0; i < 10; i++) {
       const {

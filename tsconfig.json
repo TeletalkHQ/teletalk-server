@@ -8,7 +8,9 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
-    "module": "CommonJS",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "traceResolution": false,
     "noImplicitReturns": true,
     "outDir": "./lib",
     "paths": {
@@ -27,10 +29,8 @@
   "exclude": ["node_modules"],
   "include": ["src/**/*.ts", "./index.ts", "testSrc/**/*.ts"],
   "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    },
-    "files": true,
-    "require": ["tsconfig-paths/register"]
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "files": true
   }
 }

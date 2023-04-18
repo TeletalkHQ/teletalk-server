@@ -24,6 +24,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "@cspell", "sonarjs", "unused-imports"],
   rules: {
+    "@typescript-eslint/ban-ts-comment": "off",
     "unused-imports/no-unused-imports": "warn",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",

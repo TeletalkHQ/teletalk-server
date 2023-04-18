@@ -1,15 +1,14 @@
-import { expect } from "chai";
+import chai from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";
 
-import { services } from "@/services";
+import { helpers } from "$/helpers";
 
-import { utilities } from "$/utilities";
+import { services } from "@/services";
 
 import { FIELD_TYPE } from "$/variables/fieldType";
 
@@ -24,7 +23,7 @@ describe("getContacts success tests", () => {
     );
 
     const addContactRequester =
-      utilities.requesters.addContactWithCellphone(socket);
+      helpers.requesters.addContactWithCellphone(socket);
 
     for (const contact of addingContacts) {
       await addContactRequester.sendFullFeaturedRequest(contact);
@@ -36,7 +35,7 @@ describe("getContacts success tests", () => {
 
     testContacts(addingContacts, savedContacts);
 
-    const getContactsRequester = utilities.requesters.getContacts(socket);
+    const getContactsRequester = helpers.requesters.getContacts(socket);
     const {
       data: { contacts: contactsFromEvent },
     } = await getContactsRequester.sendFullFeaturedRequest();
@@ -44,21 +43,24 @@ describe("getContacts success tests", () => {
   });
 });
 
-describe("getContacts fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.getContacts(clientSocket);
+helpers.asyncDescribe("getContacts fail tests", async () => {
+  const { requester } = await helpers.setupRequester(
+    helpers.requesters.getContacts
+  );
 
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .checkCurrentUserStatus();
+  return () => {
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .checkCurrentUserStatus();
+  };
 });
 
 const testContacts = (
   addingContacts: ContactWithCellphone[],
   savedContacts: ContactWithCellphone[]
 ) => {
-  expect(savedContacts).to.be.an(FIELD_TYPE.ARRAY);
-  expect(savedContacts.length).to.be.equal(addingContacts.length);
+  chai.expect(savedContacts).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(savedContacts.length).to.be.equal(addingContacts.length);
 
   addingContacts.forEach((i) => {
     const savedContact = savedContacts.find(

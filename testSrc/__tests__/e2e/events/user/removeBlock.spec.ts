@@ -1,15 +1,14 @@
-import { expect } from "chai";
+import chai from "chai";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
+
+import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
 import { UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 describe("removeContact successful test", () => {
   it("should add users to blacklist", async () => {
@@ -18,13 +17,13 @@ describe("removeContact successful test", () => {
 
     const { user: currentUser, socket } = await randomMaker.user();
 
-    const addBlockRequester = utilities.requesters.addBlock(socket);
+    const addBlockRequester = helpers.requesters.addBlock(socket);
 
     for (const userId of userIds) {
       await addBlockRequester.sendFullFeaturedRequest({ userId });
     }
 
-    const removeBlockRequester = utilities.requesters.removeBlock(socket);
+    const removeBlockRequester = helpers.requesters.removeBlock(socket);
 
     for (const blacklistItem of [...userIds]) {
       const {
@@ -46,31 +45,26 @@ describe("removeContact successful test", () => {
   });
 });
 
-describe("removeBlock fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.removeBlock(clientSocket);
+await helpers.asyncDescribe("removeBlock fail tests", async () => {
+  const { requester, user } = await helpers.setupRequester(
+    helpers.requesters.removeBlock
+  );
 
-  before(async () => {
-    const { socket, user } = await randomMaker.user();
-    requester.setSocket(socket);
-    data.selfStuffData.userId = user.userId;
-  });
+  return () => {
+    const selfStuffData = {
+      userId: user.userId,
+    };
 
-  const data = {
-    selfStuffData: {
-      userId: "",
-    },
+    const randomUserId = randomMaker.userId();
+
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input({ userId: randomUserId })
+      .checkCurrentUserStatus()
+      .selfStuff(selfStuffData)
+      .userId({ userId: randomUserId })
+      .blacklistItemNotExist({ userId: randomUserId });
   };
-
-  const randomUserId = randomMaker.userId();
-
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input({ userId: randomUserId })
-    // .checkCurrentUserStatus()
-    .selfStuff(data.selfStuffData)
-    .userId({ userId: randomUserId })
-    .blacklistItemNotExist({ userId: randomUserId });
 });
 
 const createUserIds = async (length: number) => {
@@ -83,20 +77,20 @@ const testBlacklistAfterRemoveOneItem = async (
   blacklist: string[]
 ) => {
   const blacklistAfterRemove = await findBlacklist(currentUserId);
-  expect(blacklistAfterRemove.length).to.be.equal(blacklist.length);
+  chai.expect(blacklistAfterRemove.length).to.be.equal(blacklist.length);
 
   blacklist.forEach((i) => {
     const foundUserId = blacklistAfterRemove.find(
       (j) => i === j.userId
     )?.userId;
 
-    expect(i).to.be.equal(foundUserId);
+    chai.expect(i).to.be.equal(foundUserId);
   });
 };
 
 const testBlacklistAfterRemoveAll = async (userId: string) => {
   const blacklistAfterRemoveAll = await findBlacklist(userId);
-  expect(blacklistAfterRemoveAll.length).to.be.equal(0);
+  chai.expect(blacklistAfterRemoveAll.length).to.be.equal(0);
 };
 
 const findBlacklist = async (userId: string) => {

@@ -1,8 +1,8 @@
 import { randomMaker } from "utility-store";
 
-import { E2eFailTestInitializer } from "$/types";
+import { helpers } from "$/helpers";
 
-import { utilities } from "$/utilities";
+import { E2eFailTestInitializer } from "$/types";
 
 import { errors } from "@/variables/errors";
 
@@ -11,7 +11,7 @@ const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
   data = {}
 ) => {
   it(
-    utilities.createFailTestMessage(
+    helpers.createFailTestMessage(
       errors.INPUT_FIELDS_OVERLOAD,
       configuredRequester.getRoute()
     ),

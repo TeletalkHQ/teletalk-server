@@ -2,7 +2,6 @@ import { Environments, NodeEnvValue } from "@/types";
 
 class EnvironmentManager {
   getEnvironment(): Environments {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     return process.env;
   }

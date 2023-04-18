@@ -1,6 +1,8 @@
 import { clientInitializer } from "$/classes/ClientInitializer";
 import { temporaryClients } from "@/classes/TemporaryClients";
 
+import { helpers } from "$/helpers";
+
 import {
   Cellphone,
   ClientSocket,
@@ -9,7 +11,6 @@ import {
   TemporaryClient,
 } from "@/types";
 
-import { utilities } from "$/utilities";
 import { authManager } from "@/classes/AuthManager";
 
 class AuthHelper {
@@ -18,12 +19,12 @@ class AuthHelper {
   private signInResponse: SocketResponse;
   private verifyResponse: SocketResponse;
 
-  constructor(private cellphone: Cellphone, private fullName?: FullName) {
-    this.clientSocket = clientInitializer.createClient();
-  }
+  constructor(private cellphone: Cellphone, private fullName?: FullName) {}
 
   async signIn() {
-    this.signInResponse = await utilities.requesters
+    this.clientSocket = await clientInitializer.createClient();
+
+    this.signInResponse = await helpers.requesters
       .signIn(this.clientSocket)
       .sendFullFeaturedRequest(this.cellphone);
 
@@ -39,7 +40,7 @@ class AuthHelper {
       clientId
     )) as TemporaryClient;
 
-    this.verifyResponse = await utilities.requesters
+    this.verifyResponse = await helpers.requesters
       .verify(this.clientSocket)
       .sendFullFeaturedRequest({
         verificationCode: temporaryClient.verificationCode,
@@ -49,7 +50,7 @@ class AuthHelper {
   }
 
   async create() {
-    this.createResponse = await utilities.requesters
+    this.createResponse = await helpers.requesters
       .createNewUser(this.clientSocket)
       .sendFullFeaturedRequest(this.fullName as FullName);
 

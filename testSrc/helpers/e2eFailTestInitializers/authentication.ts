@@ -4,7 +4,7 @@
 
 import { E2eFailTestInitializer } from "$/types";
 
-// import { utilities } from "$/utilities";
+//
 
 // import { errors } from "@/variables/errors";
 
@@ -17,7 +17,7 @@ const authenticationE2eFailTestInitializer: E2eFailTestInitializer = (
   // const mergeOptions = (token: any) => ({ token });
   // //TODO: Add tests for jwt parts
   // it(
-  //   utilities.createFailTestMessage(
+  //   helpers.createFailTestMessage(
   //     errors.TOKEN_REQUIRED,
   //     configuredRequester.getRoute()
   //   ),
@@ -30,7 +30,7 @@ const authenticationE2eFailTestInitializer: E2eFailTestInitializer = (
   //   }
   // );
   // it(
-  //   utilities.createFailTestMessage(
+  //   helpers.createFailTestMessage(
   //     errors.TOKEN_INVALID_TYPE,
   //     configuredRequester.getRoute()
   //   ),
@@ -43,7 +43,7 @@ const authenticationE2eFailTestInitializer: E2eFailTestInitializer = (
   //   }
   // );
   // it(
-  //   utilities.createFailTestMessage(
+  //   helpers.createFailTestMessage(
   //     errors.TOKEN_MAXLENGTH_REACH,
   //     configuredRequester.getRoute()
   //   ),
@@ -57,7 +57,7 @@ const authenticationE2eFailTestInitializer: E2eFailTestInitializer = (
   //   }
   // );
   // it(
-  //   utilities.createFailTestMessage(
+  //   helpers.createFailTestMessage(
   //     errors.TOKEN_MINLENGTH_REACH,
   //     configuredRequester.getRoute()
   //   ),

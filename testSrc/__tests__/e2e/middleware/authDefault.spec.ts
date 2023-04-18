@@ -1,10 +1,10 @@
-// import { expect } from "chai";
+// import chai from "chai";
 
 // import { requesterCreator } from "$/classes/Requester";
 
 // // import { arrayOfRoutes, ignoredRoutesForAuth } from "@/http/routes";
 
-// import { utilities } from "$/utilities";
+//
 
 // import { errors } from "@/variables/errors";
 // import { arrayOfRoutes } from "@/websocket/events";
@@ -20,7 +20,7 @@
 
 //       const { key } = errors.TOKEN_REQUIRED;
 //       if (responseErrors && responseErrors[key]) {
-//         expect(responseErrors[key].reason).not.equal(
+//         chai.expect(responseErrors[key].reason).not.equal(
 //           errors.TOKEN_REQUIRED.reason
 //         );
 //       }
@@ -35,7 +35,7 @@
 //   );
 
 //   for (const route of filteredIgnoredRoutes) {
-//     const message = utilities.createFailTestMessage(
+//     const message = helpers.createFailTestMessage(
 //       errors.TOKEN_REQUIRED,
 //       route.name
 //     );

@@ -1,8 +1,8 @@
-// import { expect } from "chai";
+// import chai from "chai";
 
 // import { requesterCreator } from "$/classes/Requester";
 
-// import { utilities } from "$/utilities";
+//
 
 // import { errors } from "@/variables/errors";
 // import { METHODS } from "@/variables/others/methods";
@@ -13,7 +13,7 @@
 //   const methods = Object.values(METHODS);
 
 //   for (const route of arrayOfRoutes) {
-//     const message = utilities.createFailTestMessage(
+//     const message = helpers.createFailTestMessage(
 //       errors.METHOD_NOT_ALLOWED,
 //       route.name
 //     );
@@ -42,7 +42,7 @@
 
 //       const { key } = errors.METHOD_NOT_ALLOWED;
 //       if (responseErrors && responseErrors[key]) {
-//         expect(responseErrors[key].reason).not.equal(
+//         chai.expect(responseErrors[key].reason).not.equal(
 //           errors.METHOD_NOT_ALLOWED.reason
 //         );
 //       }

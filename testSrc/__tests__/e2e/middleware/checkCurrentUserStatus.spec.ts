@@ -1,4 +1,4 @@
-// import { expect } from "chai";
+// import chai from "chai";
 // import { randomMaker } from "utility-store";
 
 // import { authManager } from "@/classes/AuthManager";
@@ -9,7 +9,7 @@
 
 // import { ClientSocket, SocketRoute } from "@/types";
 
-// import { utilities } from "$/utilities";
+//
 
 // import { errors } from "@/variables/errors";
 
@@ -39,7 +39,7 @@
 
 //   for (const route of filteredIgnoredRoutes) {
 //     it(
-//       utilities.createFailTestMessage(errors.TOKEN_REQUIRED, route),
+//       helpers.createFailTestMessage(errors.TOKEN_REQUIRED, route),
 //       async () => {
 //         const wrongUserId = randomMaker.string(
 //           userModel.userId.maxlength.value
@@ -58,14 +58,14 @@
 //           }
 //         );
 
-//         expect(body.errors[error.key].wrongUserId).to.be.equal(wrongUserId);
+//         chai.expect(body.errors[error.key].wrongUserId).to.be.equal(wrongUserId);
 //       }
 //     );
 //   }
 
 //   for (const route of filteredIgnoredRoutes) {
 //     it(
-//       utilities.createFailTestMessage(errors.TOKEN_REQUIRED, route),
+//       helpers.createFailTestMessage(errors.TOKEN_REQUIRED, route),
 //       async () => {
 //         const token = authManager.signToken({
 //           ...cellphone,
@@ -80,14 +80,14 @@
 //           }
 //         );
 
-//         expect(body.errors[error.key].isSessionExist).to.be.false;
+//         chai.expect(body.errors[error.key].isSessionExist).to.be.false;
 //       }
 //     );
 //   }
 
 //   for (const route of filteredIgnoredRoutes) {
 //     it(
-//       utilities.createFailTestMessage(errors.TOKEN_REQUIRED, route),
+//       helpers.createFailTestMessage(errors.TOKEN_REQUIRED, route),
 //       async () => {
 //         const wrongUserId = randomMaker.string(
 //           userModel.userId.maxlength.value

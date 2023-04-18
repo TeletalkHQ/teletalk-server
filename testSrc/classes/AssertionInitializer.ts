@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import chai from "chai";
 
 import { FieldType, NativeModel } from "@/types";
 
@@ -77,12 +77,14 @@ class AssertionInitializer {
   stringEquality() {
     this.addIf(this.options.stringEquality, () => {
       this.tests.push(() =>
-        expect(this.variables.equalValue.length).to.be.equal(
-          this.variables.testValue.length
-        )
+        chai
+          .expect(this.variables.equalValue.length)
+          .to.be.equal(this.variables.testValue.length)
       );
       this.tests.push(() =>
-        expect(this.variables.equalValue).to.be.equal(this.variables.testValue)
+        chai
+          .expect(this.variables.equalValue)
+          .to.be.equal(this.variables.testValue)
       );
     });
 
@@ -99,9 +101,9 @@ class AssertionInitializer {
 
   lengthCheck() {
     this.tests.push(() =>
-      expect(this.variables.testValue.length).to.be.equal(
-        +this.variables.modelLength
-      )
+      chai
+        .expect(this.variables.testValue.length)
+        .to.be.equal(+this.variables.modelLength)
     );
 
     return this;
@@ -110,9 +112,9 @@ class AssertionInitializer {
   typeCheck(customType?: FieldType) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue).to.be.an(
-          customType || this.variables.model.type.value
-        )
+        chai
+          .expect(this.variables.testValue)
+          .to.be.an(customType || this.variables.model.type.value)
       );
     });
 
@@ -120,7 +122,7 @@ class AssertionInitializer {
   }
 
   customTypeCheck(value: any, customType: FieldType) {
-    this.tests.push(() => expect(value).to.be.an(customType));
+    this.tests.push(() => chai.expect(value).to.be.an(customType));
 
     return this;
   }
@@ -129,7 +131,7 @@ class AssertionInitializer {
     this.addIf(this.options.modelCheck, () => {
       if (this.variables.model.empty.value === false)
         this.tests.push(() =>
-          expect(this.variables.testValue.length).to.be.greaterThan(0)
+          chai.expect(this.variables.testValue.length).to.be.greaterThan(0)
         );
     });
 
@@ -139,9 +141,9 @@ class AssertionInitializer {
   gteCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue.length).greaterThanOrEqual(
-          this.variables.modelMinLength
-        )
+        chai
+          .expect(this.variables.testValue.length)
+          .greaterThanOrEqual(this.variables.modelMinLength)
       );
     });
 
@@ -150,7 +152,7 @@ class AssertionInitializer {
   gtCheck(length: number) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue.length).to.be.greaterThan(length)
+        chai.expect(this.variables.testValue.length).to.be.greaterThan(length)
       );
     });
 
@@ -159,9 +161,9 @@ class AssertionInitializer {
   lteCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue.length).lessThanOrEqual(
-          this.variables.modelMaxLength
-        )
+        chai
+          .expect(this.variables.testValue.length)
+          .lessThanOrEqual(this.variables.modelMaxLength)
       );
     });
 
@@ -171,7 +173,7 @@ class AssertionInitializer {
   numericCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER)
+        chai.expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER)
       );
     });
     return this;

@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import chai from "chai";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
@@ -12,14 +12,15 @@ import {
   StringMap,
 } from "@/types";
 
-import { utilities } from "$/utilities";
+import { helpers } from "$/helpers";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 
 describe("send message success tests", () => {
   it("should start new chat and send message", async () => {
     const { socket, user: currentUser } = await randomMaker.user();
     const { user: targetUser } = await randomMaker.user();
 
-    const requester = utilities.requesters.sendPrivateMessage(socket);
+    const requester = helpers.requesters.sendPrivateMessage(socket);
 
     const messagesLength = 10;
     for (let i = 0; i < messagesLength; i++) {
@@ -43,28 +44,30 @@ describe("send message success tests", () => {
       targetUser.userId
     )) as HydratedPrivateChatMongo;
 
-    expect(chat.messages.length).to.be.equal(messagesLength);
+    chai.expect(chat.messages.length).to.be.equal(messagesLength);
   });
 });
 
-// describe("send message fail tests", () => {
-//   const requester = utilities.requesters.sendPrivateMessage();
-//   helpers.configureFailTestRequester(requester);
+await helpers.asyncDescribe("send message fail tests", async () => {
+  const { requester } = await helpers.setupRequester(
+    helpers.requesters.sendPrivateMessage
+  );
 
-//   const data = {
-//     message: randomMaker.string(10),
-//     participantId: randomMaker.id(),
-//   };
+  return () => {
+    const data = {
+      messageText: randomMaker.string(10),
+      participantId: randomMaker.id(),
+    };
 
-//   testHelper
-//     .createFailTest(requester)
-//     .authentication()
-//     .input(data)
-//     .checkCurrentUserStatus(data)
-//     .participantId(data)
-//     .message(data)
-//     .targetUserNotExist(data);
-// });
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input(data)
+      .checkCurrentUserStatus(data)
+      .participantId(data)
+      .messageText(data)
+      .targetUserNotExist(data);
+  };
+});
 
 const createMessage = (index: number) => `Hello! Im message #${index}`;
 

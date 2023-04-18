@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import chai from "chai";
 
 import {
   AssertionInitializerHelper,
@@ -12,9 +12,9 @@ import { authManager } from "@/classes/AuthManager";
 import { temporaryClients } from "@/classes/TemporaryClients";
 import { userUtilities } from "@/classes/UserUtilities";
 
-import { Cellphone, TemporaryClient } from "@/types";
+import { helpers } from "$/helpers";
 
-import { utilities } from "$/utilities";
+import { Cellphone, TemporaryClient } from "@/types";
 
 import { FIELD_TYPE } from "$/variables/fieldType";
 
@@ -58,16 +58,18 @@ describe("signIn success test", () => {
   });
 });
 
-describe("signIn fail test", () => {
+await helpers.asyncDescribe("signIn fail test", async () => {
   const signInCellphone = randomMaker.unusedCellphone();
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.signIn(clientSocket);
+  const clientSocket = await clientInitializer.createClient();
+  const requester = helpers.requesters.signIn(clientSocket);
 
-  e2eFailTestInitializerHelper(requester)
-    .input(signInCellphone)
-    .countryCode(signInCellphone)
-    .countryName(signInCellphone)
-    .phoneNumber(signInCellphone);
+  return () => {
+    e2eFailTestInitializerHelper(requester)
+      .input(signInCellphone)
+      .countryCode(signInCellphone)
+      .countryName(signInCellphone)
+      .phoneNumber(signInCellphone);
+  };
 });
 
 const testSavedTemporaryClient = async (
@@ -76,17 +78,14 @@ const testSavedTemporaryClient = async (
   cellphone: Cellphone
 ) => {
   const tokenId = authManager.getTokenId(token, authManager.getSignInSecret());
-
   const temporaryClient = (await temporaryClients.find(
     tokenId
   )) as TemporaryClient;
-
-  expect(temporaryClient).to.be.an(FIELD_TYPE.OBJECT);
-  expect(temporaryClient.countryCode).to.be.equal(cellphone.countryCode);
-  expect(temporaryClient.countryName).to.be.equal(cellphone.countryName);
-  expect(temporaryClient.phoneNumber).to.be.equal(cellphone.phoneNumber);
-  expect(temporaryClient.isVerified).to.be.equal(false);
-
+  chai.expect(temporaryClient).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(temporaryClient.countryCode).to.be.equal(cellphone.countryCode);
+  chai.expect(temporaryClient.countryName).to.be.equal(cellphone.countryName);
+  chai.expect(temporaryClient.phoneNumber).to.be.equal(cellphone.phoneNumber);
+  chai.expect(temporaryClient.isVerified).to.be.equal(false);
   builder.verificationCode({ testValue: temporaryClient.verificationCode });
 };
 

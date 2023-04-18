@@ -2,8 +2,10 @@ import { RandomMaker as RandomMakerMain } from "utility-store";
 
 import { authHelper } from "$/classes/AuthHelper";
 
+import { helpers } from "$/helpers";
+
 import { userModels } from "@/models/native/user";
-import { utilities } from "$/utilities";
+
 import { UserMongo } from "@/types";
 
 class RandomMaker extends RandomMakerMain {
@@ -33,7 +35,7 @@ class RandomMaker extends RandomMakerMain {
     const helper = authHelper(cellphone, fullName);
     await helper.createComplete();
 
-    const response = await utilities.requesters
+    const response = await helpers.requesters
       .getCurrentUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 

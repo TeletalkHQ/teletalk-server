@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import chai from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
@@ -6,13 +6,12 @@ import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHe
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";
 
+import { helpers } from "$/helpers";
+
 import { services } from "@/services";
 
 import { UserMongo } from "@/types";
 
-import { utilities } from "$/utilities";
-
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { FIELD_TYPE } from "$/variables/fieldType";
 import { models } from "@/models";
 
@@ -20,7 +19,7 @@ describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
     const { user: currentUser, socket } = await randomMaker.user();
     const addContactRequester =
-      utilities.requesters.addContactWithCellphone(socket);
+      helpers.requesters.addContactWithCellphone(socket);
 
     const contactsLength = 1;
     const users: UserMongo[] = [];
@@ -64,63 +63,56 @@ describe("add contact success tests", () => {
       currentUser.userId
     )) as UserMongo;
 
-    expect(contacts).to.be.an(FIELD_TYPE.ARRAY);
-    expect(contacts.length).to.be.equal(contactsLength);
+    chai.expect(contacts).to.be.an(FIELD_TYPE.ARRAY);
+    chai.expect(contacts.length).to.be.equal(contactsLength);
   });
 });
 
-describe("addContact fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.addContactWithCellphone(clientSocket);
-
+helpers.asyncDescribe("addContact fail tests", async () => {
   const currentUserSignData = randomMaker.unusedCellphone();
+  const { requester, user: currentUser } = await helpers.setupRequester(
+    helpers.requesters.addContactWithCellphone,
+    currentUserSignData
+  );
+  const selfStuffData = {
+    ...currentUserSignData,
+    ...randomMaker.fullName(),
+    userId: currentUser.userId,
+  };
+
   const targetUserSignData = randomMaker.unusedCellphone();
-
-  const data = {
-    addingContact: {
-      ...targetUserSignData,
-      ...randomMaker.fullName(),
-      userId: "",
-    },
-    selfStuffData: {
-      ...currentUserSignData,
-      ...randomMaker.fullName(),
-      userId: "",
-    },
+  const { user: targetUser } = await randomMaker.user(targetUserSignData);
+  const addingContactData = {
+    ...targetUserSignData,
+    ...randomMaker.fullName(),
+    userId: targetUser.userId,
   };
 
-  before(async () => {
-    const { socket, user } = await randomMaker.user(currentUserSignData);
-    requester.setSocket(socket);
-    data.selfStuffData.userId = user.userId;
+  await requester.sendFullFeaturedRequest(addingContactData);
 
-    const { user: targetUser } = await randomMaker.user(targetUserSignData);
-    data.addingContact.userId = targetUser.userId;
+  return () => {
+    const randomContact = {
+      ...randomMaker.unusedContactWithCellphone(
+        models.native.user.firstName.maxlength.value,
+        models.native.user.lastName.minlength.value
+      ),
+      userId: randomMaker.id(),
+    };
 
-    await requester.sendFullFeaturedRequest(data.addingContact);
-  });
-
-  const randomContact = {
-    ...randomMaker.unusedContactWithCellphone(
-      models.native.user.firstName.maxlength.value,
-      models.native.user.lastName.minlength.value
-    ),
-    userId: randomMaker.id(),
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input(randomContact)
+      .checkCurrentUserStatus(randomContact)
+      .cellphone(randomContact)
+      .countryCode(randomContact)
+      .countryName(randomContact)
+      .phoneNumber(randomContact)
+      .firstName(randomContact)
+      .lastName(randomContact)
+      .selfStuff(selfStuffData)
+      .contactItemExist(addingContactData)
+      .targetUserNotExist(randomContact);
   };
-
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input(randomContact)
-    .checkCurrentUserStatus(randomContact)
-    .cellphone(randomContact)
-    .countryCode(randomContact)
-    .countryName(randomContact)
-    .phoneNumber(randomContact)
-    .firstName(randomContact)
-    .lastName(randomContact)
-    .selfStuff(data.selfStuffData)
-    .contactItemExist(data.addingContact)
-    .targetUserNotExist(randomContact);
 });
 
 const testAddContactResponse = async (data: {
@@ -141,7 +133,7 @@ const testAddContactResponse = async (data: {
 
 const testTargetUserContacts = async (targetUserId: string) => {
   const targetUserContacts = await findContacts(targetUserId);
-  expect(targetUserContacts).an(FIELD_TYPE.ARRAY).and.to.be.empty;
+  chai.expect(targetUserContacts).an(FIELD_TYPE.ARRAY).and.to.be.empty;
 };
 
 const findSavedContact = async (

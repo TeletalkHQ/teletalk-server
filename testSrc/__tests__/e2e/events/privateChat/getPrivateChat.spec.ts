@@ -1,18 +1,17 @@
-import { expect } from "chai";
+import chai from "chai";
 import { Socket } from "socket.io-client";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
 import { privateChatModels } from "@/models/native/privateChat";
 
+import { helpers } from "$/helpers";
+
 import { services } from "@/services";
 
 import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 import { FIELD_TYPE } from "$/variables/fieldType";
 
@@ -25,7 +24,7 @@ describe("get messages success tests", () => {
     for (let i = 0; i < 10; i++) {
       const {
         data: { chatId },
-      } = await utilities.requesters
+      } = await helpers.requesters
         .sendPrivateMessage(socket)
         .sendFullFeaturedRequest({
           messageText,
@@ -37,23 +36,21 @@ describe("get messages success tests", () => {
   });
 });
 
-describe("getPrivateChat fail tests", () => {
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.getPrivateChat(clientSocket);
+await helpers.asyncDescribe("getPrivateChat fail tests", async () => {
+  const { requester } = await helpers.setupRequester(
+    helpers.requesters.getPrivateChat
+  );
 
-  before(async () => {
-    const { socket } = await randomMaker.user();
-    requester.setSocket(socket);
-  });
+  return () => {
+    const data = {
+      chatId: randomMaker.string(privateChatModels.chatId.maxlength.value),
+    };
 
-  const data = {
-    chatId: randomMaker.string(privateChatModels.chatId.maxlength.value),
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .checkCurrentUserStatus(data)
+      .chatId(data);
   };
-
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .checkCurrentUserStatus(data)
-    .chatId(data);
 });
 
 const testPrivateChat = async (
@@ -63,17 +60,21 @@ const testPrivateChat = async (
   targetUser: UserMongo
 ) => {
   const { privateChat } = await getPrivateChat(socket, chatId);
-  expect(privateChat).to.be.an(FIELD_TYPE.OBJECT);
-  expect(privateChat.participants).to.be.an(FIELD_TYPE.ARRAY);
-  expect(privateChat.participants).to.be.an(FIELD_TYPE.ARRAY).and.length(2);
+  chai.expect(privateChat).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(privateChat.participants).to.be.an(FIELD_TYPE.ARRAY);
+  chai
+    .expect(privateChat.participants)
+    .to.be.an(FIELD_TYPE.ARRAY)
+    .and.length(2);
 
   const privateChatFromDb = await findStoredPrivateChat(
     currentUser.userId,
     targetUser.userId
   );
-  expect(privateChatFromDb).to.be.an(FIELD_TYPE.OBJECT);
-  expect(privateChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY);
-  expect(privateChatFromDb.participants)
+  chai.expect(privateChatFromDb).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(privateChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY);
+  chai
+    .expect(privateChatFromDb.participants)
     .to.be.an(FIELD_TYPE.ARRAY)
     .and.length(2);
 
@@ -88,7 +89,7 @@ const testPrivateChat = async (
 };
 
 const getPrivateChat = async (socket: Socket, chatId: string) => {
-  const { data } = await utilities.requesters
+  const { data } = await helpers.requesters
     .getPrivateChat(socket)
     .sendFullFeaturedRequest({ chatId });
   return data;

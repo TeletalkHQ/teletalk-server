@@ -1,17 +1,16 @@
-import { expect } from "chai";
+import chai from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";
 
+import { helpers } from "$/helpers";
+
 import { services } from "@/services";
 
 import { UserMongo } from "@/types";
-
-import { utilities } from "$/utilities";
 
 describe("removeContact successful test", () => {
   it("should remove users from contacts", async () => {
@@ -20,13 +19,13 @@ describe("removeContact successful test", () => {
 
     const { socket, user: currentUser } = await randomMaker.user();
     const addContactRequester =
-      utilities.requesters.addContactWithCellphone(socket);
+      helpers.requesters.addContactWithCellphone(socket);
 
     for (const addingContact of addingContacts) {
       await addContactRequester.sendFullFeaturedRequest(addingContact);
     }
 
-    const removeContactRequester = utilities.requesters.removeContact(socket);
+    const removeContactRequester = helpers.requesters.removeContact(socket);
     for (const addingContact of [...addingContacts]) {
       const {
         data: { removedContact },
@@ -44,33 +43,27 @@ describe("removeContact successful test", () => {
   });
 });
 
-describe("removeContact fail tests", () => {
-  const cellphone = randomMaker.unusedCellphone();
-  const clientSocket = clientInitializer.createClient();
-  const requester = utilities.requesters.removeContact(clientSocket);
+await helpers.asyncDescribe("removeContact fail tests", async () => {
+  const { requester, user } = await helpers.setupRequester(
+    helpers.requesters.removeContact
+  );
 
-  before(async () => {
-    const { socket, user } = await randomMaker.user(cellphone);
-    requester.setSocket(socket);
-    data.selfStuff.userId = user.userId;
-  });
-
-  const data = {
-    selfStuff: {
-      userId: "",
-    },
-    random: {
+  return () => {
+    const selfStuffData = {
+      userId: user.userId,
+    };
+    const randomData = {
       userId: randomMaker.id(),
-    },
-  };
+    };
 
-  e2eFailTestInitializerHelper(requester)
-    .authentication()
-    .input(data.random)
-    .checkCurrentUserStatus(data.random)
-    .userId(data.random)
-    .selfStuff(data.selfStuff)
-    .contactItemNotExist(data.random);
+    e2eFailTestInitializerHelper(requester)
+      .authentication()
+      .input(randomData)
+      .checkCurrentUserStatus(randomData)
+      .userId(randomData)
+      .selfStuff(selfStuffData)
+      .contactItemNotExist(randomData);
+  };
 });
 
 const createContacts = async (length: number) => {
@@ -87,22 +80,24 @@ const testContactsAfterRemoveOneItem = async (
   addingContacts: ContactWithCellphone[]
 ) => {
   const nonRemovedContacts = await findContacts(currentUser.userId);
-  expect(nonRemovedContacts.length).to.be.equal(addingContacts.length);
+  chai.expect(nonRemovedContacts.length).to.be.equal(addingContacts.length);
 
   addingContacts.forEach((addingContact) => {
     const nonRemovedContact = nonRemovedContacts.find(
       (j) => addingContact.userId === j.userId
     ) as ContactWithCellphone;
 
-    expect(addingContact).to.be.deep.equal(
-      userUtilities.extractContactWithCellphone(nonRemovedContact)
-    );
+    chai
+      .expect(addingContact)
+      .to.be.deep.equal(
+        userUtilities.extractContactWithCellphone(nonRemovedContact)
+      );
   });
 };
 
 const testContactsAfterRemoveAll = async (userId: string) => {
   const contactsAfterRemoveAll = await findContacts(userId);
-  expect(contactsAfterRemoveAll.length).to.be.equal(0);
+  chai.expect(contactsAfterRemoveAll.length).to.be.equal(0);
 };
 
 const findContacts = async (userId: string) => {

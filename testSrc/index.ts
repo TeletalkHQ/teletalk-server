@@ -1,5 +1,3 @@
-import "module-alias/register";
-
 import "@/configs/customGlobals";
 import "@/helpers/requireDotenv";
 
@@ -8,41 +6,38 @@ import { User } from "@/models/database/mongoDb/User";
 
 import { runner } from "@/servers";
 
-//#region //? Routers =>
-// ? authRouter =>
-import "$/__tests__/e2e/events/auth/createNewUser.spec";
-// import "$/__tests__/e2e/routes/auth/logout.spec";
-import "$/__tests__/e2e/events/auth/signIn.spec";
-import "$/__tests__/e2e/events/auth/verify.spec";
-// ? privateChatRouter =>
-import "$/__tests__/e2e/events/privateChat/getPrivateChat.spec";
-import "$/__tests__/e2e/events/privateChat/getPrivateChats.spec";
-import "$/__tests__/e2e/events/privateChat/sendPrivateMessage.spec";
-// ? userRouter =>
-import "$/__tests__/e2e/events/user/addBlock.spec";
-import "$/__tests__/e2e/events/user/addContact.spec";
-import "$/__tests__/e2e/events/user/editContact.spec";
-import "$/__tests__/e2e/events/user/getContacts.spec";
-import "$/__tests__/e2e/events/user/getCurrentUserData.spec";
-import "$/__tests__/e2e/events/user/getPublicUserData.spec";
-import "$/__tests__/e2e/events/user/removeBlock.spec";
-import "$/__tests__/e2e/events/user/removeContact.spec";
-import "$/__tests__/e2e/events/user/updatePublicUserData.spec";
-// ? otherRouter =>
-//TODO: Add getCountries
-//TODO: Add getWelcomeMessage
-import "$/__tests__/e2e/events/other/getStaff.spec";
-// #endregion
+const registerTestSuits = async () => {
+  await import("$/__tests__/e2e/events/auth/createNewUser.spec");
+  // await import("$/__tests__/e2e/events/auth/logout.spec");
+  await import("$/__tests__/e2e/events/auth/signIn.spec");
+  await import("$/__tests__/e2e/events/auth/verify.spec");
 
-// #region //? middlewares =>
-import "$/__tests__/e2e/middleware/notFound.spec";
-// import "$/__tests__/e2e/middleware/requestMethodChecker.spec";
-// import "$/__tests__/e2e/middleware/authDefault.spec";
-import "$/__tests__/e2e/middleware/checkDataFields.spec";
-// import "$/__tests__/e2e/middleware/checkCurrentUserStatus.spec";
-// #endregion
+  await import("$/__tests__/e2e/events/privateChat/getPrivateChat.spec");
+  await import("$/__tests__/e2e/events/privateChat/getPrivateChats.spec");
+  await import("$/__tests__/e2e/events/privateChat/sendPrivateMessage.spec");
 
-const testServer = async () => {
+  await import("$/__tests__/e2e/events/user/addBlock.spec");
+  await import("$/__tests__/e2e/events/user/addContact.spec");
+  await import("$/__tests__/e2e/events/user/editContact.spec");
+  await import("$/__tests__/e2e/events/user/getContacts.spec");
+  await import("$/__tests__/e2e/events/user/getCurrentUserData.spec");
+  await import("$/__tests__/e2e/events/user/getPublicUserData.spec");
+  await import("$/__tests__/e2e/events/user/removeBlock.spec");
+  await import("$/__tests__/e2e/events/user/removeContact.spec");
+  await import("$/__tests__/e2e/events/user/updatePublicUserData.spec");
+
+  // //TODO: Add getCountries
+  // //TODO: Add getWelcomeMessage
+  await import("$/__tests__/e2e/events/other/getStaff.spec");
+
+  await import("$/__tests__/e2e/middleware/notFound.spec");
+  // // await import("$/__tests__/e2e/middleware/requestMethodChecker.spec");
+  // // await import("$/__tests__/e2e/middleware/authDefault.spec");
+  await import("$/__tests__/e2e/middleware/checkDataFields.spec");
+  // // await import("$/__tests__/e2e/middleware/checkCurrentUserStatus.spec");
+};
+
+const resetDatabase = async () => {
   await deleteAllUsers();
   await deleteAllPrivateChats();
 };
@@ -55,10 +50,9 @@ const deleteAllPrivateChats = async () => {
   await PrivateChat.deleteMany();
 };
 
-const data = {
-  requirements: {
-    runner,
-    testServer,
-  },
+const requirements = {
+  registerTestSuits,
+  resetDatabase,
+  runner,
 };
-export { data as requirements };
+export { requirements };

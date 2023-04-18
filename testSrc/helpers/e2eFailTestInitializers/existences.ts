@@ -1,6 +1,6 @@
-import { E2eFailTestInitializer } from "$/types";
+import { helpers } from "$/helpers";
 
-import { utilities } from "$/utilities";
+import { E2eFailTestInitializer } from "$/types";
 
 import { errors } from "@/variables/errors";
 
@@ -9,7 +9,7 @@ const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
   data
 ) => {
   it(
-    utilities.createFailTestMessage(
+    helpers.createFailTestMessage(
       errors.BLACKLIST_ITEM_NOT_EXIST,
       configuredRequester.getRoute()
     ),
@@ -27,7 +27,7 @@ const blacklistItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
   data
 ) => {
   it(
-    utilities.createFailTestMessage(
+    helpers.createFailTestMessage(
       errors.BLACKLIST_ITEM_EXIST,
       configuredRequester.getRoute()
     ),
@@ -45,7 +45,7 @@ const contactItemNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
   data
 ) => {
   it(
-    utilities.createFailTestMessage(
+    helpers.createFailTestMessage(
       errors.CONTACT_ITEM_NOT_EXIST,
       configuredRequester.getRoute()
     ),
@@ -62,7 +62,7 @@ const contactItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
   data
 ) => {
   it(
-    utilities.createFailTestMessage(
+    helpers.createFailTestMessage(
       errors.CONTACT_ITEM_EXIST,
       configuredRequester.getRoute()
     ),
@@ -80,7 +80,7 @@ const targetUserNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
   data
 ) => {
   it(
-    utilities.createFailTestMessage(
+    helpers.createFailTestMessage(
       errors.TARGET_USER_NOT_EXIST,
       configuredRequester.getRoute()
     ),

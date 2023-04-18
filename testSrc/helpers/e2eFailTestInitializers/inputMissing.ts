@@ -1,6 +1,6 @@
 import { E2eFailTestInitializer } from "$/types";
 
-import { utilities } from "$/utilities";
+import { helpers } from "$/helpers";
 
 import { errors } from "@/variables/errors";
 
@@ -9,7 +9,7 @@ const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
   data = {}
 ) => {
   it(
-    utilities.createFailTestMessage(
+    helpers.createFailTestMessage(
       errors.INPUT_FIELDS_MISSING,
       configuredRequester.getRoute()
     ),

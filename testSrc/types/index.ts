@@ -1,4 +1,8 @@
+import { Socket } from "socket.io-client";
+
 import { Requester } from "$/classes/Requester";
+
+export type RequesterCreator = (socketClient: Socket) => Requester;
 
 type E2eFailTestInitializer = (
   configuredRequester: Requester,

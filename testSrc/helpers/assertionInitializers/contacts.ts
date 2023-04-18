@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import chai from "chai";
 
 import { oneContactAssertionInitializer } from "$/helpers/assertionInitializers/oneContact";
 
@@ -16,7 +16,7 @@ const contactsAssertionInitializer: AssertionInitializer = ({
       (c: Contact) => c.userId === contact.userId
     );
 
-    expect(responseContact).to.be.an(FIELD_TYPE.OBJECT);
+    chai.expect(responseContact).to.be.an(FIELD_TYPE.OBJECT);
 
     oneContactAssertionInitializer({
       equalValue: contact,

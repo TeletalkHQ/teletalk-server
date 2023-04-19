@@ -103,7 +103,7 @@ class AuthManager {
   }
 
   getTokenId(token: string, secret: string = this.getMainSecret()) {
-    return this.verifyToken(token, secret).data.payload.tokenId;
+    return this.verifyToken(token, secret).data.payload.sessionId;
   }
 }
 

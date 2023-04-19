@@ -40,8 +40,8 @@ const authenticationAssertion: AuthenticationAssertionHelper = async (
 
   if (secret === authManager.getMainSecret()) {
     userIdAssertionInitializer({
-      equalValue: verifiedRequestToken.data.payload.tokenId,
-      testValue: verifiedResponseToken.data.payload.tokenId,
+      equalValue: verifiedRequestToken.data.payload.sessionId,
+      testValue: verifiedResponseToken.data.payload.sessionId,
     });
   }
 
@@ -60,7 +60,7 @@ const tokenPartsTypeCheck = (
     .customTypeCheck(token.data.payload, "object");
 
   if (secret === authManager.getMainSecret())
-    builder.customTypeCheck(token.data.payload.tokenId, "string");
+    builder.customTypeCheck(token.data.payload.sessionId, "string");
 };
 
 export { authenticationAssertion };

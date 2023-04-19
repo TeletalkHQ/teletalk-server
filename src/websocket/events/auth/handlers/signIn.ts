@@ -27,7 +27,7 @@ const signIn: SocketOnHandler = async (socket, data) => {
 
   const clientId = createClientId();
   const token = signToken({
-    tokenId: clientId,
+    sessionId: clientId,
     date: Date.now(),
   });
   authManager.setSessionOnSocket(socket, token);
@@ -58,10 +58,10 @@ const createClientId = () =>
   randomMaker.id(models.native.user.userId.maxlength.value);
 
 //CLEANME: Use token interface
-const signToken = (data: { tokenId: string; date: number }) =>
+const signToken = (data: { sessionId: string; date: number }) =>
   authManager.signToken(data, authManager.getSignInSecret());
 
-const addClient = async (tokenId: string, data: TemporaryClient) =>
-  await temporaryClients.add(tokenId, data);
+const addClient = async (sessionId: string, data: TemporaryClient) =>
+  await temporaryClients.add(sessionId, data);
 
 export { signIn };

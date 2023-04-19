@@ -26,7 +26,7 @@ const checkCurrentUserStatusE2eFailTestInitializer: E2eFailTestInitializer = (
   //   async () => {
   //     const wrongTokenId = randomMaker.string(userModel.userId.maxlength.value);
   //     const token = authManager.signToken({
-  //       tokenId: wrongTokenId,
+  //       sessionId: wrongTokenId,
   //     });
   //     const { body } = await configuredRequester.sendFullFeaturedRequest(
   //       data,
@@ -47,7 +47,7 @@ const checkCurrentUserStatusE2eFailTestInitializer: E2eFailTestInitializer = (
   //   async () => {
   //     const { user } = await randomMaker.user();
   //     const token = authManager.signToken({
-  //       tokenId: user.userId,
+  //       sessionId: user.userId,
   //     });
   //     const { body } = await configuredRequester.sendFullFeaturedRequest(
   //       data,

@@ -7,13 +7,13 @@ import { services } from "@/services";
 import { SocketOnHandler, TemporaryClient } from "@/types";
 
 const verify: SocketOnHandler = async (socket) => {
-  const { tokenId } = socket.authData.data.payload;
+  const { sessionId } = socket.authData.data.payload;
 
-  const client = (await temporaryClients.find(tokenId)) as TemporaryClient;
+  const client = (await temporaryClients.find(sessionId)) as TemporaryClient;
   const cellphone = userUtilities.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);
   if (foundUser) {
-    await removeTemporaryClient(tokenId);
+    await removeTemporaryClient(sessionId);
 
     const token = signToken(foundUser.userId);
     authManager.setSessionOnSocket(socket, token);
@@ -34,10 +34,10 @@ const verify: SocketOnHandler = async (socket) => {
   };
 };
 
-const signToken = (tokenId: string) => {
+const signToken = (sessionId: string) => {
   return authManager.signToken(
     {
-      tokenId,
+      sessionId,
       date: Date.now(),
     },
     authManager.getMainSecret()
@@ -51,8 +51,8 @@ const addNewSession = async (userId: string, newToken: string) => {
   });
 };
 
-const removeTemporaryClient = async (tokenId: string) => {
-  await temporaryClients.remove(tokenId);
+const removeTemporaryClient = async (sessionId: string) => {
+  await temporaryClients.remove(sessionId);
 };
 
 export { verify };

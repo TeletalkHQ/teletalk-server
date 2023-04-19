@@ -15,7 +15,7 @@ class UserUtilities extends UserUtilitiesMain {
     return this.getDataFromVerifiedToken(verifiedToken).payload;
   }
   getUserIdFromVerifiedToken(verifiedToken: VerifiedToken) {
-    return this.getPayloadFromVerifiedToken(verifiedToken).tokenId;
+    return this.getPayloadFromVerifiedToken(verifiedToken).sessionId;
   }
   getTokenId(token: string) {
     const verifiedToken = authManager.verifyToken(token);

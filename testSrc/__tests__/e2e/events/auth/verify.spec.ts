@@ -29,12 +29,12 @@ describe("verifySignIn success test", () => {
     await helper.verify();
     chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(true);
 
-    const tokenId = authManager.getTokenId(
+    const sessionId = authManager.getTokenId(
       helper.getResponses().signIn.data.token,
       authManager.getSignInSecret()
     );
 
-    const client = (await temporaryClients.find(tokenId)) as TemporaryClient;
+    const client = (await temporaryClients.find(sessionId)) as TemporaryClient;
     chai.expect(client.isVerified).to.be.equal(true);
   });
 

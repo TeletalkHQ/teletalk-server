@@ -26,8 +26,8 @@ const createNewUser: SocketOnHandler = async (
   await validators.firstName(firstName);
   await validators.lastName(lastName);
 
-  const { tokenId } = socket.authData.data.payload;
-  const client = await findClient(tokenId);
+  const { sessionId } = socket.authData.data.payload;
+  const client = await findClient(sessionId);
   checkClientVerification(client);
 
   const cellphone = userUtilities.extractCellphone(client);
@@ -48,7 +48,7 @@ const createNewUser: SocketOnHandler = async (
     status: { isActive: false },
   });
 
-  await removeTemporaryClient(tokenId);
+  await removeTemporaryClient(sessionId);
 
   return {
     data: {
@@ -57,8 +57,8 @@ const createNewUser: SocketOnHandler = async (
   };
 };
 
-const findClient = async (tokenId: string) => {
-  const client = await temporaryClients.find(tokenId);
+const findClient = async (sessionId: string) => {
+  const client = await temporaryClients.find(sessionId);
   if (!client) throw errors.TEMPORARY_CLIENT_NOT_FOUND;
   return client;
 };
@@ -78,9 +78,9 @@ const checkExistenceOfUser = async (cellphone: Cellphone) => {
 const getRandomId = () =>
   randomMaker.id(models.native.user.userId.maxlength.value);
 
-const signToken = (tokenId: string) => {
+const signToken = (sessionId: string) => {
   return authManager.signToken({
-    tokenId,
+    sessionId,
     date: Date.now(),
   });
 };

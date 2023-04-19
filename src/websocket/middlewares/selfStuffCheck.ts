@@ -23,9 +23,9 @@ const selfStuffCheck: SocketMiddleware = async (
 };
 
 const tryBlock = async (socket: Socket, data: { userId: string }) => {
-  const { tokenId } = socket.authData.data.payload;
+  const { sessionId } = socket.authData.data.payload;
 
-  errorThrower(tokenId === data.userId, () => ({
+  errorThrower(sessionId === data.userId, () => ({
     ...errors.SELF_STUFF,
     targetUserId: data.userId,
   }));

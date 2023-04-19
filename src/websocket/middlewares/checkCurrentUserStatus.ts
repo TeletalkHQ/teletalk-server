@@ -22,20 +22,20 @@ const tryBlock = async (socket: Socket) => {
 
   const {
     data: {
-      payload: { tokenId },
+      payload: { sessionId },
     },
   } = socket.authData;
 
-  const currentUser = await services.findOneUser({ userId: tokenId });
+  const currentUser = await services.findOneUser({ userId: sessionId });
   if (!currentUser)
     throw {
       ...error,
-      wrongTokenId: tokenId,
+      wrongTokenId: sessionId,
     };
 
-  errorThrower(currentUser.userId !== tokenId, {
+  errorThrower(currentUser.userId !== sessionId, {
     ...error,
-    wrongTokenId: tokenId,
+    wrongTokenId: sessionId,
   });
 
   const token = authManager.getSessionFromSocket(socket);

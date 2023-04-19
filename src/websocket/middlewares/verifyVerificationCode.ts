@@ -21,10 +21,10 @@ const verifyVerificationCode: SocketMiddleware = async (
 };
 
 const tryBlock = async (socket: Socket, data: StringMap) => {
-  const { tokenId } = socket.authData.data.payload;
+  const { sessionId } = socket.authData.data.payload;
   const { verificationCode: sentVerificationCode } = data;
 
-  const temporaryClient = await findTemporaryClient(tokenId);
+  const temporaryClient = await findTemporaryClient(sessionId);
   const { verificationCode: actualVerificationCode } = temporaryClient;
 
   errorThrower(sentVerificationCode !== actualVerificationCode, {
@@ -32,14 +32,14 @@ const tryBlock = async (socket: Socket, data: StringMap) => {
     sentVerificationCode,
   });
 
-  await temporaryClients.update(tokenId, {
+  await temporaryClients.update(sessionId, {
     ...temporaryClient,
     isVerified: true,
   });
 };
 
-const findTemporaryClient = async (tokenId: string) => {
-  const temporaryClient = await temporaryClients.find(tokenId);
+const findTemporaryClient = async (sessionId: string) => {
+  const temporaryClient = await temporaryClients.find(sessionId);
   if (!temporaryClient) throw errors.TEMPORARY_CLIENT_NOT_FOUND;
   return temporaryClient;
 };

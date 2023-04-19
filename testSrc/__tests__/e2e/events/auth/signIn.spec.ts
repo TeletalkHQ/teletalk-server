@@ -77,9 +77,12 @@ const testSavedTemporaryClient = async (
   token: string,
   cellphone: Cellphone
 ) => {
-  const tokenId = authManager.getTokenId(token, authManager.getSignInSecret());
+  const sessionId = authManager.getTokenId(
+    token,
+    authManager.getSignInSecret()
+  );
   const temporaryClient = (await temporaryClients.find(
-    tokenId
+    sessionId
   )) as TemporaryClient;
   chai.expect(temporaryClient).to.be.an(FIELD_TYPE.OBJECT);
   chai.expect(temporaryClient.countryCode).to.be.equal(cellphone.countryCode);
@@ -93,11 +96,14 @@ const testResponseToken = async (
   builder: AssertionInitializerHelper,
   token: string
 ) => {
-  const tokenId = authManager.getTokenId(token, authManager.getSignInSecret());
+  const sessionId = authManager.getTokenId(
+    token,
+    authManager.getSignInSecret()
+  );
 
   builder.userId(
     {
-      testValue: tokenId,
+      testValue: sessionId,
     },
     {
       modelCheck: true,

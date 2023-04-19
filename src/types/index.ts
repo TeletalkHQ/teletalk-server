@@ -250,7 +250,7 @@ interface UserMongo extends Cellphone, FullName {
 interface VerifiedToken {
   data: {
     payload: {
-      tokenId: string;
+      sessionId: string;
     };
     signature: string;
   };

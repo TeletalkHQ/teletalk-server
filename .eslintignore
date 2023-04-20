@@ -7,6 +7,7 @@
 .vscode
 *.env
 *.md
+*.sh
 *.svg
 *.txt
 /lib
@@ -14,4 +15,5 @@ build
 dist
 node_modules
 public
+temp
 thunder-tests

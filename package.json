@@ -19,6 +19,8 @@
     "check:security": "snyk test & snyk code test",
     "check:style": "npm run check:format && npm run check:lint",
     "dev": "npm run start:dev",
+    "setup:alias:load": "./scripts/alias/loader.sh",
+    "setup:alias:unload": "./scripts/alias/unloader.sh",
     "setup:git": "husky install",
     "start": "npm run start:production:local",
     "start:dev": "cross-env NODE_ENV=development nodemon ./index.ts",
@@ -119,7 +121,7 @@
     "yargs": "^17.7.1"
   },
   "engines": {
-    "node": ">=14.10.0"
+    "node": ">=16.10.0"
   },
   "keywords": [
     "teletalk",

@@ -7,7 +7,7 @@ import { SocketOnHandler } from "@/types";
 import { routes } from "@/websocket/events";
 import { serverErrors } from "@/variables/errors/server";
 
-const getStuff: SocketOnHandler = (_socket, data) => {
+const getStuff: SocketOnHandler = (_socket) => {
   const stuff = {
     appErrors: {
       ...userErrors,

@@ -46,7 +46,6 @@ const runProduction = async () => {
 const runTest = async () => {
   const path = getTestServerPath();
   const requirements = await getTestServerRequirements(path);
-  console.log(requirements);
 
   await runRequirements(requirements);
 

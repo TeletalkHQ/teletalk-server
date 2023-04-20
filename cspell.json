@@ -76,6 +76,7 @@
     "maxtimeout",
     "middlewares",
     "mintimeout",
+    "mocharc",
     "monospace",
     "multer",
     "newrelic",

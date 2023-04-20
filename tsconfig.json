@@ -10,7 +10,6 @@
     "lib": ["ESNext"],
     "module": "ESNext",
     "moduleResolution": "node",
-    "traceResolution": false,
     "noImplicitReturns": true,
     "outDir": "./lib",
     "paths": {
@@ -24,7 +23,8 @@
     "sourceMap": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "ESNext"
+    "target": "ESNext",
+    "traceResolution": false
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*.ts", "./index.ts", "testSrc/**/*.ts"],

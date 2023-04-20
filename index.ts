@@ -38,7 +38,7 @@ const isProduction = () =>
   ["production", "production_local"].some((i) => i === NODE_ENV);
 
 const runProduction = async () => {
-  const appPath = path.join(__dirname, "build", BUILD_FOLDER_NAME, "app.js");
+  const appPath = path.join(__dirname, "build", BUILD_FOLDER_NAME, "app.mjs");
   const app = import(appPath);
   (await app).runner();
 };
@@ -46,6 +46,8 @@ const runProduction = async () => {
 const runTest = async () => {
   const path = getTestServerPath();
   const requirements = await getTestServerRequirements(path);
+  console.log(requirements);
+
   await runRequirements(requirements);
 
   run();
@@ -53,9 +55,9 @@ const runTest = async () => {
 const getTestServerPath = () => {
   const paths = [__dirname];
   if (NODE_ENV === "test_production_local")
-    paths.push("build", BUILD_FOLDER_NAME);
+    paths.push("build", BUILD_FOLDER_NAME, "test.mjs");
+  else paths.push("testSrc");
 
-  paths.push("testSrc");
   return path.join(...paths);
 };
 const getTestServerRequirements = async (path: string) => {
@@ -68,6 +70,6 @@ const runRequirements = async (requirements: any) => {
 };
 
 const runDev = async () =>
-  (await import(path.join(__dirname, "src", "servers", "index"))).runner();
+  (await import(path.join(__dirname, "src", "servers"))).runner();
 
 start();

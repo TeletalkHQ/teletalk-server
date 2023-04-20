@@ -7,12 +7,12 @@
     "src/variables/regex",
     "src/classes/EventManager.ts",
     "src/classes/SmsClient.ts",
-    "src/websocket"
+    "src/types"
   ],
   "output": "reports",
   "reporter": ["text", "clover"],
-  "branches": 50,
-  "lines": 50,
-  "functions": 50,
-  "statements": 50
+  "branches": 80,
+  "lines": 80,
+  "functions": 80,
+  "statements": 80
 }

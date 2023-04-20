@@ -36,7 +36,7 @@ class RandomMaker extends RandomMakerMain {
     await helper.createComplete();
 
     const response = await helpers.requesters
-      .getCurrentUserData(helper.getClientSocket())
+      .getUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 
     return {

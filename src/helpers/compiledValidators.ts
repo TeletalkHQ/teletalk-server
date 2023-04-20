@@ -50,7 +50,7 @@ const phoneNumber = ValidationModelBuilder.compiler(
 
 const userId = ValidationModelBuilder.compiler(validationModels.user.userId);
 
-const token = ValidationModelBuilder.compiler(validationModels.user.token);
+const session = ValidationModelBuilder.compiler(validationModels.user.session);
 
 const username = ValidationModelBuilder.compiler(
   validationModels.user.username
@@ -73,7 +73,7 @@ const compiledValidators = {
   messageText,
   participantId,
   phoneNumber,
-  token,
+  session,
   userId,
   username,
   verificationCode,

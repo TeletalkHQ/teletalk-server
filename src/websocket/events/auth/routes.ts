@@ -8,11 +8,8 @@ const builder = socketRouteBuilder();
 
 const createNewUser = builder
   .create()
-  .name("create")
+  .name("createNewUser")
   .inputFields(fields.collection.fullName)
-  .outputFields({
-    token: fields.single.userId,
-  })
   .handler(authHandlers.createNewUser)
   .build();
 
@@ -25,10 +22,8 @@ const logout = builder
 const signIn = builder
   .create()
   .name("signIn")
+  .noAuth()
   .inputFields(fields.collection.cellphone)
-  .outputFields({
-    token: fields.single.userId,
-  })
   .handler(authHandlers.signIn)
   .build();
 

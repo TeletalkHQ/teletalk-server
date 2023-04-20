@@ -3,12 +3,12 @@ import { ExtendedCellphone } from "utility-store/lib/types";
 
 import { authManager } from "@/classes/AuthManager";
 import { smsClient } from "@/classes/SmsClient";
-import { temporaryClients } from "@/classes/TemporaryClients";
+import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { models } from "@/models";
 
-import { SocketOnHandler, TemporaryClient } from "@/types";
+import { SocketOnHandler, Client } from "@/types";
 
 import { utilities } from "@/utilities";
 
@@ -25,24 +25,19 @@ const signIn: SocketOnHandler = async (socket, data) => {
   const fullNumber = `+${cellphone.countryCode}${cellphone.phoneNumber}`;
   await sendVerificationCode(fullNumber, "host", verificationCode);
 
-  const clientId = createClientId();
-  const token = signToken({
-    tokenId: clientId,
+  const sessionId = createSessionId();
+  const session = sign({
+    sessionId,
     date: Date.now(),
   });
-  authManager.setSessionOnSocket(socket, token);
-  await addClient(clientId, {
+  await addClient(socket.clientId, {
     ...cellphone,
     isVerified: false,
     verificationCode,
+    session,
   });
 
-  //DANGER: according to security reasons we should NOT send clientId
-  return {
-    data: {
-      token,
-    },
-  };
+  return { data: {} };
 };
 
 const validateVerificationCode = async (verificationCode: string) =>
@@ -54,14 +49,14 @@ const sendVerificationCode = async (
   verificationCode: string
 ) => await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 
-const createClientId = () =>
+const createSessionId = () =>
   randomMaker.id(models.native.user.userId.maxlength.value);
 
-//CLEANME: Use token interface
-const signToken = (data: { tokenId: string; date: number }) =>
-  authManager.signToken(data, authManager.getSignInSecret());
+//CLEANME: Use session interface
+const sign = (data: { sessionId: string; date: number }) =>
+  authManager.signSession(data, authManager.getSignInSecret());
 
-const addClient = async (tokenId: string, data: TemporaryClient) =>
-  await temporaryClients.add(tokenId, data);
+const addClient = async (sessionId: string, data: Client) =>
+  await clientStore.add(sessionId, data);
 
 export { signIn };

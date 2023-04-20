@@ -2,7 +2,7 @@ import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 import { errorThrower } from "utility-store";
 
-import { temporaryClients } from "@/classes/TemporaryClients";
+import { clientStore } from "@/classes/ClientStore";
 
 import { SocketMiddleware, StringMap } from "@/types";
 
@@ -21,27 +21,26 @@ const verifyVerificationCode: SocketMiddleware = async (
 };
 
 const tryBlock = async (socket: Socket, data: StringMap) => {
-  const { tokenId } = socket.authData.data.payload;
   const { verificationCode: sentVerificationCode } = data;
 
-  const temporaryClient = await findTemporaryClient(tokenId);
-  const { verificationCode: actualVerificationCode } = temporaryClient;
+  const client = await findClient(socket.clientId);
+  const { verificationCode: actualVerificationCode } = client;
 
   errorThrower(sentVerificationCode !== actualVerificationCode, {
     ...errors.VERIFICATION_CODE_INVALID,
     sentVerificationCode,
   });
 
-  await temporaryClients.update(tokenId, {
-    ...temporaryClient,
+  await clientStore.update(socket.clientId, {
+    ...client,
     isVerified: true,
   });
 };
 
-const findTemporaryClient = async (tokenId: string) => {
-  const temporaryClient = await temporaryClients.find(tokenId);
-  if (!temporaryClient) throw errors.TEMPORARY_CLIENT_NOT_FOUND;
-  return temporaryClient;
+const findClient = async (clientId: string) => {
+  const client = await clientStore.find(clientId);
+  if (!client) throw errors.CLIENT_NOT_FOUND;
+  return client;
 };
 
 export { verifyVerificationCode };

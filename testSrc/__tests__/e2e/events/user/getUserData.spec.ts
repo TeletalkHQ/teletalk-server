@@ -10,10 +10,10 @@ import { UserMongo } from "@/types";
 
 //TODO: Add fail tests
 
-describe("getCurrentUserData success tests", () => {
+describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
-    const requester = helpers.requesters.getCurrentUserData(socket);
+    const requester = helpers.requesters.getUserData(socket);
 
     for (let i = 0; i < 10; i++) {
       const {

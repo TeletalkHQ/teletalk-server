@@ -45,10 +45,9 @@ class Requester {
     };
   }
 
-  getToken() {
-    // return this.getOptions().token;
+  getSocket() {
+    return this.socket;
   }
-
   setSocket(socket: Client) {
     this.socket = socket;
     return this;

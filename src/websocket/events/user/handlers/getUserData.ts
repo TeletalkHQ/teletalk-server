@@ -2,10 +2,10 @@ import { services } from "@/services";
 
 import { HydratedUserMongo, SocketOnHandler } from "@/types";
 
-const getCurrentUserData: SocketOnHandler = async (socket) => {
+const getUserData: SocketOnHandler = async (socket) => {
   const { currentUserId } = socket;
 
-  const { sessions, ...userData } = (await services.getCurrentUserData(
+  const { sessions, ...userData } = (await services.getUserData(
     {
       userId: currentUserId,
     },
@@ -19,4 +19,4 @@ const getCurrentUserData: SocketOnHandler = async (socket) => {
   };
 };
 
-export { getCurrentUserData };
+export { getUserData };

@@ -25,11 +25,11 @@ await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
 
   return () => {
     for (const route of routesWithInputFieldsExceptAuth) {
-      const message = helpers.createFailTestMessage(
+      const title = helpers.createFailTestMessage(
         errors.INPUT_FIELDS_MISSING,
         route.name
       );
-      it(message, async () => {
+      it(title, async () => {
         await requesterCreator(socket, route)
           .setError(errors.INPUT_FIELDS_MISSING)
           .setOptions({ shouldFilterRequestData: false })

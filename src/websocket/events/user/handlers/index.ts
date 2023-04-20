@@ -4,7 +4,7 @@ import { addContactWithCellphone } from "@/websocket/events/user/handlers/addCon
 import { disconnect } from "@/websocket/events/user/handlers/disconnect";
 import { editContact } from "@/websocket/events/user/handlers/editContact";
 import { getContacts } from "@/websocket/events/user/handlers/getContacts";
-import { getCurrentUserData } from "@/websocket/events/user/handlers/getCurrentUserData";
+import { getUserData } from "@/websocket/events/user/handlers/getUserData";
 import { getPublicUserData } from "@/websocket/events/user/handlers/getPublicUserData";
 import { removeBlock } from "@/websocket/events/user/handlers/removeBlock";
 import { removeContact } from "@/websocket/events/user/handlers/removeContact";
@@ -18,7 +18,7 @@ const userHandlers = {
   disconnect,
   editContact,
   getContacts,
-  getCurrentUserData,
+  getUserData,
   getPublicUserData,
   removeBlock,
   removeContact,

@@ -3,11 +3,11 @@ import { HydratedUserMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const addNewSession = async (data: { userId: string; newToken: string }) => {
+const addNewSession = async (data: { userId: string; session: string }) => {
   const currentUser = await findCurrentUser(data.userId);
   if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-  await addAndSaveNewToken(currentUser, data.newToken);
+  await addAndSaveNew(currentUser, data.session);
 };
 
 const findCurrentUser = async (userId: string) => {
@@ -17,11 +17,11 @@ const findCurrentUser = async (userId: string) => {
   );
 };
 
-const addAndSaveNewToken = async (
+const addAndSaveNew = async (
   currentUser: HydratedUserMongo,
-  newToken: string
+  session: string
 ) => {
-  currentUser.sessions.push({ token: newToken });
+  currentUser.sessions.push({ session });
 
   await currentUser.save();
 };

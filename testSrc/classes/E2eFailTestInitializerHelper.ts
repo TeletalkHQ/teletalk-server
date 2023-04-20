@@ -18,13 +18,11 @@ class E2eFailTestInitializerHelper {
     };
   }
 
-  authentication = this.initializer("authentication");
   bio = this.initializer("bio");
   blacklistItemExist = this.initializer("blacklistItemExist");
   blacklistItemNotExist = this.initializer("blacklistItemNotExist");
   cellphone = this.initializer("cellphone");
   chatId = this.initializer("chatId");
-  checkCurrentUserStatus = this.initializer("checkCurrentUserStatus");
   contactItemExist = this.initializer("contactItemExist");
   contactItemNotExist = this.initializer("contactItemNotExist");
   countryCode = this.initializer("countryCode");

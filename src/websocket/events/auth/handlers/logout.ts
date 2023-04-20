@@ -1,4 +1,4 @@
-import { authManager } from "@/classes/AuthManager";
+import { clientStore } from "@/classes/ClientStore";
 
 import { services } from "@/services";
 
@@ -6,16 +6,16 @@ import { SocketOnHandler } from "@/types";
 
 const logout: SocketOnHandler = async (socket) => {
   const { currentUserId } = socket;
-  const currentToken = authManager.getSessionFromSocket(socket) as string;
+  const { session } = (await clientStore.find(socket.clientId))!;
 
   await services.logout({
-    currentToken,
+    current: session,
     currentUserId,
   });
 
-  authManager.removeSession(socket);
+  await clientStore.remove(socket.clientId);
 
-  socket.handshake.headers.cookie = undefined;
+  return { data: {} };
 };
 
 export { logout };

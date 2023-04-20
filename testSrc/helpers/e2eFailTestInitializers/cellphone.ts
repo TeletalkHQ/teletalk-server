@@ -10,12 +10,12 @@ const cellphoneE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data = {}
 ) => {
-  const message = helpers.createFailTestMessage(
+  const title = helpers.createFailTestMessage(
     errors.CELLPHONE_REQUIRED,
     configuredRequester.getRoute()
   );
 
-  it(message, async () => {
+  it(title, async () => {
     const response = await configuredRequester.sendFullFeaturedRequest(
       { ...data, countryCode: "", countryName: "", phoneNumber: "" },
       errors.CELLPHONE_REQUIRED

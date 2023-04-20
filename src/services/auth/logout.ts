@@ -4,10 +4,10 @@ import { errors } from "@/variables/errors";
 
 const logout = async ({
   currentUserId,
-  currentToken,
+  current,
 }: {
   currentUserId: string;
-  currentToken: string;
+  current: string;
 }) => {
   const currentUser = await models.database.mongoDb.User.findOne({
     userId: currentUserId,
@@ -17,7 +17,7 @@ const logout = async ({
 
   //FIXME: Remove specific session
   currentUser.sessions = currentUser.sessions.filter(
-    (i) => i.token !== currentToken
+    (i) => i.session !== current
   );
   await currentUser.save();
 };

@@ -82,36 +82,36 @@ const userIdValidator = async (userId: unknown) => {
   validationChecker.userId(validationResult, userId);
 };
 
-const tokenValidator = async (
-  token: string,
+const sessionValidator = async (
+  session: string,
   secret = authManager.getMainSecret()
 ) => {
   //REFACTOR:INVALID_TYPE_ERROR
-  const correctedToken = +token || token;
-  const validationResult = await compiledValidators.token({
-    token: correctedToken,
+  const corrected = +session || session;
+  const validationResult = await compiledValidators.session({
+    session: corrected,
   });
 
   validationCheckerMain(
     validationResult,
     {
       extraErrorFields: {
-        correctedToken,
-        originalToken: token,
-        validatedToken: correctedToken,
+        corrected,
+        original: session,
+        validated: corrected,
       },
     },
-    models.native.user.token
+    models.native.user.session
   ).check(function () {
     this.required()
       .stringEmpty()
       .string()
       .stringMin()
       .stringMax()
-      .throwAnyway(errors.TOKEN_INVALID);
+      .throwAnyway(errors.SESSION_INVALID);
   });
 
-  return authManager.verifyToken(token, secret);
+  return authManager.verify(session, secret);
 };
 
 const usernameValidator = async (username: unknown) => {
@@ -137,7 +137,7 @@ const userValidators = {
   firstName: firstNameValidator,
   lastName: lastNameValidator,
   phoneNumber: phoneNumberValidator,
-  token: tokenValidator,
+  session: sessionValidator,
   userId: userIdValidator,
   username: usernameValidator,
   verificationCode: verificationCodeValidator,

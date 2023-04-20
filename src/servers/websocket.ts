@@ -30,7 +30,11 @@ const websocketServer = (httpServer: HttpServer) => {
     socket.customOn = customMethods.on(socket);
     socket.customUse = customMethods.use(socket);
 
+    socket.customUse(middlewares.checkClientIdExistence);
+    socket.customUse(middlewares.attachClientId);
+
     socket.customUse(middlewares.checkEventAvailability);
+
     socket.customUse(
       //CLEANME: Use ignored routes for auth
       ignoreMiddlewares(["signIn", "getStuff"], middlewares.auth)
@@ -41,7 +45,7 @@ const websocketServer = (httpServer: HttpServer) => {
     socket.customUse(
       //CLEANME: Use ignored routes for auth
       ignoreMiddlewares(
-        ["create", "getStuff", "signIn", "verify"],
+        ["createNewUser", "getStuff", "signIn", "verify"],
         middlewares.checkCurrentUserStatus,
         middlewares.attachCurrentUserId
       )

@@ -1,5 +1,5 @@
 import { userServices } from "$/services/user";
 
-const testServices = { ...userServices };
+const services = { ...userServices };
 
-export { testServices };
+export { services };

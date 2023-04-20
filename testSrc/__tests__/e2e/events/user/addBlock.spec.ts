@@ -60,16 +60,13 @@ await helpers.asyncDescribe("addBlock fail tests", async () => {
   await requester.sendFullFeaturedRequest({ userId: targetUser.userId });
 
   return () => {
-    const cellphone = randomMaker.unusedCellphone();
-    const randomUserId = randomMaker.userId();
+    const random = { userId: randomMaker.userId() };
 
     e2eFailTestInitializerHelper(requester)
-      .authentication()
-      .input({ userId: randomUserId })
-      .checkCurrentUserStatus(cellphone)
+      .input(random)
       .selfStuff(selfStuffData)
-      .userId({ userId: randomUserId })
-      .targetUserNotExist({ userId: randomUserId })
+      .userId(random)
+      .targetUserNotExist(random)
       .blacklistItemExist(blockedUserData);
   };
 });

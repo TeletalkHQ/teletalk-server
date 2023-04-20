@@ -55,15 +55,13 @@ await helpers.asyncDescribe("removeBlock fail tests", async () => {
       userId: user.userId,
     };
 
-    const randomUserId = randomMaker.userId();
+    const random = { userId: randomMaker.userId() };
 
     e2eFailTestInitializerHelper(requester)
-      .authentication()
-      .input({ userId: randomUserId })
-      .checkCurrentUserStatus()
+      .input(random)
       .selfStuff(selfStuffData)
-      .userId({ userId: randomUserId })
-      .blacklistItemNotExist({ userId: randomUserId });
+      .userId(random)
+      .blacklistItemNotExist(random);
   };
 });
 

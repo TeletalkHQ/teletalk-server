@@ -29,7 +29,7 @@ const ok = statics.boolean;
 const participantId = statics.string;
 const phoneNumber = statics.string;
 const senderId = statics.string;
-const token = statics.string;
+const session = statics.string;
 const userId = statics.string;
 const username = statics.string;
 const verificationCode = statics.string;
@@ -128,7 +128,7 @@ const single = {
   phoneNumber,
   senderId,
   status,
-  token,
+  session,
   userId,
   username,
   verificationCode,

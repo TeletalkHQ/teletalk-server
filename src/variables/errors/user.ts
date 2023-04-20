@@ -1,990 +1,1025 @@
 import { errorBuilder } from "@/classes/ErrorBuilder";
 
 import { ERROR_KEYS } from "@/variables/errors/errorKeys";
-import { UNIQUE_ERROR_IDS } from "@/variables/errors/uniqueErrorIds";
 
 const BIO_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BIO_EMPTY)
+  .reason("BIO_EMPTY")
   .key(ERROR_KEYS.BIO_VALIDATION)
   .build();
 
 const BIO_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BIO_INVALID)
+  .reason("BIO_INVALID")
   .key(ERROR_KEYS.BIO_VALIDATION)
   .build();
 
 const BIO_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BIO_INVALID_TYPE)
+  .reason("BIO_INVALID_TYPE")
   .key(ERROR_KEYS.BIO_VALIDATION)
   .build();
 
 const BIO_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BIO_MAXLENGTH_REACH)
+  .reason("BIO_MAXLENGTH_REACH")
   .key(ERROR_KEYS.BIO_VALIDATION)
   .build();
 
 const BIO_MINLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BIO_MINLENGTH_REACH)
+  .reason("BIO_MINLENGTH_REACH")
   .key(ERROR_KEYS.BIO_VALIDATION)
   .build();
 
 const BIO_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BIO_REQUIRED)
+  .reason("BIO_REQUIRED")
   .key(ERROR_KEYS.BIO_VALIDATION)
   .build();
 
 const BLACKLIST_ITEM_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BLACKLIST_ITEM_EXIST)
+  .reason("BLACKLIST_ITEM_EXIST")
   .key(ERROR_KEYS.BLACKLIST_VALIDATION)
   .build();
 
 const BLACKLIST_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BLACKLIST_INVALID_TYPE)
+  .reason("BLACKLIST_INVALID_TYPE")
   .key(ERROR_KEYS.BLACKLIST_VALIDATION)
   .build();
 
 const BLACKLIST_ITEM_NOT_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BLACKLIST_ITEM_NOT_EXIST)
+  .reason("BLACKLIST_ITEM_NOT_EXIST")
   .key(ERROR_KEYS.BLACKLIST_VALIDATION)
   .build();
 
 const BLACKLIST_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.BLACKLIST_REQUIRED)
+  .reason("BLACKLIST_REQUIRED")
   .key(ERROR_KEYS.BLACKLIST_VALIDATION)
   .build();
 
 const CELLPHONE_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CELLPHONE_EXIST)
+  .reason("CELLPHONE_EXIST")
   .key(ERROR_KEYS.CELLPHONE_VALIDATION)
   .build();
 
 const CELLPHONE_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CELLPHONE_INVALID)
+  .reason("CELLPHONE_INVALID")
   .key(ERROR_KEYS.CELLPHONE_VALIDATION)
   .build();
 
 const CELLPHONE_NOT_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CELLPHONE_NOT_EXIST)
+  .reason("CELLPHONE_NOT_EXIST")
   .key(ERROR_KEYS.CELLPHONE_VALIDATION)
   .build();
 
 const CELLPHONE_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CELLPHONE_REQUIRED)
+  .reason("CELLPHONE_REQUIRED")
   .key(ERROR_KEYS.CELLPHONE_VALIDATION)
   .build();
 
 const CELLPHONE_EXIST_IN_CONTACT = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CELLPHONE_EXIST_IN_CONTACT)
+  .reason("CELLPHONE_EXIST_IN_CONTACT")
   .key(ERROR_KEYS.CELLPHONE_VALIDATION)
   .build();
 
 const CHAT_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_EXIST)
+  .reason("CHAT_EXIST")
   .key(ERROR_KEYS.CHAT_VALIDATION)
   .build();
 
 const CHAT_NOT_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_NOT_EXIST)
+  .reason("CHAT_NOT_EXIST")
   .key(ERROR_KEYS.CHAT_VALIDATION)
   .build();
 
 const CHAT_ID_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_ID_EMPTY)
+  .reason("CHAT_ID_EMPTY")
   .key(ERROR_KEYS.CHAT_ID_VALIDATION)
   .build();
 
 const CHAT_ID_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_ID_EXIST)
+  .reason("CHAT_ID_EXIST")
   .key(ERROR_KEYS.CHAT_ID_VALIDATION)
   .build();
 
 const CHAT_ID_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_ID_INVALID)
+  .reason("CHAT_ID_INVALID")
   .key(ERROR_KEYS.CHAT_ID_VALIDATION)
   .build();
 
 const CHAT_ID_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_ID_INVALID_TYPE)
+  .reason("CHAT_ID_INVALID_TYPE")
   .key(ERROR_KEYS.CHAT_ID_VALIDATION)
   .build();
 
 const CHAT_ID_MAX_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_ID_MAX_LENGTH_REACH)
+  .reason("CHAT_ID_MAX_LENGTH_REACH")
   .key(ERROR_KEYS.CHAT_ID_VALIDATION)
   .build();
 
 const CHAT_ID_MIN_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_ID_MIN_LENGTH_REACH)
+  .reason("CHAT_ID_MIN_LENGTH_REACH")
   .key(ERROR_KEYS.CHAT_ID_VALIDATION)
   .build();
 
 const CHAT_ID_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHAT_ID_REQUIRED)
+  .reason("CHAT_ID_REQUIRED")
   .key(ERROR_KEYS.CHAT_ID_VALIDATION)
   .build();
 
 const CHATS_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CHATS_INVALID_TYPE)
+  .reason("CHATS_INVALID_TYPE")
   .key(ERROR_KEYS.CHATS_VALIDATION)
+  .build();
+
+const CLIENT_ID_REQUIRED = errorBuilder
+  .create()
+  .reason("CLIENT_ID_REQUIRED")
+  .key(ERROR_KEYS.CLIENT_ID_VALIDATION)
+  .build();
+
+const CLIENT_ID_INVALID_TYPE = errorBuilder
+  .create()
+  .reason("CLIENT_ID_INVALID_TYPE")
+  .key(ERROR_KEYS.CLIENT_ID_VALIDATION)
+  .build();
+
+const CLIENT_ID_MAX_LENGTH_REACH = errorBuilder
+  .create()
+  .reason("CLIENT_ID_MAX_LENGTH_REACH")
+  .key(ERROR_KEYS.CLIENT_ID_VALIDATION)
+  .build();
+
+const CLIENT_ID_MIN_LENGTH_REACH = errorBuilder
+  .create()
+  .reason("CLIENT_ID_MIN_LENGTH_REACH")
+  .key(ERROR_KEYS.CLIENT_ID_VALIDATION)
+  .build();
+
+const CLIENT_ID_NOT_DEFINED = errorBuilder
+  .create()
+  .reason("CLIENT_ID_NOT_DEFINED")
+  .key(ERROR_KEYS.CLIENT_ID_VALIDATION)
   .build();
 
 const CONTACT_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CONTACT_INVALID_TYPE)
+  .reason("CONTACT_INVALID_TYPE")
   .key(ERROR_KEYS.CONTACT_VALIDATION)
   .build();
 
 const CONTACTS_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CONTACTS_INVALID_TYPE)
+  .reason("CONTACTS_INVALID_TYPE")
   .key(ERROR_KEYS.CONTACT_VALIDATION)
   .build();
 
 const CONTACTS_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CONTACTS_REQUIRED)
+  .reason("CONTACTS_REQUIRED")
   .key(ERROR_KEYS.CONTACT_VALIDATION)
   .build();
 
 const CONTACT_ITEM_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CONTACT_ITEM_EXIST)
+  .reason("CONTACT_ITEM_EXIST")
   .key(ERROR_KEYS.CONTACT_VALIDATION)
   .build();
 
 const CONTACT_ITEM_NOT_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CONTACT_ITEM_NOT_EXIST)
+  .reason("CONTACT_ITEM_NOT_EXIST")
   .key(ERROR_KEYS.CONTACT_VALIDATION)
   .build();
 
 const COUNTRY_CODE_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_CODE_INVALID_TYPE)
+  .reason("COUNTRY_CODE_INVALID_TYPE")
   .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
   .build();
 
 const COUNTRY_CODE_NUMERIC = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_CODE_NUMERIC)
+  .reason("COUNTRY_CODE_NUMERIC")
   .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
   .build();
 
 const COUNTRY_CODE_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_CODE_INVALID)
+  .reason("COUNTRY_CODE_INVALID")
   .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
   .build();
 
 const COUNTRY_CODE_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_CODE_EMPTY)
+  .reason("COUNTRY_CODE_EMPTY")
   .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
   .build();
 
 const COUNTRY_CODE_NOT_SUPPORTED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_CODE_NOT_SUPPORTED)
+  .reason("COUNTRY_CODE_NOT_SUPPORTED")
   .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
   .build();
 
 const COUNTRY_CODE_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_CODE_MAXLENGTH_REACH)
+  .reason("COUNTRY_CODE_MAXLENGTH_REACH")
   .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
   .build();
 
 const COUNTRY_CODE_MINLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_CODE_MINLENGTH_REACH)
+  .reason("COUNTRY_CODE_MINLENGTH_REACH")
   .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
   .build();
 
 const COUNTRY_CODE_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_CODE_REQUIRED)
+  .reason("COUNTRY_CODE_REQUIRED")
   .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
   .build();
 
 const COUNTRY_NOT_SUPPORTED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_NOT_SUPPORTED)
+  .reason("COUNTRY_NOT_SUPPORTED")
   .key(ERROR_KEYS.COUNTRY_NOT_SUPPORTED_VALIDATION)
   .build();
 
 const CREATED_AT_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CREATED_AT_EMPTY)
+  .reason("CREATED_AT_EMPTY")
   .key(ERROR_KEYS.CREATED_AT_VALIDATION)
   .build();
 
 const COUNTRY_NAME_NOT_SUPPORTED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_NAME_NOT_SUPPORTED)
+  .reason("COUNTRY_NAME_NOT_SUPPORTED")
   .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
   .build();
 
 const COUNTRY_NAME_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_NAME_INVALID)
+  .reason("COUNTRY_NAME_INVALID")
   .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
   .build();
 
 const COUNTRY_NAME_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_NAME_INVALID_TYPE)
+  .reason("COUNTRY_NAME_INVALID_TYPE")
   .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
   .build();
 
 const COUNTRY_NAME_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_NAME_EMPTY)
+  .reason("COUNTRY_NAME_EMPTY")
   .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
   .build();
 
 const COUNTRY_NAME_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_NAME_MAXLENGTH_REACH)
+  .reason("COUNTRY_NAME_MAXLENGTH_REACH")
   .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
   .build();
 
 const COUNTRY_NAME_MINLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_NAME_MINLENGTH_REACH)
+  .reason("COUNTRY_NAME_MINLENGTH_REACH")
   .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
   .build();
 
 const COUNTRY_NAME_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.COUNTRY_NAME_REQUIRED)
+  .reason("COUNTRY_NAME_REQUIRED")
   .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
   .build();
 
 const CREATED_AT_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CREATED_AT_INVALID_TYPE)
+  .reason("CREATED_AT_INVALID_TYPE")
   .key(ERROR_KEYS.CREATED_AT_VALIDATION)
   .build();
 
 const CREATED_AT_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.CREATED_AT_REQUIRED)
+  .reason("CREATED_AT_REQUIRED")
   .key(ERROR_KEYS.CREATED_AT_VALIDATION)
   .build();
 
 const CURRENT_USER_EXIST = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.CURRENT_USER_EXIST)
+  .reason("CURRENT_USER_EXIST")
   .key(ERROR_KEYS.USER_VALIDATION)
   .build();
 
 const CURRENT_USER_NOT_EXIST = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.CURRENT_USER_NOT_EXIST)
+  .reason("CURRENT_USER_NOT_EXIST")
   .key(ERROR_KEYS.USER_VALIDATION)
   .build();
 
 const EVENT_NOT_FOUND = errorBuilder
   .create()
   .key(ERROR_KEYS.UNKNOWN_EVENT)
-  .reason(UNIQUE_ERROR_IDS.EVENT_NOT_FOUND)
+  .reason("EVENT_NOT_FOUND")
   .build();
 
 const FIRST_NAME_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.FIRST_NAME_INVALID_TYPE)
+  .reason("FIRST_NAME_INVALID_TYPE")
   .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
   .build();
 
 const FIRST_NAME_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.FIRST_NAME_EMPTY)
+  .reason("FIRST_NAME_EMPTY")
   .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
   .build();
 
 const FIRST_NAME_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.FIRST_NAME_INVALID)
+  .reason("FIRST_NAME_INVALID")
   .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
   .build();
 
 const FIRST_NAME_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.FIRST_NAME_MAXLENGTH_REACH)
+  .reason("FIRST_NAME_MAXLENGTH_REACH")
   .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
   .build();
 
 const FIRST_NAME_MINLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.FIRST_NAME_MINLENGTH_REACH)
+  .reason("FIRST_NAME_MINLENGTH_REACH")
   .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
   .build();
 
 const FIRST_NAME_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.FIRST_NAME_REQUIRED)
+  .reason("FIRST_NAME_REQUIRED")
   .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
   .build();
 
 const FULL_NAME_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.FULL_NAME_INVALID)
+  .reason("FULL_NAME_INVALID")
   .key(ERROR_KEYS.FULL_NAME_VALIDATION)
   .build();
 
 const INPUT_DATA_NOT_DEFINED = errorBuilder
   .create()
   .key(ERROR_KEYS.INPUT_OUTPUT_FIELDS)
-  .reason(UNIQUE_ERROR_IDS.INPUT_DATA_NOT_DEFINED)
+  .reason("INPUT_DATA_NOT_DEFINED")
   .build();
 
 const INPUT_FIELDS_MISSING = errorBuilder
   .create()
   .key(ERROR_KEYS.INPUT_OUTPUT_FIELDS)
-  .reason(UNIQUE_ERROR_IDS.INPUT_FIELDS_MISSING)
+  .reason("INPUT_FIELDS_MISSING")
   .build();
 
 const INPUT_FIELDS_OVERLOAD = errorBuilder
   .create()
   .key(ERROR_KEYS.INPUT_OUTPUT_FIELDS)
-  .reason(UNIQUE_ERROR_IDS.INPUT_FIELDS_OVERLOAD)
+  .reason("INPUT_FIELDS_OVERLOAD")
   .build();
 
 const IS_NOT_A_CALLBACK = errorBuilder
   .create()
   .key(ERROR_KEYS.SOCKET_ARGS_VALIDATION)
-  .reason(UNIQUE_ERROR_IDS.IS_NOT_A_CALLBACK)
+  .reason("IS_NOT_A_CALLBACK")
   .build();
 
 const INPUT_FIELD_INVALID_TYPE = errorBuilder
   .create()
   .key(ERROR_KEYS.INPUT_OUTPUT_FIELDS)
-  .reason(UNIQUE_ERROR_IDS.INPUT_FIELD_INVALID_TYPE)
+  .reason("INPUT_FIELD_INVALID_TYPE")
   .build();
 
 const LAST_NAME_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.LAST_NAME_INVALID)
+  .reason("LAST_NAME_INVALID")
   .key(ERROR_KEYS.LAST_NAME_VALIDATION)
   .build();
 
 const LAST_NAME_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.LAST_NAME_INVALID_TYPE)
+  .reason("LAST_NAME_INVALID_TYPE")
   .key(ERROR_KEYS.LAST_NAME_VALIDATION)
   .build();
 
 const LAST_NAME_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.LAST_NAME_EMPTY)
+  .reason("LAST_NAME_EMPTY")
   .key(ERROR_KEYS.LAST_NAME_VALIDATION)
   .build();
 
 const LAST_NAME_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.LAST_NAME_MAXLENGTH_REACH)
+  .reason("LAST_NAME_MAXLENGTH_REACH")
   .key(ERROR_KEYS.LAST_NAME_VALIDATION)
   .build();
 
 const LAST_NAME_MINLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.LAST_NAME_MINLENGTH_REACH)
+  .reason("LAST_NAME_MINLENGTH_REACH")
   .key(ERROR_KEYS.LAST_NAME_VALIDATION)
   .build();
 
 const LAST_NAME_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.LAST_NAME_REQUIRED)
+  .reason("LAST_NAME_REQUIRED")
   .key(ERROR_KEYS.LAST_NAME_VALIDATION)
   .build();
 
 const MAC_ADDRESS_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MAC_ADDRESS_EMPTY)
+  .reason("MAC_ADDRESS_EMPTY")
   .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
   .build();
 
 const MAC_ADDRESS_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MAC_ADDRESS_EXIST)
+  .reason("MAC_ADDRESS_EXIST")
   .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
   .build();
 
 const MAC_ADDRESS_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MAC_ADDRESS_INVALID_TYPE)
+  .reason("MAC_ADDRESS_INVALID_TYPE")
   .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
   .build();
 
 const MAC_ADDRESS_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MAC_ADDRESS_MAXLENGTH_REACH)
+  .reason("MAC_ADDRESS_MAXLENGTH_REACH")
   .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
   .build();
 
 const MAC_ADDRESS_MINLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MAC_ADDRESS_MINLENGTH_REACH)
+  .reason("MAC_ADDRESS_MINLENGTH_REACH")
   .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
   .build();
 
 const MAC_ADDRESS_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MAC_ADDRESS_REQUIRED)
+  .reason("MAC_ADDRESS_REQUIRED")
   .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
   .build();
 
 const MESSAGE_ID_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_ID_EMPTY)
+  .reason("MESSAGE_ID_EMPTY")
   .key(ERROR_KEYS.MESSAGE_ID_VALIDATION)
   .build();
 
 const MESSAGE_ID_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_ID_EXIST)
+  .reason("MESSAGE_ID_EXIST")
   .key(ERROR_KEYS.MESSAGE_ID_VALIDATION)
   .build();
 
 const MESSAGE_ID_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_ID_INVALID_TYPE)
+  .reason("MESSAGE_ID_INVALID_TYPE")
   .key(ERROR_KEYS.MESSAGE_ID_VALIDATION)
   .build();
 
 const MESSAGE_ID_MAX_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_ID_MAX_LENGTH_REACH)
+  .reason("MESSAGE_ID_MAX_LENGTH_REACH")
   .key(ERROR_KEYS.MESSAGE_ID_VALIDATION)
   .build();
 
 const MESSAGE_ID_MIN_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_ID_MIN_LENGTH_REACH)
+  .reason("MESSAGE_ID_MIN_LENGTH_REACH")
   .key(ERROR_KEYS.MESSAGE_ID_VALIDATION)
   .build();
 
 const MESSAGE_ID_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_ID_REQUIRED)
+  .reason("MESSAGE_ID_REQUIRED")
   .key(ERROR_KEYS.MESSAGE_ID_VALIDATION)
   .build();
 
 const MESSAGE_TEXT_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_TEXT_INVALID_TYPE)
+  .reason("MESSAGE_TEXT_INVALID_TYPE")
   .key(ERROR_KEYS.MESSAGE_TEXT_VALIDATION)
   .build();
 
 const MESSAGE_TEXT_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_TEXT_EMPTY)
+  .reason("MESSAGE_TEXT_EMPTY")
   .key(ERROR_KEYS.MESSAGE_TEXT_VALIDATION)
   .build();
 
 const MESSAGE_TEXT_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_TEXT_INVALID)
+  .reason("MESSAGE_TEXT_INVALID")
   .key(ERROR_KEYS.MESSAGE_TEXT_VALIDATION)
   .build();
 
 const MESSAGE_TEXT_MAX_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_TEXT_MAX_LENGTH_REACH)
+  .reason("MESSAGE_TEXT_MAX_LENGTH_REACH")
   .key(ERROR_KEYS.MESSAGE_TEXT_VALIDATION)
   .build();
 
 const MESSAGE_TEXT_MIN_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_TEXT_MIN_LENGTH_REACH)
+  .reason("MESSAGE_TEXT_MIN_LENGTH_REACH")
   .key(ERROR_KEYS.MESSAGE_TEXT_VALIDATION)
   .build();
 
 const MESSAGE_TEXT_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGE_TEXT_REQUIRED)
+  .reason("MESSAGE_TEXT_REQUIRED")
   .key(ERROR_KEYS.MESSAGE_TEXT_VALIDATION)
   .build();
 
 const MESSAGES_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGES_INVALID_TYPE)
+  .reason("MESSAGES_INVALID_TYPE")
   .key(ERROR_KEYS.MESSAGES_VALIDATION)
   .build();
 
 const MESSAGES_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.MESSAGES_REQUIRED)
+  .reason("MESSAGES_REQUIRED")
   .key(ERROR_KEYS.MESSAGES_VALIDATION)
   .build();
 
 const ONLINE_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.ONLINE_INVALID_TYPE)
+  .reason("ONLINE_INVALID_TYPE")
   .key(ERROR_KEYS.ONLINE_VALIDATION)
   .build();
 
 const ONLINE_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.ONLINE_REQUIRED)
+  .reason("ONLINE_REQUIRED")
   .key(ERROR_KEYS.ONLINE_VALIDATION)
   .build();
 
 const OUTPUT_DATA_NOT_DEFINED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.OUTPUT_DATA_NOT_DEFINED)
+  .reason("OUTPUT_DATA_NOT_DEFINED")
   .key(ERROR_KEYS.ONLINE_VALIDATION)
   .build();
 
 const PHONE_NUMBER_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PHONE_NUMBER_INVALID_TYPE)
+  .reason("PHONE_NUMBER_INVALID_TYPE")
   .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
   .build();
 
 const PHONE_NUMBER_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PHONE_NUMBER_INVALID)
+  .reason("PHONE_NUMBER_INVALID")
   .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
   .build();
 
 const PHONE_NUMBER_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PHONE_NUMBER_EMPTY)
+  .reason("PHONE_NUMBER_EMPTY")
   .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
   .build();
 
 const PHONE_NUMBER_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PHONE_NUMBER_EXIST)
+  .reason("PHONE_NUMBER_EXIST")
   .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
   .build();
 
 const PHONE_NUMBER_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PHONE_NUMBER_REQUIRED)
+  .reason("PHONE_NUMBER_REQUIRED")
   .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
   .build();
 
 const PRIVATE_CHATS_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PRIVATE_CHATS_INVALID_TYPE)
+  .reason("PRIVATE_CHATS_INVALID_TYPE")
   .key(ERROR_KEYS.PRIVATE_CHAT_VALIDATION)
   .build();
 
 const PHONE_NUMBER_MINLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PHONE_NUMBER_MINLENGTH_REACH)
+  .reason("PHONE_NUMBER_MINLENGTH_REACH")
   .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
   .build();
 
 const PHONE_NUMBER_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PHONE_NUMBER_MAXLENGTH_REACH)
+  .reason("PHONE_NUMBER_MAXLENGTH_REACH")
   .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
   .build();
 
 const PHONE_NUMBER_NUMERIC = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PHONE_NUMBER_NUMERIC)
+  .reason("PHONE_NUMBER_NUMERIC")
   .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
   .build();
 
 const SELF_STUFF = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SELF_STUFF)
+  .reason("SELF_STUFF")
   .key(ERROR_KEYS.SELF_STUFF_VALIDATION)
   .build();
 
 const PARTICIPANT_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_EMPTY)
+  .reason("PARTICIPANT_EMPTY")
   .key(ERROR_KEYS.PARTICIPANT_VALIDATION)
   .build();
 
 const PARTICIPANTS_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_EMPTY)
+  .reason("PARTICIPANT_EMPTY")
   .key(ERROR_KEYS.PARTICIPANTS_VALIDATION)
   .build();
 
 const PARTICIPANTS_INVALID_LENGTH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANTS_INVALID_LENGTH)
+  .reason("PARTICIPANTS_INVALID_LENGTH")
   .key(ERROR_KEYS.PARTICIPANTS_VALIDATION)
   .build();
 
 const PARTICIPANTS_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANTS_INVALID_TYPE)
+  .reason("PARTICIPANTS_INVALID_TYPE")
   .key(ERROR_KEYS.PARTICIPANTS_VALIDATION)
   .build();
 
 const PARTICIPANTS_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANTS_REQUIRED)
+  .reason("PARTICIPANTS_REQUIRED")
   .key(ERROR_KEYS.PARTICIPANTS_VALIDATION)
   .build();
 
 const PARTICIPANT_ID_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_ID_EXIST)
+  .reason("PARTICIPANT_ID_EXIST")
   .key(ERROR_KEYS.PARTICIPANT_ID_VALIDATION)
   .build();
 
 const PARTICIPANT_ID_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_ID_INVALID)
+  .reason("PARTICIPANT_ID_INVALID")
   .key(ERROR_KEYS.PARTICIPANT_ID_VALIDATION)
   .build();
 
 const PARTICIPANT_ID_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_ID_INVALID_TYPE)
+  .reason("PARTICIPANT_ID_INVALID_TYPE")
   .key(ERROR_KEYS.PARTICIPANT_ID_VALIDATION)
   .build();
 
 const PARTICIPANT_ID_MAX_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_ID_MAX_LENGTH_REACH)
+  .reason("PARTICIPANT_ID_MAX_LENGTH_REACH")
   .key(ERROR_KEYS.PARTICIPANT_ID_VALIDATION)
   .build();
 
 const PARTICIPANT_ID_MIN_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_ID_MIN_LENGTH_REACH)
+  .reason("PARTICIPANT_ID_MIN_LENGTH_REACH")
   .key(ERROR_KEYS.PARTICIPANT_ID_VALIDATION)
   .build();
 
 const PARTICIPANT_ID_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_ID_REQUIRED)
+  .reason("PARTICIPANT_ID_REQUIRED")
   .key(ERROR_KEYS.PARTICIPANT_ID_VALIDATION)
   .build();
 
 const PARTICIPANT_ID_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_ID_EMPTY)
+  .reason("PARTICIPANT_ID_EMPTY")
   .key(ERROR_KEYS.PARTICIPANT_ID_VALIDATION)
   .build();
 
 const PARTICIPANT_NOT_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.PARTICIPANT_NOT_EXIST)
+  .reason("PARTICIPANT_NOT_EXIST")
   .key(ERROR_KEYS.PARTICIPANT_ID_VALIDATION)
   .build();
 
 const ROUTE_NOT_FOUND = errorBuilder
   .create()
   .key(ERROR_KEYS.UNKNOWN_ROUTE)
-  .reason(UNIQUE_ERROR_IDS.ROUTE_NOT_FOUND)
+  .reason("ROUTE_NOT_FOUND")
   .build();
 
 const SENDER_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SENDER_EMPTY)
+  .reason("SENDER_EMPTY")
   .key(ERROR_KEYS.SENDER_ID_VALIDATION)
   .build();
 
 const SENDER_ID_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SENDER_ID_EXIST)
+  .reason("SENDER_ID_EXIST")
   .key(ERROR_KEYS.SENDER_ID_VALIDATION)
   .build();
 
 const SENDER_ID_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SENDER_ID_INVALID_TYPE)
+  .reason("SENDER_ID_INVALID_TYPE")
   .key(ERROR_KEYS.SENDER_ID_VALIDATION)
   .build();
 
 const SENDER_ID_MAX_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SENDER_ID_MAX_LENGTH_REACH)
+  .reason("SENDER_ID_MAX_LENGTH_REACH")
   .key(ERROR_KEYS.SENDER_ID_VALIDATION)
   .build();
 
 const SENDER_ID_MIN_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SENDER_ID_MIN_LENGTH_REACH)
+  .reason("SENDER_ID_MIN_LENGTH_REACH")
   .key(ERROR_KEYS.SENDER_ID_VALIDATION)
   .build();
 
 const SENDER_ID_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SENDER_ID_REQUIRED)
+  .reason("SENDER_ID_REQUIRED")
   .key(ERROR_KEYS.SENDER_ID_VALIDATION)
   .build();
 
 const SESSIONS_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SESSIONS_INVALID_TYPE)
+  .reason("SESSIONS_INVALID_TYPE")
   .key(ERROR_KEYS.SESSIONS_VALIDATION)
   .build();
 
 const SESSIONS_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.SESSIONS_REQUIRED)
+  .reason("SESSIONS_REQUIRED")
   .key(ERROR_KEYS.SESSIONS_VALIDATION)
   .build();
 
 const STATUS_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.STATUS_INVALID_TYPE)
+  .reason("STATUS_INVALID_TYPE")
   .key(ERROR_KEYS.STATUS_VALIDATION)
   .build();
 
 const STATUS_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.STATUS_REQUIRED)
+  .reason("STATUS_REQUIRED")
   .key(ERROR_KEYS.STATUS_VALIDATION)
   .build();
 
 const TARGET_USER_NOT_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.TARGET_USER_NOT_EXIST)
+  .reason("TARGET_USER_NOT_EXIST")
   .key(ERROR_KEYS.TARGET_USER_VALIDATION)
   .build();
 
-const TOKEN_EXIST = errorBuilder
+const SESSION_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.TOKEN_EXIST)
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .reason("SESSION_EXIST")
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
-const TOKEN_REQUIRED = errorBuilder
+const SESSION_REQUIRED = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TOKEN_REQUIRED)
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .reason("SESSION_REQUIRED")
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
-const TOKEN_INVALID = errorBuilder
+const SESSION_INVALID = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TOKEN_INVALID)
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .reason("SESSION_INVALID")
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
-const TOKEN_EMPTY = errorBuilder
+const SESSION_EMPTY = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TOKEN_INVALID)
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .reason("SESSION_INVALID")
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
-const TOKEN_CAN_NOT_VERIFIED = errorBuilder
+const SESSION_CAN_NOT_VERIFIED = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TOKEN_CAN_NOT_VERIFIED)
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .reason("SESSION_CAN_NOT_VERIFIED")
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
-const TOKEN_INVALID_TYPE = errorBuilder
+const SESSION_INVALID_TYPE = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TOKEN_INVALID_TYPE)
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .reason("SESSION_INVALID_TYPE")
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
-const TOKEN_MINLENGTH_REACH = errorBuilder
+const SESSION_MINLENGTH_REACH = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TOKEN_MINLENGTH_REACH)
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .reason("SESSION_MINLENGTH_REACH")
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
-const TOKEN_MAXLENGTH_REACH = errorBuilder
+const SESSION_MAXLENGTH_REACH = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TOKEN_MAXLENGTH_REACH)
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .reason("SESSION_MAXLENGTH_REACH")
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
-const TEMPORARY_CLIENT_NOT_FOUND = errorBuilder
+const CLIENT_NOT_FOUND = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TEMPORARY_CLIENT_NOT_FOUND)
-  .key(ERROR_KEYS.TEMPORARY_CLIENT_VALIDATION)
+  .reason("CLIENT_NOT_FOUND")
+  .key(ERROR_KEYS.CLIENT_VALIDATION)
   .build();
-const TEMPORARY_CLIENT_NOT_VERIFIED = errorBuilder
+const CLIENT_NOT_VERIFIED = errorBuilder
   .create()
   .authError()
-  .reason(UNIQUE_ERROR_IDS.TEMPORARY_CLIENT_NOT_VERIFIED)
-  .key(ERROR_KEYS.TEMPORARY_CLIENT_VALIDATION)
+  .reason("CLIENT_NOT_VERIFIED")
+  .key(ERROR_KEYS.CLIENT_VALIDATION)
   .build();
 
 const USER_NO_LONGER_PARTICIPANT = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_NO_LONGER_PARTICIPANT)
+  .reason("USER_NO_LONGER_PARTICIPANT")
+  .key(ERROR_KEYS.USER_VALIDATION)
+  .build();
+
+const CURRENT_SESSION_NOT_EXIST = errorBuilder
+  .create()
+  .reason("CURRENT_SESSION_NOT_EXIST")
   .key(ERROR_KEYS.USER_VALIDATION)
   .build();
 
 const USER_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_EXIST)
+  .reason("USER_EXIST")
   .key(ERROR_KEYS.USER_VALIDATION)
   .build();
 
 const USER_ID_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_ID_EXIST)
+  .reason("USER_ID_EXIST")
   .key(ERROR_KEYS.USER_ID_VALIDATION)
   .build();
 
 const USER_ID_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_ID_INVALID_TYPE)
+  .reason("USER_ID_INVALID_TYPE")
   .key(ERROR_KEYS.USER_ID_VALIDATION)
   .build();
 
 const USER_ID_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_ID_INVALID)
+  .reason("USER_ID_INVALID")
   .key(ERROR_KEYS.USER_ID_VALIDATION)
   .build();
 
 const USER_ID_MAX_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_ID_MAX_LENGTH_REACH)
+  .reason("USER_ID_MAX_LENGTH_REACH")
   .key(ERROR_KEYS.USER_ID_VALIDATION)
   .build();
 
 const USER_ID_MIN_LENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_ID_MIN_LENGTH_REACH)
+  .reason("USER_ID_MIN_LENGTH_REACH")
   .key(ERROR_KEYS.USER_ID_VALIDATION)
   .build();
 
 const USER_ID_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_ID_REQUIRED)
+  .reason("USER_ID_REQUIRED")
   .key(ERROR_KEYS.USER_ID_VALIDATION)
   .build();
 
 const USER_ID_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USER_ID_EMPTY)
+  .reason("USER_ID_EMPTY")
   .key(ERROR_KEYS.USER_ID_VALIDATION)
   .build();
 
 const USERNAME_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USERNAME_EMPTY)
+  .reason("USERNAME_EMPTY")
   .key(ERROR_KEYS.USERNAME_VALIDATION)
   .build();
 
 const USERNAME_EXIST = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USERNAME_EXIST)
+  .reason("USERNAME_EXIST")
   .key(ERROR_KEYS.USERNAME_VALIDATION)
   .build();
 
 const USERNAME_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USERNAME_INVALID_TYPE)
+  .reason("USERNAME_INVALID_TYPE")
   .key(ERROR_KEYS.USERNAME_VALIDATION)
   .build();
 
 const USERNAME_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USERNAME_INVALID)
+  .reason("USERNAME_INVALID")
   .key(ERROR_KEYS.USERNAME_VALIDATION)
   .build();
 
 const USERNAME_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USERNAME_REQUIRED)
+  .reason("USERNAME_REQUIRED")
   .key(ERROR_KEYS.USERNAME_VALIDATION)
   .build();
 
 const USERNAME_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USERNAME_MAXLENGTH_REACH)
+  .reason("USERNAME_MAXLENGTH_REACH")
   .key(ERROR_KEYS.USERNAME_VALIDATION)
   .build();
 
 const USERNAME_MINLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.USERNAME_MINLENGTH_REACH)
+  .reason("USERNAME_MINLENGTH_REACH")
   .key(ERROR_KEYS.USERNAME_VALIDATION)
   .build();
 
 const VERIFICATION_CODE_INVALID = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.VERIFICATION_CODE_INVALID)
+  .reason("VERIFICATION_CODE_INVALID")
   .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
   .build();
 
 const VERIFICATION_CODE_REQUIRED = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.VERIFICATION_CODE_REQUIRED)
+  .reason("VERIFICATION_CODE_REQUIRED")
   .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
   .build();
 
 const VERIFICATION_CODE_INVALID_TYPE = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.VERIFICATION_CODE_INVALID_TYPE)
+  .reason("VERIFICATION_CODE_INVALID_TYPE")
   .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
   .build();
 
 const VERIFICATION_CODE_NUMERIC = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.VERIFICATION_CODE_NUMERIC)
+  .reason("VERIFICATION_CODE_NUMERIC")
   .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
   .build();
 
 const VERIFICATION_CODE_EMPTY = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.VERIFICATION_CODE_EMPTY)
+  .reason("VERIFICATION_CODE_EMPTY")
   .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
   .build();
 
 const VERIFICATION_CODE_INVALID_LENGTH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.VERIFICATION_CODE_INVALID_LENGTH)
+  .reason("VERIFICATION_CODE_INVALID_LENGTH")
   .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
   .build();
 
 const VERIFICATION_CODE_MAXLENGTH_REACH = errorBuilder
   .create()
-  .reason(UNIQUE_ERROR_IDS.VERIFICATION_CODE_MAXLENGTH_REACH)
+  .reason("VERIFICATION_CODE_MAXLENGTH_REACH")
   .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
   .build();
 
-const COOKIES_ARE_UNDEFINED = errorBuilder
+const COOKIE_IS_UNDEFINED = errorBuilder
   .create()
-  .reason("COOKIES_ARE_UNDEFINED")
+  .reason("COOKIE_IS_UNDEFINED")
   .side("client")
   .authError()
-  .key(ERROR_KEYS.TOKEN_VALIDATION)
+  .key(ERROR_KEYS.SESSION_VALIDATION)
   .build();
 
 const userErrors = {
@@ -1013,12 +1048,19 @@ const userErrors = {
   CHAT_ID_REQUIRED,
   CHAT_NOT_EXIST,
   CHATS_INVALID_TYPE,
+  CLIENT_ID_INVALID_TYPE,
+  CLIENT_ID_MAX_LENGTH_REACH,
+  CLIENT_ID_MIN_LENGTH_REACH,
+  CLIENT_ID_NOT_DEFINED,
+  CLIENT_ID_REQUIRED,
+  CLIENT_NOT_FOUND,
+  CLIENT_NOT_VERIFIED,
   CONTACT_INVALID_TYPE,
   CONTACT_ITEM_EXIST,
   CONTACT_ITEM_NOT_EXIST,
   CONTACTS_INVALID_TYPE,
   CONTACTS_REQUIRED,
-  COOKIES_ARE_UNDEFINED,
+  COOKIE_IS_UNDEFINED,
   COUNTRY_CODE_EMPTY,
   COUNTRY_CODE_INVALID,
   COUNTRY_CODE_INVALID_TYPE,
@@ -1038,6 +1080,7 @@ const userErrors = {
   CREATED_AT_EMPTY,
   CREATED_AT_INVALID_TYPE,
   CREATED_AT_REQUIRED,
+  CURRENT_SESSION_NOT_EXIST,
   CURRENT_USER_EXIST,
   CURRENT_USER_NOT_EXIST,
   EVENT_NOT_FOUND,
@@ -1117,16 +1160,14 @@ const userErrors = {
   STATUS_INVALID_TYPE,
   STATUS_REQUIRED,
   TARGET_USER_NOT_EXIST,
-  TEMPORARY_CLIENT_NOT_FOUND,
-  TEMPORARY_CLIENT_NOT_VERIFIED,
-  TOKEN_CAN_NOT_VERIFIED,
-  TOKEN_EMPTY,
-  TOKEN_EXIST,
-  TOKEN_INVALID,
-  TOKEN_INVALID_TYPE,
-  TOKEN_MAXLENGTH_REACH,
-  TOKEN_MINLENGTH_REACH,
-  TOKEN_REQUIRED,
+  SESSION_CAN_NOT_VERIFIED,
+  SESSION_EMPTY,
+  SESSION_EXIST,
+  SESSION_INVALID,
+  SESSION_INVALID_TYPE,
+  SESSION_MAXLENGTH_REACH,
+  SESSION_MINLENGTH_REACH,
+  SESSION_REQUIRED,
   USER_EXIST,
   USER_ID_EMPTY,
   USER_ID_EXIST,

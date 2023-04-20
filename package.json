@@ -69,6 +69,7 @@
     "@babel/core": "^7.21.0",
     "@babel/eslint-parser": "^7.19.1",
     "@cspell/eslint-plugin": "^6.29.2",
+    "@faker-js/faker": "^7.6.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/chai": "^4.3.4",
     "@types/confusing-browser-globals": "^1.0.0",

@@ -11,6 +11,7 @@ import { services } from "@/services";
 import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
 
 import { FIELD_TYPE } from "$/variables/fieldType";
+import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 
 describe("get messages success tests", () => {
   it("Should get messages", async () => {
@@ -43,12 +44,15 @@ describe("get messages success tests", () => {
   });
 });
 
-// describe("getMessages fail tests", () => {
-//   testHelper
-//     .createFailTest(helpers.requesters.getAllPrivateChats())
-//     .authentication()
-//     .checkCurrentUserStatus();
-// });
+helpers.asyncDescribe("getMessages fail tests", async () => {
+  const { requester } = await helpers.setupRequester(
+    helpers.requesters.getPrivateChats
+  );
+
+  return () => {
+    e2eFailTestInitializerHelper(requester);
+  };
+});
 
 const testEmptinessOfPrivateChats = async (socket: Socket) => {
   const requester = helpers.requesters.getPrivateChats(socket);

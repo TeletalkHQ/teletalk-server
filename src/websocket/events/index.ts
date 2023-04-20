@@ -22,13 +22,14 @@ const routes = {
   ...userRoutes,
 };
 
-const ignoredRoutesForAuth = [
-  routes.getCountries,
-  routes.getStuff,
-  routes.getWelcomeMessage,
-  routes.signIn,
-];
+//TODO: Add isAuth to route builder
 
 const arrayOfRoutes = Object.values(routes);
 
-export { arrayOfRoutes, ignoredRoutesForAuth, routers, routes };
+const routesWithoutAuth = arrayOfRoutes.filter(
+  (i) => i.isAuthRequired === false
+);
+
+const routesWithAuth = arrayOfRoutes.filter((i) => i.isAuthRequired === true);
+
+export { arrayOfRoutes, routesWithoutAuth, routers, routes, routesWithAuth };

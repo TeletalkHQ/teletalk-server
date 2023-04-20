@@ -3,7 +3,7 @@ import { UserMongo } from "@/types";
 
 import { ProjectionType, QueryOptions } from "mongoose";
 
-const getCurrentUserData = async (
+const getUserData = async (
   data: { userId: string },
   options?: QueryOptions,
   projection?: ProjectionType<UserMongo>
@@ -41,4 +41,4 @@ const getUserDataById = async (
   return await commonServices.findOneUserById(data.userId, options, projection);
 };
 
-export { getCurrentUserData, getTargetUserData };
+export { getUserData, getTargetUserData };

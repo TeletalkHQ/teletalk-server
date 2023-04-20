@@ -1,8 +1,6 @@
-import { authenticationE2eFailTestInitializer } from "./authentication";
 import { bioE2eFailTestInitializer } from "./bio";
 import { cellphoneE2eFailTestInitializer } from "./cellphone";
 import { chatIdE2eFailTestInitializer } from "./chatId";
-import { checkCurrentUserStatusE2eFailTestInitializer } from "./checkCurrentUserStatus";
 import { countryCodeE2eFailTestInitializer } from "./countryCode";
 import { countryNameE2eFailTestInitializer } from "./countryName";
 import {
@@ -26,13 +24,11 @@ import { usernameE2eFailTestInitializer } from "./username";
 import { verificationCodeE2eFailTestInitializer } from "./verificationCode";
 
 const e2eFailTestInitializers = {
-  authentication: authenticationE2eFailTestInitializer,
   bio: bioE2eFailTestInitializer,
   blacklistItemExist: blacklistItemExistE2eFailTestInitializer,
   blacklistItemNotExist: blacklistItemNotExistE2eFailTestInitializer,
   cellphone: cellphoneE2eFailTestInitializer,
   chatId: chatIdE2eFailTestInitializer,
-  checkCurrentUserStatus: checkCurrentUserStatusE2eFailTestInitializer,
   contactItemExist: contactItemExistE2eFailTestInitializer,
   contactItemNotExist: contactItemNotExistE2eFailTestInitializer,
   countryCode: countryCodeE2eFailTestInitializer,

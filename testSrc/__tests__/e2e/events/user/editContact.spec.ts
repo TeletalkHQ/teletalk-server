@@ -76,9 +76,7 @@ await helpers.asyncDescribe("editContact fail tests", async () => {
     const randomContact = randomMaker.unusedContact();
 
     e2eFailTestInitializerHelper(requester)
-      .authentication()
       .input(randomContact)
-      .checkCurrentUserStatus(randomContact)
       .firstName(randomContact)
       .lastName(randomContact)
       .userId(randomContact)

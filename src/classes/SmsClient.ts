@@ -45,13 +45,13 @@ class SmsClient {
       SMS_PROVIDER_1_HOST,
       SMS_PROVIDER_1_ROUTE,
       SMS_PROVIDER_1_SENDER,
-      SMS_PROVIDER_1_TOKEN,
+      SMS_PROVIDER_1_SESSION,
     } = envManager.getEnvironment();
 
     const { method, sendFrom, url } = {
       method: "POST",
       sendFrom: SMS_PROVIDER_1_SENDER,
-      url: `${SMS_PROVIDER_1_HOST}${SMS_PROVIDER_1_ROUTE}/${SMS_PROVIDER_1_TOKEN}`,
+      url: `${SMS_PROVIDER_1_HOST}${SMS_PROVIDER_1_ROUTE}/${SMS_PROVIDER_1_SESSION}`,
     };
 
     const smsResult = await axios.post(
@@ -73,7 +73,7 @@ class SmsClient {
       SMS_PROVIDER_2_HOST,
       SMS_PROVIDER_2_REPORT_URL,
       SMS_PROVIDER_2_ROUTE,
-      SMS_PROVIDER_2_TOKEN,
+      SMS_PROVIDER_2_SESSION,
     } = envManager.getEnvironment();
 
     const config = {
@@ -93,7 +93,7 @@ class SmsClient {
         },
       },
       headers: {
-        Authorization: `Bearer ${SMS_PROVIDER_2_TOKEN}`,
+        Authorization: `Bearer ${SMS_PROVIDER_2_SESSION}`,
       },
       method: "post",
       url: `${SMS_PROVIDER_2_HOST}${SMS_PROVIDER_2_ROUTE}`,

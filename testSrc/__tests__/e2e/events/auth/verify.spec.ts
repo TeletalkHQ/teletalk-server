@@ -8,7 +8,7 @@ import { authHelper } from "$/classes/AuthHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { authManager } from "@/classes/AuthManager";
-import { temporaryClients } from "@/classes/TemporaryClients";
+import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { helpers } from "$/helpers";
@@ -17,7 +17,7 @@ import { models } from "@/models";
 
 import { services } from "@/services";
 
-import { Session, TemporaryClient, UserMongo } from "@/types";
+import { Session, Client, UserMongo } from "@/types";
 
 describe("verifySignIn success test", () => {
   it("should sign and verify as new user", async () => {
@@ -29,12 +29,8 @@ describe("verifySignIn success test", () => {
     await helper.verify();
     chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(true);
 
-    const sessionId = authManager.getTokenId(
-      helper.getResponses().signIn.data.token,
-      authManager.getSignInSecret()
-    );
+    const client = (await clientStore.find(helper.getClientId())) as Client;
 
-    const client = (await temporaryClients.find(sessionId)) as TemporaryClient;
     chai.expect(client.isVerified).to.be.equal(true);
   });
 
@@ -45,7 +41,8 @@ describe("verifySignIn success test", () => {
 
     await helper.createComplete();
 
-    const sessions = [helper.getResponses().create.data.token];
+    const { session } = (await clientStore.find(helper.getClientId()))!;
+    const sessions = [session];
 
     for (let i = 0; i < 9; i++) {
       const helper = authHelper(cellphone, fullName);
@@ -55,12 +52,10 @@ describe("verifySignIn success test", () => {
 
       chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(false);
 
-      sessions.push(helper.getResponses().verify.data.token);
+      const { session } = (await clientStore.find(helper.getClientId()))!;
+      sessions.push(session);
       const assertHelper = assertionInitializerHelper();
-      await testUserSession(
-        assertHelper,
-        helper.getResponses().verify.data.token
-      );
+      await testUserSession(assertHelper, session);
     }
 
     const user = (await services.findOneUser(cellphone)) as UserMongo;
@@ -68,8 +63,8 @@ describe("verifySignIn success test", () => {
     chai.expect(sessions.length).to.be.equal(user.sessions.length);
 
     sessions.forEach((item) => {
-      const isTokenExist = user.sessions.some(({ token }) => token === item);
-      chai.expect(isTokenExist).to.be.true;
+      const isExist = user.sessions.some(({ session }) => session === item);
+      chai.expect(isExist).to.be.true;
     });
   });
 });
@@ -87,30 +82,27 @@ await helpers.asyncDescribe("verifySignIn fail tests", async () => {
       ),
     };
 
-    e2eFailTestInitializerHelper(requester)
-      .authentication()
-      .input(data)
-      .verificationCode(data);
+    e2eFailTestInitializerHelper(requester).input(data).verificationCode(data);
   };
 });
 
 const testUserSession = async (
   builder: AssertionInitializerHelper,
-  token: string
+  session: string
 ) => {
-  const verifiedToken = authManager.verifyToken(token);
-  const userId = userUtilities.getUserIdFromVerifiedToken(verifiedToken);
-  const foundSession = await getSavedUserSession(userId, token);
+  const verified = authManager.verify(session);
+  const userId = userUtilities.getUserIdFromVerified(verified);
+  const foundSession = await getSavedUserSession(userId, session);
   builder.authentication({
-    equalValue: foundSession.token,
-    testValue: token,
+    equalValue: foundSession.session,
+    testValue: session,
     secret: authManager.getMainSecret(),
   });
 };
 
-const getSavedUserSession = async (userId: string, token: string) => {
+const getSavedUserSession = async (userId: string, session: string) => {
   const savedUser = (await getSavedUser(userId)) as UserMongo;
-  return savedUser.sessions.find((i) => i.token === token) as Session;
+  return savedUser.sessions.find((i) => i.session === session) as Session;
 };
 
 const getSavedUser = async (userId: string) => {

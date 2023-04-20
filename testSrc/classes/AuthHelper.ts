@@ -1,5 +1,8 @@
-import { clientInitializer } from "$/classes/ClientInitializer";
-import { temporaryClients } from "@/classes/TemporaryClients";
+import {
+  ClientInitializer,
+  clientInitializer,
+} from "$/classes/ClientInitializer";
+import { clientStore } from "@/classes/ClientStore";
 
 import { helpers } from "$/helpers";
 
@@ -8,21 +11,24 @@ import {
   ClientSocket,
   FullName,
   SocketResponse,
-  TemporaryClient,
+  Client,
 } from "@/types";
-
-import { authManager } from "@/classes/AuthManager";
 
 class AuthHelper {
   private clientSocket: ClientSocket;
   private createResponse: SocketResponse;
   private signInResponse: SocketResponse;
   private verifyResponse: SocketResponse;
+  private clientInitializer: ClientInitializer;
 
-  constructor(private cellphone: Cellphone, private fullName?: FullName) {}
+  constructor(private cellphone: Cellphone, private fullName?: FullName) {
+    this.clientInitializer = clientInitializer();
+  }
 
   async signIn() {
-    this.clientSocket = await clientInitializer.createClient();
+    this.clientSocket = (
+      await this.clientInitializer.createComplete()
+    ).getClient();
 
     this.signInResponse = await helpers.requesters
       .signIn(this.clientSocket)
@@ -32,18 +38,13 @@ class AuthHelper {
   }
 
   async verify() {
-    const clientId = authManager.getTokenId(
-      this.signInResponse.data.token,
-      authManager.getSignInSecret()
-    );
-    const temporaryClient = (await temporaryClients.find(
-      clientId
-    )) as TemporaryClient;
+    const clientId = this.clientInitializer.getClientId();
+    const client = (await clientStore.find(clientId)) as Client;
 
     this.verifyResponse = await helpers.requesters
       .verify(this.clientSocket)
       .sendFullFeaturedRequest({
-        verificationCode: temporaryClient.verificationCode,
+        verificationCode: client.verificationCode,
       });
 
     return this;
@@ -74,6 +75,10 @@ class AuthHelper {
 
   getClientSocket() {
     return this.clientSocket;
+  }
+
+  getClientId() {
+    return this.clientInitializer.getClientId();
   }
 }
 

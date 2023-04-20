@@ -1,11 +1,10 @@
 import { randomMaker } from "utility-store";
 
-import { envManager } from "@/classes/EnvironmentManager";
-
 import { databaseHelpers } from "@/helpers/database";
+import { models } from "@/models";
 
 const clientIdGenerator = () =>
-  randomMaker.id(envManager.getEnvironment().CLIENT_ID_LENGTH);
+  randomMaker.id(models.native.common.clientId.maxlength.value);
 
 const helpers = {
   ...databaseHelpers,

@@ -1,8 +1,9 @@
+.dccache
 .nyc_output
-node_modules
-coverage
 build
 built
+coverage
 dist
-.dccache
 dump.rdb
+lib
+node_modules

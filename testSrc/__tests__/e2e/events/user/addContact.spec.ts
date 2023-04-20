@@ -8,12 +8,13 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { helpers } from "$/helpers";
 
+import { models } from "@/models";
+
 import { services } from "@/services";
 
 import { UserMongo } from "@/types";
 
 import { FIELD_TYPE } from "$/variables/fieldType";
-import { models } from "@/models";
 
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
@@ -100,9 +101,7 @@ helpers.asyncDescribe("addContact fail tests", async () => {
     };
 
     e2eFailTestInitializerHelper(requester)
-      .authentication()
       .input(randomContact)
-      .checkCurrentUserStatus(randomContact)
       .cellphone(randomContact)
       .countryCode(randomContact)
       .countryName(randomContact)

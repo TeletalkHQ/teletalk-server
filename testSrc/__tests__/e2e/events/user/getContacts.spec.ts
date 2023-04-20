@@ -49,9 +49,7 @@ helpers.asyncDescribe("getContacts fail tests", async () => {
   );
 
   return () => {
-    e2eFailTestInitializerHelper(requester)
-      .authentication()
-      .checkCurrentUserStatus();
+    e2eFailTestInitializerHelper(requester);
   };
 });
 

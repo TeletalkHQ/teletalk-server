@@ -83,11 +83,11 @@ interface Environments {
   SMS_PROVIDER_1_HOST: string;
   SMS_PROVIDER_1_ROUTE: string;
   SMS_PROVIDER_1_SENDER: string;
-  SMS_PROVIDER_1_TOKEN: string;
+  SMS_PROVIDER_1_SESSION: string;
   SMS_PROVIDER_2_HOST: string;
   SMS_PROVIDER_2_REPORT_URL: string;
   SMS_PROVIDER_2_ROUTE: string;
-  SMS_PROVIDER_2_TOKEN: string;
+  SMS_PROVIDER_2_SESSION: string;
   SMS_PROVIDER_SELECTOR: number;
 }
 
@@ -185,6 +185,7 @@ interface PrivateChatMongo {
 interface Route {
   inputFields: IoFields | Record<string, never>;
   outputFields: IoFields | Record<string, never>;
+  isAuthRequired: boolean;
 }
 
 interface SocketHandlerReturnValue {
@@ -221,7 +222,7 @@ interface SocketRoute extends Route {
 }
 
 interface Session {
-  token: string;
+  session: string;
 }
 
 interface Status {
@@ -247,10 +248,10 @@ interface UserMongo extends Cellphone, FullName {
   status: Status;
 }
 
-interface VerifiedToken {
+interface Verified {
   data: {
     payload: {
-      tokenId: string;
+      sessionId: string;
     };
     signature: string;
   };
@@ -274,9 +275,10 @@ type ValidationResult =
   | ValidationError[]
   | Promise<true | ValidationError[]>;
 
-interface TemporaryClient extends Cellphone {
+interface Client extends Cellphone {
   isVerified: boolean;
   verificationCode: string;
+  session: string;
 }
 
 interface PublicUserData {
@@ -366,10 +368,10 @@ export {
   SocketResponseErrors,
   SocketRoute,
   StringMap,
-  TemporaryClient,
+  Client,
   UserMongo,
   UserService,
   ValidationModel,
   ValidationResult,
-  VerifiedToken,
+  Verified,
 };

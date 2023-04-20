@@ -9,7 +9,7 @@ import { models } from "@/models";
 import { userIdAssertionInitializer } from "$/helpers/assertionInitializers/userId";
 
 import { AssertionInitializerOptions } from "$/types";
-import { VerifiedToken } from "@/types";
+import { Verified } from "@/types";
 
 import { validators } from "@/validators";
 
@@ -27,40 +27,40 @@ const authenticationAssertion: AuthenticationAssertionHelper = async (
   //FIXME: secret is undefined
   const builder = assertionInitializer
     .create()
-    .setVariables(userModels.token, equalValue, testValue)
+    .setVariables(userModels.session, equalValue, testValue)
     .setOptions(options);
 
   builder.typeCheck().gteCheck().lteCheck().stringEquality();
 
-  const verifiedResponseToken = await validators.token(testValue, secret);
-  tokenPartsTypeCheck(builder, verifiedResponseToken, secret);
+  const verifiedResponse = await validators.session(testValue, secret);
+  sessionPartsTypeCheck(builder, verifiedResponse, secret);
 
-  const verifiedRequestToken = await validators.token(equalValue, secret);
-  tokenPartsTypeCheck(builder, verifiedRequestToken, secret);
+  const verifiedRequest = await validators.session(equalValue, secret);
+  sessionPartsTypeCheck(builder, verifiedRequest, secret);
 
   if (secret === authManager.getMainSecret()) {
     userIdAssertionInitializer({
-      equalValue: verifiedRequestToken.data.payload.tokenId,
-      testValue: verifiedResponseToken.data.payload.tokenId,
+      equalValue: verifiedRequest.data.payload.sessionId,
+      testValue: verifiedResponse.data.payload.sessionId,
     });
   }
 
   builder.run();
 };
 
-const tokenPartsTypeCheck = (
+const sessionPartsTypeCheck = (
   builder: AssertionInitializer,
-  token: VerifiedToken,
+  session: Verified,
   secret: string
 ) => {
   builder
-    .customTypeCheck(token, "object")
-    .customTypeCheck(token.data, "object")
-    .customTypeCheck(token.data.signature, "string")
-    .customTypeCheck(token.data.payload, "object");
+    .customTypeCheck(session, "object")
+    .customTypeCheck(session.data, "object")
+    .customTypeCheck(session.data.signature, "string")
+    .customTypeCheck(session.data.payload, "object");
 
   if (secret === authManager.getMainSecret())
-    builder.customTypeCheck(token.data.payload.tokenId, "string");
+    builder.customTypeCheck(session.data.payload.sessionId, "string");
 };
 
 export { authenticationAssertion };

@@ -41,6 +41,7 @@ const addContactWithCellphone = builder
 const disconnect = builder
   .create()
   .name("disconnect")
+  .noAuth()
   .handler(userHandlers.disconnect)
   .build();
 
@@ -63,13 +64,13 @@ const getContacts = builder
   .handler(userHandlers.getContacts)
   .build();
 
-const getCurrentUserData = builder
+const getUserData = builder
   .create()
-  .name("getCurrentUserData")
+  .name("getUserData")
   .outputFields({
     user: fields.statics.object(fields.collection.user),
   })
-  .handler(userHandlers.getCurrentUserData)
+  .handler(userHandlers.getUserData)
   .build();
 
 const getPublicUserData = builder
@@ -148,7 +149,7 @@ const userRoutes = {
   disconnect,
   editContact,
   getContacts,
-  getCurrentUserData,
+  getUserData,
   getPublicUserData,
   removeBlock,
   removeContact,

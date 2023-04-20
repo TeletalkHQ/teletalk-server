@@ -9,12 +9,12 @@ import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { authManager } from "@/classes/AuthManager";
-import { temporaryClients } from "@/classes/TemporaryClients";
+import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { helpers } from "$/helpers";
 
-import { Cellphone, TemporaryClient } from "@/types";
+import { Cellphone, Client } from "@/types";
 
 import { FIELD_TYPE } from "$/variables/fieldType";
 
@@ -24,10 +24,9 @@ describe("signIn success test", () => {
     const helper = authHelper(cellphone);
 
     await helper.signIn();
-    const { data } = helper.getResponses().signIn;
     const assertHelper = assertionInitializerHelper();
-    await testSavedTemporaryClient(assertHelper, data.token, cellphone);
-    await testResponseToken(assertHelper, data.token);
+    await testSavedClient(assertHelper, helper.getClientId(), cellphone);
+    await testResponse(assertHelper, helper.getClientId());
   });
 
   it("should sign as existed user", async () => {
@@ -36,13 +35,12 @@ describe("signIn success test", () => {
 
     const helper = authHelper(cellphone);
     await helper.signIn();
-    const { data } = helper.getResponses().signIn;
     const assertHelper = assertionInitializerHelper();
-    await testSavedTemporaryClient(assertHelper, data.token, cellphone);
-    await testResponseToken(assertHelper, data.token);
+    await testSavedClient(assertHelper, helper.getClientId(), cellphone);
+    await testResponse(assertHelper, helper.getClientId());
   });
 
-  it("should sign multiple time, so temporary client get updated", async () => {
+  it("should sign multiple time, so client get updated", async () => {
     const cellphone = randomMaker.unusedCellphone();
     const helper = authHelper(cellphone);
 
@@ -51,16 +49,15 @@ describe("signIn success test", () => {
     }
 
     await helper.signIn();
-    const { token } = helper.getResponses().signIn.data;
     const assertHelper = assertionInitializerHelper();
-    await testSavedTemporaryClient(assertHelper, token, cellphone);
-    await testResponseToken(assertHelper, token);
+    await testSavedClient(assertHelper, helper.getClientId(), cellphone);
+    await testResponse(assertHelper, helper.getClientId());
   });
 });
 
 await helpers.asyncDescribe("signIn fail test", async () => {
   const signInCellphone = randomMaker.unusedCellphone();
-  const clientSocket = await clientInitializer.createClient();
+  const clientSocket = (await clientInitializer().createComplete()).getClient();
   const requester = helpers.requesters.signIn(clientSocket);
 
   return () => {
@@ -72,32 +69,48 @@ await helpers.asyncDescribe("signIn fail test", async () => {
   };
 });
 
-const testSavedTemporaryClient = async (
-  builder: AssertionInitializerHelper,
-  token: string,
+const testSavedClient = async (
+  assertionHelper: AssertionInitializerHelper,
+  clientId: string,
   cellphone: Cellphone
 ) => {
-  const tokenId = authManager.getTokenId(token, authManager.getSignInSecret());
-  const temporaryClient = (await temporaryClients.find(
-    tokenId
-  )) as TemporaryClient;
-  chai.expect(temporaryClient).to.be.an(FIELD_TYPE.OBJECT);
-  chai.expect(temporaryClient.countryCode).to.be.equal(cellphone.countryCode);
-  chai.expect(temporaryClient.countryName).to.be.equal(cellphone.countryName);
-  chai.expect(temporaryClient.phoneNumber).to.be.equal(cellphone.phoneNumber);
-  chai.expect(temporaryClient.isVerified).to.be.equal(false);
-  builder.verificationCode({ testValue: temporaryClient.verificationCode });
+  const client = (await clientStore.find(clientId)) as Client;
+  chai.expect(client).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(client.countryCode).to.be.equal(cellphone.countryCode);
+  chai.expect(client.countryName).to.be.equal(cellphone.countryName);
+  chai.expect(client.phoneNumber).to.be.equal(cellphone.phoneNumber);
+  chai.expect(client.isVerified).to.be.equal(false);
+
+  const sessionId = authManager.getSessionId(
+    client.session,
+    authManager.getSignInSecret()
+  );
+
+  assertionHelper
+    .verificationCode({
+      testValue: client.verificationCode,
+    })
+    .userId(
+      { testValue: sessionId },
+      { stringEquality: false, modelCheck: true }
+    );
 };
 
-const testResponseToken = async (
-  builder: AssertionInitializerHelper,
-  token: string
+//CLEANME: Merge with testSavedClient
+const testResponse = async (
+  assertionHelper: AssertionInitializerHelper,
+  clientId: string
 ) => {
-  const tokenId = authManager.getTokenId(token, authManager.getSignInSecret());
+  const client = (await clientStore.find(clientId)) as Client;
 
-  builder.userId(
+  const sessionId = authManager.getSessionId(
+    client.session,
+    authManager.getSignInSecret()
+  );
+
+  assertionHelper.userId(
     {
-      testValue: tokenId,
+      testValue: sessionId,
     },
     {
       modelCheck: true,

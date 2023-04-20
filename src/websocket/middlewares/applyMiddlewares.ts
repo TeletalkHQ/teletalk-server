@@ -7,7 +7,7 @@ const applyMiddlewares = (
   ...middlewares: SocketMiddleware[]
 ) => {
   return (async (socket, next, event) => {
-    if (utilities.isUrlMatchWithReqUrl(events, event[0])) {
+    if (utilities.isEventNameMatch(events, event[0])) {
       return await utilities.executeMiddlewares({
         event,
         middlewares,

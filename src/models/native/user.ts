@@ -96,14 +96,14 @@ const status = nativeModelBuilder
   .defaultValue({})
   .build();
 
-const token = nativeModelBuilder
+const session = nativeModelBuilder
   .create()
-  .type("string", errors.TOKEN_INVALID_TYPE)
-  .required(true, errors.TOKEN_REQUIRED)
-  .empty(false, errors.TOKEN_EMPTY)
-  .minlength(100, errors.TOKEN_MINLENGTH_REACH)
-  .maxlength(500, errors.TOKEN_MAXLENGTH_REACH)
-  .unique(true, errors.TOKEN_EXIST)
+  .type("string", errors.SESSION_INVALID_TYPE)
+  .required(true, errors.SESSION_REQUIRED)
+  .empty(false, errors.SESSION_EMPTY)
+  .minlength(100, errors.SESSION_MINLENGTH_REACH)
+  .maxlength(500, errors.SESSION_MAXLENGTH_REACH)
+  .unique(true, errors.SESSION_EXIST)
   .build();
 
 const username = nativeModelBuilder
@@ -162,7 +162,7 @@ const userModels = {
   phoneNumber,
   sessions,
   status,
-  token,
+  session,
   userId,
   username,
   verificationCode,

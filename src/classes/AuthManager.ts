@@ -1,109 +1,82 @@
-import cookie from "cookie";
 import JWT from "jsonwebtoken";
 import { trier } from "simple-trier";
-import { Socket } from "socket.io";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
-import { VerifiedToken } from "@/types";
+import { Verified } from "@/types";
+
+import { utilities } from "@/utilities";
 
 import { errors } from "@/variables/errors";
+
+import { routes } from "@/websocket/events";
+
 class AuthManager {
   private options = {
-    cookie: {
-      SESSION_NAME: "SESSION",
-    },
+    SESSION_NAME: "SESSION",
   };
 
   getOptions() {
     return this.options;
   }
 
-  verifyToken(token: string, secret = this.getMainSecret()) {
-    return trier(this.verifyToken.name)
+  verify(session: string, secret = this.getMainSecret()) {
+    return trier(this.verify.name)
       .try(
         () => {
-          const data = JWT.verify(token, secret, {
+          const data = JWT.verify(session, secret, {
             complete: true,
             algorithms: ["HS256"],
           });
 
           return { data };
         },
-        token,
+        session,
         secret
       )
       .catch((error) => {
         return {
-          ...errors.TOKEN_INVALID,
-          tokenError: error,
+          ...errors.SESSION_INVALID,
+          sessionError: error,
         };
       })
       .throw()
-      .run() as VerifiedToken;
+      .run() as Verified;
   }
 
-  signToken<T extends object>(data: T, secret = this.getMainSecret()) {
+  signSession<T extends object>(data: T, secret = this.getMainSecret()) {
     return JWT.sign(data, secret, {
       algorithm: "HS256",
     });
   }
 
-  // getSecret(reqUrl) {
-  //   const isAuthenticationUrl = isUrlMatchWithReqUrl(
-  //     [routes.auth.verify.name, routes.auth.createNewUser.name],
-  //     reqUrl
-  //   );
-
-  //   const secrets = this.getSecrets();
-  //   return isAuthenticationUrl
-  //     ?  secrets.SESSION_SIGN_IN_SECRET
-  //     : secrets.SESSION_MAIN_SECRET;
-  // }
-
-  // getTokenFromRequest(req) {
-  //   return req.cookies[this.getOptions().cookie.SESSION_NAME];
-  // }
-
-  getSessionFromSocket(socket: Socket) {
-    return socket.handshake.headers.cookie?.split(
-      `${this.getOptions().cookie.SESSION_NAME}=`
-    )[1];
-  }
-  setSessionOnSocket(
-    socket: Socket,
-    token: string
-    //FIXME: Options need to set
-    // options = { httpOnly: true, secure: true }
-  ) {
-    const session = cookie.serialize(
-      this.getOptions().cookie.SESSION_NAME,
-      token
+  getSecret(eventName: string) {
+    const isAuthenticationUrl = utilities.isEventNameMatch(
+      [routes.verify.name, routes.createNewUser.name],
+      eventName
     );
 
-    socket.handshake.headers.cookie = session;
-    // (this.getOptions().cookie.SESSION_NAME, token, options);
-  }
-  removeSession(socket: Socket) {
-    socket.handshake.headers.cookie = "";
-    // clearCookie(this.getOptions().cookie.SESSION_NAME);
+    const secrets = this.getSecrets();
+    return isAuthenticationUrl
+      ? secrets.SESSION_SIGN_IN_SECRET
+      : secrets.SESSION_MAIN_SECRET;
   }
 
-  getSignInSecret() {
-    return envManager.getEnvironment().SESSION_SIGN_IN_SECRET;
-  }
-  getMainSecret() {
-    return envManager.getEnvironment().SESSION_MAIN_SECRET;
-  }
   getSecrets() {
     return {
       SESSION_MAIN_SECRET: this.getMainSecret(),
       SESSION_SIGN_IN_SECRET: this.getSignInSecret(),
     };
   }
+  getMainSecret() {
+    return envManager.getEnvironment().SESSION_MAIN_SECRET;
+  }
+  getSignInSecret() {
+    return envManager.getEnvironment().SESSION_SIGN_IN_SECRET;
+  }
 
-  getTokenId(token: string, secret: string = this.getMainSecret()) {
-    return this.verifyToken(token, secret).data.payload.tokenId;
+  getSessionId(session: string, secret: string = this.getMainSecret()) {
+    return this.verify(session, secret).data.payload.sessionId;
   }
 }
 

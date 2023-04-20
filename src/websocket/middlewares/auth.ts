@@ -2,17 +2,16 @@ import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
 import { authManager } from "@/classes/AuthManager";
+import { clientStore } from "@/classes/ClientStore";
 
-import { SocketMiddleware, SocketNext, VerifiedToken } from "@/types";
+import { SocketMiddleware, SocketNext, Verified } from "@/types";
 
 import { validators } from "@/validators";
 
 import { errors } from "@/variables/errors";
 
-import { routes } from "@/websocket/events";
-
 const auth: SocketMiddleware = async (socket, next, [name]) => {
-  await trier<VerifiedToken>(auth.name)
+  await trier<Verified>(auth.name)
     .tryAsync(tryBlock, socket, name)
     .executeIfNoError(executeIfNoError, socket, next)
     .throw()
@@ -20,27 +19,21 @@ const auth: SocketMiddleware = async (socket, next, [name]) => {
 };
 
 const tryBlock = async (socket: Socket, eventName: string) => {
-  if (!socket.handshake.headers.cookie) throw errors.TOKEN_REQUIRED;
+  const client = await clientStore.find(socket.clientId);
 
-  const session = authManager.getSessionFromSocket(socket);
+  if (!client) throw errors.CLIENT_NOT_FOUND;
 
-  if (!session) throw errors.TOKEN_REQUIRED;
-
-  const secret = [routes.verify.name, routes.createNewUser.name].includes(
-    eventName
-  )
-    ? authManager.getSignInSecret()
-    : authManager.getMainSecret();
-
-  return await validators.token(session, secret);
+  const secret = authManager.getSecret(eventName);
+  const { session } = client;
+  return await validators.session(session, secret);
 };
 
 const executeIfNoError = (
-  verifiedToken: VerifiedToken,
+  verified: Verified,
   socket: Socket,
   next: SocketNext
 ) => {
-  socket.authData = verifiedToken;
+  socket.authData = verified;
   next();
 };
 

@@ -14,7 +14,7 @@ import {
 // const getHostFromRequest = (request) => request.get("host");
 
 type Url = string | string[];
-const isUrlMatchWithReqUrl = (url: Url, reqUrl: string) =>
+const isEventNameMatch = (url: Url, reqUrl: string) =>
   (Array.isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
 
 const crashServer = (message: unknown) => {
@@ -84,10 +84,16 @@ const sortEnvironments = () =>
       return prevValue;
     }, {} as Environments);
 
+const extractClientIdFromCookie = (cookie: string) => {
+  const [rawCookie] = cookie.split("; ");
+  return rawCookie.split("=")[1];
+};
+
 const utilities = {
   crashServer,
   executeMiddlewares,
-  isUrlMatchWithReqUrl,
+  extractClientIdFromCookie,
+  isEventNameMatch,
   logEnvironments,
   passwordGenerator,
   regexMaker,

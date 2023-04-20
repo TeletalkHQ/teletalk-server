@@ -16,14 +16,16 @@ import { FIELD_TYPE } from "$/variables/fieldType";
 
 describe("getAllStuff success tests", () => {
   it("should get all requirements for clients", async () => {
-    const clientSocket = await clientInitializer.createClient();
+    const clientSocket = (
+      await clientInitializer().createComplete()
+    ).getClient();
     const requester = helpers.requesters.getStuff(clientSocket);
 
     const { data } = await requester.sendFullFeaturedRequest({
       language: "en",
     });
 
-    testRoutes(data.routes);
+    testRoutes(Object.values(data.routes));
     testModels(data.models);
     testErrors(data.appErrors);
     testValidationModels(data.validationModels);
@@ -31,7 +33,7 @@ describe("getAllStuff success tests", () => {
 });
 
 const testRoutes = (routes: SocketRoute[]) => {
-  Object.values(routes).forEach((route) => {
+  routes.forEach((route) => {
     chai.expect(route.name).to.be.an(FIELD_TYPE.STRING);
     chai.expect(route.method).to.be.an(FIELD_TYPE.STRING);
     chai.expect(route.name).to.be.an(FIELD_TYPE.STRING);

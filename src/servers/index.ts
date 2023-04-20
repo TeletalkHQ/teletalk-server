@@ -19,7 +19,6 @@ import { requirements } from "@/requirements";
 import { crateHttpServer } from "@/servers/http";
 import { websocketServer } from "@/servers/websocket";
 
-
 PrettyError.start();
 
 const { NODE_ENV, PORT, PORT_DEFAULT, SELF_EXEC } = envManager.getEnvironment();

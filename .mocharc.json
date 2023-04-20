@@ -1,9 +1,16 @@
 {
-  "extension": ["js", "cjs", "mjs"],
+  "extension": ["ts"],
+  "node-option": [
+    "experimental-specifier-resolution=node",
+    "loader=./loader.js",
+    "trace-warnings",
+    "no-warnings"
+  ],
   "timeout": 60000,
   "ui": "bdd",
-  "watch-files": ["lib/**/*.js", "test/**/*.js"],
-  "watch-ignore": "",
+  "watch-files": ["testSrc/**/*.spec.ts"],
   "reporter": "spec",
-  "package": "./package.json"
+  "delay": true,
+  "recursive": true,
+  "exit": true
 }

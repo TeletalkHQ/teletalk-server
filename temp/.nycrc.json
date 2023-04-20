@@ -6,7 +6,7 @@
   },
   "extension": [".ts", ".tsx", ".js"],
   "exclude": [
-    "**/test/*",
+    "**/testSrc/*",
     "**/dist/*",
     "**/*.dist.js",
     "**/templates/*",

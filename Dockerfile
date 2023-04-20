@@ -5,23 +5,21 @@ WORKDIR /teletalk-server
 RUN npm install -g yarn --force
 
 COPY package.json ./
-COPY yarn* ./
+COPY tsconfig.json ./
 
 RUN yarn
 
-COPY jsconfig.json ./
-
+COPY .vscode/ .vscode/
 COPY environments/ environments/
-
-COPY requirements/ requirements/
+COPY esbuild/ esbuild/
+COPY modules/ modules/
+COPY public/ public/
+COPY .mocharc.json ./
+COPY index.ts ./
+COPY loader.js ./
 
 COPY src/ src/
-COPY public/ public/
-COPY index.js ./
-
-COPY test/ test/
-
-COPY esbuild.config.json ./
+COPY testSrc/ testSrc/
 
 RUN npm run build
 
@@ -30,4 +28,4 @@ USER node
 # CMD npm run start:production:local
 CMD npm run test:production:local && npm run start:production:local
 
-EXPOSE 8081
+EXPOSE 9000

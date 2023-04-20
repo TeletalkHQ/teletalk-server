@@ -1,8 +1,0 @@
-{
-  "bundle": true,
-  "entry": "./src/servers/index.js",
-  "minify": true,
-  "outfile": "build/index.js",
-  "platform": "node",
-  "target": "node16.0"
-}

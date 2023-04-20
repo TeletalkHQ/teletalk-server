@@ -1,0 +1,10 @@
+app environment =>
+8080: default
+8090: development
+9000: production_local
+
+test environment =>
+9080: default
+9090: test_development
+10000: test_production_local
+10010: test_production

@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     network_mode: bridge
     ports:
-      - 8081:8081
+      - 9000:9000
     links:
       - redis
       - mongo

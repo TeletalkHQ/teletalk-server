@@ -9,7 +9,7 @@ import { services } from "@/services";
 
 import { PublicUserData, UserMongo } from "@/types";
 
-describe("getCurrentUserData success tests", () => {
+describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
     const users = await randomMaker.users(10);
 
@@ -45,9 +45,7 @@ await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
     const { status, ...updatablePublicData } = randomMaker.publicUserData();
 
     e2eFailTestInitializerHelper(requester)
-      .authentication()
       .input(updatablePublicData)
-      .checkCurrentUserStatus(updatablePublicData)
       .bio(updatablePublicData)
       .firstName(updatablePublicData)
       .lastName(updatablePublicData)

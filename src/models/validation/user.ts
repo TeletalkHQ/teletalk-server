@@ -111,10 +111,10 @@ const userId = {
     .build(),
 };
 
-const token = {
-  token: validationModelBuilder
+const session = {
+  session: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.token)
+    .setModel(nativeModels.user.session)
     .type()
     .required()
     .empty()
@@ -159,7 +159,7 @@ const userValidationModels = {
   lastName,
   macAddress,
   phoneNumber,
-  token,
+  session,
   userId,
   username,
   verificationCode,

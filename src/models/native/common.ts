@@ -2,6 +2,14 @@ import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
 
 import { errors } from "@/variables/errors";
 
+const clientId = nativeModelBuilder
+  .create()
+  .type("string", errors.CLIENT_ID_INVALID_TYPE)
+  .required(true, errors.CLIENT_ID_REQUIRED)
+  .minlength(40, errors.CLIENT_ID_MIN_LENGTH_REACH)
+  .maxlength(50, errors.CLIENT_ID_MAX_LENGTH_REACH)
+  .build();
+
 const createdAt = nativeModelBuilder
   .create()
   .type("number", errors.CREATED_AT_INVALID_TYPE)
@@ -44,6 +52,7 @@ const messageId = nativeModelBuilder
 
 const commonModels = {
   chatId,
+  clientId,
   createdAt,
   messageId,
   userId,

@@ -1,19 +1,14 @@
 import { errorThrower, randomMaker } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
-import { temporaryClients } from "@/classes/TemporaryClients";
+import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { models } from "@/models";
 
 import { services } from "@/services";
 
-import {
-  Cellphone,
-  SocketOnHandler,
-  TemporaryClient,
-  UserMongo,
-} from "@/types";
+import { Cellphone, SocketOnHandler, Client, UserMongo } from "@/types";
 
 import { validators } from "@/validators";
 
@@ -26,16 +21,14 @@ const createNewUser: SocketOnHandler = async (
   await validators.firstName(firstName);
   await validators.lastName(lastName);
 
-  const { sessionId } = socket.authData.data.payload;
-  const client = await findClient(sessionId);
+  const client = await findClient(socket.clientId);
   checkClientVerification(client);
 
   const cellphone = userUtilities.extractCellphone(client);
   await checkExistenceOfUser(cellphone);
 
   const userId = getRandomId();
-  const token = signToken(userId);
-  authManager.setSessionOnSocket(socket, token);
+  const session = sign(userId);
 
   await saveNewUser({
     ...userUtilities.defaultUserData(),
@@ -44,28 +37,24 @@ const createNewUser: SocketOnHandler = async (
     lastName,
     createdAt: Date.now(),
     userId,
-    sessions: [{ token }],
+    sessions: [{ session }],
     status: { isActive: false },
   });
 
-  await removeTemporaryClient(sessionId);
+  await clientStore.update(socket.clientId, { ...client, session });
 
-  return {
-    data: {
-      token,
-    },
-  };
+  return { data: {} };
 };
 
 const findClient = async (sessionId: string) => {
-  const client = await temporaryClients.find(sessionId);
-  if (!client) throw errors.TEMPORARY_CLIENT_NOT_FOUND;
+  const client = await clientStore.find(sessionId);
+  if (!client) throw errors.CLIENT_NOT_FOUND;
   return client;
 };
 
-const checkClientVerification = (client: TemporaryClient) => {
+const checkClientVerification = (client: Client) => {
   errorThrower(!client.isVerified, {
-    ...errors.TEMPORARY_CLIENT_NOT_VERIFIED,
+    ...errors.CLIENT_NOT_VERIFIED,
     createNewUser: "failed",
   });
 };
@@ -78,8 +67,8 @@ const checkExistenceOfUser = async (cellphone: Cellphone) => {
 const getRandomId = () =>
   randomMaker.id(models.native.user.userId.maxlength.value);
 
-const signToken = (sessionId: string) => {
-  return authManager.signToken({
+const sign = (sessionId: string) => {
+  return authManager.signSession({
     sessionId,
     date: Date.now(),
   });
@@ -87,10 +76,6 @@ const signToken = (sessionId: string) => {
 
 const saveNewUser = async (data: UserMongo) => {
   await services.createNewUser(data);
-};
-
-const removeTemporaryClient = async (clientId: string) => {
-  await temporaryClients.remove(clientId);
 };
 
 export { createNewUser };

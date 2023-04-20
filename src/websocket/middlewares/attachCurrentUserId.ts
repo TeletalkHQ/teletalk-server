@@ -3,9 +3,7 @@ import { userUtilities } from "@/classes/UserUtilities";
 import { SocketMiddleware } from "@/types";
 
 const attachCurrentUserId: SocketMiddleware = (socket, next) => {
-  socket.currentUserId = userUtilities.getUserIdFromVerifiedToken(
-    socket.authData
-  );
+  socket.currentUserId = userUtilities.getUserIdFromVerified(socket.authData);
 
   next();
 };

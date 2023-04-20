@@ -46,10 +46,7 @@ await helpers.asyncDescribe("getPrivateChat fail tests", async () => {
       chatId: randomMaker.string(privateChatModels.chatId.maxlength.value),
     };
 
-    e2eFailTestInitializerHelper(requester)
-      .authentication()
-      .checkCurrentUserStatus(data)
-      .chatId(data);
+    e2eFailTestInitializerHelper(requester).chatId(data);
   };
 });
 

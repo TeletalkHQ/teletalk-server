@@ -77,8 +77,8 @@ const phoneNumber: SchemaDefinitionProperty = {
   type: "string",
 };
 
-const token: SchemaDefinitionProperty = {
-  // required: userNativeModel.token.required.value,
+const session: SchemaDefinitionProperty = {
+  // required: userNativeModel.session.required.value,
   type: "string",
 };
 
@@ -124,7 +124,7 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
   phoneNumber,
   sessions: [
     {
-      token,
+      session,
     },
   ],
   status: {

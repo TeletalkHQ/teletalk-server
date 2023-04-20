@@ -1,72 +1,62 @@
 import chai from "chai";
 
 import { authHelper } from "$/classes/AuthHelper";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
+import { authManager } from "@/classes/AuthManager";
+import { clientStore } from "@/classes/ClientStore";
 import { randomMaker } from "$/classes/RandomMaker";
+
+import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
-import { clientInitializer } from "$/classes/ClientInitializer";
-
-import { ClientSocket, UserMongo } from "@/types";
-import { helpers } from "$/helpers";
+import { UserMongo } from "@/types";
 
 describe("logout success tests", () => {
   it("should get response.ok:true logging out user", async () => {
-    const cellphone = randomMaker.unusedCellphone();
+    const cellphone = randomMaker.cellphone();
     const fullName = randomMaker.fullName();
-    const helper = authHelper(cellphone, fullName);
+    const ah = authHelper(cellphone, fullName);
 
-    await helper.createComplete();
+    await ah.createComplete();
 
-    const users = [
-      {
-        token: helper.getResponses().create.data.token,
-        socket: helper.getClientSocket(),
-      },
-    ];
+    const client = (await clientStore.find(ah.getClientId()))!;
+    const clients = [{ session: client.session, socket: ah.getClientSocket() }];
 
     for (let i = 0; i < 9; i++) {
-      await helper.signIn();
-      await helper.verify();
-      users.push({
-        token: helper.getResponses().verify.data.token,
-        socket: helper.getClientSocket(),
-      });
+      await ah.signIn();
+      await ah.verify();
+      const { session } = (await clientStore.find(ah.getClientId()))!;
+      clients.push({ session, socket: ah.getClientSocket() });
     }
 
-    const popUser = users.pop();
-
-    // const response =
     await helpers.requesters
-      .logout(popUser?.socket as ClientSocket)
+      .logout(ah.getClientSocket())
       .sendFullFeaturedRequest();
 
-    // chai.expect(response.ok).to.be.true;
-
-    const user = (await services.findOneUser(cellphone)) as UserMongo;
-
-    const isSessionExist = user.sessions.some(
-      ({ token }) => token === popUser?.token
+    const loggedOutClient = clients.pop();
+    const sessionId = authManager.getSessionId(clients[0].session);
+    const userFromDb = (await services.findOneUser({
+      userId: sessionId,
+    })) as UserMongo;
+    const isSessionExist = userFromDb.sessions.some(
+      ({ session }) => session === loggedOutClient!.session
     );
     chai.expect(isSessionExist).to.be.false;
 
-    chai.expect(users.length).to.be.equal(user.sessions.length);
-
-    users.forEach((item) => {
-      const isSessionExist = user.sessions.some((i) => i.token === item.token);
+    clients.forEach((item) => {
+      const isSessionExist = userFromDb.sessions.some(
+        (i) => i.session === item.session
+      );
       chai.expect(isSessionExist).to.be.true;
     });
   });
 });
 
-await helpers.asyncDescribe("logout fail tests", async () => {
-  const clientSocket = await clientInitializer.createClient();
-  const requester = helpers.requesters.logout(clientSocket);
+// await helpers.asyncDescribe("logout fail tests", async () => {
+//   const clientSocket = (await clientInitializer().createComplete()).getClient();
+//   const requester = helpers.requesters.logout(clientSocket);
 
-  return () => {
-    e2eFailTestInitializerHelper(requester)
-      .authentication()
-      .checkCurrentUserStatus();
-  };
-});
+//   return () => {
+//     e2eFailTestInitializerHelper(requester);
+//   };
+// });

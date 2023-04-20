@@ -57,9 +57,7 @@ await helpers.asyncDescribe("removeContact fail tests", async () => {
     };
 
     e2eFailTestInitializerHelper(requester)
-      .authentication()
       .input(randomData)
-      .checkCurrentUserStatus(randomData)
       .userId(randomData)
       .selfStuff(selfStuffData)
       .contactItemNotExist(randomData);

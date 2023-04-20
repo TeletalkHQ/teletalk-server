@@ -1,28 +1,24 @@
 import { authManager } from "@/classes/AuthManager";
-import { temporaryClients } from "@/classes/TemporaryClients";
+import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
-import { SocketOnHandler, TemporaryClient } from "@/types";
+import { SocketOnHandler, Client } from "@/types";
 
 const verify: SocketOnHandler = async (socket) => {
-  const { sessionId } = socket.authData.data.payload;
+  const client = (await clientStore.find(socket.clientId)) as Client;
 
-  const client = (await temporaryClients.find(sessionId)) as TemporaryClient;
   const cellphone = userUtilities.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);
   if (foundUser) {
-    await removeTemporaryClient(sessionId);
-
-    const token = signToken(foundUser.userId);
-    authManager.setSessionOnSocket(socket, token);
-    await addNewSession(foundUser.userId, token);
+    const session = sign(foundUser.userId);
+    await addNewSession(foundUser.userId, session);
+    clientStore.update(socket.clientId, { ...client, session });
 
     return {
       data: {
         newUser: false,
-        token,
       },
     };
   }
@@ -34,25 +30,21 @@ const verify: SocketOnHandler = async (socket) => {
   };
 };
 
-const signToken = (sessionId: string) => {
-  return authManager.signToken(
+const sign = (userId: string) => {
+  return authManager.signSession(
     {
-      sessionId,
+      sessionId: userId,
       date: Date.now(),
     },
     authManager.getMainSecret()
   );
 };
 
-const addNewSession = async (userId: string, newToken: string) => {
+const addNewSession = async (userId: string, session: string) => {
   await services.addNewSession({
-    newToken,
+    session,
     userId,
   });
-};
-
-const removeTemporaryClient = async (sessionId: string) => {
-  await temporaryClients.remove(sessionId);
 };
 
 export { verify };

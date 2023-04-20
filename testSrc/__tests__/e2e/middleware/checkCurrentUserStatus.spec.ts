@@ -1,109 +1,76 @@
-// import chai from "chai";
-// import { randomMaker } from "utility-store";
+import { authManager } from "@/classes/AuthManager";
+import { clientStore } from "@/classes/ClientStore";
+import { randomMaker } from "$/classes/RandomMaker";
 
-// import { authManager } from "@/classes/AuthManager";
-// import { requesterCreator } from "$/classes/Requester";
-// import { userUtilities } from "@/classes/UserUtilities";
+import { helpers } from "$/helpers";
 
-// import { models } from "@/models";
+import { models } from "@/models";
 
-// import { ClientSocket, SocketRoute } from "@/types";
+import { errors } from "@/variables/errors";
 
-//
+import { routesWithAuth } from "@/websocket/events";
 
-// import { errors } from "@/variables/errors";
+describe("checkCurrentUserStatus middleware success tests", () => {
+  //TODO: Add tests: checkCurrentUserStatus middleware success tests
+});
 
-// import { arrayOfRoutes, ignoredRoutesForAuth } from "@/websocket/events";
+describe("checkCurrentUserStatus middleware fail tests", () => {
+  const routesWithoutSignup = routesWithAuth.filter(
+    (i) => i.name !== "verify" && i.name !== "createNewUser"
+  );
 
-// const userModel = models.native.user;
+  for (const route of routesWithoutSignup) {
+    const title = helpers.createFailTestMessage(
+      errors.CURRENT_USER_NOT_EXIST,
+      route
+    );
 
-// const requester = (socket: ClientSocket, route: SocketRoute) =>
-//   requesterCreator(socket, route);
+    it(title, async () => {
+      const wrongSessionId = randomMaker.string(
+        models.native.user.userId.maxlength.value
+      );
+      const session = authManager.signSession({
+        sessionId: wrongSessionId,
+      });
 
-// describe("checkCurrentUserStatus middleware success tests", () => {
-//   //TODO: Add tests: checkCurrentUserStatus middleware success tests
-// });
+      const { socket } = await randomMaker.user();
 
-// //FIXME: Need to make dynamic data
-// describe("checkCurrentUserStatus middleware fail tests", () => {
-//   const user = testVariablesManager.getUsers().checkCurrentUserStatus;
-//   const cellphone = userUtilities.extractCellphone(user);
-//   const error = errors.CURRENT_USER_NOT_EXIST;
+      const client = (await clientStore.find(socket.clientId))!;
+      await clientStore.update(socket.clientId, {
+        ...client,
+        session,
+      });
 
-//   const filteredIgnoredRoutes = arrayOfRoutes.filter(
-//     (route) =>
-//       !ignoredRoutesForAuth.some(
-//         (ignoredRoute) => ignoredRoute.name === route.name
-//       )
-//   );
+      const data = helpers.generateDynamicData(route.inputFields);
+      await helpers.requesters[route.name as keyof typeof helpers.requesters](
+        socket
+      ).sendFullFeaturedRequest(data, errors.CURRENT_USER_NOT_EXIST);
+    });
+  }
 
-//   for (const route of filteredIgnoredRoutes) {
-//     it(
-//       helpers.createFailTestMessage(errors.TOKEN_REQUIRED, route),
-//       async () => {
-//         const wrongUserId = randomMaker.string(
-//           userModel.userId.maxlength.value
-//         );
+  for (const route of routesWithoutSignup) {
+    const title = helpers.createFailTestMessage(
+      errors.CURRENT_SESSION_NOT_EXIST,
+      route
+    );
 
-//         const token = authManager.signToken({
-//           ...cellphone,
-//           userId: wrongUserId,
-//         });
+    it(title, async () => {
+      const { socket } = await randomMaker.user();
 
-//         const { body } = await requester(route).sendFullFeaturedRequest(
-//           // data,
-//           error,
-//           {
-//             token,
-//           }
-//         );
+      const client = (await clientStore.find(socket.clientId))!;
+      const sessionId = authManager.getSessionId(client.session);
+      const newSession = authManager.signSession({
+        sessionId,
+      });
+      await clientStore.update(socket.clientId, {
+        ...client,
+        session: newSession,
+      });
 
-//         chai.expect(body.errors[error.key].wrongUserId).to.be.equal(wrongUserId);
-//       }
-//     );
-//   }
-
-//   for (const route of filteredIgnoredRoutes) {
-//     it(
-//       helpers.createFailTestMessage(errors.TOKEN_REQUIRED, route),
-//       async () => {
-//         const token = authManager.signToken({
-//           ...cellphone,
-//           userId: user.userId,
-//         });
-
-//         const { body } = await requester(route).sendFullFeaturedRequest(
-//           // data,
-//           error,
-//           {
-//             token,
-//           }
-//         );
-
-//         chai.expect(body.errors[error.key].isSessionExist).to.be.false;
-//       }
-//     );
-//   }
-
-//   for (const route of filteredIgnoredRoutes) {
-//     it(
-//       helpers.createFailTestMessage(errors.TOKEN_REQUIRED, route),
-//       async () => {
-//         const wrongUserId = randomMaker.string(
-//           userModel.userId.maxlength.value
-//         );
-//         const token = authManager.signToken({
-//           userId: wrongUserId,
-//         });
-
-//         await requester(route).sendFullFeaturedRequest(
-//           // data,
-//           error,
-//           {
-//             token,
-//           }
-//         );
-//       }
-//     );
-//   }
-// });
+      const data = helpers.generateDynamicData(route.inputFields);
+      await helpers.requesters[route.name as keyof typeof helpers.requesters](
+        socket
+      ).sendFullFeaturedRequest(data, errors.CURRENT_SESSION_NOT_EXIST);
+    });
+  }
+});

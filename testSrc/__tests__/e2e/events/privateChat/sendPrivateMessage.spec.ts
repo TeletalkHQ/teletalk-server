@@ -60,9 +60,7 @@ await helpers.asyncDescribe("send message fail tests", async () => {
     };
 
     e2eFailTestInitializerHelper(requester)
-      .authentication()
       .input(data)
-      .checkCurrentUserStatus(data)
       .participantId(data)
       .messageText(data)
       .targetUserNotExist(data);

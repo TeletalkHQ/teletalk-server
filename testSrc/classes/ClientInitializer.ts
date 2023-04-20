@@ -1,9 +1,17 @@
+//FIXME: Remove http://
+
 import cookie from "cookie";
 import http from "http";
 
-import Client from "socket.io-client";
+import Client, {
+  ManagerOptions,
+  Socket,
+  SocketOptions,
+} from "socket.io-client";
 
 import { appConfigs } from "@/classes/AppConfigs";
+
+import { utilities } from "@/utilities";
 
 import { errors } from "@/variables/errors";
 
@@ -11,63 +19,112 @@ const {
   server: { exactPort, hostname },
 } = appConfigs.getConfigs();
 
+const setClientIdRequestOptions = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+  hostname,
+  method: "POST",
+  path: "/setClientId",
+  port: exactPort,
+};
+
+type PromiseResolve = (value: string | PromiseLike<string>) => void;
+type PromiseReject = (reason?: any) => void;
+const setClientIdRequestBody =
+  //prettier-ignore
+  (resolve: PromiseResolve, reject: PromiseReject) =>
+    (res: http.IncomingMessage) => {
+      const cookies = res.headers["set-cookie"];
+      if (!cookies) return reject(errors.COOKIE_IS_UNDEFINED);
+      resolve(utilities.extractClientIdFromCookie(cookies[0]));
+    };
+
 class ClientInitializer {
-  async createClient() {
-    const clientId = await this.getClientId();
-    const options = this.makeClientSocketOptions(clientId);
-    //FIXME: Remove http://
-    const url = `http://${hostname}:${exactPort}`;
-    const client = Client(url, options);
-    client.connect();
-    return client;
+  private client: Socket;
+  private clientId: string;
+  private clientIdCookie: string;
+
+  async setLegitClientId() {
+    this.clientId = await this.getLegalClientId();
+    return this;
+  }
+  setIllegalClientId(clientId?: any) {
+    this.clientId = clientId;
   }
 
-  private async getClientId() {
-    const options = this.getSetClientIdOptions();
-
+  async getLegalClientId() {
     return await new Promise<string>((resolve, reject) => {
-      const req = http.request(options, (res) => {
-        const cookies = res.headers["set-cookie"];
-        if (!cookies) return reject(errors.COOKIES_ARE_UNDEFINED);
-
-        const clientIdCookie = cookies[0];
-
-        const [rawCookie] = clientIdCookie.split("; ");
-        const [, value] = rawCookie.split("=");
-
-        resolve(value);
-      });
+      const req = http.request(
+        setClientIdRequestOptions,
+        setClientIdRequestBody(resolve, reject)
+      );
       req.end();
     });
   }
 
-  private getSetClientIdOptions() {
-    return {
-      hostname,
-      port: exactPort,
-      path: "/setClientId",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+  create() {
+    this.client = Client(this.makeUrl(), this.makeClientSocketOptions());
+    return this;
   }
 
-  private makeClientSocketOptions(clientId: string) {
-    return {
+  private makeUrl() {
+    return `http://${hostname}:${exactPort}`;
+  }
+
+  private makeClientSocketOptions() {
+    const options: Partial<ManagerOptions & SocketOptions> = {
       autoConnect: false,
       withCredentials: true,
-      extraHeaders: {
-        cookie: cookie.serialize("clientId", clientId, {
-          httpOnly: true,
-          sameSite: false,
-          secure: true,
-        }),
-      },
     };
+
+    if (this.clientIdCookie) {
+      options.extraHeaders = {
+        cookie: this.clientIdCookie,
+      };
+    }
+
+    return options;
+  }
+  makeClientIdCookie() {
+    this.clientIdCookie = cookie.serialize("clientId", this.clientId, {
+      httpOnly: true,
+      sameSite: false,
+      secure: true,
+    });
+
+    return this;
+  }
+
+  assignClientId() {
+    this.client.clientId = this.clientId;
+    return this;
+  }
+
+  connect() {
+    this.client.connect();
+    return this;
+  }
+
+  async createComplete() {
+    (await this.setLegitClientId())
+      .makeClientIdCookie()
+      .create()
+      .assignClientId()
+      .connect();
+
+    return this;
+  }
+
+  getClient() {
+    return this.client;
+  }
+
+  getClientId() {
+    return this.clientId;
   }
 }
 
-const clientInitializer = new ClientInitializer();
+const clientInitializer = () => new ClientInitializer();
 
-export { clientInitializer };
+export { clientInitializer, ClientInitializer };

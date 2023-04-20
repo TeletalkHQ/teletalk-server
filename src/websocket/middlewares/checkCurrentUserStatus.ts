@@ -1,13 +1,14 @@
 import { errorThrower } from "utility-store";
 import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
-import { authManager } from "@/classes/AuthManager";
+import { clientStore } from "@/classes/ClientStore";
 
 import { services } from "@/services";
 
-import { errors } from "@/variables/errors";
 import { SocketMiddleware, SocketNext } from "@/types";
-import { Socket } from "socket.io";
+
+import { errors } from "@/variables/errors";
 
 const checkCurrentUserStatus: SocketMiddleware = async (socket, next) => {
   await trier<void>(checkCurrentUserStatus.name)
@@ -18,8 +19,6 @@ const checkCurrentUserStatus: SocketMiddleware = async (socket, next) => {
 };
 
 const tryBlock = async (socket: Socket) => {
-  const error = errors.CURRENT_USER_NOT_EXIST;
-
   const {
     data: {
       payload: { sessionId },
@@ -27,23 +26,13 @@ const tryBlock = async (socket: Socket) => {
   } = socket.authData;
 
   const currentUser = await services.findOneUser({ userId: sessionId });
-  if (!currentUser)
-    throw {
-      ...error,
-      wrongTokenId: sessionId,
-    };
+  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
 
-  errorThrower(currentUser.userId !== sessionId, {
-    ...error,
-    wrongTokenId: sessionId,
-  });
-
-  const token = authManager.getSessionFromSocket(socket);
-  const isSessionExist = currentUser.sessions.some((t) => t.token === token);
-  errorThrower(!isSessionExist, {
-    ...error,
-    isSessionExist,
-  });
+  const { session } = (await clientStore.find(socket.clientId))!;
+  const isSessionExist = currentUser.sessions.some(
+    (t) => t.session === session
+  );
+  errorThrower(!isSessionExist, errors.CURRENT_SESSION_NOT_EXIST);
 };
 
 const executeIfNoError = (_: void, next: SocketNext) => {

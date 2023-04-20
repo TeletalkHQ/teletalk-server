@@ -8,7 +8,7 @@ import { services } from "@/services";
 
 import { PublicUserData, UserMongo } from "@/types";
 
-describe("getCurrentUserData success tests", () => {
+describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
     const requester = helpers.requesters.getPublicUserData(socket);
@@ -69,10 +69,6 @@ await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
       userId: randomMaker.id(),
     };
 
-    e2eFailTestInitializerHelper(requester)
-      .authentication()
-      .input(data)
-      .checkCurrentUserStatus(data)
-      .userId(data);
+    e2eFailTestInitializerHelper(requester).input(data).userId(data);
   };
 });

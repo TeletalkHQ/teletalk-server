@@ -13,7 +13,13 @@ class SocketRouteBuilder extends RouteBuilder {
       method: "customOn",
       inputFields: {},
       outputFields: {},
+      isAuthRequired: true,
     };
+  }
+
+  noAuth() {
+    this.route.isAuthRequired = false;
+    return this;
   }
 
   method(method: SocketRoute["method"]) {
@@ -42,4 +48,4 @@ const socketRouteBuilder = () => ({
   create: () => new SocketRouteBuilder(),
 });
 
-export { socketRouteBuilder, SocketRouteBuilder };
+export { socketRouteBuilder };

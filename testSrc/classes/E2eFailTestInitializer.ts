@@ -92,12 +92,12 @@ class E2eFailTestInitializer {
   }
 
   initTest(data: any, error: NativeError, options?: Partial<RequesterOptions>) {
-    const message = helpers.createFailTestMessage(
+    const title = helpers.createFailTestMessage(
       error,
       this.configuredRequester.getRoute()
     );
 
-    it(message, async () => {
+    it(title, async () => {
       await this.configuredRequester.sendFullFeaturedRequest(
         data,
         error,

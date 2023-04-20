@@ -15,6 +15,7 @@ const builder = socketRouteBuilder();
 const getCountries = builder
   .create()
   .name("getCountries")
+  .noAuth()
   .outputFields({
     countries: fields.statics.array(fields.collection.country),
   })
@@ -24,6 +25,7 @@ const getCountries = builder
 const getStuff = builder
   .create()
   .name("getStuff")
+  .noAuth()
   .inputFields({
     language: fields.single.language,
   })
@@ -33,6 +35,7 @@ const getStuff = builder
 const getWelcomeMessage = builder
   .create()
   .name("welcomeMessage")
+  .noAuth()
   .outputFields({
     welcomeMessage: fields.single.welcomeMessage,
   })
@@ -42,6 +45,7 @@ const getWelcomeMessage = builder
 const logEvent = builder
   .create()
   .name("")
+  .noAuth()
   .method("onAny")
   .handler(otherHandlers.logEvent)
   .build();

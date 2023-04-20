@@ -8,7 +8,7 @@ const ignoreMiddlewares = (
   ...middlewares: SocketMiddleware[]
 ) => {
   return (async (socket, next, event) => {
-    return utilities.isUrlMatchWithReqUrl(events, event[0])
+    return utilities.isEventNameMatch(events, event[0])
       ? next()
       : await utilities.executeMiddlewares({
           event,

@@ -5,7 +5,7 @@ import { nativeModels } from "@/models/native";
 const bio = {
   bio: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.bio)
+    .setModel(nativeModels.bio)
     .type()
     .required()
     .max()
@@ -15,7 +15,7 @@ const bio = {
 const countryCode = {
   countryCode: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.countryCode)
+    .setModel(nativeModels.countryCode)
     .type()
     .required()
     .empty()
@@ -29,7 +29,7 @@ const countryCode = {
 const countryName = {
   countryName: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.countryName)
+    .setModel(nativeModels.countryName)
     .type()
     .required()
     .empty()
@@ -42,7 +42,7 @@ const countryName = {
 const firstName = {
   firstName: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.firstName)
+    .setModel(nativeModels.firstName)
     .type()
     .required()
     .empty()
@@ -55,7 +55,7 @@ const firstName = {
 const lastName = {
   lastName: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.lastName)
+    .setModel(nativeModels.lastName)
     .type()
     .required()
     .min()
@@ -67,7 +67,7 @@ const lastName = {
 const macAddress = {
   macAddress: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.macAddress)
+    .setModel(nativeModels.macAddress)
     .type()
     .required()
     .empty()
@@ -81,7 +81,7 @@ const macAddress = {
 const phoneNumber = {
   phoneNumber: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.phoneNumber)
+    .setModel(nativeModels.phoneNumber)
     .type()
     .required()
     .empty()
@@ -100,7 +100,7 @@ const cellphone = {
 const userId = {
   userId: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.userId)
+    .setModel(nativeModels.userId)
     .required()
     .type()
     .empty()
@@ -114,7 +114,7 @@ const userId = {
 const session = {
   session: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.session)
+    .setModel(nativeModels.session)
     .type()
     .required()
     .empty()
@@ -126,7 +126,7 @@ const session = {
 const verificationCode = {
   verificationCode: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.verificationCode)
+    .setModel(nativeModels.verificationCode)
     .required()
     .empty()
     .length()
@@ -140,7 +140,7 @@ const verificationCode = {
 const username = {
   username: validationModelBuilder
     .create()
-    .setModel(nativeModels.user.username)
+    .setModel(nativeModels.username)
     .type()
     .required()
     .min()

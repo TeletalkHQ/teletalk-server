@@ -7,7 +7,7 @@ import { models } from "@/models";
 import { errors } from "@/variables/errors";
 
 const validator = ValidationModelBuilder.compiler(
-  models.validation.user.phoneNumber
+  models.validation.phoneNumber
 );
 
 export const phoneNumberValidator = async (phoneNumber: unknown) => {
@@ -26,7 +26,7 @@ const errorChecker = (result: Result, phoneNumber: unknown) => {
         validatedPhoneNumber: phoneNumber,
       },
     },
-    models.native.user.phoneNumber
+    models.native.phoneNumber
   ).check(function () {
     this.required()
       .stringEmpty()

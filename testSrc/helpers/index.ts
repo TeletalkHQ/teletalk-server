@@ -37,7 +37,7 @@ const setupRequester = async (
 
 const getWrongCountryCode = (): string => {
   const randomCountryCode = randomMaker.stringNumber(
-    models.native.user.countryCode.maxlength.value
+    models.native.countryCode.maxlength.value
   );
 
   const isCountryExist = countries.some(

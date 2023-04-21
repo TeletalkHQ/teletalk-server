@@ -7,8 +7,6 @@ import { E2eFailTestInitializer } from "$/types";
 
 import { errors } from "@/variables/errors";
 
-const userModels = models.native.user;
-
 const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data = {}
@@ -16,7 +14,7 @@ const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   const builder = e2eFailTestInitializer.create(
     configuredRequester,
     data,
-    userModels.verificationCode,
+    models.native.verificationCode,
     "verificationCode"
   );
   builder
@@ -26,11 +24,11 @@ const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
     .empty()
     .numeric()
     .length(
-      randomMaker.stringNumber(userModels.verificationCode.length.value + 1)
+      randomMaker.stringNumber(models.native.verificationCode.length.value + 1)
     );
 
   builder.custom(
-    randomMaker.stringNumber(userModels.verificationCode.length.value),
+    randomMaker.stringNumber(models.native.verificationCode.length.value),
     errors.VERIFICATION_CODE_INVALID
   );
 };

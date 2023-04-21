@@ -4,15 +4,13 @@ import { models } from "@/models";
 
 import { AssertionInitializer } from "$/types";
 
-const userModels = models.native.user;
-
 const phoneNumberAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
   assertionInitializer
     .create()
-    .setVariables(userModels.phoneNumber, equalValue, testValue)
+    .setVariables(models.native.phoneNumber, equalValue, testValue)
     .setOptions(options)
     .emptyCheck()
     .numericCheck()

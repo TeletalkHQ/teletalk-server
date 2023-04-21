@@ -6,7 +6,7 @@ import { models } from "@/models";
 
 import { errors } from "@/variables/errors";
 
-const validator = ValidationModelBuilder.compiler(models.validation.user.bio);
+const validator = ValidationModelBuilder.compiler(models.validation.bio);
 
 const bioValidator = async (bio: unknown) => {
   const validationResult = await validator({
@@ -24,7 +24,7 @@ const errorChecker = (result: Result, bio: unknown) => {
         validatedBio: bio,
       },
     },
-    models.native.user.bio
+    models.native.bio
   ).check(function () {
     this.required()
       .string()

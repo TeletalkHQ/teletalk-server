@@ -9,14 +9,12 @@ import { E2eFailTestInitializer } from "$/types";
 
 import { errors } from "@/variables/errors";
 
-const userModels = models.native.user;
-
 const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
   e2eFailTestInitializer
-    .create(configuredRequester, data, userModels.countryCode, "countryCode")
+    .create(configuredRequester, data, models.native.countryCode, "countryCode")
     .missing()
     .overload()
     .invalidType()
@@ -24,7 +22,7 @@ const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
     .numeric()
     .minlength()
     .maxlength(
-      randomMaker.stringNumber(userModels.countryCode.maxlength.value + 1)
+      randomMaker.stringNumber(models.native.countryCode.maxlength.value + 1)
     )
     .custom(helpers.getWrongCountryCode(), errors.COUNTRY_CODE_NOT_SUPPORTED);
 };

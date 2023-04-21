@@ -6,9 +6,7 @@ import { models } from "@/models";
 
 import { errors } from "@/variables/errors";
 
-const validator = ValidationModelBuilder.compiler(
-  models.validation.chat.chatId
-);
+const validator = ValidationModelBuilder.compiler(models.validation.chatId);
 
 export const chatIdValidator = async (chatId: unknown) => {
   const validationResult = await validator({ chatId });
@@ -23,7 +21,7 @@ const errorChecker = (result: Result, chatId: unknown) => {
         validatedChatId: chatId,
       },
     },
-    models.native.privateChat.chatId
+    models.native.chatId
   ).check(function () {
     this.required()
       .stringEmpty()

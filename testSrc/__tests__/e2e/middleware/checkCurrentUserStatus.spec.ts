@@ -27,7 +27,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
 
     it(title, async () => {
       const wrongSessionId = randomMaker.string(
-        models.native.user.userId.maxlength.value
+        models.native.userId.maxlength.value
       );
       const session = authManager.signSession({
         sessionId: wrongSessionId,

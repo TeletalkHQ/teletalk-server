@@ -9,7 +9,7 @@ import { errors } from "@/variables/errors";
 import { countries } from "@/variables/others/countries";
 
 const validator = ValidationModelBuilder.compiler(
-  models.validation.user.countryCode
+  models.validation.countryCode
 );
 
 export const countryCodeValidator = async (countryCode: unknown) => {
@@ -37,7 +37,7 @@ const errorChecker = (result: Result, countryCode: unknown) => {
         validatedCountryCode: countryCode,
       },
     },
-    models.native.user.countryCode
+    models.native.countryCode
   ).check(function () {
     this.required()
       .stringEmpty()

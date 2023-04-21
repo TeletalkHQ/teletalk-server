@@ -41,6 +41,7 @@ const websocketServer = (httpServer: HttpServer) => {
     );
 
     socket.customUse(middlewares.checkDataFields);
+    socket.customUse(middlewares.dynamicValidator);
 
     socket.customUse(
       //CLEANME: Use ignored routes for auth
@@ -52,11 +53,7 @@ const websocketServer = (httpServer: HttpServer) => {
     );
 
     socket.customUse(
-      applyMiddlewares(
-        "verify",
-        middlewares.verificationCodeValidator,
-        middlewares.verifyVerificationCode
-      )
+      applyMiddlewares("verify", middlewares.verifyVerificationCode)
     );
 
     socket.customUse(
@@ -71,10 +68,6 @@ const websocketServer = (httpServer: HttpServer) => {
         ],
         middlewares.selfStuffCheck
       )
-    );
-
-    socket.customUse(
-      applyMiddlewares("signIn", middlewares.cellphoneValidator)
     );
 
     routers(socket);

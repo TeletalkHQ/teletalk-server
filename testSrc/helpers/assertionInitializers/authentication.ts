@@ -9,9 +9,7 @@ import { models } from "@/models";
 import { userIdAssertionInitializer } from "$/helpers/assertionInitializers/userId";
 
 import { AssertionInitializerOptions } from "$/types";
-import { Verified } from "@/types";
-
-import { validators } from "@/validators";
+import { VerifiedSession } from "@/types";
 
 type AuthenticationAssertionHelper = (
   data: { equalValue: any; testValue: any; secret: string },
@@ -30,10 +28,10 @@ const authenticationAssertion: AuthenticationAssertionHelper = async (
 
   builder.typeCheck().gteCheck().lteCheck().stringEquality();
 
-  const verifiedResponse = await validators.session(testValue, secret);
+  const verifiedResponse = authManager.verify(testValue, secret);
   sessionPartsTypeCheck(builder, verifiedResponse, secret);
 
-  const verifiedRequest = await validators.session(equalValue, secret);
+  const verifiedRequest = authManager.verify(equalValue, secret);
   sessionPartsTypeCheck(builder, verifiedRequest, secret);
 
   if (secret === authManager.getMainSecret()) {
@@ -48,7 +46,7 @@ const authenticationAssertion: AuthenticationAssertionHelper = async (
 
 const sessionPartsTypeCheck = (
   builder: AssertionInitializer,
-  session: Verified,
+  session: VerifiedSession,
   secret: string
 ) => {
   builder

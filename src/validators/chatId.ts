@@ -4,11 +4,13 @@ import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { models } from "@/models";
 
+import { Validator } from "@/types";
+
 import { errors } from "@/variables/errors";
 
 const validator = ValidationModelBuilder.compiler(models.validation.chatId);
 
-export const chatIdValidator = async (chatId: unknown) => {
+export const chatIdValidator: Validator = async (chatId: unknown) => {
   const validationResult = await validator({ chatId });
   errorChecker(validationResult, chatId);
 };

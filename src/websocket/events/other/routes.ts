@@ -26,9 +26,6 @@ const getStuff = builder
   .create()
   .name("getStuff")
   .noAuth()
-  .inputFields({
-    language: fields.single.language,
-  })
   .handler(otherHandlers.getStuff)
   .build();
 

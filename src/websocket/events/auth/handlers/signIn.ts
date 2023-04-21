@@ -12,11 +12,9 @@ import { SocketOnHandler, Client } from "@/types";
 
 import { utilities } from "@/utilities";
 
-import { validators } from "@/validators";
-
 const signIn: SocketOnHandler = async (socket, data) => {
+  //TODO: Use another utility to generate verification code
   const verificationCode = utilities.passwordGenerator();
-  await validateVerificationCode(verificationCode);
 
   const cellphone = userUtilities.extractCellphone(data as ExtendedCellphone);
 
@@ -39,9 +37,6 @@ const signIn: SocketOnHandler = async (socket, data) => {
 
   return { data: {} };
 };
-
-const validateVerificationCode = async (verificationCode: string) =>
-  await validators.verificationCode(verificationCode);
 
 const sendVerificationCode = async (
   fullNumber: string,

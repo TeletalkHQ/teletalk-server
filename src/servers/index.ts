@@ -21,14 +21,12 @@ import { websocketServer } from "@/servers/websocket";
 
 PrettyError.start();
 
-const { NODE_ENV, PORT, PORT_DEFAULT, SELF_EXEC } = envManager.getEnvironment();
-
-const EXACT_PORT = PORT || PORT_DEFAULT;
-
 const listeningListener = () => {
+  const { NODE_ENV } = envManager.getEnvironment();
+
   logger.info(
     `Server is running in ${NODE_ENV} mode on port ${
-      appConfigs.getConfigs().server.exactPort
+      appConfigs.getConfigs().server.port
     }`
   );
 };
@@ -51,14 +49,14 @@ const runner = async () => {
 
   // setupPrimary();
 
-  // httpServer.listen(EXACT_PORT);
+  // httpServer.listen(PORT);
 
   // for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
   // } else {
   await requirements.database();
 
   const httpServer = crateHttpServer(helpers.clientIdGenerator);
-  httpServer.listen(EXACT_PORT, listeningListener);
+  httpServer.listen(envManager.getEnvironment().PORT, listeningListener);
   websocketServer(httpServer);
 
   // logger.debug(`Worker ${process.pid} started`);
@@ -76,6 +74,6 @@ const runner = async () => {
   // }
 };
 
-if (SELF_EXEC) runner();
+if (envManager.getEnvironment().SELF_EXEC) runner();
 
 export { runner };

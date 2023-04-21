@@ -6,9 +6,7 @@ import { models } from "@/models";
 
 import { errors } from "@/variables/errors";
 
-const validator = ValidationModelBuilder.compiler(
-  models.validation.user.lastName
-);
+const validator = ValidationModelBuilder.compiler(models.validation.lastName);
 
 export const lastNameValidator = async (lastName: unknown) => {
   const validationResult = await validator({ lastName });
@@ -22,7 +20,7 @@ const errorChecker = (result: Result, lastName: unknown) => {
     {
       extraErrorFields: { validatedLastName: lastName },
     },
-    models.native.user.lastName
+    models.native.lastName
   ).check(function () {
     this.required()
       .string()

@@ -8,7 +8,7 @@ import { models } from "@/models";
 import { errors } from "@/variables/errors";
 
 const compiledSessionValidator = ValidationModelBuilder.compiler(
-  models.validation.user.session
+  models.validation.session
 );
 
 export const sessionValidator = async (
@@ -30,7 +30,7 @@ export const sessionValidator = async (
         validated: corrected,
       },
     },
-    models.native.user.session
+    models.native.session
   ).check(function () {
     this.required()
       .stringEmpty()

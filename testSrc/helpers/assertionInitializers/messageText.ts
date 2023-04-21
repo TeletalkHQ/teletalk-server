@@ -4,7 +4,7 @@ import { models } from "@/models";
 
 import { AssertionInitializer } from "$/types";
 
-const chatModels = models.native.privateChat;
+const chatModels = models.native;
 
 const messageTextAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },

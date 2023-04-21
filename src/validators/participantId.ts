@@ -7,7 +7,7 @@ import { models } from "@/models";
 import { errors } from "@/variables/errors";
 
 const validator = ValidationModelBuilder.compiler(
-  models.validation.chat.participantId
+  models.validation.participantId
 );
 
 export const participantIdValidator = async (participantId: unknown) => {
@@ -25,7 +25,7 @@ const errorChecker = (result: Result, participantId: unknown) => {
         validatedParticipantId: participantId,
       },
     },
-    models.native.privateChat.participantId
+    models.native.participantId
   ).check(function () {
     this.required()
       .stringEmpty()

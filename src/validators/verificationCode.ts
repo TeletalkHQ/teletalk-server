@@ -7,7 +7,7 @@ import { models } from "@/models";
 import { errors } from "@/variables/errors";
 
 const validator = ValidationModelBuilder.compiler(
-  models.validation.user.verificationCode
+  models.validation.verificationCode
 );
 
 export const verificationCodeValidator = async (verificationCode: unknown) => {
@@ -26,7 +26,7 @@ const errorChecker = (result: Result, verificationCode: unknown) => {
         validatedVerificationCode: verificationCode,
       },
     },
-    models.native.user.verificationCode
+    models.native.verificationCode
   ).check(function () {
     this.required()
       .stringEmpty()

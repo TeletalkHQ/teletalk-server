@@ -13,8 +13,6 @@ import { Verified } from "@/types";
 
 import { validators } from "@/validators";
 
-const userModels = models.native.user;
-
 type AuthenticationAssertionHelper = (
   data: { equalValue: any; testValue: any; secret: string },
   options?: AssertionInitializerOptions
@@ -27,7 +25,7 @@ const authenticationAssertion: AuthenticationAssertionHelper = async (
   //FIXME: secret is undefined
   const builder = assertionInitializer
     .create()
-    .setVariables(userModels.session, equalValue, testValue)
+    .setVariables(models.native.session, equalValue, testValue)
     .setOptions(options);
 
   builder.typeCheck().gteCheck().lteCheck().stringEquality();

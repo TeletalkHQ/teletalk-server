@@ -7,7 +7,7 @@ import { models } from "@/models";
 import { errors } from "@/variables/errors";
 
 const validator = ValidationModelBuilder.compiler(
-  models.validation.chat.messageText
+  models.validation.messageText
 );
 
 export const messageTextValidator = async (messageText: unknown) => {
@@ -25,7 +25,7 @@ const errorChecker = (result: Result, messageText: unknown) => {
         validatedMessageText: messageText,
       },
     },
-    models.native.privateChat.messageText
+    models.native.messageText
   ).check(function () {
     this.required()
       .stringEmpty()

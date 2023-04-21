@@ -7,5 +7,5 @@
 // import { errors } from "@/variables/errors";
 
 // const compiledMessageIdValidator = ValidationModelBuilder.compiler(
-//   models.validation.chat.messageId
+//   models.validation.messageId
 // );

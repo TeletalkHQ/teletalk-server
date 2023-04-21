@@ -5,7 +5,7 @@ import { nativeModels } from "@/models/native";
 const messageId = {
   messageId: validationModelBuilder
     .create()
-    .setModel(nativeModels.privateChat.messageId)
+    .setModel(nativeModels.messageId)
     .type()
     .required()
     .empty()
@@ -19,7 +19,7 @@ const messageId = {
 const chatId = {
   chatId: validationModelBuilder
     .create()
-    .setModel(nativeModels.privateChat.chatId)
+    .setModel(nativeModels.chatId)
     .type()
     .required()
     .empty()
@@ -33,7 +33,7 @@ const chatId = {
 const messageText = {
   messageText: validationModelBuilder
     .create()
-    .setModel(nativeModels.privateChat.messageText)
+    .setModel(nativeModels.messageText)
     .type()
     .required()
     .empty()
@@ -46,7 +46,7 @@ const messageText = {
 const participantId = {
   participantId: validationModelBuilder
     .create()
-    .setModel(nativeModels.privateChat.participantId)
+    .setModel(nativeModels.participantId)
     .type()
     .required()
     .empty()

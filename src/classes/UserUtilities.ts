@@ -1,20 +1,20 @@
 import { UserUtilities as UserUtilitiesMain } from "utility-store";
 
 import { authManager } from "@/classes/AuthManager";
-import { Verified } from "@/types";
+import { VerifiedSession } from "@/types";
 
 class UserUtilities extends UserUtilitiesMain {
   constructor() {
     super();
   }
 
-  getDataFromVerified(verified: Verified) {
+  getDataFromVerified(verified: VerifiedSession) {
     return verified.data;
   }
-  getPayloadFromVerified(verified: Verified) {
+  getPayloadFromVerified(verified: VerifiedSession) {
     return this.getDataFromVerified(verified).payload;
   }
-  getUserIdFromVerified(verified: Verified) {
+  getUserIdFromVerified(verified: VerifiedSession) {
     return this.getPayloadFromVerified(verified).sessionId;
   }
   getId(session: string) {

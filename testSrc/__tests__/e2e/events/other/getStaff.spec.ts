@@ -21,9 +21,7 @@ describe("getAllStuff success tests", () => {
     ).getClient();
     const requester = helpers.requesters.getStuff(clientSocket);
 
-    const { data } = await requester.sendFullFeaturedRequest({
-      language: "en",
-    });
+    const { data } = await requester.sendFullFeaturedRequest();
 
     testRoutes(Object.values(data.routes));
     testModels(data.models);

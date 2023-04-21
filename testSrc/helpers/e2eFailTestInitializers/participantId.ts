@@ -4,7 +4,7 @@ import { models } from "@/models";
 
 import { E2eFailTestInitializer } from "$/types";
 
-const chatModels = models.native.privateChat;
+const chatModels = models.native;
 
 const participantIdE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,

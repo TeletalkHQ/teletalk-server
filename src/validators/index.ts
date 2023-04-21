@@ -1,5 +1,6 @@
+import { Field, Validator } from "@/types";
+
 import { bioValidator } from "@/validators/bio";
-import { cellphoneValidator } from "@/validators/cellphone";
 import { chatIdValidator } from "@/validators/chatId";
 import { countryCodeValidator } from "@/validators/countryCode";
 import { countryNameValidator } from "@/validators/countryName";
@@ -13,9 +14,12 @@ import { userIdValidator } from "@/validators/userId";
 import { usernameValidator } from "@/validators/username";
 import { verificationCodeValidator } from "@/validators/verificationCode";
 
-const validators = {
+type Validators = {
+  [prop in Field]: Validator;
+};
+
+const validators: Validators = {
   bio: bioValidator,
-  cellphone: cellphoneValidator,
   chatId: chatIdValidator,
   countryCode: countryCodeValidator,
   countryName: countryNameValidator,

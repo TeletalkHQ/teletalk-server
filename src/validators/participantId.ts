@@ -4,13 +4,17 @@ import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { models } from "@/models";
 
+import { Validator } from "@/types";
+
 import { errors } from "@/variables/errors";
 
 const validator = ValidationModelBuilder.compiler(
   models.validation.participantId
 );
 
-export const participantIdValidator = async (participantId: unknown) => {
+export const participantIdValidator: Validator = async (
+  participantId: unknown
+) => {
   const validationResult = await validator({
     participantId,
   });

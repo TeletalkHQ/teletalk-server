@@ -4,11 +4,13 @@ import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { models } from "@/models";
 
+import { Validator } from "@/types";
+
 import { errors } from "@/variables/errors";
 
 const validator = ValidationModelBuilder.compiler(models.validation.bio);
 
-const bioValidator = async (bio: unknown) => {
+const bioValidator: Validator = async (bio: unknown) => {
   const validationResult = await validator({
     bio,
   });

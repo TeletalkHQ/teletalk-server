@@ -1,9 +1,10 @@
 import { validationChecker } from "utility-store";
 
 import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
-import { authManager } from "@/classes/AuthManager";
 
 import { models } from "@/models";
+
+import { Validator } from "@/types";
 
 import { errors } from "@/variables/errors";
 
@@ -11,10 +12,7 @@ const compiledSessionValidator = ValidationModelBuilder.compiler(
   models.validation.session
 );
 
-export const sessionValidator = async (
-  session: string,
-  secret = authManager.getMainSecret()
-) => {
+export const sessionValidator: Validator = async (session) => {
   //REFACTOR:INVALID_TYPE_ERROR
   const corrected = +session || session;
   const validationResult = await compiledSessionValidator({
@@ -39,6 +37,4 @@ export const sessionValidator = async (
       .stringMax()
       .throwAnyway(errors.SESSION_INVALID);
   });
-
-  return authManager.verify(session, secret);
 };

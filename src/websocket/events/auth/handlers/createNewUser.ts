@@ -10,17 +10,12 @@ import { services } from "@/services";
 
 import { Cellphone, SocketOnHandler, Client, UserMongo } from "@/types";
 
-import { validators } from "@/validators";
-
 import { errors } from "@/variables/errors";
 
 const createNewUser: SocketOnHandler = async (
   socket,
   { firstName, lastName }
 ) => {
-  await validators.firstName(firstName);
-  await validators.lastName(lastName);
-
   const client = await findClient(socket.clientId);
   checkClientVerification(client);
 

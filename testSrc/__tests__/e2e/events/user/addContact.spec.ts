@@ -102,7 +102,6 @@ helpers.asyncDescribe("addContact fail tests", async () => {
 
     e2eFailTestInitializerHelper(requester)
       .input(randomContact)
-      .cellphone(randomContact)
       .countryCode(randomContact)
       .countryName(randomContact)
       .phoneNumber(randomContact)

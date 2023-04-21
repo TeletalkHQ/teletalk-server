@@ -2,34 +2,39 @@ import { Socket } from "socket.io-client";
 
 import { Requester } from "$/classes/Requester";
 
-export type RequesterCreator = (socketClient: Socket) => Requester;
+import { EventName, SocketRoute } from "@/types";
 
-type E2eFailTestInitializer = (
+export type RequesterMaker = (socketClient: Socket) => Requester;
+
+export type RequesterMakerWrapper = (socket: Socket) => Requester;
+
+export type RequesterMakerHelper = (
+  route: SocketRoute
+) => RequesterMakerWrapper;
+
+export type RequesterCollection = {
+  [prop in EventName]: RequesterMakerWrapper;
+};
+
+export type E2eFailTestInitializer = (
   configuredRequester: Requester,
   data: object
 ) => void;
 
-type AssertionInitializerOptions = {
+export type AssertionInitializerOptions = {
   modelCheck: boolean;
   stringEquality: boolean;
 };
-interface AssertionInitializerArgs {
+export interface AssertionInitializerArgs {
   equalValue?: any;
   testValue: any;
 }
-type AssertionInitializer = (
+
+export type AssertionInitializer = (
   data: AssertionInitializerArgs,
   options?: AssertionInitializerOptions
 ) => void;
 
-interface RequesterOptions {
+export interface RequesterOptions {
   shouldFilterRequestData: boolean;
 }
-
-export {
-  type AssertionInitializer,
-  type AssertionInitializerArgs,
-  type AssertionInitializerOptions,
-  type E2eFailTestInitializer,
-  type RequesterOptions,
-};

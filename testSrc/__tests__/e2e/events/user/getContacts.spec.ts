@@ -23,7 +23,7 @@ describe("getContacts success tests", () => {
     );
 
     const addContactRequester =
-      helpers.requesters.addContactWithCellphone(socket);
+      helpers.requesterCollection.addContactWithCellphone(socket);
 
     for (const contact of addingContacts) {
       await addContactRequester.sendFullFeaturedRequest(contact);
@@ -35,7 +35,8 @@ describe("getContacts success tests", () => {
 
     testContacts(addingContacts, savedContacts);
 
-    const getContactsRequester = helpers.requesters.getContacts(socket);
+    const getContactsRequester =
+      helpers.requesterCollection.getContacts(socket);
     const {
       data: { contacts: contactsFromEvent },
     } = await getContactsRequester.sendFullFeaturedRequest();
@@ -45,7 +46,7 @@ describe("getContacts success tests", () => {
 
 helpers.asyncDescribe("getContacts fail tests", async () => {
   const { requester } = await helpers.setupRequester(
-    helpers.requesters.getContacts
+    helpers.requesterCollection.getContacts
   );
 
   return () => {

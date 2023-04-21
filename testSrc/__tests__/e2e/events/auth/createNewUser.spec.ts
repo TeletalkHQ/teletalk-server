@@ -23,7 +23,7 @@ describe("createNewUser success tests", () => {
 
     await testCreatedUserSession(helper.getClientId());
 
-    const { data } = await helpers.requesters
+    const { data } = await helpers.requesterCollection
       .getUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 
@@ -36,7 +36,9 @@ await helpers.asyncDescribe("createNewUser fail tests", async () => {
   const helper = authHelper(cellphone);
   await helper.signIn();
   await helper.verify();
-  const requester = helpers.requesters.createNewUser(helper.getClientSocket());
+  const requester = helpers.requesterCollection.createNewUser(
+    helper.getClientSocket()
+  );
 
   return () => {
     const fullName = randomMaker.fullName();

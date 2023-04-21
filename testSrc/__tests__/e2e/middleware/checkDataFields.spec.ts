@@ -1,5 +1,5 @@
 import { randomMaker } from "$/classes/RandomMaker";
-import { requesterCreator } from "$/classes/Requester";
+import { requesterMaker } from "$/classes/Requester";
 
 import { helpers } from "$/helpers";
 
@@ -30,7 +30,7 @@ await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
         route.name
       );
       it(title, async () => {
-        await requesterCreator(socket, route)
+        await requesterMaker(socket, route)
           .setError(errors.INPUT_FIELDS_MISSING)
           .setOptions({ shouldFilterRequestData: false })
           .sendFullFeaturedRequest();

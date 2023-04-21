@@ -17,6 +17,8 @@ services:
       - 27017
 
   teletalk-server:
+    env_file:
+      - ./environments/test_production_local.env
     build: .
     image: stalwart95/teletalk-server
     restart: unless-stopped

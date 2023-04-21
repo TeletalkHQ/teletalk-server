@@ -11,7 +11,7 @@ import { PublicUserData, UserMongo } from "@/types";
 describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
-    const requester = helpers.requesters.getPublicUserData(socket);
+    const requester = helpers.requesterCollection.getPublicUserData(socket);
 
     const users = await randomMaker.users(10);
 
@@ -61,7 +61,7 @@ const testPublicUserData = (
 
 await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
   const { requester } = await helpers.setupRequester(
-    helpers.requesters.getPublicUserData
+    helpers.requesterCollection.getPublicUserData
   );
 
   return () => {

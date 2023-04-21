@@ -5,12 +5,23 @@ import { IoFields } from "check-fields";
 import { faker } from "@faker-js/faker";
 
 import { randomMaker } from "$/classes/RandomMaker";
-import { requesterCreator } from "$/classes/Requester";
+import { requesterMaker } from "$/classes/Requester";
 
 import { models } from "@/models";
 
-import { NativeError, SocketRoute, Cellphone, FullName } from "@/types";
-import { RequesterCreator } from "$/types";
+import {
+  Cellphone,
+  EventName,
+  FullName,
+  NativeError,
+  SocketRoute,
+} from "@/types";
+import {
+  RequesterCollection,
+  RequesterMaker,
+  RequesterMakerHelper,
+  RequesterMakerWrapper,
+} from "$/types";
 
 import { countries } from "@/variables/others/countries";
 
@@ -23,7 +34,7 @@ async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
 }
 
 const setupRequester = async (
-  requester: RequesterCreator,
+  requester: RequesterMaker,
   cellphone?: Cellphone,
   fullName?: FullName
 ) => {
@@ -49,17 +60,14 @@ const getWrongCountryCode = (): string => {
   return randomCountryCode;
 };
 
-const makeRequester = (route: SocketRoute) => (socketClient: Socket) =>
-  requesterCreator(socketClient, route);
+const requesterMakerHelper: RequesterMakerHelper = (route: SocketRoute) => {
+  return ((socket: Socket) => {
+    return requesterMaker(socket, route);
+  }) as RequesterMakerWrapper;
+};
 
-const createFailTestMessage = (
-  error: NativeError,
-  route: SocketRoute | string
-) => {
-  const name = typeof route === "object" ? route.name : route;
-  return `expected error: [route:${name}] [key:${error.key}] [reason:${
-    error.reason
-  }] - [ok:${error ? true : false}] `;
+const createFailTestMessage = (error: NativeError, eventName: EventName) => {
+  return `expected error: [event:${eventName}] [key:${error.key}] [reason:${error.reason}]`;
 };
 
 function generateDynamicData(schema: IoFields): Record<string, unknown> {
@@ -130,29 +138,31 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
   return data;
 }
 
-const requesters = {
-  addBlock: makeRequester(routes.addBlock),
-  addContact: makeRequester(routes.addContact),
-  addContactWithCellphone: makeRequester(routes.addContactWithCellphone),
-  createNewUser: makeRequester(routes.createNewUser),
-  editContact: makeRequester(routes.editContact),
-  getChatInfo: makeRequester(routes.getChatInfo),
-  getContacts: makeRequester(routes.getContacts),
-  getUserData: makeRequester(routes.getUserData),
-  getPrivateChat: makeRequester(routes.getPrivateChat),
-  getPrivateChats: makeRequester(routes.getPrivateChats),
-  getPublicUserData: makeRequester(routes.getPublicUserData),
-  getStuff: makeRequester(routes.getStuff),
-  joinRoom: makeRequester(routes.joinRoom),
-  logout: makeRequester(routes.logout),
-  ping: makeRequester(routes.ping),
-  removeBlock: makeRequester(routes.removeBlock),
-  removeContact: makeRequester(routes.removeContact),
-  sendPrivateMessage: makeRequester(routes.sendPrivateMessage),
-  signIn: makeRequester(routes.signIn),
-  updatePublicUserData: makeRequester(routes.updatePublicUserData),
-  verify: makeRequester(routes.verify),
-  updateOnlineStatus: makeRequester(routes.updateOnlineStatus),
+const requesterCollection: RequesterCollection = {
+  addBlock: requesterMakerHelper(routes.addBlock),
+  addContact: requesterMakerHelper(routes.addContact),
+  addContactWithCellphone: requesterMakerHelper(routes.addContactWithCellphone),
+  createNewUser: requesterMakerHelper(routes.createNewUser),
+  editContact: requesterMakerHelper(routes.editContact),
+  getChatInfo: requesterMakerHelper(routes.getChatInfo),
+  getContacts: requesterMakerHelper(routes.getContacts),
+  getUserData: requesterMakerHelper(routes.getUserData),
+  getPrivateChat: requesterMakerHelper(routes.getPrivateChat),
+  getPrivateChats: requesterMakerHelper(routes.getPrivateChats),
+  getWelcomeMessage: requesterMakerHelper(routes.getWelcomeMessage),
+  getCountries: requesterMakerHelper(routes.getCountries),
+  getPublicUserData: requesterMakerHelper(routes.getPublicUserData),
+  getStuff: requesterMakerHelper(routes.getStuff),
+  joinRoom: requesterMakerHelper(routes.joinRoom),
+  logout: requesterMakerHelper(routes.logout),
+  ping: requesterMakerHelper(routes.ping),
+  removeBlock: requesterMakerHelper(routes.removeBlock),
+  removeContact: requesterMakerHelper(routes.removeContact),
+  sendPrivateMessage: requesterMakerHelper(routes.sendPrivateMessage),
+  signIn: requesterMakerHelper(routes.signIn),
+  updatePublicUserData: requesterMakerHelper(routes.updatePublicUserData),
+  verify: requesterMakerHelper(routes.verify),
+  updateOnlineStatus: requesterMakerHelper(routes.updateOnlineStatus),
 };
 
 const helpers = {
@@ -160,8 +170,8 @@ const helpers = {
   createFailTestMessage,
   generateDynamicData,
   getWrongCountryCode,
-  makeRequester,
-  requesters,
+  requesterMakerHelper,
+  requesterCollection,
   setupRequester,
 };
 

@@ -13,7 +13,7 @@ const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
   it(
     helpers.createFailTestMessage(
       errors.INPUT_FIELDS_OVERLOAD,
-      configuredRequester.getRoute()
+      configuredRequester.getEventName()
     ),
     async () => {
       const copyData = { ...data };

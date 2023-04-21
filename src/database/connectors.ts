@@ -61,8 +61,7 @@ const fixRedisConnection = () => {
 };
 
 const fixRedisHost = () => {
-  const { REDIS_DEFAULT_HOST, REDIS_HOST, REDIS_PORT } =
-    envManager.getEnvironment();
+  const { REDIS_HOST, REDIS_PORT } = envManager.getEnvironment();
 
   if (
     [REDIS_HOST, REDIS_PORT?.toString()].some((item = "") =>
@@ -74,17 +73,17 @@ const fixRedisHost = () => {
       .split(":")[0];
   }
 
-  return REDIS_HOST || REDIS_DEFAULT_HOST;
+  return REDIS_HOST;
 };
 
 const fixRedisPort = () => {
-  const { REDIS_DEFAULT_PORT, REDIS_PORT } = envManager.getEnvironment();
+  const { REDIS_PORT } = envManager.getEnvironment();
 
   if (REDIS_PORT?.toString().includes("tcp://")) {
     return REDIS_PORT.toString().split(":")[2];
   }
 
-  return REDIS_PORT?.toString() || REDIS_DEFAULT_PORT.toString();
+  return REDIS_PORT.toString();
 };
 
 export { mongodbConnector, redisConnector };

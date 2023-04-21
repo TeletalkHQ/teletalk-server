@@ -29,7 +29,7 @@ describe("logout success tests", () => {
       clients.push({ session, socket: ah.getClientSocket() });
     }
 
-    await helpers.requesters
+    await helpers.requesterCollection
       .logout(ah.getClientSocket())
       .sendFullFeaturedRequest();
 
@@ -54,7 +54,7 @@ describe("logout success tests", () => {
 
 // await helpers.asyncDescribe("logout fail tests", async () => {
 //   const clientSocket = (await clientInitializer().createComplete()).getClient();
-//   const requester = helpers.requesters.logout(clientSocket);
+//   const requester = helpers.requesterCollection.logout(clientSocket);
 
 //   return () => {
 //     e2eFailTestInitializerHelper(requester);

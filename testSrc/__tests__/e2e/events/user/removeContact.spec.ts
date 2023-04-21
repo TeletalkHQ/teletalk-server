@@ -19,13 +19,14 @@ describe("removeContact successful test", () => {
 
     const { socket, user: currentUser } = await randomMaker.user();
     const addContactRequester =
-      helpers.requesters.addContactWithCellphone(socket);
+      helpers.requesterCollection.addContactWithCellphone(socket);
 
     for (const addingContact of addingContacts) {
       await addContactRequester.sendFullFeaturedRequest(addingContact);
     }
 
-    const removeContactRequester = helpers.requesters.removeContact(socket);
+    const removeContactRequester =
+      helpers.requesterCollection.removeContact(socket);
     for (const addingContact of [...addingContacts]) {
       const {
         data: { removedContact },
@@ -45,7 +46,7 @@ describe("removeContact successful test", () => {
 
 await helpers.asyncDescribe("removeContact fail tests", async () => {
   const { requester, user } = await helpers.setupRequester(
-    helpers.requesters.removeContact
+    helpers.requesterCollection.removeContact
   );
 
   return () => {

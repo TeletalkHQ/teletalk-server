@@ -30,5 +30,5 @@ TODO: Restructure folders, index, and more
 TODO: Remove session after logout || 401 situation
 TODO: Rename maxlength, minlength
 TODO: Remove isActive, isOnline
-TODO: Add EventName
 TODO: Add numeric type for countryCode and phoneNumber
+TODO: Update launch script

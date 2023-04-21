@@ -5,9 +5,7 @@ import { envManager } from "@/classes/EnvironmentManager";
 import { helpers } from "@/helpers";
 import { LogLevel } from "@/types";
 
-const { PORT, PORT_DEFAULT } = envManager.getEnvironment();
-
-const exactPort = PORT || PORT_DEFAULT;
+const { PORT } = envManager.getEnvironment();
 
 class AppConfigs {
   private configs = {
@@ -15,7 +13,7 @@ class AppConfigs {
       MONGO_URL: helpers.getMongoUrl(),
       MONGO_URL_FULL: helpers.makeMongoFullUrl(),
     },
-    server: { exactPort, hostname: "localhost" },
+    server: { port: PORT, hostname: "localhost" },
   };
 
   async setup() {

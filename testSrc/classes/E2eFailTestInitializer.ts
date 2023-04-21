@@ -94,7 +94,7 @@ class E2eFailTestInitializer {
   initTest(data: any, error: NativeError, options?: Partial<RequesterOptions>) {
     const title = helpers.createFailTestMessage(
       error,
-      this.configuredRequester.getRoute()
+      this.configuredRequester.getEventName()
     );
 
     it(title, async () => {

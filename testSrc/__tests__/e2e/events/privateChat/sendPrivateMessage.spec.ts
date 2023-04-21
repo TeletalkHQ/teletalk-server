@@ -20,7 +20,7 @@ describe("send message success tests", () => {
     const { socket, user: currentUser } = await randomMaker.user();
     const { user: targetUser } = await randomMaker.user();
 
-    const requester = helpers.requesters.sendPrivateMessage(socket);
+    const requester = helpers.requesterCollection.sendPrivateMessage(socket);
 
     const messagesLength = 10;
     for (let i = 0; i < messagesLength; i++) {
@@ -50,7 +50,7 @@ describe("send message success tests", () => {
 
 await helpers.asyncDescribe("send message fail tests", async () => {
   const { requester } = await helpers.setupRequester(
-    helpers.requesters.sendPrivateMessage
+    helpers.requesterCollection.sendPrivateMessage
   );
 
   return () => {

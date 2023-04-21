@@ -1,6 +1,6 @@
 import chai from "chai";
 
-import { requesterCreator } from "$/classes/Requester";
+import { requesterMaker } from "$/classes/Requester";
 import { clientInitializer } from "$/classes/ClientInitializer";
 
 import { helpers } from "$/helpers";
@@ -11,12 +11,12 @@ import { routesWithoutAuth, routesWithAuth } from "@/websocket/events";
 
 describe("auth middleware test", () => {
   for (const route of routesWithoutAuth) {
-    if (route.name === "disconnect") continue;
+    // if (route.name === "disconnect") continue;
 
     it(`should not get error: SESSION_REQUIRED - ${route.name}`, async () => {
       const socket = (await clientInitializer().createComplete()).getClient();
       const response = (
-        await requesterCreator(socket, route).sendRequest()
+        await requesterMaker(socket, route).sendRequest()
       ).getResponse();
 
       const { errors: responseErrors } = response.data;
@@ -31,11 +31,14 @@ describe("auth middleware test", () => {
   }
 
   for (const route of routesWithAuth) {
-    const title = helpers.createFailTestMessage(errors.CLIENT_NOT_FOUND, route);
+    const title = helpers.createFailTestMessage(
+      errors.CLIENT_NOT_FOUND,
+      route.name
+    );
 
     it(title, async () => {
       const socket = (await clientInitializer().createComplete()).getClient();
-      await requesterCreator(socket, route)
+      await requesterMaker(socket, route)
         .setOptions({ shouldFilterRequestData: false })
         .setError(errors.CLIENT_NOT_FOUND)
         .sendFullFeaturedRequest();

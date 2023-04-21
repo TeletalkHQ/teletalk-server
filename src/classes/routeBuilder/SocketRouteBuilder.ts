@@ -27,7 +27,7 @@ class SocketRouteBuilder extends RouteBuilder {
     return this;
   }
 
-  name(name: string) {
+  name(name: SocketRoute["name"]) {
     this.route.name = name;
     return this;
   }

@@ -87,16 +87,12 @@ export type SocketMiddlewareEvent = string | string[];
 export type CreatedAt = number;
 
 export interface Environments {
-  CLIENT_ID_LENGTH: number;
   LOG_LEVEL: string;
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;
   MONGO_URL: string;
   NODE_ENV: string;
-  PORT_DEFAULT: number;
   PORT: number;
-  REDIS_DEFAULT_HOST: string;
-  REDIS_DEFAULT_PORT: number;
   REDIS_HOST: string;
   REDIS_PASSWORD: string;
   REDIS_PORT: number;
@@ -215,34 +211,19 @@ export interface SocketHandlerReturnValue {
   data: StringMap;
 }
 
-export type SocketOnHandler = (
-  socket: ServerSocket,
-  data: StringMap
-) =>
-  | void
-  | Promise<void>
-  | SocketHandlerReturnValue
-  | Promise<SocketHandlerReturnValue>;
-
-export type SocketOnAnyHandler = (
-  socket: ServerSocket,
-  data: StringMap,
-  event: string
-) =>
-  | void
-  | SocketHandlerReturnValue
-  | Promise<SocketHandlerReturnValue>
-  | Promise<void>;
-
 export type ClientCallback = (data: SocketResponse) => void;
 
 export type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
 export interface SocketRoute extends Route {
-  name: string;
-  handler: SocketOnHandler | SocketOnAnyHandler;
+  name: EventName;
+  handler: SocketOnHandler;
   method: SocketMethods;
 }
+
+export type SocketRouteCollection = {
+  [prop in EventName]: SocketRoute;
+};
 
 export interface Session {
   session: string;
@@ -283,11 +264,70 @@ export interface VerifiedSession {
 export type NodeEnvValue =
   | "build"
   | "development"
-  | "production"
   | "production_local"
+  | "production"
   | "test_development"
-  | "test_production"
-  | "test_production_local";
+  | "test_production_local"
+  | "test_production";
+
+export type EventName =
+  | "addBlock"
+  | "addContact"
+  | "addContactWithCellphone"
+  | "createNewUser"
+  | "editContact"
+  | "getChatInfo"
+  | "getContacts"
+  | "getCountries"
+  | "getPrivateChat"
+  | "getPrivateChats"
+  | "getPublicUserData"
+  | "getStuff"
+  | "getUserData"
+  | "getWelcomeMessage"
+  | "joinRoom"
+  | "logout"
+  | "ping"
+  | "removeBlock"
+  | "removeContact"
+  | "sendPrivateMessage"
+  | "signIn"
+  | "updateOnlineStatus"
+  | "updatePublicUserData"
+  | "verify";
+
+export type SocketHandlerPicker<T> = Pick<
+  SocketHandlerCollection,
+  Extract<EventName, T>
+>;
+
+export type SocketRoutePicker<T> = Pick<
+  SocketRouteCollection,
+  Extract<EventName, T>
+>;
+
+export type SocketHandlerCollection = {
+  [prop in EventName]: SocketOnHandler;
+};
+
+export type SocketOnHandler = (
+  socket: ServerSocket,
+  data: StringMap
+) =>
+  | void
+  | Promise<void>
+  | SocketHandlerReturnValue
+  | Promise<SocketHandlerReturnValue>;
+
+export type SocketOnAnyHandler = (
+  socket: ServerSocket,
+  data: StringMap,
+  event: string
+) =>
+  | void
+  | SocketHandlerReturnValue
+  | Promise<SocketHandlerReturnValue>
+  | Promise<void>;
 
 export type LogLevel = "debug" | "error" | "info" | "warn";
 

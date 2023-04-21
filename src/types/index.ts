@@ -87,16 +87,12 @@ export type SocketMiddlewareEvent = string | string[];
 export type CreatedAt = number;
 
 export interface Environments {
-  CLIENT_ID_LENGTH: number;
   LOG_LEVEL: string;
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;
   MONGO_URL: string;
   NODE_ENV: string;
-  PORT_DEFAULT: number;
   PORT: number;
-  REDIS_DEFAULT_HOST: string;
-  REDIS_DEFAULT_PORT: number;
   REDIS_HOST: string;
   REDIS_PASSWORD: string;
   REDIS_PORT: number;

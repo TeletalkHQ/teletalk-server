@@ -32,3 +32,5 @@ TODO: Rename maxlength, minlength
 TODO: Remove isActive, isOnline
 TODO: Add EventName
 TODO: Add numeric type for countryCode and phoneNumber
+TODO: Cleanup environments
+TODO: Update launch script

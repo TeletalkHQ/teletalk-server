@@ -6,5 +6,11 @@ import { envManager } from "@/classes/EnvironmentManager";
 const cwd = process.cwd();
 
 dotenv.config({
+  path: path.join(cwd, "environments", "base.env"),
+  override: true,
+});
+
+dotenv.config({
   path: path.join(cwd, "environments", `${envManager.getNodeEnv()}.env`),
+  override: true,
 });

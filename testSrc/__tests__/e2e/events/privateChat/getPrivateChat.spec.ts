@@ -5,9 +5,9 @@ import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
-import { privateChatModels } from "@/models/native/privateChat";
-
 import { helpers } from "$/helpers";
+
+import { models } from "@/models";
 
 import { services } from "@/services";
 
@@ -43,7 +43,7 @@ await helpers.asyncDescribe("getPrivateChat fail tests", async () => {
 
   return () => {
     const data = {
-      chatId: randomMaker.string(privateChatModels.chatId.maxlength.value),
+      chatId: randomMaker.string(models.native.chatId.maxlength.value),
     };
 
     e2eFailTestInitializerHelper(requester).chatId(data);

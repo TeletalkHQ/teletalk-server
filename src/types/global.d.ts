@@ -2,7 +2,7 @@
 import { LoggerChalker } from "logger-chalker";
 import { Server } from "socket.io";
 
-import { CustomEmit, CustomOn, CustomUse, Verified } from "@/types";
+import { CustomEmit, CustomOn, CustomUse, VerifiedSession } from "@/types";
 
 declare global {
   var logger: LoggerChalker;
@@ -10,7 +10,7 @@ declare global {
 
 declare module "socket.io" {
   interface Socket {
-    authData: Verified;
+    authData: VerifiedSession;
     clientId: string;
     currentUserId: string;
     customEmit: CustomEmit;

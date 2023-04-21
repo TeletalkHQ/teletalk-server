@@ -60,7 +60,7 @@ describe("checkClientIdExistence fail tests", () => {
       await caller(
         route,
         errors.CLIENT_ID_MAX_LENGTH_REACH,
-        randomMaker.string(models.native.common.clientId.maxlength.value + 1)
+        randomMaker.string(models.native.clientId.maxlength.value + 1)
       );
     });
   }
@@ -74,7 +74,7 @@ describe("checkClientIdExistence fail tests", () => {
       await caller(
         route,
         errors.CLIENT_ID_MIN_LENGTH_REACH,
-        randomMaker.string(models.native.common.clientId.minlength.value - 1)
+        randomMaker.string(models.native.clientId.minlength.value - 1)
       );
     });
   }

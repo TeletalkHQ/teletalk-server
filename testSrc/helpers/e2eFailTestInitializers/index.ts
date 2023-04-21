@@ -1,5 +1,4 @@
 import { bioE2eFailTestInitializer } from "./bio";
-import { cellphoneE2eFailTestInitializer } from "./cellphone";
 import { chatIdE2eFailTestInitializer } from "./chatId";
 import { countryCodeE2eFailTestInitializer } from "./countryCode";
 import { countryNameE2eFailTestInitializer } from "./countryName";
@@ -27,7 +26,6 @@ const e2eFailTestInitializers = {
   bio: bioE2eFailTestInitializer,
   blacklistItemExist: blacklistItemExistE2eFailTestInitializer,
   blacklistItemNotExist: blacklistItemNotExistE2eFailTestInitializer,
-  cellphone: cellphoneE2eFailTestInitializer,
   chatId: chatIdE2eFailTestInitializer,
   contactItemExist: contactItemExistE2eFailTestInitializer,
   contactItemNotExist: contactItemNotExistE2eFailTestInitializer,

@@ -1,5 +1,5 @@
 import { clientInitializer } from "$/classes/ClientInitializer";
-import { requesterCreator } from "$/classes/Requester";
+import { requesterMaker } from "$/classes/Requester";
 import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
@@ -13,7 +13,8 @@ import { errors } from "@/variables/errors";
 import { arrayOfRoutes } from "@/websocket/events";
 
 describe("checkClientIdExistence fail tests", () => {
-  const checkingRoutes = arrayOfRoutes.filter((i) => i.name !== "disconnect");
+  const checkingRoutes = arrayOfRoutes;
+  // .filter((i) => i.name !== "disconnect");
 
   const caller = async (
     route: SocketRoute,
@@ -26,7 +27,7 @@ describe("checkClientIdExistence fail tests", () => {
     ci.create();
     ci.connect();
 
-    await requesterCreator(ci.getClient(), route).sendFullFeaturedRequest(
+    await requesterMaker(ci.getClient(), route).sendFullFeaturedRequest(
       {},
       error
     );
@@ -35,7 +36,7 @@ describe("checkClientIdExistence fail tests", () => {
   for (const route of checkingRoutes) {
     const title = helpers.createFailTestMessage(
       errors.CLIENT_ID_REQUIRED,
-      route
+      route.name
     );
     it(title, async () => {
       const ci = clientInitializer();
@@ -44,7 +45,7 @@ describe("checkClientIdExistence fail tests", () => {
       ci.connect();
       const socket = ci.getClient();
 
-      await requesterCreator(socket, route).sendFullFeaturedRequest(
+      await requesterMaker(socket, route).sendFullFeaturedRequest(
         {},
         errors.CLIENT_ID_REQUIRED
       );
@@ -54,7 +55,7 @@ describe("checkClientIdExistence fail tests", () => {
   for (const route of checkingRoutes) {
     const title = helpers.createFailTestMessage(
       errors.CLIENT_ID_MAX_LENGTH_REACH,
-      route
+      route.name
     );
     it(title, async () => {
       await caller(
@@ -68,7 +69,7 @@ describe("checkClientIdExistence fail tests", () => {
   for (const route of checkingRoutes) {
     const title = helpers.createFailTestMessage(
       errors.CLIENT_ID_MIN_LENGTH_REACH,
-      route
+      route.name
     );
     it(title, async () => {
       await caller(

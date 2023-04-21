@@ -58,7 +58,7 @@ describe("signIn success test", () => {
 await helpers.asyncDescribe("signIn fail test", async () => {
   const signInCellphone = randomMaker.unusedCellphone();
   const clientSocket = (await clientInitializer().createComplete()).getClient();
-  const requester = helpers.requesters.signIn(clientSocket);
+  const requester = helpers.requesterCollection.signIn(clientSocket);
 
   return () => {
     e2eFailTestInitializerHelper(requester)

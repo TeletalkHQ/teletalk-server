@@ -11,7 +11,7 @@ const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
   it(
     helpers.createFailTestMessage(
       errors.SELF_STUFF,
-      configuredRequester.getRoute()
+      configuredRequester.getEventName()
     ),
     async () => {
       await configuredRequester.sendFullFeaturedRequest(

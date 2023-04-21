@@ -4,7 +4,7 @@ import { Server } from "socket.io";
 
 import { customMethods } from "@/websocket/custom/methods";
 
-import { routers } from "@/websocket/events";
+import { registerRoutes } from "@/websocket/events";
 
 import { middlewares } from "@/websocket/middlewares";
 import { applyMiddlewares } from "@/websocket/middlewares/applyMiddlewares";
@@ -70,7 +70,7 @@ const websocketServer = (httpServer: HttpServer) => {
       )
     );
 
-    routers(socket);
+    registerRoutes(socket);
   });
 
   return io;

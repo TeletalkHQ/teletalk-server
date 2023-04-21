@@ -35,7 +35,7 @@ class RandomMaker extends RandomMakerMain {
     const helper = authHelper(cellphone, fullName);
     await helper.createComplete();
 
-    const response = await helpers.requesters
+    const response = await helpers.requesterCollection
       .getUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 

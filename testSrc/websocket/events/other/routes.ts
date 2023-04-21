@@ -3,6 +3,7 @@ import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
 const unknownRoute = socketRouteBuilder()
   .create()
+  //@ts-ignore
   .name(randomMaker.string(10))
   .build();
 

@@ -28,4 +28,4 @@ USER node
 # CMD npm run start:production:local
 CMD npm run test:production:local && npm run start:production:local
 
-EXPOSE 9000
+EXPOSE $PORT

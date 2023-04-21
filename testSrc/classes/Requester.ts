@@ -56,6 +56,9 @@ class Requester {
   getRoute() {
     return this.route;
   }
+  getEventName() {
+    return this.route.name;
+  }
   setRoute(route: SocketRoute) {
     this.route = route;
     return this;
@@ -194,7 +197,7 @@ class Requester {
   }
 }
 
-const requesterCreator = (socket: Client, route: SocketRoute) =>
+const requesterMaker = (socket: Client, route: SocketRoute) =>
   new Requester(socket, route);
 
-export { Requester, requesterCreator };
+export { Requester, requesterMaker };

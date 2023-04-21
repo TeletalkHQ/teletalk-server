@@ -30,7 +30,7 @@ class AuthHelper {
       await this.clientInitializer.createComplete()
     ).getClient();
 
-    this.signInResponse = await helpers.requesters
+    this.signInResponse = await helpers.requesterCollection
       .signIn(this.clientSocket)
       .sendFullFeaturedRequest(this.cellphone);
 
@@ -41,7 +41,7 @@ class AuthHelper {
     const clientId = this.clientInitializer.getClientId();
     const client = (await clientStore.find(clientId)) as Client;
 
-    this.verifyResponse = await helpers.requesters
+    this.verifyResponse = await helpers.requesterCollection
       .verify(this.clientSocket)
       .sendFullFeaturedRequest({
         verificationCode: client.verificationCode,
@@ -51,7 +51,7 @@ class AuthHelper {
   }
 
   async create() {
-    this.createResponse = await helpers.requesters
+    this.createResponse = await helpers.requesterCollection
       .createNewUser(this.clientSocket)
       .sendFullFeaturedRequest(this.fullName as FullName);
 

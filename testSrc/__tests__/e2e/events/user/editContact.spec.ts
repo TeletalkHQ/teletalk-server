@@ -20,12 +20,13 @@ describe("edit contact success tests", () => {
     const addingContacts = await createContacts(contactsLength);
 
     const addContactWithCellphoneRequester =
-      helpers.requesters.addContactWithCellphone(socket);
+      helpers.requesterCollection.addContactWithCellphone(socket);
     for (const contact of addingContacts) {
       await addContactWithCellphoneRequester.sendFullFeaturedRequest(contact);
     }
 
-    const editContactRequester = helpers.requesters.editContact(socket);
+    const editContactRequester =
+      helpers.requesterCollection.editContact(socket);
     for (const addingContact of addingContacts) {
       const fullName = randomMaker.fullName();
       const sendingData = {
@@ -65,7 +66,7 @@ describe("edit contact success tests", () => {
 
 await helpers.asyncDescribe("editContact fail tests", async () => {
   const { requester, user } = await helpers.setupRequester(
-    helpers.requesters.editContact
+    helpers.requesterCollection.editContact
   );
   const selfStuffData = {
     ...randomMaker.fullName(),

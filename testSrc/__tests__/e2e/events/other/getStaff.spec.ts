@@ -19,7 +19,7 @@ describe("getAllStuff success tests", () => {
     const clientSocket = (
       await clientInitializer().createComplete()
     ).getClient();
-    const requester = helpers.requesters.getStuff(clientSocket);
+    const requester = helpers.requesterCollection.getStuff(clientSocket);
 
     const { data } = await requester.sendFullFeaturedRequest();
 

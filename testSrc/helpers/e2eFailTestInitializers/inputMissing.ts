@@ -11,7 +11,7 @@ const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
   it(
     helpers.createFailTestMessage(
       errors.INPUT_FIELDS_MISSING,
-      configuredRequester.getRoute()
+      configuredRequester.getEventName()
     ),
     async () => {
       const copyData = { ...data };

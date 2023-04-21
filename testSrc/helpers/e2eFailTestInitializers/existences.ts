@@ -11,7 +11,7 @@ const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
   it(
     helpers.createFailTestMessage(
       errors.BLACKLIST_ITEM_NOT_EXIST,
-      configuredRequester.getRoute()
+      configuredRequester.getEventName()
     ),
     async () => {
       await configuredRequester.sendFullFeaturedRequest(
@@ -29,7 +29,7 @@ const blacklistItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
   it(
     helpers.createFailTestMessage(
       errors.BLACKLIST_ITEM_EXIST,
-      configuredRequester.getRoute()
+      configuredRequester.getEventName()
     ),
     async () => {
       await configuredRequester.sendFullFeaturedRequest(
@@ -47,7 +47,7 @@ const contactItemNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
   it(
     helpers.createFailTestMessage(
       errors.CONTACT_ITEM_NOT_EXIST,
-      configuredRequester.getRoute()
+      configuredRequester.getEventName()
     ),
     async () => {
       await configuredRequester.sendFullFeaturedRequest(
@@ -64,7 +64,7 @@ const contactItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
   it(
     helpers.createFailTestMessage(
       errors.CONTACT_ITEM_EXIST,
-      configuredRequester.getRoute()
+      configuredRequester.getEventName()
     ),
     async () => {
       await configuredRequester.sendFullFeaturedRequest(
@@ -82,7 +82,7 @@ const targetUserNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
   it(
     helpers.createFailTestMessage(
       errors.TARGET_USER_NOT_EXIST,
-      configuredRequester.getRoute()
+      configuredRequester.getEventName()
     ),
     async () => {
       await configuredRequester.sendFullFeaturedRequest(

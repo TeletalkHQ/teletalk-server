@@ -13,7 +13,7 @@ import { UserMongo } from "@/types";
 describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
-    const requester = helpers.requesters.getUserData(socket);
+    const requester = helpers.requesterCollection.getUserData(socket);
 
     for (let i = 0; i < 10; i++) {
       const {

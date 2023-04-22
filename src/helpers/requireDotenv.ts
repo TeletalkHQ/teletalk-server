@@ -1,8 +1,6 @@
 import path from "path";
 import dotenv from "dotenv";
 
-import { envManager } from "@/classes/EnvironmentManager";
-
 const cwd = process.cwd();
 
 dotenv.config({
@@ -11,6 +9,6 @@ dotenv.config({
 });
 
 dotenv.config({
-  path: path.join(cwd, "environments", `${envManager.getNodeEnv()}.env`),
+  path: path.join(cwd, "environments", `${process.env.NODE_ENV}.env`),
   override: true,
 });

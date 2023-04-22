@@ -12,11 +12,9 @@ import { SocketOnHandler, Client } from "@/types";
 
 import { utilities } from "@/utilities";
 
-import { validators } from "@/validators";
-
 const signIn: SocketOnHandler = async (socket, data) => {
+  //TODO: Use another utility to generate verification code
   const verificationCode = utilities.passwordGenerator();
-  await validateVerificationCode(verificationCode);
 
   const cellphone = userUtilities.extractCellphone(data as ExtendedCellphone);
 
@@ -40,9 +38,6 @@ const signIn: SocketOnHandler = async (socket, data) => {
   return { data: {} };
 };
 
-const validateVerificationCode = async (verificationCode: string) =>
-  await validators.verificationCode(verificationCode);
-
 const sendVerificationCode = async (
   fullNumber: string,
   host: string,
@@ -50,7 +45,7 @@ const sendVerificationCode = async (
 ) => await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 
 const createSessionId = () =>
-  randomMaker.id(models.native.user.userId.maxlength.value);
+  randomMaker.id(models.native.userId.maxlength.value);
 
 //CLEANME: Use session interface
 const sign = (data: { sessionId: string; date: number }) =>

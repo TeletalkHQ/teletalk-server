@@ -14,16 +14,12 @@ const getStuff: SocketOnHandler = (_socket) => {
       ...serverErrors,
     },
     models: {
-      ...models.native.common,
-      ...models.native.privateChat,
-      ...models.native.user,
+      ...models.native,
+      ...models.native,
+      ...models.native,
     },
     routes,
-    validationModels: {
-      ...models.validation.chat,
-      ...models.validation.common,
-      ...models.validation.user,
-    },
+    validationModels: models.validation,
   };
 
   return {

@@ -20,7 +20,7 @@ describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
     const { user: currentUser, socket } = await randomMaker.user();
     const addContactRequester =
-      helpers.requesters.addContactWithCellphone(socket);
+      helpers.requesterCollection.addContactWithCellphone(socket);
 
     const contactsLength = 1;
     const users: UserMongo[] = [];
@@ -72,7 +72,7 @@ describe("add contact success tests", () => {
 helpers.asyncDescribe("addContact fail tests", async () => {
   const currentUserSignData = randomMaker.unusedCellphone();
   const { requester, user: currentUser } = await helpers.setupRequester(
-    helpers.requesters.addContactWithCellphone,
+    helpers.requesterCollection.addContactWithCellphone,
     currentUserSignData
   );
   const selfStuffData = {
@@ -94,15 +94,14 @@ helpers.asyncDescribe("addContact fail tests", async () => {
   return () => {
     const randomContact = {
       ...randomMaker.unusedContactWithCellphone(
-        models.native.user.firstName.maxlength.value,
-        models.native.user.lastName.minlength.value
+        models.native.firstName.maxlength.value,
+        models.native.lastName.minlength.value
       ),
       userId: randomMaker.id(),
     };
 
     e2eFailTestInitializerHelper(requester)
       .input(randomContact)
-      .cellphone(randomContact)
       .countryCode(randomContact)
       .countryName(randomContact)
       .phoneNumber(randomContact)

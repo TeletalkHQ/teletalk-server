@@ -10,7 +10,7 @@ import { HydratedPrivateChatMongo, Message, PrivateChatMongo } from "@/types";
 
 import { errors } from "@/variables/errors";
 
-const chatModels = models.native.privateChat;
+const chatModels = models.native;
 
 //REFACTOR: Separate createPrivateChat parts
 const sendPrivateMessage = async (data: {

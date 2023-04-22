@@ -14,31 +14,54 @@ import { Event, Socket as ServerSocket } from "socket.io";
 import { Socket as ClientSocket } from "socket.io-client";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
-interface Cellphone {
+export interface Cellphone {
   countryCode: string;
   countryName: string;
   phoneNumber: string;
 }
 
-interface ValidationModel {
+export type Validator = (param: any) => Promise<void>;
+
+export type Field =
+  | "bio"
+  | "chatId"
+  | "countryCode"
+  | "countryName"
+  | "firstName"
+  | "lastName"
+  | "messageText"
+  | "participantId"
+  | "phoneNumber"
+  | "session"
+  | "userId"
+  | "username"
+  | "verificationCode";
+
+export interface ValidationModel {
   [prop: string]: ValidationRuleObject;
 }
 
-type FieldType = "array" | "boolean" | "date" | "number" | "object" | "string";
+export type FieldType =
+  | "array"
+  | "boolean"
+  | "date"
+  | "number"
+  | "object"
+  | "string";
 
-type CustomEmit = (event: string, data: StringMap) => void;
+export type CustomEmit = (event: string, data: StringMap) => void;
 
-type CustomOn = (event: string, callback: SocketOnHandler) => void;
+export type CustomOn = (event: string, callback: SocketOnHandler) => void;
 
-type SocketNext = (err?: Error | undefined) => void;
+export type SocketNext = (err?: Error | undefined) => void;
 
-type SocketEvent = Event;
+export type SocketEvent = Event;
 
-type SocketMiddlewareReturnValue = {
+export type SocketMiddlewareReturnValue = {
   ok: boolean;
 };
 
-type SocketMiddleware = (
+export type SocketMiddleware = (
   socket: ServerSocket,
   next: SocketNext,
   event: SocketEvent
@@ -48,32 +71,28 @@ type SocketMiddleware = (
   | Promise<void>
   | Promise<SocketMiddlewareReturnValue>;
 
-type CustomUse = (middleware: SocketMiddleware) => void;
+export type CustomUse = (middleware: SocketMiddleware) => void;
 
-interface FullName {
+export interface FullName {
   firstName: string;
   lastName: string;
 }
 
-interface Contact extends FullName {
+export interface Contact extends FullName {
   userId: string;
 }
 
-type SocketMiddlewareEvent = string | string[];
+export type SocketMiddlewareEvent = string | string[];
 
-type CreatedAt = number;
+export type CreatedAt = number;
 
-interface Environments {
-  CLIENT_ID_LENGTH: number;
-  LOG_LEVEL: string;
+export interface Environments {
+  LOG_LEVEL: LogLevel;
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;
   MONGO_URL: string;
   NODE_ENV: string;
-  PORT_DEFAULT: number;
   PORT: number;
-  REDIS_DEFAULT_HOST: string;
-  REDIS_DEFAULT_PORT: number;
   REDIS_HOST: string;
   REDIS_PASSWORD: string;
   REDIS_PORT: number;
@@ -91,10 +110,10 @@ interface Environments {
   SMS_PROVIDER_SELECTOR: number;
 }
 
-type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
-type HydratedUserMongo = HydratedDocument<UserMongo>;
+export type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
+export type HydratedUserMongo = HydratedDocument<UserMongo>;
 
-interface NativeError {
+export interface NativeError {
   description?: string;
   isAuthError: boolean;
   key: string;
@@ -103,11 +122,11 @@ interface NativeError {
   side: "server" | "client";
 }
 
-interface NativeModelItem {
+export interface NativeModelItem {
   error: NativeError;
   value: any;
 }
-interface NativeModel {
+export interface NativeModel {
   defaultValue: {
     value: any;
     error: NativeError;
@@ -150,7 +169,7 @@ interface NativeModel {
     error: NativeError;
   };
 }
-// interface MongoModel {
+// export interface MongoModel {
 //   default: [unknown, IError];
 //   empty: [boolean, IError];
 //   items: [];
@@ -163,81 +182,66 @@ interface NativeModel {
 //   unique: [];
 // }
 
-interface Sender {
+export interface Sender {
   senderId: string;
 }
-interface Message {
+export interface Message {
   createdAt: CreatedAt;
   messageText: string;
   messageId: string;
   sender: Sender;
 }
 
-interface Participant {
+export interface Participant {
   participantId: string;
 }
-interface PrivateChatMongo {
+export interface PrivateChatMongo {
   chatId: string;
   createdAt: CreatedAt;
   messages: Types.Array<Message>;
   participants: Types.Array<Participant>;
 }
-interface Route {
+export interface Route {
   inputFields: IoFields | Record<string, never>;
   outputFields: IoFields | Record<string, never>;
   isAuthRequired: boolean;
 }
 
-interface SocketHandlerReturnValue {
+export interface SocketHandlerReturnValue {
   data: StringMap;
 }
 
-type SocketOnHandler = (
-  socket: ServerSocket,
-  data: StringMap
-) =>
-  | void
-  | Promise<void>
-  | SocketHandlerReturnValue
-  | Promise<SocketHandlerReturnValue>;
+export type ClientCallback = (data: SocketResponse) => void;
 
-type SocketOnAnyHandler = (
-  socket: ServerSocket,
-  data: StringMap,
-  event: string
-) =>
-  | void
-  | SocketHandlerReturnValue
-  | Promise<SocketHandlerReturnValue>
-  | Promise<void>;
+export type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
-type ClientCallback = (data: SocketResponse) => void;
-
-type SocketMethods = "on" | "onAny" | "customOn" | "once";
-
-interface SocketRoute extends Route {
-  name: string;
-  handler: SocketOnHandler | SocketOnAnyHandler;
+export interface SocketRoute extends Route {
+  name: EventName;
+  handler: SocketOnHandler;
   method: SocketMethods;
 }
 
-interface Session {
+export type SocketRouteCollection = {
+  [prop in EventName]: SocketRoute;
+};
+
+export interface Session {
   session: string;
 }
 
-interface Status {
+export interface Status {
   isActive: boolean;
 }
 
-interface StringMap {
+export interface StringMap {
   [key: string]: any;
 }
 
-interface BlackListItem {
+export interface BlackListItem {
   userId: string;
 }
 
-interface UserMongo extends Cellphone, FullName {
+export interface UserMongo extends Cellphone, FullName {
   bio: string;
   contacts: Contact[] | ContactWithCellphone[];
   blacklist: BlackListItem[];
@@ -248,7 +252,7 @@ interface UserMongo extends Cellphone, FullName {
   status: Status;
 }
 
-interface Verified {
+export interface VerifiedSession {
   data: {
     payload: {
       sessionId: string;
@@ -257,31 +261,90 @@ interface Verified {
   };
 }
 
-type NodeEnvValue =
+export type NodeEnvValue =
   | "build"
   | "development"
-  | "production"
   | "production_local"
+  | "production"
   | "test_development"
-  | "test_production"
-  | "test_production_local";
+  | "test_production_local"
+  | "test_production";
 
-type LogLevel = "debug" | "error" | "info" | "warn";
+export type EventName =
+  | "addBlock"
+  | "addContact"
+  | "addContactWithCellphone"
+  | "createNewUser"
+  | "editContact"
+  | "getChatInfo"
+  | "getContacts"
+  | "getCountries"
+  | "getPrivateChat"
+  | "getPrivateChats"
+  | "getPublicUserData"
+  | "getStuff"
+  | "getUserData"
+  | "getWelcomeMessage"
+  | "joinRoom"
+  | "logout"
+  | "ping"
+  | "removeBlock"
+  | "removeContact"
+  | "sendPrivateMessage"
+  | "signIn"
+  | "updateOnlineStatus"
+  | "updatePublicUserData"
+  | "verify";
 
-type NativeModelKey = keyof NativeModel;
+export type SocketHandlerPicker<T> = Pick<
+  SocketHandlerCollection,
+  Extract<EventName, T>
+>;
 
-type ValidationResult =
+export type SocketRoutePicker<T> = Pick<
+  SocketRouteCollection,
+  Extract<EventName, T>
+>;
+
+export type SocketHandlerCollection = {
+  [prop in EventName]: SocketOnHandler;
+};
+
+export type SocketOnHandler = (
+  socket: ServerSocket,
+  data: StringMap
+) =>
+  | void
+  | Promise<void>
+  | SocketHandlerReturnValue
+  | Promise<SocketHandlerReturnValue>;
+
+export type SocketOnAnyHandler = (
+  socket: ServerSocket,
+  data: StringMap,
+  event: string
+) =>
+  | void
+  | SocketHandlerReturnValue
+  | Promise<SocketHandlerReturnValue>
+  | Promise<void>;
+
+export type LogLevel = "debug" | "error" | "info" | "warn";
+
+export type NativeModelKey = keyof NativeModel;
+
+export type ValidationResult =
   | true
   | ValidationError[]
   | Promise<true | ValidationError[]>;
 
-interface Client extends Cellphone {
+export interface Client extends Cellphone {
   isVerified: boolean;
   verificationCode: string;
   session: string;
 }
 
-interface PublicUserData {
+export interface PublicUserData {
   bio: string;
   firstName: string;
   lastName: string;
@@ -292,86 +355,34 @@ interface PublicUserData {
   };
 }
 
-type IPrivateChatDoc = PrivateChatMongo & Document;
-type IPrivateChatModel = Model<IPrivateChatDoc>;
-type IUserDoc = UserMongo & Document;
-type IUserModel = Model<IUserDoc>;
+export type IPrivateChatDoc = PrivateChatMongo & Document;
+export type IPrivateChatModel = Model<IPrivateChatDoc>;
+export type IUserDoc = UserMongo & Document;
+export type IUserModel = Model<IUserDoc>;
 
-type ServiceFunction<T, U, V> = (
+export type ServiceFunction<T, U, V> = (
   data: T,
   projection?: ProjectionType<U>,
   options?: QueryOptions
 ) => V;
 
-type PrivateChatService<T, U> = ServiceFunction<
+export type PrivateChatService<T, U> = ServiceFunction<
   FilterQuery<T>,
   PrivateChatMongo,
   U
 >;
 
-type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
+export type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
 
-interface SocketResponse {
+export interface SocketResponse {
   data: StringMap & {
     errors?: SocketResponseErrors;
   };
   ok: boolean;
 }
 
-interface SocketResponseErrors {
+export interface SocketResponseErrors {
   [prop: string]: NativeError & StringMap;
 }
 
-export {
-  BlackListItem,
-  Cellphone,
-  ClientCallback,
-  ClientSocket,
-  Contact,
-  CustomEmit,
-  CustomOn,
-  CustomUse,
-  Environments,
-  FieldType,
-  FullName,
-  HydratedPrivateChatMongo,
-  HydratedUserMongo,
-  IPrivateChatDoc,
-  IPrivateChatModel,
-  IUserDoc,
-  IUserModel,
-  LogLevel,
-  Message,
-  NativeError,
-  NativeModel,
-  NativeModelItem,
-  NativeModelKey,
-  NodeEnvValue,
-  Participant,
-  PrivateChatMongo,
-  PrivateChatService,
-  PublicUserData,
-  Route,
-  ServerSocket,
-  ServiceFunction,
-  Session,
-  SocketEvent,
-  SocketHandlerReturnValue,
-  SocketMethods,
-  SocketMiddleware,
-  SocketMiddlewareEvent,
-  SocketMiddlewareReturnValue,
-  SocketNext,
-  SocketOnAnyHandler,
-  SocketOnHandler,
-  SocketResponse,
-  SocketResponseErrors,
-  SocketRoute,
-  StringMap,
-  Client,
-  UserMongo,
-  UserService,
-  ValidationModel,
-  ValidationResult,
-  Verified,
-};
+export { ClientSocket, ServerSocket };

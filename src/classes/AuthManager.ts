@@ -3,7 +3,7 @@ import { trier } from "simple-trier";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
-import { Verified } from "@/types";
+import { VerifiedSession } from "@/types";
 
 import { utilities } from "@/utilities";
 
@@ -41,7 +41,7 @@ class AuthManager {
         };
       })
       .throw()
-      .run() as Verified;
+      .run() as VerifiedSession;
   }
 
   signSession<T extends object>(data: T, secret = this.getMainSecret()) {

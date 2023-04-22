@@ -3,11 +3,9 @@ import { Trier } from "simple-trier";
 import { envManager } from "@/classes/EnvironmentManager";
 
 import { helpers } from "@/helpers";
-import { LogLevel } from "@/types";
 
-const { PORT, PORT_DEFAULT } = envManager.getEnvironment();
-
-const exactPort = PORT || PORT_DEFAULT;
+const { PORT } = envManager.getEnvironment();
+// const RANDOM_PORT = randomMaker.numberWithRange(8000, 10000);
 
 class AppConfigs {
   private configs = {
@@ -15,12 +13,12 @@ class AppConfigs {
       MONGO_URL: helpers.getMongoUrl(),
       MONGO_URL_FULL: helpers.makeMongoFullUrl(),
     },
-    server: { exactPort, hostname: "localhost" },
+    server: { PORT, HOSTNAME: "localhost" },
   };
 
-  async setup() {
+  setup() {
     const { NODE_ENV, LOG_LEVEL } = envManager.getEnvironment();
-    logger.setLevel(logger.levels[LOG_LEVEL as LogLevel]);
+    logger.setLevel(logger.levels[LOG_LEVEL]);
 
     if (NODE_ENV.includes("test"))
       Trier.changeGlobalConfigs({

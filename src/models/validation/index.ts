@@ -3,9 +3,9 @@ import { commonValidationModels } from "@/models/validation/common";
 import { userValidationModels } from "@/models/validation/user";
 
 const validationModels = {
-  chat: chatValidationModels,
-  common: commonValidationModels,
-  user: userValidationModels,
+  ...chatValidationModels,
+  ...commonValidationModels,
+  ...userValidationModels,
 };
 
 export { validationModels };

@@ -32,15 +32,15 @@ const redisConnector = async () => {
   const storage = createClient({
     socket: {
       tls: false,
-      port: +REDIS_CONNECTION_OPTIONS.port,
-      host: REDIS_CONNECTION_OPTIONS.host,
+      port: +REDIS_CONNECTION_OPTIONS.PORT,
+      host: REDIS_CONNECTION_OPTIONS.HOST,
     },
     password: REDIS_PASSWORD,
   });
 
   storage.on("connect", () =>
     logger.info(
-      `Redis connected to => ${REDIS_CONNECTION_OPTIONS.host}:${REDIS_CONNECTION_OPTIONS.port}`
+      `Redis connected to => ${REDIS_CONNECTION_OPTIONS.HOST}:${REDIS_CONNECTION_OPTIONS.PORT}`
     )
   );
   storage.on("error", utilities.crashServer);
@@ -51,18 +51,17 @@ const redisConnector = async () => {
 };
 
 const fixRedisConnection = () => {
-  const fixedHost = fixRedisHost();
-  const fixedPort = fixRedisPort();
+  const FIXED_HOST = fixRedisHost();
+  const FIXED_PORT = fixRedisPort();
 
   return {
-    host: fixedHost,
-    port: fixedPort,
+    HOST: FIXED_HOST,
+    PORT: FIXED_PORT,
   };
 };
 
 const fixRedisHost = () => {
-  const { REDIS_DEFAULT_HOST, REDIS_HOST, REDIS_PORT } =
-    envManager.getEnvironment();
+  const { REDIS_HOST, REDIS_PORT } = envManager.getEnvironment();
 
   if (
     [REDIS_HOST, REDIS_PORT?.toString()].some((item = "") =>
@@ -74,17 +73,17 @@ const fixRedisHost = () => {
       .split(":")[0];
   }
 
-  return REDIS_HOST || REDIS_DEFAULT_HOST;
+  return REDIS_HOST;
 };
 
 const fixRedisPort = () => {
-  const { REDIS_DEFAULT_PORT, REDIS_PORT } = envManager.getEnvironment();
+  const { REDIS_PORT } = envManager.getEnvironment();
 
   if (REDIS_PORT?.toString().includes("tcp://")) {
     return REDIS_PORT.toString().split(":")[2];
   }
 
-  return REDIS_PORT?.toString() || REDIS_DEFAULT_PORT.toString();
+  return REDIS_PORT.toString();
 };
 
 export { mongodbConnector, redisConnector };

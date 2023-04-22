@@ -1,4 +1,5 @@
 import { Requester } from "$/classes/Requester";
+
 import { e2eFailTestInitializers } from "$/helpers/e2eFailTestInitializers";
 
 type MethodName = keyof typeof e2eFailTestInitializers;
@@ -21,7 +22,6 @@ class E2eFailTestInitializerHelper {
   bio = this.initializer("bio");
   blacklistItemExist = this.initializer("blacklistItemExist");
   blacklistItemNotExist = this.initializer("blacklistItemNotExist");
-  cellphone = this.initializer("cellphone");
   chatId = this.initializer("chatId");
   contactItemExist = this.initializer("contactItemExist");
   contactItemNotExist = this.initializer("contactItemNotExist");

@@ -4,15 +4,13 @@ import { models } from "@/models";
 
 import { AssertionInitializer } from "$/types";
 
-const userModels = models.native.user;
-
 const countryNameAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
   assertionInitializer
     .create()
-    .setVariables(userModels.countryName, equalValue, testValue)
+    .setVariables(models.native.countryName, equalValue, testValue)
     .setOptions(options)
     .addCommonTest()
     .emptyCheck()

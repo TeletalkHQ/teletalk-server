@@ -34,12 +34,12 @@ const tryBlock = async (socket: Socket) => {
 
   //CLEANME: Add validator
   errorThrower(
-    clientId.length < models.native.common.clientId.minlength.value,
+    clientId.length < models.native.clientId.minlength.value,
     errors.CLIENT_ID_MIN_LENGTH_REACH
   );
 
   errorThrower(
-    clientId.length > models.native.common.clientId.maxlength.value,
+    clientId.length > models.native.clientId.maxlength.value,
     errors.CLIENT_ID_MAX_LENGTH_REACH
   );
 

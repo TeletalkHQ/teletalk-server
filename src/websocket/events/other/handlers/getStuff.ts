@@ -1,23 +1,16 @@
 import { models } from "@/models";
 
-import { userErrors } from "@/variables/errors/user";
-
 import { SocketOnHandler } from "@/types";
 
+import { ERRORS } from "@/variables";
+
 import { routes } from "@/websocket/events";
-import { serverErrors } from "@/variables/errors/server";
 
 const getStuff: SocketOnHandler = (_socket) => {
+  //TODO: Separate io errors
   const stuff = {
-    appErrors: {
-      ...userErrors,
-      ...serverErrors,
-    },
-    models: {
-      ...models.native,
-      ...models.native,
-      ...models.native,
-    },
+    appErrors: ERRORS,
+    models: models.native,
     routes,
     validationModels: models.validation,
   };

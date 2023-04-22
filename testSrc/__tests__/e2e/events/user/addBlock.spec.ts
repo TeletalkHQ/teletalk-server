@@ -10,7 +10,7 @@ import { services } from "@/services";
 
 import { BlackListItem, UserMongo } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 
 describe("addBlock successful tests", () => {
   it("should add users to blacklist", async () => {

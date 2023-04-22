@@ -1,6 +1,6 @@
 import { SocketOnHandler } from "@/types";
 
-import { countries } from "@/variables/others/countries";
+import { countries } from "@/variables";
 
 const getCountries: SocketOnHandler = async () => {
   return { data: { countries } };

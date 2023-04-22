@@ -9,7 +9,7 @@ import {
   SocketRoute,
 } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { ioErrors } from "@/variables";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
@@ -26,7 +26,7 @@ const checkDataFields: SocketMiddleware = (_socket, next, [name, data]) => {
 };
 
 const tryBlock = (data: SocketEvent["1"], inputFields: IoFields) => {
-  checkFields(data || {}, inputFields, ERRORS.io.input);
+  checkFields(data || {}, inputFields, ioErrors.input);
 };
 
 const executeIfNoError = (_: void, next: SocketNext) => {

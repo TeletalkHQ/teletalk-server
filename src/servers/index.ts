@@ -4,13 +4,12 @@
 // import { setupPrimary, createAdapter } from "@socket.io/cluster-adapter";
 // import { Server } from "socket.io";
 
-import "@/configs/customGlobals.ts";
+import "@/configs/customGlobals";
 import "@/helpers/requireDotenv";
 
 import PrettyError from "pretty-error";
 
 import { appConfigs } from "@/classes/AppConfigs";
-import { envManager } from "@/classes/EnvironmentManager";
 
 import { helpers } from "@/helpers";
 
@@ -22,18 +21,18 @@ import { websocketServer } from "@/servers/websocket";
 PrettyError.start();
 
 const listeningListener = () => {
-  const { NODE_ENV } = envManager.getEnvironment();
+  const { ENVIRONMENT } = appConfigs.getConfigs().APP;
 
   logger.info(
-    `Server is running in ${NODE_ENV} mode on port ${
-      appConfigs.getConfigs().server.PORT
+    `Server is running in ${ENVIRONMENT} mode on port ${
+      appConfigs.getConfigs().APP.PORT
     }`
   );
 };
 
 const runner = async () => {
   // if (cluster.isPrimary) {
-  appConfigs.setup();
+  await appConfigs.setup();
 
   // utilities.logEnvironments();
 
@@ -56,7 +55,7 @@ const runner = async () => {
   await requirements.database();
 
   const httpServer = crateHttpServer(helpers.clientIdGenerator);
-  httpServer.listen(appConfigs.getConfigs().server.PORT, listeningListener);
+  httpServer.listen(appConfigs.getConfigs().APP.PORT, listeningListener);
   websocketServer(httpServer);
 
   // logger.debug(`Worker ${process.pid} started`);
@@ -74,6 +73,6 @@ const runner = async () => {
   // }
 };
 
-if (envManager.getEnvironment().SELF_EXEC) runner();
+if (appConfigs.getConfigs().APP.SELF_EXEC) runner();
 
 export { runner };

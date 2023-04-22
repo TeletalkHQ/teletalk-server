@@ -1,7 +1,7 @@
 import JWT from "jsonwebtoken";
 import { trier } from "simple-trier";
 
-import { envManager } from "@/classes/EnvironmentManager";
+import { appConfigs } from "@/classes/AppConfigs";
 
 import { VerifiedSession } from "@/types";
 
@@ -69,10 +69,10 @@ class AuthManager {
     };
   }
   getMainSecret() {
-    return envManager.getEnvironment().SESSION_MAIN_SECRET;
+    return appConfigs.getConfigs().APP.SESSION_MAIN_SECRET;
   }
   getSignInSecret() {
-    return envManager.getEnvironment().SESSION_SIGN_IN_SECRET;
+    return appConfigs.getConfigs().APP.SESSION_SIGN_IN_SECRET;
   }
 
   getSessionId(session: string, secret: string = this.getMainSecret()) {

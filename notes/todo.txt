@@ -34,3 +34,4 @@ TODO: Add numeric type for countryCode and phoneNumber
 TODO: Update launch script
 TODO: Read env's just from AppConfigs
 TODO: Remove useless exports
+TODO: Rename custom methods to register methods

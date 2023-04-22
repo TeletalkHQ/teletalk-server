@@ -7,7 +7,7 @@ import { helpers } from "$/helpers";
 import { RequesterOptions } from "$/types";
 import { FieldType, NativeError, NativeModel } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 class E2eFailTestInitializer {
   constructor(
@@ -44,7 +44,7 @@ class E2eFailTestInitializer {
   }
   missing() {
     const mergedData = this.dataMerger();
-    this.initTest(mergedData, errors.INPUT_FIELDS_MISSING);
+    this.initTest(mergedData, ERRORS.INPUT_FIELDS_MISSING);
     return this;
   }
   overload() {
@@ -52,7 +52,7 @@ class E2eFailTestInitializer {
       ...this.data,
       [randomMaker.string(10)]: randomMaker.string(10),
     };
-    this.initTest(overloadedData, errors.INPUT_FIELDS_OVERLOAD, {
+    this.initTest(overloadedData, ERRORS.INPUT_FIELDS_OVERLOAD, {
       shouldFilterRequestData: false,
     });
     return this;
@@ -61,7 +61,7 @@ class E2eFailTestInitializer {
     const valueWithIncorrectType =
       value || randomMaker.number(this.getMaxlength());
     const mergedData = this.dataMerger(valueWithIncorrectType);
-    this.initTest(mergedData, errors.INPUT_FIELD_INVALID_TYPE);
+    this.initTest(mergedData, ERRORS.INPUT_FIELD_INVALID_TYPE);
     return this;
   }
   numeric() {

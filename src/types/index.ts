@@ -377,7 +377,7 @@ export type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
 
 export interface SocketResponse {
   data: StringMap & {
-    errors?: SocketResponseErrors;
+    ERRORS?: SocketResponseErrors;
   };
   ok: boolean;
 }

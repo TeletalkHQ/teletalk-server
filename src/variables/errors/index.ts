@@ -25,11 +25,11 @@ const ioErrors = {
   },
 };
 
-const errors = {
+const ERRORS = {
   io: ioErrors,
   ...localErrors,
   ...serverErrors,
   ...userErrors,
 };
 
-export { errors };
+export { ERRORS };

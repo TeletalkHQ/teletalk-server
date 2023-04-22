@@ -2,7 +2,7 @@ import { checkFields, IoFields } from "check-fields";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 import {
   CustomEmit,
@@ -29,7 +29,7 @@ const customEmit = (socket: Socket) => {
 };
 
 const tryBlock = (data: StringMap, outputFields: IoFields) => {
-  checkFields(data, outputFields, errors.io.output);
+  checkFields(data, outputFields, ERRORS.io.output);
 };
 
 const executeIfNoError = (
@@ -49,14 +49,14 @@ const catchBlock = (error: NativeError, socket: Socket) => {
   const sendingError = isErrorValid
     ? {
       data: {
-        errors: {
+        ERRORS: {
           [error.key]: error
         }
       },
     }
     : {
       data: {
-        errors: { [error.key]: errors.UNKNOWN_ERROR },
+        ERRORS: { [error.key]: ERRORS.UNKNOWN_ERROR },
       },
       checkResult: error,
     };

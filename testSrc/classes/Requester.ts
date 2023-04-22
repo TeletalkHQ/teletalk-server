@@ -14,7 +14,7 @@ import {
 } from "@/types";
 import { RequesterOptions } from "$/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 class Requester {
   private error?: NativeError;
@@ -99,7 +99,7 @@ class Requester {
   checkRequestDataFields(options = this.getOptions(), inputFields: StringMap) {
     if (!this.getRequestData() && Object.keys(inputFields).length) {
       const error = {
-        ...errors.INPUT_FIELDS_MISSING,
+        ...ERRORS.INPUT_FIELDS_MISSING,
         options,
         requestData: this.getRequestData(),
       };
@@ -189,9 +189,9 @@ class Requester {
     if (!error) throw "Error is not defined";
 
     const { key, reason } = error;
-    const errors = this.getResponse().data.errors as SocketResponseErrors;
+    const ERRORS = this.getResponse().data.ERRORS as SocketResponseErrors;
 
-    chai.expect(errors[key]?.reason).to.be.equal(reason);
+    chai.expect(ERRORS[key]?.reason).to.be.equal(reason);
 
     return this;
   }

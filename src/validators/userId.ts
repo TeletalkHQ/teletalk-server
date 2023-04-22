@@ -6,7 +6,7 @@ import { models } from "@/models";
 
 import { Validator } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const validator = ValidationModelBuilder.compiler(models.validation.userId);
 
@@ -31,6 +31,6 @@ const errorChecker = (result: Result, userId: unknown) => {
       .string()
       .stringMin()
       .stringMax()
-      .throwAnyway(errors.USER_ID_INVALID);
+      .throwAnyway(ERRORS.USER_ID_INVALID);
   });
 };

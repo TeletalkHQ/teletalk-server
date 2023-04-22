@@ -10,7 +10,7 @@ import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 
 describe("getContacts success tests", () => {
   it("", async () => {

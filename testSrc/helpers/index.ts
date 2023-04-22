@@ -23,7 +23,7 @@ import {
   RequesterMakerWrapper,
 } from "$/types";
 
-import { countries } from "@/variables/others/countries";
+import { countries } from "@/variables";
 
 import { routes } from "@/websocket/events";
 

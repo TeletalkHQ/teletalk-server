@@ -2,7 +2,7 @@ import chai from "chai";
 
 import { FieldType, NativeModel } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 
 type TestItem = () => void;
 

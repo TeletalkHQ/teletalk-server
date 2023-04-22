@@ -3,9 +3,9 @@ import chai from "chai";
 import { oneContactAssertionInitializer } from "$/helpers/assertionInitializers/oneContact";
 
 import { AssertionInitializer } from "$/types";
-
-import { FIELD_TYPE } from "$/variables/fieldType";
 import { Contact } from "@/types";
+
+import { FIELD_TYPE } from "$/variables";
 
 const contactsAssertionInitializer: AssertionInitializer = ({
   equalValue,

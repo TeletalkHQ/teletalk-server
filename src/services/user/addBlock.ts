@@ -4,7 +4,7 @@ import { HydratedUserMongo, UserMongo } from "@/types";
 
 import { commonServices } from "@/services/common";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const addBlock = async (data: {
   blockingUserId: string;
@@ -12,10 +12,10 @@ const addBlock = async (data: {
 }) => {
   const currentUser = await commonServices.findOneUserById(data.currentUserId);
 
-  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
+  if (!currentUser) throw ERRORS.CURRENT_USER_NOT_EXIST;
 
   const targetUser = await commonServices.findOneUserById(data.blockingUserId);
-  errorThrower(!targetUser, errors.TARGET_USER_NOT_EXIST);
+  errorThrower(!targetUser, ERRORS.TARGET_USER_NOT_EXIST);
 
   checkExistenceOfBlacklistItem(currentUser.blacklist, data.blockingUserId);
 
@@ -28,7 +28,7 @@ const checkExistenceOfBlacklistItem = (
 ) => {
   const index = blacklist.findIndex((i) => i.userId === userId);
   errorThrower(index !== -1, () => ({
-    ...errors.BLACKLIST_ITEM_EXIST,
+    ...ERRORS.BLACKLIST_ITEM_EXIST,
     targetUserData: userId,
   }));
 };

@@ -25,11 +25,9 @@ const ioErrors = {
   },
 };
 
-const errors = {
-  io: ioErrors,
-  ...localErrors,
+const ERRORS = {
   ...serverErrors,
   ...userErrors,
 };
 
-export { errors };
+export { ERRORS, ioErrors, localErrors };

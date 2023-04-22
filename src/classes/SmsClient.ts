@@ -6,7 +6,7 @@ import { appConfigs } from "@/classes/AppConfigs";
 
 import { loggerHelper } from "@/helpers/logHelper";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 class SmsClient {
   templates() {
@@ -29,7 +29,7 @@ class SmsClient {
     await trier(this.sendVerificationCode.name)
       .tryAsync(providers[SMS_PROVIDER_SELECTOR].bind(this), sendTo, text)
       .catch((error) => ({
-        ...errors.SEND_SMS_FAILED,
+        ...ERRORS.SEND_SMS_FAILED,
         providerError: error,
       }))
       .throw()
@@ -66,7 +66,7 @@ class SmsClient {
       }
     );
 
-    errorThrower(smsResult.status !== 200, errors.SEND_SMS_FAILED);
+    errorThrower(smsResult.status !== 200, ERRORS.SEND_SMS_FAILED);
   }
   private async provider2(sendTo: string, text: string) {
     const {

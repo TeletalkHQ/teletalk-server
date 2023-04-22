@@ -35,7 +35,7 @@ const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
   logger.debug("error in mld:", error);
 
   const response: SocketResponse = {
-    data: { errors: { [error.key]: error } },
+    data: { ERRORS: { [error.key]: error } },
     ok: false,
   };
 

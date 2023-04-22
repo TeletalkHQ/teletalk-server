@@ -5,7 +5,7 @@ import { userIdAssertionInitializer } from "$/helpers/assertionInitializers/user
 import { AssertionInitializer } from "$/types";
 import { BlackListItem } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 
 const blacklistAssertionInitializer: AssertionInitializer = ({
   equalValue,

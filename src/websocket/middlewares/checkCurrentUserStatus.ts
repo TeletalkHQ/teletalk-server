@@ -8,7 +8,7 @@ import { services } from "@/services";
 
 import { SocketMiddleware, SocketNext } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const checkCurrentUserStatus: SocketMiddleware = async (socket, next) => {
   await trier<void>(checkCurrentUserStatus.name)
@@ -26,13 +26,13 @@ const tryBlock = async (socket: Socket) => {
   } = socket.authData;
 
   const currentUser = await services.findOneUser({ userId: sessionId });
-  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
+  if (!currentUser) throw ERRORS.CURRENT_USER_NOT_EXIST;
 
   const { session } = (await clientStore.find(socket.clientId))!;
   const isSessionExist = currentUser.sessions.some(
     (t) => t.session === session
   );
-  errorThrower(!isSessionExist, errors.CURRENT_SESSION_NOT_EXIST);
+  errorThrower(!isSessionExist, ERRORS.CURRENT_SESSION_NOT_EXIST);
 };
 
 const executeIfNoError = (_: void, next: SocketNext) => {

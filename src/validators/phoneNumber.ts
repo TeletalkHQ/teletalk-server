@@ -6,7 +6,7 @@ import { models } from "@/models";
 
 import { Validator } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const validator = ValidationModelBuilder.compiler(
   models.validation.phoneNumber
@@ -36,6 +36,6 @@ const errorChecker = (result: Result, phoneNumber: unknown) => {
       .stringMax()
       .stringMin()
       .stringNumeric()
-      .throwAnyway(errors.PHONE_NUMBER_INVALID);
+      .throwAnyway(ERRORS.PHONE_NUMBER_INVALID);
   });
 };

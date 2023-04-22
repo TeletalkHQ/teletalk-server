@@ -76,9 +76,9 @@ const sortEnvironments = () =>
     .map(([key, value]) => ({ key, value }))
     .sort((a, b) => a.key.localeCompare(b.key))
     .reduce((prevValue, currentValue) => {
-      type Key = keyof Environments;
-      const key = currentValue.key as Key;
-      const value = currentValue.value as Environments[Key];
+      const key = currentValue.key;
+      const value = currentValue.value;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (prevValue as any)[key] = value;
 
       return prevValue;

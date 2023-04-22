@@ -1,17 +1,6 @@
-import { Environments, NodeEnvValue } from "@/types";
-
 class EnvironmentManager {
-  getEnvironment(): Environments {
-    //@ts-ignore
+  getEnvironment() {
     return process.env;
-  }
-
-  getNodeEnv() {
-    return this.getEnvironment().NODE_ENV as NodeEnvValue;
-  }
-
-  setEnvironment(envName: string, value: string | number | boolean) {
-    process.env[envName] = value as string;
   }
 }
 

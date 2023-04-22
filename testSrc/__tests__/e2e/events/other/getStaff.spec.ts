@@ -12,7 +12,7 @@ import {
   ValidationModel,
 } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 
 describe("getAllStuff success tests", () => {
   it("should get all requirements for clients", async () => {

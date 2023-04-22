@@ -10,7 +10,7 @@ import { services } from "@/services";
 
 import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 
 describe("get messages success tests", () => {

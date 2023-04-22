@@ -8,7 +8,7 @@ import { models } from "@/models";
 import { Validator } from "@/types";
 
 import { ERRORS } from "@/variables";
-import { countries } from "@/variables/others/countries";
+import { countries } from "@/variables";
 
 const validator = ValidationModelBuilder.compiler(
   models.validation.countryName

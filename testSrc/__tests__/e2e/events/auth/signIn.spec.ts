@@ -16,7 +16,7 @@ import { helpers } from "$/helpers";
 
 import { Cellphone, Client } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {

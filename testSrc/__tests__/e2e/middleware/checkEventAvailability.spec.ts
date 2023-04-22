@@ -7,7 +7,7 @@ import { helpers } from "$/helpers";
 
 import { ClientSocket, SocketRoute } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 import { ERRORS } from "@/variables";
 
 import { routes } from "$/websocket/events";

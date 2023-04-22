@@ -13,7 +13,7 @@ import { services } from "@/services";
 
 import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 
 describe("get messages success tests", () => {
   it("Should get messages", async () => {

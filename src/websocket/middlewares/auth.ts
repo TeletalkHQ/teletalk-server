@@ -4,14 +4,14 @@ import { Socket } from "socket.io";
 import { authManager } from "@/classes/AuthManager";
 import { clientStore } from "@/classes/ClientStore";
 
-import { SocketMiddleware, SocketNext, Verified } from "@/types";
+import { SocketMiddleware, SocketNext, VerifiedSession } from "@/types";
 
 import { validators } from "@/validators";
 
 import { errors } from "@/variables/errors";
 
 const auth: SocketMiddleware = async (socket, next, [name]) => {
-  await trier<Verified>(auth.name)
+  await trier<VerifiedSession>(auth.name)
     .tryAsync(tryBlock, socket, name)
     .executeIfNoError(executeIfNoError, socket, next)
     .throw()
@@ -23,13 +23,14 @@ const tryBlock = async (socket: Socket, eventName: string) => {
 
   if (!client) throw errors.CLIENT_NOT_FOUND;
 
-  const secret = authManager.getSecret(eventName);
   const { session } = client;
-  return await validators.session(session, secret);
+  await validators.session(session);
+  const secret = authManager.getSecret(eventName);
+  return authManager.verify(session, secret);
 };
 
 const executeIfNoError = (
-  verified: Verified,
+  verified: VerifiedSession,
   socket: Socket,
   next: SocketNext
 ) => {

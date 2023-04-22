@@ -6,7 +6,7 @@ import { AssertionInitializer } from "$/types";
 
 import { PrivateChatMongo } from "@/types";
 
-const chatModels = models.native.privateChat;
+const chatModels = models.native;
 
 const privateChatsAssertionInitializer: AssertionInitializer = (
   { testValue },

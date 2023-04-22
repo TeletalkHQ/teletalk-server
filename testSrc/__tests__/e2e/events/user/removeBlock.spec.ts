@@ -17,13 +17,14 @@ describe("removeContact successful test", () => {
 
     const { user: currentUser, socket } = await randomMaker.user();
 
-    const addBlockRequester = helpers.requesters.addBlock(socket);
+    const addBlockRequester = helpers.requesterCollection.addBlock(socket);
 
     for (const userId of userIds) {
       await addBlockRequester.sendFullFeaturedRequest({ userId });
     }
 
-    const removeBlockRequester = helpers.requesters.removeBlock(socket);
+    const removeBlockRequester =
+      helpers.requesterCollection.removeBlock(socket);
 
     for (const blacklistItem of [...userIds]) {
       const {
@@ -47,7 +48,7 @@ describe("removeContact successful test", () => {
 
 await helpers.asyncDescribe("removeBlock fail tests", async () => {
   const { requester, user } = await helpers.setupRequester(
-    helpers.requesters.removeBlock
+    helpers.requesterCollection.removeBlock
   );
 
   return () => {

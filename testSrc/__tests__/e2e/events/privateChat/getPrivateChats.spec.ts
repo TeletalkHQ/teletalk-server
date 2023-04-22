@@ -25,14 +25,14 @@ describe("get messages success tests", () => {
 
     const messageText = "Hello! Im messages!";
     for (let i = 0; i < 10; i++) {
-      await helpers.requesters
+      await helpers.requesterCollection
         .sendPrivateMessage(currentUserSocket)
         .sendFullFeaturedRequest({
           messageText,
           participantId: targetUser.userId,
         });
 
-      await helpers.requesters
+      await helpers.requesterCollection
         .sendPrivateMessage(targetUserSocket)
         .sendFullFeaturedRequest({
           messageText,
@@ -46,7 +46,7 @@ describe("get messages success tests", () => {
 
 helpers.asyncDescribe("getMessages fail tests", async () => {
   const { requester } = await helpers.setupRequester(
-    helpers.requesters.getPrivateChats
+    helpers.requesterCollection.getPrivateChats
   );
 
   return () => {
@@ -55,7 +55,7 @@ helpers.asyncDescribe("getMessages fail tests", async () => {
 });
 
 const testEmptinessOfPrivateChats = async (socket: Socket) => {
-  const requester = helpers.requesters.getPrivateChats(socket);
+  const requester = helpers.requesterCollection.getPrivateChats(socket);
   const {
     data: { privateChats },
   } = await requester.sendFullFeaturedRequest();
@@ -92,7 +92,7 @@ const testPrivateChats = async (
 };
 
 const getAllPrivateChats = async (socket: Socket) => {
-  const { data } = await helpers.requesters
+  const { data } = await helpers.requesterCollection
     .getPrivateChats(socket)
     .sendFullFeaturedRequest();
   return data;

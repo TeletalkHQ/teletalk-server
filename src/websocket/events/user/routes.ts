@@ -1,5 +1,7 @@
 import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
+import { SocketRoutePicker } from "@/types";
+
 import { fields } from "@/variables/others/fields";
 
 import { userHandlers } from "@/websocket/events/user/handlers";
@@ -36,13 +38,6 @@ const addContactWithCellphone = builder
     addedContact: fields.statics.object(fields.collection.contactWithCellphone),
   })
   .handler(userHandlers.addContactWithCellphone)
-  .build();
-
-const disconnect = builder
-  .create()
-  .name("disconnect")
-  .noAuth()
-  .handler(userHandlers.disconnect)
   .build();
 
 const editContact = builder
@@ -142,11 +137,24 @@ const updatePublicUserData = builder
   .handler(userHandlers.updatePublicUserData)
   .build();
 
-const userRoutes = {
+type UserRoutes = SocketRoutePicker<
+  | "addBlock"
+  | "addContact"
+  | "addContactWithCellphone"
+  | "editContact"
+  | "getContacts"
+  | "getUserData"
+  | "getPublicUserData"
+  | "removeBlock"
+  | "removeContact"
+  | "updateOnlineStatus"
+  | "updatePublicUserData"
+>;
+
+const userRoutes: UserRoutes = {
   addBlock,
   addContact,
   addContactWithCellphone,
-  disconnect,
   editContact,
   getContacts,
   getUserData,

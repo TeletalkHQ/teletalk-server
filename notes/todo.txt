@@ -29,3 +29,8 @@ TODO: new instance for each failTest props
 TODO: Restructure folders, index, and more
 TODO: Remove session after logout || 401 situation
 TODO: Rename maxlength, minlength
+TODO: Remove isActive, isOnline
+TODO: Add numeric type for countryCode and phoneNumber
+TODO: Update launch script
+TODO: Read env's just from AppConfigs
+TODO: Remove useless exports

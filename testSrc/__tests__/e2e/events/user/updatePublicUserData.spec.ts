@@ -16,7 +16,8 @@ describe("getUserData success tests", () => {
     for (const { socket, user } of users) {
       const data = randomMaker.publicUserData();
 
-      const requester = helpers.requesters.updatePublicUserData(socket);
+      const requester =
+        helpers.requesterCollection.updatePublicUserData(socket);
       const {
         data: { publicUserData: publicDataFromEvent },
       } = await requester.sendFullFeaturedRequest(data);
@@ -38,7 +39,7 @@ describe("getUserData success tests", () => {
 
 await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
   const { requester } = await helpers.setupRequester(
-    helpers.requesters.updatePublicUserData
+    helpers.requesterCollection.updatePublicUserData
   );
 
   return () => {

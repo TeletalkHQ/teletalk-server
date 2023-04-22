@@ -10,16 +10,12 @@
         "LOG_LEVEL": "debug",
         "MOCHA_BADGE_GEN_SUBJECT": "Tests",
         "MONGO_COLLECTION_NAME": "teletalk_db_development",
-        "MONGO_URL": "mongodb://localhost:27017",
         "NODE_ENV": "development",
-        "PORT_DEFAULT": "8080",
-        "PORT": "8090",
-        "REDIS_DEFAULT_PORT": "6379"
+        "PORT": "8090"
       },
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/index.js",
       "restart": true,
-      // "runtimeExecutable": "n>odemon",
       "console": "integratedTerminal"
     }
   ]

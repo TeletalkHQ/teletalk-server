@@ -5,9 +5,9 @@ import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
-import { privateChatModels } from "@/models/native/privateChat";
-
 import { helpers } from "$/helpers";
+
+import { models } from "@/models";
 
 import { services } from "@/services";
 
@@ -24,7 +24,7 @@ describe("get messages success tests", () => {
     for (let i = 0; i < 10; i++) {
       const {
         data: { chatId },
-      } = await helpers.requesters
+      } = await helpers.requesterCollection
         .sendPrivateMessage(socket)
         .sendFullFeaturedRequest({
           messageText,
@@ -38,12 +38,12 @@ describe("get messages success tests", () => {
 
 await helpers.asyncDescribe("getPrivateChat fail tests", async () => {
   const { requester } = await helpers.setupRequester(
-    helpers.requesters.getPrivateChat
+    helpers.requesterCollection.getPrivateChat
   );
 
   return () => {
     const data = {
-      chatId: randomMaker.string(privateChatModels.chatId.maxlength.value),
+      chatId: randomMaker.string(models.native.chatId.maxlength.value),
     };
 
     e2eFailTestInitializerHelper(requester).chatId(data);
@@ -86,7 +86,7 @@ const testPrivateChat = async (
 };
 
 const getPrivateChat = async (socket: Socket, chatId: string) => {
-  const { data } = await helpers.requesters
+  const { data } = await helpers.requesterCollection
     .getPrivateChat(socket)
     .sendFullFeaturedRequest({ chatId });
   return data;

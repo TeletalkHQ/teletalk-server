@@ -77,7 +77,9 @@
     "yarn.lock": true,
     "loader.js": true,
     ".lintstagedrc.cjs": true,
-    "lib": true
+    "lib": true,
+    "stryker.conf.mjs": true,
+    ".babelrc": true
   },
   "prettier.configPath": ".prettierrc.json",
   "prettier.endOfLine": "crlf",

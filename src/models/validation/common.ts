@@ -5,7 +5,7 @@ import { nativeModels } from "@/models/native";
 const createdAt = {
   createdAt: validationModelBuilder
     .create()
-    .setModel(nativeModels.common.createdAt)
+    .setModel(nativeModels.createdAt)
     .type()
     .required()
     .empty()

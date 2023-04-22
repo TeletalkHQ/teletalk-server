@@ -22,12 +22,12 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
   for (const route of routesWithoutSignup) {
     const title = helpers.createFailTestMessage(
       errors.CURRENT_USER_NOT_EXIST,
-      route
+      route.name
     );
 
     it(title, async () => {
       const wrongSessionId = randomMaker.string(
-        models.native.user.userId.maxlength.value
+        models.native.userId.maxlength.value
       );
       const session = authManager.signSession({
         sessionId: wrongSessionId,
@@ -42,16 +42,16 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
       });
 
       const data = helpers.generateDynamicData(route.inputFields);
-      await helpers.requesters[route.name as keyof typeof helpers.requesters](
-        socket
-      ).sendFullFeaturedRequest(data, errors.CURRENT_USER_NOT_EXIST);
+      await helpers.requesterCollection[
+        route.name as keyof typeof helpers.requesterCollection
+      ](socket).sendFullFeaturedRequest(data, errors.CURRENT_USER_NOT_EXIST);
     });
   }
 
   for (const route of routesWithoutSignup) {
     const title = helpers.createFailTestMessage(
       errors.CURRENT_SESSION_NOT_EXIST,
-      route
+      route.name
     );
 
     it(title, async () => {
@@ -68,9 +68,9 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
       });
 
       const data = helpers.generateDynamicData(route.inputFields);
-      await helpers.requesters[route.name as keyof typeof helpers.requesters](
-        socket
-      ).sendFullFeaturedRequest(data, errors.CURRENT_SESSION_NOT_EXIST);
+      await helpers.requesterCollection[
+        route.name as keyof typeof helpers.requesterCollection
+      ](socket).sendFullFeaturedRequest(data, errors.CURRENT_SESSION_NOT_EXIST);
     });
   }
 });

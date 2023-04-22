@@ -73,12 +73,14 @@ await helpers.asyncDescribe("verifySignIn fail tests", async () => {
   const cellphone = randomMaker.unusedCellphone();
   const helper = authHelper(cellphone);
   await helper.signIn();
-  const requester = helpers.requesters.verify(helper.getClientSocket());
+  const requester = helpers.requesterCollection.verify(
+    helper.getClientSocket()
+  );
 
   return () => {
     const data = {
       verificationCode: randomMaker.string(
-        models.native.user.verificationCode.length.value
+        models.native.verificationCode.length.value
       ),
     };
 

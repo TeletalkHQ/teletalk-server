@@ -1,7 +1,7 @@
 import chai from "chai";
 
 import { clientInitializer } from "$/classes/ClientInitializer";
-import { requesterCreator } from "$/classes/Requester";
+import { requesterMaker } from "$/classes/Requester";
 
 import { helpers } from "$/helpers";
 
@@ -14,7 +14,7 @@ import { routes } from "$/websocket/events";
 import { arrayOfRoutes } from "@/websocket/events";
 
 const createRequester = (socket: ClientSocket, route: SocketRoute) =>
-  requesterCreator(socket, route);
+  requesterMaker(socket, route);
 
 helpers.asyncDescribe(
   "checkEventAvailability middleware fail test",
@@ -35,9 +35,10 @@ helpers.asyncDescribe(
           .sendFullFeaturedRequest();
       });
 
-      for (const route of arrayOfRoutes.filter(
-        (i) => i.name !== "disconnect"
-      )) {
+      // .filter(
+      //   (i) => i.name !== "disconnect"
+      // )
+      for (const route of arrayOfRoutes) {
         it(`should not get error: ROUTE_NOT_FOUND - ${route.name}`, async () => {
           const requester = createRequester(clientSocket, route);
           await requester.sendRequest();

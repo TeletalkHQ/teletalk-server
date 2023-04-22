@@ -1,16 +1,12 @@
 import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
+import { SocketRoutePicker } from "@/types";
+
 import { fields } from "@/variables/others/fields";
 
 import { otherHandlers } from "@/websocket/events/other/handlers";
 
 const builder = socketRouteBuilder();
-
-// const disconnect = builder
-//   .create()
-//   .name("disconnect")
-//   .handler(otherHandlers.disconnect)
-//   .build();
 
 const getCountries = builder
   .create()
@@ -26,15 +22,12 @@ const getStuff = builder
   .create()
   .name("getStuff")
   .noAuth()
-  .inputFields({
-    language: fields.single.language,
-  })
   .handler(otherHandlers.getStuff)
   .build();
 
 const getWelcomeMessage = builder
   .create()
-  .name("welcomeMessage")
+  .name("getWelcomeMessage")
   .noAuth()
   .outputFields({
     welcomeMessage: fields.single.welcomeMessage,
@@ -42,22 +35,16 @@ const getWelcomeMessage = builder
   .handler(otherHandlers.getWelcomeMessage)
   .build();
 
-const logEvent = builder
-  .create()
-  .name("")
-  .noAuth()
-  .method("onAny")
-  .handler(otherHandlers.logEvent)
-  .build();
-
 const ping = builder.create().name("ping").handler(otherHandlers.ping).build();
 
-const otherRoutes = {
+type OtherRoutes = SocketRoutePicker<
+  "getCountries" | "getStuff" | "getWelcomeMessage" | "ping"
+>;
+
+const otherRoutes: OtherRoutes = {
   getCountries,
   getStuff,
   getWelcomeMessage,
-  logEvent,
-  // disconnect,
   ping,
 };
 

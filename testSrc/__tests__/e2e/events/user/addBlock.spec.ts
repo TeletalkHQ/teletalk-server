@@ -15,7 +15,7 @@ import { FIELD_TYPE } from "$/variables/fieldType";
 describe("addBlock successful tests", () => {
   it("should add users to blacklist", async () => {
     const { socket, user } = await randomMaker.user();
-    const requester = helpers.requesters.addBlock(socket);
+    const requester = helpers.requesterCollection.addBlock(socket);
 
     const blacklistLength = 10;
     for (let i = 0; i < blacklistLength; i++) {
@@ -44,7 +44,7 @@ describe("addBlock successful tests", () => {
 
 await helpers.asyncDescribe("addBlock fail tests", async () => {
   const { user: currentUser, requester } = await helpers.setupRequester(
-    helpers.requesters.addBlock
+    helpers.requesterCollection.addBlock
   );
 
   const selfStuffData = {

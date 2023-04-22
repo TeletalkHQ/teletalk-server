@@ -1,5 +1,7 @@
 import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
+import { SocketRoutePicker } from "@/types";
+
 import { fields } from "@/variables/others/fields";
 
 import { authHandlers } from "@/websocket/events/auth/handlers";
@@ -39,7 +41,11 @@ const verify = builder
   .handler(authHandlers.verify)
   .build();
 
-const authRoutes = {
+type AuthRoutes = SocketRoutePicker<
+  "createNewUser" | "logout" | "signIn" | "verify"
+>;
+
+const authRoutes: AuthRoutes = {
   createNewUser,
   logout,
   signIn,

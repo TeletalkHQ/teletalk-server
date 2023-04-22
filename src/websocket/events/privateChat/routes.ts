@@ -1,5 +1,7 @@
 import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
+import { SocketRoutePicker } from "@/types";
+
 import { fields } from "@/variables/others/fields";
 
 import { privateChatHandlers } from "@/websocket/events/privateChat/handlers";
@@ -60,7 +62,15 @@ const sendPrivateMessage = builder
   })
   .build();
 
-const privateChatRoutes = {
+type PrivateChatRoutes = SocketRoutePicker<
+  | "getChatInfo"
+  | "getPrivateChat"
+  | "getPrivateChats"
+  | "joinRoom"
+  | "sendPrivateMessage"
+>;
+
+const privateChatRoutes: PrivateChatRoutes = {
   getChatInfo,
   getPrivateChat,
   getPrivateChats,

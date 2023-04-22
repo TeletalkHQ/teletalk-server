@@ -55,26 +55,3 @@ const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
 };
 
 export { dynamicValidator };
-
-// const fn = async () => {
-//   try {
-//     console.log("validating...");
-
-//     await validateField({
-//       bio: "222",
-//       hello: {
-//         how: {
-//           are: {
-//             you: {
-//               firstName: "wow!",
-//               phoneNumber: "oops!",
-//             },
-//           },
-//         },
-//       },
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// await fn();

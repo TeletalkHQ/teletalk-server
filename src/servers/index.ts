@@ -26,14 +26,14 @@ const listeningListener = () => {
 
   logger.info(
     `Server is running in ${NODE_ENV} mode on port ${
-      appConfigs.getConfigs().server.port
+      appConfigs.getConfigs().server.PORT
     }`
   );
 };
 
 const runner = async () => {
   // if (cluster.isPrimary) {
-  await appConfigs.setup();
+  appConfigs.setup();
 
   // utilities.logEnvironments();
 
@@ -56,7 +56,7 @@ const runner = async () => {
   await requirements.database();
 
   const httpServer = crateHttpServer(helpers.clientIdGenerator);
-  httpServer.listen(envManager.getEnvironment().PORT, listeningListener);
+  httpServer.listen(appConfigs.getConfigs().server.PORT, listeningListener);
   websocketServer(httpServer);
 
   // logger.debug(`Worker ${process.pid} started`);

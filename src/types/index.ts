@@ -87,7 +87,7 @@ export type SocketMiddlewareEvent = string | string[];
 export type CreatedAt = number;
 
 export interface Environments {
-  LOG_LEVEL: string;
+  LOG_LEVEL: LogLevel;
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;
   MONGO_URL: string;

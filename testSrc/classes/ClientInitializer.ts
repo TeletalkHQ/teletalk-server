@@ -16,7 +16,7 @@ import { utilities } from "@/utilities";
 import { errors } from "@/variables/errors";
 
 const {
-  server: { port: exactPort, hostname },
+  server: { PORT: exactPort, HOSTNAME: hostname },
 } = appConfigs.getConfigs();
 
 const setClientIdRequestOptions = {

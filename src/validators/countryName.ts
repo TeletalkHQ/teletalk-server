@@ -7,8 +7,8 @@ import { models } from "@/models";
 
 import { Validator } from "@/types";
 
-import { errors } from "@/variables/errors";
-import { countries } from "@/variables/others/countries";
+import { ERRORS } from "@/variables";
+import { countries } from "@/variables";
 
 const validator = ValidationModelBuilder.compiler(
   models.validation.countryName
@@ -26,7 +26,7 @@ const errorChecker = (result: Result, countryName: unknown) => {
     const country = countries.find((c) => c.countryName === countryName);
     errorThrower(
       customTypeof.isUndefined(country),
-      errors.COUNTRY_NAME_NOT_SUPPORTED
+      ERRORS.COUNTRY_NAME_NOT_SUPPORTED
     );
 
     return;
@@ -46,6 +46,6 @@ const errorChecker = (result: Result, countryName: unknown) => {
       .string()
       .stringMax()
       .stringMin()
-      .throwAnyway(errors.COUNTRY_NAME_INVALID);
+      .throwAnyway(ERRORS.COUNTRY_NAME_INVALID);
   });
 };

@@ -2,7 +2,7 @@ import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
 
 import { SocketRoutePicker } from "@/types";
 
-import { fields } from "@/variables/others/fields";
+import { fields } from "@/variables";
 
 import { otherHandlers } from "@/websocket/events/other/handlers";
 

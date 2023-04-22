@@ -5,7 +5,7 @@ import { models } from "@/models";
 
 import { E2eFailTestInitializer } from "$/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
@@ -29,7 +29,7 @@ const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 
   builder.custom(
     randomMaker.stringNumber(models.native.verificationCode.length.value),
-    errors.VERIFICATION_CODE_INVALID
+    ERRORS.VERIFICATION_CODE_INVALID
   );
 };
 

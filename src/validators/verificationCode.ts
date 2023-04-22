@@ -6,7 +6,7 @@ import { models } from "@/models";
 
 import { Validator } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const validator = ValidationModelBuilder.compiler(
   models.validation.verificationCode
@@ -37,6 +37,6 @@ const errorChecker = (result: Result, verificationCode: unknown) => {
       .string()
       .stringNumeric()
       .stringLength()
-      .throwAnyway(errors.VERIFICATION_CODE_INVALID);
+      .throwAnyway(ERRORS.VERIFICATION_CODE_INVALID);
   });
 };

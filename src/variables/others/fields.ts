@@ -10,6 +10,7 @@ const statics = {
   string: ioFieldMaker().type("string").build(),
 };
 
+//TODO: Sync with FieldTypes
 const bio = statics.string;
 const chatId = statics.string;
 const countryCode = statics.string;

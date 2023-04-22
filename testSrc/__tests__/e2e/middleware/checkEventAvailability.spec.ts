@@ -8,7 +8,7 @@ import { helpers } from "$/helpers";
 import { ClientSocket, SocketRoute } from "@/types";
 
 import { FIELD_TYPE } from "$/variables/fieldType";
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 import { routes } from "$/websocket/events";
 import { arrayOfRoutes } from "@/websocket/events";
@@ -25,13 +25,13 @@ helpers.asyncDescribe(
 
     return () => {
       const message = helpers.createFailTestMessage(
-        errors.ROUTE_NOT_FOUND,
+        ERRORS.ROUTE_NOT_FOUND,
         routes.unknownRoute.name
       );
 
       it(message, async () => {
         await createRequester(clientSocket, routes.unknownRoute)
-          .setError(errors.EVENT_NOT_FOUND)
+          .setError(ERRORS.EVENT_NOT_FOUND)
           .sendFullFeaturedRequest();
       });
 
@@ -44,15 +44,15 @@ helpers.asyncDescribe(
           await requester.sendRequest();
 
           const {
-            data: { errors: responseErrors },
+            data: { ERRORS: responseErrors },
           } = requester.getResponse();
 
-          const { key } = errors.ROUTE_NOT_FOUND;
+          const { key } = ERRORS.ROUTE_NOT_FOUND;
           if (responseErrors?.[key]) {
             chai.expect(responseErrors[key].reason).to.be.an(FIELD_TYPE.STRING);
             chai
               .expect(responseErrors[key].reason)
-              .not.equal(errors.ROUTE_NOT_FOUND.reason);
+              .not.equal(ERRORS.ROUTE_NOT_FOUND.reason);
           }
         });
       }

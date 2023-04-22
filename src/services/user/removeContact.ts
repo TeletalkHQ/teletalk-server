@@ -4,14 +4,14 @@ import { commonServices } from "@/services/common";
 
 import { Contact, HydratedUserMongo, UserMongo } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const removeContact = async (data: {
   currentUserId: string;
   targetContact: Contact;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
-  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
+  if (!currentUser) throw ERRORS.CURRENT_USER_NOT_EXIST;
 
   const { index } = checkExistenceOfContactItem(
     currentUser.contacts,
@@ -24,7 +24,7 @@ const removeContact = async (data: {
 const findCurrentUser = async (currentUserId: string) => {
   return await commonServices.findOneUserById(
     currentUserId,
-    errors.CURRENT_USER_NOT_EXIST
+    ERRORS.CURRENT_USER_NOT_EXIST
   );
 };
 
@@ -34,7 +34,7 @@ const checkExistenceOfContactItem = (
 ) => {
   const index = contacts.findIndex((c) => c.userId === targetContact.userId);
   errorThrower(index === -1, () => ({
-    ...errors.CONTACT_ITEM_NOT_EXIST,
+    ...ERRORS.CONTACT_ITEM_NOT_EXIST,
     targetContact,
   }));
 

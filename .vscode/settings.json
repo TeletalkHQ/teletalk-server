@@ -79,7 +79,8 @@
     ".lintstagedrc.cjs": true,
     "lib": true,
     "stryker.conf.mjs": true,
-    ".babelrc": true
+    ".babelrc": true,
+    ".stryker-tmp": true
   },
   "prettier.configPath": ".prettierrc.json",
   "prettier.endOfLine": "crlf",

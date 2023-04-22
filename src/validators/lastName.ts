@@ -6,7 +6,7 @@ import { models } from "@/models";
 
 import { Validator } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const validator = ValidationModelBuilder.compiler(models.validation.lastName);
 
@@ -28,6 +28,6 @@ const errorChecker = (result: Result, lastName: unknown) => {
       .string()
       .stringMin()
       .stringMax()
-      .throwAnyway(errors.LAST_NAME_INVALID);
+      .throwAnyway(ERRORS.LAST_NAME_INVALID);
   });
 };

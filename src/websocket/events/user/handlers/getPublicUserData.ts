@@ -4,7 +4,7 @@ import { services } from "@/services";
 
 import { SocketOnHandler } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const getPublicUserData: SocketOnHandler = async (_socket, data) => {
   const { userId } = data;
@@ -12,7 +12,7 @@ const getPublicUserData: SocketOnHandler = async (_socket, data) => {
   const user = await services.getTargetUserData({
     userId,
   });
-  if (!user) throw errors.TARGET_USER_NOT_EXIST;
+  if (!user) throw ERRORS.TARGET_USER_NOT_EXIST;
 
   return {
     data: {

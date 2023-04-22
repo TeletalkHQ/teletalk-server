@@ -6,7 +6,7 @@ import { models } from "@/models";
 
 import { E2eFailTestInitializer } from "$/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const countryNameMaxlength = models.native.countryName.maxlength.value;
 
@@ -24,7 +24,7 @@ const countryNameE2eFailTestInitializer: E2eFailTestInitializer = (
     .minlength()
     .custom(
       randomMaker.string(countryNameMaxlength),
-      errors.COUNTRY_NAME_NOT_SUPPORTED
+      ERRORS.COUNTRY_NAME_NOT_SUPPORTED
     );
 };
 

@@ -2,16 +2,16 @@ import { Socket } from "socket.io";
 
 import { SocketRouteCollection } from "@/types";
 
-import { authRoutes } from "@/websocket/events/auth/routes";
-import { otherRoutes } from "@/websocket/events/other/routes";
-import { privateChatRoutes } from "@/websocket/events/privateChat/routes";
-import { userRoutes } from "@/websocket/events/user/routes";
+import { authEvents } from "@/websocket/events/auth";
+import { otherEvents } from "@/websocket/events/other";
+import { privateChatEvents } from "@/websocket/events/privateChat";
+import { userEvents } from "@/websocket/events/user";
 
 const routes: SocketRouteCollection = {
-  ...authRoutes,
-  ...otherRoutes,
-  ...privateChatRoutes,
-  ...userRoutes,
+  ...authEvents.routes,
+  ...otherEvents.routes,
+  ...privateChatEvents.routes,
+  ...userEvents.routes,
 };
 
 const arrayOfRoutes = Object.values(routes);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-use-before-define */
 import { IoFields } from "check-fields";
 import { ValidationError, ValidationRuleObject } from "fastest-validator";
@@ -91,7 +92,7 @@ export interface Environments {
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;
   MONGO_URL: string;
-  NODE_ENV: string;
+  NODE_ENV: NodeEnvValue;
   PORT: number;
   REDIS_HOST: string;
   REDIS_PASSWORD: string;

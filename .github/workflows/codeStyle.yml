@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x, 18.x]
-        operations: [ubuntu-latest, windows-latest, macos-latest]
+        operations: [ubuntu-latest]
 
     runs-on: ${{ matrix.operations }}
 

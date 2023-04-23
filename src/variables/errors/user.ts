@@ -18,14 +18,14 @@ const userErrors = {
     .reason("BIO_INVALID_TYPE")
     .key(ERROR_KEYS.BIO_VALIDATION)
     .build(),
-  BIO_MAXLENGTH_REACH: errorBuilder
+  BIO_maxLength_REACH: errorBuilder
     .create()
-    .reason("BIO_MAXLENGTH_REACH")
+    .reason("BIO_maxLength_REACH")
     .key(ERROR_KEYS.BIO_VALIDATION)
     .build(),
-  BIO_MINLENGTH_REACH: errorBuilder
+  BIO_minLength_REACH: errorBuilder
     .create()
-    .reason("BIO_MINLENGTH_REACH")
+    .reason("BIO_minLength_REACH")
     .key(ERROR_KEYS.BIO_VALIDATION)
     .build(),
   BIO_REQUIRED: errorBuilder
@@ -187,14 +187,14 @@ const userErrors = {
     .reason("COUNTRY_CODE_INVALID_TYPE")
     .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
     .build(),
-  COUNTRY_CODE_MAXLENGTH_REACH: errorBuilder
+  COUNTRY_CODE_maxLength_REACH: errorBuilder
     .create()
-    .reason("COUNTRY_CODE_MAXLENGTH_REACH")
+    .reason("COUNTRY_CODE_maxLength_REACH")
     .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
     .build(),
-  COUNTRY_CODE_MINLENGTH_REACH: errorBuilder
+  COUNTRY_CODE_minLength_REACH: errorBuilder
     .create()
-    .reason("COUNTRY_CODE_MINLENGTH_REACH")
+    .reason("COUNTRY_CODE_minLength_REACH")
     .key(ERROR_KEYS.COUNTRY_CODE_VALIDATION)
     .build(),
   COUNTRY_CODE_NOT_SUPPORTED: errorBuilder
@@ -227,14 +227,14 @@ const userErrors = {
     .reason("COUNTRY_NAME_INVALID_TYPE")
     .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
     .build(),
-  COUNTRY_NAME_MAXLENGTH_REACH: errorBuilder
+  COUNTRY_NAME_maxLength_REACH: errorBuilder
     .create()
-    .reason("COUNTRY_NAME_MAXLENGTH_REACH")
+    .reason("COUNTRY_NAME_maxLength_REACH")
     .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
     .build(),
-  COUNTRY_NAME_MINLENGTH_REACH: errorBuilder
+  COUNTRY_NAME_minLength_REACH: errorBuilder
     .create()
-    .reason("COUNTRY_NAME_MINLENGTH_REACH")
+    .reason("COUNTRY_NAME_minLength_REACH")
     .key(ERROR_KEYS.COUNTRY_NAME_VALIDATION)
     .build(),
   COUNTRY_NAME_NOT_SUPPORTED: errorBuilder
@@ -304,14 +304,14 @@ const userErrors = {
     .reason("FIRST_NAME_INVALID_TYPE")
     .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
     .build(),
-  FIRST_NAME_MAXLENGTH_REACH: errorBuilder
+  FIRST_NAME_maxLength_REACH: errorBuilder
     .create()
-    .reason("FIRST_NAME_MAXLENGTH_REACH")
+    .reason("FIRST_NAME_maxLength_REACH")
     .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
     .build(),
-  FIRST_NAME_MINLENGTH_REACH: errorBuilder
+  FIRST_NAME_minLength_REACH: errorBuilder
     .create()
-    .reason("FIRST_NAME_MINLENGTH_REACH")
+    .reason("FIRST_NAME_minLength_REACH")
     .key(ERROR_KEYS.FIRST_NAME_VALIDATION)
     .build(),
   FIRST_NAME_REQUIRED: errorBuilder
@@ -364,14 +364,14 @@ const userErrors = {
     .reason("LAST_NAME_INVALID_TYPE")
     .key(ERROR_KEYS.LAST_NAME_VALIDATION)
     .build(),
-  LAST_NAME_MAXLENGTH_REACH: errorBuilder
+  LAST_NAME_maxLength_REACH: errorBuilder
     .create()
-    .reason("LAST_NAME_MAXLENGTH_REACH")
+    .reason("LAST_NAME_maxLength_REACH")
     .key(ERROR_KEYS.LAST_NAME_VALIDATION)
     .build(),
-  LAST_NAME_MINLENGTH_REACH: errorBuilder
+  LAST_NAME_minLength_REACH: errorBuilder
     .create()
-    .reason("LAST_NAME_MINLENGTH_REACH")
+    .reason("LAST_NAME_minLength_REACH")
     .key(ERROR_KEYS.LAST_NAME_VALIDATION)
     .build(),
   LAST_NAME_REQUIRED: errorBuilder
@@ -394,14 +394,14 @@ const userErrors = {
     .reason("MAC_ADDRESS_INVALID_TYPE")
     .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
     .build(),
-  MAC_ADDRESS_MAXLENGTH_REACH: errorBuilder
+  MAC_ADDRESS_maxLength_REACH: errorBuilder
     .create()
-    .reason("MAC_ADDRESS_MAXLENGTH_REACH")
+    .reason("MAC_ADDRESS_maxLength_REACH")
     .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
     .build(),
-  MAC_ADDRESS_MINLENGTH_REACH: errorBuilder
+  MAC_ADDRESS_minLength_REACH: errorBuilder
     .create()
-    .reason("MAC_ADDRESS_MINLENGTH_REACH")
+    .reason("MAC_ADDRESS_minLength_REACH")
     .key(ERROR_KEYS.MAC_ADDRESS_VALIDATION)
     .build(),
   MAC_ADDRESS_REQUIRED: errorBuilder
@@ -579,14 +579,14 @@ const userErrors = {
     .reason("PHONE_NUMBER_INVALID_TYPE")
     .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
     .build(),
-  PHONE_NUMBER_MAXLENGTH_REACH: errorBuilder
+  PHONE_NUMBER_maxLength_REACH: errorBuilder
     .create()
-    .reason("PHONE_NUMBER_MAXLENGTH_REACH")
+    .reason("PHONE_NUMBER_maxLength_REACH")
     .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
     .build(),
-  PHONE_NUMBER_MINLENGTH_REACH: errorBuilder
+  PHONE_NUMBER_minLength_REACH: errorBuilder
     .create()
-    .reason("PHONE_NUMBER_MINLENGTH_REACH")
+    .reason("PHONE_NUMBER_minLength_REACH")
     .key(ERROR_KEYS.PHONE_NUMBER_VALIDATION)
     .build(),
   PHONE_NUMBER_NUMERIC: errorBuilder
@@ -673,16 +673,16 @@ const userErrors = {
     .reason("SESSION_INVALID_TYPE")
     .key(ERROR_KEYS.SESSION_VALIDATION)
     .build(),
-  SESSION_MAXLENGTH_REACH: errorBuilder
+  SESSION_maxLength_REACH: errorBuilder
     .create()
     .authError()
-    .reason("SESSION_MAXLENGTH_REACH")
+    .reason("SESSION_maxLength_REACH")
     .key(ERROR_KEYS.SESSION_VALIDATION)
     .build(),
-  SESSION_MINLENGTH_REACH: errorBuilder
+  SESSION_minLength_REACH: errorBuilder
     .create()
     .authError()
-    .reason("SESSION_MINLENGTH_REACH")
+    .reason("SESSION_minLength_REACH")
     .key(ERROR_KEYS.SESSION_VALIDATION)
     .build(),
   SESSION_REQUIRED: errorBuilder
@@ -781,14 +781,14 @@ const userErrors = {
     .reason("USERNAME_INVALID_TYPE")
     .key(ERROR_KEYS.USERNAME_VALIDATION)
     .build(),
-  USERNAME_MAXLENGTH_REACH: errorBuilder
+  USERNAME_maxLength_REACH: errorBuilder
     .create()
-    .reason("USERNAME_MAXLENGTH_REACH")
+    .reason("USERNAME_maxLength_REACH")
     .key(ERROR_KEYS.USERNAME_VALIDATION)
     .build(),
-  USERNAME_MINLENGTH_REACH: errorBuilder
+  USERNAME_minLength_REACH: errorBuilder
     .create()
-    .reason("USERNAME_MINLENGTH_REACH")
+    .reason("USERNAME_minLength_REACH")
     .key(ERROR_KEYS.USERNAME_VALIDATION)
     .build(),
   USERNAME_REQUIRED: errorBuilder
@@ -816,9 +816,9 @@ const userErrors = {
     .reason("VERIFICATION_CODE_INVALID_TYPE")
     .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
     .build(),
-  VERIFICATION_CODE_MAXLENGTH_REACH: errorBuilder
+  VERIFICATION_CODE_maxLength_REACH: errorBuilder
     .create()
-    .reason("VERIFICATION_CODE_MAXLENGTH_REACH")
+    .reason("VERIFICATION_CODE_maxLength_REACH")
     .key(ERROR_KEYS.VERIFICATION_CODE_VALIDATION)
     .build(),
   VERIFICATION_CODE_NUMERIC: errorBuilder

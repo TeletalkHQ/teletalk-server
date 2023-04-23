@@ -29,17 +29,17 @@ class NativeModelBuilder {
     );
     return this;
   }
-  maxlength(value: NativeModel["maxlength"]["value"], error: NativeError) {
-    this.updateProperty<NativeModel["maxlength"]["value"]>(
-      "maxlength",
+  maxLength(value: NativeModel["maxLength"]["value"], error: NativeError) {
+    this.updateProperty<NativeModel["maxLength"]["value"]>(
+      "maxLength",
       value,
       error
     );
     return this;
   }
-  minlength(value: NativeModel["minlength"]["value"], error?: NativeError) {
-    this.updateProperty<NativeModel["minlength"]["value"]>(
-      "minlength",
+  minLength(value: NativeModel["minLength"]["value"], error?: NativeError) {
+    this.updateProperty<NativeModel["minLength"]["value"]>(
+      "minLength",
       value,
       error
     );
@@ -78,7 +78,7 @@ class NativeModelBuilder {
     return this;
   }
   // lowercase(value: NativeModel["lowercase"]["value"], error) {
-  //   this.#updateProperty<NativeModel["maxlength"]["value"]>("lowercase", value, error);//
+  //   this.#updateProperty<NativeModel["maxLength"]["value"]>("lowercase", value, error);//
   //   return this;
   // }
   length(value: NativeModel["length"]["value"], error: NativeError) {

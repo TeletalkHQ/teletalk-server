@@ -6,8 +6,8 @@ const clientId = nativeModelBuilder
   .create()
   .type("string", ERRORS.CLIENT_ID_INVALID_TYPE)
   .required(true, ERRORS.CLIENT_ID_REQUIRED)
-  .minlength(40, ERRORS.CLIENT_ID_MIN_LENGTH_REACH)
-  .maxlength(50, ERRORS.CLIENT_ID_MAX_LENGTH_REACH)
+  .minLength(40, ERRORS.CLIENT_ID_MIN_LENGTH_REACH)
+  .maxLength(50, ERRORS.CLIENT_ID_MAX_LENGTH_REACH)
   .build();
 
 const createdAt = nativeModelBuilder
@@ -22,8 +22,8 @@ const userId = nativeModelBuilder
   .type("string", ERRORS.USER_ID_INVALID_TYPE)
   .required(true, ERRORS.USER_ID_REQUIRED)
   .empty(false, ERRORS.USER_ID_EMPTY)
-  .minlength(30, ERRORS.USER_ID_MIN_LENGTH_REACH)
-  .maxlength(35, ERRORS.USER_ID_MAX_LENGTH_REACH)
+  .minLength(30, ERRORS.USER_ID_MIN_LENGTH_REACH)
+  .maxLength(35, ERRORS.USER_ID_MAX_LENGTH_REACH)
   .trim(true)
   .unique(true, ERRORS.USER_ID_EXIST)
   .build();
@@ -33,8 +33,8 @@ const chatId = nativeModelBuilder
   .type("string", ERRORS.CHAT_ID_INVALID_TYPE)
   .required(true, ERRORS.CHAT_ID_REQUIRED)
   .empty(false, ERRORS.CHAT_ID_EMPTY)
-  .minlength(30, ERRORS.CHAT_ID_MIN_LENGTH_REACH)
-  .maxlength(35, ERRORS.CHAT_ID_MAX_LENGTH_REACH)
+  .minLength(30, ERRORS.CHAT_ID_MIN_LENGTH_REACH)
+  .maxLength(35, ERRORS.CHAT_ID_MAX_LENGTH_REACH)
   .trim(true)
   .unique(true, ERRORS.CHAT_ID_EXIST)
   .build();
@@ -44,8 +44,8 @@ const messageId = nativeModelBuilder
   .type("string", ERRORS.MESSAGE_ID_INVALID_TYPE)
   .required(true, ERRORS.MESSAGE_ID_REQUIRED)
   .empty(false, ERRORS.MESSAGE_ID_EMPTY)
-  .maxlength(45, ERRORS.MESSAGE_ID_MAX_LENGTH_REACH)
-  .minlength(40, ERRORS.MESSAGE_ID_MIN_LENGTH_REACH)
+  .maxLength(45, ERRORS.MESSAGE_ID_MAX_LENGTH_REACH)
+  .minLength(40, ERRORS.MESSAGE_ID_MIN_LENGTH_REACH)
   .trim(true)
   .unique(true, ERRORS.MESSAGE_ID_EXIST)
   .build();

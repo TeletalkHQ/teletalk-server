@@ -69,11 +69,11 @@ class ValidationModelBuilder {
     return this;
   }
   max() {
-    this.updateProperty("max", "maxlength", "stringMax");
+    this.updateProperty("max", "maxLength", "stringMax");
     return this;
   }
   min() {
-    this.updateProperty("min", "minlength", "stringMin");
+    this.updateProperty("min", "minLength", "stringMin");
     return this;
   }
   numeric() {

@@ -10,9 +10,9 @@ const bio = nativeModelBuilder
   .required(true, ERRORS.BIO_REQUIRED)
   .empty(true)
   .trim(true)
-  .minlength(0)
+  .minLength(0)
   .defaultValue("")
-  .maxlength(255, ERRORS.BIO_MAXLENGTH_REACH)
+  .maxLength(255, ERRORS.BIO_maxLength_REACH)
   .build();
 
 const countryCode = nativeModelBuilder
@@ -20,8 +20,8 @@ const countryCode = nativeModelBuilder
   .type("string", ERRORS.COUNTRY_CODE_INVALID_TYPE)
   .required(true, ERRORS.COUNTRY_CODE_REQUIRED)
   .empty(false, ERRORS.COUNTRY_CODE_EMPTY)
-  .minlength(1, ERRORS.COUNTRY_CODE_MINLENGTH_REACH)
-  .maxlength(4, ERRORS.COUNTRY_CODE_MAXLENGTH_REACH)
+  .minLength(1, ERRORS.COUNTRY_CODE_minLength_REACH)
+  .maxLength(4, ERRORS.COUNTRY_CODE_maxLength_REACH)
   .numeric(true, ERRORS.COUNTRY_CODE_NUMERIC)
   .trim(true)
   .build();
@@ -31,8 +31,8 @@ const countryName = nativeModelBuilder
   .type("string", ERRORS.COUNTRY_NAME_INVALID_TYPE)
   .required(true, ERRORS.COUNTRY_NAME_REQUIRED)
   .empty(false, ERRORS.COUNTRY_NAME_EMPTY)
-  .minlength(2, ERRORS.COUNTRY_NAME_MINLENGTH_REACH)
-  .maxlength(50, ERRORS.COUNTRY_NAME_MAXLENGTH_REACH)
+  .minLength(2, ERRORS.COUNTRY_NAME_minLength_REACH)
+  .maxLength(50, ERRORS.COUNTRY_NAME_maxLength_REACH)
   .trim(true)
   .build();
 
@@ -45,8 +45,8 @@ const firstName = nativeModelBuilder
   .type("string", ERRORS.FIRST_NAME_INVALID_TYPE)
   .required(true, ERRORS.FIRST_NAME_REQUIRED)
   .empty(false, ERRORS.FIRST_NAME_EMPTY)
-  .minlength(2, ERRORS.FIRST_NAME_MINLENGTH_REACH)
-  .maxlength(18, ERRORS.FIRST_NAME_MAXLENGTH_REACH)
+  .minLength(2, ERRORS.FIRST_NAME_minLength_REACH)
+  .maxLength(18, ERRORS.FIRST_NAME_maxLength_REACH)
   .trim(true)
   .build();
 
@@ -55,8 +55,8 @@ const lastName = nativeModelBuilder
   .type("string", ERRORS.LAST_NAME_INVALID_TYPE)
   .required(true, ERRORS.LAST_NAME_REQUIRED)
   .empty(true)
-  .minlength(2, ERRORS.LAST_NAME_MINLENGTH_REACH)
-  .maxlength(18, ERRORS.LAST_NAME_MAXLENGTH_REACH)
+  .minLength(2, ERRORS.LAST_NAME_minLength_REACH)
+  .maxLength(18, ERRORS.LAST_NAME_maxLength_REACH)
   .trim(true)
   .build();
 
@@ -65,8 +65,8 @@ const macAddress = nativeModelBuilder
   .type("string", ERRORS.MAC_ADDRESS_INVALID_TYPE)
   .required(true, ERRORS.MAC_ADDRESS_REQUIRED)
   .empty(false, ERRORS.MAC_ADDRESS_EMPTY)
-  .minlength(12, ERRORS.MAC_ADDRESS_MINLENGTH_REACH)
-  .maxlength(16, ERRORS.MAC_ADDRESS_MAXLENGTH_REACH)
+  .minLength(12, ERRORS.MAC_ADDRESS_minLength_REACH)
+  .maxLength(16, ERRORS.MAC_ADDRESS_maxLength_REACH)
   .trim(true)
   .unique(true, ERRORS.MAC_ADDRESS_EXIST)
   .build();
@@ -83,8 +83,8 @@ const phoneNumber = nativeModelBuilder
   .type("string", ERRORS.PHONE_NUMBER_INVALID_TYPE)
   .required(true, ERRORS.PHONE_NUMBER_REQUIRED)
   .empty(false, ERRORS.PHONE_NUMBER_EMPTY)
-  .minlength(10, ERRORS.PHONE_NUMBER_MINLENGTH_REACH)
-  .maxlength(14, ERRORS.PHONE_NUMBER_MAXLENGTH_REACH)
+  .minLength(10, ERRORS.PHONE_NUMBER_minLength_REACH)
+  .maxLength(14, ERRORS.PHONE_NUMBER_maxLength_REACH)
   .numeric(true, ERRORS.PHONE_NUMBER_NUMERIC)
   .unique(true, ERRORS.PHONE_NUMBER_EXIST)
   .build();
@@ -101,8 +101,8 @@ const session = nativeModelBuilder
   .type("string", ERRORS.SESSION_INVALID_TYPE)
   .required(true, ERRORS.SESSION_REQUIRED)
   .empty(false, ERRORS.SESSION_EMPTY)
-  .minlength(100, ERRORS.SESSION_MINLENGTH_REACH)
-  .maxlength(500, ERRORS.SESSION_MAXLENGTH_REACH)
+  .minLength(100, ERRORS.SESSION_minLength_REACH)
+  .maxLength(500, ERRORS.SESSION_maxLength_REACH)
   .unique(true, ERRORS.SESSION_EXIST)
   .build();
 
@@ -111,8 +111,8 @@ const username = nativeModelBuilder
   .type("string", ERRORS.USERNAME_INVALID_TYPE)
   .required(true, ERRORS.USERNAME_REQUIRED)
   .empty(true)
-  .minlength(0, ERRORS.USERNAME_MINLENGTH_REACH)
-  .maxlength(12, ERRORS.USERNAME_MAXLENGTH_REACH)
+  .minLength(0, ERRORS.USERNAME_minLength_REACH)
+  .maxLength(12, ERRORS.USERNAME_maxLength_REACH)
   .unique(false, ERRORS.USERNAME_EXIST)
   .trim(true)
   .build();

@@ -67,7 +67,7 @@ const findPrivateChat = async (
 const createNewMessage = (messageText: string, currentUserId: string) => ({
   createdAt: Date.now(),
   messageText,
-  messageId: randomMaker.id(chatModels.messageId.maxlength.value),
+  messageId: randomMaker.id(chatModels.messageId.maxLength.value),
   sender: {
     senderId: currentUserId,
   },
@@ -86,7 +86,7 @@ const fixPrivateChat = async (data: {
     targetParticipantId: data.targetParticipantId,
   }));
 
-const createChatId = () => randomMaker.id(chatModels.chatId.maxlength.value);
+const createChatId = () => randomMaker.id(chatModels.chatId.maxLength.value);
 
 const saveMessageOnPrivateChat = async (data: {
   newMessage: Message;

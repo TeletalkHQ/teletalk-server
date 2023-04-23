@@ -48,7 +48,7 @@ const setupRequester = async (
 
 const getWrongCountryCode = (): string => {
   const randomCountryCode = randomMaker.stringNumber(
-    models.native.countryCode.maxlength.value
+    models.native.countryCode.maxLength.value
   );
 
   const isCountryExist = countries.some(
@@ -89,12 +89,12 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
         }
         if (fieldName === "phoneNumber") {
           data[fieldName] = randomMaker.stringNumber(
-            fieldModel.maxlength.value
+            fieldModel.maxLength.value
           );
           break;
         }
 
-        data[fieldName] = faker.datatype.string(fieldModel.maxlength.value);
+        data[fieldName] = faker.datatype.string(fieldModel.maxLength.value);
         break;
       // case "number":
       //   data[fieldName] = faker.datatype.number();
@@ -113,10 +113,10 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
       //     if (typeof item === "string") {
       //       if (fieldName === "countryCode" || fieldName === "phoneNumber") {
       //         return faker.datatype
-      //           .number(fieldModel.maxlength.value)
+      //           .number(fieldModel.maxLength.value)
       //           .toString();
       //       }
-      //       return faker.datatype.string(fieldModel.maxlength.value);
+      //       return faker.datatype.string(fieldModel.maxLength.value);
       //     }
       //     // else if (typeof item === "number") {
       //     //   return faker.datatype.number();

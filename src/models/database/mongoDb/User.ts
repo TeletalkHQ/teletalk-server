@@ -17,16 +17,16 @@ const usernameMaker = makeMongoSchemaValue(nativeModels.username);
 
 //FIXME: Do something with unique property
 const bio: SchemaDefinitionProperty = {
-  maxlength: bioMaker("maxlength"),
-  minlength: bioMaker("minlength"),
+  maxLength: bioMaker("maxLength"),
+  minLength: bioMaker("minLength"),
   // required: bioMaker("required"),
   trim: nativeModels.bio.trim.value,
   type: "string",
 };
 
 const countryCode: SchemaDefinitionProperty = {
-  maxlength: countryCodeMaker("maxlength"),
-  minlength: countryCodeMaker("minlength"),
+  maxLength: countryCodeMaker("maxLength"),
+  minLength: countryCodeMaker("minLength"),
   // required: countryCodeMaker("required"),
   type: "string",
 };
@@ -37,15 +37,15 @@ const createdAt: SchemaDefinitionProperty = {
 };
 
 const countryName: SchemaDefinitionProperty = {
-  maxlength: countryNameMaker("maxlength"),
-  minlength: countryNameMaker("minlength"),
+  maxLength: countryNameMaker("maxLength"),
+  minLength: countryNameMaker("minLength"),
   // required: countryNameMaker("required"),
   type: "string",
 };
 
 const firstName: SchemaDefinitionProperty = {
-  maxlength: firstNameMaker("maxlength"),
-  minlength: firstNameMaker("minlength"),
+  maxLength: firstNameMaker("maxLength"),
+  minLength: firstNameMaker("minLength"),
   // required: firstNameMaker("required"),
   trim: nativeModels.firstName.trim.value,
   type: "string",
@@ -61,15 +61,15 @@ const isActive: SchemaDefinitionProperty = {
 };
 
 const lastName: SchemaDefinitionProperty = {
-  maxlength: lastNameMaker("maxlength"),
+  maxLength: lastNameMaker("maxLength"),
   // required: lastNameMaker("required"),
   trim: nativeModels.lastName.trim.value,
   type: "string",
 };
 
 const phoneNumber: SchemaDefinitionProperty = {
-  maxlength: phoneNumberMaker("maxlength"),
-  minlength: phoneNumberMaker("minlength"),
+  maxLength: phoneNumberMaker("maxLength"),
+  minLength: phoneNumberMaker("minLength"),
   // required: phoneNumberMaker("required"),
   trim: nativeModels.firstName.trim.value,
   type: "string",
@@ -81,8 +81,8 @@ const session: SchemaDefinitionProperty = {
 };
 
 const userId: SchemaDefinitionProperty = {
-  maxlength: userIdMaker("maxlength"),
-  minlength: userIdMaker("minlength"),
+  maxLength: userIdMaker("maxLength"),
+  minLength: userIdMaker("minLength"),
   required: userIdMaker("required"),
   trim: nativeModels.userId.trim.value,
   type: "string",
@@ -90,7 +90,7 @@ const userId: SchemaDefinitionProperty = {
 };
 
 const username: SchemaDefinitionProperty = {
-  maxlength: usernameMaker("maxlength"),
+  maxLength: usernameMaker("maxLength"),
   // required: usernameMaker("required"),
   trim: nativeModels.username.trim.value,
   type: "string",

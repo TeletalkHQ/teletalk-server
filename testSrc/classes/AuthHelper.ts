@@ -6,13 +6,8 @@ import { clientStore } from "@/classes/ClientStore";
 
 import { helpers } from "$/helpers";
 
-import {
-  Cellphone,
-  ClientSocket,
-  FullName,
-  SocketResponse,
-  Client,
-} from "@/types";
+import { Cellphone, FullName, SocketResponse, Client } from "@/types";
+import { ClientSocket } from "$/types";
 
 class AuthHelper {
   private clientSocket: ClientSocket;

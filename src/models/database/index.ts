@@ -1,5 +1,5 @@
 import { mongoDb } from "@/models/database/mongoDb";
 
-const database = { mongoDb };
+const databaseModels = { mongoDb };
 
-export { database };
+export { databaseModels };

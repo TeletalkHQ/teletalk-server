@@ -5,7 +5,7 @@ import { clientInitializer } from "$/classes/ClientInitializer";
 
 import { helpers } from "$/helpers";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 import { routesWithoutAuth, routesWithAuth } from "@/websocket/events";
 
@@ -19,20 +19,20 @@ describe("auth middleware test", () => {
         await requesterMaker(socket, route).sendRequest()
       ).getResponse();
 
-      const { errors: responseErrors } = response.data;
+      const { ERRORS: responseErrors } = response.data;
 
-      const { key } = errors.SESSION_REQUIRED;
+      const { key } = ERRORS.SESSION_REQUIRED;
       if (responseErrors?.[key]) {
         chai
           .expect(responseErrors[key].reason)
-          .not.equal(errors.SESSION_REQUIRED.reason);
+          .not.equal(ERRORS.SESSION_REQUIRED.reason);
       }
     });
   }
 
   for (const route of routesWithAuth) {
     const title = helpers.createFailTestMessage(
-      errors.CLIENT_NOT_FOUND,
+      ERRORS.CLIENT_NOT_FOUND,
       route.name
     );
 
@@ -40,7 +40,7 @@ describe("auth middleware test", () => {
       const socket = (await clientInitializer().createComplete()).getClient();
       await requesterMaker(socket, route)
         .setOptions({ shouldFilterRequestData: false })
-        .setError(errors.CLIENT_NOT_FOUND)
+        .setError(ERRORS.CLIENT_NOT_FOUND)
         .sendFullFeaturedRequest();
     });
   }

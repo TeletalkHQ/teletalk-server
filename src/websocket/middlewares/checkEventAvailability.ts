@@ -1,6 +1,6 @@
 import { SocketMiddleware } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
@@ -9,7 +9,7 @@ const checkEventAvailability: SocketMiddleware = (_socket, next, [name]) => {
 
   if (!foundEvent)
     throw {
-      ...errors.EVENT_NOT_FOUND,
+      ...ERRORS.EVENT_NOT_FOUND,
       event: name,
     };
 

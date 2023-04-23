@@ -38,6 +38,8 @@ export type Field =
   | "username"
   | "verificationCode";
 
+export type EnvFileName = NodeEnvValue | "base";
+
 export interface ValidationModel {
   [prop: string]: ValidationRuleObject;
 }
@@ -377,7 +379,7 @@ export type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
 
 export interface SocketResponse {
   data: StringMap & {
-    errors?: SocketResponseErrors;
+    ERRORS?: SocketResponseErrors;
   };
   ok: boolean;
 }

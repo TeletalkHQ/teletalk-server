@@ -2,7 +2,7 @@ import { E2eFailTestInitializer } from "$/types";
 
 import { helpers } from "$/helpers";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
@@ -10,7 +10,7 @@ const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
   it(
     helpers.createFailTestMessage(
-      errors.INPUT_FIELDS_MISSING,
+      ERRORS.INPUT_FIELDS_MISSING,
       configuredRequester.getEventName()
     ),
     async () => {
@@ -19,7 +19,7 @@ const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
       delete (copyData as any)[firstKey];
       await configuredRequester.sendFullFeaturedRequest(
         copyData,
-        errors.INPUT_FIELDS_MISSING,
+        ERRORS.INPUT_FIELDS_MISSING,
         {
           shouldFilterRequestData: false,
         }

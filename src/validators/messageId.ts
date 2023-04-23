@@ -4,7 +4,7 @@
 
 // import { models } from "@/models";
 
-// import { errors } from "@/variables/errors";
+// import { ERRORS } from "@/variables";
 
 // const compiledMessageIdValidator = ValidationModelBuilder.compiler(
 //   models.validation.messageId

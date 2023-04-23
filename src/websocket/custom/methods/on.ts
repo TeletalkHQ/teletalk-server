@@ -49,7 +49,7 @@ const catchBlock = (error: NativeError, socket: Socket, cb: ClientCallback) => {
 
   const response: SocketResponse = {
     data: {
-      errors: { [error.key]: error },
+      ERRORS: { [error.key]: error },
     },
     ok: false,
   };

@@ -11,10 +11,10 @@ import {
 } from "@/types";
 
 //TODO: Rename to registerCustomUse or registerCustomMethods
-const customUse = (socket: Socket) => {
+const registerCustomUse = (socket: Socket) => {
   return ((middleware) => {
     socket.use(async (event: SocketEvent, next) => {
-      await trier(customUse.name)
+      await trier(registerCustomUse.name)
         .tryAsync(tryBlock, socket, next, event, middleware)
         .catch(catchBlock, socket, event)
         .runAsync();
@@ -46,4 +46,4 @@ const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
   } else socket.emit("error", response);
 };
 
-export { customUse };
+export { registerCustomUse };

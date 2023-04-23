@@ -38,6 +38,8 @@ export type Field =
   | "username"
   | "verificationCode";
 
+export type EnvFileName = NodeEnvValue | "base";
+
 export interface ValidationModel {
   [prop: string]: ValidationRuleObject;
 }

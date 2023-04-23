@@ -72,7 +72,6 @@ const runRequirements = async (requirements: any) => {
   await requirements.registerTestSuits();
 };
 
-const runDev = async () =>
-  (await import(path.join(__dirname, "src", "servers"))).runner();
+const runDev = async () => (await import(path.join(__dirname, "src"))).runner();
 
 start();

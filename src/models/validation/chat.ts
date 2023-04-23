@@ -2,7 +2,9 @@ import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { nativeModels } from "@/models/native";
 
-const messageId = {
+import { ValidationModel, ValidationPicker } from "@/types";
+
+const messageId: ValidationModel<"messageId"> = {
   messageId: validationModelBuilder
     .create()
     .setModel(nativeModels.messageId)
@@ -16,7 +18,7 @@ const messageId = {
     .build(),
 };
 
-const chatId = {
+const chatId: ValidationModel<"chatId"> = {
   chatId: validationModelBuilder
     .create()
     .setModel(nativeModels.chatId)
@@ -30,7 +32,21 @@ const chatId = {
     .build(),
 };
 
-const messageText = {
+const senderId: ValidationModel<"senderId"> = {
+  senderId: validationModelBuilder
+    .create()
+    .setModel(nativeModels.senderId)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .unique()
+    .trim()
+    .build(),
+};
+
+const messageText: ValidationModel<"messageText"> = {
   messageText: validationModelBuilder
     .create()
     .setModel(nativeModels.messageText)
@@ -43,7 +59,7 @@ const messageText = {
     .build(),
 };
 
-const participantId = {
+const participantId: ValidationModel<"participantId"> = {
   participantId: validationModelBuilder
     .create()
     .setModel(nativeModels.participantId)
@@ -57,11 +73,49 @@ const participantId = {
     .build(),
 };
 
-const chatValidationModels = {
-  chatId,
-  messageId,
-  messageText,
-  participantId,
+const messages: ValidationModel<"messages"> = {
+  messages: validationModelBuilder
+    .create()
+    .setModel(nativeModels.messages)
+    .type()
+    .required()
+    .build(),
+};
+const participants: ValidationModel<"participants"> = {
+  participants: validationModelBuilder
+    .create()
+    .setModel(nativeModels.participants)
+    .type()
+    .required()
+    .build(),
+};
+const privateChats: ValidationModel<"privateChats"> = {
+  privateChats: validationModelBuilder
+    .create()
+    .setModel(nativeModels.privateChats)
+    .type()
+    .required()
+    .build(),
 };
 
-export { chatValidationModels };
+type ChatValidationModels = ValidationPicker<
+  | "chatId"
+  | "messageId"
+  | "messageText"
+  | "participantId"
+  | "messages"
+  | "participants"
+  | "privateChats"
+  | "senderId"
+>;
+
+export const chatValidationModels: ChatValidationModels = {
+  chatId,
+  messageId,
+  messages,
+  messageText,
+  participantId,
+  participants,
+  privateChats,
+  senderId,
+};

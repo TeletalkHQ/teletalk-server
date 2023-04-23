@@ -122,4 +122,4 @@ const e2eFailTestInitializer = {
     ),
 };
 
-export { E2eFailTestInitializer, e2eFailTestInitializer };
+export { e2eFailTestInitializer };

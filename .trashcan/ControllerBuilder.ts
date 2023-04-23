@@ -33,4 +33,4 @@ const controllerBuilder = {
   create: (callerName) => new ControllerBuilder(callerName),
 };
 
-export { controllerBuilder, ControllerBuilder };
+export { controllerBuilder,  };

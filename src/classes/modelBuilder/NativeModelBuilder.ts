@@ -93,4 +93,4 @@ class NativeModelBuilder {
 
 const nativeModelBuilder = { create: () => new NativeModelBuilder() };
 
-export { nativeModelBuilder, NativeModelBuilder };
+export { nativeModelBuilder };

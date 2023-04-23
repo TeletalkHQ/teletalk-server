@@ -45,4 +45,4 @@ class E2eFailTestInitializerHelper {
 const e2eFailTestInitializerHelper = (requester: Requester) =>
   new E2eFailTestInitializerHelper(requester);
 
-export { e2eFailTestInitializerHelper, E2eFailTestInitializerHelper };
+export { e2eFailTestInitializerHelper };

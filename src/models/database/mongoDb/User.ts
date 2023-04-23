@@ -136,7 +136,7 @@ Schema.Types.String.checkRequired((v) => v !== null);
 
 const UserModel = model<IUserDoc, IUserModel>("User", userSchema, "users");
 
-export { UserModel as User };
+export { UserModel };
 
 // userSchema.post("save", function (error: any, doc: any, next: any) {
 //   if (error.name === "MongoError" && error.code === 11000) {

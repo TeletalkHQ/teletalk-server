@@ -96,4 +96,4 @@ const makeMongoFullUrl = () => {
 
 const appConfigs = new AppConfigs();
 
-export { appConfigs, AppConfigs };
+export { appConfigs };

@@ -8,3 +8,6 @@ test environment =>
 9090: test_development
 10000: test_production_local
 10010: test_production
+
+debug environment =>
+101010

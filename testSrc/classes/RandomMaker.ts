@@ -67,4 +67,4 @@ class RandomMaker extends RandomMakerMain {
 
 const randomMaker = new RandomMaker();
 
-export { randomMaker, RandomMaker };
+export { randomMaker };

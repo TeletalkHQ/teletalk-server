@@ -46,4 +46,4 @@ class ErrorBuilder {
 
 const errorBuilder = { create: () => new ErrorBuilder() };
 
-export { errorBuilder, ErrorBuilder };
+export { errorBuilder };

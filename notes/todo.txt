@@ -23,11 +23,9 @@ CLEANME: index files
 FIXME public assets sharing
 REFACTOR: Rename services
 TODO: Add startup requirements check function
-TODO: Update thunder client
 TODO: Create MiddlewareHandler, MiddlewareBuilder
 TODO: new instance for each failTest props
 REFACTOR: Restructure folders, index, and more
 TODO: Remove session after logout || 401 situation
 TODO: Add numeric type for countryCode and phoneNumber
 TODO: Update launch script
-REFACTOR: Remove useless exports

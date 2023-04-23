@@ -295,7 +295,6 @@ export type EventName =
   | "removeContact"
   | "sendPrivateMessage"
   | "signIn"
-  | "updateOnlineStatus"
   | "updatePublicUserData"
   | "verify";
 
@@ -353,9 +352,6 @@ export interface PublicUserData {
   lastName: string;
   userId: string;
   username: string;
-  status: {
-    isActive: boolean;
-  };
 }
 
 export type IPrivateChatDoc = PrivateChatMongo & Document;

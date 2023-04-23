@@ -9,7 +9,6 @@ import { removeBlock } from "@/services/user/removeBlock";
 import { removeContact } from "@/services/user/removeContact";
 import { updateContact } from "@/services/user/updateContact";
 import { updatePublicUserData } from "@/services/user/updatePublicUserData";
-import { updateActiveStatus } from "@/services/user/updateActiveStatus";
 
 const userServices = {
   addBlock,
@@ -17,12 +16,11 @@ const userServices = {
   addContactWithCellphone,
   addNewSession,
   getAllUsers,
-  getUserData,
   getTargetUserData,
   getUserContacts,
+  getUserData,
   removeBlock,
   removeContact,
-  updateActiveStatus,
   updateContact,
   updatePublicUserData,
 };

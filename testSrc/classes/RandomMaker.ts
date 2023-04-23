@@ -61,9 +61,6 @@ class RandomMaker extends RandomMakerMain {
       bio: randomMaker.string(models.native.bio.maxlength.value),
       username: randomMaker.string(models.native.username.maxlength.value),
       userId: super.id(models.native.userId.maxlength.value),
-      status: {
-        isActive: true,
-      },
     };
   }
 }

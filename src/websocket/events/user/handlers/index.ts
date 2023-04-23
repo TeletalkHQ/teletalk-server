@@ -9,7 +9,6 @@ import { getUserData } from "@/websocket/events/user/handlers/getUserData";
 import { getPublicUserData } from "@/websocket/events/user/handlers/getPublicUserData";
 import { removeBlock } from "@/websocket/events/user/handlers/removeBlock";
 import { removeContact } from "@/websocket/events/user/handlers/removeContact";
-import { updateOnlineStatus } from "@/websocket/events/user/handlers/updateOnlineStatus";
 import { updatePublicUserData } from "@/websocket/events/user/handlers/updatePublicUserData";
 
 type UserHandlers = SocketHandlerPicker<
@@ -22,7 +21,6 @@ type UserHandlers = SocketHandlerPicker<
   | "getPublicUserData"
   | "removeBlock"
   | "removeContact"
-  | "updateOnlineStatus"
   | "updatePublicUserData"
 >;
 
@@ -36,7 +34,6 @@ const userHandlers: UserHandlers = {
   getPublicUserData,
   removeBlock,
   removeContact,
-  updateOnlineStatus,
   updatePublicUserData,
 };
 

@@ -162,7 +162,6 @@ const requesterCollection: RequesterCollection = {
   signIn: requesterMakerHelper(routes.signIn),
   updatePublicUserData: requesterMakerHelper(routes.updatePublicUserData),
   verify: requesterMakerHelper(routes.verify),
-  updateOnlineStatus: requesterMakerHelper(routes.updateOnlineStatus),
 };
 
 const helpers = {

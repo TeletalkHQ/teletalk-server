@@ -26,10 +26,9 @@ TODO: Add startup requirements check function
 TODO: Update thunder client
 TODO: Create MiddlewareHandler, MiddlewareBuilder
 TODO: new instance for each failTest props
-TODO: Restructure folders, index, and more
+REFACTOR: Restructure folders, index, and more
 TODO: Remove session after logout || 401 situation
-TODO: Rename maxlength, minlength
-TODO: Remove isActive, isOnline
+REFACTOR: Rename maxlength, minlength
 TODO: Add numeric type for countryCode and phoneNumber
 TODO: Update launch script
-TODO: Remove useless exports
+REFACTOR: Remove useless exports

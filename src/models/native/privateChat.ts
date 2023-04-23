@@ -13,8 +13,8 @@ const messageText = nativeModelBuilder
   .type("string", ERRORS.MESSAGE_TEXT_INVALID_TYPE)
   .required(true, ERRORS.MESSAGE_TEXT_REQUIRED)
   .empty(false, ERRORS.MESSAGE_TEXT_EMPTY)
-  .minlength(1, ERRORS.MESSAGE_TEXT_MIN_LENGTH_REACH)
-  .maxlength(1000, ERRORS.MESSAGE_TEXT_MAX_LENGTH_REACH)
+  .minLength(1, ERRORS.MESSAGE_TEXT_MIN_LENGTH_REACH)
+  .maxLength(1000, ERRORS.MESSAGE_TEXT_MAX_LENGTH_REACH)
   .trim(true)
   .build();
 
@@ -38,12 +38,12 @@ const participantId = nativeModelBuilder
   .type(commonModels.userId.type.value, ERRORS.PARTICIPANT_ID_INVALID_TYPE)
   .required(commonModels.userId.required.value, ERRORS.PARTICIPANT_ID_REQUIRED)
   .empty(commonModels.userId.empty.value, ERRORS.PARTICIPANT_ID_EMPTY)
-  .minlength(
-    commonModels.userId.minlength.value,
+  .minLength(
+    commonModels.userId.minLength.value,
     ERRORS.PARTICIPANT_ID_MIN_LENGTH_REACH
   )
-  .maxlength(
-    commonModels.userId.maxlength.value,
+  .maxLength(
+    commonModels.userId.maxLength.value,
     ERRORS.PARTICIPANT_ID_MAX_LENGTH_REACH
   )
   .trim(commonModels.userId.trim.value)
@@ -60,12 +60,12 @@ const senderId = nativeModelBuilder
   .type(commonModels.userId.type.value, ERRORS.SENDER_ID_INVALID_TYPE)
   .required(commonModels.userId.required.value, ERRORS.SENDER_ID_REQUIRED)
   .empty(commonModels.userId.empty.value, ERRORS.SENDER_EMPTY)
-  .minlength(
-    commonModels.userId.minlength.value,
+  .minLength(
+    commonModels.userId.minLength.value,
     ERRORS.SENDER_ID_MIN_LENGTH_REACH
   )
-  .maxlength(
-    commonModels.userId.maxlength.value,
+  .maxLength(
+    commonModels.userId.maxLength.value,
     ERRORS.SENDER_ID_MAX_LENGTH_REACH
   )
   .trim(commonModels.userId.trim.value)

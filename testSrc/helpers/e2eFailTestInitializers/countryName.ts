@@ -8,7 +8,7 @@ import { E2eFailTestInitializer } from "$/types";
 
 import { ERRORS } from "@/variables";
 
-const countryNameMaxlength = models.native.countryName.maxlength.value;
+const countryNamemaxLength = models.native.countryName.maxLength.value;
 
 const countryNameE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
@@ -20,10 +20,10 @@ const countryNameE2eFailTestInitializer: E2eFailTestInitializer = (
     .overload()
     .invalidType()
     .empty()
-    .maxlength()
-    .minlength()
+    .maxLength()
+    .minLength()
     .custom(
-      randomMaker.string(countryNameMaxlength),
+      randomMaker.string(countryNamemaxLength),
       ERRORS.COUNTRY_NAME_NOT_SUPPORTED
     );
 };

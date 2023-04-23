@@ -61,7 +61,7 @@ const checkExistenceOfUser = async (cellphone: Cellphone) => {
   if (foundUser) throw ERRORS.USER_EXIST;
 };
 
-const getRandomId = () => randomMaker.id(models.native.userId.maxlength.value);
+const getRandomId = () => randomMaker.id(models.native.userId.maxLength.value);
 
 const sign = (sessionId: string) => {
   return authManager.signSession({

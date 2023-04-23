@@ -146,11 +146,11 @@ export interface NativeModel {
     value: number;
     error: NativeError;
   };
-  maxlength: {
+  maxLength: {
     value: number;
     error: NativeError;
   };
-  minlength: {
+  minLength: {
     value: number;
     error: NativeError;
   };
@@ -177,8 +177,8 @@ export interface NativeModel {
 //   empty: [boolean, IError];
 //   items: [];
 //   lowercase: [];
-//   maxlength: [];
-//   minlength: [];
+//   maxLength: [];
+//   minLength: [];
 //   required: [];
 //   trim: [];
 //   type: [];

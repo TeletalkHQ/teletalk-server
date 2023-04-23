@@ -28,7 +28,6 @@ TODO: Create MiddlewareHandler, MiddlewareBuilder
 TODO: new instance for each failTest props
 REFACTOR: Restructure folders, index, and more
 TODO: Remove session after logout || 401 situation
-REFACTOR: Rename maxlength, minlength
 TODO: Add numeric type for countryCode and phoneNumber
 TODO: Update launch script
 REFACTOR: Remove useless exports

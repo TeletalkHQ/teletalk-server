@@ -17,11 +17,11 @@ class E2eFailTestInitializer {
     private testingPropertyName: string
   ) {}
 
-  getMinlength() {
-    return this.model.minlength?.value;
+  getminLength() {
+    return this.model.minLength?.value;
   }
-  getMaxlength() {
-    return this.model.maxlength?.value;
+  getmaxLength() {
+    return this.model.maxLength?.value;
   }
   getLength() {
     return this.model.length?.value;
@@ -59,29 +59,29 @@ class E2eFailTestInitializer {
   }
   invalidType(value?: FieldType) {
     const valueWithIncorrectType =
-      value || randomMaker.number(this.getMaxlength());
+      value || randomMaker.number(this.getmaxLength());
     const mergedData = this.dataMerger(valueWithIncorrectType);
     this.initTest(mergedData, ERRORS.INPUT_FIELD_INVALID_TYPE);
     return this;
   }
   numeric() {
-    const randomValue = randomMaker.string(this.getMaxlength() - 1) + "!";
+    const randomValue = randomMaker.string(this.getmaxLength() - 1) + "!";
     const mergedData = this.dataMerger(randomValue);
     this.initTest(mergedData, this.resolveError("numeric"));
     return this;
   }
-  minlength() {
-    if (this.getMinlength() > 1) {
-      const randomValue = randomMaker.string(this.getMinlength() - 1);
+  minLength() {
+    if (this.getminLength() > 1) {
+      const randomValue = randomMaker.string(this.getminLength() - 1);
       const mergedData = this.dataMerger(randomValue);
-      this.initTest(mergedData, this.resolveError("minlength"));
+      this.initTest(mergedData, this.resolveError("minLength"));
     }
     return this;
   }
-  maxlength(value?: any) {
-    const randomValue = value || randomMaker.string(this.getMaxlength() + 1);
+  maxLength(value?: any) {
+    const randomValue = value || randomMaker.string(this.getmaxLength() + 1);
     const mergedData = this.dataMerger(randomValue);
-    this.initTest(mergedData, this.resolveError("maxlength"));
+    this.initTest(mergedData, this.resolveError("maxLength"));
     return this;
   }
   length(value?: any) {

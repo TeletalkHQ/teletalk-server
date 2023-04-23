@@ -17,7 +17,7 @@ const mongodbConnector = () => {
     )
   );
 
-  return mongoose.connect(configs.MONGO_DB.MONGO_URL_FULL, {
+  return mongoose.connect(configs.DB.MONGO_URL_FULL, {
     keepAlive: true,
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
@@ -26,7 +26,7 @@ const mongodbConnector = () => {
 
 const redisConnector = async () => {
   const REDIS_CONNECTION_OPTIONS = fixRedisConnection();
-  const { REDIS_PASSWORD } = appConfigs.getConfigs().REDIS;
+  const { REDIS_PASSWORD } = appConfigs.getConfigs().DB;
 
   const storage = createClient({
     socket: {
@@ -60,7 +60,7 @@ const fixRedisConnection = () => {
 };
 
 const fixRedisHost = () => {
-  const { REDIS_HOST, REDIS_PORT } = appConfigs.getConfigs().REDIS;
+  const { REDIS_HOST, REDIS_PORT } = appConfigs.getConfigs().DB;
 
   if (
     [REDIS_HOST, REDIS_PORT?.toString()].some((item = "") =>
@@ -76,7 +76,7 @@ const fixRedisHost = () => {
 };
 
 const fixRedisPort = () => {
-  const { REDIS_PORT } = appConfigs.getConfigs().REDIS;
+  const { REDIS_PORT } = appConfigs.getConfigs().DB;
 
   if (REDIS_PORT?.toString().includes("tcp://")) {
     return REDIS_PORT.toString().split(":")[2];

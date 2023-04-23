@@ -33,5 +33,3 @@ TODO: Remove isActive, isOnline
 TODO: Add numeric type for countryCode and phoneNumber
 TODO: Update launch script
 TODO: Remove useless exports
-TODO: Rename custom methods to register methods
-TODO: Sync validators name with Fields name

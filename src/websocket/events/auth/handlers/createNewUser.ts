@@ -33,7 +33,9 @@ const createNewUser: SocketOnHandler = async (
     createdAt: Date.now(),
     userId,
     sessions: [{ session }],
-    status: { isActive: false },
+    status: {
+      isActive: true,
+    },
   });
 
   await clientStore.update(socket.clientId, { ...client, session });

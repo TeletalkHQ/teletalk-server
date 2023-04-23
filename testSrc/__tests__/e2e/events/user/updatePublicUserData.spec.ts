@@ -9,7 +9,7 @@ import { services } from "@/services";
 
 import { PublicUserData, UserMongo } from "@/types";
 
-describe("getUserData success tests", () => {
+describe("updatablePublicData success tests", () => {
   it("should get currentUser data", async () => {
     const users = await randomMaker.users(10);
 
@@ -37,13 +37,13 @@ describe("getUserData success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
+await helpers.asyncDescribe("updatablePublicData fail tests", async () => {
   const { requester } = await helpers.setupRequester(
     helpers.requesterCollection.updatePublicUserData
   );
 
   return () => {
-    const { status, ...updatablePublicData } = randomMaker.publicUserData();
+    const updatablePublicData = randomMaker.publicUserData();
 
     e2eFailTestInitializerHelper(requester)
       .input(updatablePublicData)

@@ -11,6 +11,7 @@ class ErrorBuilder {
     //@ts-ignore
     this.error = {
       side: "client",
+      isAuthError: false,
     };
   }
 

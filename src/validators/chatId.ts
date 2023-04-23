@@ -6,7 +6,7 @@ import { models } from "@/models";
 
 import { Validator } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const validator = ValidationModelBuilder.compiler(models.validation.chatId);
 
@@ -30,6 +30,6 @@ const errorChecker = (result: Result, chatId: unknown) => {
       .string()
       .stringMin()
       .stringMax()
-      .throwAnyway(errors.CHAT_ID_INVALID);
+      .throwAnyway(ERRORS.CHAT_ID_INVALID);
   });
 };

@@ -14,7 +14,7 @@ import { services } from "@/services";
 
 import { UserMongo } from "@/types";
 
-import { FIELD_TYPE } from "$/variables/fieldType";
+import { FIELD_TYPE } from "$/variables";
 
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {

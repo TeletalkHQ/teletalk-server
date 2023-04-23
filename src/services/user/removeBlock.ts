@@ -4,14 +4,14 @@ import { commonServices } from "@/services/common";
 
 import { BlackListItem, HydratedUserMongo, UserMongo } from "@/types";
 
-import { errors } from "@/variables/errors";
+import { ERRORS } from "@/variables";
 
 const removeBlock = async (data: {
   currentUserId: string;
   targetBlacklistItem: BlackListItem;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
-  if (!currentUser) throw errors.CURRENT_USER_NOT_EXIST;
+  if (!currentUser) throw ERRORS.CURRENT_USER_NOT_EXIST;
 
   const { index } = checkExistenceOfBlacklistItem(
     currentUser.blacklist,
@@ -24,7 +24,7 @@ const removeBlock = async (data: {
 const findCurrentUser = async (currentUserId: string) => {
   return await commonServices.findOneUserById(
     currentUserId,
-    errors.CURRENT_USER_NOT_EXIST
+    ERRORS.CURRENT_USER_NOT_EXIST
   );
 };
 
@@ -35,7 +35,7 @@ const checkExistenceOfBlacklistItem = (
   const index = blacklist.findIndex(
     (i) => i.userId === targetBlacklistItem.userId
   );
-  errorThrower(index === -1, () => errors.BLACKLIST_ITEM_NOT_EXIST);
+  errorThrower(index === -1, () => ERRORS.BLACKLIST_ITEM_NOT_EXIST);
 
   return { index };
 };

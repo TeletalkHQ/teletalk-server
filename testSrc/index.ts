@@ -1,10 +1,6 @@
-import "@/configs/customGlobals";
-import "@/helpers/requireDotenv";
+import { runner } from "@/index";
 
-import { PrivateChat } from "@/models/database/mongoDb/PrivateChat";
-import { User } from "@/models/database/mongoDb/User";
-
-import { runner } from "@/servers";
+import { services } from "$/services";
 
 const registerTestSuits = async () => {
   await import("$/__tests__/e2e/events/auth/createNewUser.spec");
@@ -35,16 +31,8 @@ const registerTestSuits = async () => {
 };
 
 const resetDatabase = async () => {
-  await deleteAllUsers();
-  await deleteAllPrivateChats();
-};
-
-const deleteAllUsers = async () => {
-  await User.deleteMany();
-};
-
-const deleteAllPrivateChats = async () => {
-  await PrivateChat.deleteMany();
+  await services.deleteAllUsers();
+  await services.deleteAllPrivateChats();
 };
 
 const requirements = {

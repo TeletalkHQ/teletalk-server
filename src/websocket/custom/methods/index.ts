@@ -1,11 +1,11 @@
-import { customOn } from "@/websocket/custom/methods/on";
-import { customEmit } from "@/websocket/custom/methods/emit";
-import { customUse } from "@/websocket/custom/methods/use";
+import { registerCustomEmit } from "@/websocket/custom/methods/emit";
+import { registerCustomOn } from "@/websocket/custom/methods/on";
+import { registerCustomUse } from "@/websocket/custom/methods/use";
 
 const customMethods = {
-  emit: customEmit,
-  on: customOn,
-  use: customUse,
+  registerCustomEmit,
+  registerCustomOn,
+  registerCustomUse,
 };
 
 export { customMethods };

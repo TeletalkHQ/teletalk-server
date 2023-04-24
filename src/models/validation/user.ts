@@ -2,7 +2,9 @@ import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { nativeModels } from "@/models/native";
 
-const bio = {
+import { ValidationModel, ValidationPicker } from "@/types";
+
+const bio: ValidationModel<"bio"> = {
   bio: validationModelBuilder
     .create()
     .setModel(nativeModels.bio)
@@ -12,7 +14,7 @@ const bio = {
     .build(),
 };
 
-const countryCode = {
+const countryCode: ValidationModel<"countryCode"> = {
   countryCode: validationModelBuilder
     .create()
     .setModel(nativeModels.countryCode)
@@ -26,7 +28,7 @@ const countryCode = {
     .build(),
 };
 
-const countryName = {
+const countryName: ValidationModel<"countryName"> = {
   countryName: validationModelBuilder
     .create()
     .setModel(nativeModels.countryName)
@@ -39,7 +41,7 @@ const countryName = {
     .build(),
 };
 
-const firstName = {
+const firstName: ValidationModel<"firstName"> = {
   firstName: validationModelBuilder
     .create()
     .setModel(nativeModels.firstName)
@@ -52,7 +54,16 @@ const firstName = {
     .build(),
 };
 
-const lastName = {
+const isActive: ValidationModel<"isActive"> = {
+  isActive: validationModelBuilder
+    .create()
+    .setModel(nativeModels.isActive)
+    .type()
+    .required()
+    .build(),
+};
+
+const lastName: ValidationModel<"lastName"> = {
   lastName: validationModelBuilder
     .create()
     .setModel(nativeModels.lastName)
@@ -64,7 +75,7 @@ const lastName = {
     .build(),
 };
 
-const macAddress = {
+const macAddress: ValidationModel<"macAddress"> = {
   macAddress: validationModelBuilder
     .create()
     .setModel(nativeModels.macAddress)
@@ -78,7 +89,7 @@ const macAddress = {
     .build(),
 };
 
-const phoneNumber = {
+const phoneNumber: ValidationModel<"phoneNumber"> = {
   phoneNumber: validationModelBuilder
     .create()
     .setModel(nativeModels.phoneNumber)
@@ -91,13 +102,7 @@ const phoneNumber = {
     .build(),
 };
 
-const cellphone = {
-  ...countryCode,
-  ...countryName,
-  ...phoneNumber,
-};
-
-const userId = {
+const userId: ValidationModel<"userId"> = {
   userId: validationModelBuilder
     .create()
     .setModel(nativeModels.userId)
@@ -111,7 +116,7 @@ const userId = {
     .build(),
 };
 
-const session = {
+const session: ValidationModel<"session"> = {
   session: validationModelBuilder
     .create()
     .setModel(nativeModels.session)
@@ -123,7 +128,7 @@ const session = {
     .build(),
 };
 
-const verificationCode = {
+const verificationCode: ValidationModel<"verificationCode"> = {
   verificationCode: validationModelBuilder
     .create()
     .setModel(nativeModels.verificationCode)
@@ -137,7 +142,7 @@ const verificationCode = {
     .build(),
 };
 
-const username = {
+const username: ValidationModel<"username"> = {
   username: validationModelBuilder
     .create()
     .setModel(nativeModels.username)
@@ -150,19 +155,73 @@ const username = {
     .build(),
 };
 
-const userValidationModels = {
+const sessions: ValidationModel<"sessions"> = {
+  sessions: validationModelBuilder
+    .create()
+    .setModel(nativeModels.sessions)
+    .type()
+    .required()
+    .build(),
+};
+const blacklist: ValidationModel<"blacklist"> = {
+  blacklist: validationModelBuilder
+    .create()
+    .setModel(nativeModels.blacklist)
+    .type()
+    .required()
+    .build(),
+};
+const contacts: ValidationModel<"contacts"> = {
+  contacts: validationModelBuilder
+    .create()
+    .setModel(nativeModels.contacts)
+    .type()
+    .required()
+    .build(),
+};
+const status: ValidationModel<"status"> = {
+  status: validationModelBuilder
+    .create()
+    .setModel(nativeModels.status)
+    .type()
+    .required()
+    .build(),
+};
+
+type UserValidationModels = ValidationPicker<
+  | "bio"
+  | "blacklist"
+  | "contacts"
+  | "countryCode"
+  | "countryName"
+  | "firstName"
+  | "isActive"
+  | "lastName"
+  | "macAddress"
+  | "phoneNumber"
+  | "session"
+  | "sessions"
+  | "status"
+  | "userId"
+  | "username"
+  | "verificationCode"
+>;
+
+export const userValidationModels: UserValidationModels = {
   bio,
-  cellphone,
+  blacklist,
+  contacts,
   countryCode,
   countryName,
   firstName,
+  isActive,
   lastName,
   macAddress,
   phoneNumber,
   session,
+  sessions,
+  status,
   userId,
   username,
   verificationCode,
 };
-
-export { userValidationModels };

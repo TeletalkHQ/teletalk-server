@@ -21,8 +21,8 @@ const participantIdE2eFailTestInitializer: E2eFailTestInitializer = (
     .overload()
     .invalidType()
     .empty()
-    .minlength()
-    .maxlength();
+    .minLength()
+    .maxLength();
 };
 
 export { participantIdE2eFailTestInitializer };

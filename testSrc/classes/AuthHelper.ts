@@ -6,13 +6,8 @@ import { clientStore } from "@/classes/ClientStore";
 
 import { helpers } from "$/helpers";
 
-import {
-  Cellphone,
-  ClientSocket,
-  FullName,
-  SocketResponse,
-  Client,
-} from "@/types";
+import { Cellphone, FullName, SocketResponse, Client } from "@/types";
+import { ClientSocket } from "$/types";
 
 class AuthHelper {
   private clientSocket: ClientSocket;
@@ -85,7 +80,7 @@ class AuthHelper {
 const authHelper = (cellphone: Cellphone, fullName?: FullName) =>
   new AuthHelper(cellphone, fullName);
 
-export { authHelper, AuthHelper };
+export { authHelper };
 
 // extractCookies(headers) {
 //   return headers["set-cookie"].reduce((shapedCookies, cookieString) => {

@@ -16,8 +16,8 @@ const messageTextE2eFailTestInitializer: E2eFailTestInitializer = (
     .overload()
     .invalidType()
     .empty()
-    .maxlength()
-    .minlength();
+    .maxLength()
+    .minLength();
 };
 
 export { messageTextE2eFailTestInitializer };

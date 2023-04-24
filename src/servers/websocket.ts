@@ -26,9 +26,9 @@ const websocketServer = (httpServer: HttpServer) => {
   io.on("connection", (socket) => {
     socket.io = io;
 
-    socket.customEmit = customMethods.emit(socket);
-    socket.customOn = customMethods.on(socket);
-    socket.customUse = customMethods.use(socket);
+    socket.customEmit = customMethods.registerCustomEmit(socket);
+    socket.customOn = customMethods.registerCustomOn(socket);
+    socket.customUse = customMethods.registerCustomUse(socket);
 
     socket.customUse(middlewares.checkClientIdExistence);
     socket.customUse(middlewares.attachClientId);

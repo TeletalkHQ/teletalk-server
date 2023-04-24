@@ -3,20 +3,21 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "start:dev script",
+      "name": "start:dev",
+      "program": "${workspaceFolder}/index.ts",
+      "runtimeArgs": [
+        "--trace-warnings",
+        "--no-warnings",
+        "--loader ${workspaceFolder}/loader.js"
+      ],
       "env": {
-        "JWT_MAIN_SECRET": "1fa4e2a111fd47aea847e9b853db7a4d",
-        "JWT_SIGN_IN_SECRET": "7d34818105504e9c82d6ac0b7cd2932a",
-        "LOG_LEVEL": "debug",
-        "MOCHA_BADGE_GEN_SUBJECT": "Tests",
         "MONGO_COLLECTION_NAME": "teletalk_db_development",
         "NODE_ENV": "development",
-        "PORT": "8090"
+        "PORT": "101010"
       },
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/index.js",
-      "restart": true,
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "restart": true
     }
   ]
 }

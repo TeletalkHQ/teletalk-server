@@ -1,12 +1,11 @@
-import { Socket } from "socket.io-client";
-
+import { Socket as ClientSocket } from "socket.io-client";
 import { Requester } from "$/classes/Requester";
 
 import { EventName, SocketRoute } from "@/types";
 
-export type RequesterMaker = (socketClient: Socket) => Requester;
+export type RequesterMaker = (socketClient: ClientSocket) => Requester;
 
-export type RequesterMakerWrapper = (socket: Socket) => Requester;
+export type RequesterMakerWrapper = (socket: ClientSocket) => Requester;
 
 export type RequesterMakerHelper = (
   route: SocketRoute
@@ -38,3 +37,5 @@ export type AssertionInitializer = (
 export interface RequesterOptions {
   shouldFilterRequestData: boolean;
 }
+
+export type { ClientSocket };

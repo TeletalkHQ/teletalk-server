@@ -16,7 +16,7 @@ const chatIdE2eFailTestInitializer: E2eFailTestInitializer = (
     .overload()
     .invalidType()
     .empty()
-    .minlength()
-    .maxlength();
+    .minLength()
+    .maxLength();
 };
 export { chatIdE2eFailTestInitializer };

@@ -20,9 +20,9 @@ const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
     .invalidType()
     .empty()
     .numeric()
-    .minlength()
-    .maxlength(
-      randomMaker.stringNumber(models.native.countryCode.maxlength.value + 1)
+    .minLength()
+    .maxLength(
+      randomMaker.stringNumber(models.native.countryCode.maxLength.value + 1)
     )
     .custom(helpers.getWrongCountryCode(), ERRORS.COUNTRY_CODE_NOT_SUPPORTED);
 };

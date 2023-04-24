@@ -13,7 +13,7 @@ const bioE2eFailTestInitializer: E2eFailTestInitializer = (
     .missing()
     .overload()
     .invalidType()
-    .maxlength();
+    .maxLength();
 };
 
 export { bioE2eFailTestInitializer };

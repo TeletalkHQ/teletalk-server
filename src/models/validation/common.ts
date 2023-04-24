@@ -2,7 +2,9 @@ import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { nativeModels } from "@/models/native";
 
-const createdAt = {
+import { ValidationModel, ValidationPicker } from "@/types";
+
+const createdAt: ValidationModel<"createdAt"> = {
   createdAt: validationModelBuilder
     .create()
     .setModel(nativeModels.createdAt)
@@ -12,6 +14,23 @@ const createdAt = {
     .build(),
 };
 
-const commonValidationModels = { createdAt };
+const clientId: ValidationModel<"clientId"> = {
+  clientId: validationModelBuilder
+    .create()
+    .setModel(nativeModels.clientId)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .unique()
+    .trim()
+    .build(),
+};
 
-export { commonValidationModels };
+type CommonValidationModels = ValidationPicker<"createdAt" | "clientId">;
+
+export const commonValidationModels: CommonValidationModels = {
+  clientId,
+  createdAt,
+};

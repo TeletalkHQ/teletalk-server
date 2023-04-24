@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { NativeError } from "@/types";
+import { ERROR_KEY, ERROR_REASON, NativeError } from "@/types";
 
 import { localErrors } from "@/variables/errors/local";
 
@@ -15,11 +15,11 @@ class ErrorBuilder {
     };
   }
 
-  key(key: string) {
+  key(key: ERROR_KEY) {
     this.error.key = key;
     return this;
   }
-  reason(reason: string) {
+  reason(reason: ERROR_REASON) {
     this.error.reason = reason;
     return this;
   }
@@ -46,4 +46,4 @@ class ErrorBuilder {
 
 const errorBuilder = { create: () => new ErrorBuilder() };
 
-export { errorBuilder, ErrorBuilder };
+export { errorBuilder };

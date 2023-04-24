@@ -13,8 +13,8 @@ const usernameE2eFailTestInitializer: E2eFailTestInitializer = (
     .missing()
     .overload()
     .invalidType()
-    .minlength()
-    .maxlength();
+    .minLength()
+    .maxLength();
 };
 
 export { usernameE2eFailTestInitializer };

@@ -16,13 +16,13 @@ import { ioErrors } from "@/variables";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
-const customEmit = (socket: Socket) => {
+const registerCustomEmit = (socket: Socket) => {
   return ((event, data) => {
     const foundRoute = arrayOfRoutes.find(
       (item) => item.name === event
     ) as SocketRoute;
 
-    trier(customEmit.name)
+    trier(registerCustomEmit.name)
       .try(tryBlock, data, foundRoute.outputFields)
       .executeIfNoError(executeIfNoError, socket, event, data)
       .catch(catchBlock, socket)
@@ -71,4 +71,4 @@ const catchBlock = (error: NativeError, socket: Socket) => {
   socket.emit("error", response);
 };
 
-export { customEmit };
+export { registerCustomEmit };

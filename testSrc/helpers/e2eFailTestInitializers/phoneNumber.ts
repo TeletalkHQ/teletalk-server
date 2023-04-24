@@ -15,8 +15,8 @@ const phoneNumberE2eFailTestInitializer: E2eFailTestInitializer = (
     .invalidType()
     .empty()
     .numeric()
-    .minlength()
-    .maxlength();
+    .minLength()
+    .maxLength();
 };
 
 export { phoneNumberE2eFailTestInitializer };

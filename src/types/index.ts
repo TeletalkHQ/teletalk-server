@@ -239,7 +239,7 @@ export interface VerifiedSession {
 export type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
 export type HydratedUserMongo = HydratedDocument<UserMongo>;
 
-export type ERROR_KEY =
+export type ErrorKey =
   | "BIO_VALIDATION"
   | "BLACKLIST_VALIDATION"
   | "CHAT_ID_VALIDATION"
@@ -283,7 +283,7 @@ export type ERROR_KEY =
   | "USERNAME_VALIDATION"
   | "VERIFICATION_CODE_VALIDATION";
 
-export type ERROR_REASON =
+export type ErrorReason =
   | "BIO_EMPTY"
   | "CLIENT_ID_EXIST"
   | "BIO_INVALID_TYPE"
@@ -465,16 +465,20 @@ export type ERROR_REASON =
   | "VERIFICATION_CODE_NUMERIC"
   | "VERIFICATION_CODE_REQUIRED";
 
-export type ERROR_SIDE = "server" | "client";
+export type ErrorSide = "server" | "client";
 
 export interface NativeError {
   description?: string;
   isAuthError: boolean;
-  key: ERROR_KEY;
+  key: ErrorKey;
   message?: string;
-  reason: ERROR_REASON;
-  side: ERROR_SIDE;
+  reason: ErrorReason;
+  side: ErrorSide;
 }
+
+export type ErrorCollection = {
+  [prop in ErrorReason]: NativeError;
+};
 
 // export interface MongoModel {
 //   default: [unknown, IError];

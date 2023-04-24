@@ -14,8 +14,8 @@ const firstNameE2eFailTestInitializer: E2eFailTestInitializer = (
     .overload()
     .invalidType()
     .empty()
-    .minlength()
-    .maxlength();
+    .minLength()
+    .maxLength();
 };
 
 export { firstNameE2eFailTestInitializer };

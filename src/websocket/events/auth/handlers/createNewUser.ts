@@ -33,7 +33,9 @@ const createNewUser: SocketOnHandler = async (
     createdAt: Date.now(),
     userId,
     sessions: [{ session }],
-    status: { isActive: false },
+    status: {
+      isActive: true,
+    },
   });
 
   await clientStore.update(socket.clientId, { ...client, session });
@@ -59,7 +61,7 @@ const checkExistenceOfUser = async (cellphone: Cellphone) => {
   if (foundUser) throw ERRORS.USER_EXIST;
 };
 
-const getRandomId = () => randomMaker.id(models.native.userId.maxlength.value);
+const getRandomId = () => randomMaker.id(models.native.userId.maxLength.value);
 
 const sign = (sessionId: string) => {
   return authManager.signSession({

@@ -24,35 +24,22 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "@cspell", "sonarjs", "unused-imports"],
   rules: {
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "unused-imports/no-unused-imports": "warn",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-    "unused-imports/no-unused-vars": [
-      "warn",
-      {
-        args: "after-used",
-        argsIgnorePattern: "^_",
-        ignoreRestSiblings: true,
-        vars: "all",
-        varsIgnorePattern: "^_",
-      },
-    ],
-
     "@cspell/spellchecker": [
       "warn",
       {
         autoFix: false,
         checkComments: false,
-        ignoreImportProperties: false,
-        // ignoreImports: false,
+        ignoreImportProperties: false, // ignoreImports: false,
       },
     ],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     "arrow-parens": "warn",
     indent: ["error", 2],
     "linebreak-style": ["error", "unix"],
     "no-delete-var": "warn",
+    "no-unused-vars": "off",
     "no-use-before-define": [
       "error",
       {
@@ -65,9 +52,19 @@ module.exports = {
     "no-var": "warn",
     "object-shorthand": ["error", "always"],
     quotes: ["warn", "double"],
-    semi: ["error", "always"],
-    // "no-restricted-globals": ["error"].concat(restrictedGlobals),
+    semi: ["error", "always"], // "no-restricted-globals": ["error"].concat(restrictedGlobals),
     // "no-unused-expressions": 0,
+    "unused-imports/no-unused-imports": "warn",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        args: "after-used",
+        argsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+        vars: "all",
+        varsIgnorePattern: "^_",
+      },
+    ],
   },
 };
 

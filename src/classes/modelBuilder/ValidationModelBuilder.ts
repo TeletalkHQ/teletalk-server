@@ -7,7 +7,7 @@ import { NativeModel, ValidationModel } from "@/types";
 
 import { NativeModelKey } from "@/types";
 
-type MessageKey = keyof MessagesType;
+type ErrorMessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationRuleObject;
 
 const compiler = new Validator({
@@ -28,10 +28,10 @@ class ValidationModelBuilder {
   private updateProperty(
     validationKey: ValidationSchemaKey,
     modelKey: NativeModelKey,
-    messageKey: MessageKey
+    errorMessageKey: ErrorMessageKey
   ) {
     this.setValue(modelKey, validationKey);
-    this.setMessage(modelKey, messageKey);
+    this.setMessage(modelKey, errorMessageKey);
   }
   private updatePropertyWithoutMessage(
     modelKey: NativeModelKey,
@@ -45,9 +45,12 @@ class ValidationModelBuilder {
   ) {
     this.validationRuleObject[validationKey] = this.model[modelKey].value;
   }
-  private setMessage(modelKey: NativeModelKey, messageKey: MessageKey) {
+  private setMessage(
+    modelKey: NativeModelKey,
+    errorMessageKey: ErrorMessageKey
+  ) {
     if (this.validationRuleObject.messages)
-      this.validationRuleObject.messages[messageKey] =
+      this.validationRuleObject.messages[errorMessageKey] =
         this.model[modelKey].error?.reason || "UNKNOWN_REASON";
   }
 
@@ -69,11 +72,11 @@ class ValidationModelBuilder {
     return this;
   }
   max() {
-    this.updateProperty("max", "maxlength", "stringMax");
+    this.updateProperty("max", "maxLength", "stringMax");
     return this;
   }
   min() {
-    this.updateProperty("min", "minlength", "stringMin");
+    this.updateProperty("min", "minLength", "stringMin");
     return this;
   }
   numeric() {

@@ -111,12 +111,6 @@ const removeContact = builder
   .handler(userHandlers.removeContact)
   .build();
 
-const updateOnlineStatus = builder
-  .create()
-  .name("updateOnlineStatus")
-  .handler(userHandlers.updateOnlineStatus)
-  .build();
-
 const updatePublicUserData = builder
   .create()
   .name("updatePublicUserData")
@@ -147,7 +141,6 @@ type UserRoutes = SocketRoutePicker<
   | "getPublicUserData"
   | "removeBlock"
   | "removeContact"
-  | "updateOnlineStatus"
   | "updatePublicUserData"
 >;
 
@@ -161,7 +154,6 @@ const userRoutes: UserRoutes = {
   getPublicUserData,
   removeBlock,
   removeContact,
-  updateOnlineStatus,
   updatePublicUserData,
 };
 

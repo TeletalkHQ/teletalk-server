@@ -5,7 +5,8 @@ import { requesterMaker } from "$/classes/Requester";
 
 import { helpers } from "$/helpers";
 
-import { ClientSocket, SocketRoute } from "@/types";
+import { SocketRoute } from "@/types";
+import { ClientSocket } from "$/types";
 
 import { FIELD_TYPE } from "$/variables";
 import { ERRORS } from "@/variables";

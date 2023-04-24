@@ -2,7 +2,7 @@
   "name": "teletalk-server",
   "author": "S-STALWART-S",
   "description": "teletalk messenger app (server)",
-  "license": "GPT-3",
+  "license": "GPL-3",
   "version": "1.0.0",
   "main": "index.ts",
   "type": "module",

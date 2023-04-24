@@ -8,8 +8,8 @@ type TestItem = () => void;
 
 interface Variables {
   model: NativeModel;
-  modelMaxLength: number;
-  modelMinLength: number;
+  modelmaxLength: number;
+  modelminLength: number;
   modelLength: number;
   equalValue: any;
   testValue: any;
@@ -35,8 +35,8 @@ class AssertionInitializer {
       equalValue,
       testValue,
       modelLength: model?.length?.value,
-      modelMaxLength: model?.maxlength?.value,
-      modelMinLength: model?.minlength?.value,
+      modelmaxLength: model?.maxLength?.value,
+      modelminLength: model?.minLength?.value,
     };
 
     return this;
@@ -143,7 +143,7 @@ class AssertionInitializer {
       this.tests.push(() =>
         chai
           .expect(this.variables.testValue.length)
-          .greaterThanOrEqual(this.variables.modelMinLength)
+          .greaterThanOrEqual(this.variables.modelminLength)
       );
     });
 
@@ -163,7 +163,7 @@ class AssertionInitializer {
       this.tests.push(() =>
         chai
           .expect(this.variables.testValue.length)
-          .lessThanOrEqual(this.variables.modelMaxLength)
+          .lessThanOrEqual(this.variables.modelmaxLength)
       );
     });
 

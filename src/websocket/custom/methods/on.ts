@@ -11,10 +11,10 @@ import {
   StringMap,
 } from "@/types";
 
-const customOn = (socket: Socket) => {
+const registerCustomOn = (socket: Socket) => {
   return ((event, handler) => {
     socket.on(event, async (data: StringMap, cb: ClientCallback) => {
-      await trier<void | SocketHandlerReturnValue>(customOn.name)
+      await trier<void | SocketHandlerReturnValue>(registerCustomOn.name)
         .tryAsync(tryBlock, handler, socket, data)
         .executeIfNoError(executeIfNoError, socket, event, cb)
         .catch(catchBlock, socket, cb)
@@ -45,7 +45,7 @@ const executeIfNoError = (
 };
 
 const catchBlock = (error: NativeError, socket: Socket, cb: ClientCallback) => {
-  logger.debug("socket.customOn.catchBlock:", error);
+  logger.debug("socket.registerCustomOn.catchBlock:", error);
 
   const response: SocketResponse = {
     data: {
@@ -59,4 +59,4 @@ const catchBlock = (error: NativeError, socket: Socket, cb: ClientCallback) => {
   } else socket.emit("error", response);
 };
 
-export { customOn };
+export { registerCustomOn };

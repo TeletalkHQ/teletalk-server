@@ -12,8 +12,8 @@ const messageTextMaker = makeMongoSchemaValue(nativeModels.messageText);
 const participantIdMaker = makeMongoSchemaValue(nativeModels.participantId);
 
 const chatId: SchemaDefinitionProperty = {
-  maxlength: chatIdMaker("maxlength"),
-  minlength: chatIdMaker("minlength"),
+  maxLength: chatIdMaker("maxLength"),
+  minLength: chatIdMaker("minLength"),
   required: chatIdMaker("required"),
   type: "string",
   unique: nativeModels.chatId.required.value,
@@ -25,31 +25,31 @@ const createdAt: SchemaDefinitionProperty = {
 };
 
 const messageText: SchemaDefinitionProperty = {
-  maxlength: messageTextMaker("maxlength"),
-  minlength: messageTextMaker("minlength"),
+  maxLength: messageTextMaker("maxLength"),
+  minLength: messageTextMaker("minLength"),
   required: nativeModels.messageText.required.value,
   type: "string",
 };
 
 const messageId: SchemaDefinitionProperty = {
-  maxlength: messageIdMaker("maxlength"),
-  minlength: messageIdMaker("minlength"),
+  maxLength: messageIdMaker("maxLength"),
+  minLength: messageIdMaker("minLength"),
   required: nativeModels.messageId.required.value,
   trim: nativeModels.messageId.trim.value,
   type: "string",
 };
 
 const participantId: SchemaDefinitionProperty = {
-  maxlength: participantIdMaker("maxlength"),
-  minlength: participantIdMaker("minlength"),
+  maxLength: participantIdMaker("maxLength"),
+  minLength: participantIdMaker("minLength"),
   required: nativeModels.participantId.required.value,
   trim: nativeModels.participantId.trim.value,
   type: "string",
 };
 
 const senderId: SchemaDefinitionProperty = {
-  maxlength: participantIdMaker("maxlength"),
-  minlength: participantIdMaker("minlength"),
+  maxLength: participantIdMaker("maxLength"),
+  minLength: participantIdMaker("minLength"),
   required: nativeModels.participantId.required.value,
   trim: nativeModels.participantId.trim.value,
   type: "string",
@@ -75,10 +75,10 @@ const PrivateChatSchema = new Schema<IPrivateChatDoc, IPrivateChatModel>({
   ],
 });
 
-const PrivateChat = model<IPrivateChatDoc, IPrivateChatModel>(
+const PrivateChatModel = model<IPrivateChatDoc, IPrivateChatModel>(
   "PrivateChat",
   PrivateChatSchema,
   "privateChats"
 );
 
-export { PrivateChat, PrivateChatSchema };
+export { PrivateChatModel };

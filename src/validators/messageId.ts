@@ -1,11 +1,5 @@
-// import { Result, validationChecker } from "utility-store";
+import { Validator } from "@/types";
 
-// import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
-
-// import { models } from "@/models";
-
-// import { ERRORS } from "@/variables";
-
-// const compiledMessageIdValidator = ValidationModelBuilder.compiler(
-//   models.validation.messageId
-// );
+export const messageIdValidator: Validator = async () => {
+  throw `${messageIdValidator.name} is not implemented`;
+};

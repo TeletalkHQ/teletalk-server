@@ -43,7 +43,7 @@ await helpers.asyncDescribe("getPrivateChat fail tests", async () => {
 
   return () => {
     const data = {
-      chatId: randomMaker.string(models.native.chatId.maxlength.value),
+      chatId: randomMaker.string(models.native.chatId.maxLength.value),
     };
 
     e2eFailTestInitializerHelper(requester).chatId(data);

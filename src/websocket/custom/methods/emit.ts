@@ -12,7 +12,7 @@ import {
   StringMap,
 } from "@/types";
 
-import { ioErrors } from "@/variables";
+import { checkFieldErrors } from "@/variables";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
@@ -31,7 +31,7 @@ const registerCustomEmit = (socket: Socket) => {
 };
 
 const tryBlock = (data: StringMap, outputFields: IoFields) => {
-  checkFields(data, outputFields, ioErrors.output);
+  checkFields(data, outputFields, checkFieldErrors.output);
 };
 
 const executeIfNoError = (

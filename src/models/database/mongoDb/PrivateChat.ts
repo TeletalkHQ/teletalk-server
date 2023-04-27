@@ -6,52 +6,52 @@ import { nativeModels } from "@/models/native";
 
 import { IPrivateChatDoc, IPrivateChatModel } from "@/types";
 
-const chatIdMaker = makeMongoSchemaValue(nativeModels.chatId);
-const messageIdMaker = makeMongoSchemaValue(nativeModels.messageId);
-const messageTextMaker = makeMongoSchemaValue(nativeModels.messageText);
-const participantIdMaker = makeMongoSchemaValue(nativeModels.participantId);
+const chatIdMaker = makeMongoSchemaValue("chatId");
+const messageIdMaker = makeMongoSchemaValue("messageId");
+const messageTextMaker = makeMongoSchemaValue("messageText");
+const participantIdMaker = makeMongoSchemaValue("participantId");
 
 const chatId: SchemaDefinitionProperty = {
-  maxLength: chatIdMaker("maxLength"),
-  minLength: chatIdMaker("minLength"),
+  maxlength: chatIdMaker("maxLength"),
+  minlength: chatIdMaker("minLength"),
   required: chatIdMaker("required"),
   type: "string",
-  unique: nativeModels.chatId.required.value,
+  unique: nativeModels.chatId.required,
 };
 
 const createdAt: SchemaDefinitionProperty = {
-  required: nativeModels.createdAt.required.value,
+  required: nativeModels.createdAt.required,
   type: "number",
 };
 
 const messageText: SchemaDefinitionProperty = {
-  maxLength: messageTextMaker("maxLength"),
-  minLength: messageTextMaker("minLength"),
-  required: nativeModels.messageText.required.value,
+  maxlength: messageTextMaker("maxLength"),
+  minlength: messageTextMaker("minLength"),
+  required: nativeModels.messageText.required,
   type: "string",
 };
 
 const messageId: SchemaDefinitionProperty = {
-  maxLength: messageIdMaker("maxLength"),
-  minLength: messageIdMaker("minLength"),
-  required: nativeModels.messageId.required.value,
-  trim: nativeModels.messageId.trim.value,
+  maxlength: messageIdMaker("maxLength"),
+  minlength: messageIdMaker("minLength"),
+  required: nativeModels.messageId.required,
+  trim: nativeModels.messageId.trim,
   type: "string",
 };
 
 const participantId: SchemaDefinitionProperty = {
-  maxLength: participantIdMaker("maxLength"),
-  minLength: participantIdMaker("minLength"),
-  required: nativeModels.participantId.required.value,
-  trim: nativeModels.participantId.trim.value,
+  maxlength: participantIdMaker("maxLength"),
+  minlength: participantIdMaker("minLength"),
+  required: nativeModels.participantId.required,
+  trim: nativeModels.participantId.trim,
   type: "string",
 };
 
 const senderId: SchemaDefinitionProperty = {
-  maxLength: participantIdMaker("maxLength"),
-  minLength: participantIdMaker("minLength"),
-  required: nativeModels.participantId.required.value,
-  trim: nativeModels.participantId.trim.value,
+  maxlength: participantIdMaker("maxLength"),
+  minlength: participantIdMaker("minLength"),
+  required: nativeModels.participantId.required,
+  trim: nativeModels.participantId.trim,
   type: "string",
 };
 
@@ -61,8 +61,8 @@ const PrivateChatSchema = new Schema<IPrivateChatDoc, IPrivateChatModel>({
   messages: [
     {
       createdAt,
-      messageText,
       messageId,
+      messageText,
       sender: {
         senderId,
       },

@@ -4,7 +4,7 @@ import { errorThrower } from "utility-store";
 
 import { clientStore } from "@/classes/ClientStore";
 
-import { SocketMiddleware, StringMap } from "@/types";
+import { SocketMiddleware, SocketNext, StringMap } from "@/types";
 
 import { ERRORS } from "@/variables";
 
@@ -13,9 +13,9 @@ const verifyVerificationCode: SocketMiddleware = async (
   next,
   [_name, data]
 ) => {
-  await trier(verifyVerificationCode.name)
+  await trier<void>(verifyVerificationCode.name)
     .tryAsync(tryBlock, socket, data)
-    .executeIfNoError(() => next())
+    .executeIfNoError(executeIfNoError, next)
     .throw()
     .runAsync();
 };
@@ -41,6 +41,10 @@ const findClient = async (clientId: string) => {
   const client = await clientStore.find(clientId);
   if (!client) throw ERRORS.CLIENT_NOT_FOUND;
   return client;
+};
+
+const executeIfNoError = (_: void, next: SocketNext) => {
+  () => next();
 };
 
 export { verifyVerificationCode };

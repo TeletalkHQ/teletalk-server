@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { checkFields, IoFields } from "check-fields";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
@@ -12,7 +13,7 @@ import {
   StringMap,
 } from "@/types";
 
-import { checkFieldErrors } from "@/variables";
+import { CHECK_FIELD_ERRORS } from "@/variables";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
@@ -22,7 +23,7 @@ const registerCustomEmit = (socket: Socket) => {
       (item) => item.name === event
     ) as SocketRoute;
 
-    trier(registerCustomEmit.name)
+    trier("socket.customEmit")
       .try(tryBlock, data, foundRoute.outputFields)
       .executeIfNoError(executeIfNoError, socket, event, data)
       .catch(catchBlock, socket)
@@ -31,7 +32,7 @@ const registerCustomEmit = (socket: Socket) => {
 };
 
 const tryBlock = (data: StringMap, outputFields: IoFields) => {
-  checkFields(data, outputFields, checkFieldErrors.output);
+  checkFields(data, outputFields, CHECK_FIELD_ERRORS.OUTPUT);
 };
 
 const executeIfNoError = (
@@ -50,18 +51,16 @@ const catchBlock = (error: NativeError, socket: Socket) => {
   //prettier-ignore
   const sendingError = isErrorValid
     ? {
-      data: {
-        ERRORS: {
-          [error.key]: error
-        }
-      },
-    }
+        data: {},
+        errors: {
+          [error.reason]: error,
+        },
+      }
     : {
-      data: {
-        ERRORS: { [error.key]: ERRORS.UNKNOWN_ERROR },
-      },
-      checkResult: error,
-    };
+        data: {},
+        errors: { [error.reason]: ERRORS.UNKNOWN_ERROR },
+        checkResult: error,
+      };
 
   const response: SocketResponse = {
     ...sendingError,

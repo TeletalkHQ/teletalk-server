@@ -33,3 +33,6 @@ TODO: Add items to array models
 TODO: update errors with collection pattern
 TODO: Build local errors
 TODO: Add error generic to CheckFields
+TODO: Generative errors, validation models and so on
+TODO: Tan license check, flow check, coverage check
+TODO: Change logger levels to {priority:number         ; name:string}

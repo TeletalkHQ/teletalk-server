@@ -1,7 +1,11 @@
 import { customTypeof } from "custom-typeof";
-import { Result, errorThrower, validationChecker } from "utility-store";
+import { errorThrower } from "utility-store";
 
 import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
+import {
+  ValidationResult,
+  validationChecker,
+} from "@/classes/ValidationChecker";
 
 import { models } from "@/models";
 
@@ -15,13 +19,11 @@ const validator = ValidationModelBuilder.compiler(
 );
 
 export const countryNameValidator: Validator = async (countryName: unknown) => {
-  const validationResult = await validator({
-    countryName,
-  });
+  const validationResult = await validator(countryName);
   errorChecker(validationResult, countryName);
 };
 
-const errorChecker = (result: Result, countryName: unknown) => {
+const errorChecker = (result: ValidationResult, countryName: unknown) => {
   if (result === true) {
     const country = countries.find((c) => c.countryName === countryName);
     errorThrower(
@@ -32,15 +34,11 @@ const errorChecker = (result: Result, countryName: unknown) => {
     return;
   }
 
-  validationChecker(
-    result,
-    {
-      extraErrorFields: {
-        validatedCountryName: countryName,
-      },
+  validationChecker(result, "countryName", {
+    extraErrorFields: {
+      validatedCountryName: countryName,
     },
-    models.native.countryName
-  ).check(function () {
+  }).check(function () {
     this.required()
       .stringEmpty()
       .string()

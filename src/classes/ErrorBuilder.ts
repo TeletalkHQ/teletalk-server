@@ -1,26 +1,22 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { ErrorKey, ErrorReason, NativeError } from "@/types";
-
-const ERROR_IS_INVALID = {
-  reason: "ERROR_IS_INVALID",
-};
+import { ErrorReason, NativeError } from "@/types";
 
 class ErrorBuilder {
   error: NativeError;
+
   constructor() {
-    //@ts-ignore
-    this.error = {
-      side: "client",
-      isAuthError: false,
-    };
+    this.error = this.makeDefaultError();
   }
 
-  key(key: ErrorKey) {
-    this.error.key = key;
-    return this;
+  makeDefaultError() {
+    return {
+      isAuthError: false,
+      side: "client",
+    } as NativeError;
   }
+
   reason(reason: ErrorReason) {
     this.error.reason = reason;
     return this;
@@ -40,12 +36,12 @@ class ErrorBuilder {
     const isUndefined = values.some(
       customTypeof.isUndefined.bind(customTypeof)
     );
-    errorThrower(isUndefined, ERROR_IS_INVALID);
+    errorThrower(isUndefined, "ERROR_IS_INVALID");
 
     return this.error;
   }
 }
 
-const errorBuilder = { create: () => new ErrorBuilder() };
+const errorBuilder = () => new ErrorBuilder();
 
-export { errorBuilder };
+export { ErrorBuilder, errorBuilder };

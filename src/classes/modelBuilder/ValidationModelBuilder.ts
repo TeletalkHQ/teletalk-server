@@ -3,9 +3,11 @@ import Validator, {
   ValidationRuleObject,
 } from "fastest-validator";
 
-import { NativeModel, ValidationModel } from "@/types";
+import { Field, NativeModel, ValidationModel, NativeModelKey } from "@/types";
 
-import { NativeModelKey } from "@/types";
+import { utilities } from "@/utilities";
+
+import { ERRORS } from "@/variables";
 
 type ErrorMessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationRuleObject;
@@ -14,11 +16,11 @@ const compiler = new Validator({
   useNewCustomCheckerFunction: true,
 });
 
-class ValidationModelBuilder {
+class ValidationModelBuilder<T extends Field> {
   private model: NativeModel;
   private validationRuleObject: ValidationRuleObject;
 
-  constructor() {
+  constructor(private fieldName: T) {
     //@ts-ignore
     this.validationRuleObject = {
       messages: {},
@@ -43,19 +45,26 @@ class ValidationModelBuilder {
     modelKey: NativeModelKey,
     validationKey: ValidationSchemaKey
   ) {
-    this.validationRuleObject[validationKey] = this.model[modelKey].value;
+    this.validationRuleObject[validationKey] = this.model[modelKey];
   }
   private setMessage(
     modelKey: NativeModelKey,
     errorMessageKey: ErrorMessageKey
   ) {
-    if (this.validationRuleObject.messages)
-      this.validationRuleObject.messages[errorMessageKey] =
-        this.model[modelKey].error?.reason || "UNKNOWN_REASON";
+    if (this.validationRuleObject.messages) {
+      this.validationRuleObject.messages[errorMessageKey] = utilities.findError(
+        ERRORS,
+        this.fieldName,
+        modelKey
+      ).reason;
+    }
   }
 
   static compiler(validationModel: ValidationModel) {
-    return compiler.compile(validationModel);
+    return compiler.compile({
+      $$root: true,
+      ...validationModel,
+    });
   }
 
   setModel(model: NativeModel) {
@@ -105,6 +114,10 @@ class ValidationModelBuilder {
   }
 }
 
-const validationModelBuilder = { create: () => new ValidationModelBuilder() };
+const validationModelBuilder = {
+  create: function vmb<T extends Field>(fieldName: T) {
+    return new ValidationModelBuilder<T>(fieldName);
+  },
+};
 
 export { validationModelBuilder, ValidationModelBuilder };

@@ -94,7 +94,7 @@ export type FieldType =
   | "string";
 
 export interface StringMap {
-  [key: string]: any;
+  [prop: string]: any;
 }
 
 export interface SocketHandlerReturnValue {
@@ -239,53 +239,8 @@ export interface VerifiedSession {
 export type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
 export type HydratedUserMongo = HydratedDocument<UserMongo>;
 
-export type ErrorKey =
-  | "BIO_VALIDATION"
-  | "BLACKLIST_VALIDATION"
-  | "CHAT_ID_VALIDATION"
-  | "CHAT_VALIDATION"
-  | "CHATS_VALIDATION"
-  | "CLIENT_ID_VALIDATION"
-  | "CLIENT_VALIDATION"
-  | "CONTACT_ITEM_VALIDATION"
-  | "CONTACT_VALIDATION"
-  | "COUNTRY_CODE_VALIDATION"
-  | "COUNTRY_NAME_VALIDATION"
-  | "COUNTRY_NOT_SUPPORTED_VALIDATION"
-  | "CREATED_AT_VALIDATION"
-  | "EXTERNAL_APP_ERROR"
-  | "FIRST_NAME_VALIDATION"
-  | "FULL_NAME_VALIDATION"
-  | "INPUT_OUTPUT_FIELDS"
-  | "INTERNAL_SERVER_ERROR"
-  | "LAST_NAME_VALIDATION"
-  | "MAC_ADDRESS_VALIDATION"
-  | "MESSAGE_ID_VALIDATION"
-  | "MESSAGE_TEXT_VALIDATION"
-  | "MESSAGES_VALIDATION"
-  | "ONLINE_VALIDATION"
-  | "PARTICIPANT_ID_VALIDATION"
-  | "PARTICIPANT_VALIDATION"
-  | "PARTICIPANTS_VALIDATION"
-  | "PHONE_NUMBER_VALIDATION"
-  | "PRIVATE_CHAT_VALIDATION"
-  | "SELF_STUFF_VALIDATION"
-  | "SENDER_ID_VALIDATION"
-  | "SESSION_VALIDATION"
-  | "SESSIONS_VALIDATION"
-  | "SOCKET_ARGS_VALIDATION"
-  | "STATUS_VALIDATION"
-  | "TARGET_USER_VALIDATION"
-  | "UNKNOWN_EVENT"
-  | "UNKNOWN_ROUTE"
-  | "USER_ID_VALIDATION"
-  | "USER_VALIDATION"
-  | "USERNAME_VALIDATION"
-  | "VERIFICATION_CODE_VALIDATION";
-
 export type ErrorReason =
   | "BIO_EMPTY"
-  | "CLIENT_ID_EXIST"
   | "BIO_INVALID_TYPE"
   | "BIO_INVALID"
   | "BIO_MAX_LENGTH_REACH"
@@ -306,6 +261,7 @@ export type ErrorReason =
   | "CHAT_NOT_EXIST"
   | "CHATS_INVALID_TYPE"
   | "CLIENT_ID_EMPTY"
+  | "CLIENT_ID_EXIST"
   | "CLIENT_ID_INVALID_TYPE"
   | "CLIENT_ID_MAX_LENGTH_REACH"
   | "CLIENT_ID_MIN_LENGTH_REACH"
@@ -470,7 +426,6 @@ export type ErrorSide = "server" | "client";
 export interface NativeError {
   description?: string;
   isAuthError: boolean;
-  key: ErrorKey;
   message?: string;
   reason: ErrorReason;
   side: ErrorSide;
@@ -537,12 +492,10 @@ export type SocketRoutePicker<T extends EventName> = Pick<
   Extract<EventName, T>
 >;
 
-export type ValidationModel<F extends Field = any> = {
-  [P in F]: ValidationRuleObject;
-};
+export type ValidationModel = ValidationRuleObject;
 
 export type ValidationCollection = {
-  [F in Field]: ValidationModel<F>;
+  [F in Field]: ValidationModel;
 };
 
 export type ValidationPicker<T extends Field> = Pick<
@@ -551,47 +504,17 @@ export type ValidationPicker<T extends Field> = Pick<
 >;
 
 export interface NativeModel {
-  defaultValue: {
-    value: any;
-    error: NativeError;
-  };
-  empty: {
-    value: boolean;
-    error: NativeError;
-  };
-  items: {
-    value: any[];
-    error: NativeError;
-  };
-  length: {
-    value: number;
-    error: NativeError;
-  };
-  maxLength: {
-    value: number;
-    error: NativeError;
-  };
-  minLength: {
-    value: number;
-    error: NativeError;
-  };
-  numeric: {
-    value: boolean;
-    error: NativeError;
-  };
-  required: {
-    value: boolean;
-    error: NativeError;
-  };
-  trim: { value: boolean; error?: NativeError };
-  type: {
-    value: FieldType;
-    error: NativeError;
-  };
-  unique: {
-    value: boolean;
-    error: NativeError;
-  };
+  defaultValue: any;
+  empty: boolean;
+  items: any[];
+  length: number;
+  maxLength: number;
+  minLength: number;
+  numeric: boolean;
+  required: boolean;
+  trim: boolean;
+  type: FieldType;
+  unique: boolean;
 }
 
 export type NativeModelKey = keyof NativeModel;
@@ -644,3 +567,7 @@ export type PrivateChatService<T, U> = ServiceFunction<
 export type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
 
 export type { Socket };
+
+// export type ValidationModel<F extends Field = any> = {
+//   [P in F]: ValidationRuleObject;
+// };

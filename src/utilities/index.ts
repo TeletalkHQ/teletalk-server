@@ -1,11 +1,16 @@
 //@ts-ignore
 import generatePassword from "generate-password";
+import lodash from "lodash";
 import { Socket } from "socket.io";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
 import {
   Environments,
+  ErrorCollection,
+  ErrorReason,
+  Field,
+  NativeModelKey,
   SocketEvent,
   SocketMiddleware,
   SocketNext,
@@ -73,13 +78,12 @@ const passwordGenerator = (options = initialOptions) => {
 
 const sortEnvironments = () =>
   Object.entries(envManager.getEnvironment())
-    .map(([key, value]) => ({ key, value }))
-    .sort((a, b) => a.key.localeCompare(b.key))
+    .map(([prop, value]) => ({ prop, value }))
+    .sort((a, b) => a.prop.localeCompare(b.prop))
     .reduce((prevValue, currentValue) => {
-      const key = currentValue.key;
       const value = currentValue.value;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (prevValue as any)[key] = value;
+      (prevValue as any)[currentValue.prop] = value;
 
       return prevValue;
     }, {} as Environments);
@@ -89,12 +93,46 @@ const extractClientIdFromCookie = (cookie: string) => {
   return rawCookie.split("=")[1];
 };
 
+const findError = (
+  errors: ErrorCollection,
+  fieldName: Field,
+  modelKeyName: NativeModelKey
+) => {
+  return errors[makeErrorReason(fieldName, modelKeyName) as ErrorReason];
+};
+
+const makeErrorReason = (fieldName: Field, modelKeyName: NativeModelKey) => {
+  const FIELD_NAME = makeUpperFieldName(fieldName);
+
+  if (modelKeyName === "empty") return `${FIELD_NAME}_EMPTY` as ErrorReason;
+  if (modelKeyName === "length")
+    return `${FIELD_NAME}_INVALID_LENGTH` as ErrorReason;
+  if (modelKeyName === "maxLength")
+    return `${FIELD_NAME}_MAX_LENGTH_REACH` as ErrorReason;
+  if (modelKeyName === "minLength")
+    return `${FIELD_NAME}_MIN_LENGTH_REACH` as ErrorReason;
+  if (modelKeyName === "numeric") return `${FIELD_NAME}_NUMERIC` as ErrorReason;
+  if (modelKeyName === "required")
+    return `${FIELD_NAME}_REQUIRED` as ErrorReason;
+  if (modelKeyName === "type")
+    return `${FIELD_NAME}_INVALID_TYPE` as ErrorReason;
+  if (modelKeyName === "unique") return `${FIELD_NAME}_EXIST` as ErrorReason;
+
+  return `${FIELD_NAME}_INVALID` as ErrorReason;
+};
+
+const makeUpperFieldName = (fieldName: Field) =>
+  lodash.snakeCase(fieldName).toUpperCase();
+
 const utilities = {
   crashServer,
   executeMiddlewares,
   extractClientIdFromCookie,
+  findError,
   isEventNameMatch,
   logEnvironments,
+  makeErrorReason,
+  makeUpperFieldName,
   passwordGenerator,
   regexMaker,
   sortEnvironments,

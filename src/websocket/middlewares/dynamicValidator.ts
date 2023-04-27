@@ -31,8 +31,8 @@ const tryBlock = async (data: Data) => {
 };
 
 const validateField = async (data: Data) => {
-  for (const key in data) {
-    const value = data[key as Field];
+  for (const prop in data) {
+    const value = data[prop as Field];
 
     if (customTypeof.isObject(value)) {
       await validateField(value);
@@ -46,7 +46,7 @@ const validateField = async (data: Data) => {
       continue;
     }
 
-    await validators[key as Field](value);
+    await validators[prop as Field](value);
   }
 };
 

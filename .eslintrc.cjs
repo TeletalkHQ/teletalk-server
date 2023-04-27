@@ -25,7 +25,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "@cspell", "sonarjs", "unused-imports"],
   rules: {
     "@cspell/spellchecker": [
-      "warn",
+      "error",
       {
         autoFix: false,
         checkComments: false,

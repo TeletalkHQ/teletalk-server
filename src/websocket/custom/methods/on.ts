@@ -14,7 +14,7 @@ import {
 const registerCustomOn = (socket: Socket) => {
   return ((event, handler) => {
     socket.on(event, async (data: StringMap, cb: ClientCallback) => {
-      await trier<void | SocketHandlerReturnValue>(registerCustomOn.name)
+      await trier<void | SocketHandlerReturnValue>("socket.customOn")
         .tryAsync(tryBlock, handler, socket, data)
         .executeIfNoError(executeIfNoError, socket, event, cb)
         .catch(catchBlock, socket, cb)
@@ -45,12 +45,9 @@ const executeIfNoError = (
 };
 
 const catchBlock = (error: NativeError, socket: Socket, cb: ClientCallback) => {
-  logger.debug("socket.registerCustomOn.catchBlock:", error);
-
   const response: SocketResponse = {
-    data: {
-      ERRORS: { [error.key]: error },
-    },
+    data: {},
+    errors: { [error.reason]: error },
     ok: false,
   };
 

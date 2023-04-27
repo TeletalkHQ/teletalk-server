@@ -2,101 +2,7 @@ import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { nativeModels } from "@/models/native";
 
-import { ValidationModel, ValidationPicker } from "@/types";
-
-const messageId: ValidationModel<"messageId"> = {
-  messageId: validationModelBuilder
-    .create()
-    .setModel(nativeModels.messageId)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .unique()
-    .trim()
-    .build(),
-};
-
-const chatId: ValidationModel<"chatId"> = {
-  chatId: validationModelBuilder
-    .create()
-    .setModel(nativeModels.chatId)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .unique()
-    .trim()
-    .build(),
-};
-
-const senderId: ValidationModel<"senderId"> = {
-  senderId: validationModelBuilder
-    .create()
-    .setModel(nativeModels.senderId)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .unique()
-    .trim()
-    .build(),
-};
-
-const messageText: ValidationModel<"messageText"> = {
-  messageText: validationModelBuilder
-    .create()
-    .setModel(nativeModels.messageText)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .trim()
-    .build(),
-};
-
-const participantId: ValidationModel<"participantId"> = {
-  participantId: validationModelBuilder
-    .create()
-    .setModel(nativeModels.participantId)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .trim()
-    .unique()
-    .build(),
-};
-
-const messages: ValidationModel<"messages"> = {
-  messages: validationModelBuilder
-    .create()
-    .setModel(nativeModels.messages)
-    .type()
-    .required()
-    .build(),
-};
-const participants: ValidationModel<"participants"> = {
-  participants: validationModelBuilder
-    .create()
-    .setModel(nativeModels.participants)
-    .type()
-    .required()
-    .build(),
-};
-const privateChats: ValidationModel<"privateChats"> = {
-  privateChats: validationModelBuilder
-    .create()
-    .setModel(nativeModels.privateChats)
-    .type()
-    .required()
-    .build(),
-};
+import { ValidationPicker } from "@/types";
 
 type ChatValidationModels = ValidationPicker<
   | "chatId"
@@ -110,12 +16,76 @@ type ChatValidationModels = ValidationPicker<
 >;
 
 export const chatValidationModels: ChatValidationModels = {
-  chatId,
-  messageId,
-  messages,
-  messageText,
-  participantId,
-  participants,
-  privateChats,
-  senderId,
+  chatId: validationModelBuilder
+    .create("chatId")
+    .setModel(nativeModels.chatId)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .unique()
+    .trim()
+    .build(),
+  messageId: validationModelBuilder
+    .create("messageId")
+    .setModel(nativeModels.messageId)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .unique()
+    .trim()
+    .build(),
+  messages: validationModelBuilder
+    .create("messages")
+    .setModel(nativeModels.messages)
+    .type()
+    .required()
+    .build(),
+  messageText: validationModelBuilder
+    .create("messageText")
+    .setModel(nativeModels.messageText)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
+    .build(),
+  participantId: validationModelBuilder
+    .create("participantId")
+    .setModel(nativeModels.participantId)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
+    .unique()
+    .build(),
+  participants: validationModelBuilder
+    .create("participants")
+    .setModel(nativeModels.participants)
+    .type()
+    .required()
+    .build(),
+  privateChats: validationModelBuilder
+    .create("privateChats")
+    .setModel(nativeModels.privateChats)
+    .type()
+    .required()
+    .build(),
+  senderId: validationModelBuilder
+    .create("senderId")
+    .setModel(nativeModels.senderId)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .unique()
+    .trim()
+    .build(),
 };

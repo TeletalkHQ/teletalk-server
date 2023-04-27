@@ -3,7 +3,7 @@ import { randomMaker } from "utility-store";
 import { models } from "@/models";
 
 const clientIdGenerator = () =>
-  randomMaker.id(models.native.clientId.maxLength.value);
+  randomMaker.id(models.native.clientId.maxLength);
 
 const helpers = {
   clientIdGenerator,

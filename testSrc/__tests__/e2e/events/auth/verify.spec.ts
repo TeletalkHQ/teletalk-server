@@ -80,7 +80,7 @@ await helpers.asyncDescribe("verifySignIn fail tests", async () => {
   return () => {
     const data = {
       verificationCode: randomMaker.string(
-        models.native.verificationCode.length.value
+        models.native.verificationCode.length
       ),
     };
 

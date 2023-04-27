@@ -12,7 +12,7 @@ const verify: SocketOnHandler = async (socket) => {
   const cellphone = userUtilities.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);
   if (foundUser) {
-    const session = sign(foundUser.userId);
+    const session = signSession(foundUser.userId);
     await addNewSession(foundUser.userId, session);
     clientStore.update(socket.clientId, { ...client, session });
 
@@ -30,7 +30,7 @@ const verify: SocketOnHandler = async (socket) => {
   };
 };
 
-const sign = (userId: string) => {
+const signSession = (userId: string) => {
   return authManager.signSession(
     {
       sessionId: userId,

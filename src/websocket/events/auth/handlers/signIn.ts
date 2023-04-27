@@ -44,8 +44,8 @@ const sendVerificationCode = async (
   verificationCode: string
 ) => await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 
-const createSessionId = () =>
-  randomMaker.id(models.native.userId.maxLength.value);
+//TODO: Remove models from handlers
+const createSessionId = () => randomMaker.id(models.native.userId.maxLength);
 
 //CLEANME: Use session interface
 const sign = (data: { sessionId: string; date: number }) =>

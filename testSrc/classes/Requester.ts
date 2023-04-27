@@ -5,13 +5,7 @@ import { Socket as Client } from "socket.io-client";
 
 import { loggerHelper } from "@/helpers/logHelper";
 
-import {
-  NativeError,
-  SocketResponse,
-  SocketResponseErrors,
-  SocketRoute,
-  StringMap,
-} from "@/types";
+import { NativeError, SocketResponse, SocketRoute, StringMap } from "@/types";
 import { RequesterOptions } from "$/types";
 
 import { ERRORS } from "@/variables";
@@ -185,13 +179,13 @@ class Requester {
     return this;
   }
   checkErrorReason() {
-    const error = this.getError();
-    if (!error) throw "Error is not defined";
+    const expectedError = this.getError();
+    if (!expectedError) throw "Error is not defined";
 
-    const { key, reason } = error;
-    const ERRORS = this.getResponse().data.ERRORS as SocketResponseErrors;
+    const { reason: expectedReason } = expectedError;
+    const { errors } = this.getResponse();
 
-    chai.expect(ERRORS[key]?.reason).to.be.equal(reason);
+    chai.expect(errors![expectedReason]?.reason).to.be.equal(expectedReason);
 
     return this;
   }

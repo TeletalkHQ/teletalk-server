@@ -94,8 +94,8 @@ helpers.asyncDescribe("addContact fail tests", async () => {
   return () => {
     const randomContact = {
       ...randomMaker.unusedContactWithCellphone(
-        models.native.firstName.maxLength.value,
-        models.native.lastName.minLength.value
+        models.native.firstName.maxLength,
+        models.native.lastName.minLength
       ),
       userId: randomMaker.id(),
     };

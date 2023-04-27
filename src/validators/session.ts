@@ -1,5 +1,4 @@
-import { validationChecker } from "utility-store";
-
+import { validationChecker } from "@/classes/ValidationChecker";
 import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
 
 import { models } from "@/models";
@@ -15,21 +14,15 @@ const compiledSessionValidator = ValidationModelBuilder.compiler(
 export const sessionValidator: Validator = async (session) => {
   //REFACTOR:INVALID_TYPE_ERROR
   const corrected = +session || session;
-  const validationResult = await compiledSessionValidator({
-    session: corrected,
-  });
+  const validationResult = await compiledSessionValidator(corrected);
 
-  validationChecker(
-    validationResult,
-    {
-      extraErrorFields: {
-        corrected,
-        original: session,
-        validated: corrected,
-      },
+  validationChecker(validationResult, "session", {
+    extraErrorFields: {
+      corrected,
+      original: session,
+      validated: corrected,
     },
-    models.native.session
-  ).check(function () {
+  }).check(function () {
     this.required()
       .stringEmpty()
       .string()

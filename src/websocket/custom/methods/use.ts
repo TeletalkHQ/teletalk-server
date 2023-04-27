@@ -10,11 +10,10 @@ import {
   SocketResponse,
 } from "@/types";
 
-//TODO: Rename to registerCustomUse or registerCustomMethods
 const registerCustomUse = (socket: Socket) => {
   return ((middleware) => {
     socket.use(async (event: SocketEvent, next) => {
-      await trier(registerCustomUse.name)
+      await trier("socket.customUse")
         .tryAsync(tryBlock, socket, next, event, middleware)
         .catch(catchBlock, socket, event)
         .runAsync();
@@ -35,7 +34,8 @@ const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
   logger.debug("error in mld:", error);
 
   const response: SocketResponse = {
-    data: { ERRORS: { [error.key]: error } },
+    data: {},
+    errors: { [error.reason]: error },
     ok: false,
   };
 

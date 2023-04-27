@@ -15,20 +15,20 @@ class RandomMaker extends RandomMakerMain {
 
   contact() {
     return super.contact(
-      models.native.firstName.maxLength.value,
-      models.native.lastName.maxLength.value
+      models.native.firstName.maxLength,
+      models.native.lastName.maxLength
     );
   }
 
   fullName() {
     return super.fullName(
-      models.native.firstName.maxLength.value,
-      models.native.lastName.maxLength.value
+      models.native.firstName.maxLength,
+      models.native.lastName.maxLength
     );
   }
 
   userId() {
-    return super.id(models.native.userId.maxLength.value);
+    return super.id(models.native.userId.maxLength);
   }
 
   async user(cellphone = this.unusedCellphone(), fullName = this.fullName()) {
@@ -58,9 +58,9 @@ class RandomMaker extends RandomMakerMain {
   publicUserData() {
     return {
       ...randomMaker.fullName(),
-      bio: randomMaker.string(models.native.bio.maxLength.value),
-      username: randomMaker.string(models.native.username.maxLength.value),
-      userId: super.id(models.native.userId.maxLength.value),
+      bio: randomMaker.string(models.native.bio.maxLength),
+      username: randomMaker.string(models.native.username.maxLength),
+      userId: super.id(models.native.userId.maxLength),
     };
   }
 }

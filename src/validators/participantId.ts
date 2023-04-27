@@ -1,4 +1,7 @@
-import { Result, validationChecker } from "utility-store";
+import {
+  ValidationResult,
+  validationChecker,
+} from "@/classes/ValidationChecker";
 
 import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
 
@@ -15,22 +18,16 @@ const validator = ValidationModelBuilder.compiler(
 export const participantIdValidator: Validator = async (
   participantId: unknown
 ) => {
-  const validationResult = await validator({
-    participantId,
-  });
+  const validationResult = await validator(participantId);
   errorChecker(validationResult, participantId);
 };
 
-const errorChecker = (result: Result, participantId: unknown) => {
-  validationChecker(
-    result,
-    {
-      extraErrorFields: {
-        validatedParticipantId: participantId,
-      },
+const errorChecker = (result: ValidationResult, participantId: unknown) => {
+  validationChecker(result, "participantId", {
+    extraErrorFields: {
+      validatedParticipantId: participantId,
     },
-    models.native.participantId
-  ).check(function () {
+  }).check(function () {
     this.required()
       .stringEmpty()
       .string()

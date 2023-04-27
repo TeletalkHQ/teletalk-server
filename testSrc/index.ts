@@ -22,7 +22,6 @@ const registerTestSuits = async () => {
   await import("$/__tests__/e2e/events/user/updatePublicUserData.spec");
   // //TODO: Add getCountries
   // //TODO: Add getWelcomeMessage
-
   await import("$/__tests__/e2e/middleware/auth.spec");
   await import("$/__tests__/e2e/middleware/checkClientIdExistence.spec");
   await import("$/__tests__/e2e/middleware/checkCurrentUserStatus.spec");

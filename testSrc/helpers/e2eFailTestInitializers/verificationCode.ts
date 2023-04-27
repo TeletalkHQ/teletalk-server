@@ -24,11 +24,11 @@ const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
     .empty()
     .numeric()
     .length(
-      randomMaker.stringNumber(models.native.verificationCode.length.value + 1)
+      randomMaker.stringNumber(models.native.verificationCode.length + 1)
     );
 
   builder.custom(
-    randomMaker.stringNumber(models.native.verificationCode.length.value),
+    randomMaker.stringNumber(models.native.verificationCode.length),
     ERRORS.VERIFICATION_CODE_INVALID
   );
 };

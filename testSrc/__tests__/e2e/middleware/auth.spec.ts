@@ -21,11 +21,9 @@ describe("auth middleware test", () => {
 
       const { ERRORS: responseErrors } = response.data;
 
-      const { key } = ERRORS.SESSION_REQUIRED;
-      if (responseErrors?.[key]) {
-        chai
-          .expect(responseErrors[key].reason)
-          .not.equal(ERRORS.SESSION_REQUIRED.reason);
+      const { reason } = ERRORS.SESSION_REQUIRED;
+      if (responseErrors?.[reason]) {
+        chai.expect(reason).not.equal(ERRORS.SESSION_REQUIRED.reason);
       }
     });
   }

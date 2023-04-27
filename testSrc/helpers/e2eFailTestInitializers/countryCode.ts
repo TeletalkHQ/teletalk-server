@@ -22,7 +22,7 @@ const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
     .numeric()
     .minLength()
     .maxLength(
-      randomMaker.stringNumber(models.native.countryCode.maxLength.value + 1)
+      randomMaker.stringNumber(models.native.countryCode.maxLength + 1)
     )
     .custom(helpers.getWrongCountryCode(), ERRORS.COUNTRY_CODE_NOT_SUPPORTED);
 };

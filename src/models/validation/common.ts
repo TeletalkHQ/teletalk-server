@@ -2,21 +2,13 @@ import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { nativeModels } from "@/models/native";
 
-import { ValidationModel, ValidationPicker } from "@/types";
+import { ValidationPicker } from "@/types";
 
-const createdAt: ValidationModel<"createdAt"> = {
-  createdAt: validationModelBuilder
-    .create()
-    .setModel(nativeModels.createdAt)
-    .type()
-    .required()
-    .empty()
-    .build(),
-};
+type CommonValidationModels = ValidationPicker<"createdAt" | "clientId">;
 
-const clientId: ValidationModel<"clientId"> = {
+export const commonValidationModels: CommonValidationModels = {
   clientId: validationModelBuilder
-    .create()
+    .create("clientId")
     .setModel(nativeModels.clientId)
     .type()
     .required()
@@ -26,11 +18,11 @@ const clientId: ValidationModel<"clientId"> = {
     .unique()
     .trim()
     .build(),
-};
-
-type CommonValidationModels = ValidationPicker<"createdAt" | "clientId">;
-
-export const commonValidationModels: CommonValidationModels = {
-  clientId,
-  createdAt,
+  createdAt: validationModelBuilder
+    .create("createdAt")
+    .setModel(nativeModels.createdAt)
+    .type()
+    .required()
+    .empty()
+    .build(),
 };

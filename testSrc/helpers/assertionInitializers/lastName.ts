@@ -17,9 +17,7 @@ const lastNameAssertionInitializer: AssertionInitializer = (
     .stringEquality()
     .typeCheck()
     .emptyCheck()
-    .addIf(models.native.lastName.empty.value === false, () =>
-      builder.lteCheck()
-    )
+    .addIf(models.native.lastName.empty === false, () => builder.lteCheck())
     .run();
 };
 

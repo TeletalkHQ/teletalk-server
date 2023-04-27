@@ -1,7 +1,10 @@
 import { customTypeof } from "custom-typeof";
-import { Result, errorThrower, validationChecker } from "utility-store";
 
 import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
+import {
+  ValidationResult,
+  validationChecker,
+} from "@/classes/ValidationChecker";
 
 import { models } from "@/models";
 
@@ -9,19 +12,18 @@ import { Validator } from "@/types";
 
 import { ERRORS } from "@/variables";
 import { countries } from "@/variables";
+import { errorThrower } from "utility-store";
 
 const validator = ValidationModelBuilder.compiler(
   models.validation.countryCode
 );
 
 export const countryCodeValidator: Validator = async (countryCode: unknown) => {
-  const validationResult = await validator({
-    countryCode,
-  });
+  const validationResult = await validator(countryCode);
   errorChecker(validationResult, countryCode);
 };
 
-const errorChecker = (result: Result, countryCode: unknown) => {
+const errorChecker = (result: ValidationResult, countryCode: unknown) => {
   if (result === true) {
     const country = countries.find((c) => c.countryCode === countryCode);
     errorThrower(
@@ -32,15 +34,11 @@ const errorChecker = (result: Result, countryCode: unknown) => {
     return;
   }
 
-  validationChecker(
-    result,
-    {
-      extraErrorFields: {
-        validatedCountryCode: countryCode,
-      },
+  validationChecker(result, "countryCode", {
+    extraErrorFields: {
+      validatedCountryCode: countryCode,
     },
-    models.native.countryCode
-  ).check(function () {
+  }).check(function () {
     this.required()
       .stringEmpty()
       .string()

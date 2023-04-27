@@ -55,10 +55,10 @@ const findPrivateChat = async (
   currentUserId: string,
   targetParticipantId: string
 ) => {
-  const key = "participants.participantId" as keyof PrivateChatMongo;
+  const prop = "participants.participantId" as keyof PrivateChatMongo;
 
   return await findOnePrivateChat({
-    [key]: {
+    [prop]: {
       $all: [currentUserId, targetParticipantId],
     },
   });
@@ -67,7 +67,7 @@ const findPrivateChat = async (
 const createNewMessage = (messageText: string, currentUserId: string) => ({
   createdAt: Date.now(),
   messageText,
-  messageId: randomMaker.id(chatModels.messageId.maxLength.value),
+  messageId: randomMaker.id(chatModels.messageId.maxLength),
   sender: {
     senderId: currentUserId,
   },
@@ -86,7 +86,7 @@ const fixPrivateChat = async (data: {
     targetParticipantId: data.targetParticipantId,
   }));
 
-const createChatId = () => randomMaker.id(chatModels.chatId.maxLength.value);
+const createChatId = () => randomMaker.id(chatModels.chatId.maxLength);
 
 const saveMessageOnPrivateChat = async (data: {
   newMessage: Message;

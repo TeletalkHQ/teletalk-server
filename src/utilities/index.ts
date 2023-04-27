@@ -102,27 +102,12 @@ const findError = (
 };
 
 const makeErrorReason = (fieldName: Field, modelKeyName: NativeModelKey) => {
-  const FIELD_NAME = makeUpperFieldName(fieldName);
-
-  if (modelKeyName === "empty") return `${FIELD_NAME}_EMPTY` as ErrorReason;
-  if (modelKeyName === "length")
-    return `${FIELD_NAME}_INVALID_LENGTH` as ErrorReason;
-  if (modelKeyName === "maxLength")
-    return `${FIELD_NAME}_MAX_LENGTH_REACH` as ErrorReason;
-  if (modelKeyName === "minLength")
-    return `${FIELD_NAME}_MIN_LENGTH_REACH` as ErrorReason;
-  if (modelKeyName === "numeric") return `${FIELD_NAME}_NUMERIC` as ErrorReason;
-  if (modelKeyName === "required")
-    return `${FIELD_NAME}_REQUIRED` as ErrorReason;
-  if (modelKeyName === "type")
-    return `${FIELD_NAME}_INVALID_TYPE` as ErrorReason;
-  if (modelKeyName === "unique") return `${FIELD_NAME}_EXIST` as ErrorReason;
-
-  return `${FIELD_NAME}_INVALID` as ErrorReason;
+  return `${upperSnake(fieldName)}_${upperSnake(
+    modelKeyName
+  )}_ERROR` as ErrorReason;
 };
 
-const makeUpperFieldName = (fieldName: Field) =>
-  lodash.snakeCase(fieldName).toUpperCase();
+const upperSnake = (str: string) => lodash.snakeCase(str).toUpperCase();
 
 const utilities = {
   crashServer,
@@ -132,10 +117,10 @@ const utilities = {
   isEventNameMatch,
   logEnvironments,
   makeErrorReason,
-  makeUpperFieldName,
   passwordGenerator,
   regexMaker,
   sortEnvironments,
+  upperSnake,
 };
 
 export { utilities };

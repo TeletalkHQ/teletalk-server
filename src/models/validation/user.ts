@@ -2,191 +2,7 @@ import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { nativeModels } from "@/models/native";
 
-import { ValidationModel, ValidationPicker } from "@/types";
-
-const bio: ValidationModel<"bio"> = {
-  bio: validationModelBuilder
-    .create()
-    .setModel(nativeModels.bio)
-    .type()
-    .required()
-    .max()
-    .build(),
-};
-
-const countryCode: ValidationModel<"countryCode"> = {
-  countryCode: validationModelBuilder
-    .create()
-    .setModel(nativeModels.countryCode)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .numeric()
-    .trim()
-    .build(),
-};
-
-const countryName: ValidationModel<"countryName"> = {
-  countryName: validationModelBuilder
-    .create()
-    .setModel(nativeModels.countryName)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .trim()
-    .build(),
-};
-
-const firstName: ValidationModel<"firstName"> = {
-  firstName: validationModelBuilder
-    .create()
-    .setModel(nativeModels.firstName)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .trim()
-    .build(),
-};
-
-const isActive: ValidationModel<"isActive"> = {
-  isActive: validationModelBuilder
-    .create()
-    .setModel(nativeModels.isActive)
-    .type()
-    .required()
-    .build(),
-};
-
-const lastName: ValidationModel<"lastName"> = {
-  lastName: validationModelBuilder
-    .create()
-    .setModel(nativeModels.lastName)
-    .type()
-    .required()
-    .min()
-    .max()
-    .trim()
-    .build(),
-};
-
-const macAddress: ValidationModel<"macAddress"> = {
-  macAddress: validationModelBuilder
-    .create()
-    .setModel(nativeModels.macAddress)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .trim()
-    .unique()
-    .build(),
-};
-
-const phoneNumber: ValidationModel<"phoneNumber"> = {
-  phoneNumber: validationModelBuilder
-    .create()
-    .setModel(nativeModels.phoneNumber)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .numeric()
-    .build(),
-};
-
-const userId: ValidationModel<"userId"> = {
-  userId: validationModelBuilder
-    .create()
-    .setModel(nativeModels.userId)
-    .required()
-    .type()
-    .empty()
-    .min()
-    .max()
-    .trim()
-    .unique()
-    .build(),
-};
-
-const session: ValidationModel<"session"> = {
-  session: validationModelBuilder
-    .create()
-    .setModel(nativeModels.session)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .build(),
-};
-
-const verificationCode: ValidationModel<"verificationCode"> = {
-  verificationCode: validationModelBuilder
-    .create()
-    .setModel(nativeModels.verificationCode)
-    .required()
-    .empty()
-    .length()
-    // .max()
-    .numeric()
-    .trim()
-    .type()
-    .build(),
-};
-
-const username: ValidationModel<"username"> = {
-  username: validationModelBuilder
-    .create()
-    .setModel(nativeModels.username)
-    .type()
-    .required()
-    .min()
-    .max()
-    .trim()
-    .unique()
-    .build(),
-};
-
-const sessions: ValidationModel<"sessions"> = {
-  sessions: validationModelBuilder
-    .create()
-    .setModel(nativeModels.sessions)
-    .type()
-    .required()
-    .build(),
-};
-const blacklist: ValidationModel<"blacklist"> = {
-  blacklist: validationModelBuilder
-    .create()
-    .setModel(nativeModels.blacklist)
-    .type()
-    .required()
-    .build(),
-};
-const contacts: ValidationModel<"contacts"> = {
-  contacts: validationModelBuilder
-    .create()
-    .setModel(nativeModels.contacts)
-    .type()
-    .required()
-    .build(),
-};
-const status: ValidationModel<"status"> = {
-  status: validationModelBuilder
-    .create()
-    .setModel(nativeModels.status)
-    .type()
-    .required()
-    .build(),
-};
+import { ValidationPicker } from "@/types";
 
 type UserValidationModels = ValidationPicker<
   | "bio"
@@ -208,20 +24,142 @@ type UserValidationModels = ValidationPicker<
 >;
 
 export const userValidationModels: UserValidationModels = {
-  bio,
-  blacklist,
-  contacts,
-  countryCode,
-  countryName,
-  firstName,
-  isActive,
-  lastName,
-  macAddress,
-  phoneNumber,
-  session,
-  sessions,
-  status,
-  userId,
-  username,
-  verificationCode,
+  bio: validationModelBuilder
+    .create("bio")
+    .setModel(nativeModels.bio)
+    .type()
+    .required()
+    .max()
+    .build(),
+  blacklist: validationModelBuilder
+    .create("blacklist")
+    .setModel(nativeModels.blacklist)
+    .type()
+    .required()
+    .build(),
+  contacts: validationModelBuilder
+    .create("contacts")
+    .setModel(nativeModels.contacts)
+    .type()
+    .required()
+    .build(),
+  countryCode: validationModelBuilder
+    .create("countryCode")
+    .setModel(nativeModels.countryCode)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .numeric()
+    .trim()
+    .build(),
+  countryName: validationModelBuilder
+    .create("countryName")
+    .setModel(nativeModels.countryName)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
+    .build(),
+  firstName: validationModelBuilder
+    .create("firstName")
+    .setModel(nativeModels.firstName)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
+    .build(),
+  isActive: validationModelBuilder
+    .create("isActive")
+    .setModel(nativeModels.isActive)
+    .type()
+    .required()
+    .build(),
+  lastName: validationModelBuilder
+    .create("lastName")
+    .setModel(nativeModels.lastName)
+    .type()
+    .required()
+    .min()
+    .max()
+    .trim()
+    .build(),
+  macAddress: validationModelBuilder
+    .create("macAddress")
+    .setModel(nativeModels.macAddress)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .trim()
+    .unique()
+    .build(),
+  phoneNumber: validationModelBuilder
+    .create("phoneNumber")
+    .setModel(nativeModels.phoneNumber)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .numeric()
+    .build(),
+  session: validationModelBuilder
+    .create("session")
+    .setModel(nativeModels.session)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .build(),
+  sessions: validationModelBuilder
+    .create("sessions")
+    .setModel(nativeModels.sessions)
+    .type()
+    .required()
+    .build(),
+  status: validationModelBuilder
+    .create("status")
+    .setModel(nativeModels.status)
+    .type()
+    .required()
+    .build(),
+  userId: validationModelBuilder
+    .create("userId")
+    .setModel(nativeModels.userId)
+    .required()
+    .type()
+    .empty()
+    .min()
+    .max()
+    .trim()
+    .unique()
+    .build(),
+  username: validationModelBuilder
+    .create("username")
+    .setModel(nativeModels.username)
+    .type()
+    .required()
+    .min()
+    .max()
+    .trim()
+    .unique()
+    .build(),
+  verificationCode: validationModelBuilder
+    .create("verificationCode")
+    .setModel(nativeModels.verificationCode)
+    .required()
+    .empty()
+    .length() // .max()
+    .numeric()
+    .trim()
+    .type()
+    .build(),
 };

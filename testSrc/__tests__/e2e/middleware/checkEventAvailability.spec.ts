@@ -48,11 +48,13 @@ helpers.asyncDescribe(
             data: { ERRORS: responseErrors },
           } = requester.getResponse();
 
-          const { key } = ERRORS.ROUTE_NOT_FOUND;
-          if (responseErrors?.[key]) {
-            chai.expect(responseErrors[key].reason).to.be.an(FIELD_TYPE.STRING);
+          const { reason: expectedReason } = ERRORS.ROUTE_NOT_FOUND;
+          if (responseErrors?.[expectedReason]) {
             chai
-              .expect(responseErrors[key].reason)
+              .expect(responseErrors[expectedReason].reason)
+              .to.be.an(FIELD_TYPE.STRING);
+            chai
+              .expect(responseErrors[expectedReason].reason)
               .not.equal(ERRORS.ROUTE_NOT_FOUND.reason);
           }
         });

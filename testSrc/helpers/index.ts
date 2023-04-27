@@ -26,11 +26,16 @@ import {
 import { countries } from "@/variables";
 
 import { routes } from "@/websocket/events";
+import { utilities } from "@/utilities";
 
 async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
   const describeBody = await suite();
 
-  describe(title, describeBody);
+  try {
+    describe(title, describeBody);
+  } catch (error) {
+    utilities.crashServer(error);
+  }
 }
 
 const setupRequester = async (
@@ -48,7 +53,7 @@ const setupRequester = async (
 
 const getWrongCountryCode = (): string => {
   const randomCountryCode = randomMaker.stringNumber(
-    models.native.countryCode.maxLength.value
+    models.native.countryCode.maxLength
   );
 
   const isCountryExist = countries.some(
@@ -67,7 +72,7 @@ const requesterMakerHelper: RequesterMakerHelper = (route: SocketRoute) => {
 };
 
 const createFailTestMessage = (error: NativeError, eventName: EventName) => {
-  return `expected error: [event:${eventName}] [key:${error.key}] [reason:${error.reason}]`;
+  return `expected error: [event:${eventName}] [side:${error.side}] [reason:${error.reason}]`;
 };
 
 function generateDynamicData(schema: IoFields): Record<string, unknown> {
@@ -88,13 +93,11 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
           break;
         }
         if (fieldName === "phoneNumber") {
-          data[fieldName] = randomMaker.stringNumber(
-            fieldModel.maxLength.value
-          );
+          data[fieldName] = randomMaker.stringNumber(fieldModel.maxLength);
           break;
         }
 
-        data[fieldName] = faker.datatype.string(fieldModel.maxLength.value);
+        data[fieldName] = faker.datatype.string(fieldModel.maxLength);
         break;
       // case "number":
       //   data[fieldName] = faker.datatype.number();
@@ -106,17 +109,17 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
         data[fieldName] = generateDynamicData(field.value as IoFields);
         break;
       // case "array":
-      //   const fieldArr = Array.isArray(field.value)
-      //     ? field.value
-      //     : [field.value];
+      //   const fieldArr = Array.isArray(field)
+      //     ? field
+      //     : [field];
       //   data[fieldName] = fieldArr.map((item) => {
       //     if (typeof item === "string") {
       //       if (fieldName === "countryCode" || fieldName === "phoneNumber") {
       //         return faker.datatype
-      //           .number(fieldModel.maxLength.value)
+      //           .number(fieldModel.maxLength)
       //           .toString();
       //       }
-      //       return faker.datatype.string(fieldModel.maxLength.value);
+      //       return faker.datatype.string(fieldModel.maxLength);
       //     }
       //     // else if (typeof item === "number") {
       //     //   return faker.datatype.number();

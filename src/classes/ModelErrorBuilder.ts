@@ -49,7 +49,7 @@ class ModelErrorBuilder {
   }
 
   generateDefaultError(errors: ErrorCollection, fieldName: Field) {
-    const FIELD_NAME = utilities.makeUpperFieldName(fieldName);
+    const FIELD_NAME = utilities.upperSnake(fieldName);
     const REASON = `${FIELD_NAME}_INVALID` as ErrorReason;
     errors[REASON] = errorBuilder().reason(REASON).build();
   }

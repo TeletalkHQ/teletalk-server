@@ -28,19 +28,19 @@ const checkClientIdExistence: SocketMiddleware = async (
 
 const tryBlock = async (socket: Socket) => {
   const cookie = socket.handshake.headers.cookie;
-  if (!cookie) throw ERRORS.CLIENT_ID_REQUIRED;
+  if (!cookie) throw ERRORS.CLIENT_ID_REQUIRED_ERROR;
 
   const clientId = utilities.extractClientIdFromCookie(cookie);
 
   //CLEANME: Add validator
   errorThrower(
     clientId.length < models.native.clientId.minLength,
-    ERRORS.CLIENT_ID_MIN_LENGTH_REACH
+    ERRORS.CLIENT_ID_MIN_LENGTH_ERROR
   );
 
   errorThrower(
     clientId.length > models.native.clientId.maxLength,
-    ERRORS.CLIENT_ID_MAX_LENGTH_REACH
+    ERRORS.CLIENT_ID_MAX_LENGTH_ERROR
   );
 
   return { ok: true };

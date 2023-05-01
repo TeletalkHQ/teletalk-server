@@ -17,7 +17,7 @@ import { models } from "@/models";
 
 import { services } from "@/services";
 
-import { Session, Client, UserMongo } from "@/types";
+import { SessionObjType, Client, UserMongo } from "@/types";
 
 describe("verifySignIn success test", () => {
   it("should sign and verify as new user", async () => {
@@ -104,7 +104,9 @@ const testUserSession = async (
 
 const getSavedUserSession = async (userId: string, session: string) => {
   const savedUser = (await getSavedUser(userId)) as UserMongo;
-  return savedUser.sessions.find((i) => i.session === session) as Session;
+  return savedUser.sessions.find(
+    (i) => i.session === session
+  ) as SessionObjType;
 };
 
 const getSavedUser = async (userId: string) => {

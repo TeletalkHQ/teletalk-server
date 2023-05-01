@@ -12,10 +12,11 @@ import { ERRORS } from "@/variables";
 
 const auth: SocketMiddleware = async (socket, next, [name]) => {
   await trier<VerifiedSession>(auth.name)
-    .tryAsync(tryBlock, socket, name)
+    .async()
+    .try(tryBlock, socket, name)
     .executeIfNoError(executeIfNoError, socket, next)
     .throw()
-    .runAsync();
+    .run();
 };
 
 const tryBlock = async (socket: Socket, eventName: string) => {

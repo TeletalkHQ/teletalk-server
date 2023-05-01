@@ -11,10 +11,11 @@ import { utilities } from "@/utilities";
 
 const attachClientId: SocketMiddleware = async (socket, next, [_name]) => {
   return await trier<SocketMiddlewareReturnValue>(attachClientId.name)
-    .tryAsync(tryBlock, socket)
+    .async()
+    .try(tryBlock, socket)
     .executeIfNoError(executeIfNoError, next)
     .throw()
-    .runAsync();
+    .run();
 };
 
 const tryBlock = async (socket: Socket) => {

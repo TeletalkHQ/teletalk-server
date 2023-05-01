@@ -6,8 +6,8 @@ import { FIELD_TYPE } from "$/variables";
 
 type TestItem = () => void;
 
-interface Variables {
-  model: NativeModel;
+interface Variables<Model> {
+  model: Model;
   modelMaxLength: number;
   modelMinLength: number;
   modelLength: number;
@@ -15,11 +15,11 @@ interface Variables {
   testValue: any;
 }
 
-class AssertionInitializer {
+class AssertionInitializer<Model extends Partial<NativeModel> = any> {
   tests: TestItem[] = [];
 
   options = this.defaultOptions();
-  variables: Variables;
+  variables: Variables<Model>;
 
   private defaultOptions() {
     return {
@@ -28,20 +28,20 @@ class AssertionInitializer {
     };
   }
 
-  setVariables(model: NativeModel, equalValue: any, testValue: any) {
+  setVariables(model: Model, equalValue: any, testValue: any) {
     this.variables = {
       ...this.variables,
       model,
       equalValue,
       testValue,
-      modelLength: model?.length,
-      modelMaxLength: model?.maxLength,
-      modelMinLength: model?.minLength,
+      modelLength: model.length!,
+      modelMaxLength: model.maxLength!,
+      modelMinLength: model.minLength!,
     };
 
     return this;
   }
-  setModel(model: NativeModel) {
+  setModel(model: Model) {
     this.variables.model = model;
     return this;
   }
@@ -114,7 +114,7 @@ class AssertionInitializer {
       this.tests.push(() =>
         chai
           .expect(this.variables.testValue)
-          .to.be.an(customType || this.variables.model.type)
+          .to.be.an(customType || this.variables.model.type!)
       );
     });
 
@@ -180,6 +180,9 @@ class AssertionInitializer {
   }
 }
 
-const assertionInitializer = { create: () => new AssertionInitializer() };
+const assertionInitializer = {
+  create: <Model extends Partial<NativeModel>>() =>
+    new AssertionInitializer<Model>(),
+};
 
 export { assertionInitializer, AssertionInitializer };

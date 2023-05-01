@@ -19,6 +19,7 @@ const checkDataFields: SocketMiddleware = (_socket, next, [name, data]) => {
   ) as SocketRoute;
 
   trier<void>(checkDataFields.name)
+    .sync()
     .try(tryBlock, data, inputFields)
     .executeIfNoError(executeIfNoError, next)
     .catch(catchBlock, inputFields)

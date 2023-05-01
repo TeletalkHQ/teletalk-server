@@ -85,14 +85,6 @@ export type NodeEnvValue =
 
 export type EnvFileName = NodeEnvValue | "base";
 
-export type FieldType =
-  | "array"
-  | "boolean"
-  | "date"
-  | "number"
-  | "object"
-  | "string";
-
 export interface StringMap {
   [prop: string]: any;
 }
@@ -155,8 +147,6 @@ export interface Contact extends FullName {
 
 export type SocketMiddlewareEvent = string | string[];
 
-export type CreatedAt = number;
-
 export type LogLevel = "debug" | "error" | "info" | "warn";
 
 export interface Environments {
@@ -187,7 +177,7 @@ export interface Sender {
   senderId: string;
 }
 export interface Message {
-  createdAt: CreatedAt;
+  createdAt: number;
   messageText: string;
   messageId: string;
   sender: Sender;
@@ -199,16 +189,16 @@ export interface Participant {
 
 export interface PrivateChatMongo {
   chatId: string;
-  createdAt: CreatedAt;
+  createdAt: number;
   messages: Types.Array<Message>;
   participants: Types.Array<Participant>;
 }
 
-export interface Session {
+export interface SessionObjType {
   session: string;
 }
 
-export interface Status {
+export interface StatusObjType {
   isActive: boolean;
 }
 
@@ -221,10 +211,10 @@ export interface UserMongo extends Cellphone, FullName {
   contacts: Contact[] | ContactWithCellphone[];
   blacklist: BlackListItem[];
   userId: string;
-  createdAt: CreatedAt;
+  createdAt: number;
   username: string;
-  sessions: Session[];
-  status: Status;
+  sessions: SessionObjType[];
+  status: StatusObjType;
 }
 
 export interface VerifiedSession {
@@ -243,8 +233,8 @@ export type ErrorReason =
   | "BIO_EMPTY"
   | "BIO_INVALID_TYPE"
   | "BIO_INVALID"
-  | "BIO_MAX_LENGTH_REACH"
-  | "BIO_MIN_LENGTH_REACH"
+  | "BIO_MAX_LENGTH_ERROR"
+  | "BIO_MIN_LENGTH_ERROR"
   | "BIO_REQUIRED"
   | "BLACKLIST_INVALID_TYPE"
   | "BLACKLIST_ITEM_EXIST"
@@ -255,18 +245,18 @@ export type ErrorReason =
   | "CHAT_ID_EXIST"
   | "CHAT_ID_INVALID_TYPE"
   | "CHAT_ID_INVALID"
-  | "CHAT_ID_MAX_LENGTH_REACH"
-  | "CHAT_ID_MIN_LENGTH_REACH"
+  | "CHAT_ID_MAX_LENGTH_ERROR"
+  | "CHAT_ID_MIN_LENGTH_ERROR"
   | "CHAT_ID_REQUIRED"
   | "CHAT_NOT_EXIST"
   | "CHATS_INVALID_TYPE"
   | "CLIENT_ID_EMPTY"
   | "CLIENT_ID_EXIST"
   | "CLIENT_ID_INVALID_TYPE"
-  | "CLIENT_ID_MAX_LENGTH_REACH"
-  | "CLIENT_ID_MIN_LENGTH_REACH"
+  | "CLIENT_ID_MAX_LENGTH_ERROR"
+  | "CLIENT_ID_MIN_LENGTH_ERROR"
   | "CLIENT_ID_NOT_DEFINED"
-  | "CLIENT_ID_REQUIRED"
+  | "CLIENT_ID_REQUIRED_ERROR"
   | "CLIENT_NOT_FOUND"
   | "CLIENT_NOT_VERIFIED"
   | "CONTACT_INVALID_TYPE"
@@ -278,16 +268,16 @@ export type ErrorReason =
   | "COUNTRY_CODE_EMPTY"
   | "COUNTRY_CODE_INVALID_TYPE"
   | "COUNTRY_CODE_INVALID"
-  | "COUNTRY_CODE_MAX_LENGTH_REACH"
-  | "COUNTRY_CODE_MIN_LENGTH_REACH"
+  | "COUNTRY_CODE_MAX_LENGTH_ERROR"
+  | "COUNTRY_CODE_MIN_LENGTH_ERROR"
   | "COUNTRY_CODE_NOT_SUPPORTED"
   | "COUNTRY_CODE_NUMERIC"
   | "COUNTRY_CODE_REQUIRED"
   | "COUNTRY_NAME_EMPTY"
   | "COUNTRY_NAME_INVALID_TYPE"
   | "COUNTRY_NAME_INVALID"
-  | "COUNTRY_NAME_MAX_LENGTH_REACH"
-  | "COUNTRY_NAME_MIN_LENGTH_REACH"
+  | "COUNTRY_NAME_MAX_LENGTH_ERROR"
+  | "COUNTRY_NAME_MIN_LENGTH_ERROR"
   | "COUNTRY_NAME_NOT_SUPPORTED"
   | "COUNTRY_NAME_REQUIRED"
   | "COUNTRY_NOT_SUPPORTED"
@@ -301,8 +291,8 @@ export type ErrorReason =
   | "FIRST_NAME_EMPTY"
   | "FIRST_NAME_INVALID_TYPE"
   | "FIRST_NAME_INVALID"
-  | "FIRST_NAME_MAX_LENGTH_REACH"
-  | "FIRST_NAME_MIN_LENGTH_REACH"
+  | "FIRST_NAME_MAX_LENGTH_ERROR"
+  | "FIRST_NAME_MIN_LENGTH_ERROR"
   | "FIRST_NAME_REQUIRED"
   | "FULL_NAME_INVALID"
   | "INPUT_DATA_NOT_DEFINED"
@@ -313,26 +303,26 @@ export type ErrorReason =
   | "LAST_NAME_EMPTY"
   | "LAST_NAME_INVALID_TYPE"
   | "LAST_NAME_INVALID"
-  | "LAST_NAME_MAX_LENGTH_REACH"
-  | "LAST_NAME_MIN_LENGTH_REACH"
+  | "LAST_NAME_MAX_LENGTH_ERROR"
+  | "LAST_NAME_MIN_LENGTH_ERROR"
   | "LAST_NAME_REQUIRED"
   | "MAC_ADDRESS_EMPTY"
   | "MAC_ADDRESS_EXIST"
   | "MAC_ADDRESS_INVALID_TYPE"
-  | "MAC_ADDRESS_MAX_LENGTH_REACH"
-  | "MAC_ADDRESS_MIN_LENGTH_REACH"
+  | "MAC_ADDRESS_MAX_LENGTH_ERROR"
+  | "MAC_ADDRESS_MIN_LENGTH_ERROR"
   | "MAC_ADDRESS_REQUIRED"
   | "MESSAGE_ID_EMPTY"
   | "MESSAGE_ID_EXIST"
   | "MESSAGE_ID_INVALID_TYPE"
-  | "MESSAGE_ID_MAX_LENGTH_REACH"
-  | "MESSAGE_ID_MIN_LENGTH_REACH"
+  | "MESSAGE_ID_MAX_LENGTH_ERROR"
+  | "MESSAGE_ID_MIN_LENGTH_ERROR"
   | "MESSAGE_ID_REQUIRED"
   | "MESSAGE_TEXT_EMPTY"
   | "MESSAGE_TEXT_INVALID_TYPE"
   | "MESSAGE_TEXT_INVALID"
-  | "MESSAGE_TEXT_MAX_LENGTH_REACH"
-  | "MESSAGE_TEXT_MIN_LENGTH_REACH"
+  | "MESSAGE_TEXT_MAX_LENGTH_ERROR"
+  | "MESSAGE_TEXT_MIN_LENGTH_ERROR"
   | "MESSAGE_TEXT_REQUIRED"
   | "MESSAGES_INVALID_TYPE"
   | "MESSAGES_REQUIRED"
@@ -348,8 +338,8 @@ export type ErrorReason =
   | "PARTICIPANT_ID_EXIST"
   | "PARTICIPANT_ID_INVALID_TYPE"
   | "PARTICIPANT_ID_INVALID"
-  | "PARTICIPANT_ID_MAX_LENGTH_REACH"
-  | "PARTICIPANT_ID_MIN_LENGTH_REACH"
+  | "PARTICIPANT_ID_MAX_LENGTH_ERROR"
+  | "PARTICIPANT_ID_MIN_LENGTH_ERROR"
   | "PARTICIPANT_ID_REQUIRED"
   | "PARTICIPANT_NOT_EXIST"
   | "PARTICIPANTS_EMPTY"
@@ -360,8 +350,8 @@ export type ErrorReason =
   | "PHONE_NUMBER_EXIST"
   | "PHONE_NUMBER_INVALID_TYPE"
   | "PHONE_NUMBER_INVALID"
-  | "PHONE_NUMBER_MAX_LENGTH_REACH"
-  | "PHONE_NUMBER_MIN_LENGTH_REACH"
+  | "PHONE_NUMBER_MAX_LENGTH_ERROR"
+  | "PHONE_NUMBER_MIN_LENGTH_ERROR"
   | "PHONE_NUMBER_NUMERIC"
   | "PHONE_NUMBER_REQUIRED"
   | "PRIVATE_CHATS_INVALID_TYPE"
@@ -379,8 +369,8 @@ export type ErrorReason =
   | "SENDER_EMPTY"
   | "SENDER_ID_EXIST"
   | "SENDER_ID_INVALID_TYPE"
-  | "SENDER_ID_MAX_LENGTH_REACH"
-  | "SENDER_ID_MIN_LENGTH_REACH"
+  | "SENDER_ID_MAX_LENGTH_ERROR"
+  | "SENDER_ID_MIN_LENGTH_ERROR"
   | "SENDER_ID_REQUIRED"
   | "SERVER_CRITICAL_ERROR"
   | "SESSION_CAN_NOT_VERIFIED"
@@ -388,9 +378,9 @@ export type ErrorReason =
   | "SESSION_EXIST"
   | "SESSION_INVALID_TYPE"
   | "SESSION_INVALID"
-  | "SESSION_MAX_LENGTH_REACH"
-  | "SESSION_MIN_LENGTH_REACH"
-  | "SESSION_REQUIRED"
+  | "SESSION_MAX_LENGTH_ERROR"
+  | "SESSION_MIN_LENGTH_ERROR"
+  | "SESSION_REQUIRED_ERROR"
   | "SESSIONS_INVALID_TYPE"
   | "SESSIONS_REQUIRED"
   | "STATUS_INVALID_TYPE"
@@ -402,22 +392,22 @@ export type ErrorReason =
   | "USER_ID_EXIST"
   | "USER_ID_INVALID_TYPE"
   | "USER_ID_INVALID"
-  | "USER_ID_MAX_LENGTH_REACH"
-  | "USER_ID_MIN_LENGTH_REACH"
+  | "USER_ID_MAX_LENGTH_ERROR"
+  | "USER_ID_MIN_LENGTH_ERROR"
   | "USER_ID_REQUIRED"
   | "USER_NO_LONGER_PARTICIPANT"
   | "USERNAME_EMPTY"
   | "USERNAME_EXIST"
   | "USERNAME_INVALID_TYPE"
   | "USERNAME_INVALID"
-  | "USERNAME_MAX_LENGTH_REACH"
-  | "USERNAME_MIN_LENGTH_REACH"
+  | "USERNAME_MAX_LENGTH_ERROR"
+  | "USERNAME_MIN_LENGTH_ERROR"
   | "USERNAME_REQUIRED"
   | "VERIFICATION_CODE_EMPTY"
   | "VERIFICATION_CODE_INVALID_LENGTH"
   | "VERIFICATION_CODE_INVALID_TYPE"
   | "VERIFICATION_CODE_INVALID"
-  | "VERIFICATION_CODE_MAX_LENGTH_REACH"
+  | "VERIFICATION_CODE_MAX_LENGTH_ERROR"
   | "VERIFICATION_CODE_NUMERIC"
   | "VERIFICATION_CODE_REQUIRED";
 
@@ -503,31 +493,6 @@ export type ValidationPicker<T extends Field> = Pick<
   Extract<Field, T>
 >;
 
-export interface NativeModel {
-  defaultValue: any;
-  empty: boolean;
-  items: any[];
-  length: number;
-  maxLength: number;
-  minLength: number;
-  numeric: boolean;
-  required: boolean;
-  trim: boolean;
-  type: FieldType;
-  unique: boolean;
-}
-
-export type NativeModelKey = keyof NativeModel;
-
-export type NativeModelCollection = {
-  [F in Field]: NativeModel;
-};
-
-export type NativeModelPicker<T extends Field> = Pick<
-  NativeModelCollection,
-  Extract<Field, T>
->;
-
 export type ValidationResult =
   | true
   | ValidationError[]
@@ -568,6 +533,4 @@ export type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
 
 export type { Socket };
 
-// export type ValidationModel<F extends Field = any> = {
-//   [P in F]: ValidationRuleObject;
-// };
+export * from "@/types/models";

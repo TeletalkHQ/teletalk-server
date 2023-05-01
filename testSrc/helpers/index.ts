@@ -12,6 +12,7 @@ import { models } from "@/models";
 import {
   Cellphone,
   EventName,
+  Field,
   FullName,
   NativeError,
   SocketRoute,
@@ -79,25 +80,29 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
   const data: Record<string, unknown> = {};
 
   Object.entries(schema).forEach(([fieldName, field]) => {
-    const { [fieldName as keyof typeof models.native]: fieldModel } =
-      models.native;
+    const FIELD_NAME = fieldName as Field;
+    const fieldModel = models.native[FIELD_NAME];
 
     switch (field.type) {
       case "string":
-        if (fieldName === "countryCode") {
+        if (FIELD_NAME === "countryCode") {
           data[fieldName] = randomMaker.country().countryCode;
           break;
         }
-        if (fieldName === "countryName") {
+        if (FIELD_NAME === "countryName") {
           data[fieldName] = randomMaker.country().countryName;
           break;
         }
-        if (fieldName === "phoneNumber") {
+        if (FIELD_NAME === "phoneNumber") {
+          // @ts-ignore
           data[fieldName] = randomMaker.stringNumber(fieldModel.maxLength);
           break;
         }
 
-        data[fieldName] = faker.datatype.string(fieldModel.maxLength);
+        data[fieldName] = faker.datatype.string(
+          // @ts-ignore
+          fieldModel.maxLength
+        );
         break;
       // case "number":
       //   data[fieldName] = faker.datatype.number();

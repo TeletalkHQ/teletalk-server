@@ -35,7 +35,7 @@ describe("checkClientIdExistence fail tests", () => {
 
   for (const route of checkingRoutes) {
     const title = helpers.createFailTestMessage(
-      ERRORS.CLIENT_ID_REQUIRED,
+      ERRORS.CLIENT_ID_REQUIRED_ERROR,
       route.name
     );
     it(title, async () => {
@@ -47,20 +47,20 @@ describe("checkClientIdExistence fail tests", () => {
 
       await requesterMaker(socket, route).sendFullFeaturedRequest(
         {},
-        ERRORS.CLIENT_ID_REQUIRED
+        ERRORS.CLIENT_ID_REQUIRED_ERROR
       );
     });
   }
 
   for (const route of checkingRoutes) {
     const title = helpers.createFailTestMessage(
-      ERRORS.CLIENT_ID_MAX_LENGTH_REACH,
+      ERRORS.CLIENT_ID_MAX_LENGTH_ERROR,
       route.name
     );
     it(title, async () => {
       await caller(
         route,
-        ERRORS.CLIENT_ID_MAX_LENGTH_REACH,
+        ERRORS.CLIENT_ID_MAX_LENGTH_ERROR,
         randomMaker.string(models.native.clientId.maxLength + 1)
       );
     });
@@ -68,13 +68,13 @@ describe("checkClientIdExistence fail tests", () => {
 
   for (const route of checkingRoutes) {
     const title = helpers.createFailTestMessage(
-      ERRORS.CLIENT_ID_MIN_LENGTH_REACH,
+      ERRORS.CLIENT_ID_MIN_LENGTH_ERROR,
       route.name
     );
     it(title, async () => {
       await caller(
         route,
-        ERRORS.CLIENT_ID_MIN_LENGTH_REACH,
+        ERRORS.CLIENT_ID_MIN_LENGTH_ERROR,
         randomMaker.string(models.native.clientId.minLength - 1)
       );
     });

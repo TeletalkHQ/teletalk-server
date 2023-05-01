@@ -14,10 +14,11 @@ const verifyVerificationCode: SocketMiddleware = async (
   [_name, data]
 ) => {
   await trier<void>(verifyVerificationCode.name)
-    .tryAsync(tryBlock, socket, data)
+    .async()
+    .try(tryBlock, socket, data)
     .executeIfNoError(executeIfNoError, next)
     .throw()
-    .runAsync();
+    .run();
 };
 
 const tryBlock = async (socket: Socket, data: StringMap) => {

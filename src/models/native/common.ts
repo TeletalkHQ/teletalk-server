@@ -1,13 +1,10 @@
 import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
-import { NativeModelPicker } from "@/types";
 
-type CommonModels = NativeModelPicker<
-  "chatId" | "clientId" | "createdAt" | "messageId" | "userId"
->;
+import { ChatId, ClientId, MessageId, UserId, CreatedAt } from "@/types";
 
-export const commonModels: CommonModels = {
+export const commonModels = {
   chatId: nativeModelBuilder
-    .create()
+    .create<ChatId>()
     .type("string")
     .required(true)
     .empty(false)
@@ -17,7 +14,7 @@ export const commonModels: CommonModels = {
     .unique(true)
     .build(),
   clientId: nativeModelBuilder
-    .create()
+    .create<ClientId>()
     .type("string")
     .empty(false)
     .required(true)
@@ -27,13 +24,13 @@ export const commonModels: CommonModels = {
     .trim(true)
     .build(),
   createdAt: nativeModelBuilder
-    .create()
+    .create<CreatedAt>()
     .type("number")
     .required(true)
     .empty(false)
     .build(),
   messageId: nativeModelBuilder
-    .create()
+    .create<MessageId>()
     .type("string")
     .required(true)
     .empty(false)
@@ -43,7 +40,7 @@ export const commonModels: CommonModels = {
     .unique(true)
     .build(),
   userId: nativeModelBuilder
-    .create()
+    .create<UserId>()
     .type("string")
     .required(true)
     .empty(false)

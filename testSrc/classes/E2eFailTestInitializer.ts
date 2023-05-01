@@ -10,22 +10,24 @@ import { Field, FieldType, NativeError, NativeModel } from "@/types";
 import { ERRORS } from "@/variables";
 import { utilities } from "@/utilities";
 
-class E2eFailTestInitializer {
+type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
+
+class E2eFailTestInitializer<PartialNativeModel extends Model> {
   constructor(
     private configuredRequester: Requester,
     private data = {},
-    private model: NativeModel,
+    private model: PartialNativeModel,
     private fieldName: Field
   ) {}
 
   getMinLength() {
-    return this.model.minLength;
+    return this.model.minLength as number;
   }
   getMaxLength() {
-    return this.model.maxLength;
+    return this.model.maxLength as number;
   }
   getLength() {
-    return this.model.length;
+    return this.model.length as number;
   }
   dataMerger(newValue?: any) {
     return { ...this.data, [this.fieldName]: newValue };
@@ -109,12 +111,18 @@ class E2eFailTestInitializer {
 }
 
 const e2eFailTestInitializer = {
-  create: (
+  create: <PartialNativeModel extends Model>(
     configuredRequester: Requester,
     data: any,
-    model: NativeModel,
+    model: PartialNativeModel,
     fieldName: Field
-  ) => new E2eFailTestInitializer(configuredRequester, data, model, fieldName),
+  ) =>
+    new E2eFailTestInitializer<PartialNativeModel>(
+      configuredRequester,
+      data,
+      model,
+      fieldName
+    ),
 };
 
 export { e2eFailTestInitializer };

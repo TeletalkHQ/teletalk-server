@@ -2,31 +2,27 @@ import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
 
 import { commonModels } from "@/models/native/common";
 
-import { NativeModelPicker } from "@/types";
+import {
+  Bio,
+  Blacklist,
+  Contacts,
+  CountryCode,
+  CountryName,
+  FirstName,
+  IsActive,
+  LastName,
+  MacAddress,
+  PhoneNumber,
+  Session,
+  Sessions,
+  Status,
+  Username,
+  VerificationCode,
+} from "@/types";
 
-type UserModels = NativeModelPicker<
-  | "bio"
-  | "blacklist"
-  | "contacts"
-  | "countryCode"
-  | "countryName"
-  | "createdAt"
-  | "firstName"
-  | "isActive"
-  | "lastName"
-  | "macAddress"
-  | "phoneNumber"
-  | "session"
-  | "sessions"
-  | "status"
-  | "userId"
-  | "username"
-  | "verificationCode"
->;
-
-export const userModels: UserModels = {
+export const userModels = {
   bio: nativeModelBuilder
-    .create()
+    .create<Bio>()
     .type("string")
     .required(true)
     .empty(true)
@@ -36,19 +32,19 @@ export const userModels: UserModels = {
     .maxLength(255)
     .build(),
   blacklist: nativeModelBuilder
-    .create()
+    .create<Blacklist>()
     .type("array")
     .required(true)
     .empty(true)
     .build(),
   contacts: nativeModelBuilder
-    .create()
+    .create<Contacts>()
     .type("array")
     .required(true)
     .empty(true)
     .build(),
   countryCode: nativeModelBuilder
-    .create()
+    .create<CountryCode>()
     .type("string")
     .required(true)
     .empty(false)
@@ -58,7 +54,7 @@ export const userModels: UserModels = {
     .trim(true)
     .build(),
   countryName: nativeModelBuilder
-    .create()
+    .create<CountryName>()
     .type("string")
     .required(true)
     .empty(false)
@@ -68,7 +64,7 @@ export const userModels: UserModels = {
     .build(),
   createdAt: commonModels.createdAt,
   firstName: nativeModelBuilder
-    .create()
+    .create<FirstName>()
     .type("string")
     .required(true)
     .empty(false)
@@ -77,13 +73,13 @@ export const userModels: UserModels = {
     .trim(true)
     .build(),
   isActive: nativeModelBuilder
-    .create()
+    .create<IsActive>()
     .type("boolean")
     .required(true)
     .defaultValue(false)
     .build(),
   lastName: nativeModelBuilder
-    .create()
+    .create<LastName>()
     .type("string")
     .required(true)
     .empty(true)
@@ -92,7 +88,7 @@ export const userModels: UserModels = {
     .trim(true)
     .build(),
   macAddress: nativeModelBuilder
-    .create()
+    .create<MacAddress>()
     .type("string")
     .required(true)
     .empty(false)
@@ -102,7 +98,7 @@ export const userModels: UserModels = {
     .unique(true)
     .build(),
   phoneNumber: nativeModelBuilder
-    .create()
+    .create<PhoneNumber>()
     .type("string")
     .required(true)
     .empty(false)
@@ -112,7 +108,7 @@ export const userModels: UserModels = {
     .unique(true)
     .build(),
   session: nativeModelBuilder
-    .create()
+    .create<Session>()
     .type("string")
     .required(true)
     .empty(false)
@@ -121,20 +117,22 @@ export const userModels: UserModels = {
     .unique(true)
     .build(),
   sessions: nativeModelBuilder
-    .create()
+    .create<Sessions>()
     .type("array")
     .required(true)
     .empty(true)
     .build(),
   status: nativeModelBuilder
-    .create()
+    .create<Status>()
     .type("object")
     .required(true)
-    .defaultValue({})
+    .defaultValue({
+      ss: "",
+    })
     .build(),
   userId: commonModels.userId,
   username: nativeModelBuilder
-    .create()
+    .create<Username>()
     .type("string")
     .required(true)
     .empty(true)
@@ -144,7 +142,7 @@ export const userModels: UserModels = {
     .trim(true)
     .build(),
   verificationCode: nativeModelBuilder
-    .create()
+    .create<VerificationCode>()
     .type("string")
     .required(true)
     .empty(false)

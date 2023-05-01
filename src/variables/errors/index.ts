@@ -143,8 +143,6 @@ const LOCAL_ERRORS = {
   },
 };
 
-console.log(MODEL_ERRORS);
-
 export {
   CHECK_FIELD_ERRORS,
   CUSTOM_ERRORS,

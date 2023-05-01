@@ -10,7 +10,13 @@ import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
-import { Cellphone, Client, FullName, Session, UserMongo } from "@/types";
+import {
+  Cellphone,
+  Client,
+  FullName,
+  SessionObjType,
+  UserMongo,
+} from "@/types";
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
@@ -54,7 +60,10 @@ const testCreatedUserSession = async (clientId: string) => {
 
   const verifiedSession = authManager.verify(session);
   const userId = userUtilities.getUserIdFromVerified(verifiedSession);
-  const foundSession = (await getSavedUserSession(userId, session)) as Session;
+  const foundSession = (await getSavedUserSession(
+    userId,
+    session
+  )) as SessionObjType;
 
   assertionInitializerHelper().authentication({
     equalValue: foundSession.session,

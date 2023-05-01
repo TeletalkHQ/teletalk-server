@@ -20,10 +20,11 @@ const checkClientIdExistence: SocketMiddleware = async (
   [_name, data]
 ) => {
   return await trier<SocketMiddlewareReturnValue>(checkClientIdExistence.name)
-    .tryAsync(tryBlock, socket, data)
+    .async()
+    .try(tryBlock, socket, data)
     .executeIfNoError(executeIfNoError, next)
     .throw()
-    .runAsync();
+    .run();
 };
 
 const tryBlock = async (socket: Socket) => {

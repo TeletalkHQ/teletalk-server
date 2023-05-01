@@ -19,10 +19,11 @@ const dynamicValidator: SocketMiddleware = async (
   [_name, data]
 ) => {
   return await trier<SocketMiddlewareReturnValue>(dynamicValidator.name)
-    .tryAsync(tryBlock, data)
+    .async()
+    .try(tryBlock, data)
     .executeIfNoError(executeIfNoError, next)
     .throw()
-    .runAsync();
+    .run();
 };
 
 const tryBlock = async (data: Data) => {

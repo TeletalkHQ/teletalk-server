@@ -22,6 +22,7 @@ class AuthManager {
 
   verify(session: string, secret = this.getMainSecret()) {
     return trier(this.verify.name)
+      .sync()
       .try(
         () => {
           const data = JWT.verify(session, secret, {

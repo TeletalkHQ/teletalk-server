@@ -16,8 +16,11 @@ const compiler = new Validator({
   useNewCustomCheckerFunction: true,
 });
 
-class ValidationModelBuilder<T extends Field> {
-  private model: NativeModel;
+class ValidationModelBuilder<
+  T extends Field,
+  Model extends Partial<NativeModel>
+> {
+  private model: Model;
   private validationRuleObject: ValidationRuleObject;
 
   constructor(private fieldName: T) {
@@ -67,7 +70,7 @@ class ValidationModelBuilder<T extends Field> {
     });
   }
 
-  setModel(model: NativeModel) {
+  setModel(model: Model) {
     this.model = model;
     return this;
   }
@@ -115,8 +118,10 @@ class ValidationModelBuilder<T extends Field> {
 }
 
 const validationModelBuilder = {
-  create: function vmb<T extends Field>(fieldName: T) {
-    return new ValidationModelBuilder<T>(fieldName);
+  create: function vmb<F extends Field, Model extends Partial<NativeModel>>(
+    fieldName: F
+  ) {
+    return new ValidationModelBuilder<F, Model>(fieldName);
   },
 };
 

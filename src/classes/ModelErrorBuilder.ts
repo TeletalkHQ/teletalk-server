@@ -15,7 +15,7 @@ import { utilities } from "@/utilities";
 class ModelErrorBuilder {
   build() {
     return Object.entries(nativeModels).reduce(
-      (prevValue, [fieldName, model]: [string, NativeModel]) => {
+      (prevValue, [fieldName, model]: [string, Partial<NativeModel>]) => {
         this.generateErrors(prevValue, fieldName as Field, model);
 
         this.generateDefaultError(prevValue, fieldName as Field);
@@ -29,7 +29,7 @@ class ModelErrorBuilder {
   generateErrors(
     errors: ErrorCollection,
     fieldName: Field,
-    model: NativeModel
+    model: Partial<NativeModel>
   ) {
     let modelPropertyName: NativeModelKey;
     for (modelPropertyName in model) {
@@ -49,7 +49,7 @@ class ModelErrorBuilder {
   }
 
   generateDefaultError(errors: ErrorCollection, fieldName: Field) {
-    const FIELD_NAME = utilities.makeUpperFieldName(fieldName);
+    const FIELD_NAME = utilities.upperSnake(fieldName);
     const REASON = `${FIELD_NAME}_INVALID` as ErrorReason;
     errors[REASON] = errorBuilder().reason(REASON).build();
   }

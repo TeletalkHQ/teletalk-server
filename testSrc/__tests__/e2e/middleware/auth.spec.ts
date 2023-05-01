@@ -13,7 +13,7 @@ describe("auth middleware test", () => {
   for (const route of routesWithoutAuth) {
     // if (route.name === "disconnect") continue;
 
-    it(`should not get error: SESSION_REQUIRED - ${route.name}`, async () => {
+    it(`should not get error: SESSION_REQUIRED_ERROR - ${route.name}`, async () => {
       const socket = (await clientInitializer().createComplete()).getClient();
       const response = (
         await requesterMaker(socket, route).sendRequest()
@@ -21,9 +21,9 @@ describe("auth middleware test", () => {
 
       const { ERRORS: responseErrors } = response.data;
 
-      const { reason } = ERRORS.SESSION_REQUIRED;
+      const { reason } = ERRORS.SESSION_REQUIRED_ERROR;
       if (responseErrors?.[reason]) {
-        chai.expect(reason).not.equal(ERRORS.SESSION_REQUIRED.reason);
+        chai.expect(reason).not.equal(ERRORS.SESSION_REQUIRED_ERROR.reason);
       }
     });
   }

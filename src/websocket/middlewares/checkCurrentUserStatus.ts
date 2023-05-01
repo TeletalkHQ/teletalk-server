@@ -12,10 +12,11 @@ import { ERRORS } from "@/variables";
 
 const checkCurrentUserStatus: SocketMiddleware = async (socket, next) => {
   await trier<void>(checkCurrentUserStatus.name)
-    .tryAsync(tryBlock, socket)
+    .async()
+    .try(tryBlock, socket)
     .executeIfNoError(executeIfNoError, next)
     .throw()
-    .runAsync();
+    .run();
 };
 
 const tryBlock = async (socket: Socket) => {

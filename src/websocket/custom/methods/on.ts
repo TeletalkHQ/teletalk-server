@@ -15,10 +15,11 @@ const registerCustomOn = (socket: Socket) => {
   return ((event, handler) => {
     socket.on(event, async (data: StringMap, cb: ClientCallback) => {
       await trier<void | SocketHandlerReturnValue>("socket.customOn")
-        .tryAsync(tryBlock, handler, socket, data)
+        .async()
+        .try(tryBlock, handler, socket, data)
         .executeIfNoError(executeIfNoError, socket, event, cb)
         .catch(catchBlock, socket, cb)
-        .runAsync();
+        .run();
     });
   }) as CustomOn;
 };

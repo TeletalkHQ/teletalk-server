@@ -85,14 +85,6 @@ export type NodeEnvValue =
 
 export type EnvFileName = NodeEnvValue | "base";
 
-export type FieldType =
-  | "array"
-  | "boolean"
-  | "date"
-  | "number"
-  | "object"
-  | "string";
-
 export interface StringMap {
   [prop: string]: any;
 }
@@ -155,8 +147,6 @@ export interface Contact extends FullName {
 
 export type SocketMiddlewareEvent = string | string[];
 
-export type CreatedAt = number;
-
 export type LogLevel = "debug" | "error" | "info" | "warn";
 
 export interface Environments {
@@ -187,7 +177,7 @@ export interface Sender {
   senderId: string;
 }
 export interface Message {
-  createdAt: CreatedAt;
+  createdAt: number;
   messageText: string;
   messageId: string;
   sender: Sender;
@@ -199,16 +189,16 @@ export interface Participant {
 
 export interface PrivateChatMongo {
   chatId: string;
-  createdAt: CreatedAt;
+  createdAt: number;
   messages: Types.Array<Message>;
   participants: Types.Array<Participant>;
 }
 
-export interface Session {
+export interface SessionObjType {
   session: string;
 }
 
-export interface Status {
+export interface StatusObjType {
   isActive: boolean;
 }
 
@@ -221,10 +211,10 @@ export interface UserMongo extends Cellphone, FullName {
   contacts: Contact[] | ContactWithCellphone[];
   blacklist: BlackListItem[];
   userId: string;
-  createdAt: CreatedAt;
+  createdAt: number;
   username: string;
-  sessions: Session[];
-  status: Status;
+  sessions: SessionObjType[];
+  status: StatusObjType;
 }
 
 export interface VerifiedSession {
@@ -503,31 +493,6 @@ export type ValidationPicker<T extends Field> = Pick<
   Extract<Field, T>
 >;
 
-export interface NativeModel {
-  defaultValue: any;
-  empty: boolean;
-  items: any[];
-  length: number;
-  maxLength: number;
-  minLength: number;
-  numeric: boolean;
-  required: boolean;
-  trim: boolean;
-  type: FieldType;
-  unique: boolean;
-}
-
-export type NativeModelKey = keyof NativeModel;
-
-export type NativeModelCollection = {
-  [F in Field]: NativeModel;
-};
-
-export type NativeModelPicker<T extends Field> = Pick<
-  NativeModelCollection,
-  Extract<Field, T>
->;
-
 export type ValidationResult =
   | true
   | ValidationError[]
@@ -568,6 +533,4 @@ export type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
 
 export type { Socket };
 
-// export type ValidationModel<F extends Field = any> = {
-//   [P in F]: ValidationRuleObject;
-// };
+export * from "@/types/models";

@@ -1,17 +1,19 @@
 import { nativeModels } from "@/models/native";
 
-import { Field, NativeModel, NativeModelKey } from "@/types";
+import { NativeModelKey, NativeModelCollection, ErrorReason } from "@/types";
 
 import { utilities } from "@/utilities";
 
 //TODO: Add more support like trim and required
-function makeMongoSchemaValue(fieldName: Field) {
-  return function <T extends NativeModelKey>(
-    prop: T
-  ): [NativeModel[T], string] {
+function makeMongoSchemaValue<P extends keyof NativeModelCollection>(
+  fieldName: P
+) {
+  return function <F extends keyof NativeModelCollection[P]>(
+    prop: F
+  ): [NativeModelCollection[P][F], ErrorReason] {
     return [
       nativeModels[fieldName][prop],
-      utilities.makeErrorReason(fieldName, prop),
+      utilities.makeErrorReason(fieldName, prop as NativeModelKey),
     ];
   };
 }

@@ -1,57 +1,63 @@
 import { NativeModel } from "@/types";
 
-class NativeModelBuilder {
-  model: NativeModel;
+class NativeModelBuilder<T extends Partial<NativeModel>> {
+  model: T;
 
   constructor() {
     //@ts-ignore
     this.model = {};
   }
 
-  private updateProperty<T extends keyof NativeModel>(
-    prop: T,
-    value: NativeModel[T]
-  ) {
+  private updateProperty<U extends keyof T>(prop: U, value: T[U]) {
     this.model[prop] = value;
   }
 
-  defaultValue(value: NativeModel["defaultValue"]) {
+  defaultValue(value: T["defaultValue"]) {
     this.updateProperty("defaultValue", value);
     return this;
   }
-  maxLength(value: NativeModel["maxLength"]) {
+
+  maxLength(value: T["maxLength"]) {
     this.updateProperty("maxLength", value);
     return this;
   }
-  minLength(value: NativeModel["minLength"]) {
+
+  minLength(value: T["minLength"]) {
     this.updateProperty("minLength", value);
     return this;
   }
-  numeric(value: NativeModel["numeric"]) {
+
+  numeric(value: T["numeric"]) {
     this.updateProperty("numeric", value);
     return this;
   }
-  type(value: NativeModel["type"]) {
+
+  type(value: T["type"]) {
     this.updateProperty("type", value);
     return this;
   }
-  empty(value: NativeModel["empty"]) {
+
+  empty(value: T["empty"]) {
     this.updateProperty("empty", value);
     return this;
   }
-  required(value: NativeModel["required"]) {
+
+  required(value: T["required"]) {
     this.updateProperty("required", value);
     return this;
   }
-  trim(value: NativeModel["trim"]) {
+
+  trim(value: T["trim"]) {
     this.model.trim = value;
     return this;
   }
-  unique(value: NativeModel["unique"]) {
+
+  unique(value: T["unique"]) {
     this.updateProperty("unique", value);
     return this;
   }
-  length(value: NativeModel["length"]) {
+
+  length(value: T["length"]) {
     this.updateProperty("length", value);
     return this;
   }
@@ -61,6 +67,8 @@ class NativeModelBuilder {
   }
 }
 
-const nativeModelBuilder = { create: () => new NativeModelBuilder() };
+const nativeModelBuilder = {
+  create: <T extends Partial<NativeModel>>() => new NativeModelBuilder<T>(),
+};
 
 export { nativeModelBuilder };

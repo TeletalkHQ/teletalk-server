@@ -1,32 +1,27 @@
 import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
 
 import { commonModels } from "@/models/native/common";
-import { NativeModelPicker } from "@/types";
 
-type PrivateChatModels = NativeModelPicker<
-  | "chatId"
-  | "createdAt"
-  | "messageId"
-  | "messages"
-  | "messageText"
-  | "participantId"
-  | "participants"
-  | "privateChats"
-  | "senderId"
->;
+import {
+  Messages,
+  MessageText,
+  Participants,
+  PrivateChats,
+  UserId,
+} from "@/types";
 
-export const privateChatModels: PrivateChatModels = {
+export const privateChatModels = {
   chatId: commonModels.chatId,
   createdAt: commonModels.createdAt,
   messageId: commonModels.messageId,
   messages: nativeModelBuilder
-    .create()
+    .create<Messages>()
     .type("array")
     .required(true)
     .empty(true)
     .build(),
   messageText: nativeModelBuilder
-    .create()
+    .create<MessageText>()
     .type("string")
     .required(true)
     .empty(false)
@@ -35,7 +30,7 @@ export const privateChatModels: PrivateChatModels = {
     .trim(true)
     .build(),
   participantId: nativeModelBuilder
-    .create()
+    .create<UserId>()
     .type(commonModels.userId.type)
     .required(commonModels.userId.required)
     .empty(commonModels.userId.empty)
@@ -45,19 +40,19 @@ export const privateChatModels: PrivateChatModels = {
     .unique(commonModels.userId.unique)
     .build(),
   participants: nativeModelBuilder
-    .create()
+    .create<Participants>()
     .type("array")
     .required(true)
     .length(2)
     .empty(false)
     .build(),
   privateChats: nativeModelBuilder
-    .create()
+    .create<PrivateChats>()
     .type("array")
     .required(true)
     .build(),
   senderId: nativeModelBuilder
-    .create()
+    .create<UserId>()
     .type(commonModels.userId.type)
     .required(commonModels.userId.required)
     .empty(commonModels.userId.empty)

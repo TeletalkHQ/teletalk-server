@@ -24,6 +24,7 @@ const registerCustomEmit = (socket: Socket) => {
     ) as SocketRoute;
 
     trier("socket.customEmit")
+      .sync()
       .try(tryBlock, data, foundRoute.outputFields)
       .executeIfNoError(executeIfNoError, socket, event, data)
       .catch(catchBlock, socket)

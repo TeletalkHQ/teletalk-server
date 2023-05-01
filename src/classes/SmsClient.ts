@@ -27,13 +27,14 @@ class SmsClient {
 
     const providers = [this.devProvider, this.provider1, this.provider2];
     await trier(this.sendVerificationCode.name)
-      .tryAsync(providers[SMS_PROVIDER_SELECTOR].bind(this), sendTo, text)
+      .async()
+      .try(providers[SMS_PROVIDER_SELECTOR].bind(this), sendTo, text)
       .catch((error) => ({
         ...ERRORS.SEND_SMS_FAILED,
         providerError: error,
       }))
       .throw()
-      .runAsync();
+      .run();
   }
 
   private async devProvider(sendTo: string, text: string) {

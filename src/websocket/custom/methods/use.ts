@@ -14,9 +14,10 @@ const registerCustomUse = (socket: Socket) => {
   return ((middleware) => {
     socket.use(async (event: SocketEvent, next) => {
       await trier("socket.customUse")
-        .tryAsync(tryBlock, socket, next, event, middleware)
+        .async()
+        .try(tryBlock, socket, next, event, middleware)
         .catch(catchBlock, socket, event)
-        .runAsync();
+        .run();
     });
   }) as CustomUse;
 };

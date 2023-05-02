@@ -3,7 +3,7 @@ import { requesterMaker } from "$/classes/Requester";
 
 import { helpers } from "$/helpers";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 import { arrayOfRoutes, routes } from "@/websocket/events";
 
@@ -26,12 +26,12 @@ await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
   return () => {
     for (const route of routesWithInputFieldsExceptAuth) {
       const title = helpers.createFailTestMessage(
-        ERRORS.INPUT_FIELDS_MISSING,
+        errors.inputFieldsMissing,
         route.name
       );
       it(title, async () => {
         await requesterMaker(socket, route)
-          .setError(ERRORS.INPUT_FIELDS_MISSING)
+          .setError(errors.inputFieldsMissing)
           .setOptions({ shouldFilterRequestData: false })
           .sendFullFeaturedRequest();
       });

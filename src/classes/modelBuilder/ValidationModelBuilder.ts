@@ -7,7 +7,7 @@ import { Field, NativeModel, ValidationModel, NativeModelKey } from "@/types";
 
 import { utilities } from "@/utilities";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 type ErrorMessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationRuleObject;
@@ -56,7 +56,7 @@ class ValidationModelBuilder<
   ) {
     if (this.validationRuleObject.messages) {
       this.validationRuleObject.messages[errorMessageKey] = utilities.findError(
-        ERRORS,
+        errors,
         this.fieldName,
         modelKey
       ).reason;

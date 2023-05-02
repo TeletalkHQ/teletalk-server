@@ -13,7 +13,7 @@ function makeMongoSchemaValue<P extends keyof NativeModelCollection>(
   ): [NativeModelCollection[P][F], ErrorReason] {
     return [
       nativeModels[fieldName][prop],
-      utilities.makeErrorReason(fieldName, prop as NativeModelKey),
+      utilities.makeModelErrorReason(fieldName, prop as NativeModelKey),
     ];
   };
 }

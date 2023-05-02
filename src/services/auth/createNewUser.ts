@@ -4,7 +4,7 @@ import { models } from "@/models";
 
 import { UserMongo } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const createNewUser = async (userData: UserMongo) => {
   await checkExistenceOfCurrentUser(userData.userId);
@@ -13,7 +13,7 @@ const createNewUser = async (userData: UserMongo) => {
 
 const checkExistenceOfCurrentUser = async (userId: UserMongo["userId"]) => {
   const currentUser = await models.database.mongoDb.User.findOne({ userId });
-  errorThrower(!!currentUser, ERRORS.CURRENT_USER_EXIST);
+  errorThrower(!!currentUser, errors.currentUserExist);
 };
 
 export { createNewUser };

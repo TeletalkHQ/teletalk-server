@@ -10,6 +10,7 @@ import {
   ErrorCollection,
   ErrorReason,
   Field,
+  ModelErrorReason,
   NativeModelKey,
   SocketEvent,
   SocketMiddleware,
@@ -98,13 +99,14 @@ const findError = (
   fieldName: Field,
   modelKeyName: NativeModelKey
 ) => {
-  return errors[makeErrorReason(fieldName, modelKeyName) as ErrorReason];
+  return errors[makeModelErrorReason(fieldName, modelKeyName) as ErrorReason];
 };
 
-const makeErrorReason = (fieldName: Field, modelKeyName: NativeModelKey) => {
-  return `${upperSnake(fieldName)}_${upperSnake(
-    modelKeyName
-  )}_ERROR` as ErrorReason;
+const makeModelErrorReason = (
+  fieldName: Field,
+  modelKeyName: NativeModelKey
+) => {
+  return `${fieldName}_${modelKeyName}_error` as ModelErrorReason;
 };
 
 const upperSnake = (str: string) => lodash.snakeCase(str).toUpperCase();
@@ -116,7 +118,7 @@ const utilities = {
   findError,
   isEventNameMatch,
   logEnvironments,
-  makeErrorReason,
+  makeModelErrorReason,
   passwordGenerator,
   regexMaker,
   sortEnvironments,

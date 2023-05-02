@@ -3,7 +3,7 @@ import { checkFields, IoFields } from "check-fields";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 import {
   CustomEmit,
@@ -13,7 +13,7 @@ import {
   StringMap,
 } from "@/types";
 
-import { CHECK_FIELD_ERRORS } from "@/variables";
+import { checkFieldErrors } from "@/variables";
 
 import { arrayOfRoutes } from "@/websocket/events";
 
@@ -33,7 +33,7 @@ const registerCustomEmit = (socket: Socket) => {
 };
 
 const tryBlock = (data: StringMap, outputFields: IoFields) => {
-  checkFields(data, outputFields, CHECK_FIELD_ERRORS.OUTPUT);
+  checkFields(data, outputFields, checkFieldErrors.output);
 };
 
 const executeIfNoError = (
@@ -59,7 +59,7 @@ const catchBlock = (error: NativeError, socket: Socket) => {
       }
     : {
         data: {},
-        errors: { [error.reason]: ERRORS.UNKNOWN_ERROR },
+        errors: { [error.reason]: errors.unknownError },
         checkResult: error,
       };
 

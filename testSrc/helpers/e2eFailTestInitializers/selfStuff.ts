@@ -2,7 +2,7 @@ import { E2eFailTestInitializer } from "$/types";
 
 import { helpers } from "$/helpers";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
@@ -10,14 +10,11 @@ const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
   it(
     helpers.createFailTestMessage(
-      ERRORS.SELF_STUFF,
+      errors.selfStuff,
       configuredRequester.getEventName()
     ),
     async () => {
-      await configuredRequester.sendFullFeaturedRequest(
-        data,
-        ERRORS.SELF_STUFF
-      );
+      await configuredRequester.sendFullFeaturedRequest(data, errors.selfStuff);
     }
   );
 };

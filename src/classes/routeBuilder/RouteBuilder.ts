@@ -4,7 +4,7 @@ import { errorThrower } from "utility-store";
 
 import { Route } from "@/types";
 
-import { LOCAL_ERRORS } from "@/variables";
+import { localErrors } from "@/variables";
 
 abstract class RouteBuilder {
   protected route: Route;
@@ -29,7 +29,7 @@ abstract class RouteBuilder {
 
   checkRequirements(...requirements: unknown[]) {
     errorThrower(customTypeof.isUndefined(...requirements), {
-      ...LOCAL_ERRORS.ROUTE_IS_INVALID,
+      ...localErrors.routeIsInvalid,
       route: this.route,
     });
   }

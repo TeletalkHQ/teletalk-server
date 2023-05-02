@@ -5,7 +5,7 @@ import { NativeModel, NativeError, Field } from "@/types";
 
 import { utilities } from "@/utilities";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 interface Options {
   extraErrorFields: {
@@ -158,7 +158,7 @@ class ValidationChecker {
   }
 
   resolveError(prop: keyof NativeModel) {
-    return utilities.findError(ERRORS, this.fieldName, prop);
+    return utilities.findError(errors, this.fieldName, prop);
   }
 
   addErrorChecker(condition: boolean, error: NativeError) {

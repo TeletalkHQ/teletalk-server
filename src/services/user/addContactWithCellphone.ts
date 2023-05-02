@@ -5,7 +5,7 @@ import { commonServices } from "@/services/common";
 
 import { Contact, HydratedUserMongo, UserMongo } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const addContactWithCellphone = async (data: {
   currentUserId: string;
@@ -13,14 +13,14 @@ const addContactWithCellphone = async (data: {
 }) => {
   const currentUser = await commonServices.findOneUserById(data.currentUserId);
 
-  if (!currentUser) throw ERRORS.CURRENT_USER_NOT_EXIST;
+  if (!currentUser) throw errors.currentUserNotExist;
 
   checkExistenceOfContactItem(currentUser.contacts, data.newContact);
 
   const targetUser = await commonServices.findOneUserById(
     data.newContact.userId
   );
-  if (!targetUser) throw ERRORS.TARGET_USER_NOT_EXIST;
+  if (!targetUser) throw errors.targetUserNotExist;
 
   await saveNewContactItem(currentUser, data.newContact);
 };
@@ -31,7 +31,7 @@ const checkExistenceOfContactItem = (
 ) => {
   const index = contacts.findIndex((i) => i.userId == contact.userId);
   errorThrower(index !== -1, () => ({
-    ...ERRORS.CONTACT_ITEM_EXIST,
+    ...errors.contactItemExist,
     queryData: contact,
   }));
 };

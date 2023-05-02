@@ -6,7 +6,7 @@ import { clientStore } from "@/classes/ClientStore";
 
 import { SocketMiddleware, SocketNext, StringMap } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const verifyVerificationCode: SocketMiddleware = async (
   socket,
@@ -28,7 +28,7 @@ const tryBlock = async (socket: Socket, data: StringMap) => {
   const { verificationCode: actualVerificationCode } = client;
 
   errorThrower(sentVerificationCode !== actualVerificationCode, {
-    ...ERRORS.VERIFICATION_CODE_INVALID,
+    ...errors.verificationCode_invalid,
     sentVerificationCode,
   });
 
@@ -40,7 +40,7 @@ const tryBlock = async (socket: Socket, data: StringMap) => {
 
 const findClient = async (clientId: string) => {
   const client = await clientStore.find(clientId);
-  if (!client) throw ERRORS.CLIENT_NOT_FOUND;
+  if (!client) throw errors.clientNotFound;
   return client;
 };
 

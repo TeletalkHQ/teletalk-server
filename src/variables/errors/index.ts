@@ -1,152 +1,135 @@
 import { errorBuilder } from "@/classes/ErrorBuilder";
 import { modelErrorBuilder } from "@/classes/ModelErrorBuilder";
+import { ErrorCollection } from "@/types";
 
-const CUSTOM_ERRORS = {
-  BLACKLIST_ITEM_EXIST: errorBuilder().reason("BLACKLIST_ITEM_EXIST").build(),
-  BLACKLIST_ITEM_NOT_EXIST: errorBuilder()
-    .reason("BLACKLIST_ITEM_NOT_EXIST")
+const customErrors = {
+  blacklistItemExist: errorBuilder().reason("blacklistItemExist").build(),
+  blacklistItemNotExist: errorBuilder().reason("blacklistItemNotExist").build(),
+  clientNotFound: errorBuilder().reason("clientNotFound").build(),
+  clientNotVerified: errorBuilder().reason("clientNotVerified").build(),
+  contactItemExist: errorBuilder().reason("contactItemExist").build(),
+  contactItemNotExist: errorBuilder().reason("contactItemNotExist").build(),
+  countryCodeNotSupported: errorBuilder()
+    .reason("countryCodeNotSupported")
     .build(),
-  CLIENT_NOT_FOUND: errorBuilder().reason("CLIENT_NOT_FOUND").build(),
-  CLIENT_NOT_VERIFIED: errorBuilder().reason("CLIENT_NOT_VERIFIED").build(),
-  CONTACT_ITEM_EXIST: errorBuilder().reason("CONTACT_ITEM_EXIST").build(),
-  CONTACT_ITEM_NOT_EXIST: errorBuilder()
-    .reason("CONTACT_ITEM_NOT_EXIST")
+  countryNameNotSupported: errorBuilder()
+    .reason("countryNameNotSupported")
     .build(),
-  COUNTRY_CODE_NOT_SUPPORTED: errorBuilder()
-    .reason("COUNTRY_CODE_NOT_SUPPORTED")
+  currentSessionNotExist: errorBuilder()
+    .reason("currentSessionNotExist")
     .build(),
-  COUNTRY_NAME_NOT_SUPPORTED: errorBuilder()
-    .reason("COUNTRY_NAME_NOT_SUPPORTED")
-    .build(),
-  CURRENT_SESSION_NOT_EXIST: errorBuilder()
-    .reason("CURRENT_SESSION_NOT_EXIST")
-    .build(),
-  CURRENT_USER_EXIST: errorBuilder().reason("CURRENT_USER_EXIST").build(),
-  CURRENT_USER_NOT_EXIST: errorBuilder()
-    .reason("CURRENT_USER_NOT_EXIST")
-    .build(),
-  EVENT_NOT_FOUND: errorBuilder().reason("EVENT_NOT_FOUND").build(),
-  INPUT_DATA_NOT_DEFINED: errorBuilder()
-    .reason("INPUT_DATA_NOT_DEFINED")
-    .build(),
-  INPUT_FIELD_INVALID_TYPE: errorBuilder()
-    .reason("INPUT_FIELD_INVALID_TYPE")
-    .build(),
-  INPUT_FIELDS_MISSING: errorBuilder().reason("INPUT_FIELDS_MISSING").build(),
-  INPUT_FIELDS_OVERLOAD: errorBuilder().reason("INPUT_FIELDS_OVERLOAD").build(),
-  IS_NOT_A_CALLBACK: errorBuilder().reason("IS_NOT_A_CALLBACK").build(),
-  OUTPUT_DATA_NOT_DEFINED: errorBuilder()
-    .reason("OUTPUT_DATA_NOT_DEFINED")
-    .build(),
-  OUTPUT_FIELD_INVALID_TYPE: errorBuilder()
-    .reason("OUTPUT_FIELD_INVALID_TYPE")
+  chatNotExist: errorBuilder().reason("chatNotExist").build(),
+  currentUserExist: errorBuilder().reason("currentUserExist").build(),
+  currentUserNotExist: errorBuilder().reason("currentUserNotExist").build(),
+  eventNotFound: errorBuilder().reason("eventNotFound").build(),
+  inputDataNotDefined: errorBuilder().reason("inputDataNotDefined").build(),
+  inputFieldInvalidType: errorBuilder().reason("inputFieldInvalidType").build(),
+  inputFieldsMissing: errorBuilder().reason("inputFieldsMissing").build(),
+  inputFieldsOverload: errorBuilder().reason("inputFieldsOverload").build(),
+  isNotACallback: errorBuilder().reason("isNotACallback").build(),
+  outputDataNotDefined: errorBuilder().reason("outputDataNotDefined").build(),
+  outputFieldInvalidType: errorBuilder()
+    .reason("outputFieldInvalidType")
     .side("server")
     .build(),
-  OUTPUT_FIELD_TYPE_WRONG: errorBuilder()
-    .reason("OUTPUT_FIELD_TYPE_WRONG")
+  outputFieldTypeWrong: errorBuilder()
+    .reason("outputFieldTypeWrong")
     .side("server")
     .build(),
-  OUTPUT_FIELDS_MISSING: errorBuilder()
-    .reason("OUTPUT_FIELDS_MISSING")
+  outputFieldsMissing: errorBuilder()
+    .reason("outputFieldsMissing")
     .side("server")
     .build(),
-  OUTPUT_FIELDS_OVERLOAD: errorBuilder()
-    .reason("OUTPUT_FIELDS_OVERLOAD")
+  outputFieldsOverload: errorBuilder()
+    .reason("outputFieldsOverload")
     .side("server")
     .build(),
-  REQUIRED_FIELD_INVALID: errorBuilder()
-    .reason("REQUIRED_FIELD_INVALID")
+  requiredFieldInvalid: errorBuilder()
+    .reason("requiredFieldInvalid")
     .side("server")
     .build(),
-  REQUIRED_FIELD_INVALID_TYPE: errorBuilder()
-    .reason("REQUIRED_FIELD_INVALID_TYPE")
+  requiredFieldInvalidType: errorBuilder()
+    .reason("requiredFieldInvalidType")
     .side("server")
     .build(),
-  REQUIRED_FIELDS_NOT_DEFINED: errorBuilder()
-    .reason("REQUIRED_FIELDS_NOT_DEFINED")
+  requiredFieldsNotDefined: errorBuilder()
+    .reason("requiredFieldsNotDefined")
     .side("server")
     .build(),
-  REQUIRED_IO_FIELD_IS_NOT_ARRAY: errorBuilder()
-    .reason("REQUIRED_IO_FIELD_IS_NOT_ARRAY")
+  requiredIoFieldIsNotArray: errorBuilder()
+    .reason("requiredIoFieldIsNotArray")
     .side("server")
     .build(),
-  REQUIRED_IO_FIELD_IS_NOT_OBJECT: errorBuilder()
-    .reason("REQUIRED_IO_FIELD_IS_NOT_OBJECT")
+  requiredIoFieldIsNotObject: errorBuilder()
+    .reason("requiredIoFieldIsNotObject")
     .side("server")
     .build(),
-  ROUTE_NOT_FOUND: errorBuilder().reason("ROUTE_NOT_FOUND").build(),
-  SELF_STUFF: errorBuilder().reason("SELF_STUFF").build(),
-  SEND_JSON_RESPONSE_IS_NOT_FUNCTION: errorBuilder()
-    .reason("SEND_JSON_RESPONSE_IS_NOT_FUNCTION")
+  cookieIsNotDefined: errorBuilder()
+    .reason("cookieIsNotDefined")
+    .side("client")
+    .build(),
+  routeNotFound: errorBuilder().reason("routeNotFound").build(),
+  selfStuff: errorBuilder().reason("selfStuff").build(),
+  sendJsonResponseIsNotFunction: errorBuilder()
+    .reason("sendJsonResponseIsNotFunction")
     .side("server")
     .build(),
-  SEND_SMS_FAILED: errorBuilder()
-    .reason("SEND_SMS_FAILED")
+  sendSmsFailed: errorBuilder().reason("sendSmsFailed").side("server").build(),
+  senderEmpty: errorBuilder().reason("senderEmpty").build(),
+  serverCriticalError: errorBuilder()
+    .reason("serverCriticalError")
     .side("server")
     .build(),
-  SENDER_EMPTY: errorBuilder().reason("SENDER_EMPTY").build(),
-  SERVER_CRITICAL_ERROR: errorBuilder()
-    .reason("SERVER_CRITICAL_ERROR")
-    .side("server")
-    .build(),
-  SESSION_CAN_NOT_VERIFIED: errorBuilder()
-    .reason("SESSION_CAN_NOT_VERIFIED")
-    .build(),
-  TARGET_USER_NOT_EXIST: errorBuilder().reason("TARGET_USER_NOT_EXIST").build(),
-  UNKNOWN_ERROR: errorBuilder().reason("UNKNOWN_ERROR").side("server").build(),
-  USER_EXIST: errorBuilder().reason("USER_EXIST").build(),
-  USER_NO_LONGER_PARTICIPANT: errorBuilder()
-    .reason("USER_NO_LONGER_PARTICIPANT")
+  sessionCanNotVerified: errorBuilder().reason("sessionCanNotVerified").build(),
+  targetUserNotExist: errorBuilder().reason("targetUserNotExist").build(),
+  unknownError: errorBuilder().reason("unknownError").side("server").build(),
+  userExist: errorBuilder().reason("userExist").build(),
+  userNoLongerParticipant: errorBuilder()
+    .reason("userNoLongerParticipant")
     .build(),
 };
 
-const MODEL_ERRORS = modelErrorBuilder().build();
+const modelErrors = modelErrorBuilder().build();
 
-const ERRORS = {
-  ...CUSTOM_ERRORS,
-  ...MODEL_ERRORS,
+const errors: ErrorCollection = {
+  ...customErrors,
+  ...modelErrors,
 };
 
-const REQUIRED_FIELD_ERRORS = {
-  SCHEMA_INVALID: ERRORS.REQUIRED_FIELD_INVALID,
-  SCHEMA_INVALID_TYPE: ERRORS.REQUIRED_FIELD_INVALID_TYPE,
-  SCHEMA_NOT_DEFINED: ERRORS.REQUIRED_FIELDS_NOT_DEFINED,
+const requiredFieldErrors = {
+  schemaInvalid: errors.requiredFieldInvalid,
+  schemaInvalidType: errors.requiredFieldInvalidType,
+  schemaNotDefined: errors.requiredFieldsNotDefined,
 };
 
-const CHECK_FIELD_ERRORS = {
-  INPUT: {
-    ...REQUIRED_FIELD_ERRORS,
-    DATA_FIELD_INVALID_TYPE: ERRORS.INPUT_FIELD_INVALID_TYPE,
-    DATA_FIELDS_MISSING: ERRORS.INPUT_FIELDS_MISSING,
-    DATA_FIELDS_OVERLOAD: ERRORS.INPUT_FIELDS_OVERLOAD,
-    DATA_NOT_DEFINED: ERRORS.INPUT_DATA_NOT_DEFINED,
+const checkFieldErrors = {
+  input: {
+    ...requiredFieldErrors,
+    dataFieldInvalidType: errors.inputFieldInvalidType,
+    dataFieldsMissing: errors.inputFieldsMissing,
+    dataFieldsOverload: errors.inputFieldsOverload,
+    dataNotDefined: errors.inputDataNotDefined,
   },
-  OUTPUT: {
-    ...REQUIRED_FIELD_ERRORS,
-    DATA_FIELD_INVALID_TYPE: ERRORS.OUTPUT_FIELD_INVALID_TYPE,
-    DATA_FIELDS_MISSING: ERRORS.OUTPUT_FIELDS_MISSING,
-    DATA_FIELDS_OVERLOAD: ERRORS.OUTPUT_FIELDS_OVERLOAD,
-    DATA_NOT_DEFINED: ERRORS.OUTPUT_DATA_NOT_DEFINED,
+  output: {
+    ...requiredFieldErrors,
+    dataFieldInvalidType: errors.outputFieldInvalidType,
+    dataFieldsMissing: errors.outputFieldsMissing,
+    dataFieldsOverload: errors.outputFieldsOverload,
+    dataNotDefined: errors.outputDataNotDefined,
   },
 };
 
-const LOCAL_ERRORS = {
-  EVENT_IS_INVALID: {
-    reason: "EVENT_IS_INVALID",
+const localErrors = {
+  eventIsInvalid: {
+    reason: "eventIsInvalid",
   },
-  ROUTE_IS_INVALID: {
-    reason: "ROUTE_IS_INVALID",
+  routeIsInvalid: {
+    reason: "routeIsInvalid",
   },
-  VALIDATION_MODEL_IS_NOT_OBJECT: {
+  validationModelIsNotObject: {
     message: "You must pass validationModel as a object",
-    reason: "VALIDATION_MODEL_IS_NOT_OBJECT",
+    reason: "validationModelIsNotObject",
   },
 };
 
-export {
-  CHECK_FIELD_ERRORS,
-  CUSTOM_ERRORS,
-  ERRORS,
-  LOCAL_ERRORS,
-  MODEL_ERRORS,
-};
+export { checkFieldErrors, customErrors, errors, localErrors, modelErrors };

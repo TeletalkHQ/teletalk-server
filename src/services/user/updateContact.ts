@@ -5,7 +5,7 @@ import { findOneUserById } from "@/services/common/findOneUserById";
 
 import { Contact, HydratedUserMongo, UserMongo } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const updateContact = async (data: {
   currentUserId: string;
@@ -21,7 +21,7 @@ const updateContact = async (data: {
   );
 
   errorThrower(index === -1, {
-    ...ERRORS.CONTACT_ITEM_NOT_EXIST,
+    ...errors.contactItemNotExist,
     editValues: data.editValues,
   });
 

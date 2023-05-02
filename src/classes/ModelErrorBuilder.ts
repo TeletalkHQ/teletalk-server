@@ -3,11 +3,11 @@ import { errorBuilder } from "@/classes/ErrorBuilder";
 import { nativeModels } from "@/models/native";
 
 import {
-  ErrorCollection,
-  ErrorReason,
+  ModelErrorCollection,
   Field,
   NativeModel,
   NativeModelKey,
+  ModelErrorReason,
 } from "@/types";
 
 import { utilities } from "@/utilities";
@@ -22,12 +22,12 @@ class ModelErrorBuilder {
 
         return prevValue;
       },
-      {} as ErrorCollection
+      {} as ModelErrorCollection
     );
   }
 
   generateErrors(
-    errors: ErrorCollection,
+    errors: ModelErrorCollection,
     fieldName: Field,
     model: Partial<NativeModel>
   ) {
@@ -40,18 +40,17 @@ class ModelErrorBuilder {
   }
 
   generateError(
-    errors: ErrorCollection,
+    errors: ModelErrorCollection,
     fieldName: Field,
     modelPropertyName: NativeModelKey
   ) {
-    const REASON = utilities.makeErrorReason(fieldName, modelPropertyName);
-    errors[REASON] = errorBuilder().reason(REASON).build();
+    const reason = utilities.makeModelErrorReason(fieldName, modelPropertyName);
+    errors[reason] = errorBuilder<ModelErrorReason>().reason(reason).build();
   }
 
-  generateDefaultError(errors: ErrorCollection, fieldName: Field) {
-    const FIELD_NAME = utilities.upperSnake(fieldName);
-    const REASON = `${FIELD_NAME}_INVALID` as ErrorReason;
-    errors[REASON] = errorBuilder().reason(REASON).build();
+  generateDefaultError(errors: ModelErrorCollection, fieldName: Field) {
+    const reason = `${fieldName}_invalid` as ModelErrorReason;
+    errors[reason] = errorBuilder().reason(reason).build();
   }
 
   shouldIgnoreModelProperty(modelPropertyName: NativeModelKey) {

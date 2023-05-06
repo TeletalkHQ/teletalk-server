@@ -12,7 +12,7 @@ import {
 
 import { utilities } from "@/utilities";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const checkClientIdExistence: SocketMiddleware = async (
   socket,
@@ -29,19 +29,19 @@ const checkClientIdExistence: SocketMiddleware = async (
 
 const tryBlock = async (socket: Socket) => {
   const cookie = socket.handshake.headers.cookie;
-  if (!cookie) throw ERRORS.CLIENT_ID_REQUIRED_ERROR;
+  if (!cookie) throw errors.clientId_required_error;
 
   const clientId = utilities.extractClientIdFromCookie(cookie);
 
   //CLEANME: Add validator
   errorThrower(
     clientId.length < models.native.clientId.minLength,
-    ERRORS.CLIENT_ID_MIN_LENGTH_ERROR
+    errors.clientId_minLength_error
   );
 
   errorThrower(
     clientId.length > models.native.clientId.maxLength,
-    ERRORS.CLIENT_ID_MAX_LENGTH_ERROR
+    errors.clientId_maxLength_error
   );
 
   return { ok: true };

@@ -2,7 +2,7 @@ import { commonServices } from "@/services/common";
 
 import { PublicUserData } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const updatePublicUserData = async (data: {
   currentUserId: string;
@@ -10,7 +10,7 @@ const updatePublicUserData = async (data: {
   updateProperties: Partial<PublicUserData>;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
-  if (!currentUser) throw ERRORS.CURRENT_USER_NOT_EXIST;
+  if (!currentUser) throw errors.currentUserNotExist;
 
   await currentUser.updateOne(data.updateProperties);
   return await findCurrentUser(data.currentUserId);

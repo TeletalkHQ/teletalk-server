@@ -7,8 +7,9 @@ import { helpers } from "$/helpers";
 import { RequesterOptions } from "$/types";
 import { Field, FieldType, NativeError, NativeModel } from "@/types";
 
-import { ERRORS } from "@/variables";
 import { utilities } from "@/utilities";
+
+import { errors } from "@/variables";
 
 type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
 
@@ -33,7 +34,7 @@ class E2eFailTestInitializer<PartialNativeModel extends Model> {
     return { ...this.data, [this.fieldName]: newValue };
   }
   resolveError(modelPropName: keyof NativeModel) {
-    return utilities.findError(ERRORS, this.fieldName, modelPropName);
+    return utilities.findError(errors, this.fieldName, modelPropName);
   }
 
   custom(value: any, error: NativeError) {
@@ -47,7 +48,7 @@ class E2eFailTestInitializer<PartialNativeModel extends Model> {
   }
   missing() {
     const mergedData = this.dataMerger();
-    this.initTest(mergedData, ERRORS.INPUT_FIELDS_MISSING);
+    this.initTest(mergedData, errors.inputFieldsMissing);
     return this;
   }
   overload() {
@@ -55,7 +56,7 @@ class E2eFailTestInitializer<PartialNativeModel extends Model> {
       ...this.data,
       [randomMaker.string(10)]: randomMaker.string(10),
     };
-    this.initTest(overloadedData, ERRORS.INPUT_FIELDS_OVERLOAD, {
+    this.initTest(overloadedData, errors.inputFieldsOverload, {
       shouldFilterRequestData: false,
     });
     return this;
@@ -64,7 +65,7 @@ class E2eFailTestInitializer<PartialNativeModel extends Model> {
     const valueWithIncorrectType =
       value || randomMaker.number(this.getMaxLength());
     const mergedData = this.dataMerger(valueWithIncorrectType);
-    this.initTest(mergedData, ERRORS.INPUT_FIELD_INVALID_TYPE);
+    this.initTest(mergedData, errors.inputFieldInvalidType);
     return this;
   }
   numeric() {

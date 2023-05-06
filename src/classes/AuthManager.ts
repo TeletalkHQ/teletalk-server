@@ -7,7 +7,7 @@ import { VerifiedSession } from "@/types";
 
 import { utilities } from "@/utilities";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 import { routes } from "@/websocket/events";
 
@@ -37,7 +37,7 @@ class AuthManager {
       )
       .catch((error) => {
         return {
-          ...ERRORS.SESSION_INVALID,
+          ...errors.session_invalid,
           sessionError: error,
         };
       })

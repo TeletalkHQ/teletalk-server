@@ -8,7 +8,7 @@ import { SocketMiddleware, SocketNext, VerifiedSession } from "@/types";
 
 import { validators } from "@/validators";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const auth: SocketMiddleware = async (socket, next, [name]) => {
   await trier<VerifiedSession>(auth.name)
@@ -22,7 +22,7 @@ const auth: SocketMiddleware = async (socket, next, [name]) => {
 const tryBlock = async (socket: Socket, eventName: string) => {
   const client = await clientStore.find(socket.clientId);
 
-  if (!client) throw ERRORS.CLIENT_NOT_FOUND;
+  if (!client) throw errors.clientNotFound;
 
   const { session } = client;
   await validators.session(session);

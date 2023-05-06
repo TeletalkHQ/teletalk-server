@@ -196,5 +196,11 @@
       "type": "text",
       "multiline": true
     }
-  ]
+  ],
+  "mochaExplorer.configFile": ".mocharc.json",
+  "mochaExplorer.files": "testSrc/**/*.ts",
+  "mochaExplorer.watch": "",
+  "mochaExplorer.delay": true,
+  "mochaExplorer.esmLoader": false,
+  "editor.cursorSmoothCaretAnimation": "on"
 }

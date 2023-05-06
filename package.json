@@ -27,7 +27,7 @@
     "start:dev": "cross-env NODE_ENV=development nodemon ./index.ts",
     "start:production": "cross-env NODE_ENV=production npm run app-runner",
     "start:production:local": "cross-env NODE_ENV=production_local npm run app-runner",
-    "test-runner": "ts-mocha ./index.ts",
+    "test-runner": "mocha ./index.ts",
     "test:coverage": "cross-env COVERAGE=true c8 npm run test:dev",
     "test:dev": "cross-env NODE_ENV=test_development npm run test-runner",
     "test:dev:generate-badge": "cross-env MOCHA_BADGE_GEN_OUTPUT=./testSrc/passedTests.svg npm run test:dev -- -- --reporter mocha-badge-generator",

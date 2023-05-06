@@ -51,8 +51,8 @@ const testModels = (models: { [prop in NativeModelKey]: NativeModel }) => {
   });
 };
 
-const testErrors = (ERRORS: ErrorCollection) => {
-  Object.values(ERRORS).forEach((error) => {
+const testErrors = (errors: ErrorCollection) => {
+  Object.values(errors).forEach((error) => {
     chai.expect(error).to.be.an(FIELD_TYPE.OBJECT);
     chai.expect(error.reason).to.be.an(FIELD_TYPE.STRING);
     chai.expect(error.side).to.be.an(FIELD_TYPE.STRING);

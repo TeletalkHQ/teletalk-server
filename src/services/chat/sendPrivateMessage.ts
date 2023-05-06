@@ -8,7 +8,7 @@ import { commonServices } from "@/services/common";
 
 import { HydratedPrivateChatMongo, Message, PrivateChatMongo } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const chatModels = models.native;
 
@@ -46,7 +46,7 @@ const sendPrivateMessage = async (data: {
 const findTargetParticipantId = async (participantId: string) => {
   const targetParticipant = await commonServices.findOneUserById(participantId);
 
-  if (!targetParticipant) throw ERRORS.TARGET_USER_NOT_EXIST;
+  if (!targetParticipant) throw errors.targetUserNotExist;
 
   return targetParticipant.userId;
 };

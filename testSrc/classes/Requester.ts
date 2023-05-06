@@ -8,7 +8,7 @@ import { loggerHelper } from "@/helpers/logHelper";
 import { NativeError, SocketResponse, SocketRoute, StringMap } from "@/types";
 import { RequesterOptions } from "$/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 class Requester {
   private error?: NativeError;
@@ -93,7 +93,7 @@ class Requester {
   checkRequestDataFields(options = this.getOptions(), inputFields: StringMap) {
     if (!this.getRequestData() && Object.keys(inputFields).length) {
       const error = {
-        ...ERRORS.INPUT_FIELDS_MISSING,
+        ...errors.inputFieldsMissing,
         options,
         requestData: this.getRequestData(),
       };

@@ -13,7 +13,7 @@ import { appConfigs } from "@/classes/AppConfigs";
 
 import { utilities } from "@/utilities";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const {
   APP: { PORT: exactPort, HOSTNAME: hostname },
@@ -36,7 +36,7 @@ const setClientIdRequestBody =
   (resolve: PromiseResolve, reject: PromiseReject) =>
     (res: http.IncomingMessage) => {
       const cookies = res.headers["set-cookie"];
-      if (!cookies) return reject(ERRORS.COOKIE_IS_UNDEFINED);
+      if (!cookies) return reject(errors.cookieIsNotDefined);
       resolve(utilities.extractClientIdFromCookie(cookies[0]));
     };
 

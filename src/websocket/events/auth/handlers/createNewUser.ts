@@ -10,7 +10,7 @@ import { services } from "@/services";
 
 import { Cellphone, SocketOnHandler, Client, UserMongo } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const createNewUser: SocketOnHandler = async (
   socket,
@@ -45,20 +45,20 @@ const createNewUser: SocketOnHandler = async (
 
 const findClient = async (sessionId: string) => {
   const client = await clientStore.find(sessionId);
-  if (!client) throw ERRORS.CLIENT_NOT_FOUND;
+  if (!client) throw errors.clientNotFound;
   return client;
 };
 
 const checkClientVerification = (client: Client) => {
   errorThrower(!client.isVerified, {
-    ...ERRORS.CLIENT_NOT_VERIFIED,
+    ...errors.clientNotVerified,
     createNewUser: "failed",
   });
 };
 
 const checkExistenceOfUser = async (cellphone: Cellphone) => {
   const foundUser = await services.findOneUser(cellphone);
-  if (foundUser) throw ERRORS.USER_EXIST;
+  if (foundUser) throw errors.userExist;
 };
 
 const getRandomId = () => randomMaker.id(models.native.userId.maxLength);

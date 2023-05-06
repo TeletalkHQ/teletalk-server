@@ -4,7 +4,7 @@ import { helpers } from "$/helpers";
 
 import { E2eFailTestInitializer } from "$/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
@@ -12,7 +12,7 @@ const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
   it(
     helpers.createFailTestMessage(
-      ERRORS.INPUT_FIELDS_OVERLOAD,
+      errors.inputFieldsOverload,
       configuredRequester.getEventName()
     ),
     async () => {
@@ -22,7 +22,7 @@ const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
       (copyData as any)[randomKey] = randomValue;
       await configuredRequester.sendFullFeaturedRequest(
         copyData,
-        ERRORS.INPUT_FIELDS_OVERLOAD,
+        errors.inputFieldsOverload,
         {
           shouldFilterRequestData: false,
         }

@@ -10,7 +10,7 @@ import { models } from "@/models";
 
 import { Validator } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 import { countries } from "@/variables";
 import { errorThrower } from "utility-store";
 
@@ -28,7 +28,7 @@ const errorChecker = (result: ValidationResult, countryCode: unknown) => {
     const country = countries.find((c) => c.countryCode === countryCode);
     errorThrower(
       customTypeof.isUndefined(country),
-      ERRORS.COUNTRY_CODE_NOT_SUPPORTED
+      errors.countryCodeNotSupported
     );
 
     return;
@@ -45,6 +45,6 @@ const errorChecker = (result: ValidationResult, countryCode: unknown) => {
       .stringNumeric()
       .stringMin()
       .stringMax()
-      .throwAnyway(ERRORS.COUNTRY_CODE_INVALID);
+      .throwAnyway(errors.countryCode_invalid);
   });
 };

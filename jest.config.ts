@@ -3,6 +3,7 @@ import { JestConfigWithTsJest, pathsToModuleNameMapper } from "ts-jest";
 import tsconfig from "./tsconfig.json";
 
 let baseOptions: JestConfigWithTsJest = {
+  forceExit: true,
   testEnvironment: "node",
   moduleFileExtensions: ["js", "ts", "json", "node"],
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
@@ -29,6 +30,7 @@ let baseOptions: JestConfigWithTsJest = {
     // "**/__tests__/tests/integration/routers/auth/logout.spec.ts",
     "**/testSrc/__tests__/e2e/events/auth/signIn.spec.ts",
   ],
+  setupFiles: ["./jest.setup.ts"],
 };
 
 const coverageOptions: JestConfigWithTsJest = {

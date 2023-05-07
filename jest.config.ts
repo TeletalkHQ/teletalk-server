@@ -1,31 +1,41 @@
-import { pathsToModuleNameMapper, JestConfigWithTsJest } from "ts-jest";
+import { JestConfigWithTsJest, pathsToModuleNameMapper } from "ts-jest";
 
-import tsconfig from "./tsconfig.dev.json";
+import tsconfig from "./tsconfig.json";
 
-const jestConfig: JestConfigWithTsJest = {
-  detectOpenHandles: true,
-  // globals: {
-  //   "ts-jest": {
-  //     tsconfig: "tsconfig.dev.json",
-  //   },
-  // },
+let baseOptions: JestConfigWithTsJest = {
+  testEnvironment: "node",
   moduleFileExtensions: ["js", "ts", "json", "node"],
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
   modulePaths: [tsconfig.compilerOptions.baseUrl],
-  preset: "ts-jest",
-  roots: ["<rootDir>"],
-  setupFiles: [
-    "./src/configs/customGlobals.ts",
-    "./src/helpers/requireDotenv.ts",
-  ],
-  testEnvironment: "node",
+  coverageThreshold: {
+    global: {
+      lines: 90,
+    },
+  },
+  extensionsToTreatAsEsm: [".ts"],
+  transform: {
+    "^.+\\.ts?$": [
+      "ts-jest",
+      {
+        useESM: true,
+        tsconfig: "tsconfig.json",
+      },
+    ],
+  },
+  transformIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/lib", "lib"],
   testMatch: [
     // "**/__tests__/**/*.ts?(x)",
     // "**/__tests__/tests/integration/routers/auth/createNewUser.spec.ts",
     // "**/__tests__/tests/integration/routers/auth/logout.spec.ts",
-    "**/__tests__/tests/integration/routers/auth/signIn.spec.ts",
+    "**/testSrc/__tests__/e2e/events/auth/signIn.spec.ts",
   ],
-  testTimeout: 20000,
 };
 
-export default jestConfig;
+const coverageOptions: JestConfigWithTsJest = {
+  collectCoverage: true,
+  collectCoverageFrom: ["./src/**"],
+};
+
+if (process.env.COVERAGE) baseOptions = { ...baseOptions, ...coverageOptions };
+
+export default baseOptions;

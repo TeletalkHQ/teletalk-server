@@ -37,3 +37,4 @@ TODO: Generative errors, validation models and so on
 TODO: Tan license check, flow check, coverage check
 TODO: Change logger levels to {priority:number         ; name:string}
 eslint-plugin-jest
+TODO: Remove jwt signIn secret

@@ -2,7 +2,6 @@ module.exports = {
   env: {
     es2021: true,
     jest: false,
-    mocha: true,
     node: true,
   },
   extends: [

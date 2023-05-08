@@ -14,7 +14,6 @@ COPY environments/ environments/
 COPY esbuild/ esbuild/
 COPY modules/ modules/
 COPY public/ public/
-COPY .mocharc.json ./
 COPY index.ts ./
 COPY loader.js ./
 

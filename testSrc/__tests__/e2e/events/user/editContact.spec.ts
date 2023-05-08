@@ -1,4 +1,3 @@
-import chai from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
@@ -103,9 +102,9 @@ const testNonEditedContacts = (
     (i) => i.userId !== sendingData.userId
   );
 
-  chai
-    .expect(filterNonEditedCurrentUserContacts.length)
-    .to.be.equal(filterNonEditedContacts.length);
+  expect(filterNonEditedCurrentUserContacts.length).toBe(
+    filterNonEditedContacts.length
+  );
 
   filterNonEditedContacts.forEach((contactItem) => {
     const foundCurrentUserContactItem = filterNonEditedCurrentUserContacts.find(

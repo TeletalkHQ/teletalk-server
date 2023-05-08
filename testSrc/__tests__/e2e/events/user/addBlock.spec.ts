@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
@@ -10,7 +8,7 @@ import { services } from "@/services";
 
 import { BlackListItem, UserMongo } from "@/types";
 
-import { FIELD_TYPE } from "$/variables";
+import { customTypeof } from "custom-typeof";
 
 describe("addBlock successful tests", () => {
   it("should add users to blacklist", async () => {
@@ -37,8 +35,8 @@ describe("addBlock successful tests", () => {
       user.userId
     )) as UserMongo;
 
-    chai.expect(blacklist).to.be.an(FIELD_TYPE.ARRAY);
-    chai.expect(blacklist.length).to.be.equal(blacklistLength);
+    expect(customTypeof.isArray(blacklist)).toBeTruthy();
+    expect(blacklist.length).toEqual(blacklistLength);
   });
 });
 
@@ -87,7 +85,9 @@ const testAddBlockResponse = async (data: {
 
 const testTargetUserBlacklist = async (targetUserId: string) => {
   const blacklist = await findBlacklist(targetUserId);
-  chai.expect(blacklist).to.be.an(FIELD_TYPE.ARRAY).and.to.be.empty;
+  expect(customTypeof.isArray(blacklist)).toBeTruthy();
+  expect(blacklist).toHaveLength(0);
+
   return blacklist;
 };
 

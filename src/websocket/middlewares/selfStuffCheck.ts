@@ -8,7 +8,7 @@ import {
   SocketNext,
 } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const selfStuffCheck: SocketMiddleware = async (
   socket,
@@ -27,7 +27,7 @@ const tryBlock = async (socket: Socket, data: { userId: string }) => {
   const { sessionId } = socket.authData.data.payload;
 
   errorThrower(sessionId === data.userId, {
-    ...ERRORS.SELF_STUFF,
+    ...errors.selfStuff,
     targetUserId: data.userId,
   });
 

@@ -5,11 +5,7 @@
       "request": "launch",
       "name": "start:dev",
       "program": "${workspaceFolder}/index.ts",
-      "runtimeArgs": [
-        "--trace-warnings",
-        "--no-warnings",
-        "--loader ${workspaceFolder}/loader.js"
-      ],
+      "runtimeArgs": ["--no-warnings", "--loader ${workspaceFolder}/loader.js"],
       "env": {
         "MONGO_COLLECTION_NAME": "teletalk_db_development",
         "NODE_ENV": "development",

@@ -7,7 +7,7 @@ import { models } from "@/models";
 
 import { E2eFailTestInitializer } from "$/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
@@ -24,7 +24,7 @@ const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
     .maxLength(
       randomMaker.stringNumber(models.native.countryCode.maxLength + 1)
     )
-    .custom(helpers.getWrongCountryCode(), ERRORS.COUNTRY_CODE_NOT_SUPPORTED);
+    .custom(helpers.getWrongCountryCode(), errors.countryCodeNotSupported);
 };
 
 export { countryCodeE2eFailTestInitializer };

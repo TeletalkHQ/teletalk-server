@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import { authHelper } from "$/classes/AuthHelper";
 import { authManager } from "@/classes/AuthManager";
 import { clientStore } from "@/classes/ClientStore";
@@ -41,13 +39,13 @@ describe("logout success tests", () => {
     const isSessionExist = userFromDb.sessions.some(
       ({ session }) => session === loggedOutClient!.session
     );
-    chai.expect(isSessionExist).to.be.false;
+    expect(isSessionExist).toBeFalsy();
 
     clients.forEach((item) => {
       const isSessionExist = userFromDb.sessions.some(
         (i) => i.session === item.session
       );
-      chai.expect(isSessionExist).to.be.true;
+      expect(isSessionExist).toBeTruthy();
     });
   });
 });

@@ -1,4 +1,3 @@
-import chai from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
@@ -79,24 +78,22 @@ const testContactsAfterRemoveOneItem = async (
   addingContacts: ContactWithCellphone[]
 ) => {
   const nonRemovedContacts = await findContacts(currentUser.userId);
-  chai.expect(nonRemovedContacts.length).to.be.equal(addingContacts.length);
+  expect(nonRemovedContacts.length).toEqual(addingContacts.length);
 
   addingContacts.forEach((addingContact) => {
     const nonRemovedContact = nonRemovedContacts.find(
       (j) => addingContact.userId === j.userId
     ) as ContactWithCellphone;
 
-    chai
-      .expect(addingContact)
-      .to.be.deep.equal(
-        userUtilities.extractContactWithCellphone(nonRemovedContact)
-      );
+    expect(addingContact).toEqual(
+      userUtilities.extractContactWithCellphone(nonRemovedContact)
+    );
   });
 };
 
 const testContactsAfterRemoveAll = async (userId: string) => {
   const contactsAfterRemoveAll = await findContacts(userId);
-  chai.expect(contactsAfterRemoveAll.length).to.be.equal(0);
+  expect(contactsAfterRemoveAll.length).toEqual(0);
 };
 
 const findContacts = async (userId: string) => {

@@ -5,7 +5,7 @@ import { models } from "@/models";
 
 import { Validator } from "@/types";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const compiledSessionValidator = ValidationModelBuilder.compiler(
   models.validation.session
@@ -28,6 +28,6 @@ export const sessionValidator: Validator = async (session) => {
       .string()
       .stringMin()
       .stringMax()
-      .throwAnyway(ERRORS.SESSION_INVALID);
+      .throwAnyway(errors.session_invalid);
   });
 };

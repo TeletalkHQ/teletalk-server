@@ -6,13 +6,13 @@ import { helpers } from "$/helpers";
 
 import { models } from "@/models";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 import { routesWithAuth } from "@/websocket/events";
 
-describe("checkCurrentUserStatus middleware success tests", () => {
-  //TODO: Add tests: checkCurrentUserStatus middleware success tests
-});
+// describe("checkCurrentUserStatus middleware success tests", () => {
+//   //TODO: Add tests: checkCurrentUserStatus middleware success tests
+// });
 
 describe("checkCurrentUserStatus middleware fail tests", () => {
   const routesWithoutSignup = routesWithAuth.filter(
@@ -21,7 +21,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
 
   for (const route of routesWithoutSignup) {
     const title = helpers.createFailTestMessage(
-      ERRORS.CURRENT_USER_NOT_EXIST,
+      errors.currentUserNotExist,
       route.name
     );
 
@@ -42,13 +42,13 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
       const data = helpers.generateDynamicData(route.inputFields);
       await helpers.requesterCollection[
         route.name as keyof typeof helpers.requesterCollection
-      ](socket).sendFullFeaturedRequest(data, ERRORS.CURRENT_USER_NOT_EXIST);
+      ](socket).sendFullFeaturedRequest(data, errors.currentUserNotExist);
     });
   }
 
   for (const route of routesWithoutSignup) {
     const title = helpers.createFailTestMessage(
-      ERRORS.CURRENT_SESSION_NOT_EXIST,
+      errors.currentSessionNotExist,
       route.name
     );
 
@@ -68,7 +68,7 @@ describe("checkCurrentUserStatus middleware fail tests", () => {
       const data = helpers.generateDynamicData(route.inputFields);
       await helpers.requesterCollection[
         route.name as keyof typeof helpers.requesterCollection
-      ](socket).sendFullFeaturedRequest(data, ERRORS.CURRENT_SESSION_NOT_EXIST);
+      ](socket).sendFullFeaturedRequest(data, errors.currentSessionNotExist);
     });
   }
 });

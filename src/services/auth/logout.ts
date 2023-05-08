@@ -1,6 +1,6 @@
 import { models } from "@/models";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const logout = async ({
   currentUserId,
@@ -13,7 +13,7 @@ const logout = async ({
     userId: currentUserId,
   });
 
-  if (!currentUser) throw ERRORS.CURRENT_USER_NOT_EXIST;
+  if (!currentUser) throw errors.currentUserNotExist;
 
   //FIXME: Remove specific session
   currentUser.sessions = currentUser.sessions.filter(

@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
@@ -44,7 +42,7 @@ describe("send message success tests", () => {
       targetUser.userId
     )) as HydratedPrivateChatMongo;
 
-    chai.expect(chat.messages.length).to.be.equal(messagesLength);
+    expect(chat.messages.length).toBe(messagesLength);
   });
 });
 

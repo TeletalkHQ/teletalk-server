@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import {
   AssertionInitializerHelper,
   assertionInitializerHelper,
@@ -16,7 +14,7 @@ import { helpers } from "$/helpers";
 
 import { Cellphone, Client } from "@/types";
 
-import { FIELD_TYPE } from "$/variables";
+import { customTypeof } from "custom-typeof";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {
@@ -75,11 +73,11 @@ const testSavedClient = async (
   cellphone: Cellphone
 ) => {
   const client = (await clientStore.find(clientId)) as Client;
-  chai.expect(client).to.be.an(FIELD_TYPE.OBJECT);
-  chai.expect(client.countryCode).to.be.equal(cellphone.countryCode);
-  chai.expect(client.countryName).to.be.equal(cellphone.countryName);
-  chai.expect(client.phoneNumber).to.be.equal(cellphone.phoneNumber);
-  chai.expect(client.isVerified).to.be.equal(false);
+  expect(customTypeof.isObject(client)).toBeTruthy();
+  expect(client.countryCode).toBe(cellphone.countryCode);
+  expect(client.countryName).toBe(cellphone.countryName);
+  expect(client.phoneNumber).toBe(cellphone.phoneNumber);
+  expect(client.isVerified).toBe(false);
 
   const sessionId = authManager.getSessionId(
     client.session,

@@ -2,7 +2,6 @@ import path from "path";
 
 import dotenv from "dotenv";
 import { LoggerChalker } from "logger-chalker";
-import { Trier } from "simple-trier";
 
 import { envManager } from "@/classes/EnvironmentManager";
 
@@ -17,19 +16,19 @@ class AppConfigs {
     this.registerEnvironments(envManager.getNodeEnv());
 
     this.setEnvironments(envManager.getEnvironment());
-
-    const { NODE_ENV, LOG_LEVEL } = this.ENVIRONMENTS;
-    logger.setLevel(logger.levels[LOG_LEVEL]);
-
-    if (NODE_ENV.includes("test"))
-      Trier.changeGlobalConfigs({
-        callerName: "unknownCaller",
-        canPrintError: true,
-      });
+    this.setLogLevel();
   }
 
+  setPort(port: number) {
+    this.ENVIRONMENTS.PORT = port;
+  }
   private registerCustomGlobals() {
     global.logger = new LoggerChalker();
+  }
+
+  private setLogLevel() {
+    const { LOG_LEVEL } = this.ENVIRONMENTS;
+    logger.setLevel(logger.levels[LOG_LEVEL]);
   }
 
   private registerEnvironments(fileName: EnvFileName) {

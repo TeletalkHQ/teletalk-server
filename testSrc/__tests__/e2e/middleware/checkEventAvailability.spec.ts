@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import { clientInitializer } from "$/classes/ClientInitializer";
 import { requesterMaker } from "$/classes/Requester";
 
@@ -9,7 +7,7 @@ import { SocketRoute } from "@/types";
 import { ClientSocket } from "$/types";
 
 import { FIELD_TYPE } from "$/variables";
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 import { routes } from "$/websocket/events";
 import { arrayOfRoutes } from "@/websocket/events";
@@ -17,7 +15,7 @@ import { arrayOfRoutes } from "@/websocket/events";
 const createRequester = (socket: ClientSocket, route: SocketRoute) =>
   requesterMaker(socket, route);
 
-helpers.asyncDescribe(
+await helpers.asyncDescribe(
   "checkEventAvailability middleware fail test",
   async () => {
     const clientSocket = (
@@ -26,13 +24,13 @@ helpers.asyncDescribe(
 
     return () => {
       const message = helpers.createFailTestMessage(
-        ERRORS.ROUTE_NOT_FOUND,
+        errors.routeNotFound,
         routes.unknownRoute.name
       );
 
       it(message, async () => {
         await createRequester(clientSocket, routes.unknownRoute)
-          .setError(ERRORS.EVENT_NOT_FOUND)
+          .setError(errors.eventNotFound)
           .sendFullFeaturedRequest();
       });
 
@@ -40,22 +38,22 @@ helpers.asyncDescribe(
       //   (i) => i.name !== "disconnect"
       // )
       for (const route of arrayOfRoutes) {
-        it(`should not get error: ROUTE_NOT_FOUND - ${route.name}`, async () => {
+        it(`should not get error: routeNotFound - ${route.name}`, async () => {
           const requester = createRequester(clientSocket, route);
           await requester.sendRequest();
 
           const {
-            data: { ERRORS: responseErrors },
+            data: { errors: responseErrors },
           } = requester.getResponse();
 
-          const { reason: expectedReason } = ERRORS.ROUTE_NOT_FOUND;
+          const { reason: expectedReason } = errors.routeNotFound;
           if (responseErrors?.[expectedReason]) {
-            chai
-              .expect(responseErrors[expectedReason].reason)
-              .to.be.an(FIELD_TYPE.STRING);
-            chai
-              .expect(responseErrors[expectedReason].reason)
-              .not.equal(ERRORS.ROUTE_NOT_FOUND.reason);
+            expect(responseErrors[expectedReason].reason).toBe(
+              FIELD_TYPE.STRING
+            );
+            expect(responseErrors[expectedReason].reason).not.toEqual(
+              errors.routeNotFound.reason
+            );
           }
         });
       }

@@ -1,7 +1,7 @@
 //FIXME: Remove http://
+import http from "http";
 
 import cookie from "cookie";
-import http from "http";
 
 import Client, {
   ManagerOptions,
@@ -13,10 +13,10 @@ import { appConfigs } from "@/classes/AppConfigs";
 
 import { utilities } from "@/utilities";
 
-import { ERRORS } from "@/variables";
+import { errors } from "@/variables";
 
 const {
-  APP: { PORT: exactPort, HOSTNAME: hostname },
+  APP: { PORT, HOSTNAME: hostname },
 } = appConfigs.getConfigs();
 
 const setClientIdRequestOptions = {
@@ -26,7 +26,7 @@ const setClientIdRequestOptions = {
   hostname,
   method: "POST",
   path: "/setClientId",
-  port: exactPort,
+  port: PORT,
 };
 
 type PromiseResolve = (value: string | PromiseLike<string>) => void;
@@ -36,7 +36,7 @@ const setClientIdRequestBody =
   (resolve: PromiseResolve, reject: PromiseReject) =>
     (res: http.IncomingMessage) => {
       const cookies = res.headers["set-cookie"];
-      if (!cookies) return reject(ERRORS.COOKIE_IS_UNDEFINED);
+      if (!cookies) return reject(errors.cookieIsNotDefined);
       resolve(utilities.extractClientIdFromCookie(cookies[0]));
     };
 
@@ -69,7 +69,7 @@ class ClientInitializer {
   }
 
   private makeUrl() {
-    return `http://${hostname}:${exactPort}`;
+    return `http://${hostname}:${PORT}`;
   }
 
   private makeClientSocketOptions() {

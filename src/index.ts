@@ -5,6 +5,7 @@
 // import { Server } from "socket.io";
 
 import PrettyError from "pretty-error";
+import address from "address";
 
 import { appConfigs } from "@/classes/AppConfigs";
 
@@ -24,7 +25,8 @@ const listeningListener = () => {
   logger.info(
     `Server is running in ${ENVIRONMENT} mode on port ${
       appConfigs.getConfigs().APP.PORT
-    }`
+    }`,
+    `url: http://${address.ip()}:${appConfigs.getConfigs().APP.PORT}`
   );
 };
 

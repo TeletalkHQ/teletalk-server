@@ -1,5 +1,5 @@
 {
   "ignore": ["./testSrc/**", "./thunder-tests/**"],
-  "exec": "node --trace-warnings --no-warnings --loader ./loader.js",
+  "exec": "node --no-warnings --loader ./loader.js",
   "ext": "ts,json"
 }

@@ -1,4 +1,4 @@
-import chai from "chai";
+import { customTypeof } from "custom-typeof";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
@@ -13,8 +13,6 @@ import { models } from "@/models";
 import { services } from "@/services";
 
 import { UserMongo } from "@/types";
-
-import { FIELD_TYPE } from "$/variables";
 
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
@@ -64,12 +62,12 @@ describe("add contact success tests", () => {
       currentUser.userId
     )) as UserMongo;
 
-    chai.expect(contacts).to.be.an(FIELD_TYPE.ARRAY);
-    chai.expect(contacts.length).to.be.equal(contactsLength);
+    expect(customTypeof.isArray(contacts)).toBeTruthy();
+    expect(contacts.length).toEqual(contactsLength);
   });
 });
 
-helpers.asyncDescribe("addContact fail tests", async () => {
+await helpers.asyncDescribe("addContact fail tests", async () => {
   const currentUserSignData = randomMaker.unusedCellphone();
   const { requester, user: currentUser } = await helpers.setupRequester(
     helpers.requesterCollection.addContactWithCellphone,
@@ -131,7 +129,8 @@ const testAddContactResponse = async (data: {
 
 const testTargetUserContacts = async (targetUserId: string) => {
   const targetUserContacts = await findContacts(targetUserId);
-  chai.expect(targetUserContacts).an(FIELD_TYPE.ARRAY).and.to.be.empty;
+  expect(customTypeof.isArray(targetUserContacts)).toBeTruthy();
+  expect(targetUserContacts).toHaveLength(0);
 };
 
 const findSavedContact = async (

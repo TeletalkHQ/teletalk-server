@@ -10,9 +10,9 @@ import { errors } from "@/variables";
 
 import { routesWithAuth } from "@/websocket/events";
 
-describe("checkCurrentUserStatus middleware success tests", () => {
-  //TODO: Add tests: checkCurrentUserStatus middleware success tests
-});
+// describe("checkCurrentUserStatus middleware success tests", () => {
+//   //TODO: Add tests: checkCurrentUserStatus middleware success tests
+// });
 
 describe("checkCurrentUserStatus middleware fail tests", () => {
   const routesWithoutSignup = routesWithAuth.filter(

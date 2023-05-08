@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import { oneContactAssertionInitializer } from "$/helpers/assertionInitializers/oneContact";
 
 import { AssertionInitializer } from "$/types";
@@ -16,7 +14,7 @@ const contactsAssertionInitializer: AssertionInitializer = ({
       (c: Contact) => c.userId === contact.userId
     );
 
-    chai.expect(responseContact).to.be.an(FIELD_TYPE.OBJECT);
+    expect(responseContact).toBe(FIELD_TYPE.OBJECT);
 
     oneContactAssertionInitializer({
       equalValue: contact,

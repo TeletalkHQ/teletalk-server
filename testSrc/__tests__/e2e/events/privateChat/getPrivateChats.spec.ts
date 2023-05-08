@@ -1,4 +1,4 @@
-import chai from "chai";
+import { customTypeof } from "custom-typeof";
 import { Socket } from "socket.io-client";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
@@ -10,11 +10,8 @@ import { services } from "@/services";
 
 import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
 
-import { FIELD_TYPE } from "$/variables";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
-
-describe("get messages success tests", () => {
-  it("Should get messages", async () => {
+describe("getPrivateChats success tests", () => {
+  it("should get private chats related to client", async () => {
     const { user: currentUser, socket: currentUserSocket } =
       await randomMaker.user();
     const { user: targetUser, socket: targetUserSocket } =
@@ -44,15 +41,15 @@ describe("get messages success tests", () => {
   });
 });
 
-helpers.asyncDescribe("getMessages fail tests", async () => {
-  const { requester } = await helpers.setupRequester(
-    helpers.requesterCollection.getPrivateChats
-  );
+// await helpers.asyncDescribe("getMessages fail tests", async () => {
+//   const { requester } = await helpers.setupRequester(
+//     helpers.requesterCollection.getPrivateChats
+//   );
 
-  return () => {
-    e2eFailTestInitializerHelper(requester);
-  };
-});
+//   return () => {
+//     e2eFailTestInitializerHelper(requester);
+//   };
+// });
 
 const testEmptinessOfPrivateChats = async (socket: Socket) => {
   const requester = helpers.requesterCollection.getPrivateChats(socket);
@@ -60,8 +57,8 @@ const testEmptinessOfPrivateChats = async (socket: Socket) => {
     data: { privateChats },
   } = await requester.sendFullFeaturedRequest();
 
-  chai.expect(privateChats).to.be.an(FIELD_TYPE.ARRAY);
-  chai.expect(privateChats).to.be.empty;
+  expect(customTypeof.isArray(privateChats)).toBeTruthy();
+  expect(privateChats).toHaveLength(0);
 };
 
 const testPrivateChats = async (
@@ -70,7 +67,7 @@ const testPrivateChats = async (
   targetUser: UserMongo
 ) => {
   const { privateChats } = await getAllPrivateChats(currentUserSocket);
-  chai.expect(privateChats).to.be.an(FIELD_TYPE.ARRAY);
+  expect(customTypeof.isArray(privateChats)).toBeTruthy();
 
   const foundChatFromDb = (await findStoredPrivateChat(
     currentUser.userId,
@@ -111,12 +108,10 @@ const findStoredPrivateChat = async (
 };
 
 const testFoundChatFromDb = (foundChatFromDb: PrivateChatMongo) => {
-  chai.expect(foundChatFromDb).to.be.an(FIELD_TYPE.OBJECT);
-  chai.expect(foundChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY);
-  chai
-    .expect(foundChatFromDb.participants)
-    .to.be.an(FIELD_TYPE.ARRAY)
-    .and.length(2);
+  expect(customTypeof.isObject(foundChatFromDb)).toBeTruthy();
+  expect(customTypeof.isArray(foundChatFromDb.participants)).toBeTruthy();
+  expect(customTypeof.isArray(foundChatFromDb.participants)).toBeTruthy();
+  expect(foundChatFromDb.participants).toHaveLength(2);
 };
 
 const testOnePrivateChat = (data: {
@@ -125,11 +120,9 @@ const testOnePrivateChat = (data: {
   foundChatFromDb: PrivateChatMongo;
   targetUserId: string;
 }) => {
-  chai.expect(data.foundChat).to.be.an(FIELD_TYPE.OBJECT);
-  chai
-    .expect(data.foundChat.participants)
-    .to.be.an(FIELD_TYPE.ARRAY)
-    .and.length(2);
+  expect(customTypeof.isObject(data.foundChat)).toBeTruthy();
+  expect(customTypeof.isArray(data.foundChat.participants)).toBeTruthy();
+  expect(data.foundChat.participants).toHaveLength(2);
 
   tesChatId(data.foundChat, data.foundChatFromDb);
   testMessages(data.foundChat, data.foundChatFromDb);

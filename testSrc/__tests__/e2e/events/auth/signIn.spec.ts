@@ -14,7 +14,7 @@ import { helpers } from "$/helpers";
 
 import { Cellphone, Client } from "@/types";
 
-import { FIELD_TYPE } from "$/variables";
+import { customTypeof } from "custom-typeof";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {
@@ -73,7 +73,7 @@ const testSavedClient = async (
   cellphone: Cellphone
 ) => {
   const client = (await clientStore.find(clientId)) as Client;
-  expect(client).toBe(FIELD_TYPE.OBJECT);
+  expect(customTypeof.isObject(client)).toBeTruthy();
   expect(client.countryCode).toBe(cellphone.countryCode);
   expect(client.countryName).toBe(cellphone.countryName);
   expect(client.phoneNumber).toBe(cellphone.phoneNumber);

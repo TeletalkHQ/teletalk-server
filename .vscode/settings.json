@@ -25,7 +25,6 @@
     ".gitignore": true,
     ".husky": true,
     ".idea": true,
-    ".mocharc.json": true,
     ".npmrc": true,
     ".nyc_output": true,
     ".nycrc.json": true,
@@ -65,7 +64,6 @@
     "README.md": true,
     "requirements": true,
     "temp": true,
-    "test/mocha.opts": true,
     "test/README.md": true,
     "test/tests.svg": true,
     "tests.svg": true,
@@ -80,10 +78,11 @@
     "lib": true,
     "stryker.conf.mjs": true,
     ".babelrc": true,
-    ".stryker-tmp": true
+    ".stryker-tmp": true,
+    "jest.setup.ts": true
   },
   "prettier.configPath": ".prettierrc.json",
-  "prettier.endOfLine": "crlf",
+  "prettier.endOfLine": "lf",
   "prettier.useTabs": false,
   "todo-tree.tree.showBadges": true,
   "todo-tree.tree.showCountsInTree": false,
@@ -196,5 +195,12 @@
       "type": "text",
       "multiline": true
     }
-  ]
+  ],
+  "testing.defaultGutterClickAction": "run",
+  "jest.jestCommandLine": "npm run test:dev -- --",
+  "jest.testExplorer": {
+    "showInlineError": "true"
+  },
+  "jest.coverageFormatter": "GutterFormatter",
+  "jest.autoRun": "off"
 }

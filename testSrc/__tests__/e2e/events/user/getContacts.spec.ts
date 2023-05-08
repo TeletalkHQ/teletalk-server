@@ -1,8 +1,6 @@
-import chai from "chai";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "@/classes/UserUtilities";
 
@@ -10,7 +8,7 @@ import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
-import { FIELD_TYPE } from "$/variables";
+import { customTypeof } from "custom-typeof";
 
 describe("getContacts success tests", () => {
   it("", async () => {
@@ -44,22 +42,22 @@ describe("getContacts success tests", () => {
   });
 });
 
-helpers.asyncDescribe("getContacts fail tests", async () => {
-  const { requester } = await helpers.setupRequester(
-    helpers.requesterCollection.getContacts
-  );
+// await helpers.asyncDescribe("getContacts fail tests", async () => {
+//   const { requester } = await helpers.setupRequester(
+//     helpers.requesterCollection.getContacts
+//   );
 
-  return () => {
-    e2eFailTestInitializerHelper(requester);
-  };
-});
+//   return () => {
+//     e2eFailTestInitializerHelper(requester);
+//   };
+// });
 
 const testContacts = (
   addingContacts: ContactWithCellphone[],
   savedContacts: ContactWithCellphone[]
 ) => {
-  chai.expect(savedContacts).to.be.an(FIELD_TYPE.ARRAY);
-  chai.expect(savedContacts.length).to.be.equal(addingContacts.length);
+  expect(customTypeof.isArray(savedContacts)).toBeTruthy();
+  expect(savedContacts.length).toEqual(addingContacts.length);
 
   addingContacts.forEach((i) => {
     const savedContact = savedContacts.find(

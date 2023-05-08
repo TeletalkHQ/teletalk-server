@@ -12,9 +12,9 @@ const config = {
   // files: [
   //   // List of files to mutate and test
   // ],
-  mochaOptions: {
+  jestOptions: {
     "async-only": false,
-    config: ".mocharc.json",
+    config: "./jest.config.ts",
     // delay: true,
     // exit: true,
     extension: ["ts"],
@@ -36,7 +36,7 @@ const config = {
   },
   // mutator: "typescript",
   reporters: ["html", "clear-text", "progress"],
-  testRunner: "ts-mocha",
+  testRunner: "jest",
   // transpilers: ["typescript"],
   tsconfigFile: "tsconfig.json",
   typescriptChecker: {

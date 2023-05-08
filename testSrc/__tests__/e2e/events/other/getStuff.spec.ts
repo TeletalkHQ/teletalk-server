@@ -1,4 +1,3 @@
-import chai from "chai";
 import { customTypeof } from "custom-typeof";
 
 import { clientInitializer } from "$/classes/ClientInitializer";
@@ -33,31 +32,31 @@ describe("getAllStuff success tests", () => {
 
 const testRoutes = (routes: SocketRoute[]) => {
   routes.forEach((route) => {
-    chai.expect(route.name).to.be.an(FIELD_TYPE.STRING);
-    chai.expect(route.method).to.be.an(FIELD_TYPE.STRING);
-    chai.expect(route.name).to.be.an(FIELD_TYPE.STRING);
-    chai.expect(route.inputFields).to.be.an(FIELD_TYPE.OBJECT);
-    chai.expect(route.outputFields).to.be.an(FIELD_TYPE.OBJECT);
+    expect(typeof route.name).toBe(FIELD_TYPE.STRING);
+    expect(typeof route.method).toBe(FIELD_TYPE.STRING);
+    expect(typeof route.name).toBe(FIELD_TYPE.STRING);
+    expect(customTypeof.isObject(route.inputFields)).toBeTruthy();
+    expect(customTypeof.isObject(route.outputFields)).toBeTruthy();
   });
 };
 
 const testModels = (models: { [prop in NativeModelKey]: NativeModel }) => {
   Object.values(models).forEach((value) => {
-    chai.expect(value).to.be.an(FIELD_TYPE.OBJECT);
+    expect(customTypeof.isObject(value)).toBeTruthy();
     Object.values(value).forEach((prop) => {
-      chai.expect(prop).to.not.be.undefined;
-      chai.expect(prop).to.not.be.null;
+      expect(prop).toBeDefined();
+      expect(prop).not.toBeNull();
     });
   });
 };
 
 const testErrors = (errors: ErrorCollection) => {
   Object.values(errors).forEach((error) => {
-    chai.expect(error).to.be.an(FIELD_TYPE.OBJECT);
-    chai.expect(error.reason).to.be.an(FIELD_TYPE.STRING);
-    chai.expect(error.side).to.be.an(FIELD_TYPE.STRING);
+    expect(customTypeof.isObject(error)).toBeTruthy();
+    expect(typeof error.reason).toBe(FIELD_TYPE.STRING);
+    expect(typeof error.side).toBe(FIELD_TYPE.STRING);
     //FIXME: Should be equal to "server" or "client"
-    // chai.expect(error.side).to.be.equal("side");
+    // expect(error.side).toBe("side");
   });
 };
 
@@ -65,33 +64,33 @@ const testValidationModels = (validationModels: ValidationModel[]) => {
   const isDefined = customTypeof.isNotUndefined.bind(customTypeof);
 
   Object.values(validationModels).forEach((model) => {
-    chai.expect(model.required).to.be.an(FIELD_TYPE.BOOLEAN);
-    chai.expect(model.type).to.be.an(FIELD_TYPE.STRING);
+    expect(typeof model.required).toBe(FIELD_TYPE.BOOLEAN);
+    expect(typeof model.type).toBe(FIELD_TYPE.STRING);
     if (isDefined(model.empty))
-      chai.expect(model.empty).to.be.an(FIELD_TYPE.BOOLEAN);
+      expect(typeof model.empty).toBe(FIELD_TYPE.BOOLEAN);
     if (isDefined(model.max))
-      chai.expect(model.max).to.be.an(FIELD_TYPE.NUMBER);
+      expect(customTypeof.isNumber(model.max)).toBeTruthy();
     if (isDefined(model.min))
-      chai.expect(model.min).to.be.an(FIELD_TYPE.NUMBER);
+      expect(customTypeof.isNumber(model.min)).toBeTruthy();
     if (isDefined(model.numeric))
-      chai.expect(model.numeric).to.be.an(FIELD_TYPE.BOOLEAN);
+      expect(typeof model.numeric).toBe(FIELD_TYPE.BOOLEAN);
     if (isDefined(model.trim))
-      chai.expect(model.trim).to.be.an(FIELD_TYPE.BOOLEAN);
+      expect(typeof model.trim).toBe(FIELD_TYPE.BOOLEAN);
 
     if (!model.messages)
       throw new Error("ValidationModel.messages is undefined");
 
-    chai.expect(model.messages).to.be.an(FIELD_TYPE.OBJECT);
-    chai.expect(model.messages.required).to.be.an(FIELD_TYPE.STRING);
+    expect(customTypeof.isObject(model.messages)).toBeTruthy();
+    expect(typeof model.messages.required).toBe(FIELD_TYPE.STRING);
     if (isDefined(model.messages.string))
-      chai.expect(model.messages.string).to.be.an(FIELD_TYPE.STRING);
+      expect(typeof model.messages.string).toBe(FIELD_TYPE.STRING);
     if (isDefined(model.messages.stringEmpty))
-      chai.expect(model.messages.stringEmpty).to.be.an(FIELD_TYPE.STRING);
+      expect(typeof model.messages.stringEmpty).toBe(FIELD_TYPE.STRING);
     if (isDefined(model.messages.stringMax))
-      chai.expect(model.messages.stringMax).to.be.an(FIELD_TYPE.STRING);
+      expect(typeof model.messages.stringMax).toBe(FIELD_TYPE.STRING);
     if (isDefined(model.messages.stringMin))
-      chai.expect(model.messages.stringMin).to.be.an(FIELD_TYPE.STRING);
+      expect(typeof model.messages.stringMin).toBe(FIELD_TYPE.STRING);
     if (isDefined(model.messages.stringNumeric))
-      chai.expect(model.messages.stringNumeric).to.be.an(FIELD_TYPE.STRING);
+      expect(typeof model.messages.stringNumeric).toBe(FIELD_TYPE.STRING);
   });
 };

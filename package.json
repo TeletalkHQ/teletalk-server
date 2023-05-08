@@ -12,7 +12,7 @@
   },
   "scripts": {
     "app-runner": "node --no-warnings --loader ./loader.js ./index.ts",
-    "build": "node ./esbuild/index.js",
+    "build": "node ./configs/esbuild.js",
     "check:format": "prettier --write  --list-different ./",
     "check:lint": "eslint ./",
     "check:lint:default": "eslint 'src/**/*.ts'",

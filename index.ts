@@ -1,7 +1,5 @@
 import path from "path";
 
-import { run } from "mocha";
-
 const NODE_ENV = process.env.NODE_ENV;
 
 const getBuildFolderName = () => {
@@ -24,8 +22,6 @@ const start = async () => {
   try {
     if (isProduction()) return await runProduction();
 
-    if (NODE_ENV?.includes("test")) return runTest();
-
     runDev();
   } catch (error) {
     console.error(error);
@@ -43,35 +39,13 @@ const runProduction = async () => {
     getBuildFolderName(),
     "app.mjs"
   );
-  const app = import(appPath);
-  (await app).runner();
-};
+  const app = await import(appPath);
 
-const runTest = async () => {
-  const path = getTestServerPath();
-  const requirements = await getTestServerRequirements(path);
+  console.log("app:", app);
 
-  await runRequirements(requirements);
-
-  run();
-};
-const getTestServerPath = () => {
-  const paths = [__dirname];
-  if (NODE_ENV === "test_production_local")
-    paths.push("build", getBuildFolderName(), "test.mjs");
-  else paths.push("testSrc");
-
-  return path.join(...paths);
-};
-const getTestServerRequirements = async (path: string) => {
-  return (await import(path)).requirements;
-};
-const runRequirements = async (requirements: any) => {
-  await requirements.runner();
-  await requirements.resetDatabase();
-  await requirements.registerTestSuits();
+  app.runner();
 };
 
 const runDev = async () => (await import(path.join(__dirname, "src"))).runner();
 
-start();
+await start();

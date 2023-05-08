@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import { requesterMaker } from "$/classes/Requester";
 import { clientInitializer } from "$/classes/ClientInitializer";
 
@@ -23,7 +21,7 @@ describe("auth middleware test", () => {
 
       const { reason } = errors.session_required_error;
       if (responseErrors?.[reason]) {
-        chai.expect(reason).not.equal(errors.session_required_error.reason);
+        expect(reason).not.toEqual(errors.session_required_error.reason);
       }
     });
   }

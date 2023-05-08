@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import { clientInitializer } from "$/classes/ClientInitializer";
 import { requesterMaker } from "$/classes/Requester";
 
@@ -17,7 +15,7 @@ import { arrayOfRoutes } from "@/websocket/events";
 const createRequester = (socket: ClientSocket, route: SocketRoute) =>
   requesterMaker(socket, route);
 
-helpers.asyncDescribe(
+await helpers.asyncDescribe(
   "checkEventAvailability middleware fail test",
   async () => {
     const clientSocket = (
@@ -50,12 +48,12 @@ helpers.asyncDescribe(
 
           const { reason: expectedReason } = errors.routeNotFound;
           if (responseErrors?.[expectedReason]) {
-            chai
-              .expect(responseErrors[expectedReason].reason)
-              .to.be.an(FIELD_TYPE.STRING);
-            chai
-              .expect(responseErrors[expectedReason].reason)
-              .not.equal(errors.routeNotFound.reason);
+            expect(responseErrors[expectedReason].reason).toBe(
+              FIELD_TYPE.STRING
+            );
+            expect(responseErrors[expectedReason].reason).not.toEqual(
+              errors.routeNotFound.reason
+            );
           }
         });
       }

@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import {
   AssertionInitializerHelper,
   assertionInitializerHelper,
@@ -27,11 +25,11 @@ describe("verifySignIn success test", () => {
     const helper = authHelper(cellphone, fullName);
     await helper.signIn();
     await helper.verify();
-    chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(true);
+    expect(helper.getResponses().verify.data.newUser).toBe(true);
 
     const client = (await clientStore.find(helper.getClientId())) as Client;
 
-    chai.expect(client.isVerified).to.be.equal(true);
+    expect(client.isVerified).toBe(true);
   });
 
   it("should verify as exist user", async () => {
@@ -50,7 +48,7 @@ describe("verifySignIn success test", () => {
       await helper.signIn();
       await helper.verify();
 
-      chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(false);
+      expect(helper.getResponses().verify.data.newUser).toBeFalsy();
 
       const { session } = (await clientStore.find(helper.getClientId()))!;
       sessions.push(session);
@@ -60,11 +58,11 @@ describe("verifySignIn success test", () => {
 
     const user = (await services.findOneUser(cellphone)) as UserMongo;
 
-    chai.expect(sessions.length).to.be.equal(user.sessions.length);
+    expect(sessions.length).toBe(user.sessions.length);
 
     sessions.forEach((item) => {
       const isExist = user.sessions.some(({ session }) => session === item);
-      chai.expect(isExist).to.be.true;
+      expect(isExist).toBe(true);
     });
   });
 });

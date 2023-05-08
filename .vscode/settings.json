@@ -25,7 +25,6 @@
     ".gitignore": false,
     ".husky": false,
     ".idea": false,
-    ".mocharc.json": false,
     ".npmrc": false,
     ".nyc_output": false,
     ".nycrc.json": false,
@@ -65,7 +64,6 @@
     "README.md": false,
     "requirements": false,
     "temp": false,
-    "test/mocha.opts": false,
     "test/README.md": false,
     "test/tests.svg": false,
     "tests.svg": false,
@@ -80,10 +78,11 @@
     "lib": false,
     "stryker.conf.mjs": false,
     ".babelrc": false,
-    ".stryker-tmp": false
+    ".stryker-tmp": false,
+    "jest.setup.ts": false
   },
   "prettier.configPath": ".prettierrc.json",
-  "prettier.endOfLine": "crlf",
+  "prettier.endOfLine": "lf",
   "prettier.useTabs": false,
   "todo-tree.tree.showBadges": true,
   "todo-tree.tree.showCountsInTree": false,
@@ -197,10 +196,11 @@
       "multiline": true
     }
   ],
-  "mochaExplorer.configFile": ".mocharc.json",
-  "mochaExplorer.files": "testSrc/**/*.ts",
-  "mochaExplorer.watch": "",
-  "mochaExplorer.delay": true,
-  "mochaExplorer.esmLoader": false,
-  "editor.cursorSmoothCaretAnimation": "on"
+  "testing.defaultGutterClickAction": "run",
+  "jest.jestCommandLine": "npm run test:dev -- --",
+  "jest.testExplorer": {
+    "showInlineError": "true"
+  },
+  "jest.coverageFormatter": "GutterFormatter",
+  "jest.autoRun": "off"
 }

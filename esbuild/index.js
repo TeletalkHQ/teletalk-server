@@ -21,7 +21,7 @@ const defaultOptions = {
 const appBuilder = (version) =>
   build({
     ...defaultOptions,
-    entryPoints: ["src/servers/index.ts"],
+    entryPoints: ["src/index.ts"],
     outfile: `build/${version[0]}/app.mjs`,
     target: version[1],
     tsconfig: "tsconfig.json",

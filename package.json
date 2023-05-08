@@ -11,7 +11,7 @@
     "url": "https://github.com/S-STALWART-S/teletalk-server"
   },
   "scripts": {
-    "app-runner": "node --trace-warnings --no-warnings --loader ./loader.js ./index.ts",
+    "app-runner": "node --no-warnings --loader ./loader.js ./index.ts",
     "build": "node ./esbuild/index.js",
     "check:format": "prettier --write  --list-different ./",
     "check:lint": "eslint ./",
@@ -27,10 +27,9 @@
     "start:dev": "cross-env NODE_ENV=development nodemon ./index.ts",
     "start:production": "cross-env NODE_ENV=production npm run app-runner",
     "start:production:local": "cross-env NODE_ENV=production_local npm run app-runner",
-    "test-runner": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "test:coverage": "cross-env COVERAGE=true c8 npm run test:dev",
+    "test-runner": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx jest",
+    "test:coverage": "cross-env COVERAGE=true npm run test:dev",
     "test:dev": "cross-env NODE_ENV=test_development npm run test-runner",
-    "test:dev:generate-badge": "cross-env MOCHA_BADGE_GEN_OUTPUT=./testSrc/passedTests.svg npm run test:dev -- -- --reporter mocha-badge-generator",
     "test:production": "cross-env NODE_ENV=test_production npm run test-runner",
     "test:production:local": "cross-env NODE_ENV=test_production_local npm run test-runner"
   },

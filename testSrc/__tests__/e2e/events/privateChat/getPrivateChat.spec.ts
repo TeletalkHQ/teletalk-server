@@ -1,5 +1,5 @@
-import chai from "chai";
 import { Socket } from "socket.io-client";
+import { customTypeof } from "custom-typeof";
 
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
@@ -13,10 +13,8 @@ import { services } from "@/services";
 
 import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
 
-import { FIELD_TYPE } from "$/variables";
-
-describe("get messages success tests", () => {
-  it("Should get messages", async () => {
+describe("getPrivateChat success tests", () => {
+  it("Should get private chat related to client by chatId", async () => {
     const { user: currentUser, socket } = await randomMaker.user();
     const { user: targetUser } = await randomMaker.user();
 
@@ -57,23 +55,18 @@ const testPrivateChat = async (
   targetUser: UserMongo
 ) => {
   const { privateChat } = await getPrivateChat(socket, chatId);
-  chai.expect(privateChat).to.be.an(FIELD_TYPE.OBJECT);
-  chai.expect(privateChat.participants).to.be.an(FIELD_TYPE.ARRAY);
-  chai
-    .expect(privateChat.participants)
-    .to.be.an(FIELD_TYPE.ARRAY)
-    .and.length(2);
+  expect(customTypeof.isObject(privateChat)).toBeTruthy();
+  expect(customTypeof.isArray(privateChat.participants)).toBeTruthy();
+  expect(privateChat.participants).toHaveLength(2);
 
   const privateChatFromDb = await findStoredPrivateChat(
     currentUser.userId,
     targetUser.userId
   );
-  chai.expect(privateChatFromDb).to.be.an(FIELD_TYPE.OBJECT);
-  chai.expect(privateChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY);
-  chai
-    .expect(privateChatFromDb.participants)
-    .to.be.an(FIELD_TYPE.ARRAY)
-    .and.length(2);
+
+  expect(customTypeof.isObject(privateChatFromDb)).toBeTruthy();
+  expect(customTypeof.isArray(privateChatFromDb.participants)).toBeTruthy();
+  expect(privateChatFromDb.participants).toHaveLength(2);
 
   testChatId(chatId, privateChat, privateChatFromDb);
   testMessages(privateChat, privateChatFromDb);

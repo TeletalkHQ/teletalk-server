@@ -1,5 +1,3 @@
-import chai from "chai";
-
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
@@ -76,20 +74,20 @@ const testBlacklistAfterRemoveOneItem = async (
   blacklist: string[]
 ) => {
   const blacklistAfterRemove = await findBlacklist(currentUserId);
-  chai.expect(blacklistAfterRemove.length).to.be.equal(blacklist.length);
+  expect(blacklistAfterRemove.length).toBe(blacklist.length);
 
   blacklist.forEach((i) => {
     const foundUserId = blacklistAfterRemove.find(
       (j) => i === j.userId
     )?.userId;
 
-    chai.expect(i).to.be.equal(foundUserId);
+    expect(i).toBe(foundUserId);
   });
 };
 
 const testBlacklistAfterRemoveAll = async (userId: string) => {
   const blacklistAfterRemoveAll = await findBlacklist(userId);
-  chai.expect(blacklistAfterRemoveAll.length).to.be.equal(0);
+  expect(blacklistAfterRemoveAll.length).toBe(0);
 };
 
 const findBlacklist = async (userId: string) => {

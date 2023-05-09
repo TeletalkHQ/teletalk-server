@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-var */
 import { LoggerChalker } from "logger-chalker";
 import { Server } from "socket.io";
 
 import { CustomEmit, CustomOn, CustomUse, Environments } from "@/types";
 
 declare global {
+  // eslint-disable-next-line no-var
   var logger: LoggerChalker;
 }
 

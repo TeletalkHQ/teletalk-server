@@ -37,8 +37,3 @@ TODO: Generative errors, validation models and so on
 TODO: Tan license check, flow check, coverage check
 TODO: Change logger levels to {priority:number         ; name:string}
 eslint-plugin-jest
-TODO: Rename sessionId to userId
-TODO: Remove socket.authData
-TODO: Remove currentUserId
-TODO: Remove auth middleware
-TODO: Remove clientIds from db

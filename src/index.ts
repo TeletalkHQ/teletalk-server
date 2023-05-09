@@ -11,9 +11,11 @@ import { appConfigs } from "@/classes/AppConfigs";
 
 import { helpers } from "@/helpers";
 
+import { crateHttpServer } from "@/http";
+
 import { requirements } from "@/requirements";
 
-import { crateHttpServer, websocketServer } from "@/servers";
+import { websocketServer } from "@/websocket";
 
 PrettyError.start();
 
@@ -53,7 +55,7 @@ const runner = async () => {
   // } else {
   await requirements.database();
 
-  const httpServer = crateHttpServer(helpers.clientIdGenerator);
+  const httpServer = crateHttpServer(helpers.signClientId);
   httpServer.listen(appConfigs.getConfigs().APP.PORT, listeningListener);
   websocketServer(httpServer);
 

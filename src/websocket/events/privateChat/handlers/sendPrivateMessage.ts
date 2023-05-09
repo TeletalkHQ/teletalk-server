@@ -3,7 +3,7 @@ import { services } from "@/services";
 import { SocketOnHandler } from "@/types";
 
 const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
-  const { currentUserId } = socket;
+  const { userId: currentUserId } = socket;
   const { participantId, messageText } = data;
 
   const { chatId, newMessage } = await services.sendPrivateMessage({

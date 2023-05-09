@@ -4,7 +4,7 @@ import { nativeModels } from "@/models/native";
 
 import { ValidationPicker } from "@/types";
 
-type CommonValidationModels = ValidationPicker<"createdAt" | "clientId">;
+type CommonValidationModels = ValidationPicker<"createdAt" | "clientId" | "id">;
 
 export const commonValidationModels: CommonValidationModels = {
   clientId: validationModelBuilder
@@ -24,5 +24,16 @@ export const commonValidationModels: CommonValidationModels = {
     .type()
     .required()
     .empty()
+    .build(),
+  id: validationModelBuilder
+    .create("id")
+    .setModel(nativeModels.userId)
+    .required()
+    .type()
+    .empty()
+    .min()
+    .max()
+    .trim()
+    .unique()
     .build(),
 };

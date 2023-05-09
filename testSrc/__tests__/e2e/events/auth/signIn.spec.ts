@@ -6,7 +6,6 @@ import { authHelper } from "$/classes/AuthHelper";
 import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { authManager } from "@/classes/AuthManager";
 import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
 
@@ -79,17 +78,12 @@ const testSavedClient = async (
   expect(client.phoneNumber).toBe(cellphone.phoneNumber);
   expect(client.isVerified).toBe(false);
 
-  const sessionId = authManager.getSessionId(
-    client.session,
-    authManager.getSignInSecret()
-  );
-
   assertionHelper
     .verificationCode({
       testValue: client.verificationCode,
     })
     .userId(
-      { testValue: sessionId },
+      { testValue: client.userId },
       { stringEquality: false, modelCheck: true }
     );
 };
@@ -101,14 +95,9 @@ const testResponse = async (
 ) => {
   const client = (await clientStore.find(clientId)) as Client;
 
-  const sessionId = authManager.getSessionId(
-    client.session,
-    authManager.getSignInSecret()
-  );
-
   assertionHelper.userId(
     {
-      testValue: sessionId,
+      testValue: client.userId,
     },
     {
       modelCheck: true,

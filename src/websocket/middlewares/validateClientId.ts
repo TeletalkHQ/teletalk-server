@@ -1,8 +1,5 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
-import { errorThrower } from "utility-store";
-
-import { models } from "@/models";
 
 import {
   SocketMiddleware,
@@ -12,14 +9,16 @@ import {
 
 import { utilities } from "@/utilities";
 
+import { validators } from "@/validators";
+
 import { errors } from "@/variables";
 
-const checkClientIdExistence: SocketMiddleware = async (
+export const validateClientId: SocketMiddleware = async (
   socket,
   next,
   [_name, data]
 ) => {
-  return await trier<SocketMiddlewareReturnValue>(checkClientIdExistence.name)
+  return await trier<SocketMiddlewareReturnValue>(validateClientId.name)
     .async()
     .try(tryBlock, socket, data)
     .executeIfNoError(executeIfNoError, next)
@@ -28,21 +27,11 @@ const checkClientIdExistence: SocketMiddleware = async (
 };
 
 const tryBlock = async (socket: Socket) => {
-  const cookie = socket.handshake.headers.cookie;
+  const { cookie } = socket.handshake.headers;
   if (!cookie) throw errors.clientId_required_error;
-
   const clientId = utilities.extractClientIdFromCookie(cookie);
 
-  //CLEANME: Add validator
-  errorThrower(
-    clientId.length < models.native.clientId.minLength,
-    errors.clientId_minLength_error
-  );
-
-  errorThrower(
-    clientId.length > models.native.clientId.maxLength,
-    errors.clientId_maxLength_error
-  );
+  await validators.clientId(clientId);
 
   return { ok: true };
 };
@@ -50,5 +39,3 @@ const tryBlock = async (socket: Socket) => {
 const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
   next();
 };
-
-export { checkClientIdExistence };

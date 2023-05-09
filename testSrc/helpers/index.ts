@@ -24,10 +24,11 @@ import {
   RequesterMakerWrapper,
 } from "$/types";
 
+import { utilities } from "@/utilities";
+
 import { countries } from "@/variables";
 
 import { routes } from "@/websocket/events";
-import { utilities } from "@/utilities";
 
 async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
   const describeBody = await suite();
@@ -154,13 +155,13 @@ const requesterCollection: RequesterCollection = {
   editContact: requesterMakerHelper(routes.editContact),
   getChatInfo: requesterMakerHelper(routes.getChatInfo),
   getContacts: requesterMakerHelper(routes.getContacts),
-  getUserData: requesterMakerHelper(routes.getUserData),
+  getCountries: requesterMakerHelper(routes.getCountries),
   getPrivateChat: requesterMakerHelper(routes.getPrivateChat),
   getPrivateChats: requesterMakerHelper(routes.getPrivateChats),
-  getWelcomeMessage: requesterMakerHelper(routes.getWelcomeMessage),
-  getCountries: requesterMakerHelper(routes.getCountries),
   getPublicUserData: requesterMakerHelper(routes.getPublicUserData),
   getStuff: requesterMakerHelper(routes.getStuff),
+  getUserData: requesterMakerHelper(routes.getUserData),
+  getWelcomeMessage: requesterMakerHelper(routes.getWelcomeMessage),
   joinRoom: requesterMakerHelper(routes.joinRoom),
   logout: requesterMakerHelper(routes.logout),
   ping: requesterMakerHelper(routes.ping),
@@ -177,8 +178,8 @@ const helpers = {
   createFailTestMessage,
   generateDynamicData,
   getWrongCountryCode,
-  requesterMakerHelper,
   requesterCollection,
+  requesterMakerHelper,
   setupRequester,
 };
 

@@ -16,7 +16,7 @@ const routes: SocketRouteCollection = {
 
 const arrayOfRoutes = Object.values(routes);
 
-const registerRoutes = (socket: Socket) => {
+const registerEvents = (socket: Socket) => {
   arrayOfRoutes.forEach((item) => {
     socket.customOn(item.name, item.handler);
   });
@@ -31,7 +31,7 @@ const routesWithAuth = arrayOfRoutes.filter((i) => i.isAuthRequired === true);
 export {
   arrayOfRoutes,
   routesWithoutAuth,
-  registerRoutes,
+  registerEvents,
   routes,
   routesWithAuth,
 };

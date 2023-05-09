@@ -23,8 +23,7 @@ const start = async () => {
     if (isProduction()) return await runProduction();
 
     runDev();
-  } catch (error) {
-    console.error(error);
+  } catch (_error) {
     process.exit(1);
   }
 };
@@ -40,8 +39,6 @@ const runProduction = async () => {
     "app.mjs"
   );
   const app = await import(appPath);
-
-  console.log("app:", app);
 
   app.runner();
 };

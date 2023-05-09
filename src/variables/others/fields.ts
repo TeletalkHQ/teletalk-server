@@ -13,6 +13,7 @@ const statics = {
 //TODO: Sync with FieldTypes
 const bio = statics.string;
 const chatId = statics.string;
+const clientId = statics.string;
 const countryCode = statics.string;
 const countryName = statics.string;
 const countryShortName = statics.string;
@@ -23,14 +24,13 @@ const firstName = statics.string;
 const isActive = statics.boolean;
 const language = statics.string;
 const lastName = statics.string;
-const messageText = statics.string;
 const messageId = statics.string;
+const messageText = statics.string;
 const newUser = statics.boolean;
 const ok = statics.boolean;
 const participantId = statics.string;
 const phoneNumber = statics.string;
 const senderId = statics.string;
-const session = statics.string;
 const userId = statics.string;
 const username = statics.string;
 const verificationCode = statics.string;
@@ -129,7 +129,7 @@ const single = {
   phoneNumber,
   senderId,
   status,
-  session,
+  clientId,
   userId,
   username,
   verificationCode,

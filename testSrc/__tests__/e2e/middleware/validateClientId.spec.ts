@@ -1,6 +1,5 @@
 import { clientInitializer } from "$/classes/ClientInitializer";
 import { requesterMaker } from "$/classes/Requester";
-import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
@@ -11,21 +10,16 @@ import { NativeError, SocketRoute } from "@/types";
 import { errors } from "@/variables";
 
 import { arrayOfRoutes } from "@/websocket/events";
+import { randomMaker } from "utility-store";
 
-describe("checkClientIdExistence fail tests", () => {
-  const checkingRoutes = arrayOfRoutes;
-  // .filter((i) => i.name !== "disconnect");
-
+describe("validateClientId fail tests", () => {
   const caller = async (
     route: SocketRoute,
     error: NativeError,
-    clientId: any
+    clientId: unknown
   ) => {
     const ci = clientInitializer();
-    ci.setIllegalClientId(clientId);
-    ci.makeClientIdCookie();
-    ci.create();
-    ci.connect();
+    ci.setClientId(clientId).makeClientIdCookie().create().connect();
 
     await requesterMaker(ci.getClient(), route).sendFullFeaturedRequest(
       {},
@@ -33,16 +27,14 @@ describe("checkClientIdExistence fail tests", () => {
     );
   };
 
-  for (const route of checkingRoutes) {
+  for (const route of arrayOfRoutes) {
     const title = helpers.createFailTestMessage(
       errors.clientId_required_error,
       route.name
     );
     it(title, async () => {
       const ci = clientInitializer();
-      ci.setIllegalClientId(undefined);
-      ci.create();
-      ci.connect();
+      ci.setClientId(undefined).create().connect();
       const socket = ci.getClient();
 
       await requesterMaker(socket, route).sendFullFeaturedRequest(
@@ -52,7 +44,7 @@ describe("checkClientIdExistence fail tests", () => {
     });
   }
 
-  for (const route of checkingRoutes) {
+  for (const route of arrayOfRoutes) {
     const title = helpers.createFailTestMessage(
       errors.clientId_maxLength_error,
       route.name
@@ -66,7 +58,7 @@ describe("checkClientIdExistence fail tests", () => {
     });
   }
 
-  for (const route of checkingRoutes) {
+  for (const route of arrayOfRoutes) {
     const title = helpers.createFailTestMessage(
       errors.clientId_minLength_error,
       route.name

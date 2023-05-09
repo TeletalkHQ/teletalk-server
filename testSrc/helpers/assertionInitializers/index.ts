@@ -1,3 +1,4 @@
+import { clientIdAssertionInitializer } from "./clientId";
 import { bioAssertionInitializer } from "./bio";
 import { blacklistAssertionInitializer } from "./blacklist";
 import { cellphoneAssertionInitializer } from "./cellphone";
@@ -23,6 +24,7 @@ const assertionInitializers = {
   blacklist: blacklistAssertionInitializer,
   cellphone: cellphoneAssertionInitializer,
   chatId: chatIdAssertionInitializer,
+  clientId: clientIdAssertionInitializer,
   contacts: contactsAssertionInitializer,
   countryCode: countryCodeAssertionInitializer,
   countryName: countryNameAssertionInitializer,

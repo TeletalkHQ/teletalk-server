@@ -1,13 +1,8 @@
-import {
-  AssertionInitializerHelper,
-  assertionInitializerHelper,
-} from "$/classes/AssertionInitializerHelper";
+import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { authManager } from "@/classes/AuthManager";
 import { clientStore } from "@/classes/ClientStore";
-import { userUtilities } from "@/classes/UserUtilities";
 
 import { helpers } from "$/helpers";
 
@@ -15,7 +10,7 @@ import { models } from "@/models";
 
 import { services } from "@/services";
 
-import { SessionObjType, Client, UserMongo } from "@/types";
+import { ClientObjType, Client, UserMongo } from "@/types";
 
 describe("verifySignIn success test", () => {
   it("should sign and verify as new user", async () => {
@@ -39,8 +34,7 @@ describe("verifySignIn success test", () => {
 
     await helper.createComplete();
 
-    const { session } = (await clientStore.find(helper.getClientId()))!;
-    const sessions = [session];
+    const clients = [helper.getClientId()];
 
     for (let i = 0; i < 9; i++) {
       const helper = authHelper(cellphone, fullName);
@@ -50,18 +44,16 @@ describe("verifySignIn success test", () => {
 
       expect(helper.getResponses().verify.data.newUser).toBeFalsy();
 
-      const { session } = (await clientStore.find(helper.getClientId()))!;
-      sessions.push(session);
-      const assertHelper = assertionInitializerHelper();
-      await testUserSession(assertHelper, session);
+      clients.push(helper.getClientId());
+      await testUserClientId(helper.getClientId());
     }
 
     const user = (await services.findOneUser(cellphone)) as UserMongo;
 
-    expect(sessions.length).toBe(user.sessions.length);
+    expect(clients.length).toBe(user.clients.length);
 
-    sessions.forEach((item) => {
-      const isExist = user.sessions.some(({ session }) => session === item);
+    clients.forEach((item) => {
+      const isExist = user.clients.some(({ clientId }) => clientId === item);
       expect(isExist).toBe(true);
     });
   });
@@ -86,25 +78,21 @@ await helpers.asyncDescribe("verifySignIn fail tests", async () => {
   };
 });
 
-const testUserSession = async (
-  builder: AssertionInitializerHelper,
-  session: string
-) => {
-  const verified = authManager.verify(session);
-  const userId = userUtilities.getUserIdFromVerified(verified);
-  const foundSession = await getSavedUserSession(userId, session);
-  builder.authentication({
-    equalValue: foundSession.session,
-    testValue: session,
-    secret: authManager.getMainSecret(),
+const testUserClientId = async (clientId: string) => {
+  const { userId } = (await clientStore.find(clientId))!;
+  const foundClient = await getSavedUserClient(userId, clientId);
+
+  assertionInitializerHelper().clientId({
+    equalValue: foundClient.clientId,
+    testValue: clientId,
   });
 };
 
-const getSavedUserSession = async (userId: string, session: string) => {
+const getSavedUserClient = async (userId: string, clientId: string) => {
   const savedUser = (await getSavedUser(userId)) as UserMongo;
-  return savedUser.sessions.find(
-    (i) => i.session === session
-  ) as SessionObjType;
+  return savedUser.clients.find(
+    (i) => i.clientId === clientId
+  ) as ClientObjType;
 };
 
 const getSavedUser = async (userId: string) => {

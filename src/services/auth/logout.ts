@@ -2,24 +2,22 @@ import { models } from "@/models";
 
 import { errors } from "@/variables";
 
-const logout = async ({
-  currentUserId,
-  current,
+export const logout = async ({
+  userId,
+  clientId,
 }: {
-  currentUserId: string;
-  current: string;
+  userId: string;
+  clientId: string;
 }) => {
   const currentUser = await models.database.mongoDb.User.findOne({
-    userId: currentUserId,
+    userId,
   });
 
   if (!currentUser) throw errors.currentUserNotExist;
 
-  //FIXME: Remove specific session
-  currentUser.sessions = currentUser.sessions.filter(
-    (i) => i.session !== current
+  //FIXME: Remove specific clientId
+  currentUser.clients = currentUser.clients.filter(
+    (i) => i.clientId !== clientId
   );
   await currentUser.save();
 };
-
-export { logout };

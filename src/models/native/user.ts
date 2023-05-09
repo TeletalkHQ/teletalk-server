@@ -5,6 +5,8 @@ import { commonModels } from "@/models/native/common";
 import {
   Bio,
   Blacklist,
+  ClientId,
+  Clients,
   Contacts,
   CountryCode,
   CountryName,
@@ -13,8 +15,6 @@ import {
   LastName,
   MacAddress,
   PhoneNumber,
-  Session,
-  Sessions,
   Status,
   Username,
   VerificationCode,
@@ -33,6 +33,22 @@ export const userModels = {
     .build(),
   blacklist: nativeModelBuilder
     .create<Blacklist>()
+    .type("array")
+    .required(true)
+    .empty(true)
+    .build(),
+  clientId: nativeModelBuilder
+    .create<ClientId>()
+    .type("string")
+    .empty(false)
+    .required(true)
+    .minLength(100)
+    .maxLength(500)
+    .unique(true)
+    .trim(true)
+    .build(),
+  clients: nativeModelBuilder
+    .create<Clients>()
     .type("array")
     .required(true)
     .empty(true)
@@ -107,30 +123,12 @@ export const userModels = {
     .numeric(true)
     .unique(true)
     .build(),
-  session: nativeModelBuilder
-    .create<Session>()
-    .type("string")
-    .required(true)
-    .empty(false)
-    .minLength(100)
-    .maxLength(500)
-    .unique(true)
-    .build(),
-  sessions: nativeModelBuilder
-    .create<Sessions>()
-    .type("array")
-    .required(true)
-    .empty(true)
-    .build(),
   status: nativeModelBuilder
     .create<Status>()
     .type("object")
     .required(true)
-    .defaultValue({
-      ss: "",
-    })
     .build(),
-  userId: commonModels.userId,
+  userId: commonModels.id,
   username: nativeModelBuilder
     .create<Username>()
     .type("string")

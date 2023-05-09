@@ -1,6 +1,5 @@
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { authHelper } from "$/classes/AuthHelper";
-import { authManager } from "@/classes/AuthManager";
 import { clientStore } from "@/classes/ClientStore";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
@@ -10,13 +9,7 @@ import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
-import {
-  Cellphone,
-  Client,
-  FullName,
-  SessionObjType,
-  UserMongo,
-} from "@/types";
+import { Cellphone, Client, FullName, ClientObjType, UserMongo } from "@/types";
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
@@ -27,7 +20,7 @@ describe("createNewUser success tests", () => {
 
     await helper.createComplete();
 
-    await testCreatedUserSession(helper.getClientId());
+    await testCreatedUserClientId(helper.getClientId());
 
     const { data } = await helpers.requesterCollection
       .getUserData(helper.getClientSocket())
@@ -55,26 +48,23 @@ await helpers.asyncDescribe("createNewUser fail tests", async () => {
   };
 });
 
-const testCreatedUserSession = async (clientId: string) => {
-  const { session } = (await clientStore.find(clientId)) as Client;
+const testCreatedUserClientId = async (clientId: string) => {
+  const { userId } = (await clientStore.find(clientId)) as Client;
 
-  const verifiedSession = authManager.verify(session);
-  const userId = userUtilities.getUserIdFromVerified(verifiedSession);
-  const foundSession = (await getSavedUserSession(
+  const foundClientId = (await getSavedUserClientId(
     userId,
-    session
-  )) as SessionObjType;
+    clientId
+  )) as ClientObjType;
 
-  assertionInitializerHelper().authentication({
-    equalValue: foundSession.session,
-    testValue: session,
-    secret: authManager.getMainSecret(),
+  assertionInitializerHelper().clientId({
+    equalValue: foundClientId.clientId,
+    testValue: clientId,
   });
 };
 
-const getSavedUserSession = async (userId: string, session: string) => {
+const getSavedUserClientId = async (userId: string, clientId: string) => {
   const savedUser = (await getSavedUser(userId)) as UserMongo;
-  return savedUser.sessions.find((i) => i.session === session);
+  return savedUser.clients.find((i) => i.clientId === clientId);
 };
 const getSavedUser = async (userId: string) => {
   return await services.findOneUserById(userId);

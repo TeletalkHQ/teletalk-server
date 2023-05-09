@@ -2,11 +2,15 @@ import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBu
 
 import { nativeModels } from "@/models/native";
 
+import { commonValidationModels } from "@/models/validation/common";
+
 import { ValidationPicker } from "@/types";
 
 type UserValidationModels = ValidationPicker<
   | "bio"
   | "blacklist"
+  | "clientId"
+  | "clients"
   | "contacts"
   | "countryCode"
   | "countryName"
@@ -15,8 +19,6 @@ type UserValidationModels = ValidationPicker<
   | "lastName"
   | "macAddress"
   | "phoneNumber"
-  | "session"
-  | "sessions"
   | "status"
   | "userId"
   | "username"
@@ -110,18 +112,18 @@ export const userValidationModels: UserValidationModels = {
     .max()
     .numeric()
     .build(),
-  session: validationModelBuilder
-    .create("session")
-    .setModel(nativeModels.session)
+  clientId: validationModelBuilder
+    .create("clientId")
+    .setModel(nativeModels.clientId)
     .type()
     .required()
     .empty()
     .min()
     .max()
     .build(),
-  sessions: validationModelBuilder
-    .create("sessions")
-    .setModel(nativeModels.sessions)
+  clients: validationModelBuilder
+    .create("clients")
+    .setModel(nativeModels.clients)
     .type()
     .required()
     .build(),
@@ -131,17 +133,7 @@ export const userValidationModels: UserValidationModels = {
     .type()
     .required()
     .build(),
-  userId: validationModelBuilder
-    .create("userId")
-    .setModel(nativeModels.userId)
-    .required()
-    .type()
-    .empty()
-    .min()
-    .max()
-    .trim()
-    .unique()
-    .build(),
+  userId: commonValidationModels.id,
   username: validationModelBuilder
     .create("username")
     .setModel(nativeModels.username)

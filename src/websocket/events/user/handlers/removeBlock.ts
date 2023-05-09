@@ -3,7 +3,7 @@ import { services } from "@/services";
 import { BlackListItem, SocketOnHandler } from "@/types";
 
 const removeBlock: SocketOnHandler = async (socket, data) => {
-  const { currentUserId } = socket;
+  const { userId: currentUserId } = socket;
 
   await services.removeBlock({
     currentUserId,

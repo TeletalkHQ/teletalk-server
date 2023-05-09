@@ -3,6 +3,8 @@ import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
 import { commonModels } from "@/models/native/common";
 
 import {
+  ChatId,
+  MessageId,
   Messages,
   MessageText,
   Participants,
@@ -11,9 +13,27 @@ import {
 } from "@/types";
 
 export const privateChatModels = {
-  chatId: commonModels.chatId,
+  chatId: nativeModelBuilder
+    .create<ChatId>()
+    .type("string")
+    .required(true)
+    .empty(false)
+    .minLength(30)
+    .maxLength(35)
+    .trim(true)
+    .unique(true)
+    .build(),
   createdAt: commonModels.createdAt,
-  messageId: commonModels.messageId,
+  messageId: nativeModelBuilder
+    .create<MessageId>()
+    .type("string")
+    .required(true)
+    .empty(false)
+    .maxLength(45)
+    .minLength(40)
+    .trim(true)
+    .unique(true)
+    .build(),
   messages: nativeModelBuilder
     .create<Messages>()
     .type("array")
@@ -31,13 +51,13 @@ export const privateChatModels = {
     .build(),
   participantId: nativeModelBuilder
     .create<UserId>()
-    .type(commonModels.userId.type)
-    .required(commonModels.userId.required)
-    .empty(commonModels.userId.empty)
-    .minLength(commonModels.userId.minLength)
-    .maxLength(commonModels.userId.maxLength)
-    .trim(commonModels.userId.trim)
-    .unique(commonModels.userId.unique)
+    .type(commonModels.id.type)
+    .required(commonModels.id.required)
+    .empty(commonModels.id.empty)
+    .minLength(commonModels.id.minLength)
+    .maxLength(commonModels.id.maxLength)
+    .trim(commonModels.id.trim)
+    .unique(commonModels.id.unique)
     .build(),
   participants: nativeModelBuilder
     .create<Participants>()
@@ -53,12 +73,12 @@ export const privateChatModels = {
     .build(),
   senderId: nativeModelBuilder
     .create<UserId>()
-    .type(commonModels.userId.type)
-    .required(commonModels.userId.required)
-    .empty(commonModels.userId.empty)
-    .minLength(commonModels.userId.minLength)
-    .maxLength(commonModels.userId.maxLength)
-    .trim(commonModels.userId.trim)
-    .unique(commonModels.userId.unique)
+    .type(commonModels.id.type)
+    .required(commonModels.id.required)
+    .empty(commonModels.id.empty)
+    .minLength(commonModels.id.minLength)
+    .maxLength(commonModels.id.maxLength)
+    .trim(commonModels.id.trim)
+    .unique(commonModels.id.unique)
     .build(),
 };

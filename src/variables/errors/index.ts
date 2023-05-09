@@ -5,20 +5,25 @@ import { ErrorCollection } from "@/types";
 const customErrors = {
   blacklistItemExist: errorBuilder().reason("blacklistItemExist").build(),
   blacklistItemNotExist: errorBuilder().reason("blacklistItemNotExist").build(),
+  chatNotExist: errorBuilder().reason("chatNotExist").build(),
+  clientIdCanNotVerified: errorBuilder()
+    .reason("clientIdCanNotVerified")
+    .build(),
   clientNotFound: errorBuilder().reason("clientNotFound").build(),
   clientNotVerified: errorBuilder().reason("clientNotVerified").build(),
   contactItemExist: errorBuilder().reason("contactItemExist").build(),
   contactItemNotExist: errorBuilder().reason("contactItemNotExist").build(),
+  cookieIsNotDefined: errorBuilder()
+    .reason("cookieIsNotDefined")
+    .side("client")
+    .build(),
   countryCodeNotSupported: errorBuilder()
     .reason("countryCodeNotSupported")
     .build(),
   countryNameNotSupported: errorBuilder()
     .reason("countryNameNotSupported")
     .build(),
-  currentSessionNotExist: errorBuilder()
-    .reason("currentSessionNotExist")
-    .build(),
-  chatNotExist: errorBuilder().reason("chatNotExist").build(),
+  currentClientNotExist: errorBuilder().reason("currentClientNotExist").build(),
   currentUserExist: errorBuilder().reason("currentUserExist").build(),
   currentUserNotExist: errorBuilder().reason("currentUserNotExist").build(),
   eventNotFound: errorBuilder().reason("eventNotFound").build(),
@@ -32,16 +37,16 @@ const customErrors = {
     .reason("outputFieldInvalidType")
     .side("server")
     .build(),
-  outputFieldTypeWrong: errorBuilder()
-    .reason("outputFieldTypeWrong")
-    .side("server")
-    .build(),
   outputFieldsMissing: errorBuilder()
     .reason("outputFieldsMissing")
     .side("server")
     .build(),
   outputFieldsOverload: errorBuilder()
     .reason("outputFieldsOverload")
+    .side("server")
+    .build(),
+  outputFieldTypeWrong: errorBuilder()
+    .reason("outputFieldTypeWrong")
     .side("server")
     .build(),
   requiredFieldInvalid: errorBuilder()
@@ -64,23 +69,18 @@ const customErrors = {
     .reason("requiredIoFieldIsNotObject")
     .side("server")
     .build(),
-  cookieIsNotDefined: errorBuilder()
-    .reason("cookieIsNotDefined")
-    .side("client")
-    .build(),
   routeNotFound: errorBuilder().reason("routeNotFound").build(),
   selfStuff: errorBuilder().reason("selfStuff").build(),
+  senderEmpty: errorBuilder().reason("senderEmpty").build(),
   sendJsonResponseIsNotFunction: errorBuilder()
     .reason("sendJsonResponseIsNotFunction")
     .side("server")
     .build(),
   sendSmsFailed: errorBuilder().reason("sendSmsFailed").side("server").build(),
-  senderEmpty: errorBuilder().reason("senderEmpty").build(),
   serverCriticalError: errorBuilder()
     .reason("serverCriticalError")
     .side("server")
     .build(),
-  sessionCanNotVerified: errorBuilder().reason("sessionCanNotVerified").build(),
   targetUserNotExist: errorBuilder().reason("targetUserNotExist").build(),
   unknownError: errorBuilder().reason("unknownError").side("server").build(),
   userExist: errorBuilder().reason("userExist").build(),

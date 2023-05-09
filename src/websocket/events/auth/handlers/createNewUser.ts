@@ -1,6 +1,5 @@
 import { errorThrower, randomMaker } from "utility-store";
 
-import { authManager } from "@/classes/AuthManager";
 import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
 
@@ -23,7 +22,6 @@ const createNewUser: SocketOnHandler = async (
   await checkExistenceOfUser(cellphone);
 
   const userId = getRandomId();
-  const session = sign(userId);
 
   await saveNewUser({
     ...userUtilities.defaultUserData(),
@@ -32,19 +30,19 @@ const createNewUser: SocketOnHandler = async (
     lastName,
     createdAt: Date.now(),
     userId,
-    sessions: [{ session }],
+    clients: [{ clientId: socket.clientId }],
     status: {
       isActive: true,
     },
   });
 
-  await clientStore.update(socket.clientId, { ...client, session });
+  await clientStore.update(socket.clientId, { ...client, userId });
 
   return { data: {} };
 };
 
-const findClient = async (sessionId: string) => {
-  const client = await clientStore.find(sessionId);
+const findClient = async (userId: string) => {
+  const client = await clientStore.find(userId);
   if (!client) throw errors.clientNotFound;
   return client;
 };
@@ -62,13 +60,6 @@ const checkExistenceOfUser = async (cellphone: Cellphone) => {
 };
 
 const getRandomId = () => randomMaker.id(models.native.userId.maxLength);
-
-const sign = (sessionId: string) => {
-  return authManager.signSession({
-    sessionId,
-    date: Date.now(),
-  });
-};
 
 const saveNewUser = async (data: UserMongo) => {
   await services.createNewUser(data);

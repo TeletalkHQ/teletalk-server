@@ -1,7 +1,6 @@
 import { randomMaker } from "utility-store";
 import { ExtendedCellphone } from "utility-store/lib/types";
 
-import { authManager } from "@/classes/AuthManager";
 import { smsClient } from "@/classes/SmsClient";
 import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
@@ -23,16 +22,11 @@ const signIn: SocketOnHandler = async (socket, data) => {
   const fullNumber = `+${cellphone.countryCode}${cellphone.phoneNumber}`;
   await sendVerificationCode(fullNumber, "host", verificationCode);
 
-  const sessionId = createSessionId();
-  const session = sign({
-    sessionId,
-    date: Date.now(),
-  });
   await addClient(socket.clientId, {
     ...cellphone,
     isVerified: false,
     verificationCode,
-    session,
+    userId: createUserId(),
   });
 
   return { data: {} };
@@ -45,13 +39,9 @@ const sendVerificationCode = async (
 ) => await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
 
 //TODO: Remove models from handlers
-const createSessionId = () => randomMaker.id(models.native.userId.maxLength);
+const createUserId = () => randomMaker.id(models.native.userId.maxLength);
 
-//CLEANME: Use session interface
-const sign = (data: { sessionId: string; date: number }) =>
-  authManager.signSession(data, authManager.getSignInSecret());
-
-const addClient = async (sessionId: string, data: Client) =>
-  await clientStore.add(sessionId, data);
+const addClient = async (userId: string, data: Client) =>
+  await clientStore.add(userId, data);
 
 export { signIn };

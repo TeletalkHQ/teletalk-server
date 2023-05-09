@@ -11,7 +11,7 @@ import { services } from "@/services";
 import { SocketOnHandler } from "@/types";
 
 const addContactWithCellphone: SocketOnHandler = async (socket, data) => {
-  const { currentUserId } = socket;
+  const { userId: currentUserId } = socket;
   const fullName = userUtilities.extractFullName(data as ExtendedFullName);
 
   const cellphone = userUtilities.extractCellphone(data as ExtendedCellphone);

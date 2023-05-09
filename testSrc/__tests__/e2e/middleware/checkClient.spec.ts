@@ -9,9 +9,7 @@ import { routesWithoutAuth, routesWithAuth } from "@/websocket/events";
 
 describe("auth middleware test", () => {
   for (const route of routesWithoutAuth) {
-    // if (route.name === "disconnect") continue;
-
-    it(`should not get error: session_required_error - ${route.name}`, async () => {
+    it(`should not get error: clientNotFound - ${route.name}`, async () => {
       const socket = (await clientInitializer().createComplete()).getClient();
       const response = (
         await requesterMaker(socket, route).sendRequest()
@@ -19,10 +17,9 @@ describe("auth middleware test", () => {
 
       const { errors: responseErrors } = response.data;
 
-      const { reason } = errors.session_required_error;
-      if (responseErrors?.[reason]) {
-        expect(reason).not.toEqual(errors.session_required_error.reason);
-      }
+      const { reason } = errors.clientNotFound;
+
+      expect(responseErrors?.[reason]).toBeFalsy();
     });
   }
 

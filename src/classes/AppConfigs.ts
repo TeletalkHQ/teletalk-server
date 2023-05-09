@@ -22,13 +22,18 @@ class AppConfigs {
   setPort(port: number) {
     this.ENVIRONMENTS.PORT = port;
   }
-  private registerCustomGlobals() {
-    global.logger = new LoggerChalker();
-  }
 
   private setLogLevel() {
     const { LOG_LEVEL } = this.ENVIRONMENTS;
     logger.setLevel(logger.levels[LOG_LEVEL]);
+  }
+
+  private setEnvironments(e: Environments) {
+    this.ENVIRONMENTS = e;
+  }
+
+  private registerCustomGlobals() {
+    global.logger = new LoggerChalker();
   }
 
   private registerEnvironments(fileName: EnvFileName) {
@@ -38,10 +43,6 @@ class AppConfigs {
     });
   }
 
-  private setEnvironments(e: Environments) {
-    this.ENVIRONMENTS = e;
-  }
-
   getConfigs() {
     return {
       APP: {
@@ -49,9 +50,7 @@ class AppConfigs {
         HOSTNAME: "localhost",
         PORT: this.ENVIRONMENTS.PORT,
         SELF_EXEC: this.ENVIRONMENTS.SELF_EXEC,
-        //TODO: Move to AUTH
-        SESSION_MAIN_SECRET: this.ENVIRONMENTS.SESSION_MAIN_SECRET,
-        SESSION_SIGN_IN_SECRET: this.ENVIRONMENTS.SESSION_SIGN_IN_SECRET,
+        CLIENT_ID_SECRET: this.ENVIRONMENTS.CLIENT_ID_SECRET,
       },
       DB: {
         MONGO_URL: this.ENVIRONMENTS.MONGO_URL,

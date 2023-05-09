@@ -1,4 +1,3 @@
-import { authManager } from "@/classes/AuthManager";
 import { clientStore } from "@/classes/ClientStore";
 import { userUtilities } from "@/classes/UserUtilities";
 
@@ -12,9 +11,11 @@ const verify: SocketOnHandler = async (socket) => {
   const cellphone = userUtilities.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);
   if (foundUser) {
-    const session = signSession(foundUser.userId);
-    await addNewSession(foundUser.userId, session);
-    clientStore.update(socket.clientId, { ...client, session });
+    await addNewClient(foundUser.userId, socket.clientId);
+    clientStore.update(socket.clientId, {
+      ...client,
+      userId: foundUser.userId,
+    });
 
     return {
       data: {
@@ -30,19 +31,9 @@ const verify: SocketOnHandler = async (socket) => {
   };
 };
 
-const signSession = (userId: string) => {
-  return authManager.signSession(
-    {
-      sessionId: userId,
-      date: Date.now(),
-    },
-    authManager.getMainSecret()
-  );
-};
-
-const addNewSession = async (userId: string, session: string) => {
-  await services.addNewSession({
-    session,
+const addNewClient = async (userId: string, clientId: string) => {
+  await services.addNewClient({
+    clientId,
     userId,
   });
 };

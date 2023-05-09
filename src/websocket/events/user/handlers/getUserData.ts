@@ -3,9 +3,9 @@ import { services } from "@/services";
 import { HydratedUserMongo, SocketOnHandler } from "@/types";
 
 const getUserData: SocketOnHandler = async (socket) => {
-  const { currentUserId } = socket;
+  const { userId: currentUserId } = socket;
 
-  const { sessions, ...userData } = (await services.getUserData(
+  const { clients, ...userData } = (await services.getUserData(
     {
       userId: currentUserId,
     },

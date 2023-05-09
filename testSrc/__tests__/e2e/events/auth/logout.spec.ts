@@ -1,5 +1,4 @@
 import { authHelper } from "$/classes/AuthHelper";
-import { authManager } from "@/classes/AuthManager";
 import { clientStore } from "@/classes/ClientStore";
 import { randomMaker } from "$/classes/RandomMaker";
 
@@ -17,35 +16,37 @@ describe("logout success tests", () => {
 
     await ah.createComplete();
 
-    const client = (await clientStore.find(ah.getClientId()))!;
-    const clients = [{ session: client.session, socket: ah.getClientSocket() }];
+    const clients = [{ clientId: ah.getClientId() }];
 
     for (let i = 0; i < 9; i++) {
       await ah.signIn();
       await ah.verify();
-      const { session } = (await clientStore.find(ah.getClientId()))!;
-      clients.push({ session, socket: ah.getClientSocket() });
+      clients.push({
+        clientId: ah.getClientId(),
+      });
     }
+
+    const clientIdToRemove = clients.pop()!.clientId;
+    const { userId } = (await clientStore.find(clientIdToRemove))!;
 
     await helpers.requesterCollection
       .logout(ah.getClientSocket())
       .sendFullFeaturedRequest();
 
-    const loggedOutClient = clients.pop();
-    const sessionId = authManager.getSessionId(clients[0].session);
     const userFromDb = (await services.findOneUser({
-      userId: sessionId,
+      userId,
     })) as UserMongo;
-    const isSessionExist = userFromDb.sessions.some(
-      ({ session }) => session === loggedOutClient!.session
+
+    const isClientExist = userFromDb.clients.some(
+      ({ clientId }) => clientId === clientIdToRemove
     );
-    expect(isSessionExist).toBeFalsy();
+    expect(isClientExist).toBeFalsy();
 
     clients.forEach((item) => {
-      const isSessionExist = userFromDb.sessions.some(
-        (i) => i.session === item.session
+      const isClientExist = userFromDb.clients.some(
+        (i) => i.clientId === item.clientId
       );
-      expect(isSessionExist).toBeTruthy();
+      expect(isClientExist).toBeTruthy();
     });
   });
 });

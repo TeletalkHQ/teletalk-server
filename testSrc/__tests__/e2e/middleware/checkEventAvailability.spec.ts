@@ -6,7 +6,6 @@ import { helpers } from "$/helpers";
 import { SocketRoute } from "@/types";
 import { ClientSocket } from "$/types";
 
-import { FIELD_TYPE } from "$/variables";
 import { errors } from "@/variables";
 
 import { routes } from "$/websocket/events";
@@ -34,9 +33,6 @@ await helpers.asyncDescribe(
           .sendFullFeaturedRequest();
       });
 
-      // .filter(
-      //   (i) => i.name !== "disconnect"
-      // )
       for (const route of arrayOfRoutes) {
         it(`should not get error: routeNotFound - ${route.name}`, async () => {
           const requester = createRequester(clientSocket, route);
@@ -47,14 +43,7 @@ await helpers.asyncDescribe(
           } = requester.getResponse();
 
           const { reason: expectedReason } = errors.routeNotFound;
-          if (responseErrors?.[expectedReason]) {
-            expect(responseErrors[expectedReason].reason).toBe(
-              FIELD_TYPE.STRING
-            );
-            expect(responseErrors[expectedReason].reason).not.toEqual(
-              errors.routeNotFound.reason
-            );
-          }
+          expect(responseErrors?.[expectedReason]).toBeFalsy();
         });
       }
     };

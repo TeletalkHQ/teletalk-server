@@ -5,12 +5,11 @@ import { services } from "@/services";
 import { SocketOnHandler } from "@/types";
 
 const logout: SocketOnHandler = async (socket) => {
-  const { currentUserId } = socket;
-  const { session } = (await clientStore.find(socket.clientId))!;
+  const { userId } = socket;
 
   await services.logout({
-    current: session,
-    currentUserId,
+    clientId: socket.clientId,
+    userId,
   });
 
   await clientStore.remove(socket.clientId);

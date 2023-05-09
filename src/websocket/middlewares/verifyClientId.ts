@@ -1,6 +1,7 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
-import { errorThrower } from "utility-store";
+
+import { helpers } from "@/helpers";
 
 import {
   SocketMiddleware,
@@ -10,24 +11,22 @@ import {
 
 import { errors } from "@/variables";
 
-const selfStuffCheck: SocketMiddleware = async (
+export const verifyClientId: SocketMiddleware = async (
   socket,
   next,
   [_name, data]
 ) => {
-  return await trier<SocketMiddlewareReturnValue>(selfStuffCheck.name)
+  return await trier<SocketMiddlewareReturnValue>(verifyClientId.name)
     .async()
     .try(tryBlock, socket, data)
     .executeIfNoError(executeIfNoError, next)
     .throw()
+    .catch(catchBlock)
     .run();
 };
 
-const tryBlock = async (socket: Socket, data: { userId: string }) => {
-  errorThrower(socket.userId === data.userId, {
-    ...errors.selfStuff,
-    targetUserId: data.userId,
-  });
+const tryBlock = async (socket: Socket) => {
+  helpers.verifyClientId(socket.clientId);
 
   return { ok: true };
 };
@@ -36,4 +35,6 @@ const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
   next();
 };
 
-export { selfStuffCheck };
+const catchBlock = () => {
+  return errors.clientId_invalid;
+};

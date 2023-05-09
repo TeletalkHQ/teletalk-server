@@ -1,7 +1,7 @@
 import { addBlock } from "@/services/user/addBlock";
 import { addContact } from "@/services/user/addContact";
 import { addContactWithCellphone } from "@/services/user/addContactWithCellphone";
-import { addNewSession } from "@/services/user/addNewSession";
+import { addNewClient } from "@/services/user/addNewClient";
 import { getAllUsers } from "@/services/user/getAllUsers";
 import { getUserContacts } from "@/services/user/getUserContacts";
 import { getUserData, getTargetUserData } from "@/services/user/getUserData";
@@ -14,7 +14,7 @@ const userServices = {
   addBlock,
   addContact,
   addContactWithCellphone,
-  addNewSession,
+  addNewClient,
   getAllUsers,
   getTargetUserData,
   getUserContacts,

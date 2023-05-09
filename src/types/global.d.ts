@@ -3,13 +3,7 @@
 import { LoggerChalker } from "logger-chalker";
 import { Server } from "socket.io";
 
-import {
-  CustomEmit,
-  CustomOn,
-  CustomUse,
-  Environments,
-  VerifiedSession,
-} from "@/types";
+import { CustomEmit, CustomOn, CustomUse, Environments } from "@/types";
 
 declare global {
   var logger: LoggerChalker;
@@ -17,9 +11,8 @@ declare global {
 
 declare module "socket.io" {
   interface Socket {
-    authData: VerifiedSession;
     clientId: string;
-    currentUserId: string;
+    userId: string;
     customEmit: CustomEmit;
     customOn: CustomOn;
     customUse: CustomUse;

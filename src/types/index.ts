@@ -27,11 +27,13 @@ export type Field =
   | "blacklist"
   | "chatId"
   | "clientId"
+  | "clients"
   | "contacts"
   | "countryCode"
   | "countryName"
   | "createdAt"
   | "firstName"
+  | "id"
   | "isActive"
   | "lastName"
   | "macAddress"
@@ -43,8 +45,6 @@ export type Field =
   | "phoneNumber"
   | "privateChats"
   | "senderId"
-  | "session"
-  | "sessions"
   | "status"
   | "userId"
   | "username"
@@ -151,6 +151,7 @@ export type SocketMiddlewareEvent = string | string[];
 export type LogLevel = "debug" | "error" | "info" | "warn";
 
 export interface Environments {
+  CLIENT_ID_SECRET: string;
   LOG_LEVEL: LogLevel;
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;
@@ -161,8 +162,6 @@ export interface Environments {
   REDIS_PASSWORD: string;
   REDIS_PORT: number;
   SELF_EXEC: boolean;
-  SESSION_MAIN_SECRET: string;
-  SESSION_SIGN_IN_SECRET: string;
   SMS_PROVIDER_1_HOST: string;
   SMS_PROVIDER_1_ROUTE: string;
   SMS_PROVIDER_1_SENDER: string;
@@ -195,8 +194,8 @@ export interface PrivateChatMongo {
   participants: Types.Array<Participant>;
 }
 
-export interface SessionObjType {
-  session: string;
+export interface ClientObjType {
+  clientId: string;
 }
 
 export interface StatusObjType {
@@ -214,17 +213,8 @@ export interface UserMongo extends Cellphone, FullName {
   userId: string;
   createdAt: number;
   username: string;
-  sessions: SessionObjType[];
+  clients: ClientObjType[];
   status: StatusObjType;
-}
-
-export interface VerifiedSession {
-  data: {
-    payload: {
-      sessionId: string;
-    };
-    signature: string;
-  };
 }
 
 export type HydratedPrivateChatMongo = HydratedDocument<PrivateChatMongo>;
@@ -252,7 +242,7 @@ export type CustomErrorReason =
   | "contactItemNotExist"
   | "countryCodeNotSupported"
   | "countryNameNotSupported"
-  | "currentSessionNotExist"
+  | "currentClientNotExist"
   | "currentUserExist"
   | "currentUserNotExist"
   | "eventNotFound"
@@ -277,7 +267,7 @@ export type CustomErrorReason =
   | "sendSmsFailed"
   | "senderEmpty"
   | "serverCriticalError"
-  | "sessionCanNotVerified"
+  | "clientIdCanNotVerified"
   | "targetUserNotExist"
   | "unknownError"
   | "userExist"
@@ -364,7 +354,7 @@ export type ValidationResult =
 export interface Client extends Cellphone {
   isVerified: boolean;
   verificationCode: string;
-  session: string;
+  userId: string;
 }
 
 export interface PublicUserData {

@@ -5,7 +5,7 @@ import { services } from "@/services";
 import { Contact, SocketOnHandler } from "@/types";
 
 const removeContact: SocketOnHandler = async (socket, data) => {
-  const { currentUserId } = socket;
+  const { userId: currentUserId } = socket;
 
   const targetContact = userUtilities.extractContact(data as Contact);
 

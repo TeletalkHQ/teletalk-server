@@ -3,7 +3,12 @@ import Validator, {
   ValidationRuleObject,
 } from "fastest-validator";
 
-import { Field, NativeModel, ValidationModel, NativeModelKey } from "@/types";
+import {
+  Field,
+  NativeModelCollection,
+  NativeModelKey,
+  ValidationModel,
+} from "@/types";
 
 import { utilities } from "@/utilities";
 
@@ -18,7 +23,7 @@ const compiler = new Validator({
 
 class ValidationModelBuilder<
   T extends Field,
-  Model extends Partial<NativeModel>
+  Model extends NativeModelCollection[T]
 > {
   private model: Model;
   private validationRuleObject: ValidationRuleObject;
@@ -48,7 +53,8 @@ class ValidationModelBuilder<
     modelKey: NativeModelKey,
     validationKey: ValidationSchemaKey
   ) {
-    this.validationRuleObject[validationKey] = this.model[modelKey];
+    this.validationRuleObject[validationKey] =
+      this.model[modelKey as keyof Model];
   }
   private setMessage(
     modelKey: NativeModelKey,
@@ -58,7 +64,7 @@ class ValidationModelBuilder<
       this.validationRuleObject.messages[errorMessageKey] = utilities.findError(
         errors,
         this.fieldName,
-        modelKey
+        modelKey as NativeModelKey
       ).reason;
     }
   }
@@ -70,6 +76,7 @@ class ValidationModelBuilder<
     });
   }
 
+  //TODO: Read model dynamically
   setModel(model: Model) {
     this.model = model;
     return this;
@@ -118,7 +125,7 @@ class ValidationModelBuilder<
 }
 
 const validationModelBuilder = {
-  create: function vmb<F extends Field, Model extends Partial<NativeModel>>(
+  create: function vmb<F extends Field, Model extends NativeModelCollection[F]>(
     fieldName: F
   ) {
     return new ValidationModelBuilder<F, Model>(fieldName);

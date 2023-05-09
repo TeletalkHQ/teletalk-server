@@ -94,10 +94,10 @@ const extractClientIdFromCookie = (cookie: string) => {
   return rawCookie.split("=")[1];
 };
 
-const findError = (
+const findError = <M extends NativeModelKey>(
   errors: ErrorCollection,
   fieldName: Field,
-  modelKeyName: NativeModelKey
+  modelKeyName: M
 ) => {
   return errors[makeModelErrorReason(fieldName, modelKeyName) as ErrorReason];
 };

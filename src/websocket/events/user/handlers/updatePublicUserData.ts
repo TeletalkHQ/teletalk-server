@@ -5,7 +5,7 @@ import { services } from "@/services";
 import { PublicUserData, SocketOnHandler } from "@/types";
 
 const updatePublicUserData: SocketOnHandler = async (socket, data) => {
-  const { currentUserId } = socket;
+  const { userId: currentUserId } = socket;
   const { bio, firstName, lastName, username } = data;
 
   const updatedUser = await services.updatePublicUserData({

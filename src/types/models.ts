@@ -112,16 +112,7 @@ export interface PhoneNumber extends NativeModel {
   unique: true;
 }
 
-export interface Session extends NativeModel {
-  type: "string";
-  required: true;
-  empty: false;
-  minLength: 100;
-  maxLength: 500;
-  unique: true;
-}
-
-export interface Sessions extends NativeModel {
+export interface Clients extends NativeModel {
   type: "array";
   required: true;
   empty: true;
@@ -166,8 +157,8 @@ export interface ClientId {
   type: "string";
   empty: false;
   required: true;
-  minLength: 40;
-  maxLength: 50;
+  minLength: 100;
+  maxLength: 500;
   unique: true;
   trim: true;
 }
@@ -188,7 +179,7 @@ export interface MessageId {
   unique: true;
 }
 
-export interface UserId {
+export interface Id {
   type: "string";
   required: true;
   empty: false;
@@ -197,6 +188,8 @@ export interface UserId {
   trim: true;
   unique: true;
 }
+
+export type UserId = Id;
 
 export interface Messages {
   type: "array";
@@ -230,11 +223,13 @@ export interface NativeModelCollection {
   blacklist: Blacklist;
   chatId: ChatId;
   clientId: ClientId;
+  clients: Clients;
   contacts: Contacts;
   countryCode: CountryCode;
   countryName: CountryName;
   createdAt: CreatedAt;
   firstName: FirstName;
+  id: Id;
   isActive: IsActive;
   lastName: LastName;
   macAddress: MacAddress;
@@ -246,8 +241,6 @@ export interface NativeModelCollection {
   phoneNumber: PhoneNumber;
   privateChats: PrivateChats;
   senderId: UserId;
-  session: Session;
-  sessions: Sessions;
   status: Status;
   userId: UserId;
   username: Username;

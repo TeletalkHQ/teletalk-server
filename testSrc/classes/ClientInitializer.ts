@@ -45,15 +45,12 @@ class ClientInitializer {
   private clientId: string;
   private clientIdCookie: string;
 
-  async setLegitClientId() {
-    this.clientId = await this.getLegalClientId();
+  setClientId(clientId?: any) {
+    this.clientId = clientId;
     return this;
   }
-  setIllegalClientId(clientId?: any) {
-    this.clientId = clientId;
-  }
 
-  async getLegalClientId() {
+  async makeLegalClientId() {
     return await new Promise<string>((resolve, reject) => {
       const req = http.request(
         setClientIdRequestOptions,
@@ -107,11 +104,8 @@ class ClientInitializer {
   }
 
   async createComplete() {
-    (await this.setLegitClientId())
-      .makeClientIdCookie()
-      .create()
-      .assignClientId()
-      .connect();
+    this.clientId = await this.makeLegalClientId();
+    this.makeClientIdCookie().create().assignClientId().connect();
 
     return this;
   }

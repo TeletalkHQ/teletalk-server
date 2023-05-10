@@ -61,18 +61,14 @@ const regexMaker = (pattern: string) => new RegExp(pattern);
 
 const logEnvironments = () => logger.debug(sortEnvironments());
 
-const initialOptions = {
-  exclude: "",
-  length: 6,
-  lowercase: false,
-  numbers: true,
-  symbol: false,
-  uppercase: false,
-};
-
-const passwordGenerator = (options = initialOptions) => {
+const passwordGenerator = (options: generatePassword.GenerateOptions = {}) => {
   return generatePassword.generate({
-    ...initialOptions,
+    exclude: "",
+    length: 6,
+    lowercase: false,
+    numbers: true,
+    symbols: false,
+    uppercase: false,
     ...options,
   });
 };

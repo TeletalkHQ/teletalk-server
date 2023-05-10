@@ -14,7 +14,7 @@
     "app-runner": "node --no-warnings --loader ./loader.js ./index.ts",
     "build": "node ./configs/esbuild.js",
     "check:format": "prettier --write  --list-different ./",
-    "check:lint": "eslint ./",
+    "check:lint": "eslint --fix ./",
     "check:lint:default": "eslint 'src/**/*.ts'",
     "check:security": "snyk test & snyk code test",
     "check:style": "npm run check:format && npm run check:lint && npm run check:types",

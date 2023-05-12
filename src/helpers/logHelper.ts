@@ -30,7 +30,7 @@ const loggerHelper = {
     error: unknown
   ) {
     logger.bgRed(`${this.newLine()}request details:`, "black").dir(
-      logger.levels.debug,
+      "debug",
       {
         options,
         requestData,

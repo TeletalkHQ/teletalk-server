@@ -11,10 +11,6 @@ import { errors } from "@/variables";
 
 import { routesWithAuth } from "@/websocket/events";
 
-// describe("checkCurrentUser middleware success tests", () => {
-//   //TODO: Add tests: checkCurrentUser middleware success tests
-// });
-
 describe("checkCurrentUser middleware fail tests", () => {
   routesWithAuth
     .filter((i) => i.name !== "verify" && i.name !== "createNewUser")

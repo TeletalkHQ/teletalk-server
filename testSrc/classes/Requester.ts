@@ -96,7 +96,7 @@ class Requester {
         options,
         requestData: this.getRequestData(),
       };
-      logger.dir(logger.levels.error, error, { depth: 10 });
+      logger.dir("error", error, { depth: 10 });
       loggerHelper.logEndTestRequest();
       throw error;
     }

@@ -24,8 +24,7 @@ class AppConfigs {
   }
 
   private setLogLevel() {
-    const { LOG_LEVEL } = this.ENVIRONMENTS;
-    logger.setLevel(logger.levels[LOG_LEVEL]);
+    logger.onAll();
   }
 
   private setEnvironments(e: Environments) {

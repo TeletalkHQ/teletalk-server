@@ -4,15 +4,13 @@ import { trier } from "simple-trier";
 
 import { appConfigs } from "@/classes/AppConfigs";
 
-import { loggerHelper } from "@/helpers/logHelper";
-
-import { errors } from "@/variables";
+import { errors, escapeChars } from "@/variables";
 
 class SmsClient {
   templates() {
     return {
       verificationCode: (verificationCode: string, host: string) =>
-        `verification code: ${verificationCode} ${loggerHelper.newLine()}${loggerHelper.newLine()} ${host}        
+        `verification code: ${verificationCode} ${escapeChars.newLine}${escapeChars.newLine} ${host}        
         `,
     };
   }

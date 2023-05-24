@@ -1,2 +1,3 @@
-export { countries } from "@/variables/others/countries";
-export { fields } from "@/variables/others/fields";
+export * from "@/variables/others/countries";
+export * from "@/variables/others/fields";
+export * from "@/variables/others/escapeChars";

@@ -18,7 +18,7 @@ const mongodbConnector = () => {
   );
 
   return mongoose.connect(configs.DB.MONGO_URL_FULL, {
-    keepAlive: true,
+    // keepAlive: true,
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
   });

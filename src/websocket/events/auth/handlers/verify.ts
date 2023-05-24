@@ -3,10 +3,10 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { services } from "@/services";
 
-import { SocketOnHandler, Client } from "@/types";
+import { SocketOnHandler } from "@/types";
 
 const verify: SocketOnHandler = async (socket) => {
-  const client = (await clientStore.find(socket.clientId)) as Client;
+  const client = (await clientStore.find(socket.clientId))!;
 
   const cellphone = userUtilities.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);

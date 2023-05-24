@@ -49,7 +49,7 @@ class AppConfigs {
         HOSTNAME: "localhost",
         PORT: this.ENVIRONMENTS.PORT,
         SELF_EXEC: this.ENVIRONMENTS.SELF_EXEC,
-        CLIENT_ID_SECRET: this.ENVIRONMENTS.CLIENT_ID_SECRET,
+        CLIENT_SECRET: this.ENVIRONMENTS.CLIENT_SECRET,
       },
       DB: {
         MONGO_URL: this.ENVIRONMENTS.MONGO_URL,

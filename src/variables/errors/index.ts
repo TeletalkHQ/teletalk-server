@@ -6,6 +6,8 @@ const customErrors = {
   blacklistItemExist: errorBuilder().reason("blacklistItemExist").build(),
   blacklistItemNotExist: errorBuilder().reason("blacklistItemNotExist").build(),
   chatNotExist: errorBuilder().reason("chatNotExist").build(),
+  client_invalid: errorBuilder().reason("client_invalid").build(),
+  clientCookieRequired: errorBuilder().reason("clientCookieRequired").build(),
   clientIdCanNotVerified: errorBuilder()
     .reason("clientIdCanNotVerified")
     .build(),

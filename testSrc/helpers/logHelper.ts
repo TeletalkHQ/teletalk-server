@@ -1,10 +1,9 @@
+import { escapeChars } from "@/variables";
+
 const separator =
   "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+";
 
 const loggerHelper = {
-  newLine() {
-    return "\n";
-  },
   makeSeparator(title = "") {
     const titleLength = title.length;
     const fixedSeparator = separator.slice(
@@ -17,7 +16,7 @@ const loggerHelper = {
   logStartTestRequest() {
     logger
       .bgRed(
-        `${this.newLine()}${this.makeSeparator("TEST_REQUEST_BEGIN")}`,
+        `${escapeChars.newLine}${this.makeSeparator("TEST_REQUEST_BEGIN")}`,
         "black"
       )
       .info();
@@ -29,7 +28,7 @@ const loggerHelper = {
     route: object,
     error: unknown
   ) {
-    logger.bgRed(`${this.newLine()}request details:`, "black").dir(
+    logger.bgRed(`${escapeChars.newLine}request details:`, "black").dir(
       "debug",
       {
         options,
@@ -44,7 +43,7 @@ const loggerHelper = {
   logEndTestRequest() {
     logger
       .bgYellow(
-        `${this.newLine()}${this.makeSeparator("TEST_REQUEST_END")}`,
+        `${escapeChars.newLine}${this.makeSeparator("TEST_REQUEST_END")}`,
         "black"
       )
       .info();
@@ -52,18 +51,9 @@ const loggerHelper = {
     return this;
   },
 
-  // logRequestBody(req, _res, next) {
-  //   logger
-  //     .bgGreen(`${this.newLine()}body:`, "black")
-  //     .dir(logger.levels.debug, req.body, { depth: 8 });
-  //   next();
-  // },
-
   logSeparator() {
     logger.bgMagenta(this.makeSeparator(), "black").info();
   },
 };
-
-loggerHelper.newLine = loggerHelper.newLine.bind(loggerHelper);
 
 export { loggerHelper };

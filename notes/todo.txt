@@ -19,19 +19,13 @@ Monitor all configs when tests start. Give it a good look!
 AppSignal
 Mutation test tools
 
-CLEANME: index files
 FIXME public assets sharing
-REFACTOR: Rename services
 TODO: Add startup requirements check function
 TODO: Create MiddlewareHandler, MiddlewareBuilder
 TODO: new instance for each failTest props
 REFACTOR: Restructure folders, index, and more
-TODO: Remove session after logout || 401 situation
-TODO: Add numeric type for countryCode and phoneNumber
 TODO: Update launch script
 TODO: Add items to array models
-TODO: update errors with collection pattern
-TODO: Build local errors
 TODO: Add error generic to CheckFields
 TODO: Generative errors, validation models and so on
 TODO: Tan license check, flow check, coverage check

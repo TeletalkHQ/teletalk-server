@@ -1,7 +1,7 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { helpers } from "@/helpers";
+import { clientManager } from "@/classes/ClientIdManager";
 
 import {
   SocketMiddleware,
@@ -11,12 +11,12 @@ import {
 
 import { errors } from "@/variables";
 
-export const verifyClientId: SocketMiddleware = async (
+export const verifyClient: SocketMiddleware = async (
   socket,
   next,
   [_name, data]
 ) => {
-  return await trier<SocketMiddlewareReturnValue>(verifyClientId.name)
+  return await trier<SocketMiddlewareReturnValue>(verifyClient.name)
     .async()
     .try(tryBlock, socket, data)
     .executeIfNoError(executeIfNoError, next)
@@ -26,7 +26,7 @@ export const verifyClientId: SocketMiddleware = async (
 };
 
 const tryBlock = async (socket: Socket) => {
-  helpers.verifyClientId(socket.clientId);
+  socket.authClient = await clientManager.verifyClient(socket.clientStr);
 
   return { ok: true };
 };
@@ -36,5 +36,5 @@ const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
 };
 
 const catchBlock = () => {
-  return errors.clientId_invalid;
+  return errors.client_invalid;
 };

@@ -24,8 +24,7 @@ class AppConfigs {
   }
 
   private setLogLevel() {
-    const { LOG_LEVEL } = this.ENVIRONMENTS;
-    logger.setLevel(logger.levels[LOG_LEVEL]);
+    logger.onAll();
   }
 
   private setEnvironments(e: Environments) {
@@ -50,7 +49,7 @@ class AppConfigs {
         HOSTNAME: "localhost",
         PORT: this.ENVIRONMENTS.PORT,
         SELF_EXEC: this.ENVIRONMENTS.SELF_EXEC,
-        CLIENT_ID_SECRET: this.ENVIRONMENTS.CLIENT_ID_SECRET,
+        CLIENT_SECRET: this.ENVIRONMENTS.CLIENT_SECRET,
       },
       DB: {
         MONGO_URL: this.ENVIRONMENTS.MONGO_URL,

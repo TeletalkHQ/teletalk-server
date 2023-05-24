@@ -2,7 +2,9 @@ import { IoFields } from "check-fields";
 import { objectUtilities } from "utility-store";
 import { Socket as Client } from "socket.io-client";
 
-import { loggerHelper } from "@/helpers/logHelper";
+import { customTypeof } from "custom-typeof";
+
+import { loggerHelper } from "$/helpers/logHelper";
 
 import { NativeError, SocketResponse, SocketRoute, StringMap } from "@/types";
 import { RequesterOptions } from "$/types";
@@ -96,7 +98,7 @@ class Requester {
         options,
         requestData: this.getRequestData(),
       };
-      logger.dir(logger.levels.error, error, { depth: 10 });
+      logger.dir("error", error, { depth: 10 });
       loggerHelper.logEndTestRequest();
       throw error;
     }
@@ -181,10 +183,11 @@ class Requester {
     const expectedError = this.getError();
     if (!expectedError) throw "Error is not defined";
 
-    const { reason: expectedReason } = expectedError;
+    const { reason: expectedErrorReason } = expectedError;
     const { errors } = this.getResponse();
+    expect(customTypeof.isObject(errors)).toBeTruthy();
 
-    expect(errors![expectedReason]?.reason).toEqual(expectedReason);
+    expect(errors![expectedErrorReason]?.reason).toEqual(expectedErrorReason);
 
     return this;
   }

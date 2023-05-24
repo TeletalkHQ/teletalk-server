@@ -7,9 +7,11 @@ import {
   SocketNext,
 } from "@/types";
 
-import { utilities } from "@/utilities";
-
-const attachClientId: SocketMiddleware = async (socket, next, [_name]) => {
+export const attachClientId: SocketMiddleware = async (
+  socket,
+  next,
+  [_name]
+) => {
   return await trier<SocketMiddlewareReturnValue>(attachClientId.name)
     .async()
     .try(tryBlock, socket)
@@ -19,9 +21,7 @@ const attachClientId: SocketMiddleware = async (socket, next, [_name]) => {
 };
 
 const tryBlock = async (socket: Socket) => {
-  const cookie = socket.handshake.headers.cookie!;
-
-  socket.clientId = utilities.extractClientIdFromCookie(cookie);
+  socket.clientId = socket.authClient.payload.clientId;
 
   return { ok: true };
 };
@@ -29,5 +29,3 @@ const tryBlock = async (socket: Socket) => {
 const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
   next();
 };
-
-export { attachClientId };

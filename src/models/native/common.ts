@@ -9,8 +9,8 @@ export const commonModels = {
     .required(true)
     .empty(false)
     .build(),
-  //TODO: UserId to Id
   id: nativeModelBuilder
+    //REFACTOR: Use Id interface
     .create<UserId>()
     .type("string")
     .required(true)

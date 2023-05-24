@@ -12,3 +12,4 @@ environments/production_local.env
 environments/production.env
 node_modules
 redis-portable
+.yarn

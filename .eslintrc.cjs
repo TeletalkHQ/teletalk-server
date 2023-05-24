@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     es2021: true,
-    jest: false,
+    jest: true,
     node: true,
   },
   extends: [
@@ -23,6 +23,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "@cspell", "sonarjs", "unused-imports"],
   rules: {
+    "no-console": "warn",
     "@cspell/spellchecker": [
       "error",
       {

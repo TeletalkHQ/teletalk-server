@@ -12,6 +12,25 @@
     "earshinov.sort-lines-by-selection",
     "cweijan.vscode-database-client2",
     "qcz.text-power-tools",
-    "peterschmalfeldt.explorer-exclude"
+    "peterschmalfeldt.explorer-exclude",
+    "orta.vscode-jest",
+    "mhutchie.git-graph",
+    "redhat.vscode-yaml",
+    "snyk-security.snyk-vulnerability-scanner",
+    "achil.vscode-javascript-repl",
+    "nhoizey.gremlins",
+    "eamodio.gitlens",
+    "ms-vscode-remote.remote-wsl",
+    "shardulm94.trailing-spaces",
+    "amodio.toggle-excluded-files",
+    "foxundermoon.shell-format",
+    "ms-vsliveshare.vsliveshare",
+    "xabikos.javascriptsnippets",
+    "visualstudioexptteam.intellicode-api-usage-examples",
+    "visualstudioexptteam.vscodeintellicode",
+    "ypresto.vscode-intelli-refactor",
+    "irongeek.vscode-env",
+    "nixon.env-cmd-file-syntax",
+    "adam-bender.commit-message-editor"
   ]
 }

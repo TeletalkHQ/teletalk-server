@@ -10,6 +10,7 @@ export const commonModels = {
     .empty(false)
     .build(),
   id: nativeModelBuilder
+    //REFACTOR: Use Id interface
     .create<UserId>()
     .type("string")
     .required(true)

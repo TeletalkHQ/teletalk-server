@@ -14,6 +14,7 @@ import { appConfigs } from "@/classes/AppConfigs";
 import { utilities } from "@/utilities";
 
 import { errors } from "@/variables";
+import { clientManager } from "@/classes/ClientIdManager";
 
 const {
   APP: { PORT, HOSTNAME: hostname },
@@ -37,20 +38,20 @@ const setClientIdRequestBody =
     (res: http.IncomingMessage) => {
       const cookies = res.headers["set-cookie"];
       if (!cookies) return reject(errors.cookieIsNotDefined);
-      resolve(utilities.extractClientIdFromCookie(cookies[0]));
+      resolve(utilities.extractClientFromCookie(cookies[0]));
     };
 
 class ClientInitializer {
   private client: Socket;
-  private clientId: string;
-  private clientIdCookie: string;
+  private clientStr: string;
+  private clientCookie: string;
 
-  setClientId(clientId?: any) {
-    this.clientId = clientId;
+  setClient(clientStr?: any) {
+    this.clientStr = clientStr;
     return this;
   }
 
-  async makeLegalClientId() {
+  async makeLegalClient() {
     return await new Promise<string>((resolve, reject) => {
       const req = http.request(
         setClientIdRequestOptions,
@@ -60,7 +61,7 @@ class ClientInitializer {
     });
   }
 
-  create() {
+  initClient() {
     this.client = Client(this.makeUrl(), this.makeClientSocketOptions());
     return this;
   }
@@ -75,16 +76,16 @@ class ClientInitializer {
       withCredentials: true,
     };
 
-    if (this.clientIdCookie) {
+    if (this.clientCookie) {
       options.extraHeaders = {
-        cookie: this.clientIdCookie,
+        cookie: this.clientCookie,
       };
     }
 
     return options;
   }
-  makeClientIdCookie() {
-    this.clientIdCookie = cookie.serialize("clientId", this.clientId, {
+  makeClientCookie() {
+    this.clientCookie = cookie.serialize("clientId", this.clientStr, {
       httpOnly: true,
       sameSite: false,
       secure: true,
@@ -93,8 +94,12 @@ class ClientInitializer {
     return this;
   }
 
-  assignClientId() {
-    this.client.clientId = this.clientId;
+  async assignClientId() {
+    const {
+      payload: { clientId },
+    } = await clientManager.verifyClient(this.clientStr);
+    this.client.clientId = clientId;
+
     return this;
   }
 
@@ -104,18 +109,17 @@ class ClientInitializer {
   }
 
   async createComplete() {
-    this.clientId = await this.makeLegalClientId();
-    this.makeClientIdCookie().create().assignClientId().connect();
+    this.clientStr = await this.makeLegalClient();
+    this.makeClientCookie();
+    this.initClient();
+    await this.assignClientId();
+    this.connect();
 
     return this;
   }
 
   getClient() {
     return this.client;
-  }
-
-  getClientId() {
-    return this.clientId;
   }
 }
 

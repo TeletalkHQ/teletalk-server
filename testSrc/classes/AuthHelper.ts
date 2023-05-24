@@ -6,7 +6,7 @@ import { clientStore } from "@/classes/ClientStore";
 
 import { helpers } from "$/helpers";
 
-import { Cellphone, FullName, SocketResponse, Client } from "@/types";
+import { Cellphone, FullName, SocketResponse } from "@/types";
 import { ClientSocket } from "$/types";
 
 class AuthHelper {
@@ -33,8 +33,8 @@ class AuthHelper {
   }
 
   async verify() {
-    const clientId = this.clientInitializer.getClientId();
-    const client = (await clientStore.find(clientId)) as Client;
+    const clientId = this.clientInitializer.getClient().clientId;
+    const client = (await clientStore.find(clientId))!;
 
     this.verifyResponse = await helpers.requesterCollection
       .verify(this.clientSocket)
@@ -73,7 +73,7 @@ class AuthHelper {
   }
 
   getClientId() {
-    return this.clientInitializer.getClientId();
+    return this.clientInitializer.getClient().clientId;
   }
 }
 

@@ -9,8 +9,6 @@ import address from "address";
 
 import { appConfigs } from "@/classes/AppConfigs";
 
-import { helpers } from "@/helpers";
-
 import { crateHttpServer } from "@/http";
 
 import { requirements } from "@/requirements";
@@ -55,7 +53,7 @@ const runner = async () => {
   // } else {
   await requirements.database();
 
-  const httpServer = crateHttpServer(helpers.signClientId);
+  const httpServer = crateHttpServer();
   httpServer.listen(appConfigs.getConfigs().APP.PORT, listeningListener);
   websocketServer(httpServer);
 

@@ -13,6 +13,7 @@ import {
 import { Event, Socket } from "socket.io";
 import { ContactWithCellphone } from "utility-store/lib/types";
 import { NativeModelCollection } from ".";
+import { JWTPayload, JWTVerifyResult } from "jose";
 
 export interface Cellphone {
   countryCode: string;
@@ -151,7 +152,7 @@ export type SocketMiddlewareEvent = string | string[];
 export type LogLevel = "debug" | "error" | "info" | "warn";
 
 export interface Environments {
-  CLIENT_ID_SECRET: string;
+  CLIENT_SECRET: string;
   LOG_LEVEL: LogLevel;
   MONGO_COLLECTION_NAME: string;
   MONGO_PORT: number;
@@ -234,12 +235,15 @@ export type ModelErrorReason =
 export type CustomErrorReason =
   | "blacklistItemExist"
   | "blacklistItemNotExist"
+  | "chatNotExist"
+  | "client_invalid"
+  | "clientCookieRequired"
+  | "clientIdCanNotVerified"
   | "clientNotFound"
   | "clientNotVerified"
-  | "cookieIsNotDefined"
-  | "chatNotExist"
   | "contactItemExist"
   | "contactItemNotExist"
+  | "cookieIsNotDefined"
   | "countryCodeNotSupported"
   | "countryNameNotSupported"
   | "currentClientNotExist"
@@ -253,9 +257,9 @@ export type CustomErrorReason =
   | "isNotACallback"
   | "outputDataNotDefined"
   | "outputFieldInvalidType"
-  | "outputFieldTypeWrong"
   | "outputFieldsMissing"
   | "outputFieldsOverload"
+  | "outputFieldTypeWrong"
   | "requiredFieldInvalid"
   | "requiredFieldInvalidType"
   | "requiredFieldsNotDefined"
@@ -263,11 +267,10 @@ export type CustomErrorReason =
   | "requiredIoFieldIsNotObject"
   | "routeNotFound"
   | "selfStuff"
+  | "senderEmpty"
   | "sendJsonResponseIsNotFunction"
   | "sendSmsFailed"
-  | "senderEmpty"
   | "serverCriticalError"
-  | "clientIdCanNotVerified"
   | "targetUserNotExist"
   | "unknownError"
   | "userExist"
@@ -351,7 +354,7 @@ export type ValidationResult =
   | ValidationError[]
   | Promise<true | ValidationError[]>;
 
-export interface Client extends Cellphone {
+export interface StoredClient extends Cellphone {
   isVerified: boolean;
   verificationCode: string;
   userId: string;
@@ -404,3 +407,11 @@ export * from "@/types/models";
 // }[Field];
 
 // type AllErrors = `${AllErrorKeys2}`;
+
+export interface AuthClientPayload extends JWTPayload {
+  clientId: string;
+}
+
+export interface AuthClient extends JWTVerifyResult {
+  payload: AuthClientPayload;
+}

@@ -18,9 +18,9 @@ export const checkCurrentClient: SocketMiddleware = async (socket, next) => {
 };
 
 const tryBlock = async (socket: Socket) => {
-  const currentUser = await services.findOneUser({ userId: socket.userId });
+  const currentUser = (await services.findOneUser({ userId: socket.userId }))!;
 
-  const isClientExist = currentUser!.clients.some(
+  const isClientExist = currentUser.clients.some(
     (t) => t.clientId === socket.clientId
   );
 

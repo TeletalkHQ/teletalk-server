@@ -7,23 +7,28 @@ import {
   SocketNext,
 } from "@/types";
 
-import { validators } from "@/validators";
+import { utilities } from "@/utilities";
 
-export const validateClientId: SocketMiddleware = async (
+import { errors } from "@/variables";
+
+export const attachClientStr: SocketMiddleware = async (
   socket,
   next,
-  [_name, data]
+  [_name]
 ) => {
-  return await trier<SocketMiddlewareReturnValue>(validateClientId.name)
+  return await trier<SocketMiddlewareReturnValue>(attachClientStr.name)
     .async()
-    .try(tryBlock, socket, data)
+    .try(tryBlock, socket)
     .executeIfNoError(executeIfNoError, next)
     .throw()
     .run();
 };
 
 const tryBlock = async (socket: Socket) => {
-  await validators.clientId(socket.clientId);
+  const { cookie } = socket.handshake.headers;
+  if (!cookie) throw errors.clientCookieRequired;
+
+  socket.clientStr = utilities.extractClientFromCookie(cookie);
 
   return { ok: true };
 };

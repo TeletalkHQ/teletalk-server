@@ -2,6 +2,7 @@ import { Socket } from "socket.io";
 
 import { applyMiddlewares } from "@/websocket/middlewares/applyMiddlewares";
 import { attachClientId } from "@/websocket/middlewares/attachClientId";
+import { attachClientStr } from "@/websocket/middlewares/attachClientStr";
 import { attachUserId } from "@/websocket/middlewares/attachUserId";
 import { checkClient } from "@/websocket/middlewares/checkClient";
 import { checkCurrentClient } from "@/websocket/middlewares/checkCurrentClient";
@@ -12,26 +13,30 @@ import { dynamicValidator } from "@/websocket/middlewares/dynamicValidator";
 import { ignoreMiddlewares } from "@/websocket/middlewares/ignoreMiddlewares";
 import { selfStuffCheck } from "@/websocket/middlewares/selfStuffCheck";
 import { validateClientId } from "@/websocket/middlewares/validateClientId";
-import { verifyClientId } from "@/websocket/middlewares/verifyClientId";
+import { verifyClient } from "@/websocket/middlewares/verifyClient";
 import { verifyVerificationCode } from "@/websocket/middlewares/verifyVerificationCode";
 
+import { routesWithoutAuth } from "@/websocket/events";
+
 export const registerMiddlewares = (socket: Socket) => {
-  socket.customUse(validateClientId);
+  socket.customUse(attachClientStr);
+  socket.customUse(verifyClient);
   socket.customUse(attachClientId);
-  socket.customUse(verifyClientId);
+  socket.customUse(validateClientId);
 
   socket.customUse(checkEventAvailability);
 
   socket.customUse(
-    //CLEANME: Use ignored routes for auth
-    ignoreMiddlewares(["signIn", "getStuff"], checkClient)
+    ignoreMiddlewares(
+      routesWithoutAuth.map((i) => i.name),
+      checkClient
+    )
   );
 
   socket.customUse(checkDataFields);
   socket.customUse(dynamicValidator);
 
   socket.customUse(
-    //CLEANME: Use ignored routes for auth
     ignoreMiddlewares(
       ["createNewUser", "getStuff", "signIn", "verify"],
       attachUserId,
@@ -55,21 +60,4 @@ export const registerMiddlewares = (socket: Socket) => {
       selfStuffCheck
     )
   );
-};
-
-export const middlewares = {
-  applyMiddlewares,
-  attachClientId,
-  attachUserId,
-  checkClient,
-  checkCurrentClient,
-  checkCurrentUser,
-  checkDataFields,
-  checkEventAvailability,
-  dynamicValidator,
-  ignoreMiddlewares,
-  selfStuffCheck,
-  validateClientId,
-  verifyClientId,
-  verifyVerificationCode,
 };

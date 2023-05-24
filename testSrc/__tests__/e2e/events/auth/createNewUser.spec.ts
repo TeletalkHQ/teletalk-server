@@ -9,7 +9,7 @@ import { helpers } from "$/helpers";
 
 import { services } from "@/services";
 
-import { Cellphone, Client, FullName, ClientObjType, UserMongo } from "@/types";
+import { Cellphone, ClientObjType, FullName, UserMongo } from "@/types";
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
@@ -49,7 +49,7 @@ await helpers.asyncDescribe("createNewUser fail tests", async () => {
 });
 
 const testCreatedUserClientId = async (clientId: string) => {
-  const { userId } = (await clientStore.find(clientId)) as Client;
+  const { userId } = (await clientStore.find(clientId))!;
 
   const foundClientId = (await getSavedUserClientId(
     userId,

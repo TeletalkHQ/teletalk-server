@@ -1,3 +1,5 @@
+import { customTypeof } from "custom-typeof";
+
 import {
   AssertionInitializerHelper,
   assertionInitializerHelper,
@@ -11,9 +13,7 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { helpers } from "$/helpers";
 
-import { Cellphone, Client } from "@/types";
-
-import { customTypeof } from "custom-typeof";
+import { Cellphone } from "@/types";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {
@@ -71,7 +71,7 @@ const testSavedClient = async (
   clientId: string,
   cellphone: Cellphone
 ) => {
-  const client = (await clientStore.find(clientId)) as Client;
+  const client = (await clientStore.find(clientId))!;
   expect(customTypeof.isObject(client)).toBeTruthy();
   expect(client.countryCode).toBe(cellphone.countryCode);
   expect(client.countryName).toBe(cellphone.countryName);
@@ -93,7 +93,7 @@ const testResponse = async (
   assertionHelper: AssertionInitializerHelper,
   clientId: string
 ) => {
-  const client = (await clientStore.find(clientId)) as Client;
+  const client = (await clientStore.find(clientId))!;
 
   assertionHelper.userId(
     {

@@ -7,7 +7,7 @@ import { models } from "@/models";
 
 import { services } from "@/services";
 
-import { Cellphone, SocketOnHandler, Client, UserMongo } from "@/types";
+import { Cellphone, SocketOnHandler, StoredClient, UserMongo } from "@/types";
 
 import { errors } from "@/variables";
 
@@ -41,13 +41,13 @@ const createNewUser: SocketOnHandler = async (
   return { data: {} };
 };
 
-const findClient = async (userId: string) => {
-  const client = await clientStore.find(userId);
+const findClient = async (clientId: string) => {
+  const client = await clientStore.find(clientId);
   if (!client) throw errors.clientNotFound;
   return client;
 };
 
-const checkClientVerification = (client: Client) => {
+const checkClientVerification = (client: StoredClient) => {
   errorThrower(!client.isVerified, {
     ...errors.clientNotVerified,
     createNewUser: "failed",

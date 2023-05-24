@@ -1,31 +1,26 @@
 import http from "http";
 
-type ClientIdGenerator = () => string;
+import { clientManager } from "@/classes/ClientIdManager";
 
-const crateHttpServer = (
-  clientIdGenerator: ClientIdGenerator,
-  app?: http.RequestListener
-) => {
-  return http.createServer(app || defaultApp(clientIdGenerator));
+export const crateHttpServer = (app?: http.RequestListener) => {
+  return http.createServer(app || defaultApp());
 };
 
-const defaultApp = (clientIdGenerator: ClientIdGenerator) => {
-  return (
+const defaultApp = () => {
+  return async (
     req: http.IncomingMessage,
     res: http.ServerResponse<http.IncomingMessage>
   ) => {
     if (req.url === "/setClientId") {
-      const clientId = clientIdGenerator();
+      const clientStr = await clientManager.signClient();
       res.writeHead(200, {
-        "Set-Cookie": `clientId=${clientId}; HttpOnly; SameSite=Strict`,
+        "Set-Cookie": `client=${clientStr}; HttpOnly; SameSite=Strict`,
         "Content-Type": "text/plain",
       });
-      res.end("Client ID has been set!");
+      res.end("Client has been set!");
     } else {
       res.writeHead(404);
       res.end();
     }
   };
 };
-
-export { crateHttpServer };

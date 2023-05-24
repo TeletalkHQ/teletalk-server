@@ -32,7 +32,7 @@ const tryBlock = async (
 };
 
 const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
-  logger.debug("error in mld:", error);
+  logger.debug("error in middleware:", error);
 
   const response: SocketResponse = {
     data: {},

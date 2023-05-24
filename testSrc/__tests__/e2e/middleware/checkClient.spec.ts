@@ -15,7 +15,7 @@ describe("auth middleware test", () => {
         await requesterMaker(socket, route).sendRequest()
       ).getResponse();
 
-      const { errors: responseErrors } = response.data;
+      const responseErrors = response.errors;
 
       const { reason } = errors.clientNotFound;
 

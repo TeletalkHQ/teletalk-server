@@ -1,7 +1,13 @@
 import { LoggerChalker } from "logger-chalker";
 import { Server } from "socket.io";
 
-import { CustomEmit, CustomOn, CustomUse, Environments } from "@/types";
+import {
+  CustomEmit,
+  CustomOn,
+  CustomUse,
+  Environments,
+  AuthClient,
+} from "@/types";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -11,11 +17,13 @@ declare global {
 declare module "socket.io" {
   interface Socket {
     clientId: string;
-    userId: string;
     customEmit: CustomEmit;
     customOn: CustomOn;
     customUse: CustomUse;
     io: Server;
+    authClient: AuthClient;
+    userId: string;
+    clientStr: string;
   }
 }
 

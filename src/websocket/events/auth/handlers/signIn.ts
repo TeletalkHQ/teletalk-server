@@ -7,7 +7,7 @@ import { userUtilities } from "@/classes/UserUtilities";
 
 import { models } from "@/models";
 
-import { SocketOnHandler, Client } from "@/types";
+import { SocketOnHandler, StoredClient } from "@/types";
 
 import { utilities } from "@/utilities";
 
@@ -41,7 +41,7 @@ const sendVerificationCode = async (
 //TODO: Remove models from handlers
 const createUserId = () => randomMaker.id(models.native.userId.maxLength);
 
-const addClient = async (userId: string, data: Client) =>
-  await clientStore.add(userId, data);
+const addClient = async (clientId: string, data: StoredClient) =>
+  await clientStore.add(clientId, data);
 
 export { signIn };

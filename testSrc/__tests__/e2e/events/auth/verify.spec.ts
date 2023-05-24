@@ -10,7 +10,7 @@ import { models } from "@/models";
 
 import { services } from "@/services";
 
-import { ClientObjType, Client, UserMongo } from "@/types";
+import { ClientObjType, UserMongo } from "@/types";
 
 describe("verifySignIn success test", () => {
   it("should sign and verify as new user", async () => {
@@ -22,7 +22,7 @@ describe("verifySignIn success test", () => {
     await helper.verify();
     expect(helper.getResponses().verify.data.newUser).toBe(true);
 
-    const client = (await clientStore.find(helper.getClientId())) as Client;
+    const client = (await clientStore.find(helper.getClientId()))!;
 
     expect(client.isVerified).toBe(true);
   });

@@ -85,7 +85,7 @@ const sortEnvironments = () =>
       return prevValue;
     }, {} as Environments);
 
-const extractClientIdFromCookie = (cookie: string) => {
+const extractClientFromCookie = (cookie: string) => {
   const [rawCookie] = cookie.split("; ");
   return rawCookie.split("=")[1];
 };
@@ -110,7 +110,7 @@ const upperSnake = (str: string) => lodash.snakeCase(str).toUpperCase();
 const utilities = {
   crashServer,
   executeMiddlewares,
-  extractClientIdFromCookie,
+  extractClientFromCookie,
   findError,
   isEventNameMatch,
   logEnvironments,

@@ -1,6 +1,6 @@
 import { RedisClientType } from "redis";
 
-import { Client } from "@/types";
+import { StoredClient } from "@/types";
 
 class ClientStore {
   private STATE_KEY = "client";
@@ -23,7 +23,7 @@ class ClientStore {
     return `${this.STATE_KEY}:${clientId}`;
   }
 
-  async find(clientId: string): Promise<Client | null> {
+  async find(clientId: string): Promise<StoredClient | null> {
     const client = (await this.storage.json.get(
       this.makeStateKey(clientId)
     )) as string;
@@ -31,7 +31,7 @@ class ClientStore {
     return client ? JSON.parse(client) : null;
   }
 
-  async add(clientId: string, data: Client) {
+  async add(clientId: string, data: StoredClient) {
     const stateKey = this.makeStateKey(clientId);
     await this.storage
       .multi()
@@ -40,7 +40,7 @@ class ClientStore {
       .exec();
   }
 
-  async update(clientId: string, newData: Client) {
+  async update(clientId: string, newData: StoredClient) {
     await this.storage.json.set(
       this.makeStateKey(clientId),
       this.STATE_PATH,

@@ -39,6 +39,21 @@ export const userValidationModels: UserValidationModels = {
     .type()
     .required()
     .build(),
+  clientId: validationModelBuilder
+    .create("clientId")
+    .setModel(nativeModels.clientId)
+    .type()
+    .required()
+    .empty()
+    .min()
+    .max()
+    .build(),
+  clients: validationModelBuilder
+    .create("clients")
+    .setModel(nativeModels.clients)
+    .type()
+    .required()
+    .build(),
   contacts: validationModelBuilder
     .create("contacts")
     .setModel(nativeModels.contacts)
@@ -111,21 +126,6 @@ export const userValidationModels: UserValidationModels = {
     .min()
     .max()
     .numeric()
-    .build(),
-  clientId: validationModelBuilder
-    .create("clientId")
-    .setModel(nativeModels.clientId)
-    .type()
-    .required()
-    .empty()
-    .min()
-    .max()
-    .build(),
-  clients: validationModelBuilder
-    .create("clients")
-    .setModel(nativeModels.clients)
-    .type()
-    .required()
     .build(),
   status: validationModelBuilder
     .create("status")

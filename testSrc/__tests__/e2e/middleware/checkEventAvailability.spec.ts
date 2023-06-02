@@ -38,11 +38,10 @@ await helpers.asyncDescribe(
           const requester = createRequester(clientSocket, route);
           await requester.sendRequest();
 
-          const {
-            data: { errors: responseErrors },
-          } = requester.getResponse();
+          const { errors: responseErrors } = requester.getResponse();
 
           const { reason: expectedReason } = errors.routeNotFound;
+
           expect(responseErrors?.[expectedReason]).toBeFalsy();
         });
       }

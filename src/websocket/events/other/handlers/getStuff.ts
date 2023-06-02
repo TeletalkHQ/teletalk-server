@@ -8,16 +8,14 @@ import { routes } from "@/websocket/events";
 
 const getStuff: SocketOnHandler = (_socket) => {
   const stuff = {
-    appErrors: errors,
+    errors,
     models: models.native,
     routes,
     validationModels: models.validation,
   };
 
   return {
-    data: {
-      ...stuff,
-    },
+    data: stuff,
   };
 };
 

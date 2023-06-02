@@ -25,7 +25,7 @@ describe("getAllStuff success tests", () => {
 
     testRoutes(Object.values(data.routes));
     testModels(data.models);
-    testErrors(data.appErrors);
+    testErrors(data.errors);
     testValidationModels(data.validationModels);
   });
 });

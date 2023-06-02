@@ -147,7 +147,7 @@ export interface Contact extends FullName {
   userId: string;
 }
 
-export type SocketMiddlewareEvent = string | string[];
+export type SocketMiddlewareEvent = EventName | EventName[];
 
 export type LogLevel = "debug" | "error" | "info" | "warn";
 

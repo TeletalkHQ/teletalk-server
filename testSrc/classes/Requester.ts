@@ -1,8 +1,7 @@
 import { IoFields } from "check-fields";
+import { customTypeof } from "custom-typeof";
 import { objectUtilities } from "utility-store";
 import { Socket as Client } from "socket.io-client";
-
-import { customTypeof } from "custom-typeof";
 
 import { loggerHelper } from "$/helpers/logHelper";
 
@@ -51,6 +50,7 @@ class Requester {
   getRoute() {
     return this.route;
   }
+
   getEventName() {
     return this.route.name;
   }

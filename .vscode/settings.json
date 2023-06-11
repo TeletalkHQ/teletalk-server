@@ -78,7 +78,14 @@
     "stryker.conf.mjs": true,
     ".babelrc": true,
     ".stryker-tmp": true,
-    "jest.setup.ts": true
+    "jest.setup.ts": true,
+    "scripts": true,
+    "index.ts": true,
+    "pnpm-lock.yaml": true,
+    "public": true,
+    "modules": true,
+    "notes": true,
+    "configs": true
   },
   "prettier.configPath": ".prettierrc.json",
   "prettier.endOfLine": "lf",

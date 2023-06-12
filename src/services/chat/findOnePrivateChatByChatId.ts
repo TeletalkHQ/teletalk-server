@@ -1,6 +1,6 @@
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { HydratedPrivateChatMongo, PrivateChatService } from "@/types";
+import { HydratedPrivateChatMongo, PrivateChatService } from "~/types";
 
 const findOnePrivateChatByChatId: PrivateChatService<
   {

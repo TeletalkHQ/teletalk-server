@@ -1,6 +1,6 @@
-import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
+import { nativeModelBuilder } from "~/classes/modelBuilder/NativeModelBuilder";
 
-import { commonModels } from "@/models/native/common";
+import { commonModels } from "~/models/native/common";
 
 import {
   ChatId,
@@ -10,7 +10,7 @@ import {
   Participants,
   PrivateChats,
   UserId,
-} from "@/types";
+} from "~/types";
 
 export const privateChatModels = {
   chatId: nativeModelBuilder

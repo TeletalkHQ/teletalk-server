@@ -1,6 +1,6 @@
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 export const logout = async ({
   userId,

@@ -1,10 +1,10 @@
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
-import { routes } from "@/websocket/events";
+import { routes } from "~/websocket/events";
 
 const getStuff: SocketOnHandler = (_socket) => {
   const stuff = {

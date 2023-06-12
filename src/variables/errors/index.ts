@@ -1,6 +1,6 @@
-import { errorBuilder } from "@/classes/ErrorBuilder";
-import { modelErrorBuilder } from "@/classes/ModelErrorBuilder";
-import { ErrorCollection } from "@/types";
+import { errorBuilder } from "~/classes/ErrorBuilder";
+import { modelErrorBuilder } from "~/classes/ModelErrorBuilder";
+import { ErrorCollection } from "~/types";
 
 const customErrors = {
   blacklistItemExist: errorBuilder().reason("blacklistItemExist").build(),

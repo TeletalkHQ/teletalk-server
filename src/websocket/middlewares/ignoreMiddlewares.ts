@@ -1,7 +1,7 @@
 /* eslint-disable indent */
-import { SocketMiddleware, SocketMiddlewareEvent } from "@/types";
+import { SocketMiddleware, SocketMiddlewareEvent } from "~/types";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
 const ignoreMiddlewares = (
   events: SocketMiddlewareEvent,

@@ -1,9 +1,9 @@
 import { randomMaker } from "utility-store";
 import { Trier } from "simple-trier";
 
-import { runner } from "@/index";
+import { runner } from "~/index";
 
-import { appConfigs } from "@/classes/AppConfigs";
+import { appConfigs } from "~/classes/AppConfigs";
 
 // import { services } from "$/services/index";
 

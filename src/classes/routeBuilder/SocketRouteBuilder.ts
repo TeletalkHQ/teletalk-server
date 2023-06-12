@@ -1,6 +1,6 @@
-import { RouteBuilder } from "@/classes/routeBuilder/RouteBuilder";
+import { RouteBuilder } from "~/classes/routeBuilder/RouteBuilder";
 
-import { SocketRoute } from "@/types";
+import { SocketRoute } from "~/types";
 
 class SocketRouteBuilder extends RouteBuilder {
   protected route: SocketRoute;

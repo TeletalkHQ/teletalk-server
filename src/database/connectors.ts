@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import { createClient } from "redis";
 
-import { appConfigs } from "@/classes/AppConfigs";
+import { appConfigs } from "~/classes/AppConfigs";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
 //REFACTOR: all major
 

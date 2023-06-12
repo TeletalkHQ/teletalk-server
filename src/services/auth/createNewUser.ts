@@ -1,10 +1,10 @@
 import { errorThrower } from "utility-store";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { UserMongo } from "@/types";
+import { UserMongo } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const createNewUser = async (userData: UserMongo) => {
   await checkExistenceOfCurrentUser(userData.userId);

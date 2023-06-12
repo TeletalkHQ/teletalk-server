@@ -1,5 +1,5 @@
-import { clientManager } from "@/classes/ClientIdManager";
-import { clientStore } from "@/classes/ClientStore";
+import { clientManager } from "~/classes/ClientIdManager";
+import { clientStore } from "~/classes/ClientStore";
 import { clientInitializer } from "$/classes/ClientInitializer";
 import { randomMaker } from "$/classes/RandomMaker";
 
@@ -7,9 +7,9 @@ import { helpers } from "$/helpers";
 
 import { RequesterCollection } from "$/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
-import { routesWithAuth } from "@/websocket/events";
+import { routesWithAuth } from "~/websocket/events";
 
 describe("checkCurrentUser middleware fail tests", () => {
   routesWithAuth

@@ -1,10 +1,10 @@
 import { errorThrower } from "utility-store";
 
-import { commonServices } from "@/services/common";
+import { commonServices } from "~/services/common";
 
-import { BlackListItem, HydratedUserMongo, UserMongo } from "@/types";
+import { BlackListItem, HydratedUserMongo, UserMongo } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const removeBlock = async (data: {
   currentUserId: string;

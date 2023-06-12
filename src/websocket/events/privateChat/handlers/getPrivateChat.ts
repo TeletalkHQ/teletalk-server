@@ -1,6 +1,6 @@
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
 const getPrivateChat: SocketOnHandler = async (_socket, data) => {
   const privateChat = await services.findOnePrivateChatByChatId(

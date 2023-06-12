@@ -2,11 +2,11 @@ import {
   ClientInitializer,
   clientInitializer,
 } from "$/classes/ClientInitializer";
-import { clientStore } from "@/classes/ClientStore";
+import { clientStore } from "~/classes/ClientStore";
 
 import { helpers } from "$/helpers";
 
-import { Cellphone, FullName, SocketResponse } from "@/types";
+import { Cellphone, FullName, SocketResponse } from "~/types";
 import { ClientSocket } from "$/types";
 
 class AuthHelper {

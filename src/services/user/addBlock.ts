@@ -1,10 +1,10 @@
 import { errorThrower } from "utility-store";
 
-import { HydratedUserMongo, UserMongo } from "@/types";
+import { HydratedUserMongo, UserMongo } from "~/types";
 
-import { commonServices } from "@/services/common";
+import { commonServices } from "~/services/common";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const addBlock = async (data: {
   blockingUserId: string;

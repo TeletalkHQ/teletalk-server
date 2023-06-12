@@ -1,6 +1,6 @@
-import { nativeModelBuilder } from "@/classes/modelBuilder/NativeModelBuilder";
+import { nativeModelBuilder } from "~/classes/modelBuilder/NativeModelBuilder";
 
-import { commonModels } from "@/models/native/common";
+import { commonModels } from "~/models/native/common";
 
 import {
   Bio,
@@ -18,7 +18,7 @@ import {
   Status,
   Username,
   VerificationCode,
-} from "@/types";
+} from "~/types";
 
 export const userModels = {
   bio: nativeModelBuilder

@@ -4,9 +4,9 @@ import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { BlackListItem, UserMongo } from "@/types";
+import { BlackListItem, UserMongo } from "~/types";
 
 import { customTypeof } from "custom-typeof";
 

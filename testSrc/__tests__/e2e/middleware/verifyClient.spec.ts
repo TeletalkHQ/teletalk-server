@@ -5,11 +5,11 @@ import { requesterMaker } from "$/classes/Requester";
 
 import { helpers } from "$/helpers";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
-import { arrayOfRoutes } from "@/websocket/events";
+import { arrayOfRoutes } from "~/websocket/events";
 
 //REFACTOR: fail suit message like this
 describe("verifyClient fail tests", () => {

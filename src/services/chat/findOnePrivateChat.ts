@@ -1,10 +1,10 @@
-import { models } from "@/models";
+import { models } from "~/models";
 
 import {
   HydratedPrivateChatMongo,
   PrivateChatMongo,
   PrivateChatService,
-} from "@/types";
+} from "~/types";
 
 const findOnePrivateChat: PrivateChatService<
   Partial<PrivateChatMongo>,

@@ -1,15 +1,15 @@
 import { errorThrower, randomMaker } from "utility-store";
 
-import { clientStore } from "@/classes/ClientStore";
-import { userUtilities } from "@/classes/UserUtilities";
+import { clientStore } from "~/classes/ClientStore";
+import { userUtilities } from "~/classes/UserUtilities";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { Cellphone, SocketOnHandler, StoredClient, UserMongo } from "@/types";
+import { Cellphone, SocketOnHandler, StoredClient, UserMongo } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const createNewUser: SocketOnHandler = async (
   socket,

@@ -3,7 +3,7 @@ import generatePassword from "generate-password";
 import lodash from "lodash";
 import { Socket } from "socket.io";
 
-import { envManager } from "@/classes/EnvironmentManager";
+import { envManager } from "~/classes/EnvironmentManager";
 
 import {
   Environments,
@@ -15,7 +15,7 @@ import {
   SocketEvent,
   SocketMiddleware,
   SocketNext,
-} from "@/types";
+} from "~/types";
 
 // const getHostFromRequest = (request) => request.get("host");
 

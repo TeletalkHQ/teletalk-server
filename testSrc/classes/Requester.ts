@@ -5,10 +5,10 @@ import { Socket as Client } from "socket.io-client";
 
 import { loggerHelper } from "$/helpers/logHelper";
 
-import { NativeError, SocketResponse, SocketRoute, StringMap } from "@/types";
+import { NativeError, SocketResponse, SocketRoute, StringMap } from "~/types";
 import { RequesterOptions } from "$/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 class Requester {
   private error?: NativeError;

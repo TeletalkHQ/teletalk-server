@@ -9,12 +9,12 @@ import Client, {
   SocketOptions,
 } from "socket.io-client";
 
-import { appConfigs } from "@/classes/AppConfigs";
+import { appConfigs } from "~/classes/AppConfigs";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
-import { errors } from "@/variables";
-import { clientManager } from "@/classes/ClientIdManager";
+import { errors } from "~/variables";
+import { clientManager } from "~/classes/ClientIdManager";
 
 const {
   APP: { PORT, HOSTNAME: hostname },

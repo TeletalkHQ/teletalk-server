@@ -389,7 +389,7 @@ export type UserService<T> = ServiceFunction<T, UserMongo, IUserDoc>;
 
 export type { Socket };
 
-export * from "@/types/models";
+export * from "~/types/models";
 
 // type SnakeCase<S extends string> = S extends `${infer T1}_${infer T2}`
 //   ? `${SnakeCase<T1>}_${SnakeCase<T2>}`

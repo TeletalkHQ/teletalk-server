@@ -1,15 +1,15 @@
 import {
   ValidationResult,
   validationChecker,
-} from "@/classes/ValidationChecker";
+} from "~/classes/ValidationChecker";
 
-import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
+import { ValidationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { Validator } from "@/types";
+import { Validator } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const validator = ValidationModelBuilder.compiler(models.validation.username);
 

@@ -1,14 +1,14 @@
 import { randomMaker } from "utility-store";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { createPrivateChat } from "@/services/chat/createPrivateChat";
-import { findOnePrivateChat } from "@/services/chat/findOnePrivateChat";
-import { commonServices } from "@/services/common";
+import { createPrivateChat } from "~/services/chat/createPrivateChat";
+import { findOnePrivateChat } from "~/services/chat/findOnePrivateChat";
+import { commonServices } from "~/services/common";
 
-import { HydratedPrivateChatMongo, Message, PrivateChatMongo } from "@/types";
+import { HydratedPrivateChatMongo, Message, PrivateChatMongo } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const chatModels = models.native;
 

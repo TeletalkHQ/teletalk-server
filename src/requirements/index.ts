@@ -1,4 +1,4 @@
-import { databaseRequirements as database } from "@/requirements/database";
+import { databaseRequirements as database } from "~/requirements/database";
 
 const requirements = { database };
 

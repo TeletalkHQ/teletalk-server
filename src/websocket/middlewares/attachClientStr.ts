@@ -5,11 +5,11 @@ import {
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
-} from "@/types";
+} from "~/types";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 export const attachClientStr: SocketMiddleware = async (
   socket,

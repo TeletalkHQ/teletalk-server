@@ -1,10 +1,30 @@
 import http from "http";
 
+import cors from "cors";
+import express from "express";
 import { clientManager } from "@/classes/ClientIdManager";
 
-export const crateHttpServer = (app?: http.RequestListener) => {
-  return http.createServer(app || defaultApp());
-};
+const expressApp = express();
+
+expressApp.use(
+  cors({
+    credentials: true,
+    origin: true,
+  })
+);
+
+expressApp.get("/setClientId", async (_req, res) => {
+  const clientStr = await clientManager.signClient();
+  res.setHeader("Content-Type", "text/plain");
+  res.statusCode = 200;
+  res.cookie("client", clientStr, {
+    httpOnly: false,
+    sameSite: false,
+    secure: false,
+  });
+
+  res.end("Client has been set!");
+});
 
 const defaultApp = () => {
   return async (

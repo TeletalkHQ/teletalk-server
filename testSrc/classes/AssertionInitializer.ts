@@ -3,7 +3,7 @@
 import { CustomTypeof, customTypeof } from "custom-typeof";
 import lodash from "lodash";
 
-import { FieldType, NativeModel } from "@/types";
+import { FieldType, NativeModel } from "~/types";
 
 const { upperFirst } = lodash;
 

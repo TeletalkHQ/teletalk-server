@@ -1,8 +1,8 @@
-import { userUtilities } from "@/classes/UserUtilities";
+import { userUtilities } from "~/classes/UserUtilities";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { Contact, SocketOnHandler } from "@/types";
+import { Contact, SocketOnHandler } from "~/types";
 
 const editContact: SocketOnHandler = async (socket, data) => {
   const { userId: currentUserId } = socket;

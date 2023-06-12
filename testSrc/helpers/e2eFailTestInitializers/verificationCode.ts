@@ -1,11 +1,11 @@
 import { e2eFailTestInitializer } from "$/classes/E2eFailTestInitializer";
 import { randomMaker } from "$/classes/RandomMaker";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
 import { E2eFailTestInitializer } from "$/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,

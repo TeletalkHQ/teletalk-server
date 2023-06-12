@@ -7,7 +7,7 @@ import {
   CustomUse,
   Environments,
   AuthClient,
-} from "@/types";
+} from "~/types";
 
 declare global {
   // eslint-disable-next-line no-var

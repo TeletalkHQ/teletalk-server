@@ -1,6 +1,6 @@
 import { RedisClientType } from "redis";
 
-import { StoredClient } from "@/types";
+import { StoredClient } from "~/types";
 
 class ClientStore {
   private STATE_KEY = "client";

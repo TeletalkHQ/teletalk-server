@@ -2,15 +2,15 @@ import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper
 import { authHelper } from "$/classes/AuthHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { clientStore } from "@/classes/ClientStore";
+import { clientStore } from "~/classes/ClientStore";
 
 import { helpers } from "$/helpers";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { ClientObjType, UserMongo } from "@/types";
+import { ClientObjType, UserMongo } from "~/types";
 
 describe("verifySignIn success test", () => {
   it("should sign and verify as new user", async () => {

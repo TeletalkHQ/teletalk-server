@@ -13,7 +13,7 @@
     "noImplicitReturns": true,
     "outDir": "./lib",
     "paths": {
-      "@/*": ["src/*"],
+      "~/*": ["src/*"],
       "#/*": ["public/*"],
       "$/*": ["testSrc/*"]
     },

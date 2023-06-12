@@ -4,9 +4,9 @@ import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { PublicUserData, UserMongo } from "@/types";
+import { PublicUserData, UserMongo } from "~/types";
 
 describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {

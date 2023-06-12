@@ -8,11 +8,11 @@ import {
   NativeModelCollection,
   NativeModelKey,
   ValidationModel,
-} from "@/types";
+} from "~/types";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 type ErrorMessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationRuleObject;

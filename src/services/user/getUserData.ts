@@ -1,5 +1,5 @@
-import { commonServices } from "@/services/common";
-import { UserMongo } from "@/types";
+import { commonServices } from "~/services/common";
+import { UserMongo } from "~/types";
 
 import { ProjectionType, QueryOptions } from "mongoose";
 

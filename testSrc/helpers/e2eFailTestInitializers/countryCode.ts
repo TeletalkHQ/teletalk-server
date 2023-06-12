@@ -3,11 +3,11 @@ import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
 import { E2eFailTestInitializer } from "$/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,

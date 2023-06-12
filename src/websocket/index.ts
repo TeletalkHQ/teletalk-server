@@ -2,11 +2,11 @@ import http from "http";
 
 import { Server } from "socket.io";
 
-import { customMethods } from "@/websocket/custom/methods";
+import { customMethods } from "~/websocket/custom/methods";
 
-import { registerEvents } from "@/websocket/events";
+import { registerEvents } from "~/websocket/events";
 
-import { registerMiddlewares } from "@/websocket/middlewares";
+import { registerMiddlewares } from "~/websocket/middlewares";
 
 type HttpServer = http.Server<
   typeof http.IncomingMessage,

@@ -3,13 +3,13 @@ import { ContactWithCellphone } from "utility-store/lib/types";
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { userUtilities } from "@/classes/UserUtilities";
+import { userUtilities } from "~/classes/UserUtilities";
 
 import { helpers } from "$/helpers";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { Contact, UserMongo } from "@/types";
+import { Contact, UserMongo } from "~/types";
 
 describe("edit contact success tests", () => {
   it("should edit users in contacts", async () => {

@@ -1,6 +1,6 @@
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
 const getContacts: SocketOnHandler = async (socket) => {
   const { userId: currentUserId } = socket;

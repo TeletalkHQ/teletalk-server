@@ -8,7 +8,7 @@ import {
   SocketMiddleware,
   SocketNext,
   SocketResponse,
-} from "@/types";
+} from "~/types";
 
 const registerCustomUse = (socket: Socket) => {
   return ((middleware) => {

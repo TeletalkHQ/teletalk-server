@@ -1,5 +1,5 @@
-import { findOneUser } from "@/services/common/findOneUser";
-import { findOneUserById } from "@/services/common/findOneUserById";
+import { findOneUser } from "~/services/common/findOneUser";
+import { findOneUserById } from "~/services/common/findOneUserById";
 
 const commonServices = { findOneUser, findOneUserById };
 

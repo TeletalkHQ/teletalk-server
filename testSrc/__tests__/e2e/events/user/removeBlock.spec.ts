@@ -4,9 +4,9 @@ import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { UserMongo } from "@/types";
+import { UserMongo } from "~/types";
 
 describe("removeContact successful test", () => {
   it("should add users to blacklist", async () => {

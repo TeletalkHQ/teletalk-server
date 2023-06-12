@@ -3,7 +3,7 @@ import { checkFields, IoFields } from "check-fields";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 import {
   CustomEmit,
@@ -11,11 +11,11 @@ import {
   SocketResponse,
   SocketRoute,
   StringMap,
-} from "@/types";
+} from "~/types";
 
-import { checkFieldErrors } from "@/variables";
+import { checkFieldErrors } from "~/variables";
 
-import { arrayOfRoutes } from "@/websocket/events";
+import { arrayOfRoutes } from "~/websocket/events";
 
 const registerCustomEmit = (socket: Socket) => {
   return ((event, data) => {

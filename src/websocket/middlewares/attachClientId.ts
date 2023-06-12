@@ -5,7 +5,7 @@ import {
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
-} from "@/types";
+} from "~/types";
 
 export const attachClientId: SocketMiddleware = async (
   socket,

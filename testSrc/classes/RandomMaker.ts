@@ -4,9 +4,9 @@ import { authHelper } from "$/classes/AuthHelper";
 
 import { helpers } from "$/helpers";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { UserMongo } from "@/types";
+import { UserMongo } from "~/types";
 
 class RandomMaker extends RandomMakerMain {
   constructor() {

@@ -3,9 +3,9 @@ import path from "path";
 import dotenv from "dotenv";
 import { LoggerChalker } from "logger-chalker";
 
-import { envManager } from "@/classes/EnvironmentManager";
+import { envManager } from "~/classes/EnvironmentManager";
 
-import { EnvFileName, Environments } from "@/types";
+import { EnvFileName, Environments } from "~/types";
 
 class AppConfigs {
   private ENVIRONMENTS: Environments;

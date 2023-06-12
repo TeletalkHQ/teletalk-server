@@ -1,7 +1,7 @@
 import { Socket as ClientSocket } from "socket.io-client";
 import { Requester } from "$/classes/Requester";
 
-import { EventName, SocketRoute } from "@/types";
+import { EventName, SocketRoute } from "~/types";
 
 export type RequesterMaker = (socketClient: ClientSocket) => Requester;
 

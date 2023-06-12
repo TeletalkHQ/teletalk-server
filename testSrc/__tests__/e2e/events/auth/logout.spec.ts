@@ -1,12 +1,12 @@
 import { authHelper } from "$/classes/AuthHelper";
-import { clientStore } from "@/classes/ClientStore";
+import { clientStore } from "~/classes/ClientStore";
 import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { UserMongo } from "@/types";
+import { UserMongo } from "~/types";
 
 describe("logout success tests", () => {
   it("should get response.ok:true logging out user", async () => {

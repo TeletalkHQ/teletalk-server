@@ -6,9 +6,9 @@ import {
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
-} from "@/types";
+} from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const selfStuffCheck: SocketMiddleware = async (
   socket,

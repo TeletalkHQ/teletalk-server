@@ -3,7 +3,7 @@ import http from "http";
 import cors from "cors";
 import express from "express";
 
-import { clientManager } from "@/classes/ClientIdManager";
+import { clientManager } from "~/classes/ClientIdManager";
 
 const expressApp = express();
 

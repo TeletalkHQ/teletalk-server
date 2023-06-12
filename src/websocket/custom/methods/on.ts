@@ -9,7 +9,7 @@ import {
   SocketOnHandler,
   SocketResponse,
   StringMap,
-} from "@/types";
+} from "~/types";
 
 const registerCustomOn = (socket: Socket) => {
   return ((event, handler) => {

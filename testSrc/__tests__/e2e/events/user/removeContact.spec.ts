@@ -3,13 +3,13 @@ import { ContactWithCellphone } from "utility-store/lib/types";
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { userUtilities } from "@/classes/UserUtilities";
+import { userUtilities } from "~/classes/UserUtilities";
 
 import { helpers } from "$/helpers";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { UserMongo } from "@/types";
+import { UserMongo } from "~/types";
 
 describe("removeContact successful test", () => {
   it("should remove users from contacts", async () => {

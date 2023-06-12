@@ -15,7 +15,7 @@ class AppConfigs {
     this.registerEnvironments("base");
     this.registerEnvironments(envManager.getNodeEnv());
 
-    this.setEnvironments(envManager.getEnvironment());
+    this.setEnvironments(envManager.getEnv());
     this.setLogLevel();
   }
 
@@ -78,7 +78,7 @@ const makeMongoFullUrl = () => {
     MONGO_COLLECTION_NAME,
     //? This is actually mongoDb tcp url from docker!
     MONGO_PORT,
-  } = envManager.getEnvironment();
+  } = envManager.getEnv();
 
   const CORRECTED_MONGO_URL_FROM_DOCKER = MONGO_PORT?.toString().replace(
     "tcp://",
@@ -86,7 +86,7 @@ const makeMongoFullUrl = () => {
   );
 
   const mongoUrl =
-    CORRECTED_MONGO_URL_FROM_DOCKER || envManager.getEnvironment().MONGO_URL;
+    CORRECTED_MONGO_URL_FROM_DOCKER || envManager.getEnv().MONGO_URL;
 
   return `${mongoUrl}/${MONGO_COLLECTION_NAME}`;
 };

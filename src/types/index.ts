@@ -304,8 +304,8 @@ export interface SocketResponseErrors {
   [prop: string]: NativeError & StringMap;
 }
 
-export interface SocketResponse<Response = StringMap> {
-  data: Response;
+export interface SocketResponse<Data = StringMap> {
+  data: Data;
   errors?: SocketResponseErrors;
   ok: boolean;
 }

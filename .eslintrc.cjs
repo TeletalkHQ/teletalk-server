@@ -23,6 +23,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "@cspell", "sonarjs", "unused-imports"],
   rules: {
+    "@typescript-eslint/no-explicit-any": "off",
     "no-console": "warn",
     "@cspell/spellchecker": [
       "error",

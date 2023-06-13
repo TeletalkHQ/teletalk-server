@@ -1,18 +1,18 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
+import { ValidationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
 import {
   ValidationResult,
   validationChecker,
-} from "@/classes/ValidationChecker";
+} from "~/classes/ValidationChecker";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { Validator } from "@/types";
+import { Validator } from "~/types";
 
-import { errors } from "@/variables";
-import { countries } from "@/variables";
+import { errors } from "~/variables";
+import { countries } from "~/variables";
 
 const validator = ValidationModelBuilder.compiler(
   models.validation.countryName

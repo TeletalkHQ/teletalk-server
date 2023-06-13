@@ -1,4 +1,4 @@
-import { databaseModels } from "@/models/database";
+import { databaseModels } from "~/models/database";
 
 const deleteAllUsers = async () => {
   await databaseModels.mongoDb.User.deleteMany();

@@ -1,6 +1,6 @@
 import { e2eFailTestInitializer } from "$/classes/E2eFailTestInitializer";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
 import { E2eFailTestInitializer } from "$/types";
 

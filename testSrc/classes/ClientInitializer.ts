@@ -9,12 +9,12 @@ import Client, {
   SocketOptions,
 } from "socket.io-client";
 
-import { appConfigs } from "@/classes/AppConfigs";
+import { appConfigs } from "~/classes/AppConfigs";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
-import { errors } from "@/variables";
-import { clientManager } from "@/classes/ClientIdManager";
+import { errors } from "~/variables";
+import { clientManager } from "~/classes/ClientIdManager";
 
 const {
   APP: { PORT, HOSTNAME: hostname },
@@ -25,21 +25,25 @@ const setClientIdRequestOptions = {
     "Content-Type": "application/json",
   },
   hostname,
-  method: "POST",
+  method: "GET",
   path: "/setClientId",
   port: PORT,
 };
 
 type PromiseResolve = (value: string | PromiseLike<string>) => void;
 type PromiseReject = (reason?: any) => void;
-const setClientIdRequestBody =
-  //prettier-ignore
-  (resolve: PromiseResolve, reject: PromiseReject) =>
-    (res: http.IncomingMessage) => {
-      const cookies = res.headers["set-cookie"];
-      if (!cookies) return reject(errors.cookieIsNotDefined);
-      resolve(utilities.extractClientFromCookie(cookies[0]));
-    };
+
+const setClientIdRequestBody = (
+  resolve: PromiseResolve,
+  reject: PromiseReject
+) => {
+  return (res: http.IncomingMessage) => {
+    const cookies = res.headers["set-cookie"];
+    if (!cookies) return reject(errors.cookieIsNotDefined);
+
+    resolve(utilities.extractClientFromCookie(cookies[0]));
+  };
+};
 
 class ClientInitializer {
   private client: Socket;

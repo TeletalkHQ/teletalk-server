@@ -10,7 +10,7 @@ import {
   NativeModelKey,
   SocketRoute,
   ValidationModel,
-} from "@/types";
+} from "~/types";
 
 import { FIELD_TYPE } from "$/variables";
 

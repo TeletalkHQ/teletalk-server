@@ -1,4 +1,4 @@
-import { numbers } from "@/variables/regex/numbers";
+import { numbers } from "~/variables/regex/numbers";
 
 const regex = { numbers };
 

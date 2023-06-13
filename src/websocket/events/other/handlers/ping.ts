@@ -1,4 +1,4 @@
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
 const ping: SocketOnHandler = (socket) => {
   return { data: { pong: `ping request from socketId:${socket.id}` } };

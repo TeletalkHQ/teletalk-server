@@ -7,11 +7,11 @@ import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
+import { Message, Participant, PrivateChatMongo, UserMongo } from "~/types";
 
 describe("getPrivateChat success tests", () => {
   it("Should get private chat related to client by chatId", async () => {

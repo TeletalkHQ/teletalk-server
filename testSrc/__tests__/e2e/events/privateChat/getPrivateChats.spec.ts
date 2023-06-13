@@ -6,9 +6,9 @@ import { randomMaker } from "$/classes/RandomMaker";
 
 import { helpers } from "$/helpers";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { Message, Participant, PrivateChatMongo, UserMongo } from "@/types";
+import { Message, Participant, PrivateChatMongo, UserMongo } from "~/types";
 
 describe("getPrivateChats success tests", () => {
   it("should get private chats related to client", async () => {

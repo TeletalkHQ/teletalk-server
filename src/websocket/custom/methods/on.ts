@@ -1,3 +1,4 @@
+import { checkFields } from "check-fields";
 import { Socket } from "socket.io";
 import { trier } from "simple-trier";
 
@@ -9,52 +10,98 @@ import {
   SocketOnHandler,
   SocketResponse,
   StringMap,
-} from "@/types";
+} from "~/types";
+
+import { checkFieldErrors, errors } from "~/variables";
+
+import { arrayOfRoutes } from "~/websocket/events";
 
 const registerCustomOn = (socket: Socket) => {
-  return ((event, handler) => {
-    socket.on(event, async (data: StringMap, cb: ClientCallback) => {
-      await trier<void | SocketHandlerReturnValue>("socket.customOn")
-        .async()
-        .try(tryBlock, handler, socket, data)
-        .executeIfNoError(executeIfNoError, socket, event, cb)
-        .catch(catchBlock, socket, cb)
-        .run();
+  return ((eventName, handler) => {
+    socket.on(eventName, async (data: StringMap, cb: ClientCallback) => {
+      const returnValue = await tryToRunHandler(handler, socket, data, cb);
+
+      //REFACTOR: Almost all events need to fix before enabling this feature
+      // tryToCheckOutputFields(socket, eventName, returnValue.data, cb);
+
+      await tryToEmitReturnValue(socket, eventName, returnValue, cb);
+
+      if (returnValue && typeof cb === "function")
+        cb({ data: returnValue.data, ok: true });
     });
   }) as CustomOn;
 };
 
-const tryBlock = async (
+export { registerCustomOn };
+
+async function tryToRunHandler(
   handler: SocketOnHandler,
   socket: Socket,
-  data: StringMap
-) => {
-  return await handler(socket, data);
-};
+  data: StringMap,
+  cb: ClientCallback
+) {
+  return await trier<void | SocketHandlerReturnValue>(tryToRunHandler.name)
+    .async()
+    .try(async () => {
+      return await handler(socket, data);
+    })
+    .catch(catchBlock, socket, cb)
+    .run();
+}
 
-const executeIfNoError = (
-  returnValue: void | SocketHandlerReturnValue,
+function tryToCheckOutputFields(
   socket: Socket,
-  event: string,
+  eventName: string,
+  outputData: StringMap,
+  cb: ClientCallback
+) {
+  trier(tryToCheckOutputFields.name)
+    .sync()
+    .try(() => {
+      const foundRoute = arrayOfRoutes.find((item) => item.name === eventName)!;
+      checkFields(outputData, foundRoute.outputFields, checkFieldErrors.output);
+    })
+    .catch(catchBlock, socket, cb)
+    .run();
+}
+
+async function tryToEmitReturnValue(
+  socket: Socket,
+  eventName: string,
+  returnValue: SocketHandlerReturnValue,
+  cb: ClientCallback
+) {
+  await trier(tryToEmitReturnValue.name)
+    .async()
+    .try(async () => {
+      socket.customEmit(eventName, returnValue.data);
+    })
+    .catch(catchBlock, socket, cb)
+    .run();
+}
+
+const catchBlock = (
+  error: NativeError | undefined,
+  socket: Socket,
   cb: ClientCallback
 ) => {
-  if (returnValue) {
-    if (typeof cb === "function") {
-      cb({ ...returnValue, ok: true });
-    } else socket.customEmit(event, returnValue);
-  }
+  const errorResponse = makeErrorResponse(error);
+
+  logger.debug("customOn:catchBlock:::", error);
+
+  socket.emit("error", errorResponse);
+  if (typeof cb === "function") cb(errorResponse);
 };
 
-const catchBlock = (error: NativeError, socket: Socket, cb: ClientCallback) => {
-  const response: SocketResponse = {
+const makeErrorResponse = (error: NativeError | undefined): SocketResponse => {
+  return {
     data: {},
-    errors: { [error.reason]: error },
+    //prettier-ignore
+    errors: error?.reason
+      ? {
+        [error.reason]: error,
+      }
+      : { [errors.unknownError.reason]: errors.unknownError },
     ok: false,
   };
-
-  if (typeof cb === "function") {
-    return cb(response);
-  } else socket.emit("error", response);
 };
-
-export { registerCustomOn };

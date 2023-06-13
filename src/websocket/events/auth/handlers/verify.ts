@@ -1,9 +1,9 @@
-import { clientStore } from "@/classes/ClientStore";
-import { userUtilities } from "@/classes/UserUtilities";
+import { clientStore } from "~/classes/ClientStore";
+import { userUtilities } from "~/classes/UserUtilities";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
 const verify: SocketOnHandler = async (socket) => {
   const client = (await clientStore.find(socket.clientId))!;

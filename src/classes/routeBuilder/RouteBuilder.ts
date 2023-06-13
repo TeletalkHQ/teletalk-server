@@ -2,9 +2,9 @@ import { IoFields } from "check-fields";
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { Route } from "@/types";
+import { Route } from "~/types";
 
-import { localErrors } from "@/variables";
+import { localErrors } from "~/variables";
 
 abstract class RouteBuilder {
   protected route: Route;

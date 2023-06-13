@@ -1,10 +1,10 @@
-import { socketRouteBuilder } from "@/classes/routeBuilder/SocketRouteBuilder";
+import { socketRouteBuilder } from "~/classes/routeBuilder/SocketRouteBuilder";
 
-import { SocketRoutePicker } from "@/types";
+import { SocketRoutePicker } from "~/types";
 
-import { fields } from "@/variables";
+import { fields } from "~/variables";
 
-import { userHandlers } from "@/websocket/events/user/handlers";
+import { userHandlers } from "~/websocket/events/user/handlers";
 
 const builder = socketRouteBuilder();
 

@@ -2,11 +2,11 @@ import { errorThrower } from "utility-store";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { SocketMiddleware, SocketNext } from "@/types";
+import { SocketMiddleware, SocketNext } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 export const checkCurrentClient: SocketMiddleware = async (socket, next) => {
   await trier<void>(checkCurrentClient.name)

@@ -1,10 +1,10 @@
 import { userUtilities } from "utility-store";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const getPublicUserData: SocketOnHandler = async (_socket, data) => {
   const { userId } = data;

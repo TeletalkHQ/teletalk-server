@@ -1,4 +1,4 @@
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
 const disconnect: SocketOnHandler = (socket) => {
   socket.disconnect();

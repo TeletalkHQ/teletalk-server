@@ -7,7 +7,7 @@ import { faker } from "@faker-js/faker";
 import { randomMaker } from "$/classes/RandomMaker";
 import { requesterMaker } from "$/classes/Requester";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
 import {
   Cellphone,
@@ -16,7 +16,7 @@ import {
   FullName,
   NativeError,
   SocketRoute,
-} from "@/types";
+} from "~/types";
 import {
   RequesterCollection,
   RequesterMaker,
@@ -24,11 +24,11 @@ import {
   RequesterMakerWrapper,
 } from "$/types";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
-import { countries } from "@/variables";
+import { countries } from "~/variables";
 
-import { routes } from "@/websocket/events";
+import { routes } from "~/websocket/events";
 
 async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
   const describeBody = await suite();

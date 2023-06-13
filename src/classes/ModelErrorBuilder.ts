@@ -1,6 +1,6 @@
-import { errorBuilder } from "@/classes/ErrorBuilder";
+import { errorBuilder } from "~/classes/ErrorBuilder";
 
-import { nativeModels } from "@/models/native";
+import { nativeModels } from "~/models/native";
 
 import {
   ModelErrorCollection,
@@ -8,9 +8,9 @@ import {
   NativeModel,
   NativeModelKey,
   ModelErrorReason,
-} from "@/types";
+} from "~/types";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
 class ModelErrorBuilder {
   build() {

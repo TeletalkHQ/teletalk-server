@@ -1,8 +1,8 @@
 import { RedisClientType } from "redis";
 
-import { clientStore } from "@/classes/ClientStore";
+import { clientStore } from "~/classes/ClientStore";
 
-import { mongodbConnector, redisConnector } from "@/database/connectors";
+import { mongodbConnector, redisConnector } from "~/database/connectors";
 
 const databaseRequirements = async () => {
   const redisClient = await redisConnector();

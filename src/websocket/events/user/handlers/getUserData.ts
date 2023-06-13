@@ -1,6 +1,6 @@
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { HydratedUserMongo, SocketOnHandler } from "@/types";
+import { HydratedUserMongo, SocketOnHandler } from "~/types";
 
 const getUserData: SocketOnHandler = async (socket) => {
   const { userId: currentUserId } = socket;

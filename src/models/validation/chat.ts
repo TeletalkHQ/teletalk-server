@@ -1,8 +1,8 @@
-import { validationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
+import { validationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
 
-import { nativeModels } from "@/models/native";
+import { nativeModels } from "~/models/native";
 
-import { ValidationPicker } from "@/types";
+import { ValidationPicker } from "~/types";
 
 type ChatValidationModels = ValidationPicker<
   | "chatId"

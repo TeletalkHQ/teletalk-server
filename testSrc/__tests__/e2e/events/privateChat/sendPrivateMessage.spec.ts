@@ -1,14 +1,14 @@
 import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
 import {
   HydratedPrivateChatMongo,
   Message,
   Participant,
   StringMap,
-} from "@/types";
+} from "~/types";
 
 import { helpers } from "$/helpers";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";

@@ -1,10 +1,10 @@
 import { errorThrower } from "utility-store";
 
-import { commonServices } from "@/services/common";
+import { commonServices } from "~/services/common";
 
-import { Contact, HydratedUserMongo, UserMongo } from "@/types";
+import { Contact, HydratedUserMongo, UserMongo } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const addContact = async (data: {
   currentUserId: string;

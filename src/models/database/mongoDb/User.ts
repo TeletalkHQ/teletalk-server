@@ -1,10 +1,10 @@
 import { model, Schema, SchemaDefinitionProperty } from "mongoose";
 
-import { makeMongoSchemaValue } from "@/helpers/makeMongoSchemaValue";
+import { makeMongoSchemaValue } from "~/helpers/makeMongoSchemaValue";
 
-import { nativeModels } from "@/models/native";
+import { nativeModels } from "~/models/native";
 
-import { IUserDoc, IUserModel } from "@/types";
+import { IUserDoc, IUserModel } from "~/types";
 
 const bioMaker = makeMongoSchemaValue("bio");
 const countryCodeMaker = makeMongoSchemaValue("countryCode");

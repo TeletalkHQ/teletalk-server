@@ -1,4 +1,4 @@
-import { SocketOnAnyHandler } from "@/types";
+import { SocketOnAnyHandler } from "~/types";
 
 //CLEANME:
 const logEvent: SocketOnAnyHandler = async (_socket, data, event) => {

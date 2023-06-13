@@ -1,6 +1,6 @@
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
 const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
   const { userId: currentUserId } = socket;

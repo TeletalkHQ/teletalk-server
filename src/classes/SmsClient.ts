@@ -2,9 +2,9 @@ import axios from "axios";
 import { errorThrower } from "utility-store";
 import { trier } from "simple-trier";
 
-import { appConfigs } from "@/classes/AppConfigs";
+import { appConfigs } from "~/classes/AppConfigs";
 
-import { errors, escapeChars } from "@/variables";
+import { errors, escapeChars } from "~/variables";
 
 class SmsClient {
   templates() {

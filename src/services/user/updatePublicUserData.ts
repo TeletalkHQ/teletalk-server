@@ -1,8 +1,8 @@
-import { commonServices } from "@/services/common";
+import { commonServices } from "~/services/common";
 
-import { PublicUserData } from "@/types";
+import { PublicUserData } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const updatePublicUserData = async (data: {
   currentUserId: string;

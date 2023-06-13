@@ -1,8 +1,8 @@
-import { commonServices } from "@/services/common";
+import { commonServices } from "~/services/common";
 
-import { HydratedUserMongo } from "@/types";
+import { HydratedUserMongo } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 export const addNewClient = async (data: {
   userId: string;

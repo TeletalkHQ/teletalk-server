@@ -1,12 +1,12 @@
 import { clientInitializer } from "$/classes/ClientInitializer";
 import { requesterMaker } from "$/classes/Requester";
-import { clientManager } from "@/classes/ClientIdManager";
+import { clientManager } from "~/classes/ClientIdManager";
 
 import { helpers } from "$/helpers";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
-import { arrayOfRoutes } from "@/websocket/events";
+import { arrayOfRoutes } from "~/websocket/events";
 
 describe("validateClientId fail tests", () => {
   for (const route of arrayOfRoutes) {

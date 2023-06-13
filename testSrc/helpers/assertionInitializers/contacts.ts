@@ -1,7 +1,7 @@
 import { oneContactAssertionInitializer } from "$/helpers/assertionInitializers/oneContact";
 
 import { AssertionInitializer } from "$/types";
-import { Contact } from "@/types";
+import { Contact } from "~/types";
 
 import { FIELD_TYPE } from "$/variables";
 

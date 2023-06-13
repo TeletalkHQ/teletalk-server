@@ -3,7 +3,7 @@ import generatePassword from "generate-password";
 import lodash from "lodash";
 import { Socket } from "socket.io";
 
-import { envManager } from "@/classes/EnvironmentManager";
+import { envManager } from "~/classes/EnvironmentManager";
 
 import {
   Environments,
@@ -15,7 +15,7 @@ import {
   SocketEvent,
   SocketMiddleware,
   SocketNext,
-} from "@/types";
+} from "~/types";
 
 // const getHostFromRequest = (request) => request.get("host");
 
@@ -74,7 +74,7 @@ const passwordGenerator = (options: generatePassword.GenerateOptions = {}) => {
 };
 
 const sortEnvironments = () =>
-  Object.entries(envManager.getEnvironment())
+  Object.entries(envManager.getEnv())
     .map(([prop, value]) => ({ prop, value }))
     .sort((a, b) => a.prop.localeCompare(b.prop))
     .reduce((prevValue, currentValue) => {

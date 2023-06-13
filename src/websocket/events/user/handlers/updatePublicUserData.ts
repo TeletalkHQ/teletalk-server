@@ -1,8 +1,8 @@
-import { userUtilities } from "@/classes/UserUtilities";
+import { userUtilities } from "~/classes/UserUtilities";
 
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { PublicUserData, SocketOnHandler } from "@/types";
+import { PublicUserData, SocketOnHandler } from "~/types";
 
 const updatePublicUserData: SocketOnHandler = async (socket, data) => {
   const { userId: currentUserId } = socket;

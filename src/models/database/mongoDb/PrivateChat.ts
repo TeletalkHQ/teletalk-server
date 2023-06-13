@@ -1,10 +1,10 @@
 import { model, Schema, SchemaDefinitionProperty } from "mongoose";
 
-import { makeMongoSchemaValue } from "@/helpers/makeMongoSchemaValue";
+import { makeMongoSchemaValue } from "~/helpers/makeMongoSchemaValue";
 
-import { nativeModels } from "@/models/native";
+import { nativeModels } from "~/models/native";
 
-import { IPrivateChatDoc, IPrivateChatModel } from "@/types";
+import { IPrivateChatDoc, IPrivateChatModel } from "~/types";
 
 const chatIdMaker = makeMongoSchemaValue("chatId");
 const messageIdMaker = makeMongoSchemaValue("messageId");

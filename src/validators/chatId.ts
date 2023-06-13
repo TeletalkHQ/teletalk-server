@@ -1,15 +1,16 @@
 import {
   ValidationResult,
   validationChecker,
-} from "@/classes/ValidationChecker";
-import { ValidationModelBuilder } from "@/classes/modelBuilder/ValidationModelBuilder";
+} from "~/classes/ValidationChecker";
+import { ValidationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
 
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { Validator } from "@/types";
+import { Validator } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
+//TODO: Cleanup with ValidatorManager like front-end
 const validator = ValidationModelBuilder.compiler(models.validation.chatId);
 
 export const chatIdValidator: Validator = async (chatId: unknown) => {

@@ -1,6 +1,6 @@
-import { models } from "@/models";
+import { models } from "~/models";
 
-import { HydratedPrivateChatMongo } from "@/types";
+import { HydratedPrivateChatMongo } from "~/types";
 
 const createPrivateChat = async (data: {
   chatId: string;

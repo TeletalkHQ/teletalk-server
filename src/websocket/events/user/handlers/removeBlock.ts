@@ -1,6 +1,6 @@
-import { services } from "@/services";
+import { services } from "~/services";
 
-import { BlackListItem, SocketOnHandler } from "@/types";
+import { BlackListItem, SocketOnHandler } from "~/types";
 
 const removeBlock: SocketOnHandler = async (socket, data) => {
   const { userId: currentUserId } = socket;

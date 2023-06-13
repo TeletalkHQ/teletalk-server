@@ -1,4 +1,4 @@
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
 const joinRoom: SocketOnHandler = (socket) => socket.join(socket.userId);
 

@@ -1,6 +1,6 @@
-import { findPrivateChat } from "@/services/chat/findPrivateChat";
+import { findPrivateChat } from "~/services/chat/findPrivateChat";
 
-import { HydratedPrivateChatMongo, PrivateChatService } from "@/types";
+import { HydratedPrivateChatMongo, PrivateChatService } from "~/types";
 
 const findPrivateChatByParticipantId: PrivateChatService<
   {

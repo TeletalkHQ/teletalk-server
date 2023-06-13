@@ -1,4 +1,4 @@
-import { NativeModel } from "@/types";
+import { NativeModel } from "~/types";
 
 class NativeModelBuilder<T extends Partial<NativeModel>> {
   model: T;

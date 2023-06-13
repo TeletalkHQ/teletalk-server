@@ -3,9 +3,9 @@ import { clientInitializer } from "$/classes/ClientInitializer";
 
 import { helpers } from "$/helpers";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
-import { routesWithoutAuth, routesWithAuth } from "@/websocket/events";
+import { routesWithoutAuth, routesWithAuth } from "~/websocket/events";
 
 describe("auth middleware test", () => {
   for (const route of routesWithoutAuth) {

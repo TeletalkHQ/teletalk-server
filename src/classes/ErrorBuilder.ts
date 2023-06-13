@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
-import { ErrorReason, NativeError } from "@/types";
+import { ErrorReason, NativeError } from "~/types";
 
 class ErrorBuilder<ReasonType extends ErrorReason> {
   error: NativeError;

@@ -1,10 +1,10 @@
 class EnvironmentManager {
-  getEnvironment() {
+  getEnv() {
     return process.env;
   }
 
   getNodeEnv() {
-    return this.getEnvironment().NODE_ENV;
+    return this.getEnv().NODE_ENV;
   }
 }
 

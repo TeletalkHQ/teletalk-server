@@ -5,9 +5,9 @@ import {
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
-} from "@/types";
+} from "~/types";
 
-import { validators } from "@/validators";
+import { validators } from "~/validators";
 
 export const validateClientId: SocketMiddleware = async (
   socket,

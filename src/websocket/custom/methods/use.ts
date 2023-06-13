@@ -8,7 +8,7 @@ import {
   SocketMiddleware,
   SocketNext,
   SocketResponse,
-} from "@/types";
+} from "~/types";
 
 const registerCustomUse = (socket: Socket) => {
   return ((middleware) => {
@@ -42,9 +42,9 @@ const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
 
   const cb = event[2];
 
-  if (typeof cb === "function") {
-    return cb(response);
-  } else socket.emit("error", response);
+  if (typeof cb === "function") cb(response);
+
+  socket.emit("error", response);
 };
 
 export { registerCustomUse };

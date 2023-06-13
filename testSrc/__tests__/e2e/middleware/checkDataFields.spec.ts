@@ -3,9 +3,9 @@ import { requesterMaker } from "$/classes/Requester";
 
 import { helpers } from "$/helpers";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
-import { arrayOfRoutes, routes } from "@/websocket/events";
+import { arrayOfRoutes, routes } from "~/websocket/events";
 
 await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
   const { socket } = await randomMaker.user();

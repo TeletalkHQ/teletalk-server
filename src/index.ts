@@ -7,13 +7,13 @@
 import PrettyError from "pretty-error";
 import address from "address";
 
-import { appConfigs } from "@/classes/AppConfigs";
+import { appConfigs } from "~/classes/AppConfigs";
 
-import { crateHttpServer } from "@/http";
+import { crateHttpServer } from "~/http";
 
-import { requirements } from "@/requirements";
+import { requirements } from "~/requirements";
 
-import { websocketServer } from "@/websocket";
+import { websocketServer } from "~/websocket";
 
 PrettyError.start();
 

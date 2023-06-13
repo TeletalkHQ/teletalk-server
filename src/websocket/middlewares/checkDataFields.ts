@@ -7,11 +7,11 @@ import {
   SocketMiddleware,
   SocketNext,
   SocketRoute,
-} from "@/types";
+} from "~/types";
 
-import { checkFieldErrors } from "@/variables";
+import { checkFieldErrors } from "~/variables";
 
-import { arrayOfRoutes } from "@/websocket/events";
+import { arrayOfRoutes } from "~/websocket/events";
 
 const checkDataFields: SocketMiddleware = (_socket, next, [name, data]) => {
   const { inputFields } = arrayOfRoutes.find(

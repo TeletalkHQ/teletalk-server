@@ -8,12 +8,12 @@ import { authHelper } from "$/classes/AuthHelper";
 import { clientInitializer } from "$/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "$/classes/RandomMaker";
-import { clientStore } from "@/classes/ClientStore";
-import { userUtilities } from "@/classes/UserUtilities";
+import { clientStore } from "~/classes/ClientStore";
+import { userUtilities } from "~/classes/UserUtilities";
 
 import { helpers } from "$/helpers";
 
-import { Cellphone } from "@/types";
+import { Cellphone } from "~/types";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {

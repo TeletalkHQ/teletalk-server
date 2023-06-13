@@ -1,11 +1,11 @@
 import { errorThrower, userUtilities } from "utility-store";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
-import { findOneUserById } from "@/services/common/findOneUserById";
+import { findOneUserById } from "~/services/common/findOneUserById";
 
-import { Contact, HydratedUserMongo, UserMongo } from "@/types";
+import { Contact, HydratedUserMongo, UserMongo } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 const updateContact = async (data: {
   currentUserId: string;

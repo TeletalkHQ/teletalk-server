@@ -1,4 +1,4 @@
-import { SocketOnHandler } from "@/types";
+import { SocketOnHandler } from "~/types";
 
 const getWelcomeMessage: SocketOnHandler = async () => {
   return {

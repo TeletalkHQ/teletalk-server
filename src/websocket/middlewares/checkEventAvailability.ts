@@ -1,8 +1,8 @@
-import { SocketMiddleware } from "@/types";
+import { SocketMiddleware } from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
-import { arrayOfRoutes } from "@/websocket/events";
+import { arrayOfRoutes } from "~/websocket/events";
 
 const checkEventAvailability: SocketMiddleware = (_socket, next, [name]) => {
   const foundEvent = arrayOfRoutes.find((item) => item.name === name);

@@ -1,15 +1,15 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { clientManager } from "@/classes/ClientIdManager";
+import { clientManager } from "~/classes/ClientIdManager";
 
 import {
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
-} from "@/types";
+} from "~/types";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 export const verifyClient: SocketMiddleware = async (
   socket,

@@ -1,5 +1,5 @@
-import { models } from "@/models";
-import { PrivateChatService, UserMongo } from "@/types";
+import { models } from "~/models";
+import { PrivateChatService, UserMongo } from "~/types";
 
 const User = models.database.mongoDb.User;
 

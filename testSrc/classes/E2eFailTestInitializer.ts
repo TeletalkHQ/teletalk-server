@@ -5,11 +5,11 @@ import { Requester } from "$/classes/Requester";
 import { helpers } from "$/helpers";
 
 import { RequesterOptions } from "$/types";
-import { Field, FieldType, NativeError, NativeModel } from "@/types";
+import { Field, FieldType, NativeError, NativeModel } from "~/types";
 
-import { utilities } from "@/utilities";
+import { utilities } from "~/utilities";
 
-import { errors } from "@/variables";
+import { errors } from "~/variables";
 
 type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
 

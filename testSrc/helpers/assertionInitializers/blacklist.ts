@@ -1,7 +1,7 @@
 import { userIdAssertionInitializer } from "$/helpers/assertionInitializers/userId";
 
 import { AssertionInitializer } from "$/types";
-import { BlackListItem } from "@/types";
+import { BlackListItem } from "~/types";
 
 import { FIELD_TYPE } from "$/variables";
 

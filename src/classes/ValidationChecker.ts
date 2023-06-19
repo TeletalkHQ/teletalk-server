@@ -1,10 +1,8 @@
 import { ValidationError } from "fastest-validator";
 import { errorThrower } from "utility-store";
 
-import { NativeModel, NativeError, Field } from "~/types";
-
+import { Field, NativeError, NativeModel } from "~/types";
 import { utilities } from "~/utilities";
-
 import { errors } from "~/variables";
 
 interface Options {

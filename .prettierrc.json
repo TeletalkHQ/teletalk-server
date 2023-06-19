@@ -6,7 +6,7 @@
   "embeddedLanguageFormatting": "auto",
   "endOfLine": "lf",
   "htmlWhitespaceSensitivity": "css",
-  "importOrder": ["^~/(.*)$", "^[./]"],
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^~/(.*)$", "^@/(.*)$", "^[./]"],
   "importOrderParserPlugins": ["jsx", "typescript", "decorators"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,

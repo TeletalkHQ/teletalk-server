@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IoFields } from "check-fields";
 import { ValidationError, ValidationRuleObject } from "fastest-validator";
+import { JWTPayload, JWTVerifyResult } from "jose";
 import {
   Document,
   FilterQuery,
@@ -12,8 +13,8 @@ import {
 } from "mongoose";
 import { Event, Socket } from "socket.io";
 import { ContactWithCellphone } from "utility-store/lib/types";
+
 import { NativeModelCollection } from ".";
-import { JWTPayload, JWTVerifyResult } from "jose";
 
 export interface Cellphone {
   countryCode: string;

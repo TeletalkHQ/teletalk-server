@@ -1,11 +1,9 @@
-import { errorThrower } from "utility-store";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
+import { errorThrower } from "utility-store";
 
 import { services } from "~/services";
-
 import { SocketMiddleware, SocketNext } from "~/types";
-
 import { errors } from "~/variables";
 
 export const checkCurrentClient: SocketMiddleware = async (socket, next) => {

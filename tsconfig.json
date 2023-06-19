@@ -15,7 +15,7 @@
     "paths": {
       "~/*": ["src/*"],
       "#/*": ["public/*"],
-      "$/*": ["testSrc/*"]
+      "@/*": ["testSrc/*"]
     },
     "removeComments": true,
     "resolveJsonModule": true,

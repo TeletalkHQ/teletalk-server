@@ -1,6 +1,6 @@
 import { checkFields } from "check-fields";
-import { Socket } from "socket.io";
 import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
 import {
   ClientCallback,
@@ -11,9 +11,7 @@ import {
   SocketResponse,
   StringMap,
 } from "~/types";
-
 import { checkFieldErrors, errors } from "~/variables";
-
 import { arrayOfRoutes } from "~/websocket/events";
 
 const registerCustomOn = (socket: Socket) => {

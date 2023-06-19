@@ -1,7 +1,5 @@
 import { commonServices } from "~/services/common";
-
 import { PublicUserData } from "~/types";
-
 import { errors } from "~/variables";
 
 const updatePublicUserData = async (data: {

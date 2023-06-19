@@ -1,4 +1,4 @@
-import { checkFields, IoFields } from "check-fields";
+import { IoFields, checkFields } from "check-fields";
 import { trier } from "simple-trier";
 
 import {
@@ -8,9 +8,7 @@ import {
   SocketNext,
   SocketRoute,
 } from "~/types";
-
 import { checkFieldErrors } from "~/variables";
-
 import { arrayOfRoutes } from "~/websocket/events";
 
 const checkDataFields: SocketMiddleware = (_socket, next, [name, data]) => {

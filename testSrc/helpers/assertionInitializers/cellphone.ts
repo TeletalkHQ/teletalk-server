@@ -1,8 +1,7 @@
-import { countryCodeAssertionInitializer } from "$/helpers/assertionInitializers/countryCode";
-import { countryNameAssertionInitializer } from "$/helpers/assertionInitializers/countryName";
-import { phoneNumberAssertionInitializer } from "$/helpers/assertionInitializers/phoneNumber";
-
-import { AssertionInitializer } from "$/types";
+import { countryCodeAssertionInitializer } from "@/helpers/assertionInitializers/countryCode";
+import { countryNameAssertionInitializer } from "@/helpers/assertionInitializers/countryName";
+import { phoneNumberAssertionInitializer } from "@/helpers/assertionInitializers/phoneNumber";
+import { AssertionInitializer } from "@/types";
 
 const cellphoneAssertionInitializer: AssertionInitializer = ({
   equalValue,

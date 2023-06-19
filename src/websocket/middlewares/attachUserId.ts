@@ -1,5 +1,4 @@
 import { clientStore } from "~/classes/ClientStore";
-
 import { SocketMiddleware } from "~/types";
 
 const attachUserId: SocketMiddleware = async (socket, next) => {

@@ -6,9 +6,7 @@ import {
   SocketMiddlewareReturnValue,
   SocketNext,
 } from "~/types";
-
 import { utilities } from "~/utilities";
-
 import { errors } from "~/variables";
 
 export const attachClientStr: SocketMiddleware = async (

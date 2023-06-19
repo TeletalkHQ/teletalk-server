@@ -1,8 +1,8 @@
-import { clientIdAssertionInitializer } from "./clientId";
 import { bioAssertionInitializer } from "./bio";
 import { blacklistAssertionInitializer } from "./blacklist";
 import { cellphoneAssertionInitializer } from "./cellphone";
 import { chatIdAssertionInitializer } from "./chatId";
+import { clientIdAssertionInitializer } from "./clientId";
 import { contactsAssertionInitializer } from "./contacts";
 import { countryCodeAssertionInitializer } from "./countryCode";
 import { countryNameAssertionInitializer } from "./countryName";

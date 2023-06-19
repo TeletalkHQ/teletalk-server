@@ -1,5 +1,5 @@
-import { Socket } from "socket.io";
 import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
 import {
   CustomUse,

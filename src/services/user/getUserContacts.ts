@@ -1,5 +1,4 @@
 import { commonServices } from "~/services/common";
-
 import { errors } from "~/variables";
 
 const getUserContacts = async (data: { currentUserId: string }) => {

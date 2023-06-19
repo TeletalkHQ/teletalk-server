@@ -1,14 +1,13 @@
 import { IoFields } from "check-fields";
 import { customTypeof } from "custom-typeof";
-import { objectUtilities } from "utility-store";
 import { Socket as Client } from "socket.io-client";
-
-import { loggerHelper } from "$/helpers/logHelper";
+import { objectUtilities } from "utility-store";
 
 import { NativeError, SocketResponse, SocketRoute, StringMap } from "~/types";
-import { RequesterOptions } from "$/types";
-
 import { errors } from "~/variables";
+
+import { loggerHelper } from "@/helpers/logHelper";
+import { RequesterOptions } from "@/types";
 
 class Requester {
   private error?: NativeError;

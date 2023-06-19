@@ -1,12 +1,10 @@
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "~/classes/UserUtilities";
-
-import { helpers } from "$/helpers";
-
 import { services } from "~/services";
-
 import { UserMongo } from "~/types";
+
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 //TODO: Add fail tests
 

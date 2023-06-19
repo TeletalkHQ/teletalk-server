@@ -1,8 +1,4 @@
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
-
 import { services } from "~/services";
-
 import {
   HydratedPrivateChatMongo,
   Message,
@@ -10,8 +6,10 @@ import {
   StringMap,
 } from "~/types";
 
-import { helpers } from "$/helpers";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("send message success tests", () => {
   it("should start new chat and send message", async () => {

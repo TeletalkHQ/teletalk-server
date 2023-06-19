@@ -1,5 +1,4 @@
 import { SocketHandlerPicker } from "~/types";
-
 import { getChatInfo } from "~/websocket/events/privateChat/handlers/getChatInfo";
 import { getPrivateChat } from "~/websocket/events/privateChat/handlers/getPrivateChat";
 import { getPrivateChats } from "~/websocket/events/privateChat/handlers/getPrivateChats";

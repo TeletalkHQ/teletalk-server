@@ -1,5 +1,4 @@
 import { services } from "~/services";
-
 import { SocketOnHandler } from "~/types";
 
 const sendPrivateMessage: SocketOnHandler = async (socket, data) => {

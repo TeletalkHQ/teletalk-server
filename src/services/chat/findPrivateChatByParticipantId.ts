@@ -1,5 +1,4 @@
 import { findPrivateChat } from "~/services/chat/findPrivateChat";
-
 import { HydratedPrivateChatMongo, PrivateChatService } from "~/types";
 
 const findPrivateChatByParticipantId: PrivateChatService<

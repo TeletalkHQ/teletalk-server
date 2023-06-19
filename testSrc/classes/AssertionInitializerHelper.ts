@@ -1,6 +1,5 @@
-import { assertionInitializers } from "$/helpers/assertionInitializers";
-
-import { AssertionInitializerArgs, AssertionInitializerOptions } from "$/types";
+import { assertionInitializers } from "@/helpers/assertionInitializers";
+import { AssertionInitializerArgs, AssertionInitializerOptions } from "@/types";
 
 type MethodName = keyof typeof assertionInitializers;
 

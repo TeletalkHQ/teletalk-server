@@ -1,5 +1,4 @@
 import { models } from "~/models";
-
 import { HydratedPrivateChatMongo } from "~/types";
 
 const createPrivateChat = async (data: {

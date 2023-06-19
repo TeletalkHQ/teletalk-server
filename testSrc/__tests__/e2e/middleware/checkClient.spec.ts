@@ -1,11 +1,9 @@
-import { requesterMaker } from "$/classes/Requester";
-import { clientInitializer } from "$/classes/ClientInitializer";
-
-import { helpers } from "$/helpers";
-
 import { errors } from "~/variables";
+import { routesWithAuth, routesWithoutAuth } from "~/websocket/events";
 
-import { routesWithoutAuth, routesWithAuth } from "~/websocket/events";
+import { clientInitializer } from "@/classes/ClientInitializer";
+import { requesterMaker } from "@/classes/Requester";
+import { helpers } from "@/helpers";
 
 describe("auth middleware test", () => {
   for (const route of routesWithoutAuth) {

@@ -2,7 +2,6 @@ import { SignJWT, jwtVerify } from "jose";
 import { randomMaker } from "utility-store";
 
 import { appConfigs } from "~/classes/AppConfigs";
-
 import { models } from "~/models";
 import { AuthClient } from "~/types";
 

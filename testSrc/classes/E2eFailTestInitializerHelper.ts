@@ -1,6 +1,5 @@
-import { Requester } from "$/classes/Requester";
-
-import { e2eFailTestInitializers } from "$/helpers/e2eFailTestInitializers";
+import { Requester } from "@/classes/Requester";
+import { e2eFailTestInitializers } from "@/helpers/e2eFailTestInitializers";
 
 type MethodName = keyof typeof e2eFailTestInitializers;
 

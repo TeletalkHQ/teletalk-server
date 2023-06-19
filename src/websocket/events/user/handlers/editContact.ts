@@ -1,7 +1,5 @@
 import { userUtilities } from "~/classes/UserUtilities";
-
 import { services } from "~/services";
-
 import { Contact, SocketOnHandler } from "~/types";
 
 const editContact: SocketOnHandler = async (socket, data) => {

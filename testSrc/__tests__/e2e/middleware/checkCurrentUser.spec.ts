@@ -1,13 +1,10 @@
 import { clientStore } from "~/classes/ClientStore";
-import { randomMaker } from "$/classes/RandomMaker";
-
-import { helpers } from "$/helpers";
-
 import { models } from "~/models";
-
 import { errors } from "~/variables";
-
 import { routesWithAuth } from "~/websocket/events";
+
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("checkCurrentUser middleware fail tests", () => {
   routesWithAuth

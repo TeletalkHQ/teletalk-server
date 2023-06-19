@@ -1,9 +1,5 @@
 import { customTypeof } from "custom-typeof";
 
-import { clientInitializer } from "$/classes/ClientInitializer";
-
-import { helpers } from "$/helpers";
-
 import {
   ErrorCollection,
   NativeModel,
@@ -12,7 +8,9 @@ import {
   ValidationModel,
 } from "~/types";
 
-import { FIELD_TYPE } from "$/variables";
+import { clientInitializer } from "@/classes/ClientInitializer";
+import { helpers } from "@/helpers";
+import { FIELD_TYPE } from "@/variables";
 
 describe("getAllStuff success tests", () => {
   it("should get all requirements for clients", async () => {

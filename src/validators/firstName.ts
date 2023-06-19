@@ -2,13 +2,9 @@ import {
   ValidationResult,
   validationChecker,
 } from "~/classes/ValidationChecker";
-
 import { ValidationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
-
 import { models } from "~/models";
-
 import { Validator } from "~/types";
-
 import { errors } from "~/variables";
 
 const validator = ValidationModelBuilder.compiler(models.validation.firstName);

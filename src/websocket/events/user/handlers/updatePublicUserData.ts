@@ -1,7 +1,5 @@
 import { userUtilities } from "~/classes/UserUtilities";
-
 import { services } from "~/services";
-
 import { PublicUserData, SocketOnHandler } from "~/types";
 
 const updatePublicUserData: SocketOnHandler = async (socket, data) => {

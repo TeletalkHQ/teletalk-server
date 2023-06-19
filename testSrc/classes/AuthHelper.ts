@@ -1,13 +1,12 @@
+import { clientStore } from "~/classes/ClientStore";
+import { Cellphone, FullName, SocketResponse } from "~/types";
+
 import {
   ClientInitializer,
   clientInitializer,
-} from "$/classes/ClientInitializer";
-import { clientStore } from "~/classes/ClientStore";
-
-import { helpers } from "$/helpers";
-
-import { Cellphone, FullName, SocketResponse } from "~/types";
-import { ClientSocket } from "$/types";
+} from "@/classes/ClientInitializer";
+import { helpers } from "@/helpers";
+import { ClientSocket } from "@/types";
 
 class AuthHelper {
   private clientSocket: ClientSocket;

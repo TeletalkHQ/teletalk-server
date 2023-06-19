@@ -1,7 +1,5 @@
 import { clientStore } from "~/classes/ClientStore";
-
 import { services } from "~/services";
-
 import { SocketOnHandler } from "~/types";
 
 const logout: SocketOnHandler = async (socket) => {

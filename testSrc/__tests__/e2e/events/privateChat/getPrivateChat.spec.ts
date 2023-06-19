@@ -1,17 +1,14 @@
-import { Socket } from "socket.io-client";
 import { customTypeof } from "custom-typeof";
-
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
-
-import { helpers } from "$/helpers";
+import { Socket } from "socket.io-client";
 
 import { models } from "~/models";
-
 import { services } from "~/services";
-
 import { Message, Participant, PrivateChatMongo, UserMongo } from "~/types";
+
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("getPrivateChat success tests", () => {
   it("Should get private chat related to client by chatId", async () => {

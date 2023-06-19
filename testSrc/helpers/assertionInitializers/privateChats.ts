@@ -1,10 +1,8 @@
-import { assertionInitializer } from "$/classes/AssertionInitializer";
-
 import { models } from "~/models";
-
-import { AssertionInitializer } from "$/types";
-
 import { PrivateChatMongo } from "~/types";
+
+import { assertionInitializer } from "@/classes/AssertionInitializer";
+import { AssertionInitializer } from "@/types";
 
 const chatModels = models.native;
 

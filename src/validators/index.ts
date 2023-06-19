@@ -1,5 +1,4 @@
 import { Field, Validator } from "~/types";
-
 import { bioValidator } from "~/validators/bio";
 import { blacklistValidator } from "~/validators/blacklist";
 import { chatIdValidator } from "~/validators/chatId";
@@ -15,8 +14,8 @@ import { isActiveValidator } from "~/validators/isActive";
 import { lastNameValidator } from "~/validators/lastName";
 import { macAddressValidator } from "~/validators/macAddress";
 import { messageIdValidator } from "~/validators/messageId";
-import { messagesValidator } from "~/validators/messages";
 import { messageTextValidator } from "~/validators/messageText";
+import { messagesValidator } from "~/validators/messages";
 import { participantIdValidator } from "~/validators/participantId";
 import { participantsValidator } from "~/validators/participants";
 import { phoneNumberValidator } from "~/validators/phoneNumber";

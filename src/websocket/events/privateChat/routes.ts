@@ -1,9 +1,6 @@
 import { socketRouteBuilder } from "~/classes/routeBuilder/SocketRouteBuilder";
-
 import { SocketRoutePicker } from "~/types";
-
 import { fields } from "~/variables";
-
 import { privateChatHandlers } from "~/websocket/events/privateChat/handlers";
 
 const builder = socketRouteBuilder();

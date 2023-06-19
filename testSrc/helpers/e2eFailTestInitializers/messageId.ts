@@ -1,4 +1,4 @@
-import { E2eFailTestInitializer } from "$/types";
+import { E2eFailTestInitializer } from "@/types";
 
 //TODO Add message id fail tests
 const messageIdE2eFailTestInitializer: E2eFailTestInitializer = () => {

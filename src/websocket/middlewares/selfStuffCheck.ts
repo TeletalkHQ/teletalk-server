@@ -7,7 +7,6 @@ import {
   SocketMiddlewareReturnValue,
   SocketNext,
 } from "~/types";
-
 import { errors } from "~/variables";
 
 const selfStuffCheck: SocketMiddleware = async (

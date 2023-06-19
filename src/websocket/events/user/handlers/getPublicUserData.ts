@@ -1,9 +1,7 @@
 import { userUtilities } from "utility-store";
 
 import { services } from "~/services";
-
 import { SocketOnHandler } from "~/types";
-
 import { errors } from "~/variables";
 
 const getPublicUserData: SocketOnHandler = async (_socket, data) => {

@@ -3,9 +3,7 @@ import { Socket } from "socket.io";
 import { errorThrower } from "utility-store";
 
 import { clientStore } from "~/classes/ClientStore";
-
 import { SocketMiddleware, SocketNext, StringMap } from "~/types";
-
 import { errors } from "~/variables";
 
 const verifyVerificationCode: SocketMiddleware = async (

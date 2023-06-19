@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { CustomTypeof, customTypeof } from "custom-typeof";
 import lodash from "lodash";
 

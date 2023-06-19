@@ -1,7 +1,6 @@
-import { firstNameAssertionInitializer } from "$/helpers/assertionInitializers/firstName";
-import { lastNameAssertionInitializer } from "$/helpers/assertionInitializers/lastName";
-
-import { AssertionInitializer } from "$/types";
+import { firstNameAssertionInitializer } from "@/helpers/assertionInitializers/firstName";
+import { lastNameAssertionInitializer } from "@/helpers/assertionInitializers/lastName";
+import { AssertionInitializer } from "@/types";
 
 const fullNameAssertionInitializer: AssertionInitializer = ({
   equalValue,

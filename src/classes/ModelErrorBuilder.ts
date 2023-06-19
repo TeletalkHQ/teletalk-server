@@ -1,15 +1,12 @@
 import { errorBuilder } from "~/classes/ErrorBuilder";
-
 import { nativeModels } from "~/models/native";
-
 import {
-  ModelErrorCollection,
   Field,
+  ModelErrorCollection,
+  ModelErrorReason,
   NativeModel,
   NativeModelKey,
-  ModelErrorReason,
 } from "~/types";
-
 import { utilities } from "~/utilities";
 
 class ModelErrorBuilder {

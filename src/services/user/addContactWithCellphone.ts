@@ -2,9 +2,7 @@ import { errorThrower } from "utility-store";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
 import { commonServices } from "~/services/common";
-
 import { Contact, HydratedUserMongo, UserMongo } from "~/types";
-
 import { errors } from "~/variables";
 
 const addContactWithCellphone = async (data: {

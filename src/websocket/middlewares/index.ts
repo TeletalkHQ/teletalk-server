@@ -1,5 +1,6 @@
 import { Socket } from "socket.io";
 
+import { routesWithoutAuth } from "~/websocket/events";
 import { applyMiddlewares } from "~/websocket/middlewares/applyMiddlewares";
 import { attachClientId } from "~/websocket/middlewares/attachClientId";
 import { attachClientStr } from "~/websocket/middlewares/attachClientStr";
@@ -15,8 +16,6 @@ import { selfStuffCheck } from "~/websocket/middlewares/selfStuffCheck";
 import { validateClientId } from "~/websocket/middlewares/validateClientId";
 import { verifyClient } from "~/websocket/middlewares/verifyClient";
 import { verifyVerificationCode } from "~/websocket/middlewares/verifyVerificationCode";
-
-import { routesWithoutAuth } from "~/websocket/events";
 
 export const registerMiddlewares = (socket: Socket) => {
   socket.customUse(attachClientStr);

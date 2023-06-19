@@ -6,7 +6,6 @@ import {
   SocketMiddlewareReturnValue,
   SocketNext,
 } from "~/types";
-
 import { validators } from "~/validators";
 
 export const validateClientId: SocketMiddleware = async (

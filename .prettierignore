@@ -11,3 +11,4 @@ node_modules
 public
 tests.svg
 thunder-tests
+*.d.ts

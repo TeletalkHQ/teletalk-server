@@ -13,11 +13,9 @@ describe("auth middleware test", () => {
         await requesterMaker(socket, route).sendRequest()
       ).getResponse();
 
-      const responseErrors = response.errors;
-
-      const { reason } = errors.clientNotFound;
-
-      expect(responseErrors?.[reason]).toBeFalsy();
+      const { reason: expectedReason } = errors.clientNotFound;
+      const err = response.errors?.find((i) => i.reason === expectedReason);
+      expect(err?.reason).toBeFalsy();
     });
   }
 

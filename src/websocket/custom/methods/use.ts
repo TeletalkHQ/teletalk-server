@@ -36,7 +36,7 @@ const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
 
   const response: SocketResponse = {
     data: {},
-    errors: { [error.reason]: error },
+    errors: [error],
     ok: false,
   };
 

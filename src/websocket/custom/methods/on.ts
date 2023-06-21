@@ -3,9 +3,10 @@ import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
 import {
-  ClientCallback,
   CustomOn,
+  EventName,
   NativeError,
+  ResponseCallback,
   SocketHandlerReturnValue,
   SocketOnHandler,
   SocketResponse,
@@ -16,16 +17,34 @@ import { arrayOfRoutes } from "~/websocket/events";
 
 const registerCustomOn = (socket: Socket) => {
   return ((eventName, handler) => {
-    socket.on(eventName, async (data: StringMap, cb: ClientCallback) => {
-      const returnValue = await tryToRunHandler(handler, socket, data, cb);
+    socket.on(eventName, async (data, responseCallback: ResponseCallback) => {
+      const returnValue = await tryToRunHandler(
+        handler,
+        socket,
+        data,
+        eventName,
+        responseCallback
+      );
 
       //REFACTOR: Almost all events need to fix before enabling this feature
-      // tryToCheckOutputFields(socket, eventName, returnValue.data, cb);
+      // tryToCheckOutputFields(socket, eventName, returnValue.data, responseCallback);
 
-      await tryToEmitReturnValue(socket, eventName, returnValue, cb);
+      // await tryToEmitReturnValue(
+      //   socket,
+      //   eventName,
+      //   returnValue || { data: {} },
+      //   responseCallback
+      // );
 
-      if (returnValue && typeof cb === "function")
-        cb({ data: returnValue.data, ok: true });
+      if (typeof responseCallback === "function") {
+        const response: SocketResponse = {
+          data: returnValue?.data || {},
+          ok: true,
+          errors: [],
+        };
+
+        responseCallback(response);
+      }
     });
   }) as CustomOn;
 };
@@ -36,14 +55,15 @@ async function tryToRunHandler(
   handler: SocketOnHandler,
   socket: Socket,
   data: StringMap,
-  cb: ClientCallback
-) {
+  eventName: EventName,
+  responseCallback: ResponseCallback
+): Promise<void | SocketHandlerReturnValue> {
   return await trier<void | SocketHandlerReturnValue>(tryToRunHandler.name)
     .async()
     .try(async () => {
       return await handler(socket, data);
     })
-    .catch(catchBlock, socket, cb)
+    .catch(catchBlock, socket, eventName, responseCallback)
     .run();
 }
 
@@ -51,7 +71,7 @@ function _tryToCheckOutputFields(
   socket: Socket,
   eventName: string,
   outputData: StringMap,
-  cb: ClientCallback
+  responseCallback: ResponseCallback
 ) {
   trier(_tryToCheckOutputFields.name)
     .sync()
@@ -59,42 +79,40 @@ function _tryToCheckOutputFields(
       const foundRoute = arrayOfRoutes.find((item) => item.name === eventName)!;
       checkFields(outputData, foundRoute.outputFields, checkFieldErrors.output);
     })
-    .catch(catchBlock, socket, cb)
+    .catch(catchBlock, socket, responseCallback)
     .run();
 }
 
-async function tryToEmitReturnValue(
+async function _tryToEmitReturnValue(
   socket: Socket,
-  eventName: string,
+  eventName: EventName,
   returnValue: SocketHandlerReturnValue,
-  cb: ClientCallback
+  responseCallback: ResponseCallback
 ) {
-  await trier(tryToEmitReturnValue.name)
+  await trier(_tryToEmitReturnValue.name)
     .async()
     .try(async () => {
       socket.customEmit(eventName, returnValue.data);
     })
-    .catch(catchBlock, socket, cb)
+    .catch(catchBlock, socket, eventName, responseCallback)
     .run();
 }
 
 const catchBlock = (
   error: NativeError | undefined,
   socket: Socket,
-  cb: ClientCallback
+  eventName: EventName,
+  responseCallback: ResponseCallback
 ) => {
-  const errorResponse = makeErrorResponse(error);
-
-  logger.debug("customOn:catchBlock:::", error);
-
-  socket.emit("error", errorResponse);
-  if (typeof cb === "function") cb(errorResponse);
-};
-
-const makeErrorResponse = (error: NativeError | undefined): SocketResponse => {
-  return {
+  const response: SocketResponse = {
     data: {},
     errors: error?.reason ? [error] : [errors.unknownError],
     ok: false,
   };
+
+  logger.debug(`customOn:catchBlock:${eventName}`, error);
+
+  if (typeof responseCallback === "function") responseCallback(response);
+
+  socket.emit("error", response);
 };

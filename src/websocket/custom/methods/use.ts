@@ -32,7 +32,7 @@ const tryBlock = async (
 };
 
 const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
-  logger.debug("error in middleware:", error);
+  logger.debug(`error in middleware:${event}`, error);
 
   const response: SocketResponse = {
     data: {},
@@ -40,9 +40,10 @@ const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
     ok: false,
   };
 
-  const cb = event[2];
+  const successResponseCallback = event[2];
 
-  if (typeof cb === "function") cb(response);
+  if (typeof successResponseCallback === "function")
+    successResponseCallback(response);
 
   socket.emit("error", response);
 };

@@ -39,7 +39,9 @@ await helpers.asyncDescribe(
 
           const { reason: expectedReason } = errors.routeNotFound;
 
-          expect(responseErrors?.[expectedReason]).toBeFalsy();
+          const err = responseErrors?.find((i) => i.reason === expectedReason);
+
+          expect(err?.reason).toBeFalsy();
         });
       }
     };

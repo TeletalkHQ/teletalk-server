@@ -301,9 +301,7 @@ export interface Route {
   isAuthRequired: boolean;
 }
 
-export interface SocketResponseErrors {
-  [prop: string]: NativeError & StringMap;
-}
+export type SocketResponseErrors = NativeError[];
 
 export interface SocketResponse<Data = StringMap> {
   data: Data;

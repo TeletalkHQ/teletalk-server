@@ -47,13 +47,13 @@ async function tryToRunHandler(
     .run();
 }
 
-function tryToCheckOutputFields(
+function _tryToCheckOutputFields(
   socket: Socket,
   eventName: string,
   outputData: StringMap,
   cb: ClientCallback
 ) {
-  trier(tryToCheckOutputFields.name)
+  trier(_tryToCheckOutputFields.name)
     .sync()
     .try(() => {
       const foundRoute = arrayOfRoutes.find((item) => item.name === eventName)!;
@@ -94,12 +94,7 @@ const catchBlock = (
 const makeErrorResponse = (error: NativeError | undefined): SocketResponse => {
   return {
     data: {},
-    //prettier-ignore
-    errors: error?.reason
-      ? {
-        [error.reason]: error,
-      }
-      : { [errors.unknownError.reason]: errors.unknownError },
+    errors: error?.reason ? [error] : [errors.unknownError],
     ok: false,
   };
 };

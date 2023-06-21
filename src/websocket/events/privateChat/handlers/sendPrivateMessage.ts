@@ -5,7 +5,7 @@ const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
   const { userId: currentUserId } = socket;
   const { participantId, messageText } = data;
 
-  const { chatId, newMessage } = await services.sendPrivateMessage({
+  const { chatId, addedMessage } = await services.sendPrivateMessage({
     currentUserId,
     participantId,
     messageText,
@@ -15,10 +15,10 @@ const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
     .to(currentUserId)
     .to(participantId)
     //TODO: Use customEmit
-    .emit("newPrivateChatMessage", { chatId, newMessage });
+    .emit("newPrivateChatMessage", { chatId, addedMessage });
 
   return {
-    data: { chatId, newMessage },
+    data: { chatId, addedMessage },
   };
 };
 

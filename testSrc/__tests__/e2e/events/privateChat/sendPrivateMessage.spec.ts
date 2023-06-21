@@ -83,7 +83,7 @@ const testData = async (
     (i) => i.participantId === targetUserId
   ) as Participant;
   const foundMessage = chat.messages.find(
-    (m) => m.messageId === sentMessageResponse.newMessage.messageId
+    (m) => m.messageId === sentMessageResponse.addedMessage.messageId
   ) as Message;
 
   assertionInitializerHelper()
@@ -97,10 +97,10 @@ const testData = async (
     })
     .messageText({
       equalValue: messageText,
-      testValue: sentMessageResponse.newMessage.messageText,
+      testValue: sentMessageResponse.addedMessage.messageText,
     })
     .messageId({
-      equalValue: sentMessageResponse.newMessage.messageId,
+      equalValue: sentMessageResponse.addedMessage.messageId,
       testValue: foundMessage.messageId,
     })
     .userId({
@@ -113,7 +113,7 @@ const testData = async (
     })
     .userId({
       equalValue: currentUserId,
-      testValue: sentMessageResponse.newMessage.sender.senderId,
+      testValue: sentMessageResponse.addedMessage.sender.senderId,
     });
 };
 

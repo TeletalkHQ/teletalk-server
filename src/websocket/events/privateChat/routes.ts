@@ -55,7 +55,7 @@ const sendPrivateMessage = builder
   })
   .outputFields({
     chatId: fields.single.chatId,
-    newMessage: fields.statics.object(fields.collection.messageItem),
+    addedMessage: fields.statics.object(fields.collection.messageItem),
   })
   .build();
 

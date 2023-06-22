@@ -1,13 +1,10 @@
 import { randomMaker } from "utility-store";
 
 import { models } from "~/models";
-
 import { createPrivateChat } from "~/services/chat/createPrivateChat";
 import { findOnePrivateChat } from "~/services/chat/findOnePrivateChat";
 import { commonServices } from "~/services/common";
-
 import { HydratedPrivateChatMongo, Message, PrivateChatMongo } from "~/types";
-
 import { errors } from "~/variables";
 
 const chatModels = models.native;
@@ -20,7 +17,7 @@ const sendPrivateMessage = async (data: {
 }) => {
   const targetParticipantId = await findTargetParticipantId(data.participantId);
 
-  const newMessage = createNewMessage(data.messageText, data.currentUserId);
+  const addedMessage = createNewMessage(data.messageText, data.currentUserId);
 
   const privateChat = await findPrivateChat(
     data.currentUserId,
@@ -33,13 +30,13 @@ const sendPrivateMessage = async (data: {
   });
 
   await saveMessageOnPrivateChat({
-    newMessage,
+    addedMessage,
     privateChat: fixedPrivateChat,
   });
 
   return {
     chatId: fixedPrivateChat.chatId,
-    newMessage,
+    addedMessage,
   };
 };
 
@@ -89,10 +86,10 @@ const fixPrivateChat = async (data: {
 const createChatId = () => randomMaker.id(chatModels.chatId.maxLength);
 
 const saveMessageOnPrivateChat = async (data: {
-  newMessage: Message;
+  addedMessage: Message;
   privateChat: HydratedPrivateChatMongo;
 }) => {
-  data.privateChat.messages.push(data.newMessage);
+  data.privateChat.messages.push(data.addedMessage);
   await data.privateChat.save();
 };
 

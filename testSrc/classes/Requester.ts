@@ -1,14 +1,13 @@
 import { IoFields } from "check-fields";
 import { customTypeof } from "custom-typeof";
-import { objectUtilities } from "utility-store";
 import { Socket as Client } from "socket.io-client";
-
-import { loggerHelper } from "$/helpers/logHelper";
+import { objectUtilities } from "utility-store";
 
 import { NativeError, SocketResponse, SocketRoute, StringMap } from "~/types";
-import { RequesterOptions } from "$/types";
-
 import { errors } from "~/variables";
+
+import { loggerHelper } from "@/helpers/logHelper";
+import { RequesterOptions } from "@/types";
 
 class Requester {
   private error?: NativeError;
@@ -183,11 +182,12 @@ class Requester {
     const expectedError = this.getError();
     if (!expectedError) throw "Error is not defined";
 
-    const { reason: expectedErrorReason } = expectedError;
+    const { reason: expectedReason } = expectedError;
     const { errors } = this.getResponse();
-    expect(customTypeof.isObject(errors)).toBeTruthy();
+    expect(customTypeof.isArray(errors)).toBeTruthy();
 
-    expect(errors![expectedErrorReason]?.reason).toEqual(expectedErrorReason);
+    const err = errors?.find((i) => i.reason === expectedReason);
+    expect(err?.reason).toEqual(expectedReason);
 
     return this;
   }

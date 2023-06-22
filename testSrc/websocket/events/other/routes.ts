@@ -1,5 +1,6 @@
-import { randomMaker } from "$/classes/RandomMaker";
 import { socketRouteBuilder } from "~/classes/routeBuilder/SocketRouteBuilder";
+
+import { randomMaker } from "@/classes/RandomMaker";
 
 const unknownRoute = socketRouteBuilder()
   .create()

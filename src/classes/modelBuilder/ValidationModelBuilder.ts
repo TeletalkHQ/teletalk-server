@@ -9,9 +9,7 @@ import {
   NativeModelKey,
   ValidationModel,
 } from "~/types";
-
 import { utilities } from "~/utilities";
-
 import { errors } from "~/variables";
 
 type ErrorMessageKey = keyof MessagesType;

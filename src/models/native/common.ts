@@ -1,6 +1,5 @@
 import { nativeModelBuilder } from "~/classes/modelBuilder/NativeModelBuilder";
-
-import { UserId, CreatedAt } from "~/types";
+import { CreatedAt, UserId } from "~/types";
 
 export const commonModels = {
   createdAt: nativeModelBuilder

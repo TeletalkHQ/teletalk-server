@@ -4,7 +4,6 @@ import lodash from "lodash";
 import { Socket } from "socket.io";
 
 import { envManager } from "~/classes/EnvironmentManager";
-
 import {
   Environments,
   ErrorCollection,

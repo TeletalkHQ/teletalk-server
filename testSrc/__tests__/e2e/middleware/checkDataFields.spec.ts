@@ -1,11 +1,9 @@
-import { randomMaker } from "$/classes/RandomMaker";
-import { requesterMaker } from "$/classes/Requester";
-
-import { helpers } from "$/helpers";
-
 import { errors } from "~/variables";
-
 import { arrayOfRoutes, routes } from "~/websocket/events";
+
+import { randomMaker } from "@/classes/RandomMaker";
+import { requesterMaker } from "@/classes/Requester";
+import { helpers } from "@/helpers";
 
 await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
   const { socket } = await randomMaker.user();

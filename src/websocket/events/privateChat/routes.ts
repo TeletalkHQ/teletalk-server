@@ -1,9 +1,6 @@
 import { socketRouteBuilder } from "~/classes/routeBuilder/SocketRouteBuilder";
-
 import { SocketRoutePicker } from "~/types";
-
 import { fields } from "~/variables";
-
 import { privateChatHandlers } from "~/websocket/events/privateChat/handlers";
 
 const builder = socketRouteBuilder();
@@ -58,7 +55,7 @@ const sendPrivateMessage = builder
   })
   .outputFields({
     chatId: fields.single.chatId,
-    newMessage: fields.statics.object(fields.collection.messageItem),
+    addedMessage: fields.statics.object(fields.collection.messageItem),
   })
   .build();
 

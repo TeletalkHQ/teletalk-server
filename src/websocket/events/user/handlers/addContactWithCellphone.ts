@@ -5,9 +5,7 @@ import {
 } from "utility-store/lib/types";
 
 import { userUtilities } from "~/classes/UserUtilities";
-
 import { services } from "~/services";
-
 import { SocketOnHandler } from "~/types";
 
 const addContactWithCellphone: SocketOnHandler = async (socket, data) => {

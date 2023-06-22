@@ -1,9 +1,8 @@
 import axios from "axios";
-import { errorThrower } from "utility-store";
 import { trier } from "simple-trier";
+import { errorThrower } from "utility-store";
 
 import { appConfigs } from "~/classes/AppConfigs";
-
 import { errors, escapeChars } from "~/variables";
 
 class SmsClient {

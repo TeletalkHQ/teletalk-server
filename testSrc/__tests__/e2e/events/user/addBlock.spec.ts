@@ -1,14 +1,12 @@
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
-
-import { helpers } from "$/helpers";
+import { customTypeof } from "custom-typeof";
 
 import { services } from "~/services";
-
 import { BlackListItem, UserMongo } from "~/types";
 
-import { customTypeof } from "custom-typeof";
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("addBlock successful tests", () => {
   it("should add users to blacklist", async () => {

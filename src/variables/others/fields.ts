@@ -1,4 +1,4 @@
-import { ioFieldMaker, IoFields } from "check-fields";
+import { IoFields, ioFieldMaker } from "check-fields";
 
 const statics = {
   array: (value: IoFields) =>

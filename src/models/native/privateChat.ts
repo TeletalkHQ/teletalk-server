@@ -1,12 +1,10 @@
 import { nativeModelBuilder } from "~/classes/modelBuilder/NativeModelBuilder";
-
 import { commonModels } from "~/models/native/common";
-
 import {
   ChatId,
   MessageId,
-  Messages,
   MessageText,
+  Messages,
   Participants,
   PrivateChats,
   UserId,

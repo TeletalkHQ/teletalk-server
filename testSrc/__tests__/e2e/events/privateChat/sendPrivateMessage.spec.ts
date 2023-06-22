@@ -1,8 +1,4 @@
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
-
 import { services } from "~/services";
-
 import {
   HydratedPrivateChatMongo,
   Message,
@@ -10,8 +6,10 @@ import {
   StringMap,
 } from "~/types";
 
-import { helpers } from "$/helpers";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("send message success tests", () => {
   it("should start new chat and send message", async () => {
@@ -85,7 +83,7 @@ const testData = async (
     (i) => i.participantId === targetUserId
   ) as Participant;
   const foundMessage = chat.messages.find(
-    (m) => m.messageId === sentMessageResponse.newMessage.messageId
+    (m) => m.messageId === sentMessageResponse.addedMessage.messageId
   ) as Message;
 
   assertionInitializerHelper()
@@ -99,10 +97,10 @@ const testData = async (
     })
     .messageText({
       equalValue: messageText,
-      testValue: sentMessageResponse.newMessage.messageText,
+      testValue: sentMessageResponse.addedMessage.messageText,
     })
     .messageId({
-      equalValue: sentMessageResponse.newMessage.messageId,
+      equalValue: sentMessageResponse.addedMessage.messageId,
       testValue: foundMessage.messageId,
     })
     .userId({
@@ -115,7 +113,7 @@ const testData = async (
     })
     .userId({
       equalValue: currentUserId,
-      testValue: sentMessageResponse.newMessage.sender.senderId,
+      testValue: sentMessageResponse.addedMessage.sender.senderId,
     });
 };
 

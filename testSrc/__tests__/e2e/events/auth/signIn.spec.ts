@@ -1,19 +1,18 @@
 import { customTypeof } from "custom-typeof";
 
+import { clientStore } from "~/classes/ClientStore";
+import { userUtilities } from "~/classes/UserUtilities";
+import { Cellphone } from "~/types";
+
 import {
   AssertionInitializerHelper,
   assertionInitializerHelper,
-} from "$/classes/AssertionInitializerHelper";
-import { authHelper } from "$/classes/AuthHelper";
-import { clientInitializer } from "$/classes/ClientInitializer";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
-import { clientStore } from "~/classes/ClientStore";
-import { userUtilities } from "~/classes/UserUtilities";
-
-import { helpers } from "$/helpers";
-
-import { Cellphone } from "~/types";
+} from "@/classes/AssertionInitializerHelper";
+import { authHelper } from "@/classes/AuthHelper";
+import { clientInitializer } from "@/classes/ClientInitializer";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {

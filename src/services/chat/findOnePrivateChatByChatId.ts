@@ -1,5 +1,4 @@
 import { models } from "~/models";
-
 import { HydratedPrivateChatMongo, PrivateChatService } from "~/types";
 
 const findOnePrivateChatByChatId: PrivateChatService<

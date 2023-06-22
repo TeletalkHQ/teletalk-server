@@ -1,3 +1,4 @@
+import { customTypeof } from "custom-typeof";
 import { trier } from "simple-trier";
 
 import {
@@ -6,10 +7,7 @@ import {
   SocketMiddlewareReturnValue,
   SocketNext,
 } from "~/types";
-
 import { validators } from "~/validators";
-
-import { customTypeof } from "custom-typeof";
 
 type Data = { [prop: string]: any };
 

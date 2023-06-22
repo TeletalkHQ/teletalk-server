@@ -1,5 +1,4 @@
 import { models } from "~/models";
-
 import { errors } from "~/variables";
 
 export const logout = async ({

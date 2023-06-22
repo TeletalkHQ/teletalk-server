@@ -1,5 +1,5 @@
-import { Socket } from "socket.io";
 import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
 import {
   CustomUse,
@@ -32,17 +32,18 @@ const tryBlock = async (
 };
 
 const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
-  logger.debug("error in middleware:", error);
+  logger.debug(`error in middleware:${event}`, error);
 
   const response: SocketResponse = {
     data: {},
-    errors: { [error.reason]: error },
+    errors: [error],
     ok: false,
   };
 
-  const cb = event[2];
+  const successResponseCallback = event[2];
 
-  if (typeof cb === "function") cb(response);
+  if (typeof successResponseCallback === "function")
+    successResponseCallback(response);
 
   socket.emit("error", response);
 };

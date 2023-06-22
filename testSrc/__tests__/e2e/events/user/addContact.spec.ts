@@ -1,18 +1,15 @@
 import { customTypeof } from "custom-typeof";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "~/classes/UserUtilities";
-
-import { helpers } from "$/helpers";
-
 import { models } from "~/models";
-
 import { services } from "~/services";
-
 import { UserMongo } from "~/types";
+
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {

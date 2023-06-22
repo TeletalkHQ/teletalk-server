@@ -1,11 +1,10 @@
 import { isBuiltin } from "node:module";
 import { dirname } from "node:path";
-import { promisify } from "node:util";
 import { fileURLToPath, pathToFileURL } from "node:url";
-
+import { promisify } from "node:util";
 import resolveCallback from "resolve";
-import { resolve as resolveTs, load } from "ts-node/esm";
-import { loadConfig, createMatchPath } from "tsconfig-paths";
+import { load, resolve as resolveTs } from "ts-node/esm";
+import { createMatchPath, loadConfig } from "tsconfig-paths";
 
 const resolveAsync = promisify(resolveCallback);
 const tsExtensions = new Set([".tsx", ".ts", ".mts", ".cts"]);

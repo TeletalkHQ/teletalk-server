@@ -1,7 +1,5 @@
 import { validationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
-
 import { nativeModels } from "~/models/native";
-
 import { ValidationPicker } from "~/types";
 
 type ChatValidationModels = ValidationPicker<

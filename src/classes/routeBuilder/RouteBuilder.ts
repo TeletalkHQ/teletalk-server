@@ -3,7 +3,6 @@ import { customTypeof } from "custom-typeof";
 import { errorThrower } from "utility-store";
 
 import { Route } from "~/types";
-
 import { localErrors } from "~/variables";
 
 abstract class RouteBuilder {

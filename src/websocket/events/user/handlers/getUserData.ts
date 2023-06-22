@@ -1,5 +1,4 @@
 import { services } from "~/services";
-
 import { HydratedUserMongo, SocketOnHandler } from "~/types";
 
 const getUserData: SocketOnHandler = async (socket) => {

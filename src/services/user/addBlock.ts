@@ -1,9 +1,7 @@
 import { errorThrower } from "utility-store";
 
-import { HydratedUserMongo, UserMongo } from "~/types";
-
 import { commonServices } from "~/services/common";
-
+import { HydratedUserMongo, UserMongo } from "~/types";
 import { errors } from "~/variables";
 
 const addBlock = async (data: {

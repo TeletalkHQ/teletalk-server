@@ -1,7 +1,5 @@
 import { nativeModels } from "~/models/native";
-
-import { NativeModelKey, NativeModelCollection, ErrorReason } from "~/types";
-
+import { ErrorReason, NativeModelCollection, NativeModelKey } from "~/types";
 import { utilities } from "~/utilities";
 
 //TODO: Add more support like trim and required

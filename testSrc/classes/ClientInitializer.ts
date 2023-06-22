@@ -1,8 +1,6 @@
 //FIXME: Remove http://
-import http from "http";
-
 import cookie from "cookie";
-
+import http from "http";
 import Client, {
   ManagerOptions,
   Socket,
@@ -10,11 +8,9 @@ import Client, {
 } from "socket.io-client";
 
 import { appConfigs } from "~/classes/AppConfigs";
-
-import { utilities } from "~/utilities";
-
-import { errors } from "~/variables";
 import { clientManager } from "~/classes/ClientIdManager";
+import { utilities } from "~/utilities";
+import { errors } from "~/variables";
 
 const {
   APP: { PORT, HOSTNAME: hostname },

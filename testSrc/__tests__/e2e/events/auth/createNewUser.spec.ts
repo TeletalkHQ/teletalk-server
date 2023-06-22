@@ -1,15 +1,13 @@
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { authHelper } from "$/classes/AuthHelper";
 import { clientStore } from "~/classes/ClientStore";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "~/classes/UserUtilities";
-
-import { helpers } from "$/helpers";
-
 import { services } from "~/services";
-
 import { Cellphone, ClientObjType, FullName, UserMongo } from "~/types";
+
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { authHelper } from "@/classes/AuthHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {

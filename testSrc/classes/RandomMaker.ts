@@ -1,12 +1,10 @@
 import { RandomMaker as RandomMakerMain } from "utility-store";
 
-import { authHelper } from "$/classes/AuthHelper";
-
-import { helpers } from "$/helpers";
-
 import { models } from "~/models";
-
 import { UserMongo } from "~/types";
+
+import { authHelper } from "@/classes/AuthHelper";
+import { helpers } from "@/helpers";
 
 class RandomMaker extends RandomMakerMain {
   constructor() {

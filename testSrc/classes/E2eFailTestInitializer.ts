@@ -1,15 +1,12 @@
 import { randomMaker } from "utility-store";
 
-import { Requester } from "$/classes/Requester";
-
-import { helpers } from "$/helpers";
-
-import { RequesterOptions } from "$/types";
 import { Field, FieldType, NativeError, NativeModel } from "~/types";
-
 import { utilities } from "~/utilities";
-
 import { errors } from "~/variables";
+
+import { Requester } from "@/classes/Requester";
+import { helpers } from "@/helpers";
+import { RequesterOptions } from "@/types";
 
 type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
 

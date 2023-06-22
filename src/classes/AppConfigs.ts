@@ -1,10 +1,8 @@
-import path from "path";
-
 import dotenv from "dotenv";
 import { LoggerChalker } from "logger-chalker";
+import path from "path";
 
 import { envManager } from "~/classes/EnvironmentManager";
-
 import { EnvFileName, Environments } from "~/types";
 
 class AppConfigs {

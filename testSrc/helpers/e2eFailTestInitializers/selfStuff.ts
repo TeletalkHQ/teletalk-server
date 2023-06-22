@@ -1,8 +1,7 @@
-import { E2eFailTestInitializer } from "$/types";
-
-import { helpers } from "$/helpers";
-
 import { errors } from "~/variables";
+
+import { helpers } from "@/helpers";
+import { E2eFailTestInitializer } from "@/types";
 
 const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,

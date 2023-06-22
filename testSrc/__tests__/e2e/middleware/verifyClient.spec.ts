@@ -1,15 +1,12 @@
 import { randomMaker } from "utility-store";
 
-import { clientInitializer } from "$/classes/ClientInitializer";
-import { requesterMaker } from "$/classes/Requester";
-
-import { helpers } from "$/helpers";
-
 import { models } from "~/models";
-
 import { errors } from "~/variables";
-
 import { arrayOfRoutes } from "~/websocket/events";
+
+import { clientInitializer } from "@/classes/ClientInitializer";
+import { requesterMaker } from "@/classes/Requester";
+import { helpers } from "@/helpers";
 
 //REFACTOR: fail suit message like this
 describe("verifyClient fail tests", () => {

@@ -1,14 +1,12 @@
+import { customTypeof } from "custom-typeof";
 import { ContactWithCellphone } from "utility-store/lib/types";
 
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
 import { userUtilities } from "~/classes/UserUtilities";
-
-import { helpers } from "$/helpers";
-
 import { services } from "~/services";
 
-import { customTypeof } from "custom-typeof";
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("getContacts success tests", () => {
   it("", async () => {

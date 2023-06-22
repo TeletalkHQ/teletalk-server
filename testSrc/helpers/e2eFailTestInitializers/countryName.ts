@@ -1,12 +1,10 @@
 import { randomMaker } from "utility-store";
 
-import { e2eFailTestInitializer } from "$/classes/E2eFailTestInitializer";
-
 import { models } from "~/models";
-
-import { E2eFailTestInitializer } from "$/types";
-
 import { errors } from "~/variables";
+
+import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
+import { E2eFailTestInitializer } from "@/types";
 
 const countryNameMaxLength = models.native.countryName.maxLength;
 

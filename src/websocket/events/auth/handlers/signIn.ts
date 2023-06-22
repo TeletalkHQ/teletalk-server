@@ -1,14 +1,11 @@
 import { randomMaker } from "utility-store";
 import { ExtendedCellphone } from "utility-store/lib/types";
 
-import { smsClient } from "~/classes/SmsClient";
 import { clientStore } from "~/classes/ClientStore";
+import { smsClient } from "~/classes/SmsClient";
 import { userUtilities } from "~/classes/UserUtilities";
-
 import { models } from "~/models";
-
 import { SocketOnHandler, StoredClient } from "~/types";
-
 import { utilities } from "~/utilities";
 
 const signIn: SocketOnHandler = async (socket, data) => {

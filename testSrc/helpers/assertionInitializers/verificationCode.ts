@@ -1,8 +1,7 @@
-import { assertionInitializer } from "$/classes/AssertionInitializer";
-
 import { models } from "~/models";
 
-import { AssertionInitializer } from "$/types";
+import { assertionInitializer } from "@/classes/AssertionInitializer";
+import { AssertionInitializer } from "@/types";
 
 const verificationCodeAssertionInitializer: AssertionInitializer = (
   { testValue },

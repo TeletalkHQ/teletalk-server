@@ -1,9 +1,7 @@
 import { errorThrower } from "utility-store";
 
 import { models } from "~/models";
-
 import { UserMongo } from "~/types";
-
 import { errors } from "~/variables";
 
 const createNewUser = async (userData: UserMongo) => {

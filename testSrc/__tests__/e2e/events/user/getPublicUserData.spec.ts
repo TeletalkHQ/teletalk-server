@@ -1,12 +1,10 @@
-import { assertionInitializerHelper } from "$/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "$/classes/E2eFailTestInitializerHelper";
-import { randomMaker } from "$/classes/RandomMaker";
-
-import { helpers } from "$/helpers";
-
 import { services } from "~/services";
-
 import { PublicUserData, UserMongo } from "~/types";
+
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { helpers } from "@/helpers";
 
 describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {

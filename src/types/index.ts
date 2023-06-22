@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IoFields } from "check-fields";
 import { ValidationError, ValidationRuleObject } from "fastest-validator";
+import { JWTPayload, JWTVerifyResult } from "jose";
 import {
   Document,
   FilterQuery,
@@ -12,8 +13,8 @@ import {
 } from "mongoose";
 import { Event, Socket } from "socket.io";
 import { ContactWithCellphone } from "utility-store/lib/types";
+
 import { NativeModelCollection } from ".";
-import { JWTPayload, JWTVerifyResult } from "jose";
 
 export interface Cellphone {
   countryCode: string;
@@ -116,7 +117,7 @@ export type SocketOnAnyHandler = (
 
 export type CustomEmit = (event: string, data: StringMap) => void;
 
-export type CustomOn = (event: string, callback: SocketOnHandler) => void;
+export type CustomOn = (event: EventName, callback: SocketOnHandler) => void;
 
 export type SocketNext = (err?: Error | undefined) => void;
 
@@ -300,17 +301,15 @@ export interface Route {
   isAuthRequired: boolean;
 }
 
-export interface SocketResponseErrors {
-  [prop: string]: NativeError & StringMap;
-}
+export type SocketResponseErrors = NativeError[];
 
 export interface SocketResponse<Data = StringMap> {
   data: Data;
-  errors?: SocketResponseErrors;
+  errors: SocketResponseErrors;
   ok: boolean;
 }
 
-export type ClientCallback = (data: SocketResponse) => void;
+export type ResponseCallback = (data: SocketResponse) => void;
 
 export type SocketMethods = "on" | "onAny" | "customOn" | "once";
 

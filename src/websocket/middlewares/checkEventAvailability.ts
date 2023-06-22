@@ -1,7 +1,5 @@
 import { SocketMiddleware } from "~/types";
-
 import { errors } from "~/variables";
-
 import { arrayOfRoutes } from "~/websocket/events";
 
 const checkEventAvailability: SocketMiddleware = (_socket, next, [name]) => {

@@ -1,9 +1,6 @@
 import { validationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
-
 import { nativeModels } from "~/models/native";
-
 import { commonValidationModels } from "~/models/validation/common";
-
 import { ValidationPicker } from "~/types";
 
 type UserValidationModels = ValidationPicker<

@@ -1,7 +1,7 @@
+import { ProjectionType, QueryOptions } from "mongoose";
+
 import { commonServices } from "~/services/common";
 import { UserMongo } from "~/types";
-
-import { ProjectionType, QueryOptions } from "mongoose";
 
 const getUserData = async (
   data: { userId: string },

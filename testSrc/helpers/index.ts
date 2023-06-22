@@ -1,14 +1,11 @@
 /* eslint-disable no-case-declarations */
-/* eslint-disable indent */
-import { Socket } from "socket.io-client";
-import { IoFields } from "check-fields";
-import { faker } from "@faker-js/faker";
 
-import { randomMaker } from "$/classes/RandomMaker";
-import { requesterMaker } from "$/classes/Requester";
+/* eslint-disable indent */
+import { faker } from "@faker-js/faker";
+import { IoFields } from "check-fields";
+import { Socket } from "socket.io-client";
 
 import { models } from "~/models";
-
 import {
   Cellphone,
   EventName,
@@ -17,18 +14,18 @@ import {
   NativeError,
   SocketRoute,
 } from "~/types";
+import { utilities } from "~/utilities";
+import { countries } from "~/variables";
+import { routes } from "~/websocket/events";
+
+import { randomMaker } from "@/classes/RandomMaker";
+import { requesterMaker } from "@/classes/Requester";
 import {
   RequesterCollection,
   RequesterMaker,
   RequesterMakerHelper,
   RequesterMakerWrapper,
-} from "$/types";
-
-import { utilities } from "~/utilities";
-
-import { countries } from "~/variables";
-
-import { routes } from "~/websocket/events";
+} from "@/types";
 
 async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
   const describeBody = await suite();

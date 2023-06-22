@@ -1,5 +1,5 @@
-import { userServices } from "$/services/user";
-import { privateChatServices } from "$/services/privateChat";
+import { privateChatServices } from "@/services/privateChat";
+import { userServices } from "@/services/user";
 
 const services = { ...userServices, ...privateChatServices };
 

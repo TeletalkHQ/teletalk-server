@@ -1,7 +1,8 @@
 import { randomMaker } from "utility-store";
 
-import { Field, FieldType, NativeError, NativeModel } from "~/types";
-import { utilities } from "~/utilities";
+import { Field, IO, NativeError } from "~/types";
+import { FieldType, NativeModel } from "~/types/models";
+import { utils } from "~/utils";
 import { errors } from "~/variables";
 
 import { Requester } from "@/classes/Requester";
@@ -10,10 +11,13 @@ import { RequesterOptions } from "@/types";
 
 type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
 
-class E2eFailTestInitializer<PartialNativeModel extends Model> {
+class E2eFailTestInitializer<
+  PartialNativeModel extends Model,
+  IOType extends IO
+> {
   constructor(
-    private configuredRequester: Requester,
-    private data = {},
+    private configuredRequester: Requester<IOType>,
+    private data: IOType["input"],
     private model: PartialNativeModel,
     private fieldName: Field
   ) {}
@@ -31,7 +35,7 @@ class E2eFailTestInitializer<PartialNativeModel extends Model> {
     return { ...this.data, [this.fieldName]: newValue };
   }
   resolveError(modelPropName: keyof NativeModel) {
-    return utilities.findError(errors, this.fieldName, modelPropName);
+    return utils.findError(errors, this.fieldName, modelPropName);
   }
 
   custom(value: any, error: NativeError) {
@@ -109,13 +113,13 @@ class E2eFailTestInitializer<PartialNativeModel extends Model> {
 }
 
 const e2eFailTestInitializer = {
-  create: <PartialNativeModel extends Model>(
-    configuredRequester: Requester,
+  create: <PartialNativeModel extends Model, IOType extends IO>(
+    configuredRequester: Requester<IOType>,
     data: any,
     model: PartialNativeModel,
     fieldName: Field
   ) =>
-    new E2eFailTestInitializer<PartialNativeModel>(
+    new E2eFailTestInitializer<PartialNativeModel, IOType>(
       configuredRequester,
       data,
       model,

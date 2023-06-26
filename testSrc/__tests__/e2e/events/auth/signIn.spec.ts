@@ -1,8 +1,8 @@
 import { customTypeof } from "custom-typeof";
+import { CLientId, Cellphone } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
-import { userUtilities } from "~/classes/UserUtilities";
-import { Cellphone } from "~/types";
+import { userUtils } from "~/classes/UserUtils";
 
 import {
   AssertionInitializerHelper,
@@ -27,7 +27,7 @@ describe("signIn success test", () => {
 
   it("should sign as existed user", async () => {
     const { user } = await randomMaker.user();
-    const cellphone = userUtilities.extractCellphone(user);
+    const cellphone = userUtils.extractCellphone(user);
 
     const helper = authHelper(cellphone);
     await helper.signIn();
@@ -67,7 +67,7 @@ await helpers.asyncDescribe("signIn fail test", async () => {
 
 const testSavedClient = async (
   assertionHelper: AssertionInitializerHelper,
-  clientId: string,
+  clientId: CLientId,
   cellphone: Cellphone
 ) => {
   const client = (await clientStore.find(clientId))!;

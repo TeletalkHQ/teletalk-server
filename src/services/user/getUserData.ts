@@ -1,12 +1,12 @@
 import { ProjectionType, QueryOptions } from "mongoose";
+import { UserData } from "utility-store/lib/types";
 
 import { commonServices } from "~/services/common";
-import { UserMongo } from "~/types";
 
 const getUserData = async (
   data: { userId: string },
   options?: QueryOptions,
-  projection?: ProjectionType<UserMongo>
+  projection?: ProjectionType<UserData>
 ) => {
   return await getUserDataById(
     {
@@ -20,7 +20,7 @@ const getUserData = async (
 const getTargetUserData = async (
   data: { userId: string },
   options?: QueryOptions,
-  projection?: ProjectionType<UserMongo>
+  projection?: ProjectionType<UserData>
 
   // eslint-disable-next-line sonarjs/no-identical-functions
 ) => {
@@ -36,7 +36,7 @@ const getTargetUserData = async (
 const getUserDataById = async (
   data: { userId: string },
   options?: QueryOptions,
-  projection?: ProjectionType<UserMongo>
+  projection?: ProjectionType<UserData>
 ) => {
   return await commonServices.findOneUserById(data.userId, options, projection);
 };

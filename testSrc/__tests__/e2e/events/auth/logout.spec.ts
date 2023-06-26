@@ -1,6 +1,5 @@
 import { clientStore } from "~/classes/ClientStore";
 import { services } from "~/services";
-import { UserMongo } from "~/types";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -33,7 +32,7 @@ describe("logout success tests", () => {
 
     const userFromDb = (await services.findOneUser({
       userId,
-    })) as UserMongo;
+    }))!;
 
     const isClientExist = userFromDb.clients.some(
       ({ clientId }) => clientId === clientIdToRemove

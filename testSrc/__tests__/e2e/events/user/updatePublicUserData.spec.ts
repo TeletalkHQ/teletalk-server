@@ -1,6 +1,7 @@
-import { userUtilities } from "~/classes/UserUtilities";
+import { PublicUserData } from "utility-store/lib/types";
+
+import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
-import { PublicUserData, UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -26,10 +27,10 @@ describe("updatablePublicData success tests", () => {
 
       const targetUserDataInDb = (await services.getTargetUserData({
         userId: user.userId,
-      })) as UserMongo;
+      }))!;
 
       const publicDataFromDb =
-        userUtilities.extractPublicUserData(targetUserDataInDb);
+        userUtils.extractPublicUserData(targetUserDataInDb);
       testPublicUserData(equalValue, publicDataFromDb);
     }
   });

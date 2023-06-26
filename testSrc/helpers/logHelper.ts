@@ -25,7 +25,7 @@ const loggerHelper = {
   logRequestDetails(
     options: object,
     requestData: unknown,
-    route: object,
+    event: object,
     error: unknown
   ) {
     logger.bgRed(`${escapeChars.newLine}request details:`, "black").dir(
@@ -33,7 +33,7 @@ const loggerHelper = {
       {
         options,
         requestData,
-        route,
+        event,
         error,
       },
       { depth: 10 }

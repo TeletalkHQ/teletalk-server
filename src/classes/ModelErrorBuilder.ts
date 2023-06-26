@@ -1,13 +1,13 @@
 import { errorBuilder } from "~/classes/ErrorBuilder";
 import { nativeModels } from "~/models/native";
+import { Field } from "~/types";
 import {
-  Field,
   ModelErrorCollection,
   ModelErrorReason,
   NativeModel,
   NativeModelKey,
-} from "~/types";
-import { utilities } from "~/utilities";
+} from "~/types/models";
+import { utils } from "~/utils";
 
 class ModelErrorBuilder {
   build() {
@@ -41,7 +41,7 @@ class ModelErrorBuilder {
     fieldName: Field,
     modelPropertyName: NativeModelKey
   ) {
-    const reason = utilities.makeModelErrorReason(fieldName, modelPropertyName);
+    const reason = utils.makeModelErrorReason(fieldName, modelPropertyName);
     errors[reason] = errorBuilder<ModelErrorReason>().reason(reason).build();
   }
 
@@ -51,7 +51,7 @@ class ModelErrorBuilder {
   }
 
   shouldIgnoreModelProperty(modelPropertyName: NativeModelKey) {
-    const ignoreKeys: NativeModelKey[] = ["defaultValue", "items", "trim"];
+    const ignoreKeys: NativeModelKey[] = ["defaultValue", "trim"];
     return ignoreKeys.includes(modelPropertyName);
   }
 }

@@ -4,22 +4,19 @@ import { Socket } from "socket.io";
 import { CustomEmit, EventName, SocketResponse, StringMap } from "~/types";
 
 const registerCustomEmit = (socket: Socket) => {
-  return ((event, data) => {
-    trier(`socket.customEmit:${event}`)
+  return ((eventName, data) => {
+    trier(`socket.customEmit:${eventName}`)
       .sync()
-      .try(tryBlock, socket, data, event)
+      .try(tryBlock, socket, data, eventName)
       .throw()
       .run();
   }) as CustomEmit;
 };
 
-const tryBlock = (socket: Socket, data: StringMap, event: EventName) => {
+const tryBlock = (socket: Socket, data: StringMap, eventName: EventName) => {
   const response: SocketResponse = { data, ok: true, errors: [] };
 
-  console.log("response:::", response);
-  console.log("response.data:::", response.data);
-
-  socket.emit(event, response);
+  socket.emit(eventName, response);
 };
 
 export { registerCustomEmit };

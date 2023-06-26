@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
-import { ContactWithCellphone } from "utility-store/lib/types";
+import { ContactItem, Contacts } from "utility-store/lib/types";
 
-import { userUtilities } from "~/classes/UserUtilities";
+import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
@@ -14,12 +14,9 @@ describe("getContacts success tests", () => {
 
     const contactsLength = 10;
     const users = await randomMaker.users(contactsLength);
-    const addingContacts = users.map((i) =>
-      userUtilities.extractContactWithCellphone(i.user)
-    );
+    const addingContacts = users.map((i) => userUtils.extractContact(i.user));
 
-    const addContactRequester =
-      helpers.requesterCollection.addContactWithCellphone(socket);
+    const addContactRequester = helpers.requesterCollection.addContact(socket);
 
     for (const contact of addingContacts) {
       await addContactRequester.sendFullFeaturedRequest(contact);
@@ -27,7 +24,7 @@ describe("getContacts success tests", () => {
 
     const savedContacts = (await services.getUserContacts({
       currentUserId: currentUser.userId,
-    })) as ContactWithCellphone[];
+    })) as ContactItem[];
 
     testContacts(addingContacts, savedContacts);
 
@@ -36,7 +33,7 @@ describe("getContacts success tests", () => {
     const {
       data: { contacts: contactsFromEvent },
     } = await getContactsRequester.sendFullFeaturedRequest();
-    testContacts(addingContacts, contactsFromEvent);
+    testContacts(addingContacts, contactsFromEvent as Contacts);
   });
 });
 
@@ -50,26 +47,18 @@ describe("getContacts success tests", () => {
 //   };
 // });
 
-const testContacts = (
-  addingContacts: ContactWithCellphone[],
-  savedContacts: ContactWithCellphone[]
-) => {
+const testContacts = (addingContacts: Contacts, savedContacts: Contacts) => {
   expect(customTypeof.isArray(savedContacts)).toBeTruthy();
   expect(savedContacts.length).toEqual(addingContacts.length);
 
   addingContacts.forEach((i) => {
-    const savedContact = savedContacts.find(
-      (j) => i.userId === j.userId
-    ) as ContactWithCellphone;
+    const savedContact = savedContacts.find((j) => i.userId === j.userId)!;
 
     testOneContact(i, savedContact);
   });
 };
 
-const testOneContact = (
-  testValue: ContactWithCellphone,
-  equalValue: ContactWithCellphone
-) => {
+const testOneContact = (testValue: ContactItem, equalValue: ContactItem) => {
   assertionInitializerHelper()
     .userId({
       equalValue: equalValue.userId,

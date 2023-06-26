@@ -1,8 +1,8 @@
 import { services } from "~/services";
-import { SocketOnHandler } from "~/types";
+import { GetChatInfoIO, SocketOnHandler } from "~/types";
 import { errors } from "~/variables";
 
-const getChatInfo: SocketOnHandler = async (_socket, data) => {
+const getChatInfo: SocketOnHandler<GetChatInfoIO> = async (_socket, data) => {
   const privateChat = await services.findOnePrivateChatByChatId({
     chatId: data.chatId,
   });

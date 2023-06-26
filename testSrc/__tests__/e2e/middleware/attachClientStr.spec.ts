@@ -1,16 +1,16 @@
 import { clientManager } from "~/classes/ClientIdManager";
 import { errors } from "~/variables";
-import { arrayOfRoutes } from "~/websocket/events";
+import { eventsArray } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { helpers } from "@/helpers";
 
 describe("validateClientId fail tests", () => {
-  for (const route of arrayOfRoutes) {
+  for (const event of eventsArray) {
     const title = helpers.createFailTestMessage(
       errors.clientCookieRequired,
-      route.name
+      event.name
     );
     it(title, async () => {
       const ci = clientInitializer();
@@ -19,7 +19,7 @@ describe("validateClientId fail tests", () => {
         .connect();
       const socket = ci.getClient();
 
-      await requesterMaker(socket, route).sendFullFeaturedRequest(
+      await requesterMaker(socket, event as any).sendFullFeaturedRequest(
         {},
         errors.clientCookieRequired
       );

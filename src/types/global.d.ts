@@ -7,6 +7,8 @@ import {
   CustomUse,
   Environments,
   AuthClient,
+  SocketMiddlewareEvent,
+  SocketNext,
 } from "~/types";
 
 declare global {
@@ -16,6 +18,7 @@ declare global {
 
 declare module "socket.io" {
   interface Socket {
+    use: (fn: (event: SocketMiddlewareEvent, next: SocketNext)=>void) => void;
     clientId: string;
     customEmit: CustomEmit;
     customOn: CustomOn;

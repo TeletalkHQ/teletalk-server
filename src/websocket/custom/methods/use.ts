@@ -1,46 +1,54 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
+import { helpers } from "~/helpers";
 import {
   CustomUse,
   NativeError,
-  SocketEvent,
+  SocketDefaultMiddlewareEvent,
   SocketMiddleware,
+  SocketMiddlewareEvent,
   SocketNext,
   SocketResponse,
 } from "~/types";
 
 const registerCustomUse = (socket: Socket) => {
   return ((middleware) => {
-    socket.use(async (event: SocketEvent, next) => {
-      await trier("socket.customUse")
-        .async()
-        .try(tryBlock, socket, next, event, middleware)
-        .catch(catchBlock, socket, event)
-        .run();
-    });
+    socket.use(
+      async (socketMiddlewareEvent: SocketDefaultMiddlewareEvent, next) => {
+        await trier("socket.customUse")
+          .async()
+          .try(tryBlock, socket, next, socketMiddlewareEvent, middleware)
+          .catch(catchBlock, socket, socketMiddlewareEvent)
+          .run();
+      }
+    );
   }) as CustomUse;
 };
 
 const tryBlock = async (
   socket: Socket,
   next: SocketNext,
-  event: SocketEvent,
+  socketMiddlewareEvent: SocketMiddlewareEvent,
   middleware: SocketMiddleware
 ) => {
-  await middleware(socket, next, event);
+  await middleware(socket, next, socketMiddlewareEvent);
 };
 
-const catchBlock = (error: NativeError, socket: Socket, event: SocketEvent) => {
-  logger.debug(`error in middleware:${event}`, error);
+const catchBlock = (
+  error: NativeError | NativeError[] | undefined,
+  socket: Socket,
+  socketMiddlewareEvent: SocketMiddlewareEvent
+) => {
+  logger.debug(`error in middleware:${socketMiddlewareEvent[0]}`, error);
 
   const response: SocketResponse = {
     data: {},
-    errors: [error],
+    errors: helpers.resolveResponseError(error),
     ok: false,
   };
 
-  const successResponseCallback = event[2];
+  const successResponseCallback = socketMiddlewareEvent[2];
 
   if (typeof successResponseCallback === "function")
     successResponseCallback(response);

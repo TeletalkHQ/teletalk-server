@@ -1,9 +1,9 @@
-import { SocketOnHandler } from "~/types";
+import { GetWelcomeMessageIO, SocketOnHandler } from "~/types";
 
-const getWelcomeMessage: SocketOnHandler = async () => {
+const getWelcomeMessage: SocketOnHandler<GetWelcomeMessageIO> = async () => {
   return {
     data: {
-      message: "Hey! Welcome to teletalk <3",
+      welcomeMessage: "Hey! Welcome to teletalk <3",
     },
   };
 };

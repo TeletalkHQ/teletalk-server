@@ -1,5 +1,5 @@
-import { otherEvents } from "./other";
+import { other } from "./other";
 
-const routes = { ...otherEvents.otherRoutes };
+const events = { ...other.events };
 
-export { routes };
+export { events };

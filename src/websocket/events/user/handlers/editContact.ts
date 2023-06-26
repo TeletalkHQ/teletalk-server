@@ -1,16 +1,14 @@
-import { userUtilities } from "~/classes/UserUtilities";
 import { services } from "~/services";
-import { Contact, SocketOnHandler } from "~/types";
+import { EditContactIO, SocketOnHandler } from "~/types";
 
-const editContact: SocketOnHandler = async (socket, data) => {
+const editContact: SocketOnHandler<EditContactIO> = async (socket, data) => {
   const { userId: currentUserId } = socket;
-  const editValues = userUtilities.extractContact(data as Contact);
 
-  await services.updateContact({ currentUserId, editValues });
+  await services.updateContact({ currentUserId, editValues: data });
 
   return {
     data: {
-      editedContact: { ...editValues, userId: data.userId },
+      editedContact: data,
     },
   };
 };

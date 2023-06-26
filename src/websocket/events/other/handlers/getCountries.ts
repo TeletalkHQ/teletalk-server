@@ -1,7 +1,7 @@
-import { SocketOnHandler } from "~/types";
+import { GetCountriesIO, SocketOnHandler } from "~/types";
 import { countries } from "~/variables";
 
-const getCountries: SocketOnHandler = async () => {
+const getCountries: SocketOnHandler<GetCountriesIO> = async () => {
   return { data: { countries } };
 };
 

@@ -1,12 +1,13 @@
 import { errorThrower } from "utility-store";
+import { UserData, UserId } from "utility-store/lib/types";
 
 import { commonServices } from "~/services/common";
-import { HydratedUserMongo, UserMongo } from "~/types";
+import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
 const addBlock = async (data: {
   blockingUserId: string;
-  currentUserId: string;
+  currentUserId: UserId;
 }) => {
   const currentUser = await commonServices.findOneUserById(data.currentUserId);
 
@@ -21,7 +22,7 @@ const addBlock = async (data: {
 };
 
 const checkExistenceOfBlacklistItem = (
-  blacklist: UserMongo["blacklist"],
+  blacklist: UserData["blacklist"],
   userId: string
 ) => {
   const index = blacklist.findIndex((i) => i.userId === userId);
@@ -32,7 +33,7 @@ const checkExistenceOfBlacklistItem = (
 };
 
 const saveNewBlacklistItem = async (
-  currentUser: HydratedUserMongo,
+  currentUser: HydratedUser,
   userId: string
 ) => {
   currentUser.blacklist.push({ userId });

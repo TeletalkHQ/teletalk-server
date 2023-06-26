@@ -1,17 +1,20 @@
-import { errorThrower, userUtilities } from "utility-store";
-import { ContactWithCellphone } from "utility-store/lib/types";
+import { errorThrower, userUtils } from "utility-store";
+import {
+  ContactItem,
+  FUllNameWithUserId,
+  UserData,
+  UserId,
+} from "utility-store/lib/types";
 
 import { findOneUserById } from "~/services/common/findOneUserById";
-import { Contact, HydratedUserMongo, UserMongo } from "~/types";
+import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
 const updateContact = async (data: {
-  currentUserId: string;
-  editValues: Contact;
+  currentUserId: UserId;
+  editValues: FUllNameWithUserId;
 }) => {
-  const currentUser = (await findCurrentUser(
-    data.currentUserId
-  )) as HydratedUserMongo;
+  const currentUser = (await findCurrentUser(data.currentUserId))!;
 
   const { index, contact: oldContact } = findContact(
     currentUser.contacts,
@@ -24,7 +27,7 @@ const updateContact = async (data: {
   });
 
   const newContact = {
-    ...userUtilities.extractCellphone(oldContact as ContactWithCellphone),
+    ...userUtils.extractCellphone(oldContact as ContactItem),
     ...data.editValues,
   };
 
@@ -35,15 +38,15 @@ const findCurrentUser = async (currentUserId: string) => {
   return await findOneUserById(currentUserId);
 };
 
-const findContact = (contacts: UserMongo["contacts"], targetUserId: string) => {
+const findContact = (contacts: UserData["contacts"], targetUserId: string) => {
   const index = contacts.findIndex((c) => c.userId === targetUserId);
 
   return { contact: contacts[index], index };
 };
 
 const saveNewContact = async (
-  currentUser: HydratedUserMongo,
-  editValues: ContactWithCellphone | Contact,
+  currentUser: HydratedUser,
+  editValues: ContactItem | ContactItem,
   index: number
 ) => {
   currentUser.contacts.splice(index, 1, editValues);

@@ -1,7 +1,8 @@
+import { Cellphone, FullName, UserData } from "utility-store/lib/types";
+
 import { clientStore } from "~/classes/ClientStore";
-import { userUtilities } from "~/classes/UserUtilities";
+import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
-import { Cellphone, ClientObjType, FullName, UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { authHelper } from "@/classes/AuthHelper";
@@ -49,10 +50,7 @@ await helpers.asyncDescribe("createNewUser fail tests", async () => {
 const testCreatedUserClientId = async (clientId: string) => {
   const { userId } = (await clientStore.find(clientId))!;
 
-  const foundClientId = (await getSavedUserClientId(
-    userId,
-    clientId
-  )) as ClientObjType;
+  const foundClientId = (await getSavedUserClientId(userId, clientId))!;
 
   assertionInitializerHelper().clientId({
     equalValue: foundClientId.clientId,
@@ -61,7 +59,7 @@ const testCreatedUserClientId = async (clientId: string) => {
 };
 
 const getSavedUserClientId = async (userId: string, clientId: string) => {
-  const savedUser = (await getSavedUser(userId)) as UserMongo;
+  const savedUser = (await getSavedUser(userId))!;
   return savedUser.clients.find((i) => i.clientId === clientId);
 };
 const getSavedUser = async (userId: string) => {
@@ -69,12 +67,12 @@ const getSavedUser = async (userId: string) => {
 };
 
 const testCreatedUserData = (
-  user: UserMongo,
+  user: UserData,
   cellphone: Cellphone,
   fullName: FullName
 ) => {
   const requestUserData = {
-    ...userUtilities.defaultUserData(),
+    ...userUtils.getDefaultUserData(),
     ...cellphone,
     ...fullName,
   };

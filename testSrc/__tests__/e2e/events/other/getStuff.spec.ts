@@ -1,12 +1,7 @@
 import { customTypeof } from "custom-typeof";
 
-import {
-  ErrorCollection,
-  NativeModel,
-  NativeModelKey,
-  SocketRoute,
-  ValidationModel,
-} from "~/types";
+import { NativeError, SocketEvent, ValidationModel } from "~/types";
+import { NativeModel } from "~/types/models";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { helpers } from "@/helpers";
@@ -21,24 +16,24 @@ describe("getAllStuff success tests", () => {
 
     const { data } = await requester.sendFullFeaturedRequest();
 
-    testRoutes(Object.values(data.routes));
+    testEvents(data.events);
     testModels(data.models);
     testErrors(data.errors);
-    testValidationModels(data.validationModels);
+    testValidationModels(Object.values(data.validationModels));
   });
 });
 
-const testRoutes = (routes: SocketRoute[]) => {
-  routes.forEach((route) => {
-    expect(typeof route.name).toBe(FIELD_TYPE.STRING);
-    expect(typeof route.method).toBe(FIELD_TYPE.STRING);
-    expect(typeof route.name).toBe(FIELD_TYPE.STRING);
-    expect(customTypeof.isObject(route.inputFields)).toBeTruthy();
-    expect(customTypeof.isObject(route.outputFields)).toBeTruthy();
+const testEvents = (events: SocketEvent[]) => {
+  events.forEach((event) => {
+    expect(typeof event.name).toBe(FIELD_TYPE.STRING);
+    expect(typeof event.method).toBe(FIELD_TYPE.STRING);
+    expect(typeof event.name).toBe(FIELD_TYPE.STRING);
+    expect(customTypeof.isObject(event.inputFields)).toBeTruthy();
+    expect(customTypeof.isObject(event.outputFields)).toBeTruthy();
   });
 };
 
-const testModels = (models: { [prop in NativeModelKey]: NativeModel }) => {
+const testModels = (models: NativeModel[]) => {
   Object.values(models).forEach((value) => {
     expect(customTypeof.isObject(value)).toBeTruthy();
     Object.values(value).forEach((prop) => {
@@ -48,7 +43,7 @@ const testModels = (models: { [prop in NativeModelKey]: NativeModel }) => {
   });
 };
 
-const testErrors = (errors: ErrorCollection) => {
+const testErrors = (errors: NativeError[]) => {
   Object.values(errors).forEach((error) => {
     expect(customTypeof.isObject(error)).toBeTruthy();
     expect(typeof error.reason).toBe(FIELD_TYPE.STRING);

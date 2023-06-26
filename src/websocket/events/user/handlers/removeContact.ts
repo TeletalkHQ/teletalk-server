@@ -1,20 +1,20 @@
-import { userUtilities } from "~/classes/UserUtilities";
 import { services } from "~/services";
-import { Contact, SocketOnHandler } from "~/types";
+import { RemoveContactIO, SocketOnHandler } from "~/types";
 
-const removeContact: SocketOnHandler = async (socket, data) => {
+const removeContact: SocketOnHandler<RemoveContactIO> = async (
+  socket,
+  data
+) => {
   const { userId: currentUserId } = socket;
-
-  const targetContact = userUtilities.extractContact(data as Contact);
 
   await services.removeContact({
     currentUserId,
-    targetContact,
+    targetUserId: data.userId,
   });
 
   return {
     data: {
-      removedContact: targetContact,
+      removedContact: { userId: data.userId },
     },
   };
 };

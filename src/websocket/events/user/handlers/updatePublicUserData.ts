@@ -1,8 +1,13 @@
-import { userUtilities } from "~/classes/UserUtilities";
-import { services } from "~/services";
-import { PublicUserData, SocketOnHandler } from "~/types";
+import { PublicUserData } from "utility-store/lib/types";
 
-const updatePublicUserData: SocketOnHandler = async (socket, data) => {
+import { userUtils } from "~/classes/UserUtils";
+import { services } from "~/services";
+import { SocketOnHandler, UpdatePublicUserDataIO } from "~/types";
+
+const updatePublicUserData: SocketOnHandler<UpdatePublicUserDataIO> = async (
+  socket,
+  data
+) => {
   const { userId: currentUserId } = socket;
   const { bio, firstName, lastName, username } = data;
 
@@ -16,7 +21,7 @@ const updatePublicUserData: SocketOnHandler = async (socket, data) => {
     },
   });
 
-  const publicUserData = userUtilities.extractPublicUserData(
+  const publicUserData = userUtils.extractPublicUserData(
     updatedUser as PublicUserData
   );
 

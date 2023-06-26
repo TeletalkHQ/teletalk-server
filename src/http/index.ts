@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import http from "http";
@@ -6,6 +7,8 @@ import { clientManager } from "~/classes/ClientIdManager";
 
 const expressApp = express();
 
+expressApp.use(cookieParser());
+
 expressApp.use(
   cors({
     credentials: true,
@@ -13,7 +16,12 @@ expressApp.use(
   })
 );
 
-expressApp.get("/setClientId", async (_req, res) => {
+expressApp.get("/setClientId", async (req, res) => {
+  if (req.cookies.client) {
+    res.end("Client is already set!");
+    return;
+  }
+
   const clientStr = await clientManager.signClient();
   res.setHeader("Content-Type", "text/plain");
   res.statusCode = 200;

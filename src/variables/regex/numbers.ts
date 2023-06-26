@@ -1,6 +1,6 @@
-import { utilities } from "~/utilities";
+import { utils } from "~/utils";
 
-const enNumber = utilities.regexMaker("^[0-9]+$");
+const enNumber = utils.regexMaker("^[0-9]+$");
 
 const numbers = { enNumber };
 

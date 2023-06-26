@@ -1,12 +1,12 @@
 import { clientStore } from "~/classes/ClientStore";
-import { userUtilities } from "~/classes/UserUtilities";
+import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
-import { SocketOnHandler } from "~/types";
+import { SocketOnHandler, VerifyIO } from "~/types";
 
-const verify: SocketOnHandler = async (socket) => {
+const verify: SocketOnHandler<VerifyIO> = async (socket) => {
   const client = (await clientStore.find(socket.clientId))!;
 
-  const cellphone = userUtilities.extractCellphone(client);
+  const cellphone = userUtils.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);
   if (foundUser) {
     await addNewClient(foundUser.userId, socket.clientId);

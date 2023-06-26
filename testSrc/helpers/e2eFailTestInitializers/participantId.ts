@@ -7,7 +7,7 @@ const chatModels = models.native;
 
 const participantIdE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
-  data = {}
+  data
 ) => {
   e2eFailTestInitializer
     .create(

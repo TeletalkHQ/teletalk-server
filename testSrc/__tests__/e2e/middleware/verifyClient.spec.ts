@@ -2,7 +2,7 @@ import { randomMaker } from "utility-store";
 
 import { models } from "~/models";
 import { errors } from "~/variables";
-import { arrayOfRoutes } from "~/websocket/events";
+import { eventsArray } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
@@ -10,10 +10,10 @@ import { helpers } from "@/helpers";
 
 //REFACTOR: fail suit message like this
 describe("verifyClient fail tests", () => {
-  for (const route of arrayOfRoutes) {
+  for (const event of eventsArray) {
     const title = helpers.createFailTestMessage(
       errors.client_invalid,
-      route.name
+      event.name
     );
     it(title, async () => {
       const ci = clientInitializer();
@@ -22,10 +22,10 @@ describe("verifyClient fail tests", () => {
       ci.initClient();
       ci.connect();
 
-      await requesterMaker(ci.getClient(), route).sendFullFeaturedRequest(
-        {},
-        errors.client_invalid
-      );
+      await requesterMaker(
+        ci.getClient(),
+        event as any
+      ).sendFullFeaturedRequest({}, errors.client_invalid);
     });
   }
 });

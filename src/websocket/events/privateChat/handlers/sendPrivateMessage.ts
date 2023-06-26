@@ -1,14 +1,17 @@
 import { services } from "~/services";
-import { SocketOnHandler } from "~/types";
+import { SendPrivateMessageIO, SocketOnHandler } from "~/types";
 
-const sendPrivateMessage: SocketOnHandler = async (socket, data) => {
+const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
+  socket,
+  data
+) => {
   const { userId: currentUserId } = socket;
-  const { participantId, messageText } = data;
+  const { participantId, messageText: text } = data;
 
   const { chatId, addedMessage } = await services.sendPrivateMessage({
     currentUserId,
     participantId,
-    messageText,
+    messageText: text,
   });
 
   socket.io

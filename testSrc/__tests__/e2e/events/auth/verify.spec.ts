@@ -1,7 +1,6 @@
 import { clientStore } from "~/classes/ClientStore";
 import { models } from "~/models";
 import { services } from "~/services";
-import { ClientObjType, UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { authHelper } from "@/classes/AuthHelper";
@@ -45,7 +44,7 @@ describe("verifySignIn success test", () => {
       await testUserClientId(helper.getClientId());
     }
 
-    const user = (await services.findOneUser(cellphone)) as UserMongo;
+    const user = (await services.findOneUser(cellphone))!;
 
     expect(clients.length).toBe(user.clients.length);
 
@@ -86,10 +85,8 @@ const testUserClientId = async (clientId: string) => {
 };
 
 const getSavedUserClient = async (userId: string, clientId: string) => {
-  const savedUser = (await getSavedUser(userId)) as UserMongo;
-  return savedUser.clients.find(
-    (i) => i.clientId === clientId
-  ) as ClientObjType;
+  const savedUser = (await getSavedUser(userId))!;
+  return savedUser.clients.find((i) => i.clientId === clientId)!;
 };
 
 const getSavedUser = async (userId: string) => {

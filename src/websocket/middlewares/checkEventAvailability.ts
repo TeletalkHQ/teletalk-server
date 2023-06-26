@@ -1,14 +1,18 @@
 import { SocketMiddleware } from "~/types";
 import { errors } from "~/variables";
-import { arrayOfRoutes } from "~/websocket/events";
+import { eventsArray } from "~/websocket/events";
 
-const checkEventAvailability: SocketMiddleware = (_socket, next, [name]) => {
-  const foundEvent = arrayOfRoutes.find((item) => item.name === name);
+const checkEventAvailability: SocketMiddleware = (
+  _socket,
+  next,
+  [eventName]
+) => {
+  const foundEvent = eventsArray.find((item) => item.name === eventName);
 
   if (!foundEvent)
     throw {
       ...errors.eventNotFound,
-      event: name,
+      eventName,
     };
 
   next();

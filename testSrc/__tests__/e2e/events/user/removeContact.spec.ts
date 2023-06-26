@@ -1,8 +1,7 @@
-import { ContactWithCellphone } from "utility-store/lib/types";
+import { ContactItem, UserData } from "utility-store/lib/types";
 
-import { userUtilities } from "~/classes/UserUtilities";
+import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
-import { UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -15,8 +14,7 @@ describe("removeContact successful test", () => {
     const addingContacts = await createContacts(contactsLength);
 
     const { socket, user: currentUser } = await randomMaker.user();
-    const addContactRequester =
-      helpers.requesterCollection.addContactWithCellphone(socket);
+    const addContactRequester = helpers.requesterCollection.addContact(socket);
 
     for (const addingContact of addingContacts) {
       await addContactRequester.sendFullFeaturedRequest(addingContact);
@@ -64,7 +62,7 @@ await helpers.asyncDescribe("removeContact fail tests", async () => {
 
 const createContacts = async (length: number) => {
   const users = await randomMaker.users(length);
-  return users.map((i) => userUtilities.extractContactWithCellphone(i.user));
+  return users.map((i) => userUtils.extractContact(i.user));
 };
 
 const testRemovedContact = (equalValue: string, testValue: string) => {
@@ -72,8 +70,8 @@ const testRemovedContact = (equalValue: string, testValue: string) => {
 };
 
 const testContactsAfterRemoveOneItem = async (
-  currentUser: UserMongo,
-  addingContacts: ContactWithCellphone[]
+  currentUser: UserData,
+  addingContacts: ContactItem[]
 ) => {
   const nonRemovedContacts = await findContacts(currentUser.userId);
   expect(nonRemovedContacts.length).toEqual(addingContacts.length);
@@ -81,11 +79,9 @@ const testContactsAfterRemoveOneItem = async (
   addingContacts.forEach((addingContact) => {
     const nonRemovedContact = nonRemovedContacts.find(
       (j) => addingContact.userId === j.userId
-    ) as ContactWithCellphone;
+    ) as ContactItem;
 
-    expect(addingContact).toEqual(
-      userUtilities.extractContactWithCellphone(nonRemovedContact)
-    );
+    expect(addingContact).toEqual(userUtils.extractContact(nonRemovedContact));
   });
 };
 
@@ -95,6 +91,6 @@ const testContactsAfterRemoveAll = async (userId: string) => {
 };
 
 const findContacts = async (userId: string) => {
-  const { contacts } = (await services.findOneUserById(userId)) as UserMongo;
+  const { contacts } = (await services.findOneUserById(userId))!;
   return contacts;
 };

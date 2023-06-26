@@ -1,24 +1,27 @@
 import { Socket as ClientSocket } from "socket.io-client";
 
-import { EventName, SocketRoute } from "~/types";
+import { IO, SocketEvent } from "~/types";
 
 import { Requester } from "@/classes/Requester";
+import { helpers } from "@/helpers";
 
-export type RequesterMaker = (socketClient: ClientSocket) => Requester;
+export type RequesterMaker<IOType extends IO> = (
+  socketClient: ClientSocket
+) => Requester<IOType>;
 
-export type RequesterMakerWrapper = (socket: ClientSocket) => Requester;
+export type RequesterMakerWrapper<IOType extends IO> = (
+  socket: ClientSocket
+) => Requester<IOType>;
 
-export type RequesterMakerHelper = (
-  route: SocketRoute
-) => RequesterMakerWrapper;
+export type RequesterMakerHelper<IOType extends IO> = (
+  event: SocketEvent<IOType>
+) => RequesterMakerWrapper<IOType>;
 
-export type RequesterCollection = {
-  [prop in EventName]: RequesterMakerWrapper;
-};
+export type RequesterCollection = typeof helpers.requesterCollection;
 
-export type E2eFailTestInitializer = (
-  configuredRequester: Requester,
-  data: object
+export type E2eFailTestInitializer<IOType extends IO = any> = (
+  configuredRequester: Requester<IOType>,
+  data: Readonly<object>
 ) => void;
 
 export type AssertionInitializerOptions = {

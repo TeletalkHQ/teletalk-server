@@ -1,19 +1,20 @@
 import { errorThrower } from "utility-store";
+import { UserData, UserId } from "utility-store/lib/types";
 
 import { commonServices } from "~/services/common";
-import { Contact, HydratedUserMongo, UserMongo } from "~/types";
+import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
 const removeContact = async (data: {
-  currentUserId: string;
-  targetContact: Contact;
+  currentUserId: UserId;
+  targetUserId: UserId;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.currentUserNotExist;
 
   const { index } = checkExistenceOfContactItem(
     currentUser.contacts,
-    data.targetContact
+    data.targetUserId
   );
 
   await removeContactAndSave(currentUser, index);
@@ -27,20 +28,20 @@ const findCurrentUser = async (currentUserId: string) => {
 };
 
 const checkExistenceOfContactItem = (
-  contacts: UserMongo["contacts"],
-  targetContact: Contact
+  contacts: UserData["contacts"],
+  targetUserId: UserId
 ) => {
-  const index = contacts.findIndex((c) => c.userId === targetContact.userId);
+  const index = contacts.findIndex((c) => c.userId === targetUserId);
   errorThrower(index === -1, () => ({
     ...errors.contactItemNotExist,
-    targetContact,
+    targetUserId,
   }));
 
   return { index };
 };
 
 const removeContactAndSave = async (
-  currentUser: HydratedUserMongo,
+  currentUser: HydratedUser,
   index: number
 ) => {
   currentUser.contacts.splice(index, 1);

@@ -1,18 +1,20 @@
+import { IO } from "~/types";
+
 import { Requester } from "@/classes/Requester";
 import { e2eFailTestInitializers } from "@/helpers/e2eFailTestInitializers";
 
 type MethodName = keyof typeof e2eFailTestInitializers;
 
-class E2eFailTestInitializerHelper {
-  constructor(private requester: Requester) {}
+class E2eFailTestInitializerHelper<IOType extends IO> {
+  constructor(private requester: Requester<IOType>) {}
 
-  setRequirements(requester: Requester) {
+  setRequirements(requester: Requester<IOType>) {
     this.requester = requester;
     return this;
   }
 
   private initializer(methodName: MethodName) {
-    return (data?: any) => {
+    return (data: IOType["input"] = {}) => {
       e2eFailTestInitializers[methodName](this.requester, data);
       return this;
     };
@@ -41,7 +43,8 @@ class E2eFailTestInitializerHelper {
   verificationCode = this.initializer("verificationCode");
 }
 
-const e2eFailTestInitializerHelper = (requester: Requester) =>
-  new E2eFailTestInitializerHelper(requester);
+const e2eFailTestInitializerHelper = <IOType extends IO>(
+  requester: Requester<IOType>
+) => new E2eFailTestInitializerHelper<IOType>(requester);
 
 export { e2eFailTestInitializerHelper };

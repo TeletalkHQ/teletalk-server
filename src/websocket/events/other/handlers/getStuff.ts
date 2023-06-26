@@ -1,15 +1,16 @@
 import { models } from "~/models";
-import { SocketOnHandler } from "~/types";
+import { validationModels } from "~/models/validation";
+import { GetStuffIO, SocketOnHandler } from "~/types";
 import { errors } from "~/variables";
-import { routes } from "~/websocket/events";
+import { events } from "~/websocket/events";
 
-const getStuff: SocketOnHandler = (_socket) => {
+const getStuff: SocketOnHandler<GetStuffIO> = (_socket) => {
   const stuff = {
-    errors,
-    models: models.native,
-    routes,
-    validationModels: models.validation,
-  };
+    errors: Object.values(errors),
+    models: Object.values(models.native),
+    events: Object.values(events),
+    validationModels,
+  } as GetStuffIO["output"];
 
   return {
     data: stuff,

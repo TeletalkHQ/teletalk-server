@@ -1,10 +1,13 @@
-import { userUtilities } from "utility-store";
+import { userUtils } from "utility-store";
 
 import { services } from "~/services";
-import { SocketOnHandler } from "~/types";
+import { GetPublicUserDataIO, SocketOnHandler } from "~/types";
 import { errors } from "~/variables";
 
-const getPublicUserData: SocketOnHandler = async (_socket, data) => {
+const getPublicUserData: SocketOnHandler<GetPublicUserDataIO> = async (
+  _socket,
+  data
+) => {
   const { userId } = data;
 
   const user = await services.getTargetUserData({
@@ -14,7 +17,7 @@ const getPublicUserData: SocketOnHandler = async (_socket, data) => {
 
   return {
     data: {
-      publicUserData: userUtilities.extractPublicUserData(user),
+      publicUserData: userUtils.extractPublicUserData(user),
     },
   };
 };

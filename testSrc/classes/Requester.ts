@@ -1,27 +1,33 @@
 import { IoFields } from "check-fields";
 import { customTypeof } from "custom-typeof";
 import { Socket as Client } from "socket.io-client";
-import { objectUtilities } from "utility-store";
+import { objectUtils } from "utility-store";
 
-import { NativeError, SocketResponse, SocketRoute, StringMap } from "~/types";
+import {
+  IO,
+  NativeError,
+  SocketEvent,
+  SocketResponse,
+  StringMap,
+} from "~/types";
 import { errors } from "~/variables";
 
 import { loggerHelper } from "@/helpers/logHelper";
 import { RequesterOptions } from "@/types";
 
-class Requester {
+class Requester<IOType extends IO> {
   private error?: NativeError;
   private options: RequesterOptions = {
     shouldFilterRequestData: true,
   };
   private requestData: StringMap;
-  private response: SocketResponse;
-  private route: SocketRoute;
+  private response: SocketResponse<IOType["output"]>;
+  private event: SocketEvent<IOType>;
   private socket: Client;
 
-  constructor(socket: Client, route: SocketRoute) {
+  constructor(socket: Client, event: SocketEvent<IOType>) {
     this.setSocket(socket);
-    this.setRoute(route);
+    this.setEvent(event);
   }
 
   getOptions() {
@@ -46,19 +52,19 @@ class Requester {
     return this;
   }
 
-  getRoute() {
-    return this.route;
+  getEvent() {
+    return this.event;
   }
 
   getEventName() {
-    return this.route.name;
+    return this.event.name;
   }
-  setRoute(route: SocketRoute) {
-    this.route = route;
+  setEvent(event: typeof this.event) {
+    this.event = event;
     return this;
   }
   getInputFields() {
-    return this.getRoute().inputFields;
+    return this.getEvent().inputFields;
   }
 
   getError() {
@@ -103,14 +109,14 @@ class Requester {
     }
   }
   filterRequestData(requestData: StringMap, inputFields: StringMap) {
-    return objectUtilities.excludePropsPeerToPeer(
+    return objectUtils.excludePropsPeerToPeer(
       requestData,
       inputFields
     ) as StringMap;
   }
 
   async sendRequest() {
-    const { name } = this.getRoute();
+    const { name } = this.getEvent();
     const requestData = this.getRequestData();
 
     const response = (await new Promise((resolve, _reject) => {
@@ -123,7 +129,7 @@ class Requester {
   }
 
   async sendFullFeaturedRequest(
-    data?: StringMap,
+    data: IOType["input"] = {},
     error?: NativeError,
     options: Partial<RequesterOptions> = this.getOptions()
   ) {
@@ -141,7 +147,7 @@ class Requester {
     loggerHelper.logRequestDetails(
       finalOptions,
       this.getRequestData(),
-      this.getRoute(),
+      this.getEvent(),
       this.getError()
     );
 
@@ -187,13 +193,15 @@ class Requester {
     expect(customTypeof.isArray(errors)).toBeTruthy();
 
     const err = errors?.find((i) => i.reason === expectedReason);
-    expect(err?.reason).toEqual(expectedReason);
+    expect(expectedReason).toEqual(err?.reason);
 
     return this;
   }
 }
 
-const requesterMaker = (socket: Client, route: SocketRoute) =>
-  new Requester(socket, route);
+const requesterMaker = <IOType extends IO>(
+  socket: Client,
+  event: SocketEvent<IOType>
+) => new Requester(socket, event);
 
 export { Requester, requesterMaker };

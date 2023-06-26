@@ -1,5 +1,4 @@
 import { services } from "~/services";
-import { UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -89,6 +88,6 @@ const testBlacklistAfterRemoveAll = async (userId: string) => {
 };
 
 const findBlacklist = async (userId: string) => {
-  const { blacklist } = (await services.findOneUserById(userId)) as UserMongo;
+  const { blacklist } = (await services.findOneUserById(userId))!;
   return blacklist;
 };

@@ -1,8 +1,9 @@
 import { customTypeof } from "custom-typeof";
 import { Socket } from "socket.io-client";
+import { UserData, UserId } from "utility-store/lib/types";
 
 import { services } from "~/services";
-import { Message, Participant, PrivateChatMongo, UserMongo } from "~/types";
+import { PrivateChatData } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -60,9 +61,9 @@ const testEmptinessOfPrivateChats = async (socket: Socket) => {
 };
 
 const testPrivateChats = async (
-  currentUser: UserMongo,
+  currentUser: UserData,
   currentUserSocket: Socket,
-  targetUser: UserMongo
+  targetUser: UserData
 ) => {
   const { privateChats } = await getAllPrivateChats(currentUserSocket);
   expect(customTypeof.isArray(privateChats)).toBeTruthy();
@@ -70,13 +71,13 @@ const testPrivateChats = async (
   const foundChatFromDb = (await findStoredPrivateChat(
     currentUser.userId,
     targetUser.userId
-  )) as PrivateChatMongo;
+  )) as PrivateChatData;
 
   testFoundChatFromDb(foundChatFromDb);
 
-  const foundChat = (privateChats as PrivateChatMongo[]).find(
-    (i) => i.chatId === (foundChatFromDb as PrivateChatMongo).chatId
-  ) as PrivateChatMongo;
+  const foundChat = (privateChats as PrivateChatData[]).find(
+    (i) => i.chatId === (foundChatFromDb as PrivateChatData).chatId
+  ) as PrivateChatData;
 
   testOnePrivateChat({
     currentUserId: currentUser.userId,
@@ -105,7 +106,7 @@ const findStoredPrivateChat = async (
   });
 };
 
-const testFoundChatFromDb = (foundChatFromDb: PrivateChatMongo) => {
+const testFoundChatFromDb = (foundChatFromDb: PrivateChatData) => {
   expect(customTypeof.isObject(foundChatFromDb)).toBeTruthy();
   expect(customTypeof.isArray(foundChatFromDb.participants)).toBeTruthy();
   expect(customTypeof.isArray(foundChatFromDb.participants)).toBeTruthy();
@@ -113,9 +114,9 @@ const testFoundChatFromDb = (foundChatFromDb: PrivateChatMongo) => {
 };
 
 const testOnePrivateChat = (data: {
-  currentUserId: string;
-  foundChat: PrivateChatMongo;
-  foundChatFromDb: PrivateChatMongo;
+  currentUserId: UserId;
+  foundChat: PrivateChatData;
+  foundChatFromDb: PrivateChatData;
   targetUserId: string;
 }) => {
   expect(customTypeof.isObject(data.foundChat)).toBeTruthy();
@@ -128,8 +129,8 @@ const testOnePrivateChat = (data: {
 };
 
 const tesChatId = (
-  foundChat: PrivateChatMongo,
-  foundChatFromDb: PrivateChatMongo
+  foundChat: PrivateChatData,
+  foundChatFromDb: PrivateChatData
 ) => {
   assertionInitializerHelper().chatId({
     equalValue: foundChat.chatId,
@@ -138,23 +139,23 @@ const tesChatId = (
 };
 
 const testMessages = (
-  foundChat: PrivateChatMongo,
-  foundChatFromDb: PrivateChatMongo
+  foundChat: PrivateChatData,
+  foundChatFromDb: PrivateChatData
 ) => {
   for (const item of foundChat.messages) {
     const {
-      messageText,
+      messageText: text,
       messageId,
       sender: { senderId },
     } = item;
     const foundMessageFromDb = foundChatFromDb.messages.find(
       (i) => i.messageId === messageId
-    ) as Message;
+    )!;
 
     assertionInitializerHelper()
       .messageText({
         equalValue: foundMessageFromDb.messageText,
-        testValue: messageText,
+        testValue: text,
       })
       .messageId({
         equalValue: foundMessageFromDb.messageId,
@@ -168,9 +169,9 @@ const testMessages = (
 };
 
 const testParticipants = (data: {
-  currentUserId: string;
-  foundChat: PrivateChatMongo;
-  foundChatFromDb: PrivateChatMongo;
+  currentUserId: UserId;
+  foundChat: PrivateChatData;
+  foundChatFromDb: PrivateChatData;
   targetUserId: string;
 }) => {
   const {
@@ -205,9 +206,9 @@ const testParticipants = (data: {
 };
 
 const findAllParticipants = (data: {
-  currentUserId: string;
-  foundChat: PrivateChatMongo;
-  foundChatFromDb: PrivateChatMongo;
+  currentUserId: UserId;
+  foundChat: PrivateChatData;
+  foundChatFromDb: PrivateChatData;
   targetUserId: string;
 }) => {
   return {
@@ -229,7 +230,5 @@ const findAllParticipants = (data: {
     ),
   };
 };
-const findParticipant = (chat: PrivateChatMongo, participantId: string) =>
-  chat.participants.find(
-    (i) => i.participantId === participantId
-  ) as Participant;
+const findParticipant = (chat: PrivateChatData, participantId: string) =>
+  chat.participants.find((i) => i.participantId === participantId)!;

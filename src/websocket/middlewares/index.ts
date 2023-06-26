@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 
-import { routesWithoutAuth } from "~/websocket/events";
+import { eventsWithoutAuth } from "~/websocket/events";
 import { applyMiddlewares } from "~/websocket/middlewares/applyMiddlewares";
 import { attachClientId } from "~/websocket/middlewares/attachClientId";
 import { attachClientStr } from "~/websocket/middlewares/attachClientStr";
@@ -27,7 +27,7 @@ export const registerMiddlewares = (socket: Socket) => {
 
   socket.customUse(
     ignoreMiddlewares(
-      routesWithoutAuth.map((i) => i.name),
+      eventsWithoutAuth.map((i) => i.name),
       checkClient
     )
   );
@@ -48,14 +48,7 @@ export const registerMiddlewares = (socket: Socket) => {
 
   socket.customUse(
     applyMiddlewares(
-      [
-        "addBlock",
-        "addContact",
-        "addContactWithCellphone",
-        "editContact",
-        "removeBlock",
-        "removeContact",
-      ],
+      ["addBlock", "addContact", "editContact", "removeBlock", "removeContact"],
       selfStuffCheck
     )
   );

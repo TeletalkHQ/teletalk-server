@@ -1,5 +1,5 @@
 import { commonServices } from "~/services/common";
-import { HydratedUserMongo } from "~/types";
+import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
 export const addNewClient = async (data: {
@@ -19,10 +19,7 @@ const findCurrentUser = async (userId: string) => {
   );
 };
 
-const addAndSaveNew = async (
-  currentUser: HydratedUserMongo,
-  clientId: string
-) => {
+const addAndSaveNew = async (currentUser: HydratedUser, clientId: string) => {
   currentUser.clients.push({ clientId });
 
   await currentUser.save();

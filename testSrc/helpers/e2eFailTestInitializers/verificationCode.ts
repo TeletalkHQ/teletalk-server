@@ -7,7 +7,7 @@ import { E2eFailTestInitializer } from "@/types";
 
 const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
-  data = {}
+  data
 ) => {
   const builder = e2eFailTestInitializer.create(
     configuredRequester,

@@ -3,10 +3,9 @@ import { errors } from "~/variables";
 import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
 
-const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
-  configuredRequester,
-  data
-) => {
+const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer<
+  any
+> = (configuredRequester, data) => {
   it(
     helpers.createFailTestMessage(
       errors.blacklistItemNotExist,

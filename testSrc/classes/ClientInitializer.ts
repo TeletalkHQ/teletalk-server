@@ -9,7 +9,7 @@ import Client, {
 
 import { appConfigs } from "~/classes/AppConfigs";
 import { clientManager } from "~/classes/ClientIdManager";
-import { utilities } from "~/utilities";
+import { utils } from "~/utils";
 import { errors } from "~/variables";
 
 const {
@@ -37,7 +37,7 @@ const setClientIdRequestBody = (
     const cookies = res.headers["set-cookie"];
     if (!cookies) return reject(errors.cookieIsNotDefined);
 
-    resolve(utilities.extractClientFromCookie(cookies[0]));
+    resolve(utils.extractClientFromCookie(cookies[0]));
   };
 };
 

@@ -2,7 +2,7 @@ import { Schema, SchemaDefinitionProperty, model } from "mongoose";
 
 import { makeMongoSchemaValue } from "~/helpers/makeMongoSchemaValue";
 import { nativeModels } from "~/models/native";
-import { IUserDoc, IUserModel } from "~/types";
+import { IUserDoc, IUserModel } from "~/types/models";
 
 const bioMaker = makeMongoSchemaValue("bio");
 const countryCodeMaker = makeMongoSchemaValue("countryCode");
@@ -136,11 +136,3 @@ Schema.Types.String.checkRequired((v) => v !== null);
 const UserModel = model<IUserDoc, IUserModel>("User", userSchema, "users");
 
 export { UserModel };
-
-// userSchema.post("save", function (error: any, doc: any, next: any) {
-//   if (error.name === "MongoError" && error.code === 11000) {
-//     next(new Error("user_exists"));
-//   } else {
-//     next();
-//   }
-// });

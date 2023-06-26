@@ -1,5 +1,5 @@
 import { errors } from "~/variables";
-import { arrayOfRoutes, routes } from "~/websocket/events";
+import { events, eventsArray } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
@@ -8,27 +8,28 @@ import { helpers } from "@/helpers";
 await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
   const { socket } = await randomMaker.user();
 
-  const routesWithInputFields = arrayOfRoutes.filter(
+  const eventsWithInputFields = eventsArray.filter(
     (i) => Object.keys(i.inputFields).length
   );
 
-  const routesWithInputFieldsExceptAuth = routesWithInputFields.filter(
+  const eventsWithInputFieldsExceptAuth = eventsWithInputFields.filter(
     (i) =>
       ![
-        routes.signIn.name,
-        routes.verify.name,
-        routes.createNewUser.name,
+        events.signIn.name,
+        events.verify.name,
+        events.createNewUser.name,
       ].includes(i.name)
   );
 
   return () => {
-    for (const route of routesWithInputFieldsExceptAuth) {
+    for (const event of eventsWithInputFieldsExceptAuth) {
       const title = helpers.createFailTestMessage(
         errors.inputFieldsMissing,
-        route.name
+        event.name
       );
+
       it(title, async () => {
-        await requesterMaker(socket, route)
+        await requesterMaker(socket, event as any)
           .setError(errors.inputFieldsMissing)
           .setOptions({ shouldFilterRequestData: false })
           .sendFullFeaturedRequest();

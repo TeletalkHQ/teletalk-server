@@ -1,22 +1,21 @@
-import { nativeModelBuilder } from "~/classes/modelBuilder/NativeModelBuilder";
-import { CreatedAt, UserId } from "~/types";
-
 export const commonModels = {
-  createdAt: nativeModelBuilder
-    .create<CreatedAt>()
-    .type("number")
-    .required(true)
-    .empty(false)
-    .build(),
-  id: nativeModelBuilder
-    //REFACTOR: Use Id interface
-    .create<UserId>()
-    .type("string")
-    .required(true)
-    .empty(false)
-    .minLength(30)
-    .maxLength(35)
-    .trim(true)
-    .unique(true)
-    .build(),
-};
+  createdAt: {
+    empty: false,
+    required: true,
+    type: "number",
+  },
+  get id() {
+    return {
+      type: "string",
+      required: true,
+      empty: false,
+      minLength: 30,
+      maxLength: 35,
+      trim: true,
+      unique: true,
+    } as const;
+  },
+  get userId() {
+    return this.id;
+  },
+} as const;

@@ -2,7 +2,7 @@ import { Schema, SchemaDefinitionProperty, model } from "mongoose";
 
 import { makeMongoSchemaValue } from "~/helpers/makeMongoSchemaValue";
 import { nativeModels } from "~/models/native";
-import { IPrivateChatDoc, IPrivateChatModel } from "~/types";
+import { IPrivateChatDoc, IPrivateChatModel } from "~/types/models";
 
 const chatIdMaker = makeMongoSchemaValue("chatId");
 const messageIdMaker = makeMongoSchemaValue("messageId");

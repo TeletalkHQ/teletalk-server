@@ -1,5 +1,7 @@
+import { Cellphone, FullName } from "utility-store/lib/types";
+
 import { clientStore } from "~/classes/ClientStore";
-import { Cellphone, FullName, SocketResponse } from "~/types";
+import { CreateNewUserIO, SignInIO, SocketResponse, VerifyIO } from "~/types";
 
 import {
   ClientInitializer,
@@ -10,9 +12,9 @@ import { ClientSocket } from "@/types";
 
 class AuthHelper {
   private clientSocket: ClientSocket;
-  private createResponse: SocketResponse;
-  private signInResponse: SocketResponse;
-  private verifyResponse: SocketResponse;
+  private createResponse: SocketResponse<CreateNewUserIO["output"]>;
+  private signInResponse: SocketResponse<SignInIO["output"]>;
+  private verifyResponse: SocketResponse<VerifyIO["output"]>;
   private clientInitializer: ClientInitializer;
 
   constructor(private cellphone: Cellphone, private fullName?: FullName) {

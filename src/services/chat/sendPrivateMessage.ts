@@ -1,19 +1,21 @@
 import { randomMaker } from "utility-store";
+import { UserId } from "utility-store/lib/types";
 
 import { models } from "~/models";
 import { createPrivateChat } from "~/services/chat/createPrivateChat";
 import { findOnePrivateChat } from "~/services/chat/findOnePrivateChat";
 import { commonServices } from "~/services/common";
-import { HydratedPrivateChatMongo, Message, PrivateChatMongo } from "~/types";
+import { MessageItem, MessageText, PrivateChatData } from "~/types/datatypes";
+import { HydratedPrivateChat } from "~/types/models";
 import { errors } from "~/variables";
 
 const chatModels = models.native;
 
 //REFACTOR: Separate createPrivateChat parts
 const sendPrivateMessage = async (data: {
-  currentUserId: string;
-  messageText: string;
-  participantId: string;
+  currentUserId: UserId;
+  messageText: MessageText;
+  participantId: UserId;
 }) => {
   const targetParticipantId = await findTargetParticipantId(data.participantId);
 
@@ -52,7 +54,7 @@ const findPrivateChat = async (
   currentUserId: string,
   targetParticipantId: string
 ) => {
-  const prop = "participants.participantId" as keyof PrivateChatMongo;
+  const prop = "participants.participantId" as keyof PrivateChatData;
 
   return await findOnePrivateChat({
     [prop]: {
@@ -61,18 +63,19 @@ const findPrivateChat = async (
   });
 };
 
-const createNewMessage = (messageText: string, currentUserId: string) => ({
-  createdAt: Date.now(),
-  messageText,
-  messageId: randomMaker.id(chatModels.messageId.maxLength),
-  sender: {
-    senderId: currentUserId,
-  },
-});
+const createNewMessage = (messageText: string, currentUserId: string) =>
+  ({
+    createdAt: Date.now(),
+    messageText,
+    messageId: randomMaker.id(chatModels.messageId.maxLength),
+    sender: {
+      senderId: currentUserId,
+    },
+  } as MessageItem);
 
 const fixPrivateChat = async (data: {
-  currentUserId: string;
-  privateChat: HydratedPrivateChatMongo | null;
+  currentUserId: UserId;
+  privateChat: HydratedPrivateChat | null;
   targetParticipantId: string;
 }) =>
   data.privateChat ||
@@ -86,8 +89,8 @@ const fixPrivateChat = async (data: {
 const createChatId = () => randomMaker.id(chatModels.chatId.maxLength);
 
 const saveMessageOnPrivateChat = async (data: {
-  addedMessage: Message;
-  privateChat: HydratedPrivateChatMongo;
+  addedMessage: MessageItem;
+  privateChat: HydratedPrivateChat;
 }) => {
   data.privateChat.messages.push(data.addedMessage);
   await data.privateChat.save();

@@ -6,7 +6,7 @@ import {
   SocketMiddlewareReturnValue,
   SocketNext,
 } from "~/types";
-import { utilities } from "~/utilities";
+import { utils } from "~/utils";
 import { errors } from "~/variables";
 
 export const attachClientStr: SocketMiddleware = async (
@@ -26,7 +26,7 @@ const tryBlock = async (socket: Socket) => {
   const { cookie } = socket.handshake.headers;
   if (!cookie) throw errors.clientCookieRequired;
 
-  socket.clientStr = utilities.extractClientFromCookie(cookie);
+  socket.clientStr = utils.extractClientFromCookie(cookie);
 
   return { ok: true };
 };

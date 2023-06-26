@@ -5,16 +5,16 @@ import {
   NativeError,
   SocketEvent,
   SocketMiddleware,
+  SocketMiddlewareEvent,
   SocketNext,
-  SocketRoute,
 } from "~/types";
 import { checkFieldErrors } from "~/variables";
-import { arrayOfRoutes } from "~/websocket/events";
+import { eventsArray } from "~/websocket/events";
 
 const checkDataFields: SocketMiddleware = (_socket, next, [name, data]) => {
-  const { inputFields } = arrayOfRoutes.find(
+  const { inputFields } = eventsArray.find(
     (item) => item.name === name
-  ) as SocketRoute;
+  ) as SocketEvent;
 
   trier<void>(checkDataFields.name)
     .sync()
@@ -24,7 +24,7 @@ const checkDataFields: SocketMiddleware = (_socket, next, [name, data]) => {
     .run();
 };
 
-const tryBlock = (data: SocketEvent["1"], inputFields: IoFields) => {
+const tryBlock = (data: SocketMiddlewareEvent["1"], inputFields: IoFields) => {
   checkFields(data || {}, inputFields, checkFieldErrors.input);
 };
 

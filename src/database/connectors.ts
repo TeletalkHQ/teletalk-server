@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { createClient } from "redis";
 
 import { appConfigs } from "~/classes/AppConfigs";
-import { utilities } from "~/utilities";
+import { utils } from "~/utils";
 
 //REFACTOR: all major
 
@@ -41,7 +41,7 @@ const redisConnector = async () => {
       `Redis connected to => ${REDIS_CONNECTION_OPTIONS.HOST}:${REDIS_CONNECTION_OPTIONS.PORT}`
     )
   );
-  storage.on("error", utilities.crashServer);
+  storage.on("error", utils.crashServer);
 
   await storage.connect();
 

@@ -1,16 +1,16 @@
 import { errors } from "~/variables";
-import { routesWithAuth, routesWithoutAuth } from "~/websocket/events";
+import { eventsWithAuth, eventsWithoutAuth } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { helpers } from "@/helpers";
 
 describe("auth middleware test", () => {
-  for (const route of routesWithoutAuth) {
-    it(`should not get error: clientNotFound - ${route.name}`, async () => {
+  for (const event of eventsWithoutAuth) {
+    it(`should not get error: clientNotFound - ${event.name}`, async () => {
       const socket = (await clientInitializer().createComplete()).getClient();
       const response = (
-        await requesterMaker(socket, route).sendRequest()
+        await requesterMaker(socket, event as any).sendRequest()
       ).getResponse();
 
       const { reason: expectedReason } = errors.clientNotFound;
@@ -19,15 +19,15 @@ describe("auth middleware test", () => {
     });
   }
 
-  for (const route of routesWithAuth) {
+  for (const event of eventsWithAuth) {
     const title = helpers.createFailTestMessage(
       errors.clientNotFound,
-      route.name
+      event.name
     );
 
     it(title, async () => {
       const socket = (await clientInitializer().createComplete()).getClient();
-      await requesterMaker(socket, route)
+      await requesterMaker(socket, event as any)
         .setOptions({ shouldFilterRequestData: false })
         .setError(errors.clientNotFound)
         .sendFullFeaturedRequest();

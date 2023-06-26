@@ -1,8 +1,7 @@
-import { ContactWithCellphone } from "utility-store/lib/types";
+import { ContactItem } from "utility-store/lib/types";
 
-import { userUtilities } from "~/classes/UserUtilities";
+import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
-import { Contact, UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -16,10 +15,9 @@ describe("edit contact success tests", () => {
     const contactsLength = 10;
     const addingContacts = await createContacts(contactsLength);
 
-    const addContactWithCellphoneRequester =
-      helpers.requesterCollection.addContactWithCellphone(socket);
+    const addContactRequester = helpers.requesterCollection.addContact(socket);
     for (const contact of addingContacts) {
-      await addContactWithCellphoneRequester.sendFullFeaturedRequest(contact);
+      await addContactRequester.sendFullFeaturedRequest(contact);
     }
 
     const editContactRequester =
@@ -37,25 +35,31 @@ describe("edit contact success tests", () => {
       addingContact.firstName = sendingData.firstName;
       addingContact.lastName = sendingData.lastName;
 
-      testContact(sendingData, editedContact);
+      testContact(
+        {
+          ...sendingData,
+          ...userUtils.makeEmptyCellphone(),
+        },
+        {
+          ...editedContact,
+          ...userUtils.makeEmptyCellphone(),
+        }
+      );
 
       const { contacts: currentUserContacts } = (await services.findOneUserById(
         currentUser.userId
-      )) as UserMongo;
+      ))!;
 
       const foundEditedContact = currentUserContacts.find(
         (i) => i.userId === addingContact.userId
-      ) as ContactWithCellphone;
+      ) as ContactItem;
 
-      testContactWithCellphone(
-        { ...addingContact, ...sendingData },
-        foundEditedContact
-      );
+      testContact({ ...addingContact, ...sendingData }, foundEditedContact);
 
       testNonEditedContacts(
         { ...addingContact, ...sendingData },
         addingContacts,
-        currentUserContacts as ContactWithCellphone[]
+        currentUserContacts as ContactItem[]
       );
     }
   });
@@ -85,13 +89,13 @@ await helpers.asyncDescribe("editContact fail tests", async () => {
 
 const createContacts = async (length: number) => {
   const users = await randomMaker.users(length);
-  return users.map((i) => userUtilities.extractContactWithCellphone(i.user));
+  return users.map((i) => userUtils.extractContact(i.user));
 };
 
 const testNonEditedContacts = (
-  sendingData: ContactWithCellphone,
-  addingContacts: ContactWithCellphone[],
-  currentUserContacts: ContactWithCellphone[]
+  sendingData: ContactItem,
+  addingContacts: ContactItem[],
+  currentUserContacts: ContactItem[]
 ) => {
   const filterNonEditedContacts = addingContacts.filter(
     (i) => i.userId !== sendingData.userId
@@ -108,18 +112,13 @@ const testNonEditedContacts = (
     const foundCurrentUserContactItem = filterNonEditedCurrentUserContacts.find(
       (currentUserContactItem) =>
         currentUserContactItem.userId === contactItem.userId
-    ) as ContactWithCellphone;
+    ) as ContactItem;
 
-    testContactWithCellphone(contactItem, foundCurrentUserContactItem);
+    testContact(contactItem, foundCurrentUserContactItem);
   });
 };
 
-const testContactWithCellphone = (
-  equalValue: ContactWithCellphone,
-  testValue: ContactWithCellphone
-) => {
-  testContact(equalValue, testValue);
-
+const testContact = (equalValue: ContactItem, testValue: ContactItem) => {
   assertionInitializerHelper()
     .countryCode({
       equalValue: equalValue.countryCode,
@@ -132,11 +131,7 @@ const testContactWithCellphone = (
     .phoneNumber({
       equalValue: equalValue.phoneNumber,
       testValue: testValue.phoneNumber,
-    });
-};
-
-const testContact = (equalValue: Contact, testValue: Contact) => {
-  assertionInitializerHelper()
+    })
     .firstName({
       equalValue: equalValue.firstName,
       testValue: testValue.firstName,

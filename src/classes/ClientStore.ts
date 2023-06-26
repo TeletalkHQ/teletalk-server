@@ -36,7 +36,7 @@ class ClientStore {
     await this.storage
       .multi()
       .json.set(stateKey, this.STATE_PATH, JSON.stringify(data))
-      .expire(stateKey, 180)
+      // .expire(stateKey, 180)
       .exec();
   }
 

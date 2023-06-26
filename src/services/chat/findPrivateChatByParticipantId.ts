@@ -1,11 +1,11 @@
 import { findPrivateChat } from "~/services/chat/findPrivateChat";
-import { HydratedPrivateChatMongo, PrivateChatService } from "~/types";
+import { HydratedPrivateChat, PrivateChatService } from "~/types/models";
 
 const findPrivateChatByParticipantId: PrivateChatService<
   {
     participantId: string;
   },
-  Promise<HydratedPrivateChatMongo[] | null>
+  Promise<HydratedPrivateChat[] | null>
 > = async (data, projection, options) => {
   return await findPrivateChat(
     {

@@ -3,13 +3,9 @@ import Validator, {
   ValidationRuleObject,
 } from "fastest-validator";
 
-import {
-  Field,
-  NativeModelCollection,
-  NativeModelKey,
-  ValidationModel,
-} from "~/types";
-import { utilities } from "~/utilities";
+import { Field, ValidationModel } from "~/types";
+import { NativeModelCollection, NativeModelKey } from "~/types/models";
+import { utils } from "~/utils";
 import { errors } from "~/variables";
 
 type ErrorMessageKey = keyof MessagesType;
@@ -59,7 +55,7 @@ class ValidationModelBuilder<
     errorMessageKey: ErrorMessageKey
   ) {
     if (this.validationRuleObject.messages) {
-      this.validationRuleObject.messages[errorMessageKey] = utilities.findError(
+      this.validationRuleObject.messages[errorMessageKey] = utils.findError(
         errors,
         this.fieldName,
         modelKey as NativeModelKey

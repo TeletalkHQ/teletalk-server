@@ -1,7 +1,6 @@
 import { RandomMaker as RandomMakerMain } from "utility-store";
 
 import { models } from "~/models";
-import { UserMongo } from "~/types";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { helpers } from "@/helpers";
@@ -39,7 +38,7 @@ class RandomMaker extends RandomMakerMain {
 
     return {
       ...helper.getResponses().create.data,
-      user: response.data.user as UserMongo,
+      user: response.data.user,
       socket: helper.getClientSocket(),
     };
   }

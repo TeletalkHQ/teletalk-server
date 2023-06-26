@@ -5,7 +5,7 @@ import { E2eFailTestInitializer } from "@/types";
 
 const userIdE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
-  data = {}
+  data
 ) => {
   e2eFailTestInitializer
     .create(configuredRequester, data, models.native.userId, "userId")

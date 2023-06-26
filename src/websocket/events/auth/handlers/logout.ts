@@ -1,8 +1,8 @@
 import { clientStore } from "~/classes/ClientStore";
 import { services } from "~/services";
-import { SocketOnHandler } from "~/types";
+import { LogoutIO, SocketOnHandler } from "~/types";
 
-const logout: SocketOnHandler = async (socket) => {
+const logout: SocketOnHandler<LogoutIO> = async (socket) => {
   const { userId } = socket;
 
   await services.logout({

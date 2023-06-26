@@ -1,19 +1,20 @@
 import { errorThrower } from "utility-store";
+import { UserData, UserId } from "utility-store/lib/types";
 
 import { commonServices } from "~/services/common";
-import { BlackListItem, HydratedUserMongo, UserMongo } from "~/types";
+import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
 const removeBlock = async (data: {
-  currentUserId: string;
-  targetBlacklistItem: BlackListItem;
+  currentUserId: UserId;
+  targetUserId: UserId;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.currentUserNotExist;
 
   const { index } = checkExistenceOfBlacklistItem(
     currentUser.blacklist,
-    data.targetBlacklistItem
+    data.targetUserId
   );
 
   await removeBlockAndSave(currentUser, index);
@@ -27,21 +28,16 @@ const findCurrentUser = async (currentUserId: string) => {
 };
 
 const checkExistenceOfBlacklistItem = (
-  blacklist: UserMongo["blacklist"],
-  targetBlacklistItem: BlackListItem
+  blacklist: UserData["blacklist"],
+  targetUserId: UserId
 ) => {
-  const index = blacklist.findIndex(
-    (i) => i.userId === targetBlacklistItem.userId
-  );
+  const index = blacklist.findIndex((i) => i.userId === targetUserId);
   errorThrower(index === -1, () => errors.blacklistItemNotExist);
 
   return { index };
 };
 
-const removeBlockAndSave = async (
-  currentUser: HydratedUserMongo,
-  index: number
-) => {
+const removeBlockAndSave = async (currentUser: HydratedUser, index: number) => {
   currentUser.blacklist.splice(index, 1);
   await currentUser.save();
 };

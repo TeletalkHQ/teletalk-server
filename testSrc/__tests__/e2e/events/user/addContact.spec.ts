@@ -1,10 +1,10 @@
 import { customTypeof } from "custom-typeof";
-import { ContactWithCellphone } from "utility-store/lib/types";
+import { ContactItem } from "utility-store/lib/types";
+import { UserData } from "utility-store/lib/types";
 
-import { userUtilities } from "~/classes/UserUtilities";
+import { userUtils } from "~/classes/UserUtils";
 import { models } from "~/models";
 import { services } from "~/services";
-import { UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -14,11 +14,10 @@ import { helpers } from "@/helpers";
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
     const { user: currentUser, socket } = await randomMaker.user();
-    const addContactRequester =
-      helpers.requesterCollection.addContactWithCellphone(socket);
+    const requester = helpers.requesterCollection.addContact(socket);
 
     const contactsLength = 1;
-    const users: UserMongo[] = [];
+    const users: UserData[] = [];
     for (let i = 0; i < contactsLength; i++) {
       const { user: targetUser } = await randomMaker.user();
       users.push(targetUser);
@@ -26,17 +25,17 @@ describe("add contact success tests", () => {
 
     const addingContacts = [];
     for (const targetUser of users) {
-      const targetUserCellphone = userUtilities.extractCellphone(targetUser);
-      const sendingData = {
+      const targetUserCellphone = userUtils.extractCellphone(targetUser);
+      const sendingData: ContactItem = {
         ...targetUserCellphone,
         ...randomMaker.fullName(),
-        userId: targetUser.userId,
+        userId: "",
       };
 
-      const response = addContactRequester.sendFullFeaturedRequest(sendingData);
+      const responsePromise = requester.sendFullFeaturedRequest(sendingData);
 
       addingContacts.push({
-        res: response,
+        res: responsePromise,
         sendingData,
         targetUser,
       });
@@ -50,14 +49,12 @@ describe("add contact success tests", () => {
       await testAddContactResponse({
         addedContact,
         currentUser,
-        sendingData,
+        sendingData: { ...sendingData, userId: targetUser.userId },
         targetUser,
       });
     }
 
-    const { contacts } = (await services.findOneUserById(
-      currentUser.userId
-    )) as UserMongo;
+    const { contacts } = (await services.findOneUserById(currentUser.userId))!;
 
     expect(customTypeof.isArray(contacts)).toBeTruthy();
     expect(contacts.length).toEqual(contactsLength);
@@ -67,10 +64,10 @@ describe("add contact success tests", () => {
 await helpers.asyncDescribe("addContact fail tests", async () => {
   const currentUserSignData = randomMaker.unusedCellphone();
   const { requester, user: currentUser } = await helpers.setupRequester(
-    helpers.requesterCollection.addContactWithCellphone,
+    helpers.requesterCollection.addContact,
     currentUserSignData
   );
-  const selfStuffData = {
+  const selfStuffData: ContactItem = {
     ...currentUserSignData,
     ...randomMaker.fullName(),
     userId: currentUser.userId,
@@ -88,7 +85,7 @@ await helpers.asyncDescribe("addContact fail tests", async () => {
 
   return () => {
     const randomContact = {
-      ...randomMaker.unusedContactWithCellphone(
+      ...randomMaker.unusedContactWithEmptyCellphone(
         models.native.firstName.maxLength,
         models.native.lastName.minLength
       ),
@@ -109,10 +106,10 @@ await helpers.asyncDescribe("addContact fail tests", async () => {
 });
 
 const testAddContactResponse = async (data: {
-  addedContact: ContactWithCellphone;
-  currentUser: UserMongo;
-  sendingData: ContactWithCellphone;
-  targetUser: UserMongo;
+  addedContact: ContactItem;
+  currentUser: UserData;
+  sendingData: ContactItem;
+  targetUser: UserData;
 }) => {
   await testTargetUserContacts(data.targetUser.userId);
 
@@ -132,26 +129,19 @@ const testTargetUserContacts = async (targetUserId: string) => {
 
 const findSavedContact = async (
   currentUserId: string,
-  addedContact: ContactWithCellphone
+  addedContact: ContactItem
 ) => {
-  const contacts = (await findContacts(
-    currentUserId
-  )) as ContactWithCellphone[];
+  const contacts = (await findContacts(currentUserId)) as ContactItem[];
 
-  return contacts.find(
-    (i) => i.userId === addedContact.userId
-  ) as ContactWithCellphone;
+  return contacts.find((i) => i.userId === addedContact.userId) as ContactItem;
 };
 
 const findContacts = async (userId: string) => {
-  const { contacts } = (await services.findOneUserById(userId)) as UserMongo;
+  const { contacts } = (await services.findOneUserById(userId)) as UserData;
   return contacts;
 };
 
-const testOneContact = (
-  testValue: ContactWithCellphone,
-  equalValue: ContactWithCellphone
-) => {
+const testOneContact = (testValue: ContactItem, equalValue: ContactItem) => {
   assertionInitializerHelper()
     .userId({
       equalValue: equalValue.userId,

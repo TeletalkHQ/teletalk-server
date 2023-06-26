@@ -1,10 +1,10 @@
+import { PublicUserData, UserId } from "utility-store/lib/types";
+
 import { commonServices } from "~/services/common";
-import { PublicUserData } from "~/types";
 import { errors } from "~/variables";
 
 const updatePublicUserData = async (data: {
-  currentUserId: string;
-  //FIXME: public data interface
+  currentUserId: UserId;
   updateProperties: Partial<PublicUserData>;
 }) => {
   const currentUser = await findCurrentUser(data.currentUserId);

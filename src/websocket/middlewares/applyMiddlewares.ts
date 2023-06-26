@@ -1,17 +1,17 @@
-import { SocketMiddleware, SocketMiddlewareEvent } from "~/types";
-import { utilities } from "~/utilities";
+import { EventName, SocketMiddleware } from "~/types";
+import { utils } from "~/utils";
 
 const applyMiddlewares = (
-  events: SocketMiddlewareEvent,
+  eventNamesToApply: EventName | EventName[],
   ...middlewares: SocketMiddleware[]
 ) => {
-  return (async (socket, next, event) => {
-    if (utilities.isEventNameMatch(events, event[0])) {
-      return await utilities.executeMiddlewares({
-        event,
+  return (async (socket, next, socketMiddlewareEvent) => {
+    if (utils.isEventNameMatch(eventNamesToApply, socketMiddlewareEvent[0])) {
+      return await utils.executeMiddlewares({
         middlewares,
         next,
         socket,
+        socketMiddlewareEvent,
       });
     }
 

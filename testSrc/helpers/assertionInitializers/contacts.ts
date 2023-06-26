@@ -1,4 +1,4 @@
-import { Contact } from "~/types";
+import { ContactItem } from "utility-store/lib/types";
 
 import { oneContactAssertionInitializer } from "@/helpers/assertionInitializers/oneContact";
 import { AssertionInitializer } from "@/types";
@@ -8,9 +8,9 @@ const contactsAssertionInitializer: AssertionInitializer = ({
   equalValue,
   testValue,
 }) => {
-  equalValue.forEach((contact: Contact) => {
+  equalValue.forEach((contact: ContactItem) => {
     const responseContact = testValue.find(
-      (c: Contact) => c.userId === contact.userId
+      (c: ContactItem) => c.userId === contact.userId
     );
 
     expect(responseContact).toBe(FIELD_TYPE.OBJECT);

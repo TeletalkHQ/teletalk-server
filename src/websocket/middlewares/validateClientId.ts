@@ -6,6 +6,7 @@ import {
   SocketMiddlewareReturnValue,
   SocketNext,
 } from "~/types";
+import { validationCheckers } from "~/validationCheckers";
 import { validators } from "~/validators";
 
 export const validateClientId: SocketMiddleware = async (
@@ -22,7 +23,8 @@ export const validateClientId: SocketMiddleware = async (
 };
 
 const tryBlock = async (socket: Socket) => {
-  await validators.clientId(socket.clientId);
+  const validationResult = await validators.clientId(socket.clientId);
+  validationCheckers.clientId(validationResult, socket.clientId);
 
   return { ok: true };
 };

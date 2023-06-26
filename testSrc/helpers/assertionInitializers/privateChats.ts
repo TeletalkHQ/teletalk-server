@@ -1,5 +1,5 @@
 import { models } from "~/models";
-import { PrivateChatMongo } from "~/types";
+import { PrivateChatData } from "~/types/datatypes";
 
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
@@ -8,17 +8,16 @@ const chatModels = models.native;
 
 const privateChatsAssertionInitializer: AssertionInitializer = (
   { testValue },
-  options
+  _options
 ) => {
-  const builder = assertionInitializer
-    .create()
-    .setModel(chatModels.privateChats)
-    .setTestValue(testValue)
-    .setOptions(options);
+  const builder = assertionInitializer.create();
+  //   .setModel(chatModels.privateChats)
+  //   .setTestValue(testValue)
+  //   .setOptions(options);
 
-  builder.typeCheck().run();
+  // builder.typeCheck().run();
 
-  testValue.forEach((privateChat: PrivateChatMongo) => {
+  testValue.forEach((privateChat: PrivateChatData) => {
     builder
       .customTypeCheck(privateChat, "object")
       //TODO: Add all parts

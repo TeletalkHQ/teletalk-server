@@ -1241,6 +1241,6 @@ const countries = [
     countryName: "Zimbabwe",
     countryShortName: "ZW",
   },
-];
+] as const;
 
 export { countries };

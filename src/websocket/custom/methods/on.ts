@@ -2,6 +2,7 @@ import { checkFields } from "check-fields";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
+import { helpers } from "~/helpers";
 import {
   CustomOn,
   EventName,
@@ -12,8 +13,8 @@ import {
   SocketResponse,
   StringMap,
 } from "~/types";
-import { checkFieldErrors, errors } from "~/variables";
-import { arrayOfRoutes } from "~/websocket/events";
+import { checkFieldErrors } from "~/variables";
+import { eventsArray } from "~/websocket/events";
 
 const registerCustomOn = (socket: Socket) => {
   return ((eventName, handler) => {
@@ -76,8 +77,8 @@ function _tryToCheckOutputFields(
   trier(_tryToCheckOutputFields.name)
     .sync()
     .try(() => {
-      const foundRoute = arrayOfRoutes.find((item) => item.name === eventName)!;
-      checkFields(outputData, foundRoute.outputFields, checkFieldErrors.output);
+      const foundEvent = eventsArray.find((item) => item.name === eventName)!;
+      checkFields(outputData, foundEvent.outputFields, checkFieldErrors.output);
     })
     .catch(catchBlock, socket, responseCallback)
     .run();
@@ -99,14 +100,14 @@ async function _tryToEmitReturnValue(
 }
 
 const catchBlock = (
-  error: NativeError | undefined,
+  error: NativeError | NativeError[] | undefined,
   socket: Socket,
   eventName: EventName,
   responseCallback: ResponseCallback
 ) => {
   const response: SocketResponse = {
     data: {},
-    errors: error?.reason ? [error] : [errors.unknownError],
+    errors: helpers.resolveResponseError(error),
     ok: false,
   };
 

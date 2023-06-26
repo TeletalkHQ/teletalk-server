@@ -1,7 +1,7 @@
 import { clientManager } from "~/classes/ClientIdManager";
 import { clientStore } from "~/classes/ClientStore";
 import { errors } from "~/variables";
-import { routesWithAuth } from "~/websocket/events";
+import { eventsWithAuth } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -9,11 +9,11 @@ import { helpers } from "@/helpers";
 import { RequesterCollection } from "@/types";
 
 describe("checkCurrentUser middleware fail tests", () => {
-  routesWithAuth
+  eventsWithAuth
     .filter((i) => i.name !== "verify" && i.name !== "createNewUser")
-    .forEach((route) => {
+    .forEach((event) => {
       it(
-        helpers.createFailTestMessage(errors.currentClientNotExist, route.name),
+        helpers.createFailTestMessage(errors.currentClientNotExist, event.name),
         async () => {
           const { socket } = await randomMaker.user();
           const newAuthClient = await clientManager.signClient();
@@ -29,11 +29,11 @@ describe("checkCurrentUser middleware fail tests", () => {
             userId: client.userId,
           });
 
-          const data = helpers.generateDynamicData(route.inputFields);
+          const data = helpers.generateDynamicData(event.inputFields);
           await helpers.requesterCollection[
-            route.name as keyof RequesterCollection
+            event.name as keyof RequesterCollection
           ](ci.getClient()).sendFullFeaturedRequest(
-            data,
+            data as any,
             errors.currentClientNotExist
           );
         }

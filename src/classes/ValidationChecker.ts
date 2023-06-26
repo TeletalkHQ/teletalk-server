@@ -1,153 +1,89 @@
-import { ValidationError } from "fastest-validator";
-import { errorThrower } from "utility-store";
+import lodash from "lodash";
 
-import { Field, NativeError, NativeModel } from "~/types";
-import { utilities } from "~/utilities";
+import { helpers } from "~/helpers";
+import {
+  ErrorTypes,
+  Field,
+  NativeError,
+  ValidationCheckerError,
+  ValidationErrors,
+  ValidationResult,
+} from "~/types";
+import { NativeModel } from "~/types/models";
+import { utils } from "~/utils";
 import { errors } from "~/variables";
 
-interface Options {
-  extraErrorFields: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [prop: string]: any;
-  };
-}
-
-const getDefaultValidatorErrorTypes = () => ({
-  array: false,
-  arrayContains: false,
-  arrayEmpty: false,
-  arrayEnum: false,
-  arrayLength: false,
-  arrayMax: false,
-  arrayMin: false,
-  arrayUnique: false,
-  boolean: false,
-  date: false,
-  dateMax: false,
-  dateMin: false,
-  email: false,
-  emailEmpty: false,
-  emailMax: false,
-  emailMin: false,
-  enumValue: false,
-  equalField: false,
-  equalValue: false,
-  forbidden: false,
-  function: false,
-  luhn: false,
-  mac: false,
-  number: false,
-  numberEqual: false,
-  numberInteger: false,
-  numberMax: false,
-  numberMin: false,
-  numberNegative: false,
-  numberNotEqual: false,
-  numberPositive: false,
-  object: false,
-  objectMaxProps: false,
-  objectMinProps: false,
-  objectStrict: false,
-  required: false,
-  string: false,
-  stringAlpha: false,
-  stringAlphadash: false,
-  stringAlphanum: false,
-  stringBase64: false,
-  stringContains: false,
-  stringEmpty: false,
-  stringEnum: false,
-  stringHex: false,
-  stringLength: false,
-  stringMax: false,
-  stringMin: false,
-  stringNumeric: false,
-  stringPattern: false,
-  stringSingleLine: false,
-  tuple: false,
-  tupleEmpty: false,
-  tupleLength: false,
-  url: false,
-  uuid: false,
-  uuidVersion: false,
-});
-
-const ERROR_TYPES = getDefaultValidatorErrorTypes();
-type ErrorTypes = typeof ERROR_TYPES;
-type ValidationErrors = ValidationError[];
-type ValidationResult = true | ValidationErrors;
-
 class ValidationChecker {
-  private errorCheckers: {
-    condition: boolean;
-    error: NativeError;
-  }[] = [];
+  private collectedErrors: NativeError[] = [];
 
   private errorTypes: ErrorTypes;
 
   constructor(
     private validationResult: ValidationResult,
     private fieldName: Field,
-    public options: Partial<Options>
+    private value: unknown
   ) {}
 
-  getOptions() {
-    return this.options;
-  }
-  setOptions(newOptions: Partial<Options> = this.getOptions()) {
-    const oldOptions = this.getOptions();
-    this.options = {
-      ...oldOptions,
-      ...newOptions,
-    };
-    return this;
-  }
-
-  addExtraErrorFields(fields = {}) {
-    this.setOptions({
-      extraErrorFields: {
-        ...this.getOptions().extraErrorFields,
-        ...fields,
-      },
-    });
-
-    return this;
-  }
-
-  check(cb: (this: ValidationChecker) => void) {
+  check() {
     if (this.validationResult === true) return;
 
     this.errorTypes = convertErrorTypesToBoolean(this.validationResult);
-    cb.call(this);
-    this.execute();
+
+    this.required()
+      .stringEmpty()
+      .string()
+      .stringMax()
+      .stringMin()
+      .stringNumeric()
+      .stringLength();
+
+    if (this.collectedErrors.length) throw this.collectedErrors;
   }
 
-  stringEmpty(error = this.resolveError("empty")) {
-    this.addErrorChecker(this.errorTypes.stringEmpty, error);
+  stringEmpty() {
+    this.addErrorChecker(
+      this.errorTypes.stringEmpty,
+      this.resolveError("empty")
+    );
     return this;
   }
-  required(error = this.resolveError("required")) {
-    this.addErrorChecker(this.errorTypes.required, error);
+  required() {
+    this.addErrorChecker(
+      this.errorTypes.required,
+      this.resolveError("required")
+    );
     return this;
   }
-  string(error = this.resolveError("type")) {
-    this.addErrorChecker(this.errorTypes.string, error);
+  string() {
+    this.addErrorChecker(this.errorTypes.string, this.resolveError("type"));
     return this;
   }
-  stringNumeric(error = this.resolveError("numeric")) {
-    this.addErrorChecker(this.errorTypes.stringNumeric, error);
+  stringNumeric() {
+    this.addErrorChecker(
+      this.errorTypes.stringNumeric,
+      this.resolveError("numeric")
+    );
     return this;
   }
-  stringLength(error = this.resolveError("length")) {
-    this.addErrorChecker(this.errorTypes.stringLength, error);
+  stringLength() {
+    this.addErrorChecker(
+      this.errorTypes.stringLength,
+      this.resolveError("length")
+    );
     return this;
   }
-  stringMin(error = this.resolveError("minLength")) {
-    this.addErrorChecker(this.errorTypes.stringMin, error);
+  stringMin() {
+    this.addErrorChecker(
+      this.errorTypes.stringMin,
+      this.resolveError("minLength")
+    );
     return this;
   }
-  stringMax(error = this.resolveError("maxLength")) {
-    this.addErrorChecker(this.errorTypes.stringMax, error);
+  stringMax() {
+    this.addErrorChecker(
+      this.errorTypes.stringMax,
+      this.resolveError("maxLength")
+    );
     return this;
   }
   throwAnyway(error: NativeError) {
@@ -156,36 +92,27 @@ class ValidationChecker {
   }
 
   resolveError(prop: keyof NativeModel) {
-    return utilities.findError(errors, this.fieldName, prop);
+    return utils.findError(errors, this.fieldName, prop);
   }
 
   addErrorChecker(condition: boolean, error: NativeError) {
-    this.errorCheckers.push({
-      condition,
-      error,
-    });
+    if (condition) this.collectedErrors.push(this.makeError(error));
 
     return this;
   }
 
-  execute() {
-    for (const item of this.errorCheckers) {
-      const { condition, error } = item;
-      errorThrower(condition, () => this.makeError(error));
-    }
-  }
-
-  makeError(error: object) {
+  makeError(error: NativeError): ValidationCheckerError {
     return {
       ...error,
-      result: this.validationResult,
-      ...this.getOptions().extraErrorFields,
+      result: this.validationResult as ValidationErrors,
+      //TODO: Add this to ValidationCheckerError
+      [`validated${lodash.upperFirst(this.fieldName)}`]: this.value,
     };
   }
 }
 
 const convertErrorTypesToBoolean = (errors: ValidationErrors) => {
-  const validatorErrorTypes = getDefaultValidatorErrorTypes();
+  const validatorErrorTypes = helpers.getDefaultValidatorErrorTypes();
 
   errors.forEach((error) => {
     validatorErrorTypes[error.type as keyof ErrorTypes] = true;
@@ -197,13 +124,12 @@ const convertErrorTypesToBoolean = (errors: ValidationErrors) => {
 const validationChecker = (
   validationResult: ValidationResult,
   fieldName: Field,
-  options: Partial<Options>
-) => new ValidationChecker(validationResult, fieldName, options);
+  value: unknown
+) => new ValidationChecker(validationResult, fieldName, value);
 
 export {
   type ValidationErrors,
   type ErrorTypes,
-  type Options,
   type ValidationResult,
   validationChecker,
   ValidationChecker,

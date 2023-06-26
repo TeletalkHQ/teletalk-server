@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
+import { UserData } from "utility-store/lib/types";
 
 import { services } from "~/services";
-import { BlackListItem, UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -29,9 +29,7 @@ describe("addBlock successful tests", () => {
       });
     }
 
-    const { blacklist } = (await services.findOneUserById(
-      user.userId
-    )) as UserMongo;
+    const { blacklist } = (await services.findOneUserById(user.userId))!;
 
     expect(customTypeof.isArray(blacklist)).toBeTruthy();
     expect(blacklist.length).toEqual(blacklistLength);
@@ -69,8 +67,8 @@ await helpers.asyncDescribe("addBlock fail tests", async () => {
 
 const testAddBlockResponse = async (data: {
   blockedUserId: string;
-  currentUser: UserMongo;
-  targetUser: UserMongo;
+  currentUser: UserData;
+  targetUser: UserData;
 }) => {
   await testTargetUserBlacklist(data.targetUser.userId);
   const savedBlockItem = await findSavedBlacklist(
@@ -94,11 +92,11 @@ const findSavedBlacklist = async (
   targetUserId: string
 ) => {
   const blacklist = await findBlacklist(currentUserId);
-  return blacklist.find((i) => i.userId === targetUserId) as BlackListItem;
+  return blacklist.find((i) => i.userId === targetUserId)!;
 };
 
 const findBlacklist = async (userId: string) => {
-  const { blacklist } = (await services.findOneUserById(userId)) as UserMongo;
+  const { blacklist } = (await services.findOneUserById(userId)) as UserData;
   return blacklist;
 };
 

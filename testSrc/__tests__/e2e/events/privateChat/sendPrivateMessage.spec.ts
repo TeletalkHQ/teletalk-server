@@ -1,10 +1,8 @@
+import { UserId } from "utility-store/lib/types";
+
 import { services } from "~/services";
-import {
-  HydratedPrivateChatMongo,
-  Message,
-  Participant,
-  StringMap,
-} from "~/types";
+import { SendPrivateMessageIO } from "~/types";
+import { MessageText } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -38,7 +36,7 @@ describe("send message success tests", () => {
     const chat = (await findOnePrivateChat(
       currentUser.userId,
       targetUser.userId
-    )) as HydratedPrivateChatMongo;
+    ))!;
 
     expect(chat.messages.length).toBe(messagesLength);
   });
@@ -66,25 +64,22 @@ await helpers.asyncDescribe("send message fail tests", async () => {
 const createMessage = (index: number) => `Hello! Im message #${index}`;
 
 const testData = async (
-  currentUserId: string,
-  sentMessageResponse: StringMap,
-  targetUserId: string,
-  messageText: string
+  currentUserId: UserId,
+  sentMessageResponse: SendPrivateMessageIO["output"],
+  targetUserId: UserId,
+  messageText: MessageText
 ) => {
-  const chat = (await findOnePrivateChat(
-    currentUserId,
-    targetUserId
-  )) as HydratedPrivateChatMongo;
+  const chat = (await findOnePrivateChat(currentUserId, targetUserId))!;
 
   const currentParticipant = chat.participants.find(
     (i) => i.participantId === currentUserId
-  ) as Participant;
+  )!;
   const targetParticipant = chat.participants.find(
     (i) => i.participantId === targetUserId
-  ) as Participant;
+  )!;
   const foundMessage = chat.messages.find(
     (m) => m.messageId === sentMessageResponse.addedMessage.messageId
-  ) as Message;
+  )!;
 
   assertionInitializerHelper()
     .chatId({
@@ -118,8 +113,8 @@ const testData = async (
 };
 
 const findOnePrivateChat = async (
-  currentUserId: string,
-  targetUserId: string
+  currentUserId: UserId,
+  targetUserId: UserId
 ) => {
   return await services.findOnePrivateChat({
     "participants.participantId": {

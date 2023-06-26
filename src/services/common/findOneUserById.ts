@@ -1,18 +1,18 @@
 import { ProjectionType, QueryOptions } from "mongoose";
+import { UserData } from "utility-store/lib/types";
 
 import { models } from "~/models";
-import { HydratedUserMongo, UserMongo } from "~/types";
 
 const findOneUserById = async (
   userId: string,
   options?: QueryOptions,
-  projection?: ProjectionType<UserMongo>
+  projection?: ProjectionType<UserData>
 ) => {
-  return (await models.database.mongoDb.User.findOne(
+  return await models.database.mongoDb.User.findOne(
     { userId },
     projection,
     options
-  )) as HydratedUserMongo | null;
+  );
 };
 
 export { findOneUserById };

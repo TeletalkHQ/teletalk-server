@@ -1,5 +1,6 @@
+import { PublicUserData } from "utility-store/lib/types";
+
 import { services } from "~/services";
-import { PublicUserData, UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -22,7 +23,7 @@ describe("getUserData success tests", () => {
 
       const targetUserDataInDb = (await services.getTargetUserData({
         userId: targetUserData.userId,
-      })) as UserMongo;
+      }))!;
 
       testPublicUserData(targetUserDataInDb, publicUserData as PublicUserData);
       testPublicUserData(targetUserData, publicUserData as PublicUserData);

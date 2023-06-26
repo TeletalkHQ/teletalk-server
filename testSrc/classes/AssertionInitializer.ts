@@ -2,9 +2,7 @@
 import { CustomTypeof, customTypeof } from "custom-typeof";
 import lodash from "lodash";
 
-import { FieldType, NativeModel } from "~/types";
-
-const { upperFirst } = lodash;
+import { FieldType, NativeModel } from "~/types/models";
 
 type TestItem = () => void;
 
@@ -184,7 +182,7 @@ class AssertionInitializer<Model extends Partial<NativeModel> = any> {
   }
 
   private getCustomTypeofMethodName(type?: FieldType) {
-    return `is${upperFirst(
+    return `is${lodash.upperFirst(
       type || this.variables.model.type
     )}` as keyof CustomTypeof;
   }

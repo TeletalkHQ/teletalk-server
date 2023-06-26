@@ -1,7 +1,7 @@
 import { services } from "~/services";
-import { SocketOnHandler } from "~/types";
+import { AddBlockIO, SocketOnHandler } from "~/types";
 
-const addBlock: SocketOnHandler = async (socket, data) => {
+const addBlock: SocketOnHandler<AddBlockIO> = async (socket, data) => {
   const { userId: currentUserId } = socket;
 
   await services.addBlock({

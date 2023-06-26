@@ -1,7 +1,7 @@
 import { services } from "~/services";
-import { HydratedUserMongo, SocketOnHandler } from "~/types";
+import { GetUserDataIO, SocketOnHandler } from "~/types";
 
-const getUserData: SocketOnHandler = async (socket) => {
+const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
   const { userId: currentUserId } = socket;
 
   const { clients, ...userData } = (await services.getUserData(
@@ -9,11 +9,12 @@ const getUserData: SocketOnHandler = async (socket) => {
       userId: currentUserId,
     },
     { lean: true }
-  )) as HydratedUserMongo;
+  ))!;
 
   return {
     data: {
-      user: userData,
+      //FIXME: Handle it in serviceHandler
+      user: JSON.parse(JSON.stringify(userData)),
     },
   };
 };

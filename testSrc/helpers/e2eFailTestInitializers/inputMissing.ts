@@ -5,7 +5,7 @@ import { E2eFailTestInitializer } from "@/types";
 
 const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
-  data = {}
+  data
 ) => {
   it(
     helpers.createFailTestMessage(

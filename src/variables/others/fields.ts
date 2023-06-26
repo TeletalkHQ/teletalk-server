@@ -54,13 +54,9 @@ const fullName = {
 };
 
 const contact = {
+  ...cellphone,
   ...fullName,
   userId,
-};
-
-const contactWithCellphone = {
-  ...contact,
-  ...cellphone,
 };
 
 const sender = statics.object({
@@ -83,6 +79,8 @@ const contacts = statics.array(contact);
 const countries = statics.array(country);
 const messages = statics.array(messageItem);
 const participants = statics.array(participantItem);
+
+const fullNameWithUserId = { ...fullName, userId };
 
 const status = statics.object({ isActive });
 
@@ -140,11 +138,11 @@ const collection = {
   blacklist,
   cellphone,
   contact,
-  contactWithCellphone,
   contacts,
   countries,
   country,
   fullName,
+  fullNameWithUserId,
   messageItem,
   messages,
   participants,

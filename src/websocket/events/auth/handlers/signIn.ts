@@ -3,16 +3,16 @@ import { ExtendedCellphone } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
 import { smsClient } from "~/classes/SmsClient";
-import { userUtilities } from "~/classes/UserUtilities";
+import { userUtils } from "~/classes/UserUtils";
 import { models } from "~/models";
-import { SocketOnHandler, StoredClient } from "~/types";
-import { utilities } from "~/utilities";
+import { SignInIO, SocketOnHandler, StoredClient } from "~/types";
+import { utils } from "~/utils";
 
-const signIn: SocketOnHandler = async (socket, data) => {
+const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {
   //TODO: Use another utility to generate verification code
-  const verificationCode = utilities.passwordGenerator();
+  const verificationCode = utils.passwordGenerator();
 
-  const cellphone = userUtilities.extractCellphone(data as ExtendedCellphone);
+  const cellphone = userUtils.extractCellphone(data as ExtendedCellphone);
 
   //FIXME: Get host from socket
   // const host = getHostFromRequest(req);

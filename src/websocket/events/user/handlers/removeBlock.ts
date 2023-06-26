@@ -1,12 +1,12 @@
 import { services } from "~/services";
-import { BlackListItem, SocketOnHandler } from "~/types";
+import { RemoveBlockIO, SocketOnHandler } from "~/types";
 
-const removeBlock: SocketOnHandler = async (socket, data) => {
+const removeBlock: SocketOnHandler<RemoveBlockIO> = async (socket, data) => {
   const { userId: currentUserId } = socket;
 
   await services.removeBlock({
     currentUserId,
-    targetBlacklistItem: data as BlackListItem,
+    targetUserId: data.userId,
   });
 
   return {

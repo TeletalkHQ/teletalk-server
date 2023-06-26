@@ -1,5 +1,15 @@
-import { otherRoutes } from "./routes";
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 
-const otherEvents = { otherRoutes };
+import { randomMaker } from "@/classes/RandomMaker";
 
-export { otherEvents };
+const unknownEvent = socketEventBuilder()
+  .create()
+  //@ts-ignore
+  .name(randomMaker.string(10))
+  .build();
+
+export const other = {
+  events: {
+    unknownEvent,
+  },
+};

@@ -1,17 +1,17 @@
 import { clientStore } from "~/classes/ClientStore";
 import { models } from "~/models";
 import { errors } from "~/variables";
-import { routesWithAuth } from "~/websocket/events";
+import { eventsWithAuth } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { helpers } from "@/helpers";
 
 describe("checkCurrentUser middleware fail tests", () => {
-  routesWithAuth
+  eventsWithAuth
     .filter((i) => i.name !== "verify" && i.name !== "createNewUser")
-    .forEach((route) => {
+    .forEach((event) => {
       it(
-        helpers.createFailTestMessage(errors.currentUserNotExist, route.name),
+        helpers.createFailTestMessage(errors.currentUserNotExist, event.name),
         async () => {
           const wrongUserId = randomMaker.string(
             models.native.userId.maxLength
@@ -25,10 +25,10 @@ describe("checkCurrentUser middleware fail tests", () => {
             userId: wrongUserId,
           });
 
-          const data = helpers.generateDynamicData(route.inputFields);
-          await helpers.requesterCollection[
-            route.name as keyof typeof helpers.requesterCollection
-          ](socket).sendFullFeaturedRequest(data, errors.currentUserNotExist);
+          const data = helpers.generateDynamicData(event.inputFields);
+          await helpers.requesterCollection[event.name](
+            socket
+          ).sendFullFeaturedRequest(data as any, errors.currentUserNotExist);
         }
       );
     });

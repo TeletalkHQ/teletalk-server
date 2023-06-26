@@ -1,6 +1,5 @@
-import { userUtilities } from "~/classes/UserUtilities";
+import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
-import { UserMongo } from "~/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -20,9 +19,9 @@ describe("getUserData success tests", () => {
 
       const user = (await services.findOneUser({
         userId: responseUserData.userId,
-      })) as UserMongo;
+      }))!;
 
-      const userData = userUtilities.extractUserData(user);
+      const userData = userUtils.extractUserData(user);
 
       assertionInitializerHelper().userData({
         equalValue: userData,

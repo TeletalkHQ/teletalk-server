@@ -71,7 +71,6 @@ const customErrors = {
     .reason("requiredIoFieldIsNotObject")
     .side("server")
     .build(),
-  routeNotFound: errorBuilder().reason("routeNotFound").build(),
   selfStuff: errorBuilder().reason("selfStuff").build(),
   senderEmpty: errorBuilder().reason("senderEmpty").build(),
   sendJsonResponseIsNotFunction: errorBuilder()
@@ -124,9 +123,6 @@ const checkFieldErrors = {
 const localErrors = {
   eventIsInvalid: {
     reason: "eventIsInvalid",
-  },
-  routeIsInvalid: {
-    reason: "routeIsInvalid",
   },
   validationModelIsNotObject: {
     message: "You must pass validationModel as a object",

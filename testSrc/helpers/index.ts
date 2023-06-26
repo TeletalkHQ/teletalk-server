@@ -4,28 +4,17 @@
 import { faker } from "@faker-js/faker";
 import { IoFields } from "check-fields";
 import { Socket } from "socket.io-client";
+import { Cellphone, FullName } from "utility-store/lib/types";
 
 import { models } from "~/models";
-import {
-  Cellphone,
-  EventName,
-  Field,
-  FullName,
-  NativeError,
-  SocketRoute,
-} from "~/types";
-import { utilities } from "~/utilities";
+import { EventName, Field, IO, NativeError, SocketEvent } from "~/types";
+import { utils } from "~/utils";
 import { countries } from "~/variables";
-import { routes } from "~/websocket/events";
+import { events } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
-import {
-  RequesterCollection,
-  RequesterMaker,
-  RequesterMakerHelper,
-  RequesterMakerWrapper,
-} from "@/types";
+import { RequesterMaker, RequesterMakerWrapper } from "@/types";
 
 async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
   const describeBody = await suite();
@@ -33,12 +22,12 @@ async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
   try {
     describe(title, describeBody);
   } catch (error) {
-    utilities.crashServer(error);
+    utils.crashServer(error);
   }
 }
 
-const setupRequester = async (
-  requester: RequesterMaker,
+const setupRequester = async <IOType extends IO>(
+  requester: RequesterMaker<IOType>,
   cellphone?: Cellphone,
   fullName?: FullName
 ) => {
@@ -64,10 +53,12 @@ const getWrongCountryCode = (): string => {
   return randomCountryCode;
 };
 
-const requesterMakerHelper: RequesterMakerHelper = (route: SocketRoute) => {
+const requesterMakerHelper = <IOType extends IO>(
+  event: SocketEvent<IOType>
+) => {
   return ((socket: Socket) => {
-    return requesterMaker(socket, route);
-  }) as RequesterMakerWrapper;
+    return requesterMaker(socket, event);
+  }) as RequesterMakerWrapper<IOType>;
 };
 
 const createFailTestMessage = (error: NativeError, eventName: EventName) => {
@@ -144,30 +135,29 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
   return data;
 }
 
-const requesterCollection: RequesterCollection = {
-  addBlock: requesterMakerHelper(routes.addBlock),
-  addContact: requesterMakerHelper(routes.addContact),
-  addContactWithCellphone: requesterMakerHelper(routes.addContactWithCellphone),
-  createNewUser: requesterMakerHelper(routes.createNewUser),
-  editContact: requesterMakerHelper(routes.editContact),
-  getChatInfo: requesterMakerHelper(routes.getChatInfo),
-  getContacts: requesterMakerHelper(routes.getContacts),
-  getCountries: requesterMakerHelper(routes.getCountries),
-  getPrivateChat: requesterMakerHelper(routes.getPrivateChat),
-  getPrivateChats: requesterMakerHelper(routes.getPrivateChats),
-  getPublicUserData: requesterMakerHelper(routes.getPublicUserData),
-  getStuff: requesterMakerHelper(routes.getStuff),
-  getUserData: requesterMakerHelper(routes.getUserData),
-  getWelcomeMessage: requesterMakerHelper(routes.getWelcomeMessage),
-  joinRoom: requesterMakerHelper(routes.joinRoom),
-  logout: requesterMakerHelper(routes.logout),
-  ping: requesterMakerHelper(routes.ping),
-  removeBlock: requesterMakerHelper(routes.removeBlock),
-  removeContact: requesterMakerHelper(routes.removeContact),
-  sendPrivateMessage: requesterMakerHelper(routes.sendPrivateMessage),
-  signIn: requesterMakerHelper(routes.signIn),
-  updatePublicUserData: requesterMakerHelper(routes.updatePublicUserData),
-  verify: requesterMakerHelper(routes.verify),
+const requesterCollection = {
+  addBlock: requesterMakerHelper(events.addBlock),
+  addContact: requesterMakerHelper(events.addContact),
+  createNewUser: requesterMakerHelper(events.createNewUser),
+  editContact: requesterMakerHelper(events.editContact),
+  getChatInfo: requesterMakerHelper(events.getChatInfo),
+  getContacts: requesterMakerHelper(events.getContacts),
+  getCountries: requesterMakerHelper(events.getCountries),
+  getPrivateChat: requesterMakerHelper(events.getPrivateChat),
+  getPrivateChats: requesterMakerHelper(events.getPrivateChats),
+  getPublicUserData: requesterMakerHelper(events.getPublicUserData),
+  getStuff: requesterMakerHelper(events.getStuff),
+  getUserData: requesterMakerHelper(events.getUserData),
+  getWelcomeMessage: requesterMakerHelper(events.getWelcomeMessage),
+  joinRoom: requesterMakerHelper(events.joinRoom),
+  logout: requesterMakerHelper(events.logout),
+  ping: requesterMakerHelper(events.ping),
+  removeBlock: requesterMakerHelper(events.removeBlock),
+  removeContact: requesterMakerHelper(events.removeContact),
+  sendPrivateMessage: requesterMakerHelper(events.sendPrivateMessage),
+  signIn: requesterMakerHelper(events.signIn),
+  updatePublicUserData: requesterMakerHelper(events.updatePublicUserData),
+  verify: requesterMakerHelper(events.verify),
 };
 
 const helpers = {

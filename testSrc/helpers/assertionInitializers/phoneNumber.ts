@@ -3,7 +3,7 @@ import { models } from "~/models";
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
 
-const phoneNumberAssertionInitializer: AssertionInitializer = (
+export const phoneNumberAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
@@ -16,5 +16,3 @@ const phoneNumberAssertionInitializer: AssertionInitializer = (
     .addCommonTest()
     .run();
 };
-
-export { phoneNumberAssertionInitializer };

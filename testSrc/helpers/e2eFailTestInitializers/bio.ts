@@ -3,7 +3,7 @@ import { models } from "~/models";
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { E2eFailTestInitializer } from "@/types";
 
-const bioE2eFailTestInitializer: E2eFailTestInitializer = (
+export const bioE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
@@ -14,5 +14,3 @@ const bioE2eFailTestInitializer: E2eFailTestInitializer = (
     .invalidType()
     .maxLength();
 };
-
-export { bioE2eFailTestInitializer };

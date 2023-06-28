@@ -39,17 +39,15 @@ class E2eFailTestInitializer<
   }
 
   custom(value: any, error: NativeError) {
-    const mergedData = this.dataMerger(value);
-    this.initTest(mergedData, error);
+    this.initTest(this.dataMerger(value), error);
     return this;
   }
   empty() {
-    this.custom("", this.resolveError("empty"));
+    this.initTest(this.dataMerger(""), this.resolveError("empty"));
     return this;
   }
   missing() {
-    const mergedData = this.dataMerger();
-    this.initTest(mergedData, errors.inputFieldsMissing);
+    this.initTest(this.dataMerger(), errors.inputFieldsMissing);
     return this;
   }
   overload() {

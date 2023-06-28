@@ -5,7 +5,7 @@ import { E2eFailTestInitializer } from "@/types";
 
 const chatModels = models.native;
 
-const participantIdE2eFailTestInitializer: E2eFailTestInitializer = (
+export const participantIdE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
@@ -23,5 +23,3 @@ const participantIdE2eFailTestInitializer: E2eFailTestInitializer = (
     .minLength()
     .maxLength();
 };
-
-export { participantIdE2eFailTestInitializer };

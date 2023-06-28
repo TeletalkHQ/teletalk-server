@@ -1,4 +1,5 @@
 import { RandomMaker as RandomMakerMain } from "utility-store";
+import { ContactItem } from "utility-store/lib/types";
 
 import { models } from "~/models";
 
@@ -59,6 +60,14 @@ class RandomMaker extends RandomMakerMain {
       username: randomMaker.string(models.native.username.maxLength),
       userId: super.id(models.native.userId.maxLength),
     };
+  }
+
+  unusedContact(): ContactItem {
+    return super.unusedContact(
+      models.native.firstName.maxLength,
+      models.native.lastName.minLength,
+      models.native.userId.maxLength
+    );
   }
 }
 

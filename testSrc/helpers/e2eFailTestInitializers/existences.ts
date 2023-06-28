@@ -3,7 +3,7 @@ import { errors } from "~/variables";
 import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
 
-const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer<
+export const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer<
   any
 > = (configuredRequester, data) => {
   it(
@@ -20,42 +20,39 @@ const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer<
   );
 };
 
-const blacklistItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
-  configuredRequester,
-  data
-) => {
-  it(
-    helpers.createFailTestMessage(
-      errors.blacklistItemExist,
-      configuredRequester.getEventName()
-    ),
-    async () => {
-      await configuredRequester.sendFullFeaturedRequest(
-        data,
-        errors.blacklistItemExist
-      );
-    }
-  );
-};
+export const blacklistItemExistE2eFailTestInitializer: E2eFailTestInitializer =
+  (configuredRequester, data) => {
+    it(
+      helpers.createFailTestMessage(
+        errors.blacklistItemExist,
+        configuredRequester.getEventName()
+      ),
+      async () => {
+        await configuredRequester.sendFullFeaturedRequest(
+          data,
+          errors.blacklistItemExist
+        );
+      }
+    );
+  };
 
-const contactItemNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
-  configuredRequester,
-  data
-) => {
-  it(
-    helpers.createFailTestMessage(
-      errors.contactItemNotExist,
-      configuredRequester.getEventName()
-    ),
-    async () => {
-      await configuredRequester.sendFullFeaturedRequest(
-        data,
-        errors.contactItemNotExist
-      );
-    }
-  );
-};
-const contactItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
+export const contactItemNotExistE2eFailTestInitializer: E2eFailTestInitializer =
+  (configuredRequester, data) => {
+    it(
+      helpers.createFailTestMessage(
+        errors.contactItemNotExist,
+        configuredRequester.getEventName()
+      ),
+      async () => {
+        await configuredRequester.sendFullFeaturedRequest(
+          data,
+          errors.contactItemNotExist
+        );
+      }
+    );
+  };
+
+export const contactItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
@@ -73,28 +70,18 @@ const contactItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
   );
 };
 
-const targetUserNotExistE2eFailTestInitializer: E2eFailTestInitializer = (
-  configuredRequester,
-  data
-) => {
-  it(
-    helpers.createFailTestMessage(
-      errors.targetUserNotExist,
-      configuredRequester.getEventName()
-    ),
-    async () => {
-      await configuredRequester.sendFullFeaturedRequest(
-        data,
-        errors.targetUserNotExist
-      );
-    }
-  );
-};
-
-export {
-  blacklistItemExistE2eFailTestInitializer,
-  blacklistItemNotExistE2eFailTestInitializer,
-  contactItemExistE2eFailTestInitializer,
-  contactItemNotExistE2eFailTestInitializer,
-  targetUserNotExistE2eFailTestInitializer,
-};
+export const targetUserNotExistE2eFailTestInitializer: E2eFailTestInitializer =
+  (configuredRequester, data) => {
+    it(
+      helpers.createFailTestMessage(
+        errors.targetUserNotExist,
+        configuredRequester.getEventName()
+      ),
+      async () => {
+        await configuredRequester.sendFullFeaturedRequest(
+          data,
+          errors.targetUserNotExist
+        );
+      }
+    );
+  };

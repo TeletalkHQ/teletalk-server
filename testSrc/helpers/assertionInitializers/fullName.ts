@@ -2,7 +2,7 @@ import { firstNameAssertionInitializer } from "@/helpers/assertionInitializers/f
 import { lastNameAssertionInitializer } from "@/helpers/assertionInitializers/lastName";
 import { AssertionInitializer } from "@/types";
 
-const fullNameAssertionInitializer: AssertionInitializer = ({
+export const fullNameAssertionInitializer: AssertionInitializer = ({
   equalValue,
   testValue,
 }) => {
@@ -16,5 +16,3 @@ const fullNameAssertionInitializer: AssertionInitializer = ({
     testValue: testValue.lastName,
   });
 };
-
-export { fullNameAssertionInitializer };

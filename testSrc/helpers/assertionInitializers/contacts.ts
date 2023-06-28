@@ -4,7 +4,7 @@ import { oneContactAssertionInitializer } from "@/helpers/assertionInitializers/
 import { AssertionInitializer } from "@/types";
 import { FIELD_TYPE } from "@/variables";
 
-const contactsAssertionInitializer: AssertionInitializer = ({
+export const contactsAssertionInitializer: AssertionInitializer = ({
   equalValue,
   testValue,
 }) => {
@@ -21,5 +21,3 @@ const contactsAssertionInitializer: AssertionInitializer = ({
     });
   });
 };
-
-export { contactsAssertionInitializer };

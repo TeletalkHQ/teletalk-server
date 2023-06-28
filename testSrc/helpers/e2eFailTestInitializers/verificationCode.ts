@@ -5,7 +5,7 @@ import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { randomMaker } from "@/classes/RandomMaker";
 import { E2eFailTestInitializer } from "@/types";
 
-const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
+export const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
@@ -30,5 +30,3 @@ const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
     errors.verificationCode_invalid
   );
 };
-
-export { verificationCodeE2eFailTestInitializer };

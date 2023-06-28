@@ -1,4 +1,8 @@
-import { ContactItem } from "utility-store/lib/types";
+import {
+  ContactItem,
+  Contacts,
+  FUllNameWithUserId,
+} from "utility-store/lib/types";
 
 import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
@@ -16,50 +20,42 @@ describe("edit contact success tests", () => {
     const addingContacts = await createContacts(contactsLength);
 
     const addContactRequester = helpers.requesterCollection.addContact(socket);
-    for (const contact of addingContacts) {
+    for (const contact of addingContacts)
       await addContactRequester.sendFullFeaturedRequest(contact);
-    }
 
     const editContactRequester =
       helpers.requesterCollection.editContact(socket);
     for (const addingContact of addingContacts) {
       const fullName = randomMaker.fullName();
-      const sendingData = {
+      const editingContactData = {
         ...fullName,
         userId: addingContact.userId,
       };
 
       const {
-        data: { editedContact },
-      } = await editContactRequester.sendFullFeaturedRequest(sendingData);
-      addingContact.firstName = sendingData.firstName;
-      addingContact.lastName = sendingData.lastName;
-
-      testContact(
-        {
-          ...sendingData,
-          ...userUtils.makeEmptyCellphone(),
-        },
-        {
-          ...editedContact,
-          ...userUtils.makeEmptyCellphone(),
-        }
+        data: { editedContact: editContactResponseData },
+      } = await editContactRequester.sendFullFeaturedRequest(
+        editingContactData
       );
+
+      testEditedContact(editingContactData, editContactResponseData);
 
       const { contacts: currentUserContacts } = (await services.findOneUserById(
         currentUser.userId
       ))!;
 
       const foundEditedContact = currentUserContacts.find(
-        (i) => i.userId === addingContact.userId
+        (i) => i.userId === editingContactData.userId
       ) as ContactItem;
 
-      testContact({ ...addingContact, ...sendingData }, foundEditedContact);
+      testEditedContact(editingContactData, foundEditedContact);
 
+      addingContact.firstName = editingContactData.firstName;
+      addingContact.lastName = editingContactData.lastName;
       testNonEditedContacts(
-        { ...addingContact, ...sendingData },
+        editingContactData,
         addingContacts,
-        currentUserContacts as ContactItem[]
+        currentUserContacts as Contacts
       );
     }
   });
@@ -75,7 +71,10 @@ await helpers.asyncDescribe("editContact fail tests", async () => {
   };
 
   return () => {
-    const randomContact = randomMaker.unusedContact();
+    const randomContact = {
+      ...randomMaker.fullName(),
+      userId: randomMaker.userId(),
+    };
 
     e2eFailTestInitializerHelper(requester)
       .input(randomContact)
@@ -93,15 +92,15 @@ const createContacts = async (length: number) => {
 };
 
 const testNonEditedContacts = (
-  sendingData: ContactItem,
-  addingContacts: ContactItem[],
-  currentUserContacts: ContactItem[]
+  sentData: FUllNameWithUserId,
+  addingContacts: Contacts,
+  currentUserContacts: Contacts
 ) => {
   const filterNonEditedContacts = addingContacts.filter(
-    (i) => i.userId !== sendingData.userId
+    (i) => i.userId !== sentData.userId
   );
   const filterNonEditedCurrentUserContacts = currentUserContacts.filter(
-    (i) => i.userId !== sendingData.userId
+    (i) => i.userId !== sentData.userId
   );
 
   expect(filterNonEditedCurrentUserContacts.length).toBe(
@@ -114,24 +113,15 @@ const testNonEditedContacts = (
         currentUserContactItem.userId === contactItem.userId
     ) as ContactItem;
 
-    testContact(contactItem, foundCurrentUserContactItem);
+    testEditedContact(contactItem, foundCurrentUserContactItem);
   });
 };
 
-const testContact = (equalValue: ContactItem, testValue: ContactItem) => {
+const testEditedContact = (
+  equalValue: FUllNameWithUserId,
+  testValue: FUllNameWithUserId
+) => {
   assertionInitializerHelper()
-    .countryCode({
-      equalValue: equalValue.countryCode,
-      testValue: testValue.countryCode,
-    })
-    .countryName({
-      equalValue: equalValue.countryName,
-      testValue: testValue.countryName,
-    })
-    .phoneNumber({
-      equalValue: equalValue.phoneNumber,
-      testValue: testValue.phoneNumber,
-    })
     .firstName({
       equalValue: equalValue.firstName,
       testValue: testValue.firstName,

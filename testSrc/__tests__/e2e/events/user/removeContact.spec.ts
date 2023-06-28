@@ -1,4 +1,4 @@
-import { ContactItem, UserData } from "utility-store/lib/types";
+import { ContactItem, Contacts, UserData } from "utility-store/lib/types";
 
 import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
@@ -49,7 +49,7 @@ await helpers.asyncDescribe("removeContact fail tests", async () => {
       userId: user.userId,
     };
     const randomData = {
-      userId: randomMaker.id(),
+      userId: randomMaker.userId(),
     };
 
     e2eFailTestInitializerHelper(requester)
@@ -71,7 +71,7 @@ const testRemovedContact = (equalValue: string, testValue: string) => {
 
 const testContactsAfterRemoveOneItem = async (
   currentUser: UserData,
-  addingContacts: ContactItem[]
+  addingContacts: Contacts
 ) => {
   const nonRemovedContacts = await findContacts(currentUser.userId);
   expect(nonRemovedContacts.length).toEqual(addingContacts.length);

@@ -65,7 +65,7 @@ await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
 
   return () => {
     const data = {
-      userId: randomMaker.id(),
+      userId: randomMaker.userId(),
     };
 
     e2eFailTestInitializerHelper(requester).input(data).userId(data);

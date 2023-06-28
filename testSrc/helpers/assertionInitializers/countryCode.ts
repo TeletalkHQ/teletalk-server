@@ -3,7 +3,7 @@ import { models } from "~/models";
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
 
-const countryCodeAssertionInitializer: AssertionInitializer = (
+export const countryCodeAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
@@ -16,5 +16,3 @@ const countryCodeAssertionInitializer: AssertionInitializer = (
     .numericCheck()
     .run();
 };
-
-export { countryCodeAssertionInitializer };

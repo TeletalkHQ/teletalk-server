@@ -3,7 +3,6 @@ import { ContactItem } from "utility-store/lib/types";
 import { UserData } from "utility-store/lib/types";
 
 import { userUtils } from "~/classes/UserUtils";
-import { models } from "~/models";
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
@@ -61,6 +60,49 @@ describe("add contact success tests", () => {
   });
 });
 
+await helpers.asyncDescribe(
+  "addContact fail tests with empty cellphone",
+  async () => {
+    const currentUserSignData = randomMaker.unusedCellphone();
+    const { requester, user: currentUser } = await helpers.setupRequester(
+      helpers.requesterCollection.addContact,
+      currentUserSignData
+    );
+    const selfStuffData = {
+      ...userUtils.makeEmptyCellphone(),
+      ...randomMaker.fullName(),
+      userId: currentUser.userId,
+    };
+
+    const targetUserSignData = randomMaker.unusedCellphone();
+    const { user: targetUser } = await randomMaker.user(targetUserSignData);
+    const existingContactData = {
+      ...targetUserSignData,
+      ...randomMaker.fullName(),
+      userId: targetUser.userId,
+    };
+
+    await requester.sendFullFeaturedRequest(existingContactData);
+
+    return () => {
+      const contactWithEmptyCellphone: ContactItem = {
+        ...userUtils.makeEmptyCellphone(),
+        ...randomMaker.fullName(),
+        userId: randomMaker.userId(),
+      };
+
+      e2eFailTestInitializerHelper(requester)
+        .input(contactWithEmptyCellphone)
+        .firstName(contactWithEmptyCellphone)
+        .lastName(contactWithEmptyCellphone)
+        .selfStuff(selfStuffData)
+        .contactItemExist(existingContactData)
+        .userId(contactWithEmptyCellphone, ["empty"])
+        .targetUserNotExist(contactWithEmptyCellphone);
+    };
+  }
+);
+
 await helpers.asyncDescribe("addContact fail tests", async () => {
   const currentUserSignData = randomMaker.unusedCellphone();
   const { requester, user: currentUser } = await helpers.setupRequester(
@@ -75,33 +117,30 @@ await helpers.asyncDescribe("addContact fail tests", async () => {
 
   const targetUserSignData = randomMaker.unusedCellphone();
   const { user: targetUser } = await randomMaker.user(targetUserSignData);
-  const addingContactData = {
+  const existingContactData = {
     ...targetUserSignData,
     ...randomMaker.fullName(),
     userId: targetUser.userId,
   };
 
-  await requester.sendFullFeaturedRequest(addingContactData);
+  await requester.sendFullFeaturedRequest(existingContactData);
 
   return () => {
-    const randomContact = {
-      ...randomMaker.unusedContactWithEmptyCellphone(
-        models.native.firstName.maxLength,
-        models.native.lastName.minLength
-      ),
-      userId: randomMaker.id(),
+    const contactWithEmptyUserId: ContactItem = {
+      ...randomMaker.unusedContact(),
+      userId: "",
     };
 
     e2eFailTestInitializerHelper(requester)
-      .input(randomContact)
-      .countryCode(randomContact)
-      .countryName(randomContact)
-      .phoneNumber(randomContact)
-      .firstName(randomContact)
-      .lastName(randomContact)
+      .input(contactWithEmptyUserId)
+      .countryCode(contactWithEmptyUserId)
+      .countryName(contactWithEmptyUserId)
+      .phoneNumber(contactWithEmptyUserId)
+      .firstName(contactWithEmptyUserId)
+      .lastName(contactWithEmptyUserId)
       .selfStuff(selfStuffData)
-      .contactItemExist(addingContactData)
-      .targetUserNotExist(randomContact);
+      .contactItemExist(existingContactData)
+      .targetUserNotExist(contactWithEmptyUserId);
   };
 });
 
@@ -131,7 +170,7 @@ const findSavedContact = async (
   currentUserId: string,
   addedContact: ContactItem
 ) => {
-  const contacts = (await findContacts(currentUserId)) as ContactItem[];
+  const contacts = (await findContacts(currentUserId))!;
 
   return contacts.find((i) => i.userId === addedContact.userId) as ContactItem;
 };

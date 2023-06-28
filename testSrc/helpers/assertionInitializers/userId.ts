@@ -3,7 +3,7 @@ import { models } from "~/models";
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
 
-const userIdAssertionInitializer: AssertionInitializer = (
+export const userIdAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
@@ -15,5 +15,3 @@ const userIdAssertionInitializer: AssertionInitializer = (
     .addCommonTest()
     .run();
 };
-
-export { userIdAssertionInitializer };

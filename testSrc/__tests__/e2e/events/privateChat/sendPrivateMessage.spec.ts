@@ -50,7 +50,7 @@ await helpers.asyncDescribe("send message fail tests", async () => {
   return () => {
     const data = {
       messageText: randomMaker.string(10),
-      participantId: randomMaker.id(),
+      participantId: randomMaker.userId(),
     };
 
     e2eFailTestInitializerHelper(requester)

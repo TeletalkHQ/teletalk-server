@@ -2,6 +2,7 @@ import { IO } from "~/types";
 
 import { Requester } from "@/classes/Requester";
 import { e2eFailTestInitializers } from "@/helpers/e2eFailTestInitializers";
+import { E2eFailTestIgnores } from "@/types";
 
 type MethodName = keyof typeof e2eFailTestInitializers;
 
@@ -14,8 +15,8 @@ class E2eFailTestInitializerHelper<IOType extends IO> {
   }
 
   private initializer(methodName: MethodName) {
-    return (data: IOType["input"] = {}) => {
-      e2eFailTestInitializers[methodName](this.requester, data);
+    return (data: IOType["input"] = {}, ignores: E2eFailTestIgnores = []) => {
+      e2eFailTestInitializers[methodName](this.requester, data, ignores);
       return this;
     };
   }

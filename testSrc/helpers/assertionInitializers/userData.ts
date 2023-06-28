@@ -7,7 +7,7 @@ import { userIdAssertionInitializer } from "@/helpers/assertionInitializers/user
 import { usernameAssertionInitializer } from "@/helpers/assertionInitializers/username";
 import { AssertionInitializer } from "@/types";
 
-const userDataAssertionInitializer: AssertionInitializer = ({
+export const userDataAssertionInitializer: AssertionInitializer = ({
   equalValue,
   testValue,
 }) => {
@@ -40,5 +40,3 @@ const userDataAssertionInitializer: AssertionInitializer = ({
     testValue: testValue.username,
   });
 };
-
-export { userDataAssertionInitializer };

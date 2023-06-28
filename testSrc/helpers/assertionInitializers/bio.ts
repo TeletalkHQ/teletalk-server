@@ -3,7 +3,7 @@ import { models } from "~/models";
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
 
-const bioAssertionInitializer: AssertionInitializer = (
+export const bioAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
@@ -15,5 +15,3 @@ const bioAssertionInitializer: AssertionInitializer = (
     .addCommonTest()
     .run();
 };
-
-export { bioAssertionInitializer };

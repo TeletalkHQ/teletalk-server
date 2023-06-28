@@ -3,7 +3,7 @@ import { countryNameAssertionInitializer } from "@/helpers/assertionInitializers
 import { phoneNumberAssertionInitializer } from "@/helpers/assertionInitializers/phoneNumber";
 import { AssertionInitializer } from "@/types";
 
-const cellphoneAssertionInitializer: AssertionInitializer = ({
+export const cellphoneAssertionInitializer: AssertionInitializer = ({
   equalValue,
   testValue,
 }) => {
@@ -20,5 +20,3 @@ const cellphoneAssertionInitializer: AssertionInitializer = ({
     testValue: testValue.phoneNumber,
   });
 };
-
-export { cellphoneAssertionInitializer };

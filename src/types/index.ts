@@ -144,11 +144,21 @@ export type ValidationErrors = ValidationError[];
 
 export interface ValidationCheckerError extends NativeError {
   result: ValidationErrors;
+  validatedValue: unknown;
+  validatedFieldName: Field;
 }
 export type ValidationResult = true | ValidationErrors;
 
 export type FieldValidator = AsyncCheckFunction | SyncCheckFunction;
-export type ValidationCheckerFn = (r: ValidationResult, value: unknown) => void;
+
+export type ValidationCheckerIgnores = ErrorReason[];
+
+export type ValidationCheckerFn = (
+  r: ValidationResult,
+  value: unknown,
+  ignores?: ValidationCheckerIgnores
+) => void;
+
 export type ValidationCheckerFnCollection = {
   [prop in Field]: ValidationCheckerFn;
 };

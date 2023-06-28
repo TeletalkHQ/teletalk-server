@@ -7,7 +7,6 @@ import {
   Field,
   ValidationCheckerFn,
   ValidationCheckerFnCollection,
-  ValidationResult,
 } from "~/types";
 import { countries, errors } from "~/variables";
 
@@ -15,8 +14,8 @@ export const validationCheckers = Object.keys(nativeModels).reduce(
   (prevValue, currValue) => {
     const k = currValue as Field;
 
-    prevValue[k] = (result: ValidationResult, value: unknown) =>
-      validationChecker(result, k, value).check();
+    prevValue[k] = (result, value, ignores) =>
+      validationChecker(result, k, value, ignores).check();
 
     return prevValue;
   },
@@ -28,7 +27,7 @@ const {
   countryName: defaultCountryNameChecker,
 } = validationCheckers;
 
-validationCheckers.countryCode = (result: ValidationResult, value: unknown) => {
+validationCheckers.countryCode = (result, value, ignores) => {
   if (result === true) {
     const country = countries.find((c) => c.countryCode === value);
     errorThrower(
@@ -39,10 +38,10 @@ validationCheckers.countryCode = (result: ValidationResult, value: unknown) => {
     return;
   }
 
-  defaultCountryCodeChecker(result, value);
+  defaultCountryCodeChecker(result, value, ignores);
 };
 
-validationCheckers.countryName = (result: ValidationResult, value: unknown) => {
+validationCheckers.countryName = (result, value, ignores) => {
   if (result === true) {
     const country = countries.find((c) => c.countryName === value);
     errorThrower(
@@ -53,17 +52,17 @@ validationCheckers.countryName = (result: ValidationResult, value: unknown) => {
     return;
   }
 
-  defaultCountryNameChecker(result, value);
+  defaultCountryNameChecker(result, value, ignores);
 };
 
-const notImplementedChecker = (fieldName: Field) =>
+const notImplementedCheckerFn = (fieldName: Field) =>
   (() => {
     throw `${fieldName}ValidationChecker is not implemented`;
   }) as ValidationCheckerFn;
 
-validationCheckers.id = notImplementedChecker("id");
-validationCheckers.createdAt = notImplementedChecker("createdAt");
-validationCheckers.isActive = notImplementedChecker("isActive");
-validationCheckers.macAddress = notImplementedChecker("macAddress");
-validationCheckers.messageId = notImplementedChecker("messageId");
-validationCheckers.senderId = notImplementedChecker("senderId");
+validationCheckers.id = notImplementedCheckerFn("id");
+validationCheckers.createdAt = notImplementedCheckerFn("createdAt");
+validationCheckers.isActive = notImplementedCheckerFn("isActive");
+validationCheckers.macAddress = notImplementedCheckerFn("macAddress");
+validationCheckers.messageId = notImplementedCheckerFn("messageId");
+validationCheckers.senderId = notImplementedCheckerFn("senderId");

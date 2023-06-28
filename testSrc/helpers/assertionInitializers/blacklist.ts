@@ -4,7 +4,7 @@ import { userIdAssertionInitializer } from "@/helpers/assertionInitializers/user
 import { AssertionInitializer } from "@/types";
 import { FIELD_TYPE } from "@/variables";
 
-const blacklistAssertionInitializer: AssertionInitializer = ({
+export const blacklistAssertionInitializer: AssertionInitializer = ({
   equalValue,
   testValue,
 }) => {
@@ -21,5 +21,3 @@ const blacklistAssertionInitializer: AssertionInitializer = ({
     });
   });
 };
-
-export { blacklistAssertionInitializer };

@@ -49,7 +49,9 @@ const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
     );
   }
 
-  return { ok: true };
+  return {
+    ok: true,
+  };
 };
 
 const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {

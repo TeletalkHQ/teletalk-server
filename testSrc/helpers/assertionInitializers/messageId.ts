@@ -5,7 +5,7 @@ import { AssertionInitializer } from "@/types";
 
 const chatModels = models.native;
 
-const messageIdAssertionInitializer: AssertionInitializer = (
+export const messageIdAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
@@ -16,5 +16,3 @@ const messageIdAssertionInitializer: AssertionInitializer = (
     .addCommonTest()
     .run();
 };
-
-export { messageIdAssertionInitializer };

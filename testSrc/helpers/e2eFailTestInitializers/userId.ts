@@ -3,18 +3,25 @@ import { models } from "~/models";
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { E2eFailTestInitializer } from "@/types";
 
-const userIdE2eFailTestInitializer: E2eFailTestInitializer = (
+export const userIdE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
-  data
+  data,
+  ignores
 ) => {
-  e2eFailTestInitializer
-    .create(configuredRequester, data, models.native.userId, "userId")
+  const initializer = e2eFailTestInitializer.create(
+    configuredRequester,
+    data,
+    models.native.userId,
+    "userId"
+  );
+
+  initializer
     .missing()
     .overload()
     .invalidType()
-    .empty()
+
     .minLength()
     .maxLength();
-};
 
-export { userIdE2eFailTestInitializer };
+  if (!ignores?.includes("empty")) initializer.empty();
+};

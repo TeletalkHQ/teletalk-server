@@ -50,6 +50,9 @@ let baseOptions: JestConfigWithTsJest = {
       "ts-jest",
       {
         useESM: true,
+        diagnostics: {
+          exclude: ["**"],
+        },
       },
     ],
   },

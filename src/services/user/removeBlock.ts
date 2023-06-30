@@ -1,14 +1,19 @@
 import { errorThrower } from "utility-store";
 import { UserData, UserId } from "utility-store/lib/types";
 
-import { commonServices } from "~/services/common";
+import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-const removeBlock = async (data: {
-  currentUserId: UserId;
-  targetUserId: UserId;
-}) => {
+import { findOneUserById } from "./findOneUserById";
+
+export const removeBlock: UserService<
+  {
+    currentUserId: UserId;
+    targetUserId: UserId;
+  },
+  void
+> = async (data) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.currentUserNotExist;
 
@@ -21,10 +26,9 @@ const removeBlock = async (data: {
 };
 
 const findCurrentUser = async (currentUserId: string) => {
-  return await commonServices.findOneUserById(
-    currentUserId,
-    errors.currentUserNotExist
-  );
+  return await findOneUserById({
+    userId: currentUserId,
+  });
 };
 
 const checkExistenceOfBlacklistItem = (
@@ -41,5 +45,3 @@ const removeBlockAndSave = async (currentUser: HydratedUser, index: number) => {
   currentUser.blacklist.splice(index, 1);
   await currentUser.save();
 };
-
-export { removeBlock };

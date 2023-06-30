@@ -9,10 +9,9 @@ export const lastNameE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
   e2eFailTestInitializer
     .create(configuredRequester, data, models.native.lastName, "lastName")
-    .missing();
-  //TODO: Enable these initializers
-  // .overload()
-  // .invalidType()
-  // .maxLength()
-  // .minLength();
+    .missing()
+    .overload()
+    .invalidType()
+    .maxLength()
+    .minLength();
 };

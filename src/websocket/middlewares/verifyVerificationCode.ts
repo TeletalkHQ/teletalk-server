@@ -3,10 +3,10 @@ import { Socket } from "socket.io";
 import { errorThrower } from "utility-store";
 
 import { clientStore } from "~/classes/ClientStore";
-import { SocketMiddleware, SocketNext, StringMap } from "~/types";
+import { SocketMiddleware, SocketNext, VerifyIO } from "~/types";
 import { errors } from "~/variables";
 
-const verifyVerificationCode: SocketMiddleware = async (
+export const verifyVerificationCode: SocketMiddleware<VerifyIO> = async (
   socket,
   next,
   [_name, data]
@@ -19,7 +19,7 @@ const verifyVerificationCode: SocketMiddleware = async (
     .run();
 };
 
-const tryBlock = async (socket: Socket, data: StringMap) => {
+const tryBlock = async (socket: Socket, data: VerifyIO["input"]) => {
   const { verificationCode: sentVerificationCode } = data;
 
   const client = await findClient(socket.clientId);
@@ -45,5 +45,3 @@ const findClient = async (clientId: string) => {
 const executeIfNoError = (_: void, next: SocketNext) => {
   () => next();
 };
-
-export { verifyVerificationCode };

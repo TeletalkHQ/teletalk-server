@@ -104,10 +104,10 @@ export type SocketMiddlewareReturnValue = {
 
 export type SocketDefaultMiddlewareEvent = Event;
 
-export type SocketMiddleware = (
+export type SocketMiddleware<IOType extends IO = any> = (
   socket: Socket,
   next: SocketNext,
-  socketMiddlewareEvent: SocketMiddlewareEvent
+  socketMiddlewareEvent: SocketMiddlewareEvent<IOType>
 ) =>
   | void
   | SocketMiddlewareReturnValue

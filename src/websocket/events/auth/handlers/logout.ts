@@ -2,7 +2,7 @@ import { clientStore } from "~/classes/ClientStore";
 import { services } from "~/services";
 import { LogoutIO, SocketOnHandler } from "~/types";
 
-const logout: SocketOnHandler<LogoutIO> = async (socket) => {
+export const logout: SocketOnHandler<LogoutIO> = async (socket) => {
   const { userId } = socket;
 
   await services.logout({
@@ -14,5 +14,3 @@ const logout: SocketOnHandler<LogoutIO> = async (socket) => {
 
   return { data: {} };
 };
-
-export { logout };

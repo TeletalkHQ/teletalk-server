@@ -3,7 +3,7 @@ import { Socket } from "socket.io";
 
 import { CustomEmit, EventName, SocketResponse, StringMap } from "~/types";
 
-const registerCustomEmit = (socket: Socket) => {
+export const registerCustomEmit = (socket: Socket) => {
   return ((eventName, data) => {
     trier(`socket.customEmit:${eventName}`)
       .sync()
@@ -18,5 +18,3 @@ const tryBlock = (socket: Socket, data: StringMap, eventName: EventName) => {
 
   socket.emit(eventName, response);
 };
-
-export { registerCustomEmit };

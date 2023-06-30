@@ -89,6 +89,4 @@ const makeMongoFullUrl = () => {
   return `${mongoUrl}/${MONGO_COLLECTION_NAME}`;
 };
 
-const appConfigs = new AppConfigs();
-
-export { appConfigs };
+export const appConfigs = new AppConfigs();

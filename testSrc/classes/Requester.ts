@@ -20,7 +20,7 @@ export class Requester<IOType extends IO> {
   private options: RequesterOptions = {
     shouldFilterRequestData: true,
   };
-  private requestData: StringMap;
+  private requestData: IOType["input"];
   private response: SocketResponse<IOType["output"]>;
   private event: SocketEvent<IOType>;
   private socket: Client;
@@ -108,7 +108,7 @@ export class Requester<IOType extends IO> {
       throw error;
     }
   }
-  filterRequestData(requestData: StringMap, inputFields: StringMap) {
+  filterRequestData(requestData: IOType["input"], inputFields: StringMap) {
     return objectUtils.excludePropsPeerToPeer(
       requestData,
       inputFields

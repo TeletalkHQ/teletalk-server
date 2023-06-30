@@ -4,19 +4,23 @@ import { UserId } from "utility-store/lib/types";
 import { models } from "~/models";
 import { createPrivateChat } from "~/services/chat/createPrivateChat";
 import { findOnePrivateChat } from "~/services/chat/findOnePrivateChat";
-import { commonServices } from "~/services/common";
-import { MessageItem, MessageText, PrivateChatData } from "~/types/datatypes";
+import { findOneUserById } from "~/services/user/findOneUserById";
+import { PrivateChatService } from "~/types";
+import { MessageItem, MessageText } from "~/types/datatypes";
 import { HydratedPrivateChat } from "~/types/models";
 import { errors } from "~/variables";
 
 const chatModels = models.native;
 
 //REFACTOR: Separate createPrivateChat parts
-const sendPrivateMessage = async (data: {
-  currentUserId: UserId;
-  messageText: MessageText;
-  participantId: UserId;
-}) => {
+export const sendPrivateMessage: PrivateChatService<
+  {
+    currentUserId: UserId;
+    messageText: MessageText;
+    participantId: UserId;
+  },
+  { chatId: string; addedMessage: MessageItem }
+> = async (data) => {
   const targetParticipantId = await findTargetParticipantId(data.participantId);
 
   const addedMessage = createNewMessage(data.messageText, data.currentUserId);
@@ -42,28 +46,28 @@ const sendPrivateMessage = async (data: {
   };
 };
 
-const findTargetParticipantId = async (participantId: string) => {
-  const targetParticipant = await commonServices.findOneUserById(participantId);
+const findTargetParticipantId = async (participantId: UserId) => {
+  const targetParticipant = await findOneUserById({
+    userId: participantId,
+  });
 
   if (!targetParticipant) throw errors.targetUserNotExist;
 
   return targetParticipant.userId;
 };
 
-const findPrivateChat = async (
+const findPrivateChat = (
   currentUserId: string,
   targetParticipantId: string
 ) => {
-  const prop = "participants.participantId" as keyof PrivateChatData;
-
-  return await findOnePrivateChat({
-    [prop]: {
+  return findOnePrivateChat({
+    ["participants.participantId"]: {
       $all: [currentUserId, targetParticipantId],
     },
   });
 };
 
-const createNewMessage = (messageText: string, currentUserId: string) =>
+const createNewMessage = (messageText: string, currentUserId: UserId) =>
   ({
     createdAt: Date.now(),
     messageText,
@@ -76,7 +80,7 @@ const createNewMessage = (messageText: string, currentUserId: string) =>
 const fixPrivateChat = async (data: {
   currentUserId: UserId;
   privateChat: HydratedPrivateChat | null;
-  targetParticipantId: string;
+  targetParticipantId: UserId;
 }) =>
   data.privateChat ||
   (await createPrivateChat({
@@ -95,5 +99,3 @@ const saveMessageOnPrivateChat = async (data: {
   data.privateChat.messages.push(data.addedMessage);
   await data.privateChat.save();
 };
-
-export { sendPrivateMessage };

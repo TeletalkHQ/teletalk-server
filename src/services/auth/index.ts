@@ -1,9 +1,7 @@
 import { createNewUser } from "~/services/auth/createNewUser";
 import { logout } from "~/services/auth/logout";
 
-const authServices = {
+export const authServices = {
   createNewUser,
   logout,
 };
-
-export { authServices };

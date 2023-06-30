@@ -8,7 +8,7 @@ import { removeBlock } from "~/websocket/events/user/handlers/removeBlock";
 import { removeContact } from "~/websocket/events/user/handlers/removeContact";
 import { updatePublicUserData } from "~/websocket/events/user/handlers/updatePublicUserData";
 
-const userHandlers = {
+export const userHandlers = {
   addBlock,
   addContact,
   editContact,
@@ -19,5 +19,3 @@ const userHandlers = {
   removeContact,
   updatePublicUserData,
 };
-
-export { userHandlers };

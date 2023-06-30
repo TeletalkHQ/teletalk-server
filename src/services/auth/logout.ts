@@ -8,7 +8,7 @@ export const logout = async ({
   userId: string;
   clientId: string;
 }) => {
-  const currentUser = await models.database.mongoDb.User.findOne({
+  const currentUser = await models.database.User.findOne({
     userId,
   });
 

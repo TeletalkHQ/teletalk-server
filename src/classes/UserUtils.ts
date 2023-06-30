@@ -6,6 +6,4 @@ class UserUtils extends UserUtilitiesMain {
   }
 }
 
-const userUtils = new UserUtils();
-
-export { userUtils };
+export const userUtils = new UserUtils();

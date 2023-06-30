@@ -1,7 +1,7 @@
 import { validationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
 import { nativeModels } from "~/models/native";
 import { ValidationCollection } from "~/types";
-import { Field } from "~/types";
+import { Field } from "~/types/models";
 
 export const validationModels: ValidationCollection = Object.keys(
   nativeModels

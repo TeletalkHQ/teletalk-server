@@ -1,5 +1,3 @@
 import { other } from "./other";
 
-const events = { ...other.events };
-
-export { events };
+export const events = { ...other.events };

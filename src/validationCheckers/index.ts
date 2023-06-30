@@ -3,11 +3,8 @@ import { customTypeof } from "custom-typeof";
 
 import { validationChecker } from "~/classes/ValidationChecker";
 import { nativeModels } from "~/models/native";
-import {
-  Field,
-  ValidationCheckerFn,
-  ValidationCheckerFnCollection,
-} from "~/types";
+import { ValidationCheckerFn, ValidationCheckerFnCollection } from "~/types";
+import { Field } from "~/types/models";
 import { countries, errors } from "~/variables";
 
 export const validationCheckers = Object.keys(nativeModels).reduce(

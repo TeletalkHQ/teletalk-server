@@ -1,26 +1,33 @@
-import { commonServices } from "~/services/common";
+import { UserService } from "~/types";
+import { ClientId, UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-export const addNewClient = async (data: {
-  userId: string;
-  clientId: string;
-}) => {
+import { findOneUserById } from "./findOneUserById";
+
+export const addNewClient: UserService<
+  {
+    clientId: ClientId;
+    userId: UserId;
+  },
+  void
+> = async (data) => {
   const currentUser = await findCurrentUser(data.userId);
   if (!currentUser) throw errors.currentUserNotExist;
 
   await addAndSaveNew(currentUser, data.clientId);
 };
 
-const findCurrentUser = async (userId: string) => {
-  return await commonServices.findOneUserById(
+const findCurrentUser = (userId: UserId) => {
+  return findOneUserById({
     userId,
-    errors.currentUserNotExist
-  );
+  });
 };
 
-const addAndSaveNew = async (currentUser: HydratedUser, clientId: string) => {
-  currentUser.clients.push({ clientId });
+const addAndSaveNew = async (currentUser: HydratedUser, clientId: ClientId) => {
+  currentUser.clients.push({
+    clientId,
+  });
 
   await currentUser.save();
 };

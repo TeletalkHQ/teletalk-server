@@ -15,7 +15,7 @@ interface Variables<Model> {
   testValue: any;
 }
 
-class AssertionInitializer<Model extends Partial<NativeModel> = any> {
+export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
   tests: TestItem[] = [];
 
   options = this.defaultOptions();
@@ -188,9 +188,7 @@ class AssertionInitializer<Model extends Partial<NativeModel> = any> {
   }
 }
 
-const assertionInitializer = {
+export const assertionInitializer = {
   create: <Model extends Partial<NativeModel>>() =>
     new AssertionInitializer<Model>(),
 };
-
-export { assertionInitializer, AssertionInitializer };

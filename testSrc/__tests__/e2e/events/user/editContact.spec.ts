@@ -41,7 +41,7 @@ describe("edit contact success tests", () => {
       testEditedContact(editingContactData, editContactResponseData);
 
       const { contacts: currentUserContacts } = (await services.findOneUserById(
-        currentUser.userId
+        { userId: currentUser.userId }
       ))!;
 
       const foundEditedContact = currentUserContacts.find(

@@ -3,7 +3,7 @@ import { errorThrower } from "utility-store";
 
 import { ErrorReason, NativeError } from "~/types";
 
-class ErrorBuilder<ReasonType extends ErrorReason> {
+export class ErrorBuilder<ReasonType extends ErrorReason> {
   error: NativeError;
 
   constructor() {
@@ -42,7 +42,5 @@ class ErrorBuilder<ReasonType extends ErrorReason> {
   }
 }
 
-const errorBuilder = <ReasonType extends ErrorReason = ErrorReason>() =>
+export const errorBuilder = <ReasonType extends ErrorReason = ErrorReason>() =>
   new ErrorBuilder<ReasonType>();
-
-export { ErrorBuilder, errorBuilder };

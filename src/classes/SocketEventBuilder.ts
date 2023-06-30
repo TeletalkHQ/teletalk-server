@@ -2,7 +2,7 @@ import { RouteBuilder } from "~/classes/RouteBuilder";
 import { IO, SocketEvent } from "~/types";
 import { errors } from "~/variables";
 
-class SocketEventBuilder<IOType extends IO> extends RouteBuilder {
+export class SocketEventBuilder<IOType extends IO> extends RouteBuilder {
   protected route: SocketEvent<IOType>;
 
   constructor() {
@@ -44,8 +44,6 @@ class SocketEventBuilder<IOType extends IO> extends RouteBuilder {
   }
 }
 
-const socketEventBuilder = () => ({
+export const socketEventBuilder = () => ({
   create: <IOType extends IO>() => new SocketEventBuilder<IOType>(),
 });
-
-export { socketEventBuilder };

@@ -2,6 +2,7 @@ import { ContactItem, Contacts, UserData } from "utility-store/lib/types";
 
 import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
+import { UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -12,6 +13,8 @@ describe("removeContact successful test", () => {
   it("should remove users from contacts", async () => {
     const contactsLength = 10;
     const addingContacts = await createContacts(contactsLength);
+
+    console.log("addingContacts:::", addingContacts);
 
     const { socket, user: currentUser } = await randomMaker.user();
     const addContactRequester = helpers.requesterCollection.addContact(socket);
@@ -85,12 +88,12 @@ const testContactsAfterRemoveOneItem = async (
   });
 };
 
-const testContactsAfterRemoveAll = async (userId: string) => {
+const testContactsAfterRemoveAll = async (userId: UserId) => {
   const contactsAfterRemoveAll = await findContacts(userId);
   expect(contactsAfterRemoveAll.length).toEqual(0);
 };
 
-const findContacts = async (userId: string) => {
-  const { contacts } = (await services.findOneUserById(userId))!;
+const findContacts = async (userId: UserId) => {
+  const { contacts } = (await services.findOneUserById({ userId }))!;
   return contacts;
 };

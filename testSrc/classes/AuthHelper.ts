@@ -78,10 +78,8 @@ class AuthHelper {
   }
 }
 
-const authHelper = (cellphone: Cellphone, fullName?: FullName) =>
+export const authHelper = (cellphone: Cellphone, fullName?: FullName) =>
   new AuthHelper(cellphone, fullName);
-
-export { authHelper };
 
 // extractCookies(headers) {
 //   return headers["set-cookie"].reduce((shapedCookies, cookieString) => {

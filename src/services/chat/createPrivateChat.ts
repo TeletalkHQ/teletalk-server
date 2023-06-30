@@ -1,17 +1,21 @@
 import { CreatedAt } from "utility-store/lib/types";
 
 import { models } from "~/models";
+import { PrivateChatService } from "~/types";
 import { HydratedPrivateChat } from "~/types/models";
 
-const createPrivateChat = async (data: {
-  chatId: string;
-  createdAt: CreatedAt;
-  currentParticipantId: string;
-  targetParticipantId: string;
-}): Promise<HydratedPrivateChat> => {
-  return await models.database.mongoDb.PrivateChat.create({
-    createdAt: data.createdAt,
+export const createPrivateChat: PrivateChatService<
+  {
+    chatId: string;
+    createdAt: CreatedAt;
+    currentParticipantId: string;
+    targetParticipantId: string;
+  },
+  HydratedPrivateChat
+> = (data) => {
+  return models.database.PrivateChat.create({
     chatId: data.chatId,
+    createdAt: data.createdAt,
     participants: [
       {
         participantId: data.currentParticipantId,
@@ -22,5 +26,3 @@ const createPrivateChat = async (data: {
     ],
   });
 };
-
-export { createPrivateChat };

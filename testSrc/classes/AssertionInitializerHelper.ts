@@ -3,7 +3,7 @@ import { AssertionInitializerArgs, AssertionInitializerOptions } from "@/types";
 
 type MethodName = keyof typeof assertionInitializers;
 
-class AssertionInitializerHelper {
+export class AssertionInitializerHelper {
   private initializer(methodName: MethodName) {
     return (
       arg: AssertionInitializerArgs,
@@ -36,6 +36,5 @@ class AssertionInitializerHelper {
   verificationCode = this.initializer("verificationCode");
 }
 
-const assertionInitializerHelper = () => new AssertionInitializerHelper();
-
-export { assertionInitializerHelper, AssertionInitializerHelper };
+export const assertionInitializerHelper = () =>
+  new AssertionInitializerHelper();

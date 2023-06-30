@@ -10,6 +10,7 @@ import {
   SocketMiddlewareEvent,
   SocketNext,
 } from "~/types";
+import { UserId } from "./datatypes";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -25,7 +26,7 @@ declare module "socket.io" {
     customUse: CustomUse;
     io: Server;
     authClient: AuthClient;
-    userId: string;
+    userId: UserId;
     clientStr: string;
   }
 }

@@ -1,6 +1,7 @@
 import { clientStore } from "~/classes/ClientStore";
 import { models } from "~/models";
 import { services } from "~/services";
+import { ClientId, UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { authHelper } from "@/classes/AuthHelper";
@@ -74,7 +75,7 @@ await helpers.asyncDescribe("verifySignIn fail tests", async () => {
   };
 });
 
-const testUserClientId = async (clientId: string) => {
+const testUserClientId = async (clientId: ClientId) => {
   const { userId } = (await clientStore.find(clientId))!;
   const foundClient = await getSavedUserClient(userId, clientId);
 
@@ -84,11 +85,11 @@ const testUserClientId = async (clientId: string) => {
   });
 };
 
-const getSavedUserClient = async (userId: string, clientId: string) => {
+const getSavedUserClient = async (userId: UserId, clientId: ClientId) => {
   const savedUser = (await getSavedUser(userId))!;
   return savedUser.clients.find((i) => i.clientId === clientId)!;
 };
 
-const getSavedUser = async (userId: string) => {
-  return await services.findOneUserById(userId);
+const getSavedUser = async (userId: UserId) => {
+  return await services.findOneUserById({ userId });
 };

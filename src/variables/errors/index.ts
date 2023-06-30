@@ -92,7 +92,7 @@ const customErrors = {
 
 const modelErrors = modelErrorBuilder().build();
 
-const errors: ErrorCollection = {
+export const errors: ErrorCollection = {
   ...customErrors,
   ...modelErrors,
 };
@@ -103,7 +103,7 @@ const requiredFieldErrors = {
   schemaNotDefined: errors.requiredFieldsNotDefined,
 };
 
-const checkFieldErrors = {
+export const checkFieldErrors = {
   input: {
     ...requiredFieldErrors,
     dataFieldInvalidType: errors.inputFieldInvalidType,
@@ -120,7 +120,7 @@ const checkFieldErrors = {
   },
 };
 
-const localErrors = {
+export const localErrors = {
   eventIsInvalid: {
     reason: "eventIsInvalid",
   },
@@ -129,5 +129,3 @@ const localErrors = {
     reason: "validationModelIsNotObject",
   },
 };
-
-export { checkFieldErrors, customErrors, errors, localErrors, modelErrors };

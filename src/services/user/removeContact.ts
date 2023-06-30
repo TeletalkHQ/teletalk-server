@@ -1,14 +1,19 @@
 import { errorThrower } from "utility-store";
 import { UserData, UserId } from "utility-store/lib/types";
 
-import { commonServices } from "~/services/common";
+import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-const removeContact = async (data: {
-  currentUserId: UserId;
-  targetUserId: UserId;
-}) => {
+import { findOneUserById } from "./findOneUserById";
+
+export const removeContact: UserService<
+  {
+    currentUserId: UserId;
+    targetUserId: UserId;
+  },
+  void
+> = async (data) => {
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.currentUserNotExist;
 
@@ -20,11 +25,10 @@ const removeContact = async (data: {
   await removeContactAndSave(currentUser, index);
 };
 
-const findCurrentUser = async (currentUserId: string) => {
-  return await commonServices.findOneUserById(
-    currentUserId,
-    errors.currentUserNotExist
-  );
+const findCurrentUser = (currentUserId: string) => {
+  return findOneUserById({
+    userId: currentUserId,
+  });
 };
 
 const checkExistenceOfContactItem = (
@@ -37,7 +41,9 @@ const checkExistenceOfContactItem = (
     targetUserId,
   }));
 
-  return { index };
+  return {
+    index,
+  };
 };
 
 const removeContactAndSave = async (
@@ -47,5 +53,3 @@ const removeContactAndSave = async (
   currentUser.contacts.splice(index, 1);
   await currentUser.save();
 };
-
-export { removeContact };

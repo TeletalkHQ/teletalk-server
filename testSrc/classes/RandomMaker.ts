@@ -11,10 +11,12 @@ class RandomMaker extends RandomMakerMain {
     super();
   }
 
-  contact() {
+  contact(): ContactItem {
     return super.contact(
       models.native.firstName.maxLength,
-      models.native.lastName.maxLength
+      models.native.lastName.maxLength,
+      models.native.userId.maxLength,
+      models.native.phoneNumber.maxLength
     );
   }
 
@@ -71,6 +73,4 @@ class RandomMaker extends RandomMakerMain {
   }
 }
 
-const randomMaker = new RandomMaker();
-
-export { randomMaker };
+export const randomMaker = new RandomMaker();

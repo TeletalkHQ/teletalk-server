@@ -8,7 +8,7 @@ import { models } from "~/models";
 import { SignInIO, SocketOnHandler, StoredClient } from "~/types";
 import { utils } from "~/utils";
 
-const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {
+export const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {
   //TODO: Use another utility to generate verification code
   const verificationCode = utils.passwordGenerator();
 
@@ -40,5 +40,3 @@ const createUserId = () => randomMaker.id(models.native.userId.maxLength);
 
 const addClient = async (clientId: string, data: StoredClient) =>
   await clientStore.add(clientId, data);
-
-export { signIn };

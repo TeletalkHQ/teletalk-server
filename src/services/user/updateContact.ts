@@ -6,14 +6,19 @@ import {
   UserId,
 } from "utility-store/lib/types";
 
-import { findOneUserById } from "~/services/common/findOneUserById";
+import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-const updateContact = async (data: {
-  currentUserId: UserId;
-  editValues: FUllNameWithUserId;
-}) => {
+import { findOneUserById } from "./findOneUserById";
+
+export const updateContact: UserService<
+  {
+    currentUserId: UserId;
+    editValues: FUllNameWithUserId;
+  },
+  void
+> = async (data) => {
   const currentUser = (await findCurrentUser(data.currentUserId))!;
 
   const { index, contact: oldContact } = findContact(
@@ -35,7 +40,9 @@ const updateContact = async (data: {
 };
 
 const findCurrentUser = async (currentUserId: string) => {
-  return await findOneUserById(currentUserId);
+  return await findOneUserById({
+    userId: currentUserId,
+  });
 };
 
 const findContact = (contacts: UserData["contacts"], targetUserId: string) => {
@@ -46,11 +53,9 @@ const findContact = (contacts: UserData["contacts"], targetUserId: string) => {
 
 const saveNewContact = async (
   currentUser: HydratedUser,
-  editValues: ContactItem | ContactItem,
+  editValues: ContactItem,
   index: number
 ) => {
   currentUser.contacts.splice(index, 1, editValues);
   await currentUser.save();
 };
-
-export { updateContact };

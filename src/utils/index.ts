@@ -9,12 +9,11 @@ import {
   ErrorCollection,
   ErrorReason,
   EventName,
-  Field,
   SocketMiddleware,
   SocketMiddlewareEvent,
   SocketNext,
 } from "~/types";
-import { ModelErrorReason, NativeModelKey } from "~/types/models";
+import { Field, ModelErrorReason, NativeModelKey } from "~/types/models";
 
 // const getHostFromRequest = (request) => request.get("host");
 
@@ -35,10 +34,10 @@ interface ExecuteMiddlewaresArgs {
 }
 
 const executeMiddlewares = async ({
-  socketMiddlewareEvent,
   middlewares,
   next,
   socket,
+  socketMiddlewareEvent,
 }: ExecuteMiddlewaresArgs) => {
   for await (const m of middlewares) {
     const result = await m(
@@ -53,7 +52,7 @@ const executeMiddlewares = async ({
     }
   }
 
-  return next();
+  next();
 };
 
 const regexMaker = (pattern: string) => new RegExp(pattern);
@@ -105,7 +104,7 @@ const makeModelErrorReason = (
 
 const upperSnake = (str: string) => lodash.snakeCase(str).toUpperCase();
 
-const utils = {
+export const utils = {
   crashServer,
   executeMiddlewares,
   extractClientFromCookie,
@@ -118,5 +117,3 @@ const utils = {
   sortEnvironments,
   upperSnake,
 };
-
-export { utils };

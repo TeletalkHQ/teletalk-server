@@ -1,4 +1,4 @@
-const FIELD_TYPE = {
+export const FIELD_TYPE = {
   ARRAY: "array",
   BOOLEAN: "boolean",
   DATE: "date",
@@ -6,5 +6,3 @@ const FIELD_TYPE = {
   OBJECT: "object",
   STRING: "string",
 };
-
-export { FIELD_TYPE };

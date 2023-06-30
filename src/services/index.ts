@@ -3,11 +3,9 @@ import { chatServices } from "~/services/chat";
 import { commonServices } from "~/services/common";
 import { userServices } from "~/services/user";
 
-const services = {
+export const services = {
   ...authServices,
   ...chatServices,
   ...commonServices,
   ...userServices,
 };
-
-export { services };

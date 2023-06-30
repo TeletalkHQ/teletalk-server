@@ -44,8 +44,6 @@ class E2eFailTestInitializerHelper<IOType extends IO> {
   verificationCode = this.initializer("verificationCode");
 }
 
-const e2eFailTestInitializerHelper = <IOType extends IO>(
+export const e2eFailTestInitializerHelper = <IOType extends IO>(
   requester: Requester<IOType>
 ) => new E2eFailTestInitializerHelper<IOType>(requester);
-
-export { e2eFailTestInitializerHelper };

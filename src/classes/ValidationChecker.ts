@@ -1,18 +1,17 @@
 import { helpers } from "~/helpers";
 import {
   ErrorTypes,
-  Field,
   NativeError,
   ValidationCheckerError,
   ValidationCheckerIgnores,
   ValidationErrors,
   ValidationResult,
 } from "~/types";
-import { NativeModel } from "~/types/models";
+import { Field, NativeModel } from "~/types/models";
 import { utils } from "~/utils";
 import { errors } from "~/variables";
 
-class ValidationChecker {
+export class ValidationChecker {
   private collectedErrors: NativeError[] = [];
 
   private errorTypes: ErrorTypes;
@@ -107,17 +106,9 @@ const convertErrorTypesToBoolean = (errors: ValidationErrors) => {
   return validatorErrorTypes;
 };
 
-const validationChecker = (
+export const validationChecker = (
   validationResult: ValidationResult,
   fieldName: Field,
   value: unknown,
   ignores?: ValidationCheckerIgnores
 ) => new ValidationChecker(validationResult, fieldName, value, ignores);
-
-export {
-  type ValidationErrors,
-  type ErrorTypes,
-  type ValidationResult,
-  validationChecker,
-  ValidationChecker,
-};

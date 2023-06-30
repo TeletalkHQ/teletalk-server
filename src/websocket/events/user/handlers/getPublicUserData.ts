@@ -4,13 +4,13 @@ import { services } from "~/services";
 import { GetPublicUserDataIO, SocketOnHandler } from "~/types";
 import { errors } from "~/variables";
 
-const getPublicUserData: SocketOnHandler<GetPublicUserDataIO> = async (
+export const getPublicUserData: SocketOnHandler<GetPublicUserDataIO> = async (
   _socket,
   data
 ) => {
   const { userId } = data;
 
-  const user = await services.getTargetUserData({
+  const user = await services.findOneUserById({
     userId,
   });
   if (!user) throw errors.targetUserNotExist;
@@ -21,5 +21,3 @@ const getPublicUserData: SocketOnHandler<GetPublicUserDataIO> = async (
     },
   };
 };
-
-export { getPublicUserData };

@@ -4,7 +4,7 @@ import { NativeModelCollection, NativeModelKey } from "~/types/models";
 import { utils } from "~/utils";
 
 //TODO: Add more support like trim and required
-function makeMongoSchemaValue<P extends keyof NativeModelCollection>(
+export function makeMongoSchemaValue<P extends keyof NativeModelCollection>(
   fieldName: P
 ) {
   return function <F extends keyof NativeModelCollection[P]>(
@@ -16,5 +16,3 @@ function makeMongoSchemaValue<P extends keyof NativeModelCollection>(
     ];
   };
 }
-
-export { makeMongoSchemaValue };

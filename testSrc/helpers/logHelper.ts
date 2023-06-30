@@ -3,7 +3,7 @@ import { escapeChars } from "~/variables";
 const separator =
   "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+";
 
-const loggerHelper = {
+export const loggerHelper = {
   makeSeparator(title = "") {
     const titleLength = title.length;
     const fixedSeparator = separator.slice(
@@ -55,5 +55,3 @@ const loggerHelper = {
     logger.bgMagenta(this.makeSeparator(), "black").info();
   },
 };
-
-export { loggerHelper };

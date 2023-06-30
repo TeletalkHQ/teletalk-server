@@ -11,7 +11,11 @@ import {
 import { checkFieldErrors } from "~/variables";
 import { eventsArray } from "~/websocket/events";
 
-const checkDataFields: SocketMiddleware = (_socket, next, [name, data]) => {
+export const checkDataFields: SocketMiddleware = (
+  _socket,
+  next,
+  [name, data]
+) => {
   const { inputFields } = eventsArray.find(
     (item) => item.name === name
   ) as SocketEvent;
@@ -38,5 +42,3 @@ const catchBlock = (error: NativeError, inputFields: IoFields) => {
     inputFields,
   };
 };
-
-export { checkDataFields };

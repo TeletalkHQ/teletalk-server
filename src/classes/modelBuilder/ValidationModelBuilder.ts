@@ -1,26 +1,23 @@
-import Validator, {
-  MessagesType,
-  ValidationRuleObject,
-} from "fastest-validator";
+import Validator, { MessagesType } from "fastest-validator";
 
-import { Field, ValidationModel } from "~/types";
-import { NativeModelCollection, NativeModelKey } from "~/types/models";
+import { ValidationModel } from "~/types";
+import { Field, NativeModelCollection, NativeModelKey } from "~/types/models";
 import { utils } from "~/utils";
 import { errors } from "~/variables";
 
 type ErrorMessageKey = keyof MessagesType;
-type ValidationSchemaKey = keyof ValidationRuleObject;
+type ValidationSchemaKey = keyof ValidationModel;
 
 const compiler = new Validator({
   useNewCustomCheckerFunction: true,
 });
 
-class ValidationModelBuilder<
+export class ValidationModelBuilder<
   T extends Field,
   Model extends NativeModelCollection[T]
 > {
   private model: Model;
-  private validationRuleObject: ValidationRuleObject;
+  private validationRuleObject: ValidationModel;
 
   constructor(private fieldName: T) {
     //@ts-ignore
@@ -118,12 +115,10 @@ class ValidationModelBuilder<
   }
 }
 
-const validationModelBuilder = {
+export const validationModelBuilder = {
   create: function vmb<F extends Field, Model extends NativeModelCollection[F]>(
     fieldName: F
   ) {
     return new ValidationModelBuilder<F, Model>(fieldName);
   },
 };
-
-export { validationModelBuilder, ValidationModelBuilder };

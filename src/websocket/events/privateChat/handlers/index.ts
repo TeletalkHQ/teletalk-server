@@ -4,12 +4,10 @@ import { getPrivateChats } from "~/websocket/events/privateChat/handlers/getPriv
 import { joinRoom } from "~/websocket/events/privateChat/handlers/joinRoom";
 import { sendPrivateMessage } from "~/websocket/events/privateChat/handlers/sendPrivateMessage";
 
-const privateChatHandlers = {
+export const privateChatHandlers = {
   getChatInfo,
   getPrivateChat,
   getPrivateChats,
   joinRoom,
   sendPrivateMessage,
 };
-
-export { privateChatHandlers };

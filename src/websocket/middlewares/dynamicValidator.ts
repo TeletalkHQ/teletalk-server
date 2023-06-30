@@ -5,13 +5,13 @@ import { trier } from "simple-trier";
 import {
   AddContactIO,
   EventName,
-  Field,
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
   StringMap,
   ValidationCheckerIgnores,
 } from "~/types";
+import { Field } from "~/types/models";
 import { validationCheckers } from "~/validationCheckers";
 import { validators } from "~/validators";
 

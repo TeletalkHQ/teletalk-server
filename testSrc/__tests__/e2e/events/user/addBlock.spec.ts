@@ -2,6 +2,7 @@ import { customTypeof } from "custom-typeof";
 import { UserData } from "utility-store/lib/types";
 
 import { services } from "~/services";
+import { UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -16,6 +17,7 @@ describe("addBlock successful tests", () => {
     const blacklistLength = 10;
     for (let i = 0; i < blacklistLength; i++) {
       const { user: targetUser } = await randomMaker.user();
+
       const {
         data: { blockedUser },
       } = await requester.sendFullFeaturedRequest({
@@ -29,7 +31,9 @@ describe("addBlock successful tests", () => {
       });
     }
 
-    const { blacklist } = (await services.findOneUserById(user.userId))!;
+    const { blacklist } = (await services.findOneUserById({
+      userId: user.userId,
+    }))!;
 
     expect(customTypeof.isArray(blacklist)).toBeTruthy();
     expect(blacklist.length).toEqual(blacklistLength);
@@ -66,7 +70,7 @@ await helpers.asyncDescribe("addBlock fail tests", async () => {
 });
 
 const testAddBlockResponse = async (data: {
-  blockedUserId: string;
+  blockedUserId: UserId;
   currentUser: UserData;
   targetUser: UserData;
 }) => {
@@ -79,7 +83,7 @@ const testAddBlockResponse = async (data: {
   testBlockItem(data.targetUser.userId, data.blockedUserId);
 };
 
-const testTargetUserBlacklist = async (targetUserId: string) => {
+const testTargetUserBlacklist = async (targetUserId: UserId) => {
   const blacklist = await findBlacklist(targetUserId);
   expect(customTypeof.isArray(blacklist)).toBeTruthy();
   expect(blacklist).toHaveLength(0);
@@ -88,15 +92,17 @@ const testTargetUserBlacklist = async (targetUserId: string) => {
 };
 
 const findSavedBlacklist = async (
-  currentUserId: string,
-  targetUserId: string
+  currentUserId: UserId,
+  targetUserId: UserId
 ) => {
   const blacklist = await findBlacklist(currentUserId);
   return blacklist.find((i) => i.userId === targetUserId)!;
 };
 
-const findBlacklist = async (userId: string) => {
-  const { blacklist } = (await services.findOneUserById(userId)) as UserData;
+const findBlacklist = async (userId: UserId) => {
+  const { blacklist } = (await services.findOneUserById({
+    userId,
+  })) as UserData;
   return blacklist;
 };
 

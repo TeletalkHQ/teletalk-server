@@ -3,7 +3,7 @@ import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 import { SocketOnHandler, VerifyIO } from "~/types";
 
-const verify: SocketOnHandler<VerifyIO> = async (socket) => {
+export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
   const client = (await clientStore.find(socket.clientId))!;
 
   const cellphone = userUtils.extractCellphone(client);
@@ -35,5 +35,3 @@ const addNewClient = async (userId: string, clientId: string) => {
     userId,
   });
 };
-
-export { verify };

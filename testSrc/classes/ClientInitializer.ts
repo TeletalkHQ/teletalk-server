@@ -41,7 +41,7 @@ const setClientIdRequestBody = (
   };
 };
 
-class ClientInitializer {
+export class ClientInitializer {
   private client: Socket;
   private clientStr: string;
   private clientCookie: string;
@@ -123,6 +123,4 @@ class ClientInitializer {
   }
 }
 
-const clientInitializer = () => new ClientInitializer();
-
-export { clientInitializer, ClientInitializer };
+export const clientInitializer = () => new ClientInitializer();

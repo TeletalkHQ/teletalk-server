@@ -8,8 +8,8 @@ import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHe
 import { randomMaker } from "@/classes/RandomMaker";
 import { helpers } from "@/helpers";
 
-describe("updatablePublicData success tests", () => {
-  it("should get currentUser data", async () => {
+describe("updatePublicUserData success tests", () => {
+  it("should get user public data", async () => {
     const users = await randomMaker.users(10);
 
     for (const { socket, user } of users) {
@@ -25,7 +25,7 @@ describe("updatablePublicData success tests", () => {
 
       testPublicUserData(equalValue, publicDataFromEvent);
 
-      const targetUserDataInDb = (await services.getTargetUserData({
+      const targetUserDataInDb = (await services.findOneUserById({
         userId: user.userId,
       }))!;
 
@@ -36,20 +36,20 @@ describe("updatablePublicData success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("updatablePublicData fail tests", async () => {
+await helpers.asyncDescribe("updatePublicUserData fail tests", async () => {
   const { requester } = await helpers.setupRequester(
     helpers.requesterCollection.updatePublicUserData
   );
 
   return () => {
-    const updatablePublicData = randomMaker.publicUserData();
+    const publicDataForUpdate = randomMaker.publicUserData();
 
     e2eFailTestInitializerHelper(requester)
-      .input(updatablePublicData)
-      .bio(updatablePublicData)
-      .firstName(updatablePublicData)
-      .lastName(updatablePublicData)
-      .username(updatablePublicData);
+      .input(publicDataForUpdate)
+      .bio(publicDataForUpdate)
+      .firstName(publicDataForUpdate)
+      .lastName(publicDataForUpdate)
+      .username(publicDataForUpdate);
   };
 });
 

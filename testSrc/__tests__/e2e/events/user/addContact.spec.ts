@@ -4,6 +4,7 @@ import { UserData } from "utility-store/lib/types";
 
 import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
+import { UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -53,7 +54,9 @@ describe("add contact success tests", () => {
       });
     }
 
-    const { contacts } = (await services.findOneUserById(currentUser.userId))!;
+    const { contacts } = (await services.findOneUserById({
+      userId: currentUser.userId,
+    }))!;
 
     expect(customTypeof.isArray(contacts)).toBeTruthy();
     expect(contacts.length).toEqual(contactsLength);
@@ -160,14 +163,14 @@ const testAddContactResponse = async (data: {
   testOneContact(data.addedContact, data.sendingData);
 };
 
-const testTargetUserContacts = async (targetUserId: string) => {
+const testTargetUserContacts = async (targetUserId: UserId) => {
   const targetUserContacts = await findContacts(targetUserId);
   expect(customTypeof.isArray(targetUserContacts)).toBeTruthy();
   expect(targetUserContacts).toHaveLength(0);
 };
 
 const findSavedContact = async (
-  currentUserId: string,
+  currentUserId: UserId,
   addedContact: ContactItem
 ) => {
   const contacts = (await findContacts(currentUserId))!;
@@ -175,8 +178,8 @@ const findSavedContact = async (
   return contacts.find((i) => i.userId === addedContact.userId) as ContactItem;
 };
 
-const findContacts = async (userId: string) => {
-  const { contacts } = (await services.findOneUserById(userId)) as UserData;
+const findContacts = async (userId: UserId) => {
+  const { contacts } = (await services.findOneUserById({ userId })) as UserData;
   return contacts;
 };
 

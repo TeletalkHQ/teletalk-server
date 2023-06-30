@@ -1,7 +1,7 @@
 import { services } from "~/services";
 import { GetPrivateChatIO, SocketOnHandler } from "~/types";
 
-const getPrivateChat: SocketOnHandler<GetPrivateChatIO> = async (
+export const getPrivateChat: SocketOnHandler<GetPrivateChatIO> = async (
   _socket,
   data
 ) => {
@@ -13,5 +13,3 @@ const getPrivateChat: SocketOnHandler<GetPrivateChatIO> = async (
 
   return { data: { privateChat: JSON.parse(JSON.stringify(privateChat)) } };
 };
-
-export { getPrivateChat };

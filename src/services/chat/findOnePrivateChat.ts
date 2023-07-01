@@ -1,12 +1,12 @@
+import { FilterQuery } from "mongoose";
+
 import { models } from "~/models";
-import { PrivateChatData } from "~/types/datatypes";
-import { HydratedPrivateChat, PrivateChatService } from "~/types/models";
+import { PrivateChatService } from "~/types";
+import { HydratedPrivateChat, IPrivateChatDoc } from "~/types/models";
 
-const findOnePrivateChat: PrivateChatService<
-  Partial<PrivateChatData>,
-  Promise<HydratedPrivateChat | null>
-> = async (data) => {
-  return await models.database.mongoDb.PrivateChat.findOne(data);
+export const findOnePrivateChat: PrivateChatService<
+  FilterQuery<IPrivateChatDoc>,
+  HydratedPrivateChat | null
+> = (data) => {
+  return models.database.PrivateChat.findOne(data);
 };
-
-export { findOnePrivateChat };

@@ -12,7 +12,7 @@ import {
   SocketResponse,
 } from "~/types";
 
-const registerCustomUse = (socket: Socket) => {
+export const registerCustomUse = (socket: Socket) => {
   return ((middleware) => {
     socket.use(
       async (socketMiddlewareEvent: SocketDefaultMiddlewareEvent, next) => {
@@ -55,5 +55,3 @@ const catchBlock = (
 
   socket.emit("error", response);
 };
-
-export { registerCustomUse };

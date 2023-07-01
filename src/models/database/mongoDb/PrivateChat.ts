@@ -73,10 +73,8 @@ const PrivateChatSchema = new Schema<IPrivateChatDoc, IPrivateChatModel>({
   ],
 });
 
-const PrivateChatModel = model<IPrivateChatDoc, IPrivateChatModel>(
+export const PrivateChatModel = model<IPrivateChatDoc, IPrivateChatModel>(
   "PrivateChat",
   PrivateChatSchema,
   "privateChats"
 );
-
-export { PrivateChatModel };

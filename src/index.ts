@@ -1,14 +1,14 @@
+// import { createAdapter, setupPrimary } from "@socket.io/cluster-adapter";
+// import { setupMaster, setupWorker } from "@socket.io/sticky";
+import address from "address";
 // import cluster from "cluster";
 // import os from "os";
-// import { setupMaster, setupWorker } from "@socket.io/sticky";
-// import { setupPrimary, createAdapter } from "@socket.io/cluster-adapter";
-// import { Server } from "socket.io";
-import address from "address";
 import PrettyError from "pretty-error";
 
 import { appConfigs } from "~/classes/AppConfigs";
 import { crateHttpServer } from "~/http";
 import { requirements } from "~/requirements";
+// import { utils } from "~/utils";
 import { websocketServer } from "~/websocket";
 
 PrettyError.start();
@@ -16,58 +16,46 @@ PrettyError.start();
 await appConfigs.setup();
 
 const listeningListener = () => {
-  const { ENVIRONMENT } = appConfigs.getConfigs().APP;
+  const { ENVIRONMENT, PORT } = appConfigs.getConfigs().APP;
 
   logger.info(
-    `Server is running in ${ENVIRONMENT} mode on port ${
-      appConfigs.getConfigs().APP.PORT
-    }`,
-    `url: http://${address.ip()}:${appConfigs.getConfigs().APP.PORT}`
+    `Server is running in ${ENVIRONMENT} mode on port ${PORT}`,
+    `url: http://${address.ip()}:${PORT}`
   );
 };
 
-const runner = async () => {
+export const runner = async () => {
   // if (cluster.isPrimary) {
+  //   utils.logEnvironments();
 
-  // utils.logEnvironments();
+  //   const NUM_WORKERS = os.cpus().length;
 
-  // const NUM_WORKERS = os.cpus().length;
+  //   logger.debug(`Master ${process.pid} is running`);
 
-  // logger.debug(`Master ${process.pid} is running`);
+  //   const httpServer = crateHttpServer();
 
-  // const httpServer = crateHttpServer();
+  //   setupMaster(httpServer, {
+  //     loadBalancingMethod: "round-robin",
+  //   });
 
-  // setupMaster(httpServer, {
-  //   loadBalancingMethod: "round-robin",
-  // });
+  //   setupPrimary();
 
-  // setupPrimary();
+  //   httpServer.listen(appConfigs.getConfigs().APP.PORT);
 
-  // httpServer.listen(PORT);
-
-  // for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
+  //   for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
   // } else {
   await requirements.database();
 
+  //   logger.debug(`Worker ${process.pid} started`);
+
   const httpServer = crateHttpServer();
   httpServer.listen(appConfigs.getConfigs().APP.PORT, listeningListener);
+
+  // const io =
   websocketServer(httpServer);
-
-  // logger.debug(`Worker ${process.pid} started`);
-
-  // const httpServer = crateHttpServer();
-  // const io = new Server(httpServer, {
-  //   cors: { credentials: true, origin: true },
-  // });
-  // io.adapter(createAdapter());
-  // setupWorker(io);
-
-  // io.on("connection", (socket) => {
-  //   logger.debug("user connected", socket.id);
-  // });
+  //   io.adapter(createAdapter());
+  //   setupWorker(io);
   // }
 };
 
 if (appConfigs.getConfigs().APP.SELF_EXEC) await runner();
-
-export { runner };

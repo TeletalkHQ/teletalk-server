@@ -1,8 +1,9 @@
 import { customTypeof } from "custom-typeof";
-import { CLientId, Cellphone } from "utility-store/lib/types";
+import { Cellphone } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
 import { userUtils } from "~/classes/UserUtils";
+import { ClientId } from "~/types/datatypes";
 
 import {
   AssertionInitializerHelper,
@@ -67,7 +68,7 @@ await helpers.asyncDescribe("signIn fail test", async () => {
 
 const testSavedClient = async (
   assertionHelper: AssertionInitializerHelper,
-  clientId: CLientId,
+  clientId: ClientId,
   cellphone: Cellphone
 ) => {
   const client = (await clientStore.find(clientId))!;

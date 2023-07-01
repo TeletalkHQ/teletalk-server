@@ -1,7 +1,7 @@
 import { EventName, SocketMiddleware } from "~/types";
 import { utils } from "~/utils";
 
-const applyMiddlewares = (
+export const applyMiddlewares = (
   eventNamesToApply: EventName | EventName[],
   ...middlewares: SocketMiddleware[]
 ) => {
@@ -18,5 +18,3 @@ const applyMiddlewares = (
     next();
   }) as SocketMiddleware;
 };
-
-export { applyMiddlewares };

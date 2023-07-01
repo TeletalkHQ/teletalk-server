@@ -152,10 +152,8 @@ const collection = {
   user,
 };
 
-const fields = {
+export const fields = {
   collection,
   single,
   statics,
 };
-
-export { fields };

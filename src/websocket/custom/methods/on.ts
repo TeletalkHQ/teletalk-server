@@ -16,7 +16,7 @@ import {
 import { checkFieldErrors } from "~/variables";
 import { eventsArray } from "~/websocket/events";
 
-const registerCustomOn = (socket: Socket) => {
+export const registerCustomOn = (socket: Socket) => {
   return ((eventName, handler) => {
     socket.on(eventName, async (data, responseCallback: ResponseCallback) => {
       const returnValue = await tryToRunHandler(
@@ -49,8 +49,6 @@ const registerCustomOn = (socket: Socket) => {
     });
   }) as CustomOn;
 };
-
-export { registerCustomOn };
 
 async function tryToRunHandler(
   handler: SocketOnHandler,

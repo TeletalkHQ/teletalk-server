@@ -6,7 +6,7 @@ import { services } from "~/services";
 import { SocketMiddleware, SocketNext } from "~/types";
 import { errors } from "~/variables";
 
-const checkCurrentUser: SocketMiddleware = async (socket, next) => {
+export const checkCurrentUser: SocketMiddleware = async (socket, next) => {
   await trier<void>(checkCurrentUser.name)
     .async()
     .try(tryBlock, socket)
@@ -23,5 +23,3 @@ const tryBlock = async (socket: Socket) => {
 const executeIfNoError = (_: void, next: SocketNext) => {
   next();
 };
-
-export { checkCurrentUser };

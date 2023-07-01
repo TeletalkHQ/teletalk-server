@@ -19,7 +19,7 @@ import { userIdAssertionInitializer } from "./userId";
 import { usernameAssertionInitializer } from "./username";
 import { verificationCodeAssertionInitializer } from "./verificationCode";
 
-const assertionInitializers = {
+export const assertionInitializers = {
   bio: bioAssertionInitializer,
   blacklist: blacklistAssertionInitializer,
   cellphone: cellphoneAssertionInitializer,
@@ -41,5 +41,3 @@ const assertionInitializers = {
   username: usernameAssertionInitializer,
   verificationCode: verificationCodeAssertionInitializer,
 };
-
-export { assertionInitializers };

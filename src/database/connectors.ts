@@ -4,9 +4,7 @@ import { createClient } from "redis";
 import { appConfigs } from "~/classes/AppConfigs";
 import { utils } from "~/utils";
 
-//REFACTOR: all major
-
-const mongodbConnector = () => {
+export const mongodbConnector = () => {
   const configs = appConfigs.getConfigs();
 
   mongoose.set("strictQuery", false);
@@ -23,7 +21,7 @@ const mongodbConnector = () => {
   });
 };
 
-const redisConnector = async () => {
+export const redisConnector = async () => {
   const REDIS_CONNECTION_OPTIONS = fixRedisConnection();
   const { REDIS_PASSWORD } = appConfigs.getConfigs().DB;
 
@@ -83,5 +81,3 @@ const fixRedisPort = () => {
 
   return REDIS_PORT.toString();
 };
-
-export { mongodbConnector, redisConnector };

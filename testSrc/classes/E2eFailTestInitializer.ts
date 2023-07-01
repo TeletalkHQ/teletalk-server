@@ -1,7 +1,7 @@
 import { randomMaker } from "utility-store";
 
-import { Field, IO, NativeError } from "~/types";
-import { FieldType, NativeModel } from "~/types/models";
+import { IO, NativeError } from "~/types";
+import { Field, FieldType, NativeModel } from "~/types/models";
 import { utils } from "~/utils";
 import { errors } from "~/variables";
 
@@ -39,17 +39,15 @@ class E2eFailTestInitializer<
   }
 
   custom(value: any, error: NativeError) {
-    const mergedData = this.dataMerger(value);
-    this.initTest(mergedData, error);
+    this.initTest(this.dataMerger(value), error);
     return this;
   }
   empty() {
-    this.custom("", this.resolveError("empty"));
+    this.initTest(this.dataMerger(""), this.resolveError("empty"));
     return this;
   }
   missing() {
-    const mergedData = this.dataMerger();
-    this.initTest(mergedData, errors.inputFieldsMissing);
+    this.initTest(this.dataMerger(), errors.inputFieldsMissing);
     return this;
   }
   overload() {
@@ -112,7 +110,7 @@ class E2eFailTestInitializer<
   }
 }
 
-const e2eFailTestInitializer = {
+export const e2eFailTestInitializer = {
   create: <PartialNativeModel extends Model, IOType extends IO>(
     configuredRequester: Requester<IOType>,
     data: any,
@@ -126,5 +124,3 @@ const e2eFailTestInitializer = {
       fieldName
     ),
 };
-
-export { e2eFailTestInitializer };

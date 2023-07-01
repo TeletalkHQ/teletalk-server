@@ -22,7 +22,7 @@ import { userIdE2eFailTestInitializer } from "./userId";
 import { usernameE2eFailTestInitializer } from "./username";
 import { verificationCodeE2eFailTestInitializer } from "./verificationCode";
 
-const e2eFailTestInitializers = {
+export const e2eFailTestInitializers = {
   bio: bioE2eFailTestInitializer,
   blacklistItemExist: blacklistItemExistE2eFailTestInitializer,
   blacklistItemNotExist: blacklistItemNotExistE2eFailTestInitializer,
@@ -45,5 +45,3 @@ const e2eFailTestInitializers = {
   username: usernameE2eFailTestInitializer,
   verificationCode: verificationCodeE2eFailTestInitializer,
 };
-
-export { e2eFailTestInitializers };

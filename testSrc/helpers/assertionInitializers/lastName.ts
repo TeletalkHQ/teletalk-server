@@ -3,7 +3,7 @@ import { models } from "~/models";
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
 
-const lastNameAssertionInitializer: AssertionInitializer = (
+export const lastNameAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
@@ -19,5 +19,3 @@ const lastNameAssertionInitializer: AssertionInitializer = (
     .addIf(models.native.lastName.empty, () => builder.lteCheck())
     .run();
 };
-
-export { lastNameAssertionInitializer };

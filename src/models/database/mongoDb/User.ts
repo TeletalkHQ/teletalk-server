@@ -133,6 +133,4 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
 
 Schema.Types.String.checkRequired((v) => v !== null);
 
-const UserModel = model<IUserDoc, IUserModel>("User", userSchema, "users");
-
-export { UserModel };
+export const UserModel = model<IUserDoc, IUserModel>("User", userSchema, "users");

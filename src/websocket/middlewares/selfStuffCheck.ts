@@ -15,7 +15,7 @@ import {
 } from "~/types";
 import { errors } from "~/variables";
 
-const selfStuffCheck: SocketMiddleware = async (
+export const selfStuffCheck: SocketMiddleware = async (
   socket,
   next,
   [_name, data]
@@ -35,7 +35,9 @@ const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
       targetUserId: data.userId,
     });
   } else {
-    const currentUser = (await services.findOneUserById(socket.userId))!;
+    const currentUser = (await services.findOneUserById({
+      userId: socket.userId,
+    }))!;
 
     errorThrower(
       isDataHasEqualityWithTargetCellphone(
@@ -49,11 +51,11 @@ const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
     );
   }
 
-  return { ok: true };
+  return {
+    ok: true,
+  };
 };
 
 const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
   next();
 };
-
-export { selfStuffCheck };

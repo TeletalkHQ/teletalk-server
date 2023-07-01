@@ -6,22 +6,31 @@ import { randomMaker } from "@/classes/RandomMaker";
 import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
 
-const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
+export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
-  data
+  data,
+  ignores
 ) => {
-  e2eFailTestInitializer
-    .create(configuredRequester, data, models.native.countryCode, "countryCode")
+  const initializer = e2eFailTestInitializer.create(
+    configuredRequester,
+    data,
+    models.native.countryCode,
+    "countryCode"
+  );
+
+  initializer
     .missing()
     .overload()
     .invalidType()
-    .empty()
     .numeric()
     .minLength()
     .maxLength(
       randomMaker.stringNumber(models.native.countryCode.maxLength + 1)
-    )
-    .custom(helpers.getWrongCountryCode(), errors.countryCodeNotSupported);
-};
+    );
 
-export { countryCodeE2eFailTestInitializer };
+  if (!ignores?.includes("empty")) {
+    initializer
+      .empty()
+      .custom(helpers.getWrongCountryCode(), errors.countryCodeNotSupported);
+  }
+};

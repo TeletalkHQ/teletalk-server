@@ -80,6 +80,7 @@
     "monospace",
     "multer",
     "newrelic",
+    "nocheck",
     "nodemailer",
     "nodemon",
     "noproxy",

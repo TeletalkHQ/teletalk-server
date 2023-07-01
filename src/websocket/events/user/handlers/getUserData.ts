@@ -1,22 +1,22 @@
 import { services } from "~/services";
 import { GetUserDataIO, SocketOnHandler } from "~/types";
 
-const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
+export const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
   const { userId: currentUserId } = socket;
 
-  const { clients, ...userData } = (await services.getUserData(
+  const { clients, ...userData } = (await services.findOneUserById(
     {
       userId: currentUserId,
     },
-    { lean: true }
+    undefined,
+    {
+      lean: true,
+    }
   ))!;
 
   return {
     data: {
-      //FIXME: Handle it in serviceHandler
       user: JSON.parse(JSON.stringify(userData)),
     },
   };
 };
-
-export { getUserData };

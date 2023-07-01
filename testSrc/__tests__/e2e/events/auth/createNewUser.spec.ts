@@ -3,6 +3,7 @@ import { Cellphone, FullName, UserData } from "utility-store/lib/types";
 import { clientStore } from "~/classes/ClientStore";
 import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
+import { ClientId, UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { authHelper } from "@/classes/AuthHelper";
@@ -47,7 +48,7 @@ await helpers.asyncDescribe("createNewUser fail tests", async () => {
   };
 });
 
-const testCreatedUserClientId = async (clientId: string) => {
+const testCreatedUserClientId = async (clientId: ClientId) => {
   const { userId } = (await clientStore.find(clientId))!;
 
   const foundClientId = (await getSavedUserClientId(userId, clientId))!;
@@ -58,12 +59,12 @@ const testCreatedUserClientId = async (clientId: string) => {
   });
 };
 
-const getSavedUserClientId = async (userId: string, clientId: string) => {
+const getSavedUserClientId = async (userId: UserId, clientId: ClientId) => {
   const savedUser = (await getSavedUser(userId))!;
   return savedUser.clients.find((i) => i.clientId === clientId);
 };
-const getSavedUser = async (userId: string) => {
-  return await services.findOneUserById(userId);
+const getSavedUser = async (userId: UserId) => {
+  return await services.findOneUserById({ userId });
 };
 
 const testCreatedUserData = (

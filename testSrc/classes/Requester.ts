@@ -15,12 +15,12 @@ import { errors } from "~/variables";
 import { loggerHelper } from "@/helpers/logHelper";
 import { RequesterOptions } from "@/types";
 
-class Requester<IOType extends IO> {
+export class Requester<IOType extends IO> {
   private error?: NativeError;
   private options: RequesterOptions = {
     shouldFilterRequestData: true,
   };
-  private requestData: StringMap;
+  private requestData: IOType["input"];
   private response: SocketResponse<IOType["output"]>;
   private event: SocketEvent<IOType>;
   private socket: Client;
@@ -108,7 +108,7 @@ class Requester<IOType extends IO> {
       throw error;
     }
   }
-  filterRequestData(requestData: StringMap, inputFields: StringMap) {
+  filterRequestData(requestData: IOType["input"], inputFields: StringMap) {
     return objectUtils.excludePropsPeerToPeer(
       requestData,
       inputFields
@@ -193,15 +193,13 @@ class Requester<IOType extends IO> {
     expect(customTypeof.isArray(errors)).toBeTruthy();
 
     const err = errors?.find((i) => i.reason === expectedReason);
-    expect(expectedReason).toEqual(err?.reason);
+    expect(err?.reason).toEqual(expectedReason);
 
     return this;
   }
 }
 
-const requesterMaker = <IOType extends IO>(
+export const requesterMaker = <IOType extends IO>(
   socket: Client,
   event: SocketEvent<IOType>
 ) => new Requester(socket, event);
-
-export { Requester, requesterMaker };

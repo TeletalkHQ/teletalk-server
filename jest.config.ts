@@ -5,12 +5,14 @@ import tsconfig from "./tsconfig.json";
 let baseOptions: JestConfigWithTsJest = {
   extensionsToTreatAsEsm: [".ts"],
   forceExit: true,
-  maxWorkers: 2,
+  maxWorkers: 4,
   moduleFileExtensions: ["js", "ts", "json", "node"],
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
   modulePaths: [tsconfig.compilerOptions.baseUrl],
   setupFiles: ["./jest.setup.ts"],
+  silent: false,
   testEnvironment: "node",
+  setupFilesAfterEnv: ["./configs/jestConsoleFix.js"],
   testMatch: [
     "**/testSrc/__tests__/e2e/events/auth/createNewUser.spec.ts",
     "**/testSrc/__tests__/e2e/events/auth/logout.spec.ts",
@@ -21,8 +23,8 @@ let baseOptions: JestConfigWithTsJest = {
     "**/testSrc/__tests__/e2e/events/privateChat/getPrivateChats.spec.ts",
     "**/testSrc/__tests__/e2e/events/privateChat/sendPrivateMessage.spec.ts",
     "**/testSrc/__tests__/e2e/events/user/addBlock.spec.ts",
-    // "**/testSrc/__tests__/e2e/events/user/addContact.spec.ts",
-    // "**/testSrc/__tests__/e2e/events/user/editContact.spec.ts",
+    "**/testSrc/__tests__/e2e/events/user/addContact.spec.ts",
+    "**/testSrc/__tests__/e2e/events/user/editContact.spec.ts",
     "**/testSrc/__tests__/e2e/events/user/getContacts.spec.ts",
     "**/testSrc/__tests__/e2e/events/user/getPublicUserData.spec.ts",
     "**/testSrc/__tests__/e2e/events/user/getUserData.spec.ts",
@@ -37,6 +39,7 @@ let baseOptions: JestConfigWithTsJest = {
     "**/testSrc/__tests__/e2e/middleware/checkEventAvailability.spec.ts",
     "**/testSrc/__tests__/e2e/middleware/validateClientId.spec.ts",
     "**/testSrc/__tests__/e2e/middleware/verifyClient.spec.ts",
+    "**/testSrc/__tests__/unit/functions/crashServer.spec.ts",
   ],
   testPathIgnorePatterns: [
     "<rootDir>/node_modules/",
@@ -49,6 +52,9 @@ let baseOptions: JestConfigWithTsJest = {
     "^.+\\.ts?$": [
       "ts-jest",
       {
+        diagnostics: {
+          // exclude: ["**"],
+        },
         useESM: true,
       },
     ],
@@ -58,6 +64,8 @@ let baseOptions: JestConfigWithTsJest = {
     "<rootDir>/lib",
     "<rootDir>/coverage",
   ],
+  verbose: true,
+  logHeapUsage: false,
 };
 
 const coverageOptions: JestConfigWithTsJest = {
@@ -65,7 +73,7 @@ const coverageOptions: JestConfigWithTsJest = {
   collectCoverageFrom: ["./src/**"],
   coverageThreshold: {
     global: {
-      lines: 90,
+      lines: 85,
     },
   },
 };

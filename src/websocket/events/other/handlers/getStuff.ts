@@ -4,7 +4,7 @@ import { GetStuffIO, SocketOnHandler } from "~/types";
 import { errors } from "~/variables";
 import { events } from "~/websocket/events";
 
-const getStuff: SocketOnHandler<GetStuffIO> = (_socket) => {
+export const getStuff: SocketOnHandler<GetStuffIO> = (_socket) => {
   const stuff = {
     errors: Object.values(errors),
     models: Object.values(models.native),
@@ -16,5 +16,3 @@ const getStuff: SocketOnHandler<GetStuffIO> = (_socket) => {
     data: stuff,
   };
 };
-
-export { getStuff };

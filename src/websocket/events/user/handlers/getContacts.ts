@@ -1,7 +1,7 @@
 import { services } from "~/services";
 import { GetContactsIO, SocketOnHandler } from "~/types";
 
-const getContacts: SocketOnHandler<GetContactsIO> = async (socket) => {
+export const getContacts: SocketOnHandler<GetContactsIO> = async (socket) => {
   const { userId: currentUserId } = socket;
 
   const contacts = await services.getUserContacts({ currentUserId });
@@ -10,5 +10,3 @@ const getContacts: SocketOnHandler<GetContactsIO> = async (socket) => {
     data: { contacts },
   };
 };
-
-export { getContacts };

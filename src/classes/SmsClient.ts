@@ -5,11 +5,11 @@ import { errorThrower } from "utility-store";
 import { appConfigs } from "~/classes/AppConfigs";
 import { errors, escapeChars } from "~/variables";
 
-class SmsClient {
+export class SmsClient {
   templates() {
     return {
       verificationCode: (verificationCode: string, host: string) =>
-        `verification code: ${verificationCode} ${escapeChars.newLine}${escapeChars.newLine} ${host}        
+        `verification code: ${verificationCode} ${escapeChars.newLine}${escapeChars.newLine} ${host}
         `,
     };
   }
@@ -101,6 +101,4 @@ class SmsClient {
   }
 }
 
-const smsClient = new SmsClient();
-
-export { smsClient };
+export const smsClient = new SmsClient();

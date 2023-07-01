@@ -2,7 +2,7 @@
 import { EventName, SocketMiddleware } from "~/types";
 import { utils } from "~/utils";
 
-const ignoreMiddlewares = (
+export const ignoreMiddlewares = (
   eventNamesToIgnore: EventName | EventName[],
   ...middlewares: SocketMiddleware[]
 ) => {
@@ -17,5 +17,3 @@ const ignoreMiddlewares = (
         });
   }) as SocketMiddleware;
 };
-
-export { ignoreMiddlewares };

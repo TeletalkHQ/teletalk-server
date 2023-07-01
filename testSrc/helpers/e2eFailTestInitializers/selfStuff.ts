@@ -3,7 +3,7 @@ import { errors } from "~/variables";
 import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
 
-const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
+export const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
@@ -17,5 +17,3 @@ const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
     }
   );
 };
-
-export { selfStuffE2eFailTestInitializer };

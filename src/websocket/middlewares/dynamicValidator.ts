@@ -1,19 +1,23 @@
 import { customTypeof } from "custom-typeof";
+import lodash from "lodash";
 import { trier } from "simple-trier";
 
 import {
+  AddContactIO,
   EventName,
-  Field,
   SocketMiddleware,
   SocketMiddlewareReturnValue,
   SocketNext,
+  StringMap,
+  ValidationCheckerIgnores,
 } from "~/types";
+import { Field } from "~/types/models";
 import { validationCheckers } from "~/validationCheckers";
 import { validators } from "~/validators";
 
-type Data = { [prop in Field]: any };
+type Data = StringMap;
 
-const dynamicValidator: SocketMiddleware = async (
+export const dynamicValidator: SocketMiddleware = async (
   _socket,
   next,
   [eventName, data]
@@ -28,13 +32,17 @@ const dynamicValidator: SocketMiddleware = async (
 
 const tryBlock = async (data: Data, eventName: EventName) => {
   await validateField(data, eventName);
-  return { ok: true };
+  return {
+    ok: true,
+  };
 };
 
 const validateField = async (data: Data, eventName: EventName) => {
-  for (const prop in data) {
-    const p = prop as Field;
-    const value = data[p];
+  const filteredData = ignoreFieldsForValidate(data, eventName);
+
+  for (const prop in filteredData) {
+    const field = prop as Field;
+    const value = data[field];
 
     if (customTypeof.isObject(value)) {
       await validateField(value, eventName);
@@ -48,8 +56,10 @@ const validateField = async (data: Data, eventName: EventName) => {
       continue;
     }
 
-    const validationResult = await validators[p](value);
-    validationCheckers[p](validationResult, value);
+    const ignores: ValidationCheckerIgnores = [];
+
+    const validationResult = await validators[field](value);
+    validationCheckers[field](validationResult, value, ignores);
   }
 };
 
@@ -57,4 +67,26 @@ const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
   next();
 };
 
-export { dynamicValidator };
+const ignoreAddContactData = (data: AddContactIO["input"]) => {
+  const cellphoneFields = [
+    data.countryCode,
+    data.countryName,
+    data.phoneNumber,
+  ];
+
+  if (cellphoneFields.every((i) => i === "") && data.userId) {
+    return lodash.omit(data, "countryCode", "countryName", "phoneNumber");
+  } else if (cellphoneFields.every(Boolean) && data.userId === "") {
+    return lodash.omit(data, ["userId"]);
+  }
+
+  return data;
+};
+
+function ignoreFieldsForValidate(data: StringMap, eventName: EventName) {
+  if (eventName === "addContact") {
+    return ignoreAddContactData(data as AddContactIO["input"]);
+  }
+
+  return data;
+}

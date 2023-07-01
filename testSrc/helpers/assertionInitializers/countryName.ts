@@ -3,7 +3,7 @@ import { models } from "~/models";
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
 
-const countryNameAssertionInitializer: AssertionInitializer = (
+export const countryNameAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
@@ -15,5 +15,3 @@ const countryNameAssertionInitializer: AssertionInitializer = (
     .emptyCheck()
     .run();
 };
-
-export { countryNameAssertionInitializer };

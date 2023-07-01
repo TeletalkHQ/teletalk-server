@@ -1,7 +1,7 @@
 import { errorBuilder } from "~/classes/ErrorBuilder";
 import { nativeModels } from "~/models/native";
-import { Field } from "~/types";
 import {
+  Field,
   ModelErrorCollection,
   ModelErrorReason,
   NativeModel,
@@ -9,7 +9,7 @@ import {
 } from "~/types/models";
 import { utils } from "~/utils";
 
-class ModelErrorBuilder {
+export class ModelErrorBuilder {
   build() {
     return Object.entries(nativeModels).reduce(
       (prevValue, [fieldName, model]: [string, Partial<NativeModel>]) => {
@@ -56,6 +56,4 @@ class ModelErrorBuilder {
   }
 }
 
-const modelErrorBuilder = () => new ModelErrorBuilder();
-
-export { modelErrorBuilder, ModelErrorBuilder };
+export const modelErrorBuilder = () => new ModelErrorBuilder();

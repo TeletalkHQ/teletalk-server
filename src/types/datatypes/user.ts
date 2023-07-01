@@ -2,7 +2,7 @@ import { Id } from ".";
 
 export type Bio = string;
 
-export type CLientId = string;
+export type ClientId = string;
 
 export type FirstName = string;
 

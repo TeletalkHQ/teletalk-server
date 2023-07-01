@@ -1,7 +1,10 @@
 import { services } from "~/services";
 import { RemoveBlockIO, SocketOnHandler } from "~/types";
 
-const removeBlock: SocketOnHandler<RemoveBlockIO> = async (socket, data) => {
+export const removeBlock: SocketOnHandler<RemoveBlockIO> = async (
+  socket,
+  data
+) => {
   const { userId: currentUserId } = socket;
 
   await services.removeBlock({
@@ -15,5 +18,3 @@ const removeBlock: SocketOnHandler<RemoveBlockIO> = async (socket, data) => {
     },
   };
 };
-
-export { removeBlock };

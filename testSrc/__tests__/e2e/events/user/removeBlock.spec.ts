@@ -1,4 +1,5 @@
 import { services } from "~/services";
+import { UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -67,7 +68,7 @@ const createUserIds = async (length: number) => {
 };
 
 const testBlacklistAfterRemoveOneItem = async (
-  currentUserId: string,
+  currentUserId: UserId,
   blacklist: string[]
 ) => {
   const blacklistAfterRemove = await findBlacklist(currentUserId);
@@ -82,12 +83,12 @@ const testBlacklistAfterRemoveOneItem = async (
   });
 };
 
-const testBlacklistAfterRemoveAll = async (userId: string) => {
+const testBlacklistAfterRemoveAll = async (userId: UserId) => {
   const blacklistAfterRemoveAll = await findBlacklist(userId);
   expect(blacklistAfterRemoveAll.length).toBe(0);
 };
 
-const findBlacklist = async (userId: string) => {
-  const { blacklist } = (await services.findOneUserById(userId))!;
+const findBlacklist = async (userId: UserId) => {
+  const { blacklist } = (await services.findOneUserById({ userId }))!;
   return blacklist;
 };

@@ -2,7 +2,7 @@ import { SocketMiddleware } from "~/types";
 import { errors } from "~/variables";
 import { eventsArray } from "~/websocket/events";
 
-const checkEventAvailability: SocketMiddleware = (
+export const checkEventAvailability: SocketMiddleware = (
   _socket,
   next,
   [eventName]
@@ -17,5 +17,3 @@ const checkEventAvailability: SocketMiddleware = (
 
   next();
 };
-
-export { checkEventAvailability };

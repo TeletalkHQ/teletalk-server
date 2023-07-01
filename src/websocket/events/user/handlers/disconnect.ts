@@ -1,8 +1,6 @@
 import { SocketOnHandler } from "~/types";
 
 //CLEANME: Remove
-const disconnect: SocketOnHandler = (socket) => {
+export const disconnect: SocketOnHandler = (socket) => {
   socket.disconnect();
 };
-
-export { disconnect };

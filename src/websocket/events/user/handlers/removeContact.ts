@@ -1,7 +1,7 @@
 import { services } from "~/services";
 import { RemoveContactIO, SocketOnHandler } from "~/types";
 
-const removeContact: SocketOnHandler<RemoveContactIO> = async (
+export const removeContact: SocketOnHandler<RemoveContactIO> = async (
   socket,
   data
 ) => {
@@ -18,5 +18,3 @@ const removeContact: SocketOnHandler<RemoveContactIO> = async (
     },
   };
 };
-
-export { removeContact };

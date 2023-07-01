@@ -1,19 +1,17 @@
-import lodash from "lodash";
-
 import { helpers } from "~/helpers";
 import {
   ErrorTypes,
-  Field,
   NativeError,
   ValidationCheckerError,
+  ValidationCheckerIgnores,
   ValidationErrors,
   ValidationResult,
 } from "~/types";
-import { NativeModel } from "~/types/models";
+import { Field, NativeModel } from "~/types/models";
 import { utils } from "~/utils";
 import { errors } from "~/variables";
 
-class ValidationChecker {
+export class ValidationChecker {
   private collectedErrors: NativeError[] = [];
 
   private errorTypes: ErrorTypes;
@@ -21,7 +19,8 @@ class ValidationChecker {
   constructor(
     private validationResult: ValidationResult,
     private fieldName: Field,
-    private value: unknown
+    private value: unknown,
+    private ignores: ValidationCheckerIgnores = []
   ) {}
 
   check() {
@@ -37,57 +36,43 @@ class ValidationChecker {
       .stringNumeric()
       .stringLength();
 
+    this.collectedErrors = this.collectedErrors.filter(
+      (item) => !this.ignores.includes(item.reason)
+    );
+
     if (this.collectedErrors.length) throw this.collectedErrors;
   }
 
   stringEmpty() {
-    this.addErrorChecker(
-      this.errorTypes.stringEmpty,
-      this.resolveError("empty")
-    );
+    this.pushError(this.errorTypes.stringEmpty, this.resolveError("empty"));
     return this;
   }
   required() {
-    this.addErrorChecker(
-      this.errorTypes.required,
-      this.resolveError("required")
-    );
+    this.pushError(this.errorTypes.required, this.resolveError("required"));
     return this;
   }
   string() {
-    this.addErrorChecker(this.errorTypes.string, this.resolveError("type"));
+    this.pushError(this.errorTypes.string, this.resolveError("type"));
     return this;
   }
   stringNumeric() {
-    this.addErrorChecker(
-      this.errorTypes.stringNumeric,
-      this.resolveError("numeric")
-    );
+    this.pushError(this.errorTypes.stringNumeric, this.resolveError("numeric"));
     return this;
   }
   stringLength() {
-    this.addErrorChecker(
-      this.errorTypes.stringLength,
-      this.resolveError("length")
-    );
+    this.pushError(this.errorTypes.stringLength, this.resolveError("length"));
     return this;
   }
   stringMin() {
-    this.addErrorChecker(
-      this.errorTypes.stringMin,
-      this.resolveError("minLength")
-    );
+    this.pushError(this.errorTypes.stringMin, this.resolveError("minLength"));
     return this;
   }
   stringMax() {
-    this.addErrorChecker(
-      this.errorTypes.stringMax,
-      this.resolveError("maxLength")
-    );
+    this.pushError(this.errorTypes.stringMax, this.resolveError("maxLength"));
     return this;
   }
   throwAnyway(error: NativeError) {
-    this.addErrorChecker(true, error);
+    this.pushError(true, error);
     return this;
   }
 
@@ -95,7 +80,7 @@ class ValidationChecker {
     return utils.findError(errors, this.fieldName, prop);
   }
 
-  addErrorChecker(condition: boolean, error: NativeError) {
+  pushError(condition: boolean, error: NativeError) {
     if (condition) this.collectedErrors.push(this.makeError(error));
 
     return this;
@@ -105,8 +90,8 @@ class ValidationChecker {
     return {
       ...error,
       result: this.validationResult as ValidationErrors,
-      //TODO: Add this to ValidationCheckerError
-      [`validated${lodash.upperFirst(this.fieldName)}`]: this.value,
+      validatedFieldName: this.fieldName,
+      validatedValue: this.value,
     };
   }
 }
@@ -121,16 +106,9 @@ const convertErrorTypesToBoolean = (errors: ValidationErrors) => {
   return validatorErrorTypes;
 };
 
-const validationChecker = (
+export const validationChecker = (
   validationResult: ValidationResult,
   fieldName: Field,
-  value: unknown
-) => new ValidationChecker(validationResult, fieldName, value);
-
-export {
-  type ValidationErrors,
-  type ErrorTypes,
-  type ValidationResult,
-  validationChecker,
-  ValidationChecker,
-};
+  value: unknown,
+  ignores?: ValidationCheckerIgnores
+) => new ValidationChecker(validationResult, fieldName, value, ignores);

@@ -3,13 +3,13 @@ import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 import { SocketOnHandler, VerifyIO } from "~/types";
 
-const verify: SocketOnHandler<VerifyIO> = async (socket) => {
+export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
   const client = (await clientStore.find(socket.clientId))!;
 
   const cellphone = userUtils.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);
   if (foundUser) {
-    await addNewClient(foundUser.userId, socket.clientId);
+    await addClient(foundUser.userId, socket.clientId);
     clientStore.update(socket.clientId, {
       ...client,
       userId: foundUser.userId,
@@ -29,11 +29,9 @@ const verify: SocketOnHandler<VerifyIO> = async (socket) => {
   };
 };
 
-const addNewClient = async (userId: string, clientId: string) => {
-  await services.addNewClient({
+const addClient = async (userId: string, clientId: string) => {
+  await services.addClient({
     clientId,
     userId,
   });
 };
-
-export { verify };

@@ -53,6 +53,4 @@ class ClientStore {
   }
 }
 
-const clientStore = new ClientStore();
-
-export { clientStore };
+export const clientStore = new ClientStore();

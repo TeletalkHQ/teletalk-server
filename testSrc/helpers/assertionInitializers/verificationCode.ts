@@ -3,7 +3,7 @@ import { models } from "~/models";
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
 
-const verificationCodeAssertionInitializer: AssertionInitializer = (
+export const verificationCodeAssertionInitializer: AssertionInitializer = (
   { testValue },
   options
 ) => {
@@ -17,5 +17,3 @@ const verificationCodeAssertionInitializer: AssertionInitializer = (
     .lengthCheck()
     .run();
 };
-
-export { verificationCodeAssertionInitializer };

@@ -7,7 +7,8 @@ import { Socket } from "socket.io-client";
 import { Cellphone, FullName } from "utility-store/lib/types";
 
 import { models } from "~/models";
-import { EventName, Field, IO, NativeError, SocketEvent } from "~/types";
+import { EventName, IO, NativeError, SocketEvent } from "~/types";
+import { Field } from "~/types/models";
 import { utils } from "~/utils";
 import { countries } from "~/variables";
 import { events } from "~/websocket/events";
@@ -160,7 +161,7 @@ const requesterCollection = {
   verify: requesterMakerHelper(events.verify),
 };
 
-const helpers = {
+export const helpers = {
   asyncDescribe,
   createFailTestMessage,
   generateDynamicData,
@@ -169,5 +170,3 @@ const helpers = {
   requesterMakerHelper,
   setupRequester,
 };
-
-export { helpers };

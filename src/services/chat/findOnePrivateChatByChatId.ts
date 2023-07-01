@@ -1,17 +1,13 @@
-import { models } from "~/models";
-import { HydratedPrivateChat, PrivateChatService } from "~/types/models";
+import { PrivateChatService } from "~/types";
+import { HydratedPrivateChat } from "~/types/models";
 
-const findOnePrivateChatByChatId: PrivateChatService<
+import { findOnePrivateChat } from "./findOnePrivateChat";
+
+export const findOnePrivateChatByChatId: PrivateChatService<
   {
     chatId: string;
   },
-  Promise<HydratedPrivateChat | null>
-> = async (data, projection, options) => {
-  return await models.database.mongoDb.PrivateChat.findOne(
-    { chatId: data?.chatId },
-    projection,
-    options
-  );
+  HydratedPrivateChat | null
+> = (data, projection, options) => {
+  return findOnePrivateChat(data, projection, options);
 };
-
-export { findOnePrivateChatByChatId };

@@ -3,19 +3,27 @@ import { models } from "~/models";
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { E2eFailTestInitializer } from "@/types";
 
-const phoneNumberE2eFailTestInitializer: E2eFailTestInitializer = (
+export const phoneNumberE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
-  data
+  data,
+  ignores
 ) => {
-  e2eFailTestInitializer
-    .create(configuredRequester, data, models.native.phoneNumber, "phoneNumber")
+  const initializer = e2eFailTestInitializer.create(
+    configuredRequester,
+    data,
+    models.native.phoneNumber,
+    "phoneNumber"
+  );
+
+  initializer
     .missing()
     .overload()
     .invalidType()
-    .empty()
     .numeric()
     .minLength()
     .maxLength();
-};
 
-export { phoneNumberE2eFailTestInitializer };
+  if (!ignores?.includes("empty")) {
+    initializer.empty();
+  }
+};

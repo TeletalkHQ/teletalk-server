@@ -10,7 +10,7 @@ type HttpServer = http.Server<
   typeof http.ServerResponse
 >;
 
-const websocketServer = (httpServer: HttpServer) => {
+export const websocketServer = (httpServer: HttpServer) => {
   const io = new Server(httpServer, {
     cors: {
       credentials: true,
@@ -32,5 +32,3 @@ const websocketServer = (httpServer: HttpServer) => {
 
   return io;
 };
-
-export { websocketServer };

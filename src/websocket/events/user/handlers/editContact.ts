@@ -1,7 +1,10 @@
 import { services } from "~/services";
 import { EditContactIO, SocketOnHandler } from "~/types";
 
-const editContact: SocketOnHandler<EditContactIO> = async (socket, data) => {
+export const editContact: SocketOnHandler<EditContactIO> = async (
+  socket,
+  data
+) => {
   const { userId: currentUserId } = socket;
 
   await services.updateContact({ currentUserId, editValues: data });
@@ -12,5 +15,3 @@ const editContact: SocketOnHandler<EditContactIO> = async (socket, data) => {
     },
   };
 };
-
-export { editContact };

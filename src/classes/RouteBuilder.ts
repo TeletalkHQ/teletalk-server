@@ -4,7 +4,7 @@ import { errorThrower } from "utility-store";
 
 import { Route } from "~/types";
 
-abstract class RouteBuilder {
+export abstract class RouteBuilder {
   protected route: Route;
 
   constructor() {
@@ -35,5 +35,3 @@ abstract class RouteBuilder {
     });
   }
 }
-
-export { RouteBuilder };

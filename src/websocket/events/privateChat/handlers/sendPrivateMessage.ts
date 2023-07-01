@@ -1,7 +1,7 @@
 import { services } from "~/services";
 import { SendPrivateMessageIO, SocketOnHandler } from "~/types";
 
-const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
+export const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
   socket,
   data
 ) => {
@@ -24,5 +24,3 @@ const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
     data: { chatId, addedMessage },
   };
 };
-
-export { sendPrivateMessage };

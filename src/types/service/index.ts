@@ -33,11 +33,13 @@ export type PrivateChatService<QueryData, ReturnData> = ServiceFn<
   ReturnData
 >;
 
+export type UserServiceQueryData = Partial<UserData> &
+  Partial<{
+    currentUserId: UserId;
+    targetUserId: UserId;
+  }>;
+
 export type UserService<
-  QueryData extends Partial<UserData> &
-    Partial<{
-      currentUserId: UserId;
-      targetUserId: UserId;
-    }>,
+  QueryData extends UserServiceQueryData,
   ReturnData
 > = ServiceFn<QueryData, IUserDoc, ReturnData>;

@@ -16,7 +16,7 @@ export const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
 
   return {
     data: {
-      user: userData,
+      user: JSON.parse(JSON.stringify(userData)),
     },
   };
 };

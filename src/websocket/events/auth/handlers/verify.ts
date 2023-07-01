@@ -9,7 +9,7 @@ export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
   const cellphone = userUtils.extractCellphone(client);
   const foundUser = await services.findOneUser(cellphone);
   if (foundUser) {
-    await addNewClient(foundUser.userId, socket.clientId);
+    await addClient(foundUser.userId, socket.clientId);
     clientStore.update(socket.clientId, {
       ...client,
       userId: foundUser.userId,
@@ -29,8 +29,8 @@ export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
   };
 };
 
-const addNewClient = async (userId: string, clientId: string) => {
-  await services.addNewClient({
+const addClient = async (userId: string, clientId: string) => {
+  await services.addClient({
     clientId,
     userId,
   });

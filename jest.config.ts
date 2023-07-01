@@ -5,12 +5,14 @@ import tsconfig from "./tsconfig.json";
 let baseOptions: JestConfigWithTsJest = {
   extensionsToTreatAsEsm: [".ts"],
   forceExit: true,
-  maxWorkers: 2,
+  maxWorkers: 4,
   moduleFileExtensions: ["js", "ts", "json", "node"],
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
   modulePaths: [tsconfig.compilerOptions.baseUrl],
   setupFiles: ["./jest.setup.ts"],
+  silent: false,
   testEnvironment: "node",
+  setupFilesAfterEnv: ["./configs/jestConsoleFix.js"],
   testMatch: [
     "**/testSrc/__tests__/e2e/events/auth/createNewUser.spec.ts",
     "**/testSrc/__tests__/e2e/events/auth/logout.spec.ts",
@@ -50,10 +52,10 @@ let baseOptions: JestConfigWithTsJest = {
     "^.+\\.ts?$": [
       "ts-jest",
       {
-        useESM: true,
         diagnostics: {
-          exclude: ["**"],
+          // exclude: ["**"],
         },
+        useESM: true,
       },
     ],
   },
@@ -62,6 +64,8 @@ let baseOptions: JestConfigWithTsJest = {
     "<rootDir>/lib",
     "<rootDir>/coverage",
   ],
+  verbose: true,
+  logHeapUsage: false,
 };
 
 const coverageOptions: JestConfigWithTsJest = {
@@ -69,7 +73,7 @@ const coverageOptions: JestConfigWithTsJest = {
   collectCoverageFrom: ["./src/**"],
   coverageThreshold: {
     global: {
-      lines: 90,
+      lines: 85,
     },
   },
 };

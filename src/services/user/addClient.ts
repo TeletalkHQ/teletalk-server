@@ -5,7 +5,7 @@ import { errors } from "~/variables";
 
 import { findOneUserById } from "./findOneUserById";
 
-export const addNewClient: UserService<
+export const addClient: UserService<
   {
     clientId: ClientId;
     userId: UserId;

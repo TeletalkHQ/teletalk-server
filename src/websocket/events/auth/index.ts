@@ -39,11 +39,6 @@ const verify = builder
   .build();
 
 export const auth = {
-  events: {
-    createNewUser,
-    logout,
-    signIn,
-    verify,
-  },
+  events: [createNewUser, logout, signIn, verify],
   handlers: authHandlers,
 };

@@ -9,14 +9,14 @@ import {
   SocketNext,
 } from "~/types";
 import { checkFieldErrors } from "~/variables";
-import { eventsArray } from "~/websocket/events";
+import { events } from "~/websocket/events";
 
 export const checkDataFields: SocketMiddleware = (
   _socket,
   next,
   [name, data]
 ) => {
-  const { inputFields } = eventsArray.find(
+  const { inputFields } = events.find(
     (item) => item.name === name
   ) as SocketEvent;
 

@@ -1,7 +1,5 @@
 import { ModelErrorReason } from "../models";
 
-export type ErrorSide = "server" | "client";
-
 export type CustomErrorReason =
   | "blacklistItemExist"
   | "blacklistItemNotExist"
@@ -46,6 +44,8 @@ export type CustomErrorReason =
   | "userNoLongerParticipant";
 
 export type ErrorReason = ModelErrorReason | CustomErrorReason;
+
+export type ErrorSide = "server" | "client";
 
 export interface NativeError {
   description?: string;

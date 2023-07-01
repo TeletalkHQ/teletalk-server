@@ -14,7 +14,7 @@ import {
   StringMap,
 } from "~/types";
 import { checkFieldErrors } from "~/variables";
-import { eventsArray } from "~/websocket/events";
+import { events } from "~/websocket/events";
 
 export const registerCustomOn = (socket: Socket) => {
   return ((eventName, handler) => {
@@ -75,7 +75,7 @@ function _tryToCheckOutputFields(
   trier(_tryToCheckOutputFields.name)
     .sync()
     .try(() => {
-      const foundEvent = eventsArray.find((item) => item.name === eventName)!;
+      const foundEvent = events.find((item) => item.name === eventName)!;
       checkFields(outputData, foundEvent.outputFields, checkFieldErrors.output);
     })
     .catch(catchBlock, socket, responseCallback)

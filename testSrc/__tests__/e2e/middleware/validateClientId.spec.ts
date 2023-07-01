@@ -4,11 +4,13 @@ import { clientManager } from "~/classes/ClientIdManager";
 import { models } from "~/models";
 import { NativeError, SocketEvent } from "~/types";
 import { errors } from "~/variables";
-import { eventsArray } from "~/websocket/events";
+import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { helpers } from "@/helpers";
+
+const eventsWithoutGetStuff = events.filter((i) => i.name !== "getStuff");
 
 describe("validateClientId fail tests", () => {
   const caller = async (
@@ -25,7 +27,7 @@ describe("validateClientId fail tests", () => {
     );
   };
 
-  for (const event of eventsArray) {
+  for (const event of eventsWithoutGetStuff) {
     const title = helpers.createFailTestMessage(
       errors.clientId_maxLength_error,
       event.name
@@ -41,7 +43,7 @@ describe("validateClientId fail tests", () => {
     });
   }
 
-  for (const event of eventsArray) {
+  for (const event of eventsWithoutGetStuff) {
     const title = helpers.createFailTestMessage(
       errors.clientId_minLength_error,
       event.name

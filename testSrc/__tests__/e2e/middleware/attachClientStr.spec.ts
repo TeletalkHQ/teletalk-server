@@ -1,13 +1,15 @@
 import { clientManager } from "~/classes/ClientIdManager";
 import { errors } from "~/variables";
-import { eventsArray } from "~/websocket/events";
+import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { helpers } from "@/helpers";
 
+const eventsWithoutGetStuff = events.filter((i) => i.name !== "getStuff");
+
 describe("validateClientId fail tests", () => {
-  for (const event of eventsArray) {
+  for (const event of eventsWithoutGetStuff) {
     const title = helpers.createFailTestMessage(
       errors.clientCookieRequired,
       event.name

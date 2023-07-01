@@ -18,16 +18,16 @@ import { verifyClient } from "~/websocket/middlewares/verifyClient";
 import { verifyVerificationCode } from "~/websocket/middlewares/verifyVerificationCode";
 
 export const registerMiddlewares = (socket: Socket) => {
-  socket.customUse(attachClientStr);
-  socket.customUse(verifyClient);
-  socket.customUse(attachClientId);
-  socket.customUse(validateClientId);
+  socket.customUse(ignoreMiddlewares("getStuff", attachClientStr));
+  socket.customUse(ignoreMiddlewares("getStuff", verifyClient));
+  socket.customUse(ignoreMiddlewares("getStuff", attachClientId));
+  socket.customUse(ignoreMiddlewares("getStuff", validateClientId));
 
   socket.customUse(checkEventAvailability);
 
   socket.customUse(
     ignoreMiddlewares(
-      eventsWithoutAuth.map((i) => i.name),
+      [...eventsWithoutAuth.map((i) => i.name), "getStuff"],
       checkClient
     )
   );

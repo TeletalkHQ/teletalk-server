@@ -7,7 +7,34 @@ import { Socket } from "socket.io-client";
 import { Cellphone, FullName } from "utility-store/lib/types";
 
 import { models } from "~/models";
-import { EventName, IO, NativeError, SocketEvent } from "~/types";
+import {
+  AddBlockIO,
+  AddContactIO,
+  CreateNewUserIO,
+  EditContactIO,
+  EventName,
+  GetChatInfoIO,
+  GetContactsIO,
+  GetCountriesIO,
+  GetPrivateChatIO,
+  GetPrivateChatsIO,
+  GetPublicUserDataIO,
+  GetStuffIO,
+  GetUserDataIO,
+  GetWelcomeMessageIO,
+  IO,
+  JoinRoomIO,
+  LogoutIO,
+  NativeError,
+  PingIO,
+  RemoveBlockIO,
+  RemoveContactIO,
+  SendPrivateMessageIO,
+  SignInIO,
+  SocketEvent,
+  UpdatePublicUserDataIO,
+  VerifyIO,
+} from "~/types";
 import { Field } from "~/types/models";
 import { utils } from "~/utils";
 import { countries } from "~/variables";
@@ -52,14 +79,6 @@ const getWrongCountryCode = (): string => {
   if (isCountryExist) return getWrongCountryCode();
 
   return randomCountryCode;
-};
-
-const requesterMakerHelper = <IOType extends IO>(
-  event: SocketEvent<IOType>
-) => {
-  return ((socket: Socket) => {
-    return requesterMaker(socket, event);
-  }) as RequesterMakerWrapper<IOType>;
 };
 
 const createFailTestMessage = (error: NativeError, eventName: EventName) => {
@@ -136,29 +155,56 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
   return data;
 }
 
+const requesterMakerHelper = <IOType extends IO>(
+  event: SocketEvent<IOType>
+) => {
+  return ((socket: Socket) => {
+    return requesterMaker(socket, event);
+  }) as RequesterMakerWrapper<IOType>;
+};
+
+const findEvent = <IOType extends IO>(n: EventName) =>
+  events.find((i) => i.name === n)! as unknown as SocketEvent<IOType>;
+
 const requesterCollection = {
-  addBlock: requesterMakerHelper(events.addBlock),
-  addContact: requesterMakerHelper(events.addContact),
-  createNewUser: requesterMakerHelper(events.createNewUser),
-  editContact: requesterMakerHelper(events.editContact),
-  getChatInfo: requesterMakerHelper(events.getChatInfo),
-  getContacts: requesterMakerHelper(events.getContacts),
-  getCountries: requesterMakerHelper(events.getCountries),
-  getPrivateChat: requesterMakerHelper(events.getPrivateChat),
-  getPrivateChats: requesterMakerHelper(events.getPrivateChats),
-  getPublicUserData: requesterMakerHelper(events.getPublicUserData),
-  getStuff: requesterMakerHelper(events.getStuff),
-  getUserData: requesterMakerHelper(events.getUserData),
-  getWelcomeMessage: requesterMakerHelper(events.getWelcomeMessage),
-  joinRoom: requesterMakerHelper(events.joinRoom),
-  logout: requesterMakerHelper(events.logout),
-  ping: requesterMakerHelper(events.ping),
-  removeBlock: requesterMakerHelper(events.removeBlock),
-  removeContact: requesterMakerHelper(events.removeContact),
-  sendPrivateMessage: requesterMakerHelper(events.sendPrivateMessage),
-  signIn: requesterMakerHelper(events.signIn),
-  updatePublicUserData: requesterMakerHelper(events.updatePublicUserData),
-  verify: requesterMakerHelper(events.verify),
+  addBlock: requesterMakerHelper(findEvent<AddBlockIO>("addBlock")),
+  addContact: requesterMakerHelper(findEvent<AddContactIO>("addContact")),
+  createNewUser: requesterMakerHelper(
+    findEvent<CreateNewUserIO>("createNewUser")
+  ),
+  editContact: requesterMakerHelper(findEvent<EditContactIO>("editContact")),
+  getChatInfo: requesterMakerHelper(findEvent<GetChatInfoIO>("getChatInfo")),
+  getContacts: requesterMakerHelper(findEvent<GetContactsIO>("getContacts")),
+  getCountries: requesterMakerHelper(findEvent<GetCountriesIO>("getCountries")),
+  getPrivateChat: requesterMakerHelper(
+    findEvent<GetPrivateChatIO>("getPrivateChat")
+  ),
+  getPrivateChats: requesterMakerHelper(
+    findEvent<GetPrivateChatsIO>("getPrivateChats")
+  ),
+  getPublicUserData: requesterMakerHelper(
+    findEvent<GetPublicUserDataIO>("getPublicUserData")
+  ),
+  getStuff: requesterMakerHelper(findEvent<GetStuffIO>("getStuff")),
+  getUserData: requesterMakerHelper(findEvent<GetUserDataIO>("getUserData")),
+  getWelcomeMessage: requesterMakerHelper(
+    findEvent<GetWelcomeMessageIO>("getWelcomeMessage")
+  ),
+  joinRoom: requesterMakerHelper(findEvent<JoinRoomIO>("joinRoom")),
+  logout: requesterMakerHelper(findEvent<LogoutIO>("logout")),
+  ping: requesterMakerHelper(findEvent<PingIO>("ping")),
+  removeBlock: requesterMakerHelper(findEvent<RemoveBlockIO>("removeBlock")),
+  removeContact: requesterMakerHelper(
+    findEvent<RemoveContactIO>("removeContact")
+  ),
+  sendPrivateMessage: requesterMakerHelper(
+    findEvent<SendPrivateMessageIO>("sendPrivateMessage")
+  ),
+  signIn: requesterMakerHelper(findEvent<SignInIO>("signIn")),
+  updatePublicUserData: requesterMakerHelper(
+    findEvent<UpdatePublicUserDataIO>("updatePublicUserData")
+  ),
+  verify: requesterMakerHelper(findEvent<VerifyIO>("verify")),
 };
 
 export const helpers = {

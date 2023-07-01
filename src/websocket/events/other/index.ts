@@ -44,11 +44,6 @@ const ping = builder
   .build();
 
 export const other = {
-  events: {
-    getCountries,
-    getStuff,
-    getWelcomeMessage,
-    ping,
-  },
+  events: [getCountries, getStuff, getWelcomeMessage, ping],
   handlers: otherHandlers,
 };

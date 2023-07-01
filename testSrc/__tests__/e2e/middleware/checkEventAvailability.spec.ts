@@ -1,6 +1,6 @@
 import { SocketEvent } from "~/types";
 import { errors } from "~/variables";
-import { eventsArray } from "~/websocket/events";
+import { events as mainEvents } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
@@ -30,7 +30,7 @@ await helpers.asyncDescribe(
           .sendFullFeaturedRequest();
       });
 
-      for (const event of eventsArray) {
+      for (const event of mainEvents) {
         const message = helpers.createFailTestMessage(
           errors.eventNotFound,
           event.name

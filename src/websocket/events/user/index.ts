@@ -129,7 +129,7 @@ const updatePublicUserData = builder
   .build();
 
 export const user = {
-  events: {
+  events: [
     addBlock,
     addContact,
     editContact,
@@ -139,6 +139,6 @@ export const user = {
     removeBlock,
     removeContact,
     updatePublicUserData,
-  },
+  ],
   handlers: userHandlers,
 };

@@ -66,12 +66,12 @@ const sendPrivateMessage = builder
   .build();
 
 export const privateChat = {
-  events: {
+  events: [
     getChatInfo,
     getPrivateChat,
     getPrivateChats,
     joinRoom,
     sendPrivateMessage,
-  },
+  ],
   handlers: privateChatHandlers,
 };

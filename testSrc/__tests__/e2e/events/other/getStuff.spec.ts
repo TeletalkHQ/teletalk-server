@@ -1,7 +1,8 @@
 import { customTypeof } from "custom-typeof";
 
-import { NativeError, SocketEvent, ValidationModel } from "~/types";
-import { NativeModel } from "~/types/models";
+import { ErrorCollection, ValidationModel } from "~/types";
+import { NativeModelCollection } from "~/types/models";
+import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { helpers } from "@/helpers";
@@ -23,8 +24,8 @@ describe("getAllStuff success tests", () => {
   });
 });
 
-const testEvents = (events: SocketEvent[]) => {
-  events.forEach((event) => {
+const testEvents = (e: typeof events) => {
+  Object.values(e).forEach((event) => {
     expect(typeof event.name).toBe(FIELD_TYPE.STRING);
     expect(typeof event.method).toBe(FIELD_TYPE.STRING);
     expect(typeof event.name).toBe(FIELD_TYPE.STRING);
@@ -33,7 +34,7 @@ const testEvents = (events: SocketEvent[]) => {
   });
 };
 
-const testModels = (models: NativeModel[]) => {
+const testModels = (models: NativeModelCollection) => {
   Object.values(models).forEach((value) => {
     expect(customTypeof.isObject(value)).toBeTruthy();
     Object.values(value).forEach((prop) => {
@@ -43,7 +44,7 @@ const testModels = (models: NativeModel[]) => {
   });
 };
 
-const testErrors = (errors: NativeError[]) => {
+const testErrors = (errors: ErrorCollection) => {
   Object.values(errors).forEach((error) => {
     expect(customTypeof.isObject(error)).toBeTruthy();
     expect(typeof error.reason).toBe(FIELD_TYPE.STRING);

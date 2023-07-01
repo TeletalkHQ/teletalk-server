@@ -1,5 +1,6 @@
+import { EventName } from "~/types";
 import { errors } from "~/variables";
-import { events, eventsArray } from "~/websocket/events";
+import { events } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
@@ -8,17 +9,13 @@ import { helpers } from "@/helpers";
 await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
   const { socket } = await randomMaker.user();
 
-  const eventsWithInputFields = eventsArray.filter(
+  const eventsWithInputFields = events.filter(
     (i) => Object.keys(i.inputFields).length
   );
 
   const eventsWithInputFieldsExceptAuth = eventsWithInputFields.filter(
     (i) =>
-      ![
-        events.signIn.name,
-        events.verify.name,
-        events.createNewUser.name,
-      ].includes(i.name)
+      !(["signIn", "verify", "createNewUser"] as EventName[]).includes(i.name)
   );
 
   return () => {

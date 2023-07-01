@@ -15,9 +15,9 @@ import {
   VerificationCode,
 } from "utility-store/lib/types";
 
-import { eventsArray } from "~/websocket/events";
+import { events } from "~/websocket/events";
 
-import { NativeError, ValidationCollection } from "..";
+import { ErrorCollection, ValidationCollection } from "..";
 import {
   ChatId,
   MessageItem,
@@ -27,7 +27,7 @@ import {
   PrivateChats,
   WelcomeMessage,
 } from "../datatypes";
-import { NativeModel } from "../models";
+import { NativeModelCollection } from "../models";
 
 export interface CreateNewUserIO {
   input: FullName;
@@ -63,9 +63,9 @@ export interface GetCountriesIO {
 export interface GetStuffIO {
   input: object;
   output: {
-    errors: NativeError[];
-    models: NativeModel[];
-    events: typeof eventsArray;
+    errors: ErrorCollection;
+    models: NativeModelCollection;
+    events: typeof events;
     validationModels: ValidationCollection;
   };
 }

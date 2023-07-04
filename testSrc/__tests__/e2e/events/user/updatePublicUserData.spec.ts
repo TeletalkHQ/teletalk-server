@@ -25,7 +25,7 @@ describe("updatePublicUserData success tests", () => {
 
       testPublicUserData(equalValue, publicDataFromEvent);
 
-      const targetUserDataInDb = (await services.findOneUserById({
+      const targetUserDataInDb = (await services.findOneUser({
         userId: user.userId,
       }))!;
 

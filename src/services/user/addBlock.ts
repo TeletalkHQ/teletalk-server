@@ -5,7 +5,7 @@ import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from "./findOneUser";
 
 export const addBlock: UserService<
   {
@@ -14,13 +14,13 @@ export const addBlock: UserService<
   },
   void
 > = async (data) => {
-  const currentUser = await findOneUserById({
+  const currentUser = await findOneUser({
     userId: data.currentUserId,
   });
 
   if (!currentUser) throw errors.currentUserNotExist;
 
-  const targetUser = await findOneUserById({
+  const targetUser = await findOneUser({
     userId: data.blockingUserId,
   });
   errorThrower(!targetUser, errors.targetUserNotExist);

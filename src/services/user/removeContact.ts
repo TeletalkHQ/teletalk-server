@@ -5,7 +5,7 @@ import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from "./findOneUser";
 
 export const removeContact: UserService<
   {
@@ -26,7 +26,7 @@ export const removeContact: UserService<
 };
 
 const findCurrentUser = (currentUserId: string) => {
-  return findOneUserById({
+  return findOneUser({
     userId: currentUserId,
   });
 };

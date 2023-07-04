@@ -37,16 +37,6 @@ describe("getContacts success tests", () => {
   });
 });
 
-// await helpers.asyncDescribe("getContacts fail tests", async () => {
-//   const { requester } = await helpers.setupRequester(
-//     helpers.requesterCollection.getContacts
-//   );
-
-//   return () => {
-//     e2eFailTestInitializerHelper(requester);
-//   };
-// });
-
 const testContacts = (addingContacts: Contacts, savedContacts: Contacts) => {
   expect(customTypeof.isArray(savedContacts)).toBeTruthy();
   expect(savedContacts.length).toEqual(addingContacts.length);

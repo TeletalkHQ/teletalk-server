@@ -64,7 +64,7 @@ const getSavedUserClientId = async (userId: UserId, clientId: ClientId) => {
   return savedUser.clients.find((i) => i.clientId === clientId);
 };
 const getSavedUser = async (userId: UserId) => {
-  return await services.findOneUserById({ userId });
+  return await services.findOneUser({ userId });
 };
 
 const testCreatedUserData = (

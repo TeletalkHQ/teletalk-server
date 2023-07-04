@@ -91,5 +91,5 @@ const getSavedUserClient = async (userId: UserId, clientId: ClientId) => {
 };
 
 const getSavedUser = async (userId: UserId) => {
-  return await services.findOneUserById({ userId });
+  return await services.findOneUser({ userId });
 };

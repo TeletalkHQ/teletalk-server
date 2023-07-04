@@ -48,7 +48,15 @@ export const registerMiddlewares = (socket: Socket) => {
 
   socket.customUse(
     applyMiddlewares(
-      ["addBlock", "addContact", "editContact", "removeBlock", "removeContact"],
+      [
+        "addBlock",
+        "addContact",
+        "addContactWithCellphone",
+        "addContactWithUserId",
+        "editContact",
+        "removeBlock",
+        "removeContact",
+      ],
       selfStuffCheck
     )
   );

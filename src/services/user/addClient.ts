@@ -3,7 +3,7 @@ import { ClientId, UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from "./findOneUser";
 
 export const addClient: UserService<
   {
@@ -19,7 +19,7 @@ export const addClient: UserService<
 };
 
 const findCurrentUser = (userId: UserId) => {
-  return findOneUserById({
+  return findOneUser({
     userId,
   });
 };

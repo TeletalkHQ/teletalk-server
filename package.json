@@ -69,7 +69,7 @@
     "simple-trier": "^4.0.3",
     "socket.io": "^4.6.2",
     "superjson": "^1.12.3",
-    "utility-store": "^13.2.0",
+    "utility-store": "^13.4.5",
     "winston": "^3.9.0"
   },
   "devDependencies": {

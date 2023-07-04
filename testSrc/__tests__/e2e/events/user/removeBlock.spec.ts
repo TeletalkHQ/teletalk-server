@@ -89,6 +89,6 @@ const testBlacklistAfterRemoveAll = async (userId: UserId) => {
 };
 
 const findBlacklist = async (userId: UserId) => {
-  const { blacklist } = (await services.findOneUserById({ userId }))!;
+  const { blacklist } = (await services.findOneUser({ userId }))!;
   return blacklist;
 };

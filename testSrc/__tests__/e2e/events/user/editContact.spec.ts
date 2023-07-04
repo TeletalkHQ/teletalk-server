@@ -1,7 +1,7 @@
 import {
   ContactItem,
   Contacts,
-  FUllNameWithUserId,
+  FullNameWithUserId,
 } from "utility-store/lib/types";
 
 import { userUtils } from "~/classes/UserUtils";
@@ -40,9 +40,9 @@ describe("edit contact success tests", () => {
 
       testEditedContact(editingContactData, editContactResponseData);
 
-      const { contacts: currentUserContacts } = (await services.findOneUserById(
-        { userId: currentUser.userId }
-      ))!;
+      const { contacts: currentUserContacts } = (await services.findOneUser({
+        userId: currentUser.userId,
+      }))!;
 
       const foundEditedContact = currentUserContacts.find(
         (i) => i.userId === editingContactData.userId
@@ -92,7 +92,7 @@ const createContacts = async (length: number) => {
 };
 
 const testNonEditedContacts = (
-  sentData: FUllNameWithUserId,
+  sentData: FullNameWithUserId,
   addingContacts: Contacts,
   currentUserContacts: Contacts
 ) => {
@@ -118,8 +118,8 @@ const testNonEditedContacts = (
 };
 
 const testEditedContact = (
-  equalValue: FUllNameWithUserId,
-  testValue: FUllNameWithUserId
+  equalValue: FullNameWithUserId,
+  testValue: FullNameWithUserId
 ) => {
   assertionInitializerHelper()
     .firstName({

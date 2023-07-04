@@ -1,6 +1,6 @@
+import { extractor } from "utility-store";
 import { ContactItem, Contacts, UserData } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 import { UserId } from "~/types/datatypes";
 
@@ -63,7 +63,7 @@ await helpers.asyncDescribe("removeContact fail tests", async () => {
 
 const createContacts = async (length: number) => {
   const users = await randomMaker.users(length);
-  return users.map((i) => userUtils.extractContact(i.user));
+  return users.map((i) => extractor.contact(i.user));
 };
 
 const testRemovedContact = (equalValue: string, testValue: string) => {
@@ -82,7 +82,7 @@ const testContactsAfterRemoveOneItem = async (
       (j) => addingContact.userId === j.userId
     ) as ContactItem;
 
-    expect(addingContact).toEqual(userUtils.extractContact(nonRemovedContact));
+    expect(addingContact).toEqual(extractor.contact(nonRemovedContact));
   });
 };
 

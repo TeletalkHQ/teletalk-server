@@ -1,10 +1,10 @@
+import { extractor } from "utility-store";
 import {
   ContactItem,
   Contacts,
   FullNameWithUserId,
 } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
@@ -88,7 +88,7 @@ await helpers.asyncDescribe("editContact fail tests", async () => {
 
 const createContacts = async (length: number) => {
   const users = await randomMaker.users(length);
-  return users.map((i) => userUtils.extractContact(i.user));
+  return users.map((i) => extractor.contact(i.user));
 };
 
 const testNonEditedContacts = (

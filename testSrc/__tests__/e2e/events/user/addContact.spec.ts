@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
+import { extractor } from "utility-store";
 import { ContactItem, UserData } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 import { UserId } from "~/types/datatypes";
 
@@ -24,7 +24,7 @@ describe("add contact success tests", () => {
 
     const addingContacts = [];
     for (const targetUser of users) {
-      const targetUserContactData = userUtils.extractContact(targetUser);
+      const targetUserContactData = extractor.contact(targetUser);
       const sendingData: ContactItem = {
         ...targetUserContactData,
         ...randomMaker.fullName(),
@@ -68,14 +68,14 @@ await helpers.asyncDescribe("addContact fail tests", async () => {
     currentUserSignData
   );
   const selfStuffData = {
-    ...userUtils.extractContact(currentUser),
+    ...extractor.contact(currentUser),
     ...randomMaker.fullName(),
   };
 
   const targetUserSignData = randomMaker.unusedCellphone();
   const { user: targetUser } = await randomMaker.user(targetUserSignData);
   const existingContactData = {
-    ...userUtils.extractContact(targetUser),
+    ...extractor.contact(targetUser),
     ...randomMaker.fullName(),
   };
 

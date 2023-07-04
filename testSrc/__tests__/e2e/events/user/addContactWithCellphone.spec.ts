@@ -1,8 +1,7 @@
 import { customTypeof } from "custom-typeof";
-import { ContactItem } from "utility-store/lib/types";
-import { UserData } from "utility-store/lib/types";
+import { extractor } from "utility-store";
+import { ContactItem , UserData } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 import { ContactItemWithCellphone, UserId } from "~/types/datatypes";
 
@@ -23,7 +22,7 @@ describe("add contact success tests", () => {
     const addingContacts = [];
     for (const { user: targetUser } of users) {
       const sendingData: ContactItemWithCellphone = {
-        ...userUtils.extractCellphone(targetUser),
+        ...extractor.cellphone(targetUser),
         ...randomMaker.fullName(),
       };
 

@@ -1,6 +1,6 @@
+import { extractor } from "utility-store";
 import { PublicUserData } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
@@ -29,8 +29,7 @@ describe("updatePublicUserData success tests", () => {
         userId: user.userId,
       }))!;
 
-      const publicDataFromDb =
-        userUtils.extractPublicUserData(targetUserDataInDb);
+      const publicDataFromDb = extractor.publicUserData(targetUserDataInDb);
       testPublicUserData(equalValue, publicDataFromDb);
     }
   });

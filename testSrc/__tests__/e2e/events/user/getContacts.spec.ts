@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
+import { extractor } from "utility-store";
 import { ContactItem, Contacts } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
@@ -14,7 +14,7 @@ describe("getContacts success tests", () => {
 
     const contactsLength = 10;
     const users = await randomMaker.users(contactsLength);
-    const addingContacts = users.map((i) => userUtils.extractContact(i.user));
+    const addingContacts = users.map((i) => extractor.contact(i.user));
 
     const addContactRequester = helpers.requesterCollection.addContact(socket);
 

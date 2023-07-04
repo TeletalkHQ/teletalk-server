@@ -1,4 +1,4 @@
-import { userUtils } from "utility-store";
+import { extractor } from "utility-store";
 
 import { services } from "~/services";
 import { GetPublicUserDataIO, SocketOnHandler } from "~/types";
@@ -17,7 +17,7 @@ export const getPublicUserData: SocketOnHandler<GetPublicUserDataIO> = async (
 
   return {
     data: {
-      publicUserData: userUtils.extractPublicUserData(user),
+      publicUserData: extractor.publicUserData(user),
     },
   };
 };

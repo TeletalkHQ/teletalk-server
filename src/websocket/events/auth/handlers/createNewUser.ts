@@ -1,4 +1,4 @@
-import { errorThrower, randomMaker } from "utility-store";
+import { errorThrower, extractor, randomMaker } from "utility-store";
 import { Cellphone, UserData } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
@@ -16,7 +16,7 @@ export const createNewUser: SocketOnHandler<CreateNewUserIO> = async (
   const client = await findClient(socket.clientId);
   checkClientVerification(client);
 
-  const cellphone = userUtils.extractCellphone(client);
+  const cellphone = extractor.cellphone(client);
   await checkExistenceOfUser(cellphone);
 
   const userId = getRandomId();

@@ -1,4 +1,4 @@
-import { errorThrower, userUtils } from "utility-store";
+import { errorThrower, extractor } from "utility-store";
 import {
   ContactItem,
   FullNameWithUserId,
@@ -32,7 +32,7 @@ export const updateContact: UserService<
   });
 
   const updatedContact = {
-    ...(userUtils.extractCellphone(oldContact) as ContactItem),
+    ...(extractor.cellphone(oldContact) as ContactItem),
     ...data.editValues,
   };
 

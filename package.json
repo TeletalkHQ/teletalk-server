@@ -42,6 +42,7 @@
     "address": "^1.2.2",
     "axios": "^1.4.0",
     "check-fields": "^3.0.1",
+    "cookie": "^0.5.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
@@ -69,7 +70,7 @@
     "simple-trier": "^4.0.3",
     "socket.io": "^4.6.2",
     "superjson": "^1.12.3",
-    "utility-store": "^13.4.5",
+    "utility-store": "^14.0.0",
     "winston": "^3.9.0"
   },
   "devDependencies": {

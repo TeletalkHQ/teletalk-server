@@ -1,10 +1,10 @@
+import { maker } from "utility-store";
 import {
   ContactWithEmptyCellphone,
   FullNameWithUserId,
   UserId,
 } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { UserService } from "~/types";
 import { errors } from "~/variables";
 
@@ -32,7 +32,7 @@ export const addContactWithUserId: UserService<
 
   const contact: ContactWithEmptyCellphone = {
     ...data.addingContact,
-    ...userUtils.makeEmptyCellphone(),
+    ...maker.emptyCellphone(),
   };
 
   await saveContactItem(currentUser, contact);

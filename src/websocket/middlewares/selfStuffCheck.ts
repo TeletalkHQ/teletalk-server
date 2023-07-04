@@ -2,8 +2,8 @@ import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 import {
   errorThrower,
+  extractor,
   isDataHasEqualityWithTargetCellphone,
-  userUtils,
 } from "utility-store";
 
 import { services } from "~/services";
@@ -42,11 +42,11 @@ const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
     errorThrower(
       isDataHasEqualityWithTargetCellphone(
         data,
-        userUtils.extractCellphone(currentUser)
+        extractor.cellphone(currentUser)
       ),
       {
         ...errors.selfStuff,
-        targetUserCellphone: userUtils.extractCellphone(data),
+        targetUserCellphone: extractor.cellphone(data),
       }
     );
   }

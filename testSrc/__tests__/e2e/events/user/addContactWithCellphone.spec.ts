@@ -1,6 +1,6 @@
 import { customTypeof } from "custom-typeof";
 import { extractor } from "utility-store";
-import { ContactItem , UserData } from "utility-store/lib/types";
+import { ContactItem, UserData } from "utility-store/lib/types";
 
 import { services } from "~/services";
 import { ContactItemWithCellphone, UserId } from "~/types/datatypes";

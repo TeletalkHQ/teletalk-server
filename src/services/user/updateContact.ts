@@ -43,7 +43,7 @@ const findCurrentUser = async (currentUserId: string) => {
   const result = await findOneUser({
     userId: currentUserId,
   });
-  if (!result) errors.currentUserNotExist;
+  if (!result) throw errors.currentUserNotExist;
   return result;
 };
 

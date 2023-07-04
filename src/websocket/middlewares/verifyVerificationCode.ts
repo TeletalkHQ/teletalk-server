@@ -43,5 +43,5 @@ const findClient = async (clientId: string) => {
 };
 
 const executeIfNoError = (_: void, next: SocketNext) => {
-  () => next();
+  next();
 };

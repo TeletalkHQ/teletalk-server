@@ -1,5 +1,5 @@
-//FIXME: Remove http://
 import cookie from "cookie";
+//FIXME: Remove http://
 import http from "http";
 import Client, {
   ManagerOptions,

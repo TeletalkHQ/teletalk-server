@@ -1,4 +1,4 @@
-import { userUtils } from "utility-store";
+import { extractor } from "utility-store";
 import { PublicUserData, UserId } from "utility-store/lib/types";
 
 import { UserService } from "~/types";
@@ -16,11 +16,11 @@ export const updatePublicUserData: UserService<
   const currentUser = await findCurrentUser(data.currentUserId);
   if (!currentUser) throw errors.currentUserNotExist;
 
-  const oldPublicData = userUtils.extractPublicUserData(currentUser);
+  const oldPublicData = extractor.publicUserData(currentUser);
 
   await currentUser.updateOne(data.updateProperties);
 
-  return userUtils.extractPublicUserData({
+  return extractor.publicUserData({
     ...oldPublicData,
     ...data.updateProperties,
   });

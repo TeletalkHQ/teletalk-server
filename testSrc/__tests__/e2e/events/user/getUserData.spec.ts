@@ -1,11 +1,10 @@
-import { userUtils } from "~/classes/UserUtils";
+import { extractor } from "utility-store";
+
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { helpers } from "@/helpers";
-
-//TODO: Add fail tests
 
 describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
@@ -21,7 +20,7 @@ describe("getUserData success tests", () => {
         userId: responseUserData.userId,
       }))!;
 
-      const userData = userUtils.extractUserData(user);
+      const userData = extractor.userData(user);
 
       assertionInitializerHelper().userData({
         equalValue: userData,

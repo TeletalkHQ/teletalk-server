@@ -1,7 +1,7 @@
 import { customTypeof } from "custom-typeof";
+import { maker } from "utility-store";
 import { ContactItem, FullNameWithUserId } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 import { UserId } from "~/types/datatypes";
 
@@ -117,7 +117,7 @@ const testResponse = async (data: {
   testContact(data.addedContact, savedContact);
   testContact(data.addedContact, {
     ...data.sendingData,
-    ...userUtils.makeEmptyCellphone(),
+    ...maker.emptyCellphone(),
   });
 };
 

@@ -1,8 +1,8 @@
 import { customTypeof } from "custom-typeof";
+import { extractor } from "utility-store";
 import { Cellphone } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
-import { userUtils } from "~/classes/UserUtils";
 import { ClientId } from "~/types/datatypes";
 
 import {
@@ -28,7 +28,7 @@ describe("signIn success test", () => {
 
   it("should sign as existed user", async () => {
     const { user } = await randomMaker.user();
-    const cellphone = userUtils.extractCellphone(user);
+    const cellphone = extractor.cellphone(user);
 
     const helper = authHelper(cellphone);
     await helper.signIn();

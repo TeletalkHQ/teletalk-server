@@ -1,6 +1,6 @@
+import { extractor } from "utility-store";
 import { ContactItem, UserId } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { UserService } from "~/types";
 import { ContactItemWithCellphone } from "~/types/datatypes";
 import { errors } from "~/variables";
@@ -22,9 +22,7 @@ export const addContactWithCellphone: UserService<
   });
   if (!currentUser) throw errors.currentUserNotExist;
 
-  const targetUser = await findOneUser(
-    userUtils.extractCellphone(data.addingContact)
-  );
+  const targetUser = await findOneUser(extractor.cellphone(data.addingContact));
   if (!targetUser) throw errors.targetUserNotExist;
 
   checkExistenceOfContactItem(currentUser.contacts, targetUser.userId);

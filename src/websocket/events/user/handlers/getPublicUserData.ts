@@ -10,7 +10,7 @@ export const getPublicUserData: SocketOnHandler<GetPublicUserDataIO> = async (
 ) => {
   const { userId } = data;
 
-  const user = await services.findOneUserById({
+  const user = await services.findOneUser({
     userId,
   });
   if (!user) throw errors.targetUserNotExist;

@@ -4,7 +4,7 @@ import { PublicUserData, UserId } from "utility-store/lib/types";
 import { UserService } from "~/types";
 import { errors } from "~/variables";
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from "./findOneUser";
 
 export const updatePublicUserData: UserService<
   {
@@ -27,7 +27,7 @@ export const updatePublicUserData: UserService<
 };
 
 const findCurrentUser = async (currentUserId: UserId) => {
-  return await findOneUserById({
+  return await findOneUser({
     userId: currentUserId,
   });
 };

@@ -111,8 +111,8 @@ dependencies:
     specifier: ^1.12.3
     version: 1.12.3
   utility-store:
-    specifier: ^13.2.0
-    version: 13.2.0
+    specifier: ^13.4.5
+    version: 13.4.5
   winston:
     specifier: ^3.9.0
     version: 3.9.0
@@ -13857,10 +13857,10 @@ packages:
       }
     dev: false
 
-  /utility-store@13.2.0:
+  /utility-store@13.4.5:
     resolution:
       {
-        integrity: sha512-xrBAVPmt5lertekESAVZd9Jxo9kUzG9AYzMByDlrnQbGTRycKMSQKo7CfnPYpm7MPRUQlrxMIzVbpCTE9nWHEg==,
+        integrity: sha512-pODtf6GV621971s+odicT1Z83rDhQk449A/1liPv3wbuXCY2E6fCDiidDTFpot7XtL/Ou2u1gmy5FILmLMachw==,
       }
     dependencies:
       custom-typeof: 2.0.2

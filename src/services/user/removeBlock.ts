@@ -5,7 +5,7 @@ import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from "./findOneUser";
 
 export const removeBlock: UserService<
   {
@@ -26,7 +26,7 @@ export const removeBlock: UserService<
 };
 
 const findCurrentUser = async (currentUserId: string) => {
-  return await findOneUserById({
+  return await findOneUser({
     userId: currentUserId,
   });
 };

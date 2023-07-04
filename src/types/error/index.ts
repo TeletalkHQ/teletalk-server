@@ -38,6 +38,7 @@ export type CustomErrorReason =
   | "sendJsonResponseIsNotFunction"
   | "sendSmsFailed"
   | "serverCriticalError"
+  | "shouldNotSendBothUserIdAndCellphoneProperties"
   | "targetUserNotExist"
   | "unknownError"
   | "userExist"

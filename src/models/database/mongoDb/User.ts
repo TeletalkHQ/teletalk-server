@@ -108,9 +108,9 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
       firstName,
       lastName,
       userId,
-      countryCode: { ...countryCode, required: false },
-      countryName: { ...countryName, required: false },
-      phoneNumber: { ...phoneNumber, required: false },
+      countryCode: { ...countryCode, required: false, minlength: 0 },
+      countryName: { ...countryName, required: false, minlength: 0 },
+      phoneNumber: { ...phoneNumber, required: false, minlength: 0 },
     },
   ],
   countryCode,
@@ -131,6 +131,11 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
   username,
 });
 
+//CLEANME: Remove
 Schema.Types.String.checkRequired((v) => v !== null);
 
-export const UserModel = model<IUserDoc, IUserModel>("User", userSchema, "users");
+export const UserModel = model<IUserDoc, IUserModel>(
+  "User",
+  userSchema,
+  "users"
+);

@@ -21,7 +21,7 @@ describe("getUserData success tests", () => {
         userId: targetUserData.userId,
       });
 
-      const targetUserDataInDb = (await services.findOneUserById({
+      const targetUserDataInDb = (await services.findOneUser({
         userId: targetUserData.userId,
       }))!;
 

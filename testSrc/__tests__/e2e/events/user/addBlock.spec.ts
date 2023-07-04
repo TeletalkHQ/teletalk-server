@@ -31,7 +31,7 @@ describe("addBlock successful tests", () => {
       });
     }
 
-    const { blacklist } = (await services.findOneUserById({
+    const { blacklist } = (await services.findOneUser({
       userId: user.userId,
     }))!;
 
@@ -100,7 +100,7 @@ const findSavedBlacklist = async (
 };
 
 const findBlacklist = async (userId: UserId) => {
-  const { blacklist } = (await services.findOneUserById({
+  const { blacklist } = (await services.findOneUser({
     userId,
   })) as UserData;
   return blacklist;

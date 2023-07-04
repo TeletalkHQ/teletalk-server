@@ -14,8 +14,6 @@ describe("removeContact successful test", () => {
     const contactsLength = 10;
     const addingContacts = await createContacts(contactsLength);
 
-    console.log("addingContacts:::", addingContacts);
-
     const { socket, user: currentUser } = await randomMaker.user();
     const addContactRequester = helpers.requesterCollection.addContact(socket);
 
@@ -94,6 +92,6 @@ const testContactsAfterRemoveAll = async (userId: UserId) => {
 };
 
 const findContacts = async (userId: UserId) => {
-  const { contacts } = (await services.findOneUserById({ userId }))!;
+  const { contacts } = (await services.findOneUser({ userId }))!;
   return contacts;
 };

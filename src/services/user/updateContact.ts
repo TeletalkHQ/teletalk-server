@@ -1,7 +1,7 @@
 import { errorThrower, userUtils } from "utility-store";
 import {
   ContactItem,
-  FUllNameWithUserId,
+  FullNameWithUserId,
   UserData,
   UserId,
 } from "utility-store/lib/types";
@@ -10,12 +10,12 @@ import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
 import { errors } from "~/variables";
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from "./findOneUser";
 
 export const updateContact: UserService<
   {
     currentUserId: UserId;
-    editValues: FUllNameWithUserId;
+    editValues: FullNameWithUserId;
   },
   void
 > = async (data) => {
@@ -26,32 +26,37 @@ export const updateContact: UserService<
     data.editValues.userId
   );
 
-  errorThrower(index === -1, {
+  errorThrower(index < 0, {
     ...errors.contactItemNotExist,
     editValues: data.editValues,
   });
 
-  const newContact = {
-    ...userUtils.extractCellphone(oldContact as ContactItem),
+  const updatedContact = {
+    ...(userUtils.extractCellphone(oldContact) as ContactItem),
     ...data.editValues,
   };
 
-  await saveNewContact(currentUser, newContact, index);
+  await saveContact(currentUser, updatedContact, index);
 };
 
 const findCurrentUser = async (currentUserId: string) => {
-  return await findOneUserById({
+  const result = await findOneUser({
     userId: currentUserId,
   });
+  if (!result) errors.currentUserNotExist;
+  return result;
 };
 
 const findContact = (contacts: UserData["contacts"], targetUserId: string) => {
   const index = contacts.findIndex((c) => c.userId === targetUserId);
 
-  return { contact: contacts[index], index };
+  return {
+    contact: contacts[index],
+    index,
+  };
 };
 
-const saveNewContact = async (
+const saveContact = async (
   currentUser: HydratedUser,
   editValues: ContactItem,
   index: number

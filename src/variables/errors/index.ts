@@ -4,6 +4,9 @@ import { ErrorCollection } from "~/types";
 
 const customErrors = {
   blacklistItemExist: errorBuilder().reason("blacklistItemExist").build(),
+  shouldNotSendBothUserIdAndCellphoneProperties: errorBuilder()
+    .reason("shouldNotSendBothUserIdAndCellphoneProperties")
+    .build(),
   blacklistItemNotExist: errorBuilder().reason("blacklistItemNotExist").build(),
   chatNotExist: errorBuilder().reason("chatNotExist").build(),
   client_invalid: errorBuilder().reason("client_invalid").build(),

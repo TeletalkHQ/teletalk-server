@@ -10,6 +10,8 @@ import { models } from "~/models";
 import {
   AddBlockIO,
   AddContactIO,
+  AddContactWithCellphoneIO,
+  AddContactWithUserIdIO,
   CreateNewUserIO,
   EditContactIO,
   EventName,
@@ -169,6 +171,12 @@ const findEvent = <IOType extends IO>(n: EventName) =>
 const requesterCollection = {
   addBlock: requesterMakerHelper(findEvent<AddBlockIO>("addBlock")),
   addContact: requesterMakerHelper(findEvent<AddContactIO>("addContact")),
+  addContactWithCellphone: requesterMakerHelper(
+    findEvent<AddContactWithCellphoneIO>("addContactWithCellphone")
+  ),
+  addContactWithUserId: requesterMakerHelper(
+    findEvent<AddContactWithUserIdIO>("addContactWithUserId")
+  ),
   createNewUser: requesterMakerHelper(
     findEvent<CreateNewUserIO>("createNewUser")
   ),

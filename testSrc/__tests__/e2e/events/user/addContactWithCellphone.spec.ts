@@ -1,9 +1,10 @@
 import { customTypeof } from "custom-typeof";
-import { ContactItem, UserData } from "utility-store/lib/types";
+import { ContactItem } from "utility-store/lib/types";
+import { UserData } from "utility-store/lib/types";
 
 import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
-import { UserId } from "~/types/datatypes";
+import { ContactItemWithCellphone, UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -13,24 +14,22 @@ import { helpers } from "@/helpers";
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
     const { user: currentUser, socket } = await randomMaker.user();
-    const requester = helpers.requesterCollection.addContact(socket);
+    const requester =
+      helpers.requesterCollection.addContactWithCellphone(socket);
 
-    const contactsLength = 1;
-    const users: UserData[] = [];
-    for (let i = 0; i < contactsLength; i++) {
-      const { user: targetUser } = await randomMaker.user();
-      users.push(targetUser);
-    }
+    const contactsLength = 10;
+    const users = await randomMaker.users(contactsLength);
 
     const addingContacts = [];
-    for (const targetUser of users) {
-      const targetUserContactData = userUtils.extractContact(targetUser);
-      const sendingData: ContactItem = {
-        ...targetUserContactData,
+    for (const { user: targetUser } of users) {
+      const sendingData: ContactItemWithCellphone = {
+        ...userUtils.extractCellphone(targetUser),
         ...randomMaker.fullName(),
       };
 
-      const responsePromise = requester.sendFullFeaturedRequest(sendingData);
+      const responsePromise = await requester.sendFullFeaturedRequest(
+        sendingData
+      );
 
       addingContacts.push({
         res: responsePromise,
@@ -42,13 +41,13 @@ describe("add contact success tests", () => {
     for (const { sendingData, res, targetUser } of addingContacts) {
       const {
         data: { addedContact },
-      } = await res;
+      } = res;
 
-      await testAddContactResponse({
+      await testResponse({
         addedContact,
-        currentUser,
-        sendingData: { ...sendingData, userId: targetUser.userId },
-        targetUser,
+        currentUserId: currentUser.userId,
+        sendingData,
+        targetUserId: targetUser.userId,
       });
     }
 
@@ -61,61 +60,68 @@ describe("add contact success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("addContact fail tests", async () => {
-  const currentUserSignData = randomMaker.unusedCellphone();
-  const { requester, user: currentUser } = await helpers.setupRequester(
-    helpers.requesterCollection.addContact,
-    currentUserSignData
-  );
-  const selfStuffData = {
-    ...userUtils.extractContact(currentUser),
-    ...randomMaker.fullName(),
-  };
+await helpers.asyncDescribe(
+  "addContact with cellphone fail tests",
+  async () => {
+    const currentUserCellphone = randomMaker.unusedCellphone();
 
-  const targetUserSignData = randomMaker.unusedCellphone();
-  const { user: targetUser } = await randomMaker.user(targetUserSignData);
-  const existingContactData = {
-    ...userUtils.extractContact(targetUser),
-    ...randomMaker.fullName(),
-  };
+    const targetUserCellphone = randomMaker.unusedCellphone();
+    await randomMaker.user(targetUserCellphone);
 
-  await requester.sendFullFeaturedRequest(existingContactData);
+    const { requester } = await helpers.setupRequester(
+      helpers.requesterCollection.addContactWithCellphone,
+      currentUserCellphone
+    );
 
-  return () => {
-    const sendingContactData: ContactItem = {
-      ...randomMaker.cellphone(),
+    const existingContactData: ContactItemWithCellphone = {
+      ...targetUserCellphone,
       ...randomMaker.fullName(),
-      userId: randomMaker.userId(),
     };
 
-    e2eFailTestInitializerHelper(requester)
-      .input(sendingContactData)
-      .firstName(sendingContactData)
-      .lastName(sendingContactData)
-      .countryCode(sendingContactData)
-      .countryName(sendingContactData)
-      .phoneNumber(sendingContactData)
-      .selfStuff(selfStuffData)
-      .contactItemExist(existingContactData)
-      .userId(sendingContactData)
-      .targetUserNotExist(sendingContactData);
-  };
-});
+    await requester.sendFullFeaturedRequest(existingContactData);
 
-const testAddContactResponse = async (data: {
+    return () => {
+      const contactItemWithCellphone: ContactItemWithCellphone = {
+        ...randomMaker.unusedContact(),
+      };
+
+      const selfStuffData: ContactItemWithCellphone = {
+        ...currentUserCellphone,
+        ...randomMaker.fullName(),
+      };
+
+      e2eFailTestInitializerHelper(requester)
+        .input(contactItemWithCellphone)
+        .countryCode(contactItemWithCellphone)
+        .countryName(contactItemWithCellphone)
+        .phoneNumber(contactItemWithCellphone)
+        .firstName(contactItemWithCellphone)
+        .lastName(contactItemWithCellphone)
+        .selfStuff(selfStuffData)
+        .contactItemExist(existingContactData)
+        .targetUserNotExist(contactItemWithCellphone);
+    };
+  }
+);
+
+const testResponse = async (data: {
   addedContact: ContactItem;
-  currentUser: UserData;
-  sendingData: ContactItem;
-  targetUser: UserData;
+  currentUserId: UserId;
+  sendingData: ContactItemWithCellphone;
+  targetUserId: UserId;
 }) => {
-  await testTargetUserContacts(data.targetUser.userId);
+  await testTargetUserContacts(data.targetUserId);
 
   const savedContact = await findSavedContact(
-    data.currentUser.userId,
+    data.currentUserId,
     data.addedContact
   );
-  testOneContact(data.addedContact, savedContact);
-  testOneContact(data.addedContact, data.sendingData);
+
+  testContact(data.addedContact, savedContact);
+  testContact(data.addedContact, {
+    ...data.sendingData,
+    userId: data.targetUserId,
+  });
 };
 
 const testTargetUserContacts = async (targetUserId: UserId) => {
@@ -138,7 +144,8 @@ const findContacts = async (userId: UserId) => {
   return contacts;
 };
 
-const testOneContact = (testValue: ContactItem, equalValue: ContactItem) => {
+const testContact = (testValue: ContactItem, equalValue: ContactItem) => {
+  //CLEANME: Extract to .contact
   assertionInitializerHelper()
     .userId({
       equalValue: equalValue.userId,

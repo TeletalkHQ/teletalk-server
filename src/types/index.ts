@@ -4,7 +4,7 @@ import { JWTPayload, JWTVerifyResult } from "jose";
 import { Cellphone } from "utility-store/lib/types";
 
 export interface StringMap {
-  [prop: string]: any;
+  [prop: string | symbol]: any;
 }
 
 export type LogLevel = "debug" | "error" | "info" | "warn";

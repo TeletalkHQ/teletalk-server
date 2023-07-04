@@ -35,7 +35,7 @@ const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
       targetUserId: data.userId,
     });
   } else {
-    const currentUser = (await services.findOneUserById({
+    const currentUser = (await services.findOneUser({
       userId: socket.userId,
     }))!;
 
@@ -46,7 +46,7 @@ const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
       ),
       {
         ...errors.selfStuff,
-        targetUser: data,
+        targetUserCellphone: userUtils.extractCellphone(data),
       }
     );
   }

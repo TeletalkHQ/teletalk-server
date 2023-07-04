@@ -80,7 +80,7 @@ const countries = statics.array(country);
 const messages = statics.array(messageItem);
 const participants = statics.array(participantItem);
 
-const fullNameWithUserId = { ...fullName, userId };
+const FullNameWithUserId = { ...fullName, userId };
 
 const status = statics.object({ isActive });
 
@@ -142,7 +142,7 @@ const collection = {
   countries,
   country,
   fullName,
-  fullNameWithUserId,
+  FullNameWithUserId,
   messageItem,
   messages,
   participants,

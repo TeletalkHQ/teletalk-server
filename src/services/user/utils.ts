@@ -1,9 +1,5 @@
 import { errorThrower } from "utility-store";
-import {
-  ContactItem,
-  ContactWithEmptyCellphone,
-  UserData,
-} from "utility-store/lib/types";
+import { ContactItem, UserData } from "utility-store/lib/types";
 
 import { UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/models";
@@ -22,7 +18,7 @@ export const checkExistenceOfContactItem = (
 
 export const saveContactItem = async (
   currentUser: HydratedUser,
-  newContact: ContactWithEmptyCellphone | ContactItem
+  newContact: ContactItem
 ) => {
   currentUser.contacts.push(newContact);
   await currentUser.save();

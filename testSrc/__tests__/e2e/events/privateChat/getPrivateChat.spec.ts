@@ -4,7 +4,7 @@ import { UserData } from "utility-store/lib/types";
 
 import { models } from "~/models";
 import { services } from "~/services";
-import { PrivateChatData } from "~/types/datatypes";
+import { PrivateChatItem } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -91,13 +91,13 @@ const findStoredPrivateChat = async (
     "participants.participantId": {
       $all: [currentUserId, targetUserId],
     },
-  })) as PrivateChatData;
+  }))!;
 };
 
 const testChatId = (
   chatId: string,
-  privateChat: PrivateChatData,
-  privateChatFromDb: PrivateChatData
+  privateChat: PrivateChatItem,
+  privateChatFromDb: PrivateChatItem
 ) => {
   assertionInitializerHelper().chatId({
     equalValue: chatId,
@@ -110,8 +110,8 @@ const testChatId = (
 };
 
 const testMessages = (
-  foundChat: PrivateChatData,
-  privateChatFromDb: PrivateChatData
+  foundChat: PrivateChatItem,
+  privateChatFromDb: PrivateChatItem
 ) => {
   for (const item of foundChat.messages) {
     const {
@@ -141,8 +141,8 @@ const testMessages = (
 
 const testParticipants = (
   currentUserId: string,
-  foundChat: PrivateChatData,
-  privateChatFromDb: PrivateChatData,
+  foundChat: PrivateChatItem,
+  privateChatFromDb: PrivateChatItem,
   targetUserId: string
 ) => {
   const {
@@ -178,8 +178,8 @@ const testParticipants = (
 
 const findAllParticipants = (
   currentUserId: string,
-  foundChat: PrivateChatData,
-  privateChatFromDb: PrivateChatData,
+  foundChat: PrivateChatItem,
+  privateChatFromDb: PrivateChatItem,
   targetUserId: string
 ) => {
   return {
@@ -189,5 +189,5 @@ const findAllParticipants = (
     targetParticipantFromDb: findParticipant(privateChatFromDb, targetUserId),
   };
 };
-const findParticipant = (privateChat: PrivateChatData, participantId: string) =>
+const findParticipant = (privateChat: PrivateChatItem, participantId: string) =>
   privateChat.participants.find((i) => i.participantId === participantId)!;

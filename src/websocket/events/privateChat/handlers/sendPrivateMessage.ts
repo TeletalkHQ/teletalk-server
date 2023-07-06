@@ -1,5 +1,5 @@
 import { services } from "~/services";
-import { SendPrivateMessageIO, SocketOnHandler } from "~/types";
+import { EventName, SendPrivateMessageIO, SocketOnHandler } from "~/types";
 
 export const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
   socket,
@@ -14,13 +14,19 @@ export const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
     messageText: text,
   });
 
-  socket.io
+  const returnData = {
+    addedMessage,
+    chatId,
+  };
+
+  socket
     .to(currentUserId)
     .to(participantId)
-    //TODO: Use customEmit
-    .emit("newPrivateChatMessage", { chatId, addedMessage });
+    .emit<EventName>("sendPrivateMessage", returnData);
+
+  socket.emit<EventName>("sendPrivateMessage", returnData);
 
   return {
-    data: { chatId, addedMessage },
+    data: returnData,
   };
 };

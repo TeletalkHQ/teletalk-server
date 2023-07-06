@@ -27,11 +27,11 @@ export interface ParticipantItem {
 }
 export type Participants = ParticipantItem[];
 
-export interface PrivateChatData {
+export interface PrivateChatItem {
   chatId: ChatId;
   createdAt: CreatedAt;
   messages: Messages;
   participants: Participants;
 }
 
-export type PrivateChats = PrivateChatData[];
+export type PrivateChats = PrivateChatItem[];

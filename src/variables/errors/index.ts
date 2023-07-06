@@ -14,7 +14,7 @@ const customErrors = {
   clientIdCanNotVerified: errorBuilder()
     .reason("clientIdCanNotVerified")
     .build(),
-  clientNotFound: errorBuilder().reason("clientNotFound").build(),
+  clientNotFound: errorBuilder().reason("clientNotFound").authError().build(),
   clientNotVerified: errorBuilder().reason("clientNotVerified").build(),
   contactItemExist: errorBuilder().reason("contactItemExist").build(),
   contactItemNotExist: errorBuilder().reason("contactItemNotExist").build(),

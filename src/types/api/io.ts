@@ -24,7 +24,7 @@ import {
   MessageItem,
   MessageText,
   ParticipantId,
-  PrivateChatData,
+  PrivateChatItem,
   PrivateChats,
   WelcomeMessage,
 } from "../datatypes";
@@ -87,7 +87,7 @@ export interface GetChatInfoIO {
     chatId: ChatId;
   };
   output: {
-    chatInfo: Omit<PrivateChatData, "messages">;
+    chatInfo: Omit<PrivateChatItem, "messages">;
   };
 }
 
@@ -96,7 +96,7 @@ export interface GetPrivateChatIO {
     chatId: ChatId;
   };
   output: {
-    privateChat: PrivateChatData;
+    privateChat: PrivateChatItem;
   };
 }
 

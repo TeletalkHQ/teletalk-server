@@ -80,9 +80,7 @@ await helpers.asyncDescribe(
     await requester.sendFullFeaturedRequest(existingContactData);
 
     return () => {
-      const contactItemWithCellphone: ContactItemWithCellphone = {
-        ...randomMaker.unusedContact(),
-      };
+      const { userId, ...data } = randomMaker.unusedContact();
 
       const selfStuffData: ContactItemWithCellphone = {
         ...currentUserCellphone,
@@ -90,15 +88,15 @@ await helpers.asyncDescribe(
       };
 
       e2eFailTestInitializerHelper(requester)
-        .input(contactItemWithCellphone)
-        .countryCode(contactItemWithCellphone)
-        .countryName(contactItemWithCellphone)
-        .phoneNumber(contactItemWithCellphone)
-        .firstName(contactItemWithCellphone)
-        .lastName(contactItemWithCellphone)
+        .input(data)
+        .countryCode(data)
+        .countryName(data)
+        .phoneNumber(data)
+        .firstName(data)
+        .lastName(data)
         .selfStuff(selfStuffData)
         .contactItemExist(existingContactData)
-        .targetUserNotExist(contactItemWithCellphone);
+        .targetUserNotExist(data);
     };
   }
 );

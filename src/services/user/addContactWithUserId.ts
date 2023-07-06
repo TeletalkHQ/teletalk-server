@@ -1,6 +1,6 @@
 import { maker } from "utility-store";
 import {
-  ContactWithEmptyCellphone,
+  ContactItem,
   FullNameWithUserId,
   UserId,
 } from "utility-store/lib/types";
@@ -17,7 +17,7 @@ export const addContactWithUserId: UserService<
     currentUserId: UserId;
   },
   {
-    addedContact: ContactWithEmptyCellphone;
+    addedContact: ContactItem;
   }
 > = async (data) => {
   const currentUser = await findOneUser({
@@ -30,7 +30,7 @@ export const addContactWithUserId: UserService<
 
   checkExistenceOfContactItem(currentUser.contacts, targetUser.userId);
 
-  const contact: ContactWithEmptyCellphone = {
+  const contact: ContactItem = {
     ...data.addingContact,
     ...maker.emptyCellphone(),
   };

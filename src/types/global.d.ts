@@ -28,7 +28,7 @@ declare module "socket.io" {
     authClient: AuthClient;
     userId: UserId;
     clientStr: string;
-  }
+   }
 }
 
 declare module "socket.io-client" {

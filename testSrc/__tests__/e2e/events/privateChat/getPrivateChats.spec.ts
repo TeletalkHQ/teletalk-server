@@ -3,7 +3,7 @@ import { Socket } from "socket.io-client";
 import { UserData, UserId } from "utility-store/lib/types";
 
 import { services } from "~/services";
-import { PrivateChatData } from "~/types/datatypes";
+import { PrivateChatItem } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -71,13 +71,13 @@ const testPrivateChats = async (
   const foundChatFromDb = (await findStoredPrivateChat(
     currentUser.userId,
     targetUser.userId
-  )) as PrivateChatData;
+  ))!;
 
   testFoundChatFromDb(foundChatFromDb);
 
-  const foundChat = (privateChats as PrivateChatData[]).find(
-    (i) => i.chatId === (foundChatFromDb as PrivateChatData).chatId
-  ) as PrivateChatData;
+  const foundChat = privateChats.find(
+    (i) => i.chatId === foundChatFromDb.chatId
+  )!;
 
   testOnePrivateChat({
     currentUserId: currentUser.userId,
@@ -106,7 +106,7 @@ const findStoredPrivateChat = async (
   });
 };
 
-const testFoundChatFromDb = (foundChatFromDb: PrivateChatData) => {
+const testFoundChatFromDb = (foundChatFromDb: PrivateChatItem) => {
   expect(customTypeof.isObject(foundChatFromDb)).toBeTruthy();
   expect(customTypeof.isArray(foundChatFromDb.participants)).toBeTruthy();
   expect(customTypeof.isArray(foundChatFromDb.participants)).toBeTruthy();
@@ -115,8 +115,8 @@ const testFoundChatFromDb = (foundChatFromDb: PrivateChatData) => {
 
 const testOnePrivateChat = (data: {
   currentUserId: UserId;
-  foundChat: PrivateChatData;
-  foundChatFromDb: PrivateChatData;
+  foundChat: PrivateChatItem;
+  foundChatFromDb: PrivateChatItem;
   targetUserId: string;
 }) => {
   expect(customTypeof.isObject(data.foundChat)).toBeTruthy();
@@ -129,8 +129,8 @@ const testOnePrivateChat = (data: {
 };
 
 const tesChatId = (
-  foundChat: PrivateChatData,
-  foundChatFromDb: PrivateChatData
+  foundChat: PrivateChatItem,
+  foundChatFromDb: PrivateChatItem
 ) => {
   assertionInitializerHelper().chatId({
     equalValue: foundChat.chatId,
@@ -139,8 +139,8 @@ const tesChatId = (
 };
 
 const testMessages = (
-  foundChat: PrivateChatData,
-  foundChatFromDb: PrivateChatData
+  foundChat: PrivateChatItem,
+  foundChatFromDb: PrivateChatItem
 ) => {
   for (const item of foundChat.messages) {
     const {
@@ -170,8 +170,8 @@ const testMessages = (
 
 const testParticipants = (data: {
   currentUserId: UserId;
-  foundChat: PrivateChatData;
-  foundChatFromDb: PrivateChatData;
+  foundChat: PrivateChatItem;
+  foundChatFromDb: PrivateChatItem;
   targetUserId: string;
 }) => {
   const {
@@ -207,8 +207,8 @@ const testParticipants = (data: {
 
 const findAllParticipants = (data: {
   currentUserId: UserId;
-  foundChat: PrivateChatData;
-  foundChatFromDb: PrivateChatData;
+  foundChat: PrivateChatItem;
+  foundChatFromDb: PrivateChatItem;
   targetUserId: string;
 }) => {
   return {
@@ -230,5 +230,5 @@ const findAllParticipants = (data: {
     ),
   };
 };
-const findParticipant = (chat: PrivateChatData, participantId: string) =>
+const findParticipant = (chat: PrivateChatItem, participantId: string) =>
   chat.participants.find((i) => i.participantId === participantId)!;

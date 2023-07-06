@@ -1,5 +1,5 @@
 import { models } from "~/models";
-import { PrivateChatData } from "~/types/datatypes";
+import { PrivateChatItem } from "~/types/datatypes";
 
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
@@ -17,7 +17,7 @@ export const privateChatsAssertionInitializer: AssertionInitializer = (
 
   // builder.typeCheck().run();
 
-  testValue.forEach((privateChat: PrivateChatData) => {
+  testValue.forEach((privateChat: PrivateChatItem) => {
     builder
       .customTypeCheck(privateChat, "object")
       //TODO: Add all parts

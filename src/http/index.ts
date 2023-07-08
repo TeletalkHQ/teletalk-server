@@ -26,9 +26,9 @@ expressApp.get("/setClientId", async (req, res) => {
   res.setHeader("Content-Type", "text/plain");
   res.statusCode = 200;
   res.cookie("client", clientStr, {
-    httpOnly: false,
-    sameSite: false,
-    secure: false,
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
   });
 
   res.end("Client has been set!");
@@ -49,7 +49,7 @@ const defaultApp = () => {
       res.setHeader("Content-Type", "text/plain");
       res.setHeader(
         "Set-Cookie",
-        `client=${clientStr}; HttpOnly; SameSite=Strict`
+        `client=${clientStr}; HttpOnly=true; secure=true; SameSite=None`
       );
       res.statusCode = 200;
 

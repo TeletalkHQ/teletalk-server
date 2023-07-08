@@ -28,15 +28,15 @@ const appBuilder = (version) =>
     format: "esm",
   });
 
-const testBuilder = (version) =>
-  build({
-    ...defaultOptions,
-    entryPoints: ["testSrc/index.ts"],
-    outfile: `build/${version[0]}/test.mjs`,
-    target: version[1],
-    tsconfig: "tsconfig.json",
-    format: "esm",
-  });
+// const testBuilder = (version) =>
+//   build({
+//     ...defaultOptions,
+//     entryPoints: ["testSrc/index.ts"],
+//     outfile: `build/${version[0]}/test.mjs`,
+//     target: version[1],
+//     tsconfig: "tsconfig.json",
+//     format: "esm",
+//   });
 
 const calcNodeVersion = () => {
   return process.env.npm_config_user_agent
@@ -56,4 +56,4 @@ const targets = {
 };
 
 Object.entries(targets).forEach(appBuilder);
-Object.entries(targets).forEach(testBuilder);
+// Object.entries(targets).forEach(testBuilder);

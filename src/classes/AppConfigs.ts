@@ -43,15 +43,14 @@ class AppConfigs {
   getConfigs() {
     return {
       APP: {
+        CLIENT_SECRET: this.ENVIRONMENTS.CLIENT_SECRET,
         ENVIRONMENT: this.ENVIRONMENTS.NODE_ENV,
         HOSTNAME: "localhost",
         PORT: this.ENVIRONMENTS.PORT,
         SELF_EXEC: this.ENVIRONMENTS.SELF_EXEC,
-        CLIENT_SECRET: this.ENVIRONMENTS.CLIENT_SECRET,
       },
       DB: {
-        MONGO_URL: this.ENVIRONMENTS.MONGO_URL,
-        MONGO_URL_FULL: makeMongoFullUrl(),
+        MONGO_URL: `${this.ENVIRONMENTS.MONGO_PREFIX}${this.ENVIRONMENTS.MONGO_HOST}:${this.ENVIRONMENTS.MONGO_PORT}/${this.ENVIRONMENTS.MONGO_COLLECTION_NAME}`,
         REDIS_HOST: this.ENVIRONMENTS.REDIS_HOST,
         REDIS_PASSWORD: this.ENVIRONMENTS.REDIS_PASSWORD,
         REDIS_PORT: this.ENVIRONMENTS.REDIS_PORT,
@@ -70,23 +69,5 @@ class AppConfigs {
     };
   }
 }
-
-const makeMongoFullUrl = () => {
-  const {
-    MONGO_COLLECTION_NAME,
-    //? This is actually mongoDb tcp url from docker!
-    MONGO_PORT,
-  } = envManager.getEnv();
-
-  const CORRECTED_MONGO_URL_FROM_DOCKER = MONGO_PORT?.toString().replace(
-    "tcp://",
-    "mongodb://"
-  );
-
-  const mongoUrl =
-    CORRECTED_MONGO_URL_FROM_DOCKER || envManager.getEnv().MONGO_URL;
-
-  return `${mongoUrl}/${MONGO_COLLECTION_NAME}`;
-};
 
 export const appConfigs = new AppConfigs();

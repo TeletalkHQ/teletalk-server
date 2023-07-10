@@ -1,6 +1,8 @@
-FROM node:18-alpine
+FROM node:18-alpine3.15
 
 WORKDIR /teletalk-server
+
+RUN npm i -g npm
 
 RUN npm i -g yarn --force
 

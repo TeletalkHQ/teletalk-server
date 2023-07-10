@@ -14,7 +14,7 @@ export const mongodbConnector = () => {
     )
   );
 
-  return mongoose.connect(configs.DB.MONGO_URL);
+  return mongoose.connect(configs.DB.MONGO_URI);
 };
 
 export const redisConnector = async () => {

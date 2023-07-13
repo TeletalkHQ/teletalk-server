@@ -2,11 +2,6 @@ import { build } from "esbuild";
 
 const defaultOptions = {
   allowOverwrite: true,
-  bundle: true,
-  minify: false,
-  sourcemap: false,
-  platform: "node",
-  target: "esnext",
   banner: {
     js: `
         import { fileURLToPath } from 'url';
@@ -16,6 +11,11 @@ const defaultOptions = {
         const __dirname = path.dirname(__filename);
         `,
   },
+  bundle: true,
+  minify: false,
+  platform: "node",
+  sourcemap: false,
+  target: "esnext",
 };
 
 const appBuilder = (version) =>
@@ -27,16 +27,6 @@ const appBuilder = (version) =>
     tsconfig: "tsconfig.json",
     format: "esm",
   });
-
-// const testBuilder = (version) =>
-//   build({
-//     ...defaultOptions,
-//     entryPoints: ["testSrc/index.ts"],
-//     outfile: `build/${version[0]}/test.mjs`,
-//     target: version[1],
-//     tsconfig: "tsconfig.json",
-//     format: "esm",
-//   });
 
 const calcNodeVersion = () => {
   return process.env.npm_config_user_agent
@@ -56,4 +46,3 @@ const targets = {
 };
 
 Object.entries(targets).forEach(appBuilder);
-// Object.entries(targets).forEach(testBuilder);

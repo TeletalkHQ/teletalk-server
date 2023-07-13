@@ -1,13 +1,13 @@
 import { errorStore } from "~/classes/ErrorStore";
 
-import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
+import { utils } from "@/utils";
 
 export const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer<
   any
 > = (configuredRequester, data) => {
   it(
-    helpers.createFailTestMessage(
+    utils.createFailTestMessage(
       errorStore.find("BLACKLIST_ITEM_NOT_EXIST"),
       configuredRequester.getEventName()
     ),
@@ -23,7 +23,7 @@ export const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer
 export const blacklistItemExistE2eFailTestInitializer: E2eFailTestInitializer =
   (configuredRequester, data) => {
     it(
-      helpers.createFailTestMessage(
+      utils.createFailTestMessage(
         errorStore.find("BLACKLIST_ITEM_EXIST"),
         configuredRequester.getEventName()
       ),
@@ -39,7 +39,7 @@ export const blacklistItemExistE2eFailTestInitializer: E2eFailTestInitializer =
 export const contactItemNotExistE2eFailTestInitializer: E2eFailTestInitializer =
   (configuredRequester, data) => {
     it(
-      helpers.createFailTestMessage(
+      utils.createFailTestMessage(
         errorStore.find("CONTACT_ITEM_NOT_EXIST"),
         configuredRequester.getEventName()
       ),
@@ -57,7 +57,7 @@ export const contactItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
   data
 ) => {
   it(
-    helpers.createFailTestMessage(
+    utils.createFailTestMessage(
       errorStore.find("CONTACT_ITEM_EXIST"),
       configuredRequester.getEventName()
     ),
@@ -73,7 +73,7 @@ export const contactItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
 export const targetUserNotExistE2eFailTestInitializer: E2eFailTestInitializer =
   (configuredRequester, data) => {
     it(
-      helpers.createFailTestMessage(
+      utils.createFailTestMessage(
         errorStore.find("TARGET_USER_NOT_EXIST"),
         configuredRequester.getEventName()
       ),

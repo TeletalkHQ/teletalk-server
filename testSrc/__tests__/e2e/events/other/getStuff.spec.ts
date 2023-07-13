@@ -5,7 +5,7 @@ import { NativeModelCollection } from "~/types/models";
 import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 import { FIELD_TYPE } from "@/variables";
 
 describe("getAllStuff success tests", () => {
@@ -13,7 +13,7 @@ describe("getAllStuff success tests", () => {
     const clientSocket = (
       await clientInitializer().createComplete()
     ).getClient();
-    const requester = helpers.requesterCollection.getStuff(clientSocket);
+    const requester = utils.requesterCollection.getStuff(clientSocket);
 
     const { data } = await requester.sendFullFeaturedRequest();
 

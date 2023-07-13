@@ -3,7 +3,7 @@ import { services } from "~/services";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("logout success tests", () => {
   it("should get response.ok:true logging out user", async () => {
@@ -26,7 +26,7 @@ describe("logout success tests", () => {
     const clientIdToRemove = clients.pop()!.clientId;
     const { userId } = (await clientStore.find(clientIdToRemove))!;
 
-    await helpers.requesterCollection
+    await utils.requesterCollection
       .logout(ah.getClientSocket())
       .sendFullFeaturedRequest();
 
@@ -48,9 +48,9 @@ describe("logout success tests", () => {
   });
 });
 
-// await helpers.asyncDescribe("logout fail tests", async () => {
+// await utils.asyncDescribe("logout fail tests", async () => {
 //   const clientSocket = (await clientInitializer().createComplete()).getClient();
-//   const requester = helpers.requesterCollection.logout(clientSocket);
+//   const requester = utils.requesterCollection.logout(clientSocket);
 
 //   return () => {
 //     e2eFailTestInitializerHelper(requester);

@@ -53,7 +53,7 @@ export class ValidationModelBuilder<
   ) {
     if (this.validationRuleObject.messages) {
       this.validationRuleObject.messages[errorMessageKey] = errorStore.find(
-        utils.makeModelErrorReason(this.fieldName, modelKey as NativeModelKey)
+        utils.makeModelErrorReason(this.fieldName, modelKey)
       ).reason;
     }
   }
@@ -65,7 +65,6 @@ export class ValidationModelBuilder<
     });
   }
 
-  //TODO: Read model dynamically
   setModel(model: Model) {
     this.model = model;
     return this;

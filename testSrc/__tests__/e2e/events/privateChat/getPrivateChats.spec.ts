@@ -7,7 +7,7 @@ import { PrivateChatItem } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("getPrivateChats success tests", () => {
   it("should get private chats related to client", async () => {
@@ -21,14 +21,14 @@ describe("getPrivateChats success tests", () => {
 
     const messageText = "Hello! Im messages!";
     for (let i = 0; i < 10; i++) {
-      await helpers.requesterCollection
+      await utils.requesterCollection
         .sendPrivateMessage(currentUserSocket)
         .sendFullFeaturedRequest({
           messageText,
           participantId: targetUser.userId,
         });
 
-      await helpers.requesterCollection
+      await utils.requesterCollection
         .sendPrivateMessage(targetUserSocket)
         .sendFullFeaturedRequest({
           messageText,
@@ -40,9 +40,9 @@ describe("getPrivateChats success tests", () => {
   });
 });
 
-// await helpers.asyncDescribe("getMessages fail tests", async () => {
-//   const { requester } = await helpers.setupRequester(
-//     helpers.requesterCollection.getPrivateChats
+// await utils.asyncDescribe("getMessages fail tests", async () => {
+//   const { requester } = await utils.setupRequester(
+//     utils.requesterCollection.getPrivateChats
 //   );
 
 //   return () => {
@@ -51,7 +51,7 @@ describe("getPrivateChats success tests", () => {
 // });
 
 const testEmptinessOfPrivateChats = async (socket: Socket) => {
-  const requester = helpers.requesterCollection.getPrivateChats(socket);
+  const requester = utils.requesterCollection.getPrivateChats(socket);
   const {
     data: { privateChats },
   } = await requester.sendFullFeaturedRequest();
@@ -88,7 +88,7 @@ const testPrivateChats = async (
 };
 
 const getAllPrivateChats = async (socket: Socket) => {
-  const { data } = await helpers.requesterCollection
+  const { data } = await utils.requesterCollection
     .getPrivateChats(socket)
     .sendFullFeaturedRequest();
   return data;

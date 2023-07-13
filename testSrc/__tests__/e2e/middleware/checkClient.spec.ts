@@ -3,7 +3,7 @@ import { eventsWithAuth, eventsWithoutAuth } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("auth middleware test", () => {
   for (const event of eventsWithoutAuth) {
@@ -20,7 +20,7 @@ describe("auth middleware test", () => {
   }
 
   for (const event of eventsWithAuth) {
-    const title = helpers.createFailTestMessage(
+    const title = utils.createFailTestMessage(
       errorStore.find("CLIENT_NOT_FOUND"),
       event.name
     );

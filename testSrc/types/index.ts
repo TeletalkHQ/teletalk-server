@@ -4,7 +4,7 @@ import { IO, SocketEvent } from "~/types";
 import { NativeModelKey } from "~/types/models";
 
 import { Requester } from "@/classes/Requester";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 export type RequesterMaker<IOType extends IO> = (
   socketClient: ClientSocket
@@ -18,7 +18,7 @@ export type RequesterMakerHelper<IOType extends IO> = (
   event: SocketEvent<IOType>
 ) => RequesterMakerWrapper<IOType>;
 
-export type RequesterCollection = typeof helpers.requesterCollection;
+export type RequesterCollection = typeof utils.requesterCollection;
 
 export type E2eFailTestIgnores = NativeModelKey[];
 

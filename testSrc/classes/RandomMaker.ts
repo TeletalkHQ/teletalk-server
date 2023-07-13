@@ -4,7 +4,7 @@ import { ContactItem } from "utility-store/lib/types";
 import { models } from "~/models";
 
 import { authHelper } from "@/classes/AuthHelper";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 class RandomMaker extends RandomMakerMain {
   constructor() {
@@ -35,7 +35,7 @@ class RandomMaker extends RandomMakerMain {
     const helper = authHelper(cellphone, fullName);
     await helper.createComplete();
 
-    const response = await helpers.requesterCollection
+    const response = await utils.requesterCollection
       .getUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 

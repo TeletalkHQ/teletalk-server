@@ -3,11 +3,11 @@ import { randomMaker } from "utility-store";
 import { errorStore } from "~/classes/ErrorStore";
 import { IO, NativeError } from "~/types";
 import { Field, FieldType, NativeModel } from "~/types/models";
-import { utils } from "~/utils";
+import { utils as mainUtils } from "~/utils";
 
 import { Requester } from "@/classes/Requester";
-import { helpers } from "@/helpers";
 import { RequesterOptions } from "@/types";
+import { utils } from "@/utils";
 
 type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
 
@@ -36,7 +36,7 @@ class E2eFailTestInitializer<
   }
   resolveError(modelPropName: keyof NativeModel) {
     return errorStore.find(
-      utils.makeModelErrorReason(this.fieldName, modelPropName)
+      mainUtils.makeModelErrorReason(this.fieldName, modelPropName)
     );
   }
 
@@ -97,7 +97,7 @@ class E2eFailTestInitializer<
   }
 
   initTest(data: any, error: NativeError, options?: Partial<RequesterOptions>) {
-    const title = helpers.createFailTestMessage(
+    const title = utils.createFailTestMessage(
       error,
       this.configuredRequester.getEventName()
     );

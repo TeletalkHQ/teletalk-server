@@ -4,7 +4,7 @@ import { UserId } from "~/types/datatypes";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("removeContact successful test", () => {
   it("should add users to blacklist", async () => {
@@ -13,14 +13,13 @@ describe("removeContact successful test", () => {
 
     const { user: currentUser, socket } = await randomMaker.user();
 
-    const addBlockRequester = helpers.requesterCollection.addBlock(socket);
+    const addBlockRequester = utils.requesterCollection.addBlock(socket);
 
     for (const userId of userIds) {
       await addBlockRequester.sendFullFeaturedRequest({ userId });
     }
 
-    const removeBlockRequester =
-      helpers.requesterCollection.removeBlock(socket);
+    const removeBlockRequester = utils.requesterCollection.removeBlock(socket);
 
     for (const blacklistItem of [...userIds]) {
       const {
@@ -42,9 +41,9 @@ describe("removeContact successful test", () => {
   });
 });
 
-await helpers.asyncDescribe("removeBlock fail tests", async () => {
-  const { requester, user } = await helpers.setupRequester(
-    helpers.requesterCollection.removeBlock
+await utils.asyncDescribe("removeBlock fail tests", async () => {
+  const { requester, user } = await utils.setupRequester(
+    utils.requesterCollection.removeBlock
   );
 
   return () => {

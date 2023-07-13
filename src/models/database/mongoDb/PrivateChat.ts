@@ -1,13 +1,13 @@
 import { Schema, SchemaDefinitionProperty, model } from "mongoose";
 
-import { makeMongoSchemaValue } from "~/helpers/makeMongoSchemaValue";
 import { nativeModels } from "~/models/native";
 import { IPrivateChatDoc, IPrivateChatModel } from "~/types/models";
+import { utils } from "~/utils";
 
-const chatIdMaker = makeMongoSchemaValue("chatId");
-const messageIdMaker = makeMongoSchemaValue("messageId");
-const messageTextMaker = makeMongoSchemaValue("messageText");
-const participantIdMaker = makeMongoSchemaValue("participantId");
+const chatIdMaker = utils.makeMongoSchemaValue("chatId");
+const messageIdMaker = utils.makeMongoSchemaValue("messageId");
+const messageTextMaker = utils.makeMongoSchemaValue("messageText");
+const participantIdMaker = utils.makeMongoSchemaValue("participantId");
 
 const chatId: SchemaDefinitionProperty = {
   maxlength: chatIdMaker("maxLength"),

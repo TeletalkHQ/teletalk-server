@@ -9,7 +9,7 @@ import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper
 import { authHelper } from "@/classes/AuthHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("createNewUser success tests", () => {
   it("should create new user in db", async () => {
@@ -22,7 +22,7 @@ describe("createNewUser success tests", () => {
 
     await testCreatedUserClientId(helper.getClientId());
 
-    const { data } = await helpers.requesterCollection
+    const { data } = await utils.requesterCollection
       .getUserData(helper.getClientSocket())
       .sendFullFeaturedRequest();
 
@@ -30,12 +30,12 @@ describe("createNewUser success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("createNewUser fail tests", async () => {
+await utils.asyncDescribe("createNewUser fail tests", async () => {
   const cellphone = randomMaker.unusedCellphone();
   const helper = authHelper(cellphone);
   await helper.signIn();
   await helper.verify();
-  const requester = helpers.requesterCollection.createNewUser(
+  const requester = utils.requesterCollection.createNewUser(
     helper.getClientSocket()
   );
 

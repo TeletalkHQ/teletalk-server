@@ -7,8 +7,8 @@ import {
   ClientInitializer,
   clientInitializer,
 } from "@/classes/ClientInitializer";
-import { helpers } from "@/helpers";
 import { ClientSocket } from "@/types";
+import { utils } from "@/utils";
 
 class AuthHelper {
   private clientSocket: ClientSocket;
@@ -26,7 +26,7 @@ class AuthHelper {
       await this.clientInitializer.createComplete()
     ).getClient();
 
-    this.signInResponse = await helpers.requesterCollection
+    this.signInResponse = await utils.requesterCollection
       .signIn(this.clientSocket)
       .sendFullFeaturedRequest(this.cellphone);
 
@@ -37,7 +37,7 @@ class AuthHelper {
     const clientId = this.clientInitializer.getClient().clientId;
     const client = (await clientStore.find(clientId))!;
 
-    this.verifyResponse = await helpers.requesterCollection
+    this.verifyResponse = await utils.requesterCollection
       .verify(this.clientSocket)
       .sendFullFeaturedRequest({
         verificationCode: client.verificationCode,
@@ -47,7 +47,7 @@ class AuthHelper {
   }
 
   async create() {
-    this.createResponse = await helpers.requesterCollection
+    this.createResponse = await utils.requesterCollection
       .createNewUser(this.clientSocket)
       .sendFullFeaturedRequest(this.fullName as FullName);
 

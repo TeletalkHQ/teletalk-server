@@ -12,8 +12,8 @@ import {
   StringMap,
 } from "~/types";
 
-import { loggerHelper } from "@/helpers/logHelper";
 import { RequesterOptions } from "@/types";
+import { loggerHelper } from "@/utils/logHelper";
 
 export class Requester<IOType extends IO> {
   private error?: NativeError;

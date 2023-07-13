@@ -4,12 +4,12 @@ import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
-    const requester = helpers.requesterCollection.getUserData(socket);
+    const requester = utils.requesterCollection.getUserData(socket);
 
     for (let i = 0; i < 10; i++) {
       const {

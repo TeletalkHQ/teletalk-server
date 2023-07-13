@@ -1,17 +1,17 @@
 import { Schema, SchemaDefinitionProperty, model } from "mongoose";
 
-import { makeMongoSchemaValue } from "~/helpers/makeMongoSchemaValue";
 import { nativeModels } from "~/models/native";
 import { IUserDoc, IUserModel } from "~/types/models";
+import { utils } from "~/utils";
 
-const bioMaker = makeMongoSchemaValue("bio");
-const countryCodeMaker = makeMongoSchemaValue("countryCode");
-const countryNameMaker = makeMongoSchemaValue("countryName");
-const firstNameMaker = makeMongoSchemaValue("firstName");
-const lastNameMaker = makeMongoSchemaValue("lastName");
-const phoneNumberMaker = makeMongoSchemaValue("phoneNumber");
-const userIdMaker = makeMongoSchemaValue("userId");
-const usernameMaker = makeMongoSchemaValue("username");
+const bioMaker = utils.makeMongoSchemaValue("bio");
+const countryCodeMaker = utils.makeMongoSchemaValue("countryCode");
+const countryNameMaker = utils.makeMongoSchemaValue("countryName");
+const firstNameMaker = utils.makeMongoSchemaValue("firstName");
+const lastNameMaker = utils.makeMongoSchemaValue("lastName");
+const phoneNumberMaker = utils.makeMongoSchemaValue("phoneNumber");
+const userIdMaker = utils.makeMongoSchemaValue("userId");
+const usernameMaker = utils.makeMongoSchemaValue("username");
 
 //FIXME: Do something with unique property
 const bio: SchemaDefinitionProperty = {

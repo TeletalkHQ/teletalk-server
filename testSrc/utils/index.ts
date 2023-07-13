@@ -38,7 +38,7 @@ import {
   VerifyIO,
 } from "~/types";
 import { Field } from "~/types/models";
-import { utils } from "~/utils";
+import { utils as mainUtils } from "~/utils";
 import { countries } from "~/variables";
 import { events } from "~/websocket/events";
 
@@ -52,7 +52,7 @@ async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
   try {
     describe(title, describeBody);
   } catch (error) {
-    utils.crashServer(error);
+    mainUtils.crashServer(error);
   }
 }
 
@@ -110,7 +110,9 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
           break;
         }
 
-        data[fieldName] = faker.datatype.string(
+        data[fieldName] = faker.string.sample(
+          // @ts-ignore
+          fieldModel.minLength,
           // @ts-ignore
           fieldModel.maxLength
         );
@@ -215,7 +217,7 @@ const requesterCollection = {
   verify: requesterMakerHelper(findEvent<VerifyIO>("verify")),
 };
 
-export const helpers = {
+export const utils = {
   asyncDescribe,
   createFailTestMessage,
   generateDynamicData,

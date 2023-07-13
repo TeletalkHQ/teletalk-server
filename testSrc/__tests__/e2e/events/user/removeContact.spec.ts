@@ -7,7 +7,7 @@ import { UserId } from "~/types/datatypes";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("removeContact successful test", () => {
   it("should remove users from contacts", async () => {
@@ -15,14 +15,14 @@ describe("removeContact successful test", () => {
     const addingContacts = await createContacts(contactsLength);
 
     const { socket, user: currentUser } = await randomMaker.user();
-    const addContactRequester = helpers.requesterCollection.addContact(socket);
+    const addContactRequester = utils.requesterCollection.addContact(socket);
 
     for (const addingContact of addingContacts) {
       await addContactRequester.sendFullFeaturedRequest(addingContact);
     }
 
     const removeContactRequester =
-      helpers.requesterCollection.removeContact(socket);
+      utils.requesterCollection.removeContact(socket);
     for (const addingContact of [...addingContacts]) {
       const {
         data: { removedContact },
@@ -40,9 +40,9 @@ describe("removeContact successful test", () => {
   });
 });
 
-await helpers.asyncDescribe("removeContact fail tests", async () => {
-  const { requester, user } = await helpers.setupRequester(
-    helpers.requesterCollection.removeContact
+await utils.asyncDescribe("removeContact fail tests", async () => {
+  const { requester, user } = await utils.setupRequester(
+    utils.requesterCollection.removeContact
   );
 
   return () => {

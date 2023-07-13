@@ -6,7 +6,7 @@ import { services } from "~/services";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("updatePublicUserData success tests", () => {
   it("should get user public data", async () => {
@@ -15,8 +15,7 @@ describe("updatePublicUserData success tests", () => {
     for (const { socket, user } of users) {
       const data = randomMaker.publicUserData();
 
-      const requester =
-        helpers.requesterCollection.updatePublicUserData(socket);
+      const requester = utils.requesterCollection.updatePublicUserData(socket);
       const {
         data: { publicUserData: publicDataFromEvent },
       } = await requester.sendFullFeaturedRequest(data);
@@ -35,9 +34,9 @@ describe("updatePublicUserData success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("updatePublicUserData fail tests", async () => {
-  const { requester } = await helpers.setupRequester(
-    helpers.requesterCollection.updatePublicUserData
+await utils.asyncDescribe("updatePublicUserData fail tests", async () => {
+  const { requester } = await utils.setupRequester(
+    utils.requesterCollection.updatePublicUserData
   );
 
   return () => {

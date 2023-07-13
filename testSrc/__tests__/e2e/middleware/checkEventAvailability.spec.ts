@@ -4,14 +4,14 @@ import { events as mainEvents } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
-import { helpers } from "@/helpers";
 import { ClientSocket } from "@/types";
+import { utils } from "@/utils";
 import { events } from "@/websocket/events";
 
 const createRequester = (socket: ClientSocket, event: SocketEvent) =>
   requesterMaker(socket, event);
 
-await helpers.asyncDescribe(
+await utils.asyncDescribe(
   "checkEventAvailability middleware fail test",
   async () => {
     const clientSocket = (
@@ -19,7 +19,7 @@ await helpers.asyncDescribe(
     ).getClient();
 
     return () => {
-      const message = helpers.createFailTestMessage(
+      const message = utils.createFailTestMessage(
         errorStore.find("EVENT_NOT_FOUND"),
         events.unknownEvent.name
       );
@@ -31,7 +31,7 @@ await helpers.asyncDescribe(
       });
 
       for (const event of mainEvents) {
-        const message = helpers.createFailTestMessage(
+        const message = utils.createFailTestMessage(
           errorStore.find("EVENT_NOT_FOUND"),
           event.name
         );

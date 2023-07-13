@@ -5,7 +5,7 @@ import {
   ValidationRuleObject,
 } from "fastest-validator";
 
-import { helpers } from "~/helpers";
+import { utils } from "~/utils";
 
 import { ErrorReason, NativeError } from "..";
 import { Field } from "../models";
@@ -16,7 +16,7 @@ export type ValidationCollection = {
   [F in Field]: ValidationModel;
 };
 
-const ERROR_TYPES = helpers.getDefaultValidatorErrorTypes();
+const ERROR_TYPES = utils.getDefaultValidatorErrorTypes();
 export type ErrorTypes = typeof ERROR_TYPES;
 export type ValidationErrors = ValidationError[];
 

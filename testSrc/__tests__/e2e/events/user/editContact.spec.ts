@@ -10,7 +10,7 @@ import { services } from "~/services";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("edit contact success tests", () => {
   it("should edit users in contacts", async () => {
@@ -19,12 +19,11 @@ describe("edit contact success tests", () => {
     const contactsLength = 10;
     const addingContacts = await createContacts(contactsLength);
 
-    const addContactRequester = helpers.requesterCollection.addContact(socket);
+    const addContactRequester = utils.requesterCollection.addContact(socket);
     for (const contact of addingContacts)
       await addContactRequester.sendFullFeaturedRequest(contact);
 
-    const editContactRequester =
-      helpers.requesterCollection.editContact(socket);
+    const editContactRequester = utils.requesterCollection.editContact(socket);
     for (const addingContact of addingContacts) {
       const fullName = randomMaker.fullName();
       const editingContactData = {
@@ -61,9 +60,9 @@ describe("edit contact success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("editContact fail tests", async () => {
-  const { requester, user } = await helpers.setupRequester(
-    helpers.requesterCollection.editContact
+await utils.asyncDescribe("editContact fail tests", async () => {
+  const { requester, user } = await utils.setupRequester(
+    utils.requesterCollection.editContact
   );
   const selfStuffData = {
     ...randomMaker.fullName(),

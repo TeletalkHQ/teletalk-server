@@ -8,12 +8,12 @@ import { UserId } from "~/types/datatypes";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
     const { user: currentUser, socket } = await randomMaker.user();
-    const requester = helpers.requesterCollection.addContactWithUserId(socket);
+    const requester = utils.requesterCollection.addContactWithUserId(socket);
 
     const contactsLength = 10;
     const users = await randomMaker.users(contactsLength);
@@ -58,48 +58,45 @@ describe("add contact success tests", () => {
   });
 });
 
-await helpers.asyncDescribe(
-  "addContact with cellphone fail tests",
-  async () => {
-    const currentUserCellphone = randomMaker.unusedCellphone();
+await utils.asyncDescribe("addContact with cellphone fail tests", async () => {
+  const currentUserCellphone = randomMaker.unusedCellphone();
 
-    const targetUserCellphone = randomMaker.unusedCellphone();
-    const { user: targetUser } = await randomMaker.user(targetUserCellphone);
+  const targetUserCellphone = randomMaker.unusedCellphone();
+  const { user: targetUser } = await randomMaker.user(targetUserCellphone);
 
-    const { requester, user: currentUser } = await helpers.setupRequester(
-      helpers.requesterCollection.addContactWithUserId,
-      currentUserCellphone
-    );
+  const { requester, user: currentUser } = await utils.setupRequester(
+    utils.requesterCollection.addContactWithUserId,
+    currentUserCellphone
+  );
 
-    const existingContactData: FullNameWithUserId = {
+  const existingContactData: FullNameWithUserId = {
+    ...randomMaker.fullName(),
+    userId: targetUser.userId,
+  };
+
+  await requester.sendFullFeaturedRequest(existingContactData);
+
+  return () => {
+    const contactItemWithUserId: FullNameWithUserId = {
       ...randomMaker.fullName(),
-      userId: targetUser.userId,
+      userId: randomMaker.userId(),
     };
 
-    await requester.sendFullFeaturedRequest(existingContactData);
-
-    return () => {
-      const contactItemWithUserId: FullNameWithUserId = {
-        ...randomMaker.fullName(),
-        userId: randomMaker.userId(),
-      };
-
-      const selfStuffData: FullNameWithUserId = {
-        ...randomMaker.fullName(),
-        userId: currentUser.userId,
-      };
-
-      e2eFailTestInitializerHelper(requester)
-        .input(contactItemWithUserId)
-        .firstName(contactItemWithUserId)
-        .lastName(contactItemWithUserId)
-        .userId(contactItemWithUserId)
-        .selfStuff(selfStuffData)
-        .contactItemExist(existingContactData)
-        .targetUserNotExist(contactItemWithUserId);
+    const selfStuffData: FullNameWithUserId = {
+      ...randomMaker.fullName(),
+      userId: currentUser.userId,
     };
-  }
-);
+
+    e2eFailTestInitializerHelper(requester)
+      .input(contactItemWithUserId)
+      .firstName(contactItemWithUserId)
+      .lastName(contactItemWithUserId)
+      .userId(contactItemWithUserId)
+      .selfStuff(selfStuffData)
+      .contactItemExist(existingContactData)
+      .targetUserNotExist(contactItemWithUserId);
+  };
+});
 
 const testResponse = async (data: {
   addedContact: ContactItem;

@@ -1,11 +1,11 @@
-import { bioAssertionInitializer } from "@/helpers/assertionInitializers/bio";
-import { blacklistAssertionInitializer } from "@/helpers/assertionInitializers/blacklist";
-import { cellphoneAssertionInitializer } from "@/helpers/assertionInitializers/cellphone";
-import { contactsAssertionInitializer } from "@/helpers/assertionInitializers/contacts";
-import { fullNameAssertionInitializer } from "@/helpers/assertionInitializers/fullName";
-import { userIdAssertionInitializer } from "@/helpers/assertionInitializers/userId";
-import { usernameAssertionInitializer } from "@/helpers/assertionInitializers/username";
 import { AssertionInitializer } from "@/types";
+import { bioAssertionInitializer } from "@/utils/assertionInitializers/bio";
+import { blacklistAssertionInitializer } from "@/utils/assertionInitializers/blacklist";
+import { cellphoneAssertionInitializer } from "@/utils/assertionInitializers/cellphone";
+import { contactsAssertionInitializer } from "@/utils/assertionInitializers/contacts";
+import { fullNameAssertionInitializer } from "@/utils/assertionInitializers/fullName";
+import { userIdAssertionInitializer } from "@/utils/assertionInitializers/userId";
+import { usernameAssertionInitializer } from "@/utils/assertionInitializers/username";
 
 export const userDataAssertionInitializer: AssertionInitializer = ({
   equalValue,

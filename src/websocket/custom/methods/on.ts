@@ -2,7 +2,6 @@ import { checkFields } from "check-fields";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { helpers } from "~/helpers";
 import {
   CustomOn,
   EventName,
@@ -13,6 +12,7 @@ import {
   SocketResponse,
   StringMap,
 } from "~/types";
+import { utils } from "~/utils";
 import { errors } from "~/variables";
 import { events } from "~/websocket/events";
 
@@ -109,7 +109,7 @@ const catchBlock = (
 ) => {
   const response: SocketResponse = {
     data: {},
-    errors: helpers.resolveResponseError(error),
+    errors: utils.resolveResponseError(error),
     ok: false,
   };
 

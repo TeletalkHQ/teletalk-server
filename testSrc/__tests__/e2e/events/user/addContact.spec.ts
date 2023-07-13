@@ -8,12 +8,12 @@ import { UserId } from "~/types/datatypes";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
     const { user: currentUser, socket } = await randomMaker.user();
-    const requester = helpers.requesterCollection.addContact(socket);
+    const requester = utils.requesterCollection.addContact(socket);
 
     const contactsLength = 1;
     const users: UserData[] = [];
@@ -61,10 +61,10 @@ describe("add contact success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("addContact fail tests", async () => {
+await utils.asyncDescribe("addContact fail tests", async () => {
   const currentUserSignData = randomMaker.unusedCellphone();
-  const { requester, user: currentUser } = await helpers.setupRequester(
-    helpers.requesterCollection.addContact,
+  const { requester, user: currentUser } = await utils.setupRequester(
+    utils.requesterCollection.addContact,
     currentUserSignData
   );
   const selfStuffData = {

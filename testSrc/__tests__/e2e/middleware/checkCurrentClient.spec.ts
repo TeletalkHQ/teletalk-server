@@ -5,15 +5,15 @@ import { eventsWithAuth } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
 import { RequesterCollection } from "@/types";
+import { utils } from "@/utils";
 
 describe("checkCurrentUser middleware fail tests", () => {
   eventsWithAuth
     .filter((i) => i.name !== "verify" && i.name !== "createNewUser")
     .forEach((event) => {
       it(
-        helpers.createFailTestMessage(
+        utils.createFailTestMessage(
           errorStore.find("CURRENT_CLIENT_NOT_EXIST"),
           event.name
         ),
@@ -32,8 +32,8 @@ describe("checkCurrentUser middleware fail tests", () => {
             userId: client.userId,
           });
 
-          const data = helpers.generateDynamicData(event.inputFields);
-          await helpers.requesterCollection[
+          const data = utils.generateDynamicData(event.inputFields);
+          await utils.requesterCollection[
             event.name as keyof RequesterCollection
           ](ci.getClient()).sendFullFeaturedRequest(
             data as any,

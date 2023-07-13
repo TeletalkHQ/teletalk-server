@@ -13,7 +13,7 @@ import { authHelper } from "@/classes/AuthHelper";
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {
@@ -52,10 +52,10 @@ describe("signIn success test", () => {
   });
 });
 
-await helpers.asyncDescribe("signIn fail test", async () => {
+await utils.asyncDescribe("signIn fail test", async () => {
   const signInCellphone = randomMaker.unusedCellphone();
   const clientSocket = (await clientInitializer().createComplete()).getClient();
-  const requester = helpers.requesterCollection.signIn(clientSocket);
+  const requester = utils.requesterCollection.signIn(clientSocket);
 
   return () => {
     e2eFailTestInitializerHelper(requester)

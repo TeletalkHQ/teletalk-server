@@ -1,5 +1,4 @@
 import { errorStore } from "~/classes/ErrorStore";
-import { helpers } from "~/helpers";
 import {
   ErrorTypes,
   NativeError,
@@ -97,7 +96,7 @@ export class ValidationChecker {
 }
 
 const convertErrorTypesToBoolean = (errors: ValidationErrors) => {
-  const validatorErrorTypes = helpers.getDefaultValidatorErrorTypes();
+  const validatorErrorTypes = utils.getDefaultValidatorErrorTypes();
 
   errors.forEach((error) => {
     validatorErrorTypes[error.type as keyof ErrorTypes] = true;

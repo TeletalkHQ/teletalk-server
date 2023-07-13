@@ -8,7 +8,7 @@ import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 const eventsWithoutGetStuff = events.filter((i) => i.name !== "getStuff");
 
@@ -28,7 +28,7 @@ describe("validateClientId fail tests", () => {
   };
 
   for (const event of eventsWithoutGetStuff) {
-    const title = helpers.createFailTestMessage(
+    const title = utils.createFailTestMessage(
       errorStore.find("CLIENT_ID_MAX_LENGTH_ERROR"),
       event.name
     );
@@ -44,7 +44,7 @@ describe("validateClientId fail tests", () => {
   }
 
   for (const event of eventsWithoutGetStuff) {
-    const title = helpers.createFailTestMessage(
+    const title = utils.createFailTestMessage(
       errorStore.find("CLIENT_ID_MIN_LENGTH_ERROR"),
       event.name
     );

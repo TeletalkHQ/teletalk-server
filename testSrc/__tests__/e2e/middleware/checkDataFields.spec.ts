@@ -4,9 +4,9 @@ import { events } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
-await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
+await utils.asyncDescribe("checkBodyFields middleware tests", async () => {
   const { socket } = await randomMaker.user();
 
   const eventsWithInputFields = events.filter(
@@ -20,7 +20,7 @@ await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
 
   return () => {
     for (const event of eventsWithInputFieldsExceptAuth) {
-      const title = helpers.createFailTestMessage(
+      const title = utils.createFailTestMessage(
         errorStore.find("INPUT_FIELDS_MISSING"),
         event.name
       );

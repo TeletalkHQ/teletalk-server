@@ -4,14 +4,14 @@ import { models } from "~/models";
 import { eventsWithAuth } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("checkCurrentUser middleware fail tests", () => {
   eventsWithAuth
     .filter((i) => i.name !== "verify" && i.name !== "createNewUser")
     .forEach((event) => {
       it(
-        helpers.createFailTestMessage(
+        utils.createFailTestMessage(
           errorStore.find("CURRENT_USER_NOT_EXIST"),
           event.name
         ),
@@ -28,8 +28,8 @@ describe("checkCurrentUser middleware fail tests", () => {
             userId: wrongUserId,
           });
 
-          const data = helpers.generateDynamicData(event.inputFields);
-          await helpers.requesterCollection[event.name](
+          const data = utils.generateDynamicData(event.inputFields);
+          await utils.requesterCollection[event.name](
             socket
           ).sendFullFeaturedRequest(
             data as any,

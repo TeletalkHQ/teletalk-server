@@ -3,8 +3,8 @@ import { models } from "~/models";
 
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
+import { utils } from "@/utils";
 
 export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
@@ -32,7 +32,7 @@ export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
     initializer
       .empty()
       .custom(
-        helpers.getWrongCountryCode(),
+        utils.getWrongCountryCode(),
         errorStore.find("COUNTRY_CODE_NOT_SUPPORTED")
       );
   }

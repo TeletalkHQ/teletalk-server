@@ -1,9 +1,9 @@
 import { errorThrower } from "utility-store";
 import { ContactItem, UserData } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
 
 export const checkExistenceOfContactItem = (
   contacts: UserData["contacts"],
@@ -11,7 +11,7 @@ export const checkExistenceOfContactItem = (
 ) => {
   const index = contacts.findIndex((i) => i.userId == targetUserId);
   errorThrower(index !== -1, () => ({
-    ...errors.contactItemExist,
+    ...errorStore.find("CONTACT_ITEM_EXIST"),
     queryData: targetUserId,
   }));
 };

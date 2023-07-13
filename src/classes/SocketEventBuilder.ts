@@ -1,6 +1,6 @@
+import { errorStore } from "~/classes/ErrorStore";
 import { RouteBuilder } from "~/classes/RouteBuilder";
 import { IO, SocketEvent } from "~/types";
-import { errors } from "~/variables";
 
 export class SocketEventBuilder<IOType extends IO> extends RouteBuilder {
   protected route: SocketEvent<IOType>;
@@ -39,7 +39,7 @@ export class SocketEventBuilder<IOType extends IO> extends RouteBuilder {
 
   build() {
     const { handler, name } = this.route;
-    super.checkRequirements(errors.eventNotFound, handler, name);
+    super.checkRequirements(errorStore.find("EVENT_NOT_FOUND"), handler, name);
     return this.route;
   }
 }

@@ -1,8 +1,8 @@
 import { errorThrower } from "utility-store";
 import { UserData } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { errors } from "~/variables";
 
 export const createNewUser = async (userData: UserData) => {
   await checkExistenceOfCurrentUser(userData.userId);
@@ -13,5 +13,5 @@ const checkExistenceOfCurrentUser = async (userId: UserData["userId"]) => {
   const currentUser = await models.database.User.findOne({
     userId,
   });
-  errorThrower(currentUser, errors.currentUserExist);
+  errorThrower(currentUser, errorStore.find("CURRENT_USER_EXIST"));
 };

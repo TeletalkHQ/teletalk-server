@@ -1,9 +1,9 @@
 import { errorThrower } from "utility-store";
 import { UserData, UserId } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
 
 import { findOneUser } from "./findOneUser";
 
@@ -15,7 +15,7 @@ export const removeContact: UserService<
   void
 > = async (data) => {
   const currentUser = await findCurrentUser(data.currentUserId);
-  if (!currentUser) throw errors.currentUserNotExist;
+  if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
   const { index } = checkExistenceOfContactItem(
     currentUser.contacts,
@@ -37,7 +37,7 @@ const checkExistenceOfContactItem = (
 ) => {
   const index = contacts.findIndex((c) => c.userId === targetUserId);
   errorThrower(index === -1, () => ({
-    ...errors.contactItemNotExist,
+    ...errorStore.find("CONTACT_ITEM_NOT_EXIST"),
     targetUserId,
   }));
 

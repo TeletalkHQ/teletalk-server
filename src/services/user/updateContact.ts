@@ -6,9 +6,9 @@ import {
   UserId,
 } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
 
 import { findOneUser } from "./findOneUser";
 
@@ -27,7 +27,7 @@ export const updateContact: UserService<
   );
 
   errorThrower(index < 0, {
-    ...errors.contactItemNotExist,
+    ...errorStore.find("CONTACT_ITEM_NOT_EXIST"),
     editValues: data.editValues,
   });
 
@@ -43,7 +43,7 @@ const findCurrentUser = async (currentUserId: string) => {
   const result = await findOneUser({
     userId: currentUserId,
   });
-  if (!result) throw errors.currentUserNotExist;
+  if (!result) throw errorStore.find("CURRENT_USER_NOT_EXIST");
   return result;
 };
 

@@ -1,8 +1,8 @@
 import { extractor } from "utility-store";
 import { PublicUserData, UserId } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
-import { errors } from "~/variables";
 
 import { findOneUser } from "./findOneUser";
 
@@ -14,7 +14,7 @@ export const updatePublicUserData: UserService<
   PublicUserData
 > = async (data) => {
   const currentUser = await findCurrentUser(data.currentUserId);
-  if (!currentUser) throw errors.currentUserNotExist;
+  if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
   const oldPublicData = extractor.publicUserData(currentUser);
 

@@ -1,9 +1,9 @@
 import { errorThrower } from "utility-store";
 import { UserData, UserId } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
 import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
 
 import { findOneUser } from "./findOneUser";
 
@@ -18,12 +18,12 @@ export const addBlock: UserService<
     userId: data.currentUserId,
   });
 
-  if (!currentUser) throw errors.currentUserNotExist;
+  if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
   const targetUser = await findOneUser({
     userId: data.blockingUserId,
   });
-  errorThrower(!targetUser, errors.targetUserNotExist);
+  errorThrower(!targetUser, errorStore.find("TARGET_USER_NOT_EXIST"));
 
   checkExistenceOfBlacklistItem(currentUser.blacklist, data.blockingUserId);
 
@@ -36,7 +36,7 @@ const checkExistenceOfBlacklistItem = (
 ) => {
   const index = blacklist.findIndex((i) => i.userId === userId);
   errorThrower(index !== -1, () => ({
-    ...errors.blacklistItemExist,
+    ...errorStore.find("BLACKLIST_ITEM_EXIST"),
     targetUserData: userId,
   }));
 };

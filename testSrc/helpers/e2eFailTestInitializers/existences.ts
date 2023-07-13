@@ -1,4 +1,4 @@
-import { errors } from "~/variables";
+import { errorStore } from "~/classes/ErrorStore";
 
 import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
@@ -8,13 +8,13 @@ export const blacklistItemNotExistE2eFailTestInitializer: E2eFailTestInitializer
 > = (configuredRequester, data) => {
   it(
     helpers.createFailTestMessage(
-      errors.blacklistItemNotExist,
+      errorStore.find("BLACKLIST_ITEM_NOT_EXIST"),
       configuredRequester.getEventName()
     ),
     async () => {
       await configuredRequester.sendFullFeaturedRequest(
         data,
-        errors.blacklistItemNotExist
+        errorStore.find("BLACKLIST_ITEM_NOT_EXIST")
       );
     }
   );
@@ -24,13 +24,13 @@ export const blacklistItemExistE2eFailTestInitializer: E2eFailTestInitializer =
   (configuredRequester, data) => {
     it(
       helpers.createFailTestMessage(
-        errors.blacklistItemExist,
+        errorStore.find("BLACKLIST_ITEM_EXIST"),
         configuredRequester.getEventName()
       ),
       async () => {
         await configuredRequester.sendFullFeaturedRequest(
           data,
-          errors.blacklistItemExist
+          errorStore.find("BLACKLIST_ITEM_EXIST")
         );
       }
     );
@@ -40,13 +40,13 @@ export const contactItemNotExistE2eFailTestInitializer: E2eFailTestInitializer =
   (configuredRequester, data) => {
     it(
       helpers.createFailTestMessage(
-        errors.contactItemNotExist,
+        errorStore.find("CONTACT_ITEM_NOT_EXIST"),
         configuredRequester.getEventName()
       ),
       async () => {
         await configuredRequester.sendFullFeaturedRequest(
           data,
-          errors.contactItemNotExist
+          errorStore.find("CONTACT_ITEM_NOT_EXIST")
         );
       }
     );
@@ -58,13 +58,13 @@ export const contactItemExistE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
   it(
     helpers.createFailTestMessage(
-      errors.contactItemExist,
+      errorStore.find("CONTACT_ITEM_EXIST"),
       configuredRequester.getEventName()
     ),
     async () => {
       await configuredRequester.sendFullFeaturedRequest(
         data,
-        errors.contactItemExist
+        errorStore.find("CONTACT_ITEM_EXIST")
       );
     }
   );
@@ -74,13 +74,13 @@ export const targetUserNotExistE2eFailTestInitializer: E2eFailTestInitializer =
   (configuredRequester, data) => {
     it(
       helpers.createFailTestMessage(
-        errors.targetUserNotExist,
+        errorStore.find("TARGET_USER_NOT_EXIST"),
         configuredRequester.getEventName()
       ),
       async () => {
         await configuredRequester.sendFullFeaturedRequest(
           data,
-          errors.targetUserNotExist
+          errorStore.find("TARGET_USER_NOT_EXIST")
         );
       }
     );

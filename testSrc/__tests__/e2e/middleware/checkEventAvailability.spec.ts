@@ -1,5 +1,5 @@
+import { errorStore } from "~/classes/ErrorStore";
 import { SocketEvent } from "~/types";
-import { errors } from "~/variables";
 import { events as mainEvents } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
@@ -20,19 +20,19 @@ await helpers.asyncDescribe(
 
     return () => {
       const message = helpers.createFailTestMessage(
-        errors.eventNotFound,
+        errorStore.find("EVENT_NOT_FOUND"),
         events.unknownEvent.name
       );
 
       it(message, async () => {
         await createRequester(clientSocket, events.unknownEvent)
-          .setError(errors.eventNotFound)
+          .setError(errorStore.find("EVENT_NOT_FOUND"))
           .sendFullFeaturedRequest();
       });
 
       for (const event of mainEvents) {
         const message = helpers.createFailTestMessage(
-          errors.eventNotFound,
+          errorStore.find("EVENT_NOT_FOUND"),
           event.name
         );
 
@@ -42,7 +42,7 @@ await helpers.asyncDescribe(
 
           const { errors: responseErrors } = requester.getResponse();
 
-          const { reason: expectedReason } = errors.eventNotFound;
+          const { reason: expectedReason } = errorStore.find("EVENT_NOT_FOUND");
 
           const err = responseErrors?.find((i) => i.reason === expectedReason);
 

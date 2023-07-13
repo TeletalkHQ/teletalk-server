@@ -6,6 +6,7 @@ import {
   isDataHasEqualityWithTargetCellphone,
 } from "utility-store";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { services } from "~/services";
 import {
   AddContactIO,
@@ -13,7 +14,6 @@ import {
   SocketMiddlewareReturnValue,
   SocketNext,
 } from "~/types";
-import { errors } from "~/variables";
 
 export const selfStuffCheck: SocketMiddleware = async (
   socket,
@@ -31,7 +31,7 @@ export const selfStuffCheck: SocketMiddleware = async (
 const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
   if (data.userId) {
     errorThrower(socket.userId === data.userId, {
-      ...errors.selfStuff,
+      ...errorStore.find("SELF_STUFF"),
       targetUserId: data.userId,
     });
   } else {
@@ -45,7 +45,7 @@ const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
         extractor.cellphone(currentUser)
       ),
       {
-        ...errors.selfStuff,
+        ...errorStore.find("SELF_STUFF"),
         targetUserCellphone: extractor.cellphone(data),
       }
     );

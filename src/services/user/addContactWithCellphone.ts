@@ -1,9 +1,9 @@
 import { extractor } from "utility-store";
 import { ContactItem, UserId } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
 import { ContactItemWithCellphone } from "~/types/datatypes";
-import { errors } from "~/variables";
 
 import { findOneUser } from "./findOneUser";
 import { checkExistenceOfContactItem, saveContactItem } from "./utils";
@@ -20,10 +20,10 @@ export const addContactWithCellphone: UserService<
   const currentUser = await findOneUser({
     userId: data.currentUserId,
   });
-  if (!currentUser) throw errors.currentUserNotExist;
+  if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
   const targetUser = await findOneUser(extractor.cellphone(data.addingContact));
-  if (!targetUser) throw errors.targetUserNotExist;
+  if (!targetUser) throw errorStore.find("TARGET_USER_NOT_EXIST");
 
   checkExistenceOfContactItem(currentUser.contacts, targetUser.userId);
 

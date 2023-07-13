@@ -1,4 +1,4 @@
-import { errors } from "~/variables";
+import { errorStore } from "~/classes/ErrorStore";
 
 import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
@@ -9,11 +9,14 @@ export const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
   it(
     helpers.createFailTestMessage(
-      errors.selfStuff,
+      errorStore.find("SELF_STUFF"),
       configuredRequester.getEventName()
     ),
     async () => {
-      await configuredRequester.sendFullFeaturedRequest(data, errors.selfStuff);
+      await configuredRequester.sendFullFeaturedRequest(
+        data,
+        errorStore.find("SELF_STUFF")
+      );
     }
   );
 };

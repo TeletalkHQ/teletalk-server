@@ -3,7 +3,9 @@ import { trier } from "simple-trier";
 import { errorThrower } from "utility-store";
 
 import { appConfigs } from "~/classes/AppConfigs";
-import { errors, escapeChars } from "~/variables";
+import { escapeChars } from "~/variables";
+
+import { errorStore } from "./ErrorStore";
 
 export class SmsClient {
   templates() {
@@ -27,7 +29,7 @@ export class SmsClient {
       .async()
       .try(providers[SMS_PROVIDER_SELECTOR].bind(this), sendTo, text)
       .catch((error) => ({
-        ...errors.sendSmsFailed,
+        ...errorStore.find("SEND_SMS_FAILED"),
         providerError: error,
       }))
       .throw()
@@ -64,7 +66,7 @@ export class SmsClient {
       }
     );
 
-    errorThrower(smsResult.status !== 200, errors.sendSmsFailed);
+    errorThrower(smsResult.status !== 200, errorStore.find("SEND_SMS_FAILED"));
   }
   private async provider2(sendTo: string, text: string) {
     const {

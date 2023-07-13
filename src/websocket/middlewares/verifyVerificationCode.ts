@@ -3,8 +3,8 @@ import { Socket } from "socket.io";
 import { errorThrower } from "utility-store";
 
 import { clientStore } from "~/classes/ClientStore";
+import { errorStore } from "~/classes/ErrorStore";
 import { SocketMiddleware, SocketNext, VerifyIO } from "~/types";
-import { errors } from "~/variables";
 
 export const verifyVerificationCode: SocketMiddleware<VerifyIO> = async (
   socket,
@@ -26,7 +26,7 @@ const tryBlock = async (socket: Socket, data: VerifyIO["input"]) => {
   const { verificationCode: actualVerificationCode } = client;
 
   errorThrower(sentVerificationCode !== actualVerificationCode, {
-    ...errors.verificationCode_invalid,
+    ...errorStore.find("VERIFICATION_CODE_INVALID"),
     sentVerificationCode,
   });
 
@@ -38,7 +38,7 @@ const tryBlock = async (socket: Socket, data: VerifyIO["input"]) => {
 
 const findClient = async (clientId: string) => {
   const client = await clientStore.find(clientId);
-  if (!client) throw errors.clientNotFound;
+  if (!client) throw errorStore.find("CLIENT_NOT_FOUND");
   return client;
 };
 

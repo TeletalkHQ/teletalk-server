@@ -1,9 +1,9 @@
 import { randomMaker } from "utility-store";
 
 import { clientManager } from "~/classes/ClientIdManager";
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 import { NativeError, SocketEvent } from "~/types";
-import { errors } from "~/variables";
 import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
@@ -29,13 +29,13 @@ describe("validateClientId fail tests", () => {
 
   for (const event of eventsWithoutGetStuff) {
     const title = helpers.createFailTestMessage(
-      errors.clientId_maxLength_error,
+      errorStore.find("CLIENT_ID_MAX_LENGTH_ERROR"),
       event.name
     );
     it(title, async () => {
       await caller(
         event,
-        errors.clientId_maxLength_error,
+        errorStore.find("CLIENT_ID_MAX_LENGTH_ERROR"),
         await clientManager.signClient(
           randomMaker.string(models.native.clientId.maxLength + 1)
         )
@@ -45,13 +45,13 @@ describe("validateClientId fail tests", () => {
 
   for (const event of eventsWithoutGetStuff) {
     const title = helpers.createFailTestMessage(
-      errors.clientId_minLength_error,
+      errorStore.find("CLIENT_ID_MIN_LENGTH_ERROR"),
       event.name
     );
     it(title, async () => {
       await caller(
         event,
-        errors.clientId_minLength_error,
+        errorStore.find("CLIENT_ID_MIN_LENGTH_ERROR"),
         await clientManager.signClient(
           randomMaker.string(models.native.clientId.minLength - 1)
         )

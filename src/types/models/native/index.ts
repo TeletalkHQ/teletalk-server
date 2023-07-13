@@ -1,5 +1,6 @@
+import { ScreamingSnakeCase } from "type-fest";
+
 import { nativeModels } from "~/models/native";
-import { NativeError } from "~/types";
 
 export type FieldType =
   | "array"
@@ -31,13 +32,9 @@ type AllErrorKeys = {
     string}_error`;
 };
 
-export type ModelErrorReason =
-  | AllErrorKeys[keyof AllErrorKeys]
-  | `${keyof NativeModelCollection}_invalid`;
-
-export type ModelErrorCollection = {
-  [prop in ModelErrorReason]: NativeError;
-};
+export type ModelErrorReason = ScreamingSnakeCase<
+  AllErrorKeys[keyof AllErrorKeys] | `${keyof NativeModelCollection}_invalid`
+>;
 
 export type ModelPicker<T extends NativeModelKey> = Pick<
   NativeModel,

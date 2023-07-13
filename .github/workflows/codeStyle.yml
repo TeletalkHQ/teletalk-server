@@ -9,13 +9,13 @@ jobs:
   code_style:
     env:
       CI: true
-      JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.js
+      JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.cjs
       LINTER_RULES_PATH: /
       VALIDATE_JAVASCRIPT_STANDARD: false
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [16.x, 18.x, 20.x]
         operations: [ubuntu-latest]
 
     runs-on: ${{ matrix.operations }}
@@ -29,10 +29,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm ci --only=development
+        run: npm ci
 
       - name: Run prettier
         run: npm run check:format
 
       - name: Run eslint
         run: npm run check:lint
+
+      - name: Run tsc
+        run: npm run check:style

@@ -1,6 +1,6 @@
 import { clientStore } from "~/classes/ClientStore";
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { errors } from "~/variables";
 import { eventsWithAuth } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
@@ -11,7 +11,10 @@ describe("checkCurrentUser middleware fail tests", () => {
     .filter((i) => i.name !== "verify" && i.name !== "createNewUser")
     .forEach((event) => {
       it(
-        helpers.createFailTestMessage(errors.currentUserNotExist, event.name),
+        helpers.createFailTestMessage(
+          errorStore.find("CURRENT_USER_NOT_EXIST"),
+          event.name
+        ),
         async () => {
           const wrongUserId = randomMaker.string(
             models.native.userId.maxLength
@@ -28,7 +31,10 @@ describe("checkCurrentUser middleware fail tests", () => {
           const data = helpers.generateDynamicData(event.inputFields);
           await helpers.requesterCollection[event.name](
             socket
-          ).sendFullFeaturedRequest(data as any, errors.currentUserNotExist);
+          ).sendFullFeaturedRequest(
+            data as any,
+            errorStore.find("CURRENT_USER_NOT_EXIST")
+          );
         }
       );
     });

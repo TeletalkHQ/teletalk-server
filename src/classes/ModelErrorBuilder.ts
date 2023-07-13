@@ -1,8 +1,10 @@
+import lodash from "lodash";
+
 import { errorBuilder } from "~/classes/ErrorBuilder";
 import { nativeModels } from "~/models/native";
+import { ErrorCollection } from "~/types";
 import {
   Field,
-  ModelErrorCollection,
   ModelErrorReason,
   NativeModel,
   NativeModelKey,
@@ -10,44 +12,44 @@ import {
 import { utils } from "~/utils";
 
 export class ModelErrorBuilder {
+  private errors: ErrorCollection = [];
+
   build() {
-    return Object.entries(nativeModels).reduce(
-      (prevValue, [fieldName, model]: [string, Partial<NativeModel>]) => {
-        this.generateErrors(prevValue, fieldName as Field, model);
+    Object.entries(nativeModels).forEach(([fieldName, model]) => {
+      this.generateErrors(fieldName as Field, model);
+      this.generateDefaultError(fieldName as Field);
+    });
 
-        this.generateDefaultError(prevValue, fieldName as Field);
-
-        return prevValue;
-      },
-      {} as ModelErrorCollection
-    );
+    return this.errors;
   }
 
-  generateErrors(
-    errors: ModelErrorCollection,
-    fieldName: Field,
-    model: Partial<NativeModel>
-  ) {
+  generateErrors(fieldName: Field, model: Partial<NativeModel>) {
     let modelPropertyName: NativeModelKey;
     for (modelPropertyName in model) {
       if (this.shouldIgnoreModelProperty(modelPropertyName)) continue;
 
-      this.generateError(errors, fieldName, modelPropertyName);
+      this.generateError(fieldName, modelPropertyName);
     }
   }
 
-  generateError(
-    errors: ModelErrorCollection,
-    fieldName: Field,
-    modelPropertyName: NativeModelKey
-  ) {
-    const reason = utils.makeModelErrorReason(fieldName, modelPropertyName);
-    errors[reason] = errorBuilder<ModelErrorReason>().reason(reason).build();
+  generateError(fieldName: Field, modelPropertyName: NativeModelKey) {
+    this.errors.push(
+      errorBuilder<ModelErrorReason>()
+        .reason(utils.makeModelErrorReason(fieldName, modelPropertyName))
+        .build()
+    );
   }
 
-  generateDefaultError(errors: ModelErrorCollection, fieldName: Field) {
-    const reason = `${fieldName}_invalid` as ModelErrorReason;
-    errors[reason] = errorBuilder().reason(reason).build();
+  generateDefaultError(fieldName: Field) {
+    this.errors.push(
+      errorBuilder()
+        .reason(
+          `${lodash
+            .snakeCase(fieldName)
+            .toUpperCase()}_INVALID` as ModelErrorReason
+        )
+        .build()
+    );
   }
 
   shouldIgnoreModelProperty(modelPropertyName: NativeModelKey) {

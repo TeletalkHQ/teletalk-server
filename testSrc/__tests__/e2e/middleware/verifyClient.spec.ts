@@ -1,7 +1,7 @@
 import { randomMaker } from "utility-store";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { errors } from "~/variables";
 import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
@@ -14,7 +14,7 @@ const eventsWithoutGetStuff = events.filter((i) => i.name !== "getStuff");
 describe("verifyClient fail tests", () => {
   for (const event of eventsWithoutGetStuff) {
     const title = helpers.createFailTestMessage(
-      errors.client_invalid,
+      errorStore.find("CLIENT_INVALID"),
       event.name
     );
     it(title, async () => {
@@ -27,7 +27,7 @@ describe("verifyClient fail tests", () => {
       await requesterMaker(
         ci.getClient(),
         event as any
-      ).sendFullFeaturedRequest({}, errors.client_invalid);
+      ).sendFullFeaturedRequest({}, errorStore.find("CLIENT_INVALID"));
     });
   }
 });

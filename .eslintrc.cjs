@@ -54,6 +54,7 @@ module.exports = defineConfig({
         amd: true,
         commonjs: true,
         esmodule: true,
+        ignore: ["type-fest"],
       },
     ],
     indent: ["error", 2],

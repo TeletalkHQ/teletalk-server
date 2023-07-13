@@ -1,6 +1,6 @@
 import { clientManager } from "~/classes/ClientIdManager";
 import { clientStore } from "~/classes/ClientStore";
-import { errors } from "~/variables";
+import { errorStore } from "~/classes/ErrorStore";
 import { eventsWithAuth } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
@@ -13,7 +13,10 @@ describe("checkCurrentUser middleware fail tests", () => {
     .filter((i) => i.name !== "verify" && i.name !== "createNewUser")
     .forEach((event) => {
       it(
-        helpers.createFailTestMessage(errors.currentClientNotExist, event.name),
+        helpers.createFailTestMessage(
+          errorStore.find("CURRENT_CLIENT_NOT_EXIST"),
+          event.name
+        ),
         async () => {
           const { socket } = await randomMaker.user();
           const newAuthClient = await clientManager.signClient();
@@ -34,7 +37,7 @@ describe("checkCurrentUser middleware fail tests", () => {
             event.name as keyof RequesterCollection
           ](ci.getClient()).sendFullFeaturedRequest(
             data as any,
-            errors.currentClientNotExist
+            errorStore.find("CURRENT_CLIENT_NOT_EXIST")
           );
         }
       );

@@ -13,7 +13,7 @@ import {
   SocketResponse,
   StringMap,
 } from "~/types";
-import { checkFieldErrors } from "~/variables";
+import { errors } from "~/variables";
 import { events } from "~/websocket/events";
 
 export const registerCustomOn = (socket: Socket) => {
@@ -76,7 +76,11 @@ function _tryToCheckOutputFields(
     .sync()
     .try(() => {
       const foundEvent = events.find((item) => item.name === eventName)!;
-      checkFields(outputData, foundEvent.outputFields, checkFieldErrors.output);
+      checkFields(
+        outputData,
+        foundEvent.outputFields,
+        errors.checkField.output
+      );
     })
     .catch(catchBlock, socket, responseCallback)
     .run();

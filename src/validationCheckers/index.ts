@@ -1,11 +1,12 @@
 import { errorThrower } from "check-fields";
 import { customTypeof } from "custom-typeof";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { validationChecker } from "~/classes/ValidationChecker";
 import { nativeModels } from "~/models/native";
 import { ValidationCheckerFn, ValidationCheckerFnCollection } from "~/types";
 import { Field } from "~/types/models";
-import { countries, errors } from "~/variables";
+import { countries } from "~/variables";
 
 export const validationCheckers = Object.keys(nativeModels).reduce(
   (prevValue, currValue) => {
@@ -29,7 +30,7 @@ validationCheckers.countryCode = (result, value, ignores) => {
     const country = countries.find((c) => c.countryCode === value);
     errorThrower(
       customTypeof.isUndefined(country),
-      errors.countryCodeNotSupported
+      errorStore.find("COUNTRY_CODE_NOT_SUPPORTED")
     );
 
     return;
@@ -43,7 +44,7 @@ validationCheckers.countryName = (result, value, ignores) => {
     const country = countries.find((c) => c.countryName === value);
     errorThrower(
       customTypeof.isUndefined(country),
-      errors.countryNameNotSupported
+      errorStore.find("COUNTRY_NAME_NOT_SUPPORTED")
     );
 
     return;

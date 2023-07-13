@@ -1,5 +1,5 @@
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { errors } from "~/variables";
 
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -27,6 +27,6 @@ export const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 
   builder.custom(
     randomMaker.stringNumber(models.native.verificationCode.length),
-    errors.verificationCode_invalid
+    errorStore.find("VERIFICATION_CODE_INVALID")
   );
 };

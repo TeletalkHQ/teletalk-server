@@ -1,21 +1,17 @@
-//@ts-ignore
 import generatePassword from "generate-password";
 import lodash from "lodash";
 import { Socket } from "socket.io";
+import { ScreamingSnakeCase } from "type-fest";
 
 import { envManager } from "~/classes/EnvironmentManager";
 import {
   Environments,
-  ErrorCollection,
-  ErrorReason,
   EventName,
   SocketMiddleware,
   SocketMiddlewareEvent,
   SocketNext,
 } from "~/types";
 import { Field, ModelErrorReason, NativeModelKey } from "~/types/models";
-
-// const getHostFromRequest = (request) => request.get("host");
 
 type Url = EventName | EventName[];
 const isEventNameMatch = (url: Url, reqUrl: string) =>
@@ -87,20 +83,17 @@ const extractClientFromCookie = (cookie: string) => {
   return rawCookie.split("=")[1];
 };
 
-const findError = <M extends NativeModelKey>(
-  errors: ErrorCollection,
-  fieldName: Field,
-  modelKeyName: M
-) => {
-  return errors[makeModelErrorReason(fieldName, modelKeyName) as ErrorReason];
-};
-
 const makeModelErrorReason = (
   fieldName: Field,
   modelKeyName: NativeModelKey
 ) => {
-  return `${fieldName}_${modelKeyName}_error` as ModelErrorReason;
+  return `${makeScreamingSnakeCase(fieldName)}_${makeScreamingSnakeCase(
+    modelKeyName
+  )}_ERROR` as ModelErrorReason;
 };
+
+const makeScreamingSnakeCase = <T extends string>(value: T) =>
+  lodash.snakeCase(value).toUpperCase() as ScreamingSnakeCase<T>;
 
 const upperSnake = (str: string) => lodash.snakeCase(str).toUpperCase();
 
@@ -108,10 +101,10 @@ export const utils = {
   crashServer,
   executeMiddlewares,
   extractClientFromCookie,
-  findError,
   isEventNameMatch,
   logEnvironments,
   makeModelErrorReason,
+  makeScreamingSnakeCase,
   passwordGenerator,
   regexMaker,
   sortEnvironments,

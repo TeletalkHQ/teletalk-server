@@ -1,5 +1,5 @@
+import { errorStore } from "~/classes/ErrorStore";
 import { EventName } from "~/types";
-import { errors } from "~/variables";
 import { events } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
@@ -21,13 +21,13 @@ await helpers.asyncDescribe("checkBodyFields middleware tests", async () => {
   return () => {
     for (const event of eventsWithInputFieldsExceptAuth) {
       const title = helpers.createFailTestMessage(
-        errors.inputFieldsMissing,
+        errorStore.find("INPUT_FIELDS_MISSING"),
         event.name
       );
 
       it(title, async () => {
         await requesterMaker(socket, event as any)
-          .setError(errors.inputFieldsMissing)
+          .setError(errorStore.find("INPUT_FIELDS_MISSING"))
           .setOptions({ shouldFilterRequestData: false })
           .sendFullFeaturedRequest();
       });

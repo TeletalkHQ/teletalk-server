@@ -1,13 +1,14 @@
 /* eslint-disable indent */
+import { errorStore } from "~/classes/ErrorStore";
 import { NativeError } from "~/types";
-import { errors } from "~/variables";
 
+//TODO: Move to utils
 const resolveResponseError = (error: NativeError | NativeError[] | undefined) =>
   Array.isArray(error)
     ? error
     : error?.reason
     ? [error]
-    : [errors.unknownError];
+    : [errorStore.find("UNKNOWN_ERROR")];
 
 const getDefaultValidatorErrorTypes = () => ({
   array: false,

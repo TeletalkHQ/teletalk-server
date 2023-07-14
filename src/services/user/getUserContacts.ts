@@ -1,9 +1,9 @@
 import { Contacts } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
-import { errors } from "~/variables";
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from "./findOneUser";
 
 export const getUserContacts: UserService<
   {
@@ -11,10 +11,10 @@ export const getUserContacts: UserService<
   },
   Contacts
 > = async (data) => {
-  const currentUser = await findOneUserById({
+  const currentUser = await findOneUser({
     userId: data.currentUserId,
   });
-  if (!currentUser) throw errors.currentUserNotExist;
+  if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
   return currentUser.contacts;
 };

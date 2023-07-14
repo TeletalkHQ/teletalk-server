@@ -15,8 +15,12 @@ export interface Environments {
   CLIENT_SECRET: string;
   LOG_LEVEL: LogLevel;
   MONGO_COLLECTION_NAME: string;
+  MONGO_HOST: string;
+  MONGO_PASSWORD: string;
   MONGO_PORT: number;
-  MONGO_URL: string;
+  MONGO_PREFIX: string;
+  MONGO_URI: string;
+  MONGO_USERNAME: string;
   NODE_ENV: NodeEnvValue;
   PORT: number;
   REDIS_HOST: string;

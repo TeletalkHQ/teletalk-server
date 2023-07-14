@@ -1,30 +1,28 @@
+import { extractor } from "utility-store";
 import { ContactItem, Contacts, UserData } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 import { UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("removeContact successful test", () => {
   it("should remove users from contacts", async () => {
     const contactsLength = 10;
     const addingContacts = await createContacts(contactsLength);
 
-    console.log("addingContacts:::", addingContacts);
-
     const { socket, user: currentUser } = await randomMaker.user();
-    const addContactRequester = helpers.requesterCollection.addContact(socket);
+    const addContactRequester = utils.requesterCollection.addContact(socket);
 
     for (const addingContact of addingContacts) {
       await addContactRequester.sendFullFeaturedRequest(addingContact);
     }
 
     const removeContactRequester =
-      helpers.requesterCollection.removeContact(socket);
+      utils.requesterCollection.removeContact(socket);
     for (const addingContact of [...addingContacts]) {
       const {
         data: { removedContact },
@@ -42,9 +40,9 @@ describe("removeContact successful test", () => {
   });
 });
 
-await helpers.asyncDescribe("removeContact fail tests", async () => {
-  const { requester, user } = await helpers.setupRequester(
-    helpers.requesterCollection.removeContact
+await utils.asyncDescribe("removeContact fail tests", async () => {
+  const { requester, user } = await utils.setupRequester(
+    utils.requesterCollection.removeContact
   );
 
   return () => {
@@ -65,7 +63,7 @@ await helpers.asyncDescribe("removeContact fail tests", async () => {
 
 const createContacts = async (length: number) => {
   const users = await randomMaker.users(length);
-  return users.map((i) => userUtils.extractContact(i.user));
+  return users.map((i) => extractor.contact(i.user));
 };
 
 const testRemovedContact = (equalValue: string, testValue: string) => {
@@ -84,7 +82,7 @@ const testContactsAfterRemoveOneItem = async (
       (j) => addingContact.userId === j.userId
     ) as ContactItem;
 
-    expect(addingContact).toEqual(userUtils.extractContact(nonRemovedContact));
+    expect(addingContact).toEqual(extractor.contact(nonRemovedContact));
   });
 };
 
@@ -94,6 +92,6 @@ const testContactsAfterRemoveAll = async (userId: UserId) => {
 };
 
 const findContacts = async (userId: UserId) => {
-  const { contacts } = (await services.findOneUserById({ userId }))!;
+  const { contacts } = (await services.findOneUser({ userId }))!;
   return contacts;
 };

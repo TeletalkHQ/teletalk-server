@@ -1,8 +1,8 @@
 import { customTypeof } from "custom-typeof";
+import { extractor } from "utility-store";
 import { Cellphone } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
-import { userUtils } from "~/classes/UserUtils";
 import { ClientId } from "~/types/datatypes";
 
 import {
@@ -13,7 +13,7 @@ import { authHelper } from "@/classes/AuthHelper";
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {
@@ -28,7 +28,7 @@ describe("signIn success test", () => {
 
   it("should sign as existed user", async () => {
     const { user } = await randomMaker.user();
-    const cellphone = userUtils.extractCellphone(user);
+    const cellphone = extractor.cellphone(user);
 
     const helper = authHelper(cellphone);
     await helper.signIn();
@@ -52,10 +52,10 @@ describe("signIn success test", () => {
   });
 });
 
-await helpers.asyncDescribe("signIn fail test", async () => {
+await utils.asyncDescribe("signIn fail test", async () => {
   const signInCellphone = randomMaker.unusedCellphone();
   const clientSocket = (await clientInitializer().createComplete()).getClient();
-  const requester = helpers.requesterCollection.signIn(clientSocket);
+  const requester = utils.requesterCollection.signIn(clientSocket);
 
   return () => {
     e2eFailTestInitializerHelper(requester)

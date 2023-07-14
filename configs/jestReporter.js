@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { DefaultReporter, utils } = require("@jest/reporters");
-const chalk = require("chalk");
-const TITLE_BULLET = chalk.bold("\u25cf ");
+const { LoggerChalker } = require("logger-chalker");
+// const chalk = require("chalk");
+
+const logger = new LoggerChalker();
+
+const TITLE_BULLET = logger.colorizer.bold("\u25cf ");
 
 const getBufferedLog = (buffer, _config, globalConfig) => {
   const TITLE_INDENT = globalConfig.verbose ? "  " : "    ";
@@ -12,9 +16,9 @@ const getBufferedLog = (buffer, _config, globalConfig) => {
       .map((line) => CONSOLE_INDENT + line)
       .join("\n");
     if (type === "warn") {
-      message = chalk.yellow(message);
+      message = logger.colorizer.yellow(message);
     } else if (type === "error") {
-      message = chalk.red(message);
+      message = logger.colorizer.red(message);
     }
     return output + message.trimRight() + "\n";
   }, "");

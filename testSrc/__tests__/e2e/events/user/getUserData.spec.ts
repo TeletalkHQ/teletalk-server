@@ -1,16 +1,15 @@
-import { userUtils } from "~/classes/UserUtils";
+import { extractor } from "utility-store";
+
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
-
-//TODO: Add fail tests
+import { utils } from "@/utils";
 
 describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
-    const requester = helpers.requesterCollection.getUserData(socket);
+    const requester = utils.requesterCollection.getUserData(socket);
 
     for (let i = 0; i < 10; i++) {
       const {
@@ -21,7 +20,7 @@ describe("getUserData success tests", () => {
         userId: responseUserData.userId,
       }))!;
 
-      const userData = userUtils.extractUserData(user);
+      const userData = extractor.userData(user);
 
       assertionInitializerHelper().userData({
         equalValue: userData,

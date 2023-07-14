@@ -1,9 +1,7 @@
 import { customTypeof } from "custom-typeof";
-import lodash from "lodash";
 import { trier } from "simple-trier";
 
 import {
-  AddContactIO,
   EventName,
   SocketMiddleware,
   SocketMiddlewareReturnValue,
@@ -14,8 +12,6 @@ import {
 import { Field } from "~/types/models";
 import { validationCheckers } from "~/validationCheckers";
 import { validators } from "~/validators";
-
-type Data = StringMap;
 
 export const dynamicValidator: SocketMiddleware = async (
   _socket,
@@ -30,17 +26,16 @@ export const dynamicValidator: SocketMiddleware = async (
     .run();
 };
 
-const tryBlock = async (data: Data, eventName: EventName) => {
+const tryBlock = async (data: StringMap, eventName: EventName) => {
   await validateField(data, eventName);
+
   return {
     ok: true,
   };
 };
 
-const validateField = async (data: Data, eventName: EventName) => {
-  const filteredData = ignoreFieldsForValidate(data, eventName);
-
-  for (const prop in filteredData) {
+const validateField = async (data: StringMap, eventName: EventName) => {
+  for (const prop in data) {
     const field = prop as Field;
     const value = data[field];
 
@@ -66,27 +61,3 @@ const validateField = async (data: Data, eventName: EventName) => {
 const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
   next();
 };
-
-const ignoreAddContactData = (data: AddContactIO["input"]) => {
-  const cellphoneFields = [
-    data.countryCode,
-    data.countryName,
-    data.phoneNumber,
-  ];
-
-  if (cellphoneFields.every((i) => i === "") && data.userId) {
-    return lodash.omit(data, "countryCode", "countryName", "phoneNumber");
-  } else if (cellphoneFields.every(Boolean) && data.userId === "") {
-    return lodash.omit(data, ["userId"]);
-  }
-
-  return data;
-};
-
-function ignoreFieldsForValidate(data: StringMap, eventName: EventName) {
-  if (eventName === "addContact") {
-    return ignoreAddContactData(data as AddContactIO["input"]);
-  }
-
-  return data;
-}

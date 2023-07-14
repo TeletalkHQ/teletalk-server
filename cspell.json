@@ -55,6 +55,7 @@
     "endregion",
     "esbenp",
     "esbuild",
+    "esmodule",
     "estree",
     "fileupload",
     "flowtype",

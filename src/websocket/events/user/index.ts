@@ -2,6 +2,8 @@ import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
   AddBlockIO,
   AddContactIO,
+  AddContactWithCellphoneIO,
+  AddContactWithUserIdIO,
   EditContactIO,
   GetContactsIO,
   GetPublicUserDataIO,
@@ -37,12 +39,38 @@ const addContact = builder
   .handler(userHandlers.addContact)
   .build();
 
+const addContactWithCellphone = builder
+  .create<AddContactWithCellphoneIO>()
+  .name("addContactWithCellphone")
+  .inputFields({
+    ...fields.collection.cellphone,
+    ...fields.collection.fullName,
+  })
+  .outputFields({
+    addedContact: fields.statics.object(fields.collection.contact),
+  })
+  .handler(userHandlers.addContactWithCellphone)
+  .build();
+
+const addContactWithUserId = builder
+  .create<AddContactWithUserIdIO>()
+  .name("addContactWithUserId")
+  .inputFields({
+    ...fields.collection.fullName,
+    userId: fields.single.userId,
+  })
+  .outputFields({
+    addedContact: fields.statics.object(fields.collection.contact),
+  })
+  .handler(userHandlers.addContactWithUserId)
+  .build();
+
 const editContact = builder
   .create<EditContactIO>()
   .name("editContact")
-  .inputFields(fields.collection.fullNameWithUserId)
+  .inputFields(fields.collection.FullNameWithUserId)
   .outputFields({
-    editedContact: fields.statics.object(fields.collection.fullNameWithUserId),
+    editedContact: fields.statics.object(fields.collection.FullNameWithUserId),
   })
   .handler(userHandlers.editContact)
   .build();
@@ -132,6 +160,8 @@ export const user = {
   events: [
     addBlock,
     addContact,
+    addContactWithCellphone,
+    addContactWithUserId,
     editContact,
     getContacts,
     getPublicUserData,

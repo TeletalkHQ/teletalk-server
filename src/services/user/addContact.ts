@@ -1,12 +1,10 @@
-import { errorThrower, userUtils } from "utility-store";
-import { ContactItem, UserData, UserId } from "utility-store/lib/types";
+import { ContactItem, UserId } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
-import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
 
 import { findOneUser } from "./findOneUser";
-import { findOneUserById } from "./findOneUserById";
+import { checkExistenceOfContactItem, saveContactItem } from "./utils";
 
 export const addContact: UserService<
   {
@@ -17,47 +15,21 @@ export const addContact: UserService<
     addedContact: ContactItem;
   }
 > = async (data) => {
-  const currentUser = await findOneUserById({
+  const currentUser = await findOneUser({
     userId: data.currentUserId,
   });
+  if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
-  if (!currentUser) throw errors.currentUserNotExist;
-
-  const searchQuery = data.addingContact.userId
-    ? { userId: data.addingContact.userId }
-    : userUtils.extractCellphone(data.addingContact);
-  const targetUser = await findOneUser(searchQuery);
-  if (!targetUser) throw errors.targetUserNotExist;
+  const targetUser = await findOneUser({
+    userId: data.addingContact.userId,
+  });
+  if (!targetUser) throw errorStore.find("TARGET_USER_NOT_EXIST");
 
   checkExistenceOfContactItem(currentUser.contacts, targetUser.userId);
 
-  const contact: ContactItem = {
-    ...data.addingContact,
-    userId: targetUser.userId,
-  };
-
-  await saveNewContactItem(currentUser, contact);
+  await saveContactItem(currentUser, data.addingContact);
 
   return {
-    addedContact: contact,
+    addedContact: data.addingContact,
   };
-};
-
-const checkExistenceOfContactItem = (
-  contacts: UserData["contacts"],
-  targetUserId: UserId
-) => {
-  const index = contacts.findIndex((i) => i.userId == targetUserId);
-  errorThrower(index !== -1, () => ({
-    ...errors.contactItemExist,
-    queryData: targetUserId,
-  }));
-};
-
-const saveNewContactItem = async (
-  currentUser: HydratedUser,
-  newContact: ContactItem
-) => {
-  currentUser.contacts.push(newContact);
-  await currentUser.save();
 };

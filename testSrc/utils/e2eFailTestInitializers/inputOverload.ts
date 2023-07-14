@@ -1,16 +1,16 @@
 import { randomMaker } from "utility-store";
 
-import { errors } from "~/variables";
+import { errorStore } from "~/classes/ErrorStore";
 
-import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
+import { utils } from "@/utils";
 
 export const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
-  const message = helpers.createFailTestMessage(
-    errors.inputFieldsOverload,
+  const message = utils.createFailTestMessage(
+    errorStore.find("INPUT_FIELDS_OVERLOAD"),
     configuredRequester.getEventName()
   );
 
@@ -21,7 +21,7 @@ export const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
     (copyData as any)[randomKey] = randomValue;
     await configuredRequester.sendFullFeaturedRequest(
       copyData,
-      errors.inputFieldsOverload,
+      errorStore.find("INPUT_FIELDS_OVERLOAD"),
       {
         shouldFilterRequestData: false,
       }

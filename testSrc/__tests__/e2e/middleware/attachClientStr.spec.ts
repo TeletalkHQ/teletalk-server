@@ -1,17 +1,17 @@
 import { clientManager } from "~/classes/ClientIdManager";
-import { errors } from "~/variables";
+import { errorStore } from "~/classes/ErrorStore";
 import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 const eventsWithoutGetStuff = events.filter((i) => i.name !== "getStuff");
 
 describe("validateClientId fail tests", () => {
   for (const event of eventsWithoutGetStuff) {
-    const title = helpers.createFailTestMessage(
-      errors.clientCookieRequired,
+    const title = utils.createFailTestMessage(
+      errorStore.find("CLIENT_COOKIE_REQUIRED"),
       event.name
     );
     it(title, async () => {
@@ -23,7 +23,7 @@ describe("validateClientId fail tests", () => {
 
       await requesterMaker(socket, event as any).sendFullFeaturedRequest(
         {},
-        errors.clientCookieRequired
+        errorStore.find("CLIENT_COOKIE_REQUIRED")
       );
     });
   }

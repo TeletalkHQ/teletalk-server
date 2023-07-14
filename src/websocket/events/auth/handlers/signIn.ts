@@ -1,9 +1,8 @@
-import { randomMaker } from "utility-store";
+import { extractor, randomMaker } from "utility-store";
 import { ExtendedCellphone } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
 import { smsClient } from "~/classes/SmsClient";
-import { userUtils } from "~/classes/UserUtils";
 import { models } from "~/models";
 import { SignInIO, SocketOnHandler, StoredClient } from "~/types";
 import { utils } from "~/utils";
@@ -12,7 +11,7 @@ export const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {
   //TODO: Use another utility to generate verification code
   const verificationCode = utils.passwordGenerator();
 
-  const cellphone = userUtils.extractCellphone(data as ExtendedCellphone);
+  const cellphone = extractor.cellphone(data as ExtendedCellphone);
 
   //FIXME: Get host from socket
   // const host = getHostFromRequest(req);

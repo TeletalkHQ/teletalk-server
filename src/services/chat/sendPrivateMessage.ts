@@ -1,14 +1,14 @@
 import { randomMaker } from "utility-store";
 import { UserId } from "utility-store/lib/types";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 import { createPrivateChat } from "~/services/chat/createPrivateChat";
 import { findOnePrivateChat } from "~/services/chat/findOnePrivateChat";
-import { findOneUserById } from "~/services/user/findOneUserById";
+import { findOneUser } from "~/services/user/findOneUser";
 import { PrivateChatService } from "~/types";
 import { MessageItem, MessageText } from "~/types/datatypes";
 import { HydratedPrivateChat } from "~/types/models";
-import { errors } from "~/variables";
 
 const chatModels = models.native;
 
@@ -47,11 +47,11 @@ export const sendPrivateMessage: PrivateChatService<
 };
 
 const findTargetParticipantId = async (participantId: UserId) => {
-  const targetParticipant = await findOneUserById({
+  const targetParticipant = await findOneUser({
     userId: participantId,
   });
 
-  if (!targetParticipant) throw errors.targetUserNotExist;
+  if (!targetParticipant) throw errorStore.find("TARGET_USER_NOT_EXIST");
 
   return targetParticipant.userId;
 };

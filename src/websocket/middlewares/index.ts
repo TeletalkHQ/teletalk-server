@@ -18,6 +18,16 @@ import { verifyClient } from "~/websocket/middlewares/verifyClient";
 import { verifyVerificationCode } from "~/websocket/middlewares/verifyVerificationCode";
 
 export const registerMiddlewares = (socket: Socket) => {
+  socket.customUse((socket, next, [eventName, data]) => {
+    logger.debug(
+      `new event(${eventName}) from client:${socket.userId}\n`,
+      "data:\n",
+      data
+    );
+
+    next();
+  });
+
   socket.customUse(ignoreMiddlewares("getStuff", attachClientStr));
   socket.customUse(ignoreMiddlewares("getStuff", verifyClient));
   socket.customUse(ignoreMiddlewares("getStuff", attachClientId));
@@ -48,7 +58,15 @@ export const registerMiddlewares = (socket: Socket) => {
 
   socket.customUse(
     applyMiddlewares(
-      ["addBlock", "addContact", "editContact", "removeBlock", "removeContact"],
+      [
+        "addBlock",
+        "addContact",
+        "addContactWithCellphone",
+        "addContactWithUserId",
+        "editContact",
+        "removeBlock",
+        "removeContact",
+      ],
       selfStuffCheck
     )
   );

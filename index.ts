@@ -2,20 +2,6 @@ import path from "path";
 
 const NODE_ENV = process.env.NODE_ENV;
 
-const getBuildFolderName = () => {
-  const NODE_VERSION = process.env.NODE_VERSION || getNodeVersion();
-
-  if (!NODE_VERSION) throw "Node version not supported!";
-
-  return `node${NODE_VERSION.slice(0, 2)}`;
-};
-const getNodeVersion = () => {
-  return process.env.npm_config_user_agent
-    ?.split("node/v")[1]
-    ?.split(" ")[0]
-    ?.slice(0, 2);
-};
-
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const start = async () => {
@@ -41,6 +27,23 @@ const runProduction = async () => {
   const app = await import(appPath);
 
   app.runner();
+};
+
+const getBuildFolderName = () => {
+  const { NODE_VERSION = getNodeVersion() } = process.env;
+
+  if (!NODE_VERSION) throw "Node version not supported!";
+
+  return `node${NODE_VERSION.slice(0, 2)}`;
+};
+
+const getNodeVersion = () => {
+  return (
+    process.env.npm_config_user_agent
+      ?.split("node/v")[1]
+      ?.split(" ")[0]
+      ?.slice(0, 2) || "18"
+  );
 };
 
 const runDev = async () => (await import(path.join(__dirname, "src"))).runner();

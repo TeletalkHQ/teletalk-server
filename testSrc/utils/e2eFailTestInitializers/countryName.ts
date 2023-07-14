@@ -1,7 +1,7 @@
 import { randomMaker } from "utility-store";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { errors } from "~/variables";
 
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { E2eFailTestInitializer } from "@/types";
@@ -27,7 +27,7 @@ export const countryNameE2eFailTestInitializer: E2eFailTestInitializer = (
       .empty()
       .custom(
         randomMaker.string(countryNameMaxLength),
-        errors.countryNameNotSupported
+        errorStore.find("COUNTRY_NAME_NOT_SUPPORTED")
       );
   }
 };

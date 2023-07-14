@@ -7,12 +7,12 @@ import { UserId } from "~/types/datatypes";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("addBlock successful tests", () => {
   it("should add users to blacklist", async () => {
     const { socket, user } = await randomMaker.user();
-    const requester = helpers.requesterCollection.addBlock(socket);
+    const requester = utils.requesterCollection.addBlock(socket);
 
     const blacklistLength = 10;
     for (let i = 0; i < blacklistLength; i++) {
@@ -31,7 +31,7 @@ describe("addBlock successful tests", () => {
       });
     }
 
-    const { blacklist } = (await services.findOneUserById({
+    const { blacklist } = (await services.findOneUser({
       userId: user.userId,
     }))!;
 
@@ -40,9 +40,9 @@ describe("addBlock successful tests", () => {
   });
 });
 
-await helpers.asyncDescribe("addBlock fail tests", async () => {
-  const { user: currentUser, requester } = await helpers.setupRequester(
-    helpers.requesterCollection.addBlock
+await utils.asyncDescribe("addBlock fail tests", async () => {
+  const { user: currentUser, requester } = await utils.setupRequester(
+    utils.requesterCollection.addBlock
   );
 
   const selfStuffData = {
@@ -100,7 +100,7 @@ const findSavedBlacklist = async (
 };
 
 const findBlacklist = async (userId: UserId) => {
-  const { blacklist } = (await services.findOneUserById({
+  const { blacklist } = (await services.findOneUser({
     userId,
   })) as UserData;
   return blacklist;

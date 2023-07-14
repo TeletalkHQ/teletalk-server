@@ -3,6 +3,7 @@ import { customTypeof } from "custom-typeof";
 import { Socket as Client } from "socket.io-client";
 import { objectUtils } from "utility-store";
 
+import { errorStore } from "~/classes/ErrorStore";
 import {
   IO,
   NativeError,
@@ -10,10 +11,9 @@ import {
   SocketResponse,
   StringMap,
 } from "~/types";
-import { errors } from "~/variables";
 
-import { loggerHelper } from "@/helpers/logHelper";
 import { RequesterOptions } from "@/types";
+import { loggerHelper } from "@/utils/logHelper";
 
 export class Requester<IOType extends IO> {
   private error?: NativeError;
@@ -99,7 +99,7 @@ export class Requester<IOType extends IO> {
   checkRequestDataFields(options = this.getOptions(), inputFields: StringMap) {
     if (!this.getRequestData() && Object.keys(inputFields).length) {
       const error = {
-        ...errors.inputFieldsMissing,
+        ...errorStore.find("INPUT_FIELDS_MISSING"),
         options,
         requestData: this.getRequestData(),
       };

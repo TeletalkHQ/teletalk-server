@@ -2,7 +2,6 @@ import { checkFields } from "check-fields";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { helpers } from "~/helpers";
 import {
   CustomOn,
   EventName,
@@ -13,7 +12,8 @@ import {
   SocketResponse,
   StringMap,
 } from "~/types";
-import { checkFieldErrors } from "~/variables";
+import { utils } from "~/utils";
+import { errors } from "~/variables";
 import { events } from "~/websocket/events";
 
 export const registerCustomOn = (socket: Socket) => {
@@ -76,7 +76,11 @@ function _tryToCheckOutputFields(
     .sync()
     .try(() => {
       const foundEvent = events.find((item) => item.name === eventName)!;
-      checkFields(outputData, foundEvent.outputFields, checkFieldErrors.output);
+      checkFields(
+        outputData,
+        foundEvent.outputFields,
+        errors.checkField.output
+      );
     })
     .catch(catchBlock, socket, responseCallback)
     .run();
@@ -105,7 +109,7 @@ const catchBlock = (
 ) => {
   const response: SocketResponse = {
     data: {},
-    errors: helpers.resolveResponseError(error),
+    errors: utils.resolveResponseError(error),
     ok: false,
   };
 

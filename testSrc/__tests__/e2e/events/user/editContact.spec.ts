@@ -1,16 +1,16 @@
+import { extractor } from "utility-store";
 import {
   ContactItem,
   Contacts,
-  FUllNameWithUserId,
+  FullNameWithUserId,
 } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("edit contact success tests", () => {
   it("should edit users in contacts", async () => {
@@ -19,12 +19,11 @@ describe("edit contact success tests", () => {
     const contactsLength = 10;
     const addingContacts = await createContacts(contactsLength);
 
-    const addContactRequester = helpers.requesterCollection.addContact(socket);
+    const addContactRequester = utils.requesterCollection.addContact(socket);
     for (const contact of addingContacts)
       await addContactRequester.sendFullFeaturedRequest(contact);
 
-    const editContactRequester =
-      helpers.requesterCollection.editContact(socket);
+    const editContactRequester = utils.requesterCollection.editContact(socket);
     for (const addingContact of addingContacts) {
       const fullName = randomMaker.fullName();
       const editingContactData = {
@@ -40,9 +39,9 @@ describe("edit contact success tests", () => {
 
       testEditedContact(editingContactData, editContactResponseData);
 
-      const { contacts: currentUserContacts } = (await services.findOneUserById(
-        { userId: currentUser.userId }
-      ))!;
+      const { contacts: currentUserContacts } = (await services.findOneUser({
+        userId: currentUser.userId,
+      }))!;
 
       const foundEditedContact = currentUserContacts.find(
         (i) => i.userId === editingContactData.userId
@@ -61,9 +60,9 @@ describe("edit contact success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("editContact fail tests", async () => {
-  const { requester, user } = await helpers.setupRequester(
-    helpers.requesterCollection.editContact
+await utils.asyncDescribe("editContact fail tests", async () => {
+  const { requester, user } = await utils.setupRequester(
+    utils.requesterCollection.editContact
   );
   const selfStuffData = {
     ...randomMaker.fullName(),
@@ -88,11 +87,11 @@ await helpers.asyncDescribe("editContact fail tests", async () => {
 
 const createContacts = async (length: number) => {
   const users = await randomMaker.users(length);
-  return users.map((i) => userUtils.extractContact(i.user));
+  return users.map((i) => extractor.contact(i.user));
 };
 
 const testNonEditedContacts = (
-  sentData: FUllNameWithUserId,
+  sentData: FullNameWithUserId,
   addingContacts: Contacts,
   currentUserContacts: Contacts
 ) => {
@@ -118,8 +117,8 @@ const testNonEditedContacts = (
 };
 
 const testEditedContact = (
-  equalValue: FUllNameWithUserId,
-  testValue: FUllNameWithUserId
+  equalValue: FullNameWithUserId,
+  testValue: FullNameWithUserId
 ) => {
   assertionInitializerHelper()
     .firstName({

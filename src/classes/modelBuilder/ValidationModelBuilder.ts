@@ -1,9 +1,9 @@
 import Validator, { MessagesType } from "fastest-validator";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { ValidationModel } from "~/types";
 import { Field, NativeModelCollection, NativeModelKey } from "~/types/models";
 import { utils } from "~/utils";
-import { errors } from "~/variables";
 
 type ErrorMessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationModel;
@@ -52,10 +52,8 @@ export class ValidationModelBuilder<
     errorMessageKey: ErrorMessageKey
   ) {
     if (this.validationRuleObject.messages) {
-      this.validationRuleObject.messages[errorMessageKey] = utils.findError(
-        errors,
-        this.fieldName,
-        modelKey as NativeModelKey
+      this.validationRuleObject.messages[errorMessageKey] = errorStore.find(
+        utils.makeModelErrorReason(this.fieldName, modelKey)
       ).reason;
     }
   }
@@ -67,7 +65,6 @@ export class ValidationModelBuilder<
     });
   }
 
-  //TODO: Read model dynamically
   setModel(model: Model) {
     this.model = model;
     return this;

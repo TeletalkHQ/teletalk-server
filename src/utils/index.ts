@@ -1,21 +1,27 @@
-//@ts-ignore
+/* eslint-disable indent */
 import generatePassword from "generate-password";
 import lodash from "lodash";
 import { Socket } from "socket.io";
+import { ScreamingSnakeCase } from "type-fest";
 
 import { envManager } from "~/classes/EnvironmentManager";
+import { nativeModels } from "~/models/native";
 import {
   Environments,
-  ErrorCollection,
   ErrorReason,
   EventName,
+  NativeError,
   SocketMiddleware,
   SocketMiddlewareEvent,
   SocketNext,
 } from "~/types";
-import { Field, ModelErrorReason, NativeModelKey } from "~/types/models";
-
-// const getHostFromRequest = (request) => request.get("host");
+import {
+  Field,
+  ModelErrorReason,
+  NativeModelCollection,
+  NativeModelKey,
+} from "~/types/models";
+import { errors } from "~/variables/errors";
 
 type Url = EventName | EventName[];
 const isEventNameMatch = (url: Url, reqUrl: string) =>
@@ -87,33 +93,114 @@ const extractClientFromCookie = (cookie: string) => {
   return rawCookie.split("=")[1];
 };
 
-const findError = <M extends NativeModelKey>(
-  errors: ErrorCollection,
-  fieldName: Field,
-  modelKeyName: M
-) => {
-  return errors[makeModelErrorReason(fieldName, modelKeyName) as ErrorReason];
-};
+const makeScreamingSnakeCase = <T extends string>(value: T) =>
+  upperSnake(value) as ScreamingSnakeCase<T>;
+
+const upperSnake = (value: string) => lodash.snakeCase(value).toUpperCase();
+
+const resolveResponseError = (error: NativeError | NativeError[] | undefined) =>
+  Array.isArray(error)
+    ? error
+    : error?.reason
+    ? [error]
+    : [errors.custom.find((i) => i.reason === "UNKNOWN_ERROR")!];
+
+const getDefaultValidatorErrorTypes = () => ({
+  array: false,
+  arrayContains: false,
+  arrayEmpty: false,
+  arrayEnum: false,
+  arrayLength: false,
+  arrayMax: false,
+  arrayMin: false,
+  arrayUnique: false,
+  boolean: false,
+  date: false,
+  dateMax: false,
+  dateMin: false,
+  email: false,
+  emailEmpty: false,
+  emailMax: false,
+  emailMin: false,
+  enumValue: false,
+  equalField: false,
+  equalValue: false,
+  forbidden: false,
+  function: false,
+  luhn: false,
+  mac: false,
+  number: false,
+  numberEqual: false,
+  numberInteger: false,
+  numberMax: false,
+  numberMin: false,
+  numberNegative: false,
+  numberNotEqual: false,
+  numberPositive: false,
+  object: false,
+  objectMaxProps: false,
+  objectMinProps: false,
+  objectStrict: false,
+  required: false,
+  string: false,
+  stringAlpha: false,
+  stringAlphadash: false,
+  stringAlphanum: false,
+  stringBase64: false,
+  stringContains: false,
+  stringEmpty: false,
+  stringEnum: false,
+  stringHex: false,
+  stringLength: false,
+  stringMax: false,
+  stringMin: false,
+  stringNumeric: false,
+  stringPattern: false,
+  stringSingleLine: false,
+  tuple: false,
+  tupleEmpty: false,
+  tupleLength: false,
+  url: false,
+  uuid: false,
+  uuidVersion: false,
+});
+
+//TODO: Add more support like trim and required
+function makeMongoSchemaValue<P extends keyof NativeModelCollection>(
+  fieldName: P
+) {
+  return function <F extends keyof NativeModelCollection[P]>(
+    prop: F
+  ): [NativeModelCollection[P][F], ErrorReason] {
+    return [
+      nativeModels[fieldName][prop],
+      makeModelErrorReason(fieldName, prop as NativeModelKey),
+    ];
+  };
+}
 
 const makeModelErrorReason = (
   fieldName: Field,
   modelKeyName: NativeModelKey
 ) => {
-  return `${fieldName}_${modelKeyName}_error` as ModelErrorReason;
+  return `${makeScreamingSnakeCase(fieldName)}_${makeScreamingSnakeCase(
+    modelKeyName
+  )}_ERROR` as ModelErrorReason;
 };
-
-const upperSnake = (str: string) => lodash.snakeCase(str).toUpperCase();
 
 export const utils = {
   crashServer,
   executeMiddlewares,
   extractClientFromCookie,
-  findError,
+  getDefaultValidatorErrorTypes,
   isEventNameMatch,
   logEnvironments,
   makeModelErrorReason,
+  makeMongoSchemaValue,
+  makeScreamingSnakeCase,
   passwordGenerator,
   regexMaker,
+  resolveResponseError,
   sortEnvironments,
   upperSnake,
 };

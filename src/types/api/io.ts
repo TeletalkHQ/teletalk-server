@@ -5,8 +5,8 @@ import {
   ContactItem,
   Contacts,
   Countries,
-  FUllNameWithUserId,
   FullName,
+  FullNameWithUserId,
   NewUser,
   PublicUserData,
   UserData,
@@ -20,10 +20,11 @@ import { events } from "~/websocket/events";
 import { ErrorCollection, ValidationCollection } from "..";
 import {
   ChatId,
+  ContactItemWithCellphone,
   MessageItem,
   MessageText,
   ParticipantId,
-  PrivateChatData,
+  PrivateChatItem,
   PrivateChats,
   WelcomeMessage,
 } from "../datatypes";
@@ -86,7 +87,7 @@ export interface GetChatInfoIO {
     chatId: ChatId;
   };
   output: {
-    chatInfo: Omit<PrivateChatData, "messages">;
+    chatInfo: Omit<PrivateChatItem, "messages">;
   };
 }
 
@@ -95,7 +96,7 @@ export interface GetPrivateChatIO {
     chatId: ChatId;
   };
   output: {
-    privateChat: PrivateChatData;
+    privateChat: PrivateChatItem;
   };
 }
 
@@ -138,10 +139,24 @@ export interface AddContactIO {
   };
 }
 
-export interface EditContactIO {
-  input: FUllNameWithUserId;
+export interface AddContactWithCellphoneIO {
+  input: ContactItemWithCellphone;
   output: {
-    editedContact: FUllNameWithUserId;
+    addedContact: ContactItem;
+  };
+}
+
+export interface AddContactWithUserIdIO {
+  input: FullNameWithUserId;
+  output: {
+    addedContact: ContactItem;
+  };
+}
+
+export interface EditContactIO {
+  input: FullNameWithUserId;
+  output: {
+    editedContact: FullNameWithUserId;
   };
 }
 

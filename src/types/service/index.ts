@@ -2,7 +2,7 @@ import { ProjectionType, QueryOptions } from "mongoose";
 import { UserData } from "utility-store/lib/types";
 
 import { StringMap } from "..";
-import { PrivateChatData, UserId } from "../datatypes";
+import { PrivateChatItem, UserId } from "../datatypes";
 import { IPrivateChatDoc, IUserDoc } from "../models";
 
 export type ServiceHandlerExcludeProp = "_id" | "__v";
@@ -15,7 +15,7 @@ export interface ServiceHandlerOptions {
 }
 
 export type UserDataProjectionType = ProjectionType<UserData>;
-export type PrivateChatDataProjectionType = ProjectionType<PrivateChatData>;
+export type PrivateChatDataProjectionType = ProjectionType<PrivateChatItem>;
 
 export type ServiceFn<
   QueryData = StringMap,

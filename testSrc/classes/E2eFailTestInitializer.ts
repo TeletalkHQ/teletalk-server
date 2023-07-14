@@ -1,13 +1,13 @@
 import { randomMaker } from "utility-store";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { IO, NativeError } from "~/types";
 import { Field, FieldType, NativeModel } from "~/types/models";
-import { utils } from "~/utils";
-import { errors } from "~/variables";
+import { utils as mainUtils } from "~/utils";
 
 import { Requester } from "@/classes/Requester";
-import { helpers } from "@/helpers";
 import { RequesterOptions } from "@/types";
+import { utils } from "@/utils";
 
 type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
 
@@ -35,7 +35,9 @@ class E2eFailTestInitializer<
     return { ...this.data, [this.fieldName]: newValue };
   }
   resolveError(modelPropName: keyof NativeModel) {
-    return utils.findError(errors, this.fieldName, modelPropName);
+    return errorStore.find(
+      mainUtils.makeModelErrorReason(this.fieldName, modelPropName)
+    );
   }
 
   custom(value: any, error: NativeError) {
@@ -47,7 +49,7 @@ class E2eFailTestInitializer<
     return this;
   }
   missing() {
-    this.initTest(this.dataMerger(), errors.inputFieldsMissing);
+    this.initTest(this.dataMerger(), errorStore.find("INPUT_FIELDS_MISSING"));
     return this;
   }
   overload() {
@@ -55,7 +57,7 @@ class E2eFailTestInitializer<
       ...this.data,
       [randomMaker.string(10)]: randomMaker.string(10),
     };
-    this.initTest(overloadedData, errors.inputFieldsOverload, {
+    this.initTest(overloadedData, errorStore.find("INPUT_FIELDS_OVERLOAD"), {
       shouldFilterRequestData: false,
     });
     return this;
@@ -64,7 +66,7 @@ class E2eFailTestInitializer<
     const valueWithIncorrectType =
       value || randomMaker.number(this.getMaxLength());
     const mergedData = this.dataMerger(valueWithIncorrectType);
-    this.initTest(mergedData, errors.inputFieldInvalidType);
+    this.initTest(mergedData, errorStore.find("INPUT_FIELD_INVALID_TYPE"));
     return this;
   }
   numeric() {
@@ -95,7 +97,7 @@ class E2eFailTestInitializer<
   }
 
   initTest(data: any, error: NativeError, options?: Partial<RequesterOptions>) {
-    const title = helpers.createFailTestMessage(
+    const title = utils.createFailTestMessage(
       error,
       this.configuredRequester.getEventName()
     );

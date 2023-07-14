@@ -2,10 +2,11 @@ import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 import {
   errorThrower,
+  extractor,
   isDataHasEqualityWithTargetCellphone,
-  userUtils,
 } from "utility-store";
 
+import { errorStore } from "~/classes/ErrorStore";
 import { services } from "~/services";
 import {
   AddContactIO,
@@ -13,7 +14,6 @@ import {
   SocketMiddlewareReturnValue,
   SocketNext,
 } from "~/types";
-import { errors } from "~/variables";
 
 export const selfStuffCheck: SocketMiddleware = async (
   socket,
@@ -31,22 +31,22 @@ export const selfStuffCheck: SocketMiddleware = async (
 const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
   if (data.userId) {
     errorThrower(socket.userId === data.userId, {
-      ...errors.selfStuff,
+      ...errorStore.find("SELF_STUFF"),
       targetUserId: data.userId,
     });
   } else {
-    const currentUser = (await services.findOneUserById({
+    const currentUser = (await services.findOneUser({
       userId: socket.userId,
     }))!;
 
     errorThrower(
       isDataHasEqualityWithTargetCellphone(
         data,
-        userUtils.extractCellphone(currentUser)
+        extractor.cellphone(currentUser)
       ),
       {
-        ...errors.selfStuff,
-        targetUser: data,
+        ...errorStore.find("SELF_STUFF"),
+        targetUserCellphone: extractor.cellphone(data),
       }
     );
   }

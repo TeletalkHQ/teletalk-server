@@ -1,4 +1,8 @@
-module.exports = {
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { defineConfig } = require("eslint-define-config");
+const restrictedGlobals = require("eslint-restricted-globals");
+
+module.exports = defineConfig({
   env: {
     es2021: true,
     jest: true,
@@ -7,8 +11,10 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@cspell/recommended",
-    "plugin:json/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:json/recommended",
     "plugin:sonarjs/recommended",
     "prettier",
   ],
@@ -21,25 +27,44 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["@typescript-eslint", "@cspell", "sonarjs", "unused-imports"],
+  plugins: [
+    "@cspell",
+    "@typescript-eslint",
+    "import",
+    "sonarjs",
+    "unused-imports",
+  ],
   rules: {
-    "@typescript-eslint/no-explicit-any": "off",
-    "no-console": "warn",
     "@cspell/spellchecker": [
       "error",
       {
-        autoFix: false,
-        checkComments: false,
-        ignoreImportProperties: false, // ignoreImports: false,
+        autoFix: true,
+        checkComments: true,
+        ignoreImportProperties: false,
       },
     ],
     "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "arrow-parens": "warn",
+    "import/no-unresolved": [
+      2,
+      {
+        amd: true,
+        commonjs: true,
+        esmodule: true,
+        ignore: ["type-fest"],
+      },
+    ],
     indent: ["error", 2],
     "linebreak-style": ["error", "unix"],
+    "no-console": "warn",
     "no-delete-var": "warn",
+    "no-process-exit": "off",
+    "no-restricted-globals": ["error"].concat(restrictedGlobals),
+    "no-undef": "error",
+    "no-unused-expressions": 2,
     "no-unused-vars": "off",
     "no-use-before-define": [
       "error",
@@ -53,8 +78,7 @@ module.exports = {
     "no-var": "warn",
     "object-shorthand": ["error", "always"],
     quotes: ["warn", "double"],
-    semi: ["error", "always"], // "no-restricted-globals": ["error"].concat(restrictedGlobals),
-    // "no-unused-expressions": 0,
+    semi: ["error", "always"],
     "unused-imports/no-unused-imports": "warn",
     "unused-imports/no-unused-vars": [
       "warn",
@@ -67,14 +91,19 @@ module.exports = {
       },
     ],
   },
-};
-
-//   "node/exports-style": ["error", "module.exports"],
-//   "node/file-extension-in-import": ["error", "always"],
-//   "node/prefer-global/buffer": ["error", "always"],
-//   "node/prefer-global/console": ["error", "always"],
-//   "node/prefer-global/process": ["error", "always"],
-//   "node/prefer-global/url-search-params": ["error", "always"],
-//   "node/prefer-global/url": ["error", "always"],
-//   "node/prefer-promises/dns": "error",
-//   "node/prefer-promises/fs": "error"
+  settings: {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"],
+    },
+    "import/resolver": {
+      "eslint-import-resolver-custom-alias": {
+        alias: {
+          "@": "./testSrc",
+          "~": "./src",
+        },
+        extensions: [".ts", ".js", ".json"],
+      },
+      node: true,
+    },
+  },
+});

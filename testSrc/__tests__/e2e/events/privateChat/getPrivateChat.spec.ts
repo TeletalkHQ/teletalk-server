@@ -4,12 +4,12 @@ import { UserData } from "utility-store/lib/types";
 
 import { models } from "~/models";
 import { services } from "~/services";
-import { PrivateChatData } from "~/types/datatypes";
+import { PrivateChatItem } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("getPrivateChat success tests", () => {
   it("Should get private chat related to client by chatId", async () => {
@@ -20,7 +20,7 @@ describe("getPrivateChat success tests", () => {
     for (let i = 0; i < 10; i++) {
       const {
         data: { chatId },
-      } = await helpers.requesterCollection
+      } = await utils.requesterCollection
         .sendPrivateMessage(socket)
         .sendFullFeaturedRequest({
           messageText,
@@ -32,9 +32,9 @@ describe("getPrivateChat success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("getPrivateChat fail tests", async () => {
-  const { requester } = await helpers.setupRequester(
-    helpers.requesterCollection.getPrivateChat
+await utils.asyncDescribe("getPrivateChat fail tests", async () => {
+  const { requester } = await utils.setupRequester(
+    utils.requesterCollection.getPrivateChat
   );
 
   return () => {
@@ -77,7 +77,7 @@ const testPrivateChat = async (
 };
 
 const getPrivateChat = async (socket: Socket, chatId: string) => {
-  const { data } = await helpers.requesterCollection
+  const { data } = await utils.requesterCollection
     .getPrivateChat(socket)
     .sendFullFeaturedRequest({ chatId });
   return data;
@@ -91,13 +91,13 @@ const findStoredPrivateChat = async (
     "participants.participantId": {
       $all: [currentUserId, targetUserId],
     },
-  })) as PrivateChatData;
+  }))!;
 };
 
 const testChatId = (
   chatId: string,
-  privateChat: PrivateChatData,
-  privateChatFromDb: PrivateChatData
+  privateChat: PrivateChatItem,
+  privateChatFromDb: PrivateChatItem
 ) => {
   assertionInitializerHelper().chatId({
     equalValue: chatId,
@@ -110,8 +110,8 @@ const testChatId = (
 };
 
 const testMessages = (
-  foundChat: PrivateChatData,
-  privateChatFromDb: PrivateChatData
+  foundChat: PrivateChatItem,
+  privateChatFromDb: PrivateChatItem
 ) => {
   for (const item of foundChat.messages) {
     const {
@@ -141,8 +141,8 @@ const testMessages = (
 
 const testParticipants = (
   currentUserId: string,
-  foundChat: PrivateChatData,
-  privateChatFromDb: PrivateChatData,
+  foundChat: PrivateChatItem,
+  privateChatFromDb: PrivateChatItem,
   targetUserId: string
 ) => {
   const {
@@ -178,8 +178,8 @@ const testParticipants = (
 
 const findAllParticipants = (
   currentUserId: string,
-  foundChat: PrivateChatData,
-  privateChatFromDb: PrivateChatData,
+  foundChat: PrivateChatItem,
+  privateChatFromDb: PrivateChatItem,
   targetUserId: string
 ) => {
   return {
@@ -189,5 +189,5 @@ const findAllParticipants = (
     targetParticipantFromDb: findParticipant(privateChatFromDb, targetUserId),
   };
 };
-const findParticipant = (privateChat: PrivateChatData, participantId: string) =>
+const findParticipant = (privateChat: PrivateChatItem, participantId: string) =>
   privateChat.participants.find((i) => i.participantId === participantId)!;

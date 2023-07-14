@@ -1,12 +1,12 @@
+import { extractor } from "utility-store";
 import { PublicUserData } from "utility-store/lib/types";
 
-import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("updatePublicUserData success tests", () => {
   it("should get user public data", async () => {
@@ -15,8 +15,7 @@ describe("updatePublicUserData success tests", () => {
     for (const { socket, user } of users) {
       const data = randomMaker.publicUserData();
 
-      const requester =
-        helpers.requesterCollection.updatePublicUserData(socket);
+      const requester = utils.requesterCollection.updatePublicUserData(socket);
       const {
         data: { publicUserData: publicDataFromEvent },
       } = await requester.sendFullFeaturedRequest(data);
@@ -25,20 +24,19 @@ describe("updatePublicUserData success tests", () => {
 
       testPublicUserData(equalValue, publicDataFromEvent);
 
-      const targetUserDataInDb = (await services.findOneUserById({
+      const targetUserDataInDb = (await services.findOneUser({
         userId: user.userId,
       }))!;
 
-      const publicDataFromDb =
-        userUtils.extractPublicUserData(targetUserDataInDb);
+      const publicDataFromDb = extractor.publicUserData(targetUserDataInDb);
       testPublicUserData(equalValue, publicDataFromDb);
     }
   });
 });
 
-await helpers.asyncDescribe("updatePublicUserData fail tests", async () => {
-  const { requester } = await helpers.setupRequester(
-    helpers.requesterCollection.updatePublicUserData
+await utils.asyncDescribe("updatePublicUserData fail tests", async () => {
+  const { requester } = await utils.setupRequester(
+    utils.requesterCollection.updatePublicUserData
   );
 
   return () => {

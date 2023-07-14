@@ -7,14 +7,14 @@ import { MessageText } from "~/types/datatypes";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("send message success tests", () => {
   it("should start new chat and send message", async () => {
     const { socket, user: currentUser } = await randomMaker.user();
     const { user: targetUser } = await randomMaker.user();
 
-    const requester = helpers.requesterCollection.sendPrivateMessage(socket);
+    const requester = utils.requesterCollection.sendPrivateMessage(socket);
 
     const messagesLength = 10;
     for (let i = 0; i < messagesLength; i++) {
@@ -42,9 +42,9 @@ describe("send message success tests", () => {
   });
 });
 
-await helpers.asyncDescribe("send message fail tests", async () => {
-  const { requester } = await helpers.setupRequester(
-    helpers.requesterCollection.sendPrivateMessage
+await utils.asyncDescribe("send message fail tests", async () => {
+  const { requester } = await utils.setupRequester(
+    utils.requesterCollection.sendPrivateMessage
   );
 
   return () => {

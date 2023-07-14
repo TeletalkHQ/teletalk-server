@@ -26,7 +26,7 @@ const listeningListener = () => {
 
 export const runner = async () => {
   // if (cluster.isPrimary) {
-  //   utils.logEnvironments();
+  // utils.logEnvironments();
 
   //   const NUM_WORKERS = os.cpus().length;
 

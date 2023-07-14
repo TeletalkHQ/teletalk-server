@@ -1,9 +1,9 @@
+import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
 import { ClientId, UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from "./findOneUser";
 
 export const addClient: UserService<
   {
@@ -13,13 +13,13 @@ export const addClient: UserService<
   void
 > = async (data) => {
   const currentUser = await findCurrentUser(data.userId);
-  if (!currentUser) throw errors.currentUserNotExist;
+  if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
   await addAndSaveNew(currentUser, data.clientId);
 };
 
 const findCurrentUser = (userId: UserId) => {
-  return findOneUserById({
+  return findOneUser({
     userId,
   });
 };

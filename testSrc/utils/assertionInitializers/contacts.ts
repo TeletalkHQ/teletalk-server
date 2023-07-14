@@ -1,7 +1,7 @@
 import { ContactItem } from "utility-store/lib/types";
 
-import { oneContactAssertionInitializer } from "@/helpers/assertionInitializers/oneContact";
 import { AssertionInitializer } from "@/types";
+import { oneContactAssertionInitializer } from "@/utils/assertionInitializers/oneContact";
 import { FIELD_TYPE } from "@/variables";
 
 export const contactsAssertionInitializer: AssertionInitializer = ({

@@ -1,6 +1,6 @@
+import { errorStore } from "~/classes/ErrorStore";
 import { services } from "~/services";
 import { GetChatInfoIO, SocketOnHandler } from "~/types";
-import { errors } from "~/variables";
 
 export const getChatInfo: SocketOnHandler<GetChatInfoIO> = async (
   _socket,
@@ -10,7 +10,7 @@ export const getChatInfo: SocketOnHandler<GetChatInfoIO> = async (
     chatId: data.chatId,
   });
 
-  if (!privateChat) throw errors.chatNotExist;
+  if (!privateChat) throw errorStore.find("CHAT_NOT_EXIST");
 
   const { chatId, createdAt, participants } = privateChat;
 

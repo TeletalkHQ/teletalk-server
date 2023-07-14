@@ -8,7 +8,7 @@ import {
   SocketMiddlewareEvent,
   SocketNext,
 } from "~/types";
-import { checkFieldErrors } from "~/variables";
+import { errors } from "~/variables";
 import { events } from "~/websocket/events";
 
 export const checkDataFields: SocketMiddleware = (
@@ -29,7 +29,7 @@ export const checkDataFields: SocketMiddleware = (
 };
 
 const tryBlock = (data: SocketMiddlewareEvent["1"], inputFields: IoFields) => {
-  checkFields(data || {}, inputFields, checkFieldErrors.input);
+  checkFields(data || {}, inputFields, errors.checkField.input);
 };
 
 const executeIfNoError = (_: void, next: SocketNext) => {

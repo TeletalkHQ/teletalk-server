@@ -1,5 +1,5 @@
-//FIXME: Remove http://
 import cookie from "cookie";
+//FIXME: Remove http://
 import http from "http";
 import Client, {
   ManagerOptions,
@@ -9,8 +9,8 @@ import Client, {
 
 import { appConfigs } from "~/classes/AppConfigs";
 import { clientManager } from "~/classes/ClientIdManager";
+import { errorStore } from "~/classes/ErrorStore";
 import { utils } from "~/utils";
-import { errors } from "~/variables";
 
 const {
   APP: { PORT, HOSTNAME: hostname },
@@ -35,7 +35,7 @@ const setClientIdRequestBody = (
 ) => {
   return (res: http.IncomingMessage) => {
     const cookies = res.headers["set-cookie"];
-    if (!cookies) return reject(errors.cookieIsNotDefined);
+    if (!cookies) return reject(errorStore.find("COOKIE_IS_NOT_DEFINED"));
 
     resolve(utils.extractClientFromCookie(cookies[0]));
   };

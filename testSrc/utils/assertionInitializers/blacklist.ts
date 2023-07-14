@@ -1,7 +1,7 @@
 import { BlackListItem } from "utility-store/lib/types";
 
-import { userIdAssertionInitializer } from "@/helpers/assertionInitializers/userId";
 import { AssertionInitializer } from "@/types";
+import { userIdAssertionInitializer } from "@/utils/assertionInitializers/userId";
 import { FIELD_TYPE } from "@/variables";
 
 export const blacklistAssertionInitializer: AssertionInitializer = ({

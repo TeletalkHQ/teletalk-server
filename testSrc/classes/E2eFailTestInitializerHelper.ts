@@ -1,8 +1,8 @@
 import { IO } from "~/types";
 
 import { Requester } from "@/classes/Requester";
-import { e2eFailTestInitializers } from "@/helpers/e2eFailTestInitializers";
 import { E2eFailTestIgnores } from "@/types";
+import { e2eFailTestInitializers } from "@/utils/e2eFailTestInitializers";
 
 type MethodName = keyof typeof e2eFailTestInitializers;
 

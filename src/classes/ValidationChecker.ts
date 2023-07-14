@@ -1,4 +1,4 @@
-import { helpers } from "~/helpers";
+import { errorStore } from "~/classes/ErrorStore";
 import {
   ErrorTypes,
   NativeError,
@@ -9,7 +9,6 @@ import {
 } from "~/types";
 import { Field, NativeModel } from "~/types/models";
 import { utils } from "~/utils";
-import { errors } from "~/variables";
 
 export class ValidationChecker {
   private collectedErrors: NativeError[] = [];
@@ -77,7 +76,7 @@ export class ValidationChecker {
   }
 
   resolveError(prop: keyof NativeModel) {
-    return utils.findError(errors, this.fieldName, prop);
+    return errorStore.find(utils.makeModelErrorReason(this.fieldName, prop));
   }
 
   pushError(condition: boolean, error: NativeError) {
@@ -97,7 +96,7 @@ export class ValidationChecker {
 }
 
 const convertErrorTypesToBoolean = (errors: ValidationErrors) => {
-  const validatorErrorTypes = helpers.getDefaultValidatorErrorTypes();
+  const validatorErrorTypes = utils.getDefaultValidatorErrorTypes();
 
   errors.forEach((error) => {
     validatorErrorTypes[error.type as keyof ErrorTypes] = true;

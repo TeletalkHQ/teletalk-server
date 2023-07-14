@@ -1,7 +1,6 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { helpers } from "~/helpers";
 import {
   CustomUse,
   NativeError,
@@ -11,6 +10,7 @@ import {
   SocketNext,
   SocketResponse,
 } from "~/types";
+import { utils } from "~/utils";
 
 export const registerCustomUse = (socket: Socket) => {
   return ((middleware) => {
@@ -44,7 +44,7 @@ const catchBlock = (
 
   const response: SocketResponse = {
     data: {},
-    errors: helpers.resolveResponseError(error),
+    errors: utils.resolveResponseError(error),
     ok: false,
   };
 

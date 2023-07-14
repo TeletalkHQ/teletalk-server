@@ -7,7 +7,7 @@ import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper
 import { authHelper } from "@/classes/AuthHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("verifySignIn success test", () => {
   it("should sign and verify as new user", async () => {
@@ -56,13 +56,11 @@ describe("verifySignIn success test", () => {
   });
 });
 
-await helpers.asyncDescribe("verifySignIn fail tests", async () => {
+await utils.asyncDescribe("verifySignIn fail tests", async () => {
   const cellphone = randomMaker.unusedCellphone();
   const helper = authHelper(cellphone);
   await helper.signIn();
-  const requester = helpers.requesterCollection.verify(
-    helper.getClientSocket()
-  );
+  const requester = utils.requesterCollection.verify(helper.getClientSocket());
 
   return () => {
     const data = {
@@ -91,5 +89,5 @@ const getSavedUserClient = async (userId: UserId, clientId: ClientId) => {
 };
 
 const getSavedUser = async (userId: UserId) => {
-  return await services.findOneUserById({ userId });
+  return await services.findOneUser({ userId });
 };

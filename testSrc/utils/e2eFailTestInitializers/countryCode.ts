@@ -1,10 +1,10 @@
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { errors } from "~/variables";
 
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
+import { utils } from "@/utils";
 
 export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
@@ -31,6 +31,9 @@ export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   if (!ignores?.includes("empty")) {
     initializer
       .empty()
-      .custom(helpers.getWrongCountryCode(), errors.countryCodeNotSupported);
+      .custom(
+        utils.getWrongCountryCode(),
+        errorStore.find("COUNTRY_CODE_NOT_SUPPORTED")
+      );
   }
 };

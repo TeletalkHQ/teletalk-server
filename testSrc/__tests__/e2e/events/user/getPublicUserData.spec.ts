@@ -5,12 +5,12 @@ import { services } from "~/services";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { utils } from "@/utils";
 
 describe("getUserData success tests", () => {
   it("should get currentUser data", async () => {
     const { socket } = await randomMaker.user();
-    const requester = helpers.requesterCollection.getPublicUserData(socket);
+    const requester = utils.requesterCollection.getPublicUserData(socket);
 
     const users = await randomMaker.users(10);
 
@@ -21,7 +21,7 @@ describe("getUserData success tests", () => {
         userId: targetUserData.userId,
       });
 
-      const targetUserDataInDb = (await services.findOneUserById({
+      const targetUserDataInDb = (await services.findOneUser({
         userId: targetUserData.userId,
       }))!;
 
@@ -58,9 +58,9 @@ const testPublicUserData = (
     });
 };
 
-await helpers.asyncDescribe("getPublicUserData fail tests", async () => {
-  const { requester } = await helpers.setupRequester(
-    helpers.requesterCollection.getPublicUserData
+await utils.asyncDescribe("getPublicUserData fail tests", async () => {
+  const { requester } = await utils.setupRequester(
+    utils.requesterCollection.getPublicUserData
   );
 
   return () => {

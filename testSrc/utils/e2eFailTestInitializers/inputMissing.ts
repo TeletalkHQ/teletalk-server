@@ -1,15 +1,15 @@
-import { errors } from "~/variables";
+import { errorStore } from "~/classes/ErrorStore";
 
-import { helpers } from "@/helpers";
 import { E2eFailTestInitializer } from "@/types";
+import { utils } from "@/utils";
 
 export const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
   it(
-    helpers.createFailTestMessage(
-      errors.inputFieldsMissing,
+    utils.createFailTestMessage(
+      errorStore.find("INPUT_FIELDS_MISSING"),
       configuredRequester.getEventName()
     ),
     async () => {
@@ -18,7 +18,7 @@ export const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
       delete (copyData as any)[firstKey];
       await configuredRequester.sendFullFeaturedRequest(
         copyData,
-        errors.inputFieldsMissing,
+        errorStore.find("INPUT_FIELDS_MISSING"),
         {
           shouldFilterRequestData: false,
         }

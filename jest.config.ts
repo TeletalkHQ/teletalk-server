@@ -3,6 +3,12 @@ import { JestConfigWithTsJest, pathsToModuleNameMapper } from "ts-jest";
 import tsconfig from "./tsconfig.json";
 
 let baseOptions: JestConfigWithTsJest = {
+  automock: false,
+  cache: false,
+  clearMocks: false,
+  detectLeaks: false,
+  detectOpenHandles: false,
+  errorOnDeprecated: false,
   extensionsToTreatAsEsm: [".ts"],
   forceExit: true,
   logHeapUsage: false,
@@ -11,8 +17,12 @@ let baseOptions: JestConfigWithTsJest = {
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
   modulePaths: [tsconfig.compilerOptions.baseUrl],
   setupFiles: ["./jest.setup.ts"],
-  setupFilesAfterEnv: ["./configs/jestConsoleFix.js"],
+  setupFilesAfterEnv: [
+    // "./configs/jest/consoleFix.js",
+    "./configs/jest/setupFileAfterEnv.ts",
+  ],
   silent: false,
+  skipNodeResolution: false,
   testEnvironment: "node",
   // testMatch: ["**/testSrc/index.ts"],
   testPathIgnorePatterns: [
@@ -20,8 +30,8 @@ let baseOptions: JestConfigWithTsJest = {
     "<rootDir>/lib",
     "<rootDir>/coverage",
   ],
+  testRegex: ".*.spec.ts",
   testTimeout: 20000,
-  // testRegex: ".*.spec.ts",
   transform: {
     "^.+\\.ts?$": [
       "ts-jest",

@@ -120,9 +120,11 @@ export class Requester<IOType extends IO> {
     const requestData = this.getRequestData();
 
     const response = (await new Promise((resolve, _reject) => {
+      this.socket.connect();
       this.socket.emit(name, requestData, resolve);
     })) as SocketResponse;
 
+    this.socket.disconnect();
     this.setResponse(response);
 
     return this;

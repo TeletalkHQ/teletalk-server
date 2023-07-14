@@ -2,9 +2,9 @@ import { jest } from "@jest/globals";
 
 import { utils } from "~/utils";
 
-const crashServerThrowMessage = "process.exit() was called";
-
 describe("crashServer_function", () => {
+  const crashServerThrowMessage = "process.exit() was called";
+
   it("test_string_message", () => {
     const spy = jest.spyOn(logger, "error");
     const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {

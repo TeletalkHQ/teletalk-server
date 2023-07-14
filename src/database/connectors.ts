@@ -20,18 +20,17 @@ export const mongodbConnector = () => {
 export const redisConnector = async () => {
   const REDIS_CONNECTION_OPTIONS = {
     HOST: appConfigs.getConfigs().DB.REDIS_HOST,
+    PASSWORD: appConfigs.getConfigs().DB.REDIS_PASSWORD,
     PORT: appConfigs.getConfigs().DB.REDIS_PORT,
   };
 
-  const { REDIS_PASSWORD } = appConfigs.getConfigs().DB;
-
   const storage = createClient({
+    password: REDIS_CONNECTION_OPTIONS.PASSWORD,
     socket: {
-      tls: false,
-      port: REDIS_CONNECTION_OPTIONS.PORT,
       host: REDIS_CONNECTION_OPTIONS.HOST,
+      port: REDIS_CONNECTION_OPTIONS.PORT,
+      tls: false,
     },
-    password: REDIS_PASSWORD,
   });
 
   storage.on("connect", () =>

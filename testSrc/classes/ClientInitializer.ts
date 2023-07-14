@@ -41,6 +41,8 @@ const setClientIdRequestBody = (
   };
 };
 
+export const clients: Socket[] = [];
+
 export class ClientInitializer {
   private client: Socket;
   private clientStr: string;
@@ -63,6 +65,7 @@ export class ClientInitializer {
 
   initClient() {
     this.client = Client(this.makeUrl(), this.makeClientSocketOptions());
+    clients.push(this.client);
     return this;
   }
 

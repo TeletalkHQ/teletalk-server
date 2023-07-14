@@ -23,7 +23,6 @@ class AppConfigs {
 
   private setLogLevel() {
     logger.onAll();
-    logger.offAll();
   }
 
   private setEnvironments(e: Environments) {

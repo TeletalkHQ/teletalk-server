@@ -181,6 +181,9 @@ devDependencies:
   '@types/babel__traverse':
     specifier: ^7.20.1
     version: 7.20.1
+  '@types/chai':
+    specifier: ^4.3.5
+    version: 4.3.5
   '@types/confusing-browser-globals':
     specifier: ^1.0.0
     version: 1.0.0
@@ -4240,6 +4243,10 @@ packages:
     dependencies:
       '@types/connect': 3.4.35
       '@types/node': 20.2.5
+
+  /@types/chai@4.3.5:
+    resolution: {integrity: sha512-mEo1sAde+UCE6b2hxn332f1g1E8WfYRu6p5SvTKr2ZKC1f7gFJXk4h5PyGP9Dt6gCaG8y8XhwnXWC6Iy2cmBng==}
+    dev: true
 
   /@types/cli-progress@3.11.0:
     resolution: {integrity: sha512-XhXhBv1R/q2ahF3BM7qT5HLzJNlIL0wbcGyZVjqOTqAybAnsLisd7gy1UCyIqpL+5Iv6XhlSyzjLCnI2sIdbCg==}

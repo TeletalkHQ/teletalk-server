@@ -1,4 +1,4 @@
-import { customTypeof } from "custom-typeof";
+import chai from "chai";
 import { UserData } from "utility-store/lib/types";
 
 import { services } from "~/services";
@@ -8,6 +8,7 @@ import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
 describe("addBlock successful tests", () => {
   it("should add users to blacklist", async () => {
@@ -35,8 +36,8 @@ describe("addBlock successful tests", () => {
       userId: user.userId,
     }))!;
 
-    expect(customTypeof.isArray(blacklist)).toBeTruthy();
-    expect(blacklist.length).toEqual(blacklistLength);
+    chai.expect(blacklist).to.be.an(FIELD_TYPE.ARRAY);
+    chai.expect(blacklist.length).to.be.equal(blacklistLength);
   });
 });
 
@@ -85,8 +86,8 @@ const testAddBlockResponse = async (data: {
 
 const testTargetUserBlacklist = async (targetUserId: UserId) => {
   const blacklist = await findBlacklist(targetUserId);
-  expect(customTypeof.isArray(blacklist)).toBeTruthy();
-  expect(blacklist).toHaveLength(0);
+  chai.expect(blacklist).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(blacklist.length).to.be.equal(0);
 
   return blacklist;
 };

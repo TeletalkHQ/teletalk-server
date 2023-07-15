@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CustomTypeof, customTypeof } from "custom-typeof";
-import lodash from "lodash";
+import chai from "chai";
 
-import { FieldType, NativeModel } from "~/types/models";
+import { NativeModel } from "~/types/models";
+
+import { FIELD_TYPE } from "@/variables";
 
 type TestItem = () => void;
 
@@ -15,7 +16,7 @@ interface Variables<Model> {
   testValue: any;
 }
 
-export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
+export class AssertionInitializer<Model extends NativeModel = any> {
   tests: TestItem[] = [];
 
   options = this.defaultOptions();
@@ -75,12 +76,14 @@ export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
   stringEquality() {
     this.addIf(this.options.stringEquality, () => {
       this.tests.push(() =>
-        expect(this.variables.equalValue.length).toEqual(
-          this.variables.testValue.length
-        )
+        chai
+          .expect(this.variables.equalValue.length)
+          .to.be.equal(this.variables.testValue.length)
       );
       this.tests.push(() =>
-        expect(this.variables.equalValue).toEqual(this.variables.testValue)
+        chai
+          .expect(this.variables.equalValue)
+          .to.be.equal(this.variables.testValue)
       );
     });
 
@@ -97,34 +100,26 @@ export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
 
   lengthCheck() {
     this.tests.push(() =>
-      expect(this.variables.testValue.length).toEqual(
-        +this.variables.modelLength
-      )
+      chai
+        .expect(this.variables.testValue.length)
+        .to.be.equal(+this.variables.modelLength)
     );
 
     return this;
   }
 
-  typeCheck(customType?: FieldType) {
+  typeCheck(customType = this.variables.model.type) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() => {
-        expect(
-          customTypeof[this.getCustomTypeofMethodName(customType)](
-            this.variables.testValue
-          )
-        ).toBeTruthy();
+        chai.expect(this.variables.testValue).to.be.an(customType);
       });
     });
 
     return this;
   }
 
-  customTypeCheck(value: any, customType: FieldType) {
-    this.tests.push(() =>
-      expect(
-        customTypeof[this.getCustomTypeofMethodName(customType)](value)
-      ).toBeTruthy()
-    );
+  customTypeCheck(value: any, customType = this.variables.model.type) {
+    this.tests.push(() => chai.expect(value).to.be.an(customType));
 
     return this;
   }
@@ -133,7 +128,7 @@ export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
     this.addIf(this.options.modelCheck, () => {
       if (this.variables.model.empty === false)
         this.tests.push(() =>
-          expect(this.variables.testValue.length).toBeGreaterThan(0)
+          chai.expect(this.variables.testValue.length).to.be.greaterThan(0)
         );
     });
 
@@ -143,9 +138,9 @@ export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
   gteCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue.length).toBeGreaterThanOrEqual(
-          this.variables.modelMinLength
-        )
+        chai
+          .expect(this.variables.testValue.length)
+          .to.be.greaterThanOrEqual(this.variables.modelMinLength)
       );
     });
 
@@ -154,7 +149,7 @@ export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
   gtCheck(length: number) {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue.length).toBeGreaterThan(length)
+        chai.expect(this.variables.testValue.length).to.be.greaterThan(length)
       );
     });
 
@@ -163,9 +158,9 @@ export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
   lteCheck() {
     this.addIf(this.options.modelCheck, () => {
       this.tests.push(() =>
-        expect(this.variables.testValue.length).toBeLessThanOrEqual(
-          this.variables.modelMaxLength
-        )
+        chai
+          .expect(this.variables.testValue.length)
+          .to.be.lessThanOrEqual(this.variables.modelMaxLength)
       );
     });
 
@@ -174,21 +169,16 @@ export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
 
   numericCheck() {
     this.addIf(this.options.modelCheck, () => {
-      this.tests.push(() =>
-        expect(customTypeof.isNumber(+this.variables.testValue)).toBeTruthy()
+      this.tests.push(
+        () =>
+          chai.expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER).and
+            .not.be.an.NaN
       );
     });
     return this;
   }
-
-  private getCustomTypeofMethodName(type?: FieldType) {
-    return `is${lodash.upperFirst(
-      type || this.variables.model.type
-    )}` as keyof CustomTypeof;
-  }
 }
 
 export const assertionInitializer = {
-  create: <Model extends Partial<NativeModel>>() =>
-    new AssertionInitializer<Model>(),
+  create: <Model extends NativeModel>() => new AssertionInitializer<Model>(),
 };

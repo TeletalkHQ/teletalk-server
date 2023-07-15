@@ -24,6 +24,8 @@ export const redisConnector = async () => {
     PORT: appConfigs.getConfigs().DB.REDIS_PORT,
   };
 
+  logger.info("REDIS_CONNECTION_OPTIONS:", REDIS_CONNECTION_OPTIONS);
+
   const storage = createClient({
     password: REDIS_CONNECTION_OPTIONS.PASSWORD,
     socket: {

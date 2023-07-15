@@ -13,9 +13,11 @@ let baseOptions: JestConfigWithTsJest = {
   forceExit: true,
   logHeapUsage: false,
   maxWorkers: 4,
+  // testRunner: "jest-jasmine2",
   moduleFileExtensions: ["js", "ts", "json", "node"],
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
   modulePaths: [tsconfig.compilerOptions.baseUrl],
+  resetModules: false,
   setupFiles: ["./jest.setup.ts"],
   setupFilesAfterEnv: [
     // "./configs/jest/consoleFix.js",

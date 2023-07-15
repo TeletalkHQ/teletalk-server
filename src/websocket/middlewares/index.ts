@@ -19,7 +19,7 @@ import { verifyVerificationCode } from "~/websocket/middlewares/verifyVerificati
 
 export const registerMiddlewares = (socket: Socket) => {
   socket.customUse((socket, next, [eventName, data]) => {
-    logger.debug(
+    logger.info(
       `new event(${eventName}) from client:${socket.userId}\n`,
       "data:\n",
       data

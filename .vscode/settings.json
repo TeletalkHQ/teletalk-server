@@ -196,7 +196,9 @@
     "modules": true,
     "notes": true,
     "configs": true,
-    ".editorconfig": true
+    ".editorconfig": true,
+    ".mocharc.jsonc": true,
+    ".nycrc": true
   },
   "jest.autoRun": "off",
   "jest.coverageFormatter": "GutterFormatter",

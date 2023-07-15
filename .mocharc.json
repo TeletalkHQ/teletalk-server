@@ -1,9 +1,0 @@
-{
-  "extension": ["ts", "cjs", "mjs"],
-  "timeout": 60000,
-  "ui": "bdd",
-  "watch-files": ["testSrc/**/*.ts"],
-  "watch-ignore": "",
-  "reporter": "spec",
-  "package": "./package.json"
-}

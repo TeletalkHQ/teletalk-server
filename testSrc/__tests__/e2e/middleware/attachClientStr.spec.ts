@@ -8,7 +8,7 @@ import { utils } from "@/utils";
 
 const eventsWithoutGetStuff = events.filter((i) => i.name !== "getStuff");
 
-describe("validateClientId fail tests", () => {
+describe("attachClientStr fail tests", () => {
   for (const event of eventsWithoutGetStuff) {
     const title = utils.createFailTestMessage(
       errorStore.find("CLIENT_COOKIE_REQUIRED"),

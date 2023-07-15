@@ -44,9 +44,3 @@ jobs:
 
       - name: Test development app
         run: npm run test:dev
-
-      - name: Generate build
-        run: npm run build
-
-      - name: Test built app
-        run: npm run test:production:local

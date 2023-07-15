@@ -7,7 +7,7 @@ import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
 
-describe("auth middleware test", () => {
+describe("checkClient middleware test", () => {
   for (const event of eventsWithoutAuth) {
     it(`should not get error: CLIENT_NOT_FOUND - ${event.name}`, async () => {
       const socket = (await clientInitializer().createComplete()).getClient();

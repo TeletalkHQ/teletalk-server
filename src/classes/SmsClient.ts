@@ -37,7 +37,7 @@ export class SmsClient {
   }
 
   private async devProvider(sendTo: string, text: string) {
-    logger.debug(`verificationCode sending to:${sendTo}`, `text:${text}`);
+    logger.info(`verificationCode sending to:${sendTo}`, `text:${text}`);
   }
 
   private async provider1(sendTo: string, text: string) {

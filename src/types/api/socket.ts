@@ -91,7 +91,7 @@ export type CustomOn = (
   callback: SocketOnHandler<any>
 ) => void;
 
-export type SocketNext = (err?: Error | undefined) => void;
+export type SocketNext = (error?: Error | undefined) => void;
 
 export type SocketMiddlewareEvent<IOType extends IO = any> = [
   EventName,

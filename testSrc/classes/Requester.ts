@@ -1,5 +1,5 @@
+import chai from "chai";
 import { IoFields } from "check-fields";
-import { customTypeof } from "custom-typeof";
 import { Socket as Client } from "socket.io-client";
 import { objectUtils } from "utility-store";
 
@@ -14,6 +14,7 @@ import {
 
 import { RequesterOptions } from "@/types";
 import { loggerHelper } from "@/utils/logHelper";
+import { FIELD_TYPE } from "@/variables";
 
 export class Requester<IOType extends IO> {
   private error?: NativeError;
@@ -120,9 +121,11 @@ export class Requester<IOType extends IO> {
     const requestData = this.getRequestData();
 
     const response = (await new Promise((resolve, _reject) => {
+      this.socket.connect();
       this.socket.emit(name, requestData, resolve);
     })) as SocketResponse;
 
+    this.socket.disconnect();
     this.setResponse(response);
 
     return this;
@@ -174,7 +177,7 @@ export class Requester<IOType extends IO> {
   checkOk() {
     const requestOk = this.getError() ? false : true;
     const responseOk = this.getResponse().ok;
-    expect(responseOk).toEqual(requestOk);
+    chai.expect(responseOk).to.be.equal(requestOk);
     return this;
   }
 
@@ -190,10 +193,10 @@ export class Requester<IOType extends IO> {
 
     const { reason: expectedReason } = expectedError;
     const { errors } = this.getResponse();
-    expect(customTypeof.isArray(errors)).toBeTruthy();
+    chai.expect(errors).to.be.an(FIELD_TYPE.ARRAY);
 
-    const err = errors?.find((i) => i.reason === expectedReason);
-    expect(err?.reason).toEqual(expectedReason);
+    const error = errors?.find((i) => i.reason === expectedReason);
+    chai.expect(error?.reason).to.be.equal(expectedReason);
 
     return this;
   }

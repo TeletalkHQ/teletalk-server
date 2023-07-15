@@ -1,3 +1,5 @@
+import chai from "chai";
+
 import { services } from "~/services";
 import { UserId } from "~/types/datatypes";
 
@@ -71,20 +73,20 @@ const testBlacklistAfterRemoveOneItem = async (
   blacklist: string[]
 ) => {
   const blacklistAfterRemove = await findBlacklist(currentUserId);
-  expect(blacklistAfterRemove.length).toBe(blacklist.length);
+  chai.expect(blacklistAfterRemove.length).to.be.equal(blacklist.length);
 
   blacklist.forEach((i) => {
     const foundUserId = blacklistAfterRemove.find(
       (j) => i === j.userId
     )?.userId;
 
-    expect(i).toBe(foundUserId);
+    chai.expect(i).to.be.equal(foundUserId);
   });
 };
 
 const testBlacklistAfterRemoveAll = async (userId: UserId) => {
   const blacklistAfterRemoveAll = await findBlacklist(userId);
-  expect(blacklistAfterRemoveAll.length).toBe(0);
+  chai.expect(blacklistAfterRemoveAll.length).to.be.equal(0);
 };
 
 const findBlacklist = async (userId: UserId) => {

@@ -29,7 +29,7 @@ export const loggerHelper = {
     error: unknown
   ) {
     logger.bgRed(`${escapeChars.newLine}request details:`, "black").dir(
-      "debug",
+      "info",
       {
         options,
         requestData,

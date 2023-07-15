@@ -1,3 +1,4 @@
+import chai from "chai";
 import { UserId } from "utility-store/lib/types";
 
 import { services } from "~/services";
@@ -38,7 +39,7 @@ describe("send message success tests", () => {
       targetUser.userId
     ))!;
 
-    expect(chat.messages.length).toBe(messagesLength);
+    chai.expect(chat.messages.length).to.be.equal(messagesLength);
   });
 });
 

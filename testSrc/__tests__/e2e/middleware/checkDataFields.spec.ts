@@ -6,7 +6,7 @@ import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
 
-await utils.asyncDescribe("checkBodyFields middleware tests", async () => {
+await utils.asyncDescribe("checkDataFields middleware tests", async () => {
   const { socket } = await randomMaker.user();
 
   const eventsWithInputFields = events.filter(

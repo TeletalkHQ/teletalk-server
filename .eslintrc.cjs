@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { defineConfig } = require("eslint-define-config");
 const restrictedGlobals = require("eslint-restricted-globals");
+require("@rushstack/eslint-patch/modern-module-resolution");
 
 module.exports = defineConfig({
   env: {
@@ -30,8 +31,10 @@ module.exports = defineConfig({
   plugins: [
     "@cspell",
     "@typescript-eslint",
+    "chai-friendly",
     "import",
     "sonarjs",
+    "unicorn",
     "unused-imports",
   ],
   rules: {
@@ -64,7 +67,8 @@ module.exports = defineConfig({
     "no-process-exit": "off",
     "no-restricted-globals": ["error"].concat(restrictedGlobals),
     "no-undef": "error",
-    "no-unused-expressions": 2,
+    "no-unused-expressions": 0,
+    "chai-friendly/no-unused-expressions": 1,
     "no-unused-vars": "off",
     "no-use-before-define": [
       "error",

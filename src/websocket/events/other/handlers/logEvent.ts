@@ -6,9 +6,9 @@ export const logEvent: SocketOnAnyHandler = async (
   data,
   eventName
 ) => {
-  logger.debug(`socket.eventName:${eventName}`);
+  logger.info(`socket.eventName:${eventName}`);
   if (data) {
-    logger.debug("data:");
-    logger.dir("debug", data, { depth: 12 });
+    logger.info("data:");
+    logger.dir("info", data, { depth: 12 });
   }
 };

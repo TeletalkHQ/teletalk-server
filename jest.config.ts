@@ -1,18 +1,31 @@
+import os from "os";
 import { JestConfigWithTsJest, pathsToModuleNameMapper } from "ts-jest";
 
 import tsconfig from "./tsconfig.json";
 
+const maxThreads = os.cpus().length;
+const maxWorkers = process.env.MAXIMIZE_THREADS ? maxThreads : maxThreads / 2;
+
 let baseOptions: JestConfigWithTsJest = {
+  automock: false,
+  cache: false,
+  clearMocks: false,
+  detectLeaks: false,
+  detectOpenHandles: false,
+  errorOnDeprecated: false,
   extensionsToTreatAsEsm: [".ts"],
   forceExit: true,
   logHeapUsage: false,
-  maxWorkers: 4,
+  maxWorkers,
+  // testRunner: "jest-jasmine2",
   moduleFileExtensions: ["js", "ts", "json", "node"],
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
   modulePaths: [tsconfig.compilerOptions.baseUrl],
-  setupFiles: ["./jest.setup.ts"],
-  setupFilesAfterEnv: ["./configs/jestConsoleFix.js"],
+  resetModules: false,
+  setupFiles: ["./configs/jest/jest.setup.ts"],
+  setupFilesAfterEnv: ["./configs/jest/setupFileAfterEnv.ts"],
   silent: false,
+  skipNodeResolution: false,
   testEnvironment: "node",
   // testMatch: ["**/testSrc/index.ts"],
   testPathIgnorePatterns: [
@@ -20,8 +33,8 @@ let baseOptions: JestConfigWithTsJest = {
     "<rootDir>/lib",
     "<rootDir>/coverage",
   ],
+  testRegex: ".*.spec.ts",
   testTimeout: 20000,
-  // testRegex: ".*.spec.ts",
   transform: {
     "^.+\\.ts?$": [
       "ts-jest",

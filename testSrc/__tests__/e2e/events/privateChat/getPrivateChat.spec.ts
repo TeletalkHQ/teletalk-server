@@ -1,4 +1,4 @@
-import { customTypeof } from "custom-typeof";
+import chai from "chai";
 import { Socket } from "socket.io-client";
 import { UserData } from "utility-store/lib/types";
 
@@ -10,6 +10,7 @@ import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
 describe("getPrivateChat success tests", () => {
   it("Should get private chat related to client by chatId", async () => {
@@ -53,18 +54,18 @@ const testPrivateChat = async (
   targetUser: UserData
 ) => {
   const { privateChat } = await getPrivateChat(socket, chatId);
-  expect(customTypeof.isObject(privateChat)).toBeTruthy();
-  expect(customTypeof.isArray(privateChat.participants)).toBeTruthy();
-  expect(privateChat.participants).toHaveLength(2);
+  chai.expect(privateChat).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(privateChat.participants).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(privateChat.participants.length).to.be.equal(2);
 
   const privateChatFromDb = await findStoredPrivateChat(
     currentUser.userId,
     targetUser.userId
   );
 
-  expect(customTypeof.isObject(privateChatFromDb)).toBeTruthy();
-  expect(customTypeof.isArray(privateChatFromDb.participants)).toBeTruthy();
-  expect(privateChatFromDb.participants).toHaveLength(2);
+  chai.expect(privateChatFromDb).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(privateChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(privateChatFromDb.participants.length).to.be.equal(2);
 
   testChatId(chatId, privateChat, privateChatFromDb);
   testMessages(privateChat, privateChatFromDb);

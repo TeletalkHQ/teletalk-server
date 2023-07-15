@@ -113,7 +113,7 @@ const catchBlock = (
     ok: false,
   };
 
-  logger.debug(`customOn:catchBlock:${eventName}`, error);
+  logger.error(`customOn:catchBlock:${eventName}`, error);
 
   if (typeof responseCallback === "function") responseCallback(response);
 

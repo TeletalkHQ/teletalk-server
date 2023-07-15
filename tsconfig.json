@@ -28,9 +28,10 @@
   "exclude": ["node_modules"],
   "include": [
     "src/**/*.ts",
+    "configs/**/*.ts",
     "./index.ts",
     "testSrc/**/*.ts",
-    "./jest.setup.ts"
+    "configs/jest/jest.setup.ts"
   ],
   "ts-node": {
     "esm": true,

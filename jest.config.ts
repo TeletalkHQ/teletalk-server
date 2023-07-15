@@ -4,7 +4,6 @@ import { JestConfigWithTsJest, pathsToModuleNameMapper } from "ts-jest";
 import tsconfig from "./tsconfig.json";
 
 const maxThreads = os.cpus().length;
-
 const maxWorkers = process.env.MAXIMIZE_THREADS ? maxThreads : maxThreads / 2;
 
 let baseOptions: JestConfigWithTsJest = {
@@ -23,11 +22,8 @@ let baseOptions: JestConfigWithTsJest = {
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
   modulePaths: [tsconfig.compilerOptions.baseUrl],
   resetModules: false,
-  setupFiles: ["./jest.setup.ts"],
-  setupFilesAfterEnv: [
-    // "./configs/jest/consoleFix.js",
-    "./configs/jest/setupFileAfterEnv.ts",
-  ],
+  setupFiles: ["./configs/jest/jest.setup.ts"],
+  setupFilesAfterEnv: ["./configs/jest/setupFileAfterEnv.ts"],
   silent: false,
   skipNodeResolution: false,
   testEnvironment: "node",

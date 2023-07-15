@@ -1,3 +1,5 @@
+import chai from "chai";
+
 import { clientStore } from "~/classes/ClientStore";
 import { services } from "~/services";
 
@@ -37,13 +39,13 @@ describe("logout success tests", () => {
     const isClientExist = userFromDb.clients.some(
       ({ clientId }) => clientId === clientIdToRemove
     );
-    expect(isClientExist).toBeFalsy();
+    chai.expect(isClientExist).to.be.false;
 
     clients.forEach((item) => {
       const isClientExist = userFromDb.clients.some(
         (i) => i.clientId === item.clientId
       );
-      expect(isClientExist).toBeTruthy();
+      chai.expect(isClientExist).to.be.true;
     });
   });
 });

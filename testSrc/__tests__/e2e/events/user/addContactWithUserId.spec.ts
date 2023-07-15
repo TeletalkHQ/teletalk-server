@@ -1,4 +1,4 @@
-import { customTypeof } from "custom-typeof";
+import chai from "chai";
 import { maker } from "utility-store";
 import { ContactItem, FullNameWithUserId } from "utility-store/lib/types";
 
@@ -9,6 +9,7 @@ import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
 describe("add contact success tests", () => {
   it("should add users to contacts", async () => {
@@ -53,8 +54,8 @@ describe("add contact success tests", () => {
       userId: currentUser.userId,
     }))!;
 
-    expect(customTypeof.isArray(contacts)).toBeTruthy();
-    expect(contacts.length).toEqual(contactsLength);
+    chai.expect(contacts).to.be.an(FIELD_TYPE.ARRAY);
+    chai.expect(contacts.length).to.be.equal(contactsLength);
   });
 });
 
@@ -120,8 +121,8 @@ const testResponse = async (data: {
 
 const testTargetUserContacts = async (targetUserId: UserId) => {
   const targetUserContacts = await findContacts(targetUserId);
-  expect(customTypeof.isArray(targetUserContacts)).toBeTruthy();
-  expect(targetUserContacts).toHaveLength(0);
+  chai.expect(targetUserContacts).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(targetUserContacts.length).to.be.equal(0);
 };
 
 const findSavedContact = async (

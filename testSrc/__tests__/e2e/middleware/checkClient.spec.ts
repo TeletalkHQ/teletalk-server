@@ -1,3 +1,5 @@
+import chai from "chai";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { eventsWithAuth, eventsWithoutAuth } from "~/websocket/events";
 
@@ -5,7 +7,7 @@ import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
 
-describe("auth middleware test", () => {
+describe("checkClient middleware test", () => {
   for (const event of eventsWithoutAuth) {
     it(`should not get error: CLIENT_NOT_FOUND - ${event.name}`, async () => {
       const socket = (await clientInitializer().createComplete()).getClient();
@@ -14,8 +16,8 @@ describe("auth middleware test", () => {
       ).getResponse();
 
       const { reason: expectedReason } = errorStore.find("CLIENT_NOT_FOUND");
-      const err = response.errors?.find((i) => i.reason === expectedReason);
-      expect(err?.reason).toBeFalsy();
+      const error = response.errors?.find((i) => i.reason === expectedReason);
+      chai.expect(!!error?.reason).to.be.false;
     });
   }
 

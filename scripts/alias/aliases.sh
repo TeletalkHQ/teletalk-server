@@ -31,7 +31,6 @@ alias nrspl="nrb&&npm run start:production:local"
 alias nrtc="npm run test:coverage"
 alias nrtd="npm run test:dev"
 alias nrtp="nrb&&npm run test:production"
-alias nrtpl="nrb&&npm run test:production:local"
 
 #? yarn
 alias ya="yarn add"

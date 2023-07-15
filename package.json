@@ -30,8 +30,7 @@
     "test-runner": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx jest",
     "test:coverage": "cross-env COVERAGE=true npm run test:dev",
     "test:dev": "cross-env NODE_ENV=test_development npm run test-runner",
-    "test:production": "cross-env NODE_ENV=test_production npm run test-runner",
-    "test:production:local": "cross-env NODE_ENV=test_production_local npm run test-runner"
+    "test:production": "cross-env NODE_ENV=test_production npm run test-runner"
   },
   "dependencies": {
     "@redis/json": "^1.0.4",

@@ -13,7 +13,7 @@ await (async () => {
   appConfigs.setPort(randomMaker.numberWithRange(8000, 50000));
 
   logger.offAll();
-  logger.on("error");
+  logger.on("debug");
 
   Trier.changeGlobalConfigs({
     callerName: "unknownCaller",

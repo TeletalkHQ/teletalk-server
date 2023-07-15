@@ -1,3 +1,5 @@
+import chai from "chai";
+
 import { clientStore } from "~/classes/ClientStore";
 import { models } from "~/models";
 import { services } from "~/services";
@@ -17,11 +19,11 @@ describe("verifySignIn success test", () => {
     const helper = authHelper(cellphone, fullName);
     await helper.signIn();
     await helper.verify();
-    expect(helper.getResponses().verify.data.newUser).toBe(true);
+    chai.expect(helper.getResponses().verify.data.newUser).to.be.true;
 
     const client = (await clientStore.find(helper.getClientId()))!;
 
-    expect(client.isVerified).toBe(true);
+    chai.expect(client.isVerified).to.be.true;
   });
 
   it("should verify as exist user", async () => {
@@ -39,7 +41,7 @@ describe("verifySignIn success test", () => {
       await helper.signIn();
       await helper.verify();
 
-      expect(helper.getResponses().verify.data.newUser).toBeFalsy();
+      chai.expect(helper.getResponses().verify.data.newUser).to.be.false;
 
       clients.push(helper.getClientId());
       await testUserClientId(helper.getClientId());
@@ -47,11 +49,11 @@ describe("verifySignIn success test", () => {
 
     const user = (await services.findOneUser(cellphone))!;
 
-    expect(clients.length).toBe(user.clients.length);
+    chai.expect(clients.length).to.be.equal(user.clients.length);
 
     clients.forEach((item) => {
       const isExist = user.clients.some(({ clientId }) => clientId === item);
-      expect(isExist).toBe(true);
+      chai.expect(isExist).to.be.true;
     });
   });
 });

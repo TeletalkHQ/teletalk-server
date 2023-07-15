@@ -1,3 +1,4 @@
+import chai from "chai";
 import { extractor } from "utility-store";
 import { ContactItem, Contacts, UserData } from "utility-store/lib/types";
 
@@ -75,20 +76,22 @@ const testContactsAfterRemoveOneItem = async (
   addingContacts: Contacts
 ) => {
   const nonRemovedContacts = await findContacts(currentUser.userId);
-  expect(nonRemovedContacts.length).toEqual(addingContacts.length);
+  chai.expect(nonRemovedContacts.length).to.be.equal(addingContacts.length);
 
   addingContacts.forEach((addingContact) => {
     const nonRemovedContact = nonRemovedContacts.find(
       (j) => addingContact.userId === j.userId
     ) as ContactItem;
 
-    expect(addingContact).toEqual(extractor.contact(nonRemovedContact));
+    chai
+      .expect(addingContact)
+      .to.be.deep.equal(extractor.contact(nonRemovedContact));
   });
 };
 
 const testContactsAfterRemoveAll = async (userId: UserId) => {
   const contactsAfterRemoveAll = await findContacts(userId);
-  expect(contactsAfterRemoveAll.length).toEqual(0);
+  chai.expect(contactsAfterRemoveAll.length).to.be.equal(0);
 };
 
 const findContacts = async (userId: UserId) => {

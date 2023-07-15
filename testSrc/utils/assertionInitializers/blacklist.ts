@@ -1,3 +1,4 @@
+import chai from "chai";
 import { BlackListItem } from "utility-store/lib/types";
 
 import { AssertionInitializer } from "@/types";
@@ -13,7 +14,7 @@ export const blacklistAssertionInitializer: AssertionInitializer = ({
       (i: BlackListItem) => i.userId === blacklistItem.userId
     );
 
-    expect(foundBlacklistItem).toBe(FIELD_TYPE.OBJECT);
+    chai.expect(foundBlacklistItem).to.be.an(FIELD_TYPE.OBJECT);
 
     userIdAssertionInitializer({
       equalValue: blacklistItem.userId,

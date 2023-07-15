@@ -1,4 +1,4 @@
-import { customTypeof } from "custom-typeof";
+import chai from "chai";
 import { Socket } from "socket.io-client";
 import { UserData, UserId } from "utility-store/lib/types";
 
@@ -8,6 +8,7 @@ import { PrivateChatItem } from "~/types/datatypes";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
 describe("getPrivateChats success tests", () => {
   it("should get private chats related to client", async () => {
@@ -56,8 +57,8 @@ const testEmptinessOfPrivateChats = async (socket: Socket) => {
     data: { privateChats },
   } = await requester.sendFullFeaturedRequest();
 
-  expect(customTypeof.isArray(privateChats)).toBeTruthy();
-  expect(privateChats).toHaveLength(0);
+  chai.expect(privateChats).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(privateChats.length).to.be.equal(0);
 };
 
 const testPrivateChats = async (
@@ -66,7 +67,7 @@ const testPrivateChats = async (
   targetUser: UserData
 ) => {
   const { privateChats } = await getAllPrivateChats(currentUserSocket);
-  expect(customTypeof.isArray(privateChats)).toBeTruthy();
+  chai.expect(privateChats).to.be.an(FIELD_TYPE.ARRAY);
 
   const foundChatFromDb = (await findStoredPrivateChat(
     currentUser.userId,
@@ -99,7 +100,6 @@ const findStoredPrivateChat = async (
   targetUserId: string
 ) => {
   return await services.findOnePrivateChat({
-    //@ts-ignore
     "participants.participantId": {
       $all: [currentUserId, targetUserId],
     },
@@ -107,10 +107,9 @@ const findStoredPrivateChat = async (
 };
 
 const testFoundChatFromDb = (foundChatFromDb: PrivateChatItem) => {
-  expect(customTypeof.isObject(foundChatFromDb)).toBeTruthy();
-  expect(customTypeof.isArray(foundChatFromDb.participants)).toBeTruthy();
-  expect(customTypeof.isArray(foundChatFromDb.participants)).toBeTruthy();
-  expect(foundChatFromDb.participants).toHaveLength(2);
+  chai.expect(foundChatFromDb).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(foundChatFromDb.participants).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(foundChatFromDb.participants.length).to.be.equal(2);
 };
 
 const testOnePrivateChat = (data: {
@@ -119,9 +118,9 @@ const testOnePrivateChat = (data: {
   foundChatFromDb: PrivateChatItem;
   targetUserId: string;
 }) => {
-  expect(customTypeof.isObject(data.foundChat)).toBeTruthy();
-  expect(customTypeof.isArray(data.foundChat.participants)).toBeTruthy();
-  expect(data.foundChat.participants).toHaveLength(2);
+  chai.expect(data.foundChat).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(data.foundChat.participants).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(data.foundChat.participants.length).to.be.equal(2);
 
   tesChatId(data.foundChat, data.foundChatFromDb);
   testMessages(data.foundChat, data.foundChatFromDb);

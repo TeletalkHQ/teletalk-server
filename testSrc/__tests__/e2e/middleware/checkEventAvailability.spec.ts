@@ -1,3 +1,5 @@
+import chai from "chai";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { SocketEvent } from "~/types";
 import { events as mainEvents } from "~/websocket/events";
@@ -44,9 +46,11 @@ await utils.asyncDescribe(
 
           const { reason: expectedReason } = errorStore.find("EVENT_NOT_FOUND");
 
-          const err = responseErrors?.find((i) => i.reason === expectedReason);
+          const error = responseErrors?.find(
+            (i) => i.reason === expectedReason
+          );
 
-          expect(err?.reason).toBeFalsy();
+          chai.expect(!!error?.reason).to.be.false;
         });
       }
     };

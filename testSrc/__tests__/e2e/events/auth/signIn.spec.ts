@@ -1,4 +1,4 @@
-import { customTypeof } from "custom-typeof";
+import chai from "chai";
 import { extractor } from "utility-store";
 import { Cellphone } from "utility-store/lib/types";
 
@@ -14,6 +14,7 @@ import { clientInitializer } from "@/classes/ClientInitializer";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
 describe("signIn success test", () => {
   it("should sign as new user", async () => {
@@ -72,11 +73,11 @@ const testSavedClient = async (
   cellphone: Cellphone
 ) => {
   const client = (await clientStore.find(clientId))!;
-  expect(customTypeof.isObject(client)).toBeTruthy();
-  expect(client.countryCode).toBe(cellphone.countryCode);
-  expect(client.countryName).toBe(cellphone.countryName);
-  expect(client.phoneNumber).toBe(cellphone.phoneNumber);
-  expect(client.isVerified).toBe(false);
+  chai.expect(client).to.be.an(FIELD_TYPE.OBJECT);
+  chai.expect(client.countryCode).to.be.equal(cellphone.countryCode);
+  chai.expect(client.countryName).to.be.equal(cellphone.countryName);
+  chai.expect(client.phoneNumber).to.be.equal(cellphone.phoneNumber);
+  chai.expect(client.isVerified).to.be.false;
 
   assertionHelper
     .verificationCode({

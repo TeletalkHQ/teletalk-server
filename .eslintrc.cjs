@@ -32,6 +32,7 @@ module.exports = defineConfig({
     "@typescript-eslint",
     "import",
     "sonarjs",
+    "unicorn",
     "unused-imports",
   ],
   rules: {

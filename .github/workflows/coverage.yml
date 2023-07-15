@@ -18,6 +18,7 @@ jobs:
         operations: [ubuntu-latest]
 
     runs-on: ${{ matrix.operations }}
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v3

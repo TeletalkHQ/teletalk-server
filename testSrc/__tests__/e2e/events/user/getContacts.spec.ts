@@ -1,4 +1,4 @@
-import { customTypeof } from "custom-typeof";
+import chai from "chai";
 import { extractor } from "utility-store";
 import { ContactItem, Contacts } from "utility-store/lib/types";
 
@@ -7,6 +7,7 @@ import { services } from "~/services";
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
 describe("getContacts success tests", () => {
   it("", async () => {
@@ -37,8 +38,8 @@ describe("getContacts success tests", () => {
 });
 
 const testContacts = (addingContacts: Contacts, savedContacts: Contacts) => {
-  expect(customTypeof.isArray(savedContacts)).toBeTruthy();
-  expect(savedContacts.length).toEqual(addingContacts.length);
+  chai.expect(savedContacts).to.be.an(FIELD_TYPE.ARRAY);
+  chai.expect(savedContacts.length).to.be.equal(addingContacts.length);
 
   addingContacts.forEach((i) => {
     const savedContact = savedContacts.find((j) => i.userId === j.userId)!;

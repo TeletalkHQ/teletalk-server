@@ -1,3 +1,5 @@
+import chai from "chai";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { eventsWithAuth, eventsWithoutAuth } from "~/websocket/events";
 
@@ -14,8 +16,8 @@ describe("auth middleware test", () => {
       ).getResponse();
 
       const { reason: expectedReason } = errorStore.find("CLIENT_NOT_FOUND");
-      const err = response.errors?.find((i) => i.reason === expectedReason);
-      expect(err?.reason).toBeFalsy();
+      const error = response.errors?.find((i) => i.reason === expectedReason);
+      chai.expect(!!error?.reason).to.be.false;
     });
   }
 

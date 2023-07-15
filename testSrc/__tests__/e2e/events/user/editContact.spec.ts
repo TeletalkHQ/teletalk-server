@@ -1,3 +1,4 @@
+import chai from "chai";
 import { extractor } from "utility-store";
 import {
   ContactItem,
@@ -102,9 +103,9 @@ const testNonEditedContacts = (
     (i) => i.userId !== sentData.userId
   );
 
-  expect(filterNonEditedCurrentUserContacts.length).toBe(
-    filterNonEditedContacts.length
-  );
+  chai
+    .expect(filterNonEditedCurrentUserContacts.length)
+    .to.be.equal(filterNonEditedContacts.length);
 
   filterNonEditedContacts.forEach((contactItem) => {
     const foundCurrentUserContactItem = filterNonEditedCurrentUserContacts.find(

@@ -32,8 +32,7 @@
     "test-runner:jest": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx jest",
     "test-runner:mocha": "mocha",
     "test:coverage": "cross-env COVERAGE=true npm run test:dev",
-    "test:dev": "cross-env NODE_ENV=test_development npm run test-runner",
-    "test:production": "cross-env NODE_ENV=test_production npm run test-runner"
+    "test:dev": "cross-env NODE_ENV=test_development npm run test-runner"
   },
   "dependencies": {
     "@redis/json": "^1.0.4",

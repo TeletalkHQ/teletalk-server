@@ -19,13 +19,11 @@ COPY index.ts ./
 COPY loader.js ./
 
 COPY src/ src/
-COPY testSrc/ testSrc/
 
 RUN npm run build
 
 USER node
 
 CMD npm run start:production:local
-# CMD npm run test:production:local && npm run start:production:local
 
 EXPOSE 9000

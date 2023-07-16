@@ -28,7 +28,7 @@
     "start:production": "cross-env NODE_ENV=production npm run app-runner",
     "start:production:local": "cross-env NODE_ENV=production_local npm run app-runner",
     "test-runner": "npm run test-runner:default",
-    "test-runner:default": "npm run test-runner:jest",
+    "test-runner:default": "npm run test-runner:mocha",
     "test-runner:jest": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx jest",
     "test-runner:mocha": "mocha",
     "test:coverage": "cross-env COVERAGE=true npm run test:dev",

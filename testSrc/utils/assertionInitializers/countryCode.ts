@@ -7,8 +7,7 @@ export const countryCodeAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  assertionInitializer
-    .create()
+  assertionInitializer()
     .setVariables(models.native.countryCode, equalValue, testValue)
     .setOptions(options)
     .addCommonTest()

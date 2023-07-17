@@ -7,8 +7,7 @@ export const bioE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
-  e2eFailTestInitializer
-    .create(configuredRequester, data, models.native.bio, "bio")
+  e2eFailTestInitializer(configuredRequester, data, models.native.bio, "bio")
     .missing()
     .overload()
     .invalidType()

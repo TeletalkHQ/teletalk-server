@@ -7,8 +7,7 @@ export const verificationCodeAssertionInitializer: AssertionInitializer = (
   { testValue },
   options
 ) => {
-  assertionInitializer
-    .create()
+  assertionInitializer()
     .setVariables(models.native.verificationCode, "", testValue)
     .setOptions(options)
     .typeCheck()

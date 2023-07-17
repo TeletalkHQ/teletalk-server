@@ -179,6 +179,5 @@ export class AssertionInitializer<Model extends NativeModel = any> {
   }
 }
 
-export const assertionInitializer = {
-  create: <Model extends NativeModel>() => new AssertionInitializer<Model>(),
-};
+export const assertionInitializer = <Model extends NativeModel>() =>
+  new AssertionInitializer<Model>();

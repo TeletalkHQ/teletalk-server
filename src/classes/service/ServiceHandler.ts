@@ -118,11 +118,9 @@ export class ServiceHandler<
   }
 }
 
-export const serviceHandler = {
-  create:
-    <QueryData, ProjectionType, ReturnType extends StringMap>(
-      serviceBody: ServiceFn<QueryData, ProjectionType, ReturnType>
-    ) =>
-    (runtimeOptions?: PartialOptions) =>
-      new ServiceHandler(serviceBody, runtimeOptions),
-};
+export const serviceHandler =
+  <QueryData, ProjectionType, ReturnType extends StringMap>(
+    serviceBody: ServiceFn<QueryData, ProjectionType, ReturnType>
+  ) =>
+  (runtimeOptions?: PartialOptions) =>
+    new ServiceHandler(serviceBody, runtimeOptions);

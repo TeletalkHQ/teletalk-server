@@ -10,7 +10,7 @@ export const privateChatsAssertionInitializer: AssertionInitializer = (
   { testValue },
   _options
 ) => {
-  const builder = assertionInitializer.create();
+  const builder = assertionInitializer();
   //   .setModel(chatModels.privateChats)
   //   .setTestValue(testValue)
   //   .setOptions(options);

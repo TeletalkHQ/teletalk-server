@@ -46,6 +46,7 @@ const catchBlock = (
     data: {},
     errors: utils.resolveResponseError(error),
     ok: false,
+    eventName: socketMiddlewareEvent[0],
   };
 
   const successResponseCallback = socketMiddlewareEvent[2];

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { randomMaker } from "utility-store";
 
 import { errorStore } from "~/classes/ErrorStore";
@@ -112,17 +113,18 @@ class E2eFailTestInitializer<
   }
 }
 
-export const e2eFailTestInitializer = {
-  create: <PartialNativeModel extends Model, IOType extends IO>(
-    configuredRequester: Requester<IOType>,
-    data: any,
-    model: PartialNativeModel,
-    fieldName: Field
-  ) =>
-    new E2eFailTestInitializer<PartialNativeModel, IOType>(
-      configuredRequester,
-      data,
-      model,
-      fieldName
-    ),
-};
+export const e2eFailTestInitializer = <
+  PartialNativeModel extends Model,
+  IOType extends IO
+>(
+  configuredRequester: Requester<IOType>,
+  data: any,
+  model: PartialNativeModel,
+  fieldName: Field
+) =>
+  new E2eFailTestInitializer<PartialNativeModel, IOType>(
+    configuredRequester,
+    data,
+    model,
+    fieldName
+  );

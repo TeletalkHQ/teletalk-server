@@ -9,8 +9,7 @@ export const messageTextAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  assertionInitializer
-    .create()
+  assertionInitializer()
     .setVariables(chatModels.messageText, equalValue, testValue)
     .setOptions(options)
     .addCommonTest()

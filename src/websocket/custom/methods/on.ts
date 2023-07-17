@@ -40,8 +40,9 @@ export const registerCustomOn = (socket: Socket) => {
       if (typeof responseCallback === "function") {
         const response: SocketResponse = {
           data: returnValue?.data || {},
-          ok: true,
           errors: [],
+          eventName,
+          ok: true,
         };
 
         responseCallback(response);
@@ -110,6 +111,7 @@ const catchBlock = (
   const response: SocketResponse = {
     data: {},
     errors: utils.resolveResponseError(error),
+    eventName,
     ok: false,
   };
 

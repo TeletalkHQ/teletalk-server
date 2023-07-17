@@ -14,7 +14,12 @@ export const registerCustomEmit = (socket: Socket) => {
 };
 
 const tryBlock = (socket: Socket, data: StringMap, eventName: EventName) => {
-  const response: SocketResponse = { data, ok: true, errors: [] };
+  const response: SocketResponse = {
+    data,
+    errors: [],
+    eventName,
+    ok: true,
+  };
 
   socket.emit(eventName, response);
 };

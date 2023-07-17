@@ -7,8 +7,7 @@ export const phoneNumberAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  assertionInitializer
-    .create()
+  assertionInitializer()
     .setVariables(models.native.phoneNumber, equalValue, testValue)
     .setOptions(options)
     .emptyCheck()

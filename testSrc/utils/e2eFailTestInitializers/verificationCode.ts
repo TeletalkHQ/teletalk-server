@@ -9,7 +9,7 @@ export const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
-  const builder = e2eFailTestInitializer.create(
+  const builder = e2eFailTestInitializer(
     configuredRequester,
     data,
     models.native.verificationCode,

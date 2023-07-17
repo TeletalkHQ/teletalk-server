@@ -13,7 +13,7 @@ export class ErrorBuilder<ReasonType extends ErrorReason> {
   makeDefaultError() {
     return {
       isAuthError: false,
-      side: "client",
+      side: "CLIENT",
     } as NativeError;
   }
 

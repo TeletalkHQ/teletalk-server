@@ -39,6 +39,7 @@ export interface SocketResponse<Data = IO["output"]> {
   data: Data;
   errors: SocketResponseErrors;
   ok: boolean;
+  eventName: EventName;
 }
 
 export type ResponseCallback<Data = IO["output"]> = (

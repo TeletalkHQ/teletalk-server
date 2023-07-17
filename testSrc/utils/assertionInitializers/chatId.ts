@@ -9,8 +9,7 @@ export const chatIdAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  assertionInitializer
-    .create()
+  assertionInitializer()
     .setVariables(chatModels.chatId, equalValue, testValue)
     .setOptions(options)
     .addCommonTest()

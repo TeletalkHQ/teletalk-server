@@ -1,4 +1,4 @@
-import { validationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
+import { validationModelBuilder } from "~/classes/ValidationModelBuilder";
 import { nativeModels } from "~/models/native";
 import { ValidationCollection } from "~/types";
 import { Field } from "~/types/models";
@@ -8,9 +8,7 @@ export const validationModels: ValidationCollection = Object.keys(
 ).reduce((prevValue, currValue) => {
   const model = nativeModels[currValue as Field];
 
-  const builder = validationModelBuilder
-    .create(currValue as Field)
-    .setModel(model);
+  const builder = validationModelBuilder(currValue as Field).setModel(model);
 
   if ("empty" in model) builder.empty();
   if ("length" in model) builder.length();

@@ -7,8 +7,7 @@ export const firstNameAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  assertionInitializer
-    .create()
+  assertionInitializer()
     .setVariables(models.native.firstName, equalValue, testValue)
     .setOptions(options)
     .addCommonTest()

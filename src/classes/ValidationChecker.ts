@@ -7,7 +7,7 @@ import {
   ValidationErrors,
   ValidationResult,
 } from "~/types";
-import { Field, NativeModel } from "~/types/models";
+import { Field, NativeModelKey } from "~/types/models";
 import { utils } from "~/utils";
 
 export class ValidationChecker {
@@ -75,7 +75,7 @@ export class ValidationChecker {
     return this;
   }
 
-  resolveError(prop: keyof NativeModel) {
+  resolveError(prop: NativeModelKey) {
     return errorStore.find(utils.makeModelErrorReason(this.fieldName, prop));
   }
 

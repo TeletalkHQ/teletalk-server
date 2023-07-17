@@ -7,8 +7,7 @@ export const bioAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  assertionInitializer
-    .create()
+  assertionInitializer()
     .setVariables(models.native.bio, equalValue, testValue)
     .setOptions(options)
     .emptyCheck()

@@ -11,7 +11,7 @@ export const customErrors = [
   errorBuilder().reason("CLIENT_NOT_VERIFIED").build(),
   errorBuilder().reason("CONTACT_ITEM_EXIST").build(),
   errorBuilder().reason("CONTACT_ITEM_NOT_EXIST").build(),
-  errorBuilder().reason("COOKIE_IS_NOT_DEFINED").side("client").build(),
+  errorBuilder().reason("COOKIE_IS_NOT_DEFINED").side("CLIENT").build(),
   errorBuilder().reason("COUNTRY_CODE_NOT_SUPPORTED").build(),
   errorBuilder().reason("COUNTRY_NAME_NOT_SUPPORTED").build(),
   errorBuilder().reason("CURRENT_CLIENT_NOT_EXIST").build(),
@@ -24,34 +24,34 @@ export const customErrors = [
   errorBuilder().reason("INPUT_FIELDS_OVERLOAD").build(),
   errorBuilder().reason("IS_NOT_A_CALLBACK").build(),
   errorBuilder().reason("OUTPUT_DATA_NOT_DEFINED").build(),
-  errorBuilder().reason("OUTPUT_FIELD_INVALID_TYPE").side("server").build(),
-  errorBuilder().reason("OUTPUT_FIELD_TYPE_WRONG").side("server").build(),
-  errorBuilder().reason("OUTPUT_FIELDS_MISSING").side("server").build(),
-  errorBuilder().reason("OUTPUT_FIELDS_OVERLOAD").side("server").build(),
-  errorBuilder().reason("REQUIRED_FIELD_INVALID").side("server").build(),
-  errorBuilder().reason("REQUIRED_FIELD_INVALID_TYPE").side("server").build(),
-  errorBuilder().reason("REQUIRED_FIELDS_NOT_DEFINED").side("server").build(),
+  errorBuilder().reason("OUTPUT_FIELD_INVALID_TYPE").side("SERVER").build(),
+  errorBuilder().reason("OUTPUT_FIELD_TYPE_WRONG").side("SERVER").build(),
+  errorBuilder().reason("OUTPUT_FIELDS_MISSING").side("SERVER").build(),
+  errorBuilder().reason("OUTPUT_FIELDS_OVERLOAD").side("SERVER").build(),
+  errorBuilder().reason("REQUIRED_FIELD_INVALID").side("SERVER").build(),
+  errorBuilder().reason("REQUIRED_FIELD_INVALID_TYPE").side("SERVER").build(),
+  errorBuilder().reason("REQUIRED_FIELDS_NOT_DEFINED").side("SERVER").build(),
   errorBuilder()
     .reason("REQUIRED_IO_FIELD_IS_NOT_ARRAY")
-    .side("server")
+    .side("SERVER")
     .build(),
   errorBuilder()
     .reason("REQUIRED_IO_FIELD_IS_NOT_OBJECT")
-    .side("server")
+    .side("SERVER")
     .build(),
   errorBuilder().reason("SELF_STUFF").build(),
   errorBuilder()
     .reason("SEND_JSON_RESPONSE_IS_NOT_FUNCTION")
-    .side("server")
+    .side("SERVER")
     .build(),
-  errorBuilder().reason("SEND_SMS_FAILED").side("server").build(),
+  errorBuilder().reason("SEND_SMS_FAILED").side("SERVER").build(),
   errorBuilder().reason("SENDER_EMPTY").build(),
-  errorBuilder().reason("SERVER_CRITICAL_ERROR").side("server").build(),
+  errorBuilder().reason("SERVER_CRITICAL_ERROR").side("SERVER").build(),
   errorBuilder()
     .reason("SHOULD_NOT_SEND_BOTH_USER_ID_AND_CELLPHONE_PROPERTIES")
     .build(),
   errorBuilder().reason("TARGET_USER_NOT_EXIST").build(),
-  errorBuilder().reason("UNKNOWN_ERROR").side("server").build(),
+  errorBuilder().reason("UNKNOWN_ERROR").side("SERVER").build(),
   errorBuilder().reason("USER_EXIST").build(),
   errorBuilder().reason("USER_NO_LONGER_PARTICIPANT").build(),
 ];

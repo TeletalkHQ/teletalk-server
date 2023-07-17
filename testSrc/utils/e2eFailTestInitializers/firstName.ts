@@ -7,8 +7,12 @@ export const firstNameE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
-  e2eFailTestInitializer
-    .create(configuredRequester, data, models.native.firstName, "firstName")
+  e2eFailTestInitializer(
+    configuredRequester,
+    data,
+    models.native.firstName,
+    "firstName"
+  )
     .missing()
     .overload()
     .invalidType()

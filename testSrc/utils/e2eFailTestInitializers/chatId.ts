@@ -9,8 +9,7 @@ export const chatIdE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
-  e2eFailTestInitializer
-    .create(configuredRequester, data, chatModels.chatId, "chatId")
+  e2eFailTestInitializer(configuredRequester, data, chatModels.chatId, "chatId")
     .missing()
     .overload()
     .invalidType()

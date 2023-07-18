@@ -1,22 +1,26 @@
 import { errorBuilder } from "~/classes/ErrorBuilder";
 
 export const customErrors = [
+  errorBuilder()
+    .authError()
+    .reason("CLIENT_COOKIE_REQUIRED")
+    .authError()
+    .build(),
   errorBuilder().reason("BLACKLIST_ITEM_EXIST").build(),
   errorBuilder().reason("BLACKLIST_ITEM_NOT_EXIST").build(),
   errorBuilder().reason("CHAT_NOT_EXIST").build(),
-  errorBuilder().authError().reason("CLIENT_COOKIE_REQUIRED").build(),
-  errorBuilder().reason("CLIENT_ID_CAN_NOT_VERIFIED").build(),
-  errorBuilder().reason("CLIENT_INVALID").build(),
+  errorBuilder().reason("CLIENT_ID_CAN_NOT_VERIFIED").authError().build(),
+  errorBuilder().reason("CLIENT_INVALID").authError().build(),
   errorBuilder().reason("CLIENT_NOT_FOUND").authError().build(),
-  errorBuilder().reason("CLIENT_NOT_VERIFIED").build(),
+  errorBuilder().reason("CLIENT_NOT_VERIFIED").authError().build(),
   errorBuilder().reason("CONTACT_ITEM_EXIST").build(),
   errorBuilder().reason("CONTACT_ITEM_NOT_EXIST").build(),
-  errorBuilder().reason("COOKIE_IS_NOT_DEFINED").side("CLIENT").build(),
+  errorBuilder().reason("COOKIE_IS_NOT_DEFINED").authError().build(),
   errorBuilder().reason("COUNTRY_CODE_NOT_SUPPORTED").build(),
   errorBuilder().reason("COUNTRY_NAME_NOT_SUPPORTED").build(),
-  errorBuilder().reason("CURRENT_CLIENT_NOT_EXIST").build(),
+  errorBuilder().reason("CURRENT_CLIENT_NOT_EXIST").authError().build(),
   errorBuilder().reason("CURRENT_USER_EXIST").build(),
-  errorBuilder().reason("CURRENT_USER_NOT_EXIST").build(),
+  errorBuilder().reason("CURRENT_USER_NOT_EXIST").authError().build(),
   errorBuilder().reason("EVENT_NOT_FOUND").build(),
   errorBuilder().reason("INPUT_DATA_NOT_DEFINED").build(),
   errorBuilder().reason("INPUT_FIELD_INVALID_TYPE").build(),
@@ -28,8 +32,8 @@ export const customErrors = [
   errorBuilder().reason("OUTPUT_FIELD_TYPE_WRONG").side("SERVER").build(),
   errorBuilder().reason("OUTPUT_FIELDS_MISSING").side("SERVER").build(),
   errorBuilder().reason("OUTPUT_FIELDS_OVERLOAD").side("SERVER").build(),
-  errorBuilder().reason("REQUIRED_FIELD_INVALID").side("SERVER").build(),
   errorBuilder().reason("REQUIRED_FIELD_INVALID_TYPE").side("SERVER").build(),
+  errorBuilder().reason("REQUIRED_FIELD_INVALID").side("SERVER").build(),
   errorBuilder().reason("REQUIRED_FIELDS_NOT_DEFINED").side("SERVER").build(),
   errorBuilder()
     .reason("REQUIRED_IO_FIELD_IS_NOT_ARRAY")

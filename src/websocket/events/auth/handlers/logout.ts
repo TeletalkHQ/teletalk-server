@@ -10,7 +10,10 @@ export const logout: SocketOnHandler<LogoutIO> = async (socket) => {
     userId,
   });
 
+  socket.rooms.clear();
   await clientStore.remove(socket.clientId);
 
-  return { data: {} };
+  return {
+    data: {},
+  };
 };

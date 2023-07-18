@@ -82,10 +82,7 @@ export interface SocketEvent<IOType extends IO = any> extends Route {
 //   Extract<EventName, T>
 // >;
 
-export type CustomEmit<IOType extends IO = any> = (
-  eventName: EventName,
-  data: IOType["output"]
-) => void;
+export type CustomEmit = (eventName: EventName, data: SocketResponse) => void;
 
 export type CustomOn = (
   eventName: EventName,

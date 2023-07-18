@@ -60,7 +60,7 @@
     "jose": "^4.14.4",
     "lodash": "^4.17.21",
     "logger-chalker": "^5.1.2",
-    "mongoose": "^7.2.2",
+    "mongoose": "^7.3.3",
     "morgan": "^1.10.0",
     "nanoid": "^4.0.2",
     "nodemailer": "^6.9.3",

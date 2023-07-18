@@ -40,7 +40,7 @@ const catchBlock = (
   socket: Socket,
   socketMiddlewareEvent: SocketMiddlewareEvent
 ) => {
-  logger.error(`error in middleware:${socketMiddlewareEvent[0]}`, error);
+  logger.error(`customUse:catchBlock:${socketMiddlewareEvent[0]}`, error);
 
   const response: SocketResponse = {
     data: {},

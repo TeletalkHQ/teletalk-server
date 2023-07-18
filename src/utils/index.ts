@@ -14,6 +14,8 @@ import {
   SocketMiddleware,
   SocketMiddlewareEvent,
   SocketNext,
+  SocketResponse,
+  StringMap,
 } from "~/types";
 import {
   Field,
@@ -188,8 +190,19 @@ const makeModelErrorReason = (
   )}_ERROR` as ModelErrorReason;
 };
 
+const createSuccessResponse = (
+  eventName: EventName,
+  data: StringMap
+): SocketResponse => ({
+  data,
+  errors: [],
+  eventName,
+  ok: true,
+});
+
 export const utils = {
   crashServer,
+  createSuccessResponse,
   executeMiddlewares,
   extractClientFromCookie,
   getDefaultValidatorErrorTypes,

@@ -79,7 +79,9 @@ export interface GetWelcomeMessageIO {
 }
 export interface PingIO {
   input: object;
-  output: object;
+  output: {
+    pong: string;
+  };
 }
 
 export interface GetChatInfoIO {

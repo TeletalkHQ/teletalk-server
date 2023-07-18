@@ -21,6 +21,7 @@ export type EventName =
   | "joinRoom"
   | "logout"
   | "ping"
+  | "pong"
   | "removeBlock"
   | "removeContact"
   | "sendPrivateMessage"

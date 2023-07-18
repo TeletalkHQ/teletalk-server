@@ -215,6 +215,7 @@ const requesterCollection = {
     findEvent<UpdatePublicUserDataIO>("updatePublicUserData")
   ),
   verify: requesterMakerHelper(findEvent<VerifyIO>("verify")),
+  pong: requesterMakerHelper(findEvent<PingIO>("pong")),
 };
 
 export const utils = {

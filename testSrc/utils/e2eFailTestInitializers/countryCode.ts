@@ -11,7 +11,7 @@ export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
   data,
   ignores
 ) => {
-  const initializer = e2eFailTestInitializer.create(
+  const initializer = e2eFailTestInitializer(
     configuredRequester,
     data,
     models.native.countryCode,

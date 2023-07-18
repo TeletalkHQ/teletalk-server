@@ -7,8 +7,7 @@ export const usernameAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  const builder = assertionInitializer
-    .create()
+  const builder = assertionInitializer()
     .setVariables(models.native.username, equalValue, testValue)
     .setOptions(options);
 

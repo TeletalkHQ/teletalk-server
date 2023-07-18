@@ -48,7 +48,7 @@ export type CustomErrorReason =
 
 export type ErrorReason = ModelErrorReason | CustomErrorReason;
 
-export type ErrorSide = "server" | "client";
+export type ErrorSide = "SERVER" | "CLIENT";
 
 export interface NativeError {
   description?: string;

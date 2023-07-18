@@ -19,31 +19,22 @@ import { events } from "~/websocket/events";
 export const registerCustomOn = (socket: Socket) => {
   return ((eventName, handler) => {
     socket.on(eventName, async (data, responseCallback: ResponseCallback) => {
-      const returnValue = await tryToRunHandler(
+      const returnValue = (await tryToRunHandler(
         handler,
         socket,
         data,
         eventName,
         responseCallback
-      );
+      )) || { data: {} };
 
       //REFACTOR: Almost all events need to fix before enabling this feature
       // tryToCheckOutputFields(socket, eventName, returnValue.data, responseCallback);
 
-      // await tryToEmitReturnValue(
-      //   socket,
-      //   eventName,
-      //   returnValue || { data: {} },
-      //   responseCallback
-      // );
+      const response = utils.createSuccessResponse(eventName, returnValue.data);
+
+      await emitReturnValue(socket, eventName, response, responseCallback);
 
       if (typeof responseCallback === "function") {
-        const response: SocketResponse = {
-          data: returnValue?.data || {},
-          ok: true,
-          errors: [],
-        };
-
         responseCallback(response);
       }
     });
@@ -66,13 +57,13 @@ async function tryToRunHandler(
     .run();
 }
 
-function _tryToCheckOutputFields(
+function _checkOutputFields(
   socket: Socket,
   eventName: string,
   outputData: StringMap,
   responseCallback: ResponseCallback
 ) {
-  trier(_tryToCheckOutputFields.name)
+  trier(_checkOutputFields.name)
     .sync()
     .try(() => {
       const foundEvent = events.find((item) => item.name === eventName)!;
@@ -86,16 +77,17 @@ function _tryToCheckOutputFields(
     .run();
 }
 
-async function _tryToEmitReturnValue(
+async function emitReturnValue(
   socket: Socket,
   eventName: EventName,
-  returnValue: SocketHandlerReturnValue,
+  response: SocketResponse,
   responseCallback: ResponseCallback
 ) {
-  await trier(_tryToEmitReturnValue.name)
+  await trier(emitReturnValue.name)
     .async()
     .try(async () => {
-      socket.customEmit(eventName, returnValue.data);
+      socket.customEmit(eventName, response);
+      socket.to(socket.userId).emit(eventName, response);
     })
     .catch(catchBlock, socket, eventName, responseCallback)
     .run();
@@ -110,6 +102,7 @@ const catchBlock = (
   const response: SocketResponse = {
     data: {},
     errors: utils.resolveResponseError(error),
+    eventName,
     ok: false,
   };
 

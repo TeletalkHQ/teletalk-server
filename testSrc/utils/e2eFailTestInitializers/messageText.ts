@@ -9,8 +9,12 @@ export const messageTextE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
-  e2eFailTestInitializer
-    .create(configuredRequester, data, chatModels.messageText, "messageText")
+  e2eFailTestInitializer(
+    configuredRequester,
+    data,
+    chatModels.messageText,
+    "messageText"
+  )
     .missing()
     .overload()
     .invalidType()

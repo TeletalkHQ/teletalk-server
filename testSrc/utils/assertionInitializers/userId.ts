@@ -7,8 +7,7 @@ export const userIdAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  assertionInitializer
-    .create()
+  assertionInitializer()
     .setVariables(models.native.userId, equalValue, testValue)
     .setOptions(options)
     .emptyCheck()

@@ -1,20 +1,22 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { CustomEmit, EventName, SocketResponse, StringMap } from "~/types";
+import { CustomEmit, EventName, SocketResponse } from "~/types";
 
 export const registerCustomEmit = (socket: Socket) => {
-  return ((eventName, data) => {
+  return ((eventName, response) => {
     trier(`socket.customEmit:${eventName}`)
       .sync()
-      .try(tryBlock, socket, data, eventName)
+      .try(tryBlock, socket, response, eventName)
       .throw()
       .run();
   }) as CustomEmit;
 };
 
-const tryBlock = (socket: Socket, data: StringMap, eventName: EventName) => {
-  const response: SocketResponse = { data, ok: true, errors: [] };
-
+const tryBlock = (
+  socket: Socket,
+  response: SocketResponse,
+  eventName: EventName
+) => {
   socket.emit(eventName, response);
 };

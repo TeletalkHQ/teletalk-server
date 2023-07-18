@@ -5,9 +5,7 @@ export type NodeEnvValue =
   | "development"
   | "production_local"
   | "production"
-  | "test_development"
-  | "test_production_local"
-  | "test_production";
+  | "test_development";
 
 export type EnvFileName = NodeEnvValue | "base";
 

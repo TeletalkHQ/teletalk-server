@@ -21,6 +21,7 @@ export type EventName =
   | "joinRoom"
   | "logout"
   | "ping"
+  | "pong"
   | "removeBlock"
   | "removeContact"
   | "sendPrivateMessage"
@@ -39,6 +40,7 @@ export interface SocketResponse<Data = IO["output"]> {
   data: Data;
   errors: SocketResponseErrors;
   ok: boolean;
+  eventName: EventName;
 }
 
 export type ResponseCallback<Data = IO["output"]> = (
@@ -81,10 +83,7 @@ export interface SocketEvent<IOType extends IO = any> extends Route {
 //   Extract<EventName, T>
 // >;
 
-export type CustomEmit<IOType extends IO = any> = (
-  eventName: EventName,
-  data: IOType["output"]
-) => void;
+export type CustomEmit = (eventName: EventName, data: SocketResponse) => void;
 
 export type CustomOn = (
   eventName: EventName,

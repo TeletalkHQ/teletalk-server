@@ -11,7 +11,7 @@ export class ServiceBuilder {
   }
 
   build() {
-    return serviceHandler.create(this.serviceBody);
+    return serviceHandler(this.serviceBody);
   }
 }
 

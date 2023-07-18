@@ -9,9 +9,7 @@ export const mongodbConnector = () => {
 
   mongoose.set("strictQuery", false);
   mongoose.connection.once("connected", () =>
-    logger.info(
-      `MongoDB connected to: ${mongoose.connection.host}:${mongoose.connection.port}`
-    )
+    logger.info(`MongoDB connected to: ${configs.DB.MONGO_URI}`)
   );
 
   return mongoose.connect(configs.DB.MONGO_URI);
@@ -23,8 +21,6 @@ export const redisConnector = async () => {
     PASSWORD: appConfigs.getConfigs().DB.REDIS_PASSWORD,
     PORT: appConfigs.getConfigs().DB.REDIS_PORT,
   };
-
-  logger.info("REDIS_CONNECTION_OPTIONS:", REDIS_CONNECTION_OPTIONS);
 
   const storage = createClient({
     password: REDIS_CONNECTION_OPTIONS.PASSWORD,
@@ -46,3 +42,19 @@ export const redisConnector = async () => {
 
   return storage;
 };
+
+// async function run() {
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     // Send a ping to confirm a successful connection
+//     await client.db("admin").command({ ping: 1 });
+//     console.log(
+//       "Pinged your deployment. You successfully connected to MongoDB!"
+//     );
+//   } finally {
+//     // Ensures that the client will close when you finish/error
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);

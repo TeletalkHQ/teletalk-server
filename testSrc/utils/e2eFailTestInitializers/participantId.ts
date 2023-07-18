@@ -9,13 +9,12 @@ export const participantIdE2eFailTestInitializer: E2eFailTestInitializer = (
   configuredRequester,
   data
 ) => {
-  e2eFailTestInitializer
-    .create(
-      configuredRequester,
-      data,
-      chatModels.participantId,
-      "participantId"
-    )
+  e2eFailTestInitializer(
+    configuredRequester,
+    data,
+    chatModels.participantId,
+    "participantId"
+  )
     .missing()
     .overload()
     .invalidType()

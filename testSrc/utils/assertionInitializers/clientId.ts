@@ -7,8 +7,7 @@ export const clientIdAssertionInitializer: AssertionInitializer = (
   { equalValue, testValue },
   options
 ) => {
-  const builder = assertionInitializer
-    .create()
+  const builder = assertionInitializer()
     .setVariables(models.native.clientId, equalValue, testValue)
     .setOptions(options);
 

@@ -1,4 +1,4 @@
-import { ValidationModelBuilder } from "~/classes/modelBuilder/ValidationModelBuilder";
+import { ValidationModelBuilder } from "~/classes/ValidationModelBuilder";
 import { models } from "~/models";
 import { FieldValidator } from "~/types";
 import { Field } from "~/types/models";

@@ -11,6 +11,7 @@ import { requirements } from "~/requirements";
 // import { utils } from "~/utils";
 import { websocketServer } from "~/websocket";
 
+
 PrettyError.start();
 
 await appConfigs.setup();

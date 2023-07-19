@@ -40,6 +40,7 @@ const getWelcomeMessage = builder
 const ping = builder
   .create<PingIO>()
   .name("ping")
+  .noAuth()
   .handler(otherHandlers.ping)
   .build();
 

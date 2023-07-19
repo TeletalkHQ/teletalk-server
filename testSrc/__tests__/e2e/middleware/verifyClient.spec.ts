@@ -8,11 +8,13 @@ import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
 
-const eventsWithoutGetStuff = events.filter((i) => i.name !== "getStuff");
+const filteredEvents = events.filter(
+  (i) => !["getStuff", "ping"].includes(i.name)
+);
 
 //REFACTOR: fail suit message like this
 describe("verifyClient fail tests", () => {
-  for (const event of eventsWithoutGetStuff) {
+  for (const event of filteredEvents) {
     const title = utils.createFailTestMessage(
       errorStore.find("CLIENT_INVALID"),
       event.name

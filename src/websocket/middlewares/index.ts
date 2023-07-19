@@ -28,16 +28,16 @@ export const registerMiddlewares = (socket: Socket) => {
     next();
   });
 
-  socket.customUse(ignoreMiddlewares("getStuff", attachClientStr));
-  socket.customUse(ignoreMiddlewares("getStuff", verifyClient));
-  socket.customUse(ignoreMiddlewares("getStuff", attachClientId));
-  socket.customUse(ignoreMiddlewares("getStuff", validateClientId));
+  socket.customUse(ignoreMiddlewares(["getStuff", "ping"], attachClientStr));
+  socket.customUse(ignoreMiddlewares(["getStuff", "ping"], verifyClient));
+  socket.customUse(ignoreMiddlewares(["getStuff", "ping"], attachClientId));
+  socket.customUse(ignoreMiddlewares(["getStuff", "ping"], validateClientId));
 
   socket.customUse(checkEventAvailability);
 
   socket.customUse(
     ignoreMiddlewares(
-      [...eventsWithoutAuth.map((i) => i.name), "getStuff"],
+      eventsWithoutAuth.map((i) => i.name),
       checkClient
     )
   );
@@ -47,7 +47,7 @@ export const registerMiddlewares = (socket: Socket) => {
 
   socket.customUse(
     ignoreMiddlewares(
-      ["createNewUser", "getStuff", "signIn", "verify"],
+      ["createNewUser", "getStuff", "signIn", "verify", "ping"],
       attachUserId,
       checkCurrentUser,
       checkCurrentClient

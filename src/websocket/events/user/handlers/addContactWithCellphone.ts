@@ -1,19 +1,19 @@
-import { services } from "~/services";
-import { AddContactWithCellphoneIO, SocketOnHandler } from "~/types";
+import { services } from '~/services';
+import { AddContactWithCellphoneIO, SocketOnHandler } from '~/types';
 
 export const addContactWithCellphone: SocketOnHandler<
-  AddContactWithCellphoneIO
+	AddContactWithCellphoneIO
 > = async (socket, data) => {
-  const { userId: currentUserId } = socket;
+	const { userId: currentUserId } = socket;
 
-  const { addedContact } = await services.addContactWithCellphone({
-    currentUserId,
-    addingContact: data,
-  });
+	const { addedContact } = await services.addContactWithCellphone({
+		currentUserId,
+		addingContact: data,
+	});
 
-  return {
-    data: {
-      addedContact,
-    },
-  };
+	return {
+		data: {
+			addedContact,
+		},
+	};
 };

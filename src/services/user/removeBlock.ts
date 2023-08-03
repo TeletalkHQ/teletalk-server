@@ -1,47 +1,47 @@
-import { errorThrower } from "utility-store";
-import { UserData, UserId } from "utility-store/lib/types";
+import { errorThrower } from 'utility-store';
+import { UserData, UserId } from 'utility-store/lib/types';
 
-import { errorStore } from "~/classes/ErrorStore";
-import { UserService } from "~/types";
-import { HydratedUser } from "~/types/models";
+import { errorStore } from '~/classes/ErrorStore';
+import { UserService } from '~/types';
+import { HydratedUser } from '~/types/models';
 
-import { findOneUser } from "./findOneUser";
+import { findOneUser } from './findOneUser';
 
 export const removeBlock: UserService<
-  {
-    currentUserId: UserId;
-    targetUserId: UserId;
-  },
-  void
+	{
+		currentUserId: UserId;
+		targetUserId: UserId;
+	},
+	void
 > = async (data) => {
-  const currentUser = await findCurrentUser(data.currentUserId);
-  if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
+	const currentUser = await findCurrentUser(data.currentUserId);
+	if (!currentUser) throw errorStore.find('CURRENT_USER_NOT_EXIST');
 
-  const { index } = checkExistenceOfBlacklistItem(
-    currentUser.blacklist,
-    data.targetUserId
-  );
+	const { index } = checkExistenceOfBlacklistItem(
+		currentUser.blacklist,
+		data.targetUserId
+	);
 
-  await removeBlockAndSave(currentUser, index);
+	await removeBlockAndSave(currentUser, index);
 };
 
 const findCurrentUser = async (currentUserId: string) => {
-  return await findOneUser({
-    userId: currentUserId,
-  });
+	return await findOneUser({
+		userId: currentUserId,
+	});
 };
 
 const checkExistenceOfBlacklistItem = (
-  blacklist: UserData["blacklist"],
-  targetUserId: UserId
+	blacklist: UserData['blacklist'],
+	targetUserId: UserId
 ) => {
-  const index = blacklist.findIndex((i) => i.userId === targetUserId);
-  errorThrower(index === -1, () => errorStore.find("BLACKLIST_ITEM_NOT_EXIST"));
+	const index = blacklist.findIndex((i) => i.userId === targetUserId);
+	errorThrower(index === -1, () => errorStore.find('BLACKLIST_ITEM_NOT_EXIST'));
 
-  return { index };
+	return { index };
 };
 
 const removeBlockAndSave = async (currentUser: HydratedUser, index: number) => {
-  currentUser.blacklist.splice(index, 1);
-  await currentUser.save();
+	currentUser.blacklist.splice(index, 1);
+	await currentUser.save();
 };

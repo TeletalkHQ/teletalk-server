@@ -1,15 +1,15 @@
-import { AssertionInitializer } from "@/types";
-import { fullNameAssertionInitializer } from "@/utils/assertionInitializers/fullName";
-import { userIdAssertionInitializer } from "@/utils/assertionInitializers/userId";
+import { AssertionInitializer } from '@/types';
+import { fullNameAssertionInitializer } from '@/utils/assertionInitializers/fullName';
+import { userIdAssertionInitializer } from '@/utils/assertionInitializers/userId';
 
 export const oneContactAssertionInitializer: AssertionInitializer = ({
-  equalValue,
-  testValue,
+	equalValue,
+	testValue,
 }) => {
-  fullNameAssertionInitializer({ equalValue, testValue });
+	fullNameAssertionInitializer({ equalValue, testValue });
 
-  userIdAssertionInitializer({
-    equalValue: equalValue.userId,
-    testValue: testValue.userId,
-  });
+	userIdAssertionInitializer({
+		equalValue: equalValue.userId,
+		testValue: testValue.userId,
+	});
 };

@@ -1,81 +1,81 @@
-import { Event, Socket } from "socket.io";
+import { Event, Socket } from 'socket.io';
 
-import { NativeError, Route } from "..";
+import { NativeError, Route } from '..';
 
 export type EventName =
-  | "addBlock"
-  | "addContact"
-  | "addContactWithCellphone"
-  | "addContactWithUserId"
-  | "createNewUser"
-  | "editContact"
-  | "getChatInfo"
-  | "getContacts"
-  | "getCountries"
-  | "getPrivateChat"
-  | "getPrivateChats"
-  | "getPublicUserData"
-  | "getStuff"
-  | "getUserData"
-  | "getWelcomeMessage"
-  | "joinRoom"
-  | "logout"
-  | "ping"
-  | "pong"
-  | "removeBlock"
-  | "removeContact"
-  | "sendPrivateMessage"
-  | "signIn"
-  | "updatePublicUserData"
-  | "verify";
+	| 'addBlock'
+	| 'addContact'
+	| 'addContactWithCellphone'
+	| 'addContactWithUserId'
+	| 'createNewUser'
+	| 'editContact'
+	| 'getChatInfo'
+	| 'getContacts'
+	| 'getCountries'
+	| 'getPrivateChat'
+	| 'getPrivateChats'
+	| 'getPublicUserData'
+	| 'getStuff'
+	| 'getUserData'
+	| 'getWelcomeMessage'
+	| 'joinRoom'
+	| 'logout'
+	| 'ping'
+	| 'pong'
+	| 'removeBlock'
+	| 'removeContact'
+	| 'sendPrivateMessage'
+	| 'signIn'
+	| 'updatePublicUserData'
+	| 'verify';
 
 export type IO = {
-  input: object;
-  output: object;
+	input: object;
+	output: object;
 };
 
 export type SocketResponseErrors = NativeError[];
 
-export interface SocketResponse<Data = IO["output"]> {
-  data: Data;
-  errors: SocketResponseErrors;
-  ok: boolean;
-  eventName: EventName;
+export interface SocketResponse<Data = IO['output']> {
+	data: Data;
+	errors: SocketResponseErrors;
+	ok: boolean;
+	eventName: EventName;
 }
 
-export type ResponseCallback<Data = IO["output"]> = (
-  response: SocketResponse<Data>
+export type ResponseCallback<Data = IO['output']> = (
+	response: SocketResponse<Data>
 ) => Promise<Data>;
 
-export type SocketMethods = "on" | "onAny" | "customOn" | "once";
+export type SocketMethods = 'on' | 'onAny' | 'customOn' | 'once';
 
 export interface SocketHandlerReturnValue<IOType extends IO = any> {
-  data: IOType["output"];
+	data: IOType['output'];
 }
 
 export type SocketOnHandler<IOType extends IO = any> = (
-  socket: Socket,
-  data: IOType["input"]
+	socket: Socket,
+	data: IOType['input']
 ) =>
-  | void
-  | Promise<void>
-  | SocketHandlerReturnValue<IOType>
-  | Promise<SocketHandlerReturnValue<IOType>>;
+	| void
+	| Promise<void>
+	| SocketHandlerReturnValue<IOType>
+	| Promise<SocketHandlerReturnValue<IOType>>;
 
 export type SocketOnAnyHandler<IOType extends IO = any> = (
-  socket: Socket,
-  data: IOType["input"],
-  eventName: EventName
+	socket: Socket,
+	data: IOType['input'],
+	eventName: EventName
 ) =>
-  | void
-  | Promise<void>
-  | SocketHandlerReturnValue<IOType>
-  | Promise<SocketHandlerReturnValue<IOType>>;
+	| void
+	| Promise<void>
+	| SocketHandlerReturnValue<IOType>
+	| Promise<SocketHandlerReturnValue<IOType>>;
 
 export interface SocketEvent<IOType extends IO = any> extends Route {
-  name: EventName;
-  handler: SocketOnHandler<IOType>;
-  method: SocketMethods;
+	name: EventName;
+	handler: SocketOnHandler<IOType>;
+	method: SocketMethods;
 }
 
 // export type SocketRoutePicker<T extends EventName> = Pick<
@@ -86,33 +86,33 @@ export interface SocketEvent<IOType extends IO = any> extends Route {
 export type CustomEmit = (eventName: EventName, data: SocketResponse) => void;
 
 export type CustomOn = (
-  eventName: EventName,
-  callback: SocketOnHandler<any>
+	eventName: EventName,
+	callback: SocketOnHandler<any>
 ) => void;
 
 export type SocketNext = (error?: Error | undefined) => void;
 
 export type SocketMiddlewareEvent<IOType extends IO = any> = [
-  EventName,
-  IOType["input"],
-  ResponseCallback,
-  ...any[]
+	EventName,
+	IOType['input'],
+	ResponseCallback,
+	...any[]
 ];
 
 export type SocketMiddlewareReturnValue = {
-  ok: boolean;
+	ok: boolean;
 };
 
 export type SocketDefaultMiddlewareEvent = Event;
 
 export type SocketMiddleware<IOType extends IO = any> = (
-  socket: Socket,
-  next: SocketNext,
-  socketMiddlewareEvent: SocketMiddlewareEvent<IOType>
+	socket: Socket,
+	next: SocketNext,
+	socketMiddlewareEvent: SocketMiddlewareEvent<IOType>
 ) =>
-  | void
-  | SocketMiddlewareReturnValue
-  | Promise<void>
-  | Promise<SocketMiddlewareReturnValue>;
+	| void
+	| SocketMiddlewareReturnValue
+	| Promise<void>
+	| Promise<SocketMiddlewareReturnValue>;
 
 export type CustomUse = (middleware: SocketMiddleware) => void;

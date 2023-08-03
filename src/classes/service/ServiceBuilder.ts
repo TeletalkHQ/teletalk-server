@@ -1,20 +1,20 @@
-import { ServiceFn } from "~/types";
+import { ServiceFn } from '~/types';
 
-import { serviceHandler } from "./ServiceHandler";
+import { serviceHandler } from './ServiceHandler';
 
 export class ServiceBuilder {
-  private serviceBody: ServiceFn;
+	private serviceBody: ServiceFn;
 
-  body(callback: ServiceFn) {
-    this.serviceBody = callback;
-    return this;
-  }
+	body(callback: ServiceFn) {
+		this.serviceBody = callback;
+		return this;
+	}
 
-  build() {
-    return serviceHandler(this.serviceBody);
-  }
+	build() {
+		return serviceHandler(this.serviceBody);
+	}
 }
 
 export const serviceBuilder = {
-  create: () => new ServiceBuilder(),
+	create: () => new ServiceBuilder(),
 };

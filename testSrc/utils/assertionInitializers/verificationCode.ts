@@ -1,18 +1,18 @@
-import { models } from "~/models";
+import { models } from '~/models';
 
-import { assertionInitializer } from "@/classes/AssertionInitializer";
-import { AssertionInitializer } from "@/types";
+import { assertionInitializer } from '@/classes/AssertionInitializer';
+import { AssertionInitializer } from '@/types';
 
 export const verificationCodeAssertionInitializer: AssertionInitializer = (
-  { testValue },
-  options
+	{ testValue },
+	options
 ) => {
-  assertionInitializer()
-    .setVariables(models.native.verificationCode, "", testValue)
-    .setOptions(options)
-    .typeCheck()
-    .emptyCheck()
-    .numericCheck()
-    .lengthCheck()
-    .run();
+	assertionInitializer()
+		.setVariables(models.native.verificationCode, '', testValue)
+		.setOptions(options)
+		.typeCheck()
+		.emptyCheck()
+		.numericCheck()
+		.lengthCheck()
+		.run();
 };

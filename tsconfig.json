@@ -1,41 +1,41 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "declaration": false,
-    "declarationMap": false,
-    "emitDecoratorMetadata": false,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "outDir": "./lib",
-    "paths": {
-      "~/*": ["src/*"],
-      "#/*": ["public/*"],
-      "@/*": ["testSrc/*"]
-    },
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "target": "ESNext"
-  },
-  "exclude": ["node_modules"],
-  "include": [
-    "src/**/*.ts",
-    "configs/**/*.ts",
-    "./index.ts",
-    "testSrc/**/*.ts",
-    "configs/jest/jest.setup.ts"
-  ],
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node",
-    "files": true
-  }
+	"compilerOptions": {
+		"baseUrl": ".",
+		"declaration": false,
+		"declarationMap": false,
+		"emitDecoratorMetadata": false,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["ESNext"],
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"noImplicitReturns": true,
+		"outDir": "./lib",
+		"paths": {
+			"~/*": ["src/*"],
+			"#/*": ["public/*"],
+			"@/*": ["testSrc/*"]
+		},
+		"removeComments": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"strictPropertyInitialization": false,
+		"target": "ESNext"
+	},
+	"exclude": ["node_modules"],
+	"include": [
+		"src/**/*.ts",
+		"configs/**/*.ts",
+		"./index.ts",
+		"testSrc/**/*.ts",
+		"configs/jest/jest.setup.ts"
+	],
+	"ts-node": {
+		"esm": true,
+		"experimentalSpecifierResolution": "node",
+		"files": true
+	}
 }

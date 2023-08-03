@@ -1,9 +1,9 @@
-import { JoinRoomIO, SocketOnHandler } from "~/types";
+import { JoinRoomIO, SocketOnHandler } from '~/types';
 
 export const joinRoom: SocketOnHandler<JoinRoomIO> = (socket) => {
-  socket.join(socket.userId);
+	socket.join(socket.userId);
 
-  return {
-    data: {},
-  };
+	return {
+		data: {},
+	};
 };

@@ -8,20 +8,20 @@
 // afterEach(() => {
 //   global.console = jestConsole;
 // });
-import JestConsole from "@jest/console";
-import console from "console";
+import JestConsole from '@jest/console';
+import console from 'console';
 
 global.console = console;
 
 global.console = new JestConsole.CustomConsole(
-  process.stdout,
-  process.stderr,
-  (type, message) => {
-    const TITLE_INDENT = "    ";
-    const CONSOLE_INDENT = TITLE_INDENT + "  ";
-    return message
-      .split(/\n/)
-      .map((line) => CONSOLE_INDENT + line)
-      .join("\n");
-  }
+	process.stdout,
+	process.stderr,
+	(type, message) => {
+		const TITLE_INDENT = '    ';
+		const CONSOLE_INDENT = TITLE_INDENT + '  ';
+		return message
+			.split(/\n/)
+			.map((line) => CONSOLE_INDENT + line)
+			.join('\n');
+	}
 );

@@ -1,39 +1,39 @@
 {
-  "errors": {
-    "categorizedErrors": [
-      {
-        "errors": {
-          "macAddress": {
-            "name": "ValidatorError",
-            "message": "MAC_ADDRESS_REQUIRED",
-            "properties": {
-              "message": "MAC_ADDRESS_REQUIRED",
-              "type": "required",
-              "path": "macAddress"
-            },
-            "kind": "required",
-            "path": "macAddress"
-          },
-          "username": {
-            "name": "ValidatorError",
-            "message": "username_exist",
-            "properties": {
-              "message": "username_exist",
-              "type": "unique",
-              "path": "username",
-              "value": ""
-            },
-            "kind": "unique",
-            "path": "username",
-            "value": ""
-          }
-        },
-        "_message": "User validation failed",
-        "name": "ValidationError",
-        "message": "User validation failed: macAddress: MAC_ADDRESS_REQUIRED, username: username_exist"
-      }
-    ],
-    "uncategorizedErrors": [],
-    "statusCode": 400
-  }
+	"errors": {
+		"categorizedErrors": [
+			{
+				"errors": {
+					"macAddress": {
+						"name": "ValidatorError",
+						"message": "MAC_ADDRESS_REQUIRED",
+						"properties": {
+							"message": "MAC_ADDRESS_REQUIRED",
+							"type": "required",
+							"path": "macAddress"
+						},
+						"kind": "required",
+						"path": "macAddress"
+					},
+					"username": {
+						"name": "ValidatorError",
+						"message": "username_exist",
+						"properties": {
+							"message": "username_exist",
+							"type": "unique",
+							"path": "username",
+							"value": ""
+						},
+						"kind": "unique",
+						"path": "username",
+						"value": ""
+					}
+				},
+				"_message": "User validation failed",
+				"name": "ValidationError",
+				"message": "User validation failed: macAddress: MAC_ADDRESS_REQUIRED, username: username_exist"
+			}
+		],
+		"uncategorizedErrors": [],
+		"statusCode": 400
+	}
 }

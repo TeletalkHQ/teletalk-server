@@ -1,55 +1,55 @@
-import { RedisClientType } from "redis";
+import { RedisClientType } from 'redis';
 
-import { StoredClient } from "~/types";
+import { StoredClient } from '~/types';
 
 class ClientStore {
-  private STATE_KEY = "client";
-  private STATE_PATH = ".";
-  private storage: RedisClientType;
+	private STATE_KEY = 'client';
+	private STATE_PATH = '.';
+	private storage: RedisClientType;
 
-  async initialize(storage: RedisClientType) {
-    this.setStorage(storage);
-    return this;
-  }
+	async initialize(storage: RedisClientType) {
+		this.setStorage(storage);
+		return this;
+	}
 
-  getStorage() {
-    return this.storage;
-  }
-  setStorage(storage: RedisClientType) {
-    this.storage = storage;
-  }
+	getStorage() {
+		return this.storage;
+	}
+	setStorage(storage: RedisClientType) {
+		this.storage = storage;
+	}
 
-  private makeStateKey(clientId: string) {
-    return `${this.STATE_KEY}:${clientId}`;
-  }
+	private makeStateKey(clientId: string) {
+		return `${this.STATE_KEY}:${clientId}`;
+	}
 
-  async find(clientId: string): Promise<StoredClient | null> {
-    const client = (await this.storage.json.get(
-      this.makeStateKey(clientId)
-    )) as string;
+	async find(clientId: string): Promise<StoredClient | null> {
+		const client = (await this.storage.json.get(
+			this.makeStateKey(clientId)
+		)) as string;
 
-    return client ? JSON.parse(client) : null;
-  }
+		return client ? JSON.parse(client) : null;
+	}
 
-  async add(clientId: string, data: StoredClient) {
-    const stateKey = this.makeStateKey(clientId);
-    await this.storage
-      .multi()
-      .json.set(stateKey, this.STATE_PATH, JSON.stringify(data))
-      .exec();
-  }
+	async add(clientId: string, data: StoredClient) {
+		const stateKey = this.makeStateKey(clientId);
+		await this.storage
+			.multi()
+			.json.set(stateKey, this.STATE_PATH, JSON.stringify(data))
+			.exec();
+	}
 
-  async update(clientId: string, newData: StoredClient) {
-    await this.storage.json.set(
-      this.makeStateKey(clientId),
-      this.STATE_PATH,
-      JSON.stringify(newData)
-    );
-  }
+	async update(clientId: string, newData: StoredClient) {
+		await this.storage.json.set(
+			this.makeStateKey(clientId),
+			this.STATE_PATH,
+			JSON.stringify(newData)
+		);
+	}
 
-  async remove(clientId: string) {
-    this.storage.json.del(this.makeStateKey(clientId), this.STATE_PATH);
-  }
+	async remove(clientId: string) {
+		this.storage.json.del(this.makeStateKey(clientId), this.STATE_PATH);
+	}
 }
 
 export const clientStore = new ClientStore();

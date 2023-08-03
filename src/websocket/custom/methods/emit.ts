@@ -1,22 +1,22 @@
-import { trier } from "simple-trier";
-import { Socket } from "socket.io";
+import { trier } from 'simple-trier';
+import { Socket } from 'socket.io';
 
-import { CustomEmit, EventName, SocketResponse } from "~/types";
+import { CustomEmit, EventName, SocketResponse } from '~/types';
 
 export const registerCustomEmit = (socket: Socket) => {
-  return ((eventName, response) => {
-    trier(`socket.customEmit:${eventName}`)
-      .sync()
-      .try(tryBlock, socket, response, eventName)
-      .throw()
-      .run();
-  }) as CustomEmit;
+	return ((eventName, response) => {
+		trier(`socket.customEmit:${eventName}`)
+			.sync()
+			.try(tryBlock, socket, response, eventName)
+			.throw()
+			.run();
+	}) as CustomEmit;
 };
 
 const tryBlock = (
-  socket: Socket,
-  response: SocketResponse,
-  eventName: EventName
+	socket: Socket,
+	response: SocketResponse,
+	eventName: EventName
 ) => {
-  socket.emit(eventName, response);
+	socket.emit(eventName, response);
 };

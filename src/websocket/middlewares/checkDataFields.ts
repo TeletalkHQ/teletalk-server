@@ -1,44 +1,44 @@
-import { IoFields, checkFields } from "check-fields";
-import { trier } from "simple-trier";
+import { IoFields, checkFields } from 'check-fields';
+import { trier } from 'simple-trier';
 
 import {
-  NativeError,
-  SocketEvent,
-  SocketMiddleware,
-  SocketMiddlewareEvent,
-  SocketNext,
-} from "~/types";
-import { errors } from "~/variables";
-import { events } from "~/websocket/events";
+	NativeError,
+	SocketEvent,
+	SocketMiddleware,
+	SocketMiddlewareEvent,
+	SocketNext,
+} from '~/types';
+import { errors } from '~/variables';
+import { events } from '~/websocket/events';
 
 export const checkDataFields: SocketMiddleware = (
-  _socket,
-  next,
-  [name, data]
+	_socket,
+	next,
+	[name, data]
 ) => {
-  const { inputFields } = events.find(
-    (item) => item.name === name
-  ) as SocketEvent;
+	const { inputFields } = events.find(
+		(item) => item.name === name
+	) as SocketEvent;
 
-  trier<void>(checkDataFields.name)
-    .sync()
-    .try(tryBlock, data, inputFields)
-    .executeIfNoError(executeIfNoError, next)
-    .catch(catchBlock, inputFields)
-    .run();
+	trier<void>(checkDataFields.name)
+		.sync()
+		.try(tryBlock, data, inputFields)
+		.executeIfNoError(executeIfNoError, next)
+		.catch(catchBlock, inputFields)
+		.run();
 };
 
-const tryBlock = (data: SocketMiddlewareEvent["1"], inputFields: IoFields) => {
-  checkFields(data || {}, inputFields, errors.checkField.input);
+const tryBlock = (data: SocketMiddlewareEvent['1'], inputFields: IoFields) => {
+	checkFields(data || {}, inputFields, errors.checkField.input);
 };
 
 const executeIfNoError = (_: void, next: SocketNext) => {
-  next();
+	next();
 };
 
 const catchBlock = (error: NativeError, inputFields: IoFields) => {
-  throw {
-    ...error,
-    inputFields,
-  };
+	throw {
+		...error,
+		inputFields,
+	};
 };

@@ -1,19 +1,19 @@
-import { models } from "~/models";
+import { models } from '~/models';
 
-import { assertionInitializer } from "@/classes/AssertionInitializer";
-import { AssertionInitializer } from "@/types";
+import { assertionInitializer } from '@/classes/AssertionInitializer';
+import { AssertionInitializer } from '@/types';
 
 export const usernameAssertionInitializer: AssertionInitializer = (
-  { equalValue, testValue },
-  options
+	{ equalValue, testValue },
+	options
 ) => {
-  const builder = assertionInitializer()
-    .setVariables(models.native.username, equalValue, testValue)
-    .setOptions(options);
+	const builder = assertionInitializer()
+		.setVariables(models.native.username, equalValue, testValue)
+		.setOptions(options);
 
-  builder.stringEquality().typeCheck().lteCheck();
+	builder.stringEquality().typeCheck().lteCheck();
 
-  if (equalValue) builder.gteCheck();
+	if (equalValue) builder.gteCheck();
 
-  builder.run();
+	builder.run();
 };

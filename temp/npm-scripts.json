@@ -1,4 +1,4 @@
 {
-  "start:production": "if [ \"$npm_config_node_env\" = \"\" ]; then export npm_config_node_env=production; fi;\n cross-env NODE_ENV=$npm_config_node_env node ./index.js",
-  "start:production:local": "npm run start:production --node_env=production_local"
+	"start:production": "if [ \"$npm_config_node_env\" = \"\" ]; then export npm_config_node_env=production; fi;\n cross-env NODE_ENV=$npm_config_node_env node ./index.js",
+	"start:production:local": "npm run start:production --node_env=production_local"
 }

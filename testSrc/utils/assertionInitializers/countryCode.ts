@@ -1,17 +1,17 @@
-import { models } from "~/models";
+import { models } from '~/models';
 
-import { assertionInitializer } from "@/classes/AssertionInitializer";
-import { AssertionInitializer } from "@/types";
+import { assertionInitializer } from '@/classes/AssertionInitializer';
+import { AssertionInitializer } from '@/types';
 
 export const countryCodeAssertionInitializer: AssertionInitializer = (
-  { equalValue, testValue },
-  options
+	{ equalValue, testValue },
+	options
 ) => {
-  assertionInitializer()
-    .setVariables(models.native.countryCode, equalValue, testValue)
-    .setOptions(options)
-    .addCommonTest()
-    .emptyCheck()
-    .numericCheck()
-    .run();
+	assertionInitializer()
+		.setVariables(models.native.countryCode, equalValue, testValue)
+		.setOptions(options)
+		.addCommonTest()
+		.emptyCheck()
+		.numericCheck()
+		.run();
 };

@@ -1,17 +1,17 @@
-import { services } from "~/services";
-import { EditContactIO, SocketOnHandler } from "~/types";
+import { services } from '~/services';
+import { EditContactIO, SocketOnHandler } from '~/types';
 
 export const editContact: SocketOnHandler<EditContactIO> = async (
-  socket,
-  data
+	socket,
+	data
 ) => {
-  const { userId: currentUserId } = socket;
+	const { userId: currentUserId } = socket;
 
-  await services.updateContact({ currentUserId, editValues: data });
+	await services.updateContact({ currentUserId, editValues: data });
 
-  return {
-    data: {
-      editedContact: data,
-    },
-  };
+	return {
+		data: {
+			editedContact: data,
+		},
+	};
 };

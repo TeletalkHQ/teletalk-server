@@ -1,16 +1,16 @@
-import { models } from "~/models";
+import { models } from '~/models';
 
-import { assertionInitializer } from "@/classes/AssertionInitializer";
-import { AssertionInitializer } from "@/types";
+import { assertionInitializer } from '@/classes/AssertionInitializer';
+import { AssertionInitializer } from '@/types';
 
 export const bioAssertionInitializer: AssertionInitializer = (
-  { equalValue, testValue },
-  options
+	{ equalValue, testValue },
+	options
 ) => {
-  assertionInitializer()
-    .setVariables(models.native.bio, equalValue, testValue)
-    .setOptions(options)
-    .emptyCheck()
-    .addCommonTest()
-    .run();
+	assertionInitializer()
+		.setVariables(models.native.bio, equalValue, testValue)
+		.setOptions(options)
+		.emptyCheck()
+		.addCommonTest()
+		.run();
 };

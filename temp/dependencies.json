@@ -1,6 +1,6 @@
 {
-  "sharp": "^0.29.3",
-  "bcryptjs": "^2.4.3",
-  "cookie-parser": "^1.4.6",
-  "cache-manager": ""
+	"sharp": "^0.29.3",
+	"bcryptjs": "^2.4.3",
+	"cookie-parser": "^1.4.6",
+	"cache-manager": ""
 }

@@ -21,7 +21,6 @@ export const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
 	};
 
 	socket
-		.to(currentUserId)
 		.to(participantId)
 		.emit<EventName>(
 			'sendPrivateMessage',

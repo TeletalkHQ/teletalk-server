@@ -10,12 +10,12 @@ import {
 	Environments,
 	ErrorReason,
 	EventName,
-	NativeError,
 	SocketMiddleware,
 	SocketMiddlewareEvent,
 	SocketNext,
 	SocketResponse,
 	StringMap,
+	UnknownError,
 } from '~/types';
 import {
 	Field,
@@ -26,6 +26,7 @@ import {
 import { errors } from '~/variables/errors';
 
 type Url = EventName | EventName[];
+
 const isEventNameMatch = (url: Url, reqUrl: string) =>
 	(Array.isArray(url) && url.some((u) => u === reqUrl)) || url === reqUrl;
 
@@ -100,7 +101,7 @@ const makeScreamingSnakeCase = <T extends string>(value: T) =>
 
 const upperSnake = (value: string) => lodash.snakeCase(value).toUpperCase();
 
-const resolveResponseError = (error: NativeError | NativeError[] | undefined) =>
+const resolveResponseError = (error: UnknownError) =>
 	Array.isArray(error)
 		? error
 		: error?.reason
@@ -200,8 +201,19 @@ const createSuccessResponse = (
 	ok: true,
 });
 
+const createFailureResponse = (
+	eventName: EventName,
+	errors: UnknownError
+): SocketResponse => ({
+	data: {},
+	errors: resolveResponseError(errors),
+	eventName,
+	ok: false,
+});
+
 export const utils = {
 	crashServer,
+	createFailureResponse,
 	createSuccessResponse,
 	executeMiddlewares,
 	extractClientFromCookie,

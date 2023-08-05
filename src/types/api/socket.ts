@@ -45,7 +45,7 @@ export interface SocketResponse<Data = IO['output']> {
 
 export type ResponseCallback<Data = IO['output']> = (
 	response: SocketResponse<Data>
-) => Promise<Data>;
+) => void | Promise<void>;
 
 export type SocketMethods = 'on' | 'onAny' | 'customOn' | 'once';
 

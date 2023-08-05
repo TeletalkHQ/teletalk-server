@@ -59,3 +59,5 @@ export interface NativeError {
 }
 
 export type ErrorCollection = NativeError[];
+
+export type UnknownError = NativeError | NativeError[] | undefined;

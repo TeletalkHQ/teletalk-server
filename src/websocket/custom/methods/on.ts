@@ -5,12 +5,12 @@ import { Socket } from 'socket.io';
 import {
 	CustomOn,
 	EventName,
-	NativeError,
 	ResponseCallback,
 	SocketHandlerReturnValue,
 	SocketOnHandler,
 	SocketResponse,
 	StringMap,
+	UnknownError,
 } from '~/types';
 import { utils } from '~/utils';
 import { errors } from '~/variables';
@@ -18,25 +18,13 @@ import { events } from '~/websocket/events';
 
 export const registerCustomOn = (socket: Socket) => {
 	return ((eventName, handler) => {
-		socket.on(eventName, async (data, responseCallback: ResponseCallback) => {
-			const returnValue = (await tryToRunHandler(
-				handler,
-				socket,
-				data,
-				eventName,
-				responseCallback
-			)) || { data: {} };
+		socket.on(eventName, async (data, responseCallback?: ResponseCallback) => {
+			const cb =
+				typeof responseCallback === 'function'
+					? responseCallback
+					: () => undefined;
 
-			//REFACTOR: Almost all events need to fix before enabling this feature
-			// tryToCheckOutputFields(socket, eventName, returnValue.data, responseCallback);
-
-			const response = utils.createSuccessResponse(eventName, returnValue.data);
-
-			await emitReturnValue(socket, eventName, response, responseCallback);
-
-			if (typeof responseCallback === 'function') {
-				responseCallback(response);
-			}
+			await tryToRunHandler(handler, socket, data, eventName, cb);
 		});
 	}) as CustomOn;
 };
@@ -51,7 +39,15 @@ async function tryToRunHandler(
 	return await trier<void | SocketHandlerReturnValue>(tryToRunHandler.name)
 		.async()
 		.try(async () => {
-			return await handler(socket, data);
+			const returnValue = (await handler(socket, data)) || { data: {} };
+
+			//REFACTOR: Almost all events need to fix before enabling this feature
+			// tryToCheckOutputFields(socket, eventName, returnValue.data, responseCallback);
+
+			const response = utils.createSuccessResponse(eventName, returnValue.data);
+
+			await emitReturnValue(socket, eventName, response, responseCallback);
+			responseCallback(response);
 		})
 		.catch(catchBlock, socket, eventName, responseCallback)
 		.run();
@@ -94,21 +90,19 @@ async function emitReturnValue(
 }
 
 const catchBlock = (
-	error: NativeError | NativeError[] | undefined,
+	error: UnknownError,
 	socket: Socket,
 	eventName: EventName,
 	responseCallback: ResponseCallback
 ) => {
-	const response: SocketResponse = {
-		data: {},
-		errors: utils.resolveResponseError(error),
+	const response: SocketResponse = utils.createFailureResponse(
 		eventName,
-		ok: false,
-	};
+		error
+	);
 
 	logger.error(`customOn:catchBlock:${eventName}`, error);
 
-	if (typeof responseCallback === 'function') responseCallback(response);
+	responseCallback(response);
 
 	socket.emit('error', response);
 };

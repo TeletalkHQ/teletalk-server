@@ -1,61 +1,66 @@
-import { errorThrower, userUtils } from "utility-store";
+import { errorThrower, extractor } from 'utility-store';
 import {
-  ContactItem,
-  FUllNameWithUserId,
-  UserData,
-  UserId,
-} from "utility-store/lib/types";
+	ContactItem,
+	FullNameWithUserId,
+	UserData,
+	UserId,
+} from 'utility-store/lib/types';
 
-import { UserService } from "~/types";
-import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
+import { errorStore } from '~/classes/ErrorStore';
+import { UserService } from '~/types';
+import { HydratedUser } from '~/types/models';
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from './findOneUser';
 
 export const updateContact: UserService<
-  {
-    currentUserId: UserId;
-    editValues: FUllNameWithUserId;
-  },
-  void
+	{
+		currentUserId: UserId;
+		editValues: FullNameWithUserId;
+	},
+	void
 > = async (data) => {
-  const currentUser = (await findCurrentUser(data.currentUserId))!;
+	const currentUser = (await findCurrentUser(data.currentUserId))!;
 
-  const { index, contact: oldContact } = findContact(
-    currentUser.contacts,
-    data.editValues.userId
-  );
+	const { index, contact: oldContact } = findContact(
+		currentUser.contacts,
+		data.editValues.userId
+	);
 
-  errorThrower(index === -1, {
-    ...errors.contactItemNotExist,
-    editValues: data.editValues,
-  });
+	errorThrower(index < 0, {
+		...errorStore.find('CONTACT_ITEM_NOT_EXIST'),
+		editValues: data.editValues,
+	});
 
-  const newContact = {
-    ...userUtils.extractCellphone(oldContact as ContactItem),
-    ...data.editValues,
-  };
+	const updatedContact = {
+		...(extractor.cellphone(oldContact) as ContactItem),
+		...data.editValues,
+	};
 
-  await saveNewContact(currentUser, newContact, index);
+	await saveContact(currentUser, updatedContact, index);
 };
 
 const findCurrentUser = async (currentUserId: string) => {
-  return await findOneUserById({
-    userId: currentUserId,
-  });
+	const result = await findOneUser({
+		userId: currentUserId,
+	});
+	if (!result) throw errorStore.find('CURRENT_USER_NOT_EXIST');
+	return result;
 };
 
-const findContact = (contacts: UserData["contacts"], targetUserId: string) => {
-  const index = contacts.findIndex((c) => c.userId === targetUserId);
+const findContact = (contacts: UserData['contacts'], targetUserId: string) => {
+	const index = contacts.findIndex((c) => c.userId === targetUserId);
 
-  return { contact: contacts[index], index };
+	return {
+		contact: contacts[index],
+		index,
+	};
 };
 
-const saveNewContact = async (
-  currentUser: HydratedUser,
-  editValues: ContactItem,
-  index: number
+const saveContact = async (
+	currentUser: HydratedUser,
+	editValues: ContactItem,
+	index: number
 ) => {
-  currentUser.contacts.splice(index, 1, editValues);
-  await currentUser.save();
+	currentUser.contacts.splice(index, 1, editValues);
+	await currentUser.save();
 };

@@ -1,49 +1,49 @@
-import { Socket as ClientSocket } from "socket.io-client";
+import { Socket as ClientSocket } from 'socket.io-client';
 
-import { IO, SocketEvent } from "~/types";
-import { NativeModelKey } from "~/types/models";
+import { IO, SocketEvent } from '~/types';
+import { NativeModelKey } from '~/types/models';
 
-import { Requester } from "@/classes/Requester";
-import { helpers } from "@/helpers";
+import { Requester } from '@/classes/Requester';
+import { utils } from '@/utils';
 
 export type RequesterMaker<IOType extends IO> = (
-  socketClient: ClientSocket
+	socketClient: ClientSocket
 ) => Requester<IOType>;
 
 export type RequesterMakerWrapper<IOType extends IO> = (
-  socket: ClientSocket
+	socket: ClientSocket
 ) => Requester<IOType>;
 
 export type RequesterMakerHelper<IOType extends IO> = (
-  event: SocketEvent<IOType>
+	event: SocketEvent<IOType>
 ) => RequesterMakerWrapper<IOType>;
 
-export type RequesterCollection = typeof helpers.requesterCollection;
+export type RequesterCollection = typeof utils.requesterCollection;
 
 export type E2eFailTestIgnores = NativeModelKey[];
 
 export type E2eFailTestInitializer<IOType extends IO = any> = (
-  configuredRequester: Requester<IOType>,
-  data: Readonly<object>,
-  ignores?: E2eFailTestIgnores
+	configuredRequester: Requester<IOType>,
+	data: Readonly<object>,
+	ignores?: E2eFailTestIgnores
 ) => void;
 
 export type AssertionInitializerOptions = {
-  modelCheck: boolean;
-  stringEquality: boolean;
+	modelCheck: boolean;
+	stringEquality: boolean;
 };
 export interface AssertionInitializerArgs {
-  equalValue?: any;
-  testValue: any;
+	equalValue?: any;
+	testValue: any;
 }
 
 export type AssertionInitializer = (
-  data: AssertionInitializerArgs,
-  options?: AssertionInitializerOptions
+	data: AssertionInitializerArgs,
+	options?: AssertionInitializerOptions
 ) => void;
 
 export interface RequesterOptions {
-  shouldFilterRequestData: boolean;
+	shouldFilterRequestData: boolean;
 }
 
 export type { ClientSocket };

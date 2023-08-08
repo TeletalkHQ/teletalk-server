@@ -1,15 +1,15 @@
-import { socketEventBuilder } from "~/classes/SocketEventBuilder";
+import { socketEventBuilder } from '~/classes/SocketEventBuilder';
 
-import { randomMaker } from "@/classes/RandomMaker";
+import { randomMaker } from '@/classes/RandomMaker';
 
 const unknownEvent = socketEventBuilder()
-  .create()
-  //@ts-ignore
-  .name(randomMaker.string(10))
-  .build();
+	.create()
+	//@ts-ignore
+	.name(randomMaker.string(10))
+	.build();
 
 export const other = {
-  events: {
-    unknownEvent,
-  },
+	events: {
+		unknownEvent,
+	},
 };

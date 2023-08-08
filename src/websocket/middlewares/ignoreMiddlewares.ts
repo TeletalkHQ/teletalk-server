@@ -1,19 +1,19 @@
 /* eslint-disable indent */
-import { EventName, SocketMiddleware } from "~/types";
-import { utils } from "~/utils";
+import { EventName, SocketMiddleware } from '~/types';
+import { utils } from '~/utils';
 
 export const ignoreMiddlewares = (
-  eventNamesToIgnore: EventName | EventName[],
-  ...middlewares: SocketMiddleware[]
+	eventNamesToIgnore: EventName | EventName[],
+	...middlewares: SocketMiddleware[]
 ) => {
-  return (async (socket, next, socketMiddlewareEvent) => {
-    return utils.isEventNameMatch(eventNamesToIgnore, socketMiddlewareEvent[0])
-      ? next()
-      : await utils.executeMiddlewares({
-          middlewares,
-          next,
-          socket,
-          socketMiddlewareEvent,
-        });
-  }) as SocketMiddleware;
+	return (async (socket, next, socketMiddlewareEvent) => {
+		return utils.isEventNameMatch(eventNamesToIgnore, socketMiddlewareEvent[0])
+			? next()
+			: await utils.executeMiddlewares({
+					middlewares,
+					next,
+					socket,
+					socketMiddlewareEvent,
+			  });
+	}) as SocketMiddleware;
 };

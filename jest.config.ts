@@ -1,81 +1,67 @@
-import { JestConfigWithTsJest, pathsToModuleNameMapper } from "ts-jest";
+import os from 'os';
+import { JestConfigWithTsJest, pathsToModuleNameMapper } from 'ts-jest';
 
-import tsconfig from "./tsconfig.json";
+import tsconfig from './tsconfig.json';
+
+const maxThreads = os.cpus().length;
+const maxWorkers = process.env.MAXIMIZE_THREADS ? maxThreads : maxThreads / 2;
 
 let baseOptions: JestConfigWithTsJest = {
-  extensionsToTreatAsEsm: [".ts"],
-  forceExit: true,
-  maxWorkers: 4,
-  moduleFileExtensions: ["js", "ts", "json", "node"],
-  moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
-  modulePaths: [tsconfig.compilerOptions.baseUrl],
-  setupFiles: ["./jest.setup.ts"],
-  silent: false,
-  testEnvironment: "node",
-  setupFilesAfterEnv: ["./configs/jestConsoleFix.js"],
-  testMatch: [
-    "**/testSrc/__tests__/e2e/events/auth/createNewUser.spec.ts",
-    "**/testSrc/__tests__/e2e/events/auth/logout.spec.ts",
-    "**/testSrc/__tests__/e2e/events/auth/signIn.spec.ts",
-    "**/testSrc/__tests__/e2e/events/auth/verify.spec.ts",
-    "**/testSrc/__tests__/e2e/events/other/getStuff.spec.ts",
-    "**/testSrc/__tests__/e2e/events/privateChat/getPrivateChat.spec.ts",
-    "**/testSrc/__tests__/e2e/events/privateChat/getPrivateChats.spec.ts",
-    "**/testSrc/__tests__/e2e/events/privateChat/sendPrivateMessage.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/addBlock.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/addContact.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/editContact.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/getContacts.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/getPublicUserData.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/getUserData.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/removeBlock.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/removeContact.spec.ts",
-    "**/testSrc/__tests__/e2e/events/user/updatePublicUserData.spec.ts",
-    "**/testSrc/__tests__/e2e/middleware/attachClientStr.spec.ts",
-    "**/testSrc/__tests__/e2e/middleware/checkClient.spec.ts",
-    "**/testSrc/__tests__/e2e/middleware/checkCurrentClient.spec.ts",
-    "**/testSrc/__tests__/e2e/middleware/checkCurrentUser.spec.ts",
-    "**/testSrc/__tests__/e2e/middleware/checkDataFields.spec.ts",
-    "**/testSrc/__tests__/e2e/middleware/checkEventAvailability.spec.ts",
-    "**/testSrc/__tests__/e2e/middleware/validateClientId.spec.ts",
-    "**/testSrc/__tests__/e2e/middleware/verifyClient.spec.ts",
-    "**/testSrc/__tests__/unit/functions/crashServer.spec.ts",
-  ],
-  testPathIgnorePatterns: [
-    "<rootDir>/node_modules/",
-    "<rootDir>/lib",
-    "<rootDir>/coverage",
-  ],
-  testTimeout: 20000,
-  // testRegex: ".*.spec.ts",
-  transform: {
-    "^.+\\.ts?$": [
-      "ts-jest",
-      {
-        diagnostics: {
-          // exclude: ["**"],
-        },
-        useESM: true,
-      },
-    ],
-  },
-  transformIgnorePatterns: [
-    "<rootDir>/node_modules/",
-    "<rootDir>/lib",
-    "<rootDir>/coverage",
-  ],
-  verbose: true,
-  logHeapUsage: false,
+	automock: false,
+	cache: false,
+	clearMocks: false,
+	detectLeaks: false,
+	detectOpenHandles: false,
+	errorOnDeprecated: false,
+	extensionsToTreatAsEsm: ['.ts'],
+	forceExit: true,
+	logHeapUsage: false,
+	maxWorkers,
+	// testRunner: "jest-jasmine2",
+	moduleFileExtensions: ['js', 'ts', 'json', 'node'],
+	moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
+	modulePaths: [tsconfig.compilerOptions.baseUrl],
+	resetModules: false,
+	setupFiles: ['./configs/jest/jest.setup.ts'],
+	setupFilesAfterEnv: ['./configs/jest/setupFileAfterEnv.ts'],
+	silent: false,
+	skipNodeResolution: false,
+	testEnvironment: 'node',
+	// testMatch: ["**/testSrc/index.ts"],
+	testPathIgnorePatterns: [
+		'<rootDir>/node_modules/',
+		'<rootDir>/lib',
+		'<rootDir>/coverage',
+	],
+	testRegex: '.*.spec.ts',
+	testTimeout: 20000,
+	transform: {
+		'^.+\\.ts?$': [
+			'ts-jest',
+			{
+				diagnostics: {
+					// exclude: ["**"],
+				},
+				useESM: true,
+			},
+		],
+	},
+	transformIgnorePatterns: [
+		'<rootDir>/node_modules/',
+		'<rootDir>/lib',
+		'<rootDir>/coverage',
+	],
+	verbose: true,
 };
 
 const coverageOptions: JestConfigWithTsJest = {
-  collectCoverage: true,
-  collectCoverageFrom: ["./src/**"],
-  coverageThreshold: {
-    global: {
-      lines: 85,
-    },
-  },
+	collectCoverage: true,
+	collectCoverageFrom: ['./src/**'],
+	coverageThreshold: {
+		global: {
+			lines: 85,
+		},
+	},
 };
 
 if (process.env.COVERAGE) baseOptions = { ...baseOptions, ...coverageOptions };

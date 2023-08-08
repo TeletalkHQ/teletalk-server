@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-#  npm run build && npm run test:production:local &&
-npm run test:coverage && npx lint-staged
+npx lint-staged && npm run build && npm run test:coverage

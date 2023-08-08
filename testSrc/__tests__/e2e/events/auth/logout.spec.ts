@@ -1,56 +1,58 @@
-import { clientStore } from "~/classes/ClientStore";
-import { services } from "~/services";
+import chai from 'chai';
 
-import { authHelper } from "@/classes/AuthHelper";
-import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { clientStore } from '~/classes/ClientStore';
+import { services } from '~/services';
 
-describe("logout success tests", () => {
-  it("should get response.ok:true logging out user", async () => {
-    const cellphone = randomMaker.cellphone();
-    const fullName = randomMaker.fullName();
-    const ah = authHelper(cellphone, fullName);
+import { authHelper } from '@/classes/AuthHelper';
+import { randomMaker } from '@/classes/RandomMaker';
+import { utils } from '@/utils';
 
-    await ah.createComplete();
+describe('logout success tests', () => {
+	it('should get response.ok:true logging out user', async () => {
+		const cellphone = randomMaker.cellphone();
+		const fullName = randomMaker.fullName();
+		const ah = authHelper(cellphone, fullName);
 
-    const clients = [{ clientId: ah.getClientId() }];
+		await ah.createComplete();
 
-    for (let i = 0; i < 9; i++) {
-      await ah.signIn();
-      await ah.verify();
-      clients.push({
-        clientId: ah.getClientId(),
-      });
-    }
+		const clients = [{ clientId: ah.getClientId() }];
 
-    const clientIdToRemove = clients.pop()!.clientId;
-    const { userId } = (await clientStore.find(clientIdToRemove))!;
+		for (let i = 0; i < 9; i++) {
+			await ah.signIn();
+			await ah.verify();
+			clients.push({
+				clientId: ah.getClientId(),
+			});
+		}
 
-    await helpers.requesterCollection
-      .logout(ah.getClientSocket())
-      .sendFullFeaturedRequest();
+		const clientIdToRemove = clients.pop()!.clientId;
+		const { userId } = (await clientStore.find(clientIdToRemove))!;
 
-    const userFromDb = (await services.findOneUser({
-      userId,
-    }))!;
+		await utils.requesterCollection
+			.logout(ah.getClientSocket())
+			.sendFullFeaturedRequest();
 
-    const isClientExist = userFromDb.clients.some(
-      ({ clientId }) => clientId === clientIdToRemove
-    );
-    expect(isClientExist).toBeFalsy();
+		const userFromDb = (await services.findOneUser({
+			userId,
+		}))!;
 
-    clients.forEach((item) => {
-      const isClientExist = userFromDb.clients.some(
-        (i) => i.clientId === item.clientId
-      );
-      expect(isClientExist).toBeTruthy();
-    });
-  });
+		const isClientExist = userFromDb.clients.some(
+			({ clientId }) => clientId === clientIdToRemove
+		);
+		chai.expect(isClientExist).to.be.equal(false);
+
+		clients.forEach((item) => {
+			const isClientExist = userFromDb.clients.some(
+				(i) => i.clientId === item.clientId
+			);
+			chai.expect(isClientExist).to.be.equal(true);
+		});
+	});
 });
 
-// await helpers.asyncDescribe("logout fail tests", async () => {
+// await utils.asyncDescribe("logout fail tests", async () => {
 //   const clientSocket = (await clientInitializer().createComplete()).getClient();
-//   const requester = helpers.requesterCollection.logout(clientSocket);
+//   const requester = utils.requesterCollection.logout(clientSocket);
 
 //   return () => {
 //     e2eFailTestInitializerHelper(requester);

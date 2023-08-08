@@ -1,36 +1,38 @@
-import { errors } from "~/variables";
-import { eventsWithAuth, eventsWithoutAuth } from "~/websocket/events";
+import chai from 'chai';
 
-import { clientInitializer } from "@/classes/ClientInitializer";
-import { requesterMaker } from "@/classes/Requester";
-import { helpers } from "@/helpers";
+import { errorStore } from '~/classes/ErrorStore';
+import { eventsWithAuth, eventsWithoutAuth } from '~/websocket/events';
 
-describe("auth middleware test", () => {
-  for (const event of eventsWithoutAuth) {
-    it(`should not get error: clientNotFound - ${event.name}`, async () => {
-      const socket = (await clientInitializer().createComplete()).getClient();
-      const response = (
-        await requesterMaker(socket, event as any).sendRequest()
-      ).getResponse();
+import { clientInitializer } from '@/classes/ClientInitializer';
+import { requesterMaker } from '@/classes/Requester';
+import { utils } from '@/utils';
 
-      const { reason: expectedReason } = errors.clientNotFound;
-      const err = response.errors?.find((i) => i.reason === expectedReason);
-      expect(err?.reason).toBeFalsy();
-    });
-  }
+describe('checkClient middleware test', () => {
+	for (const event of eventsWithoutAuth) {
+		it(`should not get error: CLIENT_NOT_FOUND - ${event.name}`, async () => {
+			const socket = (await clientInitializer().createComplete()).getClient();
+			const response = (
+				await requesterMaker(socket, event as any).sendRequest()
+			).getResponse();
 
-  for (const event of eventsWithAuth) {
-    const title = helpers.createFailTestMessage(
-      errors.clientNotFound,
-      event.name
-    );
+			const { reason: expectedReason } = errorStore.find('CLIENT_NOT_FOUND');
+			const error = response.errors?.find((i) => i.reason === expectedReason);
+			chai.expect(!!error?.reason).to.be.equal(false);
+		});
+	}
 
-    it(title, async () => {
-      const socket = (await clientInitializer().createComplete()).getClient();
-      await requesterMaker(socket, event as any)
-        .setOptions({ shouldFilterRequestData: false })
-        .setError(errors.clientNotFound)
-        .sendFullFeaturedRequest();
-    });
-  }
+	for (const event of eventsWithAuth) {
+		const title = utils.createFailTestMessage(
+			errorStore.find('CLIENT_NOT_FOUND'),
+			event.name
+		);
+
+		it(title, async () => {
+			const socket = (await clientInitializer().createComplete()).getClient();
+			await requesterMaker(socket, event as any)
+				.setOptions({ shouldFilterRequestData: false })
+				.setError(errorStore.find('CLIENT_NOT_FOUND'))
+				.sendFullFeaturedRequest();
+		});
+	}
 });

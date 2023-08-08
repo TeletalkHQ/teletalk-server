@@ -1,20 +1,20 @@
-import { Contacts } from "utility-store/lib/types";
+import { Contacts } from 'utility-store/lib/types';
 
-import { UserService } from "~/types";
-import { errors } from "~/variables";
+import { errorStore } from '~/classes/ErrorStore';
+import { UserService } from '~/types';
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from './findOneUser';
 
 export const getUserContacts: UserService<
-  {
-    currentUserId: string;
-  },
-  Contacts
+	{
+		currentUserId: string;
+	},
+	Contacts
 > = async (data) => {
-  const currentUser = await findOneUserById({
-    userId: data.currentUserId,
-  });
-  if (!currentUser) throw errors.currentUserNotExist;
+	const currentUser = await findOneUser({
+		userId: data.currentUserId,
+	});
+	if (!currentUser) throw errorStore.find('CURRENT_USER_NOT_EXIST');
 
-  return currentUser.contacts;
+	return currentUser.contacts;
 };

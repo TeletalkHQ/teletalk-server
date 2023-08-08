@@ -1,83 +1,60 @@
-import mongoose from "mongoose";
-import { createClient } from "redis";
+import mongoose from 'mongoose';
+import { createClient } from 'redis';
 
-import { appConfigs } from "~/classes/AppConfigs";
-import { utils } from "~/utils";
+import { appConfigs } from '~/classes/AppConfigs';
+import { utils } from '~/utils';
 
 export const mongodbConnector = () => {
-  const configs = appConfigs.getConfigs();
+	const configs = appConfigs.getConfigs();
 
-  mongoose.set("strictQuery", false);
-  mongoose.connection.once("connected", () =>
-    logger.info(
-      `MongoDB connected to =>  ${mongoose.connection.host}:${mongoose.connection.port}`
-    )
-  );
+	mongoose.set('strictQuery', false);
+	mongoose.connection.once('connected', () =>
+		logger.info(`MongoDB connected to: ${configs.DB.MONGO_URI}`)
+	);
 
-  return mongoose.connect(configs.DB.MONGO_URL_FULL, {
-    // keepAlive: true,
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  });
+	return mongoose.connect(configs.DB.MONGO_URI);
 };
 
 export const redisConnector = async () => {
-  const REDIS_CONNECTION_OPTIONS = fixRedisConnection();
-  const { REDIS_PASSWORD } = appConfigs.getConfigs().DB;
+	const REDIS_CONNECTION_OPTIONS = {
+		HOST: appConfigs.getConfigs().DB.REDIS_HOST,
+		PASSWORD: appConfigs.getConfigs().DB.REDIS_PASSWORD,
+		PORT: appConfigs.getConfigs().DB.REDIS_PORT,
+	};
 
-  const storage = createClient({
-    socket: {
-      tls: false,
-      port: +REDIS_CONNECTION_OPTIONS.PORT,
-      host: REDIS_CONNECTION_OPTIONS.HOST,
-    },
-    password: REDIS_PASSWORD,
-  });
+	const storage = createClient({
+		password: REDIS_CONNECTION_OPTIONS.PASSWORD,
+		socket: {
+			host: REDIS_CONNECTION_OPTIONS.HOST,
+			port: REDIS_CONNECTION_OPTIONS.PORT,
+			tls: false,
+		},
+	});
 
-  storage.on("connect", () =>
-    logger.info(
-      `Redis connected to => ${REDIS_CONNECTION_OPTIONS.HOST}:${REDIS_CONNECTION_OPTIONS.PORT}`
-    )
-  );
-  storage.on("error", utils.crashServer);
+	storage.on('connect', () =>
+		logger.info(
+			`Redis connected to: ${REDIS_CONNECTION_OPTIONS.HOST}:${REDIS_CONNECTION_OPTIONS.PORT}`
+		)
+	);
+	storage.on('error', utils.crashServer);
 
-  await storage.connect();
+	await storage.connect();
 
-  return storage;
+	return storage;
 };
 
-const fixRedisConnection = () => {
-  const FIXED_HOST = fixRedisHost();
-  const FIXED_PORT = fixRedisPort();
-
-  return {
-    HOST: FIXED_HOST,
-    PORT: FIXED_PORT,
-  };
-};
-
-const fixRedisHost = () => {
-  const { REDIS_HOST, REDIS_PORT } = appConfigs.getConfigs().DB;
-
-  if (
-    [REDIS_HOST, REDIS_PORT?.toString()].some((item = "") =>
-      item.includes("tcp://")
-    )
-  ) {
-    return (REDIS_HOST || REDIS_PORT.toString())
-      .replace("tcp://", "")
-      .split(":")[0];
-  }
-
-  return REDIS_HOST;
-};
-
-const fixRedisPort = () => {
-  const { REDIS_PORT } = appConfigs.getConfigs().DB;
-
-  if (REDIS_PORT?.toString().includes("tcp://")) {
-    return REDIS_PORT.toString().split(":")[2];
-  }
-
-  return REDIS_PORT.toString();
-};
+// async function run() {
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     // Send a ping to confirm a successful connection
+//     await client.db("admin").command({ ping: 1 });
+//     console.log(
+//       "Pinged your deployment. You successfully connected to MongoDB!"
+//     );
+//   } finally {
+//     // Ensures that the client will close when you finish/error
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);

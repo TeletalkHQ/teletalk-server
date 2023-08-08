@@ -1,3 +1,3 @@
 export const escapeChars = {
-  newLine: "\n",
+	newLine: '\n',
 };

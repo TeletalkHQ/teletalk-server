@@ -1,194 +1,183 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CustomTypeof, customTypeof } from "custom-typeof";
-import lodash from "lodash";
+import chai from 'chai';
 
-import { FieldType, NativeModel } from "~/types/models";
+import { NativeModel } from '~/types/models';
+
+import { FIELD_TYPE } from '@/variables';
 
 type TestItem = () => void;
 
 interface Variables<Model> {
-  model: Model;
-  modelMaxLength: number;
-  modelMinLength: number;
-  modelLength: number;
-  equalValue: any;
-  testValue: any;
+	model: Model;
+	modelMaxLength: number;
+	modelMinLength: number;
+	modelLength: number;
+	equalValue: any;
+	testValue: any;
 }
 
-export class AssertionInitializer<Model extends Partial<NativeModel> = any> {
-  tests: TestItem[] = [];
+export class AssertionInitializer<Model extends NativeModel = any> {
+	tests: TestItem[] = [];
 
-  options = this.defaultOptions();
-  variables: Variables<Model>;
+	options = this.defaultOptions();
+	variables: Variables<Model>;
 
-  private defaultOptions() {
-    return {
-      modelCheck: true,
-      stringEquality: true,
-    };
-  }
+	private defaultOptions() {
+		return {
+			modelCheck: true,
+			stringEquality: true,
+		};
+	}
 
-  setVariables(model: Model, equalValue: any, testValue: any) {
-    this.variables = {
-      ...this.variables,
-      model,
-      equalValue,
-      testValue,
-      modelLength: model.length!,
-      modelMaxLength: model.maxLength!,
-      modelMinLength: model.minLength!,
-    };
+	setVariables(model: Model, equalValue: any, testValue: any) {
+		this.variables = {
+			...this.variables,
+			model,
+			equalValue,
+			testValue,
+			modelLength: model.length!,
+			modelMaxLength: model.maxLength!,
+			modelMinLength: model.minLength!,
+		};
 
-    return this;
-  }
-  setModel(model: Model) {
-    this.variables.model = model;
-    return this;
-  }
-  setEqualValue(equalValue: any) {
-    this.variables.equalValue = equalValue;
-    return this;
-  }
-  setTestValue(testValue: any) {
-    this.variables.testValue = testValue;
-    return this;
-  }
+		return this;
+	}
+	setModel(model: Model) {
+		this.variables.model = model;
+		return this;
+	}
+	setEqualValue(equalValue: any) {
+		this.variables.equalValue = equalValue;
+		return this;
+	}
+	setTestValue(testValue: any) {
+		this.variables.testValue = testValue;
+		return this;
+	}
 
-  setOptions(options = this.options) {
-    this.options = { ...this.options, ...options };
+	setOptions(options = this.options) {
+		this.options = { ...this.options, ...options };
 
-    return this;
-  }
+		return this;
+	}
 
-  run() {
-    this.tests.forEach((test) => test());
+	run() {
+		this.tests.forEach((test) => test());
 
-    return this;
-  }
+		return this;
+	}
 
-  addCommonTest() {
-    this.stringEquality().typeCheck().gteCheck().lteCheck();
+	addCommonTest() {
+		this.stringEquality().typeCheck().gteCheck().lteCheck();
 
-    return this;
-  }
+		return this;
+	}
 
-  stringEquality() {
-    this.addIf(this.options.stringEquality, () => {
-      this.tests.push(() =>
-        expect(this.variables.equalValue.length).toEqual(
-          this.variables.testValue.length
-        )
-      );
-      this.tests.push(() =>
-        expect(this.variables.equalValue).toEqual(this.variables.testValue)
-      );
-    });
+	stringEquality() {
+		this.addIf(this.options.stringEquality, () => {
+			this.tests.push(() =>
+				chai
+					.expect(this.variables.equalValue.length)
+					.to.be.equal(this.variables.testValue.length)
+			);
+			this.tests.push(() =>
+				chai
+					.expect(this.variables.equalValue)
+					.to.be.equal(this.variables.testValue)
+			);
+		});
 
-    return this;
-  }
+		return this;
+	}
 
-  addIf(condition: any, cb: () => void) {
-    if (condition) {
-      cb();
-    }
+	addIf(condition: any, cb: () => void) {
+		if (condition) {
+			cb();
+		}
 
-    return this;
-  }
+		return this;
+	}
 
-  lengthCheck() {
-    this.tests.push(() =>
-      expect(this.variables.testValue.length).toEqual(
-        +this.variables.modelLength
-      )
-    );
+	lengthCheck() {
+		this.tests.push(() =>
+			chai
+				.expect(this.variables.testValue.length)
+				.to.be.equal(+this.variables.modelLength)
+		);
 
-    return this;
-  }
+		return this;
+	}
 
-  typeCheck(customType?: FieldType) {
-    this.addIf(this.options.modelCheck, () => {
-      this.tests.push(() => {
-        expect(
-          customTypeof[this.getCustomTypeofMethodName(customType)](
-            this.variables.testValue
-          )
-        ).toBeTruthy();
-      });
-    });
+	typeCheck(customType = this.variables.model.type) {
+		this.addIf(this.options.modelCheck, () => {
+			this.tests.push(() => {
+				chai.expect(this.variables.testValue).to.be.an(customType);
+			});
+		});
 
-    return this;
-  }
+		return this;
+	}
 
-  customTypeCheck(value: any, customType: FieldType) {
-    this.tests.push(() =>
-      expect(
-        customTypeof[this.getCustomTypeofMethodName(customType)](value)
-      ).toBeTruthy()
-    );
+	customTypeCheck(value: any, customType = this.variables.model.type) {
+		this.tests.push(() => chai.expect(value).to.be.an(customType));
 
-    return this;
-  }
+		return this;
+	}
 
-  emptyCheck() {
-    this.addIf(this.options.modelCheck, () => {
-      if (this.variables.model.empty === false)
-        this.tests.push(() =>
-          expect(this.variables.testValue.length).toBeGreaterThan(0)
-        );
-    });
+	emptyCheck() {
+		this.addIf(this.options.modelCheck, () => {
+			if (this.variables.model.empty === false)
+				this.tests.push(() =>
+					chai.expect(this.variables.testValue.length).to.be.greaterThan(0)
+				);
+		});
 
-    return this;
-  }
+		return this;
+	}
 
-  gteCheck() {
-    this.addIf(this.options.modelCheck, () => {
-      this.tests.push(() =>
-        expect(this.variables.testValue.length).toBeGreaterThanOrEqual(
-          this.variables.modelMinLength
-        )
-      );
-    });
+	gteCheck() {
+		this.addIf(this.options.modelCheck, () => {
+			this.tests.push(() =>
+				chai
+					.expect(this.variables.testValue.length)
+					.to.be.greaterThanOrEqual(this.variables.modelMinLength)
+			);
+		});
 
-    return this;
-  }
-  gtCheck(length: number) {
-    this.addIf(this.options.modelCheck, () => {
-      this.tests.push(() =>
-        expect(this.variables.testValue.length).toBeGreaterThan(length)
-      );
-    });
+		return this;
+	}
+	gtCheck(length: number) {
+		this.addIf(this.options.modelCheck, () => {
+			this.tests.push(() =>
+				chai.expect(this.variables.testValue.length).to.be.greaterThan(length)
+			);
+		});
 
-    return this;
-  }
-  lteCheck() {
-    this.addIf(this.options.modelCheck, () => {
-      this.tests.push(() =>
-        expect(this.variables.testValue.length).toBeLessThanOrEqual(
-          this.variables.modelMaxLength
-        )
-      );
-    });
+		return this;
+	}
+	lteCheck() {
+		this.addIf(this.options.modelCheck, () => {
+			this.tests.push(() =>
+				chai
+					.expect(this.variables.testValue.length)
+					.to.be.lessThanOrEqual(this.variables.modelMaxLength)
+			);
+		});
 
-    return this;
-  }
+		return this;
+	}
 
-  numericCheck() {
-    this.addIf(this.options.modelCheck, () => {
-      this.tests.push(() =>
-        expect(customTypeof.isNumber(+this.variables.testValue)).toBeTruthy()
-      );
-    });
-    return this;
-  }
-
-  private getCustomTypeofMethodName(type?: FieldType) {
-    return `is${lodash.upperFirst(
-      type || this.variables.model.type
-    )}` as keyof CustomTypeof;
-  }
+	numericCheck() {
+		this.addIf(this.options.modelCheck, () => {
+			this.tests.push(
+				() =>
+					chai.expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER).and
+						.not.be.an.NaN
+			);
+		});
+		return this;
+	}
 }
 
-export const assertionInitializer = {
-  create: <Model extends Partial<NativeModel>>() =>
-    new AssertionInitializer<Model>(),
-};
+export const assertionInitializer = <Model extends NativeModel>() =>
+	new AssertionInitializer<Model>();

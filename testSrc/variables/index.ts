@@ -1,1 +1,1 @@
-export * from "@/variables/fieldType";
+export * from '@/variables/fieldType';

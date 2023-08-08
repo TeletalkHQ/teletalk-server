@@ -1,4 +1,6 @@
-import { Id } from ".";
+import { Cellphone, FullName } from 'utility-store/lib/types';
+
+import { Id } from '.';
 
 export type Bio = string;
 
@@ -19,3 +21,5 @@ export type VerificationCode = string;
 export type NewUser = boolean;
 
 export type Username = string;
+
+export type ContactItemWithCellphone = Cellphone & FullName;

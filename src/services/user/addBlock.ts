@@ -1,50 +1,50 @@
-import { errorThrower } from "utility-store";
-import { UserData, UserId } from "utility-store/lib/types";
+import { errorThrower } from 'utility-store';
+import { UserData, UserId } from 'utility-store/lib/types';
 
-import { UserService } from "~/types";
-import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
+import { errorStore } from '~/classes/ErrorStore';
+import { UserService } from '~/types';
+import { HydratedUser } from '~/types/models';
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from './findOneUser';
 
 export const addBlock: UserService<
-  {
-    blockingUserId: UserId;
-    currentUserId: UserId;
-  },
-  void
+	{
+		blockingUserId: UserId;
+		currentUserId: UserId;
+	},
+	void
 > = async (data) => {
-  const currentUser = await findOneUserById({
-    userId: data.currentUserId,
-  });
+	const currentUser = await findOneUser({
+		userId: data.currentUserId,
+	});
 
-  if (!currentUser) throw errors.currentUserNotExist;
+	if (!currentUser) throw errorStore.find('CURRENT_USER_NOT_EXIST');
 
-  const targetUser = await findOneUserById({
-    userId: data.blockingUserId,
-  });
-  errorThrower(!targetUser, errors.targetUserNotExist);
+	const targetUser = await findOneUser({
+		userId: data.blockingUserId,
+	});
+	errorThrower(!targetUser, errorStore.find('TARGET_USER_NOT_EXIST'));
 
-  checkExistenceOfBlacklistItem(currentUser.blacklist, data.blockingUserId);
+	checkExistenceOfBlacklistItem(currentUser.blacklist, data.blockingUserId);
 
-  await saveNewBlacklistItem(currentUser, data.blockingUserId);
+	await saveNewBlacklistItem(currentUser, data.blockingUserId);
 };
 
 const checkExistenceOfBlacklistItem = (
-  blacklist: UserData["blacklist"],
-  userId: UserId
+	blacklist: UserData['blacklist'],
+	userId: UserId
 ) => {
-  const index = blacklist.findIndex((i) => i.userId === userId);
-  errorThrower(index !== -1, () => ({
-    ...errors.blacklistItemExist,
-    targetUserData: userId,
-  }));
+	const index = blacklist.findIndex((i) => i.userId === userId);
+	errorThrower(index !== -1, () => ({
+		...errorStore.find('BLACKLIST_ITEM_EXIST'),
+		targetUserData: userId,
+	}));
 };
 
 const saveNewBlacklistItem = async (
-  currentUser: HydratedUser,
-  userId: UserId
+	currentUser: HydratedUser,
+	userId: UserId
 ) => {
-  currentUser.blacklist.push({ userId });
-  await currentUser.save();
+	currentUser.blacklist.push({ userId });
+	await currentUser.save();
 };

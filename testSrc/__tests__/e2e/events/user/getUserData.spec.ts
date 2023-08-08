@@ -1,32 +1,31 @@
-import { userUtils } from "~/classes/UserUtils";
-import { services } from "~/services";
+import { extractor } from 'utility-store';
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { services } from '~/services';
 
-//TODO: Add fail tests
+import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
+import { randomMaker } from '@/classes/RandomMaker';
+import { utils } from '@/utils';
 
-describe("getUserData success tests", () => {
-  it("should get currentUser data", async () => {
-    const { socket } = await randomMaker.user();
-    const requester = helpers.requesterCollection.getUserData(socket);
+describe('getUserData success tests', () => {
+	it('should get currentUser data', async () => {
+		const { socket } = await randomMaker.user();
+		const requester = utils.requesterCollection.getUserData(socket);
 
-    for (let i = 0; i < 10; i++) {
-      const {
-        data: { user: responseUserData },
-      } = await requester.sendFullFeaturedRequest();
+		for (let i = 0; i < 10; i++) {
+			const {
+				data: { user: responseUserData },
+			} = await requester.sendFullFeaturedRequest();
 
-      const user = (await services.findOneUser({
-        userId: responseUserData.userId,
-      }))!;
+			const user = (await services.findOneUser({
+				userId: responseUserData.userId,
+			}))!;
 
-      const userData = userUtils.extractUserData(user);
+			const userData = extractor.userData(user);
 
-      assertionInitializerHelper().userData({
-        equalValue: userData,
-        testValue: responseUserData,
-      });
-    }
-  });
+			assertionInitializerHelper().userData({
+				equalValue: userData,
+				testValue: responseUserData,
+			});
+		}
+	});
 });

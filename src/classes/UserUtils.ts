@@ -1,9 +1,9 @@
-import { UserUtils as UserUtilitiesMain } from "utility-store";
+import { UserUtils as UserUtilitiesMain } from 'utility-store';
 
 class UserUtils extends UserUtilitiesMain {
-  constructor() {
-    super();
-  }
+	constructor() {
+		super();
+	}
 }
 
 export const userUtils = new UserUtils();

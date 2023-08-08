@@ -12,3 +12,5 @@ public
 tests.svg
 thunder-tests
 *.d.ts
+pnpm-lock.yaml
+pnpm-lock.json

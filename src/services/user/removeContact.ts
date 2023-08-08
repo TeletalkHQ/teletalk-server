@@ -1,55 +1,55 @@
-import { errorThrower } from "utility-store";
-import { UserData, UserId } from "utility-store/lib/types";
+import { errorThrower } from 'utility-store';
+import { UserData, UserId } from 'utility-store/lib/types';
 
-import { UserService } from "~/types";
-import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
+import { errorStore } from '~/classes/ErrorStore';
+import { UserService } from '~/types';
+import { HydratedUser } from '~/types/models';
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from './findOneUser';
 
 export const removeContact: UserService<
-  {
-    currentUserId: UserId;
-    targetUserId: UserId;
-  },
-  void
+	{
+		currentUserId: UserId;
+		targetUserId: UserId;
+	},
+	void
 > = async (data) => {
-  const currentUser = await findCurrentUser(data.currentUserId);
-  if (!currentUser) throw errors.currentUserNotExist;
+	const currentUser = await findCurrentUser(data.currentUserId);
+	if (!currentUser) throw errorStore.find('CURRENT_USER_NOT_EXIST');
 
-  const { index } = checkExistenceOfContactItem(
-    currentUser.contacts,
-    data.targetUserId
-  );
+	const { index } = checkExistenceOfContactItem(
+		currentUser.contacts,
+		data.targetUserId
+	);
 
-  await removeContactAndSave(currentUser, index);
+	await removeContactAndSave(currentUser, index);
 };
 
 const findCurrentUser = (currentUserId: string) => {
-  return findOneUserById({
-    userId: currentUserId,
-  });
+	return findOneUser({
+		userId: currentUserId,
+	});
 };
 
 const checkExistenceOfContactItem = (
-  contacts: UserData["contacts"],
-  targetUserId: UserId
+	contacts: UserData['contacts'],
+	targetUserId: UserId
 ) => {
-  const index = contacts.findIndex((c) => c.userId === targetUserId);
-  errorThrower(index === -1, () => ({
-    ...errors.contactItemNotExist,
-    targetUserId,
-  }));
+	const index = contacts.findIndex((c) => c.userId === targetUserId);
+	errorThrower(index === -1, () => ({
+		...errorStore.find('CONTACT_ITEM_NOT_EXIST'),
+		targetUserId,
+	}));
 
-  return {
-    index,
-  };
+	return {
+		index,
+	};
 };
 
 const removeContactAndSave = async (
-  currentUser: HydratedUser,
-  index: number
+	currentUser: HydratedUser,
+	index: number
 ) => {
-  currentUser.contacts.splice(index, 1);
-  await currentUser.save();
+	currentUser.contacts.splice(index, 1);
+	await currentUser.save();
 };

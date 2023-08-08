@@ -1,95 +1,95 @@
-import { clientStore } from "~/classes/ClientStore";
-import { models } from "~/models";
-import { services } from "~/services";
-import { ClientId, UserId } from "~/types/datatypes";
+import chai from 'chai';
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { authHelper } from "@/classes/AuthHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
-import { randomMaker } from "@/classes/RandomMaker";
-import { helpers } from "@/helpers";
+import { clientStore } from '~/classes/ClientStore';
+import { models } from '~/models';
+import { services } from '~/services';
+import { ClientId, UserId } from '~/types/datatypes';
 
-describe("verifySignIn success test", () => {
-  it("should sign and verify as new user", async () => {
-    const cellphone = randomMaker.unusedCellphone();
-    const fullName = randomMaker.fullName();
+import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
+import { authHelper } from '@/classes/AuthHelper';
+import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
+import { randomMaker } from '@/classes/RandomMaker';
+import { utils } from '@/utils';
 
-    const helper = authHelper(cellphone, fullName);
-    await helper.signIn();
-    await helper.verify();
-    expect(helper.getResponses().verify.data.newUser).toBe(true);
+describe('verifySignIn success test', () => {
+	it('should sign and verify as new user', async () => {
+		const cellphone = randomMaker.unusedCellphone();
+		const fullName = randomMaker.fullName();
 
-    const client = (await clientStore.find(helper.getClientId()))!;
+		const helper = authHelper(cellphone, fullName);
+		await helper.signIn();
+		await helper.verify();
+		chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(true);
 
-    expect(client.isVerified).toBe(true);
-  });
+		const client = (await clientStore.find(helper.getClientId()))!;
 
-  it("should verify as exist user", async () => {
-    const cellphone = randomMaker.unusedCellphone();
-    const fullName = randomMaker.fullName();
-    const helper = authHelper(cellphone, fullName);
+		chai.expect(client.isVerified).to.be.equal(true);
+	});
 
-    await helper.createComplete();
+	it('should verify as exist user', async () => {
+		const cellphone = randomMaker.unusedCellphone();
+		const fullName = randomMaker.fullName();
+		const helper = authHelper(cellphone, fullName);
 
-    const clients = [helper.getClientId()];
+		await helper.createComplete();
 
-    for (let i = 0; i < 9; i++) {
-      const helper = authHelper(cellphone, fullName);
+		const clients = [helper.getClientId()];
 
-      await helper.signIn();
-      await helper.verify();
+		for (let i = 0; i < 9; i++) {
+			const helper = authHelper(cellphone, fullName);
 
-      expect(helper.getResponses().verify.data.newUser).toBeFalsy();
+			await helper.signIn();
+			await helper.verify();
 
-      clients.push(helper.getClientId());
-      await testUserClientId(helper.getClientId());
-    }
+			chai.expect(helper.getResponses().verify.data.newUser).to.be.equal(false);
 
-    const user = (await services.findOneUser(cellphone))!;
+			clients.push(helper.getClientId());
+			await testUserClientId(helper.getClientId());
+		}
 
-    expect(clients.length).toBe(user.clients.length);
+		const user = (await services.findOneUser(cellphone))!;
 
-    clients.forEach((item) => {
-      const isExist = user.clients.some(({ clientId }) => clientId === item);
-      expect(isExist).toBe(true);
-    });
-  });
+		chai.expect(clients.length).to.be.equal(user.clients.length);
+
+		clients.forEach((item) => {
+			const isExist = user.clients.some(({ clientId }) => clientId === item);
+			chai.expect(isExist).to.be.equal(true);
+		});
+	});
 });
 
-await helpers.asyncDescribe("verifySignIn fail tests", async () => {
-  const cellphone = randomMaker.unusedCellphone();
-  const helper = authHelper(cellphone);
-  await helper.signIn();
-  const requester = helpers.requesterCollection.verify(
-    helper.getClientSocket()
-  );
+await utils.asyncDescribe('verifySignIn fail tests', async () => {
+	const cellphone = randomMaker.unusedCellphone();
+	const helper = authHelper(cellphone);
+	await helper.signIn();
+	const requester = utils.requesterCollection.verify(helper.getClientSocket());
 
-  return () => {
-    const data = {
-      verificationCode: randomMaker.string(
-        models.native.verificationCode.length
-      ),
-    };
+	return () => {
+		const data = {
+			verificationCode: randomMaker.string(
+				models.native.verificationCode.length
+			),
+		};
 
-    e2eFailTestInitializerHelper(requester).input(data).verificationCode(data);
-  };
+		e2eFailTestInitializerHelper(requester).input(data).verificationCode(data);
+	};
 });
 
 const testUserClientId = async (clientId: ClientId) => {
-  const { userId } = (await clientStore.find(clientId))!;
-  const foundClient = await getSavedUserClient(userId, clientId);
+	const { userId } = (await clientStore.find(clientId))!;
+	const foundClient = await getSavedUserClient(userId, clientId);
 
-  assertionInitializerHelper().clientId({
-    equalValue: foundClient.clientId,
-    testValue: clientId,
-  });
+	assertionInitializerHelper().clientId({
+		equalValue: foundClient.clientId,
+		testValue: clientId,
+	});
 };
 
 const getSavedUserClient = async (userId: UserId, clientId: ClientId) => {
-  const savedUser = (await getSavedUser(userId))!;
-  return savedUser.clients.find((i) => i.clientId === clientId)!;
+	const savedUser = (await getSavedUser(userId))!;
+	return savedUser.clients.find((i) => i.clientId === clientId)!;
 };
 
 const getSavedUser = async (userId: UserId) => {
-  return await services.findOneUserById({ userId });
+	return await services.findOneUser({ userId });
 };

@@ -1,65 +1,66 @@
-import { errorThrower } from "check-fields";
-import { customTypeof } from "custom-typeof";
+import { errorThrower } from 'check-fields';
+import { customTypeof } from 'custom-typeof';
 
-import { validationChecker } from "~/classes/ValidationChecker";
-import { nativeModels } from "~/models/native";
-import { ValidationCheckerFn, ValidationCheckerFnCollection } from "~/types";
-import { Field } from "~/types/models";
-import { countries, errors } from "~/variables";
+import { errorStore } from '~/classes/ErrorStore';
+import { validationChecker } from '~/classes/ValidationChecker';
+import { nativeModels } from '~/models/native';
+import { ValidationCheckerFn, ValidationCheckerFnCollection } from '~/types';
+import { Field } from '~/types/models';
+import { countries } from '~/variables';
 
 export const validationCheckers = Object.keys(nativeModels).reduce(
-  (prevValue, currValue) => {
-    const k = currValue as Field;
+	(prevValue, currValue) => {
+		const k = currValue as Field;
 
-    prevValue[k] = (result, value, ignores) =>
-      validationChecker(result, k, value, ignores).check();
+		prevValue[k] = (result, value, ignores) =>
+			validationChecker(result, k, value, ignores).check();
 
-    return prevValue;
-  },
-  {} as ValidationCheckerFnCollection
+		return prevValue;
+	},
+	{} as ValidationCheckerFnCollection
 );
 
 const {
-  countryCode: defaultCountryCodeChecker,
-  countryName: defaultCountryNameChecker,
+	countryCode: defaultCountryCodeChecker,
+	countryName: defaultCountryNameChecker,
 } = validationCheckers;
 
 validationCheckers.countryCode = (result, value, ignores) => {
-  if (result === true) {
-    const country = countries.find((c) => c.countryCode === value);
-    errorThrower(
-      customTypeof.isUndefined(country),
-      errors.countryCodeNotSupported
-    );
+	if (result === true) {
+		const country = countries.find((c) => c.countryCode === value);
+		errorThrower(
+			customTypeof.isUndefined(country),
+			errorStore.find('COUNTRY_CODE_NOT_SUPPORTED')
+		);
 
-    return;
-  }
+		return;
+	}
 
-  defaultCountryCodeChecker(result, value, ignores);
+	defaultCountryCodeChecker(result, value, ignores);
 };
 
 validationCheckers.countryName = (result, value, ignores) => {
-  if (result === true) {
-    const country = countries.find((c) => c.countryName === value);
-    errorThrower(
-      customTypeof.isUndefined(country),
-      errors.countryNameNotSupported
-    );
+	if (result === true) {
+		const country = countries.find((c) => c.countryName === value);
+		errorThrower(
+			customTypeof.isUndefined(country),
+			errorStore.find('COUNTRY_NAME_NOT_SUPPORTED')
+		);
 
-    return;
-  }
+		return;
+	}
 
-  defaultCountryNameChecker(result, value, ignores);
+	defaultCountryNameChecker(result, value, ignores);
 };
 
 const notImplementedCheckerFn = (fieldName: Field) =>
-  (() => {
-    throw `${fieldName}ValidationChecker is not implemented`;
-  }) as ValidationCheckerFn;
+	(() => {
+		throw `${fieldName}ValidationChecker is not implemented`;
+	}) as ValidationCheckerFn;
 
-validationCheckers.id = notImplementedCheckerFn("id");
-validationCheckers.createdAt = notImplementedCheckerFn("createdAt");
-validationCheckers.isActive = notImplementedCheckerFn("isActive");
-validationCheckers.macAddress = notImplementedCheckerFn("macAddress");
-validationCheckers.messageId = notImplementedCheckerFn("messageId");
-validationCheckers.senderId = notImplementedCheckerFn("senderId");
+validationCheckers.id = notImplementedCheckerFn('id');
+validationCheckers.createdAt = notImplementedCheckerFn('createdAt');
+validationCheckers.isActive = notImplementedCheckerFn('isActive');
+validationCheckers.macAddress = notImplementedCheckerFn('macAddress');
+validationCheckers.messageId = notImplementedCheckerFn('messageId');
+validationCheckers.senderId = notImplementedCheckerFn('senderId');

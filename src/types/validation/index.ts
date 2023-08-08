@@ -1,29 +1,29 @@
 import {
-  AsyncCheckFunction,
-  SyncCheckFunction,
-  ValidationError,
-  ValidationRuleObject,
-} from "fastest-validator";
+	AsyncCheckFunction,
+	SyncCheckFunction,
+	ValidationError,
+	ValidationRuleObject,
+} from 'fastest-validator';
 
-import { helpers } from "~/helpers";
+import { utils } from '~/utils';
 
-import { ErrorReason, NativeError } from "..";
-import { Field } from "../models";
+import { ErrorReason, NativeError } from '..';
+import { Field } from '../models';
 
 export type ValidationModel = ValidationRuleObject;
 
 export type ValidationCollection = {
-  [F in Field]: ValidationModel;
+	[F in Field]: ValidationModel;
 };
 
-const ERROR_TYPES = helpers.getDefaultValidatorErrorTypes();
+const ERROR_TYPES = utils.getDefaultValidatorErrorTypes();
 export type ErrorTypes = typeof ERROR_TYPES;
 export type ValidationErrors = ValidationError[];
 
 export interface ValidationCheckerError extends NativeError {
-  result: ValidationErrors;
-  validatedValue: unknown;
-  validatedFieldName: Field;
+	result: ValidationErrors;
+	validatedValue: unknown;
+	validatedFieldName: Field;
 }
 export type ValidationResult = true | ValidationErrors;
 
@@ -32,13 +32,13 @@ export type FieldValidator = AsyncCheckFunction | SyncCheckFunction;
 export type ValidationCheckerIgnores = ErrorReason[];
 
 export type ValidationCheckerFn = (
-  r: ValidationResult,
-  value: unknown,
-  ignores?: ValidationCheckerIgnores
+	r: ValidationResult,
+	value: unknown,
+	ignores?: ValidationCheckerIgnores
 ) => void;
 
 export type ValidationCheckerFnCollection = {
-  [prop in Field]: ValidationCheckerFn;
+	[prop in Field]: ValidationCheckerFn;
 };
 
 export type Validator = (param: any) => Promise<void>;

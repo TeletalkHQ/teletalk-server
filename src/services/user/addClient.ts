@@ -1,33 +1,33 @@
-import { UserService } from "~/types";
-import { ClientId, UserId } from "~/types/datatypes";
-import { HydratedUser } from "~/types/models";
-import { errors } from "~/variables";
+import { errorStore } from '~/classes/ErrorStore';
+import { UserService } from '~/types';
+import { ClientId, UserId } from '~/types/datatypes';
+import { HydratedUser } from '~/types/models';
 
-import { findOneUserById } from "./findOneUserById";
+import { findOneUser } from './findOneUser';
 
 export const addClient: UserService<
-  {
-    clientId: ClientId;
-    userId: UserId;
-  },
-  void
+	{
+		clientId: ClientId;
+		userId: UserId;
+	},
+	void
 > = async (data) => {
-  const currentUser = await findCurrentUser(data.userId);
-  if (!currentUser) throw errors.currentUserNotExist;
+	const currentUser = await findCurrentUser(data.userId);
+	if (!currentUser) throw errorStore.find('CURRENT_USER_NOT_EXIST');
 
-  await addAndSaveNew(currentUser, data.clientId);
+	await addAndSaveNew(currentUser, data.clientId);
 };
 
 const findCurrentUser = (userId: UserId) => {
-  return findOneUserById({
-    userId,
-  });
+	return findOneUser({
+		userId,
+	});
 };
 
 const addAndSaveNew = async (currentUser: HydratedUser, clientId: ClientId) => {
-  currentUser.clients.push({
-    clientId,
-  });
+	currentUser.clients.push({
+		clientId,
+	});
 
-  await currentUser.save();
+	await currentUser.save();
 };

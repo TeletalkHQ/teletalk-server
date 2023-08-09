@@ -2455,7 +2455,7 @@ packages:
       '@babel/helper-module-imports': 7.22.5
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.10)
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
     dev: true
 
   /@babel/plugin-transform-regenerator@7.22.10(@babel/core@7.22.10):
@@ -4334,6 +4334,7 @@ packages:
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    requiresBuild: true
     dev: true
 
   /@types/json5@2.2.0:
@@ -8963,6 +8964,7 @@ packages:
   /json5@1.0.2:
     resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
     hasBin: true
+    requiresBuild: true
     dependencies:
       minimist: 1.2.8
     dev: true

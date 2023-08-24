@@ -1,3 +1,5 @@
+import { UserData } from "utility-store/lib/types";
+
 import { AssertionInitializer } from "@/types";
 import { bioAssertionInitializer } from "@/utils/assertionInitializers/bio";
 import { blacklistAssertionInitializer } from "@/utils/assertionInitializers/blacklist";
@@ -7,36 +9,63 @@ import { fullNameAssertionInitializer } from "@/utils/assertionInitializers/full
 import { userIdAssertionInitializer } from "@/utils/assertionInitializers/userId";
 import { usernameAssertionInitializer } from "@/utils/assertionInitializers/username";
 
-export const userDataAssertionInitializer: AssertionInitializer = ({
-	equalValue,
-	testValue,
-}) => {
-	bioAssertionInitializer({
-		equalValue: equalValue.bio,
-		testValue: testValue.bio,
-	});
+export const userDataAssertionInitializer: AssertionInitializer<UserData> = (
+	{ equalValue, testValue },
+	options
+) => {
+	bioAssertionInitializer(
+		{
+			equalValue: equalValue?.bio,
+			testValue: testValue.bio,
+		},
+		options
+	);
 
-	blacklistAssertionInitializer({
-		equalValue: equalValue.blacklist,
-		testValue: testValue.blacklist,
-	});
+	blacklistAssertionInitializer(
+		{
+			equalValue: equalValue?.blacklist,
+			testValue: testValue.blacklist,
+		},
+		options
+	);
 
-	cellphoneAssertionInitializer({ equalValue, testValue });
+	cellphoneAssertionInitializer(
+		{
+			equalValue,
+			testValue,
+		},
+		options
+	);
 
-	contactsAssertionInitializer({
-		equalValue: equalValue.contacts,
-		testValue: testValue.contacts,
-	});
+	contactsAssertionInitializer(
+		{
+			equalValue: equalValue?.contacts,
+			testValue: testValue.contacts,
+		},
+		options
+	);
 
-	fullNameAssertionInitializer({ equalValue, testValue });
+	fullNameAssertionInitializer(
+		{
+			equalValue,
+			testValue,
+		},
+		options
+	);
 
-	userIdAssertionInitializer({
-		equalValue: equalValue.userId,
-		testValue: testValue.userId,
-	});
+	userIdAssertionInitializer(
+		{
+			equalValue: equalValue?.userId,
+			testValue: testValue.userId,
+		},
+		options
+	);
 
-	usernameAssertionInitializer({
-		equalValue: equalValue.username,
-		testValue: testValue.username,
-	});
+	usernameAssertionInitializer(
+		{
+			equalValue: equalValue?.username,
+			testValue: testValue.username,
+		},
+		options
+	);
 };

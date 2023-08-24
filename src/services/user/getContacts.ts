@@ -5,7 +5,7 @@ import { UserService } from "~/types";
 
 import { findOneUser } from "./findOneUser";
 
-export const getUserContacts: UserService<
+export const getContacts: UserService<
 	{
 		currentUserId: string;
 	},

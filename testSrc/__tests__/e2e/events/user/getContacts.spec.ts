@@ -23,7 +23,7 @@ describe("getContacts success tests", () => {
 			await addContactRequester.sendFullFeaturedRequest(contact);
 		}
 
-		const savedContacts = (await services.getUserContacts({
+		const savedContacts = (await services.getContacts({
 			currentUserId: currentUser.userId,
 		}))!;
 

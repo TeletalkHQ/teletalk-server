@@ -1,22 +1,24 @@
+import { Cellphone } from "utility-store/lib/types";
+
 import { AssertionInitializer } from "@/types";
 import { countryCodeAssertionInitializer } from "@/utils/assertionInitializers/countryCode";
 import { countryNameAssertionInitializer } from "@/utils/assertionInitializers/countryName";
 import { phoneNumberAssertionInitializer } from "@/utils/assertionInitializers/phoneNumber";
 
-export const cellphoneAssertionInitializer: AssertionInitializer = ({
+export const cellphoneAssertionInitializer: AssertionInitializer<Cellphone> = ({
 	equalValue,
 	testValue,
 }) => {
 	countryCodeAssertionInitializer({
-		equalValue: equalValue.countryCode,
+		equalValue: equalValue?.countryCode,
 		testValue: testValue.countryCode,
 	});
 	countryNameAssertionInitializer({
-		equalValue: equalValue.countryName,
+		equalValue: equalValue?.countryName,
 		testValue: testValue.countryName,
 	});
 	phoneNumberAssertionInitializer({
-		equalValue: equalValue.phoneNumber,
+		equalValue: equalValue?.phoneNumber,
 		testValue: testValue.phoneNumber,
 	});
 };

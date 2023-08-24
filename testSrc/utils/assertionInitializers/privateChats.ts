@@ -1,31 +1,32 @@
-import { models } from "~/models";
-import { PrivateChatItem } from "~/types/datatypes";
+import chai from "chai";
 
-import { assertionInitializer } from "@/classes/AssertionInitializer";
+import { PrivateChats } from "~/types/datatypes";
+
 import { AssertionInitializer } from "@/types";
+import { FIELD_TYPE } from "@/variables";
 
-const chatModels = models.native;
+export const privateChatsAssertionInitializer: AssertionInitializer<
+	PrivateChats
+> = ({ testValue }) => {
+	chai.expect(testValue).to.be.an(FIELD_TYPE.ARRAY);
 
-export const privateChatsAssertionInitializer: AssertionInitializer = (
-	{ testValue },
-	_options
-) => {
-	const builder = assertionInitializer();
-	//   .setModel(chatModels.privateChats)
-	//   .setTestValue(testValue)
-	//   .setOptions(options);
+	//TODO: add all parts
 
-	// builder.typeCheck().run();
+	// if (options?.stringEquality) {
+	// 	chai.expect(testValue).to.be.an(FIELD_TYPE.ARRAY);
+	// 	chai.expect(testValue.length).to.be.equal(equalValue!.length);
 
-	testValue.forEach((privateChat: PrivateChatItem) => {
-		builder
-			.customTypeCheck(privateChat, "object")
-			//TODO: Add all parts
-			.setModel(chatModels.chatId)
-			.setTestValue(privateChat.chatId)
-			.typeCheck()
-			.gteCheck()
-			.lteCheck()
-			.run();
-	});
+	// 	equalValue!.forEach((item) => {
+	// 		const foundPV = testValue.find((c) => c.chatId === item.chatId);
+
+	// 		chai.expect(foundPV).to.be.an(FIELD_TYPE.OBJECT);
+
+	// 		chatIdAssertionInitializer({
+	// 			testValue: item.chatId,
+	// 			equalValue: foundPV?.chatId,
+	// 		});
+
+	// 		// messageTextAssertionInitializer({ testValue:item.messages, equalValue });
+	// 	});
+	// }
 };

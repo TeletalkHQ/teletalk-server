@@ -1,9 +1,10 @@
 import { models } from "~/models";
+import { ClientId } from "~/types/datatypes";
 
 import { assertionInitializer } from "@/classes/AssertionInitializer";
 import { AssertionInitializer } from "@/types";
 
-export const clientIdAssertionInitializer: AssertionInitializer = (
+export const clientIdAssertionInitializer: AssertionInitializer<ClientId> = (
 	{ equalValue, testValue },
 	options
 ) => {

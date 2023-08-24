@@ -4,7 +4,7 @@ import { addContact } from "~/services/user/addContact";
 import { addContactWithCellphone } from "~/services/user/addContactWithCellphone";
 import { addContactWithUserId } from "~/services/user/addContactWithUserId";
 import { findOneUser } from "~/services/user/findOneUser";
-import { getUserContacts } from "~/services/user/getUserContacts";
+import { getContacts } from "~/services/user/getContacts";
 import { removeBlock } from "~/services/user/removeBlock";
 import { removeContact } from "~/services/user/removeContact";
 import { updateContact } from "~/services/user/updateContact";
@@ -17,7 +17,7 @@ export const userServices = {
 	addContactWithCellphone,
 	addContactWithUserId,
 	findOneUser,
-	getUserContacts,
+	getContacts,
 	removeBlock,
 	removeContact,
 	updateContact,

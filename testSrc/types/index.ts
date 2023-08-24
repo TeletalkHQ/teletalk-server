@@ -32,13 +32,16 @@ export type AssertionInitializerOptions = {
 	modelCheck: boolean;
 	stringEquality: boolean;
 };
-export interface AssertionInitializerArgs {
-	equalValue?: any;
-	testValue: any;
+export interface AssertionInitializerArgs<DataType, TestDataType = DataType> {
+	equalValue?: DataType;
+	testValue: TestDataType;
 }
 
-export type AssertionInitializer = (
-	data: AssertionInitializerArgs,
+export type AssertionInitializer<
+	EqualDataType,
+	TestDataType = EqualDataType
+> = (
+	data: AssertionInitializerArgs<EqualDataType, TestDataType>,
 	options?: AssertionInitializerOptions
 ) => void;
 

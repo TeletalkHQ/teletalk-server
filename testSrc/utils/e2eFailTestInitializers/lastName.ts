@@ -1,7 +1,7 @@
-import { models } from '~/models';
+import { models } from "~/models";
 
-import { e2eFailTestInitializer } from '@/classes/E2eFailTestInitializer';
-import { E2eFailTestInitializer } from '@/types';
+import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
+import { E2eFailTestInitializer } from "@/types";
 
 export const lastNameE2eFailTestInitializer: E2eFailTestInitializer = (
 	configuredRequester,
@@ -11,7 +11,7 @@ export const lastNameE2eFailTestInitializer: E2eFailTestInitializer = (
 		configuredRequester,
 		data,
 		models.native.lastName,
-		'lastName'
+		"lastName"
 	)
 		.missing()
 		.overload()

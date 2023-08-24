@@ -2,11 +2,11 @@ export const commonModels = {
 	createdAt: {
 		empty: false,
 		required: true,
-		type: 'number',
+		type: "number",
 	},
 	get id() {
 		return {
-			type: 'string',
+			type: "string",
 			required: true,
 			empty: false,
 			minLength: 30,

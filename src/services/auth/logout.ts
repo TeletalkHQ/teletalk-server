@@ -1,5 +1,5 @@
-import { errorStore } from '~/classes/ErrorStore';
-import { models } from '~/models';
+import { errorStore } from "~/classes/ErrorStore";
+import { models } from "~/models";
 
 export const logout = async ({
 	userId,
@@ -12,7 +12,7 @@ export const logout = async ({
 		userId,
 	});
 
-	if (!currentUser) throw errorStore.find('CURRENT_USER_NOT_EXIST');
+	if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
 	//FIXME: Remove specific clientId
 	currentUser.clients = currentUser.clients.filter(

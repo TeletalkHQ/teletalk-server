@@ -1,6 +1,6 @@
-import { ServiceFn } from '~/types';
+import { ServiceFn } from "~/types";
 
-import { serviceHandler } from './ServiceHandler';
+import { serviceHandler } from "./ServiceHandler";
 
 export class ServiceBuilder {
 	private serviceBody: ServiceFn;

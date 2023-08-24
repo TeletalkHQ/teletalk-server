@@ -1,10 +1,10 @@
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
-import { errorThrower } from 'utility-store';
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
+import { errorThrower } from "utility-store";
 
-import { clientStore } from '~/classes/ClientStore';
-import { errorStore } from '~/classes/ErrorStore';
-import { SocketMiddleware, SocketNext, VerifyIO } from '~/types';
+import { clientStore } from "~/classes/ClientStore";
+import { errorStore } from "~/classes/ErrorStore";
+import { SocketMiddleware, SocketNext, VerifyIO } from "~/types";
 
 export const verifyVerificationCode: SocketMiddleware<VerifyIO> = async (
 	socket,
@@ -19,14 +19,14 @@ export const verifyVerificationCode: SocketMiddleware<VerifyIO> = async (
 		.run();
 };
 
-const tryBlock = async (socket: Socket, data: VerifyIO['input']) => {
+const tryBlock = async (socket: Socket, data: VerifyIO["input"]) => {
 	const { verificationCode: sentVerificationCode } = data;
 
 	const client = await findClient(socket.clientId);
 	const { verificationCode: actualVerificationCode } = client;
 
 	errorThrower(sentVerificationCode !== actualVerificationCode, {
-		...errorStore.find('VERIFICATION_CODE_INVALID'),
+		...errorStore.find("VERIFICATION_CODE_INVALID"),
 		sentVerificationCode,
 	});
 
@@ -38,7 +38,7 @@ const tryBlock = async (socket: Socket, data: VerifyIO['input']) => {
 
 const findClient = async (clientId: string) => {
 	const client = await clientStore.find(clientId);
-	if (!client) throw errorStore.find('CLIENT_NOT_FOUND');
+	if (!client) throw errorStore.find("CLIENT_NOT_FOUND");
 	return client;
 };
 

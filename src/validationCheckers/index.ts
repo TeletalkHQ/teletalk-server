@@ -1,12 +1,12 @@
-import { errorThrower } from 'check-fields';
-import { customTypeof } from 'custom-typeof';
+import { errorThrower } from "check-fields";
+import { customTypeof } from "custom-typeof";
 
-import { errorStore } from '~/classes/ErrorStore';
-import { validationChecker } from '~/classes/ValidationChecker';
-import { nativeModels } from '~/models/native';
-import { ValidationCheckerFn, ValidationCheckerFnCollection } from '~/types';
-import { Field } from '~/types/models';
-import { countries } from '~/variables';
+import { errorStore } from "~/classes/ErrorStore";
+import { validationChecker } from "~/classes/ValidationChecker";
+import { nativeModels } from "~/models/native";
+import { ValidationCheckerFn, ValidationCheckerFnCollection } from "~/types";
+import { Field } from "~/types/models";
+import { countries } from "~/variables";
 
 export const validationCheckers = Object.keys(nativeModels).reduce(
 	(prevValue, currValue) => {
@@ -30,7 +30,7 @@ validationCheckers.countryCode = (result, value, ignores) => {
 		const country = countries.find((c) => c.countryCode === value);
 		errorThrower(
 			customTypeof.isUndefined(country),
-			errorStore.find('COUNTRY_CODE_NOT_SUPPORTED')
+			errorStore.find("COUNTRY_CODE_NOT_SUPPORTED")
 		);
 
 		return;
@@ -44,7 +44,7 @@ validationCheckers.countryName = (result, value, ignores) => {
 		const country = countries.find((c) => c.countryName === value);
 		errorThrower(
 			customTypeof.isUndefined(country),
-			errorStore.find('COUNTRY_NAME_NOT_SUPPORTED')
+			errorStore.find("COUNTRY_NAME_NOT_SUPPORTED")
 		);
 
 		return;
@@ -58,9 +58,9 @@ const notImplementedCheckerFn = (fieldName: Field) =>
 		throw `${fieldName}ValidationChecker is not implemented`;
 	}) as ValidationCheckerFn;
 
-validationCheckers.id = notImplementedCheckerFn('id');
-validationCheckers.createdAt = notImplementedCheckerFn('createdAt');
-validationCheckers.isActive = notImplementedCheckerFn('isActive');
-validationCheckers.macAddress = notImplementedCheckerFn('macAddress');
-validationCheckers.messageId = notImplementedCheckerFn('messageId');
-validationCheckers.senderId = notImplementedCheckerFn('senderId');
+validationCheckers.id = notImplementedCheckerFn("id");
+validationCheckers.createdAt = notImplementedCheckerFn("createdAt");
+validationCheckers.isActive = notImplementedCheckerFn("isActive");
+validationCheckers.macAddress = notImplementedCheckerFn("macAddress");
+validationCheckers.messageId = notImplementedCheckerFn("messageId");
+validationCheckers.senderId = notImplementedCheckerFn("senderId");

@@ -1,4 +1,4 @@
-import { SocketOnAnyHandler } from '~/types';
+import { SocketOnAnyHandler } from "~/types";
 
 //CLEANME:
 export const logEvent: SocketOnAnyHandler = async (
@@ -8,7 +8,7 @@ export const logEvent: SocketOnAnyHandler = async (
 ) => {
 	logger.info(`socket.eventName:${eventName}`);
 	if (data) {
-		logger.info('data:');
-		logger.dir('info', data, { depth: 12 });
+		logger.info("data:");
+		logger.dir("info", data, { depth: 12 });
 	}
 };

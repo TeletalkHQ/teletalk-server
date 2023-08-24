@@ -1,14 +1,14 @@
-import { ScreamingSnakeCase } from 'type-fest';
+import { ScreamingSnakeCase } from "type-fest";
 
-import { nativeModels } from '~/models/native';
+import { nativeModels } from "~/models/native";
 
 export type FieldType =
-	| 'array'
-	| 'boolean'
-	| 'date'
-	| 'number'
-	| 'object'
-	| 'string';
+	| "array"
+	| "boolean"
+	| "date"
+	| "number"
+	| "object"
+	| "string";
 
 export interface NativeModel {
 	defaultValue?: any;

@@ -1,9 +1,9 @@
-import Validator, { MessagesType } from 'fastest-validator';
+import Validator, { MessagesType } from "fastest-validator";
 
-import { errorStore } from '~/classes/ErrorStore';
-import { ValidationModel } from '~/types';
-import { Field, NativeModelCollection, NativeModelKey } from '~/types/models';
-import { utils } from '~/utils';
+import { errorStore } from "~/classes/ErrorStore";
+import { ValidationModel } from "~/types";
+import { Field, NativeModelCollection, NativeModelKey } from "~/types/models";
+import { utils } from "~/utils";
 
 type ErrorMessageKey = keyof MessagesType;
 type ValidationSchemaKey = keyof ValidationModel;
@@ -71,39 +71,39 @@ export class ValidationModelBuilder<
 	}
 
 	empty() {
-		this.updateProperty('empty', 'empty', 'stringEmpty');
+		this.updateProperty("empty", "empty", "stringEmpty");
 		return this;
 	}
 	length() {
-		this.updateProperty('length', 'length', 'length');
+		this.updateProperty("length", "length", "length");
 		return this;
 	}
 	max() {
-		this.updateProperty('max', 'maxLength', 'stringMax');
+		this.updateProperty("max", "maxLength", "stringMax");
 		return this;
 	}
 	min() {
-		this.updateProperty('min', 'minLength', 'stringMin');
+		this.updateProperty("min", "minLength", "stringMin");
 		return this;
 	}
 	numeric() {
-		this.updateProperty('numeric', 'numeric', 'stringNumeric');
+		this.updateProperty("numeric", "numeric", "stringNumeric");
 		return this;
 	}
 	trim() {
-		this.updatePropertyWithoutMessage('trim', 'trim');
+		this.updatePropertyWithoutMessage("trim", "trim");
 		return this;
 	}
 	type() {
-		this.updateProperty('type', 'type', 'string');
+		this.updateProperty("type", "type", "string");
 		return this;
 	}
 	unique() {
-		this.updateProperty('unique', 'unique', 'unique');
+		this.updateProperty("unique", "unique", "unique");
 		return this;
 	}
 	required() {
-		this.updateProperty('required', 'required', 'required');
+		this.updateProperty("required", "required", "required");
 		return this;
 	}
 

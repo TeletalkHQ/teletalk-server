@@ -1,16 +1,16 @@
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
 
-import { utils } from '~/utils';
+import { utils } from "~/utils";
 
-describe('crashServer_function', () => {
-	const crashServerThrowMessage = 'process.exit() was called';
+describe("crashServer_function", () => {
+	const crashServerThrowMessage = "process.exit() was called";
 
-	it('test_string_message', () => {
-		const spy = jest.spyOn(logger, 'error');
-		const spyExit = jest.spyOn(process, 'exit').mockImplementationOnce(() => {
-			throw new Error('process.exit() was called');
+	it("test_string_message", () => {
+		const spy = jest.spyOn(logger, "error");
+		const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
+			throw new Error("process.exit() was called");
 		});
-		const message = 'This is a string message';
+		const message = "This is a string message";
 		expect(() => utils.crashServer(message)).toThrowError(
 			crashServerThrowMessage
 		);
@@ -20,9 +20,9 @@ describe('crashServer_function', () => {
 		spyExit.mockRestore();
 	});
 
-	it('test_number_message', () => {
-		const spy = jest.spyOn(logger, 'error');
-		const spyExit = jest.spyOn(process, 'exit').mockImplementationOnce(() => {
+	it("test_number_message", () => {
+		const spy = jest.spyOn(logger, "error");
+		const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
 			throw new Error(crashServerThrowMessage);
 		});
 		const message = 12345;
@@ -35,12 +35,12 @@ describe('crashServer_function', () => {
 		spyExit.mockRestore();
 	});
 
-	it('test_object_message', () => {
-		const spy = jest.spyOn(logger, 'error');
-		const spyExit = jest.spyOn(process, 'exit').mockImplementationOnce(() => {
+	it("test_object_message", () => {
+		const spy = jest.spyOn(logger, "error");
+		const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
 			throw new Error(crashServerThrowMessage);
 		});
-		const message = { key: 'value' };
+		const message = { key: "value" };
 		expect(() => utils.crashServer(message)).toThrowError(
 			crashServerThrowMessage
 		);
@@ -50,9 +50,9 @@ describe('crashServer_function', () => {
 		spyExit.mockRestore();
 	});
 
-	it('test_undefined_message', () => {
-		const spy = jest.spyOn(logger, 'error');
-		const spyExit = jest.spyOn(process, 'exit').mockImplementationOnce(() => {
+	it("test_undefined_message", () => {
+		const spy = jest.spyOn(logger, "error");
+		const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
 			throw new Error(crashServerThrowMessage);
 		});
 		const message = undefined;
@@ -65,9 +65,9 @@ describe('crashServer_function', () => {
 		spyExit.mockRestore();
 	});
 
-	it('test_null_message', () => {
-		const spy = jest.spyOn(logger, 'error');
-		const spyExit = jest.spyOn(process, 'exit').mockImplementationOnce(() => {
+	it("test_null_message", () => {
+		const spy = jest.spyOn(logger, "error");
+		const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
 			throw new Error(crashServerThrowMessage);
 		});
 		const message = null;
@@ -80,12 +80,12 @@ describe('crashServer_function', () => {
 		spyExit.mockRestore();
 	});
 
-	it('test_empty_string_message', () => {
-		const spy = jest.spyOn(logger, 'error');
-		const spyExit = jest.spyOn(process, 'exit').mockImplementationOnce(() => {
+	it("test_empty_string_message", () => {
+		const spy = jest.spyOn(logger, "error");
+		const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
 			throw new Error(crashServerThrowMessage);
 		});
-		const message = '';
+		const message = "";
 		expect(() => utils.crashServer(message)).toThrowError(
 			crashServerThrowMessage
 		);

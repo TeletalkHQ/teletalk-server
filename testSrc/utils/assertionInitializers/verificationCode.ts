@@ -1,14 +1,14 @@
-import { models } from '~/models';
+import { models } from "~/models";
+import { VerificationCode } from "~/types/datatypes";
 
-import { assertionInitializer } from '@/classes/AssertionInitializer';
-import { AssertionInitializer } from '@/types';
+import { assertionInitializer } from "@/classes/AssertionInitializer";
+import { AssertionInitializer } from "@/types";
 
-export const verificationCodeAssertionInitializer: AssertionInitializer = (
-	{ testValue },
-	options
-) => {
+export const verificationCodeAssertionInitializer: AssertionInitializer<
+	VerificationCode
+> = ({ testValue }, options) => {
 	assertionInitializer()
-		.setVariables(models.native.verificationCode, '', testValue)
+		.setVariables(models.native.verificationCode, "", testValue)
 		.setOptions(options)
 		.typeCheck()
 		.emptyCheck()

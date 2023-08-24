@@ -1,16 +1,16 @@
-import chai from 'chai';
-import { customTypeof } from 'custom-typeof';
+import chai from "chai";
+import { customTypeof } from "custom-typeof";
 
-import { ErrorCollection, ValidationModel } from '~/types';
-import { NativeModelCollection } from '~/types/models';
-import { events } from '~/websocket/events';
+import { ErrorCollection, ValidationModel } from "~/types";
+import { NativeModelCollection } from "~/types/models";
+import { events } from "~/websocket/events";
 
-import { clientInitializer } from '@/classes/ClientInitializer';
-import { utils } from '@/utils';
-import { FIELD_TYPE } from '@/variables';
+import { clientInitializer } from "@/classes/ClientInitializer";
+import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
-describe('getAllStuff success tests', () => {
-	it('should get all requirements for clients', async () => {
+describe("getAllStuff success tests", () => {
+	it("should get all requirements for clients", async () => {
 		const clientSocket = (
 			await clientInitializer().createComplete()
 		).getClient();
@@ -73,7 +73,7 @@ const testValidationModels = (validationModels: ValidationModel[]) => {
 			chai.expect(model.trim).to.be.an(FIELD_TYPE.BOOLEAN);
 
 		if (!model.messages)
-			throw new Error('ValidationModel.messages is undefined');
+			throw new Error("ValidationModel.messages is undefined");
 
 		chai.expect(model.messages).to.be.an(FIELD_TYPE.OBJECT);
 		chai.expect(model.messages.required).to.be.an(FIELD_TYPE.STRING);

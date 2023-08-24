@@ -1,5 +1,5 @@
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
 import {
 	CustomUse,
@@ -9,14 +9,14 @@ import {
 	SocketMiddlewareEvent,
 	SocketNext,
 	SocketResponse,
-} from '~/types';
-import { utils } from '~/utils';
+} from "~/types";
+import { utils } from "~/utils";
 
 export const registerCustomUse = (socket: Socket) => {
 	return ((middleware) => {
 		socket.use(
 			async (socketMiddlewareEvent: SocketDefaultMiddlewareEvent, next) => {
-				await trier('socket.customUse')
+				await trier("socket.customUse")
 					.async()
 					.try(tryBlock, socket, next, socketMiddlewareEvent, middleware)
 					.catch(catchBlock, socket, socketMiddlewareEvent)
@@ -49,8 +49,8 @@ const catchBlock = (
 
 	const successResponseCallback = socketMiddlewareEvent[2];
 
-	if (typeof successResponseCallback === 'function')
+	if (typeof successResponseCallback === "function")
 		successResponseCallback(response);
 
-	socket.emit('error', response);
+	socket.emit("error", response);
 };

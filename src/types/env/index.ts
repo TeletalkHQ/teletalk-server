@@ -1,16 +1,17 @@
-import { LogLevel } from '..';
+import { LogLevel } from "..";
 
 export type NodeEnvValue =
-	| 'build'
-	| 'development'
-	| 'production_local'
-	| 'production'
-	| 'test_development';
+	| "build"
+	| "development"
+	| "production_local"
+	| "production"
+	| "test_development";
 
-export type EnvFileName = NodeEnvValue | 'base';
+export type EnvFileName = NodeEnvValue | "base";
 
 export interface Environments {
 	CLIENT_SECRET: string;
+	CUSTOM_PORT: number;
 	LOG_LEVEL: LogLevel;
 	MONGO_COLLECTION_NAME: string;
 	MONGO_HOST: string;

@@ -1,13 +1,13 @@
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
-import { clientManager } from '~/classes/ClientIdManager';
-import { errorStore } from '~/classes/ErrorStore';
+import { clientManager } from "~/classes/ClientIdManager";
+import { errorStore } from "~/classes/ErrorStore";
 import {
 	SocketMiddleware,
 	SocketMiddlewareReturnValue,
 	SocketNext,
-} from '~/types';
+} from "~/types";
 
 export const verifyClient: SocketMiddleware = async (
 	socket,
@@ -34,5 +34,5 @@ const executeIfNoError = (_: SocketMiddlewareReturnValue, next: SocketNext) => {
 };
 
 const catchBlock = () => {
-	return errorStore.find('CLIENT_INVALID');
+	return errorStore.find("CLIENT_INVALID");
 };

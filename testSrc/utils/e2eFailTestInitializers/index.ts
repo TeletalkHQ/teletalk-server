@@ -1,26 +1,26 @@
-import { bioE2eFailTestInitializer } from './bio';
-import { chatIdE2eFailTestInitializer } from './chatId';
-import { countryCodeE2eFailTestInitializer } from './countryCode';
-import { countryNameE2eFailTestInitializer } from './countryName';
+import { bioE2eFailTestInitializer } from "./bio";
+import { chatIdE2eFailTestInitializer } from "./chatId";
+import { countryCodeE2eFailTestInitializer } from "./countryCode";
+import { countryNameE2eFailTestInitializer } from "./countryName";
 import {
 	blacklistItemExistE2eFailTestInitializer,
 	blacklistItemNotExistE2eFailTestInitializer,
 	contactItemExistE2eFailTestInitializer,
 	contactItemNotExistE2eFailTestInitializer,
 	targetUserNotExistE2eFailTestInitializer,
-} from './existences';
-import { firstNameE2eFailTestInitializer } from './firstName';
-import { inputE2eFailTestInitializer } from './input';
-import { inputMissingE2eFailTestInitializer } from './inputMissing';
-import { inputOverloadE2eFailTestInitializer } from './inputOverload';
-import { lastNameE2eFailTestInitializer } from './lastName';
-import { messageTextE2eFailTestInitializer } from './messageText';
-import { participantIdE2eFailTestInitializer } from './participantId';
-import { phoneNumberE2eFailTestInitializer } from './phoneNumber';
-import { selfStuffE2eFailTestInitializer } from './selfStuff';
-import { userIdE2eFailTestInitializer } from './userId';
-import { usernameE2eFailTestInitializer } from './username';
-import { verificationCodeE2eFailTestInitializer } from './verificationCode';
+} from "./existences";
+import { firstNameE2eFailTestInitializer } from "./firstName";
+import { inputE2eFailTestInitializer } from "./input";
+import { inputMissingE2eFailTestInitializer } from "./inputMissing";
+import { inputOverloadE2eFailTestInitializer } from "./inputOverload";
+import { lastNameE2eFailTestInitializer } from "./lastName";
+import { messageTextE2eFailTestInitializer } from "./messageText";
+import { participantIdE2eFailTestInitializer } from "./participantId";
+import { phoneNumberE2eFailTestInitializer } from "./phoneNumber";
+import { selfStuffE2eFailTestInitializer } from "./selfStuff";
+import { userIdE2eFailTestInitializer } from "./userId";
+import { usernameE2eFailTestInitializer } from "./username";
+import { verificationCodeE2eFailTestInitializer } from "./verificationCode";
 
 export const e2eFailTestInitializers = {
 	bio: bioE2eFailTestInitializer,

@@ -1,5 +1,5 @@
-import { services } from '~/services';
-import { EditContactIO, SocketOnHandler } from '~/types';
+import { services } from "~/services";
+import { EditContactIO, SocketOnHandler } from "~/types";
 
 export const editContact: SocketOnHandler<EditContactIO> = async (
 	socket,

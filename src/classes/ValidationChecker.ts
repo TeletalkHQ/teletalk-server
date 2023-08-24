@@ -1,4 +1,4 @@
-import { errorStore } from '~/classes/ErrorStore';
+import { errorStore } from "~/classes/ErrorStore";
 import {
 	ErrorTypes,
 	NativeError,
@@ -6,9 +6,9 @@ import {
 	ValidationCheckerIgnores,
 	ValidationErrors,
 	ValidationResult,
-} from '~/types';
-import { Field, NativeModelKey } from '~/types/models';
-import { utils } from '~/utils';
+} from "~/types";
+import { Field, NativeModelKey } from "~/types/models";
+import { utils } from "~/utils";
 
 export class ValidationChecker {
 	private collectedErrors: NativeError[] = [];
@@ -43,31 +43,31 @@ export class ValidationChecker {
 	}
 
 	stringEmpty() {
-		this.pushError(this.errorTypes.stringEmpty, this.resolveError('empty'));
+		this.pushError(this.errorTypes.stringEmpty, this.resolveError("empty"));
 		return this;
 	}
 	required() {
-		this.pushError(this.errorTypes.required, this.resolveError('required'));
+		this.pushError(this.errorTypes.required, this.resolveError("required"));
 		return this;
 	}
 	string() {
-		this.pushError(this.errorTypes.string, this.resolveError('type'));
+		this.pushError(this.errorTypes.string, this.resolveError("type"));
 		return this;
 	}
 	stringNumeric() {
-		this.pushError(this.errorTypes.stringNumeric, this.resolveError('numeric'));
+		this.pushError(this.errorTypes.stringNumeric, this.resolveError("numeric"));
 		return this;
 	}
 	stringLength() {
-		this.pushError(this.errorTypes.stringLength, this.resolveError('length'));
+		this.pushError(this.errorTypes.stringLength, this.resolveError("length"));
 		return this;
 	}
 	stringMin() {
-		this.pushError(this.errorTypes.stringMin, this.resolveError('minLength'));
+		this.pushError(this.errorTypes.stringMin, this.resolveError("minLength"));
 		return this;
 	}
 	stringMax() {
-		this.pushError(this.errorTypes.stringMax, this.resolveError('maxLength'));
+		this.pushError(this.errorTypes.stringMax, this.resolveError("maxLength"));
 		return this;
 	}
 	throwAnyway(error: NativeError) {

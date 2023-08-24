@@ -1,11 +1,11 @@
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
 import {
 	SocketMiddleware,
 	SocketMiddlewareReturnValue,
 	SocketNext,
-} from '~/types';
+} from "~/types";
 
 export const attachClientId: SocketMiddleware = async (
 	socket,

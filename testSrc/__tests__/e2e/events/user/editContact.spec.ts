@@ -1,20 +1,20 @@
-import chai from 'chai';
-import { extractor } from 'utility-store';
+import chai from "chai";
+import { extractor } from "utility-store";
 import {
 	ContactItem,
 	Contacts,
 	FullNameWithUserId,
-} from 'utility-store/lib/types';
+} from "utility-store/lib/types";
 
-import { services } from '~/services';
+import { services } from "~/services";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('edit contact success tests', () => {
-	it('should edit users in contacts', async () => {
+describe("edit contact success tests", () => {
+	it("should edit users in contacts", async () => {
 		const { user: currentUser, socket } = await randomMaker.user();
 
 		const contactsLength = 10;
@@ -61,7 +61,7 @@ describe('edit contact success tests', () => {
 	});
 });
 
-await utils.asyncDescribe('editContact fail tests', async () => {
+await utils.asyncDescribe("editContact fail tests", async () => {
 	const { requester, user } = await utils.setupRequester(
 		utils.requesterCollection.editContact
 	);

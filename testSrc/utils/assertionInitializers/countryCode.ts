@@ -1,12 +1,13 @@
-import { models } from '~/models';
+import { CountryCode } from "utility-store/lib/types";
 
-import { assertionInitializer } from '@/classes/AssertionInitializer';
-import { AssertionInitializer } from '@/types';
+import { models } from "~/models";
 
-export const countryCodeAssertionInitializer: AssertionInitializer = (
-	{ equalValue, testValue },
-	options
-) => {
+import { assertionInitializer } from "@/classes/AssertionInitializer";
+import { AssertionInitializer } from "@/types";
+
+export const countryCodeAssertionInitializer: AssertionInitializer<
+	CountryCode
+> = ({ equalValue, testValue }, options) => {
 	assertionInitializer()
 		.setVariables(models.native.countryCode, equalValue, testValue)
 		.setOptions(options)

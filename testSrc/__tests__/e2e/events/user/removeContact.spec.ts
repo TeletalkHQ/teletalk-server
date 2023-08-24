@@ -1,17 +1,17 @@
-import chai from 'chai';
-import { extractor } from 'utility-store';
-import { ContactItem, Contacts, UserData } from 'utility-store/lib/types';
+import chai from "chai";
+import { extractor } from "utility-store";
+import { ContactItem, Contacts, UserData } from "utility-store/lib/types";
 
-import { services } from '~/services';
-import { UserId } from '~/types/datatypes';
+import { services } from "~/services";
+import { UserId } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('removeContact successful test', () => {
-	it('should remove users from contacts', async () => {
+describe("removeContact successful test", () => {
+	it("should remove users from contacts", async () => {
 		const contactsLength = 10;
 		const addingContacts = await createContacts(contactsLength);
 
@@ -41,7 +41,7 @@ describe('removeContact successful test', () => {
 	});
 });
 
-await utils.asyncDescribe('removeContact fail tests', async () => {
+await utils.asyncDescribe("removeContact fail tests", async () => {
 	const { requester, user } = await utils.setupRequester(
 		utils.requesterCollection.removeContact
 	);

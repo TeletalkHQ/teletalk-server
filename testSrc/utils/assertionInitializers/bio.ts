@@ -1,9 +1,10 @@
-import { models } from '~/models';
+import { models } from "~/models";
+import { Bio } from "~/types/datatypes";
 
-import { assertionInitializer } from '@/classes/AssertionInitializer';
-import { AssertionInitializer } from '@/types';
+import { assertionInitializer } from "@/classes/AssertionInitializer";
+import { AssertionInitializer } from "@/types";
 
-export const bioAssertionInitializer: AssertionInitializer = (
+export const bioAssertionInitializer: AssertionInitializer<Bio> = (
 	{ equalValue, testValue },
 	options
 ) => {

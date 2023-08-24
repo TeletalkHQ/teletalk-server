@@ -1,5 +1,5 @@
-import { services } from '~/services';
-import { GetPrivateChatsIO, SocketOnHandler } from '~/types';
+import { services } from "~/services";
+import { GetPrivateChatsIO, SocketOnHandler } from "~/types";
 
 export const getPrivateChats: SocketOnHandler<GetPrivateChatsIO> = async (
 	socket

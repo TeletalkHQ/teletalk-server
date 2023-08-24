@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { trier } from 'simple-trier';
-import { errorThrower } from 'utility-store';
+import axios from "axios";
+import { trier } from "simple-trier";
+import { errorThrower } from "utility-store";
 
-import { appConfigs } from '~/classes/AppConfigs';
-import { escapeChars } from '~/variables';
+import { appConfigs } from "~/classes/AppConfigs";
+import { escapeChars } from "~/variables";
 
-import { errorStore } from './ErrorStore';
+import { errorStore } from "./ErrorStore";
 
 export class SmsClient {
 	templates() {
@@ -29,7 +29,7 @@ export class SmsClient {
 			.async()
 			.try(providers[SMS_PROVIDER_SELECTOR].bind(this), sendTo, text)
 			.catch((error) => ({
-				...errorStore.find('SEND_SMS_FAILED'),
+				...errorStore.find("SEND_SMS_FAILED"),
 				providerError: error,
 			}))
 			.throw()
@@ -49,7 +49,7 @@ export class SmsClient {
 		} = appConfigs.getConfigs().SMS_CLIENT;
 
 		const { method, sendFrom, url } = {
-			method: 'POST',
+			method: "POST",
 			sendFrom: SMS_PROVIDER_1_SENDER,
 			url: `${SMS_PROVIDER_1_HOST}${SMS_PROVIDER_1_ROUTE}/${SMS_PROVIDER_1_SESSION}`,
 		};
@@ -66,7 +66,7 @@ export class SmsClient {
 			}
 		);
 
-		errorThrower(smsResult.status !== 200, errorStore.find('SEND_SMS_FAILED'));
+		errorThrower(smsResult.status !== 200, errorStore.find("SEND_SMS_FAILED"));
 	}
 	private async provider2(sendTo: string, text: string) {
 		const {
@@ -80,22 +80,22 @@ export class SmsClient {
 			data: {
 				messages: [
 					{
-						channel: 'sms',
+						channel: "sms",
 						content: text,
-						data_coding: 'text',
-						msg_type: 'text',
+						data_coding: "text",
+						msg_type: "text",
 						recipients: [sendTo],
 					},
 				],
 				message_globals: {
-					originator: 'SignOTP',
+					originator: "SignOTP",
 					report_url: SMS_PROVIDER_2_REPORT_URL,
 				},
 			},
 			headers: {
 				Authorization: `Bearer ${SMS_PROVIDER_2_SESSION}`,
 			},
-			method: 'post',
+			method: "post",
 			url: `${SMS_PROVIDER_2_HOST}${SMS_PROVIDER_2_ROUTE}`,
 		};
 

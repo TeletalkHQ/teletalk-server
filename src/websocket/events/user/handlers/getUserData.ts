@@ -1,5 +1,5 @@
-import { services } from '~/services';
-import { GetUserDataIO, SocketOnHandler } from '~/types';
+import { services } from "~/services";
+import { GetUserDataIO, SocketOnHandler } from "~/types";
 
 export const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
 	const { userId: currentUserId } = socket;

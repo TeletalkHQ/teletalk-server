@@ -1,17 +1,17 @@
-import chai from 'chai';
-import { UserId } from 'utility-store/lib/types';
+import chai from "chai";
+import { UserId } from "utility-store/lib/types";
 
-import { services } from '~/services';
-import { SendPrivateMessageIO } from '~/types';
-import { MessageText } from '~/types/datatypes';
+import { services } from "~/services";
+import { SendPrivateMessageIO } from "~/types";
+import { MessageText } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('send message success tests', () => {
-	it('should start new chat and send message', async () => {
+describe("send message success tests", () => {
+	it("should start new chat and send message", async () => {
 		const { socket, user: currentUser } = await randomMaker.user();
 		const { user: targetUser } = await randomMaker.user();
 
@@ -43,7 +43,7 @@ describe('send message success tests', () => {
 	});
 });
 
-await utils.asyncDescribe('send message fail tests', async () => {
+await utils.asyncDescribe("send message fail tests", async () => {
 	const { requester } = await utils.setupRequester(
 		utils.requesterCollection.sendPrivateMessage
 	);
@@ -66,7 +66,7 @@ const createMessage = (index: number) => `Hello! Im message #${index}`;
 
 const testData = async (
 	currentUserId: UserId,
-	sentMessageResponse: SendPrivateMessageIO['output'],
+	sentMessageResponse: SendPrivateMessageIO["output"],
 	targetUserId: UserId,
 	messageText: MessageText
 ) => {
@@ -118,7 +118,7 @@ const findOnePrivateChat = async (
 	targetUserId: UserId
 ) => {
 	return await services.findOnePrivateChat({
-		'participants.participantId': {
+		"participants.participantId": {
 			$all: [currentUserId, targetUserId],
 		},
 	});

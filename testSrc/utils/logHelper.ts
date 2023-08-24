@@ -1,10 +1,10 @@
-import { escapeChars } from '~/variables';
+import { escapeChars } from "~/variables";
 
 const separator =
-	'+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+';
+	"+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+";
 
 export const loggerHelper = {
-	makeSeparator(title = '') {
+	makeSeparator(title = "") {
 		const titleLength = title.length;
 		const fixedSeparator = separator.slice(
 			0,
@@ -16,8 +16,8 @@ export const loggerHelper = {
 	logStartTestRequest() {
 		logger
 			.bgRed(
-				`${escapeChars.newLine}${this.makeSeparator('TEST_REQUEST_BEGIN')}`,
-				'black'
+				`${escapeChars.newLine}${this.makeSeparator("TEST_REQUEST_BEGIN")}`,
+				"black"
 			)
 			.info();
 		return this;
@@ -28,8 +28,8 @@ export const loggerHelper = {
 		event: object,
 		error: unknown
 	) {
-		logger.bgRed(`${escapeChars.newLine}request details:`, 'black').dir(
-			'info',
+		logger.bgRed(`${escapeChars.newLine}request details:`, "black").dir(
+			"info",
 			{
 				options,
 				requestData,
@@ -43,8 +43,8 @@ export const loggerHelper = {
 	logEndTestRequest() {
 		logger
 			.bgYellow(
-				`${escapeChars.newLine}${this.makeSeparator('TEST_REQUEST_END')}`,
-				'black'
+				`${escapeChars.newLine}${this.makeSeparator("TEST_REQUEST_END")}`,
+				"black"
 			)
 			.info();
 
@@ -52,6 +52,6 @@ export const loggerHelper = {
 	},
 
 	logSeparator() {
-		logger.bgMagenta(this.makeSeparator(), 'black').info();
+		logger.bgMagenta(this.makeSeparator(), "black").info();
 	},
 };

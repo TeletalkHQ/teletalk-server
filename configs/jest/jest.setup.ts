@@ -1,6 +1,6 @@
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
 
-import { testServerInitializer } from '../utils';
+import { testServerInitializer } from "../utils";
 
 jest.retryTimes(10, {
 	logErrorsBeforeRetry: false,

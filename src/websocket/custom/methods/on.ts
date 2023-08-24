@@ -1,6 +1,6 @@
-import { checkFields } from 'check-fields';
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
+import { checkFields } from "check-fields";
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
 import {
 	CustomOn,
@@ -11,16 +11,16 @@ import {
 	SocketResponse,
 	StringMap,
 	UnknownError,
-} from '~/types';
-import { utils } from '~/utils';
-import { errors } from '~/variables';
-import { events } from '~/websocket/events';
+} from "~/types";
+import { utils } from "~/utils";
+import { errors } from "~/variables";
+import { events } from "~/websocket/events";
 
 export const registerCustomOn = (socket: Socket) => {
 	return ((eventName, handler) => {
 		socket.on(eventName, async (data, responseCallback?: ResponseCallback) => {
 			const cb =
-				typeof responseCallback === 'function'
+				typeof responseCallback === "function"
 					? responseCallback
 					: () => undefined;
 
@@ -104,5 +104,5 @@ const catchBlock = (
 
 	responseCallback(response);
 
-	socket.emit('error', response);
+	socket.emit("error", response);
 };

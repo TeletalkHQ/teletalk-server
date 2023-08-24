@@ -1,13 +1,13 @@
-import { IoFields, ioFieldMaker } from 'check-fields';
+import { IoFields, ioFieldMaker } from "check-fields";
 
 const statics = {
 	array: (value: IoFields) =>
-		ioFieldMaker().type('array').value([value]).build(),
-	boolean: ioFieldMaker().type('boolean').build(),
-	number: ioFieldMaker().type('number').build(),
+		ioFieldMaker().type("array").value([value]).build(),
+	boolean: ioFieldMaker().type("boolean").build(),
+	number: ioFieldMaker().type("number").build(),
 	object: (value: IoFields) =>
-		ioFieldMaker().type('object').value(value).build(),
-	string: ioFieldMaker().type('string').build(),
+		ioFieldMaker().type("object").value(value).build(),
+	string: ioFieldMaker().type("string").build(),
 };
 
 //TODO: Sync with FieldTypes

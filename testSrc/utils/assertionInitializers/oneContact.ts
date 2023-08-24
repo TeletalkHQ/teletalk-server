@@ -1,15 +1,29 @@
-import { AssertionInitializer } from '@/types';
-import { fullNameAssertionInitializer } from '@/utils/assertionInitializers/fullName';
-import { userIdAssertionInitializer } from '@/utils/assertionInitializers/userId';
+import { ContactItem } from "utility-store/lib/types";
 
-export const oneContactAssertionInitializer: AssertionInitializer = ({
-	equalValue,
-	testValue,
-}) => {
-	fullNameAssertionInitializer({ equalValue, testValue });
+import { AssertionInitializer } from "@/types";
 
-	userIdAssertionInitializer({
-		equalValue: equalValue.userId,
-		testValue: testValue.userId,
-	});
+import { cellphoneAssertionInitializer } from "./cellphone";
+import { fullNameAssertionInitializer } from "./fullName";
+import { userIdAssertionInitializer } from "./userId";
+
+export const oneContactAssertionInitializer: AssertionInitializer<
+	ContactItem
+> = ({ equalValue, testValue }, options) => {
+	fullNameAssertionInitializer({ equalValue, testValue }, options);
+
+	cellphoneAssertionInitializer(
+		{
+			equalValue,
+			testValue,
+		},
+		options
+	);
+
+	userIdAssertionInitializer(
+		{
+			equalValue: equalValue?.userId,
+			testValue: testValue.userId,
+		},
+		options
+	);
 };

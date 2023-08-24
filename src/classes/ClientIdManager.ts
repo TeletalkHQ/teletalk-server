@@ -1,9 +1,9 @@
-import { SignJWT, jwtVerify } from 'jose';
-import { randomMaker } from 'utility-store';
+import { SignJWT, jwtVerify } from "jose";
+import { randomMaker } from "utility-store";
 
-import { appConfigs } from '~/classes/AppConfigs';
-import { models } from '~/models';
-import { AuthClient } from '~/types';
+import { appConfigs } from "~/classes/AppConfigs";
+import { models } from "~/models";
+import { AuthClient } from "~/types";
 
 class ClientManager {
 	private options = {};
@@ -16,7 +16,7 @@ class ClientManager {
 		return new SignJWT({
 			clientId: id ?? randomMaker.id(models.native.clientId.maxLength),
 		})
-			.setProtectedHeader({ alg: 'HS256' })
+			.setProtectedHeader({ alg: "HS256" })
 			.setIssuedAt()
 			.sign(this.getEncodedSecret());
 	}

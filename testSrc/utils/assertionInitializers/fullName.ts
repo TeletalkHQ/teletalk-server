@@ -1,18 +1,26 @@
-import { AssertionInitializer } from '@/types';
-import { firstNameAssertionInitializer } from '@/utils/assertionInitializers/firstName';
-import { lastNameAssertionInitializer } from '@/utils/assertionInitializers/lastName';
+import { FullName } from "utility-store/lib/types";
 
-export const fullNameAssertionInitializer: AssertionInitializer = ({
-	equalValue,
-	testValue,
-}) => {
-	firstNameAssertionInitializer({
-		equalValue: equalValue.firstName,
-		testValue: testValue.firstName,
-	});
+import { AssertionInitializer } from "@/types";
+import { firstNameAssertionInitializer } from "@/utils/assertionInitializers/firstName";
+import { lastNameAssertionInitializer } from "@/utils/assertionInitializers/lastName";
 
-	lastNameAssertionInitializer({
-		equalValue: equalValue.lastName,
-		testValue: testValue.lastName,
-	});
+export const fullNameAssertionInitializer: AssertionInitializer<FullName> = (
+	{ equalValue, testValue },
+	options
+) => {
+	firstNameAssertionInitializer(
+		{
+			equalValue: equalValue?.firstName,
+			testValue: testValue.firstName,
+		},
+		options
+	);
+
+	lastNameAssertionInitializer(
+		{
+			equalValue: equalValue?.lastName,
+			testValue: testValue.lastName,
+		},
+		options
+	);
 };

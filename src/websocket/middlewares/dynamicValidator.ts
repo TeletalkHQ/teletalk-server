@@ -1,5 +1,5 @@
-import { customTypeof } from 'custom-typeof';
-import { trier } from 'simple-trier';
+import { customTypeof } from "custom-typeof";
+import { trier } from "simple-trier";
 
 import {
 	EventName,
@@ -8,10 +8,10 @@ import {
 	SocketNext,
 	StringMap,
 	ValidationCheckerIgnores,
-} from '~/types';
-import { Field } from '~/types/models';
-import { validationCheckers } from '~/validationCheckers';
-import { validators } from '~/validators';
+} from "~/types";
+import { Field } from "~/types/models";
+import { validationCheckers } from "~/validationCheckers";
+import { validators } from "~/validators";
 
 export const dynamicValidator: SocketMiddleware = async (
 	_socket,

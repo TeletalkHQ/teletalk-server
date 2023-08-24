@@ -1,9 +1,9 @@
-import { errorStore } from '~/classes/ErrorStore';
-import { models } from '~/models';
+import { errorStore } from "~/classes/ErrorStore";
+import { models } from "~/models";
 
-import { e2eFailTestInitializer } from '@/classes/E2eFailTestInitializer';
-import { randomMaker } from '@/classes/RandomMaker';
-import { E2eFailTestInitializer } from '@/types';
+import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
+import { randomMaker } from "@/classes/RandomMaker";
+import { E2eFailTestInitializer } from "@/types";
 
 export const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 	configuredRequester,
@@ -13,7 +13,7 @@ export const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 		configuredRequester,
 		data,
 		models.native.verificationCode,
-		'verificationCode'
+		"verificationCode"
 	);
 	builder
 		.missing()
@@ -27,6 +27,6 @@ export const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 
 	builder.custom(
 		randomMaker.stringNumber(models.native.verificationCode.length),
-		errorStore.find('VERIFICATION_CODE_INVALID')
+		errorStore.find("VERIFICATION_CODE_INVALID")
 	);
 };

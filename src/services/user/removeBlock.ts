@@ -1,11 +1,11 @@
-import { errorThrower } from 'utility-store';
-import { UserData, UserId } from 'utility-store/lib/types';
+import { errorThrower } from "utility-store";
+import { UserData, UserId } from "utility-store/lib/types";
 
-import { errorStore } from '~/classes/ErrorStore';
-import { UserService } from '~/types';
-import { HydratedUser } from '~/types/models';
+import { errorStore } from "~/classes/ErrorStore";
+import { UserService } from "~/types";
+import { HydratedUser } from "~/types/models";
 
-import { findOneUser } from './findOneUser';
+import { findOneUser } from "./findOneUser";
 
 export const removeBlock: UserService<
 	{
@@ -15,7 +15,7 @@ export const removeBlock: UserService<
 	void
 > = async (data) => {
 	const currentUser = await findCurrentUser(data.currentUserId);
-	if (!currentUser) throw errorStore.find('CURRENT_USER_NOT_EXIST');
+	if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
 	const { index } = checkExistenceOfBlacklistItem(
 		currentUser.blacklist,
@@ -32,11 +32,11 @@ const findCurrentUser = async (currentUserId: string) => {
 };
 
 const checkExistenceOfBlacklistItem = (
-	blacklist: UserData['blacklist'],
+	blacklist: UserData["blacklist"],
 	targetUserId: UserId
 ) => {
 	const index = blacklist.findIndex((i) => i.userId === targetUserId);
-	errorThrower(index === -1, () => errorStore.find('BLACKLIST_ITEM_NOT_EXIST'));
+	errorThrower(index === -1, () => errorStore.find("BLACKLIST_ITEM_NOT_EXIST"));
 
 	return { index };
 };

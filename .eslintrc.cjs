@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { defineConfig } = require('eslint-define-config');
-const restrictedGlobals = require('eslint-restricted-globals');
-require('@rushstack/eslint-patch/modern-module-resolution');
+const { defineConfig } = require("eslint-define-config");
+const restrictedGlobals = require("eslint-restricted-globals");
+require("@rushstack/eslint-patch/modern-module-resolution");
 
 module.exports = defineConfig({
 	env: {
@@ -10,68 +10,68 @@ module.exports = defineConfig({
 		node: true,
 	},
 	extends: [
-		'eslint:recommended',
-		'plugin:@cspell/recommended',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:import/recommended',
-		'plugin:import/typescript',
-		'plugin:json/recommended',
-		'plugin:sonarjs/recommended',
-		'prettier',
+		"eslint:recommended",
+		"plugin:@cspell/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:import/recommended",
+		"plugin:import/typescript",
+		"plugin:json/recommended",
+		"plugin:sonarjs/recommended",
+		"prettier",
 	],
 	globals: {
 		logger: true,
 	},
 	overrides: [],
-	parser: '@typescript-eslint/parser',
+	parser: "@typescript-eslint/parser",
 	parserOptions: {
-		ecmaVersion: 'latest',
-		sourceType: 'module',
+		ecmaVersion: "latest",
+		sourceType: "module",
 	},
 	plugins: [
-		'@cspell',
-		'@typescript-eslint',
-		'chai-friendly',
-		'import',
-		'sonarjs',
-		'unicorn',
-		'unused-imports',
+		"@cspell",
+		"@typescript-eslint",
+		"chai-friendly",
+		"import",
+		"sonarjs",
+		"unicorn",
+		"unused-imports",
 	],
 	rules: {
-		'@cspell/spellchecker': [
-			'error',
+		"@cspell/spellchecker": [
+			"error",
 			{
 				autoFix: true,
 				checkComments: true,
 				ignoreImportProperties: false,
 			},
 		],
-		'@typescript-eslint/ban-ts-comment': 'off',
-		'@typescript-eslint/no-explicit-any': 'off',
-		'@typescript-eslint/no-non-null-assertion': 'off',
-		'@typescript-eslint/no-unused-vars': 'off',
-		'arrow-parens': 'warn',
-		'import/no-unresolved': [
+		"@typescript-eslint/ban-ts-comment": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/no-unused-vars": "off",
+		"arrow-parens": "warn",
+		"import/no-unresolved": [
 			2,
 			{
 				amd: true,
 				commonjs: true,
 				esmodule: true,
-				ignore: ['type-fest'],
+				ignore: ["type-fest"],
 			},
 		],
-		indent: ['error', 'tab'],
-		'linebreak-style': ['error', 'unix'],
-		'no-console': 'warn',
-		'no-delete-var': 'warn',
-		'no-process-exit': 'off',
-		'no-restricted-globals': ['error'].concat(restrictedGlobals),
-		'no-undef': 'error',
-		'no-unused-expressions': 0,
-		'chai-friendly/no-unused-expressions': 1,
-		'no-unused-vars': 'off',
-		'no-use-before-define': [
-			'error',
+		indent: ["error", "tab"],
+		"linebreak-style": ["error", "unix"],
+		"no-console": "warn",
+		"no-delete-var": "warn",
+		"no-process-exit": "off",
+		"no-restricted-globals": ["error"].concat(restrictedGlobals),
+		"no-undef": "error",
+		"no-unused-expressions": 0,
+		"chai-friendly/no-unused-expressions": 1,
+		"no-unused-vars": "off",
+		"no-use-before-define": [
+			"error",
 			{
 				allowNamedExports: false,
 				classes: true,
@@ -79,33 +79,33 @@ module.exports = defineConfig({
 				variables: false,
 			},
 		],
-		'no-var': 'warn',
-		'object-shorthand': ['error', 'always'],
-		quotes: ['warn', 'single'],
-		semi: ['error', 'always'],
-		'unused-imports/no-unused-imports': 'warn',
-		'unused-imports/no-unused-vars': [
-			'warn',
+		"no-var": "warn",
+		"object-shorthand": ["error", "always"],
+		quotes: ["warn", "double"],
+		semi: ["error", "always"],
+		"unused-imports/no-unused-imports": "warn",
+		"unused-imports/no-unused-vars": [
+			"warn",
 			{
-				args: 'after-used',
-				argsIgnorePattern: '^_',
+				args: "after-used",
+				argsIgnorePattern: "^_",
 				ignoreRestSiblings: true,
-				vars: 'all',
-				varsIgnorePattern: '^_',
+				vars: "all",
+				varsIgnorePattern: "^_",
 			},
 		],
 	},
 	settings: {
-		'import/parsers': {
-			'@typescript-eslint/parser': ['.ts'],
+		"import/parsers": {
+			"@typescript-eslint/parser": [".ts"],
 		},
-		'import/resolver': {
-			'eslint-import-resolver-custom-alias': {
+		"import/resolver": {
+			"eslint-import-resolver-custom-alias": {
 				alias: {
-					'@': './testSrc',
-					'~': './src',
+					"@": "./testSrc",
+					"~": "./src",
 				},
-				extensions: ['.ts', '.js', '.json'],
+				extensions: [".ts", ".js", ".json"],
 			},
 			node: true,
 		},

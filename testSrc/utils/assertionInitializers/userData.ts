@@ -1,42 +1,71 @@
-import { AssertionInitializer } from '@/types';
-import { bioAssertionInitializer } from '@/utils/assertionInitializers/bio';
-import { blacklistAssertionInitializer } from '@/utils/assertionInitializers/blacklist';
-import { cellphoneAssertionInitializer } from '@/utils/assertionInitializers/cellphone';
-import { contactsAssertionInitializer } from '@/utils/assertionInitializers/contacts';
-import { fullNameAssertionInitializer } from '@/utils/assertionInitializers/fullName';
-import { userIdAssertionInitializer } from '@/utils/assertionInitializers/userId';
-import { usernameAssertionInitializer } from '@/utils/assertionInitializers/username';
+import { UserData } from "utility-store/lib/types";
 
-export const userDataAssertionInitializer: AssertionInitializer = ({
-	equalValue,
-	testValue,
-}) => {
-	bioAssertionInitializer({
-		equalValue: equalValue.bio,
-		testValue: testValue.bio,
-	});
+import { AssertionInitializer } from "@/types";
+import { bioAssertionInitializer } from "@/utils/assertionInitializers/bio";
+import { blacklistAssertionInitializer } from "@/utils/assertionInitializers/blacklist";
+import { cellphoneAssertionInitializer } from "@/utils/assertionInitializers/cellphone";
+import { contactsAssertionInitializer } from "@/utils/assertionInitializers/contacts";
+import { fullNameAssertionInitializer } from "@/utils/assertionInitializers/fullName";
+import { userIdAssertionInitializer } from "@/utils/assertionInitializers/userId";
+import { usernameAssertionInitializer } from "@/utils/assertionInitializers/username";
 
-	blacklistAssertionInitializer({
-		equalValue: equalValue.blacklist,
-		testValue: testValue.blacklist,
-	});
+export const userDataAssertionInitializer: AssertionInitializer<UserData> = (
+	{ equalValue, testValue },
+	options
+) => {
+	bioAssertionInitializer(
+		{
+			equalValue: equalValue?.bio,
+			testValue: testValue.bio,
+		},
+		options
+	);
 
-	cellphoneAssertionInitializer({ equalValue, testValue });
+	blacklistAssertionInitializer(
+		{
+			equalValue: equalValue?.blacklist,
+			testValue: testValue.blacklist,
+		},
+		options
+	);
 
-	contactsAssertionInitializer({
-		equalValue: equalValue.contacts,
-		testValue: testValue.contacts,
-	});
+	cellphoneAssertionInitializer(
+		{
+			equalValue,
+			testValue,
+		},
+		options
+	);
 
-	fullNameAssertionInitializer({ equalValue, testValue });
+	contactsAssertionInitializer(
+		{
+			equalValue: equalValue?.contacts,
+			testValue: testValue.contacts,
+		},
+		options
+	);
 
-	userIdAssertionInitializer({
-		equalValue: equalValue.userId,
-		testValue: testValue.userId,
-	});
+	fullNameAssertionInitializer(
+		{
+			equalValue,
+			testValue,
+		},
+		options
+	);
 
-	usernameAssertionInitializer({
-		equalValue: equalValue.username,
-		testValue: testValue.username,
-	});
+	userIdAssertionInitializer(
+		{
+			equalValue: equalValue?.userId,
+			testValue: testValue.userId,
+		},
+		options
+	);
+
+	usernameAssertionInitializer(
+		{
+			equalValue: equalValue?.username,
+			testValue: testValue.username,
+		},
+		options
+	);
 };

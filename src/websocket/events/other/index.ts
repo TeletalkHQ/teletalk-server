@@ -1,18 +1,18 @@
-import { socketEventBuilder } from '~/classes/SocketEventBuilder';
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
 	GetCountriesIO,
 	GetStuffIO,
 	GetWelcomeMessageIO,
 	PingIO,
-} from '~/types';
-import { fields } from '~/variables';
-import { otherHandlers } from '~/websocket/events/other/handlers';
+} from "~/types";
+import { fields } from "~/variables";
+import { otherHandlers } from "~/websocket/events/other/handlers";
 
 const builder = socketEventBuilder();
 
 const getCountries = builder
 	.create<GetCountriesIO>()
-	.name('getCountries')
+	.name("getCountries")
 	.noAuth()
 	.outputFields({
 		countries: fields.statics.array(fields.collection.country),
@@ -22,14 +22,14 @@ const getCountries = builder
 
 const getStuff = builder
 	.create<GetStuffIO>()
-	.name('getStuff')
+	.name("getStuff")
 	.noAuth()
 	.handler(otherHandlers.getStuff)
 	.build();
 
 const getWelcomeMessage = builder
 	.create<GetWelcomeMessageIO>()
-	.name('getWelcomeMessage')
+	.name("getWelcomeMessage")
 	.noAuth()
 	.outputFields({
 		welcomeMessage: fields.single.welcomeMessage,
@@ -39,7 +39,7 @@ const getWelcomeMessage = builder
 
 const ping = builder
 	.create<PingIO>()
-	.name('ping')
+	.name("ping")
 	.noAuth()
 	.handler(otherHandlers.ping)
 	.build();

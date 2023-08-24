@@ -1,20 +1,20 @@
-import { clientStore } from '~/classes/ClientStore';
-import { errorStore } from '~/classes/ErrorStore';
-import { models } from '~/models';
-import { eventsWithAuth } from '~/websocket/events';
+import { clientStore } from "~/classes/ClientStore";
+import { errorStore } from "~/classes/ErrorStore";
+import { models } from "~/models";
+import { eventsWithAuth } from "~/websocket/events";
 
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
 const filteredEvents = eventsWithAuth.filter(
-	(i) => i.name !== 'verify' && i.name !== 'createNewUser'
+	(i) => i.name !== "verify" && i.name !== "createNewUser"
 );
 
-describe('checkCurrentUser middleware fail tests', () => {
+describe("checkCurrentUser middleware fail tests", () => {
 	for (const event of filteredEvents) {
 		it(
 			utils.createFailTestMessage(
-				errorStore.find('CURRENT_USER_NOT_EXIST'),
+				errorStore.find("CURRENT_USER_NOT_EXIST"),
 				event.name
 			),
 			async () => {
@@ -33,7 +33,7 @@ describe('checkCurrentUser middleware fail tests', () => {
 					socket
 				).sendFullFeaturedRequest(
 					data as any,
-					errorStore.find('CURRENT_USER_NOT_EXIST')
+					errorStore.find("CURRENT_USER_NOT_EXIST")
 				);
 			}
 		);

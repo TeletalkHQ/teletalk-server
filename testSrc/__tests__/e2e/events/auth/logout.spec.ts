@@ -1,14 +1,14 @@
-import chai from 'chai';
+import chai from "chai";
 
-import { clientStore } from '~/classes/ClientStore';
-import { services } from '~/services';
+import { clientStore } from "~/classes/ClientStore";
+import { services } from "~/services";
 
-import { authHelper } from '@/classes/AuthHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { authHelper } from "@/classes/AuthHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('logout success tests', () => {
-	it('should get response.ok:true logging out user', async () => {
+describe("logout success tests", () => {
+	it("should get response.ok:true logging out user", async () => {
 		const cellphone = randomMaker.cellphone();
 		const fullName = randomMaker.fullName();
 		const ah = authHelper(cellphone, fullName);

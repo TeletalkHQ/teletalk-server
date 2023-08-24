@@ -1,7 +1,7 @@
-import { models } from '~/models';
+import { models } from "~/models";
 
-import { e2eFailTestInitializer } from '@/classes/E2eFailTestInitializer';
-import { E2eFailTestInitializer } from '@/types';
+import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
+import { E2eFailTestInitializer } from "@/types";
 
 export const phoneNumberE2eFailTestInitializer: E2eFailTestInitializer = (
 	configuredRequester,
@@ -12,7 +12,7 @@ export const phoneNumberE2eFailTestInitializer: E2eFailTestInitializer = (
 		configuredRequester,
 		data,
 		models.native.phoneNumber,
-		'phoneNumber'
+		"phoneNumber"
 	);
 
 	initializer
@@ -23,7 +23,7 @@ export const phoneNumberE2eFailTestInitializer: E2eFailTestInitializer = (
 		.minLength()
 		.maxLength();
 
-	if (!ignores?.includes('empty')) {
+	if (!ignores?.includes("empty")) {
 		initializer.empty();
 	}
 };

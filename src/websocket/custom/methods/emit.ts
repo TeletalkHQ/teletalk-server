@@ -1,7 +1,7 @@
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
-import { CustomEmit, EventName, SocketResponse } from '~/types';
+import { CustomEmit, EventName, SocketResponse } from "~/types";
 
 export const registerCustomEmit = (socket: Socket) => {
 	return ((eventName, response) => {

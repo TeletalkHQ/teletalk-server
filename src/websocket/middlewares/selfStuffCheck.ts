@@ -1,19 +1,19 @@
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 import {
 	errorThrower,
 	extractor,
 	isDataHasEqualityWithTargetCellphone,
-} from 'utility-store';
+} from "utility-store";
 
-import { errorStore } from '~/classes/ErrorStore';
-import { services } from '~/services';
+import { errorStore } from "~/classes/ErrorStore";
+import { services } from "~/services";
 import {
 	AddContactIO,
 	SocketMiddleware,
 	SocketMiddlewareReturnValue,
 	SocketNext,
-} from '~/types';
+} from "~/types";
 
 export const selfStuffCheck: SocketMiddleware = async (
 	socket,
@@ -28,10 +28,10 @@ export const selfStuffCheck: SocketMiddleware = async (
 		.run();
 };
 
-const tryBlock = async (socket: Socket, data: AddContactIO['input']) => {
+const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
 	if (data.userId) {
 		errorThrower(socket.userId === data.userId, {
-			...errorStore.find('SELF_STUFF'),
+			...errorStore.find("SELF_STUFF"),
 			targetUserId: data.userId,
 		});
 	} else {
@@ -45,7 +45,7 @@ const tryBlock = async (socket: Socket, data: AddContactIO['input']) => {
 				extractor.cellphone(currentUser)
 			),
 			{
-				...errorStore.find('SELF_STUFF'),
+				...errorStore.find("SELF_STUFF"),
 				targetUserCellphone: extractor.cellphone(data),
 			}
 		);

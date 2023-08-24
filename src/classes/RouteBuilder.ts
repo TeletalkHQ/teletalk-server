@@ -1,8 +1,8 @@
-import { IoFields } from 'check-fields';
-import { customTypeof } from 'custom-typeof';
-import { errorThrower } from 'utility-store';
+import { IoFields } from "check-fields";
+import { customTypeof } from "custom-typeof";
+import { errorThrower } from "utility-store";
 
-import { NativeError, Route } from '~/types';
+import { NativeError, Route } from "~/types";
 
 export abstract class RouteBuilder {
 	protected route: Route;

@@ -1,5 +1,5 @@
-import { IoFields, checkFields } from 'check-fields';
-import { trier } from 'simple-trier';
+import { IoFields, checkFields } from "check-fields";
+import { trier } from "simple-trier";
 
 import {
 	NativeError,
@@ -7,9 +7,9 @@ import {
 	SocketMiddleware,
 	SocketMiddlewareEvent,
 	SocketNext,
-} from '~/types';
-import { errors } from '~/variables';
-import { events } from '~/websocket/events';
+} from "~/types";
+import { errors } from "~/variables";
+import { events } from "~/websocket/events";
 
 export const checkDataFields: SocketMiddleware = (
 	_socket,
@@ -28,7 +28,7 @@ export const checkDataFields: SocketMiddleware = (
 		.run();
 };
 
-const tryBlock = (data: SocketMiddlewareEvent['1'], inputFields: IoFields) => {
+const tryBlock = (data: SocketMiddlewareEvent["1"], inputFields: IoFields) => {
 	checkFields(data || {}, inputFields, errors.checkField.input);
 };
 

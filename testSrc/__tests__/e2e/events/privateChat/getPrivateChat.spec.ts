@@ -1,23 +1,23 @@
-import chai from 'chai';
-import { Socket } from 'socket.io-client';
-import { UserData } from 'utility-store/lib/types';
+import chai from "chai";
+import { Socket } from "socket.io-client";
+import { UserData } from "utility-store/lib/types";
 
-import { models } from '~/models';
-import { services } from '~/services';
-import { PrivateChatItem } from '~/types/datatypes';
+import { models } from "~/models";
+import { services } from "~/services";
+import { PrivateChatItem } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
-import { FIELD_TYPE } from '@/variables';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
-describe('getPrivateChat success tests', () => {
-	it('Should get private chat related to client by chatId', async () => {
+describe("getPrivateChat success tests", () => {
+	it("Should get private chat related to client by chatId", async () => {
 		const { user: currentUser, socket } = await randomMaker.user();
 		const { user: targetUser } = await randomMaker.user();
 
-		const messageText = 'Hello! Im messages!';
+		const messageText = "Hello! Im messages!";
 		for (let i = 0; i < 10; i++) {
 			const {
 				data: { chatId },
@@ -33,7 +33,7 @@ describe('getPrivateChat success tests', () => {
 	});
 });
 
-await utils.asyncDescribe('getPrivateChat fail tests', async () => {
+await utils.asyncDescribe("getPrivateChat fail tests", async () => {
 	const { requester } = await utils.setupRequester(
 		utils.requesterCollection.getPrivateChat
 	);
@@ -89,7 +89,7 @@ const findStoredPrivateChat = async (
 	targetUserId: string
 ) => {
 	return (await services.findOnePrivateChat({
-		'participants.participantId': {
+		"participants.participantId": {
 			$all: [currentUserId, targetUserId],
 		},
 	}))!;

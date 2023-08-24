@@ -1,14 +1,14 @@
-import { PublicUserData } from 'utility-store/lib/types';
+import { PublicUserData } from "utility-store/lib/types";
 
-import { services } from '~/services';
+import { services } from "~/services";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('getUserData success tests', () => {
-	it('should get currentUser data', async () => {
+describe("getUserData success tests", () => {
+	it("should get currentUser data", async () => {
 		const { socket } = await randomMaker.user();
 		const requester = utils.requesterCollection.getPublicUserData(socket);
 
@@ -58,7 +58,7 @@ const testPublicUserData = (
 		});
 };
 
-await utils.asyncDescribe('getPublicUserData fail tests', async () => {
+await utils.asyncDescribe("getPublicUserData fail tests", async () => {
 	const { requester } = await utils.setupRequester(
 		utils.requesterCollection.getPublicUserData
 	);

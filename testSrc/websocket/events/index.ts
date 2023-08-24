@@ -1,3 +1,3 @@
-import { other } from './other';
+import { other } from "./other";
 
 export const events = { ...other.events };

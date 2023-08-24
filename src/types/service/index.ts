@@ -1,11 +1,11 @@
-import { ProjectionType, QueryOptions } from 'mongoose';
-import { UserData } from 'utility-store/lib/types';
+import { ProjectionType, QueryOptions } from "mongoose";
+import { UserData } from "utility-store/lib/types";
 
-import { StringMap } from '..';
-import { PrivateChatItem, UserId } from '../datatypes';
-import { IPrivateChatDoc, IUserDoc } from '../models';
+import { StringMap } from "..";
+import { PrivateChatItem, UserId } from "../datatypes";
+import { IPrivateChatDoc, IUserDoc } from "../models";
 
-export type ServiceHandlerExcludeProp = '_id' | '__v';
+export type ServiceHandlerExcludeProp = "_id" | "__v";
 export type ServiceHandlerExcludeProps = ServiceHandlerExcludeProp[];
 
 export interface ServiceHandlerOptions {

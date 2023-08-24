@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
-import { createClient } from 'redis';
+import mongoose from "mongoose";
+import { createClient } from "redis";
 
-import { appConfigs } from '~/classes/AppConfigs';
-import { utils } from '~/utils';
+import { appConfigs } from "~/classes/AppConfigs";
+import { utils } from "~/utils";
 
 export const mongodbConnector = () => {
 	const configs = appConfigs.getConfigs();
 
-	mongoose.set('strictQuery', false);
-	mongoose.connection.once('connected', () =>
+	mongoose.set("strictQuery", false);
+	mongoose.connection.once("connected", () =>
 		logger.info(`MongoDB connected to: ${configs.DB.MONGO_URI}`)
 	);
 
@@ -31,12 +31,12 @@ export const redisConnector = async () => {
 		},
 	});
 
-	storage.on('connect', () =>
+	storage.on("connect", () =>
 		logger.info(
 			`Redis connected to: ${REDIS_CONNECTION_OPTIONS.HOST}:${REDIS_CONNECTION_OPTIONS.PORT}`
 		)
 	);
-	storage.on('error', utils.crashServer);
+	storage.on("error", utils.crashServer);
 
 	await storage.connect();
 

@@ -1,7 +1,7 @@
-import { ErrorReason, NativeError } from '~/types';
-import { errors } from '~/variables/errors';
+import { ErrorReason, NativeError } from "~/types";
+import { errors } from "~/variables/errors";
 
-import { modelErrorBuilder } from './ModelErrorBuilder';
+import { modelErrorBuilder } from "./ModelErrorBuilder";
 
 class ErrorStore {
 	private errors: NativeError[] = [];

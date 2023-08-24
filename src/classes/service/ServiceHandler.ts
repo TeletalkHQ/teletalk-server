@@ -1,7 +1,7 @@
 /* eslint-disable indent */
-import { customTypeof } from 'custom-typeof';
-import { QueryOptions } from 'mongoose';
-import { objectUtils } from 'utility-store';
+import { customTypeof } from "custom-typeof";
+import { QueryOptions } from "mongoose";
+import { objectUtils } from "utility-store";
 
 import {
 	ServiceFn,
@@ -9,7 +9,7 @@ import {
 	ServiceHandlerOptions,
 	StringMap,
 	UserDataProjectionType,
-} from '~/types';
+} from "~/types";
 
 type PartialOptions = Partial<ServiceHandlerOptions>;
 
@@ -18,7 +18,7 @@ export class ServiceHandler<
 	ProjectionType,
 	ReturnType extends StringMap
 > {
-	private defaultExcludeProps: ServiceHandlerExcludeProps = ['_id', '__v'];
+	private defaultExcludeProps: ServiceHandlerExcludeProps = ["_id", "__v"];
 	private queryResult: StringMap;
 
 	private options: ServiceHandlerOptions = {

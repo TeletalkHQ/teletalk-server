@@ -1,28 +1,28 @@
-import chai from 'chai';
-import { IoFields } from 'check-fields';
-import { Socket as Client } from 'socket.io-client';
-import { objectUtils } from 'utility-store';
+import chai from "chai";
+import { IoFields } from "check-fields";
+import { Socket as Client } from "socket.io-client";
+import { objectUtils } from "utility-store";
 
-import { errorStore } from '~/classes/ErrorStore';
+import { errorStore } from "~/classes/ErrorStore";
 import {
 	IO,
 	NativeError,
 	SocketEvent,
 	SocketResponse,
 	StringMap,
-} from '~/types';
+} from "~/types";
 
-import { RequesterOptions } from '@/types';
-import { loggerHelper } from '@/utils/logHelper';
-import { FIELD_TYPE } from '@/variables';
+import { RequesterOptions } from "@/types";
+import { loggerHelper } from "@/utils/logHelper";
+import { FIELD_TYPE } from "@/variables";
 
 export class Requester<IOType extends IO> {
 	private error?: NativeError;
 	private options: RequesterOptions = {
 		shouldFilterRequestData: true,
 	};
-	private requestData: IOType['input'];
-	private response: SocketResponse<IOType['output']>;
+	private requestData: IOType["input"];
+	private response: SocketResponse<IOType["output"]>;
 	private event: SocketEvent<IOType>;
 	private socket: Client;
 
@@ -100,16 +100,16 @@ export class Requester<IOType extends IO> {
 	checkRequestDataFields(options = this.getOptions(), inputFields: StringMap) {
 		if (!this.getRequestData() && Object.keys(inputFields).length) {
 			const error = {
-				...errorStore.find('INPUT_FIELDS_MISSING'),
+				...errorStore.find("INPUT_FIELDS_MISSING"),
 				options,
 				requestData: this.getRequestData(),
 			};
-			logger.dir('error', error, { depth: 10 });
+			logger.dir("error", error, { depth: 10 });
 			loggerHelper.logEndTestRequest();
 			throw error;
 		}
 	}
-	filterRequestData(requestData: IOType['input'], inputFields: StringMap) {
+	filterRequestData(requestData: IOType["input"], inputFields: StringMap) {
 		return objectUtils.excludePropsPeerToPeer(
 			requestData,
 			inputFields
@@ -132,7 +132,7 @@ export class Requester<IOType extends IO> {
 	}
 
 	async sendFullFeaturedRequest(
-		data: IOType['input'] = {},
+		data: IOType["input"] = {},
 		error?: NativeError,
 		options: Partial<RequesterOptions> = this.getOptions()
 	) {
@@ -189,7 +189,7 @@ export class Requester<IOType extends IO> {
 	}
 	checkErrorReason() {
 		const expectedError = this.getError();
-		if (!expectedError) throw 'Error is not defined';
+		if (!expectedError) throw "Error is not defined";
 
 		const { reason: expectedReason } = expectedError;
 		const { errors } = this.getResponse();

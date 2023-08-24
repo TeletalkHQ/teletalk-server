@@ -1,20 +1,20 @@
-import { clientManager } from '~/classes/ClientIdManager';
-import { clientStore } from '~/classes/ClientStore';
-import { errorStore } from '~/classes/ErrorStore';
-import { eventsWithAuth } from '~/websocket/events';
+import { clientManager } from "~/classes/ClientIdManager";
+import { clientStore } from "~/classes/ClientStore";
+import { errorStore } from "~/classes/ErrorStore";
+import { eventsWithAuth } from "~/websocket/events";
 
-import { clientInitializer } from '@/classes/ClientInitializer';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { clientInitializer } from "@/classes/ClientInitializer";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
 const filteredEvents = eventsWithAuth.filter(
-	(i) => i.name !== 'verify' && i.name !== 'createNewUser'
+	(i) => i.name !== "verify" && i.name !== "createNewUser"
 );
 
-describe('checkCurrentClient middleware fail tests', () => {
+describe("checkCurrentClient middleware fail tests", () => {
 	for (const event of filteredEvents) {
 		const message = utils.createFailTestMessage(
-			errorStore.find('CURRENT_CLIENT_NOT_EXIST'),
+			errorStore.find("CURRENT_CLIENT_NOT_EXIST"),
 			event.name
 		);
 

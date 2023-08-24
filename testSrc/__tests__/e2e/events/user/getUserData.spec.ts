@@ -1,13 +1,13 @@
-import { extractor } from 'utility-store';
+import { extractor } from "utility-store";
 
-import { services } from '~/services';
+import { services } from "~/services";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('getUserData success tests', () => {
-	it('should get currentUser data', async () => {
+describe("getUserData success tests", () => {
+	it("should get currentUser data", async () => {
 		const { socket } = await randomMaker.user();
 		const requester = utils.requesterCollection.getUserData(socket);
 

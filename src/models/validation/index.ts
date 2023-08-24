@@ -1,7 +1,7 @@
-import { validationModelBuilder } from '~/classes/ValidationModelBuilder';
-import { nativeModels } from '~/models/native';
-import { ValidationCollection } from '~/types';
-import { Field } from '~/types/models';
+import { validationModelBuilder } from "~/classes/ValidationModelBuilder";
+import { nativeModels } from "~/models/native";
+import { ValidationCollection } from "~/types";
+import { Field } from "~/types/models";
 
 export const validationModels: ValidationCollection = Object.keys(
 	nativeModels
@@ -10,15 +10,15 @@ export const validationModels: ValidationCollection = Object.keys(
 
 	const builder = validationModelBuilder(currValue as Field).setModel(model);
 
-	if ('empty' in model) builder.empty();
-	if ('length' in model) builder.length();
-	if ('maxLength' in model) builder.max();
-	if ('minLength' in model) builder.min();
-	if ('numeric' in model) builder.numeric();
-	if ('required' in model) builder.required();
-	if ('trim' in model) builder.trim();
-	if ('type' in model) builder.type();
-	if ('unique' in model) builder.unique();
+	if ("empty" in model) builder.empty();
+	if ("length" in model) builder.length();
+	if ("maxLength" in model) builder.max();
+	if ("minLength" in model) builder.min();
+	if ("numeric" in model) builder.numeric();
+	if ("required" in model) builder.required();
+	if ("trim" in model) builder.trim();
+	if ("type" in model) builder.type();
+	if ("unique" in model) builder.unique();
 
 	prevValue[currValue as Field] = builder.build();
 	return prevValue;

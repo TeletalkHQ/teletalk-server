@@ -3,6 +3,7 @@ import chai from "chai";
 
 import { NativeModel } from "~/types/models";
 
+import { AssertionInitializerOptions } from "@/types";
 import { FIELD_TYPE } from "@/variables";
 
 type TestItem = () => void;
@@ -22,7 +23,7 @@ export class AssertionInitializer<Model extends NativeModel = any> {
 	options = this.defaultOptions();
 	variables: Variables<Model>;
 
-	private defaultOptions() {
+	private defaultOptions(): AssertionInitializerOptions {
 		return {
 			modelCheck: true,
 			stringEquality: true,
@@ -55,7 +56,7 @@ export class AssertionInitializer<Model extends NativeModel = any> {
 		return this;
 	}
 
-	setOptions(options = this.options) {
+	setOptions(options: Partial<AssertionInitializerOptions> = this.options) {
 		this.options = { ...this.options, ...options };
 
 		return this;
@@ -75,11 +76,6 @@ export class AssertionInitializer<Model extends NativeModel = any> {
 
 	stringEquality() {
 		this.addIf(this.options.stringEquality, () => {
-			this.tests.push(() =>
-				chai
-					.expect(this.variables.equalValue.length)
-					.to.be.equal(this.variables.testValue.length)
-			);
 			this.tests.push(() =>
 				chai
 					.expect(this.variables.equalValue)

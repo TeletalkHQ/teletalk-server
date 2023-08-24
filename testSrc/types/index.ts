@@ -42,7 +42,7 @@ export type AssertionInitializer<
 	TestDataType = EqualDataType
 > = (
 	data: AssertionInitializerArgs<EqualDataType, TestDataType>,
-	options?: AssertionInitializerOptions
+	options: Partial<AssertionInitializerOptions>
 ) => void;
 
 export interface RequesterOptions {

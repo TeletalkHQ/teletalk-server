@@ -39,14 +39,14 @@ class AppConfigs {
 			override: true,
 		});
 	}
-
 	getConfigs() {
+		//FIXME: All to optional
 		return {
 			APP: {
 				CLIENT_SECRET: this.ENVIRONMENTS.CLIENT_SECRET,
 				ENVIRONMENT: this.ENVIRONMENTS.NODE_ENV,
 				HOSTNAME: 'localhost',
-				PORT: this.ENVIRONMENTS.PORT,
+				PORT: this.ENVIRONMENTS.CUSTOM_PORT || this.ENVIRONMENTS.PORT,
 				SELF_EXEC: this.ENVIRONMENTS.SELF_EXEC,
 			},
 			DB: {

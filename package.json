@@ -24,7 +24,7 @@
 		"setup:alias:unload": "./scripts/alias/unloader.sh",
 		"setup:git": "husky install",
 		"start": "npm run start:production:local",
-		"start:dev": "cross-env NODE_ENV=development nodemon ./index.ts",
+		"start:dev": "cross-env NODE_ENV=development CUSTOM_PORT=${PORT}  nodemon ./index.ts",
 		"start:production": "cross-env NODE_ENV=production npm run app-runner",
 		"start:production:local": "cross-env NODE_ENV=production_local npm run app-runner",
 		"test-runner": "npm run test-runner:default",

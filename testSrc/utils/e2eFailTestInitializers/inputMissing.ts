@@ -1,7 +1,7 @@
-import { errorStore } from '~/classes/ErrorStore';
+import { errorStore } from "~/classes/ErrorStore";
 
-import { E2eFailTestInitializer } from '@/types';
-import { utils } from '@/utils';
+import { E2eFailTestInitializer } from "@/types";
+import { utils } from "@/utils";
 
 export const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
 	configuredRequester,
@@ -9,7 +9,7 @@ export const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
 	it(
 		utils.createFailTestMessage(
-			errorStore.find('INPUT_FIELDS_MISSING'),
+			errorStore.find("INPUT_FIELDS_MISSING"),
 			configuredRequester.getEventName()
 		),
 		async () => {
@@ -18,7 +18,7 @@ export const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
 			delete (copyData as any)[firstKey];
 			await configuredRequester.sendFullFeaturedRequest(
 				copyData,
-				errorStore.find('INPUT_FIELDS_MISSING'),
+				errorStore.find("INPUT_FIELDS_MISSING"),
 				{
 					shouldFilterRequestData: false,
 				}

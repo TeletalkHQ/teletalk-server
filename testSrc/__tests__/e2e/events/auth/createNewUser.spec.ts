@@ -1,18 +1,18 @@
-import { Cellphone, FullName, UserData } from 'utility-store/lib/types';
+import { Cellphone, FullName, UserData } from "utility-store/lib/types";
 
-import { clientStore } from '~/classes/ClientStore';
-import { userUtils } from '~/classes/UserUtils';
-import { services } from '~/services';
-import { ClientId, UserId } from '~/types/datatypes';
+import { clientStore } from "~/classes/ClientStore";
+import { userUtils } from "~/classes/UserUtils";
+import { services } from "~/services";
+import { ClientId, UserId } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { authHelper } from '@/classes/AuthHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { authHelper } from "@/classes/AuthHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('createNewUser success tests', () => {
-	it('should create new user in db', async () => {
+describe("createNewUser success tests", () => {
+	it("should create new user in db", async () => {
 		const cellphone = randomMaker.unusedCellphone();
 		const fullName = randomMaker.fullName();
 
@@ -30,7 +30,7 @@ describe('createNewUser success tests', () => {
 	});
 });
 
-await utils.asyncDescribe('createNewUser fail tests', async () => {
+await utils.asyncDescribe("createNewUser fail tests", async () => {
 	const cellphone = randomMaker.unusedCellphone();
 	const helper = authHelper(cellphone);
 	await helper.signIn();

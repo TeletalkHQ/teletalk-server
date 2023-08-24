@@ -1,15 +1,15 @@
-import lodash from 'lodash';
+import lodash from "lodash";
 
-import { errorBuilder } from '~/classes/ErrorBuilder';
-import { nativeModels } from '~/models/native';
-import { ErrorCollection } from '~/types';
+import { errorBuilder } from "~/classes/ErrorBuilder";
+import { nativeModels } from "~/models/native";
+import { ErrorCollection } from "~/types";
 import {
 	Field,
 	ModelErrorReason,
 	NativeModel,
 	NativeModelKey,
-} from '~/types/models';
-import { utils } from '~/utils';
+} from "~/types/models";
+import { utils } from "~/utils";
 
 export class ModelErrorBuilder {
 	private errors: ErrorCollection = [];
@@ -53,7 +53,7 @@ export class ModelErrorBuilder {
 	}
 
 	shouldIgnoreModelProperty(modelPropertyName: NativeModelKey) {
-		const ignoreKeys: NativeModelKey[] = ['defaultValue', 'trim'];
+		const ignoreKeys: NativeModelKey[] = ["defaultValue", "trim"];
 		return ignoreKeys.includes(modelPropertyName);
 	}
 }

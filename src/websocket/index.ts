@@ -1,9 +1,9 @@
-import http from 'http';
-import { Server } from 'socket.io';
+import http from "http";
+import { Server } from "socket.io";
 
-import { customMethods } from '~/websocket/custom/methods';
-import { registerEvents } from '~/websocket/events';
-import { registerMiddlewares } from '~/websocket/middlewares';
+import { customMethods } from "~/websocket/custom/methods";
+import { registerEvents } from "~/websocket/events";
+import { registerMiddlewares } from "~/websocket/middlewares";
 
 type HttpServer = http.Server<
 	typeof http.IncomingMessage,
@@ -18,7 +18,7 @@ export const websocketServer = (httpServer: HttpServer) => {
 		},
 	});
 
-	io.on('connection', (socket) => {
+	io.on("connection", (socket) => {
 		socket.io = io;
 
 		socket.customEmit = customMethods.registerCustomEmit(socket);

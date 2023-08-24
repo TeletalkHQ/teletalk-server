@@ -1,17 +1,17 @@
-import { errorThrower } from 'utility-store';
-import { ContactItem, UserData } from 'utility-store/lib/types';
+import { errorThrower } from "utility-store";
+import { ContactItem, UserData } from "utility-store/lib/types";
 
-import { errorStore } from '~/classes/ErrorStore';
-import { UserId } from '~/types/datatypes';
-import { HydratedUser } from '~/types/models';
+import { errorStore } from "~/classes/ErrorStore";
+import { UserId } from "~/types/datatypes";
+import { HydratedUser } from "~/types/models";
 
 export const checkExistenceOfContactItem = (
-	contacts: UserData['contacts'],
+	contacts: UserData["contacts"],
 	targetUserId: UserId
 ) => {
 	const index = contacts.findIndex((i) => i.userId == targetUserId);
 	errorThrower(index !== -1, () => ({
-		...errorStore.find('CONTACT_ITEM_EXIST'),
+		...errorStore.find("CONTACT_ITEM_EXIST"),
 		queryData: targetUserId,
 	}));
 };

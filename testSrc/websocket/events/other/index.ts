@@ -1,6 +1,6 @@
-import { socketEventBuilder } from '~/classes/SocketEventBuilder';
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 
-import { randomMaker } from '@/classes/RandomMaker';
+import { randomMaker } from "@/classes/RandomMaker";
 
 const unknownEvent = socketEventBuilder()
 	.create()

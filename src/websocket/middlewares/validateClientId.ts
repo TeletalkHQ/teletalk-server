@@ -1,13 +1,13 @@
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
 import {
 	SocketMiddleware,
 	SocketMiddlewareReturnValue,
 	SocketNext,
-} from '~/types';
-import { validationCheckers } from '~/validationCheckers';
-import { validators } from '~/validators';
+} from "~/types";
+import { validationCheckers } from "~/validationCheckers";
+import { validators } from "~/validators";
 
 export const validateClientId: SocketMiddleware = async (
 	socket,

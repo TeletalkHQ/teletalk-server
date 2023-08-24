@@ -3,12 +3,12 @@ import {
 	SyncCheckFunction,
 	ValidationError,
 	ValidationRuleObject,
-} from 'fastest-validator';
+} from "fastest-validator";
 
-import { utils } from '~/utils';
+import { utils } from "~/utils";
 
-import { ErrorReason, NativeError } from '..';
-import { Field } from '../models';
+import { ErrorReason, NativeError } from "..";
+import { Field } from "../models";
 
 export type ValidationModel = ValidationRuleObject;
 

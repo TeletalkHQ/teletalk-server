@@ -1,8 +1,8 @@
-import { extractor } from 'utility-store';
+import { extractor } from "utility-store";
 
-import { clientStore } from '~/classes/ClientStore';
-import { services } from '~/services';
-import { SocketOnHandler, VerifyIO } from '~/types';
+import { clientStore } from "~/classes/ClientStore";
+import { services } from "~/services";
+import { SocketOnHandler, VerifyIO } from "~/types";
 
 export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
 	const client = (await clientStore.find(socket.clientId))!;

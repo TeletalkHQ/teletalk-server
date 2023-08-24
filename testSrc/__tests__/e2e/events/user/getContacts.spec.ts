@@ -1,16 +1,16 @@
-import chai from 'chai';
-import { extractor } from 'utility-store';
-import { ContactItem, Contacts } from 'utility-store/lib/types';
+import chai from "chai";
+import { extractor } from "utility-store";
+import { ContactItem, Contacts } from "utility-store/lib/types";
 
-import { services } from '~/services';
+import { services } from "~/services";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
-import { FIELD_TYPE } from '@/variables';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
-describe('getContacts success tests', () => {
-	it('', async () => {
+describe("getContacts success tests", () => {
+	it("", async () => {
 		const { user: currentUser, socket } = await randomMaker.user();
 
 		const contactsLength = 10;

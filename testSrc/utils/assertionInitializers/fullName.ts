@@ -1,6 +1,6 @@
-import { AssertionInitializer } from '@/types';
-import { firstNameAssertionInitializer } from '@/utils/assertionInitializers/firstName';
-import { lastNameAssertionInitializer } from '@/utils/assertionInitializers/lastName';
+import { AssertionInitializer } from "@/types";
+import { firstNameAssertionInitializer } from "@/utils/assertionInitializers/firstName";
+import { lastNameAssertionInitializer } from "@/utils/assertionInitializers/lastName";
 
 export const fullNameAssertionInitializer: AssertionInitializer = ({
 	equalValue,

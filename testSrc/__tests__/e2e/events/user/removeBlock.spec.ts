@@ -1,15 +1,15 @@
-import chai from 'chai';
+import chai from "chai";
 
-import { services } from '~/services';
-import { UserId } from '~/types/datatypes';
+import { services } from "~/services";
+import { UserId } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('removeContact successful test', () => {
-	it('should add users to blacklist', async () => {
+describe("removeContact successful test", () => {
+	it("should add users to blacklist", async () => {
 		const blacklistLength = 10;
 		const userIds = await createUserIds(blacklistLength);
 
@@ -43,7 +43,7 @@ describe('removeContact successful test', () => {
 	});
 });
 
-await utils.asyncDescribe('removeBlock fail tests', async () => {
+await utils.asyncDescribe("removeBlock fail tests", async () => {
 	const { requester, user } = await utils.setupRequester(
 		utils.requesterCollection.removeBlock
 	);

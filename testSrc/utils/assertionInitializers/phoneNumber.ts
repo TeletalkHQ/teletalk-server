@@ -1,7 +1,7 @@
-import { models } from '~/models';
+import { models } from "~/models";
 
-import { assertionInitializer } from '@/classes/AssertionInitializer';
-import { AssertionInitializer } from '@/types';
+import { assertionInitializer } from "@/classes/AssertionInitializer";
+import { AssertionInitializer } from "@/types";
 
 export const phoneNumberAssertionInitializer: AssertionInitializer = (
 	{ equalValue, testValue },

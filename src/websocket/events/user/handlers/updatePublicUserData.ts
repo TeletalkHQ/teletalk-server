@@ -1,5 +1,5 @@
-import { services } from '~/services';
-import { SocketOnHandler, UpdatePublicUserDataIO } from '~/types';
+import { services } from "~/services";
+import { SocketOnHandler, UpdatePublicUserDataIO } from "~/types";
 
 export const updatePublicUserData: SocketOnHandler<
 	UpdatePublicUserDataIO

@@ -1,10 +1,10 @@
-import { Socket as ClientSocket } from 'socket.io-client';
+import { Socket as ClientSocket } from "socket.io-client";
 
-import { IO, SocketEvent } from '~/types';
-import { NativeModelKey } from '~/types/models';
+import { IO, SocketEvent } from "~/types";
+import { NativeModelKey } from "~/types/models";
 
-import { Requester } from '@/classes/Requester';
-import { utils } from '@/utils';
+import { Requester } from "@/classes/Requester";
+import { utils } from "@/utils";
 
 export type RequesterMaker<IOType extends IO> = (
 	socketClient: ClientSocket

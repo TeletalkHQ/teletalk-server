@@ -1,5 +1,5 @@
-import { services } from '~/services';
-import { RemoveContactIO, SocketOnHandler } from '~/types';
+import { services } from "~/services";
+import { RemoveContactIO, SocketOnHandler } from "~/types";
 
 export const removeContact: SocketOnHandler<RemoveContactIO> = async (
 	socket,

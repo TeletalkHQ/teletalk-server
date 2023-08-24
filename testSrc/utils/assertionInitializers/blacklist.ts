@@ -1,9 +1,9 @@
-import chai from 'chai';
-import { BlackListItem } from 'utility-store/lib/types';
+import chai from "chai";
+import { BlackListItem } from "utility-store/lib/types";
 
-import { AssertionInitializer } from '@/types';
-import { userIdAssertionInitializer } from '@/utils/assertionInitializers/userId';
-import { FIELD_TYPE } from '@/variables';
+import { AssertionInitializer } from "@/types";
+import { userIdAssertionInitializer } from "@/utils/assertionInitializers/userId";
+import { FIELD_TYPE } from "@/variables";
 
 export const blacklistAssertionInitializer: AssertionInitializer = ({
 	equalValue,

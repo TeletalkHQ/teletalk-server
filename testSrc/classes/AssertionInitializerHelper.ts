@@ -1,5 +1,5 @@
-import { AssertionInitializerArgs, AssertionInitializerOptions } from '@/types';
-import { assertionInitializers } from '@/utils/assertionInitializers';
+import { AssertionInitializerArgs, AssertionInitializerOptions } from "@/types";
+import { assertionInitializers } from "@/utils/assertionInitializers";
 
 type MethodName = keyof typeof assertionInitializers;
 
@@ -14,26 +14,26 @@ export class AssertionInitializerHelper {
 		};
 	}
 
-	bio = this.initializer('bio');
-	blacklist = this.initializer('blacklist');
-	cellphone = this.initializer('cellphone');
-	chatId = this.initializer('chatId');
-	clientId = this.initializer('clientId');
-	contacts = this.initializer('contacts');
-	countryCode = this.initializer('countryCode');
-	countryName = this.initializer('countryName');
-	firstName = this.initializer('firstName');
-	fullName = this.initializer('fullName');
-	lastName = this.initializer('lastName');
-	messageId = this.initializer('messageId');
-	messageText = this.initializer('messageText');
-	oneContact = this.initializer('oneContact');
-	phoneNumber = this.initializer('phoneNumber');
-	privateChats = this.initializer('privateChats');
-	userData = this.initializer('userData');
-	userId = this.initializer('userId');
-	username = this.initializer('username');
-	verificationCode = this.initializer('verificationCode');
+	bio = this.initializer("bio");
+	blacklist = this.initializer("blacklist");
+	cellphone = this.initializer("cellphone");
+	chatId = this.initializer("chatId");
+	clientId = this.initializer("clientId");
+	contacts = this.initializer("contacts");
+	countryCode = this.initializer("countryCode");
+	countryName = this.initializer("countryName");
+	firstName = this.initializer("firstName");
+	fullName = this.initializer("fullName");
+	lastName = this.initializer("lastName");
+	messageId = this.initializer("messageId");
+	messageText = this.initializer("messageText");
+	oneContact = this.initializer("oneContact");
+	phoneNumber = this.initializer("phoneNumber");
+	privateChats = this.initializer("privateChats");
+	userData = this.initializer("userData");
+	userId = this.initializer("userId");
+	username = this.initializer("username");
+	verificationCode = this.initializer("verificationCode");
 }
 
 export const assertionInitializerHelper = () =>

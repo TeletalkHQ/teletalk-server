@@ -1,20 +1,20 @@
-import { socketEventBuilder } from '~/classes/SocketEventBuilder';
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
 	GetChatInfoIO,
 	GetPrivateChatIO,
 	GetPrivateChatsIO,
 	JoinRoomIO,
 	SendPrivateMessageIO,
-} from '~/types';
-import { fields } from '~/variables';
-import { privateChatHandlers } from '~/websocket/events/privateChat/handlers';
+} from "~/types";
+import { fields } from "~/variables";
+import { privateChatHandlers } from "~/websocket/events/privateChat/handlers";
 
 const builder = socketEventBuilder();
 
 const getChatInfo = builder
 	.create<GetChatInfoIO>()
 	.handler(privateChatHandlers.getChatInfo)
-	.name('getChatInfo')
+	.name("getChatInfo")
 	.inputFields({ chatId: fields.single.chatId })
 	.outputFields({
 		chatInfo: fields.statics.object({
@@ -28,7 +28,7 @@ const getChatInfo = builder
 const getPrivateChat = builder
 	.create<GetPrivateChatIO>()
 	.handler(privateChatHandlers.getPrivateChat)
-	.name('getPrivateChat')
+	.name("getPrivateChat")
 	.inputFields({ chatId: fields.single.chatId })
 	.outputFields({
 		privateChat: fields.statics.object(fields.collection.privateChat),
@@ -38,7 +38,7 @@ const getPrivateChat = builder
 const getPrivateChats = builder
 	.create<GetPrivateChatsIO>()
 	.handler(privateChatHandlers.getPrivateChats)
-	.name('getPrivateChats')
+	.name("getPrivateChats")
 	.outputFields({
 		privateChats: fields.statics.array(fields.collection.privateChat),
 	})
@@ -46,15 +46,15 @@ const getPrivateChats = builder
 
 const joinRoom = builder
 	.create<JoinRoomIO>()
-	.name('joinRoom')
+	.name("joinRoom")
 	.handler(privateChatHandlers.joinRoom)
-	.method('once')
+	.method("once")
 	.build();
 
 const sendPrivateMessage = builder
 	.create<SendPrivateMessageIO>()
 	.handler(privateChatHandlers.sendPrivateMessage)
-	.name('sendPrivateMessage')
+	.name("sendPrivateMessage")
 	.inputFields({
 		messageText: fields.single.messageText,
 		participantId: fields.single.participantId,

@@ -1,17 +1,17 @@
-import chai from 'chai';
-import { UserData } from 'utility-store/lib/types';
+import chai from "chai";
+import { UserData } from "utility-store/lib/types";
 
-import { services } from '~/services';
-import { UserId } from '~/types/datatypes';
+import { services } from "~/services";
+import { UserId } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
-import { FIELD_TYPE } from '@/variables';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
-describe('addBlock successful tests', () => {
-	it('should add users to blacklist', async () => {
+describe("addBlock successful tests", () => {
+	it("should add users to blacklist", async () => {
 		const { socket, user } = await randomMaker.user();
 		const requester = utils.requesterCollection.addBlock(socket);
 
@@ -41,7 +41,7 @@ describe('addBlock successful tests', () => {
 	});
 });
 
-await utils.asyncDescribe('addBlock fail tests', async () => {
+await utils.asyncDescribe("addBlock fail tests", async () => {
 	const { user: currentUser, requester } = await utils.setupRequester(
 		utils.requesterCollection.addBlock
 	);

@@ -1,13 +1,13 @@
-import { trier } from 'simple-trier';
-import { Socket } from 'socket.io';
+import { trier } from "simple-trier";
+import { Socket } from "socket.io";
 
-import { errorStore } from '~/classes/ErrorStore';
+import { errorStore } from "~/classes/ErrorStore";
 import {
 	SocketMiddleware,
 	SocketMiddlewareReturnValue,
 	SocketNext,
-} from '~/types';
-import { utils } from '~/utils';
+} from "~/types";
+import { utils } from "~/utils";
 
 export const attachClientStr: SocketMiddleware = async (
 	socket,
@@ -24,7 +24,7 @@ export const attachClientStr: SocketMiddleware = async (
 
 const tryBlock = async (socket: Socket) => {
 	const { cookie } = socket.handshake.headers;
-	if (!cookie) throw errorStore.find('CLIENT_COOKIE_REQUIRED');
+	if (!cookie) throw errorStore.find("CLIENT_COOKIE_REQUIRED");
 
 	socket.clientStr = utils.extractClientFromCookie(cookie);
 

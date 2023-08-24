@@ -1,10 +1,10 @@
-import { errorStore } from '~/classes/ErrorStore';
-import { models } from '~/models';
+import { errorStore } from "~/classes/ErrorStore";
+import { models } from "~/models";
 
-import { e2eFailTestInitializer } from '@/classes/E2eFailTestInitializer';
-import { randomMaker } from '@/classes/RandomMaker';
-import { E2eFailTestInitializer } from '@/types';
-import { utils } from '@/utils';
+import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
+import { randomMaker } from "@/classes/RandomMaker";
+import { E2eFailTestInitializer } from "@/types";
+import { utils } from "@/utils";
 
 export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 	configuredRequester,
@@ -15,7 +15,7 @@ export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 		configuredRequester,
 		data,
 		models.native.countryCode,
-		'countryCode'
+		"countryCode"
 	);
 
 	initializer
@@ -28,12 +28,12 @@ export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 			randomMaker.stringNumber(models.native.countryCode.maxLength + 1)
 		);
 
-	if (!ignores?.includes('empty')) {
+	if (!ignores?.includes("empty")) {
 		initializer
 			.empty()
 			.custom(
 				utils.getWrongCountryCode(),
-				errorStore.find('COUNTRY_CODE_NOT_SUPPORTED')
+				errorStore.find("COUNTRY_CODE_NOT_SUPPORTED")
 			);
 	}
 };

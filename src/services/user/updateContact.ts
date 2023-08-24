@@ -1,16 +1,16 @@
-import { errorThrower, extractor } from 'utility-store';
+import { errorThrower, extractor } from "utility-store";
 import {
 	ContactItem,
 	FullNameWithUserId,
 	UserData,
 	UserId,
-} from 'utility-store/lib/types';
+} from "utility-store/lib/types";
 
-import { errorStore } from '~/classes/ErrorStore';
-import { UserService } from '~/types';
-import { HydratedUser } from '~/types/models';
+import { errorStore } from "~/classes/ErrorStore";
+import { UserService } from "~/types";
+import { HydratedUser } from "~/types/models";
 
-import { findOneUser } from './findOneUser';
+import { findOneUser } from "./findOneUser";
 
 export const updateContact: UserService<
 	{
@@ -27,7 +27,7 @@ export const updateContact: UserService<
 	);
 
 	errorThrower(index < 0, {
-		...errorStore.find('CONTACT_ITEM_NOT_EXIST'),
+		...errorStore.find("CONTACT_ITEM_NOT_EXIST"),
 		editValues: data.editValues,
 	});
 
@@ -43,11 +43,11 @@ const findCurrentUser = async (currentUserId: string) => {
 	const result = await findOneUser({
 		userId: currentUserId,
 	});
-	if (!result) throw errorStore.find('CURRENT_USER_NOT_EXIST');
+	if (!result) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 	return result;
 };
 
-const findContact = (contacts: UserData['contacts'], targetUserId: string) => {
+const findContact = (contacts: UserData["contacts"], targetUserId: string) => {
 	const index = contacts.findIndex((c) => c.userId === targetUserId);
 
 	return {

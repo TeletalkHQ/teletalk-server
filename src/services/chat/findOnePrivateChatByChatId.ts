@@ -1,7 +1,7 @@
-import { PrivateChatService } from '~/types';
-import { HydratedPrivateChat } from '~/types/models';
+import { PrivateChatService } from "~/types";
+import { HydratedPrivateChat } from "~/types/models";
 
-import { findOnePrivateChat } from './findOnePrivateChat';
+import { findOnePrivateChat } from "./findOnePrivateChat";
 
 export const findOnePrivateChatByChatId: PrivateChatService<
 	{

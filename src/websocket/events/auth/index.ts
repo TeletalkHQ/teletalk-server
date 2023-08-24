@@ -1,26 +1,26 @@
-import { socketEventBuilder } from '~/classes/SocketEventBuilder';
-import { CreateNewUserIO, LogoutIO, SignInIO, VerifyIO } from '~/types';
-import { fields } from '~/variables';
-import { authHandlers } from '~/websocket/events/auth/handlers';
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
+import { CreateNewUserIO, LogoutIO, SignInIO, VerifyIO } from "~/types";
+import { fields } from "~/variables";
+import { authHandlers } from "~/websocket/events/auth/handlers";
 
 const builder = socketEventBuilder();
 
 const createNewUser = builder
 	.create<CreateNewUserIO>()
-	.name('createNewUser')
+	.name("createNewUser")
 	.inputFields(fields.collection.fullName)
 	.handler(authHandlers.createNewUser)
 	.build();
 
 const logout = builder
 	.create<LogoutIO>()
-	.name('logout')
+	.name("logout")
 	.handler(authHandlers.logout)
 	.build();
 
 const signIn = builder
 	.create<SignInIO>()
-	.name('signIn')
+	.name("signIn")
 	.noAuth()
 	.inputFields(fields.collection.cellphone)
 	.handler(authHandlers.signIn)
@@ -28,7 +28,7 @@ const signIn = builder
 
 const verify = builder
 	.create<VerifyIO>()
-	.name('verify')
+	.name("verify")
 	.inputFields({
 		verificationCode: fields.single.verificationCode,
 	})

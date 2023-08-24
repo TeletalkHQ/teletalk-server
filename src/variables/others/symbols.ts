@@ -1,3 +1,3 @@
 export const symbols = {
-	shouldValidate: Symbol('shouldValidate'),
+	shouldValidate: Symbol("shouldValidate"),
 };

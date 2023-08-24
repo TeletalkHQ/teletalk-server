@@ -1,23 +1,23 @@
-import chai from 'chai';
-import { extractor } from 'utility-store';
-import { Cellphone } from 'utility-store/lib/types';
+import chai from "chai";
+import { extractor } from "utility-store";
+import { Cellphone } from "utility-store/lib/types";
 
-import { clientStore } from '~/classes/ClientStore';
-import { ClientId } from '~/types/datatypes';
+import { clientStore } from "~/classes/ClientStore";
+import { ClientId } from "~/types/datatypes";
 
 import {
 	AssertionInitializerHelper,
 	assertionInitializerHelper,
-} from '@/classes/AssertionInitializerHelper';
-import { authHelper } from '@/classes/AuthHelper';
-import { clientInitializer } from '@/classes/ClientInitializer';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
-import { FIELD_TYPE } from '@/variables';
+} from "@/classes/AssertionInitializerHelper";
+import { authHelper } from "@/classes/AuthHelper";
+import { clientInitializer } from "@/classes/ClientInitializer";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
-describe('signIn success test', () => {
-	it('should sign as new user', async () => {
+describe("signIn success test", () => {
+	it("should sign as new user", async () => {
 		const cellphone = randomMaker.unusedCellphone();
 		const helper = authHelper(cellphone);
 
@@ -27,7 +27,7 @@ describe('signIn success test', () => {
 		await testResponse(assertHelper, helper.getClientId());
 	});
 
-	it('should sign as existed user', async () => {
+	it("should sign as existed user", async () => {
 		const { user } = await randomMaker.user();
 		const cellphone = extractor.cellphone(user);
 
@@ -38,7 +38,7 @@ describe('signIn success test', () => {
 		await testResponse(assertHelper, helper.getClientId());
 	});
 
-	it('should sign multiple time, so client get updated', async () => {
+	it("should sign multiple time, so client get updated", async () => {
 		const cellphone = randomMaker.unusedCellphone();
 		const helper = authHelper(cellphone);
 
@@ -53,7 +53,7 @@ describe('signIn success test', () => {
 	});
 });
 
-await utils.asyncDescribe('signIn fail test', async () => {
+await utils.asyncDescribe("signIn fail test", async () => {
 	const signInCellphone = randomMaker.unusedCellphone();
 	const clientSocket = (await clientInitializer().createComplete()).getClient();
 	const requester = utils.requesterCollection.signIn(clientSocket);

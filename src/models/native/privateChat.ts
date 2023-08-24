@@ -1,4 +1,4 @@
-import { commonModels } from '~/models/native/common';
+import { commonModels } from "~/models/native/common";
 
 export const privateChatModels = {
 	chatId: {
@@ -18,7 +18,7 @@ export const privateChatModels = {
 		minLength: 1,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 	},
 	participantId: commonModels.userId,
 	senderId: commonModels.userId,

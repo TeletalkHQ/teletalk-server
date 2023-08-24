@@ -1,17 +1,17 @@
-import chai from 'chai';
-import { Socket } from 'socket.io-client';
-import { UserData, UserId } from 'utility-store/lib/types';
+import chai from "chai";
+import { Socket } from "socket.io-client";
+import { UserData, UserId } from "utility-store/lib/types";
 
-import { services } from '~/services';
-import { PrivateChatItem } from '~/types/datatypes';
+import { services } from "~/services";
+import { PrivateChatItem } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
-import { FIELD_TYPE } from '@/variables';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
-describe('getPrivateChats success tests', () => {
-	it('should get private chats related to client', async () => {
+describe("getPrivateChats success tests", () => {
+	it("should get private chats related to client", async () => {
 		const { user: currentUser, socket: currentUserSocket } =
 			await randomMaker.user();
 		const { user: targetUser, socket: targetUserSocket } =
@@ -20,7 +20,7 @@ describe('getPrivateChats success tests', () => {
 		await testEmptinessOfPrivateChats(currentUserSocket);
 		await testEmptinessOfPrivateChats(targetUserSocket);
 
-		const messageText = 'Hello! Im messages!';
+		const messageText = "Hello! Im messages!";
 		for (let i = 0; i < 10; i++) {
 			await utils.requesterCollection
 				.sendPrivateMessage(currentUserSocket)
@@ -100,7 +100,7 @@ const findStoredPrivateChat = async (
 	targetUserId: string
 ) => {
 	return await services.findOnePrivateChat({
-		'participants.participantId': {
+		"participants.participantId": {
 			$all: [currentUserId, targetUserId],
 		},
 	});

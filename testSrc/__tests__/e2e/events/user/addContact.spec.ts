@@ -1,18 +1,18 @@
-import chai from 'chai';
-import { extractor } from 'utility-store';
-import { ContactItem, UserData } from 'utility-store/lib/types';
+import chai from "chai";
+import { extractor } from "utility-store";
+import { ContactItem, UserData } from "utility-store/lib/types";
 
-import { services } from '~/services';
-import { UserId } from '~/types/datatypes';
+import { services } from "~/services";
+import { UserId } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
-import { FIELD_TYPE } from '@/variables';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
+import { FIELD_TYPE } from "@/variables";
 
-describe('add contact success tests', () => {
-	it('should add users to contacts', async () => {
+describe("add contact success tests", () => {
+	it("should add users to contacts", async () => {
 		const { user: currentUser, socket } = await randomMaker.user();
 		const requester = utils.requesterCollection.addContact(socket);
 
@@ -62,7 +62,7 @@ describe('add contact success tests', () => {
 	});
 });
 
-await utils.asyncDescribe('addContact fail tests', async () => {
+await utils.asyncDescribe("addContact fail tests", async () => {
 	const currentUserSignData = randomMaker.unusedCellphone();
 	const { requester, user: currentUser } = await utils.setupRequester(
 		utils.requesterCollection.addContact,

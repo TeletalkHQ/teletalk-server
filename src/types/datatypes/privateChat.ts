@@ -1,4 +1,4 @@
-import { CreatedAt, Id } from '.';
+import { CreatedAt, Id } from ".";
 
 export type SenderId = Id;
 

@@ -1,11 +1,11 @@
 /* eslint-disable indent */
-import generatePassword from 'generate-password';
-import lodash from 'lodash';
-import { Socket } from 'socket.io';
-import { ScreamingSnakeCase } from 'type-fest';
+import generatePassword from "generate-password";
+import lodash from "lodash";
+import { Socket } from "socket.io";
+import { ScreamingSnakeCase } from "type-fest";
 
-import { envManager } from '~/classes/EnvironmentManager';
-import { nativeModels } from '~/models/native';
+import { envManager } from "~/classes/EnvironmentManager";
+import { nativeModels } from "~/models/native";
 import {
 	Environments,
 	ErrorReason,
@@ -16,14 +16,14 @@ import {
 	SocketResponse,
 	StringMap,
 	UnknownError,
-} from '~/types';
+} from "~/types";
 import {
 	Field,
 	ModelErrorReason,
 	NativeModelCollection,
 	NativeModelKey,
-} from '~/types/models';
-import { errors } from '~/variables/errors';
+} from "~/types/models";
+import { errors } from "~/variables/errors";
 
 type Url = EventName | EventName[];
 
@@ -70,7 +70,7 @@ const logEnvironments = () => logger.debug(sortEnvironments());
 
 const passwordGenerator = (options: generatePassword.GenerateOptions = {}) => {
 	return generatePassword.generate({
-		exclude: '',
+		exclude: "",
 		length: 6,
 		lowercase: false,
 		numbers: true,
@@ -92,8 +92,8 @@ const sortEnvironments = () =>
 		}, {} as Environments);
 
 const extractClientFromCookie = (cookie: string) => {
-	const [rawCookie] = cookie.split('; ');
-	return rawCookie.split('=')[1];
+	const [rawCookie] = cookie.split("; ");
+	return rawCookie.split("=")[1];
 };
 
 const makeScreamingSnakeCase = <T extends string>(value: T) =>
@@ -106,7 +106,7 @@ const resolveResponseError = (error: UnknownError) =>
 		? error
 		: error?.reason
 		? [error]
-		: [errors.custom.find((i) => i.reason === 'UNKNOWN_ERROR')!];
+		: [errors.custom.find((i) => i.reason === "UNKNOWN_ERROR")!];
 
 const getDefaultValidatorErrorTypes = () => ({
 	array: false,

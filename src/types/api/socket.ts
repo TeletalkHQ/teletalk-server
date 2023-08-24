@@ -1,33 +1,33 @@
-import { Event, Socket } from 'socket.io';
+import { Event, Socket } from "socket.io";
 
-import { NativeError, Route } from '..';
+import { NativeError, Route } from "..";
 
 export type EventName =
-	| 'addBlock'
-	| 'addContact'
-	| 'addContactWithCellphone'
-	| 'addContactWithUserId'
-	| 'createNewUser'
-	| 'editContact'
-	| 'getChatInfo'
-	| 'getContacts'
-	| 'getCountries'
-	| 'getPrivateChat'
-	| 'getPrivateChats'
-	| 'getPublicUserData'
-	| 'getStuff'
-	| 'getUserData'
-	| 'getWelcomeMessage'
-	| 'joinRoom'
-	| 'logout'
-	| 'ping'
-	| 'pong'
-	| 'removeBlock'
-	| 'removeContact'
-	| 'sendPrivateMessage'
-	| 'signIn'
-	| 'updatePublicUserData'
-	| 'verify';
+	| "addBlock"
+	| "addContact"
+	| "addContactWithCellphone"
+	| "addContactWithUserId"
+	| "createNewUser"
+	| "editContact"
+	| "getChatInfo"
+	| "getContacts"
+	| "getCountries"
+	| "getPrivateChat"
+	| "getPrivateChats"
+	| "getPublicUserData"
+	| "getStuff"
+	| "getUserData"
+	| "getWelcomeMessage"
+	| "joinRoom"
+	| "logout"
+	| "ping"
+	| "pong"
+	| "removeBlock"
+	| "removeContact"
+	| "sendPrivateMessage"
+	| "signIn"
+	| "updatePublicUserData"
+	| "verify";
 
 export type IO = {
 	input: object;
@@ -36,26 +36,26 @@ export type IO = {
 
 export type SocketResponseErrors = NativeError[];
 
-export interface SocketResponse<Data = IO['output']> {
+export interface SocketResponse<Data = IO["output"]> {
 	data: Data;
 	errors: SocketResponseErrors;
 	ok: boolean;
 	eventName: EventName;
 }
 
-export type ResponseCallback<Data = IO['output']> = (
+export type ResponseCallback<Data = IO["output"]> = (
 	response: SocketResponse<Data>
 ) => void | Promise<void>;
 
-export type SocketMethods = 'on' | 'onAny' | 'customOn' | 'once';
+export type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
 export interface SocketHandlerReturnValue<IOType extends IO = any> {
-	data: IOType['output'];
+	data: IOType["output"];
 }
 
 export type SocketOnHandler<IOType extends IO = any> = (
 	socket: Socket,
-	data: IOType['input']
+	data: IOType["input"]
 ) =>
 	| void
 	| Promise<void>
@@ -64,7 +64,7 @@ export type SocketOnHandler<IOType extends IO = any> = (
 
 export type SocketOnAnyHandler<IOType extends IO = any> = (
 	socket: Socket,
-	data: IOType['input'],
+	data: IOType["input"],
 	eventName: EventName
 ) =>
 	| void
@@ -94,7 +94,7 @@ export type SocketNext = (error?: Error | undefined) => void;
 
 export type SocketMiddlewareEvent<IOType extends IO = any> = [
 	EventName,
-	IOType['input'],
+	IOType["input"],
 	ResponseCallback,
 	...any[]
 ];

@@ -1,7 +1,7 @@
-import os from 'os';
-import { JestConfigWithTsJest, pathsToModuleNameMapper } from 'ts-jest';
+import os from "os";
+import { JestConfigWithTsJest, pathsToModuleNameMapper } from "ts-jest";
 
-import tsconfig from './tsconfig.json';
+import tsconfig from "./tsconfig.json";
 
 const maxThreads = os.cpus().length;
 const maxWorkers = process.env.MAXIMIZE_THREADS ? maxThreads : maxThreads / 2;
@@ -13,31 +13,31 @@ let baseOptions: JestConfigWithTsJest = {
 	detectLeaks: false,
 	detectOpenHandles: false,
 	errorOnDeprecated: false,
-	extensionsToTreatAsEsm: ['.ts'],
+	extensionsToTreatAsEsm: [".ts"],
 	forceExit: true,
 	logHeapUsage: false,
 	maxWorkers,
 	// testRunner: "jest-jasmine2",
-	moduleFileExtensions: ['js', 'ts', 'json', 'node'],
+	moduleFileExtensions: ["js", "ts", "json", "node"],
 	moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
 	modulePaths: [tsconfig.compilerOptions.baseUrl],
 	resetModules: false,
-	setupFiles: ['./configs/jest/jest.setup.ts'],
-	setupFilesAfterEnv: ['./configs/jest/setupFileAfterEnv.ts'],
+	setupFiles: ["./configs/jest/jest.setup.ts"],
+	setupFilesAfterEnv: ["./configs/jest/setupFileAfterEnv.ts"],
 	silent: false,
 	skipNodeResolution: false,
-	testEnvironment: 'node',
+	testEnvironment: "node",
 	// testMatch: ["**/testSrc/index.ts"],
 	testPathIgnorePatterns: [
-		'<rootDir>/node_modules/',
-		'<rootDir>/lib',
-		'<rootDir>/coverage',
+		"<rootDir>/node_modules/",
+		"<rootDir>/lib",
+		"<rootDir>/coverage",
 	],
-	testRegex: '.*.spec.ts',
+	testRegex: ".*.spec.ts",
 	testTimeout: 20000,
 	transform: {
-		'^.+\\.ts?$': [
-			'ts-jest',
+		"^.+\\.ts?$": [
+			"ts-jest",
 			{
 				diagnostics: {
 					// exclude: ["**"],
@@ -47,16 +47,16 @@ let baseOptions: JestConfigWithTsJest = {
 		],
 	},
 	transformIgnorePatterns: [
-		'<rootDir>/node_modules/',
-		'<rootDir>/lib',
-		'<rootDir>/coverage',
+		"<rootDir>/node_modules/",
+		"<rootDir>/lib",
+		"<rootDir>/coverage",
 	],
 	verbose: true,
 };
 
 const coverageOptions: JestConfigWithTsJest = {
 	collectCoverage: true,
-	collectCoverageFrom: ['./src/**'],
+	collectCoverageFrom: ["./src/**"],
 	coverageThreshold: {
 		global: {
 			lines: 85,

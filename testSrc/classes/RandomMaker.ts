@@ -1,10 +1,10 @@
-import { RandomMaker as RandomMakerMain } from 'utility-store';
-import { ContactItem } from 'utility-store/lib/types';
+import { RandomMaker as RandomMakerMain } from "utility-store";
+import { ContactItem } from "utility-store/lib/types";
 
-import { models } from '~/models';
+import { models } from "~/models";
 
-import { authHelper } from '@/classes/AuthHelper';
-import { utils } from '@/utils';
+import { authHelper } from "@/classes/AuthHelper";
+import { utils } from "@/utils";
 
 class RandomMaker extends RandomMakerMain {
 	constructor() {

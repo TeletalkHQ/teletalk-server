@@ -1,7 +1,7 @@
-import { PrivateChatService } from '~/types';
-import { HydratedPrivateChat } from '~/types/models';
+import { PrivateChatService } from "~/types";
+import { HydratedPrivateChat } from "~/types/models";
 
-import { findPrivateChats } from './findPrivateChats';
+import { findPrivateChats } from "./findPrivateChats";
 
 export const findPrivateChatsByParticipantId: PrivateChatService<
 	{
@@ -11,7 +11,7 @@ export const findPrivateChatsByParticipantId: PrivateChatService<
 > = (data, projection, options) => {
 	return findPrivateChats(
 		{
-			'participants.participantId': data.participantId,
+			"participants.participantId": data.participantId,
 		},
 		projection,
 		options

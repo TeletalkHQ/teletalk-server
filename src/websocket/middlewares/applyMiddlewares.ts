@@ -1,5 +1,5 @@
-import { EventName, SocketMiddleware } from '~/types';
-import { utils } from '~/utils';
+import { EventName, SocketMiddleware } from "~/types";
+import { utils } from "~/utils";
 
 export const applyMiddlewares = (
 	eventNamesToApply: EventName | EventName[],

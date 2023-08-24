@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IoFields } from 'check-fields';
-import { JWTPayload, JWTVerifyResult } from 'jose';
-import { Cellphone } from 'utility-store/lib/types';
+import { IoFields } from "check-fields";
+import { JWTPayload, JWTVerifyResult } from "jose";
+import { Cellphone } from "utility-store/lib/types";
 
 export interface StringMap {
 	[prop: string | symbol]: any;
 }
 
-export type LogLevel = 'debug' | 'error' | 'info' | 'warn';
+export type LogLevel = "debug" | "error" | "info" | "warn";
 
 export interface Route {
 	inputFields: IoFields | Record<string, never>;
@@ -32,8 +32,8 @@ export interface AuthClient extends JWTVerifyResult {
 export type VoidNoArgsFn = () => void;
 export type PromiseVoidNoArgsFn = () => Promise<void>;
 
-export type * from './api';
-export type * from './env';
-export type * from './error';
-export type * from './service';
-export type * from './validation';
+export type * from "./api";
+export type * from "./env";
+export type * from "./error";
+export type * from "./service";
+export type * from "./validation";

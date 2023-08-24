@@ -1,4 +1,4 @@
-import { build } from 'esbuild';
+import { build } from "esbuild";
 
 const defaultOptions = {
 	allowOverwrite: true,
@@ -13,35 +13,35 @@ const defaultOptions = {
 	},
 	bundle: true,
 	minify: false,
-	platform: 'node',
+	platform: "node",
 	sourcemap: false,
-	target: 'esnext',
+	target: "esnext",
 };
 
 const appBuilder = (version) =>
 	build({
 		...defaultOptions,
-		entryPoints: ['src/index.ts'],
+		entryPoints: ["src/index.ts"],
 		outfile: `build/${version[0]}/app.mjs`,
 		target: version[1],
-		tsconfig: 'tsconfig.json',
-		format: 'esm',
+		tsconfig: "tsconfig.json",
+		format: "esm",
 	});
 
 const calcNodeVersion = () => {
 	return process.env.npm_config_user_agent
-		?.split('node/v')[1]
-		?.split(' ')[0]
+		?.split("node/v")[1]
+		?.split(" ")[0]
 		?.slice(0, 2);
 };
 
 const NODE_VERSION = calcNodeVersion();
 
 const targets = {
-	default: 'node18.0',
-	node16: 'node16.0',
-	node18: 'node18.0',
-	node20: 'node20.0',
+	default: "node18.0",
+	node16: "node16.0",
+	node18: "node18.0",
+	node20: "node20.0",
 	[`node${NODE_VERSION}`]: `node${NODE_VERSION}.0`,
 };
 

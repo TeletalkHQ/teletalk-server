@@ -1,11 +1,11 @@
-import { extractor, randomMaker } from 'utility-store';
-import { ExtendedCellphone } from 'utility-store/lib/types';
+import { extractor, randomMaker } from "utility-store";
+import { ExtendedCellphone } from "utility-store/lib/types";
 
-import { clientStore } from '~/classes/ClientStore';
-import { smsClient } from '~/classes/SmsClient';
-import { models } from '~/models';
-import { SignInIO, SocketOnHandler, StoredClient } from '~/types';
-import { utils } from '~/utils';
+import { clientStore } from "~/classes/ClientStore";
+import { smsClient } from "~/classes/SmsClient";
+import { models } from "~/models";
+import { SignInIO, SocketOnHandler, StoredClient } from "~/types";
+import { utils } from "~/utils";
 
 export const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {
 	//TODO: Use another utility to generate verification code
@@ -16,7 +16,7 @@ export const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {
 	//FIXME: Get host from socket
 	// const host = getHostFromRequest(req);
 	const fullNumber = `+${cellphone.countryCode}${cellphone.phoneNumber}`;
-	await sendVerificationCode(fullNumber, 'host', verificationCode);
+	await sendVerificationCode(fullNumber, "host", verificationCode);
 
 	await addClient(socket.clientId, {
 		...cellphone,

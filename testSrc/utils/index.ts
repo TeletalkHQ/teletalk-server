@@ -1,12 +1,12 @@
 /* eslint-disable no-case-declarations */
 
 /* eslint-disable indent */
-import { faker } from '@faker-js/faker';
-import { IoFields } from 'check-fields';
-import { Socket } from 'socket.io-client';
-import { Cellphone, FullName } from 'utility-store/lib/types';
+import { faker } from "@faker-js/faker";
+import { IoFields } from "check-fields";
+import { Socket } from "socket.io-client";
+import { Cellphone, FullName } from "utility-store/lib/types";
 
-import { models } from '~/models';
+import { models } from "~/models";
 import {
 	AddBlockIO,
 	AddContactIO,
@@ -36,15 +36,15 @@ import {
 	SocketEvent,
 	UpdatePublicUserDataIO,
 	VerifyIO,
-} from '~/types';
-import { Field } from '~/types/models';
-import { utils as mainUtils } from '~/utils';
-import { countries } from '~/variables';
-import { events } from '~/websocket/events';
+} from "~/types";
+import { Field } from "~/types/models";
+import { utils as mainUtils } from "~/utils";
+import { countries } from "~/variables";
+import { events } from "~/websocket/events";
 
-import { randomMaker } from '@/classes/RandomMaker';
-import { requesterMaker } from '@/classes/Requester';
-import { RequesterMaker, RequesterMakerWrapper } from '@/types';
+import { randomMaker } from "@/classes/RandomMaker";
+import { requesterMaker } from "@/classes/Requester";
+import { RequesterMaker, RequesterMakerWrapper } from "@/types";
 
 async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
 	const describeBody = await suite();
@@ -95,16 +95,16 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
 		const fieldModel = models.native[FIELD_NAME];
 
 		switch (field.type) {
-			case 'string':
-				if (FIELD_NAME === 'countryCode') {
+			case "string":
+				if (FIELD_NAME === "countryCode") {
 					data[fieldName] = randomMaker.country().countryCode;
 					break;
 				}
-				if (FIELD_NAME === 'countryName') {
+				if (FIELD_NAME === "countryName") {
 					data[fieldName] = randomMaker.country().countryName;
 					break;
 				}
-				if (FIELD_NAME === 'phoneNumber') {
+				if (FIELD_NAME === "phoneNumber") {
 					// @ts-ignore
 					data[fieldName] = randomMaker.stringNumber(fieldModel.maxLength);
 					break;
@@ -120,10 +120,10 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
 			// case "number":
 			//   data[fieldName] = faker.datatype.number();
 			// break;
-			case 'boolean':
+			case "boolean":
 				data[fieldName] = faker.datatype.boolean();
 				break;
-			case 'object':
+			case "object":
 				data[fieldName] = generateDynamicData(field.value as IoFields);
 				break;
 			// case "array":
@@ -171,51 +171,51 @@ const findEvent = <IOType extends IO>(n: EventName) =>
 	events.find((i) => i.name === n)! as unknown as SocketEvent<IOType>;
 
 const requesterCollection = {
-	addBlock: requesterMakerHelper(findEvent<AddBlockIO>('addBlock')),
-	addContact: requesterMakerHelper(findEvent<AddContactIO>('addContact')),
+	addBlock: requesterMakerHelper(findEvent<AddBlockIO>("addBlock")),
+	addContact: requesterMakerHelper(findEvent<AddContactIO>("addContact")),
 	addContactWithCellphone: requesterMakerHelper(
-		findEvent<AddContactWithCellphoneIO>('addContactWithCellphone')
+		findEvent<AddContactWithCellphoneIO>("addContactWithCellphone")
 	),
 	addContactWithUserId: requesterMakerHelper(
-		findEvent<AddContactWithUserIdIO>('addContactWithUserId')
+		findEvent<AddContactWithUserIdIO>("addContactWithUserId")
 	),
 	createNewUser: requesterMakerHelper(
-		findEvent<CreateNewUserIO>('createNewUser')
+		findEvent<CreateNewUserIO>("createNewUser")
 	),
-	editContact: requesterMakerHelper(findEvent<EditContactIO>('editContact')),
-	getChatInfo: requesterMakerHelper(findEvent<GetChatInfoIO>('getChatInfo')),
-	getContacts: requesterMakerHelper(findEvent<GetContactsIO>('getContacts')),
-	getCountries: requesterMakerHelper(findEvent<GetCountriesIO>('getCountries')),
+	editContact: requesterMakerHelper(findEvent<EditContactIO>("editContact")),
+	getChatInfo: requesterMakerHelper(findEvent<GetChatInfoIO>("getChatInfo")),
+	getContacts: requesterMakerHelper(findEvent<GetContactsIO>("getContacts")),
+	getCountries: requesterMakerHelper(findEvent<GetCountriesIO>("getCountries")),
 	getPrivateChat: requesterMakerHelper(
-		findEvent<GetPrivateChatIO>('getPrivateChat')
+		findEvent<GetPrivateChatIO>("getPrivateChat")
 	),
 	getPrivateChats: requesterMakerHelper(
-		findEvent<GetPrivateChatsIO>('getPrivateChats')
+		findEvent<GetPrivateChatsIO>("getPrivateChats")
 	),
 	getPublicUserData: requesterMakerHelper(
-		findEvent<GetPublicUserDataIO>('getPublicUserData')
+		findEvent<GetPublicUserDataIO>("getPublicUserData")
 	),
-	getStuff: requesterMakerHelper(findEvent<GetStuffIO>('getStuff')),
-	getUserData: requesterMakerHelper(findEvent<GetUserDataIO>('getUserData')),
+	getStuff: requesterMakerHelper(findEvent<GetStuffIO>("getStuff")),
+	getUserData: requesterMakerHelper(findEvent<GetUserDataIO>("getUserData")),
 	getWelcomeMessage: requesterMakerHelper(
-		findEvent<GetWelcomeMessageIO>('getWelcomeMessage')
+		findEvent<GetWelcomeMessageIO>("getWelcomeMessage")
 	),
-	joinRoom: requesterMakerHelper(findEvent<JoinRoomIO>('joinRoom')),
-	logout: requesterMakerHelper(findEvent<LogoutIO>('logout')),
-	ping: requesterMakerHelper(findEvent<PingIO>('ping')),
-	removeBlock: requesterMakerHelper(findEvent<RemoveBlockIO>('removeBlock')),
+	joinRoom: requesterMakerHelper(findEvent<JoinRoomIO>("joinRoom")),
+	logout: requesterMakerHelper(findEvent<LogoutIO>("logout")),
+	ping: requesterMakerHelper(findEvent<PingIO>("ping")),
+	removeBlock: requesterMakerHelper(findEvent<RemoveBlockIO>("removeBlock")),
 	removeContact: requesterMakerHelper(
-		findEvent<RemoveContactIO>('removeContact')
+		findEvent<RemoveContactIO>("removeContact")
 	),
 	sendPrivateMessage: requesterMakerHelper(
-		findEvent<SendPrivateMessageIO>('sendPrivateMessage')
+		findEvent<SendPrivateMessageIO>("sendPrivateMessage")
 	),
-	signIn: requesterMakerHelper(findEvent<SignInIO>('signIn')),
+	signIn: requesterMakerHelper(findEvent<SignInIO>("signIn")),
 	updatePublicUserData: requesterMakerHelper(
-		findEvent<UpdatePublicUserDataIO>('updatePublicUserData')
+		findEvent<UpdatePublicUserDataIO>("updatePublicUserData")
 	),
-	verify: requesterMakerHelper(findEvent<VerifyIO>('verify')),
-	pong: requesterMakerHelper(findEvent<PingIO>('pong')),
+	verify: requesterMakerHelper(findEvent<VerifyIO>("verify")),
+	pong: requesterMakerHelper(findEvent<PingIO>("pong")),
 };
 
 export const utils = {

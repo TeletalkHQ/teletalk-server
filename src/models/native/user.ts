@@ -1,14 +1,14 @@
-import { commonModels } from '~/models/native/common';
+import { commonModels } from "~/models/native/common";
 
 export const userModels = {
 	bio: {
-		defaultValue: '',
+		defaultValue: "",
 		empty: true,
 		maxLength: 255,
 		minLength: 0,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 	},
 	clientId: {
 		...commonModels.id,
@@ -22,7 +22,7 @@ export const userModels = {
 		numeric: true,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 	},
 	countryName: {
 		empty: false,
@@ -30,7 +30,7 @@ export const userModels = {
 		minLength: 2,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 	},
 	createdAt: commonModels.createdAt,
 	firstName: {
@@ -39,12 +39,12 @@ export const userModels = {
 		minLength: 2,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 	},
 	isActive: {
 		defaultValue: false,
 		required: true,
-		type: 'boolean',
+		type: "boolean",
 	},
 	lastName: {
 		empty: true,
@@ -52,7 +52,7 @@ export const userModels = {
 		minLength: 2,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 	},
 	macAddress: {
 		empty: false,
@@ -60,7 +60,7 @@ export const userModels = {
 		minLength: 12,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 		unique: true,
 	},
 	phoneNumber: {
@@ -69,7 +69,7 @@ export const userModels = {
 		minLength: 10,
 		numeric: true,
 		required: true,
-		type: 'string',
+		type: "string",
 		unique: true,
 	},
 	userId: commonModels.userId,
@@ -79,7 +79,7 @@ export const userModels = {
 		minLength: 0,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 		unique: false,
 	},
 	verificationCode: {
@@ -88,6 +88,6 @@ export const userModels = {
 		numeric: true,
 		required: true,
 		trim: true,
-		type: 'string',
+		type: "string",
 	},
 } as const;

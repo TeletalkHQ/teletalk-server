@@ -1,4 +1,4 @@
-import { socketEventBuilder } from '~/classes/SocketEventBuilder';
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
 	AddBlockIO,
 	AddContactIO,
@@ -11,15 +11,15 @@ import {
 	RemoveBlockIO,
 	RemoveContactIO,
 	UpdatePublicUserDataIO,
-} from '~/types';
-import { fields } from '~/variables';
-import { userHandlers } from '~/websocket/events/user/handlers';
+} from "~/types";
+import { fields } from "~/variables";
+import { userHandlers } from "~/websocket/events/user/handlers";
 
 const builder = socketEventBuilder();
 
 const addBlock = builder
 	.create<AddBlockIO>()
-	.name('addBlock')
+	.name("addBlock")
 	.inputFields({ userId: fields.single.userId })
 	.outputFields({
 		blockedUser: fields.statics.object({
@@ -31,7 +31,7 @@ const addBlock = builder
 
 const addContact = builder
 	.create<AddContactIO>()
-	.name('addContact')
+	.name("addContact")
 	.inputFields(fields.collection.contact)
 	.outputFields({
 		addedContact: fields.statics.object(fields.collection.contact),
@@ -41,7 +41,7 @@ const addContact = builder
 
 const addContactWithCellphone = builder
 	.create<AddContactWithCellphoneIO>()
-	.name('addContactWithCellphone')
+	.name("addContactWithCellphone")
 	.inputFields({
 		...fields.collection.cellphone,
 		...fields.collection.fullName,
@@ -54,7 +54,7 @@ const addContactWithCellphone = builder
 
 const addContactWithUserId = builder
 	.create<AddContactWithUserIdIO>()
-	.name('addContactWithUserId')
+	.name("addContactWithUserId")
 	.inputFields({
 		...fields.collection.fullName,
 		userId: fields.single.userId,
@@ -67,7 +67,7 @@ const addContactWithUserId = builder
 
 const editContact = builder
 	.create<EditContactIO>()
-	.name('editContact')
+	.name("editContact")
 	.inputFields(fields.collection.FullNameWithUserId)
 	.outputFields({
 		editedContact: fields.statics.object(fields.collection.FullNameWithUserId),
@@ -77,7 +77,7 @@ const editContact = builder
 
 const getContacts = builder
 	.create<GetContactsIO>()
-	.name('getContacts')
+	.name("getContacts")
 	.outputFields({
 		contacts: fields.statics.array(fields.collection.contact),
 	})
@@ -86,7 +86,7 @@ const getContacts = builder
 
 const getUserData = builder
 	.create<GetUserDataIO>()
-	.name('getUserData')
+	.name("getUserData")
 	.outputFields({
 		user: fields.statics.object(fields.collection.user),
 	})
@@ -95,7 +95,7 @@ const getUserData = builder
 
 const getPublicUserData = builder
 	.create<GetPublicUserDataIO>()
-	.name('getPublicUserData')
+	.name("getPublicUserData")
 	.inputFields({
 		userId: fields.single.userId,
 	})
@@ -112,7 +112,7 @@ const getPublicUserData = builder
 
 const removeBlock = builder
 	.create<RemoveBlockIO>()
-	.name('removeBlock')
+	.name("removeBlock")
 	.inputFields({ userId: fields.single.userId })
 	.outputFields({
 		removedBlock: fields.statics.object({
@@ -124,7 +124,7 @@ const removeBlock = builder
 
 const removeContact = builder
 	.create<RemoveContactIO>()
-	.name('removeContact')
+	.name("removeContact")
 	.inputFields({
 		userId: fields.single.userId,
 	})
@@ -138,7 +138,7 @@ const removeContact = builder
 
 const updatePublicUserData = builder
 	.create<UpdatePublicUserDataIO>()
-	.name('updatePublicUserData')
+	.name("updatePublicUserData")
 	.inputFields({
 		...fields.collection.fullName,
 		bio: fields.single.bio,

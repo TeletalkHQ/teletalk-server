@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import chai from 'chai';
+import chai from "chai";
 
-import { NativeModel } from '~/types/models';
+import { NativeModel } from "~/types/models";
 
-import { FIELD_TYPE } from '@/variables';
+import { FIELD_TYPE } from "@/variables";
 
 type TestItem = () => void;
 

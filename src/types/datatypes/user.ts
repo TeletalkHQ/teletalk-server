@@ -1,6 +1,6 @@
-import { Cellphone, FullName } from 'utility-store/lib/types';
+import { Cellphone, FullName } from "utility-store/lib/types";
 
-import { Id } from '.';
+import { Id } from ".";
 
 export type Bio = string;
 

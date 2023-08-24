@@ -1,7 +1,7 @@
-import { models } from '~/models';
+import { models } from "~/models";
 
-import { e2eFailTestInitializer } from '@/classes/E2eFailTestInitializer';
-import { E2eFailTestInitializer } from '@/types';
+import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
+import { E2eFailTestInitializer } from "@/types";
 
 export const userIdE2eFailTestInitializer: E2eFailTestInitializer = (
 	configuredRequester,
@@ -12,7 +12,7 @@ export const userIdE2eFailTestInitializer: E2eFailTestInitializer = (
 		configuredRequester,
 		data,
 		models.native.userId,
-		'userId'
+		"userId"
 	);
 
 	initializer
@@ -23,5 +23,5 @@ export const userIdE2eFailTestInitializer: E2eFailTestInitializer = (
 		.minLength()
 		.maxLength();
 
-	if (!ignores?.includes('empty')) initializer.empty();
+	if (!ignores?.includes("empty")) initializer.empty();
 };

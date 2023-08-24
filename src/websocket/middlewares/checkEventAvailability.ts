@@ -1,6 +1,6 @@
-import { errorStore } from '~/classes/ErrorStore';
-import { SocketMiddleware } from '~/types';
-import { events } from '~/websocket/events';
+import { errorStore } from "~/classes/ErrorStore";
+import { SocketMiddleware } from "~/types";
+import { events } from "~/websocket/events";
 
 export const checkEventAvailability: SocketMiddleware = (
 	_socket,
@@ -11,7 +11,7 @@ export const checkEventAvailability: SocketMiddleware = (
 
 	if (!foundEvent)
 		throw {
-			...errorStore.find('EVENT_NOT_FOUND'),
+			...errorStore.find("EVENT_NOT_FOUND"),
 			eventName,
 		};
 

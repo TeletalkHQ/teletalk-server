@@ -1,10 +1,10 @@
-import { RedisClientType } from 'redis';
+import { RedisClientType } from "redis";
 
-import { StoredClient } from '~/types';
+import { StoredClient } from "~/types";
 
 class ClientStore {
-	private STATE_KEY = 'client';
-	private STATE_PATH = '.';
+	private STATE_KEY = "client";
+	private STATE_PATH = ".";
 	private storage: RedisClientType;
 
 	async initialize(storage: RedisClientType) {

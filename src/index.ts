@@ -1,15 +1,15 @@
 // import { createAdapter, setupPrimary } from "@socket.io/cluster-adapter";
 // import { setupMaster, setupWorker } from "@socket.io/sticky";
-import address from 'address';
+import address from "address";
 // import cluster from "cluster";
 // import os from "os";
-import PrettyError from 'pretty-error';
+import PrettyError from "pretty-error";
 
-import { appConfigs } from '~/classes/AppConfigs';
-import { crateHttpServer } from '~/http';
-import { requirements } from '~/requirements';
+import { appConfigs } from "~/classes/AppConfigs";
+import { crateHttpServer } from "~/http";
+import { requirements } from "~/requirements";
 // import { utils } from "~/utils";
-import { websocketServer } from '~/websocket';
+import { websocketServer } from "~/websocket";
 
 PrettyError.start();
 

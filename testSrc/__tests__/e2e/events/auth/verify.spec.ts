@@ -1,18 +1,18 @@
-import chai from 'chai';
+import chai from "chai";
 
-import { clientStore } from '~/classes/ClientStore';
-import { models } from '~/models';
-import { services } from '~/services';
-import { ClientId, UserId } from '~/types/datatypes';
+import { clientStore } from "~/classes/ClientStore";
+import { models } from "~/models";
+import { services } from "~/services";
+import { ClientId, UserId } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from '@/classes/AssertionInitializerHelper';
-import { authHelper } from '@/classes/AuthHelper';
-import { e2eFailTestInitializerHelper } from '@/classes/E2eFailTestInitializerHelper';
-import { randomMaker } from '@/classes/RandomMaker';
-import { utils } from '@/utils';
+import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { authHelper } from "@/classes/AuthHelper";
+import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
+import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe('verifySignIn success test', () => {
-	it('should sign and verify as new user', async () => {
+describe("verifySignIn success test", () => {
+	it("should sign and verify as new user", async () => {
 		const cellphone = randomMaker.unusedCellphone();
 		const fullName = randomMaker.fullName();
 
@@ -26,7 +26,7 @@ describe('verifySignIn success test', () => {
 		chai.expect(client.isVerified).to.be.equal(true);
 	});
 
-	it('should verify as exist user', async () => {
+	it("should verify as exist user", async () => {
 		const cellphone = randomMaker.unusedCellphone();
 		const fullName = randomMaker.fullName();
 		const helper = authHelper(cellphone, fullName);
@@ -58,7 +58,7 @@ describe('verifySignIn success test', () => {
 	});
 });
 
-await utils.asyncDescribe('verifySignIn fail tests', async () => {
+await utils.asyncDescribe("verifySignIn fail tests", async () => {
 	const cellphone = randomMaker.unusedCellphone();
 	const helper = authHelper(cellphone);
 	await helper.signIn();

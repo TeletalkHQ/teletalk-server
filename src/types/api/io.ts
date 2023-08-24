@@ -13,11 +13,11 @@ import {
 	UserId,
 	Username,
 	VerificationCode,
-} from 'utility-store/lib/types';
+} from "utility-store/lib/types";
 
-import { events } from '~/websocket/events';
+import { events } from "~/websocket/events";
 
-import { ErrorCollection, ValidationCollection } from '..';
+import { ErrorCollection, ValidationCollection } from "..";
 import {
 	ChatId,
 	ContactItemWithCellphone,
@@ -27,8 +27,8 @@ import {
 	PrivateChatItem,
 	PrivateChats,
 	WelcomeMessage,
-} from '../datatypes';
-import { NativeModelCollection } from '../models';
+} from "../datatypes";
+import { NativeModelCollection } from "../models";
 
 export interface CreateNewUserIO {
 	input: FullName;
@@ -89,7 +89,7 @@ export interface GetChatInfoIO {
 		chatId: ChatId;
 	};
 	output: {
-		chatInfo: Omit<PrivateChatItem, 'messages'>;
+		chatInfo: Omit<PrivateChatItem, "messages">;
 	};
 }
 

@@ -1,16 +1,16 @@
-import dotenv from 'dotenv';
-import { LoggerChalker } from 'logger-chalker';
-import path from 'path';
+import dotenv from "dotenv";
+import { LoggerChalker } from "logger-chalker";
+import path from "path";
 
-import { envManager } from '~/classes/EnvironmentManager';
-import { EnvFileName, Environments } from '~/types';
+import { envManager } from "~/classes/EnvironmentManager";
+import { EnvFileName, Environments } from "~/types";
 
 class AppConfigs {
 	private ENVIRONMENTS: Environments;
 
 	async setup() {
 		this.registerCustomGlobals();
-		this.registerEnvironments('base');
+		this.registerEnvironments("base");
 		this.registerEnvironments(envManager.getNodeEnv());
 
 		this.setEnvironments(envManager.getEnv());
@@ -35,7 +35,7 @@ class AppConfigs {
 
 	private registerEnvironments(fileName: EnvFileName) {
 		dotenv.config({
-			path: path.join(process.cwd(), 'environments', `${fileName}.env`),
+			path: path.join(process.cwd(), "environments", `${fileName}.env`),
 			override: true,
 		});
 	}
@@ -45,7 +45,7 @@ class AppConfigs {
 			APP: {
 				CLIENT_SECRET: this.ENVIRONMENTS.CLIENT_SECRET,
 				ENVIRONMENT: this.ENVIRONMENTS.NODE_ENV,
-				HOSTNAME: 'localhost',
+				HOSTNAME: "localhost",
 				PORT: this.ENVIRONMENTS.CUSTOM_PORT || this.ENVIRONMENTS.PORT,
 				SELF_EXEC: this.ENVIRONMENTS.SELF_EXEC,
 			},

@@ -16,12 +16,12 @@ export const blacklistAssertionInitializer: AssertionInitializer<BlackList> = (
 			{
 				testValue: item.userId,
 			},
-			options
+			{ ...options, stringEquality: false }
 		);
 	});
 
 	if (options?.stringEquality) {
-		chai.expect(testValue).to.be.an(FIELD_TYPE.ARRAY);
+		chai.expect(equalValue).to.be.an(FIELD_TYPE.ARRAY);
 		chai.expect(testValue.length).to.be.equal(equalValue!.length);
 
 		equalValue!.forEach((item) => {

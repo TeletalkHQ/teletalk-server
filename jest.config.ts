@@ -33,7 +33,7 @@ let baseOptions: JestConfigWithTsJest = {
 		"<rootDir>/lib",
 		"<rootDir>/coverage",
 	],
-	testRegex: ".*.spec.ts",
+	testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$",
 	testTimeout: 20000,
 	transform: {
 		"^.+\\.ts?$": [

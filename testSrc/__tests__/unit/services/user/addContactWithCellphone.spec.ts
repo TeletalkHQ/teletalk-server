@@ -45,7 +45,7 @@ describe(`${services.addContactWithCellphone.name} success tests`, () => {
 });
 
 describe(`${services.addContactWithCellphone.name} fail tests`, () => {
-	it("should throw error when contact already exists", async () => {
+	it(utils.createUnitFailTestMessage("CONTACT_ITEM_EXIST"), async () => {
 		const { user: currentUser } = await randomMaker.user();
 		const { user: targetUser } = await randomMaker.user();
 
@@ -67,7 +67,7 @@ describe(`${services.addContactWithCellphone.name} fail tests`, () => {
 		}, "CONTACT_ITEM_EXIST");
 	});
 
-	it("should throw error when target user with specified cellphone does not exists", async () => {
+	it(utils.createUnitFailTestMessage("TARGET_USER_NOT_EXIST"), async () => {
 		const { user: currentUser } = await randomMaker.user();
 
 		const targetContact = randomMaker.contactWithCellphone();
@@ -80,7 +80,7 @@ describe(`${services.addContactWithCellphone.name} fail tests`, () => {
 		}, "TARGET_USER_NOT_EXIST");
 	});
 
-	it("should throw error when current user with specified userId does not exists", async () => {
+	it(utils.createUnitFailTestMessage("CURRENT_USER_NOT_EXIST"), async () => {
 		const targetContact = randomMaker.contactWithCellphone();
 
 		await utils.expectToFail_async(async () => {

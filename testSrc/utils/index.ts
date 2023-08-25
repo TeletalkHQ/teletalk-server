@@ -6,6 +6,7 @@ import { IoFields } from "check-fields";
 import { Socket } from "socket.io-client";
 import { Cellphone, FullName } from "utility-store/lib/types";
 
+import { appConfigs } from "~/classes/AppConfigs";
 import { models } from "~/models";
 import {
 	AddBlockIO,
@@ -46,7 +47,12 @@ import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
 import { RequesterMaker, RequesterMakerWrapper } from "@/types";
 
-async function asyncDescribe(title: string, suite: () => Promise<() => void>) {
+type DescribeArgs = [title: string, suite: () => () => void];
+type AsyncDescribeArgs = [title: string, suite: () => Promise<() => void>];
+
+async function asyncDescribe(...args: AsyncDescribeArgs) {
+	const [title, suite] = args;
+
 	const describeBody = await suite();
 
 	try {
@@ -170,6 +176,14 @@ const requesterMakerHelper = <IOType extends IO>(
 const findEvent = <IOType extends IO>(n: EventName) =>
 	events.find((i) => i.name === n)! as unknown as SocketEvent<IOType>;
 
+const isJestRunning = () => appConfigs.getConfigs().TEST.RUNNER === "JEST";
+
+const jestDescribe = (...args: DescribeArgs) =>
+	isJestRunning() && describe(...args);
+
+const asyncJestDescribe = async (...args: AsyncDescribeArgs) =>
+	isJestRunning() && asyncDescribe(...args);
+
 const requesterCollection = {
 	addBlock: requesterMakerHelper(findEvent<AddBlockIO>("addBlock")),
 	addContact: requesterMakerHelper(findEvent<AddContactIO>("addContact")),
@@ -220,9 +234,11 @@ const requesterCollection = {
 
 export const utils = {
 	asyncDescribe,
+	asyncJestDescribe,
 	createFailTestMessage,
 	generateDynamicData,
 	getWrongCountryCode,
+	jestDescribe,
 	requesterCollection,
 	requesterMakerHelper,
 	setupRequester,

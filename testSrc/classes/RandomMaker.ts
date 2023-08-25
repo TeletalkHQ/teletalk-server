@@ -1,10 +1,16 @@
+import { Socket } from "socket.io-client";
 import { RandomMaker as RandomMakerMain } from "utility-store";
-import { ContactItem } from "utility-store/lib/types";
+import { ContactItem, UserData } from "utility-store/lib/types";
 
 import { models } from "~/models";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { utils } from "@/utils";
+
+interface CreatedUser {
+	user: UserData;
+	socket: Socket;
+}
 
 class RandomMaker extends RandomMakerMain {
 	constructor() {
@@ -31,7 +37,10 @@ class RandomMaker extends RandomMakerMain {
 		return super.id(models.native.userId.maxLength);
 	}
 
-	async user(cellphone = this.unusedCellphone(), fullName = this.fullName()) {
+	async user(
+		cellphone = this.unusedCellphone(),
+		fullName = this.fullName()
+	): Promise<CreatedUser> {
 		const helper = authHelper(cellphone, fullName);
 		await helper.createComplete();
 
@@ -47,10 +56,17 @@ class RandomMaker extends RandomMakerMain {
 	}
 
 	async users(length: number) {
-		const users = [];
+		const users: CreatedUser[] = [];
 		for (let i = 0; i < length; i++) {
-			const user = await this.user();
-			users.push(user);
+			users.push(await this.user());
+		}
+		return users;
+	}
+
+	batchUsers(length: number) {
+		const users: Promise<CreatedUser>[] = [];
+		for (let i = 0; i < length; i++) {
+			users.push(this.user());
 		}
 		return users;
 	}

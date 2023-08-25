@@ -2,6 +2,7 @@ import chai from "chai";
 import { extractor } from "utility-store";
 
 import { services } from "~/services";
+import { ContactItemWithCellphone } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -9,27 +10,35 @@ import { randomMaker } from "@/classes/RandomMaker";
 describe("addContactWithCellphone success test", () => {
 	it("should add new contact with cellphone", async () => {
 		const { user: currentUser } = await randomMaker.user();
-		const { user: targetUser } = await randomMaker.user();
 
-		const addingContact = {
-			...extractor.cellphone(targetUser),
-			...randomMaker.fullName(),
-		};
+		const addingContacts: ContactItemWithCellphone[] = [];
 
-		await services.addContactWithCellphone({
-			addingContact,
-			currentUserId: currentUser.userId,
-		});
+		const length = 10;
+		const users = await Promise.all(randomMaker.batchUsers(length));
 
-		const contacts = await services.getContacts({
-			currentUserId: currentUser.userId,
-		});
+		for (const { user: targetUser } of users) {
+			const item: ContactItemWithCellphone = {
+				...extractor.cellphone(targetUser),
+				...randomMaker.fullName(),
+			};
 
-		chai.expect(contacts.length).to.be.equal(1);
+			addingContacts.push(item);
 
-		assertionInitializerHelper().contactsWithCellphone({
-			testValue: contacts,
-			equalValue: [addingContact],
-		});
+			await services.addContactWithCellphone({
+				addingContact: item,
+				currentUserId: currentUser.userId,
+			});
+
+			const contacts = await services.getContacts({
+				currentUserId: currentUser.userId,
+			});
+
+			chai.expect(contacts.length).to.be.equal(addingContacts.length);
+
+			assertionInitializerHelper().contactsWithCellphone({
+				testValue: contacts,
+				equalValue: addingContacts,
+			});
+		}
 	});
 });

@@ -2,6 +2,7 @@
 
 /* eslint-disable indent */
 import { faker } from "@faker-js/faker";
+import chai from "chai";
 import { IoFields } from "check-fields";
 import { Socket } from "socket.io-client";
 import { Cellphone, FullName } from "utility-store/lib/types";
@@ -15,6 +16,7 @@ import {
 	AddContactWithUserIdIO,
 	CreateNewUserIO,
 	EditContactIO,
+	ErrorReason,
 	EventName,
 	GetChatInfoIO,
 	GetContactsIO,
@@ -184,6 +186,18 @@ const jestDescribe = (...args: DescribeArgs) =>
 const asyncJestDescribe = async (...args: AsyncDescribeArgs) =>
 	isJestRunning() && asyncDescribe(...args);
 
+const expectToFail_async = async (
+	cb: () => Promise<void>,
+	expectedErrorReason: ErrorReason
+) => {
+	try {
+		await cb();
+	} catch (error) {
+		const e = error as unknown as NativeError;
+		chai.expect(e.reason).to.be.equal(expectedErrorReason);
+	}
+};
+
 const requesterCollection = {
 	addBlock: requesterMakerHelper(findEvent<AddBlockIO>("addBlock")),
 	addContact: requesterMakerHelper(findEvent<AddContactIO>("addContact")),
@@ -236,6 +250,7 @@ export const utils = {
 	asyncDescribe,
 	asyncJestDescribe,
 	createFailTestMessage,
+	expectToFail_async,
 	generateDynamicData,
 	getWrongCountryCode,
 	jestDescribe,

@@ -1,6 +1,5 @@
 import { randomMaker } from "utility-store";
 
-import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 import { events } from "~/websocket/events";
 
@@ -15,10 +14,7 @@ const filteredEvents = events.filter(
 //REFACTOR: fail suit message like this
 describe("verifyClient fail tests", () => {
 	for (const event of filteredEvents) {
-		const title = utils.createFailTestMessage(
-			errorStore.find("CLIENT_INVALID"),
-			event.name
-		);
+		const title = utils.createE2EFailTestMessage("CLIENT_INVALID", event.name);
 		it(title, async () => {
 			const ci = clientInitializer();
 			ci.setClient(randomMaker.string(models.native.clientId.maxLength));
@@ -29,7 +25,7 @@ describe("verifyClient fail tests", () => {
 			await requesterMaker(
 				ci.getClient(),
 				event as any
-			).sendFullFeaturedRequest({}, errorStore.find("CLIENT_INVALID"));
+			).sendFullFeaturedRequest({}, "CLIENT_INVALID");
 		});
 	}
 });

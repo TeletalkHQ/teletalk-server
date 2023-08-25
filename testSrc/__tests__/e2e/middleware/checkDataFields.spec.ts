@@ -1,4 +1,3 @@
-import { errorStore } from "~/classes/ErrorStore";
 import { EventName } from "~/types";
 import { events } from "~/websocket/events";
 
@@ -20,14 +19,14 @@ await utils.asyncDescribe("checkDataFields middleware tests", async () => {
 
 	return () => {
 		for (const event of eventsWithInputFieldsExceptAuth) {
-			const title = utils.createFailTestMessage(
-				errorStore.find("INPUT_FIELDS_MISSING"),
+			const title = utils.createE2EFailTestMessage(
+				"INPUT_FIELDS_MISSING",
 				event.name
 			);
 
 			it(title, async () => {
 				await requesterMaker(socket, event as any)
-					.setError(errorStore.find("INPUT_FIELDS_MISSING"))
+					.setError("INPUT_FIELDS_MISSING")
 					.setOptions({ shouldFilterRequestData: false })
 					.sendFullFeaturedRequest();
 			});

@@ -1,9 +1,8 @@
 import { randomMaker } from "utility-store";
 
 import { clientManager } from "~/classes/ClientIdManager";
-import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { NativeError, SocketEvent } from "~/types";
+import { ErrorReason, SocketEvent } from "~/types";
 import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
@@ -17,7 +16,7 @@ const filteredEvents = events.filter(
 describe("validateClientId fail tests", () => {
 	const caller = async (
 		event: SocketEvent,
-		error: NativeError,
+		reason: ErrorReason,
 		clientStr: unknown
 	) => {
 		const ci = clientInitializer();
@@ -25,19 +24,19 @@ describe("validateClientId fail tests", () => {
 
 		await requesterMaker(ci.getClient(), event).sendFullFeaturedRequest(
 			{},
-			error
+			reason
 		);
 	};
 
 	for (const event of filteredEvents) {
-		const title = utils.createFailTestMessage(
-			errorStore.find("CLIENT_ID_MAX_LENGTH_ERROR"),
+		const title = utils.createE2EFailTestMessage(
+			"CLIENT_ID_MAX_LENGTH_ERROR",
 			event.name
 		);
 		it(title, async () => {
 			await caller(
 				event,
-				errorStore.find("CLIENT_ID_MAX_LENGTH_ERROR"),
+				"CLIENT_ID_MAX_LENGTH_ERROR",
 				await clientManager.signClient(
 					randomMaker.string(models.native.clientId.maxLength + 1)
 				)
@@ -46,14 +45,14 @@ describe("validateClientId fail tests", () => {
 	}
 
 	for (const event of filteredEvents) {
-		const title = utils.createFailTestMessage(
-			errorStore.find("CLIENT_ID_MIN_LENGTH_ERROR"),
+		const title = utils.createE2EFailTestMessage(
+			"CLIENT_ID_MIN_LENGTH_ERROR",
 			event.name
 		);
 		it(title, async () => {
 			await caller(
 				event,
-				errorStore.find("CLIENT_ID_MIN_LENGTH_ERROR"),
+				"CLIENT_ID_MIN_LENGTH_ERROR",
 				await clientManager.signClient(
 					randomMaker.string(models.native.clientId.minLength - 1)
 				)

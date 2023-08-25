@@ -26,6 +26,7 @@ export type EventName =
 	| "removeContact"
 	| "sendPrivateMessage"
 	| "signIn"
+	| "unknownEvent"
 	| "updatePublicUserData"
 	| "verify";
 
@@ -73,7 +74,7 @@ export type SocketOnAnyHandler<IOType extends IO = any> = (
 	| Promise<SocketHandlerReturnValue<IOType>>;
 
 export interface SocketEvent<IOType extends IO = any> extends Route {
-	name: EventName;
+	name: Exclude<EventName, "unknownEvent">;
 	handler: SocketOnHandler<IOType>;
 	method: SocketMethods;
 }

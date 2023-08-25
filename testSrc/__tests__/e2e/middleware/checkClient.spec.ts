@@ -22,8 +22,8 @@ describe("checkClient middleware test", () => {
 	}
 
 	for (const event of eventsWithAuth) {
-		const title = utils.createFailTestMessage(
-			errorStore.find("CLIENT_NOT_FOUND"),
+		const title = utils.createE2EFailTestMessage(
+			"CLIENT_NOT_FOUND",
 			event.name
 		);
 
@@ -31,7 +31,7 @@ describe("checkClient middleware test", () => {
 			const socket = (await clientInitializer().createComplete()).getClient();
 			await requesterMaker(socket, event as any)
 				.setOptions({ shouldFilterRequestData: false })
-				.setError(errorStore.find("CLIENT_NOT_FOUND"))
+				.setError("CLIENT_NOT_FOUND")
 				.sendFullFeaturedRequest();
 		});
 	}

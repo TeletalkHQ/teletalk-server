@@ -8,6 +8,7 @@ import { Socket } from "socket.io-client";
 import { Cellphone, FullName } from "utility-store/lib/types";
 
 import { appConfigs } from "~/classes/AppConfigs";
+import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 import {
 	AddBlockIO,
@@ -91,8 +92,17 @@ const getWrongCountryCode = (): string => {
 	return randomCountryCode;
 };
 
-const createFailTestMessage = (error: NativeError, eventName: EventName) => {
-	return `expected error: [event:${eventName}] [side:${error.side}] [reason:${error.reason}]`;
+const createE2EFailTestMessage = (
+	reason: ErrorReason,
+	eventName: EventName
+) => {
+	const e = errorStore.find(reason);
+	return `expected error: [event:${eventName}] [side:${e.side}] [reason:${e.reason}]`;
+};
+
+const createUnitFailTestMessage = (reason: ErrorReason) => {
+	const e = errorStore.find(reason);
+	return `expected error: [side:${e.side}] [reason:${e.reason}]`;
 };
 
 function generateDynamicData(schema: IoFields): Record<string, unknown> {
@@ -249,7 +259,8 @@ const requesterCollection = {
 export const utils = {
 	asyncDescribe,
 	asyncJestDescribe,
-	createFailTestMessage,
+	createE2EFailTestMessage,
+	createUnitFailTestMessage,
 	expectToFail_async,
 	generateDynamicData,
 	getWrongCountryCode,

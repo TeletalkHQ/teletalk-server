@@ -1,5 +1,4 @@
 import { clientStore } from "~/classes/ClientStore";
-import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 import { eventsWithAuth } from "~/websocket/events";
 
@@ -13,10 +12,7 @@ const filteredEvents = eventsWithAuth.filter(
 describe("checkCurrentUser middleware fail tests", () => {
 	for (const event of filteredEvents) {
 		it(
-			utils.createFailTestMessage(
-				errorStore.find("CURRENT_USER_NOT_EXIST"),
-				event.name
-			),
+			utils.createE2EFailTestMessage("CURRENT_USER_NOT_EXIST", event.name),
 			async () => {
 				const wrongUserId = randomMaker.string(models.native.userId.maxLength);
 
@@ -31,10 +27,7 @@ describe("checkCurrentUser middleware fail tests", () => {
 				const data = utils.generateDynamicData(event.inputFields);
 				await utils.requesterCollection[event.name](
 					socket
-				).sendFullFeaturedRequest(
-					data as any,
-					errorStore.find("CURRENT_USER_NOT_EXIST")
-				);
+				).sendFullFeaturedRequest(data as any, "CURRENT_USER_NOT_EXIST");
 			}
 		);
 	}

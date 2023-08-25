@@ -21,20 +21,20 @@ await utils.asyncDescribe(
 		).getClient();
 
 		return () => {
-			const message = utils.createFailTestMessage(
-				errorStore.find("EVENT_NOT_FOUND"),
-				events.unknownEvent.name
+			const message = utils.createE2EFailTestMessage(
+				"EVENT_NOT_FOUND",
+				"unknownEvent"
 			);
 
 			it(message, async () => {
 				await createRequester(clientSocket, events.unknownEvent)
-					.setError(errorStore.find("EVENT_NOT_FOUND"))
+					.setError("EVENT_NOT_FOUND")
 					.sendFullFeaturedRequest();
 			});
 
 			for (const event of mainEvents) {
-				const message = utils.createFailTestMessage(
-					errorStore.find("EVENT_NOT_FOUND"),
+				const message = utils.createE2EFailTestMessage(
+					"EVENT_NOT_FOUND",
 					event.name
 				);
 

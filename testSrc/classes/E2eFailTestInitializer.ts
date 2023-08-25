@@ -98,15 +98,15 @@ class E2eFailTestInitializer<
 	}
 
 	initTest(data: any, error: NativeError, options?: Partial<RequesterOptions>) {
-		const title = utils.createFailTestMessage(
-			error,
+		const title = utils.createE2EFailTestMessage(
+			error.reason,
 			this.configuredRequester.getEventName()
 		);
 
 		it(title, async () => {
 			await this.configuredRequester.sendFullFeaturedRequest(
 				data,
-				error,
+				error.reason,
 				options
 			);
 		});

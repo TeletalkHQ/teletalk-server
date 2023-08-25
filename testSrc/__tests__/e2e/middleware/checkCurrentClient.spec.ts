@@ -1,6 +1,5 @@
 import { clientManager } from "~/classes/ClientIdManager";
 import { clientStore } from "~/classes/ClientStore";
-import { errorStore } from "~/classes/ErrorStore";
 import { eventsWithAuth } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
@@ -13,8 +12,8 @@ const filteredEvents = eventsWithAuth.filter(
 
 describe("checkCurrentClient middleware fail tests", () => {
 	for (const event of filteredEvents) {
-		const message = utils.createFailTestMessage(
-			errorStore.find("CURRENT_CLIENT_NOT_EXIST"),
+		const message = utils.createE2EFailTestMessage(
+			"CURRENT_CLIENT_NOT_EXIST",
 			event.name
 		);
 

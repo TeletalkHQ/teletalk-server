@@ -6,8 +6,9 @@ import { ContactItemWithCellphone } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
+import { utils } from "@/utils";
 
-describe("addContactWithCellphone success test", () => {
+describe(`${services.addContactWithCellphone.name} success tests`, () => {
 	it("should add new contact with cellphone", async () => {
 		const { user: currentUser } = await randomMaker.user();
 
@@ -40,5 +41,53 @@ describe("addContactWithCellphone success test", () => {
 				equalValue: addingContacts,
 			});
 		}
+	});
+});
+
+describe(`${services.addContactWithCellphone.name} fail tests`, () => {
+	it("should throw error when contact already exists", async () => {
+		const { user: currentUser } = await randomMaker.user();
+		const { user: targetUser } = await randomMaker.user();
+
+		const targetContact: ContactItemWithCellphone = {
+			...extractor.cellphone(targetUser),
+			...randomMaker.fullName(),
+		};
+
+		await services.addContactWithCellphone({
+			currentUserId: currentUser.userId,
+			addingContact: targetContact,
+		});
+
+		await utils.expectToFail_async(async () => {
+			await services.addContactWithCellphone({
+				currentUserId: currentUser.userId,
+				addingContact: targetContact,
+			});
+		}, "CONTACT_ITEM_EXIST");
+	});
+
+	it("should throw error when target user with specified cellphone does not exists", async () => {
+		const { user: currentUser } = await randomMaker.user();
+
+		const targetContact = randomMaker.contactWithCellphone();
+
+		await utils.expectToFail_async(async () => {
+			await services.addContactWithCellphone({
+				currentUserId: currentUser.userId,
+				addingContact: targetContact,
+			});
+		}, "TARGET_USER_NOT_EXIST");
+	});
+
+	it("should throw error when current user with specified userId does not exists", async () => {
+		const targetContact = randomMaker.contactWithCellphone();
+
+		await utils.expectToFail_async(async () => {
+			await services.addContactWithCellphone({
+				currentUserId: randomMaker.userId(),
+				addingContact: targetContact,
+			});
+		}, "CURRENT_USER_NOT_EXIST");
 	});
 });

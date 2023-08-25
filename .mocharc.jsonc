@@ -8,7 +8,10 @@
 	],
 	"package": "./package.json",
 	"reporter": "spec",
-	"spec": ["./configs/mocha/mocha.setup.ts"],
+	"spec": [
+		"./configs/mocha/mocha.setup.ts",
+		"./testSrc/__tests__/**/*.spec.ts"
+	],
 	"timeout": 60000,
 	"ui": "bdd",
 	"watch-ignore": "",

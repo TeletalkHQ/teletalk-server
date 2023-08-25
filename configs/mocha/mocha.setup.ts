@@ -2,7 +2,7 @@ import { testServerInitializer } from "../utils";
 
 await testServerInitializer();
 
-const registerTests = async () => {
+const _registerTests = async () => {
 	await import("@/__tests__/e2e/events/auth/signIn.spec");
 	await import("@/__tests__/e2e/events/auth/createNewUser.spec");
 	await import("@/__tests__/e2e/events/auth/logout.spec");
@@ -32,4 +32,4 @@ const registerTests = async () => {
 	await import("@/__tests__/e2e/middleware/verifyClient.spec");
 };
 
-await registerTests();
+// await _registerTests();

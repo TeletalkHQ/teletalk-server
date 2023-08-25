@@ -3,6 +3,7 @@ import { RandomMaker as RandomMakerMain } from "utility-store";
 import { ContactItem, UserData } from "utility-store/lib/types";
 
 import { models } from "~/models";
+import { ContactItemWithCellphone } from "~/types/datatypes";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { utils } from "@/utils";
@@ -24,6 +25,11 @@ class RandomMaker extends RandomMakerMain {
 			models.native.userId.maxLength,
 			models.native.phoneNumber.maxLength
 		);
+	}
+
+	contactWithCellphone(): ContactItemWithCellphone {
+		const { userId, ...rest } = this.contact();
+		return rest;
 	}
 
 	fullName() {

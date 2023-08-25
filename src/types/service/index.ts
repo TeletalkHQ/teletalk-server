@@ -20,7 +20,7 @@ export type PrivateChatDataProjectionType = ProjectionType<PrivateChatItem>;
 export type ServiceFn<
 	QueryData = StringMap,
 	Model = IUserDoc | IPrivateChatDoc,
-	ReturnType = object
+	ReturnType = object,
 > = (
 	queryData: QueryData,
 	projection?: ProjectionType<Model>,
@@ -41,5 +41,5 @@ export type UserServiceQueryData = Partial<UserData> &
 
 export type UserService<
 	QueryData extends UserServiceQueryData,
-	ReturnData
+	ReturnData,
 > = ServiceFn<QueryData, IUserDoc, ReturnData>;

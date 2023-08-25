@@ -26,9 +26,8 @@ describe("add contact success tests", () => {
 				userId: targetUser.userId,
 			};
 
-			const responsePromise = await requester.sendFullFeaturedRequest(
-				sendingData
-			);
+			const responsePromise =
+				await requester.sendFullFeaturedRequest(sendingData);
 
 			addingContacts.push({
 				res: responsePromise,

@@ -96,7 +96,7 @@ export type SocketMiddlewareEvent<IOType extends IO = any> = [
 	EventName,
 	IOType["input"],
 	ResponseCallback,
-	...any[]
+	...any[],
 ];
 
 export type SocketMiddlewareReturnValue = {

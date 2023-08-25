@@ -17,7 +17,10 @@ class AuthHelper {
 	private verifyResponse: SocketResponse<VerifyIO["output"]>;
 	private clientInitializer: ClientInitializer;
 
-	constructor(private cellphone: Cellphone, private fullName?: FullName) {
+	constructor(
+		private cellphone: Cellphone,
+		private fullName?: FullName
+	) {
 		this.clientInitializer = clientInitializer();
 	}
 

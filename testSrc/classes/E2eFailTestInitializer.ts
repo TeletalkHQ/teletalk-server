@@ -14,7 +14,7 @@ type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
 
 class E2eFailTestInitializer<
 	PartialNativeModel extends Model,
-	IOType extends IO
+	IOType extends IO,
 > {
 	constructor(
 		private configuredRequester: Requester<IOType>,
@@ -115,7 +115,7 @@ class E2eFailTestInitializer<
 
 export const e2eFailTestInitializer = <
 	PartialNativeModel extends Model,
-	IOType extends IO
+	IOType extends IO,
 >(
 	configuredRequester: Requester<IOType>,
 	data: any,

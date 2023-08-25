@@ -76,9 +76,8 @@ const testBlacklistAfterRemoveOneItem = async (
 	chai.expect(blacklistAfterRemove.length).to.be.equal(blacklist.length);
 
 	blacklist.forEach((i) => {
-		const foundUserId = blacklistAfterRemove.find(
-			(j) => i === j.userId
-		)?.userId;
+		const foundUserId = blacklistAfterRemove.find((j) => i === j.userId)
+			?.userId;
 
 		chai.expect(i).to.be.equal(foundUserId);
 	});

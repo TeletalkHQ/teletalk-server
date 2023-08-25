@@ -16,7 +16,7 @@ type PartialOptions = Partial<ServiceHandlerOptions>;
 export class ServiceHandler<
 	QueryData,
 	ProjectionType,
-	ReturnType extends StringMap
+	ReturnType extends StringMap,
 > {
 	private defaultExcludeProps: ServiceHandlerExcludeProps = ["_id", "__v"];
 	private queryResult: StringMap;

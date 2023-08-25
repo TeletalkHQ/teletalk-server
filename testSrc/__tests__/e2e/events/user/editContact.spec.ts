@@ -34,9 +34,8 @@ describe("edit contact success tests", () => {
 
 			const {
 				data: { editedContact: editContactResponseData },
-			} = await editContactRequester.sendFullFeaturedRequest(
-				editingContactData
-			);
+			} =
+				await editContactRequester.sendFullFeaturedRequest(editingContactData);
 
 			testEditedContact(editingContactData, editContactResponseData);
 

@@ -39,7 +39,7 @@ export interface AssertionInitializerArgs<DataType, TestDataType = DataType> {
 
 export type AssertionInitializer<
 	EqualDataType,
-	TestDataType = EqualDataType
+	TestDataType = EqualDataType,
 > = (
 	data: AssertionInitializerArgs<EqualDataType, TestDataType>,
 	options: Partial<AssertionInitializerOptions>

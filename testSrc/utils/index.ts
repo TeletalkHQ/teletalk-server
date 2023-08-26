@@ -23,9 +23,9 @@ import {
 	GetCountriesIO,
 	GetPrivateChatIO,
 	GetPrivateChatsIO,
-	GetPublicUserDataIO,
 	GetStuffIO,
 	GetUserDataIO,
+	GetUserPublicDataIO,
 	GetWelcomeMessageIO,
 	IO,
 	JoinRoomIO,
@@ -37,7 +37,7 @@ import {
 	SendPrivateMessageIO,
 	SignInIO,
 	SocketEvent,
-	UpdatePublicUserDataIO,
+	UpdateUserPublicDataIO,
 	VerifyIO,
 } from "~/types";
 import { Field } from "~/types/models";
@@ -228,8 +228,8 @@ const requesterCollection = {
 	getPrivateChats: requesterMakerHelper(
 		findEvent<GetPrivateChatsIO>("getPrivateChats")
 	),
-	getPublicUserData: requesterMakerHelper(
-		findEvent<GetPublicUserDataIO>("getPublicUserData")
+	getUserPublicData: requesterMakerHelper(
+		findEvent<GetUserPublicDataIO>("getUserPublicData")
 	),
 	getStuff: requesterMakerHelper(findEvent<GetStuffIO>("getStuff")),
 	getUserData: requesterMakerHelper(findEvent<GetUserDataIO>("getUserData")),
@@ -247,8 +247,8 @@ const requesterCollection = {
 		findEvent<SendPrivateMessageIO>("sendPrivateMessage")
 	),
 	signIn: requesterMakerHelper(findEvent<SignInIO>("signIn")),
-	updatePublicUserData: requesterMakerHelper(
-		findEvent<UpdatePublicUserDataIO>("updatePublicUserData")
+	updateUserPublicData: requesterMakerHelper(
+		findEvent<UpdateUserPublicDataIO>("updateUserPublicData")
 	),
 	verify: requesterMakerHelper(findEvent<VerifyIO>("verify")),
 	pong: requesterMakerHelper(findEvent<PingIO>("pong")),

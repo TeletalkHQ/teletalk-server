@@ -1,7 +1,7 @@
-import { extractor } from "utility-store";
 import { ContactItem, UserId } from "utility-store/lib/types";
 
 import { errorStore } from "~/classes/ErrorStore";
+import { extractor } from "~/classes/Extractor";
 import { UserService } from "~/types";
 import { ContactItemWithCellphone } from "~/types/datatypes";
 

@@ -13,7 +13,7 @@ export type EventName =
 	| "getCountries"
 	| "getPrivateChat"
 	| "getPrivateChats"
-	| "getPublicUserData"
+	| "getUserPublicData"
 	| "getStuff"
 	| "getUserData"
 	| "getWelcomeMessage"
@@ -26,7 +26,7 @@ export type EventName =
 	| "sendPrivateMessage"
 	| "signIn"
 	| "unknownEvent"
-	| "updatePublicUserData"
+	| "updateUserPublicData"
 	| "verify";
 
 export type IO = {

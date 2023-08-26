@@ -1,6 +1,5 @@
-import { PublicUserData } from "utility-store/lib/types";
-
 import { services } from "~/services";
+import { UserPublicData } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
@@ -10,13 +9,13 @@ import { utils } from "@/utils";
 describe("getUserData success tests", () => {
 	it("should get currentUser data", async () => {
 		const { socket } = await randomMaker.user();
-		const requester = utils.requesterCollection.getPublicUserData(socket);
+		const requester = utils.requesterCollection.getUserPublicData(socket);
 
 		const users = await randomMaker.users(10);
 
 		for (const { user: targetUserData } of users) {
 			const {
-				data: { publicUserData },
+				data: { userPublicData },
 			} = await requester.sendFullFeaturedRequest({
 				userId: targetUserData.userId,
 			});
@@ -25,15 +24,15 @@ describe("getUserData success tests", () => {
 				userId: targetUserData.userId,
 			}))!;
 
-			testPublicUserData(targetUserDataInDb, publicUserData as PublicUserData);
-			testPublicUserData(targetUserData, publicUserData as PublicUserData);
+			testUserPublicData(targetUserDataInDb, userPublicData);
+			testUserPublicData(targetUserData, userPublicData);
 		}
 	});
 });
 
-const testPublicUserData = (
-	equalValue: PublicUserData,
-	testValue: PublicUserData
+const testUserPublicData = (
+	equalValue: UserPublicData,
+	testValue: UserPublicData
 ) => {
 	assertionInitializerHelper()
 		.firstName({
@@ -58,9 +57,9 @@ const testPublicUserData = (
 		});
 };
 
-await utils.asyncDescribe("getPublicUserData fail tests", async () => {
+await utils.asyncDescribe("getUserPublicData fail tests", async () => {
 	const { requester } = await utils.setupRequester(
-		utils.requesterCollection.getPublicUserData
+		utils.requesterCollection.getUserPublicData
 	);
 
 	return () => {

@@ -1,7 +1,7 @@
 import chai from "chai";
-import { extractor } from "utility-store";
 import { ContactItem, UserData } from "utility-store/lib/types";
 
+import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 import { ContactItemWithCellphone, UserId } from "~/types/datatypes";
 

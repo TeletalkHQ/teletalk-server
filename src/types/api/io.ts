@@ -8,7 +8,6 @@ import {
 	FullName,
 	FullNameWithUserId,
 	NewUser,
-	PublicUserData,
 	UserData,
 	UserId,
 	Username,
@@ -26,6 +25,7 @@ import {
 	ParticipantId,
 	PrivateChatItem,
 	PrivateChats,
+	UserPublicData,
 	WelcomeMessage,
 } from "../datatypes";
 import { NativeModelCollection } from "../models";
@@ -176,12 +176,12 @@ export interface GetUserDataIO {
 	};
 }
 
-export interface GetPublicUserDataIO {
+export interface GetUserPublicDataIO {
 	input: {
 		userId: UserId;
 	};
 	output: {
-		publicUserData: PublicUserData;
+		userPublicData: UserPublicData;
 	};
 }
 
@@ -207,12 +207,12 @@ export interface RemoveContactIO {
 	};
 }
 
-export interface UpdatePublicUserDataIO {
+export interface UpdateUserPublicDataIO {
 	input: FullName & {
 		bio: Bio;
 		username: Username;
 	};
 	output: {
-		publicUserData: PublicUserData;
+		userPublicData: UserPublicData;
 	};
 }

@@ -23,6 +23,7 @@ import {
 	PhoneNumber,
 	PrivateChats,
 	UserId,
+	UserPublicData,
 	Username,
 	VerificationCode,
 } from "~/types/datatypes";
@@ -81,6 +82,7 @@ export class AssertionInitializerHelper {
 	userData = this.initializer<UserData>("userData");
 	userId = this.initializer<UserId>("userId");
 	username = this.initializer<Username>("username");
+	userPublicData = this.initializer<UserPublicData>("userPublicData");
 	verificationCode = this.initializer<VerificationCode>("verificationCode");
 }
 

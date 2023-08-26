@@ -1,8 +1,8 @@
 import chai from "chai";
-import { extractor } from "utility-store";
 import { Cellphone } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
+import { extractor } from "~/classes/Extractor";
 import { ClientId } from "~/types/datatypes";
 
 import {

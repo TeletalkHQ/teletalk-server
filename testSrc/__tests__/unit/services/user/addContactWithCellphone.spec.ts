@@ -1,5 +1,4 @@
-import { extractor } from "utility-store";
-
+import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 import { ContactItemWithCellphone } from "~/types/datatypes";
 

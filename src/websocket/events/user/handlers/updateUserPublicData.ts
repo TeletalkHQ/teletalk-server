@@ -1,13 +1,13 @@
 import { services } from "~/services";
-import { SocketOnHandler, UpdatePublicUserDataIO } from "~/types";
+import { SocketOnHandler, UpdateUserPublicDataIO } from "~/types";
 
-export const updatePublicUserData: SocketOnHandler<
-	UpdatePublicUserDataIO
+export const updateUserPublicData: SocketOnHandler<
+	UpdateUserPublicDataIO
 > = async (socket, data) => {
 	const { userId: currentUserId } = socket;
 	const { bio, firstName, lastName, username } = data;
 
-	const updatedPublicData = await services.updatePublicUserData({
+	const updatedPublicData = await services.updateUserPublicData({
 		currentUserId,
 		updateProperties: {
 			bio,
@@ -19,7 +19,7 @@ export const updatePublicUserData: SocketOnHandler<
 
 	return {
 		data: {
-			publicUserData: updatedPublicData,
+			userPublicData: updatedPublicData,
 		},
 	};
 };

@@ -1,46 +1,45 @@
-import { extractor } from "utility-store";
-import { PublicUserData } from "utility-store/lib/types";
-
+import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
+import { UserPublicData } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe("updatePublicUserData success tests", () => {
+describe("updateUserPublicData success tests", () => {
 	it("should get user public data", async () => {
 		const users = await randomMaker.users(10);
 
 		for (const { socket, user } of users) {
-			const data = randomMaker.publicUserData();
+			const data = randomMaker.userPublicData();
 
-			const requester = utils.requesterCollection.updatePublicUserData(socket);
+			const requester = utils.requesterCollection.updateUserPublicData(socket);
 			const {
-				data: { publicUserData: publicDataFromEvent },
+				data: { userPublicData: publicDataFromEvent },
 			} = await requester.sendFullFeaturedRequest(data);
 
 			const equalValue = { ...data, userId: user.userId };
 
-			testPublicUserData(equalValue, publicDataFromEvent);
+			testUserPublicData(equalValue, publicDataFromEvent);
 
 			const targetUserDataInDb = (await services.findOneUser({
 				userId: user.userId,
 			}))!;
 
-			const publicDataFromDb = extractor.publicUserData(targetUserDataInDb);
-			testPublicUserData(equalValue, publicDataFromDb);
+			const publicDataFromDb = extractor.userPublicData(targetUserDataInDb);
+			testUserPublicData(equalValue, publicDataFromDb);
 		}
 	});
 });
 
-await utils.asyncDescribe("updatePublicUserData fail tests", async () => {
+await utils.asyncDescribe("updateUserPublicData fail tests", async () => {
 	const { requester } = await utils.setupRequester(
-		utils.requesterCollection.updatePublicUserData
+		utils.requesterCollection.updateUserPublicData
 	);
 
 	return () => {
-		const publicDataForUpdate = randomMaker.publicUserData();
+		const publicDataForUpdate = randomMaker.userPublicData();
 
 		e2eFailTestInitializerHelper(requester)
 			.input(publicDataForUpdate)
@@ -51,9 +50,9 @@ await utils.asyncDescribe("updatePublicUserData fail tests", async () => {
 	};
 });
 
-const testPublicUserData = (
-	equalValue: PublicUserData,
-	testValue: PublicUserData
+const testUserPublicData = (
+	equalValue: UserPublicData,
+	testValue: UserPublicData
 ) => {
 	assertionInitializerHelper()
 		.firstName({

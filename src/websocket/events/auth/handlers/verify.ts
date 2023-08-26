@@ -1,6 +1,5 @@
-import { extractor } from "utility-store";
-
 import { clientStore } from "~/classes/ClientStore";
+import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 import { SocketOnHandler, VerifyIO } from "~/types";
 

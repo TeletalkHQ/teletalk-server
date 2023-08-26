@@ -5,11 +5,11 @@ import {
 	AddContactWithUserIdIO,
 	EditContactIO,
 	GetContactsIO,
-	GetPublicUserDataIO,
 	GetUserDataIO,
+	GetUserPublicDataIO,
 	RemoveBlockIO,
 	RemoveContactIO,
-	UpdatePublicUserDataIO,
+	UpdateUserPublicDataIO,
 } from "~/types";
 import { fields } from "~/variables";
 import { userHandlers } from "~/websocket/events/user/handlers";
@@ -82,21 +82,21 @@ const getUserData = builder
 	.handler(userHandlers.getUserData)
 	.build();
 
-const getPublicUserData = builder
-	.create<GetPublicUserDataIO>()
-	.name("getPublicUserData")
+const getUserPublicData = builder
+	.create<GetUserPublicDataIO>()
+	.name("getUserPublicData")
 	.inputFields({
 		userId: fields.single.userId,
 	})
 	.outputFields({
-		publicUserData: fields.statics.object({
+		userPublicData: fields.statics.object({
 			...fields.collection.fullName,
 			bio: fields.single.bio,
 			userId: fields.single.userId,
 			username: fields.single.username,
 		}),
 	})
-	.handler(userHandlers.getPublicUserData)
+	.handler(userHandlers.getUserPublicData)
 	.build();
 
 const removeBlock = builder
@@ -125,16 +125,16 @@ const removeContact = builder
 	.handler(userHandlers.removeContact)
 	.build();
 
-const updatePublicUserData = builder
-	.create<UpdatePublicUserDataIO>()
-	.name("updatePublicUserData")
+const updateUserPublicData = builder
+	.create<UpdateUserPublicDataIO>()
+	.name("updateUserPublicData")
 	.inputFields({
 		...fields.collection.fullName,
 		bio: fields.single.bio,
 		username: fields.single.username,
 	})
 	.outputFields({
-		publicUserData: fields.statics.object({
+		userPublicData: fields.statics.object({
 			...fields.collection.fullName,
 			bio: fields.single.bio,
 			status: fields.collection.status,
@@ -142,7 +142,7 @@ const updatePublicUserData = builder
 			username: fields.single.username,
 		}),
 	})
-	.handler(userHandlers.updatePublicUserData)
+	.handler(userHandlers.updateUserPublicData)
 	.build();
 
 export const user = {
@@ -152,11 +152,11 @@ export const user = {
 		addContactWithUserId,
 		editContact,
 		getContacts,
-		getPublicUserData,
+		getUserPublicData,
 		getUserData,
 		removeBlock,
 		removeContact,
-		updatePublicUserData,
+		updateUserPublicData,
 	],
 	handlers: userHandlers,
 };

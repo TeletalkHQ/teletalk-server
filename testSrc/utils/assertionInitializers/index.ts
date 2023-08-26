@@ -21,6 +21,7 @@ import { phoneNumberAssertionInitializer } from "./phoneNumber";
 import { privateChatsAssertionInitializer } from "./privateChats";
 import { userDataAssertionInitializer } from "./userData";
 import { userIdAssertionInitializer } from "./userId";
+import { userPublicDataAssertionInitializer } from "./userPublicData";
 import { usernameAssertionInitializer } from "./username";
 import { verificationCodeAssertionInitializer } from "./verificationCode";
 
@@ -32,6 +33,8 @@ export const assertionInitializers = {
 	clientId: clientIdAssertionInitializer,
 	clients: clientsAssertionInitializer,
 	contacts: contactsAssertionInitializer,
+	contactsWithCellphone: contactsWithCellphoneAssertionInitializer,
+	contactsWithUserId: contactsWithUserIdAssertionInitializer,
 	countryCode: countryCodeAssertionInitializer,
 	countryName: countryNameAssertionInitializer,
 	firstName: firstNameAssertionInitializer,
@@ -47,7 +50,6 @@ export const assertionInitializers = {
 	userData: userDataAssertionInitializer,
 	userId: userIdAssertionInitializer,
 	username: usernameAssertionInitializer,
+	userPublicData: userPublicDataAssertionInitializer,
 	verificationCode: verificationCodeAssertionInitializer,
-	contactsWithUserId: contactsWithUserIdAssertionInitializer,
-	contactsWithCellphone: contactsWithCellphoneAssertionInitializer,
 };

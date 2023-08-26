@@ -1,10 +1,9 @@
-import { extractor } from "utility-store";
-
 import { errorStore } from "~/classes/ErrorStore";
+import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
-import { GetPublicUserDataIO, SocketOnHandler } from "~/types";
+import { GetUserPublicDataIO, SocketOnHandler } from "~/types";
 
-export const getPublicUserData: SocketOnHandler<GetPublicUserDataIO> = async (
+export const getUserPublicData: SocketOnHandler<GetUserPublicDataIO> = async (
 	_socket,
 	data
 ) => {
@@ -17,7 +16,7 @@ export const getPublicUserData: SocketOnHandler<GetPublicUserDataIO> = async (
 
 	return {
 		data: {
-			publicUserData: extractor.publicUserData(user),
+			userPublicData: extractor.userPublicData(user),
 		},
 	};
 };

@@ -8,7 +8,12 @@ import {
 } from "utility-store/lib/types";
 
 import { models } from "~/models";
-import { ClientId, ContactItemWithCellphone } from "~/types/datatypes";
+import {
+	ClientId,
+	ContactItemWithCellphone,
+	UserId,
+	UserPublicData,
+} from "~/types/datatypes";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { utils } from "@/utils";
@@ -81,17 +86,15 @@ class RandomMaker extends RandomMakerMain {
 
 	async users(length: number, cellphone?: Cellphone) {
 		const users: CreatedUser[] = [];
-		for (let i = 0; i < length; i++) {
-			users.push(await this.user(cellphone));
-		}
+		for (let i = 0; i < length; i++) users.push(await this.user(cellphone));
+
 		return users;
 	}
 
 	batchUsers(length: number, cellphone?: Cellphone) {
 		const users: Promise<CreatedUser>[] = [];
-		for (let i = 0; i < length; i++) {
-			users.push(this.user(cellphone));
-		}
+		for (let i = 0; i < length; i++) users.push(this.user(cellphone));
+
 		return users;
 	}
 
@@ -113,13 +116,26 @@ class RandomMaker extends RandomMakerMain {
 		return sockets;
 	}
 
-	publicUserData() {
+	userPublicData(): UserPublicData {
 		return {
 			...randomMaker.fullName(),
 			bio: randomMaker.string(models.native.bio.maxLength),
 			username: randomMaker.string(models.native.username.maxLength),
 			userId: super.id(models.native.userId.maxLength),
 		};
+	}
+
+	usersPublicData(length: number, userId?: UserId): UserPublicData[] {
+		const data: UserPublicData[] = [];
+
+		for (let i = 0; i < length; i++) {
+			const publicData = this.userPublicData();
+			data.push({
+				...publicData,
+				userId: userId || publicData.userId,
+			});
+		}
+		return data;
 	}
 
 	unusedContact(): ContactItem {

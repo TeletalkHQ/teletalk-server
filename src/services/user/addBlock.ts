@@ -9,7 +9,7 @@ import { findOneUser } from "./findOneUser";
 
 export const addBlock: UserService<
 	{
-		blockingUserId: UserId;
+		targetUserId: UserId;
 		currentUserId: UserId;
 	},
 	void
@@ -21,13 +21,13 @@ export const addBlock: UserService<
 	if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
 	const targetUser = await findOneUser({
-		userId: data.blockingUserId,
+		userId: data.targetUserId,
 	});
 	errorThrower(!targetUser, errorStore.find("TARGET_USER_NOT_EXIST"));
 
-	checkExistenceOfBlacklistItem(currentUser.blacklist, data.blockingUserId);
+	checkExistenceOfBlacklistItem(currentUser.blacklist, data.targetUserId);
 
-	await saveNewBlacklistItem(currentUser, data.blockingUserId);
+	await saveNewBlacklistItem(currentUser, data.targetUserId);
 };
 
 const checkExistenceOfBlacklistItem = (

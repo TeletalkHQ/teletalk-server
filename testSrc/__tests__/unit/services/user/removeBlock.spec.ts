@@ -6,8 +6,8 @@ import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe(`${services.addBlock.name} success tests`, () => {
-	it("should add new blacklist item with target user id", async () => {
+describe(`${services.removeBlock.name} success tests`, () => {
+	it("should remove user from blacklist", async () => {
 		const { user: currentUser } = await randomMaker.user();
 
 		const blockingUsers: BlackList = [];
@@ -17,11 +17,22 @@ describe(`${services.addBlock.name} success tests`, () => {
 
 		for (const { user: targetUser } of users) {
 			await services.addBlock({
+				currentUserId: currentUser.userId,
+				targetUserId: targetUser.userId,
+			});
+
+			blockingUsers.push({
+				userId: targetUser.userId,
+			});
+		}
+
+		for (const { user: targetUser } of users) {
+			await services.removeBlock({
 				targetUserId: targetUser.userId,
 				currentUserId: currentUser.userId,
 			});
 
-			blockingUsers.push({ userId: targetUser.userId });
+			blockingUsers.shift();
 
 			const { blacklist } = (await services.findOneUser({
 				userId: currentUser.userId,
@@ -35,38 +46,22 @@ describe(`${services.addBlock.name} success tests`, () => {
 	});
 });
 
-describe(`${services.addBlock.name} fail tests`, () => {
-	it(utils.createUnitFailTestMessage("BLACKLIST_ITEM_EXIST"), async () => {
+describe(`${services.removeBlock.name} fail tests`, () => {
+	it(utils.createUnitFailTestMessage("BLACKLIST_ITEM_NOT_EXIST"), async () => {
 		const { user: currentUser } = await randomMaker.user();
 		const { user: targetUser } = await randomMaker.user();
 
-		await services.addBlock({
-			currentUserId: currentUser.userId,
-			targetUserId: targetUser.userId,
-		});
-
 		await utils.expectToFail_async(async () => {
-			await services.addBlock({
+			await services.removeBlock({
 				currentUserId: currentUser.userId,
 				targetUserId: targetUser.userId,
 			});
-		}, "BLACKLIST_ITEM_EXIST");
-	});
-
-	it(utils.createUnitFailTestMessage("TARGET_USER_NOT_EXIST"), async () => {
-		const { user: currentUser } = await randomMaker.user();
-
-		await utils.expectToFail_async(async () => {
-			await services.addBlock({
-				currentUserId: currentUser.userId,
-				targetUserId: randomMaker.userId(),
-			});
-		}, "TARGET_USER_NOT_EXIST");
+		}, "BLACKLIST_ITEM_NOT_EXIST");
 	});
 
 	it(utils.createUnitFailTestMessage("CURRENT_USER_NOT_EXIST"), async () => {
 		await utils.expectToFail_async(async () => {
-			await services.addBlock({
+			await services.removeBlock({
 				currentUserId: randomMaker.userId(),
 				targetUserId: randomMaker.userId(),
 			});

@@ -1,6 +1,10 @@
 import { Socket } from "socket.io-client";
 import { RandomMaker as RandomMakerMain } from "utility-store";
-import { ContactItem, UserData } from "utility-store/lib/types";
+import {
+	ContactItem,
+	FullNameWithUserId,
+	UserData,
+} from "utility-store/lib/types";
 
 import { models } from "~/models";
 import { ContactItemWithCellphone } from "~/types/datatypes";
@@ -30,6 +34,15 @@ class RandomMaker extends RandomMakerMain {
 	contactWithCellphone(): ContactItemWithCellphone {
 		const { userId, ...rest } = this.contact();
 		return rest;
+	}
+
+	contactWithUserId(): FullNameWithUserId {
+		const contact = this.contact();
+		return {
+			firstName: contact.firstName,
+			lastName: contact.lastName,
+			userId: contact.userId,
+		};
 	}
 
 	fullName() {

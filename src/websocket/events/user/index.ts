@@ -1,7 +1,6 @@
 import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
 	AddBlockIO,
-	AddContactIO,
 	AddContactWithCellphoneIO,
 	AddContactWithUserIdIO,
 	EditContactIO,
@@ -27,16 +26,6 @@ const addBlock = builder
 		}),
 	})
 	.handler(userHandlers.addBlock)
-	.build();
-
-const addContact = builder
-	.create<AddContactIO>()
-	.name("addContact")
-	.inputFields(fields.collection.contact)
-	.outputFields({
-		addedContact: fields.statics.object(fields.collection.contact),
-	})
-	.handler(userHandlers.addContact)
 	.build();
 
 const addContactWithCellphone = builder
@@ -159,7 +148,6 @@ const updatePublicUserData = builder
 export const user = {
 	events: [
 		addBlock,
-		addContact,
 		addContactWithCellphone,
 		addContactWithUserId,
 		editContact,

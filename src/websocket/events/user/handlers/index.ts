@@ -1,5 +1,4 @@
 import { addBlock } from "~/websocket/events/user/handlers/addBlock";
-import { addContact } from "~/websocket/events/user/handlers/addContact";
 import { addContactWithCellphone } from "~/websocket/events/user/handlers/addContactWithCellphone";
 import { addContactWithUserId } from "~/websocket/events/user/handlers/addContactWithUserId";
 import { editContact } from "~/websocket/events/user/handlers/editContact";
@@ -12,7 +11,6 @@ import { updatePublicUserData } from "~/websocket/events/user/handlers/updatePub
 
 export const userHandlers = {
 	addBlock,
-	addContact,
 	addContactWithCellphone,
 	addContactWithUserId,
 	editContact,

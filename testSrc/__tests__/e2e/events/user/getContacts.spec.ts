@@ -17,7 +17,8 @@ describe("getContacts success tests", () => {
 		const users = await randomMaker.users(contactsLength);
 		const addingContacts = users.map((i) => extractor.contact(i.user));
 
-		const addContactRequester = utils.requesterCollection.addContact(socket);
+		const addContactRequester =
+			utils.requesterCollection.addContactWithCellphone(socket);
 
 		for (const contact of addingContacts) {
 			await addContactRequester.sendFullFeaturedRequest(contact);

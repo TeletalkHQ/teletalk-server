@@ -60,7 +60,6 @@ export const registerMiddlewares = (socket: Socket) => {
 		applyMiddlewares(
 			[
 				"addBlock",
-				"addContact",
 				"addContactWithCellphone",
 				"addContactWithUserId",
 				"editContact",

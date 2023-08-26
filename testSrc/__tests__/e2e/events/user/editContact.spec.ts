@@ -20,7 +20,8 @@ describe("edit contact success tests", () => {
 		const contactsLength = 10;
 		const addingContacts = await createContacts(contactsLength);
 
-		const addContactRequester = utils.requesterCollection.addContact(socket);
+		const addContactRequester =
+			utils.requesterCollection.addContactWithUserId(socket);
 		for (const contact of addingContacts)
 			await addContactRequester.sendFullFeaturedRequest(contact);
 

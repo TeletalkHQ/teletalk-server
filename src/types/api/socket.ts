@@ -4,7 +4,6 @@ import { NativeError, Route } from "..";
 
 export type EventName =
 	| "addBlock"
-	| "addContact"
 	| "addContactWithCellphone"
 	| "addContactWithUserId"
 	| "createNewUser"

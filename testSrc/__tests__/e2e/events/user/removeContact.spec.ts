@@ -16,7 +16,8 @@ describe("removeContact successful test", () => {
 		const addingContacts = await createContacts(contactsLength);
 
 		const { socket, user: currentUser } = await randomMaker.user();
-		const addContactRequester = utils.requesterCollection.addContact(socket);
+		const addContactRequester =
+			utils.requesterCollection.addContactWithCellphone(socket);
 
 		for (const addingContact of addingContacts) {
 			await addContactRequester.sendFullFeaturedRequest(addingContact);

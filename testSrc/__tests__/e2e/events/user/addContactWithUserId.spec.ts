@@ -58,7 +58,7 @@ describe("add contact success tests", () => {
 	});
 });
 
-await utils.asyncDescribe("addContact with cellphone fail tests", async () => {
+await utils.asyncDescribe("addContactWithUserId fail tests", async () => {
 	const currentUserCellphone = randomMaker.unusedCellphone();
 
 	const targetUserCellphone = randomMaker.unusedCellphone();

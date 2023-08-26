@@ -12,7 +12,6 @@ import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 import {
 	AddBlockIO,
-	AddContactIO,
 	AddContactWithCellphoneIO,
 	AddContactWithUserIdIO,
 	CreateNewUserIO,
@@ -210,7 +209,6 @@ const expectToFail_async = async (
 
 const requesterCollection = {
 	addBlock: requesterMakerHelper(findEvent<AddBlockIO>("addBlock")),
-	addContact: requesterMakerHelper(findEvent<AddContactIO>("addContact")),
 	addContactWithCellphone: requesterMakerHelper(
 		findEvent<AddContactWithCellphoneIO>("addContactWithCellphone")
 	),

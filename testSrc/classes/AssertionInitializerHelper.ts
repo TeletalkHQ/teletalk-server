@@ -1,6 +1,7 @@
 import {
 	BlackList,
 	Cellphone,
+	Clients,
 	ContactItem,
 	Contacts,
 	CountryCode,
@@ -54,6 +55,7 @@ export class AssertionInitializerHelper {
 	cellphone = this.initializer<Cellphone>("cellphone");
 	chatId = this.initializer<ChatId>("chatId");
 	clientId = this.initializer<ClientId>("clientId");
+	clients = this.initializer<Clients>("clients");
 	contacts = this.initializer<Contacts>("contacts");
 	contactsWithCellphone = this.initializer<ContactItemWithCellphone[]>(
 		"contactsWithCellphone"

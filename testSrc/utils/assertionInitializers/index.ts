@@ -3,6 +3,7 @@ import { blacklistAssertionInitializer } from "./blacklist";
 import { cellphoneAssertionInitializer } from "./cellphone";
 import { chatIdAssertionInitializer } from "./chatId";
 import { clientIdAssertionInitializer } from "./clientId";
+import { clientsAssertionInitializer } from "./clients";
 import { contactsAssertionInitializer } from "./contacts";
 import { contactsWithCellphoneAssertionInitializer } from "./contactsWithCellphone";
 import { contactsWithUserIdAssertionInitializer } from "./contactsWithUserId";
@@ -29,6 +30,7 @@ export const assertionInitializers = {
 	cellphone: cellphoneAssertionInitializer,
 	chatId: chatIdAssertionInitializer,
 	clientId: clientIdAssertionInitializer,
+	clients: clientsAssertionInitializer,
 	contacts: contactsAssertionInitializer,
 	countryCode: countryCodeAssertionInitializer,
 	countryName: countryNameAssertionInitializer,

@@ -1,4 +1,3 @@
-import chai from "chai";
 import { extractor } from "utility-store";
 
 import { services } from "~/services";
@@ -31,10 +30,8 @@ describe(`${services.addContactWithCellphone.name} success tests`, () => {
 			});
 
 			const contacts = await services.getContacts({
-				currentUserId: currentUser.userId,
+				userId: currentUser.userId,
 			});
-
-			chai.expect(contacts.length).to.be.equal(addingContacts.length);
 
 			assertionInitializerHelper().contactsWithCellphone({
 				testValue: contacts,

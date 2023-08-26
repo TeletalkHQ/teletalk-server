@@ -25,7 +25,7 @@ describe("getContacts success tests", () => {
 		}
 
 		const savedContacts = (await services.getContacts({
-			currentUserId: currentUser.userId,
+			userId: currentUser.userId,
 		}))!;
 
 		testContacts(addingContacts, savedContacts);

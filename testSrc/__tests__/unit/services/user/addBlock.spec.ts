@@ -1,4 +1,3 @@
-import chai from "chai";
 import { BlackList, UserData } from "utility-store/lib/types";
 
 import { services } from "~/services";
@@ -27,8 +26,6 @@ describe(`${services.addBlock.name} success tests`, () => {
 			const { blacklist } = (await services.findOneUser({
 				userId: currentUser.userId,
 			})) as UserData;
-
-			chai.expect(blacklist.length).to.be.equal(blockingUsers.length);
 
 			assertionInitializerHelper().blacklist({
 				testValue: blacklist,

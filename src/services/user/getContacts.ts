@@ -7,12 +7,12 @@ import { findOneUser } from "./findOneUser";
 
 export const getContacts: UserService<
 	{
-		currentUserId: string;
+		userId: string;
 	},
 	Contacts
 > = async (data) => {
 	const currentUser = await findOneUser({
-		userId: data.currentUserId,
+		userId: data.userId,
 	});
 	if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 

@@ -1,13 +1,14 @@
 import { Socket } from "socket.io-client";
-import { RandomMaker as RandomMakerMain } from "utility-store";
+import { RandomMaker as RandomMakerMain, extractor } from "utility-store";
 import {
+	Cellphone,
 	ContactItem,
 	FullNameWithUserId,
 	UserData,
 } from "utility-store/lib/types";
 
 import { models } from "~/models";
-import { ContactItemWithCellphone } from "~/types/datatypes";
+import { ClientId, ContactItemWithCellphone } from "~/types/datatypes";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { utils } from "@/utils";
@@ -20,6 +21,10 @@ interface CreatedUser {
 class RandomMaker extends RandomMakerMain {
 	constructor() {
 		super();
+	}
+
+	clientId(): ClientId {
+		return super.string(models.native.clientId.maxLength);
 	}
 
 	contact(): ContactItem {
@@ -60,34 +65,52 @@ class RandomMaker extends RandomMakerMain {
 		cellphone = this.unusedCellphone(),
 		fullName = this.fullName()
 	): Promise<CreatedUser> {
-		const helper = authHelper(cellphone, fullName);
-		await helper.createComplete();
+		const ah = authHelper(cellphone, fullName);
+		await ah.createComplete();
 
 		const response = await utils.requesterCollection
-			.getUserData(helper.getClientSocket())
+			.getUserData(ah.getClientSocket())
 			.sendFullFeaturedRequest();
 
 		return {
-			...helper.getResponses().create.data,
+			...ah.getResponses().create.data,
 			user: response.data.user,
-			socket: helper.getClientSocket(),
+			socket: ah.getClientSocket(),
 		};
 	}
 
-	async users(length: number) {
+	async users(length: number, cellphone?: Cellphone) {
 		const users: CreatedUser[] = [];
 		for (let i = 0; i < length; i++) {
-			users.push(await this.user());
+			users.push(await this.user(cellphone));
 		}
 		return users;
 	}
 
-	batchUsers(length: number) {
+	batchUsers(length: number, cellphone?: Cellphone) {
 		const users: Promise<CreatedUser>[] = [];
 		for (let i = 0; i < length; i++) {
-			users.push(this.user());
+			users.push(this.user(cellphone));
 		}
 		return users;
+	}
+
+	async sockets(length: number, cellphone?: Cellphone) {
+		const { socket, user } = await this.user(cellphone);
+		const sockets = [{ user, socket }];
+
+		for (let i = 0; i < length; i++) {
+			const ah = authHelper(
+				extractor.cellphone(user),
+				extractor.fullName(user)
+			);
+			await ah.signIn();
+			await ah.verify();
+
+			sockets.push({ user, socket: ah.getClientSocket() });
+		}
+
+		return sockets;
 	}
 
 	publicUserData() {

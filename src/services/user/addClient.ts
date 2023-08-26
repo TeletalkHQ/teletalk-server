@@ -15,7 +15,7 @@ export const addClient: UserService<
 	const currentUser = await findCurrentUser(data.userId);
 	if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
-	await addAndSaveNew(currentUser, data.clientId);
+	await saveNewClientId(currentUser, data.clientId);
 };
 
 const findCurrentUser = (userId: UserId) => {
@@ -24,7 +24,10 @@ const findCurrentUser = (userId: UserId) => {
 	});
 };
 
-const addAndSaveNew = async (currentUser: HydratedUser, clientId: ClientId) => {
+const saveNewClientId = async (
+	currentUser: HydratedUser,
+	clientId: ClientId
+) => {
 	currentUser.clients.push({
 		clientId,
 	});

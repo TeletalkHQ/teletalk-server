@@ -54,14 +54,14 @@ const addContactWithUserId = builder
 	.handler(userHandlers.addContactWithUserId)
 	.build();
 
-const editContact = builder
+const updateContact = builder
 	.create<EditContactIO>()
-	.name("editContact")
+	.name("updateContact")
 	.inputFields(fields.collection.FullNameWithUserId)
 	.outputFields({
 		editedContact: fields.statics.object(fields.collection.FullNameWithUserId),
 	})
-	.handler(userHandlers.editContact)
+	.handler(userHandlers.updateContact)
 	.build();
 
 const getContacts = builder
@@ -150,7 +150,7 @@ export const user = {
 		addBlock,
 		addContactWithCellphone,
 		addContactWithUserId,
-		editContact,
+		updateContact,
 		getContacts,
 		getUserPublicData,
 		getUserData,

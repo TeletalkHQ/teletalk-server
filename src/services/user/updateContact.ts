@@ -1,7 +1,7 @@
 import { errorThrower, extractor } from "utility-store";
 import {
 	ContactItem,
-	FullNameWithUserId,
+	FullName,
 	UserData,
 	UserId,
 } from "utility-store/lib/types";
@@ -15,7 +15,8 @@ import { findOneUser } from "./findOneUser";
 export const updateContact: UserService<
 	{
 		currentUserId: UserId;
-		editValues: FullNameWithUserId;
+		editValues: FullName;
+		targetUserId: UserId;
 	},
 	void
 > = async (data) => {
@@ -23,7 +24,7 @@ export const updateContact: UserService<
 
 	const { index, contact: oldContact } = findContact(
 		currentUser.contacts,
-		data.editValues.userId
+		data.targetUserId
 	);
 
 	errorThrower(index < 0, {
@@ -31,9 +32,10 @@ export const updateContact: UserService<
 		editValues: data.editValues,
 	});
 
-	const updatedContact = {
-		...(extractor.cellphone(oldContact) as ContactItem),
+	const updatedContact: ContactItem = {
+		...extractor.cellphone(oldContact),
 		...data.editValues,
+		userId: data.targetUserId,
 	};
 
 	await saveContact(currentUser, updatedContact, index);
@@ -58,9 +60,9 @@ const findContact = (contacts: UserData["contacts"], targetUserId: string) => {
 
 const saveContact = async (
 	currentUser: HydratedUser,
-	editValues: ContactItem,
+	updatedContact: ContactItem,
 	index: number
 ) => {
-	currentUser.contacts.splice(index, 1, editValues);
+	currentUser.contacts.splice(index, 1, updatedContact);
 	await currentUser.save();
 };

@@ -7,7 +7,7 @@ export type EventName =
 	| "addContactWithCellphone"
 	| "addContactWithUserId"
 	| "createNewUser"
-	| "editContact"
+	| "updateContact"
 	| "getChatInfo"
 	| "getContacts"
 	| "getCountries"

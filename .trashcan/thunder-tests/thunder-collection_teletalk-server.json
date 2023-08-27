@@ -144,7 +144,7 @@
         }
       ],
       "colId": "da148521-7d37-412d-b72c-51f1cbaa708f",
-      "name": "editContact",
+      "name": "updateContact",
       "url": "{{baseUrl}}/cellphone/edit/contact",
       "method": "PATCH",
       "modified": "2022-03-03T19:33:39.887Z",

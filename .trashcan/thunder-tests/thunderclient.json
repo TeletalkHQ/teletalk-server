@@ -83,7 +83,7 @@
     "_id": "03426795-3696-4ddc-8d09-2f56af9d01d3",
     "colId": "fe4d5b8e-f47a-4f16-865b-98c0be0389d4",
     "containerId": "3707a95e-cdc1-435d-a3d3-325b78b14ccf",
-    "name": "editContact",
+    "name": "updateContact",
     "url": "{{baseUrl}}/cellphone/edit/contact",
     "method": "PATCH",
     "sortNum": 50000,

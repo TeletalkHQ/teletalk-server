@@ -218,7 +218,9 @@ const requesterCollection = {
 	createNewUser: requesterMakerHelper(
 		findEvent<CreateNewUserIO>("createNewUser")
 	),
-	editContact: requesterMakerHelper(findEvent<EditContactIO>("editContact")),
+	updateContact: requesterMakerHelper(
+		findEvent<EditContactIO>("updateContact")
+	),
 	getChatInfo: requesterMakerHelper(findEvent<GetChatInfoIO>("getChatInfo")),
 	getContacts: requesterMakerHelper(findEvent<GetContactsIO>("getContacts")),
 	getCountries: requesterMakerHelper(findEvent<GetCountriesIO>("getCountries")),

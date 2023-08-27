@@ -1,5 +1,6 @@
-import { FullNameWithUserId, UserData } from "utility-store/lib/types";
+import { ContactItem } from "utility-store/lib/types";
 
+import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
@@ -7,43 +8,46 @@ import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
 describe(`${services.removeContact.name} success tests`, () => {
-	it("should remove contact with specified userId", async () => {
+	it("should update contact", async () => {
 		const { user: currentUser } = await randomMaker.user();
 
-		const removingContacts: FullNameWithUserId[] = [];
+		const updatingContacts: ContactItem[] = [];
 
 		const length = 10;
 		const users = await Promise.all(randomMaker.batchUsers(length));
 
 		for (const { user: targetUser } of users) {
-			const addingContact = {
-				...randomMaker.fullName(),
-				userId: targetUser.userId,
-			};
+			const addingContact = extractor.contact(targetUser);
 
-			await services.addContactWithUserId({
-				currentUserId: currentUser.userId,
+			await services.addContactWithCellphone({
 				addingContact,
+				currentUserId: currentUser.userId,
 			});
 
-			removingContacts.push(addingContact);
+			updatingContacts.push(addingContact);
 		}
 
-		for (const { user: targetUser } of users) {
-			await services.removeContact({
+		for (const [index, { user: targetUser }] of users.entries()) {
+			const editValues = randomMaker.fullName();
+
+			await services.updateContact({
 				targetUserId: targetUser.userId,
 				currentUserId: currentUser.userId,
+				editValues,
 			});
 
-			removingContacts.shift();
+			updatingContacts[index] = {
+				...targetUser,
+				...editValues,
+			};
 
-			const { contacts } = (await services.findOneUser({
+			const contacts = await services.getContacts({
 				userId: currentUser.userId,
-			})) as UserData;
+			});
 
 			assertionInitializerHelper().contactsWithUserId({
 				testValue: contacts,
-				equalValue: removingContacts,
+				equalValue: updatingContacts,
 			});
 		}
 	});

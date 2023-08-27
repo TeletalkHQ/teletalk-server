@@ -14,7 +14,7 @@ const _registerTests = async () => {
 	await import("@/__tests__/e2e/events/user/addBlock.spec");
 	await import("@/__tests__/e2e/events/user/addContactWithCellphone.spec");
 	await import("@/__tests__/e2e/events/user/addContactWithUserId.spec");
-	await import("@/__tests__/e2e/events/user/editContact.spec");
+	await import("@/__tests__/e2e/events/user/updateContact.spec");
 	await import("@/__tests__/e2e/events/user/getContacts.spec");
 	await import("@/__tests__/e2e/events/user/getPublicUserData.spec");
 	await import("@/__tests__/e2e/events/user/getUserData.spec");

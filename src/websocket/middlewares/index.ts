@@ -62,7 +62,7 @@ export const registerMiddlewares = (socket: Socket) => {
 				"addBlock",
 				"addContactWithCellphone",
 				"addContactWithUserId",
-				"editContact",
+				"updateContact",
 				"removeBlock",
 				"removeContact",
 			],

@@ -57,7 +57,7 @@ const sendPrivateMessage = builder
 	.name("sendPrivateMessage")
 	.inputFields({
 		messageText: fields.single.messageText,
-		participantId: fields.single.participantId,
+		targetParticipantId: fields.single.participantId,
 	})
 	.outputFields({
 		chatId: fields.single.chatId,

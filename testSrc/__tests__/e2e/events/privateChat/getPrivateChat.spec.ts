@@ -25,7 +25,7 @@ describe("getPrivateChat success tests", () => {
 				.sendPrivateMessage(socket)
 				.sendFullFeaturedRequest({
 					messageText,
-					participantId: targetUser.userId,
+					targetParticipantId: targetUser.userId,
 				});
 
 			await testPrivateChat(chatId, socket, currentUser, targetUser);

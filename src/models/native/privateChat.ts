@@ -20,6 +20,11 @@ export const privateChatModels = {
 		trim: true,
 		type: "string",
 	},
-	participantId: commonModels.userId,
+	get participantId() {
+		return commonModels.userId;
+	},
 	senderId: commonModels.userId,
+	get targetParticipantId() {
+		return this.participantId;
+	},
 } as const;

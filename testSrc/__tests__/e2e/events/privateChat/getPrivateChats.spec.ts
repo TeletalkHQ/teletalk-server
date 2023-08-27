@@ -26,14 +26,14 @@ describe("getPrivateChats success tests", () => {
 				.sendPrivateMessage(currentUserSocket)
 				.sendFullFeaturedRequest({
 					messageText,
-					participantId: targetUser.userId,
+					targetParticipantId: targetUser.userId,
 				});
 
 			await utils.requesterCollection
 				.sendPrivateMessage(targetUserSocket)
 				.sendFullFeaturedRequest({
 					messageText,
-					participantId: currentUser.userId,
+					targetParticipantId: currentUser.userId,
 				});
 
 			await testPrivateChats(currentUser, currentUserSocket, targetUser);

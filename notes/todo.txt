@@ -34,3 +34,4 @@ eslint-plugin-jest
 TODO: Add tests for welcomeMessage
 REFACTOR: change event to eventName
 REFACTOR: Remove validationCheckers
+REFACTOR: Remove unnecessary return values from services

@@ -15,6 +15,7 @@ export type Field =
 	| "participantId"
 	| "phoneNumber"
 	| "senderId"
+	| "targetParticipantId"
 	| "userId"
 	| "username"
 	| "verificationCode";

@@ -11,6 +11,8 @@ import { models } from "~/models";
 import {
 	ClientId,
 	ContactItemWithCellphone,
+	MessageItem,
+	MessageText,
 	UserId,
 	UserPublicData,
 } from "~/types/datatypes";
@@ -144,6 +146,21 @@ class RandomMaker extends RandomMakerMain {
 			models.native.lastName.minLength,
 			models.native.userId.maxLength
 		);
+	}
+
+	privateMessage(): MessageItem {
+		return {
+			createdAt: Date.now(),
+			messageId: super.id(models.native.messageId.maxLength),
+			messageText: this.messageText(),
+			sender: {
+				senderId: this.userId(),
+			},
+		};
+	}
+
+	messageText(): MessageText {
+		return super.string(models.native.messageText.maxLength);
 	}
 }
 

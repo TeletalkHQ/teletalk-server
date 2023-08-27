@@ -3,12 +3,18 @@ import { UserId } from "utility-store/lib/types";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { createPrivateChat } from "~/services/chat/createPrivateChat";
-import { findOnePrivateChat } from "~/services/chat/findOnePrivateChat";
-import { findOneUser } from "~/services/user/findOneUser";
 import { PrivateChatService } from "~/types";
-import { MessageItem, MessageText } from "~/types/datatypes";
+import {
+	CreatedAt,
+	MessageId,
+	MessageItem,
+	MessageText,
+} from "~/types/datatypes";
 import { HydratedPrivateChat } from "~/types/models";
+
+import { findOneUser } from "../user/findOneUser";
+import { createPrivateChat } from "./createPrivateChat";
+import { findOnePrivateChat } from "./findOnePrivateChat";
 
 const chatModels = models.native;
 
@@ -17,22 +23,32 @@ export const sendPrivateMessage: PrivateChatService<
 	{
 		currentUserId: UserId;
 		messageText: MessageText;
-		participantId: UserId;
+		targetParticipantId: UserId;
 	},
-	{ chatId: string; addedMessage: MessageItem }
+	{
+		chatId: string;
+		createdAt: CreatedAt;
+		messageId: MessageId;
+	}
 > = async (data) => {
-	const targetParticipantId = await findTargetParticipantId(data.participantId);
+	const currentUser = await findOneUser({ userId: data.currentUserId });
+	if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
+
+	const targetUser = await findOneUser({
+		userId: data.targetParticipantId,
+	});
+	if (!targetUser) throw errorStore.find("TARGET_USER_NOT_EXIST");
 
 	const addedMessage = createNewMessage(data.messageText, data.currentUserId);
 
 	const privateChat = await findPrivateChat(
 		data.currentUserId,
-		targetParticipantId
+		data.targetParticipantId
 	);
 	const fixedPrivateChat = await fixPrivateChat({
 		currentUserId: data.currentUserId,
 		privateChat,
-		targetParticipantId,
+		targetParticipantId: data.targetParticipantId,
 	});
 
 	await saveMessageOnPrivateChat({
@@ -42,18 +58,9 @@ export const sendPrivateMessage: PrivateChatService<
 
 	return {
 		chatId: fixedPrivateChat.chatId,
-		addedMessage,
+		createdAt: addedMessage.createdAt,
+		messageId: addedMessage.messageId,
 	};
-};
-
-const findTargetParticipantId = async (participantId: UserId) => {
-	const targetParticipant = await findOneUser({
-		userId: participantId,
-	});
-
-	if (!targetParticipant) throw errorStore.find("TARGET_USER_NOT_EXIST");
-
-	return targetParticipant.userId;
 };
 
 const findPrivateChat = (
@@ -72,8 +79,8 @@ const createNewMessage = (
 	currentUserId: UserId
 ): MessageItem => ({
 	createdAt: Date.now(),
-	messageText,
 	messageId: randomMaker.id(chatModels.messageId.maxLength),
+	messageText,
 	sender: {
 		senderId: currentUserId,
 	},

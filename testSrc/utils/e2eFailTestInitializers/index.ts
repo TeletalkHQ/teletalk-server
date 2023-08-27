@@ -18,6 +18,7 @@ import { messageTextE2eFailTestInitializer } from "./messageText";
 import { participantIdE2eFailTestInitializer } from "./participantId";
 import { phoneNumberE2eFailTestInitializer } from "./phoneNumber";
 import { selfStuffE2eFailTestInitializer } from "./selfStuff";
+import { targetParticipantIdIdE2eFailTestInitializer } from "./targetParticipantId";
 import { userIdE2eFailTestInitializer } from "./userId";
 import { usernameE2eFailTestInitializer } from "./username";
 import { verificationCodeE2eFailTestInitializer } from "./verificationCode";
@@ -40,6 +41,7 @@ export const e2eFailTestInitializers = {
 	participantId: participantIdE2eFailTestInitializer,
 	phoneNumber: phoneNumberE2eFailTestInitializer,
 	selfStuff: selfStuffE2eFailTestInitializer,
+	targetParticipantId: targetParticipantIdIdE2eFailTestInitializer,
 	targetUserNotExist: targetUserNotExistE2eFailTestInitializer,
 	userId: userIdE2eFailTestInitializer,
 	username: usernameE2eFailTestInitializer,

@@ -38,6 +38,7 @@ class E2eFailTestInitializerHelper<IOType extends IO> {
 	participantId = this.initializer("participantId");
 	phoneNumber = this.initializer("phoneNumber");
 	selfStuff = this.initializer("selfStuff");
+	targetParticipantId = this.initializer("targetParticipantId");
 	targetUserNotExist = this.initializer("targetUserNotExist");
 	userId = this.initializer("userId");
 	username = this.initializer("username");

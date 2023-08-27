@@ -1,5 +1,6 @@
 import { services } from "~/services";
 import { EventName, SendPrivateMessageIO, SocketOnHandler } from "~/types";
+import { ChatId, MessageItem } from "~/types/datatypes";
 import { utils } from "~/utils";
 
 export const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
@@ -7,21 +8,28 @@ export const sendPrivateMessage: SocketOnHandler<SendPrivateMessageIO> = async (
 	data
 ) => {
 	const { userId: currentUserId } = socket;
-	const { participantId, messageText: text } = data;
+	const { targetParticipantId, messageText } = data;
 
-	const { chatId, addedMessage } = await services.sendPrivateMessage({
+	const { chatId, createdAt, messageId } = await services.sendPrivateMessage({
 		currentUserId,
-		participantId,
-		messageText: text,
+		targetParticipantId,
+		messageText,
 	});
 
-	const returnData = {
-		addedMessage,
+	const returnData: { addedMessage: MessageItem; chatId: ChatId } = {
+		addedMessage: {
+			createdAt,
+			messageId,
+			messageText,
+			sender: {
+				senderId: currentUserId,
+			},
+		},
 		chatId,
 	};
 
 	socket
-		.to(participantId)
+		.to(targetParticipantId)
 		.emit<EventName>(
 			"sendPrivateMessage",
 			utils.createSuccessResponse("sendPrivateMessage", returnData)

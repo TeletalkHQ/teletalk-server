@@ -117,7 +117,7 @@ export interface JoinRoomIO {
 export interface SendPrivateMessageIO {
 	input: {
 		messageText: MessageText;
-		participantId: ParticipantId;
+		targetParticipantId: ParticipantId;
 	};
 	output: {
 		chatId: ChatId;

@@ -22,7 +22,7 @@ describe("send message success tests", () => {
 			const messageText = createMessage(i);
 			const { data: sendMessageResponse } =
 				await requester.sendFullFeaturedRequest({
-					participantId: targetUser.userId,
+					targetParticipantId: targetUser.userId,
 					messageText,
 				});
 
@@ -51,12 +51,12 @@ await utils.asyncDescribe("send message fail tests", async () => {
 	return () => {
 		const data = {
 			messageText: randomMaker.string(10),
-			participantId: randomMaker.userId(),
+			targetParticipantId: randomMaker.userId(),
 		};
 
 		e2eFailTestInitializerHelper(requester)
 			.input(data)
-			.participantId(data)
+			.targetParticipantId(data)
 			.messageText(data)
 			.targetUserNotExist(data);
 	};

@@ -1,101 +1,56 @@
+import chai from "chai";
+import sinon, { SinonStub } from "sinon";
+
 import { utils } from "~/utils";
 
-import { utils as testUtils } from "@/utils";
+const expect = chai.expect;
 
-await testUtils.asyncJestDescribe("crashServer_function", async () => {
-	const { jest } = await import("@jest/globals");
+describe("crashServer_function", () => {
+	const crashServerThrowMessage = "process.exit() was called";
+	let loggerErrorStub: SinonStub;
+	let processExitStub: SinonStub;
 
-	return () => {
-		const crashServerThrowMessage = "process.exit() was called";
+	beforeEach(() => {
+		loggerErrorStub = sinon.stub(logger, "error");
+		processExitStub = sinon.stub(process, "exit");
+		processExitStub.throws(new Error(crashServerThrowMessage));
+	});
 
-		it("test_string_message", () => {
-			const spy = jest.spyOn(logger, "error");
-			const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
-				throw new Error("process.exit() was called");
-			});
-			const message = "This is a string message";
-			expect(() => utils.crashServer(message)).toThrowError(
-				crashServerThrowMessage
-			);
-			expect(spy).toHaveBeenCalledWith(message);
-			expect(spyExit).toHaveBeenCalledWith(1);
-			spy.mockRestore();
-			spyExit.mockRestore();
-		});
+	afterEach(() => {
+		loggerErrorStub.restore();
+		processExitStub.restore();
+	});
 
-		it("test_number_message", () => {
-			const spy = jest.spyOn(logger, "error");
-			const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
-				throw new Error(crashServerThrowMessage);
-			});
-			const message = 12345;
-			expect(() => utils.crashServer(message)).toThrowError(
-				crashServerThrowMessage
-			);
-			expect(spy).toHaveBeenCalledWith(message);
-			expect(spyExit).toHaveBeenCalledWith(1);
-			spy.mockRestore();
-			spyExit.mockRestore();
-		});
+	function testCrashServerWithMessage(message: unknown) {
+		expect(() => utils.crashServer(message)).to.throw(
+			Error,
+			crashServerThrowMessage
+		);
+		expect(loggerErrorStub.calledWith(message)).to.be.true;
+		expect(processExitStub.calledWith(1)).to.be.true;
+	}
 
-		it("test_object_message", () => {
-			const spy = jest.spyOn(logger, "error");
-			const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
-				throw new Error(crashServerThrowMessage);
-			});
-			const message = { key: "value" };
-			expect(() => utils.crashServer(message)).toThrowError(
-				crashServerThrowMessage
-			);
-			expect(spy).toHaveBeenCalledWith(message);
-			expect(spyExit).toHaveBeenCalledWith(1);
-			spy.mockRestore();
-			spyExit.mockRestore();
-		});
+	it("test_string_message", () => {
+		testCrashServerWithMessage("This is a string message");
+	});
 
-		it("test_undefined_message", () => {
-			const spy = jest.spyOn(logger, "error");
-			const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
-				throw new Error(crashServerThrowMessage);
-			});
-			const message = undefined;
-			expect(() => utils.crashServer(message)).toThrowError(
-				crashServerThrowMessage
-			);
-			expect(spy).toHaveBeenCalledWith(message);
-			expect(spyExit).toHaveBeenCalledWith(1);
-			spy.mockRestore();
-			spyExit.mockRestore();
-		});
+	it("test_number_message", () => {
+		testCrashServerWithMessage(12345);
+	});
 
-		it("test_null_message", () => {
-			const spy = jest.spyOn(logger, "error");
-			const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
-				throw new Error(crashServerThrowMessage);
-			});
-			const message = null;
-			expect(() => utils.crashServer(message)).toThrowError(
-				crashServerThrowMessage
-			);
-			expect(spy).toHaveBeenCalledWith(message);
-			expect(spyExit).toHaveBeenCalledWith(1);
-			spy.mockRestore();
-			spyExit.mockRestore();
-		});
+	it("test_object_message", () => {
+		testCrashServerWithMessage({ key: "value" });
+	});
 
-		it("test_empty_string_message", () => {
-			const spy = jest.spyOn(logger, "error");
-			const spyExit = jest.spyOn(process, "exit").mockImplementationOnce(() => {
-				throw new Error(crashServerThrowMessage);
-			});
-			const message = "";
-			expect(() => utils.crashServer(message)).toThrowError(
-				crashServerThrowMessage
-			);
-			expect(spy).toHaveBeenCalledWith(message);
-			expect(spyExit).toHaveBeenCalledWith(1);
-			spy.mockRestore();
-			spyExit.mockRestore();
-		});
-	};
+	it("test_undefined_message", () => {
+		testCrashServerWithMessage(undefined);
+	});
+
+	it("test_null_message", () => {
+		testCrashServerWithMessage(null);
+	});
+
+	it("test_empty_string_message", () => {
+		testCrashServerWithMessage("");
+	});
 });

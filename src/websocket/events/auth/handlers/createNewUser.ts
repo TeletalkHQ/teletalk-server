@@ -60,5 +60,7 @@ const checkExistenceOfUser = async (cellphone: Cellphone) => {
 const getRandomId = () => randomMaker.id(models.native.userId.maxLength);
 
 const saveNewUser = async (data: UserData) => {
-	await services.createNewUser(data);
+	await services.createNewUser({
+		userData: data,
+	});
 };

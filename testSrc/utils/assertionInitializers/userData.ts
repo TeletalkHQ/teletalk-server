@@ -1,3 +1,4 @@
+import chai from "chai";
 import { UserData } from "utility-store/lib/types";
 
 import { AssertionInitializer } from "@/types";
@@ -8,14 +9,18 @@ import { contactsAssertionInitializer } from "@/utils/assertionInitializers/cont
 import { fullNameAssertionInitializer } from "@/utils/assertionInitializers/fullName";
 import { userIdAssertionInitializer } from "@/utils/assertionInitializers/userId";
 import { usernameAssertionInitializer } from "@/utils/assertionInitializers/username";
+import { FIELD_TYPE } from "@/variables";
 
 export const userDataAssertionInitializer: AssertionInitializer<UserData> = (
 	{ equalValue, testValue },
 	options
 ) => {
+	chai.expect(equalValue).to.be.an(FIELD_TYPE.OBJECT);
+	chai.expect(testValue).to.be.an(FIELD_TYPE.OBJECT);
+
 	bioAssertionInitializer(
 		{
-			equalValue: equalValue?.bio,
+			equalValue: equalValue!.bio,
 			testValue: testValue.bio,
 		},
 		options
@@ -23,7 +28,7 @@ export const userDataAssertionInitializer: AssertionInitializer<UserData> = (
 
 	blacklistAssertionInitializer(
 		{
-			equalValue: equalValue?.blacklist,
+			equalValue: equalValue!.blacklist,
 			testValue: testValue.blacklist,
 		},
 		options
@@ -39,7 +44,7 @@ export const userDataAssertionInitializer: AssertionInitializer<UserData> = (
 
 	contactsAssertionInitializer(
 		{
-			equalValue: equalValue?.contacts,
+			equalValue: equalValue!.contacts,
 			testValue: testValue.contacts,
 		},
 		options
@@ -55,7 +60,7 @@ export const userDataAssertionInitializer: AssertionInitializer<UserData> = (
 
 	userIdAssertionInitializer(
 		{
-			equalValue: equalValue?.userId,
+			equalValue: equalValue!.userId,
 			testValue: testValue.userId,
 		},
 		options
@@ -63,7 +68,7 @@ export const userDataAssertionInitializer: AssertionInitializer<UserData> = (
 
 	usernameAssertionInitializer(
 		{
-			equalValue: equalValue?.username,
+			equalValue: equalValue!.username,
 			testValue: testValue.username,
 		},
 		options

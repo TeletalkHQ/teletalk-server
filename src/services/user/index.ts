@@ -1,21 +1,25 @@
-import { addBlock } from "~/services/user/addBlock";
-import { addClient } from "~/services/user/addClient";
-import { addContactWithCellphone } from "~/services/user/addContactWithCellphone";
-import { addContactWithUserId } from "~/services/user/addContactWithUserId";
-import { findOneUser } from "~/services/user/findOneUser";
-import { getContacts } from "~/services/user/getContacts";
-import { removeBlock } from "~/services/user/removeBlock";
-import { removeContact } from "~/services/user/removeContact";
-import { updateContact } from "~/services/user/updateContact";
-import { updateUserPublicData } from "~/services/user/updateUserPublicData";
+import { addBlock } from "./addBlock";
+import { addClient } from "./addClient";
+import { addContactWithCellphone } from "./addContactWithCellphone";
+import { addContactWithUserId } from "./addContactWithUserId";
+import { createNewUser } from "./createNewUser";
+import { findOneUser } from "./findOneUser";
+import { getContacts } from "./getContacts";
+import { logout } from "./logout";
+import { removeBlock } from "./removeBlock";
+import { removeContact } from "./removeContact";
+import { updateContact } from "./updateContact";
+import { updateUserPublicData } from "./updateUserPublicData";
 
 export const userServices = {
 	addBlock,
 	addClient,
 	addContactWithCellphone,
 	addContactWithUserId,
+	createNewUser,
 	findOneUser,
 	getContacts,
+	logout,
 	removeBlock,
 	removeContact,
 	updateContact,

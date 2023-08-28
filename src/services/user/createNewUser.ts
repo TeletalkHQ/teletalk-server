@@ -3,10 +3,16 @@ import { UserData } from "utility-store/lib/types";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
+import { UserService } from "~/types";
 
-export const createNewUser = async (userData: UserData) => {
-	await checkExistenceOfCurrentUser(userData.userId);
-	await models.database.User.create(userData);
+export const createNewUser: UserService<
+	{
+		userData: UserData;
+	},
+	void
+> = async (data) => {
+	await checkExistenceOfCurrentUser(data.userData.userId);
+	await models.database.User.create(data.userData);
 };
 
 const checkExistenceOfCurrentUser = async (userId: UserData["userId"]) => {

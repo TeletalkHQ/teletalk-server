@@ -37,6 +37,7 @@ export type UserServiceQueryData = Partial<UserData> &
 	Partial<{
 		currentUserId: UserId;
 		targetUserId: UserId;
+		userData: UserData;
 	}>;
 
 export type UserService<

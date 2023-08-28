@@ -1,5 +1,5 @@
 import { Socket } from "socket.io-client";
-import { RandomMaker as RandomMakerMain, extractor } from "utility-store";
+import { RandomMaker as RandomMakerMain } from "utility-store";
 import {
 	Cellphone,
 	ContactItem,
@@ -100,19 +100,17 @@ class RandomMaker extends RandomMakerMain {
 		return users;
 	}
 
-	async sockets(length: number, cellphone?: Cellphone) {
-		const { socket, user } = await this.user(cellphone);
-		const sockets = [{ user, socket }];
+	async sockets(length: number, cellphone = this.cellphone()) {
+		const sockets = [];
 
 		for (let i = 0; i < length; i++) {
-			const ah = authHelper(
-				extractor.cellphone(user),
-				extractor.fullName(user)
-			);
+			const ah = authHelper(cellphone);
 			await ah.signIn();
 			await ah.verify();
 
-			sockets.push({ user, socket: ah.getClientSocket() });
+			sockets.push({
+				socket: ah.getClientSocket(),
+			});
 		}
 
 		return sockets;

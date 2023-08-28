@@ -26,7 +26,7 @@ describe(`${services.removeBlock.name} success tests`, () => {
 			});
 		}
 
-		for (const { user: targetUser } of users) {
+		for (const { user: targetUser } of [...users]) {
 			await services.removeBlock({
 				targetUserId: targetUser.userId,
 				currentUserId: currentUser.userId,

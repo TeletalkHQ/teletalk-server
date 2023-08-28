@@ -11,10 +11,8 @@ export const logout = async ({
 	const currentUser = await models.database.User.findOne({
 		userId,
 	});
-
 	if (!currentUser) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
-	//FIXME: Remove specific clientId
 	currentUser.clients = currentUser.clients.filter(
 		(i) => i.clientId !== clientId
 	);

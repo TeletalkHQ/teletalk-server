@@ -29,7 +29,7 @@ describe(`${services.removeContact.name} success tests`, () => {
 			removingContacts.push(addingContact);
 		}
 
-		for (const { user: targetUser } of users) {
+		for (const { user: targetUser } of [...users]) {
 			await services.removeContact({
 				targetUserId: targetUser.userId,
 				currentUserId: currentUser.userId,

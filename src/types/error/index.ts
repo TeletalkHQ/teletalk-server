@@ -1,4 +1,4 @@
-import { ModelErrorReason } from "../models";
+import { ModelErrorReason } from "../model";
 
 export type CustomErrorReason =
 	| "BLACKLIST_ITEM_EXIST"

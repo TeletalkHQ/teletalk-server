@@ -6,9 +6,9 @@ export const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
 	data
 ) => {
 	it(
-		utils.createE2EFailTestMessage(
-			"INPUT_FIELDS_MISSING",
-			configuredRequester.getEventName()
+		utils.createTestMessage.e2eFailTest(
+			configuredRequester.getEventName(),
+			"INPUT_FIELDS_MISSING"
 		),
 		async () => {
 			const copyData = { ...data };

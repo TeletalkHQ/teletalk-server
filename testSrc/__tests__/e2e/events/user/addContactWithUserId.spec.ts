@@ -1,168 +1,69 @@
-import chai from "chai";
-import { maker } from "utility-store";
-import { ContactItem, FullNameWithUserId } from "utility-store/lib/types";
-
-import { services } from "~/services";
-import { UserId } from "~/types/datatypes";
+import { FullNameWithUserId } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
-import { FIELD_TYPE } from "@/variables";
 
-describe("add contact success tests", () => {
-	it("should add users to contacts", async () => {
-		const { user: currentUser, socket } = await randomMaker.user();
-		const requester = utils.requesterCollection.addContactWithUserId(socket);
+describe(
+	utils.createTestMessage.e2eSuccessDescribe("addContactWithUserId"),
+	() => {
+		it(
+			utils.createTestMessage.e2eSuccessTest(
+				"addContactWithUserId",
+				"should add users to contacts"
+			),
+			async () => {
+				const { socket } = await randomMaker.user();
+				const { user: targetUser } = await randomMaker.user();
 
-		const contactsLength = 10;
-		const users = await randomMaker.users(contactsLength);
+				const sendingData: FullNameWithUserId = {
+					...randomMaker.fullName(),
+					userId: targetUser.userId,
+				};
 
-		const addingContacts = [];
-		for (const { user: targetUser } of users) {
-			const sendingData: FullNameWithUserId = {
+				const {
+					data: { addedContact },
+				} = await utils.requesterCollection
+					.addContactWithUserId(socket)
+					.sendFullFeaturedRequest(sendingData);
+
+				assertionInitializerHelper().oneContactWithUserId({
+					testValue: addedContact,
+					equalValue: sendingData,
+				});
+			}
+		);
+	}
+);
+
+await utils.asyncDescribe(
+	utils.createTestMessage.e2eFailDescribe("addContactWithUserId"),
+	async () => {
+		const currentUserCellphone = randomMaker.unusedCellphone();
+
+		const { requester, user: currentUser } = await utils.setupRequester(
+			utils.requesterCollection.addContactWithUserId,
+			currentUserCellphone
+		);
+
+		return () => {
+			const contactItemWithUserId: FullNameWithUserId = {
 				...randomMaker.fullName(),
-				userId: targetUser.userId,
+				userId: randomMaker.userId(),
 			};
 
-			const responsePromise =
-				await requester.sendFullFeaturedRequest(sendingData);
+			const selfStuffData: FullNameWithUserId = {
+				...randomMaker.fullName(),
+				userId: currentUser.userId,
+			};
 
-			addingContacts.push({
-				res: responsePromise,
-				sendingData,
-				targetUser,
-			});
-		}
-
-		for (const { sendingData, res, targetUser } of addingContacts) {
-			const {
-				data: { addedContact },
-			} = res;
-
-			await testResponse({
-				addedContact,
-				currentUserId: currentUser.userId,
-				sendingData,
-				targetUserId: targetUser.userId,
-			});
-		}
-
-		const { contacts } = (await services.findOneUser({
-			userId: currentUser.userId,
-		}))!;
-
-		chai.expect(contacts).to.be.an(FIELD_TYPE.ARRAY);
-		chai.expect(contacts.length).to.be.equal(contactsLength);
-	});
-});
-
-await utils.asyncDescribe("addContactWithUserId fail tests", async () => {
-	const currentUserCellphone = randomMaker.unusedCellphone();
-
-	const targetUserCellphone = randomMaker.unusedCellphone();
-	const { user: targetUser } = await randomMaker.user(targetUserCellphone);
-
-	const { requester, user: currentUser } = await utils.setupRequester(
-		utils.requesterCollection.addContactWithUserId,
-		currentUserCellphone
-	);
-
-	const existingContactData: FullNameWithUserId = {
-		...randomMaker.fullName(),
-		userId: targetUser.userId,
-	};
-
-	await requester.sendFullFeaturedRequest(existingContactData);
-
-	return () => {
-		const contactItemWithUserId: FullNameWithUserId = {
-			...randomMaker.fullName(),
-			userId: randomMaker.userId(),
+			e2eFailTestInitializerHelper(requester)
+				.input(contactItemWithUserId)
+				.firstName(contactItemWithUserId)
+				.lastName(contactItemWithUserId)
+				.userId(contactItemWithUserId)
+				.selfStuff(selfStuffData);
 		};
-
-		const selfStuffData: FullNameWithUserId = {
-			...randomMaker.fullName(),
-			userId: currentUser.userId,
-		};
-
-		e2eFailTestInitializerHelper(requester)
-			.input(contactItemWithUserId)
-			.firstName(contactItemWithUserId)
-			.lastName(contactItemWithUserId)
-			.userId(contactItemWithUserId)
-			.selfStuff(selfStuffData)
-			.contactItemExist(existingContactData)
-			.targetUserNotExist(contactItemWithUserId);
-	};
-});
-
-const testResponse = async (data: {
-	addedContact: ContactItem;
-	currentUserId: UserId;
-	sendingData: FullNameWithUserId;
-	targetUserId: UserId;
-}) => {
-	await testTargetUserContacts(data.targetUserId);
-
-	const savedContact = await findSavedContact(
-		data.currentUserId,
-		data.addedContact
-	);
-
-	testContact(data.addedContact, savedContact);
-	testContact(data.addedContact, {
-		...data.sendingData,
-		...maker.emptyCellphone(),
-	});
-};
-
-const testTargetUserContacts = async (targetUserId: UserId) => {
-	const targetUserContacts = await findContacts(targetUserId);
-	chai.expect(targetUserContacts).to.be.an(FIELD_TYPE.ARRAY);
-	chai.expect(targetUserContacts.length).to.be.equal(0);
-};
-
-const findSavedContact = async (
-	currentUserId: UserId,
-	addedContact: ContactItem
-) => {
-	const contacts = (await findContacts(currentUserId))!;
-
-	return contacts.find((i) => i.userId === addedContact.userId)!;
-};
-
-const findContacts = async (userId: UserId) => {
-	const { contacts } = (await services.findOneUser({ userId }))!;
-	return contacts;
-};
-
-const testContact = (testValue: ContactItem, equalValue: ContactItem) => {
-	//CLEANME: Extract to .contact
-	assertionInitializerHelper()
-		.userId({
-			equalValue: equalValue.userId,
-			testValue: testValue.userId,
-		})
-		// .countryCode({
-		//   equalValue: equalValue.countryCode,
-		//   testValue: testValue.countryCode,
-		// })
-		// .countryName({
-		//   equalValue: equalValue.countryName,
-		//   testValue: testValue.countryName,
-		// })
-		// .phoneNumber({
-		//   equalValue: equalValue.phoneNumber,
-		//   testValue: testValue.phoneNumber,
-		// })
-		.lastName({
-			equalValue: equalValue.lastName,
-			testValue: testValue.lastName,
-		})
-		.firstName({
-			equalValue: equalValue.firstName,
-			testValue: testValue.firstName,
-		});
-};
+	}
+);

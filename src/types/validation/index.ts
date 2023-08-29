@@ -8,7 +8,7 @@ import {
 import { utils } from "~/utils";
 
 import { ErrorReason, NativeError } from "..";
-import { Field } from "../models";
+import { Field } from "../model";
 
 export type ValidationModel = ValidationRuleObject;
 

@@ -2,7 +2,7 @@ import { FilterQuery } from "mongoose";
 
 import { models } from "~/models";
 import { PrivateChatService } from "~/types";
-import { HydratedPrivateChat, IPrivateChatDoc } from "~/types/models";
+import { HydratedPrivateChat, IPrivateChatDoc } from "~/types/model";
 
 export const findOnePrivateChat: PrivateChatService<
 	FilterQuery<IPrivateChatDoc>,

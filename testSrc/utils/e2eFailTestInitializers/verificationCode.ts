@@ -1,4 +1,3 @@
-import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
@@ -27,6 +26,6 @@ export const verificationCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 
 	builder.custom(
 		randomMaker.stringNumber(models.native.verificationCode.length),
-		errorStore.find("VERIFICATION_CODE_INVALID")
+		"VERIFICATION_CODE_INVALID"
 	);
 };

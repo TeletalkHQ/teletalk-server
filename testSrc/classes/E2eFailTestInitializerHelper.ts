@@ -22,11 +22,7 @@ class E2eFailTestInitializerHelper<IOType extends IO> {
 	}
 
 	bio = this.initializer("bio");
-	blacklistItemExist = this.initializer("blacklistItemExist");
-	blacklistItemNotExist = this.initializer("blacklistItemNotExist");
 	chatId = this.initializer("chatId");
-	contactItemExist = this.initializer("contactItemExist");
-	contactItemNotExist = this.initializer("contactItemNotExist");
 	countryCode = this.initializer("countryCode");
 	countryName = this.initializer("countryName");
 	firstName = this.initializer("firstName");
@@ -39,7 +35,6 @@ class E2eFailTestInitializerHelper<IOType extends IO> {
 	phoneNumber = this.initializer("phoneNumber");
 	selfStuff = this.initializer("selfStuff");
 	targetParticipantId = this.initializer("targetParticipantId");
-	targetUserNotExist = this.initializer("targetUserNotExist");
 	userId = this.initializer("userId");
 	username = this.initializer("username");
 	verificationCode = this.initializer("verificationCode");

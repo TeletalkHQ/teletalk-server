@@ -3,7 +3,7 @@ import { ContactItem, UserData } from "utility-store/lib/types";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { UserId } from "~/types/datatypes";
-import { HydratedUser } from "~/types/models";
+import { HydratedUser } from "~/types/model";
 
 export const checkExistenceOfContactItem = (
 	contacts: UserData["contacts"],

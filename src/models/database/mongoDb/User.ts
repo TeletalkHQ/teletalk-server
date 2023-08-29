@@ -1,7 +1,7 @@
 import { Schema, SchemaDefinitionProperty, model } from "mongoose";
 
 import { nativeModels } from "~/models/native";
-import { IUserDoc, IUserModel } from "~/types/models";
+import { IUserDoc, IUserModel } from "~/types/model";
 import { utils } from "~/utils";
 
 const bioMaker = utils.makeMongoSchemaValue("bio");

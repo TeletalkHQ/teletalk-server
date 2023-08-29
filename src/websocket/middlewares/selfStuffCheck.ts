@@ -5,11 +5,11 @@ import {
 	extractor,
 	isDataHasEqualityWithTargetCellphone,
 } from "utility-store";
+import { Cellphone, FullNameWithUserId } from "utility-store/lib/types";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { services } from "~/services";
 import {
-	AddContactIO,
 	SocketMiddleware,
 	SocketMiddlewareReturnValue,
 	SocketNext,
@@ -28,7 +28,10 @@ export const selfStuffCheck: SocketMiddleware = async (
 		.run();
 };
 
-const tryBlock = async (socket: Socket, data: AddContactIO["input"]) => {
+const tryBlock = async (
+	socket: Socket,
+	data: Cellphone & FullNameWithUserId
+) => {
 	if (data.userId) {
 		errorThrower(socket.userId === data.userId, {
 			...errorStore.find("SELF_STUFF"),

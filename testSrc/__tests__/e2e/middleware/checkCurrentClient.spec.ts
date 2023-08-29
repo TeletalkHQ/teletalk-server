@@ -10,11 +10,11 @@ const filteredEvents = eventsWithAuth.filter(
 	(i) => i.name !== "verify" && i.name !== "createNewUser"
 );
 
-describe("checkCurrentClient middleware fail tests", () => {
+describe(utils.createTestMessage.unitFailDescribe("checkCurrentClient"), () => {
 	for (const event of filteredEvents) {
-		const message = utils.createE2EFailTestMessage(
-			"CURRENT_CLIENT_NOT_EXIST",
-			event.name
+		const message = utils.createTestMessage.unitFailTest(
+			event.name,
+			"CURRENT_CLIENT_NOT_EXIST"
 		);
 
 		it(message, async () => {

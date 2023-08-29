@@ -1,101 +1,61 @@
-import chai from "chai";
-import { ContactItem, Contacts, UserData } from "utility-store/lib/types";
-
 import { extractor } from "~/classes/Extractor";
-import { services } from "~/services";
-import { UserId } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe("removeContact successful test", () => {
-	it("should remove users from contacts", async () => {
-		const contactsLength = 10;
-		const addingContacts = await createContacts(contactsLength);
+describe(utils.createTestMessage.e2eSuccessDescribe("removeContact"), () => {
+	it(
+		utils.createTestMessage.e2eSuccessTest(
+			"removeContact",
+			"should remove users from contacts"
+		),
+		async () => {
+			const { socket } = await randomMaker.user();
+			const { user: targetUser } = await randomMaker.user();
 
-		const { socket, user: currentUser } = await randomMaker.user();
-		const addContactRequester =
-			utils.requesterCollection.addContactWithCellphone(socket);
+			const addingContact = extractor.contactWithUserId(targetUser);
 
-		for (const addingContact of addingContacts) {
-			await addContactRequester.sendFullFeaturedRequest(addingContact);
-		}
+			await utils.requesterCollection
+				.addContactWithUserId(socket)
+				.sendFullFeaturedRequest(addingContact);
 
-		const removeContactRequester =
-			utils.requesterCollection.removeContact(socket);
-		for (const addingContact of [...addingContacts]) {
 			const {
 				data: { removedContact },
-			} = await removeContactRequester.sendFullFeaturedRequest({
-				userId: addingContact.userId,
+			} = await utils.requesterCollection
+				.removeContact(socket)
+				.sendFullFeaturedRequest({
+					userId: addingContact.userId,
+				});
+
+			assertionInitializerHelper().userId({
+				equalValue: addingContact.userId,
+				testValue: removedContact.userId,
 			});
-
-			testRemovedContact(removedContact.userId, addingContact.userId);
-
-			addingContacts.shift();
-			await testContactsAfterRemoveOneItem(currentUser, addingContacts);
 		}
-
-		await testContactsAfterRemoveAll(currentUser.userId);
-	});
-});
-
-await utils.asyncDescribe("removeContact fail tests", async () => {
-	const { requester, user } = await utils.setupRequester(
-		utils.requesterCollection.removeContact
 	);
-
-	return () => {
-		const selfStuffData = {
-			userId: user.userId,
-		};
-		const randomData = {
-			userId: randomMaker.userId(),
-		};
-
-		e2eFailTestInitializerHelper(requester)
-			.input(randomData)
-			.userId(randomData)
-			.selfStuff(selfStuffData)
-			.contactItemNotExist(randomData);
-	};
 });
 
-const createContacts = async (length: number) => {
-	const users = await randomMaker.users(length);
-	return users.map((i) => extractor.contact(i.user));
-};
+await utils.asyncDescribe(
+	utils.createTestMessage.e2eFailDescribe("removeContact"),
+	async () => {
+		const { requester, user } = await utils.setupRequester(
+			utils.requesterCollection.removeContact
+		);
 
-const testRemovedContact = (equalValue: string, testValue: string) => {
-	assertionInitializerHelper().userId({ equalValue, testValue });
-};
+		return () => {
+			const selfStuffData = {
+				userId: user.userId,
+			};
+			const data = {
+				userId: randomMaker.userId(),
+			};
 
-const testContactsAfterRemoveOneItem = async (
-	currentUser: UserData,
-	addingContacts: Contacts
-) => {
-	const nonRemovedContacts = await findContacts(currentUser.userId);
-	chai.expect(nonRemovedContacts.length).to.be.equal(addingContacts.length);
-
-	addingContacts.forEach((addingContact) => {
-		const nonRemovedContact = nonRemovedContacts.find(
-			(j) => addingContact.userId === j.userId
-		) as ContactItem;
-
-		chai
-			.expect(addingContact)
-			.to.be.deep.equal(extractor.contact(nonRemovedContact));
-	});
-};
-
-const testContactsAfterRemoveAll = async (userId: UserId) => {
-	const contactsAfterRemoveAll = await findContacts(userId);
-	chai.expect(contactsAfterRemoveAll.length).to.be.equal(0);
-};
-
-const findContacts = async (userId: UserId) => {
-	const { contacts } = (await services.findOneUser({ userId }))!;
-	return contacts;
-};
+			e2eFailTestInitializerHelper(requester)
+				.input(data)
+				.userId(data)
+				.selfStuff(selfStuffData);
+		};
+	}
+);

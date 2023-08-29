@@ -3,54 +3,95 @@ import sinon, { SinonStub } from "sinon";
 
 import { utils } from "~/utils";
 
+import { utils as testUtils } from "@/utils";
+
 const expect = chai.expect;
 
-describe("crashServer_function", () => {
-	const crashServerThrowMessage = "process.exit() was called";
-	let loggerErrorStub: SinonStub;
-	let processExitStub: SinonStub;
+describe(
+	testUtils.createTestMessage.unitFailDescribe(`fn${utils.crashServer.name}`),
+	() => {
+		const crashServerThrowMessage = "process.exit() was called";
+		let loggerErrorStub: SinonStub;
+		let processExitStub: SinonStub;
 
-	beforeEach(() => {
-		loggerErrorStub = sinon.stub(logger, "error");
-		processExitStub = sinon.stub(process, "exit");
-		processExitStub.throws(new Error(crashServerThrowMessage));
-	});
+		beforeEach(() => {
+			loggerErrorStub = sinon.stub(logger, "error");
+			processExitStub = sinon.stub(process, "exit");
+			processExitStub.throws(new Error(crashServerThrowMessage));
+		});
 
-	afterEach(() => {
-		loggerErrorStub.restore();
-		processExitStub.restore();
-	});
+		afterEach(() => {
+			loggerErrorStub.restore();
+			processExitStub.restore();
+		});
 
-	function testCrashServerWithMessage(message: unknown) {
-		expect(() => utils.crashServer(message)).to.throw(
-			Error,
-			crashServerThrowMessage
+		function testCrashServerWithMessage(message: unknown) {
+			expect(() => utils.crashServer(message)).to.throw(
+				Error,
+				crashServerThrowMessage
+			);
+			expect(loggerErrorStub.calledWith(message)).to.be.true;
+			expect(processExitStub.calledWith(1)).to.be.true;
+		}
+
+		it(
+			testUtils.createTestMessage.unitSuccessTest(
+				`fn${utils.crashServer}`,
+				"test String Message"
+			),
+			() => {
+				testCrashServerWithMessage("This is a string message");
+			}
 		);
-		expect(loggerErrorStub.calledWith(message)).to.be.true;
-		expect(processExitStub.calledWith(1)).to.be.true;
+
+		it(
+			testUtils.createTestMessage.unitSuccessTest(
+				`fn${utils.crashServer}`,
+				"test Number Message"
+			),
+			() => {
+				testCrashServerWithMessage(12345);
+			}
+		);
+
+		it(
+			testUtils.createTestMessage.unitSuccessTest(
+				`fn${utils.crashServer}`,
+				"test Object Message"
+			),
+			() => {
+				testCrashServerWithMessage({ key: "value" });
+			}
+		);
+
+		it(
+			testUtils.createTestMessage.unitSuccessTest(
+				`fn${utils.crashServer}`,
+				"test Undefined Message"
+			),
+			() => {
+				testCrashServerWithMessage(undefined);
+			}
+		);
+
+		it(
+			testUtils.createTestMessage.unitSuccessTest(
+				`fn${utils.crashServer}`,
+				"test Null Message"
+			),
+			() => {
+				testCrashServerWithMessage(null);
+			}
+		);
+
+		it(
+			testUtils.createTestMessage.unitSuccessTest(
+				`fn${utils.crashServer}`,
+				"test Empty String Message"
+			),
+			() => {
+				testCrashServerWithMessage("");
+			}
+		);
 	}
-
-	it("test_string_message", () => {
-		testCrashServerWithMessage("This is a string message");
-	});
-
-	it("test_number_message", () => {
-		testCrashServerWithMessage(12345);
-	});
-
-	it("test_object_message", () => {
-		testCrashServerWithMessage({ key: "value" });
-	});
-
-	it("test_undefined_message", () => {
-		testCrashServerWithMessage(undefined);
-	});
-
-	it("test_null_message", () => {
-		testCrashServerWithMessage(null);
-	});
-
-	it("test_empty_string_message", () => {
-		testCrashServerWithMessage("");
-	});
-});
+);

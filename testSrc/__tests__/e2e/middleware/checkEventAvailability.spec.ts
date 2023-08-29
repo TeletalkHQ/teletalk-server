@@ -21,9 +21,9 @@ await utils.asyncDescribe(
 		).getClient();
 
 		return () => {
-			const message = utils.createE2EFailTestMessage(
-				"EVENT_NOT_FOUND",
-				"unknownEvent"
+			const message = utils.createTestMessage.unitFailTest(
+				"unknownEvent",
+				"EVENT_NOT_FOUND"
 			);
 
 			it(message, async () => {
@@ -33,9 +33,9 @@ await utils.asyncDescribe(
 			});
 
 			for (const event of mainEvents) {
-				const message = utils.createE2EFailTestMessage(
-					"EVENT_NOT_FOUND",
-					event.name
+				const message = utils.createTestMessage.unitFailTest(
+					event.name,
+					"EVENT_NOT_FOUND"
 				);
 
 				it(message, async () => {

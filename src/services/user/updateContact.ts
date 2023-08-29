@@ -8,7 +8,7 @@ import {
 
 import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
-import { HydratedUser } from "~/types/models";
+import { HydratedUser } from "~/types/model";
 
 import { findOneUser } from "./findOneUser";
 

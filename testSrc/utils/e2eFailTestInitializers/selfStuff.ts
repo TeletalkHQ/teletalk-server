@@ -6,9 +6,9 @@ export const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
 	data
 ) => {
 	it(
-		utils.createE2EFailTestMessage(
-			"SELF_STUFF",
-			configuredRequester.getEventName()
+		utils.createTestMessage.e2eFailTest(
+			configuredRequester.getEventName(),
+			"SELF_STUFF"
 		),
 		async () => {
 			await configuredRequester.sendFullFeaturedRequest(data, "SELF_STUFF");

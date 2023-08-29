@@ -9,11 +9,11 @@ const filteredEvents = events.filter(
 	(i) => !["getStuff", "ping"].includes(i.name)
 );
 
-describe("attachClientStr fail tests", () => {
+describe(utils.createTestMessage.unitFailDescribe("attachClientStr"), () => {
 	for (const event of filteredEvents) {
-		const title = utils.createE2EFailTestMessage(
-			"CLIENT_COOKIE_REQUIRED",
-			event.name
+		const title = utils.createTestMessage.unitFailTest(
+			event.name,
+			"CLIENT_COOKIE_REQUIRED"
 		);
 
 		it(title, async () => {

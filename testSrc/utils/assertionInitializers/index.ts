@@ -19,6 +19,7 @@ import { oneContactWithCellphoneAssertionInitializer } from "./oneContactWithCel
 import { oneContactWithUserIdAssertionInitializer } from "./oneContactWithUserId";
 import { phoneNumberAssertionInitializer } from "./phoneNumber";
 import { privateChatsAssertionInitializer } from "./privateChats";
+import { senderIdAssertionInitializer } from "./senderId";
 import { userDataAssertionInitializer } from "./userData";
 import { userIdAssertionInitializer } from "./userId";
 import { userPublicDataAssertionInitializer } from "./userPublicData";
@@ -47,6 +48,7 @@ export const assertionInitializers = {
 	oneContactWithUserId: oneContactWithUserIdAssertionInitializer,
 	phoneNumber: phoneNumberAssertionInitializer,
 	privateChats: privateChatsAssertionInitializer,
+	senderId: senderIdAssertionInitializer,
 	userData: userDataAssertionInitializer,
 	userId: userIdAssertionInitializer,
 	username: usernameAssertionInitializer,

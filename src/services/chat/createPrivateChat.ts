@@ -2,7 +2,7 @@ import { CreatedAt } from "utility-store/lib/types";
 
 import { models } from "~/models";
 import { PrivateChatService } from "~/types";
-import { HydratedPrivateChat } from "~/types/models";
+import { HydratedPrivateChat } from "~/types/model";
 
 export const createPrivateChat: PrivateChatService<
 	{

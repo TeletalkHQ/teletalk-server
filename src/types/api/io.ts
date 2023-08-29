@@ -28,7 +28,7 @@ import {
 	UserPublicData,
 	WelcomeMessage,
 } from "../datatypes";
-import { NativeModelCollection } from "../models";
+import { NativeModelCollection } from "../model";
 
 export interface CreateNewUserIO {
 	input: FullName;

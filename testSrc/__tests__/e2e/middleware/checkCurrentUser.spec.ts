@@ -9,10 +9,13 @@ const filteredEvents = eventsWithAuth.filter(
 	(i) => i.name !== "verify" && i.name !== "createNewUser"
 );
 
-describe("checkCurrentUser middleware fail tests", () => {
+describe(utils.createTestMessage.unitFailDescribe("checkCurrentUser"), () => {
 	for (const event of filteredEvents) {
 		it(
-			utils.createE2EFailTestMessage("CURRENT_USER_NOT_EXIST", event.name),
+			utils.createTestMessage.unitFailTest(
+				event.name,
+				"CURRENT_USER_NOT_EXIST"
+			),
 			async () => {
 				const wrongUserId = randomMaker.string(models.native.userId.maxLength);
 

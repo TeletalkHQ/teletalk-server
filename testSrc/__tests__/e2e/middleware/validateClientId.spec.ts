@@ -13,7 +13,7 @@ const filteredEvents = events.filter(
 	(i) => !["getStuff", "ping"].includes(i.name)
 );
 
-describe("validateClientId fail tests", () => {
+describe(utils.createTestMessage.unitFailDescribe("validateClientId"), () => {
 	const caller = async (
 		event: SocketEvent,
 		reason: ErrorReason,
@@ -29,9 +29,9 @@ describe("validateClientId fail tests", () => {
 	};
 
 	for (const event of filteredEvents) {
-		const title = utils.createE2EFailTestMessage(
-			"CLIENT_ID_MAX_LENGTH_ERROR",
-			event.name
+		const title = utils.createTestMessage.unitFailTest(
+			event.name,
+			"CLIENT_ID_MAX_LENGTH_ERROR"
 		);
 		it(title, async () => {
 			await caller(
@@ -45,9 +45,9 @@ describe("validateClientId fail tests", () => {
 	}
 
 	for (const event of filteredEvents) {
-		const title = utils.createE2EFailTestMessage(
-			"CLIENT_ID_MIN_LENGTH_ERROR",
-			event.name
+		const title = utils.createTestMessage.unitFailTest(
+			event.name,
+			"CLIENT_ID_MIN_LENGTH_ERROR"
 		);
 		it(title, async () => {
 			await caller(

@@ -7,7 +7,7 @@ import {
 	ValidationErrors,
 	ValidationResult,
 } from "~/types";
-import { Field, NativeModelKey } from "~/types/models";
+import { Field, NativeModelKey } from "~/types/model";
 import { utils } from "~/utils";
 
 export class ValidationChecker {

@@ -3,7 +3,7 @@ import { UserData } from "utility-store/lib/types";
 
 import { StringMap } from "..";
 import { PrivateChatItem, UserId } from "../datatypes";
-import { IPrivateChatDoc, IUserDoc } from "../models";
+import { IPrivateChatDoc, IUserDoc } from "../model";
 
 export type ServiceHandlerExcludeProp = "_id" | "__v";
 export type ServiceHandlerExcludeProps = ServiceHandlerExcludeProp[];

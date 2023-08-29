@@ -8,7 +8,6 @@ import { Socket } from "socket.io-client";
 import { Cellphone, FullName } from "utility-store/lib/types";
 
 import { appConfigs } from "~/classes/AppConfigs";
-import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 import {
 	AddBlockIO,
@@ -40,7 +39,7 @@ import {
 	UpdateUserPublicDataIO,
 	VerifyIO,
 } from "~/types";
-import { Field } from "~/types/models";
+import { Field } from "~/types/model";
 import { utils as mainUtils } from "~/utils";
 import { countries } from "~/variables";
 import { events } from "~/websocket/events";
@@ -48,6 +47,8 @@ import { events } from "~/websocket/events";
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
 import { RequesterMaker, RequesterMakerWrapper } from "@/types";
+
+import { createTestMessage } from "./testMessageCreators";
 
 type DescribeArgs = [title: string, suite: () => () => void];
 type AsyncDescribeArgs = [title: string, suite: () => Promise<() => void>];
@@ -89,19 +90,6 @@ const getWrongCountryCode = (): string => {
 	if (isCountryExist) return getWrongCountryCode();
 
 	return randomCountryCode;
-};
-
-const createE2EFailTestMessage = (
-	reason: ErrorReason,
-	eventName: EventName
-) => {
-	const e = errorStore.find(reason);
-	return `expected error: [event:${eventName}] [side:${e.side}] [reason:${e.reason}]`;
-};
-
-const createUnitFailTestMessage = (reason: ErrorReason) => {
-	const e = errorStore.find(reason);
-	return `expected error: [side:${e.side}] [reason:${e.reason}]`;
 };
 
 function generateDynamicData(schema: IoFields): Record<string, unknown> {
@@ -259,8 +247,6 @@ const requesterCollection = {
 export const utils = {
 	asyncDescribe,
 	asyncJestDescribe,
-	createE2EFailTestMessage,
-	createUnitFailTestMessage,
 	expectToFail_async,
 	generateDynamicData,
 	getWrongCountryCode,
@@ -268,4 +254,5 @@ export const utils = {
 	requesterCollection,
 	requesterMakerHelper,
 	setupRequester,
+	createTestMessage,
 };

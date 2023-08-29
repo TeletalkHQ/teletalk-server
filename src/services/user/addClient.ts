@@ -1,7 +1,7 @@
 import { errorStore } from "~/classes/ErrorStore";
 import { UserService } from "~/types";
 import { ClientId, UserId } from "~/types/datatypes";
-import { HydratedUser } from "~/types/models";
+import { HydratedUser } from "~/types/model";
 
 import { findOneUser } from "./findOneUser";
 

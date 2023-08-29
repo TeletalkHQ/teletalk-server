@@ -1,4 +1,3 @@
-import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
 
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
@@ -31,9 +30,6 @@ export const countryCodeE2eFailTestInitializer: E2eFailTestInitializer = (
 	if (!ignores?.includes("empty")) {
 		initializer
 			.empty()
-			.custom(
-				utils.getWrongCountryCode(),
-				errorStore.find("COUNTRY_CODE_NOT_SUPPORTED")
-			);
+			.custom(utils.getWrongCountryCode(), "COUNTRY_CODE_NOT_SUPPORTED");
 	}
 };

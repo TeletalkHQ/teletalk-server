@@ -10,7 +10,7 @@ import {
 	MessageItem,
 	MessageText,
 } from "~/types/datatypes";
-import { HydratedPrivateChat } from "~/types/models";
+import { HydratedPrivateChat } from "~/types/model";
 
 import { findOneUser } from "../user/findOneUser";
 import { createPrivateChat } from "./createPrivateChat";

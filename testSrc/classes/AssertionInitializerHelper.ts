@@ -22,6 +22,7 @@ import {
 	MessageText,
 	PhoneNumber,
 	PrivateChats,
+	SenderId,
 	UserId,
 	UserPublicData,
 	Username,
@@ -79,6 +80,7 @@ export class AssertionInitializerHelper {
 	);
 	phoneNumber = this.initializer<PhoneNumber>("phoneNumber");
 	privateChats = this.initializer<PrivateChats>("privateChats");
+	senderId = this.initializer<SenderId>("senderId");
 	userData = this.initializer<UserData>("userData");
 	userId = this.initializer<UserId>("userId");
 	username = this.initializer<Username>("username");

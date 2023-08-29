@@ -1,5 +1,3 @@
-import { errorStore } from "~/classes/ErrorStore";
-import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 import { GetUserPublicDataIO, SocketOnHandler } from "~/types";
 
@@ -9,14 +7,11 @@ export const getUserPublicData: SocketOnHandler<GetUserPublicDataIO> = async (
 ) => {
 	const { userId } = data;
 
-	const user = await services.findOneUser({
-		userId,
-	});
-	if (!user) throw errorStore.find("TARGET_USER_NOT_EXIST");
+	const { userPublicData } = await services.getUserPublicData({ userId });
 
 	return {
 		data: {
-			userPublicData: extractor.userPublicData(user),
+			userPublicData,
 		},
 	};
 };

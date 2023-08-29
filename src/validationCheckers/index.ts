@@ -5,7 +5,7 @@ import { errorStore } from "~/classes/ErrorStore";
 import { validationChecker } from "~/classes/ValidationChecker";
 import { nativeModels } from "~/models/native";
 import { ValidationCheckerFn, ValidationCheckerFnCollection } from "~/types";
-import { Field } from "~/types/models";
+import { Field } from "~/types/model";
 import { countries } from "~/variables";
 
 export const validationCheckers = Object.keys(nativeModels).reduce(

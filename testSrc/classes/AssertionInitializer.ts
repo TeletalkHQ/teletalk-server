@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import chai from "chai";
 
-import { NativeModel } from "~/types/models";
+import { NativeModel } from "~/types/model";
 
 import { AssertionInitializerOptions } from "@/types";
 import { FIELD_TYPE } from "@/variables";

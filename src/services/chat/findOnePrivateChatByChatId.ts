@@ -1,5 +1,5 @@
 import { PrivateChatService } from "~/types";
-import { HydratedPrivateChat } from "~/types/models";
+import { HydratedPrivateChat } from "~/types/model";
 
 import { findOnePrivateChat } from "./findOnePrivateChat";
 

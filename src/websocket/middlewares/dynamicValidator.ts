@@ -9,7 +9,7 @@ import {
 	StringMap,
 	ValidationCheckerIgnores,
 } from "~/types";
-import { Field } from "~/types/models";
+import { Field } from "~/types/model";
 import { validationCheckers } from "~/validationCheckers";
 import { validators } from "~/validators";
 

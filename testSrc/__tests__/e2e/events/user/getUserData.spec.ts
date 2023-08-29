@@ -1,30 +1,28 @@
 import { extractor } from "~/classes/Extractor";
-import { services } from "~/services";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe("getUserData success tests", () => {
-	it("should get currentUser data", async () => {
-		const { socket } = await randomMaker.user();
-		const requester = utils.requesterCollection.getUserData(socket);
+describe(utils.createTestMessage.e2eSuccessDescribe("getUserData"), () => {
+	it(
+		utils.createTestMessage.e2eSuccessTest(
+			"getUserData",
+			"should get currentUser data"
+		),
+		async () => {
+			const { socket, user } = await randomMaker.user();
 
-		for (let i = 0; i < 10; i++) {
 			const {
-				data: { user: responseUserData },
-			} = await requester.sendFullFeaturedRequest();
-
-			const user = (await services.findOneUser({
-				userId: responseUserData.userId,
-			}))!;
-
-			const userData = extractor.userData(user);
+				data: { user: receivedUserData },
+			} = await utils.requesterCollection
+				.getUserData(socket)
+				.sendFullFeaturedRequest();
 
 			assertionInitializerHelper().userData({
-				equalValue: userData,
-				testValue: responseUserData,
+				equalValue: extractor.userData(user),
+				testValue: receivedUserData,
 			});
 		}
-	});
+	);
 });

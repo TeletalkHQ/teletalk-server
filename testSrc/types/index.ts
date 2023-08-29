@@ -1,7 +1,7 @@
 import { Socket as ClientSocket } from "socket.io-client";
 
 import { IO, SocketEvent } from "~/types";
-import { NativeModelKey } from "~/types/models";
+import { NativeModelKey } from "~/types/model";
 
 import { Requester } from "@/classes/Requester";
 import { utils } from "@/utils";

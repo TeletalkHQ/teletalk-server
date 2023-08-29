@@ -2,7 +2,7 @@ import Validator, { MessagesType } from "fastest-validator";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { ValidationModel } from "~/types";
-import { Field, NativeModelCollection, NativeModelKey } from "~/types/models";
+import { Field, NativeModelCollection, NativeModelKey } from "~/types/model";
 import { utils } from "~/utils";
 
 type ErrorMessageKey = keyof MessagesType;

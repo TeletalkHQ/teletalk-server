@@ -5,6 +5,7 @@ import { addContactWithUserId } from "./addContactWithUserId";
 import { createNewUser } from "./createNewUser";
 import { findOneUser } from "./findOneUser";
 import { getContacts } from "./getContacts";
+import { getUserPublicData } from "./getUserPublicData";
 import { logout } from "./logout";
 import { removeBlock } from "./removeBlock";
 import { removeContact } from "./removeContact";
@@ -19,6 +20,7 @@ export const userServices = {
 	createNewUser,
 	findOneUser,
 	getContacts,
+	getUserPublicData,
 	logout,
 	removeBlock,
 	removeContact,

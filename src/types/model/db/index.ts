@@ -1,2 +1,2 @@
-export type * from "./privateChat";
-export type * from "./user";
+export * from "./privateChat";
+export * from "./user";

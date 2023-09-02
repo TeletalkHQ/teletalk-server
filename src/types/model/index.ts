@@ -1,27 +1,5 @@
-export type Field =
-	| "bio"
-	| "chatId"
-	| "clientId"
-	| "countryCode"
-	| "countryName"
-	| "createdAt"
-	| "firstName"
-	| "id"
-	| "isActive"
-	| "lastName"
-	| "macAddress"
-	| "messageId"
-	| "messageText"
-	| "participantId"
-	| "phoneNumber"
-	| "senderId"
-	| "targetParticipantId"
-	| "userId"
-	| "username"
-	| "verificationCode";
-
-export type * from "./db";
-export type * from "./native";
+export * from "./db";
+export * from "./native";
 
 // type AllErrorKeys2 = {
 //   bio: SnakeCase<keyof NativeModelCollection["bio"]> extends `required`

@@ -32,8 +32,9 @@ export interface AuthClient extends JWTVerifyResult {
 export type VoidNoArgsFn = () => void;
 export type PromiseVoidNoArgsFn = () => Promise<void>;
 
-export type * from "./api";
-export type * from "./env";
-export type * from "./error";
-export type * from "./service";
-export type * from "./validation";
+export * from "./api";
+export * from "./env";
+export * from "./error";
+export * from "./service";
+export * from "./validation";
+export * from "./model";

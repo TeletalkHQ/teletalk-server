@@ -1,5 +1,4 @@
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -53,26 +52,5 @@ describe(
 					});
 			}
 		);
-	}
-);
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("sendMessage", "event"),
-	async () => {
-		const { requester } = await utils.setupRequester(
-			utils.requesterCollection.sendMessage
-		);
-
-		return () => {
-			const data = {
-				messageText: randomMaker.string(10),
-				targetParticipantId: randomMaker.userId(),
-			};
-
-			e2eFailTestInitializerHelper(requester)
-				.input(data)
-				.targetParticipantId(data)
-				.messageText(data);
-		};
 	}
 );

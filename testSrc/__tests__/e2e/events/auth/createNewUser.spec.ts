@@ -1,5 +1,4 @@
 import { authHelper } from "@/classes/AuthHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -21,26 +20,5 @@ describe(
 				await helper.createComplete();
 			}
 		);
-	}
-);
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("createNewUser", "event"),
-	async () => {
-		const cellphone = randomMaker.unusedCellphone();
-		const helper = authHelper(cellphone);
-		await helper.signIn();
-		await helper.verify();
-		const requester = utils.requesterCollection.createNewUser(
-			helper.getClientSocket()
-		);
-
-		return () => {
-			const fullName = randomMaker.fullName();
-			e2eFailTestInitializerHelper(requester)
-				.input(fullName)
-				.firstName(fullName)
-				.lastName(fullName);
-		};
 	}
 );

@@ -3,7 +3,6 @@ import { FullNameWithUserId } from "utility-store/lib/types";
 import { extractor } from "~/classes/Extractor";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -43,33 +42,5 @@ describe(
 				});
 			}
 		);
-	}
-);
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("updateContact", "event"),
-	async () => {
-		const { requester, user } = await utils.setupRequester(
-			utils.requesterCollection.updateContact
-		);
-
-		return () => {
-			const data = {
-				...randomMaker.fullName(),
-				userId: randomMaker.userId(),
-			};
-
-			const selfStuffData = {
-				...randomMaker.fullName(),
-				userId: user.userId,
-			};
-
-			e2eFailTestInitializerHelper(requester)
-				.input(data)
-				.firstName(data)
-				.lastName(data)
-				.userId(data)
-				.selfStuff(selfStuffData);
-		};
 	}
 );

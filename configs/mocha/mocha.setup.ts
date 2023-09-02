@@ -36,6 +36,7 @@ const registerTests = async () => {
 	// await import("@/__tests__/unit/services/user/getContacts.spec");
 	// await import("@/__tests__/unit/services/user/addBlock.spec");
 	// await import("@/__tests__/unit/services/user/removeBlock.spec");
+	// await import("@/__tests__/e2e/middleware/dynamicValidator.spec");
 };
 
 await registerTests();

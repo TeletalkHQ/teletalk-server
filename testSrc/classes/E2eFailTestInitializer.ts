@@ -1,6 +1,4 @@
 /* eslint-disable indent */
-import { randomMaker } from "utility-store";
-
 import { errorStore } from "~/classes/ErrorStore";
 import { ErrorReason, IO } from "~/types";
 import { Field, FieldType, NativeModel } from "~/types/model";
@@ -10,10 +8,10 @@ import { Requester } from "@/classes/Requester";
 import { RequesterOptions } from "@/types";
 import { utils } from "@/utils";
 
-type Model = Partial<Pick<NativeModel, "minLength" | "maxLength" | "length">>;
+import { randomMaker } from "./RandomMaker";
 
 class E2eFailTestInitializer<
-	PartialNativeModel extends Model,
+	PartialNativeModel extends NativeModel,
 	IOType extends IO,
 > {
 	constructor(
@@ -23,22 +21,50 @@ class E2eFailTestInitializer<
 		private fieldName: Field
 	) {}
 
-	getMinLength() {
+	private getMinLength() {
 		return this.model.minLength as number;
 	}
-	getMaxLength() {
+	private getMaxLength() {
 		return this.model.maxLength as number;
 	}
-	getLength() {
+	private getLength() {
 		return this.model.length as number;
 	}
-	dataMerger(newValue?: any) {
+	private dataMerger(newValue?: any) {
 		return { ...this.data, [this.fieldName]: newValue };
 	}
-	resolveErrorReason(modelPropName: keyof NativeModel) {
+	private resolveErrorReason(modelPropName: keyof NativeModel) {
 		return errorStore.find(
 			mainUtils.makeModelErrorReason(this.fieldName, modelPropName)
 		).reason;
+	}
+
+	automate() {
+		this.invalidType();
+		this.missing();
+		this.overload();
+
+		if (this.model.empty === false) this.empty();
+		if (this.model.maxLength) this.maxLength();
+		if (this.model.minLength) this.minLength();
+		if (this.model.length) this.length();
+		if (this.model.numeric === false) this.numeric();
+
+		if (this.fieldName === "verificationCode") {
+			this.custom(
+				randomMaker.stringNumber(this.model.length!),
+				"VERIFICATION_CODE_INVALID"
+			);
+		}
+		if (this.fieldName === "countryName") {
+			this.custom(
+				randomMaker.string(this.model.maxLength!),
+				"COUNTRY_NAME_NOT_SUPPORTED"
+			);
+		}
+		if (this.fieldName === "countryCode") {
+			this.custom(utils.getWrongCountryCode(), "COUNTRY_CODE_NOT_SUPPORTED");
+		}
 	}
 
 	custom(value: any, errorReason: ErrorReason) {
@@ -97,7 +123,7 @@ class E2eFailTestInitializer<
 		return this;
 	}
 
-	initTest(
+	private initTest(
 		data: any,
 		errorReason: ErrorReason,
 		options?: Partial<RequesterOptions>
@@ -119,7 +145,7 @@ class E2eFailTestInitializer<
 }
 
 export const e2eFailTestInitializer = <
-	PartialNativeModel extends Model,
+	PartialNativeModel extends NativeModel,
 	IOType extends IO,
 >(
 	configuredRequester: Requester<IOType>,

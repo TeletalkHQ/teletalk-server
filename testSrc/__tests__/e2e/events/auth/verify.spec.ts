@@ -1,9 +1,6 @@
 import chai from "chai";
 
-import { models } from "~/models";
-
 import { authHelper } from "@/classes/AuthHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -43,28 +40,3 @@ describe(utils.createTestMessage.e2eSuccessDescribe("verify", "event"), () => {
 		}
 	);
 });
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("verify", "event"),
-	async () => {
-		const cellphone = randomMaker.unusedCellphone();
-		const helper = authHelper(cellphone);
-		await helper.signIn();
-
-		return () => {
-			const requester = utils.requesterCollection.verify(
-				helper.getClientSocket()
-			);
-
-			const data = {
-				verificationCode: randomMaker.string(
-					models.native.verificationCode.length
-				),
-			};
-
-			e2eFailTestInitializerHelper(requester)
-				.input(data)
-				.verificationCode(data);
-		};
-	}
-);

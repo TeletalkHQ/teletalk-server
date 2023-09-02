@@ -1,7 +1,6 @@
 import { FullNameWithUserId } from "utility-store/lib/types";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -35,36 +34,5 @@ describe(
 				});
 			}
 		);
-	}
-);
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("addContactWithUserId", "event"),
-	async () => {
-		const currentUserCellphone = randomMaker.unusedCellphone();
-
-		const { requester, user: currentUser } = await utils.setupRequester(
-			utils.requesterCollection.addContactWithUserId,
-			currentUserCellphone
-		);
-
-		return () => {
-			const contactItemWithUserId: FullNameWithUserId = {
-				...randomMaker.fullName(),
-				userId: randomMaker.userId(),
-			};
-
-			const selfStuffData: FullNameWithUserId = {
-				...randomMaker.fullName(),
-				userId: currentUser.userId,
-			};
-
-			e2eFailTestInitializerHelper(requester)
-				.input(contactItemWithUserId)
-				.firstName(contactItemWithUserId)
-				.lastName(contactItemWithUserId)
-				.userId(contactItemWithUserId)
-				.selfStuff(selfStuffData);
-		};
 	}
 );

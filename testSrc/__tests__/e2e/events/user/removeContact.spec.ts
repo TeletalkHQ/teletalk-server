@@ -1,7 +1,6 @@
 import { extractor } from "~/classes/Extractor";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -38,28 +37,5 @@ describe(
 				});
 			}
 		);
-	}
-);
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("removeContact", "event"),
-	async () => {
-		const { requester, user } = await utils.setupRequester(
-			utils.requesterCollection.removeContact
-		);
-
-		return () => {
-			const selfStuffData = {
-				userId: user.userId,
-			};
-			const data = {
-				userId: randomMaker.userId(),
-			};
-
-			e2eFailTestInitializerHelper(requester)
-				.input(data)
-				.userId(data)
-				.selfStuff(selfStuffData);
-		};
 	}
 );

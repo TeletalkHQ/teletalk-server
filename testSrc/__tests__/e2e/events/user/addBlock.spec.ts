@@ -1,5 +1,4 @@
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -30,27 +29,5 @@ describe(
 				});
 			}
 		);
-	}
-);
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("addBlock", "event"),
-	async () => {
-		const { user: currentUser, requester } = await utils.setupRequester(
-			utils.requesterCollection.addBlock
-		);
-
-		const selfStuffData = {
-			userId: currentUser.userId,
-		};
-
-		return () => {
-			const random = { userId: randomMaker.userId() };
-
-			e2eFailTestInitializerHelper(requester)
-				.input(random)
-				.selfStuff(selfStuffData)
-				.userId(random);
-		};
 	}
 );

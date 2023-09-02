@@ -3,7 +3,6 @@ import {
 	ErrorTypes,
 	NativeError,
 	ValidationCheckerError,
-	ValidationCheckerIgnores,
 	ValidationErrors,
 	ValidationResult,
 } from "~/types";
@@ -18,8 +17,7 @@ export class ValidationChecker {
 	constructor(
 		private validationResult: ValidationResult,
 		private fieldName: Field,
-		private value: unknown,
-		private ignores: ValidationCheckerIgnores = []
+		private value: unknown
 	) {}
 
 	check() {
@@ -34,10 +32,6 @@ export class ValidationChecker {
 			.stringMin()
 			.stringNumeric()
 			.stringLength();
-
-		this.collectedErrors = this.collectedErrors.filter(
-			(item) => !this.ignores.includes(item.reason)
-		);
 
 		if (this.collectedErrors.length) throw this.collectedErrors;
 	}
@@ -108,6 +102,5 @@ const convertErrorTypesToBoolean = (errors: ValidationErrors) => {
 export const validationChecker = (
 	validationResult: ValidationResult,
 	fieldName: Field,
-	value: unknown,
-	ignores?: ValidationCheckerIgnores
-) => new ValidationChecker(validationResult, fieldName, value, ignores);
+	value: unknown
+) => new ValidationChecker(validationResult, fieldName, value);

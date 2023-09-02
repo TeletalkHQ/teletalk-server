@@ -2,7 +2,6 @@ import { extractor } from "~/classes/Extractor";
 import { ContactItemWithCellphone } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -39,35 +38,5 @@ describe(
 				});
 			}
 		);
-	}
-);
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("addContactWithCellphone", "event"),
-	async () => {
-		const currentUserCellphone = randomMaker.unusedCellphone();
-
-		const { requester } = await utils.setupRequester(
-			utils.requesterCollection.addContactWithCellphone,
-			currentUserCellphone
-		);
-
-		return () => {
-			const { userId, ...data } = randomMaker.unusedContact();
-
-			const selfStuffData: ContactItemWithCellphone = {
-				...currentUserCellphone,
-				...randomMaker.fullName(),
-			};
-
-			e2eFailTestInitializerHelper(requester)
-				.input(data)
-				.countryCode(data)
-				.countryName(data)
-				.phoneNumber(data)
-				.firstName(data)
-				.lastName(data)
-				.selfStuff(selfStuffData);
-		};
 	}
 );

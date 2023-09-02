@@ -1,10 +1,8 @@
 import chai from "chai";
 
-import { models } from "~/models";
 import { ParticipantId, ParticipantItem } from "~/types/datatypes";
 
 import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -77,23 +75,6 @@ describe(
 					});
 			}
 		);
-	}
-);
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("getPrivateChat", "event"),
-	async () => {
-		const { requester } = await utils.setupRequester(
-			utils.requesterCollection.getPrivateChat
-		);
-
-		return () => {
-			const data = {
-				chatId: randomMaker.string(models.native.chatId.maxLength),
-			};
-
-			e2eFailTestInitializerHelper(requester).input(data).chatId(data);
-		};
 	}
 );
 

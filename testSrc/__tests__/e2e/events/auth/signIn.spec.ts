@@ -1,8 +1,6 @@
 import { extractor } from "~/classes/Extractor";
 
 import { authHelper } from "@/classes/AuthHelper";
-import { clientInitializer } from "@/classes/ClientInitializer";
-import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHelper";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -36,22 +34,3 @@ describe(utils.createTestMessage.e2eSuccessDescribe("signIn", "event"), () => {
 		}
 	);
 });
-
-await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("signIn", "event"),
-	async () => {
-		const signInCellphone = randomMaker.unusedCellphone();
-		const clientSocket = (
-			await clientInitializer().createComplete()
-		).getClient();
-		const requester = utils.requesterCollection.signIn(clientSocket);
-
-		return () => {
-			e2eFailTestInitializerHelper(requester)
-				.input(signInCellphone)
-				.countryCode(signInCellphone)
-				.countryName(signInCellphone)
-				.phoneNumber(signInCellphone);
-		};
-	}
-);

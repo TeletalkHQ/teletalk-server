@@ -1,7 +1,6 @@
 import { Socket as ClientSocket } from "socket.io-client";
 
 import { IO, SocketEvent } from "~/types";
-import { NativeModelKey } from "~/types/model";
 
 import { Requester } from "@/classes/Requester";
 import { utils } from "@/utils";
@@ -20,12 +19,9 @@ export type RequesterMakerHelper<IOType extends IO> = (
 
 export type RequesterCollection = typeof utils.requesterCollection;
 
-export type E2eFailTestIgnores = NativeModelKey[];
-
 export type E2eFailTestInitializer<IOType extends IO = any> = (
 	configuredRequester: Requester<IOType>,
-	data: Readonly<object>,
-	ignores?: E2eFailTestIgnores
+	data: Readonly<object>
 ) => void;
 
 export type AssertionInitializerOptions = {

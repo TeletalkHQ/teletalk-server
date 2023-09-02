@@ -1,15 +1,25 @@
 import { clientStore } from "~/classes/ClientStore";
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
-import { SocketOnHandler, VerifyIO } from "~/types";
+import { SocketOnHandler, StoredClient, VerifyIO } from "~/types";
 
 export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
-	const client = (await clientStore.find(socket.clientId))!;
+	const client = (await clientStore.find(socket.clientId)) as StoredClient;
 
 	const cellphone = extractor.cellphone(client);
-	const foundUser = await services.findOneUser(cellphone);
-	if (foundUser) {
-		await addClient(foundUser.userId, socket.clientId);
+	const isUserExist = await services.user.isUserExist({
+		cellphone,
+	});
+	if (isUserExist) {
+		const foundUser = await services.user.findByCellphone({
+			cellphone,
+		});
+
+		await services.user.addClient({
+			clientId: socket.clientId,
+			currentUserId: foundUser.userId,
+		});
+
 		clientStore.update(socket.clientId, {
 			...client,
 			userId: foundUser.userId,
@@ -27,11 +37,4 @@ export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
 			newUser: true,
 		},
 	};
-};
-
-const addClient = async (userId: string, clientId: string) => {
-	await services.addClient({
-		clientId,
-		userId,
-	});
 };

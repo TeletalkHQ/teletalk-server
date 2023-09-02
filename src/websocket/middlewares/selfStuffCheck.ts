@@ -38,8 +38,8 @@ const tryBlock = async (
 			targetUserId: data.userId,
 		});
 	} else {
-		const currentUser = (await services.findOneUser({
-			userId: socket.userId,
+		const currentUser = (await services.user.findByUserId({
+			currentUserId: socket.userId,
 		}))!;
 
 		errorThrower(

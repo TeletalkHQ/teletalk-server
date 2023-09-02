@@ -7,50 +7,61 @@ import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe(`${services.createNewUser.name} success tests`, () => {
-	it(
-		utils.createTestMessage.unitSuccessTest(
-			"createNewUser",
-			"should successfully create new user"
-		),
-		async () => {
-			const userData: UserData = {
-				...userUtils.getDefaultUserData(),
-				...randomMaker.unusedContact(),
-			};
-
-			await services.createNewUser({ userData });
-
-			const foundUser = (await services.findOneUser({
-				userId: userData.userId,
-			}))!;
-
-			assertionInitializerHelper().userData({
-				testValue: foundUser,
-				equalValue: userData,
-			});
-		}
-	);
-});
-
-describe(`${services.createNewUser.name} fail tests`, () => {
-	it(
-		utils.createTestMessage.unitFailTest("createNewUser", "CURRENT_USER_EXIST"),
-		async () => {
-			await utils.expectToFail_async(async () => {
-				const userData = {
+describe(
+	utils.createTestMessage.unitSuccessDescribe("createNewUser", "service"),
+	() => {
+		it(
+			utils.createTestMessage.unitSuccessTest(
+				"createNewUser",
+				"service",
+				"should successfully create new user"
+			),
+			async () => {
+				const userData: UserData = {
 					...userUtils.getDefaultUserData(),
 					...randomMaker.unusedContact(),
 				};
 
-				await services.createNewUser({
-					userData,
+				await services.user.createNewUser({ userData });
+
+				const foundUser = await services.user.findByUserId({
+					currentUserId: userData.userId,
 				});
 
-				await services.createNewUser({
-					userData,
+				assertionInitializerHelper().userData({
+					testValue: foundUser,
+					equalValue: userData,
 				});
-			}, "CURRENT_USER_EXIST");
-		}
-	);
-});
+			}
+		);
+	}
+);
+
+describe(
+	utils.createTestMessage.unitFailDescribe("createNewUser", "service"),
+	() => {
+		it(
+			utils.createTestMessage.unitFailTest(
+				"createNewUser",
+				"service",
+				"CURRENT_USER_EXIST"
+			),
+			async () => {
+				await utils.expectToFail_async(async () => {
+					const userData = {
+						...userUtils.getDefaultUserData(),
+						...randomMaker.unusedContact(),
+					};
+
+					await services.user.createNewUser({
+						userData,
+					});
+
+					await services.user.createNewUser({
+						userData,
+					});
+				}, "CURRENT_USER_EXIST");
+			}
+		);
+	}
+);

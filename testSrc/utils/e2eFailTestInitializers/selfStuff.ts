@@ -8,6 +8,7 @@ export const selfStuffE2eFailTestInitializer: E2eFailTestInitializer = (
 	it(
 		utils.createTestMessage.e2eFailTest(
 			configuredRequester.getEventName(),
+			"event",
 			"SELF_STUFF"
 		),
 		async () => {

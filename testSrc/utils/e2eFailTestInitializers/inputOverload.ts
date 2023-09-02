@@ -9,6 +9,7 @@ export const inputOverloadE2eFailTestInitializer: E2eFailTestInitializer = (
 ) => {
 	const message = utils.createTestMessage.e2eFailTest(
 		configuredRequester.getEventName(),
+		"event",
 		"INPUT_FIELDS_OVERLOAD"
 	);
 

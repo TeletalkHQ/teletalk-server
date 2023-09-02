@@ -8,6 +8,10 @@ import { IPrivateChatDoc, IUserDoc } from "../model";
 export type ServiceHandlerExcludeProp = "_id" | "__v";
 export type ServiceHandlerExcludeProps = ServiceHandlerExcludeProp[];
 
+export type ServiceMiddleware<Arg = any> = (
+	arg: Arg & StringMap
+) => void | Promise<void>;
+
 export interface ServiceHandlerOptions {
 	extraExcludeProps: ServiceHandlerExcludeProps;
 	shouldExclude: boolean;
@@ -18,20 +22,21 @@ export type UserDataProjectionType = ProjectionType<UserData>;
 export type PrivateChatDataProjectionType = ProjectionType<PrivateChatItem>;
 
 export type ServiceFn<
-	QueryData = StringMap,
+	Query = StringMap,
+	Return = StringMap,
 	Model = IUserDoc | IPrivateChatDoc,
-	ReturnType = object,
 > = (
-	queryData: QueryData,
-	projection?: ProjectionType<Model>,
-	options?: QueryOptions<Model>
-) => Promise<ReturnType>;
+	queryData: Query,
+	options?: QueryOptions<Model>,
+	projection?: ProjectionType<Model>
+) => Return | Promise<Return>;
 
-export type PrivateChatService<QueryData, ReturnData> = ServiceFn<
-	QueryData,
-	IPrivateChatDoc,
-	ReturnData
->;
+export type PrivateChatServiceQueryData = Partial<PrivateChatItem>;
+
+export type PrivateChatService<
+	Query extends PrivateChatServiceQueryData,
+	ReturnData,
+> = ServiceFn<Query, ReturnData, IPrivateChatDoc>;
 
 export type UserServiceQueryData = Partial<UserData> &
 	Partial<{
@@ -41,6 +46,6 @@ export type UserServiceQueryData = Partial<UserData> &
 	}>;
 
 export type UserService<
-	QueryData extends UserServiceQueryData,
+	Query extends UserServiceQueryData,
 	ReturnData,
-> = ServiceFn<QueryData, IUserDoc, ReturnData>;
+> = ServiceFn<Query, ReturnData, IUserDoc>;

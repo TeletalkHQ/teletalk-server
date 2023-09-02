@@ -4,7 +4,7 @@ import { AddBlockIO, SocketOnHandler } from "~/types";
 export const addBlock: SocketOnHandler<AddBlockIO> = async (socket, data) => {
 	const { userId: currentUserId } = socket;
 
-	await services.addBlock({
+	await services.user.addBlock({
 		targetUserId: data.userId,
 		currentUserId,
 	});

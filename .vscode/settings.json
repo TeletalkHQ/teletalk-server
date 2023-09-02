@@ -89,7 +89,8 @@
 		".editorconfig": true,
 		".mocharc.jsonc": true,
 		".nycrc": true,
-		"renovate.json": true
+		"renovate.json": true,
+		"codecov.yml": true
 	},
 	"jest.autoRun": "off",
 	"jest.coverageFormatter": "GutterFormatter",
@@ -97,7 +98,7 @@
 	"jest.testExplorer": {
 		"showInlineError": true
 	},
-
+	"js/ts.implicitProjectConfig.experimentalDecorators": true,
 	"prettier.configPath": ".prettierrc.json",
 	"prettier.endOfLine": "lf",
 	"prettier.useTabs": false,

@@ -8,6 +8,7 @@ export const inputMissingE2eFailTestInitializer: E2eFailTestInitializer = (
 	it(
 		utils.createTestMessage.e2eFailTest(
 			configuredRequester.getEventName(),
+			"event",
 			"INPUT_FIELDS_MISSING"
 		),
 		async () => {

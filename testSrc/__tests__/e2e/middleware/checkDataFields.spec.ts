@@ -6,7 +6,7 @@ import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
 
 await utils.asyncDescribe(
-	utils.createTestMessage.unitFailDescribe("checkDataFields"),
+	utils.createTestMessage.unitFailDescribe("checkDataFields", "middleware"),
 	async () => {
 		const { socket } = await randomMaker.user();
 
@@ -23,6 +23,7 @@ await utils.asyncDescribe(
 			for (const event of eventsWithInputFieldsExceptAuth) {
 				const title = utils.createTestMessage.unitFailTest(
 					event.name,
+					"middleware",
 					"INPUT_FIELDS_MISSING"
 				);
 

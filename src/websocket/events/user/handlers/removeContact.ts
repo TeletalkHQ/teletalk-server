@@ -7,7 +7,7 @@ export const removeContact: SocketOnHandler<RemoveContactIO> = async (
 ) => {
 	const { userId: currentUserId } = socket;
 
-	await services.removeContact({
+	await services.user.removeContact({
 		currentUserId,
 		targetUserId: data.userId,
 	});

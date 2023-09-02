@@ -6,14 +6,15 @@ export const addContactWithUserId: SocketOnHandler<
 > = async (socket, data) => {
 	const { userId: currentUserId } = socket;
 
-	const { addedContact } = await services.addContactWithUserId({
+	const { newContact } = await services.user.addContactWithUserId({
 		currentUserId,
-		addingContact: data,
+		fullName: data,
+		targetUserId: data.userId,
 	});
 
 	return {
 		data: {
-			addedContact,
+			newContact,
 		},
 	};
 };

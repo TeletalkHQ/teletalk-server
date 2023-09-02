@@ -1,3 +1,4 @@
+import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 import { AddContactWithCellphoneIO, SocketOnHandler } from "~/types";
 
@@ -6,14 +7,15 @@ export const addContactWithCellphone: SocketOnHandler<
 > = async (socket, data) => {
 	const { userId: currentUserId } = socket;
 
-	const { addedContact } = await services.addContactWithCellphone({
+	const { newContact } = await services.user.addContactWithCellphone({
 		currentUserId,
 		addingContact: data,
+		targetCellphone: extractor.cellphone(data),
 	});
 
 	return {
 		data: {
-			addedContact,
+			newContact,
 		},
 	};
 };

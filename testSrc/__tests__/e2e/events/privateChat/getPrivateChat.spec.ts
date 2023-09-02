@@ -8,74 +8,80 @@ import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHe
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe(utils.createTestMessage.e2eSuccessDescribe("getPrivateChat"), () => {
-	it(
-		utils.createTestMessage.e2eSuccessTest(
-			"getPrivateChat",
-			"should get private chats related to client"
-		),
-		async () => {
-			const { socket: currentUserSocket, user: currentUser } =
-				await randomMaker.user();
-			const { user: targetUser } = await randomMaker.user();
+describe(
+	utils.createTestMessage.e2eSuccessDescribe("getPrivateChat", "event"),
+	() => {
+		it(
+			utils.createTestMessage.e2eSuccessTest(
+				"getPrivateChat",
+				"event",
+				"should get private chats related to client"
+			),
+			async () => {
+				const { socket: currentUserSocket, user: currentUser } =
+					await randomMaker.user();
+				const { user: targetUser } = await randomMaker.user();
 
-			const messageText = "Hello! Im messages!";
+				const messageText = "Hello! Im messages!";
 
-			const {
-				data: { chatId },
-			} = await utils.requesterCollection
-				.sendPrivateMessage(currentUserSocket)
-				.sendFullFeaturedRequest({
-					messageText,
-					targetParticipantId: targetUser.userId,
+				const {
+					data: { chatId },
+				} = await utils.requesterCollection
+					.sendMessage(currentUserSocket)
+					.sendFullFeaturedRequest({
+						messageText,
+						targetParticipantId: targetUser.userId,
+					});
+
+				const {
+					data: { privateChat },
+				} = await utils.requesterCollection
+					.getPrivateChat(currentUserSocket)
+					.sendFullFeaturedRequest({
+						chatId,
+					});
+
+				assertionInitializerHelper().chatId({
+					testValue: privateChat.chatId,
+					equalValue: chatId,
 				});
 
-			const {
-				data: { privateChat },
-			} = await utils.requesterCollection
-				.getPrivateChat(currentUserSocket)
-				.sendFullFeaturedRequest({
-					chatId,
-				});
+				chai
+					.expect(
+						isParticipantExist(privateChat.participants, currentUser.userId)
+					)
+					.to.be.equal(true);
+				chai
+					.expect(
+						isParticipantExist(privateChat.participants, targetUser.userId)
+					)
+					.to.be.equal(true);
 
-			assertionInitializerHelper().chatId({
-				testValue: privateChat.chatId,
-				equalValue: chatId,
-			});
-
-			chai
-				.expect(
-					isParticipantExist(privateChat.participants, currentUser.userId)
-				)
-				.to.be.equal(true);
-			chai
-				.expect(isParticipantExist(privateChat.participants, targetUser.userId))
-				.to.be.equal(true);
-
-			const messageItem = privateChat.messages.at(0)!;
-			assertionInitializerHelper()
-				.messageText({
-					equalValue: messageText,
-					testValue: messageItem.messageText,
-				})
-				.messageId(
-					{
-						testValue: messageItem.messageId,
-					},
-					{
-						stringEquality: false,
-					}
-				)
-				.senderId({
-					equalValue: messageItem.sender.senderId,
-					testValue: currentUser.userId,
-				});
-		}
-	);
-});
+				const messageItem = privateChat.messages.at(0)!;
+				assertionInitializerHelper()
+					.messageText({
+						equalValue: messageText,
+						testValue: messageItem.messageText,
+					})
+					.messageId(
+						{
+							testValue: messageItem.messageId,
+						},
+						{
+							stringEquality: false,
+						}
+					)
+					.senderId({
+						equalValue: messageItem.sender.senderId,
+						testValue: currentUser.userId,
+					});
+			}
+		);
+	}
+);
 
 await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("getPrivateChat"),
+	utils.createTestMessage.e2eFailDescribe("getPrivateChat", "event"),
 	async () => {
 		const { requester } = await utils.setupRequester(
 			utils.requesterCollection.getPrivateChat

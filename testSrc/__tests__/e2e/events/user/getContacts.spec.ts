@@ -4,31 +4,35 @@ import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe(utils.createTestMessage.e2eSuccessDescribe("getContacts"), () => {
-	it(
-		utils.createTestMessage.e2eSuccessTest(
-			"getContacts",
-			"should get contacts"
-		),
-		async () => {
-			const { socket } = await randomMaker.user();
+describe(
+	utils.createTestMessage.e2eSuccessDescribe("getContacts", "event"),
+	() => {
+		it(
+			utils.createTestMessage.e2eSuccessTest(
+				"getContacts",
+				"event",
+				"should get contacts"
+			),
+			async () => {
+				const { socket } = await randomMaker.user();
 
-			const { user: targetUser } = await randomMaker.user();
-			const addingContact = extractor.contact(targetUser);
-			await utils.requesterCollection
-				.addContactWithCellphone(socket)
-				.sendFullFeaturedRequest(addingContact);
+				const { user: targetUser } = await randomMaker.user();
+				const addingContact = extractor.contact(targetUser);
+				await utils.requesterCollection
+					.addContactWithCellphone(socket)
+					.sendFullFeaturedRequest(addingContact);
 
-			const {
-				data: { contacts },
-			} = await utils.requesterCollection
-				.getContacts(socket)
-				.sendFullFeaturedRequest();
+				const {
+					data: { contacts },
+				} = await utils.requesterCollection
+					.getContacts(socket)
+					.sendFullFeaturedRequest();
 
-			assertionInitializerHelper().oneContact({
-				testValue: contacts.at(0)!,
-				equalValue: addingContact,
-			});
-		}
-	);
-});
+				assertionInitializerHelper().oneContact({
+					testValue: contacts.at(0)!,
+					equalValue: addingContact,
+				});
+			}
+		);
+	}
+);

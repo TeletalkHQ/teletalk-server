@@ -8,7 +8,10 @@ import { utils as testUtils } from "@/utils";
 const expect = chai.expect;
 
 describe(
-	testUtils.createTestMessage.unitFailDescribe(`fn${utils.crashServer.name}`),
+	testUtils.createTestMessage.unitFailDescribe(
+		`fn${utils.crashServer.name}`,
+		"function"
+	),
 	() => {
 		const crashServerThrowMessage = "process.exit() was called";
 		let loggerErrorStub: SinonStub;
@@ -37,6 +40,7 @@ describe(
 		it(
 			testUtils.createTestMessage.unitSuccessTest(
 				`fn${utils.crashServer}`,
+				"function",
 				"test String Message"
 			),
 			() => {
@@ -47,6 +51,7 @@ describe(
 		it(
 			testUtils.createTestMessage.unitSuccessTest(
 				`fn${utils.crashServer}`,
+				"function",
 				"test Number Message"
 			),
 			() => {
@@ -57,6 +62,7 @@ describe(
 		it(
 			testUtils.createTestMessage.unitSuccessTest(
 				`fn${utils.crashServer}`,
+				"function",
 				"test Object Message"
 			),
 			() => {
@@ -67,6 +73,7 @@ describe(
 		it(
 			testUtils.createTestMessage.unitSuccessTest(
 				`fn${utils.crashServer}`,
+				"function",
 				"test Undefined Message"
 			),
 			() => {
@@ -77,6 +84,7 @@ describe(
 		it(
 			testUtils.createTestMessage.unitSuccessTest(
 				`fn${utils.crashServer}`,
+				"function",
 				"test Null Message"
 			),
 			() => {
@@ -87,6 +95,7 @@ describe(
 		it(
 			testUtils.createTestMessage.unitSuccessTest(
 				`fn${utils.crashServer}`,
+				"function",
 				"test Empty String Message"
 			),
 			() => {

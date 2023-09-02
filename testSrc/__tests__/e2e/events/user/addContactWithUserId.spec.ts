@@ -6,11 +6,12 @@ import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
 describe(
-	utils.createTestMessage.e2eSuccessDescribe("addContactWithUserId"),
+	utils.createTestMessage.e2eSuccessDescribe("addContactWithUserId", "event"),
 	() => {
 		it(
 			utils.createTestMessage.e2eSuccessTest(
 				"addContactWithUserId",
+				"event",
 				"should add users to contacts"
 			),
 			async () => {
@@ -23,13 +24,13 @@ describe(
 				};
 
 				const {
-					data: { addedContact },
+					data: { newContact },
 				} = await utils.requesterCollection
 					.addContactWithUserId(socket)
 					.sendFullFeaturedRequest(sendingData);
 
 				assertionInitializerHelper().oneContactWithUserId({
-					testValue: addedContact,
+					testValue: newContact,
 					equalValue: sendingData,
 				});
 			}
@@ -38,7 +39,7 @@ describe(
 );
 
 await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("addContactWithUserId"),
+	utils.createTestMessage.e2eFailDescribe("addContactWithUserId", "event"),
 	async () => {
 		const currentUserCellphone = randomMaker.unusedCellphone();
 

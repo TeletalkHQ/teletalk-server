@@ -11,23 +11,27 @@ const filteredEvents = events.filter(
 	(i) => !["getStuff", "ping"].includes(i.name)
 );
 
-describe(utils.createTestMessage.unitFailDescribe("verifyClient"), () => {
-	for (const event of filteredEvents) {
-		const title = utils.createTestMessage.unitFailTest(
-			event.name,
-			"CLIENT_INVALID"
-		);
-		it(title, async () => {
-			const ci = clientInitializer();
-			ci.setClient(randomMaker.string(models.native.clientId.maxLength));
-			ci.makeClientCookie();
-			ci.initClient();
-			ci.connect();
+describe(
+	utils.createTestMessage.unitFailDescribe("verifyClient", "middleware"),
+	() => {
+		for (const event of filteredEvents) {
+			const title = utils.createTestMessage.unitFailTest(
+				event.name,
+				"middleware",
+				"CLIENT_INVALID"
+			);
+			it(title, async () => {
+				const ci = clientInitializer();
+				ci.setClient(randomMaker.string(models.native.clientId.maxLength));
+				ci.makeClientCookie();
+				ci.initClient();
+				ci.connect();
 
-			await requesterMaker(
-				ci.getClient(),
-				event as any
-			).sendFullFeaturedRequest({}, "CLIENT_INVALID");
-		});
+				await requesterMaker(
+					ci.getClient(),
+					event as any
+				).sendFullFeaturedRequest({}, "CLIENT_INVALID");
+			});
+		}
 	}
-});
+);

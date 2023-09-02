@@ -23,6 +23,7 @@ await utils.asyncDescribe(
 		return () => {
 			const message = utils.createTestMessage.unitFailTest(
 				"unknownEvent",
+				"middleware",
 				"EVENT_NOT_FOUND"
 			);
 
@@ -35,6 +36,7 @@ await utils.asyncDescribe(
 			for (const event of mainEvents) {
 				const message = utils.createTestMessage.unitFailTest(
 					event.name,
+					"middleware",
 					"EVENT_NOT_FOUND"
 				);
 

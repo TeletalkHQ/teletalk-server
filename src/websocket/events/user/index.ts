@@ -36,7 +36,7 @@ const addContactWithCellphone = builder
 		...fields.collection.fullName,
 	})
 	.outputFields({
-		addedContact: fields.statics.object(fields.collection.contact),
+		newContact: fields.statics.object(fields.collection.contact),
 	})
 	.handler(userHandlers.addContactWithCellphone)
 	.build();
@@ -49,7 +49,7 @@ const addContactWithUserId = builder
 		userId: fields.single.userId,
 	})
 	.outputFields({
-		addedContact: fields.statics.object(fields.collection.contact),
+		newContact: fields.statics.object(fields.collection.contact),
 	})
 	.handler(userHandlers.addContactWithUserId)
 	.build();
@@ -82,9 +82,9 @@ const getUserData = builder
 	.handler(userHandlers.getUserData)
 	.build();
 
-const getUserPublicData = builder
+const getPublicData = builder
 	.create<GetUserPublicDataIO>()
-	.name("getUserPublicData")
+	.name("getPublicData")
 	.inputFields({
 		userId: fields.single.userId,
 	})
@@ -96,7 +96,7 @@ const getUserPublicData = builder
 			username: fields.single.username,
 		}),
 	})
-	.handler(userHandlers.getUserPublicData)
+	.handler(userHandlers.getPublicData)
 	.build();
 
 const removeBlock = builder
@@ -125,9 +125,9 @@ const removeContact = builder
 	.handler(userHandlers.removeContact)
 	.build();
 
-const updateUserPublicData = builder
+const updatePublicData = builder
 	.create<UpdateUserPublicDataIO>()
-	.name("updateUserPublicData")
+	.name("updatePublicData")
 	.inputFields({
 		...fields.collection.fullName,
 		bio: fields.single.bio,
@@ -142,7 +142,7 @@ const updateUserPublicData = builder
 			username: fields.single.username,
 		}),
 	})
-	.handler(userHandlers.updateUserPublicData)
+	.handler(userHandlers.updatePublicData)
 	.build();
 
 export const user = {
@@ -152,11 +152,11 @@ export const user = {
 		addContactWithUserId,
 		updateContact,
 		getContacts,
-		getUserPublicData,
+		getPublicData,
 		getUserData,
 		removeBlock,
 		removeContact,
-		updateUserPublicData,
+		updatePublicData,
 	],
 	handlers: userHandlers,
 };

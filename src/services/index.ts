@@ -1,9 +1,7 @@
-import { chatServices } from "~/services/chat";
-import { commonServices } from "~/services/common";
-import { userServices } from "~/services/user";
+import { chatServices } from "./privateChat/custom";
+import { userServices } from "./user/custom";
 
 export const services = {
-	...chatServices,
-	...commonServices,
-	...userServices,
+	privateChat: chatServices,
+	user: userServices,
 };

@@ -3,38 +3,42 @@ import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHe
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe(utils.createTestMessage.e2eSuccessDescribe("removeBlock"), () => {
-	it(
-		utils.createTestMessage.e2eSuccessTest(
-			"removeBlock",
-			"should remove user from blacklist"
-		),
-		async () => {
-			const { socket } = await randomMaker.user();
-			const { user: targetUser } = await randomMaker.user();
+describe(
+	utils.createTestMessage.e2eSuccessDescribe("removeBlock", "event"),
+	() => {
+		it(
+			utils.createTestMessage.e2eSuccessTest(
+				"removeBlock",
+				"event",
+				"should remove user from blacklist"
+			),
+			async () => {
+				const { socket } = await randomMaker.user();
+				const { user: targetUser } = await randomMaker.user();
 
-			await utils.requesterCollection
-				.addBlock(socket)
-				.sendFullFeaturedRequest({ userId: targetUser.userId });
+				await utils.requesterCollection
+					.addBlock(socket)
+					.sendFullFeaturedRequest({ userId: targetUser.userId });
 
-			const {
-				data: { removedBlock },
-			} = await utils.requesterCollection
-				.removeBlock(socket)
-				.sendFullFeaturedRequest({
-					userId: targetUser.userId,
+				const {
+					data: { removedBlock },
+				} = await utils.requesterCollection
+					.removeBlock(socket)
+					.sendFullFeaturedRequest({
+						userId: targetUser.userId,
+					});
+
+				assertionInitializerHelper().userId({
+					testValue: removedBlock.userId,
+					equalValue: targetUser.userId,
 				});
-
-			assertionInitializerHelper().userId({
-				testValue: removedBlock.userId,
-				equalValue: targetUser.userId,
-			});
-		}
-	);
-});
+			}
+		);
+	}
+);
 
 await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("removeBlock"),
+	utils.createTestMessage.e2eFailDescribe("removeBlock", "event"),
 	async () => {
 		const { requester, user } = await utils.setupRequester(
 			utils.requesterCollection.removeBlock

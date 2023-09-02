@@ -104,6 +104,7 @@ class E2eFailTestInitializer<
 	) {
 		const title = utils.createTestMessage.e2eFailTest(
 			this.configuredRequester.getEventName(),
+			"event",
 			errorReason
 		);
 

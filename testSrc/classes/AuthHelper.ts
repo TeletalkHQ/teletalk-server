@@ -1,7 +1,13 @@
 import { Cellphone, FullName } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
-import { CreateNewUserIO, SignInIO, SocketResponse, VerifyIO } from "~/types";
+import {
+	CreateNewUserIO,
+	SignInIO,
+	SocketResponse,
+	StoredClient,
+	VerifyIO,
+} from "~/types";
 
 import {
 	ClientInitializer,
@@ -38,7 +44,7 @@ class AuthHelper {
 
 	async verify() {
 		const clientId = this.clientInitializer.getClient().clientId;
-		const client = (await clientStore.find(clientId))!;
+		const client = (await clientStore.find(clientId)) as StoredClient;
 
 		this.verifyResponse = await utils.requesterCollection
 			.verify(this.clientSocket)

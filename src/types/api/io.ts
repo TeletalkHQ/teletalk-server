@@ -137,21 +137,21 @@ export interface AddBlockIO {
 export interface AddContactIO {
 	input: ContactItem;
 	output: {
-		addedContact: ContactItem;
+		newContact: ContactItem;
 	};
 }
 
 export interface AddContactWithCellphoneIO {
 	input: ContactItemWithCellphone;
 	output: {
-		addedContact: ContactItem;
+		newContact: ContactItem;
 	};
 }
 
 export interface AddContactWithUserIdIO {
 	input: FullNameWithUserId;
 	output: {
-		addedContact: ContactItem;
+		newContact: ContactItem;
 	};
 }
 

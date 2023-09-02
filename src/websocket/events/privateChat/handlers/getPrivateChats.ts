@@ -4,13 +4,13 @@ import { GetPrivateChatsIO, SocketOnHandler } from "~/types";
 export const getPrivateChats: SocketOnHandler<GetPrivateChatsIO> = async (
 	socket
 ) => {
-	const privateChats = (await services.findPrivateChatsByParticipantId(
-		{
-			participantId: socket.userId,
-		},
-		undefined,
-		{ lean: true }
-	))!;
+	const privateChats = await services.privateChat.findManyByParticipantId({
+		participantId: socket.userId,
+	});
 
-	return { data: { privateChats } };
+	return {
+		data: {
+			privateChats,
+		},
+	};
 };

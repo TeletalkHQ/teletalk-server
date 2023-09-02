@@ -7,43 +7,47 @@ import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHe
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe(utils.createTestMessage.e2eSuccessDescribe("updateContact"), () => {
-	it(
-		utils.createTestMessage.e2eSuccessTest(
-			"updateContact",
-			"should edit users in contacts"
-		),
-		async () => {
-			const { socket } = await randomMaker.user();
-			const { user: targetUser } = await randomMaker.user();
+describe(
+	utils.createTestMessage.e2eSuccessDescribe("updateContact", "event"),
+	() => {
+		it(
+			utils.createTestMessage.e2eSuccessTest(
+				"updateContact",
+				"event",
+				"should edit users in contacts"
+			),
+			async () => {
+				const { socket } = await randomMaker.user();
+				const { user: targetUser } = await randomMaker.user();
 
-			const addingContactData = extractor.contactWithUserId(targetUser);
+				const addingContactData = extractor.contactWithUserId(targetUser);
 
-			await utils.requesterCollection
-				.addContactWithUserId(socket)
-				.sendFullFeaturedRequest(addingContactData);
+				await utils.requesterCollection
+					.addContactWithUserId(socket)
+					.sendFullFeaturedRequest(addingContactData);
 
-			const editingContactData: FullNameWithUserId = {
-				...randomMaker.fullName(),
-				userId: addingContactData.userId,
-			};
+				const editingContactData: FullNameWithUserId = {
+					...randomMaker.fullName(),
+					userId: addingContactData.userId,
+				};
 
-			const {
-				data: { editedContact },
-			} = await utils.requesterCollection
-				.updateContact(socket)
-				.sendFullFeaturedRequest(editingContactData);
+				const {
+					data: { editedContact },
+				} = await utils.requesterCollection
+					.updateContact(socket)
+					.sendFullFeaturedRequest(editingContactData);
 
-			assertionInitializerHelper().oneContactWithUserId({
-				testValue: editedContact,
-				equalValue: editingContactData,
-			});
-		}
-	);
-});
+				assertionInitializerHelper().oneContactWithUserId({
+					testValue: editedContact,
+					equalValue: editingContactData,
+				});
+			}
+		);
+	}
+);
 
 await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("updateContact"),
+	utils.createTestMessage.e2eFailDescribe("updateContact", "event"),
 	async () => {
 		const { requester, user } = await utils.setupRequester(
 			utils.requesterCollection.updateContact

@@ -218,8 +218,8 @@ const requesterCollection = {
 	getPrivateChats: requesterMakerHelper(
 		findEvent<GetPrivateChatsIO>("getPrivateChats")
 	),
-	getUserPublicData: requesterMakerHelper(
-		findEvent<GetUserPublicDataIO>("getUserPublicData")
+	getPublicData: requesterMakerHelper(
+		findEvent<GetUserPublicDataIO>("getPublicData")
 	),
 	getStuff: requesterMakerHelper(findEvent<GetStuffIO>("getStuff")),
 	getUserData: requesterMakerHelper(findEvent<GetUserDataIO>("getUserData")),
@@ -233,12 +233,12 @@ const requesterCollection = {
 	removeContact: requesterMakerHelper(
 		findEvent<RemoveContactIO>("removeContact")
 	),
-	sendPrivateMessage: requesterMakerHelper(
-		findEvent<SendPrivateMessageIO>("sendPrivateMessage")
+	sendMessage: requesterMakerHelper(
+		findEvent<SendPrivateMessageIO>("sendMessage")
 	),
 	signIn: requesterMakerHelper(findEvent<SignInIO>("signIn")),
-	updateUserPublicData: requesterMakerHelper(
-		findEvent<UpdateUserPublicDataIO>("updateUserPublicData")
+	updatePublicData: requesterMakerHelper(
+		findEvent<UpdateUserPublicDataIO>("updatePublicData")
 	),
 	verify: requesterMakerHelper(findEvent<VerifyIO>("verify")),
 	pong: requesterMakerHelper(findEvent<PingIO>("pong")),

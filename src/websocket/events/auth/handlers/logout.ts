@@ -5,9 +5,9 @@ import { LogoutIO, SocketOnHandler } from "~/types";
 export const logout: SocketOnHandler<LogoutIO> = async (socket) => {
 	const { userId } = socket;
 
-	await services.logout({
+	await services.user.logout({
 		clientId: socket.clientId,
-		userId,
+		currentUserId: userId,
 	});
 
 	socket.rooms.clear();

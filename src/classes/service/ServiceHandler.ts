@@ -7,17 +7,13 @@ import {
 	ServiceFn,
 	ServiceHandlerExcludeProps,
 	ServiceHandlerOptions,
+	ServiceMiddleware,
 	StringMap,
-	UserDataProjectionType,
 } from "~/types";
 
 type PartialOptions = Partial<ServiceHandlerOptions>;
 
-export class ServiceHandler<
-	QueryData,
-	ProjectionType,
-	ReturnType extends StringMap,
-> {
+export class ServiceHandler<Query, Return> {
 	private defaultExcludeProps: ServiceHandlerExcludeProps = ["_id", "__v"];
 	private queryResult: StringMap;
 
@@ -28,11 +24,12 @@ export class ServiceHandler<
 	};
 
 	constructor(
-		private serviceBody: ServiceFn<QueryData, ProjectionType, ReturnType>,
-		buildTimeOptions: PartialOptions = {},
-		runtimeOptions: PartialOptions = {}
+		private body: ServiceFn<Query, Return>,
+		private middlewaresBeforeRun: ServiceMiddleware[],
+		private middlewaresAfterRun: ServiceMiddleware[],
+		options: PartialOptions
 	) {
-		this.setOptions({ ...buildTimeOptions, ...runtimeOptions });
+		this.setOptions(options);
 	}
 
 	getOptions() {
@@ -40,6 +37,7 @@ export class ServiceHandler<
 	}
 	setOptions(newOptions: PartialOptions = {}) {
 		this.options = { ...this.getOptions(), ...newOptions };
+		return this;
 	}
 
 	exclude(extraExcludeProps = []) {
@@ -51,13 +49,18 @@ export class ServiceHandler<
 		return this;
 	}
 
-	async run(
-		data: QueryData,
-		projection: UserDataProjectionType,
-		options: QueryOptions
-	) {
-		const queryResult = await this.serviceBody(data, projection, options);
-		this.setQueryResult(queryResult);
+	async run(data: Query, options: QueryOptions = {}) {
+		for (const item of this.middlewaresBeforeRun) {
+			await item(data);
+		}
+
+		const queryResult = await this.body(data, options, options);
+
+		for (const item of this.middlewaresAfterRun) {
+			await item({ ...data, ...queryResult });
+		}
+
+		this.setQueryResult(queryResult as StringMap);
 
 		const { type } = customTypeof.check(queryResult);
 		if (type.isObject || type.isArray) {
@@ -65,7 +68,7 @@ export class ServiceHandler<
 			this.handleExclude();
 		}
 
-		return this.getQueryResult();
+		return this.getQueryResult() as Return;
 	}
 
 	private handleFixQueryResult() {
@@ -80,18 +83,19 @@ export class ServiceHandler<
 		return queryResult;
 	}
 
-	private getQueryResult() {
-		return this.queryResult;
-	}
-	private setQueryResult(queryResult: StringMap) {
-		this.queryResult = queryResult;
-	}
-
 	private handleExclude() {
 		if (this.getOptions().shouldExclude) {
 			const filteredQueryResult = this.excluder();
 			this.setQueryResult(filteredQueryResult);
 		}
+	}
+
+	private getQueryResult() {
+		return this.queryResult;
+	}
+
+	private setQueryResult(queryResult: StringMap) {
+		this.queryResult = queryResult;
 	}
 
 	private excluder() {
@@ -101,14 +105,17 @@ export class ServiceHandler<
 		const excluder = this.getExcluder();
 		return excluder.call(this, excludeProps);
 	}
+
 	private getExcluder() {
 		return customTypeof.isArray(this.getQueryResult())
 			? this.excludeArrayResult
 			: this.excludeObjectResult;
 	}
+
 	private excludeObjectResult(excludeProps: ServiceHandlerExcludeProps) {
 		return objectUtils.excludeProps(this.getQueryResult(), excludeProps);
 	}
+
 	private excludeArrayResult(
 		excludeProps: ServiceHandlerExcludeProps
 	): StringMap[] {
@@ -119,8 +126,13 @@ export class ServiceHandler<
 }
 
 export const serviceHandler =
-	<QueryData, ProjectionType, ReturnType extends StringMap>(
-		serviceBody: ServiceFn<QueryData, ProjectionType, ReturnType>
+	<Query, Return>(
+		serviceBody: ServiceFn<Query, Return>,
+		middlewaresBeforeRun: ServiceMiddleware[],
+		middlewaresAfterRun: ServiceMiddleware[],
+		buildTimeOptions: PartialOptions = {}
 	) =>
-	(runtimeOptions?: PartialOptions) =>
-		new ServiceHandler(serviceBody, runtimeOptions);
+	(data: Query) =>
+		new ServiceHandler(serviceBody, middlewaresBeforeRun, middlewaresAfterRun, {
+			...buildTimeOptions,
+		}).run(data);

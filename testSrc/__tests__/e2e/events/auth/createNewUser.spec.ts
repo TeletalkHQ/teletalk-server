@@ -3,25 +3,29 @@ import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHe
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe(utils.createTestMessage.e2eSuccessDescribe("createNewUser"), () => {
-	it(
-		utils.createTestMessage.e2eSuccessTest(
-			"createNewUser",
-			"should create new user"
-		),
-		async () => {
-			const cellphone = randomMaker.unusedCellphone();
-			const fullName = randomMaker.fullName();
+describe(
+	utils.createTestMessage.e2eSuccessDescribe("createNewUser", "event"),
+	() => {
+		it(
+			utils.createTestMessage.e2eSuccessTest(
+				"createNewUser",
+				"event",
+				"should create new user"
+			),
+			async () => {
+				const cellphone = randomMaker.unusedCellphone();
+				const fullName = randomMaker.fullName();
 
-			const helper = authHelper(cellphone, fullName);
+				const helper = authHelper(cellphone, fullName);
 
-			await helper.createComplete();
-		}
-	);
-});
+				await helper.createComplete();
+			}
+		);
+	}
+);
 
 await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("createNewUser"),
+	utils.createTestMessage.e2eFailDescribe("createNewUser", "event"),
 	async () => {
 		const cellphone = randomMaker.unusedCellphone();
 		const helper = authHelper(cellphone);

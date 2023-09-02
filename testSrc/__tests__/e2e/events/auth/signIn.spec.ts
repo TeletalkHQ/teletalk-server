@@ -6,9 +6,13 @@ import { e2eFailTestInitializerHelper } from "@/classes/E2eFailTestInitializerHe
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
-describe(utils.createTestMessage.e2eSuccessDescribe("signIn"), () => {
+describe(utils.createTestMessage.e2eSuccessDescribe("signIn", "event"), () => {
 	it(
-		utils.createTestMessage.e2eSuccessTest("signIn", "should sign as new user"),
+		utils.createTestMessage.e2eSuccessTest(
+			"signIn",
+			"event",
+			"should sign as new user"
+		),
 		async () => {
 			const cellphone = randomMaker.unusedCellphone();
 			const helper = authHelper(cellphone);
@@ -20,6 +24,7 @@ describe(utils.createTestMessage.e2eSuccessDescribe("signIn"), () => {
 	it(
 		utils.createTestMessage.e2eSuccessTest(
 			"signIn",
+			"event",
 			"should sign as existed user"
 		),
 		async () => {
@@ -33,7 +38,7 @@ describe(utils.createTestMessage.e2eSuccessDescribe("signIn"), () => {
 });
 
 await utils.asyncDescribe(
-	utils.createTestMessage.e2eFailDescribe("signIn"),
+	utils.createTestMessage.e2eFailDescribe("signIn", "event"),
 	async () => {
 		const signInCellphone = randomMaker.unusedCellphone();
 		const clientSocket = (

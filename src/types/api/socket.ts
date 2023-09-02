@@ -13,7 +13,7 @@ export type EventName =
 	| "getCountries"
 	| "getPrivateChat"
 	| "getPrivateChats"
-	| "getUserPublicData"
+	| "getPublicData"
 	| "getStuff"
 	| "getUserData"
 	| "getWelcomeMessage"
@@ -23,10 +23,10 @@ export type EventName =
 	| "pong"
 	| "removeBlock"
 	| "removeContact"
-	| "sendPrivateMessage"
+	| "sendMessage"
 	| "signIn"
 	| "unknownEvent"
-	| "updateUserPublicData"
+	| "updatePublicData"
 	| "verify";
 
 export type IO = {

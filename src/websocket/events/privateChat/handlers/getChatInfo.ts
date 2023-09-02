@@ -6,7 +6,7 @@ export const getChatInfo: SocketOnHandler<GetChatInfoIO> = async (
 	_socket,
 	data
 ) => {
-	const privateChat = await services.findOnePrivateChatByChatId({
+	const privateChat = await services.privateChat.findByChatId({
 		chatId: data.chatId,
 	});
 

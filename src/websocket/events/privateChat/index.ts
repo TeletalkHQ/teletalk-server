@@ -51,10 +51,10 @@ const joinRoom = builder
 	.method("once")
 	.build();
 
-const sendPrivateMessage = builder
+const sendMessage = builder
 	.create<SendPrivateMessageIO>()
-	.handler(privateChatHandlers.sendPrivateMessage)
-	.name("sendPrivateMessage")
+	.handler(privateChatHandlers.sendMessage)
+	.name("sendMessage")
 	.inputFields({
 		messageText: fields.single.messageText,
 		targetParticipantId: fields.single.participantId,
@@ -66,12 +66,6 @@ const sendPrivateMessage = builder
 	.build();
 
 export const privateChat = {
-	events: [
-		getChatInfo,
-		getPrivateChat,
-		getPrivateChats,
-		joinRoom,
-		sendPrivateMessage,
-	],
+	events: [getChatInfo, getPrivateChat, getPrivateChats, joinRoom, sendMessage],
 	handlers: privateChatHandlers,
 };

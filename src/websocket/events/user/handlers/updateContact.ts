@@ -8,7 +8,7 @@ export const updateContact: SocketOnHandler<EditContactIO> = async (
 ) => {
 	const { userId: currentUserId } = socket;
 
-	await services.updateContact({
+	await services.user.updateContact({
 		currentUserId,
 		editValues: extractor.fullName(data),
 		targetUserId: data.userId,

@@ -1,22 +1,17 @@
+import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 import { GetUserDataIO, SocketOnHandler } from "~/types";
 
 export const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
 	const { userId: currentUserId } = socket;
 
-	const { clients, ...userData } = (await services.findOneUser(
-		{
-			userId: currentUserId,
-		},
-		undefined,
-		{
-			lean: true,
-		}
-	))!;
+	const userData = await services.user.findByUserId({
+		currentUserId,
+	});
 
 	return {
 		data: {
-			user: JSON.parse(JSON.stringify(userData)),
+			user: extractor.userData(userData),
 		},
 	};
 };

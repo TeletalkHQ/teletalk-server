@@ -2,85 +2,82 @@
 import { errorStore } from "~/classes/ErrorStore";
 import { services } from "~/services";
 import { ErrorReason, EventName } from "~/types";
-import { events } from "~/websocket/events";
 import { middlewares } from "~/websocket/middlewares";
 
+const mergedServices = { ...services.privateChat, ...services.user } as const;
+
 type MiddlewareName = keyof typeof middlewares;
-type ServiceName = keyof typeof services;
+type ServiceName = keyof typeof mergedServices;
 
-const eventNames = events.map((i) => i.name);
-const middlewareNames = Object.keys(middlewares) as MiddlewareName[];
-const serviceNames = Object.keys(services) as ServiceName[];
+type Name = EventName | MiddlewareName | ServiceName | `fn${string}`;
 
-const createE2ESuccessDescribeMessage = (eventName: EventName) => {
-	return `suite: [type:e2e] [status:success] [event:${eventName}]`;
-};
+type Block = "suite" | "test";
+type Type = "e2e" | "unit";
+type Status = "success" | "failure";
+type Prefix = "event" | "middleware" | "service" | "function";
 
-const createUnitSuccessDescribeMessage = (eventName: EventName) => {
-	return `suite: [type:unit] [status:success] [event:${eventName}]`;
-};
-
-const createE2ESuccessTestMessage = (
-	eventName: EventName,
+const createMessage = (
+	block: Block,
+	type: Type,
+	status: Status,
+	name: Name,
+	prefix: Prefix,
 	description = "not provided"
 ) => {
-	return `test: [type:e2e] [status:success] [event:${eventName}] [description:${description}]`;
+	return `${block}: [type:${type}] [status:${status}] [${prefix}:${name.replace(
+		"fn",
+		""
+	)}] [description:${description}]`;
 };
 
-const createUnitSuccessTestMessage = (
-	name: EventName | MiddlewareName | ServiceName | `fn${string}`,
-	description = "not provided"
-) => {
-	return `test: [type:unit] [status:success] [${getTargetPrefix(
-		name
-	)}:${name}] [description:${description}]`;
-};
+const e2eSuccessDescribe = (name: Name, prefix: Prefix, description?: string) =>
+	createMessage("suite", "e2e", "success", name, prefix, description);
+const e2eFailDescribe = (name: Name, prefix: Prefix, description?: string) =>
+	createMessage("suite", "e2e", "failure", name, prefix, description);
 
-const createE2EFailDescribeMessage = (eventName: EventName) => {
-	return `suite: [type:e2e] [status:failure] [event:${eventName}]`;
-};
+const unitSuccessDescribe = (
+	name: Name,
+	prefix: Prefix,
+	description?: string
+) => createMessage("suite", "unit", "success", name, prefix, description);
+const unitFailDescribe = (name: Name, prefix: Prefix, description?: string) =>
+	createMessage("suite", "unit", "failure", name, prefix, description);
 
-const createUnitFailDescribeMessage = (
-	name: EventName | MiddlewareName | `fn${string}`
-) => {
-	return `suite: [type:unit] [status:failure] [${getTargetPrefix(
-		name
-	)}:${name.replace("fn", "")}]`;
-};
-
-const createE2EFailTestMessage = (name: EventName, reason: ErrorReason) => {
+const e2eSuccessTest = (name: Name, prefix: Prefix, description?: string) =>
+	createMessage("test", "e2e", "success", name, prefix, description);
+const e2eFailTest = (name: Name, prefix: Prefix, reason: ErrorReason) => {
 	const e = errorStore.find(reason);
-	return `test: [type:e2e] [status:failure] [${getTargetPrefix(
-		name
-	)}:${name}] [side:${e.side}] [ expected error reason:${e.reason}]`;
+	return createMessage(
+		"test",
+		"e2e",
+		"failure",
+		name,
+		prefix,
+		`expected error reason is ${e.reason}`
+	);
 };
 
-const createUnitFailTestMessage = (
-	name: EventName | ServiceName,
-	reason: ErrorReason
-) => {
+const unitSuccessTest = (name: Name, prefix: Prefix, description: string) =>
+	createMessage("test", "unit", "success", name, prefix, description);
+const unitFailTest = (name: Name, prefix: Prefix, reason: ErrorReason) => {
 	const e = errorStore.find(reason);
-	return `test: [type:unit] [status:failure] [${getTargetPrefix(
-		name
-	)}:${name}] [side:${e.side}] [expected error reason:${e.reason}]`;
+	return createMessage(
+		"test",
+		"unit",
+		"failure",
+		name,
+		prefix,
+		`expected error reason is ${e.reason}`
+	);
 };
-
-const getTargetPrefix = (name: string) =>
-	eventNames.some((i) => i === name)
-		? "event"
-		: middlewareNames.some((i) => i === name)
-		? "middleware"
-		: serviceNames.some((i) => i === name)
-		? "service"
-		: "function";
 
 export const createTestMessage = {
-	e2eFailDescribe: createE2EFailDescribeMessage,
-	e2eFailTest: createE2EFailTestMessage,
-	e2eSuccessDescribe: createE2ESuccessDescribeMessage,
-	e2eSuccessTest: createE2ESuccessTestMessage,
-	unitFailDescribe: createUnitFailDescribeMessage,
-	unitFailTest: createUnitFailTestMessage,
-	unitSuccessDescribe: createUnitSuccessDescribeMessage,
-	unitSuccessTest: createUnitSuccessTestMessage,
+	e2eFailDescribe,
+	e2eFailTest,
+	e2eSuccessDescribe,
+	e2eSuccessTest,
+	unitFailDescribe,
+	unitFailTest,
+	unitSuccessDescribe,
+	unitSuccessTest,
 };

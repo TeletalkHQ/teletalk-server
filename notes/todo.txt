@@ -28,3 +28,5 @@ TODO: Change logger levels to {priority:number; name:string}
 eslint-plugin-jest
 TODO: Add tests for welcomeMessage
 REFACTOR: Remove unnecessary return values from services
+REFACTOR: Remove selfStuff socket middleware
+TODO: checkDataFields overload tests

@@ -1,6 +1,7 @@
 .dccache
 .nyc_output
 .stryker-tmp
+.history
 /lib
 bin
 build

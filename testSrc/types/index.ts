@@ -25,7 +25,6 @@ export type E2eFailTestInitializer<IOType extends IO = any> = (
 ) => void;
 
 export type AssertionInitializerOptions = {
-	modelCheck: boolean;
 	stringEquality: boolean;
 };
 export interface AssertionInitializerArgs<DataType, TestDataType = DataType> {

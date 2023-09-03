@@ -90,7 +90,8 @@
 		".mocharc.jsonc": true,
 		".nycrc": true,
 		"renovate.json": true,
-		"codecov.yml": true
+		"codecov.yml": true,
+		".history": true
 	},
 	"jest.autoRun": "off",
 	"jest.coverageFormatter": "GutterFormatter",

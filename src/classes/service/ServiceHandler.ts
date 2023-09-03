@@ -64,23 +64,10 @@ export class ServiceHandler<Query, Return> {
 
 		const { type } = customTypeof.check(queryResult);
 		if (type.isObject || type.isArray) {
-			this.handleFixQueryResult();
 			this.handleExclude();
 		}
 
 		return this.getQueryResult() as Return;
-	}
-
-	private handleFixQueryResult() {
-		if (this.getOptions().shouldFixQueryResult) {
-			const fixedQueryResult = this.fixQueryResult(this.getQueryResult());
-			this.setQueryResult(fixedQueryResult);
-		}
-	}
-	private fixQueryResult(queryResult: StringMap) {
-		if (customTypeof.isObjectNative(queryResult))
-			return JSON.parse(JSON.stringify(queryResult));
-		return queryResult;
 	}
 
 	private handleExclude() {

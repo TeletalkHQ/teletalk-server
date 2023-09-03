@@ -17,7 +17,7 @@ describe(
 				const { socket, user: currentUser } = await randomMaker.user();
 
 				const {
-					data: { userPublicData },
+					data: { publicData },
 				} = await utils.requesterCollection
 					.getPublicData(socket)
 					.sendFullFeaturedRequest({
@@ -25,7 +25,7 @@ describe(
 					});
 
 				assertionInitializerHelper().userPublicData({
-					testValue: userPublicData,
+					testValue: publicData,
 					equalValue: extractor.userPublicData(currentUser),
 				});
 			}
@@ -42,7 +42,7 @@ describe(
 				const { user: targetUser } = await randomMaker.user();
 
 				const {
-					data: { userPublicData },
+					data: { publicData },
 				} = await utils.requesterCollection
 					.getPublicData(socket)
 					.sendFullFeaturedRequest({
@@ -50,7 +50,7 @@ describe(
 					});
 
 				assertionInitializerHelper().userPublicData({
-					testValue: userPublicData,
+					testValue: publicData,
 					equalValue: extractor.userPublicData(targetUser),
 				});
 			}

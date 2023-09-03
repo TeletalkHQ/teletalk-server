@@ -17,12 +17,12 @@ describe(
 			async () => {
 				const { user: currentUser } = await randomMaker.user();
 
-				const { userPublicData } = await services.user.getPublicData({
+				const { publicData } = await services.user.getPublicData({
 					targetUserId: currentUser.userId,
 				});
 
 				assertionInitializerHelper().userPublicData({
-					testValue: userPublicData,
+					testValue: publicData,
 					equalValue: extractor.userPublicData(currentUser),
 				});
 			}

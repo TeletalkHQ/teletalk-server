@@ -15,7 +15,6 @@ export type ServiceMiddleware<Arg = any> = (
 export interface ServiceHandlerOptions {
 	extraExcludeProps: ServiceHandlerExcludeProps;
 	shouldExclude: boolean;
-	shouldFixQueryResult: boolean;
 }
 
 export type UserDataProjectionType = ProjectionType<UserData>;

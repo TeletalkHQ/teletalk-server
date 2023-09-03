@@ -40,7 +40,7 @@ describe(
 						targetUserId: item.userId,
 					});
 
-					const contacts = await services.user.getContacts({
+					const { contacts } = await services.user.getContacts({
 						currentUserId: currentUser.userId,
 					});
 

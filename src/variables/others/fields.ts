@@ -70,12 +70,17 @@ const messageItem = {
 	sender,
 };
 
+const client = {
+	clientId,
+};
+
 const participantItem = {
 	participantId,
 };
 
 const blacklist = statics.array(cellphone);
 const contacts = statics.array(contact);
+const clients = statics.array(client);
 const countries = statics.array(country);
 const messages = statics.array(messageItem);
 const participants = statics.array(participantItem);
@@ -137,6 +142,7 @@ const single = {
 const collection = {
 	blacklist,
 	cellphone,
+	clients,
 	contact,
 	contacts,
 	countries,

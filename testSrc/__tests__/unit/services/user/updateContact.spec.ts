@@ -51,7 +51,7 @@ describe(
 						...editValues,
 					};
 
-					const contacts = await services.user.getContacts({
+					const { contacts } = await services.user.getContacts({
 						currentUserId: currentUser.userId,
 					});
 

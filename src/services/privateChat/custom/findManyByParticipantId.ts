@@ -8,15 +8,21 @@ export const findManyByParticipantId = serviceBuilder
 		{
 			participantId: string;
 		},
-		PrivateChats
+		{
+			privateChats: PrivateChats;
+		}
 	>()
-	.setBody((data, options, projection) => {
-		return coreServices.findMany(
+	.setBody(async (data, options, projection) => {
+		const privateChats = await coreServices.findMany(
 			{
 				"participants.participantId": data.participantId,
 			},
 			options,
 			projection
 		);
+
+		return {
+			privateChats,
+		};
 	})
 	.build();

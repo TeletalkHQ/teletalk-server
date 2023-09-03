@@ -7,13 +7,13 @@ export const getPublicData: SocketOnHandler<GetPublicDataIO> = async (
 ) => {
 	const { userId } = data;
 
-	const { userPublicData } = await services.user.getPublicData({
+	const { publicData } = await services.user.getPublicData({
 		targetUserId: userId,
 	});
 
 	return {
 		data: {
-			userPublicData,
+			publicData,
 		},
 	};
 };

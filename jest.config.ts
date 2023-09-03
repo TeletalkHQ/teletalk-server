@@ -32,6 +32,7 @@ let baseOptions: JestConfigWithTsJest = {
 		"<rootDir>/node_modules/",
 		"<rootDir>/lib",
 		"<rootDir>/coverage",
+		"<rootDir>/.history",
 	],
 	testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$",
 	testTimeout: 20000,

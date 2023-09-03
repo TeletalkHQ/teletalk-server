@@ -77,7 +77,10 @@ const getUserData = builder
 	.create<GetUserDataIO>()
 	.name("getUserData")
 	.outputFields({
-		user: fields.statics.object(fields.collection.user),
+		user: fields.statics.object({
+			...fields.collection.user,
+			clients: fields.collection.clients,
+		}),
 	})
 	.handler(userHandlers.getUserData)
 	.build();
@@ -89,7 +92,7 @@ const getPublicData = builder
 		userId: fields.single.userId,
 	})
 	.outputFields({
-		userPublicData: fields.statics.object({
+		publicData: fields.statics.object({
 			...fields.collection.fullName,
 			bio: fields.single.bio,
 			userId: fields.single.userId,
@@ -137,7 +140,6 @@ const updatePublicData = builder
 		userPublicData: fields.statics.object({
 			...fields.collection.fullName,
 			bio: fields.single.bio,
-			status: fields.collection.status,
 			userId: fields.single.userId,
 			username: fields.single.username,
 		}),

@@ -139,7 +139,7 @@ export interface VerificationCode extends NativeModel {
 	trim: true;
 }
 
-export interface ChatId {
+export interface ChatId extends NativeModel {
 	type: "string";
 	required: true;
 	empty: false;
@@ -149,7 +149,7 @@ export interface ChatId {
 	unique: true;
 }
 
-export interface ClientId {
+export interface ClientId extends NativeModel {
 	type: "string";
 	empty: false;
 	required: true;
@@ -159,13 +159,13 @@ export interface ClientId {
 	trim: true;
 }
 
-export interface CreatedAt {
+export interface CreatedAt extends NativeModel {
 	type: "number";
 	required: true;
 	empty: false;
 }
 
-export interface MessageId {
+export interface MessageId extends NativeModel {
 	type: "string";
 	required: true;
 	empty: false;
@@ -175,7 +175,7 @@ export interface MessageId {
 	unique: true;
 }
 
-export interface Id {
+export interface Id extends NativeModel {
 	type: "string";
 	required: true;
 	empty: false;
@@ -187,13 +187,13 @@ export interface Id {
 
 export type UserId = Id;
 
-export interface Messages {
+export interface Messages extends NativeModel {
 	type: "array";
 	required: true;
 	empty: true;
 }
 
-export interface MessageText {
+export interface MessageText extends NativeModel {
 	type: "string";
 	required: true;
 	empty: false;
@@ -202,14 +202,14 @@ export interface MessageText {
 	trim: true;
 }
 
-export interface Participants {
+export interface Participants extends NativeModel {
 	type: "array";
 	required: true;
 	length: 2;
 	empty: false;
 }
 
-export interface PrivateChats {
+export interface PrivateChats extends NativeModel {
 	type: "array";
 	required: true;
 }

@@ -1,6 +1,6 @@
 import { NativeModel } from "~/types/model";
 
-class NativeModelBuilder<T extends Partial<NativeModel>> {
+class NativeModelBuilder<T extends NativeModel> {
 	model: T;
 
 	constructor() {
@@ -68,7 +68,7 @@ class NativeModelBuilder<T extends Partial<NativeModel>> {
 }
 
 const nativeModelBuilder = {
-	create: <T extends Partial<NativeModel>>() => new NativeModelBuilder<T>(),
+	create: <T extends NativeModel>() => new NativeModelBuilder<T>(),
 };
 
 export { nativeModelBuilder };

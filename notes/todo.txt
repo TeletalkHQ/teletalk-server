@@ -17,16 +17,10 @@ Monitor all configs when tests start
 AppSignal
 Mutation test tools
 
-FIXME public assets sharing
 TODO: Add startup requirements check function
-TODO: Create MiddlewareHandler, MiddlewareBuilder
-TODO: new instance for each failTest props
-REFACTOR: Restructure folders, index, and more
 TODO: Update launch script
 TODO: Tan license check, flow check, coverage check
 TODO: Change logger levels to {priority:number; name:string}
 eslint-plugin-jest
 TODO: Add tests for welcomeMessage
-REFACTOR: Remove unnecessary return values from services
 REFACTOR: Remove selfStuff socket middleware
-TODO: checkDataFields overload tests

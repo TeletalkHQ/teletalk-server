@@ -6,9 +6,15 @@ import { HydratedUser } from "~/types/model";
 
 export const getPublicData = serviceBuilder
 	.create<
-		{ targetUserId: UserId },
-		{ publicData: UserPublicData },
-		{ targetUser: HydratedUser }
+		{
+			targetUserId: UserId;
+		},
+		{
+			publicData: UserPublicData;
+		},
+		{
+			targetUser: HydratedUser;
+		}
 	>()
 	.setMiddlewares([serviceMiddlewares.findTargetUser])
 	.setBody(async (data) => {

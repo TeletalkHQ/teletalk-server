@@ -7,7 +7,9 @@ export const logout = serviceBuilder
 	.create<
 		{ currentUserId: UserId; clientId: ClientId },
 		void,
-		{ currentUser: HydratedUser }
+		{
+			currentUser: HydratedUser;
+		}
 	>()
 	.setMiddlewares([serviceMiddlewares.findCurrentUser])
 	.setBody(async (data) => {

@@ -13,7 +13,9 @@ export const updatePublicData = serviceBuilder
 			updateProperties: Partial<UserPublicData>;
 		},
 		UserPublicData,
-		{ currentUser: HydratedUser }
+		{
+			currentUser: HydratedUser;
+		}
 	>()
 	.setMiddlewares([serviceMiddlewares.findCurrentUser])
 	.setBody(async (data) => {

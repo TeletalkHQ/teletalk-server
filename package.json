@@ -76,7 +76,7 @@
 		"socket.io": "^4.7.2",
 		"superjson": "^1.13.1",
 		"underscore": "^1.13.6",
-		"utility-store": "^14.0.2",
+		"utility-store": "^14.0.4",
 		"winston": "^3.10.0",
 		"word-wrap": "^1.2.5"
 	},

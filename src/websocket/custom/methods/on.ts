@@ -41,8 +41,14 @@ async function tryToRunHandler(
 		.try(async () => {
 			const returnValue = (await handler(socket, data)) || { data: {} };
 
-			//REFACTOR: Almost all events need to fix before enabling this feature
-			// tryToCheckOutputFields(socket, eventName, returnValue.data, responseCallback);
+			if (eventName !== "getStuff") {
+				checkOutputFields(
+					socket,
+					eventName,
+					returnValue.data,
+					responseCallback
+				);
+			}
 
 			const response = utils.createSuccessResponse(eventName, returnValue.data);
 
@@ -53,13 +59,13 @@ async function tryToRunHandler(
 		.run();
 }
 
-function _checkOutputFields(
+function checkOutputFields(
 	socket: Socket,
 	eventName: string,
 	outputData: StringMap,
 	responseCallback: ResponseCallback
 ) {
-	trier(_checkOutputFields.name)
+	trier(checkOutputFields.name)
 		.sync()
 		.try(() => {
 			const foundEvent = events.find((item) => item.name === eventName)!;
@@ -69,7 +75,7 @@ function _checkOutputFields(
 				errors.checkField.output
 			);
 		})
-		.catch(catchBlock, socket, responseCallback)
+		.catch(catchBlock, socket, eventName, responseCallback)
 		.run();
 }
 

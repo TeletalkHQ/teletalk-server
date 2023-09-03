@@ -39,9 +39,10 @@ describe(
 
 					addingContacts.push(item);
 
-					const contactsFromService = await services.user.getContacts({
-						currentUserId: currentUser.userId,
-					});
+					const { contacts: contactsFromService } =
+						await services.user.getContacts({
+							currentUserId: currentUser.userId,
+						});
 
 					assertionInitializerHelper().contacts({
 						testValue: contactsFromService,

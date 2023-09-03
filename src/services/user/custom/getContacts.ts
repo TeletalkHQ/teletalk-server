@@ -10,11 +10,15 @@ export const getContacts = serviceBuilder
 		{
 			currentUserId: UserId;
 		},
-		Contacts,
+		{
+			contacts: Contacts;
+		},
 		{ currentUser: HydratedUser }
 	>()
 	.setMiddlewares([serviceMiddlewares.findCurrentUser])
 	.setBody(async (data) => {
-		return data.currentUser.contacts;
+		return {
+			contacts: data.currentUser.contacts,
+		};
 	})
 	.build();

@@ -1,4 +1,3 @@
-import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 import { GetUserDataIO, SocketOnHandler } from "~/types";
 
@@ -11,7 +10,7 @@ export const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
 
 	return {
 		data: {
-			user: extractor.userData(userData),
+			user: userData,
 		},
 	};
 };

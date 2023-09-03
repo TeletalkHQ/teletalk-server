@@ -15,12 +15,11 @@ type PartialOptions = Partial<ServiceHandlerOptions>;
 
 export class ServiceHandler<Query, Return> {
 	private defaultExcludeProps: ServiceHandlerExcludeProps = ["_id", "__v"];
-	private queryResult: StringMap;
+	private queryResult: Return;
 
 	private options: ServiceHandlerOptions = {
 		extraExcludeProps: [],
-		shouldExclude: false,
-		shouldFixQueryResult: true,
+		shouldExclude: true,
 	};
 
 	constructor(
@@ -60,54 +59,38 @@ export class ServiceHandler<Query, Return> {
 			await item({ ...data, ...queryResult });
 		}
 
-		this.setQueryResult(queryResult as StringMap);
+		this.setQueryResult(queryResult);
 
-		const { type } = customTypeof.check(queryResult);
-		if (type.isObject || type.isArray) {
+		if (customTypeof.isObject(this.getQueryResult())) {
+			this.setQueryResult(JSON.parse(JSON.stringify(this.getQueryResult())));
 			this.handleExclude();
 		}
 
 		return this.getQueryResult() as Return;
 	}
 
-	private handleExclude() {
-		if (this.getOptions().shouldExclude) {
-			const filteredQueryResult = this.excluder();
-			this.setQueryResult(filteredQueryResult);
-		}
-	}
-
 	private getQueryResult() {
 		return this.queryResult;
 	}
 
-	private setQueryResult(queryResult: StringMap) {
+	private setQueryResult(queryResult: Return) {
 		this.queryResult = queryResult;
+	}
+
+	private handleExclude() {
+		if (this.getOptions().shouldExclude) {
+			const filteredQueryResult = this.excluder();
+			this.setQueryResult(filteredQueryResult as Return);
+		}
 	}
 
 	private excluder() {
 		const { extraExcludeProps } = this.getOptions();
 		const excludeProps = [...this.defaultExcludeProps, ...extraExcludeProps];
 
-		const excluder = this.getExcluder();
-		return excluder.call(this, excludeProps);
-	}
-
-	private getExcluder() {
-		return customTypeof.isArray(this.getQueryResult())
-			? this.excludeArrayResult
-			: this.excludeObjectResult;
-	}
-
-	private excludeObjectResult(excludeProps: ServiceHandlerExcludeProps) {
-		return objectUtils.excludeProps(this.getQueryResult(), excludeProps);
-	}
-
-	private excludeArrayResult(
-		excludeProps: ServiceHandlerExcludeProps
-	): StringMap[] {
-		return this.getQueryResult().map((qr: StringMap) =>
-			objectUtils.excludeProps(qr, excludeProps)
+		return objectUtils.excludeProps(
+			this.getQueryResult() as StringMap,
+			excludeProps
 		);
 	}
 }

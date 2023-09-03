@@ -126,8 +126,8 @@ dependencies:
     specifier: ^1.13.6
     version: 1.13.6
   utility-store:
-    specifier: ^14.0.2
-    version: 14.0.2
+    specifier: ^14.0.4
+    version: 14.0.4
   winston:
     specifier: ^3.10.0
     version: 3.10.0
@@ -12027,8 +12027,8 @@ packages:
     resolution: {integrity: sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==}
     dev: false
 
-  /utility-store@14.0.2:
-    resolution: {integrity: sha512-fdrNC+37wEtfJgZ6yMD5VFocAPdiVfTJvDomk2YHfFzQLJs7eta/frBkvQ1R0fwJwKtxkoYtiOriOJaB//2N4Q==}
+  /utility-store@14.0.4:
+    resolution: {integrity: sha512-U/BVes/Zpvnllf02iha9ioiWPdaj4PQ5bTfYJfvS7Ehbe8mp5FgUoiCXzgOEGIkC6NLQwe3N71P3jPMDlC24cg==}
     dependencies:
       custom-typeof: 2.0.2
       nanoid: 3.3.6

@@ -7,13 +7,13 @@ import { HydratedUser } from "~/types/model";
 export const getPublicData = serviceBuilder
 	.create<
 		{ targetUserId: UserId },
-		{ userPublicData: UserPublicData },
+		{ publicData: UserPublicData },
 		{ targetUser: HydratedUser }
 	>()
 	.setMiddlewares([serviceMiddlewares.findTargetUser])
 	.setBody(async (data) => {
 		return {
-			userPublicData: extractor.userPublicData(data.targetUser),
+			publicData: extractor.userPublicData(data.targetUser),
 		};
 	})
 	.build();

@@ -186,7 +186,7 @@ export interface GetPublicDataIO extends IO {
 		userId: UserId;
 	};
 	output: {
-		userPublicData: UserPublicData;
+		publicData: UserPublicData;
 	};
 }
 

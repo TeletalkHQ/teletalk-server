@@ -53,22 +53,6 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("getContacts", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"getContacts",
-				"service",
-				"CURRENT_USER_NOT_EXIST"
-			),
-			async () => {
-				await utils.expectToFail_async(async () => {
-					await services.user.getContacts({
-						currentUserId: randomMaker.userId(),
-					});
-				}, "CURRENT_USER_NOT_EXIST");
-			}
-		);
-	}
-);
+await utils.generateServiceFailTest("getContacts", "CURRENT_USER_NOT_EXIST", {
+	currentUserId: randomMaker.userId(),
+});

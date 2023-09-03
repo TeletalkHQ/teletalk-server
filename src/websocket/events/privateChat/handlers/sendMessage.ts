@@ -1,9 +1,9 @@
 import { services } from "~/services";
-import { EventName, SendPrivateMessageIO, SocketOnHandler } from "~/types";
+import { EventName, SendMessageIO, SocketOnHandler } from "~/types";
 import { ChatId, MessageItem } from "~/types/datatypes";
 import { utils } from "~/utils";
 
-export const sendMessage: SocketOnHandler<SendPrivateMessageIO> = async (
+export const sendMessage: SocketOnHandler<SendMessageIO> = async (
 	socket,
 	data
 ) => {

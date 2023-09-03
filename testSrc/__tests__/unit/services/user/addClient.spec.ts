@@ -52,23 +52,7 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("addClient", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"addClient",
-				"service",
-				"CURRENT_USER_NOT_EXIST"
-			),
-			async () => {
-				await utils.expectToFail_async(async () => {
-					await services.user.addClient({
-						currentUserId: randomMaker.userId(),
-						clientId: randomMaker.userId(),
-					});
-				}, "CURRENT_USER_NOT_EXIST");
-			}
-		);
-	}
-);
+await utils.generateServiceFailTest("addClient", "CURRENT_USER_NOT_EXIST", {
+	currentUserId: randomMaker.userId(),
+	clientId: randomMaker.userId(),
+});

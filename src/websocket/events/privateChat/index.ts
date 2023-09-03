@@ -4,7 +4,7 @@ import {
 	GetPrivateChatIO,
 	GetPrivateChatsIO,
 	JoinRoomIO,
-	SendPrivateMessageIO,
+	SendMessageIO,
 } from "~/types";
 import { fields } from "~/variables";
 import { privateChatHandlers } from "~/websocket/events/privateChat/handlers";
@@ -52,7 +52,7 @@ const joinRoom = builder
 	.build();
 
 const sendMessage = builder
-	.create<SendPrivateMessageIO>()
+	.create<SendMessageIO>()
 	.handler(privateChatHandlers.sendMessage)
 	.name("sendMessage")
 	.inputFields({

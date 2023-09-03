@@ -17,7 +17,6 @@ export const removeBlock = serviceBuilder
 	>()
 	.setMiddlewares([
 		serviceMiddlewares.findCurrentUser,
-		serviceMiddlewares.findTargetUser,
 		serviceMiddlewares.throwIfBlacklistItemNotExist,
 	])
 	.setBody(async (data) => {

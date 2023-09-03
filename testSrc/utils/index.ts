@@ -4,50 +4,23 @@
 import { faker } from "@faker-js/faker";
 import chai from "chai";
 import { IoFields } from "check-fields";
-import { Socket } from "socket.io-client";
-import { Cellphone, FullName } from "utility-store/lib/types";
 
 import { appConfigs } from "~/classes/AppConfigs";
 import { models } from "~/models";
-import {
-	AddBlockIO,
-	AddContactWithCellphoneIO,
-	AddContactWithUserIdIO,
-	CreateNewUserIO,
-	EditContactIO,
-	ErrorReason,
-	EventName,
-	GetChatInfoIO,
-	GetContactsIO,
-	GetCountriesIO,
-	GetPrivateChatIO,
-	GetPrivateChatsIO,
-	GetStuffIO,
-	GetUserDataIO,
-	GetUserPublicDataIO,
-	GetWelcomeMessageIO,
-	IO,
-	JoinRoomIO,
-	LogoutIO,
-	NativeError,
-	PingIO,
-	RemoveBlockIO,
-	RemoveContactIO,
-	SendPrivateMessageIO,
-	SignInIO,
-	SocketEvent,
-	UpdateUserPublicDataIO,
-	VerifyIO,
-} from "~/types";
+import { ErrorReason, NativeError } from "~/types";
 import { Field } from "~/types/model";
 import { utils as mainUtils } from "~/utils";
 import { countries } from "~/variables";
-import { events } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
-import { requesterMaker } from "@/classes/Requester";
-import { RequesterMaker, RequesterMakerWrapper } from "@/types";
+import { services } from "@/services";
+import { ServiceName } from "@/types";
 
+import {
+	requesterCollection,
+	requesterMakerHelper,
+	setupRequester,
+} from "./requester";
 import { createTestMessage } from "./testMessageCreators";
 
 type DescribeArgs = [title: string, suite: () => () => void];
@@ -64,19 +37,6 @@ async function asyncDescribe(...args: AsyncDescribeArgs) {
 		mainUtils.crashServer(error);
 	}
 }
-
-const setupRequester = async <IOType extends IO>(
-	requester: RequesterMaker<IOType>,
-	cellphone?: Cellphone,
-	fullName?: FullName
-) => {
-	const { socket, user } = await randomMaker.user(cellphone, fullName);
-	return {
-		requester: requester(socket),
-		user,
-		socket,
-	};
-};
 
 const getWrongCountryCode = (): string => {
 	const randomCountryCode = randomMaker.stringNumber(
@@ -164,17 +124,6 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
 	return data;
 }
 
-const requesterMakerHelper = <IOType extends IO>(
-	event: SocketEvent<IOType>
-) => {
-	return ((socket: Socket) => {
-		return requesterMaker(socket, event);
-	}) as RequesterMakerWrapper<IOType>;
-};
-
-const findEvent = <IOType extends IO>(n: EventName) =>
-	events.find((i) => i.name === n)! as unknown as SocketEvent<IOType>;
-
 const isJestRunning = () => appConfigs.getConfigs().TEST.RUNNER === "JEST";
 
 const jestDescribe = (...args: DescribeArgs) =>
@@ -195,64 +144,48 @@ const expectToFail_async = async (
 	}
 };
 
-const requesterCollection = {
-	addBlock: requesterMakerHelper(findEvent<AddBlockIO>("addBlock")),
-	addContactWithCellphone: requesterMakerHelper(
-		findEvent<AddContactWithCellphoneIO>("addContactWithCellphone")
-	),
-	addContactWithUserId: requesterMakerHelper(
-		findEvent<AddContactWithUserIdIO>("addContactWithUserId")
-	),
-	createNewUser: requesterMakerHelper(
-		findEvent<CreateNewUserIO>("createNewUser")
-	),
-	updateContact: requesterMakerHelper(
-		findEvent<EditContactIO>("updateContact")
-	),
-	getChatInfo: requesterMakerHelper(findEvent<GetChatInfoIO>("getChatInfo")),
-	getContacts: requesterMakerHelper(findEvent<GetContactsIO>("getContacts")),
-	getCountries: requesterMakerHelper(findEvent<GetCountriesIO>("getCountries")),
-	getPrivateChat: requesterMakerHelper(
-		findEvent<GetPrivateChatIO>("getPrivateChat")
-	),
-	getPrivateChats: requesterMakerHelper(
-		findEvent<GetPrivateChatsIO>("getPrivateChats")
-	),
-	getPublicData: requesterMakerHelper(
-		findEvent<GetUserPublicDataIO>("getPublicData")
-	),
-	getStuff: requesterMakerHelper(findEvent<GetStuffIO>("getStuff")),
-	getUserData: requesterMakerHelper(findEvent<GetUserDataIO>("getUserData")),
-	getWelcomeMessage: requesterMakerHelper(
-		findEvent<GetWelcomeMessageIO>("getWelcomeMessage")
-	),
-	joinRoom: requesterMakerHelper(findEvent<JoinRoomIO>("joinRoom")),
-	logout: requesterMakerHelper(findEvent<LogoutIO>("logout")),
-	ping: requesterMakerHelper(findEvent<PingIO>("ping")),
-	removeBlock: requesterMakerHelper(findEvent<RemoveBlockIO>("removeBlock")),
-	removeContact: requesterMakerHelper(
-		findEvent<RemoveContactIO>("removeContact")
-	),
-	sendMessage: requesterMakerHelper(
-		findEvent<SendPrivateMessageIO>("sendMessage")
-	),
-	signIn: requesterMakerHelper(findEvent<SignInIO>("signIn")),
-	updatePublicData: requesterMakerHelper(
-		findEvent<UpdateUserPublicDataIO>("updatePublicData")
-	),
-	verify: requesterMakerHelper(findEvent<VerifyIO>("verify")),
-	pong: requesterMakerHelper(findEvent<PingIO>("pong")),
+const generateServiceFailTest = async <T extends ServiceName>(
+	serviceName: T,
+	errorReason: ErrorReason,
+	arg:
+		| Parameters<(typeof services)[T]>[0]
+		| (() =>
+				| Parameters<(typeof services)[T]>[0]
+				| Promise<Parameters<(typeof services)[T]>[0]>)
+) => {
+	await asyncDescribe(
+		utils.createTestMessage.unitFailDescribe(serviceName, "service"),
+		async () => {
+			return () => {
+				it(
+					utils.createTestMessage.unitFailTest(
+						serviceName,
+						"service",
+						errorReason
+					),
+					async () => {
+						await utils.expectToFail_async(async () => {
+							const data = typeof arg === "function" ? await arg() : arg;
+
+							await services[serviceName](data as any);
+						}, errorReason);
+					}
+				);
+			};
+		}
+	);
 };
 
 export const utils = {
 	asyncDescribe,
 	asyncJestDescribe,
+	createTestMessage,
 	expectToFail_async,
 	generateDynamicData,
+	generateServiceFailTest,
 	getWrongCountryCode,
 	jestDescribe,
 	requesterCollection,
 	requesterMakerHelper,
 	setupRequester,
-	createTestMessage,
 };

@@ -56,42 +56,20 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("removeBlock", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"removeBlock",
-				"service",
-				"BLACKLIST_ITEM_NOT_EXIST"
-			),
-			async () => {
-				const { user: currentUser } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+await utils.generateServiceFailTest("removeBlock", "CURRENT_USER_NOT_EXIST", {
+	currentUserId: randomMaker.userId(),
+	targetUserId: randomMaker.userId(),
+});
 
-				await utils.expectToFail_async(async () => {
-					await services.user.removeBlock({
-						currentUserId: currentUser.userId,
-						targetUserId: targetUser.userId,
-					});
-				}, "BLACKLIST_ITEM_NOT_EXIST");
-			}
-		);
+await utils.generateServiceFailTest(
+	"removeBlock",
+	"BLACKLIST_ITEM_NOT_EXIST",
+	async () => {
+		const { user: currentUser } = await randomMaker.user();
 
-		it(
-			utils.createTestMessage.unitFailTest(
-				"removeBlock",
-				"service",
-				"CURRENT_USER_NOT_EXIST"
-			),
-			async () => {
-				await utils.expectToFail_async(async () => {
-					await services.user.removeBlock({
-						currentUserId: randomMaker.userId(),
-						targetUserId: randomMaker.userId(),
-					});
-				}, "CURRENT_USER_NOT_EXIST");
-			}
-		);
+		return {
+			currentUserId: currentUser.userId,
+			targetUserId: randomMaker.userId(),
+		};
 	}
 );

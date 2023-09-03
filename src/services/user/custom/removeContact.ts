@@ -11,11 +11,12 @@ export const removeContact = serviceBuilder
 			targetUserId: UserId;
 		},
 		void,
-		{ currentUser: HydratedUser }
+		{
+			currentUser: HydratedUser;
+		}
 	>()
 	.setMiddlewares([
 		serviceMiddlewares.findCurrentUser,
-		serviceMiddlewares.findTargetUser,
 		serviceMiddlewares.throwIfContactNotExist,
 	])
 	.setBody(async (data) => {

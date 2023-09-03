@@ -54,81 +54,52 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe(
-		"addContactWithCellphone",
-		"service"
-	),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"addContactWithCellphone",
-				"service",
-				"CONTACT_ITEM_EXIST"
-			),
-			async () => {
-				const { user: currentUser } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+await utils.generateServiceFailTest(
+	"addContactWithCellphone",
+	"CURRENT_USER_NOT_EXIST",
+	{
+		currentUserId: randomMaker.userId(),
+		addingContact: randomMaker.contactWithCellphone(),
+		targetCellphone: randomMaker.contactWithCellphone(),
+	}
+);
 
-				const targetContact: ContactItemWithCellphone = {
-					...extractor.cellphone(targetUser),
-					...randomMaker.fullName(),
-				};
+await utils.generateServiceFailTest(
+	"addContactWithCellphone",
+	"TARGET_USER_NOT_EXIST",
+	async () => {
+		const { user: currentUser } = await randomMaker.user();
 
-				await services.user.addContactWithCellphone({
-					currentUserId: currentUser.userId,
-					addingContact: targetContact,
-					targetCellphone: targetContact,
-				});
+		return {
+			currentUserId: currentUser.userId,
+			addingContact: randomMaker.contactWithCellphone(),
+			targetCellphone: randomMaker.contactWithCellphone(),
+		};
+	}
+);
 
-				await utils.expectToFail_async(async () => {
-					await services.user.addContactWithCellphone({
-						currentUserId: currentUser.userId,
-						addingContact: targetContact,
-						targetCellphone: targetContact,
-					});
-				}, "CONTACT_ITEM_EXIST");
-			}
-		);
+await utils.generateServiceFailTest(
+	"addContactWithCellphone",
+	"CONTACT_ITEM_EXIST",
+	async () => {
+		const { user: currentUser } = await randomMaker.user();
+		const { user: targetUser } = await randomMaker.user();
 
-		it(
-			utils.createTestMessage.unitFailTest(
-				"addContactWithCellphone",
-				"service",
-				"TARGET_USER_NOT_EXIST"
-			),
-			async () => {
-				const { user: currentUser } = await randomMaker.user();
+		const targetContact: ContactItemWithCellphone = {
+			...extractor.cellphone(targetUser),
+			...randomMaker.fullName(),
+		};
 
-				const targetContact = randomMaker.contactWithCellphone();
+		await services.user.addContactWithCellphone({
+			currentUserId: currentUser.userId,
+			addingContact: targetContact,
+			targetCellphone: targetContact,
+		});
 
-				await utils.expectToFail_async(async () => {
-					await services.user.addContactWithCellphone({
-						currentUserId: currentUser.userId,
-						addingContact: targetContact,
-						targetCellphone: targetContact,
-					});
-				}, "TARGET_USER_NOT_EXIST");
-			}
-		);
-
-		it(
-			utils.createTestMessage.unitFailTest(
-				"addContactWithCellphone",
-				"service",
-				"CURRENT_USER_NOT_EXIST"
-			),
-			async () => {
-				const targetContact = randomMaker.contactWithCellphone();
-
-				await utils.expectToFail_async(async () => {
-					await services.user.addContactWithCellphone({
-						currentUserId: randomMaker.userId(),
-						addingContact: targetContact,
-						targetCellphone: targetContact,
-					});
-				}, "CURRENT_USER_NOT_EXIST");
-			}
-		);
+		return {
+			currentUserId: currentUser.userId,
+			addingContact: targetContact,
+			targetCellphone: targetContact,
+		};
 	}
 );

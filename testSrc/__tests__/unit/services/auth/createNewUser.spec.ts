@@ -37,31 +37,21 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("createNewUser", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"createNewUser",
-				"service",
-				"CURRENT_USER_EXIST"
-			),
-			async () => {
-				await utils.expectToFail_async(async () => {
-					const userData = {
-						...userUtils.getDefaultUserData(),
-						...randomMaker.unusedContact(),
-					};
+await utils.generateServiceFailTest(
+	"createNewUser",
+	"CURRENT_USER_EXIST",
+	async () => {
+		const userData = {
+			...userUtils.getDefaultUserData(),
+			...randomMaker.unusedContact(),
+		};
 
-					await services.user.createNewUser({
-						userData,
-					});
+		await services.user.createNewUser({
+			userData,
+		});
 
-					await services.user.createNewUser({
-						userData,
-					});
-				}, "CURRENT_USER_EXIST");
-			}
-		);
+		return {
+			userData,
+		};
 	}
 );

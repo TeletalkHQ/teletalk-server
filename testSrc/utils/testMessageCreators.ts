@@ -1,13 +1,8 @@
 /* eslint-disable indent */
 import { errorStore } from "~/classes/ErrorStore";
-import { services } from "~/services";
 import { ErrorReason, EventName } from "~/types";
-import { middlewares } from "~/websocket/middlewares";
 
-const mergedServices = { ...services.privateChat, ...services.user } as const;
-
-type MiddlewareName = keyof typeof middlewares;
-type ServiceName = keyof typeof mergedServices;
+import { MiddlewareName, ServiceName } from "@/types";
 
 type Name = EventName | MiddlewareName | ServiceName | `fn${string}`;
 

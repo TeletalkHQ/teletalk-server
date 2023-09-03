@@ -3,13 +3,13 @@ import {
 	AddBlockIO,
 	AddContactWithCellphoneIO,
 	AddContactWithUserIdIO,
-	EditContactIO,
 	GetContactsIO,
+	GetPublicDataIO,
 	GetUserDataIO,
-	GetUserPublicDataIO,
 	RemoveBlockIO,
 	RemoveContactIO,
-	UpdateUserPublicDataIO,
+	UpdateContactIO,
+	UpdatePublicDataIO,
 } from "~/types";
 import { fields } from "~/variables";
 import { userHandlers } from "~/websocket/events/user/handlers";
@@ -55,7 +55,7 @@ const addContactWithUserId = builder
 	.build();
 
 const updateContact = builder
-	.create<EditContactIO>()
+	.create<UpdateContactIO>()
 	.name("updateContact")
 	.inputFields(fields.collection.FullNameWithUserId)
 	.outputFields({
@@ -83,7 +83,7 @@ const getUserData = builder
 	.build();
 
 const getPublicData = builder
-	.create<GetUserPublicDataIO>()
+	.create<GetPublicDataIO>()
 	.name("getPublicData")
 	.inputFields({
 		userId: fields.single.userId,
@@ -126,7 +126,7 @@ const removeContact = builder
 	.build();
 
 const updatePublicData = builder
-	.create<UpdateUserPublicDataIO>()
+	.create<UpdatePublicDataIO>()
 	.name("updatePublicData")
 	.inputFields({
 		...fields.collection.fullName,

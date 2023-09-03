@@ -112,7 +112,7 @@ export class ValidationModelBuilder<
 	}
 }
 
-export const validationModelBuilder = function vmb<
+export const validationModelBuilder = function <
 	F extends Field,
 	Model extends NativeModelCollection[F],
 >(fieldName: F) {

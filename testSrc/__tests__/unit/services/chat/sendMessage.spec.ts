@@ -72,43 +72,22 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("sendMessage", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"sendMessage",
-				"service",
-				"TARGET_USER_NOT_EXIST"
-			),
-			async () => {
-				const { user: currentUser } = await randomMaker.user();
+await utils.generateServiceFailTest("sendMessage", "CURRENT_USER_NOT_EXIST", {
+	currentUserId: randomMaker.userId(),
+	messageText: randomMaker.messageText(),
+	targetParticipantId: randomMaker.userId(),
+});
 
-				await utils.expectToFail_async(async () => {
-					await services.privateChat.sendMessage({
-						currentUserId: currentUser.userId,
-						messageText: randomMaker.messageText(),
-						targetParticipantId: randomMaker.userId(),
-					});
-				}, "TARGET_USER_NOT_EXIST");
-			}
-		);
+await utils.generateServiceFailTest(
+	"sendMessage",
+	"TARGET_USER_NOT_EXIST",
+	async () => {
+		const { user: currentUser } = await randomMaker.user();
 
-		it(
-			utils.createTestMessage.unitFailTest(
-				"sendMessage",
-				"service",
-				"CURRENT_USER_NOT_EXIST"
-			),
-			async () => {
-				await utils.expectToFail_async(async () => {
-					await services.privateChat.sendMessage({
-						currentUserId: randomMaker.userId(),
-						messageText: randomMaker.messageText(),
-						targetParticipantId: randomMaker.userId(),
-					});
-				}, "CURRENT_USER_NOT_EXIST");
-			}
-		);
+		return {
+			currentUserId: currentUser.userId,
+			messageText: randomMaker.messageText(),
+			targetParticipantId: randomMaker.userId(),
+		};
 	}
 );

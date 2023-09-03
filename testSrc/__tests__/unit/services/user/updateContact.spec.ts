@@ -65,42 +65,22 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("updateContact", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"updateContact",
-				"service",
-				"CONTACT_ITEM_NOT_EXIST"
-			),
-			async () => {
-				const { user: currentUser } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+await utils.generateServiceFailTest("updateContact", "CURRENT_USER_NOT_EXIST", {
+	currentUserId: randomMaker.userId(),
+	editValues: randomMaker.fullName(),
+	targetUserId: randomMaker.userId(),
+});
 
-				await utils.expectToFail_async(async () => {
-					await services.user.removeContact({
-						currentUserId: currentUser.userId,
-						targetUserId: targetUser.userId,
-					});
-				}, "CONTACT_ITEM_NOT_EXIST");
-			}
-		);
+await utils.generateServiceFailTest(
+	"updateContact",
+	"CONTACT_ITEM_NOT_EXIST",
+	async () => {
+		const { user: currentUser } = await randomMaker.user();
 
-		it(
-			utils.createTestMessage.unitFailTest(
-				"updateContact",
-				"service",
-				"CURRENT_USER_NOT_EXIST"
-			),
-			async () => {
-				await utils.expectToFail_async(async () => {
-					await services.user.removeContact({
-						currentUserId: randomMaker.userId(),
-						targetUserId: randomMaker.userId(),
-					});
-				}, "CURRENT_USER_NOT_EXIST");
-			}
-		);
+		return {
+			currentUserId: currentUser.userId,
+			editValues: randomMaker.fullName(),
+			targetUserId: randomMaker.userId(),
+		};
 	}
 );

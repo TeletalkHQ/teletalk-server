@@ -1,7 +1,7 @@
 import { services } from "~/services";
-import { SocketOnHandler, UpdateUserPublicDataIO } from "~/types";
+import { SocketOnHandler, UpdatePublicDataIO } from "~/types";
 
-export const updatePublicData: SocketOnHandler<UpdateUserPublicDataIO> = async (
+export const updatePublicData: SocketOnHandler<UpdatePublicDataIO> = async (
 	socket,
 	data
 ) => {

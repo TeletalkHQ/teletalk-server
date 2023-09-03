@@ -1,8 +1,8 @@
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
-import { EditContactIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler, UpdateContactIO } from "~/types";
 
-export const updateContact: SocketOnHandler<EditContactIO> = async (
+export const updateContact: SocketOnHandler<UpdateContactIO> = async (
 	socket,
 	data
 ) => {

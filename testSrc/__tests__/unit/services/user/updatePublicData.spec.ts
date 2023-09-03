@@ -45,23 +45,11 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("updatePublicData", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"updatePublicData",
-				"service",
-				"CURRENT_USER_NOT_EXIST"
-			),
-			async () => {
-				await utils.expectToFail_async(async () => {
-					await services.user.updatePublicData({
-						currentUserId: randomMaker.userId(),
-						updateProperties: randomMaker.userPublicData(),
-					});
-				}, "CURRENT_USER_NOT_EXIST");
-			}
-		);
+await utils.generateServiceFailTest(
+	"updatePublicData",
+	"CURRENT_USER_NOT_EXIST",
+	{
+		currentUserId: randomMaker.userId(),
+		updateProperties: randomMaker.userPublicData(),
 	}
 );

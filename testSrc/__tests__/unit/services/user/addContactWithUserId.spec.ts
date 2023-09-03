@@ -54,78 +54,52 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("addContactWithUserId", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"addContactWithUserId",
-				"service",
-				"CONTACT_ITEM_EXIST"
-			),
-			async () => {
-				const { user: currentUser } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+await utils.generateServiceFailTest(
+	"addContactWithUserId",
+	"CONTACT_ITEM_EXIST",
+	async () => {
+		const { user: currentUser } = await randomMaker.user();
+		const { user: targetUser } = await randomMaker.user();
 
-				const targetContact: FullNameWithUserId = {
-					...randomMaker.fullName(),
-					userId: targetUser.userId,
-				};
+		const targetContact: FullNameWithUserId = {
+			...randomMaker.fullName(),
+			userId: targetUser.userId,
+		};
 
-				await services.user.addContactWithUserId({
-					currentUserId: currentUser.userId,
-					fullName: targetContact,
-					targetUserId: targetContact.userId,
-				});
+		await services.user.addContactWithUserId({
+			currentUserId: currentUser.userId,
+			fullName: targetContact,
+			targetUserId: targetContact.userId,
+		});
 
-				await utils.expectToFail_async(async () => {
-					await services.user.addContactWithUserId({
-						currentUserId: currentUser.userId,
-						fullName: targetContact,
-						targetUserId: targetContact.userId,
-					});
-				}, "CONTACT_ITEM_EXIST");
-			}
-		);
+		return {
+			currentUserId: currentUser.userId,
+			fullName: targetContact,
+			targetUserId: targetUser.userId,
+		};
+	}
+);
 
-		it(
-			utils.createTestMessage.unitFailTest(
-				"addContactWithUserId",
-				"service",
-				"TARGET_USER_NOT_EXIST"
-			),
-			async () => {
-				const { user: currentUser } = await randomMaker.user();
+await utils.generateServiceFailTest(
+	"addContactWithUserId",
+	"CURRENT_USER_NOT_EXIST",
+	{
+		currentUserId: randomMaker.userId(),
+		fullName: randomMaker.fullName(),
+		targetUserId: randomMaker.userId(),
+	}
+);
 
-				const targetContact = randomMaker.fullName();
+await utils.generateServiceFailTest(
+	"addContactWithUserId",
+	"TARGET_USER_NOT_EXIST",
+	async () => {
+		const { user: currentUser } = await randomMaker.user();
 
-				await utils.expectToFail_async(async () => {
-					await services.user.addContactWithUserId({
-						currentUserId: currentUser.userId,
-						fullName: targetContact,
-						targetUserId: randomMaker.userId(),
-					});
-				}, "TARGET_USER_NOT_EXIST");
-			}
-		);
-
-		it(
-			utils.createTestMessage.unitFailTest(
-				"addContactWithUserId",
-				"service",
-				"CURRENT_USER_NOT_EXIST"
-			),
-			async () => {
-				const targetContact = randomMaker.fullName();
-
-				await utils.expectToFail_async(async () => {
-					await services.user.addContactWithUserId({
-						currentUserId: randomMaker.userId(),
-						fullName: targetContact,
-						targetUserId: randomMaker.userId(),
-					});
-				}, "CURRENT_USER_NOT_EXIST");
-			}
-		);
+		return {
+			currentUserId: currentUser.userId,
+			fullName: randomMaker.fullName(),
+			targetUserId: randomMaker.userId(),
+		};
 	}
 );

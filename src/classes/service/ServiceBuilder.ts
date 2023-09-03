@@ -2,8 +2,8 @@ import { ServiceFn, ServiceMiddleware, StringMap } from "~/types";
 
 import { serviceHandler } from "./ServiceHandler";
 
-export class ServiceBuilder<Query, Return, MiddlewareData> {
-	private body: ServiceFn<Query & MiddlewareData, Return>;
+export class ServiceBuilder<Query, Return, MiddlewareQueryData> {
+	private body: ServiceFn<Query & MiddlewareQueryData, Return>;
 	private middlewaresBeforeRun: ServiceMiddleware[] = [];
 	private middlewaresAfterRun: ServiceMiddleware[] = [];
 
@@ -16,7 +16,7 @@ export class ServiceBuilder<Query, Return, MiddlewareData> {
 		return this;
 	}
 
-	setBody(callback: ServiceFn<Query & MiddlewareData, Return>) {
+	setBody(callback: ServiceFn<Query & MiddlewareQueryData, Return>) {
 		this.body = callback;
 		return this;
 	}
@@ -31,6 +31,6 @@ export class ServiceBuilder<Query, Return, MiddlewareData> {
 }
 
 export const serviceBuilder = {
-	create: <Query, Return, MiddlewareData = StringMap>() =>
-		new ServiceBuilder<Query, Return, MiddlewareData>(),
+	create: <Query, Return, MiddlewareQueryData = StringMap>() =>
+		new ServiceBuilder<Query, Return, MiddlewareQueryData>(),
 };

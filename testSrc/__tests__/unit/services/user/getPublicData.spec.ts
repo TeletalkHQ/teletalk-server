@@ -30,22 +30,6 @@ describe(
 	}
 );
 
-describe(
-	utils.createTestMessage.unitFailDescribe("getPublicData", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitFailTest(
-				"getPublicData",
-				"service",
-				"TARGET_USER_NOT_EXIST"
-			),
-			async () => {
-				await utils.expectToFail_async(async () => {
-					await services.user.getPublicData({
-						targetUserId: randomMaker.userId(),
-					});
-				}, "TARGET_USER_NOT_EXIST");
-			}
-		);
-	}
-);
+await utils.generateServiceFailTest("getPublicData", "TARGET_USER_NOT_EXIST", {
+	targetUserId: randomMaker.userId(),
+});

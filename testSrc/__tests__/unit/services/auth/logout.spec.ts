@@ -53,20 +53,7 @@ describe(
 	}
 );
 
-describe(utils.createTestMessage.unitFailDescribe("logout", "service"), () => {
-	it(
-		utils.createTestMessage.unitFailTest(
-			"logout",
-			"service",
-			"CURRENT_USER_NOT_EXIST"
-		),
-		async () => {
-			await utils.expectToFail_async(async () => {
-				await services.user.logout({
-					currentUserId: randomMaker.userId(),
-					clientId: randomMaker.clientId(),
-				});
-			}, "CURRENT_USER_NOT_EXIST");
-		}
-	);
+await utils.generateServiceFailTest("logout", "CURRENT_USER_NOT_EXIST", {
+	currentUserId: randomMaker.userId(),
+	clientId: randomMaker.clientId(),
 });

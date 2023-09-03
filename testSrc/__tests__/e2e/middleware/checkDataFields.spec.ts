@@ -34,6 +34,24 @@ await utils.asyncDescribe(
 						.sendFullFeaturedRequest();
 				});
 			}
+
+			for (const event of eventsWithInputFieldsExceptAuth) {
+				const title = utils.createTestMessage.unitFailTest(
+					event.name,
+					"middleware",
+					"INPUT_FIELDS_OVERLOAD"
+				);
+
+				it(title, async () => {
+					await requesterMaker(socket, event as any)
+						.setError("INPUT_FIELDS_OVERLOAD")
+						.setOptions({ shouldFilterRequestData: false })
+						.sendFullFeaturedRequest({
+							...utils.generateDynamicData(event.inputFields),
+							[randomMaker.string(10)]: randomMaker.string(10),
+						});
+				});
+			}
 		};
 	}
 );

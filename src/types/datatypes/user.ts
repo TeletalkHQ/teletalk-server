@@ -1,4 +1,4 @@
-import { Cellphone, FullName } from "utility-store/lib/types";
+import { Cellphone, FullName, PublicUserData } from "utility-store/lib/types";
 
 import { Id } from ".";
 
@@ -23,3 +23,5 @@ export type NewUser = boolean;
 export type Username = string;
 
 export type ContactItemWithCellphone = Cellphone & FullName;
+
+export type UserPublicData = PublicUserData;

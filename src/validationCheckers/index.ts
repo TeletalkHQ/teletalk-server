@@ -5,15 +5,15 @@ import { errorStore } from "~/classes/ErrorStore";
 import { validationChecker } from "~/classes/ValidationChecker";
 import { nativeModels } from "~/models/native";
 import { ValidationCheckerFn, ValidationCheckerFnCollection } from "~/types";
-import { Field } from "~/types/models";
+import { Field } from "~/types/model";
 import { countries } from "~/variables";
 
 export const validationCheckers = Object.keys(nativeModels).reduce(
 	(prevValue, currValue) => {
 		const k = currValue as Field;
 
-		prevValue[k] = (result, value, ignores) =>
-			validationChecker(result, k, value, ignores).check();
+		prevValue[k] = (result, value) =>
+			validationChecker(result, k, value).check();
 
 		return prevValue;
 	},
@@ -25,7 +25,7 @@ const {
 	countryName: defaultCountryNameChecker,
 } = validationCheckers;
 
-validationCheckers.countryCode = (result, value, ignores) => {
+validationCheckers.countryCode = (result, value) => {
 	if (result === true) {
 		const country = countries.find((c) => c.countryCode === value);
 		errorThrower(
@@ -36,10 +36,10 @@ validationCheckers.countryCode = (result, value, ignores) => {
 		return;
 	}
 
-	defaultCountryCodeChecker(result, value, ignores);
+	defaultCountryCodeChecker(result, value);
 };
 
-validationCheckers.countryName = (result, value, ignores) => {
+validationCheckers.countryName = (result, value) => {
 	if (result === true) {
 		const country = countries.find((c) => c.countryName === value);
 		errorThrower(
@@ -50,7 +50,7 @@ validationCheckers.countryName = (result, value, ignores) => {
 		return;
 	}
 
-	defaultCountryNameChecker(result, value, ignores);
+	defaultCountryNameChecker(result, value);
 };
 
 const notImplementedCheckerFn = (fieldName: Field) =>

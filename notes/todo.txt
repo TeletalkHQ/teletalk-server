@@ -1,21 +1,19 @@
 Node-gyp-build documentation
 Bcryptjs or bcrypt ?
-PassportJS for multi login, maybe for anonymous signIn, part 76
 Morgan ,part 82
 multer or express-fileupload for get multi-data, part 96
 Upload progress-bar, part 98
 sharp for compress images
 NodeMailer, nodemailer-smtp-transport, part 119
 Handle error part 134
-Set headers part 135
 Restify part 136
 Use firewall part 146
 PM2 for nodeJS process manager part 149
 FTP part 150, nginx part 149
 Using ms for convert time to ms and reverse
 Make api for log server errors
-Monitor test requests (total requests, count each url)
-Monitor all configs when tests start. Give it a good look!
+Monitor test requests (total requests, count each)
+Monitor all configs when tests start
 AppSignal
 Mutation test tools
 
@@ -25,12 +23,10 @@ TODO: Create MiddlewareHandler, MiddlewareBuilder
 TODO: new instance for each failTest props
 REFACTOR: Restructure folders, index, and more
 TODO: Update launch script
-TODO: Add items to array models
-TODO: Add error generic to CheckFields
-TODO: Generative errors, validation models and so on
 TODO: Tan license check, flow check, coverage check
-TODO: Change logger levels to {priority:number         ; name:string}
+TODO: Change logger levels to {priority:number; name:string}
 eslint-plugin-jest
 TODO: Add tests for welcomeMessage
-REFACTOR: change event to eventName
-REFACTOR: Remove validationCheckers
+REFACTOR: Remove unnecessary return values from services
+REFACTOR: Remove selfStuff socket middleware
+TODO: checkDataFields overload tests

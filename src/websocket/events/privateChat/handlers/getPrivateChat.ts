@@ -5,11 +5,9 @@ export const getPrivateChat: SocketOnHandler<GetPrivateChatIO> = async (
 	_socket,
 	data
 ) => {
-	const privateChat = await services.findOnePrivateChatByChatId(
-		{ chatId: data.chatId },
-		undefined,
-		{ lean: true }
-	);
+	const privateChat = await services.privateChat.findByChatId({
+		chatId: data.chatId,
+	});
 
 	return { data: { privateChat: JSON.parse(JSON.stringify(privateChat)) } };
 };

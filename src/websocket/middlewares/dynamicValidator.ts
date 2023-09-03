@@ -7,9 +7,8 @@ import {
 	SocketMiddlewareReturnValue,
 	SocketNext,
 	StringMap,
-	ValidationCheckerIgnores,
 } from "~/types";
-import { Field } from "~/types/models";
+import { Field } from "~/types/model";
 import { validationCheckers } from "~/validationCheckers";
 import { validators } from "~/validators";
 
@@ -51,10 +50,8 @@ const validateField = async (data: StringMap, eventName: EventName) => {
 			continue;
 		}
 
-		const ignores: ValidationCheckerIgnores = [];
-
 		const validationResult = await validators[field](value);
-		validationCheckers[field](validationResult, value, ignores);
+		validationCheckers[field](validationResult, value);
 	}
 };
 

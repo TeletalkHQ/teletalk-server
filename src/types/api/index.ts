@@ -1,2 +1,10 @@
-export type * from "./io";
-export type * from "./socket";
+import { IoFields } from "check-fields";
+
+export interface Route {
+	inputFields: IoFields | Record<string, never>;
+	outputFields: IoFields | Record<string, never>;
+	isAuthRequired: boolean;
+}
+
+export * from "./io";
+export * from "./socket";

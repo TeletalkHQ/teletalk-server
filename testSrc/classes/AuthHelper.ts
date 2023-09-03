@@ -1,7 +1,13 @@
 import { Cellphone, FullName } from "utility-store/lib/types";
 
 import { clientStore } from "~/classes/ClientStore";
-import { CreateNewUserIO, SignInIO, SocketResponse, VerifyIO } from "~/types";
+import {
+	CreateNewUserIO,
+	SignInIO,
+	SocketResponse,
+	StoredClient,
+	VerifyIO,
+} from "~/types";
 
 import {
 	ClientInitializer,
@@ -17,7 +23,10 @@ class AuthHelper {
 	private verifyResponse: SocketResponse<VerifyIO["output"]>;
 	private clientInitializer: ClientInitializer;
 
-	constructor(private cellphone: Cellphone, private fullName?: FullName) {
+	constructor(
+		private cellphone: Cellphone,
+		private fullName?: FullName
+	) {
 		this.clientInitializer = clientInitializer();
 	}
 
@@ -35,7 +44,7 @@ class AuthHelper {
 
 	async verify() {
 		const clientId = this.clientInitializer.getClient().clientId;
-		const client = (await clientStore.find(clientId))!;
+		const client = (await clientStore.find(clientId)) as StoredClient;
 
 		this.verifyResponse = await utils.requesterCollection
 			.verify(this.clientSocket)

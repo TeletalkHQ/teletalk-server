@@ -6,6 +6,9 @@ class ClientStore {
 	private STATE_KEY = "client";
 	private STATE_PATH = ".";
 	private storage: RedisClientType;
+	queryOptions = {
+		shouldTrow: true,
+	};
 
 	async initialize(storage: RedisClientType) {
 		this.setStorage(storage);
@@ -24,11 +27,9 @@ class ClientStore {
 	}
 
 	async find(clientId: string): Promise<StoredClient | null> {
-		const client = (await this.storage.json.get(
-			this.makeStateKey(clientId)
-		)) as string;
+		const client = await this.storage.json.get(this.makeStateKey(clientId));
 
-		return client ? JSON.parse(client) : null;
+		return client ? JSON.parse(client as string) : null;
 	}
 
 	async add(clientId: string, data: StoredClient) {

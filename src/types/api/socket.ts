@@ -4,17 +4,16 @@ import { NativeError, Route } from "..";
 
 export type EventName =
 	| "addBlock"
-	| "addContact"
 	| "addContactWithCellphone"
 	| "addContactWithUserId"
 	| "createNewUser"
-	| "editContact"
+	| "updateContact"
 	| "getChatInfo"
 	| "getContacts"
 	| "getCountries"
 	| "getPrivateChat"
 	| "getPrivateChats"
-	| "getPublicUserData"
+	| "getPublicData"
 	| "getStuff"
 	| "getUserData"
 	| "getWelcomeMessage"
@@ -24,9 +23,10 @@ export type EventName =
 	| "pong"
 	| "removeBlock"
 	| "removeContact"
-	| "sendPrivateMessage"
+	| "sendMessage"
 	| "signIn"
-	| "updatePublicUserData"
+	| "unknownEvent"
+	| "updatePublicData"
 	| "verify";
 
 export type IO = {
@@ -73,7 +73,7 @@ export type SocketOnAnyHandler<IOType extends IO = any> = (
 	| Promise<SocketHandlerReturnValue<IOType>>;
 
 export interface SocketEvent<IOType extends IO = any> extends Route {
-	name: EventName;
+	name: Exclude<EventName, "unknownEvent">;
 	handler: SocketOnHandler<IOType>;
 	method: SocketMethods;
 }
@@ -96,7 +96,7 @@ export type SocketMiddlewareEvent<IOType extends IO = any> = [
 	EventName,
 	IOType["input"],
 	ResponseCallback,
-	...any[]
+	...any[],
 ];
 
 export type SocketMiddlewareReturnValue = {

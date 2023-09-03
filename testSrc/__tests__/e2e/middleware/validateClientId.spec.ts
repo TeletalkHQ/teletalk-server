@@ -1,9 +1,8 @@
 import { randomMaker } from "utility-store";
 
 import { clientManager } from "~/classes/ClientIdManager";
-import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { NativeError, SocketEvent } from "~/types";
+import { ErrorReason, SocketEvent } from "~/types";
 import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
@@ -14,50 +13,55 @@ const filteredEvents = events.filter(
 	(i) => !["getStuff", "ping"].includes(i.name)
 );
 
-describe("validateClientId fail tests", () => {
-	const caller = async (
-		event: SocketEvent,
-		error: NativeError,
-		clientStr: unknown
-	) => {
-		const ci = clientInitializer();
-		ci.setClient(clientStr).makeClientCookie().initClient().connect();
+describe(
+	utils.createTestMessage.unitFailDescribe("validateClientId", "middleware"),
+	() => {
+		const caller = async (
+			event: SocketEvent,
+			reason: ErrorReason,
+			clientStr: unknown
+		) => {
+			const ci = clientInitializer();
+			ci.setClient(clientStr).makeClientCookie().initClient().connect();
 
-		await requesterMaker(ci.getClient(), event).sendFullFeaturedRequest(
-			{},
-			error
-		);
-	};
-
-	for (const event of filteredEvents) {
-		const title = utils.createFailTestMessage(
-			errorStore.find("CLIENT_ID_MAX_LENGTH_ERROR"),
-			event.name
-		);
-		it(title, async () => {
-			await caller(
-				event,
-				errorStore.find("CLIENT_ID_MAX_LENGTH_ERROR"),
-				await clientManager.signClient(
-					randomMaker.string(models.native.clientId.maxLength + 1)
-				)
+			await requesterMaker(ci.getClient(), event).sendFullFeaturedRequest(
+				{},
+				reason
 			);
-		});
-	}
+		};
 
-	for (const event of filteredEvents) {
-		const title = utils.createFailTestMessage(
-			errorStore.find("CLIENT_ID_MIN_LENGTH_ERROR"),
-			event.name
-		);
-		it(title, async () => {
-			await caller(
-				event,
-				errorStore.find("CLIENT_ID_MIN_LENGTH_ERROR"),
-				await clientManager.signClient(
-					randomMaker.string(models.native.clientId.minLength - 1)
-				)
+		for (const event of filteredEvents) {
+			const title = utils.createTestMessage.unitFailTest(
+				event.name,
+				"middleware",
+				"CLIENT_ID_MAX_LENGTH_ERROR"
 			);
-		});
+			it(title, async () => {
+				await caller(
+					event,
+					"CLIENT_ID_MAX_LENGTH_ERROR",
+					await clientManager.signClient(
+						randomMaker.string(models.native.clientId.maxLength + 1)
+					)
+				);
+			});
+		}
+
+		for (const event of filteredEvents) {
+			const title = utils.createTestMessage.unitFailTest(
+				event.name,
+				"middleware",
+				"CLIENT_ID_MIN_LENGTH_ERROR"
+			);
+			it(title, async () => {
+				await caller(
+					event,
+					"CLIENT_ID_MIN_LENGTH_ERROR",
+					await clientManager.signClient(
+						randomMaker.string(models.native.clientId.minLength - 1)
+					)
+				);
+			});
+		}
 	}
-});
+);

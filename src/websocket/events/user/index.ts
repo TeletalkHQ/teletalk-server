@@ -1,16 +1,15 @@
 import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
 	AddBlockIO,
-	AddContactIO,
 	AddContactWithCellphoneIO,
 	AddContactWithUserIdIO,
-	EditContactIO,
 	GetContactsIO,
-	GetPublicUserDataIO,
+	GetPublicDataIO,
 	GetUserDataIO,
 	RemoveBlockIO,
 	RemoveContactIO,
-	UpdatePublicUserDataIO,
+	UpdateContactIO,
+	UpdatePublicDataIO,
 } from "~/types";
 import { fields } from "~/variables";
 import { userHandlers } from "~/websocket/events/user/handlers";
@@ -29,16 +28,6 @@ const addBlock = builder
 	.handler(userHandlers.addBlock)
 	.build();
 
-const addContact = builder
-	.create<AddContactIO>()
-	.name("addContact")
-	.inputFields(fields.collection.contact)
-	.outputFields({
-		addedContact: fields.statics.object(fields.collection.contact),
-	})
-	.handler(userHandlers.addContact)
-	.build();
-
 const addContactWithCellphone = builder
 	.create<AddContactWithCellphoneIO>()
 	.name("addContactWithCellphone")
@@ -47,7 +36,7 @@ const addContactWithCellphone = builder
 		...fields.collection.fullName,
 	})
 	.outputFields({
-		addedContact: fields.statics.object(fields.collection.contact),
+		newContact: fields.statics.object(fields.collection.contact),
 	})
 	.handler(userHandlers.addContactWithCellphone)
 	.build();
@@ -60,19 +49,19 @@ const addContactWithUserId = builder
 		userId: fields.single.userId,
 	})
 	.outputFields({
-		addedContact: fields.statics.object(fields.collection.contact),
+		newContact: fields.statics.object(fields.collection.contact),
 	})
 	.handler(userHandlers.addContactWithUserId)
 	.build();
 
-const editContact = builder
-	.create<EditContactIO>()
-	.name("editContact")
+const updateContact = builder
+	.create<UpdateContactIO>()
+	.name("updateContact")
 	.inputFields(fields.collection.FullNameWithUserId)
 	.outputFields({
 		editedContact: fields.statics.object(fields.collection.FullNameWithUserId),
 	})
-	.handler(userHandlers.editContact)
+	.handler(userHandlers.updateContact)
 	.build();
 
 const getContacts = builder
@@ -93,21 +82,21 @@ const getUserData = builder
 	.handler(userHandlers.getUserData)
 	.build();
 
-const getPublicUserData = builder
-	.create<GetPublicUserDataIO>()
-	.name("getPublicUserData")
+const getPublicData = builder
+	.create<GetPublicDataIO>()
+	.name("getPublicData")
 	.inputFields({
 		userId: fields.single.userId,
 	})
 	.outputFields({
-		publicUserData: fields.statics.object({
+		userPublicData: fields.statics.object({
 			...fields.collection.fullName,
 			bio: fields.single.bio,
 			userId: fields.single.userId,
 			username: fields.single.username,
 		}),
 	})
-	.handler(userHandlers.getPublicUserData)
+	.handler(userHandlers.getPublicData)
 	.build();
 
 const removeBlock = builder
@@ -136,16 +125,16 @@ const removeContact = builder
 	.handler(userHandlers.removeContact)
 	.build();
 
-const updatePublicUserData = builder
-	.create<UpdatePublicUserDataIO>()
-	.name("updatePublicUserData")
+const updatePublicData = builder
+	.create<UpdatePublicDataIO>()
+	.name("updatePublicData")
 	.inputFields({
 		...fields.collection.fullName,
 		bio: fields.single.bio,
 		username: fields.single.username,
 	})
 	.outputFields({
-		publicUserData: fields.statics.object({
+		userPublicData: fields.statics.object({
 			...fields.collection.fullName,
 			bio: fields.single.bio,
 			status: fields.collection.status,
@@ -153,22 +142,21 @@ const updatePublicUserData = builder
 			username: fields.single.username,
 		}),
 	})
-	.handler(userHandlers.updatePublicUserData)
+	.handler(userHandlers.updatePublicData)
 	.build();
 
 export const user = {
 	events: [
 		addBlock,
-		addContact,
 		addContactWithCellphone,
 		addContactWithUserId,
-		editContact,
+		updateContact,
 		getContacts,
-		getPublicUserData,
+		getPublicData,
 		getUserData,
 		removeBlock,
 		removeContact,
-		updatePublicUserData,
+		updatePublicData,
 	],
 	handlers: userHandlers,
 };

@@ -3,7 +3,7 @@
 		"baseUrl": ".",
 		"declaration": false,
 		"declarationMap": false,
-		"emitDecoratorMetadata": false,
+		"emitDecoratorMetadata": true,
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,

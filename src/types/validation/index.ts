@@ -7,8 +7,8 @@ import {
 
 import { utils } from "~/utils";
 
-import { ErrorReason, NativeError } from "..";
-import { Field } from "../models";
+import { NativeError } from "..";
+import { Field } from "../model";
 
 export type ValidationModel = ValidationRuleObject;
 
@@ -29,13 +29,7 @@ export type ValidationResult = true | ValidationErrors;
 
 export type FieldValidator = AsyncCheckFunction | SyncCheckFunction;
 
-export type ValidationCheckerIgnores = ErrorReason[];
-
-export type ValidationCheckerFn = (
-	r: ValidationResult,
-	value: unknown,
-	ignores?: ValidationCheckerIgnores
-) => void;
+export type ValidationCheckerFn = (r: ValidationResult, value: unknown) => void;
 
 export type ValidationCheckerFnCollection = {
 	[prop in Field]: ValidationCheckerFn;

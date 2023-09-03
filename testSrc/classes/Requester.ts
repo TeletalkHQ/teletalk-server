@@ -5,6 +5,7 @@ import { objectUtils } from "utility-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import {
+	ErrorReason,
 	IO,
 	NativeError,
 	SocketEvent,
@@ -71,8 +72,8 @@ export class Requester<IOType extends IO> {
 	getError() {
 		return this.error;
 	}
-	setError(error: NativeError) {
-		this.error = error;
+	setError(reason: ErrorReason) {
+		this.error = errorStore.find(reason);
 		return this;
 	}
 
@@ -133,7 +134,7 @@ export class Requester<IOType extends IO> {
 
 	async sendFullFeaturedRequest(
 		data: IOType["input"] = {},
-		error?: NativeError,
+		reason?: ErrorReason,
 		options: Partial<RequesterOptions> = this.getOptions()
 	) {
 		loggerHelper.logStartTestRequest();
@@ -154,7 +155,7 @@ export class Requester<IOType extends IO> {
 			this.getError()
 		);
 
-		if (error) this.setError(error);
+		if (reason) this.setError(reason);
 
 		await this.sendRequest();
 

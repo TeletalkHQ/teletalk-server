@@ -2,7 +2,7 @@ import Validator, { MessagesType } from "fastest-validator";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { ValidationModel } from "~/types";
-import { Field, NativeModelCollection, NativeModelKey } from "~/types/models";
+import { Field, NativeModelCollection, NativeModelKey } from "~/types/model";
 import { utils } from "~/utils";
 
 type ErrorMessageKey = keyof MessagesType;
@@ -14,7 +14,7 @@ const compiler = new Validator({
 
 export class ValidationModelBuilder<
 	T extends Field,
-	Model extends NativeModelCollection[T]
+	Model extends NativeModelCollection[T],
 > {
 	private model: Model;
 	private validationRuleObject: ValidationModel;
@@ -112,9 +112,9 @@ export class ValidationModelBuilder<
 	}
 }
 
-export const validationModelBuilder = function vmb<
+export const validationModelBuilder = function <
 	F extends Field,
-	Model extends NativeModelCollection[F]
+	Model extends NativeModelCollection[F],
 >(fieldName: F) {
 	return new ValidationModelBuilder<F, Model>(fieldName);
 };

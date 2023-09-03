@@ -2,28 +2,38 @@ import chai from "chai";
 import { customTypeof } from "custom-typeof";
 
 import { ErrorCollection, ValidationModel } from "~/types";
-import { NativeModelCollection } from "~/types/models";
+import { NativeModelCollection } from "~/types/model";
 import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { utils } from "@/utils";
 import { FIELD_TYPE } from "@/variables";
 
-describe("getAllStuff success tests", () => {
-	it("should get all requirements for clients", async () => {
-		const clientSocket = (
-			await clientInitializer().createComplete()
-		).getClient();
-		const requester = utils.requesterCollection.getStuff(clientSocket);
+describe(
+	utils.createTestMessage.e2eSuccessDescribe("getStuff", "event"),
+	() => {
+		it(
+			utils.createTestMessage.e2eSuccessTest(
+				"getStuff",
+				"event",
+				"should get all requirements for clients"
+			),
+			async () => {
+				const clientSocket = (
+					await clientInitializer().createComplete()
+				).getClient();
+				const requester = utils.requesterCollection.getStuff(clientSocket);
 
-		const { data } = await requester.sendFullFeaturedRequest();
+				const { data } = await requester.sendFullFeaturedRequest();
 
-		testEvents(data.events);
-		testModels(data.models);
-		testErrors(data.errors);
-		testValidationModels(Object.values(data.validationModels));
-	});
-});
+				testEvents(data.events);
+				testModels(data.models);
+				testErrors(data.errors);
+				testValidationModels(Object.values(data.validationModels));
+			}
+		);
+	}
+);
 
 const testEvents = (e: typeof events) => {
 	Object.values(e).forEach((event) => {

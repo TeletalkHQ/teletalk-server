@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import chai from "chai";
 
-import { NativeModel } from "~/types/models";
+import { VoidNoArgsFn } from "~/types";
+import { NativeModel } from "~/types/model";
 
 import { AssertionInitializerOptions } from "@/types";
 import { FIELD_TYPE } from "@/variables";
-
-type TestItem = () => void;
 
 interface Variables<Model> {
 	model: Model;
@@ -18,14 +17,13 @@ interface Variables<Model> {
 }
 
 export class AssertionInitializer<Model extends NativeModel = any> {
-	tests: TestItem[] = [];
+	tests: VoidNoArgsFn[] = [];
 
 	options = this.defaultOptions();
 	variables: Variables<Model>;
 
 	private defaultOptions(): AssertionInitializerOptions {
 		return {
-			modelCheck: true,
 			stringEquality: true,
 		};
 	}
@@ -62,6 +60,22 @@ export class AssertionInitializer<Model extends NativeModel = any> {
 		return this;
 	}
 
+	automate() {
+		const m = this.variables.model;
+
+		this.typeCheck();
+
+		if (this.options.stringEquality) this.stringEqualityCheck();
+
+		if (m.empty === false) this.emptyCheck();
+		if (m.maxLength) this.lteCheck();
+		if (m.minLength) this.gteCheck();
+		if (m.length) this.lengthCheck();
+		if (m.numeric) this.numericCheck();
+
+		return this;
+	}
+
 	run() {
 		this.tests.forEach((test) => test());
 
@@ -69,12 +83,12 @@ export class AssertionInitializer<Model extends NativeModel = any> {
 	}
 
 	addCommonTest() {
-		this.stringEquality().typeCheck().gteCheck().lteCheck();
+		this.stringEqualityCheck().typeCheck().gteCheck().lteCheck();
 
 		return this;
 	}
 
-	stringEquality() {
+	stringEqualityCheck() {
 		this.addIf(this.options.stringEquality, () => {
 			this.tests.push(() =>
 				chai
@@ -105,10 +119,8 @@ export class AssertionInitializer<Model extends NativeModel = any> {
 	}
 
 	typeCheck(customType = this.variables.model.type) {
-		this.addIf(this.options.modelCheck, () => {
-			this.tests.push(() => {
-				chai.expect(this.variables.testValue).to.be.an(customType);
-			});
+		this.tests.push(() => {
+			chai.expect(this.variables.testValue).to.be.an(customType);
 		});
 
 		return this;
@@ -121,56 +133,46 @@ export class AssertionInitializer<Model extends NativeModel = any> {
 	}
 
 	emptyCheck() {
-		this.addIf(this.options.modelCheck, () => {
-			if (this.variables.model.empty === false)
-				this.tests.push(() =>
-					chai.expect(this.variables.testValue.length).to.be.greaterThan(0)
-				);
-		});
+		this.tests.push(() =>
+			chai.expect(this.variables.testValue.length).to.be.greaterThan(0)
+		);
 
 		return this;
 	}
 
 	gteCheck() {
-		this.addIf(this.options.modelCheck, () => {
-			this.tests.push(() =>
-				chai
-					.expect(this.variables.testValue.length)
-					.to.be.greaterThanOrEqual(this.variables.modelMinLength)
-			);
-		});
+		this.tests.push(() =>
+			chai
+				.expect(this.variables.testValue.length)
+				.to.be.greaterThanOrEqual(this.variables.modelMinLength)
+		);
 
 		return this;
 	}
 	gtCheck(length: number) {
-		this.addIf(this.options.modelCheck, () => {
-			this.tests.push(() =>
-				chai.expect(this.variables.testValue.length).to.be.greaterThan(length)
-			);
-		});
+		this.tests.push(() =>
+			chai.expect(this.variables.testValue.length).to.be.greaterThan(length)
+		);
 
 		return this;
 	}
 	lteCheck() {
-		this.addIf(this.options.modelCheck, () => {
-			this.tests.push(() =>
-				chai
-					.expect(this.variables.testValue.length)
-					.to.be.lessThanOrEqual(this.variables.modelMaxLength)
-			);
-		});
+		this.tests.push(() =>
+			chai
+				.expect(this.variables.testValue.length)
+				.to.be.lessThanOrEqual(this.variables.modelMaxLength)
+		);
 
 		return this;
 	}
 
 	numericCheck() {
-		this.addIf(this.options.modelCheck, () => {
-			this.tests.push(
-				() =>
-					chai.expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER).and
-						.not.be.an.NaN
-			);
-		});
+		this.tests.push(
+			() =>
+				chai.expect(+this.variables.testValue).to.be.an(FIELD_TYPE.NUMBER).and
+					.not.be.an.NaN
+		);
+
 		return this;
 	}
 }

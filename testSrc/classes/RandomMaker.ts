@@ -1,14 +1,37 @@
+import { Socket } from "socket.io-client";
 import { RandomMaker as RandomMakerMain } from "utility-store";
-import { ContactItem } from "utility-store/lib/types";
+import {
+	Cellphone,
+	ContactItem,
+	FullNameWithUserId,
+	UserData,
+} from "utility-store/lib/types";
 
 import { models } from "~/models";
+import {
+	ClientId,
+	ContactItemWithCellphone,
+	MessageItem,
+	MessageText,
+	UserId,
+	UserPublicData,
+} from "~/types/datatypes";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { utils } from "@/utils";
 
+interface CreatedUser {
+	user: UserData;
+	socket: Socket;
+}
+
 class RandomMaker extends RandomMakerMain {
 	constructor() {
 		super();
+	}
+
+	clientId(): ClientId {
+		return super.string(models.native.clientId.maxLength);
 	}
 
 	contact(): ContactItem {
@@ -18,6 +41,20 @@ class RandomMaker extends RandomMakerMain {
 			models.native.userId.maxLength,
 			models.native.phoneNumber.maxLength
 		);
+	}
+
+	contactWithCellphone(): ContactItemWithCellphone {
+		const { userId, ...rest } = this.contact();
+		return rest;
+	}
+
+	contactWithUserId(): FullNameWithUserId {
+		const contact = this.contact();
+		return {
+			firstName: contact.firstName,
+			lastName: contact.lastName,
+			userId: contact.userId,
+		};
 	}
 
 	fullName() {
@@ -31,31 +68,55 @@ class RandomMaker extends RandomMakerMain {
 		return super.id(models.native.userId.maxLength);
 	}
 
-	async user(cellphone = this.unusedCellphone(), fullName = this.fullName()) {
-		const helper = authHelper(cellphone, fullName);
-		await helper.createComplete();
+	async user(
+		cellphone = this.unusedCellphone(),
+		fullName = this.fullName()
+	): Promise<CreatedUser> {
+		const ah = authHelper(cellphone, fullName);
+		await ah.createComplete();
 
 		const response = await utils.requesterCollection
-			.getUserData(helper.getClientSocket())
+			.getUserData(ah.getClientSocket())
 			.sendFullFeaturedRequest();
 
 		return {
-			...helper.getResponses().create.data,
+			...ah.getResponses().create.data,
 			user: response.data.user,
-			socket: helper.getClientSocket(),
+			socket: ah.getClientSocket(),
 		};
 	}
 
-	async users(length: number) {
-		const users = [];
-		for (let i = 0; i < length; i++) {
-			const user = await this.user();
-			users.push(user);
-		}
+	async users(length: number, cellphone?: Cellphone) {
+		const users: CreatedUser[] = [];
+		for (let i = 0; i < length; i++) users.push(await this.user(cellphone));
+
 		return users;
 	}
 
-	publicUserData() {
+	batchUsers(length: number, cellphone?: Cellphone) {
+		const users: Promise<CreatedUser>[] = [];
+		for (let i = 0; i < length; i++) users.push(this.user(cellphone));
+
+		return users;
+	}
+
+	async sockets(length: number, cellphone = this.cellphone()) {
+		const sockets = [];
+
+		for (let i = 0; i < length; i++) {
+			const ah = authHelper(cellphone);
+			await ah.signIn();
+			await ah.verify();
+
+			sockets.push({
+				socket: ah.getClientSocket(),
+			});
+		}
+
+		return sockets;
+	}
+
+	userPublicData(): UserPublicData {
 		return {
 			...randomMaker.fullName(),
 			bio: randomMaker.string(models.native.bio.maxLength),
@@ -64,12 +125,40 @@ class RandomMaker extends RandomMakerMain {
 		};
 	}
 
+	usersPublicData(length: number, userId?: UserId): UserPublicData[] {
+		const data: UserPublicData[] = [];
+
+		for (let i = 0; i < length; i++) {
+			const publicData = this.userPublicData();
+			data.push({
+				...publicData,
+				userId: userId || publicData.userId,
+			});
+		}
+		return data;
+	}
+
 	unusedContact(): ContactItem {
 		return super.unusedContact(
 			models.native.firstName.maxLength,
 			models.native.lastName.minLength,
 			models.native.userId.maxLength
 		);
+	}
+
+	privateMessage(): MessageItem {
+		return {
+			createdAt: Date.now(),
+			messageId: super.id(models.native.messageId.maxLength),
+			messageText: this.messageText(),
+			sender: {
+				senderId: this.userId(),
+			},
+		};
+	}
+
+	messageText(): MessageText {
+		return super.string(models.native.messageText.maxLength);
 	}
 }
 

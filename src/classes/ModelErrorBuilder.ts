@@ -8,7 +8,7 @@ import {
 	ModelErrorReason,
 	NativeModel,
 	NativeModelKey,
-} from "~/types/models";
+} from "~/types/model";
 import { utils } from "~/utils";
 
 export class ModelErrorBuilder {

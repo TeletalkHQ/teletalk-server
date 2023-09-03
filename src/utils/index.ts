@@ -22,7 +22,7 @@ import {
 	ModelErrorReason,
 	NativeModelCollection,
 	NativeModelKey,
-} from "~/types/models";
+} from "~/types/model";
 import { errors } from "~/variables/errors";
 
 type Url = EventName | EventName[];

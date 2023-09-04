@@ -41,6 +41,7 @@ const ping = builder
 	.create<PingIO>()
 	.name("ping")
 	.noAuth()
+	.outputFields({ pong: fields.statics.string })
 	.handler(otherHandlers.ping)
 	.build();
 

@@ -31,13 +31,13 @@ describe(
 				};
 
 				const {
-					data: { editedContact },
+					data: { updatedContact },
 				} = await utils.requesterCollection
 					.updateContact(socket)
 					.sendFullFeaturedRequest(editingContactData);
 
 				assertionInitializerHelper().oneContactWithUserId({
-					testValue: editedContact,
+					testValue: updatedContact,
 					equalValue: editingContactData,
 				});
 			}

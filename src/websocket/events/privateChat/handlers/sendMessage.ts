@@ -13,8 +13,8 @@ export const sendMessage: SocketOnHandler<SendMessageIO> = async (
 	const { chatId, createdAt, messageId } =
 		await services.privateChat.sendMessage({
 			currentUserId,
-			targetParticipantId,
 			messageText,
+			targetParticipantId,
 		});
 
 	const returnData: { addedMessage: MessageItem; chatId: ChatId } = {

@@ -1,5 +1,6 @@
 import { services } from "~/services";
-import { SocketOnHandler, UpdatePublicDataIO } from "~/types";
+import { EventName, SocketOnHandler, UpdatePublicDataIO } from "~/types";
+import { utils } from "~/utils";
 
 export const updatePublicData: SocketOnHandler<UpdatePublicDataIO> = async (
 	socket,
@@ -18,12 +19,21 @@ export const updatePublicData: SocketOnHandler<UpdatePublicDataIO> = async (
 		},
 	});
 
-	return {
-		data: {
-			userPublicData: {
-				...data,
-				userId: currentUserId,
-			},
+	const returnData = {
+		userPublicData: {
+			...data,
+			userId: currentUserId,
 		},
+	};
+
+	socket
+		.to("public")
+		.emit<EventName>(
+			"updatePublicData",
+			utils.createSuccessResponse("updatePublicData", returnData)
+		);
+
+	return {
+		data: returnData,
 	};
 };

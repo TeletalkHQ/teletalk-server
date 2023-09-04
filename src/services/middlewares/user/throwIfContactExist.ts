@@ -1,17 +1,16 @@
 import { errorStore } from "~/classes/ErrorStore";
 import { ServiceMiddleware } from "~/types";
-import { UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
 export const throwIfContactExist: ServiceMiddleware<{
 	currentUser: HydratedUser;
-	targetUserId: UserId;
+	targetUser: HydratedUser;
 }> = (data) => {
 	const index = data.currentUser.contacts.findIndex(
-		(i) => i.userId == data.targetUserId
+		(i) => i.userId == data.targetUser.userId
 	);
 
-	if (index !== -1)
+	if (index >= 0)
 		throw {
 			...errorStore.find("CONTACT_ITEM_EXIST"),
 			queryData: data.targetUserId,

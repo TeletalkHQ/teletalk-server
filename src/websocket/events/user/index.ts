@@ -59,7 +59,7 @@ const updateContact = builder
 	.name("updateContact")
 	.inputFields(fields.collection.FullNameWithUserId)
 	.outputFields({
-		editedContact: fields.statics.object(fields.collection.FullNameWithUserId),
+		updatedContact: fields.statics.object(fields.collection.FullNameWithUserId),
 	})
 	.handler(userHandlers.updateContact)
 	.build();

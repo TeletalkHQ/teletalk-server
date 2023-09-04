@@ -16,7 +16,7 @@ export const updateContact: SocketOnHandler<UpdateContactIO> = async (
 
 	return {
 		data: {
-			editedContact: data,
+			updatedContact: data,
 		},
 	};
 };

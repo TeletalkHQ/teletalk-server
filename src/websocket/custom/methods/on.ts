@@ -41,6 +41,7 @@ async function tryToRunHandler(
 		.try(async () => {
 			const returnValue = (await handler(socket, data)) || { data: {} };
 
+			//CLEANME
 			if (eventName !== "getStuff") {
 				checkOutputFields(
 					socket,
@@ -89,6 +90,7 @@ async function emitReturnValue(
 		.async()
 		.try(async () => {
 			socket.customEmit(eventName, response);
+
 			socket.to(socket.userId).emit(eventName, response);
 		})
 		.catch(catchBlock, socket, eventName, responseCallback)

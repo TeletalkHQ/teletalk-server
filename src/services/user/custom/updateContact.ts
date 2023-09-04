@@ -19,7 +19,9 @@ export const updateContact = serviceBuilder
 			targetUserId: UserId;
 		},
 		void,
-		{ currentUser: HydratedUser }
+		{
+			currentUser: HydratedUser;
+		}
 	>()
 	.setMiddlewares([serviceMiddlewares.findCurrentUser])
 	.setBody(async (data) => {

@@ -5,7 +5,12 @@ import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { coreServices } from "../core";
 
 export const isUserExist = serviceBuilder
-	.create<{ cellphone: Cellphone }, boolean>()
+	.create<
+		{
+			cellphone: Cellphone;
+		},
+		boolean
+	>()
 	.setBody(async (data) => {
 		return !!(await coreServices.find(data.cellphone));
 	})

@@ -8,7 +8,7 @@ export const updatePublicData: SocketOnHandler<UpdatePublicDataIO> = async (
 	const { userId: currentUserId } = socket;
 	const { bio, firstName, lastName, username } = data;
 
-	const updatedPublicData = await services.user.updatePublicData({
+	await services.user.updatePublicData({
 		currentUserId,
 		updateProperties: {
 			bio,
@@ -20,7 +20,10 @@ export const updatePublicData: SocketOnHandler<UpdatePublicDataIO> = async (
 
 	return {
 		data: {
-			userPublicData: updatedPublicData,
+			userPublicData: {
+				...data,
+				userId: currentUserId,
+			},
 		},
 	};
 };

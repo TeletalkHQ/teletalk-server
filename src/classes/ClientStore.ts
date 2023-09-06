@@ -1,14 +1,9 @@
 import { RedisClientType } from "redis";
 
-import { StoredClient } from "~/types";
-
-class ClientStore {
-	private STATE_KEY = "client";
-	private STATE_PATH = ".";
+export class ClientStore {
+	protected STATE_KEY = "client";
+	protected STATE_PATH = ".";
 	private storage: RedisClientType;
-	queryOptions = {
-		shouldTrow: true,
-	};
 
 	async initialize(storage: RedisClientType) {
 		this.setStorage(storage);
@@ -22,34 +17,42 @@ class ClientStore {
 		this.storage = storage;
 	}
 
-	private makeStateKey(clientId: string) {
-		return `${this.STATE_KEY}:${clientId}`;
+	private makeStateKey(id: string) {
+		return `${this.STATE_KEY}:${id}`;
 	}
 
-	async find(clientId: string): Promise<StoredClient | null> {
-		const client = await this.storage.json.get(this.makeStateKey(clientId));
+	async find<T = string>(id: string): Promise<T | null> {
+		const client = await this.storage.json.get(this.makeStateKey(id));
 
 		return client ? JSON.parse(client as string) : null;
 	}
 
-	async add(clientId: string, data: StoredClient) {
-		const stateKey = this.makeStateKey(clientId);
+	async add<T = string>(id: string, data: T) {
+		const stateKey = this.makeStateKey(id);
 		await this.storage
 			.multi()
 			.json.set(stateKey, this.STATE_PATH, JSON.stringify(data))
 			.exec();
 	}
 
-	async update(clientId: string, newData: StoredClient) {
+	async update<T = string>(id: string, newData: T) {
 		await this.storage.json.set(
-			this.makeStateKey(clientId),
+			this.makeStateKey(id),
 			this.STATE_PATH,
 			JSON.stringify(newData)
 		);
 	}
 
-	async remove(clientId: string) {
-		this.storage.json.del(this.makeStateKey(clientId), this.STATE_PATH);
+	async getAllKeys<T = string[]>() {
+		return (await this.storage.keys(`${this.STATE_KEY}:*`)) as T;
+	}
+
+	async remove(id: string) {
+		this.storage.json.del(this.makeStateKey(id), this.STATE_PATH);
+	}
+
+	async isExist(id: string) {
+		return !!this.find(id);
 	}
 }
 

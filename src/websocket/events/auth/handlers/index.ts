@@ -3,7 +3,7 @@ import { logout } from "~/websocket/events/auth/handlers/logout";
 import { signIn } from "~/websocket/events/auth/handlers/signIn";
 import { verify } from "~/websocket/events/auth/handlers/verify";
 
-export const authHandlers = {
+export const handlers = {
 	createNewUser,
 	logout,
 	signIn,

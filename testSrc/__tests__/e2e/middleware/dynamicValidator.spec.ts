@@ -1,18 +1,18 @@
 import { models } from "~/models";
 import { Field } from "~/types";
-import { events } from "~/websocket/events";
 
 import { e2eFailTestInitializer } from "@/classes/E2eFailTestInitializer";
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
+import { eventsWithoutDisconnect } from "@/websocket/events";
 
 await utils.asyncDescribe(
 	utils.createTestMessage.unitFailDescribe("dynamicValidator", "middleware"),
 	async () => {
 		const { socket } = await randomMaker.user();
 
-		const eventsWithInputFields = events.filter(
+		const eventsWithInputFields = eventsWithoutDisconnect.filter(
 			(i) => Object.keys(i.inputFields).length
 		);
 

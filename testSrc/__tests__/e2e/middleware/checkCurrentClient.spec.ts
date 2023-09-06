@@ -1,11 +1,11 @@
+import { authClientStore } from "~/classes/AuthClientStore";
 import { clientManager } from "~/classes/ClientIdManager";
-import { clientStore } from "~/classes/ClientStore";
 import { StoredClient } from "~/types";
-import { eventsWithAuth } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
+import { eventsWithAuth } from "@/websocket/events";
 
 const filteredEvents = eventsWithAuth.filter(
 	(i) => i.name !== "verify" && i.name !== "createNewUser"
@@ -29,10 +29,10 @@ describe(
 				} = await clientManager.verifyClient(newAuthClient);
 				const ci = clientInitializer();
 				ci.setClient(newAuthClient).makeClientCookie().initClient().connect();
-				const client = (await clientStore.find(
+				const client = (await authClientStore.find(
 					socket.clientId
 				)) as StoredClient;
-				await clientStore.add(newClientId, client);
+				await authClientStore.add(newClientId, client);
 				// const data = utils.generateDynamicData(event.inputFields);
 				//FIXME: Something bad happening and i don't know what it is
 				// await utils.requesterCollection[event.name](

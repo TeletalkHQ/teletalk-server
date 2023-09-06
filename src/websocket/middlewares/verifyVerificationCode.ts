@@ -2,7 +2,7 @@ import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 import { errorThrower } from "utility-store";
 
-import { clientStore } from "~/classes/ClientStore";
+import { authClientStore } from "~/classes/AuthClientStore";
 import { errorStore } from "~/classes/ErrorStore";
 import { SocketMiddleware, SocketNext, VerifyIO } from "~/types";
 
@@ -30,14 +30,14 @@ const tryBlock = async (socket: Socket, data: VerifyIO["input"]) => {
 		sentVerificationCode,
 	});
 
-	await clientStore.update(socket.clientId, {
+	await authClientStore.update(socket.clientId, {
 		...client,
 		isVerified: true,
 	});
 };
 
 const findClient = async (clientId: string) => {
-	const client = await clientStore.find(clientId);
+	const client = await authClientStore.find(clientId);
 	if (!client) throw errorStore.find("CLIENT_NOT_FOUND");
 	return client;
 };

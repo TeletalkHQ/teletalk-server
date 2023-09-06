@@ -1,15 +1,16 @@
 import chai from "chai";
 
-import { eventsWithAuth, eventsWithoutAuth } from "~/websocket/events";
+import { eventsWithoutAuthAndDisconnect } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
+import { eventsWithAuth } from "@/websocket/events";
 
 describe(
 	utils.createTestMessage.unitFailDescribe("checkClient", "middleware"),
 	() => {
-		for (const event of eventsWithoutAuth) {
+		for (const event of eventsWithoutAuthAndDisconnect) {
 			it(
 				utils.createTestMessage.unitSuccessTest(
 					"checkClient",

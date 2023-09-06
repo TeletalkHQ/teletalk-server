@@ -21,7 +21,7 @@ const tryBlock = async (socket: Socket) => {
 	}))!;
 
 	const isClientExist = currentUser.clients.some(
-		(t) => t.clientId === socket.clientId
+		(i) => i.clientId === socket.clientId
 	);
 
 	errorThrower(!isClientExist, errorStore.find("CURRENT_CLIENT_NOT_EXIST"));

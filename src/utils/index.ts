@@ -10,11 +10,11 @@ import {
 	Environments,
 	ErrorReason,
 	EventName,
+	IOCollection,
 	SocketMiddleware,
 	SocketMiddlewareEvent,
 	SocketNext,
 	SocketResponse,
-	StringMap,
 	UnknownError,
 } from "~/types";
 import {
@@ -191,14 +191,14 @@ const makeModelErrorReason = (
 	)}_ERROR` as ModelErrorReason;
 };
 
-const createSuccessResponse = (
-	eventName: EventName,
-	data: StringMap
+const createSuccessResponse = <T extends EventName>(
+	eventName: T,
+	data: IOCollection[T]["output"]
 ): SocketResponse => ({
 	data,
 	errors: [],
-	eventName,
 	ok: true,
+	eventName,
 });
 
 const createFailureResponse = (

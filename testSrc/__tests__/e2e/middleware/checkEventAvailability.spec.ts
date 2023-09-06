@@ -1,14 +1,13 @@
 import chai from "chai";
 
 import { errorStore } from "~/classes/ErrorStore";
-import { SocketEvent } from "~/types";
-import { events as mainEvents } from "~/websocket/events";
+import { ErrorReason, SocketEvent } from "~/types";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { ClientSocket } from "@/types";
 import { utils } from "@/utils";
-import { events } from "@/websocket/events";
+import { eventsWithoutDisconnect, unknownEvent } from "@/websocket/events";
 
 const createRequester = (socket: ClientSocket, event: SocketEvent) =>
 	requesterMaker(socket, event);
@@ -22,22 +21,37 @@ await utils.asyncDescribe(
 
 		return () => {
 			const message = utils.createTestMessage.unitFailTest(
+				//@ts-ignore
 				"unknownEvent",
 				"middleware",
 				"EVENT_NOT_FOUND"
 			);
 
 			it(message, async () => {
-				await createRequester(clientSocket, events.unknownEvent)
+				await createRequester(clientSocket, unknownEvent)
 					.setError("EVENT_NOT_FOUND")
 					.sendFullFeaturedRequest();
 			});
+		};
+	}
+);
 
-			for (const event of mainEvents) {
-				const message = utils.createTestMessage.unitFailTest(
+await utils.asyncDescribe(
+	utils.createTestMessage.unitSuccessDescribe(
+		"checkEventAvailability",
+		"middleware"
+	),
+	async () => {
+		const clientSocket = (
+			await clientInitializer().createComplete()
+		).getClient();
+
+		return () => {
+			for (const event of eventsWithoutDisconnect) {
+				const message = utils.createTestMessage.unitSuccessTest(
 					event.name,
 					"middleware",
-					"EVENT_NOT_FOUND"
+					`should not get error ${"EVENT_NOT_FOUND" as ErrorReason}`
 				);
 
 				it(message, async () => {

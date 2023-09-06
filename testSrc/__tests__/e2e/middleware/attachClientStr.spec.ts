@@ -1,11 +1,11 @@
 import { clientManager } from "~/classes/ClientIdManager";
-import { events } from "~/websocket/events";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
 import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
+import { eventsWithoutDisconnect } from "@/websocket/events";
 
-const filteredEvents = events.filter(
+const filteredEvents = eventsWithoutDisconnect.filter(
 	(i) => !["getStuff", "ping"].includes(i.name)
 );
 

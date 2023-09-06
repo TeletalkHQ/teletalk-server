@@ -16,7 +16,7 @@ import {
 
 import { events } from "~/websocket/events";
 
-import { ErrorCollection, IO, ValidationCollection } from "..";
+import { ErrorCollection, EventName, IO, ValidationCollection } from "..";
 import {
 	ChatId,
 	ContactItemWithCellphone,
@@ -32,6 +32,11 @@ import { NativeModelCollection } from "../model";
 
 export interface CreateNewUserIO extends IO {
 	input: FullName;
+	output: object;
+}
+
+export interface DisconnectIO extends IO {
+	input: object;
 	output: object;
 }
 
@@ -174,10 +179,29 @@ export interface GetContactsIO extends IO {
 	};
 }
 
+export interface GetOnlineClientsIO extends IO {
+	input: object;
+	output: {
+		onlineClients: {
+			userId: UserId;
+		}[];
+	};
+}
+
 export interface GetUserDataIO extends IO {
 	input: object;
 	output: {
 		user: UserData;
+	};
+}
+
+export interface GetClientStatusIO extends IO {
+	input: {
+		userId: UserId;
+	};
+	output: {
+		isOnline: boolean;
+		userId: UserId;
 	};
 }
 
@@ -222,21 +246,23 @@ export interface UpdatePublicDataIO extends IO {
 	};
 }
 
-export type IOCollection = {
+export type IOCollection = { [key in EventName]: IO } & {
 	addBlock: AddBlockIO;
 	addContact: AddContactIO;
 	addContactWithCellphone: AddContactWithCellphoneIO;
 	addContactWithUserId: AddContactWithUserIdIO;
 	createNewUser: CreateNewUserIO;
-	updateContact: UpdateContactIO;
+	disconnect: DisconnectIO;
 	getChatInfo: GetChatInfoIO;
+	getClientStatus: GetClientStatusIO;
 	getContacts: GetContactsIO;
 	getCountries: GetCountriesIO;
+	getOnlineClients: GetOnlineClientsIO;
 	getPrivateChat: GetPrivateChatIO;
 	getPrivateChats: GetPrivateChatsIO;
+	getPublicData: GetPublicDataIO;
 	getStuff: GetStuffIO;
 	getUserData: GetUserDataIO;
-	getPublicData: GetPublicDataIO;
 	getWelcomeMessage: GetWelcomeMessageIO;
 	joinRoom: JoinRoomIO;
 	logout: LogoutIO;
@@ -246,6 +272,7 @@ export type IOCollection = {
 	removeContact: RemoveContactIO;
 	sendMessage: SendMessageIO;
 	signIn: SignInIO;
+	updateContact: UpdateContactIO;
 	updatePublicData: UpdatePublicDataIO;
 	verify: VerifyIO;
 };

@@ -1,10 +1,10 @@
-import { clientStore } from "~/classes/ClientStore";
+import { authClientStore } from "~/classes/AuthClientStore";
 import { models } from "~/models";
 import { StoredClient } from "~/types";
-import { eventsWithAuth } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
+import { eventsWithAuth } from "@/websocket/events";
 
 const filteredEvents = eventsWithAuth.filter(
 	(i) => i.name !== "verify" && i.name !== "createNewUser"
@@ -27,10 +27,10 @@ describe(
 
 					const { socket } = await randomMaker.user();
 
-					const client = (await clientStore.find(
+					const client = (await authClientStore.find(
 						socket.clientId
 					)) as StoredClient;
-					await clientStore.update(socket.clientId, {
+					await authClientStore.update(socket.clientId, {
 						...client,
 						userId: wrongUserId,
 					});

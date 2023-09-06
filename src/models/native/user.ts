@@ -19,98 +19,6 @@ import {
 
 import { commonModels } from "./common";
 
-export const userModels2 = {
-	bio: {
-		defaultValue: "",
-		empty: true,
-		maxLength: 255,
-		minLength: 0,
-		required: true,
-		trim: true,
-		type: "string",
-	},
-	clientId: {
-		...commonModels.id,
-		maxLength: 500,
-		minLength: 100,
-	},
-	countryCode: {
-		empty: false,
-		maxLength: 4,
-		minLength: 1,
-		numeric: true,
-		required: true,
-		trim: true,
-		type: "string",
-	},
-	countryName: {
-		empty: false,
-		maxLength: 50,
-		minLength: 2,
-		required: true,
-		trim: true,
-		type: "string",
-	},
-	createdAt: commonModels.createdAt,
-	firstName: {
-		empty: false,
-		maxLength: 18,
-		minLength: 2,
-		required: true,
-		trim: true,
-		type: "string",
-	},
-	isActive: {
-		defaultValue: false,
-		required: true,
-		type: "boolean",
-	},
-	lastName: {
-		empty: true,
-		maxLength: 18,
-		minLength: 2,
-		required: true,
-		trim: true,
-		type: "string",
-	},
-	macAddress: {
-		empty: false,
-		maxLength: 16,
-		minLength: 12,
-		required: true,
-		trim: true,
-		type: "string",
-		unique: true,
-	},
-	phoneNumber: {
-		empty: false,
-		maxLength: 14,
-		minLength: 10,
-		numeric: true,
-		required: true,
-		type: "string",
-		unique: true,
-	},
-	userId: commonModels.id,
-	username: {
-		empty: true,
-		maxLength: 12,
-		minLength: 0,
-		required: true,
-		trim: true,
-		type: "string",
-		unique: false,
-	},
-	verificationCode: {
-		empty: false,
-		length: 6,
-		numeric: true,
-		required: true,
-		trim: true,
-		type: "string",
-	},
-} as const;
-
 export const userModels = {
 	bio: nativeModelBuilder
 		.create<Bio>()
@@ -134,7 +42,7 @@ export const userModels = {
 		.empty(false)
 		.required(true)
 		.minLength(100)
-		.maxLength(500)
+		.maxLength(150)
 		.unique(true)
 		.trim(true)
 		.build(),

@@ -1,7 +1,7 @@
 import { extractor, randomMaker } from "utility-store";
 import { ExtendedCellphone } from "utility-store/lib/types";
 
-import { clientStore } from "~/classes/ClientStore";
+import { authClientStore } from "~/classes/AuthClientStore";
 import { smsClient } from "~/classes/SmsClient";
 import { models } from "~/models";
 import { SignInIO, SocketOnHandler, StoredClient } from "~/types";
@@ -38,4 +38,4 @@ const sendVerificationCode = async (
 const createUserId = () => randomMaker.id(models.native.userId.maxLength);
 
 const addClient = async (clientId: string, data: StoredClient) =>
-	await clientStore.add(clientId, data);
+	await authClientStore.add(clientId, data);

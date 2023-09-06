@@ -52,7 +52,7 @@ const e2eFailTest = (name: Name, prefix: Prefix, reason: ErrorReason) => {
 	);
 };
 
-const unitSuccessTest = (name: Name, prefix: Prefix, description: string) =>
+const unitSuccessTest = (name: Name, prefix: Prefix, description?: string) =>
 	createMessage("test", "unit", "success", name, prefix, description);
 const unitFailTest = (name: Name, prefix: Prefix, reason: ErrorReason) => {
 	const e = errorStore.find(reason);

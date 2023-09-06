@@ -1,6 +1,6 @@
 import { errorThrower, extractor, randomMaker } from "utility-store";
 
-import { clientStore } from "~/classes/ClientStore";
+import { authClientStore } from "~/classes/AuthClientStore";
 import { errorStore } from "~/classes/ErrorStore";
 import { userUtils } from "~/classes/UserUtils";
 import { models } from "~/models";
@@ -11,7 +11,7 @@ export const createNewUser: SocketOnHandler<CreateNewUserIO> = async (
 	socket,
 	{ firstName, lastName }
 ) => {
-	const client = await clientStore.find(socket.clientId);
+	const client = await authClientStore.find(socket.clientId);
 	if (!client) throw errorStore.find("CLIENT_NOT_FOUND");
 	checkClientVerification(client);
 
@@ -34,7 +34,7 @@ export const createNewUser: SocketOnHandler<CreateNewUserIO> = async (
 		},
 	});
 
-	await clientStore.update(socket.clientId, { ...client, userId });
+	await authClientStore.update(socket.clientId, { ...client, userId });
 
 	return { data: {} };
 };

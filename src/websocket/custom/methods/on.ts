@@ -18,14 +18,17 @@ import { events } from "~/websocket/events";
 
 export const registerCustomOn = (socket: Socket) => {
 	return ((eventName, handler) => {
-		socket.on(eventName, async (data, responseCallback?: ResponseCallback) => {
-			const cb =
-				typeof responseCallback === "function"
-					? responseCallback
-					: () => undefined;
+		socket.on(
+			eventName,
+			async (data: any, responseCallback?: ResponseCallback): Promise<void> => {
+				const cb =
+					typeof responseCallback === "function"
+						? responseCallback
+						: () => undefined;
 
-			await tryToRunHandler(handler, socket, data, eventName, cb);
-		});
+				await tryToRunHandler(handler, socket, data, eventName, cb);
+			}
+		);
 	}) as CustomOn;
 };
 
@@ -39,25 +42,42 @@ async function tryToRunHandler(
 	return await trier<void | SocketHandlerReturnValue>(tryToRunHandler.name)
 		.async()
 		.try(async () => {
-			const returnValue = (await handler(socket, data)) || { data: {} };
+			const returnValue = await handler(socket, data);
+			const resolvedReturnValue = resolveReturnValue(returnValue);
 
 			//CLEANME
 			if (eventName !== "getStuff") {
 				checkOutputFields(
 					socket,
 					eventName,
-					returnValue.data,
+					resolvedReturnValue.data,
 					responseCallback
 				);
 			}
 
-			const response = utils.createSuccessResponse(eventName, returnValue.data);
+			const response = utils.createSuccessResponse(
+				eventName,
+				resolvedReturnValue.data
+			);
 
-			await emitReturnValue(socket, eventName, response, responseCallback);
-			responseCallback(response);
+			if (resolvedReturnValue.options.shouldEmitReturnValue) {
+				await emitReturnValue(socket, eventName, response, responseCallback);
+
+				responseCallback(response);
+			}
 		})
 		.catch(catchBlock, socket, eventName, responseCallback)
 		.run();
+}
+
+function resolveReturnValue(returnValue: void | SocketHandlerReturnValue) {
+	return {
+		data: returnValue?.data || {},
+		options: {
+			shouldEmitReturnValue:
+				returnValue?.options?.shouldEmitReturnValue ?? true,
+		},
+	};
 }
 
 function checkOutputFields(

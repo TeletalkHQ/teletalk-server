@@ -1,6 +1,7 @@
 import http from "http";
 import { Server } from "socket.io";
 
+import { clientStatusStore } from "~/classes/ClientStatusStore";
 import { customMethods } from "~/websocket/custom/methods";
 import { registerEvents } from "~/websocket/events";
 import { registerMiddlewares } from "~/websocket/middlewares";
@@ -10,13 +11,15 @@ type HttpServer = http.Server<
 	typeof http.ServerResponse
 >;
 
-export const websocketServer = (httpServer: HttpServer) => {
+export const websocketServer = async (httpServer: HttpServer) => {
 	const io = new Server(httpServer, {
 		cors: {
 			credentials: true,
 			origin: true,
 		},
 	});
+
+	await clientStatusStore.removeAll();
 
 	io.on("connection", (socket) => {
 		socket.io = io;

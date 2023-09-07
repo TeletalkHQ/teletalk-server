@@ -52,7 +52,7 @@ export const runner = async () => {
 	httpServer.listen(appConfigs.getConfigs().APP.PORT, listeningListener);
 
 	// const io =
-	websocketServer(httpServer);
+	await websocketServer(httpServer);
 	//   io.adapter(createAdapter());
 	//   setupWorker(io);
 	// }

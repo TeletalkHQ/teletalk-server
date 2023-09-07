@@ -26,7 +26,7 @@ describe(
 					data: { newContact },
 				} = await utils.requesterCollection
 					.addContactWithUserId(socket)
-					.sendFullFeaturedRequest(sendingData);
+					.emitFull(sendingData);
 
 				assertionInitializerHelper().oneContactWithUserId({
 					testValue: newContact,

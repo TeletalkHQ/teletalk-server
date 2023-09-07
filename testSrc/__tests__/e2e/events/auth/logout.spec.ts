@@ -16,9 +16,7 @@ describe(utils.createTestMessage.e2eSuccessDescribe("logout", "event"), () => {
 
 			await ah.createComplete();
 
-			await utils.requesterCollection
-				.logout(ah.getClientSocket())
-				.sendFullFeaturedRequest();
+			await utils.requesterCollection.logout(ah.getClientSocket()).emitFull();
 		}
 	);
 });

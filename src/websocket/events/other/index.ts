@@ -3,7 +3,7 @@ import {
 	GetCountriesIO,
 	GetStuffIO,
 	GetWelcomeMessageIO,
-	JoinRoomIO,
+	JoinIO,
 	PingIO,
 } from "~/types";
 import { fields } from "~/variables";
@@ -47,14 +47,14 @@ const ping = builder
 	.handler(handlers.ping)
 	.build();
 
-const joinRoom = builder
-	.create<JoinRoomIO>()
-	.name("joinRoom")
-	.handler(handlers.joinRoom)
+const join = builder
+	.create<JoinIO>()
+	.name("join")
+	.handler(handlers.join)
 	.method("once")
 	.build();
 
 export const other = {
-	events: [getCountries, getStuff, getWelcomeMessage, joinRoom, ping],
+	events: [getCountries, getStuff, getWelcomeMessage, join, ping],
 	handlers,
 };

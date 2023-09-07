@@ -1,7 +1,7 @@
 import { getCountries } from "./getCountries";
 import { getStuff } from "./getStuff";
 import { getWelcomeMessage } from "./getWelcomeMessage";
-import { joinRoom } from "./joinRoom";
+import { join } from "./join";
 import { ping } from "./ping";
 
 export const handlers = {
@@ -9,5 +9,5 @@ export const handlers = {
 	getStuff,
 	getWelcomeMessage,
 	ping,
-	joinRoom,
+	join,
 };

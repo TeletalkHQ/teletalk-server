@@ -11,7 +11,7 @@ export const unknownEvent = socketEventBuilder()
 	.create()
 	//@ts-ignore
 	.name("unknownEvent")
-	.handler(() => undefined)
+	.handler(() => ({ data: {} }))
 	.inputFields({})
 	.outputFields({})
 	.build();

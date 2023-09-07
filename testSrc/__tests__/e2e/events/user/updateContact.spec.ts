@@ -23,7 +23,7 @@ describe(
 
 				await utils.requesterCollection
 					.addContactWithUserId(socket)
-					.sendFullFeaturedRequest(addingContactData);
+					.emitFull(addingContactData);
 
 				const editingContactData: FullNameWithUserId = {
 					...randomMaker.fullName(),
@@ -34,7 +34,7 @@ describe(
 					data: { updatedContact },
 				} = await utils.requesterCollection
 					.updateContact(socket)
-					.sendFullFeaturedRequest(editingContactData);
+					.emitFull(editingContactData);
 
 				assertionInitializerHelper().oneContactWithUserId({
 					testValue: updatedContact,

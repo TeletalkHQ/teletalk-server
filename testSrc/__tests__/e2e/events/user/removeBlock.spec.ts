@@ -17,15 +17,13 @@ describe(
 
 				await utils.requesterCollection
 					.addBlock(socket)
-					.sendFullFeaturedRequest({ userId: targetUser.userId });
+					.emitFull({ userId: targetUser.userId });
 
 				const {
 					data: { removedBlock },
-				} = await utils.requesterCollection
-					.removeBlock(socket)
-					.sendFullFeaturedRequest({
-						userId: targetUser.userId,
-					});
+				} = await utils.requesterCollection.removeBlock(socket).emitFull({
+					userId: targetUser.userId,
+				});
 
 				assertionInitializerHelper().userId({
 					testValue: removedBlock.userId,

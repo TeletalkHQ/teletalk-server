@@ -20,13 +20,11 @@ describe(
 				const addingContact = extractor.contact(targetUser);
 				await utils.requesterCollection
 					.addContactWithCellphone(socket)
-					.sendFullFeaturedRequest(addingContact);
+					.emitFull(addingContact);
 
 				const {
 					data: { contacts },
-				} = await utils.requesterCollection
-					.getContacts(socket)
-					.sendFullFeaturedRequest();
+				} = await utils.requesterCollection.getContacts(socket).emitFull();
 
 				assertionInitializerHelper().oneContact({
 					testValue: contacts.at(0)!,

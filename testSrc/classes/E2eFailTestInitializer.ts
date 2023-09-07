@@ -4,11 +4,11 @@ import { ErrorReason, IO } from "~/types";
 import { Field, FieldType, NativeModel } from "~/types/model";
 import { utils as mainUtils } from "~/utils";
 
-import { Requester } from "@/classes/Requester";
 import { RequesterOptions } from "@/types";
 import { utils } from "@/utils";
 
 import { randomMaker } from "./RandomMaker";
+import { Requester } from "./Requester";
 
 class E2eFailTestInitializer<
 	PartialNativeModel extends NativeModel,
@@ -135,11 +135,7 @@ class E2eFailTestInitializer<
 		);
 
 		it(title, async () => {
-			await this.configuredRequester.sendFullFeaturedRequest(
-				data,
-				errorReason,
-				options
-			);
+			await this.configuredRequester.emitFull(data, errorReason, options);
 		});
 	}
 }

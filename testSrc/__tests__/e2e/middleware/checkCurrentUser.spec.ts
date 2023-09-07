@@ -36,9 +36,10 @@ describe(
 					});
 
 					const data = utils.generateDynamicData(event.inputFields);
-					await utils.requesterCollection[event.name](
-						socket
-					).sendFullFeaturedRequest(data as any, "CURRENT_USER_NOT_EXIST");
+					await utils.requesterCollection[event.name](socket).emitFull(
+						data as any,
+						"CURRENT_USER_NOT_EXIST"
+					);
 				}
 			);
 		}

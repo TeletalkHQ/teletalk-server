@@ -27,10 +27,10 @@ describe(
 				ci.initClient();
 				ci.connect();
 
-				await requesterMaker(
-					ci.getClient(),
-					event as any
-				).sendFullFeaturedRequest({}, "CLIENT_INVALID");
+				await requesterMaker(ci.getClient(), event as any).emitFull(
+					{},
+					"CLIENT_INVALID"
+				);
 			});
 		}
 	}

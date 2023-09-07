@@ -23,7 +23,7 @@ describe(
 				const messageText = "Hello! Im messages!";
 				await utils.requesterCollection
 					.sendMessage(currentUserSocket)
-					.sendFullFeaturedRequest({
+					.emitFull({
 						messageText,
 						targetParticipantId: targetUser.userId,
 					});
@@ -32,7 +32,7 @@ describe(
 					data: { privateChats },
 				} = await utils.requesterCollection
 					.getPrivateChats(currentUserSocket)
-					.sendFullFeaturedRequest();
+					.emitFull();
 
 				for (const item of privateChats) {
 					assertionInitializerHelper().chatId(

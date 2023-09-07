@@ -21,15 +21,13 @@ describe(
 
 				await utils.requesterCollection
 					.addContactWithUserId(socket)
-					.sendFullFeaturedRequest(addingContact);
+					.emitFull(addingContact);
 
 				const {
 					data: { removedContact },
-				} = await utils.requesterCollection
-					.removeContact(socket)
-					.sendFullFeaturedRequest({
-						userId: addingContact.userId,
-					});
+				} = await utils.requesterCollection.removeContact(socket).emitFull({
+					userId: addingContact.userId,
+				});
 
 				assertionInitializerHelper().userId({
 					equalValue: addingContact.userId,

@@ -18,11 +18,9 @@ describe(
 
 				const {
 					data: { publicData },
-				} = await utils.requesterCollection
-					.getPublicData(socket)
-					.sendFullFeaturedRequest({
-						userId: currentUser.userId,
-					});
+				} = await utils.requesterCollection.getPublicData(socket).emitFull({
+					userId: currentUser.userId,
+				});
 
 				assertionInitializerHelper().userPublicData({
 					testValue: publicData,
@@ -43,11 +41,9 @@ describe(
 
 				const {
 					data: { publicData },
-				} = await utils.requesterCollection
-					.getPublicData(socket)
-					.sendFullFeaturedRequest({
-						userId: targetUser.userId,
-					});
+				} = await utils.requesterCollection.getPublicData(socket).emitFull({
+					userId: targetUser.userId,
+				});
 
 				assertionInitializerHelper().userPublicData({
 					testValue: publicData,

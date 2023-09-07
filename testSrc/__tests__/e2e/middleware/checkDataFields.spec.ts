@@ -31,7 +31,7 @@ await utils.asyncDescribe(
 					await requesterMaker(socket, event as any)
 						.setError("INPUT_FIELDS_MISSING")
 						.setOptions({ shouldFilterRequestData: false })
-						.sendFullFeaturedRequest();
+						.emitFull();
 				});
 			}
 
@@ -46,7 +46,7 @@ await utils.asyncDescribe(
 					await requesterMaker(socket, event as any)
 						.setError("INPUT_FIELDS_OVERLOAD")
 						.setOptions({ shouldFilterRequestData: false })
-						.sendFullFeaturedRequest({
+						.emitFull({
 							...utils.generateDynamicData(event.inputFields),
 							[randomMaker.string(10)]: randomMaker.string(10),
 						});

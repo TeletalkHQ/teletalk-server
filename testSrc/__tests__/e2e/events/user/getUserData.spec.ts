@@ -18,9 +18,7 @@ describe(
 
 				const {
 					data: { user: receivedUserData },
-				} = await utils.requesterCollection
-					.getUserData(socket)
-					.sendFullFeaturedRequest();
+				} = await utils.requesterCollection.getUserData(socket).emitFull();
 
 				assertionInitializerHelper().userData({
 					equalValue: extractor.userData(user),

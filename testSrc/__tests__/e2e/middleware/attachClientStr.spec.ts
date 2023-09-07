@@ -26,7 +26,7 @@ describe(
 					.connect();
 				const socket = ci.getClient();
 
-				await requesterMaker(socket, event as any).sendFullFeaturedRequest(
+				await requesterMaker(socket, event as any).emitFull(
 					{},
 					"CLIENT_COOKIE_REQUIRED"
 				);

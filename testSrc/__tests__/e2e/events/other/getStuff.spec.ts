@@ -24,7 +24,7 @@ describe(
 				).getClient();
 				const requester = utils.requesterCollection.getStuff(clientSocket);
 
-				const { data } = await requester.sendFullFeaturedRequest();
+				const { data } = await requester.emitFull();
 
 				testEvents(data.events);
 				testModels(data.models);

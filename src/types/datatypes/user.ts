@@ -25,3 +25,12 @@ export type Username = string;
 export type ContactItemWithCellphone = Cellphone & FullName;
 
 export type UserPublicData = PublicUserData;
+
+export interface ClientStatus {
+	connections: number;
+	userId: UserId;
+}
+
+export type ClientStatusList = {
+	[key: string]: ClientStatus;
+};

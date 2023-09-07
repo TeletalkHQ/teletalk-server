@@ -4,16 +4,14 @@
 import { Socket } from "socket.io-client";
 import { Cellphone, FullName } from "utility-store/lib/types";
 
-import { IO, IOCollection, SocketEvent } from "~/types";
+import { EventName, IO, IOCollection, SocketEvent } from "~/types";
 import { events } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
 import { RequesterMaker } from "@/types";
 
-export const requesterMakerHelper = <T extends keyof IOCollection>(
-	eventName: T
-) => {
+export const requesterMakerHelper = <T extends EventName>(eventName: T) => {
 	const event = events.find((i) => i.name === eventName)! as SocketEvent<
 		IOCollection[T]
 	>;
@@ -41,9 +39,12 @@ export const requesterCollection = {
 	addContactWithCellphone: requesterMakerHelper("addContactWithCellphone"),
 	addContactWithUserId: requesterMakerHelper("addContactWithUserId"),
 	createNewUser: requesterMakerHelper("createNewUser"),
+	disconnect: requesterMakerHelper("disconnect"),
 	getChatInfo: requesterMakerHelper("getChatInfo"),
+	getClientStatus: requesterMakerHelper("getClientStatus"),
 	getContacts: requesterMakerHelper("getContacts"),
 	getCountries: requesterMakerHelper("getCountries"),
+	getOnlineClients: requesterMakerHelper("getOnlineClients"),
 	getPrivateChat: requesterMakerHelper("getPrivateChat"),
 	getPrivateChats: requesterMakerHelper("getPrivateChats"),
 	getPublicData: requesterMakerHelper("getPublicData"),

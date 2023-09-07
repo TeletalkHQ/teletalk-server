@@ -3,10 +3,12 @@ import {
 	GetCountriesIO,
 	GetStuffIO,
 	GetWelcomeMessageIO,
+	JoinRoomIO,
 	PingIO,
 } from "~/types";
 import { fields } from "~/variables";
-import { otherHandlers } from "~/websocket/events/other/handlers";
+
+import { handlers } from "./handlers";
 
 const builder = socketEventBuilder();
 
@@ -17,14 +19,14 @@ const getCountries = builder
 	.outputFields({
 		countries: fields.statics.array(fields.collection.country),
 	})
-	.handler(otherHandlers.getCountries)
+	.handler(handlers.getCountries)
 	.build();
 
 const getStuff = builder
 	.create<GetStuffIO>()
 	.name("getStuff")
 	.noAuth()
-	.handler(otherHandlers.getStuff)
+	.handler(handlers.getStuff)
 	.build();
 
 const getWelcomeMessage = builder
@@ -34,7 +36,7 @@ const getWelcomeMessage = builder
 	.outputFields({
 		welcomeMessage: fields.single.welcomeMessage,
 	})
-	.handler(otherHandlers.getWelcomeMessage)
+	.handler(handlers.getWelcomeMessage)
 	.build();
 
 const ping = builder
@@ -42,10 +44,17 @@ const ping = builder
 	.name("ping")
 	.noAuth()
 	.outputFields({ pong: fields.statics.string })
-	.handler(otherHandlers.ping)
+	.handler(handlers.ping)
+	.build();
+
+const joinRoom = builder
+	.create<JoinRoomIO>()
+	.name("joinRoom")
+	.handler(handlers.joinRoom)
+	.method("once")
 	.build();
 
 export const other = {
-	events: [getCountries, getStuff, getWelcomeMessage, ping],
-	handlers: otherHandlers,
+	events: [getCountries, getStuff, getWelcomeMessage, joinRoom, ping],
+	handlers,
 };

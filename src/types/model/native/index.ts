@@ -154,7 +154,7 @@ export interface ClientId extends NativeModel {
 	empty: false;
 	required: true;
 	minLength: 100;
-	maxLength: 500;
+	maxLength: 150;
 	unique: true;
 	trim: true;
 }

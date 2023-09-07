@@ -3,7 +3,10 @@ import {
 	AddBlockIO,
 	AddContactWithCellphoneIO,
 	AddContactWithUserIdIO,
+	DisconnectIO,
+	GetClientStatusIO,
 	GetContactsIO,
+	GetOnlineClientsIO,
 	GetPublicDataIO,
 	GetUserDataIO,
 	RemoveBlockIO,
@@ -12,7 +15,8 @@ import {
 	UpdatePublicDataIO,
 } from "~/types";
 import { fields } from "~/variables";
-import { userHandlers } from "~/websocket/events/user/handlers";
+
+import { handlers } from "./handlers";
 
 const builder = socketEventBuilder();
 
@@ -25,7 +29,7 @@ const addBlock = builder
 			userId: fields.single.userId,
 		}),
 	})
-	.handler(userHandlers.addBlock)
+	.handler(handlers.addBlock)
 	.build();
 
 const addContactWithCellphone = builder
@@ -38,7 +42,7 @@ const addContactWithCellphone = builder
 	.outputFields({
 		newContact: fields.statics.object(fields.collection.contact),
 	})
-	.handler(userHandlers.addContactWithCellphone)
+	.handler(handlers.addContactWithCellphone)
 	.build();
 
 const addContactWithUserId = builder
@@ -51,7 +55,14 @@ const addContactWithUserId = builder
 	.outputFields({
 		newContact: fields.statics.object(fields.collection.contact),
 	})
-	.handler(userHandlers.addContactWithUserId)
+	.handler(handlers.addContactWithUserId)
+	.build();
+
+const disconnect = builder
+	.create<DisconnectIO>()
+	.name("disconnect")
+	.noAuth()
+	.handler(handlers.disconnect)
 	.build();
 
 const updateContact = builder
@@ -61,7 +72,7 @@ const updateContact = builder
 	.outputFields({
 		updatedContact: fields.statics.object(fields.collection.FullNameWithUserId),
 	})
-	.handler(userHandlers.updateContact)
+	.handler(handlers.updateContact)
 	.build();
 
 const getContacts = builder
@@ -70,7 +81,7 @@ const getContacts = builder
 	.outputFields({
 		contacts: fields.statics.array(fields.collection.contact),
 	})
-	.handler(userHandlers.getContacts)
+	.handler(handlers.getContacts)
 	.build();
 
 const getUserData = builder
@@ -82,7 +93,31 @@ const getUserData = builder
 			clients: fields.collection.clients,
 		}),
 	})
-	.handler(userHandlers.getUserData)
+	.handler(handlers.getUserData)
+	.build();
+
+const getClientStatus = builder
+	.create<GetClientStatusIO>()
+	.name("getClientStatus")
+	.inputFields({
+		userId: fields.single.userId,
+	})
+	.outputFields({
+		isOnline: fields.statics.boolean,
+		userId: fields.single.userId,
+	})
+	.handler(handlers.getClientStatus)
+	.build();
+
+const getOnlineClients = builder
+	.create<GetOnlineClientsIO>()
+	.name("getOnlineClients")
+	.outputFields({
+		onlineClients: fields.statics.array({
+			userId: fields.single.userId,
+		}),
+	})
+	.handler(handlers.getOnlineClients)
 	.build();
 
 const getPublicData = builder
@@ -99,7 +134,7 @@ const getPublicData = builder
 			username: fields.single.username,
 		}),
 	})
-	.handler(userHandlers.getPublicData)
+	.handler(handlers.getPublicData)
 	.build();
 
 const removeBlock = builder
@@ -111,7 +146,7 @@ const removeBlock = builder
 			userId: fields.single.userId,
 		}),
 	})
-	.handler(userHandlers.removeBlock)
+	.handler(handlers.removeBlock)
 	.build();
 
 const removeContact = builder
@@ -125,7 +160,7 @@ const removeContact = builder
 			userId: fields.single.userId,
 		}),
 	})
-	.handler(userHandlers.removeContact)
+	.handler(handlers.removeContact)
 	.build();
 
 const updatePublicData = builder
@@ -144,7 +179,7 @@ const updatePublicData = builder
 			username: fields.single.username,
 		}),
 	})
-	.handler(userHandlers.updatePublicData)
+	.handler(handlers.updatePublicData)
 	.build();
 
 export const user = {
@@ -152,13 +187,16 @@ export const user = {
 		addBlock,
 		addContactWithCellphone,
 		addContactWithUserId,
-		updateContact,
+		disconnect,
+		getClientStatus,
 		getContacts,
+		getOnlineClients,
 		getPublicData,
 		getUserData,
 		removeBlock,
 		removeContact,
+		updateContact,
 		updatePublicData,
 	],
-	handlers: userHandlers,
+	handlers,
 };

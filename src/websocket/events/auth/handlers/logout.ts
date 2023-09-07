@@ -1,4 +1,4 @@
-import { clientStore } from "~/classes/ClientStore";
+import { authClientStore } from "~/classes/AuthClientStore";
 import { services } from "~/services";
 import { LogoutIO, SocketOnHandler } from "~/types";
 
@@ -11,7 +11,7 @@ export const logout: SocketOnHandler<LogoutIO> = async (socket) => {
 	});
 
 	socket.rooms.clear();
-	await clientStore.remove(socket.clientId);
+	await authClientStore.remove(socket.clientId);
 
 	return {
 		data: {},

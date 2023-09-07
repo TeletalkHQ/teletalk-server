@@ -78,7 +78,7 @@ const participantItem = {
 	participantId,
 };
 
-const blacklist = statics.array(cellphone);
+const blacklist = statics.array({ userId });
 const contacts = statics.array(contact);
 const clients = statics.array(client);
 const countries = statics.array(country);

@@ -1,16 +1,16 @@
 import { EventName } from "~/types";
-import { events } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
 import { utils } from "@/utils";
+import { eventsWithoutDisconnect } from "@/websocket/events";
 
 await utils.asyncDescribe(
 	utils.createTestMessage.unitFailDescribe("checkDataFields", "middleware"),
 	async () => {
 		const { socket } = await randomMaker.user();
 
-		const eventsWithInputFields = events.filter(
+		const eventsWithInputFields = eventsWithoutDisconnect.filter(
 			(i) => Object.keys(i.inputFields).length
 		);
 
@@ -35,7 +35,7 @@ await utils.asyncDescribe(
 				});
 			}
 
-			for (const event of eventsWithInputFieldsExceptAuth) {
+			for (const event of eventsWithoutDisconnect) {
 				const title = utils.createTestMessage.unitFailTest(
 					event.name,
 					"middleware",

@@ -1,11 +1,13 @@
-import { getCountries } from "~/websocket/events/other/handlers/getCountries";
-import { getStuff } from "~/websocket/events/other/handlers/getStuff";
-import { getWelcomeMessage } from "~/websocket/events/other/handlers/getWelcomeMessage";
-import { ping } from "~/websocket/events/other/handlers/ping";
+import { getCountries } from "./getCountries";
+import { getStuff } from "./getStuff";
+import { getWelcomeMessage } from "./getWelcomeMessage";
+import { joinRoom } from "./joinRoom";
+import { ping } from "./ping";
 
-export const otherHandlers = {
+export const handlers = {
 	getCountries,
 	getStuff,
 	getWelcomeMessage,
 	ping,
+	joinRoom,
 };

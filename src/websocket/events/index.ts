@@ -22,4 +22,8 @@ export const eventsWithoutAuth = events.filter(
 	(i) => i.isAuthRequired === false
 );
 
+export const eventsWithoutAuthAndDisconnect = eventsWithoutAuth.filter(
+	(i) => i.name !== "disconnect"
+);
+
 export const eventsWithAuth = events.filter((i) => i.isAuthRequired === true);

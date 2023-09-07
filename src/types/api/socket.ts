@@ -7,10 +7,12 @@ export type EventName =
 	| "addContactWithCellphone"
 	| "addContactWithUserId"
 	| "createNewUser"
-	| "updateContact"
+	| "disconnect"
 	| "getChatInfo"
 	| "getContacts"
 	| "getCountries"
+	| "getClientStatus"
+	| "getOnlineClients"
 	| "getPrivateChat"
 	| "getPrivateChats"
 	| "getPublicData"
@@ -25,7 +27,7 @@ export type EventName =
 	| "removeContact"
 	| "sendMessage"
 	| "signIn"
-	| "unknownEvent"
+	| "updateContact"
 	| "updatePublicData"
 	| "verify";
 
@@ -49,8 +51,13 @@ export type ResponseCallback<Data = IO["output"]> = (
 
 export type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
+export interface SocketOnHandlerReturnOptions {
+	shouldEmitReturnValue: boolean;
+}
+
 export interface SocketHandlerReturnValue<IOType extends IO = any> {
 	data: IOType["output"];
+	options?: Partial<SocketOnHandlerReturnOptions>;
 }
 
 export type SocketOnHandler<IOType extends IO = any> = (
@@ -73,15 +80,10 @@ export type SocketOnAnyHandler<IOType extends IO = any> = (
 	| Promise<SocketHandlerReturnValue<IOType>>;
 
 export interface SocketEvent<IOType extends IO = any> extends Route {
-	name: Exclude<EventName, "unknownEvent">;
+	name: EventName;
 	handler: SocketOnHandler<IOType>;
 	method: SocketMethods;
 }
-
-// export type SocketRoutePicker<T extends EventName> = Pick<
-//   SocketEventCollection,
-//   Extract<EventName, T>
-// >;
 
 export type CustomEmit = (eventName: EventName, data: SocketResponse) => void;
 

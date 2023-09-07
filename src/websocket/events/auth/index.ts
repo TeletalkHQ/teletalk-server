@@ -1,7 +1,8 @@
 import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import { CreateNewUserIO, LogoutIO, SignInIO, VerifyIO } from "~/types";
 import { fields } from "~/variables";
-import { authHandlers } from "~/websocket/events/auth/handlers";
+
+import { handlers } from "./handlers";
 
 const builder = socketEventBuilder();
 
@@ -9,13 +10,13 @@ const createNewUser = builder
 	.create<CreateNewUserIO>()
 	.name("createNewUser")
 	.inputFields(fields.collection.fullName)
-	.handler(authHandlers.createNewUser)
+	.handler(handlers.createNewUser)
 	.build();
 
 const logout = builder
 	.create<LogoutIO>()
 	.name("logout")
-	.handler(authHandlers.logout)
+	.handler(handlers.logout)
 	.build();
 
 const signIn = builder
@@ -23,7 +24,7 @@ const signIn = builder
 	.name("signIn")
 	.noAuth()
 	.inputFields(fields.collection.cellphone)
-	.handler(authHandlers.signIn)
+	.handler(handlers.signIn)
 	.build();
 
 const verify = builder
@@ -35,10 +36,10 @@ const verify = builder
 	.outputFields({
 		newUser: fields.single.newUser,
 	})
-	.handler(authHandlers.verify)
+	.handler(handlers.verify)
 	.build();
 
 export const auth = {
 	events: [createNewUser, logout, signIn, verify],
-	handlers: authHandlers,
+	handlers,
 };

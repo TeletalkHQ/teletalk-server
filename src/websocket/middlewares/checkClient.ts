@@ -1,7 +1,7 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 
-import { clientStore } from "~/classes/ClientStore";
+import { authClientStore } from "~/classes/AuthClientStore";
 import { errorStore } from "~/classes/ErrorStore";
 import { SocketMiddleware, SocketNext } from "~/types";
 
@@ -15,7 +15,7 @@ export const checkClient: SocketMiddleware = async (socket, next) => {
 };
 
 const tryBlock = async (socket: Socket) => {
-	const client = await clientStore.find(socket.clientId);
+	const client = await authClientStore.find(socket.clientId);
 	if (!client) throw errorStore.find("CLIENT_NOT_FOUND");
 };
 

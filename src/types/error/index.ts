@@ -45,6 +45,8 @@ export type CustomErrorReason =
 	| "UNKNOWN_ERROR"
 	| "USER_EXIST"
 	| "VALIDATION_MODEL_IS_NOT_OBJECT"
+	| "TARGET_USER_IS_BLACKLISTED"
+	| "CURRENT_USER_IS_BLACKLISTED"
 	| "USER_NO_LONGER_PARTICIPANT";
 
 export type ErrorReason = ModelErrorReason | CustomErrorReason;

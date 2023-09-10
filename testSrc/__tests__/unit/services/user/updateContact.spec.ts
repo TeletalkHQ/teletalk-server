@@ -31,7 +31,7 @@ describe(
 					await services.user.addContactWithCellphone({
 						addingContact,
 						currentUserId: currentUser.userId,
-						targetCellphone: addingContact,
+						targetUserCellphone: addingContact,
 					});
 
 					updatingContacts.push({ ...addingContact, userId: targetUserId });

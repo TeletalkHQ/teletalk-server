@@ -4,12 +4,12 @@ import { serviceHandler } from "./ServiceHandler";
 
 export class ServiceBuilder<Query, Return, MiddlewareQueryData> {
 	private body: ServiceFn<Query & MiddlewareQueryData, Return>;
-	private middlewaresBeforeRun: ServiceMiddleware[] = [];
-	private middlewaresAfterRun: ServiceMiddleware[] = [];
+	private middlewaresBeforeRun: ServiceMiddleware<any, any>[] = [];
+	private middlewaresAfterRun: ServiceMiddleware<any, any>[] = [];
 
 	setMiddlewares(
-		beforeRun: ServiceMiddleware[],
-		afterRun: ServiceMiddleware[] = []
+		beforeRun: ServiceMiddleware<any, any>[],
+		afterRun: ServiceMiddleware<any, any>[] = []
 	) {
 		this.middlewaresBeforeRun = beforeRun;
 		this.middlewaresAfterRun = afterRun;

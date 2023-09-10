@@ -31,8 +31,9 @@ export const sendMessage = serviceBuilder
 		}
 	>()
 	.setMiddlewares([
-		serviceMiddlewares.findCurrentUser,
-		serviceMiddlewares.findTargetUser,
+		serviceMiddlewares.findCurrentParticipant,
+		serviceMiddlewares.findTargetParticipant,
+		serviceMiddlewares.throwIfParticipantIsBlacklisted,
 		serviceMiddlewares.createPrivateChatIfNotExist,
 		serviceMiddlewares.findPrivateChat,
 	])

@@ -3,11 +3,14 @@ import { coreServices } from "~/services/privateChat/core";
 import { ChatId, HydratedPrivateChat, ServiceMiddleware } from "~/types";
 import { UserId } from "~/types/datatypes";
 
-export const throwIfPrivateChatExist: ServiceMiddleware<{
-	currentParticipantId?: UserId;
-	targetParticipantId?: UserId;
-	chatId?: ChatId;
-}> = async (data) => {
+export const throwIfPrivateChatExist: ServiceMiddleware<
+	{
+		currentParticipantId?: UserId;
+		targetParticipantId?: UserId;
+		chatId?: ChatId;
+	},
+	void
+> = async (data) => {
 	let p: HydratedPrivateChat | null;
 
 	if (data.chatId) {

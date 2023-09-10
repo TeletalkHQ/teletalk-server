@@ -10,7 +10,7 @@ export const addContactWithCellphone: SocketOnHandler<
 	const { newContact } = await services.user.addContactWithCellphone({
 		currentUserId,
 		addingContact: data,
-		targetCellphone: extractor.cellphone(data),
+		targetUserCellphone: extractor.cellphone(data),
 	});
 
 	return {

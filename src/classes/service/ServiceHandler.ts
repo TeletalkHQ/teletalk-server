@@ -24,8 +24,8 @@ export class ServiceHandler<Query, Return> {
 
 	constructor(
 		private body: ServiceFn<Query, Return>,
-		private middlewaresBeforeRun: ServiceMiddleware[],
-		private middlewaresAfterRun: ServiceMiddleware[],
+		private middlewaresBeforeRun: ServiceMiddleware<any, any>[],
+		private middlewaresAfterRun: ServiceMiddleware<any, any>[],
 		options: PartialOptions
 	) {
 		this.setOptions(options);
@@ -49,17 +49,31 @@ export class ServiceHandler<Query, Return> {
 	}
 
 	async run(data: Query, options: QueryOptions = {}) {
+		const mutatingData: any = { ...data };
+
 		for (const item of this.middlewaresBeforeRun) {
-			await item(data);
+			const result = (await item(mutatingData)) || {};
+
+			Object.keys(result).forEach((key) => {
+				mutatingData[key] = result[key];
+			});
 		}
 
-		const queryResult = await this.body(data, options, options);
+		const queryResult = (await this.body(mutatingData, options, options)) || {};
+
+		Object.keys(queryResult).forEach((key) => {
+			mutatingData[key] = (queryResult as any)[key];
+		});
 
 		for (const item of this.middlewaresAfterRun) {
-			await item({ ...data, ...queryResult });
+			const result = (await item(mutatingData)) || {};
+
+			Object.keys(result).forEach((key) => {
+				mutatingData[key] = result[key];
+			});
 		}
 
-		this.setQueryResult(queryResult);
+		this.setQueryResult(queryResult as Return);
 
 		if (customTypeof.isObject(this.getQueryResult())) {
 			this.setQueryResult(JSON.parse(JSON.stringify(this.getQueryResult())));
@@ -98,8 +112,8 @@ export class ServiceHandler<Query, Return> {
 export const serviceHandler =
 	<Query, Return>(
 		serviceBody: ServiceFn<Query, Return>,
-		middlewaresBeforeRun: ServiceMiddleware[],
-		middlewaresAfterRun: ServiceMiddleware[],
+		middlewaresBeforeRun: ServiceMiddleware<any, any>[],
+		middlewaresAfterRun: ServiceMiddleware<any, any>[],
 		buildTimeOptions: PartialOptions = {}
 	) =>
 	(data: Query) =>

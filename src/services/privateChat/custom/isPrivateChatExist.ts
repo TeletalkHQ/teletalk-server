@@ -10,21 +10,29 @@ export const isPrivateChatExist = serviceBuilder
 			currentParticipantId?: UserId;
 			targetParticipantId?: UserId;
 		},
-		boolean
+		{
+			isPrivateChatExist: boolean;
+		}
 	>()
 	.setBody(async (data) => {
 		if (data.chatId) {
-			return !!(await coreServices.find({
-				chatId: data.chatId,
-			}));
+			return {
+				isPrivateChatExist: !!(await coreServices.find({
+					chatId: data.chatId,
+				})),
+			};
 		} else if (data.currentParticipantId && data.targetParticipantId) {
-			return !!(await coreServices.find({
-				["participants.participantId"]: {
-					$all: [data.currentParticipantId, data.targetParticipantId],
-				},
-			}));
+			return {
+				isPrivateChatExist: !!(await coreServices.find({
+					["participants.participantId"]: {
+						$all: [data.currentParticipantId, data.targetParticipantId],
+					},
+				})),
+			};
 		}
 
-		return false;
+		return {
+			isPrivateChatExist: false,
+		};
 	})
 	.build();

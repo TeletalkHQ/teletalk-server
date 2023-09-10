@@ -8,9 +8,9 @@ import { IPrivateChatDoc, IUserDoc } from "../model";
 export type ServiceHandlerExcludeProp = "_id" | "__v";
 export type ServiceHandlerExcludeProps = ServiceHandlerExcludeProp[];
 
-export type ServiceMiddleware<Arg = any> = (
-	arg: Arg & StringMap
-) => void | Promise<void>;
+export type ServiceMiddleware<Arg extends object, Return> = (
+	arg: Arg & object
+) => Return | Promise<Return>;
 
 export interface ServiceHandlerOptions {
 	extraExcludeProps: ServiceHandlerExcludeProps;

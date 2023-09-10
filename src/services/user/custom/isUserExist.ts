@@ -9,9 +9,13 @@ export const isUserExist = serviceBuilder
 		{
 			cellphone: Cellphone;
 		},
-		boolean
+		{
+			isUserExist: boolean;
+		}
 	>()
 	.setBody(async (data) => {
-		return !!(await coreServices.find(data.cellphone));
+		return {
+			isUserExist: !!(await coreServices.find(data.cellphone)),
+		};
 	})
 	.build();

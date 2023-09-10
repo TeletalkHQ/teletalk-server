@@ -7,11 +7,16 @@ import {
 	UserId,
 } from "~/types";
 
-export const findPrivateChat: ServiceMiddleware<{
-	currentParticipantId?: UserId;
-	targetParticipantId?: UserId;
-	chatId: ChatId;
-}> = async (data) => {
+export const findPrivateChat: ServiceMiddleware<
+	{
+		currentParticipantId?: UserId;
+		targetParticipantId?: UserId;
+		chatId: ChatId;
+	},
+	{
+		privateChat: HydratedPrivateChat;
+	}
+> = async (data) => {
 	let p: HydratedPrivateChat | null;
 
 	if (data.chatId) {
@@ -28,5 +33,7 @@ export const findPrivateChat: ServiceMiddleware<{
 
 	if (!p!) throw errorStore.find("PRIVATE_CHAT_NOT_EXIST");
 
-	data.privateChat = p;
+	return {
+		privateChat: p,
+	};
 };

@@ -17,24 +17,18 @@ describe(
 			),
 			async () => {
 				const { user: currentUser } = await randomMaker.user();
-
 				const blockingUsers: BlackList = [];
-
 				const length = 1;
 				const users = await Promise.all(randomMaker.batchUsers(length));
-
 				for (const { user: targetUser } of users) {
 					await services.user.addBlock({
 						targetUserId: targetUser.userId,
 						currentUserId: currentUser.userId,
 					});
-
 					blockingUsers.push({ userId: targetUser.userId });
-
 					const { blacklist } = (await services.user.findByUserId({
 						currentUserId: currentUser.userId,
 					})) as UserData;
-
 					assertionInitializerHelper().blacklist({
 						testValue: blacklist,
 						equalValue: blockingUsers,

@@ -5,10 +5,13 @@ import { coreServices } from "~/services/privateChat/core";
 import { ServiceMiddleware } from "~/types";
 import { UserId } from "~/types/datatypes";
 
-export const createPrivateChatIfNotExist: ServiceMiddleware<{
-	currentParticipantId: UserId;
-	targetParticipantId: UserId;
-}> = async (data) => {
+export const createPrivateChatIfNotExist: ServiceMiddleware<
+	{
+		currentParticipantId: UserId;
+		targetParticipantId: UserId;
+	},
+	void
+> = async (data) => {
 	const p = await coreServices.find({
 		"participants.participantId": {
 			$all: [data.currentParticipantId, data.targetParticipantId],

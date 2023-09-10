@@ -6,28 +6,28 @@ import { coreServices } from "~/services/user/core";
 import { HydratedUser, ServiceMiddleware } from "~/types";
 import { UserId } from "~/types/datatypes";
 
-export const findCurrentUser: ServiceMiddleware<
+export const findCurrentParticipant: ServiceMiddleware<
 	{
-		currentUserId?: UserId;
+		currentParticipantId?: UserId;
 		currentUserCellphone?: ExtendedCellphone;
 	},
 	{
-		currentUser: HydratedUser;
+		currentParticipant: HydratedUser;
 	}
 > = async (data) => {
-	let u: HydratedUser | null;
+	let p: HydratedUser | null;
 
-	if (data.currentUserId) {
-		u = await coreServices.find({
-			userId: data.currentUserId,
+	if (data.currentParticipantId) {
+		p = await coreServices.find({
+			userId: data.currentParticipantId,
 		});
 	} else if (data.currentUserCellphone) {
-		u = await coreServices.find(extractor.cellphone(data.currentUserCellphone));
+		p = await coreServices.find(extractor.cellphone(data.currentUserCellphone));
 	}
 
-	if (!u!) throw errorStore.find("CURRENT_USER_NOT_EXIST");
+	if (!p!) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
 	return {
-		currentUser: u,
+		currentParticipant: p,
 	};
 };

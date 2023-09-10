@@ -7,9 +7,12 @@ import { UserId } from "~/types/datatypes";
 
 export const findCurrentUser: ServiceMiddleware<{
 	currentUserId?: UserId;
+	currentParticipantId?: UserId;
 	currentCellphone?: Cellphone;
 }> = async (data) => {
-	const user = await coreServices.find({ userId: data.currentUserId });
+	const user = await coreServices.find({
+		userId: data.currentUserId || data.currentParticipantId,
+	});
 	if (!user) throw errorStore.find("CURRENT_USER_NOT_EXIST");
 
 	data.currentUser = user;

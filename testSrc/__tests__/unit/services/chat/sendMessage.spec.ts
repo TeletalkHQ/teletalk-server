@@ -26,7 +26,7 @@ describe(
 					const sendingMessageText = randomMaker.messageText();
 
 					const addedMessageInfo = await services.privateChat.sendMessage({
-						currentUserId: currentUser.userId,
+						currentParticipantId: currentUser.userId,
 						targetParticipantId: targetUser.userId,
 						messageText: sendingMessageText,
 					});
@@ -37,17 +37,17 @@ describe(
 
 					const savedMessageItem = privateChat.messages.at(i)!;
 
-					const isCurrentUserIdExistsInParticipants =
+					const isParticipantIdExistInParticipants =
 						privateChat.participants.some(
 							(i) => i.participantId === currentUser.userId
 						);
-					chai.expect(isCurrentUserIdExistsInParticipants).to.be.equal(true);
+					chai.expect(isParticipantIdExistInParticipants).to.be.equal(true);
 
-					const isTargetUserIdExistsInParticipants =
+					const isTargetUserIdExistInParticipants =
 						privateChat.participants.some(
 							(i) => i.participantId === targetUser.userId
 						);
-					chai.expect(isTargetUserIdExistsInParticipants).to.be.equal(true);
+					chai.expect(isTargetUserIdExistInParticipants).to.be.equal(true);
 
 					assertionInitializerHelper()
 						.chatId({
@@ -73,7 +73,7 @@ describe(
 );
 
 await utils.generateServiceFailTest("sendMessage", "CURRENT_USER_NOT_EXIST", {
-	currentUserId: randomMaker.userId(),
+	currentParticipantId: randomMaker.userId(),
 	messageText: randomMaker.messageText(),
 	targetParticipantId: randomMaker.userId(),
 });
@@ -85,7 +85,7 @@ await utils.generateServiceFailTest(
 		const { user: currentUser } = await randomMaker.user();
 
 		return {
-			currentUserId: currentUser.userId,
+			currentParticipantId: currentUser.userId,
 			messageText: randomMaker.messageText(),
 			targetParticipantId: randomMaker.userId(),
 		};

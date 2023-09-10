@@ -12,7 +12,7 @@ export const sendMessage: SocketOnHandler<SendMessageIO> = async (
 
 	const { chatId, createdAt, messageId } =
 		await services.privateChat.sendMessage({
-			currentUserId,
+			currentParticipantId: currentUserId,
 			messageText,
 			targetParticipantId,
 		});

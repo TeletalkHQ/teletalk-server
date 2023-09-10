@@ -12,90 +12,60 @@ import {
 } from "~/types/datatypes";
 import { HydratedPrivateChat } from "~/types/model";
 
-import { coreServices } from "../core";
-
 const chatModels = models.native;
 
 export const sendMessage = serviceBuilder
 	.create<
 		{
-			currentUserId: UserId;
-			messageText: MessageText;
+			currentParticipantId: UserId;
 			targetParticipantId: UserId;
+			messageText: MessageText;
 		},
 		{
 			chatId: string;
 			createdAt: CreatedAt;
 			messageId: MessageId;
+		},
+		{
+			privateChat: HydratedPrivateChat;
 		}
 	>()
 	.setMiddlewares([
 		serviceMiddlewares.findCurrentUser,
 		serviceMiddlewares.findTargetUser,
+		serviceMiddlewares.createPrivateChatIfNotExist,
+		serviceMiddlewares.findPrivateChat,
 	])
 	.setBody(async (data) => {
-		const addedMessage = createNewMessage(data.messageText, data.currentUserId);
-
-		const privateChat = await findPrivateChat(
-			data.currentUserId,
-			data.targetParticipantId
+		const addedMessage = createNewMessage(
+			data.messageText,
+			data.currentParticipantId
 		);
-		const fixedPrivateChat = await fixPrivateChat({
-			currentUserId: data.currentUserId,
-			privateChat,
-			targetParticipantId: data.targetParticipantId,
-		});
 
 		await saveMessageOnPrivateChat({
 			addedMessage,
-			privateChat: fixedPrivateChat,
+			privateChat: data.privateChat,
 		});
 
 		return {
-			chatId: fixedPrivateChat.chatId,
+			chatId: data.privateChat.chatId,
 			createdAt: addedMessage.createdAt,
 			messageId: addedMessage.messageId,
 		};
 	})
 	.build();
 
-const findPrivateChat = (
-	currentUserId: string,
-	targetParticipantId: string
-) => {
-	return coreServices.find({
-		["participants.participantId"]: {
-			$all: [currentUserId, targetParticipantId],
-		},
-	});
-};
-
 const createNewMessage = (
 	messageText: string,
-	currentUserId: UserId
+	currentParticipantId: UserId
 ): MessageItem => ({
 	createdAt: Date.now(),
 	messageId: randomMaker.id(chatModels.messageId.maxLength),
 	messageText,
 	sender: {
-		senderId: currentUserId,
+		senderId: currentParticipantId,
 	},
 });
-
-const fixPrivateChat = async (data: {
-	currentUserId: UserId;
-	privateChat: HydratedPrivateChat | null;
-	targetParticipantId: UserId;
-}) =>
-	data.privateChat ||
-	(await coreServices.create({
-		chatId: createChatId(),
-		createdAt: Date.now(),
-		currentParticipantId: data.currentUserId,
-		targetParticipantId: data.targetParticipantId,
-	}));
-
-const createChatId = () => randomMaker.id(chatModels.chatId.maxLength);
 
 const saveMessageOnPrivateChat = async (data: {
 	addedMessage: MessageItem;

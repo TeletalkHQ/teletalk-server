@@ -1,4 +1,4 @@
-import { ServiceFn, ServiceMiddleware, StringMap } from "~/types";
+import { ServiceFn, ServiceMiddleware } from "~/types";
 
 import { serviceHandler } from "./ServiceHandler";
 
@@ -31,6 +31,6 @@ export class ServiceBuilder<Query, Return, MiddlewareQueryData> {
 }
 
 export const serviceBuilder = {
-	create: <Query, Return, MiddlewareQueryData = StringMap>() =>
+	create: <Query, Return, MiddlewareQueryData = object>() =>
 		new ServiceBuilder<Query, Return, MiddlewareQueryData>(),
 };

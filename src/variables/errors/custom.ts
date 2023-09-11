@@ -8,6 +8,8 @@ export const customErrors = [
 		.build(),
 	errorBuilder().reason("BLACKLIST_ITEM_EXIST").build(),
 	errorBuilder().reason("BLACKLIST_ITEM_NOT_EXIST").build(),
+	errorBuilder().reason("TARGET_USER_IS_BLACKLISTED").build(),
+	errorBuilder().reason("CURRENT_USER_IS_BLACKLISTED").build(),
 	errorBuilder().reason("PRIVATE_CHAT_NOT_EXIST").build(),
 	errorBuilder().reason("PRIVATE_CHAT_EXIST").build(),
 	errorBuilder().reason("CLIENT_ID_CAN_NOT_VERIFIED").authError().build(),

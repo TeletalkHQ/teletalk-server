@@ -51,13 +51,7 @@ export class ServiceHandler<Query, Return> {
 	async run(data: Query, options: QueryOptions = {}) {
 		const mutatingData: any = { ...data };
 
-		for (const item of this.middlewaresBeforeRun) {
-			const result = (await item(mutatingData)) || {};
-
-			Object.keys(result).forEach((key) => {
-				mutatingData[key] = result[key];
-			});
-		}
+		await this.executeMiddlewares(this.middlewaresBeforeRun, mutatingData);
 
 		const queryResult = (await this.body(mutatingData, options, options)) || {};
 
@@ -65,13 +59,7 @@ export class ServiceHandler<Query, Return> {
 			mutatingData[key] = (queryResult as any)[key];
 		});
 
-		for (const item of this.middlewaresAfterRun) {
-			const result = (await item(mutatingData)) || {};
-
-			Object.keys(result).forEach((key) => {
-				mutatingData[key] = result[key];
-			});
-		}
+		await this.executeMiddlewares(this.middlewaresAfterRun, mutatingData);
 
 		this.setQueryResult(queryResult as Return);
 
@@ -81,6 +69,19 @@ export class ServiceHandler<Query, Return> {
 		}
 
 		return this.getQueryResult() as Return;
+	}
+
+	private async executeMiddlewares(
+		middlewares: ServiceMiddleware<any, any>[],
+		mutatingData: StringMap
+	) {
+		for (const item of middlewares) {
+			const result = (await item(mutatingData)) || {};
+
+			Object.keys(result).forEach((key) => {
+				mutatingData[key] = result[key];
+			});
+		}
 	}
 
 	private getQueryResult() {

@@ -1,10 +1,9 @@
 import { ExtendedCellphone } from "utility-store/lib/types";
 
-import { errorStore } from "~/classes/ErrorStore";
-import { extractor } from "~/classes/Extractor";
-import { coreServices } from "~/services/user/core";
 import { HydratedUser, ServiceMiddleware } from "~/types";
 import { UserId } from "~/types/datatypes";
+
+import { commonMiddlewares } from "../common";
 
 export const findTargetParticipant: ServiceMiddleware<
 	{
@@ -15,21 +14,13 @@ export const findTargetParticipant: ServiceMiddleware<
 		targetParticipant: HydratedUser;
 	}
 > = async (data) => {
-	let p: HydratedUser | null;
-
-	if (data.targetParticipantId) {
-		p = await coreServices.find({
-			userId: data.targetParticipantId,
-		});
-	} else if (data.targetParticipantCellphone) {
-		p = await coreServices.find(
-			extractor.cellphone(data.targetParticipantCellphone)
-		);
-	}
-
-	if (!p!) throw errorStore.find("TARGET_USER_NOT_EXIST");
+	const { user } = await commonMiddlewares.findUser({
+		cellphone: data.targetParticipantCellphone,
+		errorReason: "TARGET_USER_NOT_EXIST",
+		userId: data.targetParticipantId,
+	});
 
 	return {
-		targetParticipant: p,
+		targetParticipant: user,
 	};
 };

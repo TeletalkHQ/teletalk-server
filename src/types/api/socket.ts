@@ -1,6 +1,6 @@
 import { Event, Socket } from "socket.io";
 
-import { NativeError, Route } from "..";
+import { NativeError, Route, VoidNoArgsFn } from "..";
 
 export type EventName =
 	| "addBlock"
@@ -19,7 +19,7 @@ export type EventName =
 	| "getStuff"
 	| "getUserData"
 	| "getWelcomeMessage"
-	| "joinRoom"
+	| "join"
 	| "logout"
 	| "ping"
 	| "pong"
@@ -53,6 +53,7 @@ export type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
 export interface SocketOnHandlerReturnOptions {
 	shouldEmitReturnValue: boolean;
+	cbAfterEmit: VoidNoArgsFn;
 }
 
 export interface SocketHandlerReturnValue<IOType extends IO = any> {
@@ -64,8 +65,6 @@ export type SocketOnHandler<IOType extends IO = any> = (
 	socket: Socket,
 	data: IOType["input"]
 ) =>
-	| void
-	| Promise<void>
 	| SocketHandlerReturnValue<IOType>
 	| Promise<SocketHandlerReturnValue<IOType>>;
 

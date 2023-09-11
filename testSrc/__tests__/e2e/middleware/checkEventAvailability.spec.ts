@@ -30,7 +30,7 @@ await utils.asyncDescribe(
 			it(message, async () => {
 				await createRequester(clientSocket, unknownEvent)
 					.setError("EVENT_NOT_FOUND")
-					.sendFullFeaturedRequest();
+					.emitFull();
 			});
 		};
 	}
@@ -56,7 +56,7 @@ await utils.asyncDescribe(
 
 				it(message, async () => {
 					const requester = createRequester(clientSocket, event);
-					await requester.sendRequest();
+					await requester.emit();
 
 					const { errors: responseErrors } = requester.getResponse();
 

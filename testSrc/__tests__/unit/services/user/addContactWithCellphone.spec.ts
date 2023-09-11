@@ -37,7 +37,7 @@ describe(
 					await services.user.addContactWithCellphone({
 						addingContact: item,
 						currentUserId: currentUser.userId,
-						targetCellphone: item,
+						targetUserCellphone: item,
 					});
 
 					const { contacts } = await services.user.getContacts({
@@ -60,7 +60,7 @@ await utils.generateServiceFailTest(
 	{
 		currentUserId: randomMaker.userId(),
 		addingContact: randomMaker.contactWithCellphone(),
-		targetCellphone: randomMaker.contactWithCellphone(),
+		targetUserCellphone: randomMaker.contactWithCellphone(),
 	}
 );
 
@@ -73,7 +73,7 @@ await utils.generateServiceFailTest(
 		return {
 			currentUserId: currentUser.userId,
 			addingContact: randomMaker.contactWithCellphone(),
-			targetCellphone: randomMaker.contactWithCellphone(),
+			targetUserCellphone: randomMaker.contactWithCellphone(),
 		};
 	}
 );
@@ -93,13 +93,13 @@ await utils.generateServiceFailTest(
 		await services.user.addContactWithCellphone({
 			currentUserId: currentUser.userId,
 			addingContact: targetContact,
-			targetCellphone: targetContact,
+			targetUserCellphone: targetContact,
 		});
 
 		return {
 			currentUserId: currentUser.userId,
 			addingContact: targetContact,
-			targetCellphone: targetContact,
+			targetUserCellphone: targetContact,
 		};
 	}
 );

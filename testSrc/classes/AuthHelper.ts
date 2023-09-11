@@ -37,7 +37,7 @@ class AuthHelper {
 
 		this.signInResponse = await utils.requesterCollection
 			.signIn(this.clientSocket)
-			.sendFullFeaturedRequest(this.cellphone);
+			.emitFull(this.cellphone);
 
 		return this;
 	}
@@ -48,7 +48,7 @@ class AuthHelper {
 
 		this.verifyResponse = await utils.requesterCollection
 			.verify(this.clientSocket)
-			.sendFullFeaturedRequest({
+			.emitFull({
 				verificationCode: client.verificationCode,
 			});
 
@@ -58,7 +58,7 @@ class AuthHelper {
 	async create() {
 		this.createResponse = await utils.requesterCollection
 			.createNewUser(this.clientSocket)
-			.sendFullFeaturedRequest(this.fullName as FullName);
+			.emitFull(this.fullName as FullName);
 
 		return this;
 	}

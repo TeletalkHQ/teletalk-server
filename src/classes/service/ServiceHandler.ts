@@ -24,8 +24,8 @@ export class ServiceHandler<Query, Return> {
 
 	constructor(
 		private body: ServiceFn<Query, Return>,
-		private middlewaresBeforeRun: ServiceMiddleware[],
-		private middlewaresAfterRun: ServiceMiddleware[],
+		private middlewaresBeforeRun: ServiceMiddleware<any, any>[],
+		private middlewaresAfterRun: ServiceMiddleware<any, any>[],
 		options: PartialOptions
 	) {
 		this.setOptions(options);
@@ -49,17 +49,19 @@ export class ServiceHandler<Query, Return> {
 	}
 
 	async run(data: Query, options: QueryOptions = {}) {
-		for (const item of this.middlewaresBeforeRun) {
-			await item(data);
-		}
+		const mutatingData: any = { ...data };
 
-		const queryResult = await this.body(data, options, options);
+		await this.executeMiddlewares(this.middlewaresBeforeRun, mutatingData);
 
-		for (const item of this.middlewaresAfterRun) {
-			await item({ ...data, ...queryResult });
-		}
+		const queryResult = (await this.body(mutatingData, options, options)) || {};
 
-		this.setQueryResult(queryResult);
+		Object.keys(queryResult).forEach((key) => {
+			mutatingData[key] = (queryResult as any)[key];
+		});
+
+		await this.executeMiddlewares(this.middlewaresAfterRun, mutatingData);
+
+		this.setQueryResult(queryResult as Return);
 
 		if (customTypeof.isObject(this.getQueryResult())) {
 			this.setQueryResult(JSON.parse(JSON.stringify(this.getQueryResult())));
@@ -67,6 +69,19 @@ export class ServiceHandler<Query, Return> {
 		}
 
 		return this.getQueryResult() as Return;
+	}
+
+	private async executeMiddlewares(
+		middlewares: ServiceMiddleware<any, any>[],
+		mutatingData: StringMap
+	) {
+		for (const item of middlewares) {
+			const result = (await item(mutatingData)) || {};
+
+			Object.keys(result).forEach((key) => {
+				mutatingData[key] = result[key];
+			});
+		}
 	}
 
 	private getQueryResult() {
@@ -98,8 +113,8 @@ export class ServiceHandler<Query, Return> {
 export const serviceHandler =
 	<Query, Return>(
 		serviceBody: ServiceFn<Query, Return>,
-		middlewaresBeforeRun: ServiceMiddleware[],
-		middlewaresAfterRun: ServiceMiddleware[],
+		middlewaresBeforeRun: ServiceMiddleware<any, any>[],
+		middlewaresAfterRun: ServiceMiddleware<any, any>[],
 		buildTimeOptions: PartialOptions = {}
 	) =>
 	(data: Query) =>

@@ -20,7 +20,7 @@ describe(
 					data: { userPublicData: receivedData },
 				} = await utils.requesterCollection
 					.updatePublicData(socket)
-					.sendFullFeaturedRequest(sendingData);
+					.emitFull(sendingData);
 
 				assertionInitializerHelper().userPublicData({
 					equalValue: { ...sendingData, userId: currentUser.userId },

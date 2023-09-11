@@ -10,7 +10,7 @@ export const getChatInfo: SocketOnHandler<GetChatInfoIO> = async (
 		chatId: data.chatId,
 	});
 
-	if (!privateChat) throw errorStore.find("CHAT_NOT_EXIST");
+	if (!privateChat) throw errorStore.find("PRIVATE_CHAT_NOT_EXIST");
 
 	const { chatId, createdAt, participants } = privateChat;
 

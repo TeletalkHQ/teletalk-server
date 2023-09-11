@@ -11,11 +11,7 @@ describe(
 	utils.createTestMessage.unitSuccessDescribe("getContacts", "service"),
 	() => {
 		it(
-			utils.createTestMessage.unitSuccessTest(
-				"getContacts",
-				"service",
-				"should add new blacklist item with target user id"
-			),
+			utils.createTestMessage.unitSuccessTest("getContacts", "service"),
 			async () => {
 				const { user: currentUser } = await randomMaker.user();
 
@@ -34,7 +30,7 @@ describe(
 					await services.user.addContactWithCellphone({
 						addingContact: item,
 						currentUserId: currentUser.userId,
-						targetCellphone: extractor.cellphone(item),
+						targetUserCellphone: extractor.cellphone(item),
 					});
 
 					addingContacts.push(item);

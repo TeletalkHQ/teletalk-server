@@ -17,11 +17,9 @@ describe(
 
 				const {
 					data: { blockedUser },
-				} = await utils.requesterCollection
-					.addBlock(socket)
-					.sendFullFeaturedRequest({
-						userId: targetUser.userId,
-					});
+				} = await utils.requesterCollection.addBlock(socket).emitFull({
+					userId: targetUser.userId,
+				});
 
 				assertionInitializerHelper().userId({
 					testValue: blockedUser.userId,

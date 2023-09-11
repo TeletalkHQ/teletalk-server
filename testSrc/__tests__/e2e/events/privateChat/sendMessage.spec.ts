@@ -19,7 +19,7 @@ describe(
 
 				const { data: sendMessageResponse } = await utils.requesterCollection
 					.sendMessage(socket)
-					.sendFullFeaturedRequest({
+					.emitFull({
 						targetParticipantId: targetUser.userId,
 						messageText,
 					});

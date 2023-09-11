@@ -1,13 +1,17 @@
 import { errorStore } from "~/classes/ErrorStore";
 import { ServiceMiddleware } from "~/types";
+import { UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
-export const throwIfContactExist: ServiceMiddleware<{
-	currentUser: HydratedUser;
-	targetUser: HydratedUser;
-}> = (data) => {
+export const throwIfContactExist: ServiceMiddleware<
+	{
+		currentUser: HydratedUser;
+		targetUserId: UserId;
+	},
+	void
+> = (data) => {
 	const index = data.currentUser.contacts.findIndex(
-		(i) => i.userId == data.targetUser.userId
+		(i) => i.userId == data.targetUserId
 	);
 
 	if (index >= 0)

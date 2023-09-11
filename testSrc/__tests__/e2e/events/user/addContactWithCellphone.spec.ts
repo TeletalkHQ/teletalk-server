@@ -30,7 +30,7 @@ describe(
 					data: { newContact },
 				} = await utils.requesterCollection
 					.addContactWithCellphone(socket)
-					.sendFullFeaturedRequest(sendingData);
+					.emitFull(sendingData);
 
 				assertionInitializerHelper().oneContact({
 					testValue: newContact,

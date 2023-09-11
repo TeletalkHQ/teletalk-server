@@ -22,7 +22,7 @@ describe(
 						await clientInitializer().createComplete()
 					).getClient();
 					const response = (
-						await requesterMaker(socket, event as any).sendRequest()
+						await requesterMaker(socket, event as any).emit()
 					).getResponse();
 
 					const error = response.errors?.find(
@@ -45,7 +45,7 @@ describe(
 				await requesterMaker(socket, event as any)
 					.setOptions({ shouldFilterRequestData: false })
 					.setError("CLIENT_NOT_FOUND")
-					.sendFullFeaturedRequest();
+					.emitFull();
 			});
 		}
 	}

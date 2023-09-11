@@ -57,9 +57,8 @@ export class Requester<IOType extends IO> {
 	getEvent() {
 		return this.event;
 	}
-
 	getEventName() {
-		return this.event.name;
+		return this.getEvent().name;
 	}
 	setEvent(event: typeof this.event) {
 		this.event = event;
@@ -77,62 +76,62 @@ export class Requester<IOType extends IO> {
 		return this;
 	}
 
-	getRequestData() {
+	private getEmitData() {
 		return this.requestData;
 	}
-	setRequestData(requestData: StringMap) {
+	private setEmitData(requestData: StringMap) {
 		this.requestData = requestData;
 		return this;
 	}
 
-	handleFilterRequestData(options = this.getOptions()) {
+	private handleFilterRequestData(options = this.getOptions()) {
 		const inputFields = this.convertInputField(this.getInputFields());
-		const requestData = this.getRequestData();
+		const requestData = this.getEmitData();
 		this.checkRequestDataFields(options, inputFields);
-		return this.filterRequestData(requestData, inputFields);
+		return this.filterEmitData(requestData, inputFields);
 	}
-	convertInputField(inputFields: IoFields) {
+	private convertInputField(inputFields: IoFields) {
 		return Object.entries(inputFields).reduce((prevValue, currentValue) => {
 			const [requiredFieldKey, requiredFieldProperties] = currentValue;
 			prevValue[requiredFieldKey] = requiredFieldProperties.value;
 			return prevValue;
 		}, {} as StringMap);
 	}
-	checkRequestDataFields(options = this.getOptions(), inputFields: StringMap) {
-		if (!this.getRequestData() && Object.keys(inputFields).length) {
+	private checkRequestDataFields(
+		options = this.getOptions(),
+		inputFields: StringMap
+	) {
+		if (!this.getEmitData() && Object.keys(inputFields).length) {
 			const error = {
 				...errorStore.find("INPUT_FIELDS_MISSING"),
 				options,
-				requestData: this.getRequestData(),
+				requestData: this.getEmitData(),
 			};
 			logger.dir("error", error, { depth: 10 });
 			loggerHelper.logEndTestRequest();
 			throw error;
 		}
 	}
-	filterRequestData(requestData: IOType["input"], inputFields: StringMap) {
+	private filterEmitData(requestData: IOType["input"], inputFields: StringMap) {
 		return objectUtils.excludePropsPeerToPeer(
 			requestData,
 			inputFields
 		) as StringMap;
 	}
 
-	async sendRequest() {
-		const { name } = this.getEvent();
-		const requestData = this.getRequestData();
-
+	async emit() {
 		const response = (await new Promise((resolve, _reject) => {
-			this.socket.connect();
-			this.socket.emit(name, requestData, resolve);
+			// this.socket.connect();
+			this.socket.emit(this.getEventName(), this.getEmitData(), resolve);
 		})) as SocketResponse;
 
-		this.socket.disconnect();
+		// this.socket.disconnect();
 		this.setResponse(response);
 
 		return this;
 	}
 
-	async sendFullFeaturedRequest(
+	async emitFull(
 		data: IOType["input"] = {},
 		reason?: ErrorReason,
 		options: Partial<RequesterOptions> = this.getOptions()
@@ -141,23 +140,23 @@ export class Requester<IOType extends IO> {
 
 		const finalOptions = this.mergeOptions(options);
 
-		if (data) this.setRequestData(data);
+		if (data) this.setEmitData(data);
 
 		if (options.shouldFilterRequestData) {
 			const filteredRequestData = this.handleFilterRequestData(finalOptions);
-			this.setRequestData(filteredRequestData);
+			this.setEmitData(filteredRequestData);
 		}
 
 		loggerHelper.logRequestDetails(
 			finalOptions,
-			this.getRequestData(),
+			this.getEmitData(),
 			this.getEvent(),
 			this.getError()
 		);
 
 		if (reason) this.setError(reason);
 
-		await this.sendRequest();
+		await this.emit();
 
 		this.checkOk().checkErrors();
 
@@ -170,25 +169,25 @@ export class Requester<IOType extends IO> {
 		return this.response;
 	}
 
-	setResponse(response: SocketResponse) {
+	private setResponse(response: SocketResponse) {
 		this.response = response;
 		return this;
 	}
 
-	checkOk() {
+	private checkOk() {
 		const requestOk = this.getError() ? false : true;
 		const responseOk = this.getResponse().ok;
 		chai.expect(responseOk).to.be.equal(requestOk);
 		return this;
 	}
 
-	checkErrors() {
+	private checkErrors() {
 		const responseOk = this.getResponse().ok;
 		if (responseOk !== true) this.checkErrorReason();
 
 		return this;
 	}
-	checkErrorReason() {
+	private checkErrorReason() {
 		const expectedError = this.getError();
 		if (!expectedError) throw "Error is not defined";
 

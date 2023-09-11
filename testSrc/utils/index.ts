@@ -140,6 +140,7 @@ const expectToFail_async = async (
 		await cb();
 	} catch (error) {
 		const e = error as unknown as NativeError;
+
 		chai.expect(e.reason).to.be.equal(expectedErrorReason);
 	}
 };

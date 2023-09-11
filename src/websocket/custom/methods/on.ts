@@ -62,9 +62,10 @@ async function tryToRunHandler(
 
 			if (resolvedReturnValue.options.shouldEmitReturnValue) {
 				await emitReturnValue(socket, eventName, response, responseCallback);
-
 				responseCallback(response);
 			}
+
+			resolvedReturnValue.options.cbAfterEmit();
 		})
 		.catch(catchBlock, socket, eventName, responseCallback)
 		.run();
@@ -76,6 +77,7 @@ function resolveReturnValue(returnValue: void | SocketHandlerReturnValue) {
 		options: {
 			shouldEmitReturnValue:
 				returnValue?.options?.shouldEmitReturnValue ?? true,
+			cbAfterEmit: returnValue?.options?.cbAfterEmit ?? (() => undefined),
 		},
 	};
 }

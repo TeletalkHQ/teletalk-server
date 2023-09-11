@@ -24,10 +24,7 @@ describe(
 			const ci = clientInitializer();
 			ci.setClient(clientStr).makeClientCookie().initClient().connect();
 
-			await requesterMaker(ci.getClient(), event).sendFullFeaturedRequest(
-				{},
-				reason
-			);
+			await requesterMaker(ci.getClient(), event).emitFull({}, reason);
 		};
 
 		for (const event of filteredEvents) {

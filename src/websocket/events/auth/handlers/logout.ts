@@ -10,10 +10,15 @@ export const logout: SocketOnHandler<LogoutIO> = async (socket) => {
 		currentUserId: userId,
 	});
 
-	socket.rooms.clear();
 	await authClientStore.remove(socket.clientId);
 
 	return {
 		data: {},
+		options: {
+			cbAfterEmit: () => {
+				socket.rooms.clear();
+				socket.disconnect();
+			},
+		},
 	};
 };

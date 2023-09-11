@@ -29,7 +29,8 @@
 		"visualstudioexptteam.intellicode-api-usage-examples",
 		"visualstudioexptteam.vscodeintellicode",
 		"ypresto.vscode-intelli-refactor",
-		"irongeek.vscode-env",
-		"adam-bender.commit-message-editor"
+		"adam-bender.commit-message-editor",
+		"mikestead.dotenv",
+		"dotenv.dotenv-vscode"
 	]
 }

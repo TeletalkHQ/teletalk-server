@@ -119,7 +119,7 @@ export interface GetPrivateChatsIO extends IO {
 	};
 }
 
-export interface JoinRoomIO extends IO {
+export interface JoinIO extends IO {
 	input: object;
 	output: object;
 }
@@ -264,7 +264,7 @@ export type IOCollection = { [key in EventName]: IO } & {
 	getStuff: GetStuffIO;
 	getUserData: GetUserDataIO;
 	getWelcomeMessage: GetWelcomeMessageIO;
-	joinRoom: JoinRoomIO;
+	join: JoinIO;
 	logout: LogoutIO;
 	ping: PingIO;
 	pong: PongIO;

@@ -10,7 +10,7 @@ export const addContactWithCellphone = serviceBuilder
 		{
 			addingContact: ContactItemWithCellphone;
 			currentUserId: UserId;
-			targetCellphone: Cellphone;
+			targetUserCellphone: Cellphone;
 		},
 		{
 			newContact: ContactItem;

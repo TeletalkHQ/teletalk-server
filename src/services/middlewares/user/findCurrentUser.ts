@@ -1,16 +1,26 @@
-import { Cellphone } from "utility-store/lib/types";
+import { ExtendedCellphone } from "utility-store/lib/types";
 
-import { errorStore } from "~/classes/ErrorStore";
-import { coreServices } from "~/services/user/core";
-import { ServiceMiddleware } from "~/types";
+import { HydratedUser, ServiceMiddleware } from "~/types";
 import { UserId } from "~/types/datatypes";
 
-export const findCurrentUser: ServiceMiddleware<{
-	currentUserId?: UserId;
-	currentCellphone?: Cellphone;
-}> = async (data) => {
-	const user = await coreServices.find({ userId: data.currentUserId });
-	if (!user) throw errorStore.find("CURRENT_USER_NOT_EXIST");
+import { commonMiddlewares } from "../common";
 
-	data.currentUser = user;
+export const findCurrentUser: ServiceMiddleware<
+	{
+		currentUserId?: UserId;
+		currentUserCellphone?: ExtendedCellphone;
+	},
+	{
+		currentUser: HydratedUser;
+	}
+> = async (data) => {
+	const { user } = await commonMiddlewares.findUser({
+		cellphone: data.currentUserCellphone,
+		errorReason: "CURRENT_USER_NOT_EXIST",
+		userId: data.currentUserId,
+	});
+
+	return {
+		currentUser: user,
+	};
 };

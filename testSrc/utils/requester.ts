@@ -51,7 +51,7 @@ export const requesterCollection = {
 	getStuff: requesterMakerHelper("getStuff"),
 	getUserData: requesterMakerHelper("getUserData"),
 	getWelcomeMessage: requesterMakerHelper("getWelcomeMessage"),
-	joinRoom: requesterMakerHelper("joinRoom"),
+	join: requesterMakerHelper("join"),
 	logout: requesterMakerHelper("logout"),
 	ping: requesterMakerHelper("ping"),
 	pong: requesterMakerHelper("pong"),

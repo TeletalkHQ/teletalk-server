@@ -26,7 +26,7 @@ describe(
 					data: { chatId },
 				} = await utils.requesterCollection
 					.sendMessage(currentUserSocket)
-					.sendFullFeaturedRequest({
+					.emitFull({
 						messageText,
 						targetParticipantId: targetUser.userId,
 					});
@@ -35,7 +35,7 @@ describe(
 					data: { privateChat },
 				} = await utils.requesterCollection
 					.getPrivateChat(currentUserSocket)
-					.sendFullFeaturedRequest({
+					.emitFull({
 						chatId,
 					});
 

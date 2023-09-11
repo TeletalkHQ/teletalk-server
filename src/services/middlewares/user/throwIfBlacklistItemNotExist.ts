@@ -3,10 +3,13 @@ import { ServiceMiddleware } from "~/types";
 import { UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
-export const throwIfBlacklistItemNotExist: ServiceMiddleware<{
-	currentUser: HydratedUser;
-	targetUserId: UserId;
-}> = (data) => {
+export const throwIfBlacklistItemNotExist: ServiceMiddleware<
+	{
+		currentUser: HydratedUser;
+		targetUserId: UserId;
+	},
+	void
+> = (data) => {
 	const index = data.currentUser.blacklist.findIndex(
 		(i) => i.userId === data.targetUserId
 	);

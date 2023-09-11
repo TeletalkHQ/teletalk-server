@@ -13,8 +13,6 @@ import { websocketServer } from "~/websocket";
 
 PrettyError.start();
 
-await appConfigs.setup();
-
 const listeningListener = () => {
 	const { ENVIRONMENT, PORT } = appConfigs.getConfigs().APP;
 
@@ -23,6 +21,8 @@ const listeningListener = () => {
 		`url: http://${address.ip()}:${PORT}`
 	);
 };
+
+await appConfigs.setup();
 
 export const runner = async () => {
 	// if (cluster.isPrimary) {
@@ -52,7 +52,7 @@ export const runner = async () => {
 	httpServer.listen(appConfigs.getConfigs().APP.PORT, listeningListener);
 
 	// const io =
-	websocketServer(httpServer);
+	await websocketServer(httpServer);
 	//   io.adapter(createAdapter());
 	//   setupWorker(io);
 	// }

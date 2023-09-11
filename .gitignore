@@ -14,3 +14,7 @@ environments/production.env
 node_modules
 redis-portable
 .yarn
+
+.flaskenv*
+!.env.project
+!.env.vault

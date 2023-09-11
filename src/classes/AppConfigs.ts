@@ -1,19 +1,17 @@
-import dotenv from "dotenv";
 import { LoggerChalker } from "logger-chalker";
-import path from "path";
 
 import { envManager } from "~/classes/EnvironmentManager";
-import { EnvFileName, Environments } from "~/types";
+import { Environments } from "~/types";
 
 class AppConfigs {
 	private ENVIRONMENTS: Environments;
 
 	async setup() {
 		this.registerCustomGlobals();
-		this.registerEnvironments("base");
-		this.registerEnvironments(envManager.getNodeEnv());
+		envManager.registerEnvironments("base");
+		envManager.registerEnvironments(envManager.getNodeEnv());
 
-		this.setEnvironments(envManager.getEnv());
+		this.setConfigs(envManager.getEnv());
 		this.setLogLevel();
 	}
 
@@ -25,7 +23,7 @@ class AppConfigs {
 		logger.onAll();
 	}
 
-	private setEnvironments(e: Environments) {
+	private setConfigs(e: Environments) {
 		this.ENVIRONMENTS = e;
 	}
 
@@ -33,12 +31,6 @@ class AppConfigs {
 		global.logger = new LoggerChalker();
 	}
 
-	private registerEnvironments(fileName: EnvFileName) {
-		dotenv.config({
-			path: path.join(process.cwd(), "environments", `${fileName}.env`),
-			override: true,
-		});
-	}
 	getConfigs() {
 		//FIXME: All to optional
 		return {

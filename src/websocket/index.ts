@@ -23,6 +23,7 @@ export const websocketServer = async (httpServer: HttpServer) => {
 
 	io.on("connection", (socket) => {
 		socket.io = io;
+		// deepcode ignore PureMethodReturnValueIgnored: <please specify a reason of ignoring this>
 		socket.join("public");
 
 		socket.customEmit = customMethods.registerCustomEmit(socket);

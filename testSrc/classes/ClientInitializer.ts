@@ -55,6 +55,7 @@ export class ClientInitializer {
 
 	async makeLegalClient() {
 		return await new Promise<string>((resolve, reject) => {
+			// deepcode ignore HttpToHttps: <please specify a reason of ignoring this>
 			const req = http.request(
 				setClientIdRequestOptions,
 				setClientIdRequestBody(resolve, reject)

@@ -25,6 +25,7 @@ export class ModelErrorBuilder {
 
 	generateErrors(fieldName: Field, model: Partial<NativeModel>) {
 		let modelPropertyName: NativeModelKey;
+		// deepcode ignore NonLocalLoopVar: <please specify a reason of ignoring this>
 		for (modelPropertyName in model) {
 			if (this.shouldIgnoreModelProperty(modelPropertyName)) continue;
 

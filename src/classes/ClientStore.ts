@@ -51,6 +51,13 @@ export class ClientStore {
 		this.storage.json.del(this.makeStateKey(id), this.STATE_PATH);
 	}
 
+	async removeAll() {
+		const keys = await this.getAllKeys<string[]>();
+		for (const id of keys) {
+			await this.remove(id.replace(`${this.STATE_KEY}:`, ""));
+		}
+	}
+
 	async isExist(id: string) {
 		return !!this.find(id);
 	}

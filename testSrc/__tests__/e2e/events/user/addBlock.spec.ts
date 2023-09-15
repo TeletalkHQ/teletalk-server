@@ -1,4 +1,4 @@
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -21,7 +21,7 @@ describe(
 					userId: targetUser.userId,
 				});
 
-				assertionInitializerHelper().userId({
+				assertion().userId({
 					testValue: blockedUser.userId,
 					equalValue: targetUser.userId,
 				});

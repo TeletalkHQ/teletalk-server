@@ -1,6 +1,6 @@
 import { extractor } from "~/classes/Extractor";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -20,7 +20,7 @@ describe(
 					data: { user: receivedUserData },
 				} = await utils.requesterCollection.getUserData(socket).emitFull();
 
-				assertionInitializerHelper().userData({
+				assertion().userData({
 					equalValue: extractor.userData(user),
 					testValue: receivedUserData,
 				});

@@ -1,6 +1,6 @@
 import { extractor } from "~/classes/Extractor";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -26,7 +26,7 @@ describe(
 					data: { contacts },
 				} = await utils.requesterCollection.getContacts(socket).emitFull();
 
-				assertionInitializerHelper().oneContact({
+				assertion().oneContact({
 					testValue: contacts.at(0)!,
 					equalValue: addingContact,
 				});

@@ -2,7 +2,7 @@ import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 import { ContactItemWithCellphone } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -44,7 +44,7 @@ describe(
 						currentUserId: currentUser.userId,
 					});
 
-					assertionInitializerHelper().contactsWithCellphone({
+					assertion().contactsWithCellphone({
 						testValue: contacts,
 						equalValue: addingContacts,
 					});

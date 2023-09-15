@@ -38,7 +38,7 @@ import { FIELD_TYPE } from "@/variables";
 
 import { assertionInitializer } from "./AssertionInitializer";
 
-export class AssertionInitializerHelper {
+export class Assertion {
 	private singleInitializer<DataType>(fieldName: Field) {
 		return (
 			arg: AssertionInitializerArgs<DataType>,
@@ -496,5 +496,4 @@ export class AssertionInitializerHelper {
 	);
 }
 
-export const assertionInitializerHelper = () =>
-	new AssertionInitializerHelper();
+export const assertion = () => new Assertion();

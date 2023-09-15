@@ -1,7 +1,7 @@
 import { extractor } from "~/classes/Extractor";
 import { ContactItemWithCellphone } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -32,7 +32,7 @@ describe(
 					.addContactWithCellphone(socket)
 					.emitFull(sendingData);
 
-				assertionInitializerHelper().oneContact({
+				assertion().oneContact({
 					testValue: newContact,
 					equalValue: { ...sendingData, userId: targetUser.userId },
 				});

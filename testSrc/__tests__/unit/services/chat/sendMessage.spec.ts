@@ -3,7 +3,7 @@ import chai from "chai";
 import { services } from "~/services";
 import { PrivateChatItem } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -49,7 +49,7 @@ describe(
 						);
 					chai.expect(isTargetUserIdExistInParticipants).to.be.equal(true);
 
-					assertionInitializerHelper()
+					assertion()
 						.chatId({
 							testValue: addedMessageInfo.chatId,
 							equalValue: privateChat.chatId,

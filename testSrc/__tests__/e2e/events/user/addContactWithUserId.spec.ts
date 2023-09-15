@@ -1,6 +1,6 @@
 import { FullNameWithUserId } from "utility-store/lib/types";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -28,7 +28,7 @@ describe(
 					.addContactWithUserId(socket)
 					.emitFull(sendingData);
 
-				assertionInitializerHelper().oneContactWithUserId({
+				assertion().oneContactWithUserId({
 					testValue: newContact,
 					equalValue: sendingData,
 				});

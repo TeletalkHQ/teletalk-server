@@ -2,7 +2,7 @@ import chai from "chai";
 
 import { ParticipantId, ParticipantItem } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -39,7 +39,7 @@ describe(
 						chatId,
 					});
 
-				assertionInitializerHelper().chatId({
+				assertion().chatId({
 					testValue: privateChat.chatId,
 					equalValue: chatId,
 				});
@@ -56,7 +56,7 @@ describe(
 					.to.be.equal(true);
 
 				const messageItem = privateChat.messages.at(0)!;
-				assertionInitializerHelper()
+				assertion()
 					.messageText({
 						equalValue: messageText,
 						testValue: messageItem.messageText,

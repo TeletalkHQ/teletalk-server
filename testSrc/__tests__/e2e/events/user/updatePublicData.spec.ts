@@ -1,4 +1,4 @@
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -22,7 +22,7 @@ describe(
 					.updatePublicData(socket)
 					.emitFull(sendingData);
 
-				assertionInitializerHelper().userPublicData({
+				assertion().userPublicData({
 					equalValue: { ...sendingData, userId: currentUser.userId },
 					testValue: receivedData,
 				});

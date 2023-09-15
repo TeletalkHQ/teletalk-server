@@ -15,10 +15,10 @@ export const removeContact = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([
+	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentUser,
-		serviceMiddlewares.throwIfContactNotExist,
-	])
+		serviceMiddlewares.throwIfContactNotExist
+	)
 	.setBody(async (data) => {
 		const index = data.currentUser.contacts.findIndex(
 			(i) => i.userId === data.targetUserId

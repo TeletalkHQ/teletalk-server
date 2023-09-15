@@ -23,7 +23,7 @@ export const updateContact = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.findCurrentUser])
+	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
 	.setBody(async (data) => {
 		const { index, contact: oldContact } = findContact(
 			data.currentUser.contacts,

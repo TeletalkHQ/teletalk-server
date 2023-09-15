@@ -15,10 +15,10 @@ export const removeBlock = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([
+	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentUser,
-		serviceMiddlewares.throwIfBlacklistItemNotExist,
-	])
+		serviceMiddlewares.throwIfBlacklistItemNotExist
+	)
 	.setBody(async (data) => {
 		const index = data.currentUser.blacklist.findIndex(
 			(i) => i.userId === data.targetUserId

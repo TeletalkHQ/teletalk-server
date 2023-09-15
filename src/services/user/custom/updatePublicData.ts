@@ -16,7 +16,7 @@ export const updatePublicData = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.findCurrentUser])
+	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
 	.setBody(async (data) => {
 		await data.currentUser.updateOne(data.updateProperties);
 	})

@@ -14,7 +14,7 @@ export const addClient = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.findCurrentUser])
+	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
 	.setBody(async (data) => {
 		data.currentUser.clients.push({
 			clientId: data.clientId,

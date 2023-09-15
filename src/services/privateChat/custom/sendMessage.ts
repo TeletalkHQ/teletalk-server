@@ -30,13 +30,13 @@ export const sendMessage = serviceBuilder
 			privateChat: HydratedPrivateChat;
 		}
 	>()
-	.setMiddlewares([
+	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentParticipant,
 		serviceMiddlewares.findTargetParticipant,
 		serviceMiddlewares.throwIfParticipantIsBlacklisted,
 		serviceMiddlewares.createPrivateChatIfNotExist,
-		serviceMiddlewares.findPrivateChat,
-	])
+		serviceMiddlewares.findPrivateChat
+	)
 	.setBody(async (data) => {
 		const addedMessage = createNewMessage(
 			data.messageText,

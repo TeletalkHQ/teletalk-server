@@ -16,7 +16,7 @@ export const createNewUser = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.throwIfUserExist])
+	.setBeforeRunMiddlewares(serviceMiddlewares.throwIfUserExist)
 	.setBody(async (data) => {
 		await coreServices.create({
 			userData: data.userData,

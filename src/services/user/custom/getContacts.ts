@@ -17,7 +17,7 @@ export const getContacts = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.findCurrentUser])
+	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
 	.setBody(async (data) => {
 		return {
 			contacts: data.currentUser.contacts,

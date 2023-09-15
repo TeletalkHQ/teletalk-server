@@ -16,7 +16,7 @@ export const getPublicData = serviceBuilder
 			targetUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.findTargetUser])
+	.setBeforeRunMiddlewares(serviceMiddlewares.findTargetUser)
 	.setBody(async (data) => {
 		return {
 			publicData: extractor.userPublicData(data.targetUser),

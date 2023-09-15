@@ -15,7 +15,7 @@ export const create = serviceBuilder
 		},
 		void
 	>()
-	.setMiddlewares([serviceMiddlewares.throwIfPrivateChatExist])
+	.setBeforeRunMiddlewares(serviceMiddlewares.throwIfPrivateChatExist)
 	.setBody(async (data) => {
 		await coreServices.create({
 			chatId: randomMaker.id(models.native.chatId.maxLength),

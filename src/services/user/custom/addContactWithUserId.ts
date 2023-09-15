@@ -20,13 +20,10 @@ export const addContactWithUserId = serviceBuilder
 			targetUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares(
-		[
-			serviceMiddlewares.findCurrentUser,
-			serviceMiddlewares.findTargetUser,
-			serviceMiddlewares.throwIfContactExist,
-		],
-		[serviceMiddlewares.saveNewContactItem]
+	.setBeforeRunMiddlewares(
+		serviceMiddlewares.findCurrentUser,
+		serviceMiddlewares.findTargetUser,
+		serviceMiddlewares.throwIfContactExist
 	)
 	.setBody(async (data) => {
 		const contact: ContactItem = {
@@ -39,4 +36,5 @@ export const addContactWithUserId = serviceBuilder
 			newContact: contact,
 		};
 	})
+	.setAfterRunMiddlewares(serviceMiddlewares.saveNewContactItem)
 	.build();

@@ -16,7 +16,7 @@ export const findByUserId = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.findCurrentUser])
+	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
 	.setBody((data) => {
 		return extractor.userData(data.currentUser);
 	})

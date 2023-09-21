@@ -1,7 +1,7 @@
 import {
-	Cellphone,
 	ContactItem,
-	ContactItemWithoutUserId,
+	FullName,
+	UnknownCellphone,
 	UserId,
 } from "teletalk-type-store";
 
@@ -12,9 +12,9 @@ import { HydratedUser } from "~/types/model";
 export const addContactWithCellphone = serviceBuilder
 	.create<
 		{
-			addingContact: ContactItemWithoutUserId;
+			addingContact: UnknownCellphone & FullName;
 			currentUserId: UserId;
-			targetUserCellphone: Cellphone;
+			targetUserCellphone: UnknownCellphone;
 		},
 		{
 			newContact: ContactItem;
@@ -34,7 +34,7 @@ export const addContactWithCellphone = serviceBuilder
 			newContact: {
 				...data.addingContact,
 				userId: data.targetUser.userId,
-			},
+			} as ContactItem,
 		};
 	})
 	.setAfterRunMiddlewares(serviceMiddlewares.saveNewContactItem)

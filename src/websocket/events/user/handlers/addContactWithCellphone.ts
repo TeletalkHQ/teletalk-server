@@ -12,7 +12,7 @@ export const addContactWithCellphone: SocketOnHandler<
 	const { newContact } = await services.user.addContactWithCellphone({
 		currentUserId,
 		addingContact: data,
-		targetUserCellphone: extractor.cellphone(data),
+		targetUserCellphone: extractor.unknownCellphone(data),
 	});
 
 	return {

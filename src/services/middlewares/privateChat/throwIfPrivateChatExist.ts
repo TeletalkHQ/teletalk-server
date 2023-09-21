@@ -1,7 +1,8 @@
+import { UserId } from "teletalk-type-store";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { coreServices } from "~/services/privateChat/core";
 import { ChatId, HydratedPrivateChat, ServiceMiddleware } from "~/types";
-import { UserId } from "~/types/datatypes";
 
 export const throwIfPrivateChatExist: ServiceMiddleware<
 	{

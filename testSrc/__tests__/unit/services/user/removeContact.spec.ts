@@ -1,8 +1,8 @@
-import { FullNameWithUserId, UserData } from "utility-store/lib/types";
+import { FullNameWithUserId, UserData } from "teletalk-type-store";
 
 import { services } from "~/services";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -50,7 +50,7 @@ describe(
 						currentUserId: currentUser.userId,
 					})) as UserData;
 
-					assertionInitializerHelper().contactsWithUserId({
+					assertion().contactsWithUserId({
 						testValue: contacts,
 						equalValue: removingContacts,
 					});

@@ -5,6 +5,7 @@ import http from "http";
 
 import { clientManager } from "~/classes/ClientIdManager";
 
+// deepcode ignore UseCsurfForExpress: <please specify a reason of ignoring this>, deepcode ignore DisablePoweredBy: <please specify a reason of ignoring this>
 const expressApp = express();
 
 expressApp.use(cookieParser());
@@ -39,6 +40,7 @@ const defaultApp = () => {
 		req: http.IncomingMessage,
 		res: http.ServerResponse<http.IncomingMessage>
 	) => {
+		// deepcode ignore TooPermissiveCorsHeader: <please specify a reason of ignoring this>
 		res.setHeader("Access-Control-Allow-Origin", "*");
 		res.setHeader("Access-Control-Request-Method", "*");
 		res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
@@ -62,5 +64,6 @@ const defaultApp = () => {
 };
 
 export const crateHttpServer = (app?: http.RequestListener) => {
+	// deepcode ignore HttpToHttps: <please specify a reason of ignoring this>
 	return http.createServer(app || expressApp || defaultApp());
 };

@@ -1,8 +1,8 @@
-import { Clients, UserData } from "utility-store/lib/types";
+import { Clients, UserData } from "teletalk-type-store";
 
 import { services } from "~/services";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -42,7 +42,7 @@ describe(
 						currentUserId: currentUser.userId,
 					})) as UserData;
 
-					assertionInitializerHelper().clients({
+					assertion().clients({
 						testValue: clients,
 						equalValue: addingClients,
 					});

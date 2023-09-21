@@ -1,10 +1,11 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
+import { VerifyIO } from "teletalk-type-store";
 import { errorThrower } from "utility-store";
 
 import { authClientStore } from "~/classes/AuthClientStore";
 import { errorStore } from "~/classes/ErrorStore";
-import { SocketMiddleware, SocketNext, VerifyIO } from "~/types";
+import { SocketMiddleware, SocketNext } from "~/types";
 
 export const verifyVerificationCode: SocketMiddleware<VerifyIO> = async (
 	socket,

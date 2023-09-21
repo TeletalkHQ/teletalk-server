@@ -23,6 +23,16 @@ export interface NativeModel {
 	unique?: boolean;
 }
 
+export interface AvatarSrc extends NativeModel {
+	type: "string";
+	maxLength: 800000;
+	minLength: 0;
+	required: true;
+	defaultValue: "";
+	trim: true;
+	empty: true;
+}
+
 export interface Bio extends NativeModel {
 	type: "string";
 	maxLength: 255;

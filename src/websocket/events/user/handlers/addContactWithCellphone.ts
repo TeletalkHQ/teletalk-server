@@ -1,6 +1,8 @@
+import { AddContactWithCellphoneIO } from "teletalk-type-store";
+
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
-import { AddContactWithCellphoneIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const addContactWithCellphone: SocketOnHandler<
 	AddContactWithCellphoneIO
@@ -10,7 +12,7 @@ export const addContactWithCellphone: SocketOnHandler<
 	const { newContact } = await services.user.addContactWithCellphone({
 		currentUserId,
 		addingContact: data,
-		targetUserCellphone: extractor.cellphone(data),
+		targetUserCellphone: extractor.unknownCellphone(data),
 	});
 
 	return {

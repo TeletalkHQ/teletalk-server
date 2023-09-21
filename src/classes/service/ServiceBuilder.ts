@@ -7,12 +7,13 @@ export class ServiceBuilder<Query, Return, MiddlewareQueryData> {
 	private middlewaresBeforeRun: ServiceMiddleware<any, any>[] = [];
 	private middlewaresAfterRun: ServiceMiddleware<any, any>[] = [];
 
-	setMiddlewares(
-		beforeRun: ServiceMiddleware<any, any>[],
-		afterRun: ServiceMiddleware<any, any>[] = []
-	) {
-		this.middlewaresBeforeRun = beforeRun;
-		this.middlewaresAfterRun = afterRun;
+	setBeforeRunMiddlewares(...args: ServiceMiddleware<any, any>[]) {
+		this.middlewaresBeforeRun = args;
+		return this;
+	}
+
+	setAfterRunMiddlewares(...args: ServiceMiddleware<any, any>[]) {
+		this.middlewaresAfterRun = args;
 		return this;
 	}
 

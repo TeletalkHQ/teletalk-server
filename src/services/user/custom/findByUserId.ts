@@ -1,9 +1,8 @@
-import { UserData } from "utility-store/lib/types";
+import { UserData, UserId } from "teletalk-type-store";
 
 import { extractor } from "~/classes/Extractor";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
-import { UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
 export const findByUserId = serviceBuilder
@@ -16,7 +15,7 @@ export const findByUserId = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.findCurrentUser])
+	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
 	.setBody((data) => {
 		return extractor.userData(data.currentUser);
 	})

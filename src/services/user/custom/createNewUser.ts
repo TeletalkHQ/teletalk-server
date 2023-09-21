@@ -1,4 +1,4 @@
-import { UserData } from "utility-store/lib/types";
+import { UserData } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
@@ -16,7 +16,7 @@ export const createNewUser = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.throwIfUserExist])
+	.setBeforeRunMiddlewares(serviceMiddlewares.throwIfUserExist)
 	.setBody(async (data) => {
 		await coreServices.create({
 			userData: data.userData,

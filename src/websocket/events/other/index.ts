@@ -1,11 +1,12 @@
-import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
 	GetCountriesIO,
 	GetStuffIO,
 	GetWelcomeMessageIO,
 	JoinIO,
 	PingIO,
-} from "~/types";
+} from "teletalk-type-store";
+
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import { fields } from "~/variables";
 
 import { handlers } from "./handlers";

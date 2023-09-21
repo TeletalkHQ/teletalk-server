@@ -1,4 +1,4 @@
-import { ClientStatus } from "~/types/datatypes";
+import { ClientStatus } from "teletalk-type-store";
 
 import { ClientStore } from "./ClientStore";
 
@@ -54,13 +54,6 @@ export class ClientStatusStore extends ClientStore {
 		}
 
 		return onlineClients;
-	}
-
-	async removeAll() {
-		const keys = await super.getAllKeys<string[]>();
-		for (const id of keys) {
-			await this.remove(id.replace(`${this.STATE_KEY}:`, ""));
-		}
 	}
 
 	async isOnline(id: string) {

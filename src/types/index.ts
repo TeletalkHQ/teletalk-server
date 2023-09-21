@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JWTPayload, JWTVerifyResult } from "jose";
-import { Cellphone } from "utility-store/lib/types";
+import { Cellphone } from "teletalk-type-store";
 
 export interface StringMap {
 	[prop: string | symbol]: any;

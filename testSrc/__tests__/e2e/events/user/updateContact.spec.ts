@@ -1,8 +1,8 @@
-import { FullNameWithUserId } from "utility-store/lib/types";
+import { FullNameWithUserId } from "teletalk-type-store";
 
 import { extractor } from "~/classes/Extractor";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -36,7 +36,7 @@ describe(
 					.updateContact(socket)
 					.emitFull(editingContactData);
 
-				assertionInitializerHelper().oneContactWithUserId({
+				assertion().oneContactWithUserId({
 					testValue: updatedContact,
 					equalValue: editingContactData,
 				});

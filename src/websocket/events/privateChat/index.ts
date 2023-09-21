@@ -1,10 +1,11 @@
-import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
 	GetChatInfoIO,
 	GetPrivateChatIO,
 	GetPrivateChatsIO,
 	SendMessageIO,
-} from "~/types";
+} from "teletalk-type-store";
+
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import { fields } from "~/variables";
 
 import { privateChatHandlers } from "./handlers";

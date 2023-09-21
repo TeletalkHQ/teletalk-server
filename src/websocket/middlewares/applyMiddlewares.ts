@@ -1,4 +1,6 @@
-import { EventName, SocketMiddleware } from "~/types";
+import { EventName } from "teletalk-type-store";
+
+import { SocketMiddleware } from "~/types";
 import { utils } from "~/utils";
 
 export const applyMiddlewares = (

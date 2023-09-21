@@ -1,4 +1,4 @@
-import { EventName } from "~/types";
+import { EventName } from "teletalk-type-store";
 
 import { randomMaker } from "@/classes/RandomMaker";
 import { requesterMaker } from "@/classes/Requester";
@@ -45,7 +45,9 @@ await utils.asyncDescribe(
 				it(title, async () => {
 					await requesterMaker(socket, event as any)
 						.setError("INPUT_FIELDS_OVERLOAD")
-						.setOptions({ shouldFilterRequestData: false })
+						.setOptions({
+							shouldFilterRequestData: false,
+						})
 						.emitFull({
 							...utils.generateDynamicData(event.inputFields),
 							[randomMaker.string(10)]: randomMaker.string(10),

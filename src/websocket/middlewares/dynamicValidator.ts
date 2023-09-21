@@ -1,8 +1,8 @@
 import { customTypeof } from "custom-typeof";
 import { trier } from "simple-trier";
+import { EventName } from "teletalk-type-store";
 
 import {
-	EventName,
 	SocketMiddleware,
 	SocketMiddlewareReturnValue,
 	SocketNext,

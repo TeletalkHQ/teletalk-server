@@ -1,44 +1,42 @@
 import chai from "chai";
-import { isDataHasEqualityWithTargetCellphone } from "utility-store";
 import {
+	Bio,
 	BlackList,
 	Cellphone,
+	ChatId,
+	ClientId,
 	Clients,
 	ContactItem,
+	ContactItemWithoutUserId,
 	Contacts,
 	CountryCode,
 	CountryName,
+	FirstName,
 	FullName,
 	FullNameWithUserId,
-	UserData,
-} from "utility-store/lib/types";
-
-import { models } from "~/models";
-import { Field } from "~/types";
-import {
-	Bio,
-	ChatId,
-	ClientId,
-	ContactItemWithCellphone,
-	FirstName,
 	LastName,
 	MessageId,
 	MessageText,
 	PhoneNumber,
 	PrivateChats,
 	SenderId,
+	UserData,
 	UserId,
 	UserPublicData,
 	Username,
 	VerificationCode,
-} from "~/types/datatypes";
+} from "teletalk-type-store";
+import { isDataHasEqualityWithTargetCellphone } from "utility-store";
+
+import { models } from "~/models";
+import { Field } from "~/types";
 
 import { AssertionInitializerArgs, AssertionInitializerOptions } from "@/types";
 import { FIELD_TYPE } from "@/variables";
 
 import { assertionInitializer } from "./AssertionInitializer";
 
-export class AssertionInitializerHelper {
+export class Assertion {
 	private singleInitializer<DataType>(fieldName: Field) {
 		return (
 			arg: AssertionInitializerArgs<DataType>,
@@ -221,7 +219,7 @@ export class AssertionInitializerHelper {
 		// }
 	});
 
-	contactsWithCellphone = this.multiInitializer<ContactItemWithCellphone[]>(
+	contactsWithCellphone = this.multiInitializer<ContactItemWithoutUserId[]>(
 		({ testValue, equalValue }, options) => {
 			chai.expect(testValue).to.be.an(FIELD_TYPE.ARRAY);
 
@@ -257,7 +255,7 @@ export class AssertionInitializerHelper {
 		}
 	);
 
-	oneContactWithCellphone = this.multiInitializer<ContactItemWithCellphone>(
+	oneContactWithCellphone = this.multiInitializer<ContactItemWithoutUserId>(
 		({ testValue, equalValue }, options) => {
 			this.fullName(
 				{
@@ -496,5 +494,4 @@ export class AssertionInitializerHelper {
 	);
 }
 
-export const assertionInitializerHelper = () =>
-	new AssertionInitializerHelper();
+export const assertion = () => new Assertion();

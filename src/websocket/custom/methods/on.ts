@@ -1,10 +1,10 @@
 import { checkFields } from "check-fields";
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
+import { EventName } from "teletalk-type-store";
 
 import {
 	CustomOn,
-	EventName,
 	ResponseCallback,
 	SocketHandlerReturnValue,
 	SocketOnHandler,

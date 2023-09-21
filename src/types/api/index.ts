@@ -6,5 +6,4 @@ export interface Route {
 	isAuthRequired: boolean;
 }
 
-export * from "./io";
 export * from "./socket";

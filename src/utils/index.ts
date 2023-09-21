@@ -2,6 +2,7 @@
 import generatePassword from "generate-password";
 import lodash from "lodash";
 import { Socket } from "socket.io";
+import { EventName, IOCollection } from "teletalk-type-store";
 import { ScreamingSnakeCase } from "type-fest";
 
 import { envManager } from "~/classes/EnvironmentManager";
@@ -9,8 +10,6 @@ import { nativeModels } from "~/models/native";
 import {
 	Environments,
 	ErrorReason,
-	EventName,
-	IOCollection,
 	SocketMiddleware,
 	SocketMiddlewareEvent,
 	SocketNext,

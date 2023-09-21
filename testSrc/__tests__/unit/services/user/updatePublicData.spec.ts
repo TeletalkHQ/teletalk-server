@@ -1,9 +1,9 @@
-import { UserData } from "utility-store/lib/types";
+import { UserData } from "teletalk-type-store";
 
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -35,7 +35,7 @@ describe(
 						currentUserId: currentUser.userId,
 					})) as UserData;
 
-					assertionInitializerHelper().userPublicData({
+					assertion().userPublicData({
 						testValue: extractor.userPublicData(user),
 						equalValue: publicData,
 					});

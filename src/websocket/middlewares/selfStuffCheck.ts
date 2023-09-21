@@ -1,11 +1,11 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
+import { Cellphone, FullNameWithUserId } from "teletalk-type-store";
 import {
 	errorThrower,
 	extractor,
 	isDataHasEqualityWithTargetCellphone,
 } from "utility-store";
-import { Cellphone, FullNameWithUserId } from "utility-store/lib/types";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { services } from "~/services";

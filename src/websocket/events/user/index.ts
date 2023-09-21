@@ -1,4 +1,3 @@
-import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import {
 	AddBlockIO,
 	AddContactWithCellphoneIO,
@@ -11,9 +10,12 @@ import {
 	GetUserDataIO,
 	RemoveBlockIO,
 	RemoveContactIO,
+	UpdateAvatarIO,
 	UpdateContactIO,
 	UpdatePublicDataIO,
-} from "~/types";
+} from "teletalk-type-store";
+
+import { socketEventBuilder } from "~/classes/SocketEventBuilder";
 import { fields } from "~/variables";
 
 import { handlers } from "./handlers";
@@ -90,6 +92,7 @@ const getUserData = builder
 	.outputFields({
 		user: fields.statics.object({
 			...fields.collection.user,
+			//CLEANME:
 			clients: fields.collection.clients,
 		}),
 	})
@@ -182,6 +185,19 @@ const updatePublicData = builder
 	.handler(handlers.updatePublicData)
 	.build();
 
+const updateAvatar = builder
+	.create<UpdateAvatarIO>()
+	.name("updateAvatar")
+	.inputFields({
+		avatarSrc: fields.single.avatarSrc,
+	})
+	.outputFields({
+		avatarSrc: fields.single.avatarSrc,
+		userId: fields.single.userId,
+	})
+	.handler(handlers.updateAvatar)
+	.build();
+
 export const user = {
 	events: [
 		addBlock,
@@ -195,6 +211,7 @@ export const user = {
 		getUserData,
 		removeBlock,
 		removeContact,
+		updateAvatar,
 		updateContact,
 		updatePublicData,
 	],

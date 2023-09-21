@@ -1,40 +1,7 @@
 import { Event, Socket } from "socket.io";
+import { EventName, IO } from "teletalk-type-store";
 
 import { NativeError, Route, VoidNoArgsFn } from "..";
-
-export type EventName =
-	| "addBlock"
-	| "addContactWithCellphone"
-	| "addContactWithUserId"
-	| "createNewUser"
-	| "disconnect"
-	| "getChatInfo"
-	| "getContacts"
-	| "getCountries"
-	| "getClientStatus"
-	| "getOnlineClients"
-	| "getPrivateChat"
-	| "getPrivateChats"
-	| "getPublicData"
-	| "getStuff"
-	| "getUserData"
-	| "getWelcomeMessage"
-	| "join"
-	| "logout"
-	| "ping"
-	| "pong"
-	| "removeBlock"
-	| "removeContact"
-	| "sendMessage"
-	| "signIn"
-	| "updateContact"
-	| "updatePublicData"
-	| "verify";
-
-export type IO = {
-	input: object;
-	output: object;
-};
 
 export type SocketResponseErrors = NativeError[];
 

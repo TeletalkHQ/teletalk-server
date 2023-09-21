@@ -1,7 +1,8 @@
+import { UserId, UserPublicData } from "teletalk-type-store";
+
 import { extractor } from "~/classes/Extractor";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
-import { UserId, UserPublicData } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
 export const getPublicData = serviceBuilder
@@ -16,7 +17,7 @@ export const getPublicData = serviceBuilder
 			targetUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([serviceMiddlewares.findTargetUser])
+	.setBeforeRunMiddlewares(serviceMiddlewares.findTargetUser)
 	.setBody(async (data) => {
 		return {
 			publicData: extractor.userPublicData(data.targetUser),

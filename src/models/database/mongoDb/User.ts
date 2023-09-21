@@ -4,6 +4,7 @@ import { nativeModels } from "~/models/native";
 import { IUserDoc, IUserModel } from "~/types/model";
 import { utils } from "~/utils";
 
+const avatarSrcMaker = utils.makeMongoSchemaValue("avatarSrc");
 const bioMaker = utils.makeMongoSchemaValue("bio");
 const countryCodeMaker = utils.makeMongoSchemaValue("countryCode");
 const countryNameMaker = utils.makeMongoSchemaValue("countryName");
@@ -14,6 +15,13 @@ const userIdMaker = utils.makeMongoSchemaValue("userId");
 const usernameMaker = utils.makeMongoSchemaValue("username");
 
 //FIXME: Do something with unique property
+const avatarSrc: SchemaDefinitionProperty = {
+	maxlength: avatarSrcMaker("maxLength"),
+	minlength: avatarSrcMaker("minLength"),
+	// required: bioMaker("required"),
+	trim: nativeModels.bio.trim,
+	type: "string",
+};
 const bio: SchemaDefinitionProperty = {
 	maxlength: bioMaker("maxLength"),
 	minlength: bioMaker("minLength"),
@@ -97,6 +105,7 @@ const username: SchemaDefinitionProperty = {
 };
 
 const userSchema = new Schema<IUserDoc, IUserModel>({
+	avatarSrc,
 	bio,
 	blacklist: [
 		{

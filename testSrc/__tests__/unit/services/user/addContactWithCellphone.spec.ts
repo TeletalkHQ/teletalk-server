@@ -1,8 +1,9 @@
+import { ContactItemWithoutUserId } from "teletalk-type-store";
+
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
-import { ContactItemWithCellphone } from "~/types/datatypes";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -21,13 +22,13 @@ describe(
 			async () => {
 				const { user: currentUser } = await randomMaker.user();
 
-				const addingContacts: ContactItemWithCellphone[] = [];
+				const addingContacts: ContactItemWithoutUserId[] = [];
 
 				const length = 10;
 				const users = await Promise.all(randomMaker.batchUsers(length));
 
 				for (const { user: targetUser } of users) {
-					const item: ContactItemWithCellphone = {
+					const item: ContactItemWithoutUserId = {
 						...extractor.cellphone(targetUser),
 						...randomMaker.fullName(),
 					};
@@ -44,7 +45,7 @@ describe(
 						currentUserId: currentUser.userId,
 					});
 
-					assertionInitializerHelper().contactsWithCellphone({
+					assertion().contactsWithCellphone({
 						testValue: contacts,
 						equalValue: addingContacts,
 					});
@@ -85,7 +86,7 @@ await utils.generateServiceFailTest(
 		const { user: currentUser } = await randomMaker.user();
 		const { user: targetUser } = await randomMaker.user();
 
-		const targetContact: ContactItemWithCellphone = {
+		const targetContact: ContactItemWithoutUserId = {
 			...extractor.cellphone(targetUser),
 			...randomMaker.fullName(),
 		};

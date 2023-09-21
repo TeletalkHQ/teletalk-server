@@ -1,6 +1,8 @@
+import { GetStuffIO } from "teletalk-type-store";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { models } from "~/models";
-import { GetStuffIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 import { events } from "~/websocket/events";
 
 export const getStuff: SocketOnHandler<GetStuffIO> = (_socket) => {

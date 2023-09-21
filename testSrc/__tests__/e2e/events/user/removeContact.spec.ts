@@ -1,6 +1,6 @@
 import { extractor } from "~/classes/Extractor";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -29,7 +29,7 @@ describe(
 					userId: addingContact.userId,
 				});
 
-				assertionInitializerHelper().userId({
+				assertion().userId({
 					equalValue: addingContact.userId,
 					testValue: removedContact.userId,
 				});

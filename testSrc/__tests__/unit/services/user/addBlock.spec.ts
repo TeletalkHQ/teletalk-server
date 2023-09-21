@@ -1,8 +1,8 @@
-import { BlackList, UserData } from "utility-store/lib/types";
+import { BlackList, UserData } from "teletalk-type-store";
 
 import { services } from "~/services";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -29,7 +29,7 @@ describe(
 					const { blacklist } = (await services.user.findByUserId({
 						currentUserId: currentUser.userId,
 					})) as UserData;
-					assertionInitializerHelper().blacklist({
+					assertion().blacklist({
 						testValue: blacklist,
 						equalValue: blockingUsers,
 					});

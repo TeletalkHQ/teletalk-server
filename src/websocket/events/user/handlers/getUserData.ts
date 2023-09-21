@@ -1,5 +1,7 @@
+import { GetUserDataIO } from "teletalk-type-store";
+
 import { services } from "~/services";
-import { GetUserDataIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
 	const { userId: currentUserId } = socket;

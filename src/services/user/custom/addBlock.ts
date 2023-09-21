@@ -1,4 +1,4 @@
-import { UserId } from "utility-store/lib/types";
+import { UserId } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
@@ -16,11 +16,11 @@ export const addBlock = serviceBuilder
 			targetUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([
+	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentUser,
 		serviceMiddlewares.findTargetUser,
-		serviceMiddlewares.throwIfBlacklistItemExist,
-	])
+		serviceMiddlewares.throwIfBlacklistItemExist
+	)
 	.setBody(async (data) => {
 		data.currentUser.blacklist.push({
 			userId: data.targetUserId,

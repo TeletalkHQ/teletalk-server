@@ -1,9 +1,9 @@
-import { UserData } from "utility-store/lib/types";
+import { UserData } from "teletalk-type-store";
 
 import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -28,7 +28,7 @@ describe(
 					currentUserId: userData.userId,
 				});
 
-				assertionInitializerHelper().userData({
+				assertion().userData({
 					testValue: foundUser,
 					equalValue: userData,
 				});
@@ -41,7 +41,7 @@ await utils.generateServiceFailTest(
 	"createNewUser",
 	"CURRENT_USER_EXIST",
 	async () => {
-		const userData = {
+		const userData: UserData = {
 			...userUtils.getDefaultUserData(),
 			...randomMaker.unusedContact(),
 		};

@@ -1,4 +1,4 @@
-import { Cellphone } from "utility-store/lib/types";
+import { PartialEmptyCellphone } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 
@@ -7,7 +7,7 @@ import { coreServices } from "../core";
 export const isUserExist = serviceBuilder
 	.create<
 		{
-			cellphone: Cellphone;
+			cellphone: PartialEmptyCellphone;
 		},
 		{
 			isUserExist: boolean;

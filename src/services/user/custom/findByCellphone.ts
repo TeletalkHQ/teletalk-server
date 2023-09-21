@@ -1,4 +1,4 @@
-import { Cellphone, UserData } from "utility-store/lib/types";
+import { PartialEmptyCellphone, UserData } from "teletalk-type-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { extractor } from "~/classes/Extractor";
@@ -10,7 +10,7 @@ import { coreServices } from "../core";
 export const findByCellphone = serviceBuilder
 	.create<
 		{
-			cellphone: Cellphone;
+			cellphone: PartialEmptyCellphone;
 		},
 		UserData,
 		{

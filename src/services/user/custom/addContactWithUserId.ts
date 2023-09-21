@@ -1,5 +1,10 @@
+import {
+	EmptyCellphone,
+	FullName,
+	FullNameWithUserId,
+	UserId,
+} from "teletalk-type-store";
 import { maker } from "utility-store";
-import { ContactItem, FullName, UserId } from "utility-store/lib/types";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
@@ -13,23 +18,20 @@ export const addContactWithUserId = serviceBuilder
 			targetUserId: UserId;
 		},
 		{
-			newContact: ContactItem;
+			newContact: FullNameWithUserId & EmptyCellphone;
 		},
 		{
 			currentUser: HydratedUser;
 			targetUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares(
-		[
-			serviceMiddlewares.findCurrentUser,
-			serviceMiddlewares.findTargetUser,
-			serviceMiddlewares.throwIfContactExist,
-		],
-		[serviceMiddlewares.saveNewContactItem]
+	.setBeforeRunMiddlewares(
+		serviceMiddlewares.findCurrentUser,
+		serviceMiddlewares.findTargetUser,
+		serviceMiddlewares.throwIfContactExist
 	)
 	.setBody(async (data) => {
-		const contact: ContactItem = {
+		const contact: FullNameWithUserId & EmptyCellphone = {
 			...data.fullName,
 			...maker.emptyCellphone(),
 			userId: data.targetUser.userId,
@@ -39,4 +41,5 @@ export const addContactWithUserId = serviceBuilder
 			newContact: contact,
 		};
 	})
+	.setAfterRunMiddlewares(serviceMiddlewares.saveNewContactItem)
 	.build();

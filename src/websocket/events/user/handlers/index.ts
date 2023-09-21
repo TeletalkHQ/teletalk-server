@@ -9,6 +9,7 @@ import { getPublicData } from "./getPublicData";
 import { getUserData } from "./getUserData";
 import { removeBlock } from "./removeBlock";
 import { removeContact } from "./removeContact";
+import { updateAvatar } from "./updateAvatar";
 import { updateContact } from "./updateContact";
 import { updatePublicData } from "./updatePublicData";
 
@@ -16,14 +17,15 @@ export const handlers = {
 	addBlock,
 	addContactWithCellphone,
 	addContactWithUserId,
+	disconnect,
+	getClientStatus,
 	getContacts,
+	getOnlineClients,
 	getPublicData,
 	getUserData,
-	getClientStatus,
 	removeBlock,
 	removeContact,
+	updateAvatar,
 	updateContact,
 	updatePublicData,
-	disconnect,
-	getOnlineClients,
 };

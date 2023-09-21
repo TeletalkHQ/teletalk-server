@@ -1,5 +1,7 @@
+import { AddBlockIO } from "teletalk-type-store";
+
 import { services } from "~/services";
-import { AddBlockIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const addBlock: SocketOnHandler<AddBlockIO> = async (socket, data) => {
 	const { userId: currentUserId } = socket;

@@ -1,9 +1,9 @@
-import { ContactItem } from "utility-store/lib/types";
+import { ContactItem } from "teletalk-type-store";
 
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -55,7 +55,7 @@ describe(
 						currentUserId: currentUser.userId,
 					});
 
-					assertionInitializerHelper().contactsWithUserId({
+					assertion().contactsWithUserId({
 						testValue: contacts,
 						equalValue: updatingContacts,
 					});

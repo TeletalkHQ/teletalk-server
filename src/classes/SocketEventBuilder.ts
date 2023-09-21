@@ -1,6 +1,8 @@
+import { IO } from "teletalk-type-store";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { RouteBuilder } from "~/classes/RouteBuilder";
-import { IO, SocketEvent } from "~/types";
+import { SocketEvent } from "~/types";
 
 export class SocketEventBuilder<IOType extends IO> extends RouteBuilder {
 	protected route: SocketEvent<IOType>;

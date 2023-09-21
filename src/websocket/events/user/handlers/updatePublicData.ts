@@ -1,5 +1,7 @@
+import { EventName, UpdatePublicDataIO } from "teletalk-type-store";
+
 import { services } from "~/services";
-import { EventName, SocketOnHandler, UpdatePublicDataIO } from "~/types";
+import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
 export const updatePublicData: SocketOnHandler<UpdatePublicDataIO> = async (

@@ -1,6 +1,8 @@
+import { GetChatInfoIO } from "teletalk-type-store";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { services } from "~/services";
-import { GetChatInfoIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const getChatInfo: SocketOnHandler<GetChatInfoIO> = async (
 	_socket,

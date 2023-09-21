@@ -1,7 +1,9 @@
+import { VerifyIO } from "teletalk-type-store";
+
 import { authClientStore } from "~/classes/AuthClientStore";
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
-import { SocketOnHandler, StoredClient, VerifyIO } from "~/types";
+import { SocketOnHandler, StoredClient } from "~/types";
 
 export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
 	const client = (await authClientStore.find(socket.clientId)) as StoredClient;

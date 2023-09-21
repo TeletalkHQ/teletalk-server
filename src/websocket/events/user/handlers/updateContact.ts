@@ -1,6 +1,8 @@
+import { UpdateContactIO } from "teletalk-type-store";
+
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
-import { SocketOnHandler, UpdateContactIO } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const updateContact: SocketOnHandler<UpdateContactIO> = async (
 	socket,

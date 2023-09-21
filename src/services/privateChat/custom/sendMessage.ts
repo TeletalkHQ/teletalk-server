@@ -1,15 +1,15 @@
-import { randomMaker } from "utility-store";
-import { UserId } from "utility-store/lib/types";
-
-import { serviceBuilder } from "~/classes/service/ServiceBuilder";
-import { models } from "~/models";
-import { serviceMiddlewares } from "~/services/middlewares";
 import {
 	CreatedAt,
 	MessageId,
 	MessageItem,
 	MessageText,
-} from "~/types/datatypes";
+	UserId,
+} from "teletalk-type-store";
+import { randomMaker } from "utility-store";
+
+import { serviceBuilder } from "~/classes/service/ServiceBuilder";
+import { models } from "~/models";
+import { serviceMiddlewares } from "~/services/middlewares";
 import { HydratedPrivateChat } from "~/types/model";
 
 const chatModels = models.native;
@@ -30,13 +30,13 @@ export const sendMessage = serviceBuilder
 			privateChat: HydratedPrivateChat;
 		}
 	>()
-	.setMiddlewares([
+	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentParticipant,
 		serviceMiddlewares.findTargetParticipant,
 		serviceMiddlewares.throwIfParticipantIsBlacklisted,
 		serviceMiddlewares.createPrivateChatIfNotExist,
-		serviceMiddlewares.findPrivateChat,
-	])
+		serviceMiddlewares.findPrivateChat
+	)
 	.setBody(async (data) => {
 		const addedMessage = createNewMessage(
 			data.messageText,

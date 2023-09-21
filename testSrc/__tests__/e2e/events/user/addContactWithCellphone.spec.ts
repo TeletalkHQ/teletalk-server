@@ -1,7 +1,8 @@
-import { extractor } from "~/classes/Extractor";
-import { ContactItemWithCellphone } from "~/types/datatypes";
+import { ContactItemWithoutUserId } from "teletalk-type-store";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { extractor } from "~/classes/Extractor";
+
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -21,7 +22,7 @@ describe(
 				const { socket } = await randomMaker.user();
 				const { user: targetUser } = await randomMaker.user();
 
-				const sendingData: ContactItemWithCellphone = {
+				const sendingData: ContactItemWithoutUserId = {
 					...extractor.cellphone(targetUser),
 					...randomMaker.fullName(),
 				};
@@ -32,7 +33,7 @@ describe(
 					.addContactWithCellphone(socket)
 					.emitFull(sendingData);
 
-				assertionInitializerHelper().oneContact({
+				assertion().oneContact({
 					testValue: newContact,
 					equalValue: { ...sendingData, userId: targetUser.userId },
 				});

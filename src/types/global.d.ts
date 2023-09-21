@@ -1,5 +1,6 @@
 import { LoggerChalker } from "logger-chalker";
 import { Server } from "socket.io";
+import { ClientId, UserId } from "teletalk-type-store";
 
 import {
 	AuthClient,
@@ -11,7 +12,6 @@ import {
 	SocketNext,
 } from "~/types";
 
-import { ClientId, UserId } from "./datatypes";
 
 declare global {
 	// eslint-disable-next-line no-var

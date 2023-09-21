@@ -1,6 +1,7 @@
+import { PrivateChatItem } from "teletalk-type-store";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
-import { PrivateChatItem } from "~/types/datatypes";
 
 import { coreServices } from "../core";
 

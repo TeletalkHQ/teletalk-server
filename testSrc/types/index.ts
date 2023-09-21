@@ -1,6 +1,6 @@
 import { Socket as ClientSocket } from "socket.io-client";
+import { IO } from "teletalk-type-store";
 
-import { IO } from "~/types";
 import { middlewares } from "~/websocket/middlewares";
 
 import { Requester } from "@/classes/Requester";

@@ -1,21 +1,19 @@
 import { Socket } from "socket.io-client";
-import { RandomMaker as RandomMakerMain } from "utility-store";
 import {
 	Cellphone,
-	ContactItem,
-	FullNameWithUserId,
-	UserData,
-} from "utility-store/lib/types";
-
-import { models } from "~/models";
-import {
 	ClientId,
-	ContactItemWithCellphone,
+	ContactItem,
+	ContactItemWithoutUserId,
+	FullNameWithUserId,
 	MessageItem,
 	MessageText,
+	UserData,
 	UserId,
 	UserPublicData,
-} from "~/types/datatypes";
+} from "teletalk-type-store";
+import { RandomMaker as RandomMakerMain } from "utility-store";
+
+import { models } from "~/models";
 
 import { authHelper } from "@/classes/AuthHelper";
 import { utils } from "@/utils";
@@ -43,7 +41,7 @@ class RandomMaker extends RandomMakerMain {
 		);
 	}
 
-	contactWithCellphone(): ContactItemWithCellphone {
+	contactWithCellphone(): ContactItemWithoutUserId {
 		const { userId, ...rest } = this.contact();
 		return rest;
 	}

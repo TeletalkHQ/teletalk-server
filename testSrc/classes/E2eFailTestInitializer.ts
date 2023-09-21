@@ -1,6 +1,8 @@
 /* eslint-disable indent */
+import { IO } from "teletalk-type-store";
+
 import { errorStore } from "~/classes/ErrorStore";
-import { ErrorReason, IO } from "~/types";
+import { ErrorReason } from "~/types";
 import { Field, FieldType, NativeModel } from "~/types/model";
 import { utils as mainUtils } from "~/utils";
 

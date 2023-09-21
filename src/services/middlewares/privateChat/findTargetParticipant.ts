@@ -1,7 +1,6 @@
-import { ExtendedCellphone } from "utility-store/lib/types";
+import { ExtendedCellphone, UserId } from "teletalk-type-store";
 
 import { HydratedUser, ServiceMiddleware } from "~/types";
-import { UserId } from "~/types/datatypes";
 
 import { commonMiddlewares } from "../common";
 

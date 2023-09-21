@@ -1,4 +1,4 @@
-import { UserId } from "utility-store/lib/types";
+import { UserId } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
@@ -15,10 +15,10 @@ export const removeContact = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setMiddlewares([
+	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentUser,
-		serviceMiddlewares.throwIfContactNotExist,
-	])
+		serviceMiddlewares.throwIfContactNotExist
+	)
 	.setBody(async (data) => {
 		const index = data.currentUser.contacts.findIndex(
 			(i) => i.userId === data.targetUserId

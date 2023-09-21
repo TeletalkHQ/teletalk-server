@@ -1,6 +1,6 @@
 import { extractor } from "~/classes/Extractor";
 
-import { assertionInitializerHelper } from "@/classes/AssertionInitializerHelper";
+import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
@@ -22,7 +22,7 @@ describe(
 					userId: currentUser.userId,
 				});
 
-				assertionInitializerHelper().userPublicData({
+				assertion().userPublicData({
 					testValue: publicData,
 					equalValue: extractor.userPublicData(currentUser),
 				});
@@ -45,7 +45,7 @@ describe(
 					userId: targetUser.userId,
 				});
 
-				assertionInitializerHelper().userPublicData({
+				assertion().userPublicData({
 					testValue: publicData,
 					equalValue: extractor.userPublicData(targetUser),
 				});

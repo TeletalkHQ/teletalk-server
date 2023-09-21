@@ -1,6 +1,5 @@
 import chai from "chai";
-
-import { ParticipantId, ParticipantItem } from "~/types/datatypes";
+import { ParticipantId, Participants } from "teletalk-type-store";
 
 import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -76,6 +75,6 @@ describe(
 );
 
 const isParticipantExist = (
-	participants: ParticipantItem[],
+	participants: Participants,
 	participantId: ParticipantId
 ) => participants.some((i) => i.participantId === participantId)!;

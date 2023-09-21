@@ -1,4 +1,4 @@
-import { UserData } from "utility-store/lib/types";
+import { UserData } from "teletalk-type-store";
 
 import { models } from "~/models";
 import { UserService } from "~/types";

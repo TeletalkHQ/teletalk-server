@@ -1,7 +1,7 @@
 import chai from "chai";
+import { PrivateChatItem } from "teletalk-type-store";
 
 import { services } from "~/services";
-import { PrivateChatItem } from "~/types/datatypes";
 
 import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";

@@ -1,13 +1,13 @@
-import { Cellphone, FullName } from "utility-store/lib/types";
+import {
+	Cellphone,
+	CreateNewUserIO,
+	FullName,
+	SignInIO,
+	VerifyIO,
+} from "teletalk-type-store";
 
 import { authClientStore } from "~/classes/AuthClientStore";
-import {
-	CreateNewUserIO,
-	SignInIO,
-	SocketResponse,
-	StoredClient,
-	VerifyIO,
-} from "~/types";
+import { SocketResponse, StoredClient } from "~/types";
 
 import {
 	ClientInitializer,

@@ -1,6 +1,8 @@
 /* eslint-disable indent */
+import { EventName } from "teletalk-type-store";
+
 import { errorStore } from "~/classes/ErrorStore";
-import { ErrorReason, EventName } from "~/types";
+import { ErrorReason } from "~/types";
 
 import { MiddlewareName, ServiceName } from "@/types";
 

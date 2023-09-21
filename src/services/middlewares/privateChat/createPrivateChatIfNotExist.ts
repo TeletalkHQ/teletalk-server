@@ -1,9 +1,9 @@
+import { UserId } from "teletalk-type-store";
 import { randomMaker } from "utility-store";
 
 import { models } from "~/models";
 import { coreServices } from "~/services/privateChat/core";
 import { ServiceMiddleware } from "~/types";
-import { UserId } from "~/types/datatypes";
 
 export const createPrivateChatIfNotExist: ServiceMiddleware<
 	{

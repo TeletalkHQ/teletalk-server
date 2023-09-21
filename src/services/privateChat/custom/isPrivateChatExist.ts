@@ -1,5 +1,6 @@
+import { ChatId, UserId } from "teletalk-type-store";
+
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
-import { ChatId, UserId } from "~/types/datatypes";
 
 import { coreServices } from "../core";
 

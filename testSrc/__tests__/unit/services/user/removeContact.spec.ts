@@ -1,4 +1,4 @@
-import { FullNameWithUserId, UserData } from "utility-store/lib/types";
+import { FullNameWithUserId, UserData } from "teletalk-type-store";
 
 import { services } from "~/services";
 

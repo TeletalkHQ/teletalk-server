@@ -1,8 +1,7 @@
 import { ProjectionType, QueryOptions } from "mongoose";
-import { UserData } from "utility-store/lib/types";
+import { PrivateChatItem, UserData, UserId } from "teletalk-type-store";
 
 import { StringMap } from "..";
-import { PrivateChatItem, UserId } from "../datatypes";
 import { IPrivateChatDoc, IUserDoc } from "../model";
 
 export type ServiceHandlerExcludeProp = "_id" | "__v";

@@ -1,6 +1,8 @@
+import { LogoutIO } from "teletalk-type-store";
+
 import { authClientStore } from "~/classes/AuthClientStore";
 import { services } from "~/services";
-import { LogoutIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const logout: SocketOnHandler<LogoutIO> = async (socket) => {
 	const { userId } = socket;

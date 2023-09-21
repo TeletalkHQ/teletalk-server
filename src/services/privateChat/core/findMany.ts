@@ -1,8 +1,8 @@
 import { FilterQuery } from "mongoose";
+import { PrivateChats } from "teletalk-type-store";
 
 import { models } from "~/models";
 import { PrivateChatService } from "~/types";
-import { PrivateChats } from "~/types/datatypes";
 import { IPrivateChatDoc } from "~/types/model";
 
 export const findMany: PrivateChatService<

@@ -1,4 +1,6 @@
-import { EventName, PingIO, SocketOnHandler } from "~/types";
+import { EventName, PingIO } from "teletalk-type-store";
+
+import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
 export const ping: SocketOnHandler<PingIO> = (socket) => {

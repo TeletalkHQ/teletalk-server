@@ -1,5 +1,11 @@
+import {
+	CreateNewUserIO,
+	LogoutIO,
+	SignInIO,
+	VerifyIO,
+} from "teletalk-type-store";
+
 import { socketEventBuilder } from "~/classes/SocketEventBuilder";
-import { CreateNewUserIO, LogoutIO, SignInIO, VerifyIO } from "~/types";
 import { fields } from "~/variables";
 
 import { handlers } from "./handlers";

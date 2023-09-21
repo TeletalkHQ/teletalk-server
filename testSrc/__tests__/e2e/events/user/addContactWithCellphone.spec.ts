@@ -1,5 +1,6 @@
+import { ContactItemWithoutUserId } from "teletalk-type-store";
+
 import { extractor } from "~/classes/Extractor";
-import { ContactItemWithCellphone } from "~/types/datatypes";
 
 import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
@@ -21,7 +22,7 @@ describe(
 				const { socket } = await randomMaker.user();
 				const { user: targetUser } = await randomMaker.user();
 
-				const sendingData: ContactItemWithCellphone = {
+				const sendingData: ContactItemWithoutUserId = {
 					...extractor.cellphone(targetUser),
 					...randomMaker.fullName(),
 				};

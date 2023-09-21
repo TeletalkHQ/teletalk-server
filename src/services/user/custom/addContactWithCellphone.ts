@@ -1,14 +1,18 @@
-import { Cellphone, ContactItem } from "utility-store/lib/types";
+import {
+	Cellphone,
+	ContactItem,
+	ContactItemWithoutUserId,
+	UserId,
+} from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
-import { ContactItemWithCellphone, UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
 export const addContactWithCellphone = serviceBuilder
 	.create<
 		{
-			addingContact: ContactItemWithCellphone;
+			addingContact: ContactItemWithoutUserId;
 			currentUserId: UserId;
 			targetUserCellphone: Cellphone;
 		},

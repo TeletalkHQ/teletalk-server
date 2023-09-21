@@ -1,10 +1,9 @@
 /* eslint-disable indent */
-import { Cellphone } from "utility-store/lib/types";
+import { Cellphone, UserId } from "teletalk-type-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { coreServices } from "~/services/user/core";
 import { ServiceMiddleware } from "~/types";
-import { UserId } from "~/types/datatypes";
 
 export const throwIfUserExist: ServiceMiddleware<
 	| Cellphone

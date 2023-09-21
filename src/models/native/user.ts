@@ -1,5 +1,6 @@
 import { nativeModelBuilder } from "~/classes/NativeModelBuilder";
 import {
+	AvatarSrc,
 	Bio,
 	Blacklist,
 	ClientId,
@@ -29,6 +30,16 @@ export const userModels = {
 		.minLength(0)
 		.defaultValue("")
 		.maxLength(255)
+		.build(),
+	avatarSrc: nativeModelBuilder
+		.create<AvatarSrc>()
+		.type("string")
+		.required(true)
+		.empty(true)
+		.defaultValue("")
+		.trim(true)
+		.minLength(0)
+		.maxLength(800000)
 		.build(),
 	blacklist: nativeModelBuilder
 		.create<Blacklist>()

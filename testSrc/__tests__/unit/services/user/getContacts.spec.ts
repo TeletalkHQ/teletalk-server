@@ -1,4 +1,4 @@
-import { ContactItem } from "utility-store/lib/types";
+import { ContactItem } from "teletalk-type-store";
 
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";

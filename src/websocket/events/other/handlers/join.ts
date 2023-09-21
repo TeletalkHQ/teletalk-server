@@ -1,5 +1,7 @@
+import { EventName, JoinIO } from "teletalk-type-store";
+
 import { clientStatusStore } from "~/classes/ClientStatusStore";
-import { EventName, JoinIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
 export const join: SocketOnHandler<JoinIO> = async (socket) => {

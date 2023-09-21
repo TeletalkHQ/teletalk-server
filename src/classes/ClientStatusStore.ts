@@ -1,4 +1,4 @@
-import { ClientStatus } from "~/types/datatypes";
+import { ClientStatus } from "teletalk-type-store";
 
 import { ClientStore } from "./ClientStore";
 

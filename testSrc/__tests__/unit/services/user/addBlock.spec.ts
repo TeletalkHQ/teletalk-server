@@ -1,4 +1,4 @@
-import { BlackList, UserData } from "utility-store/lib/types";
+import { BlackList, UserData } from "teletalk-type-store";
 
 import { services } from "~/services";
 

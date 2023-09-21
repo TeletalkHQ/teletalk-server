@@ -1,4 +1,4 @@
-import { UserId } from "utility-store/lib/types";
+import { UserId } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";

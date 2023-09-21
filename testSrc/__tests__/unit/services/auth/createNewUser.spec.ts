@@ -1,4 +1,4 @@
-import { UserData } from "utility-store/lib/types";
+import { UserData } from "teletalk-type-store";
 
 import { userUtils } from "~/classes/UserUtils";
 import { services } from "~/services";
@@ -41,7 +41,7 @@ await utils.generateServiceFailTest(
 	"createNewUser",
 	"CURRENT_USER_EXIST",
 	async () => {
-		const userData = {
+		const userData: UserData = {
 			...userUtils.getDefaultUserData(),
 			...randomMaker.unusedContact(),
 		};

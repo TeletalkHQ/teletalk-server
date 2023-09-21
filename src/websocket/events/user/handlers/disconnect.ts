@@ -1,5 +1,7 @@
+import { DisconnectIO, EventName } from "teletalk-type-store";
+
 import { clientStatusStore } from "~/classes/ClientStatusStore";
-import { DisconnectIO, EventName, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
 export const disconnect: SocketOnHandler<DisconnectIO> = async (socket) => {

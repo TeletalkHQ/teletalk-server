@@ -1,10 +1,5 @@
+import { ContactItem, Contacts, FullName, UserId } from "teletalk-type-store";
 import { errorThrower, extractor } from "utility-store";
-import {
-	ContactItem,
-	Contacts,
-	FullName,
-	UserId,
-} from "utility-store/lib/types";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";

@@ -1,5 +1,7 @@
+import { GetPublicDataIO } from "teletalk-type-store";
+
 import { services } from "~/services";
-import { GetPublicDataIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const getPublicData: SocketOnHandler<GetPublicDataIO> = async (
 	_socket,

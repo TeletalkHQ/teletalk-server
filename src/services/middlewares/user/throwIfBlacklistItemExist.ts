@@ -1,6 +1,7 @@
+import { UserId } from "teletalk-type-store";
+
 import { errorStore } from "~/classes/ErrorStore";
 import { ServiceMiddleware } from "~/types";
-import { UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
 export const throwIfBlacklistItemExist: ServiceMiddleware<

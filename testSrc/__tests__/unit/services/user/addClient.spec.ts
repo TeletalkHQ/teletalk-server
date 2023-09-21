@@ -1,4 +1,4 @@
-import { Clients, UserData } from "utility-store/lib/types";
+import { Clients, UserData } from "teletalk-type-store";
 
 import { services } from "~/services";
 

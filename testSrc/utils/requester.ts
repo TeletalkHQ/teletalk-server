@@ -2,9 +2,15 @@
 
 /* eslint-disable indent */
 import { Socket } from "socket.io-client";
-import { Cellphone, FullName } from "utility-store/lib/types";
+import {
+	Cellphone,
+	EventName,
+	FullName,
+	IO,
+	IOCollection,
+} from "teletalk-type-store";
 
-import { EventName, IO, IOCollection, SocketEvent } from "~/types";
+import { SocketEvent } from "~/types";
 import { events } from "~/websocket/events";
 
 import { randomMaker } from "@/classes/RandomMaker";
@@ -59,6 +65,7 @@ export const requesterCollection = {
 	removeContact: requesterMakerHelper("removeContact"),
 	sendMessage: requesterMakerHelper("sendMessage"),
 	signIn: requesterMakerHelper("signIn"),
+	updateAvatar: requesterMakerHelper("updateAvatar"),
 	updateContact: requesterMakerHelper("updateContact"),
 	updatePublicData: requesterMakerHelper("updatePublicData"),
 	verify: requesterMakerHelper("verify"),

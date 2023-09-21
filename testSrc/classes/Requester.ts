@@ -1,12 +1,12 @@
 import chai from "chai";
 import { IoFields } from "check-fields";
 import { Socket as Client } from "socket.io-client";
+import { IO } from "teletalk-type-store";
 import { objectUtils } from "utility-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import {
 	ErrorReason,
-	IO,
 	NativeError,
 	SocketEvent,
 	SocketResponse,

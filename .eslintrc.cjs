@@ -57,7 +57,7 @@ module.exports = defineConfig({
 				amd: true,
 				commonjs: true,
 				esmodule: true,
-				ignore: ["type-fest"],
+				ignore: ["type-fest", "teletalk-type-store"],
 			},
 		],
 		indent: ["error", "tab"],

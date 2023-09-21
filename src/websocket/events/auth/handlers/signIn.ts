@@ -1,10 +1,10 @@
+import { ExtendedCellphone, SignInIO } from "teletalk-type-store";
 import { extractor, randomMaker } from "utility-store";
-import { ExtendedCellphone } from "utility-store/lib/types";
 
 import { authClientStore } from "~/classes/AuthClientStore";
 import { smsClient } from "~/classes/SmsClient";
 import { models } from "~/models";
-import { SignInIO, SocketOnHandler, StoredClient } from "~/types";
+import { SocketOnHandler, StoredClient } from "~/types";
 import { utils } from "~/utils";
 
 export const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {

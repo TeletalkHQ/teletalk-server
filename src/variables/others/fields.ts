@@ -11,6 +11,7 @@ const statics = {
 };
 
 //TODO: Sync with FieldTypes
+const avatarSrc = statics.string;
 const bio = statics.string;
 const chatId = statics.string;
 const clientId = statics.string;
@@ -97,6 +98,7 @@ const privateChat = {
 };
 
 const user = {
+	avatarSrc,
 	bio,
 	blacklist,
 	contacts,
@@ -112,8 +114,10 @@ const user = {
 };
 
 const single = {
+	avatarSrc,
 	bio,
 	chatId,
+	clientId,
 	countryCode,
 	countryName,
 	countryShortName,
@@ -124,15 +128,14 @@ const single = {
 	isActive,
 	language,
 	lastName,
-	messageText,
 	messageId,
+	messageText,
 	newUser,
 	ok,
 	participantId,
 	phoneNumber,
 	senderId,
 	status,
-	clientId,
 	userId,
 	username,
 	verificationCode,

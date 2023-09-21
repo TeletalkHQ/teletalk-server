@@ -1,3 +1,4 @@
+import { CreateNewUserIO } from "teletalk-type-store";
 import { errorThrower, extractor, randomMaker } from "utility-store";
 
 import { authClientStore } from "~/classes/AuthClientStore";
@@ -5,7 +6,7 @@ import { errorStore } from "~/classes/ErrorStore";
 import { userUtils } from "~/classes/UserUtils";
 import { models } from "~/models";
 import { services } from "~/services";
-import { CreateNewUserIO, SocketOnHandler, StoredClient } from "~/types";
+import { SocketOnHandler, StoredClient } from "~/types";
 
 export const createNewUser: SocketOnHandler<CreateNewUserIO> = async (
 	socket,

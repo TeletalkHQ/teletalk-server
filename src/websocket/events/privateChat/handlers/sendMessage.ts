@@ -1,6 +1,12 @@
+import {
+	ChatId,
+	EventName,
+	MessageItem,
+	SendMessageIO,
+} from "teletalk-type-store";
+
 import { services } from "~/services";
-import { EventName, SendMessageIO, SocketOnHandler } from "~/types";
-import { ChatId, MessageItem } from "~/types/datatypes";
+import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
 export const sendMessage: SocketOnHandler<SendMessageIO> = async (

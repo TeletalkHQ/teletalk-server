@@ -1,5 +1,7 @@
+import { GetPrivateChatIO } from "teletalk-type-store";
+
 import { services } from "~/services";
-import { GetPrivateChatIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const getPrivateChat: SocketOnHandler<GetPrivateChatIO> = async (
 	_socket,

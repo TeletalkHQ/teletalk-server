@@ -1,6 +1,7 @@
+import { ClientId, UserId } from "teletalk-type-store";
+
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
-import { ClientId, UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
 export const logout = serviceBuilder

@@ -1,14 +1,14 @@
-import { Extractor as ExtractorMain } from "utility-store";
 import {
 	ExtendedFullName,
-	ExtendedPublicUserData,
+	ExtendedUserPublicData,
 	FullNameWithUserId,
-} from "utility-store/lib/types";
-
-import { UserId, UserPublicData } from "~/types/datatypes";
+	UserId,
+	UserPublicData,
+} from "teletalk-type-store";
+import { Extractor as ExtractorMain } from "utility-store";
 
 export class Extractor extends ExtractorMain {
-	userPublicData(data: ExtendedPublicUserData): UserPublicData {
+	userPublicData(data: ExtendedUserPublicData): UserPublicData {
 		return super.publicUserData(data);
 	}
 

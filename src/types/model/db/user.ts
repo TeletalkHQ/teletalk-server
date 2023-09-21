@@ -1,5 +1,5 @@
 import { Document, HydratedDocument, Model } from "mongoose";
-import { UserData } from "utility-store/lib/types";
+import { UserData } from "teletalk-type-store";
 
 export type IUserDoc = UserData & Document;
 export type IUserModel = Model<IUserDoc>;

@@ -1,8 +1,7 @@
-import { Contacts } from "utility-store/lib/types";
+import { Contacts, UserId } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
-import { UserId } from "~/types/datatypes";
 import { HydratedUser } from "~/types/model";
 
 export const getContacts = serviceBuilder

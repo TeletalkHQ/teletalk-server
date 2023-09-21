@@ -1,5 +1,7 @@
+import { RemoveContactIO } from "teletalk-type-store";
+
 import { services } from "~/services";
-import { RemoveContactIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const removeContact: SocketOnHandler<RemoveContactIO> = async (
 	socket,

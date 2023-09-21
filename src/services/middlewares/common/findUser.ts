@@ -1,10 +1,9 @@
-import { Cellphone } from "utility-store/lib/types";
+import { Cellphone, UserId } from "teletalk-type-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { extractor } from "~/classes/Extractor";
 import { coreServices } from "~/services/user/core";
 import { ErrorReason, HydratedUser, ServiceMiddleware } from "~/types";
-import { UserId } from "~/types/datatypes";
 
 export const findUser: ServiceMiddleware<
 	{

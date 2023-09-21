@@ -1,8 +1,6 @@
 import http from "http";
 import { Server } from "socket.io";
 
-import { authClientStore } from "~/classes/AuthClientStore";
-import { clientStatusStore } from "~/classes/ClientStatusStore";
 import { customMethods } from "~/websocket/custom/methods";
 import { registerEvents } from "~/websocket/events";
 import { registerMiddlewares } from "~/websocket/middlewares";
@@ -20,8 +18,8 @@ export const websocketServer = async (httpServer: HttpServer) => {
 		},
 	});
 
-	await clientStatusStore.removeAll();
-	await authClientStore.removeAll();
+	// await clientStatusStore.removeAll();
+	// await authClientStore.removeAll();
 
 	io.on("connection", (socket) => {
 		socket.io = io;

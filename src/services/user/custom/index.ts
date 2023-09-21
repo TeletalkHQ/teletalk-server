@@ -11,6 +11,7 @@ import { isUserExist } from "./isUserExist";
 import { logout } from "./logout";
 import { removeBlock } from "./removeBlock";
 import { removeContact } from "./removeContact";
+import { updateAvatar } from "./updateAvatar";
 import { updateContact } from "./updateContact";
 import { updatePublicData } from "./updatePublicData";
 
@@ -28,6 +29,7 @@ export const userServices = {
 	logout,
 	removeBlock,
 	removeContact,
+	updateAvatar,
 	updateContact,
 	updatePublicData,
 };

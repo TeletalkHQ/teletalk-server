@@ -1,5 +1,7 @@
+import { GetClientStatusIO } from "teletalk-type-store";
+
 import { clientStatusStore } from "~/classes/ClientStatusStore";
-import { GetClientStatusIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const getClientStatus: SocketOnHandler<GetClientStatusIO> = async (
 	_socket,

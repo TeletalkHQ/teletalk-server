@@ -1,6 +1,8 @@
+import { AddContactWithCellphoneIO } from "teletalk-type-store";
+
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
-import { AddContactWithCellphoneIO, SocketOnHandler } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const addContactWithCellphone: SocketOnHandler<
 	AddContactWithCellphoneIO

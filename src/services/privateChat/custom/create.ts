@@ -1,9 +1,9 @@
+import { UserId } from "teletalk-type-store";
 import { randomMaker } from "utility-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { models } from "~/models";
 import { serviceMiddlewares } from "~/services/middlewares";
-import { UserId } from "~/types/datatypes";
 
 import { coreServices } from "../core";
 

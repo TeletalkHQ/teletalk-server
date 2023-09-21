@@ -1,5 +1,6 @@
+import { PrivateChats } from "teletalk-type-store";
+
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
-import { PrivateChats } from "~/types/datatypes";
 
 import { coreServices } from "../core";
 

@@ -1,4 +1,4 @@
-import { FullNameWithUserId } from "utility-store/lib/types";
+import { FullNameWithUserId } from "teletalk-type-store";
 
 import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";

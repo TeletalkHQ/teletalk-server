@@ -2,6 +2,7 @@ import { addBlock } from "./addBlock";
 import { addContactWithCellphone } from "./addContactWithCellphone";
 import { addContactWithUserId } from "./addContactWithUserId";
 import { disconnect } from "./disconnect";
+import { getAvatar } from "./getAvatar";
 import { getClientStatus } from "./getClientStatus";
 import { getContacts } from "./getContacts";
 import { getOnlineClients } from "./getOnlineClients";
@@ -18,6 +19,7 @@ export const handlers = {
 	addContactWithCellphone,
 	addContactWithUserId,
 	disconnect,
+	getAvatar,
 	getClientStatus,
 	getContacts,
 	getOnlineClients,

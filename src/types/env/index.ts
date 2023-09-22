@@ -25,6 +25,7 @@ export interface Environments {
 	REDIS_HOST: string;
 	REDIS_PASSWORD: string;
 	REDIS_PORT: number;
+	//TODO: Move to testSrc scope
 	TEST_RUNNER: "JEST" | "MOCHA";
 	SELF_EXEC: boolean;
 	SMS_PROVIDER_1_HOST: string;

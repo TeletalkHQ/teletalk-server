@@ -46,6 +46,7 @@ export const requesterCollection = {
 	addContactWithUserId: requesterMakerHelper("addContactWithUserId"),
 	createNewUser: requesterMakerHelper("createNewUser"),
 	disconnect: requesterMakerHelper("disconnect"),
+	getAvatar: requesterMakerHelper("getAvatar"),
 	getChatInfo: requesterMakerHelper("getChatInfo"),
 	getClientStatus: requesterMakerHelper("getClientStatus"),
 	getContacts: requesterMakerHelper("getContacts"),

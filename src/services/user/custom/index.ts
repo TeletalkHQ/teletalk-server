@@ -5,6 +5,7 @@ import { addContactWithUserId } from "./addContactWithUserId";
 import { createNewUser } from "./createNewUser";
 import { findByCellphone } from "./findByCellphone";
 import { findByUserId } from "./findByUserId";
+import { getAvatar } from "./getAvatar";
 import { getContacts } from "./getContacts";
 import { getPublicData } from "./getPublicData";
 import { isUserExist } from "./isUserExist";
@@ -23,6 +24,7 @@ export const userServices = {
 	createNewUser,
 	findByCellphone,
 	findByUserId,
+	getAvatar,
 	getContacts,
 	getPublicData,
 	isUserExist,

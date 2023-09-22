@@ -123,14 +123,14 @@ dependencies:
     specifier: ^1.13.1
     version: 1.13.1
   teletalk-type-store:
-    specifier: ^1.0.61
-    version: 1.0.61
+    specifier: ^1.1.0
+    version: 1.1.0
   underscore:
     specifier: ^1.13.6
     version: 1.13.6
   utility-store:
-    specifier: ^14.0.25
-    version: 14.0.25
+    specifier: ^14.0.26
+    version: 14.0.26
   winston:
     specifier: ^3.10.0
     version: 3.10.0
@@ -11549,8 +11549,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /teletalk-type-store@1.0.61:
-    resolution: {integrity: sha512-aMk8E7aNRqj+2D743CHp/f6Qz/qXJKOMVy5XY4bBvkqniXy/WZWiZz+WwPTXYd5qVgzC/DV3HOfDUVHc9uq8ug==}
+  /teletalk-type-store@1.1.0:
+    resolution: {integrity: sha512-ORnc5W3c28fCRN+TdpUMMF+AdfRd6G+AXtaREZZAcsLB4hIYUtbGMSTm5RFoyFcQJtVs2AEOMGcvKo1rr4RnmQ==}
     dev: false
 
   /test-exclude@6.0.0:
@@ -12034,8 +12034,8 @@ packages:
     resolution: {integrity: sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==}
     dev: false
 
-  /utility-store@14.0.25:
-    resolution: {integrity: sha512-oBHe2ZDufARf1UJ13yhVT8HQlpWBntggwIf1DvQ6rBCYaPshBNH0fPGAJhTP13MILLdQLzd3KEO9w4iPycfeyQ==}
+  /utility-store@14.0.26:
+    resolution: {integrity: sha512-+PAeX8Tz+o0sE8h6EtJS/Nu5oDXq4jtZQA3vO5gU9IzD6ymE35N2SiJMZYK3CGpTSMlvtvpsfkTHrq7IXpSpNQ==}
     dependencies:
       custom-typeof: 2.0.2
       nanoid: 3.3.6

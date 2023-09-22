@@ -3,6 +3,7 @@ import {
 	AddContactWithCellphoneIO,
 	AddContactWithUserIdIO,
 	DisconnectIO,
+	GetAvatarIO,
 	GetClientStatusIO,
 	GetContactsIO,
 	GetOnlineClientsIO,
@@ -185,6 +186,19 @@ const updatePublicData = builder
 	.handler(handlers.updatePublicData)
 	.build();
 
+const getAvatar = builder
+	.create<GetAvatarIO>()
+	.name("getAvatar")
+	.inputFields({
+		userId: fields.single.userId,
+	})
+	.outputFields({
+		avatarSrc: fields.single.avatarSrc,
+		userId: fields.single.userId,
+	})
+	.handler(handlers.getAvatar)
+	.build();
+
 const updateAvatar = builder
 	.create<UpdateAvatarIO>()
 	.name("updateAvatar")
@@ -204,6 +218,7 @@ export const user = {
 		addContactWithCellphone,
 		addContactWithUserId,
 		disconnect,
+		getAvatar,
 		getClientStatus,
 		getContacts,
 		getOnlineClients,

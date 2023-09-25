@@ -16,8 +16,8 @@ describe(
 				"should edit users in contacts"
 			),
 			async () => {
-				const { socket } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+				const { socket } = await randomMaker.e2eUser();
+				const { user: targetUser } = await randomMaker.e2eUser();
 
 				const addingContactData = extractor.contactWithUserId(targetUser);
 

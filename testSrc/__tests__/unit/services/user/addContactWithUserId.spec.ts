@@ -19,12 +19,12 @@ describe(
 				"should add new contact with target user id"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { sessionId } = await randomMaker.serviceUser();
 
 				const addingContacts: FullNameWithUserId[] = [];
 
 				const length = 10;
-				const users = await Promise.all(randomMaker.batchUsers(length));
+				const users = await Promise.all(randomMaker.serviceBatchUsers(length));
 
 				for (const { user: targetUser } of users) {
 					const item: FullNameWithUserId = {
@@ -36,12 +36,12 @@ describe(
 
 					await services.user.addContactWithUserId({
 						fullName: item,
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 						targetUserId: item.userId,
 					});
 
 					const { contacts } = await services.user.getContacts({
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 					});
 
 					assertion().contactsWithUserId({
@@ -58,8 +58,8 @@ await utils.generateServiceFailTest(
 	"addContactWithUserId",
 	"CONTACT_ITEM_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
-		const { user: targetUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
+		const { user: targetUser } = await randomMaker.serviceUser();
 
 		const targetContact: FullNameWithUserId = {
 			...randomMaker.fullName(),
@@ -67,13 +67,13 @@ await utils.generateServiceFailTest(
 		};
 
 		await services.user.addContactWithUserId({
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			fullName: targetContact,
 			targetUserId: targetContact.userId,
 		});
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			fullName: targetContact,
 			targetUserId: targetUser.userId,
 		};
@@ -84,7 +84,7 @@ await utils.generateServiceFailTest(
 	"addContactWithUserId",
 	"CURRENT_USER_NOT_EXIST",
 	{
-		currentUserId: randomMaker.userId(),
+		currentSessionId: randomMaker.sessionId(),
 		fullName: randomMaker.fullName(),
 		targetUserId: randomMaker.userId(),
 	}
@@ -94,10 +94,10 @@ await utils.generateServiceFailTest(
 	"addContactWithUserId",
 	"TARGET_USER_NOT_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			fullName: randomMaker.fullName(),
 			targetUserId: randomMaker.userId(),
 		};

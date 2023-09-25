@@ -1,12 +1,12 @@
 // import { createAdapter, setupPrimary } from "@socket.io/cluster-adapter";
 // import { setupMaster, setupWorker } from "@socket.io/sticky";
 import address from "address";
+import http from "http";
 // import cluster from "cluster";
 // import os from "os";
 import PrettyError from "pretty-error";
 
 import { appConfigs } from "~/classes/AppConfigs";
-import { crateHttpServer } from "~/http";
 import { requirements } from "~/requirements";
 // import { utils } from "~/utils";
 import { websocketServer } from "~/websocket";
@@ -56,6 +56,10 @@ export const runner = async () => {
 	//   io.adapter(createAdapter());
 	//   setupWorker(io);
 	// }
+};
+
+export const crateHttpServer = () => {
+	return http.createServer();
 };
 
 if (appConfigs.getConfigs().APP.SELF_EXEC) await runner();

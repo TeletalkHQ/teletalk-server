@@ -1,8 +1,8 @@
 import {
 	ContactItem,
 	FullName,
+	SessionId,
 	UnknownCellphone,
-	UserId,
 } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
@@ -13,7 +13,8 @@ export const addContactWithCellphone = serviceBuilder
 	.create<
 		{
 			addingContact: UnknownCellphone & FullName;
-			currentUserId: UserId;
+			currentSessionId: SessionId;
+			//CLEANME
 			targetUserCellphone: UnknownCellphone;
 		},
 		{
@@ -26,6 +27,7 @@ export const addContactWithCellphone = serviceBuilder
 	>()
 	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentUser,
+		serviceMiddlewares.throwIfSelfDataRequested,
 		serviceMiddlewares.findTargetUser,
 		serviceMiddlewares.throwIfContactExist
 	)

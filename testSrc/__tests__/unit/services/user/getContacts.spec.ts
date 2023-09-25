@@ -13,12 +13,12 @@ describe(
 		it(
 			utils.createTestMessage.unitSuccessTest("getContacts", "service"),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { sessionId } = await randomMaker.serviceUser();
 
 				const addingContacts: ContactItem[] = [];
 
 				const length = 10;
-				const users = await Promise.all(randomMaker.batchUsers(length));
+				const users = await Promise.all(randomMaker.serviceBatchUsers(length));
 
 				for (const { user: targetUser } of users) {
 					const item: ContactItem = {
@@ -29,7 +29,7 @@ describe(
 
 					await services.user.addContactWithCellphone({
 						addingContact: item,
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 						targetUserCellphone: extractor.cellphone(item),
 					});
 
@@ -37,7 +37,7 @@ describe(
 
 					const { contacts: contactsFromService } =
 						await services.user.getContacts({
-							currentUserId: currentUser.userId,
+							currentSessionId: sessionId,
 						});
 
 					assertion().contacts({
@@ -51,5 +51,5 @@ describe(
 );
 
 await utils.generateServiceFailTest("getContacts", "CURRENT_USER_NOT_EXIST", {
-	currentUserId: randomMaker.userId(),
+	currentSessionId: randomMaker.sessionId(),
 });

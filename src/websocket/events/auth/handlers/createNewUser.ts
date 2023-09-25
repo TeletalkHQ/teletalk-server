@@ -1,24 +1,26 @@
 import { CreateNewUserIO } from "teletalk-type-store";
 import { errorThrower, extractor, randomMaker } from "utility-store";
 
-import { authClientStore } from "~/classes/AuthClientStore";
+import { authSessionStore } from "~/classes/AuthSessionStore";
 import { errorStore } from "~/classes/ErrorStore";
+import { sessionManager } from "~/classes/SessionManager";
 import { userUtils } from "~/classes/UserUtils";
 import { models } from "~/models";
 import { services } from "~/services";
-import { SocketOnHandler, StoredClient } from "~/types";
+import { SocketOnHandler, StoredAuthSession } from "~/types";
 
 export const createNewUser: SocketOnHandler<CreateNewUserIO> = async (
 	socket,
 	{ firstName, lastName }
 ) => {
-	const client = await authClientStore.find(socket.clientId);
-	if (!client) throw errorStore.find("CLIENT_NOT_FOUND");
-	checkClientVerification(client);
+	const authSession = await authSessionStore.find(socket.sessionId);
+	if (!authSession) throw errorStore.find("SESSION_NOT_FOUND");
+	checkClientVerification(authSession);
 
-	const cellphone = extractor.cellphone(client);
-
+	const cellphone = extractor.cellphone(authSession);
 	const userId = getRandomId();
+	const sessionId = sessionManager.generateSessionId();
+	const session = await sessionManager.sign(sessionId);
 
 	await services.user.createNewUser({
 		userData: {
@@ -28,21 +30,28 @@ export const createNewUser: SocketOnHandler<CreateNewUserIO> = async (
 			lastName,
 			createdAt: Date.now(),
 			userId,
-			clients: [{ clientId: socket.clientId }],
+			sessions: [{ sessionId }],
 			status: {
 				isActive: true,
 			},
 		},
 	});
 
-	await authClientStore.update(socket.clientId, { ...client, userId });
+	await authSessionStore.remove(socket.sessionId);
 
-	return { data: {} };
+	return {
+		data: {
+			session,
+		},
+		options: {
+			shouldEmitToUserRooms: false,
+		},
+	};
 };
 
-const checkClientVerification = (client: StoredClient) => {
-	errorThrower(!client.isVerified, {
-		...errorStore.find("CLIENT_NOT_VERIFIED"),
+const checkClientVerification = (authSession: StoredAuthSession) => {
+	errorThrower(!authSession.isVerified, {
+		...errorStore.find("SESSION_NOT_VERIFIED"),
 		createNewUser: "failed",
 	});
 };

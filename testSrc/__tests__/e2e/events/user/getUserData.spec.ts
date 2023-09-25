@@ -14,7 +14,7 @@ describe(
 				"should get currentUser data"
 			),
 			async () => {
-				const { socket, user } = await randomMaker.user();
+				const { socket, user } = await randomMaker.e2eUser();
 
 				const {
 					data: { user: receivedUserData },

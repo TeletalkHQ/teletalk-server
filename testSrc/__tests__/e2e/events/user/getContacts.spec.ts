@@ -14,9 +14,9 @@ describe(
 				"should get contacts"
 			),
 			async () => {
-				const { socket } = await randomMaker.user();
+				const { socket } = await randomMaker.e2eUser();
 
-				const { user: targetUser } = await randomMaker.user();
+				const { user: targetUser } = await randomMaker.e2eUser();
 				const addingContact = extractor.contact(targetUser);
 				await utils.requesterCollection
 					.addContactWithCellphone(socket)

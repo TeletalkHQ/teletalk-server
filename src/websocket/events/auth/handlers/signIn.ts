@@ -1,14 +1,13 @@
 import { ExtendedCellphone, SignInIO } from "teletalk-type-store";
-import { extractor, randomMaker } from "utility-store";
+import { extractor } from "utility-store";
 
-import { authClientStore } from "~/classes/AuthClientStore";
+import { authSessionStore } from "~/classes/AuthSessionStore";
+import { sessionManager } from "~/classes/SessionManager";
 import { smsClient } from "~/classes/SmsClient";
-import { models } from "~/models";
-import { SocketOnHandler, StoredClient } from "~/types";
+import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
-export const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {
-	//TODO: Use another utility to generate verification code
+export const signIn: SocketOnHandler<SignInIO> = async (_socket, data) => {
 	const verificationCode = utils.passwordGenerator();
 
 	const cellphone = extractor.cellphone(data as ExtendedCellphone);
@@ -16,26 +15,25 @@ export const signIn: SocketOnHandler<SignInIO> = async (socket, data) => {
 	//FIXME: Get host from socket
 	// const host = getHostFromRequest(req);
 	const fullNumber = `+${cellphone.countryCode}${cellphone.phoneNumber}`;
-	await sendVerificationCode(fullNumber, "host", verificationCode);
 
-	await addClient(socket.clientId, {
+	await smsClient.sendVerificationCode(fullNumber, "host", verificationCode);
+
+	const sessionId = sessionManager.generateSessionId();
+
+	await authSessionStore.add(sessionId, {
 		...cellphone,
 		isVerified: false,
 		verificationCode,
-		userId: createUserId(),
 	});
 
-	return { data: {} };
+	const session = await sessionManager.sign(sessionId);
+
+	return {
+		data: {
+			session,
+		},
+		options: {
+			shouldEmitToUserRooms: false,
+		},
+	};
 };
-
-const sendVerificationCode = async (
-	fullNumber: string,
-	host: string,
-	verificationCode: string
-) => await smsClient.sendVerificationCode(fullNumber, host, verificationCode);
-
-//TODO: Remove models from handlers
-const createUserId = () => randomMaker.id(models.native.userId.maxLength);
-
-const addClient = async (clientId: string, data: StoredClient) =>
-	await authClientStore.add(clientId, data);

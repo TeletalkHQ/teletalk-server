@@ -20,12 +20,12 @@ describe(
 				"should add new contact with cellphone"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { sessionId } = await randomMaker.serviceUser();
 
 				const addingContacts: ContactItemWithoutUserId[] = [];
 
 				const length = 10;
-				const users = await Promise.all(randomMaker.batchUsers(length));
+				const users = await Promise.all(randomMaker.serviceBatchUsers(length));
 
 				for (const { user: targetUser } of users) {
 					const item: ContactItemWithoutUserId = {
@@ -37,12 +37,12 @@ describe(
 
 					await services.user.addContactWithCellphone({
 						addingContact: item,
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 						targetUserCellphone: item,
 					});
 
 					const { contacts } = await services.user.getContacts({
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 					});
 
 					assertion().contactsWithCellphone({
@@ -59,7 +59,7 @@ await utils.generateServiceFailTest(
 	"addContactWithCellphone",
 	"CURRENT_USER_NOT_EXIST",
 	{
-		currentUserId: randomMaker.userId(),
+		currentSessionId: randomMaker.sessionId(),
 		addingContact: randomMaker.contactWithCellphone(),
 		targetUserCellphone: randomMaker.contactWithCellphone(),
 	}
@@ -69,10 +69,10 @@ await utils.generateServiceFailTest(
 	"addContactWithCellphone",
 	"TARGET_USER_NOT_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			addingContact: randomMaker.contactWithCellphone(),
 			targetUserCellphone: randomMaker.contactWithCellphone(),
 		};
@@ -83,8 +83,8 @@ await utils.generateServiceFailTest(
 	"addContactWithCellphone",
 	"CONTACT_ITEM_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
-		const { user: targetUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
+		const { user: targetUser } = await randomMaker.serviceUser();
 
 		const targetContact: ContactItemWithoutUserId = {
 			...extractor.cellphone(targetUser),
@@ -92,13 +92,13 @@ await utils.generateServiceFailTest(
 		};
 
 		await services.user.addContactWithCellphone({
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			addingContact: targetContact,
 			targetUserCellphone: targetContact,
 		});
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			addingContact: targetContact,
 			targetUserCellphone: targetContact,
 		};

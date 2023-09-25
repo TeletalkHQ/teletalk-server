@@ -3,13 +3,14 @@ import { coreServices } from "~/services/privateChat/core";
 import {
 	ChatId,
 	HydratedPrivateChat,
+	HydratedUser,
 	ServiceMiddleware,
 	UserId,
 } from "~/types";
 
 export const findPrivateChat: ServiceMiddleware<
 	{
-		currentParticipantId?: UserId;
+		currentParticipant: HydratedUser;
 		targetParticipantId?: UserId;
 		chatId: ChatId;
 	},
@@ -23,10 +24,10 @@ export const findPrivateChat: ServiceMiddleware<
 		p = await coreServices.find({
 			chatId: data.chatId,
 		});
-	} else if (data.currentParticipantId && data.targetParticipantId) {
+	} else if (data.currentParticipant.userId && data.targetParticipantId) {
 		p = await coreServices.find({
 			"participants.participantId": {
-				$all: [data.currentParticipantId, data.targetParticipantId],
+				$all: [data.currentParticipant.userId, data.targetParticipantId],
 			},
 		});
 	}

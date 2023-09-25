@@ -17,12 +17,12 @@ describe(
 				"should update contact"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { sessionId } = await randomMaker.serviceUser();
 
 				const updatingContacts: ContactItem[] = [];
 
 				const length = 10;
-				const users = await Promise.all(randomMaker.batchUsers(length));
+				const users = await Promise.all(randomMaker.serviceBatchUsers(length));
 
 				for (const { user: targetUser } of users) {
 					const { userId: targetUserId, ...addingContact } =
@@ -30,7 +30,7 @@ describe(
 
 					await services.user.addContactWithCellphone({
 						addingContact,
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 						targetUserCellphone: addingContact,
 					});
 
@@ -42,7 +42,7 @@ describe(
 
 					await services.user.updateContact({
 						targetUserId: targetUser.userId,
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 						editValues,
 					});
 
@@ -52,7 +52,7 @@ describe(
 					};
 
 					const { contacts } = await services.user.getContacts({
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 					});
 
 					assertion().contactsWithUserId({
@@ -66,7 +66,7 @@ describe(
 );
 
 await utils.generateServiceFailTest("updateContact", "CURRENT_USER_NOT_EXIST", {
-	currentUserId: randomMaker.userId(),
+	currentSessionId: randomMaker.sessionId(),
 	editValues: randomMaker.fullName(),
 	targetUserId: randomMaker.userId(),
 });
@@ -75,10 +75,10 @@ await utils.generateServiceFailTest(
 	"updateContact",
 	"CONTACT_ITEM_NOT_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			editValues: randomMaker.fullName(),
 			targetUserId: randomMaker.userId(),
 		};

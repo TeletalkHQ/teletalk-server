@@ -1,14 +1,14 @@
-import { ClientId, UserId } from "teletalk-type-store";
+import { SessionId } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
 import { HydratedUser } from "~/types/model";
 
-export const addClient = serviceBuilder
+export const addSession = serviceBuilder
 	.create<
 		{
-			clientId: ClientId;
-			currentUserId: UserId;
+			currentUserId: SessionId;
+			sessionId: SessionId;
 		},
 		void,
 		{
@@ -17,8 +17,8 @@ export const addClient = serviceBuilder
 	>()
 	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
 	.setBody(async (data) => {
-		data.currentUser.clients.push({
-			clientId: data.clientId,
+		data.currentUser.sessions.push({
+			sessionId: data.sessionId,
 		});
 
 		await data.currentUser.save();

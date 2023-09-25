@@ -1,4 +1,10 @@
-import { ContactItem, Contacts, FullName, UserId } from "teletalk-type-store";
+import {
+	ContactItem,
+	Contacts,
+	FullName,
+	SessionId,
+	UserId,
+} from "teletalk-type-store";
 import { errorThrower, extractor } from "utility-store";
 
 import { errorStore } from "~/classes/ErrorStore";
@@ -9,7 +15,7 @@ import { HydratedUser } from "~/types/model";
 export const updateContact = serviceBuilder
 	.create<
 		{
-			currentUserId: UserId;
+			currentSessionId: SessionId;
 			editValues: FullName;
 			targetUserId: UserId;
 		},
@@ -18,7 +24,10 @@ export const updateContact = serviceBuilder
 			currentUser: HydratedUser;
 		}
 	>()
-	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
+	.setBeforeRunMiddlewares(
+		serviceMiddlewares.findCurrentUser,
+		serviceMiddlewares.throwIfSelfDataRequested
+	)
 	.setBody(async (data) => {
 		const { index, contact: oldContact } = findContact(
 			data.currentUser.contacts,

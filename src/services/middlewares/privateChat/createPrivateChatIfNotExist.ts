@@ -3,18 +3,18 @@ import { randomMaker } from "utility-store";
 
 import { models } from "~/models";
 import { coreServices } from "~/services/privateChat/core";
-import { ServiceMiddleware } from "~/types";
+import { HydratedUser, ServiceMiddleware } from "~/types";
 
 export const createPrivateChatIfNotExist: ServiceMiddleware<
 	{
-		currentParticipantId: UserId;
+		currentParticipant: HydratedUser;
 		targetParticipantId: UserId;
 	},
 	void
 > = async (data) => {
 	const p = await coreServices.find({
 		"participants.participantId": {
-			$all: [data.currentParticipantId, data.targetParticipantId],
+			$all: [data.currentParticipant.userId, data.targetParticipantId],
 		},
 	});
 
@@ -22,7 +22,7 @@ export const createPrivateChatIfNotExist: ServiceMiddleware<
 		await coreServices.create({
 			chatId: randomMaker.id(models.native.chatId.maxLength),
 			createdAt: Date.now(),
-			currentParticipantId: data.currentParticipantId,
+			currentParticipantId: data.currentParticipant.userId,
 			targetParticipantId: data.targetParticipantId,
 		});
 	}

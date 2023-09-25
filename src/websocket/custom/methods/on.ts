@@ -3,6 +3,8 @@ import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 import { EventName } from "teletalk-type-store";
 
+//REFACTOR: To class
+import { services } from "~/services";
 import {
 	CustomOn,
 	ResponseCallback,
@@ -60,9 +62,14 @@ async function tryToRunHandler(
 				resolvedReturnValue.data
 			);
 
-			if (resolvedReturnValue.options.shouldEmitReturnValue) {
+			if (resolvedReturnValue.options.shouldEmitReturnValue)
 				await emitReturnValue(socket, eventName, response, responseCallback);
-				responseCallback(response);
+
+			if (resolvedReturnValue.options.shouldCallResponseCallback)
+				await responseCallback(response);
+
+			if (resolvedReturnValue.options.shouldEmitToUserRooms) {
+				await emitToUserRooms(socket, eventName, response, responseCallback);
 			}
 
 			resolvedReturnValue.options.cbAfterEmit();
@@ -77,6 +84,10 @@ function resolveReturnValue(returnValue: void | SocketHandlerReturnValue) {
 		options: {
 			shouldEmitReturnValue:
 				returnValue?.options?.shouldEmitReturnValue ?? true,
+			shouldCallResponseCallback:
+				returnValue?.options?.shouldCallResponseCallback ?? true,
+			shouldEmitToUserRooms:
+				returnValue?.options?.shouldEmitToUserRooms ?? true,
 			cbAfterEmit: returnValue?.options?.cbAfterEmit ?? (() => undefined),
 		},
 	};
@@ -112,8 +123,27 @@ async function emitReturnValue(
 		.async()
 		.try(async () => {
 			socket.customEmit(eventName, response);
+		})
+		.catch(catchBlock, socket, eventName, responseCallback)
+		.run();
+}
 
-			socket.to(socket.userId).emit(eventName, response);
+async function emitToUserRooms(
+	socket: Socket,
+	eventName: EventName,
+	response: SocketResponse,
+	responseCallback: ResponseCallback
+) {
+	await trier(emitToUserRooms.name)
+		.async()
+		.try(async () => {
+			const {
+				user: { userId },
+			} = await services.user.findBySessionId({
+				currentSessionId: socket.sessionId,
+			});
+
+			socket.to(userId).emit(eventName, response);
 		})
 		.catch(catchBlock, socket, eventName, responseCallback)
 		.run();

@@ -1,10 +1,12 @@
 import { addBlock } from "./addBlock";
-import { addClient } from "./addClient";
 import { addContactWithCellphone } from "./addContactWithCellphone";
 import { addContactWithUserId } from "./addContactWithUserId";
+import { addSession } from "./addSession";
 import { createNewUser } from "./createNewUser";
 import { findByCellphone } from "./findByCellphone";
+import { findBySessionId } from "./findBySessionId";
 import { findByUserId } from "./findByUserId";
+import { getAvatar } from "./getAvatar";
 import { getContacts } from "./getContacts";
 import { getPublicData } from "./getPublicData";
 import { isUserExist } from "./isUserExist";
@@ -17,12 +19,14 @@ import { updatePublicData } from "./updatePublicData";
 
 export const userServices = {
 	addBlock,
-	addClient,
+	addSession,
 	addContactWithCellphone,
 	addContactWithUserId,
 	createNewUser,
 	findByCellphone,
+	findBySessionId,
 	findByUserId,
+	getAvatar,
 	getContacts,
 	getPublicData,
 	isUserExist,

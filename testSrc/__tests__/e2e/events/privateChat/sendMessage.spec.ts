@@ -12,8 +12,8 @@ describe(
 				"should start new chat and send message"
 			),
 			async () => {
-				const { socket, user: currentUser } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+				const { socket, user: currentUser } = await randomMaker.e2eUser();
+				const { user: targetUser } = await randomMaker.e2eUser();
 
 				const messageText = "Hello! Im message";
 

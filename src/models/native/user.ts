@@ -47,7 +47,7 @@ export const userModels = {
 		.required(true)
 		.empty(true)
 		.build(),
-	clientId: nativeModelBuilder
+	sessionId: nativeModelBuilder
 		.create<ClientId>()
 		.type("string")
 		.empty(false)

@@ -7,10 +7,8 @@ export const removeBlock: SocketOnHandler<RemoveBlockIO> = async (
 	socket,
 	data
 ) => {
-	const { userId: currentUserId } = socket;
-
 	await services.user.removeBlock({
-		currentUserId,
+		currentSessionId: socket.sessionId,
 		targetUserId: data.userId,
 	});
 

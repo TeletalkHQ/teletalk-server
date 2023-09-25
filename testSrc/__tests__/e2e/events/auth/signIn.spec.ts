@@ -26,7 +26,7 @@ describe(utils.createTestMessage.e2eSuccessDescribe("signIn", "event"), () => {
 			"should sign as existed user"
 		),
 		async () => {
-			const { user } = await randomMaker.user();
+			const { user } = await randomMaker.e2eUser();
 			const cellphone = extractor.cellphone(user);
 			const helper = authHelper(cellphone);
 

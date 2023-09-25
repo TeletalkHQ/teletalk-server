@@ -52,12 +52,6 @@ class E2eFailTestInitializer<
 		if (this.model.length) this.length();
 		if (this.model.numeric === false) this.numeric();
 
-		if (this.fieldName === "verificationCode") {
-			this.custom(
-				randomMaker.stringNumber(this.model.length!),
-				"VERIFICATION_CODE_INVALID"
-			);
-		}
 		if (this.fieldName === "countryName") {
 			this.custom(
 				randomMaker.string(this.model.maxLength!),

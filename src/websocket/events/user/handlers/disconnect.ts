@@ -1,16 +1,23 @@
 import { DisconnectIO, EventName } from "teletalk-type-store";
 
 import { clientStatusStore } from "~/classes/ClientStatusStore";
+import { services } from "~/services";
 import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
 export const disconnect: SocketOnHandler<DisconnectIO> = async (socket) => {
-	if (socket.userId) {
-		await clientStatusStore.decConnection(socket.userId);
+	if (socket.sessionId) {
+		const {
+			user: { userId },
+		} = await services.user.findBySessionId({
+			currentSessionId: socket.sessionId,
+		});
+
+		await clientStatusStore.decConnection(userId);
 
 		const response = utils.createSuccessResponse("getClientStatus", {
-			isOnline: await clientStatusStore.isOnline(socket.userId),
-			userId: socket.userId,
+			isOnline: await clientStatusStore.isOnline(userId),
+			userId,
 		});
 
 		socket.broadcast.emit<EventName>(response.eventName, response);
@@ -20,6 +27,7 @@ export const disconnect: SocketOnHandler<DisconnectIO> = async (socket) => {
 		data: {},
 		options: {
 			shouldEmitReturnValue: false,
+			shouldEmitToUserRooms: false,
 		},
 	};
 };

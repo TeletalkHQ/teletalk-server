@@ -1,4 +1,4 @@
-import { UserId } from "teletalk-type-store";
+import { SessionId, UserId } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
@@ -7,7 +7,7 @@ import { HydratedUser } from "~/types/model";
 export const removeContact = serviceBuilder
 	.create<
 		{
-			currentUserId: UserId;
+			currentSessionId: SessionId;
 			targetUserId: UserId;
 		},
 		void,
@@ -17,6 +17,7 @@ export const removeContact = serviceBuilder
 	>()
 	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentUser,
+		serviceMiddlewares.throwIfSelfDataRequested,
 		serviceMiddlewares.throwIfContactNotExist
 	)
 	.setBody(async (data) => {

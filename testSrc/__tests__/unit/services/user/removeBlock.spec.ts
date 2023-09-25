@@ -16,16 +16,17 @@ describe(
 				"should remove user from blacklist"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { user: currentUser, sessionId } =
+					await randomMaker.serviceUser();
 
 				const blockingUsers: BlackList = [];
 
 				const length = 10;
-				const users = await Promise.all(randomMaker.batchUsers(length));
+				const users = await Promise.all(randomMaker.serviceBatchUsers(length));
 
 				for (const { user: targetUser } of users) {
 					await services.user.addBlock({
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 						targetUserId: targetUser.userId,
 					});
 
@@ -36,14 +37,14 @@ describe(
 
 				for (const { user: targetUser } of [...users]) {
 					await services.user.removeBlock({
+						currentSessionId: sessionId,
 						targetUserId: targetUser.userId,
-						currentUserId: currentUser.userId,
 					});
 
 					blockingUsers.shift();
 
 					const { blacklist } = (await services.user.findByUserId({
-						currentUserId: currentUser.userId,
+						targetUserId: currentUser.userId,
 					})) as UserData;
 
 					assertion().blacklist({
@@ -57,7 +58,7 @@ describe(
 );
 
 await utils.generateServiceFailTest("removeBlock", "CURRENT_USER_NOT_EXIST", {
-	currentUserId: randomMaker.userId(),
+	currentSessionId: randomMaker.sessionId(),
 	targetUserId: randomMaker.userId(),
 });
 
@@ -65,10 +66,10 @@ await utils.generateServiceFailTest(
 	"removeBlock",
 	"BLACKLIST_ITEM_NOT_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			targetUserId: randomMaker.userId(),
 		};
 	}

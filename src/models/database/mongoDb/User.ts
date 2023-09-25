@@ -81,9 +81,9 @@ const phoneNumber: SchemaDefinitionProperty = {
 	type: "string",
 };
 
-const clientId: SchemaDefinitionProperty = {
-	//TODO: Move clientId models from common to user
-	// required: nativeModels.clientId.required ,
+const sessionId: SchemaDefinitionProperty = {
+	//TODO: Move sessionId models from common to user
+	// required: nativeModels.sessionId.required ,
 	type: "string",
 };
 
@@ -128,9 +128,9 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
 	firstName,
 	lastName,
 	phoneNumber,
-	clients: [
+	sessions: [
 		{
-			clientId,
+			sessionId,
 		},
 	],
 	status: {

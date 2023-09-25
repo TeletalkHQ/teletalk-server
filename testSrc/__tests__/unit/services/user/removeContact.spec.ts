@@ -16,12 +16,13 @@ describe(
 				"should remove contact with specified userId"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { user: currentUser, sessionId } =
+					await randomMaker.serviceUser();
 
 				const removingContacts: FullNameWithUserId[] = [];
 
 				const length = 10;
-				const users = await Promise.all(randomMaker.batchUsers(length));
+				const users = await Promise.all(randomMaker.serviceBatchUsers(length));
 
 				for (const { user: targetUser } of users) {
 					const addingContact = {
@@ -30,7 +31,7 @@ describe(
 					};
 
 					await services.user.addContactWithUserId({
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 						fullName: addingContact,
 						targetUserId: addingContact.userId,
 					});
@@ -41,13 +42,13 @@ describe(
 				for (const { user: targetUser } of [...users]) {
 					await services.user.removeContact({
 						targetUserId: targetUser.userId,
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 					});
 
 					removingContacts.shift();
 
 					const { contacts } = (await services.user.findByUserId({
-						currentUserId: currentUser.userId,
+						targetUserId: currentUser.userId,
 					})) as UserData;
 
 					assertion().contactsWithUserId({
@@ -61,7 +62,7 @@ describe(
 );
 
 await utils.generateServiceFailTest("removeContact", "CURRENT_USER_NOT_EXIST", {
-	currentUserId: randomMaker.userId(),
+	currentSessionId: randomMaker.sessionId(),
 	targetUserId: randomMaker.userId(),
 });
 
@@ -69,10 +70,10 @@ await utils.generateServiceFailTest(
 	"removeContact",
 	"CONTACT_ITEM_NOT_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			targetUserId: randomMaker.userId(),
 		};
 	}

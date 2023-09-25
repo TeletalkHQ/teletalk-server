@@ -4,15 +4,13 @@ import { services } from "~/services";
 import { SocketOnHandler } from "~/types";
 
 export const getUserData: SocketOnHandler<GetUserDataIO> = async (socket) => {
-	const { userId: currentUserId } = socket;
-
-	const userData = await services.user.findByUserId({
-		currentUserId,
+	const { user } = await services.user.findBySessionId({
+		currentSessionId: socket.sessionId,
 	});
 
 	return {
 		data: {
-			user: userData,
+			user,
 		},
 	};
 };

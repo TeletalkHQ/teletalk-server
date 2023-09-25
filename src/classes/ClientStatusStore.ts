@@ -1,8 +1,8 @@
 import { ClientStatus } from "teletalk-type-store";
 
-import { ClientStore } from "./ClientStore";
+import { Store } from "./Store";
 
-export class ClientStatusStore extends ClientStore {
+export class ClientStatusStore extends Store {
 	protected STATE_KEY = "CLIENT_STATUS";
 
 	async incConnection(id: string) {
@@ -43,7 +43,7 @@ export class ClientStatusStore extends ClientStore {
 			userId: string;
 		}[] = [];
 
-		const keys = await super.getAllKeys<string[]>();
+		const keys = await super.getAllKeys<string>();
 		for (const id of keys) {
 			const item = await this.find(id.replace(`${this.STATE_KEY}:`, ""));
 
@@ -71,15 +71,15 @@ export class ClientStatusStore extends ClientStore {
 		);
 	}
 
-	async find<T = ClientStatus>(id: string) {
-		return await super.find<T>(id);
+	async find(id: string): Promise<ClientStatus> {
+		return await super.find(id);
 	}
 
-	async add<T = ClientStatus>(id: string, data: T) {
+	async add(id: string, data: ClientStatus) {
 		await super.add(id, data);
 	}
 
-	async update<T = ClientStatus>(id: string, newData: T) {
+	async update(id: string, newData: ClientStatus) {
 		await super.update(id, newData);
 	}
 

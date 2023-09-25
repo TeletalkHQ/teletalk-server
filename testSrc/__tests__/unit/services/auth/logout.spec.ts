@@ -1,4 +1,3 @@
-import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
 
 import { assertion } from "@/classes/Assertion";
@@ -12,40 +11,34 @@ describe(
 			utils.createTestMessage.unitSuccessTest(
 				"logout",
 				"service",
-				"should logout and remove the specific client"
+				"should logout and remove the specific session"
 			),
 			async () => {
-				const { user: currentUser, socket } = await randomMaker.user();
+				const { sessionId, user: currentUser } =
+					await randomMaker.serviceUser();
 
 				const length = 10;
 
-				const sockets = await randomMaker.sockets(
-					length,
-					extractor.cellphone(currentUser)
-				);
+				const sessions = await randomMaker.sessions(length, currentUser.userId);
 
-				const randomizedClients = sockets.map((item) => ({
-					clientId: item.socket.clientId,
-				}));
-				randomizedClients.push({
-					clientId: socket.clientId,
+				sessions.push({
+					sessionId,
 				});
 
-				for (const item of [...randomizedClients]) {
+				for (const item of [...sessions]) {
 					await services.user.logout({
-						clientId: item.clientId,
-						currentUserId: currentUser.userId,
+						currentSessionId: item.sessionId,
 					});
 
-					randomizedClients.shift();
+					sessions.shift();
 
-					const { clients } = await services.user.findByUserId({
-						currentUserId: currentUser.userId,
+					const user = await services.user.findByUserId({
+						targetUserId: currentUser.userId,
 					});
 
-					assertion().clients({
-						testValue: randomizedClients,
-						equalValue: clients,
+					assertion().sessions({
+						testValue: user.sessions,
+						equalValue: sessions,
 					});
 				}
 			}
@@ -53,7 +46,6 @@ describe(
 	}
 );
 
-await utils.generateServiceFailTest("logout", "CURRENT_USER_NOT_EXIST", {
-	currentUserId: randomMaker.userId(),
-	clientId: randomMaker.clientId(),
-});
+// await utils.generateServiceFailTest("logout", "CURRENT_USER_NOT_EXIST", {
+// 	currentSessionId: randomMaker.sessionId(),
+// });

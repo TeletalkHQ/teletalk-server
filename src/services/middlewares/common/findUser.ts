@@ -1,4 +1,4 @@
-import { Cellphone, UserId } from "teletalk-type-store";
+import { Cellphone, SessionId, UserId } from "teletalk-type-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { extractor } from "~/classes/Extractor";
@@ -7,8 +7,9 @@ import { ErrorReason, HydratedUser, ServiceMiddleware } from "~/types";
 
 export const findUser: ServiceMiddleware<
 	{
-		userId?: UserId;
+		sessionId?: SessionId;
 		cellphone?: Cellphone;
+		userId?: UserId;
 		errorReason: ErrorReason;
 	},
 	{
@@ -17,12 +18,15 @@ export const findUser: ServiceMiddleware<
 > = async (data) => {
 	let user: HydratedUser | null;
 
-	if (data.userId) {
+	//CLEANME
+	if (data.sessionId) {
 		user = await coreServices.find({
-			userId: data.userId,
+			["sessions.sessionId"]: data.sessionId,
 		});
 	} else if (data.cellphone) {
 		user = await coreServices.find(extractor.cellphone(data.cellphone));
+	} else if (data.userId) {
+		user = await coreServices.find({ userId: data.userId });
 	}
 
 	if (!user!) throw errorStore.find(data.errorReason);

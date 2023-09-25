@@ -4,8 +4,6 @@ import {
 	BlackList,
 	Cellphone,
 	ChatId,
-	ClientId,
-	Clients,
 	ContactItem,
 	ContactItemWithoutUserId,
 	Contacts,
@@ -20,6 +18,8 @@ import {
 	PhoneNumber,
 	PrivateChats,
 	SenderId,
+	SessionId,
+	Sessions,
 	UserData,
 	UserId,
 	UserPublicData,
@@ -75,7 +75,7 @@ export class Assertion {
 
 	bio = this.singleInitializer<Bio>("bio");
 	chatId = this.singleInitializer<ChatId>("chatId");
-	clientId = this.singleInitializer<ClientId>("clientId");
+	sessionId = this.singleInitializer<SessionId>("sessionId");
 	countryCode = this.singleInitializer<CountryCode>("countryCode");
 	countryName = this.singleInitializer<CountryName>("countryName");
 	firstName = this.singleInitializer<FirstName>("firstName");
@@ -125,14 +125,14 @@ export class Assertion {
 		}
 	);
 
-	clients = this.multiInitializer<Clients>(
+	sessions = this.multiInitializer<Sessions>(
 		({ testValue, equalValue }, options) => {
 			chai.expect(testValue).to.be.an(FIELD_TYPE.ARRAY);
 
 			testValue.forEach((item) => {
-				this.clientId(
+				this.sessionId(
 					{
-						testValue: item.clientId,
+						testValue: item.sessionId,
 					},
 					{ ...options, stringEquality: false }
 				);
@@ -144,15 +144,15 @@ export class Assertion {
 
 				equalValue!.forEach((item) => {
 					const foundClient = testValue.find(
-						(i) => i.clientId === item.clientId
+						(i) => i.sessionId === item.sessionId
 					);
 
 					chai.expect(foundClient).to.be.an(FIELD_TYPE.OBJECT);
 
-					this.clientId(
+					this.sessionId(
 						{
-							equalValue: item.clientId,
-							testValue: foundClient!.clientId,
+							equalValue: item.sessionId,
+							testValue: foundClient!.sessionId,
 						},
 						options
 					);

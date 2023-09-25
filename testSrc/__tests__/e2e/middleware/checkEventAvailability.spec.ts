@@ -1,6 +1,7 @@
 import chai from "chai";
 
 import { errorStore } from "~/classes/ErrorStore";
+import { sessionManager } from "~/classes/SessionManager";
 import { ErrorReason, SocketEvent } from "~/types";
 
 import { clientInitializer } from "@/classes/ClientInitializer";
@@ -15,9 +16,11 @@ const createRequester = (socket: ClientSocket, event: SocketEvent) =>
 await utils.asyncDescribe(
 	"checkEventAvailability middleware fail test",
 	async () => {
-		const clientSocket = (
-			await clientInitializer().createComplete()
-		).getClient();
+		const initializer = clientInitializer();
+		await initializer.init();
+		const session = await sessionManager.sign();
+		initializer.reinitializeWithSession(session);
+		const clientSocket = initializer.getClient();
 
 		return () => {
 			const message = utils.createTestMessage.unitFailTest(
@@ -42,9 +45,11 @@ await utils.asyncDescribe(
 		"middleware"
 	),
 	async () => {
-		const clientSocket = (
-			await clientInitializer().createComplete()
-		).getClient();
+		const initializer = clientInitializer();
+		await initializer.init();
+		const session = await sessionManager.sign();
+		initializer.reinitializeWithSession(session);
+		const clientSocket = initializer.getClient();
 
 		return () => {
 			for (const event of eventsWithoutDisconnect) {

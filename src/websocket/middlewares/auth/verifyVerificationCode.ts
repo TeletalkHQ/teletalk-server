@@ -1,9 +1,9 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
-import { VerifyIO } from "teletalk-type-store";
+import { SessionId, VerifyIO } from "teletalk-type-store";
 import { errorThrower } from "utility-store";
 
-import { authClientStore } from "~/classes/AuthClientStore";
+import { authSessionStore } from "~/classes/AuthSessionStore";
 import { errorStore } from "~/classes/ErrorStore";
 import { SocketMiddleware, SocketNext } from "~/types";
 
@@ -23,24 +23,25 @@ export const verifyVerificationCode: SocketMiddleware<VerifyIO> = async (
 const tryBlock = async (socket: Socket, data: VerifyIO["input"]) => {
 	const { verificationCode: sentVerificationCode } = data;
 
-	const client = await findClient(socket.clientId);
-	const { verificationCode: actualVerificationCode } = client;
+	const authSession = await findAuthSession(socket.sessionId);
+	const { verificationCode: actualVerificationCode } = authSession;
 
 	errorThrower(sentVerificationCode !== actualVerificationCode, {
 		...errorStore.find("VERIFICATION_CODE_INVALID"),
 		sentVerificationCode,
 	});
 
-	await authClientStore.update(socket.clientId, {
-		...client,
+	await authSessionStore.update(socket.sessionId, {
+		...authSession,
 		isVerified: true,
 	});
 };
 
-const findClient = async (clientId: string) => {
-	const client = await authClientStore.find(clientId);
-	if (!client) throw errorStore.find("CLIENT_NOT_FOUND");
-	return client;
+const findAuthSession = async (sessionId: SessionId) => {
+	const authSession = await authSessionStore.find(sessionId);
+
+	if (!authSession) throw errorStore.find("SESSION_NOT_FOUND");
+	return authSession;
 };
 
 const executeIfNoError = (_: void, next: SocketNext) => {

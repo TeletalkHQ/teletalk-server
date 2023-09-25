@@ -16,19 +16,27 @@ describe(
 				"should add new blacklist item with target user id"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { user: currentUser, sessionId: currentSessionId } =
+					await randomMaker.serviceUser();
+
 				const blockingUsers: BlackList = [];
-				const length = 1;
-				const users = await Promise.all(randomMaker.batchUsers(length));
+
+				const length = 10;
+
+				const users = await Promise.all(randomMaker.serviceBatchUsers(length));
+
 				for (const { user: targetUser } of users) {
 					await services.user.addBlock({
 						targetUserId: targetUser.userId,
-						currentUserId: currentUser.userId,
+						currentSessionId,
 					});
+
 					blockingUsers.push({ userId: targetUser.userId });
+
 					const { blacklist } = (await services.user.findByUserId({
-						currentUserId: currentUser.userId,
+						targetUserId: currentUser.userId,
 					})) as UserData;
+
 					assertion().blacklist({
 						testValue: blacklist,
 						equalValue: blockingUsers,
@@ -40,7 +48,7 @@ describe(
 );
 
 await utils.generateServiceFailTest("addBlock", "CURRENT_USER_NOT_EXIST", {
-	currentUserId: randomMaker.userId(),
+	currentSessionId: randomMaker.userId(),
 	targetUserId: randomMaker.userId(),
 });
 
@@ -48,10 +56,10 @@ await utils.generateServiceFailTest(
 	"addBlock",
 	"TARGET_USER_NOT_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			targetUserId: randomMaker.userId(),
 		};
 	}
@@ -61,16 +69,16 @@ await utils.generateServiceFailTest(
 	"addBlock",
 	"BLACKLIST_ITEM_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
-		const { user: targetUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
+		const { user: targetUser } = await randomMaker.serviceUser();
 
 		await services.user.addBlock({
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			targetUserId: targetUser.userId,
 		});
 
 		return {
-			currentUserId: currentUser.userId,
+			currentSessionId: sessionId,
 			targetUserId: targetUser.userId,
 		};
 	}

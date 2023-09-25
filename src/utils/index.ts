@@ -24,6 +24,9 @@ import {
 } from "~/types/model";
 import { errors } from "~/variables/errors";
 
+import { applyMiddlewares } from "./applyMiddlewares";
+import { ignoreMiddlewares } from "./ignoreMiddlewares";
+
 type Url = EventName | EventName[];
 
 const isEventNameMatch = (url: Url, reqUrl: string) =>
@@ -211,12 +214,14 @@ const createFailureResponse = (
 });
 
 export const utils = {
+	applyMiddlewares,
 	crashServer,
 	createFailureResponse,
 	createSuccessResponse,
 	executeMiddlewares,
 	extractClientFromCookie,
 	getDefaultValidatorErrorTypes,
+	ignoreMiddlewares,
 	isEventNameMatch,
 	logEnvironments,
 	makeModelErrorReason,

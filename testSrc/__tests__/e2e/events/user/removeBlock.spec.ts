@@ -12,8 +12,8 @@ describe(
 				"should remove user from blacklist"
 			),
 			async () => {
-				const { socket } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+				const { socket } = await randomMaker.e2eUser();
+				const { user: targetUser } = await randomMaker.e2eUser();
 
 				await utils.requesterCollection
 					.addBlock(socket)

@@ -13,7 +13,7 @@ import { utils as mainUtils } from "~/utils";
 import { countries } from "~/variables";
 
 import { randomMaker } from "@/classes/RandomMaker";
-import { services } from "@/services";
+import { mergedServices } from "@/services";
 import { ServiceName } from "@/types";
 
 import {
@@ -149,10 +149,10 @@ const generateServiceFailTest = async <T extends ServiceName>(
 	serviceName: T,
 	errorReason: ErrorReason,
 	arg:
-		| Parameters<(typeof services)[T]>[0]
+		| Parameters<(typeof mergedServices)[T]>[0]
 		| (() =>
-				| Parameters<(typeof services)[T]>[0]
-				| Promise<Parameters<(typeof services)[T]>[0]>)
+				| Parameters<(typeof mergedServices)[T]>[0]
+				| Promise<Parameters<(typeof mergedServices)[T]>[0]>)
 ) => {
 	await asyncDescribe(
 		utils.createTestMessage.unitFailDescribe(serviceName, "service"),
@@ -168,7 +168,7 @@ const generateServiceFailTest = async <T extends ServiceName>(
 						await utils.expectToFail_async(async () => {
 							const data = typeof arg === "function" ? await arg() : arg;
 
-							await services[serviceName](data as any);
+							await mergedServices[serviceName](data as any);
 						}, errorReason);
 					}
 				);

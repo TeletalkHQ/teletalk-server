@@ -1,5 +1,10 @@
 import { ProjectionType, QueryOptions } from "mongoose";
-import { PrivateChatItem, UserData, UserId } from "teletalk-type-store";
+import {
+	PrivateChatItem,
+	SessionId,
+	UserData,
+	UserId,
+} from "teletalk-type-store";
 
 import { StringMap } from "..";
 import { IPrivateChatDoc, IUserDoc } from "../model";
@@ -38,6 +43,7 @@ export type PrivateChatService<
 
 export type UserServiceQueryData = Partial<UserData> &
 	Partial<{
+		currentSessionId: SessionId;
 		currentUserId: UserId;
 		targetUserId: UserId;
 		userData: UserData;

@@ -4,7 +4,7 @@ import { IO } from "teletalk-type-store";
 import { middlewares } from "~/websocket/middlewares";
 
 import { Requester } from "@/classes/Requester";
-import { services } from "@/services";
+import { mergedServices } from "@/services";
 
 export type RequesterMaker<IOType extends IO> = (
 	socketClient: ClientSocket
@@ -36,6 +36,6 @@ export interface RequesterOptions {
 }
 
 export type MiddlewareName = keyof typeof middlewares;
-export type ServiceName = keyof typeof services;
+export type ServiceName = keyof typeof mergedServices;
 
 export type { ClientSocket };

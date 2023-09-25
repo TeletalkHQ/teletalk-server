@@ -5,6 +5,7 @@ import { throwIfBlacklistItemExist } from "./throwIfBlacklistItemExist";
 import { throwIfBlacklistItemNotExist } from "./throwIfBlacklistItemNotExist";
 import { throwIfContactExist } from "./throwIfContactExist";
 import { throwIfContactNotExist } from "./throwIfContactNotExist";
+import { throwIfSelfDataRequested } from "./throwIfSelfDataRequested";
 import { throwIfUserExist } from "./throwIfUserExist";
 
 export const userMiddlewares = {
@@ -15,5 +16,6 @@ export const userMiddlewares = {
 	throwIfBlacklistItemNotExist,
 	throwIfContactExist,
 	throwIfContactNotExist,
+	throwIfSelfDataRequested,
 	throwIfUserExist,
 };

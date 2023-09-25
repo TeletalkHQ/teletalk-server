@@ -30,7 +30,9 @@ export const registerMiddlewares = (socket: Socket) => {
 		next();
 	});
 
-	socket.customUse(ignoreMiddlewares(["signIn", "getStuff"], attachSessionId));
+	socket.customUse(
+		ignoreMiddlewares(["signIn", "getStuff", "ping"], attachSessionId)
+	);
 
 	socket.customUse(checkEventAvailability);
 

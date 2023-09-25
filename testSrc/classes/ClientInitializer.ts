@@ -38,7 +38,6 @@ export class ClientInitializer {
 	private makeClientSocketOptions(session = this.session) {
 		const options: Partial<ManagerOptions & SocketOptions> = {
 			autoConnect: false,
-			withCredentials: true,
 			auth: {
 				session,
 			},

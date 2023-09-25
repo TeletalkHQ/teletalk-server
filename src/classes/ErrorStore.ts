@@ -7,7 +7,7 @@ class ErrorStore {
 	private errors: NativeError[] = [];
 
 	constructor() {
-		this.errors.push(...modelErrorBuilder().build(), ...errors.custom);
+		this.build();
 	}
 
 	find(reason: ErrorReason) {
@@ -16,6 +16,16 @@ class ErrorStore {
 
 	getAll() {
 		return this.errors;
+	}
+
+	private build() {
+		this.errors.push(...modelErrorBuilder().build(), ...errors.custom);
+
+		this.errors.forEach((item) => {
+			if (item.reason.startsWith("SESSION_")) {
+				item.isAuthError = true;
+			}
+		});
 	}
 }
 

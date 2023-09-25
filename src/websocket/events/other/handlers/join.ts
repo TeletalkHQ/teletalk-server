@@ -6,8 +6,6 @@ import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
 export const join: SocketOnHandler<JoinIO> = async (socket) => {
-	// deepcode ignore PureMethodReturnValueIgnored: <please specify a reason of ignoring this>
-
 	const {
 		user: { userId },
 	} = await services.user.findBySessionId({

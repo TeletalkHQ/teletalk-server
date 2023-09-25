@@ -94,7 +94,7 @@ const getUserData = builder
 		user: fields.statics.object({
 			...fields.collection.user,
 			//CLEANME:
-			clients: fields.collection.clients,
+			sessions: fields.collection.sessions,
 		}),
 	})
 	.handler(handlers.getUserData)

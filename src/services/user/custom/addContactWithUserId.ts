@@ -2,6 +2,7 @@ import {
 	EmptyCellphone,
 	FullName,
 	FullNameWithUserId,
+	SessionId,
 	UserId,
 } from "teletalk-type-store";
 import { maker } from "utility-store";
@@ -13,7 +14,7 @@ import { HydratedUser } from "~/types/model";
 export const addContactWithUserId = serviceBuilder
 	.create<
 		{
-			currentUserId: UserId;
+			currentSessionId: SessionId;
 			fullName: FullName;
 			targetUserId: UserId;
 		},
@@ -27,6 +28,7 @@ export const addContactWithUserId = serviceBuilder
 	>()
 	.setBeforeRunMiddlewares(
 		serviceMiddlewares.findCurrentUser,
+		serviceMiddlewares.throwIfSelfDataRequested,
 		serviceMiddlewares.findTargetUser,
 		serviceMiddlewares.throwIfContactExist
 	)

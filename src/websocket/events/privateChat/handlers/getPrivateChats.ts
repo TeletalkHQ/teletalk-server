@@ -7,7 +7,7 @@ export const getPrivateChats: SocketOnHandler<GetPrivateChatsIO> = async (
 	socket
 ) => {
 	const { privateChats } = await services.privateChat.findManyByParticipantId({
-		participantId: socket.userId,
+		currentSessionId: socket.sessionId,
 	});
 
 	return {

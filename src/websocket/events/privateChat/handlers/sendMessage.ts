@@ -13,12 +13,11 @@ export const sendMessage: SocketOnHandler<SendMessageIO> = async (
 	socket,
 	data
 ) => {
-	const { userId: currentUserId } = socket;
 	const { targetParticipantId, messageText } = data;
 
-	const { chatId, createdAt, messageId } =
+	const { chatId, createdAt, messageId, senderId } =
 		await services.privateChat.sendMessage({
-			currentParticipantId: currentUserId,
+			currentSessionId: socket.sessionId,
 			messageText,
 			targetParticipantId,
 		});
@@ -29,7 +28,7 @@ export const sendMessage: SocketOnHandler<SendMessageIO> = async (
 			messageId,
 			messageText,
 			sender: {
-				senderId: currentUserId,
+				senderId,
 			},
 		},
 		chatId,

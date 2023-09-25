@@ -10,7 +10,7 @@ import { eventsWithoutDisconnect } from "@/websocket/events";
 await utils.asyncDescribe(
 	utils.createTestMessage.unitFailDescribe("dynamicValidator", "middleware"),
 	async () => {
-		const { socket } = await randomMaker.user();
+		const { socket } = await randomMaker.e2eUser();
 
 		const eventsWithInputFields = eventsWithoutDisconnect.filter(
 			(i) => Object.keys(i.inputFields).length

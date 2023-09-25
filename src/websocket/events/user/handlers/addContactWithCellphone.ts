@@ -7,10 +7,8 @@ import { SocketOnHandler } from "~/types";
 export const addContactWithCellphone: SocketOnHandler<
 	AddContactWithCellphoneIO
 > = async (socket, data) => {
-	const { userId: currentUserId } = socket;
-
 	const { newContact } = await services.user.addContactWithCellphone({
-		currentUserId,
+		currentSessionId: socket.sessionId,
 		addingContact: data,
 		targetUserCellphone: extractor.unknownCellphone(data),
 	});

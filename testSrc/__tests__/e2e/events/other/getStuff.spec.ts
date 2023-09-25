@@ -19,9 +19,9 @@ describe(
 				"should get all requirements for clients"
 			),
 			async () => {
-				const clientSocket = (
-					await clientInitializer().createComplete()
-				).getClient();
+				const clientSocket = (await clientInitializer().init()).getClient();
+				clientSocket.connect();
+
 				const requester = utils.requesterCollection.getStuff(clientSocket);
 
 				const { data } = await requester.emitFull();
@@ -60,7 +60,7 @@ const testErrors = (errors: ErrorCollection) => {
 		chai.expect(error).to.be.an(FIELD_TYPE.OBJECT);
 		chai.expect(error.reason).to.be.an(FIELD_TYPE.STRING);
 		chai.expect(error.side).to.be.an(FIELD_TYPE.STRING);
-		//FIXME: Should be equal to "server" or "client"
+		//FIXME: Should be equal to "server" or "session"
 		// chai.expect(error.side).to.be.an("side");
 	});
 };

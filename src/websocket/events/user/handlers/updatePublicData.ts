@@ -8,11 +8,10 @@ export const updatePublicData: SocketOnHandler<UpdatePublicDataIO> = async (
 	socket,
 	data
 ) => {
-	const { userId: currentUserId } = socket;
 	const { bio, firstName, lastName, username } = data;
 
-	await services.user.updatePublicData({
-		currentUserId,
+	const result = await services.user.updatePublicData({
+		currentSessionId: socket.sessionId,
 		updateProperties: {
 			bio,
 			firstName,
@@ -24,10 +23,11 @@ export const updatePublicData: SocketOnHandler<UpdatePublicDataIO> = async (
 	const returnData = {
 		userPublicData: {
 			...data,
-			userId: currentUserId,
+			userId: result.userId,
 		},
 	};
 
+	//TODO: Change to public:id
 	socket
 		.to("public")
 		.emit<EventName>(

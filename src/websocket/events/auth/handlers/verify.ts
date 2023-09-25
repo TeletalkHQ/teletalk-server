@@ -1,36 +1,36 @@
 import { VerifyIO } from "teletalk-type-store";
 
-import { authClientStore } from "~/classes/AuthClientStore";
+import { authSessionStore } from "~/classes/AuthSessionStore";
+import { errorStore } from "~/classes/ErrorStore";
 import { extractor } from "~/classes/Extractor";
+import { sessionManager } from "~/classes/SessionManager";
 import { services } from "~/services";
-import { SocketOnHandler, StoredClient } from "~/types";
+import { SocketOnHandler } from "~/types";
 
 export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
-	const client = (await authClientStore.find(socket.clientId)) as StoredClient;
+	const authSession = await authSessionStore.find(socket.sessionId);
 
-	const cellphone = extractor.cellphone(client);
-	const { isUserExist } = await services.user.isUserExist({
-		cellphone,
+	if (!authSession) throw errorStore.find("SESSION_NOT_FOUND");
+
+	const { isUserExist, userId } = await services.user.isUserExist({
+		cellphone: extractor.cellphone(authSession),
 	});
 
 	if (isUserExist) {
-		const foundUser = await services.user.findByCellphone({
-			cellphone,
+		const sessionId = sessionManager.generateSessionId();
+		const session = await sessionManager.sign(sessionId);
+
+		await services.user.addSession({
+			currentUserId: userId!,
+			sessionId,
 		});
 
-		await services.user.addClient({
-			clientId: socket.clientId,
-			currentUserId: foundUser.userId,
-		});
-
-		authClientStore.update(socket.clientId, {
-			...client,
-			userId: foundUser.userId,
-		});
+		authSessionStore.remove(socket.sessionId);
 
 		return {
 			data: {
 				newUser: false,
+				session,
 			},
 		};
 	}
@@ -38,6 +38,10 @@ export const verify: SocketOnHandler<VerifyIO> = async (socket) => {
 	return {
 		data: {
 			newUser: true,
+			session: "",
+		},
+		options: {
+			shouldEmitToUserRooms: false,
 		},
 	};
 };

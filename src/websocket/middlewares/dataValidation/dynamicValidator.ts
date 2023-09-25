@@ -17,7 +17,7 @@ export const dynamicValidator: SocketMiddleware = async (
 	next,
 	[eventName, data]
 ) => {
-	return await trier<SocketMiddlewareReturnValue>(dynamicValidator.name)
+	return await trier(dynamicValidator.name)
 		.async()
 		.try(tryBlock, data, eventName)
 		.executeIfNoError(executeIfNoError, next)
@@ -25,13 +25,8 @@ export const dynamicValidator: SocketMiddleware = async (
 		.run();
 };
 
-const tryBlock = async (data: StringMap, eventName: EventName) => {
+const tryBlock = async (data: StringMap, eventName: EventName) =>
 	await validateField(data, eventName);
-
-	return {
-		ok: true,
-	};
-};
 
 const validateField = async (data: StringMap, eventName: EventName) => {
 	for (const prop in data) {
@@ -51,6 +46,7 @@ const validateField = async (data: StringMap, eventName: EventName) => {
 		}
 
 		const validationResult = await validators[field](value);
+
 		validationCheckers[field](validationResult, value);
 	}
 };

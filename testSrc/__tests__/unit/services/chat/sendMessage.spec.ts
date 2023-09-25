@@ -17,8 +17,9 @@ describe(
 				"should be able to send private message to someone"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+				const { user: currentUser, sessionId } =
+					await randomMaker.serviceUser();
+				const { user: targetUser } = await randomMaker.serviceUser();
 
 				const length = 10;
 
@@ -26,7 +27,7 @@ describe(
 					const sendingMessageText = randomMaker.messageText();
 
 					const addedMessageInfo = await services.privateChat.sendMessage({
-						currentParticipantId: currentUser.userId,
+						currentSessionId: sessionId,
 						targetParticipantId: targetUser.userId,
 						messageText: sendingMessageText,
 					});
@@ -73,7 +74,7 @@ describe(
 );
 
 await utils.generateServiceFailTest("sendMessage", "CURRENT_USER_NOT_EXIST", {
-	currentParticipantId: randomMaker.userId(),
+	currentSessionId: randomMaker.sessionId(),
 	messageText: randomMaker.messageText(),
 	targetParticipantId: randomMaker.userId(),
 });
@@ -82,10 +83,10 @@ await utils.generateServiceFailTest(
 	"sendMessage",
 	"TARGET_USER_NOT_EXIST",
 	async () => {
-		const { user: currentUser } = await randomMaker.user();
+		const { sessionId } = await randomMaker.serviceUser();
 
 		return {
-			currentParticipantId: currentUser.userId,
+			currentSessionId: sessionId,
 			messageText: randomMaker.messageText(),
 			targetParticipantId: randomMaker.userId(),
 		};

@@ -1,9 +1,8 @@
 import { LoggerChalker } from "logger-chalker";
 import { Server } from "socket.io";
-import { ClientId, UserId } from "teletalk-type-store";
+import { EncryptedSession, SessionId } from "teletalk-type-store";
 
 import {
-	AuthClient,
 	CustomEmit,
 	CustomOn,
 	CustomUse,
@@ -12,7 +11,6 @@ import {
 	SocketNext,
 } from "~/types";
 
-
 declare global {
 	// eslint-disable-next-line no-var
 	var logger: LoggerChalker;
@@ -20,21 +18,18 @@ declare global {
 
 declare module "socket.io" {
 	interface Socket {
-		use: (fn: (event: SocketMiddlewareEvent, next: SocketNext) => void) => void;
-		clientId: ClientId;
 		customEmit: CustomEmit;
 		customOn: CustomOn;
 		customUse: CustomUse;
 		io: Server;
-		authClient: AuthClient;
-		userId: UserId;
-		clientStr: string;
+		sessionId: SessionId;
+		use: (fn: (event: SocketMiddlewareEvent, next: SocketNext) => void) => void;
 	}
 }
 
 declare module "socket.io-client" {
 	interface Socket {
-		clientId: string;
+    session: EncryptedSession;
 	}
 }
 

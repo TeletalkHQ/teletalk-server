@@ -12,7 +12,7 @@ describe(
 				"should get user public data"
 			),
 			async () => {
-				const { socket, user: currentUser } = await randomMaker.user();
+				const { socket, user: currentUser } = await randomMaker.e2eUser();
 
 				const { userId, ...sendingData } = randomMaker.userPublicData();
 

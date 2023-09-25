@@ -20,6 +20,8 @@ export type SocketMethods = "on" | "onAny" | "customOn" | "once";
 
 export interface SocketOnHandlerReturnOptions {
 	shouldEmitReturnValue: boolean;
+	shouldCallResponseCallback: boolean;
+	shouldEmitToUserRooms: boolean;
 	cbAfterEmit: VoidNoArgsFn;
 }
 

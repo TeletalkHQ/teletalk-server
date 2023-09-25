@@ -1,4 +1,4 @@
-import { Contacts, UserId } from "teletalk-type-store";
+import { Contacts, SessionId } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
@@ -7,7 +7,7 @@ import { HydratedUser } from "~/types/model";
 export const getContacts = serviceBuilder
 	.create<
 		{
-			currentUserId: UserId;
+			currentSessionId: SessionId;
 		},
 		{
 			contacts: Contacts;

@@ -16,6 +16,9 @@ const createNewUser = builder
 	.create<CreateNewUserIO>()
 	.name("createNewUser")
 	.inputFields(fields.collection.fullName)
+	.outputFields({
+		session: fields.single.session,
+	})
 	.handler(handlers.createNewUser)
 	.build();
 
@@ -30,6 +33,9 @@ const signIn = builder
 	.name("signIn")
 	.noAuth()
 	.inputFields(fields.collection.cellphone)
+	.outputFields({
+		session: fields.single.session,
+	})
 	.handler(handlers.signIn)
 	.build();
 
@@ -41,6 +47,7 @@ const verify = builder
 	})
 	.outputFields({
 		newUser: fields.single.newUser,
+		session: fields.single.session,
 	})
 	.handler(handlers.verify)
 	.build();

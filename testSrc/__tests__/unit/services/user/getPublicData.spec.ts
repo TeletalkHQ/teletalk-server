@@ -15,7 +15,7 @@ describe(
 				"should add new blacklist item with target user id"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { user: currentUser } = await randomMaker.serviceUser();
 
 				const { publicData } = await services.user.getPublicData({
 					targetUserId: currentUser.userId,

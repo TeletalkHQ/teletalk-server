@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express";
 import http from "http";
 
-import { clientManager } from "~/classes/ClientIdManager";
+import { sessionManager } from "~/classes/SessionManager";
 
 // deepcode ignore UseCsurfForExpress: <please specify a reason of ignoring this>, deepcode ignore DisablePoweredBy: <please specify a reason of ignoring this>
 const expressApp = express();
@@ -17,16 +17,16 @@ expressApp.use(
 	})
 );
 
-expressApp.get("/setClientId", async (req, res) => {
-	if (req.cookies.client) {
+expressApp.get("/setSessionId", async (req, res) => {
+	if (req.cookies.session) {
 		res.end("Client is already set!");
 		return;
 	}
 
-	const clientStr = await clientManager.signClient();
+	const clientStr = await sessionManager.sign();
 	res.setHeader("Content-Type", "text/plain");
 	res.statusCode = 200;
-	res.cookie("client", clientStr, {
+	res.cookie("session", clientStr, {
 		httpOnly: true,
 		sameSite: "none",
 		secure: true,
@@ -46,12 +46,12 @@ const defaultApp = () => {
 		res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
 		res.setHeader("Access-Control-Allow-Headers", "*");
 
-		if (req.url === "/setClientId") {
-			const clientStr = await clientManager.signClient();
+		if (req.url === "/setSessionId") {
+			const clientStr = await sessionManager.sign();
 			res.setHeader("Content-Type", "text/plain");
 			res.setHeader(
 				"Set-Cookie",
-				`client=${clientStr}; HttpOnly=true; secure=true; SameSite=None`
+				`session=${clientStr}; HttpOnly=true; secure=true; SameSite=None`
 			);
 			res.statusCode = 200;
 

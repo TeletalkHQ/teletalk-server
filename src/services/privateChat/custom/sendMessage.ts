@@ -1,8 +1,10 @@
 import {
+	ChatId,
 	CreatedAt,
 	MessageId,
-	MessageItem,
 	MessageText,
+	SenderId,
+	SessionId,
 	UserId,
 } from "teletalk-type-store";
 import { randomMaker } from "utility-store";
@@ -10,24 +12,26 @@ import { randomMaker } from "utility-store";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { models } from "~/models";
 import { serviceMiddlewares } from "~/services/middlewares";
-import { HydratedPrivateChat } from "~/types/model";
+import { HydratedPrivateChat, HydratedUser } from "~/types/model";
 
 const chatModels = models.native;
 
 export const sendMessage = serviceBuilder
 	.create<
 		{
-			currentParticipantId: UserId;
+			currentSessionId: SessionId;
 			targetParticipantId: UserId;
 			messageText: MessageText;
 		},
 		{
-			chatId: string;
+			chatId: ChatId;
 			createdAt: CreatedAt;
 			messageId: MessageId;
+			senderId: SenderId;
 		},
 		{
 			privateChat: HydratedPrivateChat;
+			currentParticipant: HydratedUser;
 		}
 	>()
 	.setBeforeRunMiddlewares(
@@ -38,40 +42,23 @@ export const sendMessage = serviceBuilder
 		serviceMiddlewares.findPrivateChat
 	)
 	.setBody(async (data) => {
-		const addedMessage = createNewMessage(
-			data.messageText,
-			data.currentParticipantId
-		);
+		const newMessage = {
+			createdAt: Date.now(),
+			messageId: randomMaker.id(chatModels.messageId.maxLength),
+			messageText: data.messageText,
+			sender: {
+				senderId: data.currentParticipant.userId,
+			},
+		};
 
-		await saveMessageOnPrivateChat({
-			addedMessage,
-			privateChat: data.privateChat,
-		});
+		data.privateChat.messages.push(newMessage);
+		await data.privateChat.save();
 
 		return {
 			chatId: data.privateChat.chatId,
-			createdAt: addedMessage.createdAt,
-			messageId: addedMessage.messageId,
+			createdAt: newMessage.createdAt,
+			messageId: newMessage.messageId,
+			senderId: data.currentParticipant.userId,
 		};
 	})
 	.build();
-
-const createNewMessage = (
-	messageText: string,
-	currentParticipantId: UserId
-): MessageItem => ({
-	createdAt: Date.now(),
-	messageId: randomMaker.id(chatModels.messageId.maxLength),
-	messageText,
-	sender: {
-		senderId: currentParticipantId,
-	},
-});
-
-const saveMessageOnPrivateChat = async (data: {
-	addedMessage: MessageItem;
-	privateChat: HydratedPrivateChat;
-}) => {
-	data.privateChat.messages.push(data.addedMessage);
-	await data.privateChat.save();
-};

@@ -6,8 +6,9 @@ import {
 	VerifyIO,
 } from "teletalk-type-store";
 
-import { authClientStore } from "~/classes/AuthClientStore";
-import { SocketResponse, StoredClient } from "~/types";
+import { authSessionStore } from "~/classes/AuthSessionStore";
+import { sessionManager } from "~/classes/SessionManager";
+import { SocketResponse, StoredAuthSession } from "~/types";
 
 import {
 	ClientInitializer,
@@ -31,9 +32,8 @@ class AuthHelper {
 	}
 
 	async signIn() {
-		this.clientSocket = (
-			await this.clientInitializer.createComplete()
-		).getClient();
+		this.clientSocket = (await this.clientInitializer.init()).getClient();
+		this.clientSocket.connect();
 
 		this.signInResponse = await utils.requesterCollection
 			.signIn(this.clientSocket)
@@ -43,13 +43,21 @@ class AuthHelper {
 	}
 
 	async verify() {
-		const clientId = this.clientInitializer.getClient().clientId;
-		const client = (await authClientStore.find(clientId)) as StoredClient;
+		const { session } = this.getResponses().signIn.data;
+
+		this.clientInitializer.reinitializeWithSession(session);
+
+		const verifiedSession = await sessionManager.verify(session);
+
+		const sessionId = sessionManager.getSessionId(verifiedSession);
+		const authSession = (await authSessionStore.find(
+			sessionId
+		)) as StoredAuthSession;
 
 		this.verifyResponse = await utils.requesterCollection
 			.verify(this.clientSocket)
 			.emitFull({
-				verificationCode: client.verificationCode,
+				verificationCode: authSession.verificationCode,
 			});
 
 		return this;
@@ -59,6 +67,10 @@ class AuthHelper {
 		this.createResponse = await utils.requesterCollection
 			.createNewUser(this.clientSocket)
 			.emitFull(this.fullName as FullName);
+
+		this.clientInitializer.reinitializeWithSession(
+			this.createResponse.data.session
+		);
 
 		return this;
 	}
@@ -82,8 +94,8 @@ class AuthHelper {
 		return this.clientSocket;
 	}
 
-	getClientId() {
-		return this.clientInitializer.getClient().clientId;
+	getSession() {
+		return this.clientInitializer.getClient().session;
 	}
 }
 

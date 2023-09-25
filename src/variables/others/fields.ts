@@ -14,7 +14,6 @@ const statics = {
 const avatarSrc = statics.string;
 const bio = statics.string;
 const chatId = statics.string;
-const clientId = statics.string;
 const countryCode = statics.string;
 const countryName = statics.string;
 const countryShortName = statics.string;
@@ -32,6 +31,8 @@ const ok = statics.boolean;
 const participantId = statics.string;
 const phoneNumber = statics.string;
 const senderId = statics.string;
+const session = statics.string;
+const sessionId = statics.string;
 const userId = statics.string;
 const username = statics.string;
 const verificationCode = statics.string;
@@ -71,8 +72,8 @@ const messageItem = {
 	sender,
 };
 
-const client = {
-	clientId,
+const sessionItem = {
+	sessionId,
 };
 
 const participantItem = {
@@ -81,7 +82,7 @@ const participantItem = {
 
 const blacklist = statics.array({ userId });
 const contacts = statics.array(contact);
-const clients = statics.array(client);
+const sessions = statics.array(sessionItem);
 const countries = statics.array(country);
 const messages = statics.array(messageItem);
 const participants = statics.array(participantItem);
@@ -117,7 +118,6 @@ const single = {
 	avatarSrc,
 	bio,
 	chatId,
-	clientId,
 	countryCode,
 	countryName,
 	countryShortName,
@@ -135,6 +135,8 @@ const single = {
 	participantId,
 	phoneNumber,
 	senderId,
+	session,
+	sessionId,
 	status,
 	userId,
 	username,
@@ -145,7 +147,7 @@ const single = {
 const collection = {
 	blacklist,
 	cellphone,
-	clients,
+	sessions,
 	contact,
 	contacts,
 	countries,

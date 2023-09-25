@@ -8,14 +8,14 @@ export const updateAvatar: SocketOnHandler<UpdateAvatarIO> = async (
 	socket,
 	data
 ) => {
-	await services.user.updateAvatar({
-		currentUserId: socket.userId,
+	const { userId } = await services.user.updateAvatar({
+		currentSessionId: socket.sessionId,
 		avatarSrc: data.avatarSrc,
 	});
 
 	const response = utils.createSuccessResponse("updateAvatar", {
 		avatarSrc: data.avatarSrc,
-		userId: socket.userId,
+		userId,
 	});
 
 	socket.broadcast.emit<EventName>("updateAvatar", response);
@@ -23,7 +23,7 @@ export const updateAvatar: SocketOnHandler<UpdateAvatarIO> = async (
 	return {
 		data: {
 			avatarSrc: data.avatarSrc,
-			userId: socket.userId,
+			userId,
 		},
 	};
 };

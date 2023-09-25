@@ -6,10 +6,8 @@ import { SocketOnHandler } from "~/types";
 export const addContactWithUserId: SocketOnHandler<
 	AddContactWithUserIdIO
 > = async (socket, data) => {
-	const { userId: currentUserId } = socket;
-
 	const { newContact } = await services.user.addContactWithUserId({
-		currentUserId,
+		currentSessionId: socket.sessionId,
 		fullName: data,
 		targetUserId: data.userId,
 	});

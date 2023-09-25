@@ -1,4 +1,4 @@
-import { ExtendedCellphone, UserId } from "teletalk-type-store";
+import { ExtendedCellphone, SessionId, UserId } from "teletalk-type-store";
 
 import { HydratedUser, ServiceMiddleware } from "~/types";
 
@@ -8,6 +8,7 @@ export const findCurrentParticipant: ServiceMiddleware<
 	{
 		currentParticipantId?: UserId;
 		currentUserCellphone?: ExtendedCellphone;
+		currentSessionId?: SessionId;
 	},
 	{
 		currentParticipant: HydratedUser;
@@ -16,6 +17,7 @@ export const findCurrentParticipant: ServiceMiddleware<
 	const { user } = await commonMiddlewares.findUser({
 		cellphone: data.currentUserCellphone,
 		errorReason: "CURRENT_USER_NOT_EXIST",
+		sessionId: data.currentSessionId,
 		userId: data.currentParticipantId,
 	});
 

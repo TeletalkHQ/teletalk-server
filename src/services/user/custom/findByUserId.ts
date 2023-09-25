@@ -8,15 +8,15 @@ import { HydratedUser } from "~/types/model";
 export const findByUserId = serviceBuilder
 	.create<
 		{
-			currentUserId: UserId;
+			targetUserId: UserId;
 		},
 		UserData,
 		{
-			currentUser: HydratedUser;
+			targetUser: HydratedUser;
 		}
 	>()
-	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
+	.setBeforeRunMiddlewares(serviceMiddlewares.findTargetUser)
 	.setBody((data) => {
-		return extractor.userData(data.currentUser);
+		return extractor.userData(data.targetUser);
 	})
 	.build();

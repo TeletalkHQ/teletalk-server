@@ -32,7 +32,7 @@ export const setupRequester = async <IOType extends IO>(
 	cellphone?: Cellphone,
 	fullName?: FullName
 ) => {
-	const { socket, user } = await randomMaker.user(cellphone, fullName);
+	const { socket, user } = await randomMaker.e2eUser(cellphone, fullName);
 	return {
 		requester: requester(socket),
 		user,

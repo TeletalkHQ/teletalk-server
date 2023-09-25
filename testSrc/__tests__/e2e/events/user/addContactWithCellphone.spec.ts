@@ -19,8 +19,8 @@ describe(
 				"should add users to contacts"
 			),
 			async () => {
-				const { socket } = await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+				const { socket } = await randomMaker.e2eUser();
+				const { user: targetUser } = await randomMaker.e2eUser();
 
 				const sendingData: ContactItemWithoutUserId = {
 					...extractor.cellphone(targetUser),

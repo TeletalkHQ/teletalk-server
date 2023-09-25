@@ -1,7 +1,7 @@
 import { RedisClientType } from "redis";
 
-export class ClientStore {
-	protected STATE_KEY = "client";
+export class Store {
+	protected STATE_KEY = "default";
 	protected STATE_PATH = ".";
 	private storage: RedisClientType;
 
@@ -21,13 +21,13 @@ export class ClientStore {
 		return `${this.STATE_KEY}:${id}`;
 	}
 
-	async find<T = string>(id: string): Promise<T | null> {
-		const client = await this.storage.json.get(this.makeStateKey(id));
+	async find(id: string) {
+		const session = await this.storage.json.get(this.makeStateKey(id));
 
-		return client ? JSON.parse(client as string) : null;
+		return session ? JSON.parse(session as string) : null;
 	}
 
-	async add<T = string>(id: string, data: T) {
+	async add(id: string, data: unknown) {
 		const stateKey = this.makeStateKey(id);
 		await this.storage
 			.multi()
@@ -35,7 +35,7 @@ export class ClientStore {
 			.exec();
 	}
 
-	async update<T = string>(id: string, newData: T) {
+	async update(id: string, newData: unknown) {
 		await this.storage.json.set(
 			this.makeStateKey(id),
 			this.STATE_PATH,
@@ -43,8 +43,8 @@ export class ClientStore {
 		);
 	}
 
-	async getAllKeys<T = string[]>() {
-		return (await this.storage.keys(`${this.STATE_KEY}:*`)) as T;
+	async getAllKeys<T>() {
+		return (await this.storage.keys(`${this.STATE_KEY}:*`)) as T[];
 	}
 
 	async remove(id: string) {
@@ -52,7 +52,7 @@ export class ClientStore {
 	}
 
 	async removeAll() {
-		const keys = await this.getAllKeys<string[]>();
+		const keys = await this.getAllKeys<string>();
 		for (const id of keys) {
 			await this.remove(id.replace(`${this.STATE_KEY}:`, ""));
 		}
@@ -63,4 +63,4 @@ export class ClientStore {
 	}
 }
 
-export const clientStore = new ClientStore();
+export const store = new Store();

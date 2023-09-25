@@ -31,3 +31,4 @@ eslint-plugin-jest
 TODO: Add tests for welcomeMessage
 REFACTOR: Remove selfStuff socket middleware
 REFACTOR: index all src stuff in testSrc
+TODO: Remove models from handlers

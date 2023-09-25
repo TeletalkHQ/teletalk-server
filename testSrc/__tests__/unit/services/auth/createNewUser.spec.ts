@@ -25,7 +25,7 @@ describe(
 				await services.user.createNewUser({ userData });
 
 				const foundUser = await services.user.findByUserId({
-					currentUserId: userData.userId,
+					targetUserId: userData.userId,
 				});
 
 				assertion().userData({

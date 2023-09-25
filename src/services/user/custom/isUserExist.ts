@@ -1,4 +1,4 @@
-import { PartialEmptyCellphone } from "teletalk-type-store";
+import { PartialEmptyCellphone, UserId } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 
@@ -11,11 +11,15 @@ export const isUserExist = serviceBuilder
 		},
 		{
 			isUserExist: boolean;
+			userId?: UserId;
 		}
 	>()
 	.setBody(async (data) => {
+		const user = await coreServices.find(data.cellphone);
+
 		return {
-			isUserExist: !!(await coreServices.find(data.cellphone)),
+			isUserExist: !!user,
+			userId: user?.userId,
 		};
 	})
 	.build();

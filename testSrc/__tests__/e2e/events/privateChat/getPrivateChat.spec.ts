@@ -12,12 +12,12 @@ describe(
 			utils.createTestMessage.e2eSuccessTest(
 				"getPrivateChat",
 				"event",
-				"should get private chats related to client"
+				"should get private chats related to session"
 			),
 			async () => {
 				const { socket: currentUserSocket, user: currentUser } =
-					await randomMaker.user();
-				const { user: targetUser } = await randomMaker.user();
+					await randomMaker.e2eUser();
+				const { user: targetUser } = await randomMaker.e2eUser();
 
 				const messageText = "Hello! Im messages!";
 

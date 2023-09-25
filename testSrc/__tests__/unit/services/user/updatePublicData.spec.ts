@@ -17,7 +17,8 @@ describe(
 				"should update user public data"
 			),
 			async () => {
-				const { user: currentUser } = await randomMaker.user();
+				const { user: currentUser, sessionId } =
+					await randomMaker.serviceUser();
 
 				const length = 10;
 				const usersPublicData = randomMaker.usersPublicData(
@@ -27,12 +28,12 @@ describe(
 
 				for (const publicData of usersPublicData) {
 					await services.user.updatePublicData({
-						currentUserId: currentUser.userId,
+						currentSessionId: sessionId,
 						updateProperties: publicData,
 					});
 
 					const user = (await services.user.findByUserId({
-						currentUserId: currentUser.userId,
+						targetUserId: currentUser.userId,
 					})) as UserData;
 
 					assertion().userPublicData({
@@ -49,7 +50,7 @@ await utils.generateServiceFailTest(
 	"updatePublicData",
 	"CURRENT_USER_NOT_EXIST",
 	{
-		currentUserId: randomMaker.userId(),
+		currentSessionId: randomMaker.sessionId(),
 		updateProperties: randomMaker.userPublicData(),
 	}
 );

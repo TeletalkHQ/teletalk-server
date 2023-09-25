@@ -8,18 +8,17 @@ export interface StringMap {
 
 export type LogLevel = "debug" | "error" | "info" | "warn";
 
-export interface StoredClient extends Cellphone {
+export interface StoredAuthSession extends Cellphone {
 	isVerified: boolean;
 	verificationCode: string;
-	userId: string;
 }
 
-export interface AuthClientPayload extends JWTPayload {
-	clientId: string;
+export interface SessionPayload extends JWTPayload {
+	sessionId: string;
 }
 
-export interface AuthClient extends JWTVerifyResult {
-	payload: AuthClientPayload;
+export interface VerifiedSession extends JWTVerifyResult {
+	payload: SessionPayload;
 }
 
 export type VoidNoArgsFn = () => void;

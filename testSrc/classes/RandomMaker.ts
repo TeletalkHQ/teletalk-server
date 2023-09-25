@@ -1,26 +1,34 @@
 import { Socket } from "socket.io-client";
 import {
 	Cellphone,
-	ClientId,
 	ContactItem,
 	ContactItemWithoutUserId,
 	FullNameWithUserId,
 	MessageItem,
 	MessageText,
+	SessionId,
+	Sessions,
 	UserData,
 	UserId,
 	UserPublicData,
 } from "teletalk-type-store";
-import { RandomMaker as RandomMakerMain } from "utility-store";
+import { RandomMaker as RandomMakerMain, userUtils } from "utility-store";
 
+import { sessionManager } from "~/classes/SessionManager";
 import { models } from "~/models";
 
 import { authHelper } from "@/classes/AuthHelper";
+import { services } from "@/services";
 import { utils } from "@/utils";
 
-interface CreatedUser {
+interface E2EUser {
 	user: UserData;
 	socket: Socket;
+}
+
+interface ServiceUser {
+	user: UserData;
+	sessionId: SessionId;
 }
 
 class RandomMaker extends RandomMakerMain {
@@ -28,8 +36,8 @@ class RandomMaker extends RandomMakerMain {
 		super();
 	}
 
-	clientId(): ClientId {
-		return super.string(models.native.clientId.maxLength);
+	sessionId(): SessionId {
+		return super.string(models.native.sessionId.maxLength);
 	}
 
 	contact(): ContactItem {
@@ -66,10 +74,10 @@ class RandomMaker extends RandomMakerMain {
 		return super.id(models.native.userId.maxLength);
 	}
 
-	async user(
+	async e2eUser(
 		cellphone = this.unusedCellphone(),
 		fullName = this.fullName()
-	): Promise<CreatedUser> {
+	): Promise<E2EUser> {
 		const ah = authHelper(cellphone, fullName);
 		await ah.createComplete();
 
@@ -84,21 +92,65 @@ class RandomMaker extends RandomMakerMain {
 		};
 	}
 
-	async users(length: number, cellphone?: Cellphone) {
-		const users: CreatedUser[] = [];
-		for (let i = 0; i < length; i++) users.push(await this.user(cellphone));
+	async e2eUsers(length: number) {
+		const users: E2EUser[] = [];
+		for (let i = 0; i < length; i++) users.push(await this.e2eUser());
 
 		return users;
 	}
 
-	batchUsers(length: number, cellphone?: Cellphone) {
-		const users: Promise<CreatedUser>[] = [];
-		for (let i = 0; i < length; i++) users.push(this.user(cellphone));
+	e2eBatchUsers(length: number, cellphone?: Cellphone) {
+		const users: Promise<E2EUser>[] = [];
+		for (let i = 0; i < length; i++) users.push(this.e2eUser(cellphone));
 
 		return users;
 	}
 
-	async sockets(length: number, cellphone = this.cellphone()) {
+	async serviceUser(
+		cellphone = this.unusedCellphone(),
+		fullName = this.fullName()
+	): Promise<ServiceUser> {
+		const sessionId = sessionManager.generateSessionId();
+
+		const userData: UserData = {
+			...userUtils.getDefaultUserData(),
+			...cellphone,
+			...fullName,
+			userId: randomMaker.userId(),
+			sessions: [
+				{
+					sessionId,
+				},
+			],
+		};
+
+		await services.user.createNewUser({
+			userData,
+		});
+
+		return {
+			sessionId,
+			user: userData,
+		};
+	}
+
+	async serviceUsers(length: number) {
+		const users: ServiceUser[] = [];
+
+		for (let i = 0; i < length; i++) users.push(await this.serviceUser());
+
+		return users;
+	}
+
+	serviceBatchUsers(length: number) {
+		const users: Promise<ServiceUser>[] = [];
+
+		for (let i = 0; i < length; i++) users.push(this.serviceUser());
+
+		return users;
+	}
+
+	async sockets(length: number, cellphone = this.unusedCellphone()) {
 		const sockets = [];
 
 		for (let i = 0; i < length; i++) {
@@ -112,6 +164,24 @@ class RandomMaker extends RandomMakerMain {
 		}
 
 		return sockets;
+	}
+
+	async sessions(length: number, userId: UserId) {
+		const sessions: Sessions = [];
+
+		for (let i = 0; i < length; i++) {
+			const sessionId = sessionManager.generateSessionId();
+			await services.user.addSession({
+				currentUserId: userId,
+				sessionId,
+			});
+
+			sessions.push({
+				sessionId,
+			});
+		}
+
+		return sessions;
 	}
 
 	userPublicData(): UserPublicData {

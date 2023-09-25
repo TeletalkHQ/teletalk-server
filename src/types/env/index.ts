@@ -10,7 +10,7 @@ export type NodeEnvValue =
 export type EnvFileName = NodeEnvValue | "base";
 
 export interface Environments {
-	CLIENT_SECRET: string;
+	SESSION_SECRET: string;
 	CUSTOM_PORT: number;
 	LOG_LEVEL: LogLevel;
 	MONGO_COLLECTION_NAME: string;

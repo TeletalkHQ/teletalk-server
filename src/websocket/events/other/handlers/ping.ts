@@ -10,5 +10,10 @@ export const ping: SocketOnHandler<PingIO> = (socket) => {
 
 	socket.emit<EventName>("pong", utils.createSuccessResponse("pong", data));
 
-	return { data };
+	return {
+		data,
+		options: {
+			shouldEmitToUserRooms: false,
+		},
+	};
 };

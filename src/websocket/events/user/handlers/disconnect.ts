@@ -27,6 +27,7 @@ export const disconnect: SocketOnHandler<DisconnectIO> = async (socket) => {
 		data: {},
 		options: {
 			shouldEmitReturnValue: false,
+			shouldEmitToUserRooms: false,
 		},
 	};
 };

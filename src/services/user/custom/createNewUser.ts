@@ -1,4 +1,4 @@
-import { UserData } from "teletalk-type-store";
+import { DBUserData } from "teletalk-type-store";
 
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
 import { serviceMiddlewares } from "~/services/middlewares";
@@ -8,9 +8,7 @@ import { coreServices } from "../core";
 
 export const createNewUser = serviceBuilder
 	.create<
-		{
-			userData: UserData;
-		},
+		DBUserData,
 		void,
 		{
 			currentUser: HydratedUser;
@@ -19,7 +17,7 @@ export const createNewUser = serviceBuilder
 	.setBeforeRunMiddlewares(serviceMiddlewares.throwIfUserExist)
 	.setBody(async (data) => {
 		await coreServices.create({
-			userData: data.userData,
+			userData: data,
 		});
 	})
 	.build();

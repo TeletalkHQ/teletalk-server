@@ -1,11 +1,11 @@
-import { UserData } from "teletalk-type-store";
+import { DBUserData } from "teletalk-type-store";
 
 import { models } from "~/models";
 import { UserService } from "~/types";
 
 export const create: UserService<
 	{
-		userData: UserData;
+		userData: DBUserData;
 	},
 	void
 > = async (data) => {

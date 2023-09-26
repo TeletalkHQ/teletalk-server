@@ -1,4 +1,4 @@
-import { UserData, UserId } from "teletalk-type-store";
+import { DBUserData, UserId } from "teletalk-type-store";
 
 import { extractor } from "~/classes/Extractor";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
@@ -10,13 +10,13 @@ export const findByUserId = serviceBuilder
 		{
 			targetUserId: UserId;
 		},
-		UserData,
+		DBUserData,
 		{
 			targetUser: HydratedUser;
 		}
 	>()
 	.setBeforeRunMiddlewares(serviceMiddlewares.findTargetUser)
 	.setBody((data) => {
-		return extractor.userData(data.targetUser);
+		return extractor.dbUserData(data.targetUser);
 	})
 	.build();

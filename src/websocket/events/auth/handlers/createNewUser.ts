@@ -23,17 +23,15 @@ export const createNewUser: SocketOnHandler<CreateNewUserIO> = async (
 	const session = await sessionManager.sign(sessionId);
 
 	await services.user.createNewUser({
-		userData: {
-			...userUtils.getDefaultUserData(),
-			...cellphone,
-			firstName,
-			lastName,
-			createdAt: Date.now(),
-			userId,
-			sessions: [{ sessionId }],
-			status: {
-				isActive: true,
-			},
+		...userUtils.getDBDefaultUserData(),
+		...cellphone,
+		firstName,
+		lastName,
+		createdAt: Date.now(),
+		userId,
+		sessions: [{ sessionId }],
+		status: {
+			isActive: true,
 		},
 	});
 

@@ -4,7 +4,6 @@ import {
 	Bio,
 	Blacklist,
 	ClientId,
-	Clients,
 	Contacts,
 	CountryCode,
 	CountryName,
@@ -13,6 +12,7 @@ import {
 	LastName,
 	MacAddress,
 	PhoneNumber,
+	Sessions,
 	Status,
 	Username,
 	VerificationCode,
@@ -57,8 +57,8 @@ export const userModels = {
 		.unique(true)
 		.trim(true)
 		.build(),
-	clients: nativeModelBuilder
-		.create<Clients>()
+	sessions: nativeModelBuilder
+		.create<Sessions>()
 		.type("array")
 		.required(true)
 		.empty(true)

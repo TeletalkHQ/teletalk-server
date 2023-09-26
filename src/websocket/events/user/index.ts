@@ -91,11 +91,7 @@ const getUserData = builder
 	.create<GetUserDataIO>()
 	.name("getUserData")
 	.outputFields({
-		user: fields.statics.object({
-			...fields.collection.user,
-			//CLEANME:
-			sessions: fields.collection.sessions,
-		}),
+		user: fields.statics.object(fields.collection.user),
 	})
 	.handler(handlers.getUserData)
 	.build();
@@ -107,7 +103,7 @@ const getClientStatus = builder
 		userId: fields.single.userId,
 	})
 	.outputFields({
-		isOnline: fields.statics.boolean,
+		isOnline: fields.single.isOnline,
 		userId: fields.single.userId,
 	})
 	.handler(handlers.getClientStatus)

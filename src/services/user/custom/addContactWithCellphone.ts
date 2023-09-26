@@ -1,5 +1,5 @@
 import {
-	ContactItem,
+	DBContactItem,
 	FullName,
 	SessionId,
 	UnknownCellphone,
@@ -14,11 +14,10 @@ export const addContactWithCellphone = serviceBuilder
 		{
 			addingContact: UnknownCellphone & FullName;
 			currentSessionId: SessionId;
-			//CLEANME
 			targetUserCellphone: UnknownCellphone;
 		},
 		{
-			newContact: ContactItem;
+			newContact: DBContactItem;
 		},
 		{
 			currentUser: HydratedUser;
@@ -34,9 +33,11 @@ export const addContactWithCellphone = serviceBuilder
 	.setBody(async (data) => {
 		return {
 			newContact: {
-				...data.addingContact,
 				userId: data.targetUser.userId,
-			} as ContactItem,
+				firstName: data.addingContact.firstName,
+				lastName: data.addingContact.lastName,
+				isCellphoneAccessible: true,
+			} as DBContactItem,
 		};
 	})
 	.setAfterRunMiddlewares(serviceMiddlewares.saveNewContactItem)

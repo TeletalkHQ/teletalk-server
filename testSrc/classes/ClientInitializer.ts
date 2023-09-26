@@ -7,10 +7,6 @@ import { EncryptedSession } from "teletalk-type-store";
 
 import { appConfigs } from "~/classes/AppConfigs";
 
-const {
-	APP: { PORT, HOSTNAME: hostname },
-} = appConfigs.getConfigs();
-
 export class ClientInitializer {
 	private client: Socket;
 	private session: EncryptedSession = "";
@@ -21,7 +17,10 @@ export class ClientInitializer {
 	}
 
 	private getUrl() {
-		return `http://${hostname}:${PORT}`;
+		const {
+			APP: { PORT, HOSTNAME },
+		} = appConfigs.getConfigs();
+		return `http://${HOSTNAME}:${PORT}`;
 	}
 
 	setSession(session: EncryptedSession) {

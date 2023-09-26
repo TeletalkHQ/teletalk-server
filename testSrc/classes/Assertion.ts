@@ -9,11 +9,15 @@ import {
 	Contacts,
 	CountryCode,
 	CountryName,
+	DBContactItem,
+	DBContacts,
+	DBUserData,
 	FirstName,
 	FullName,
 	FullNameWithUserId,
 	LastName,
 	MessageId,
+	MessageItem,
 	MessageText,
 	PhoneNumber,
 	PrivateChats,
@@ -195,6 +199,40 @@ export class Assertion {
 		}
 	);
 
+	dbContacts = this.multiInitializer<DBContacts>(
+		({ testValue, equalValue }, options) => {
+			chai.expect(testValue).to.be.an(FIELD_TYPE.ARRAY);
+
+			testValue.forEach((item) => {
+				this.dbOneContact(
+					{
+						testValue: item,
+					},
+					{ ...options, stringEquality: false }
+				);
+			});
+
+			if (options?.stringEquality) {
+				chai.expect(equalValue).to.be.an(FIELD_TYPE.ARRAY);
+				chai.expect(testValue.length).to.be.equal(equalValue!.length);
+
+				equalValue!.forEach((item) => {
+					const foundContact = testValue.find((c) => c.userId === item.userId);
+
+					chai.expect(foundContact).to.be.an(FIELD_TYPE.OBJECT);
+
+					this.dbOneContact(
+						{
+							equalValue: item,
+							testValue: foundContact!,
+						},
+						options
+					);
+				});
+			}
+		}
+	);
+
 	privateChats = this.multiInitializer<PrivateChats>(({ testValue }) => {
 		chai.expect(testValue).to.be.an(FIELD_TYPE.ARRAY);
 
@@ -214,7 +252,7 @@ export class Assertion {
 		// 			equalValue: foundPV?.chatId,
 		// 		});
 
-		// 		// messageTextAssertionInitializer({ testValue:item.messages, equalValue });
+		// 		 messageTextAssertionInitializer({ testValue:item.messages, equalValue });
 		// 	});
 		// }
 	});
@@ -397,6 +435,20 @@ export class Assertion {
 		}
 	);
 
+	dbOneContact = this.multiInitializer<DBContactItem>(
+		({ testValue, equalValue }, options) => {
+			this.fullName({ equalValue, testValue }, options);
+
+			this.userId(
+				{
+					equalValue: equalValue?.userId,
+					testValue: testValue.userId,
+				},
+				options
+			);
+		}
+	);
+
 	userData = this.multiInitializer<UserData>(
 		({ testValue, equalValue }, options) => {
 			chai.expect(equalValue).to.be.an(FIELD_TYPE.OBJECT);
@@ -460,6 +512,69 @@ export class Assertion {
 		}
 	);
 
+	dbUserData = this.multiInitializer<DBUserData>(
+		({ testValue, equalValue }, options) => {
+			chai.expect(equalValue).to.be.an(FIELD_TYPE.OBJECT);
+			chai.expect(testValue).to.be.an(FIELD_TYPE.OBJECT);
+
+			this.bio(
+				{
+					equalValue: equalValue!.bio,
+					testValue: testValue.bio,
+				},
+				options
+			);
+
+			this.blacklist(
+				{
+					equalValue: equalValue!.blacklist,
+					testValue: testValue.blacklist,
+				},
+				options
+			);
+
+			this.cellphone(
+				{
+					equalValue,
+					testValue,
+				},
+				options
+			);
+
+			this.dbContacts(
+				{
+					equalValue: equalValue!.contacts,
+					testValue: testValue.contacts,
+				},
+				options
+			);
+
+			this.fullName(
+				{
+					equalValue,
+					testValue,
+				},
+				options
+			);
+
+			this.userId(
+				{
+					equalValue: equalValue!.userId,
+					testValue: testValue.userId,
+				},
+				options
+			);
+
+			this.username(
+				{
+					equalValue: equalValue!.username,
+					testValue: testValue.username,
+				},
+				options
+			);
+		}
+	);
+
 	userPublicData = this.multiInitializer<UserPublicData>(
 		({ testValue, equalValue }, options) => {
 			this.bio(
@@ -488,6 +603,34 @@ export class Assertion {
 
 			this.username(
 				{ testValue: testValue.username, equalValue: testValue.username },
+				options
+			);
+		}
+	);
+
+	oneMessage = this.multiInitializer<MessageItem>(
+		({ testValue, equalValue }, options) => {
+			this.messageText(
+				{
+					testValue: testValue.messageText,
+					equalValue: equalValue?.messageText,
+				},
+				options
+			);
+
+			this.messageId(
+				{
+					testValue: testValue.messageId,
+					equalValue: equalValue?.messageId,
+				},
+				options
+			);
+
+			this.userId(
+				{
+					testValue: testValue.sender.senderId,
+					equalValue: equalValue?.sender.senderId,
+				},
 				options
 			);
 		}

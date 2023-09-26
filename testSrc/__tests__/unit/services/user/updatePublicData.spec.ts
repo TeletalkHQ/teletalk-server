@@ -1,4 +1,4 @@
-import { UserData } from "teletalk-type-store";
+import { DBUserData } from "teletalk-type-store";
 
 import { extractor } from "~/classes/Extractor";
 import { services } from "~/services";
@@ -34,7 +34,7 @@ describe(
 
 					const user = (await services.user.findByUserId({
 						targetUserId: currentUser.userId,
-					})) as UserData;
+					})) as DBUserData;
 
 					assertion().userPublicData({
 						testValue: extractor.userPublicData(user),

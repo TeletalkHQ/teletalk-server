@@ -1,4 +1,4 @@
-import { FullNameWithUserId, UserData } from "teletalk-type-store";
+import { DBUserData, FullNameWithUserId } from "teletalk-type-store";
 
 import { services } from "~/services";
 
@@ -49,7 +49,7 @@ describe(
 
 					const { contacts } = (await services.user.findByUserId({
 						targetUserId: currentUser.userId,
-					})) as UserData;
+					})) as DBUserData;
 
 					assertion().contactsWithUserId({
 						testValue: contacts,

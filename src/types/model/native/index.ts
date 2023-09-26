@@ -118,7 +118,7 @@ export interface PhoneNumber extends NativeModel {
 	unique: true;
 }
 
-export interface Clients extends NativeModel {
+export interface Sessions extends NativeModel {
 	type: "array";
 	required: true;
 	empty: true;

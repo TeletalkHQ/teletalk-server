@@ -1,4 +1,4 @@
-import { BlackList, UserData } from "teletalk-type-store";
+import { BlackList, DBUserData } from "teletalk-type-store";
 
 import { services } from "~/services";
 
@@ -45,7 +45,7 @@ describe(
 
 					const { blacklist } = (await services.user.findByUserId({
 						targetUserId: currentUser.userId,
-					})) as UserData;
+					})) as DBUserData;
 
 					assertion().blacklist({
 						testValue: blacklist,

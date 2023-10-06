@@ -1,6 +1,6 @@
 import { LoggerChalker } from "logger-chalker";
 import { Server } from "socket.io";
-import { EncryptedSession, SessionId } from "teletalk-type-store";
+import { EncryptedSession, EventName, SessionId } from "teletalk-type-store";
 
 import {
 	CustomEmit,
@@ -21,6 +21,7 @@ declare module "socket.io" {
 		customEmit: CustomEmit;
 		customOn: CustomOn;
 		customUse: CustomUse;
+		eventName: EventName;
 		io: Server;
 		sessionId: SessionId;
 		use: (fn: (event: SocketMiddlewareEvent, next: SocketNext) => void) => void;
@@ -29,7 +30,7 @@ declare module "socket.io" {
 
 declare module "socket.io-client" {
 	interface Socket {
-    session: EncryptedSession;
+		session: EncryptedSession;
 	}
 }
 

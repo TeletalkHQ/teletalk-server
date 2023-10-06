@@ -17,7 +17,6 @@ module.exports = defineConfig({
 		"plugin:import/typescript",
 		"plugin:json/recommended",
 		"plugin:sonarjs/recommended",
-		"prettier",
 	],
 	globals: {
 		logger: true,
@@ -60,7 +59,6 @@ module.exports = defineConfig({
 				ignore: ["type-fest", "teletalk-type-store"],
 			},
 		],
-		indent: ["error", "tab"],
 		"linebreak-style": ["error", "unix"],
 		"no-console": "warn",
 		"no-delete-var": "warn",

@@ -8,15 +8,13 @@ export const applyMiddlewares = (
 	...middlewares: SocketMiddleware[]
 ) => {
 	return (async (socket, next, socketMiddlewareEvent) => {
-		if (utils.isEventNameMatch(eventNamesToApply, socketMiddlewareEvent[0])) {
-			return await utils.executeMiddlewares({
+		if (utils.isEventNameMatch(eventNamesToApply, socketMiddlewareEvent[0]))
+			await utils.executeMiddlewares({
 				middlewares,
 				next,
 				socket,
 				socketMiddlewareEvent,
 			});
-		}
-
-		next();
+		else next();
 	}) as SocketMiddleware;
 };

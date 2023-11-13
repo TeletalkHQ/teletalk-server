@@ -30,7 +30,7 @@ import {
 	Username,
 	VerificationCode,
 } from "teletalk-type-store";
-import { isDataHasEqualityWithTargetCellphone } from "utility-store";
+import { utils } from "utility-store";
 
 import { models } from "~/models";
 import { Field } from "~/types";
@@ -276,7 +276,7 @@ export class Assertion {
 
 				equalValue!.forEach((item) => {
 					const foundContact = testValue.find((c) =>
-						isDataHasEqualityWithTargetCellphone(item, c)
+						utils.isDataHasEqualityWithTargetCellphone(item, c)
 					);
 
 					chai.expect(foundContact).to.be.an(FIELD_TYPE.OBJECT);

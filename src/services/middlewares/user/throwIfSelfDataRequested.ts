@@ -1,5 +1,5 @@
 import { UnknownCellphone, UserId } from "teletalk-type-store";
-import { extractor, isDataHasEqualityWithTargetCellphone } from "utility-store";
+import { extractor, utils } from "utility-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { HydratedUser, ServiceMiddleware } from "~/types";
@@ -22,7 +22,7 @@ export const throwIfSelfDataRequested: ServiceMiddleware<
 		const currentUserCellphone = extractor.cellphone(data.currentUser);
 
 		if (
-			isDataHasEqualityWithTargetCellphone(
+			utils.isDataHasEqualityWithTargetCellphone(
 				data.targetUserCellphone,
 				currentUserCellphone
 			)

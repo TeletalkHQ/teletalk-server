@@ -28,6 +28,7 @@ alias nrcs="npm run check:style"
 alias nrsd="npm run start:dev"
 alias nrsp="npm run start:production"
 alias nrspl="npm run start:production:local"
+alias nrspr="npm run start:production:railway"
 alias nrtc="npm run test:coverage"
 alias nrtd="npm run test:dev"
 

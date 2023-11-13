@@ -9,7 +9,8 @@ built
 coverage
 dist
 dump.rdb
-environments/production_local.env
+environments/.env.production_local
+environments/.env.production_railway
 environments/.env.production
 node_modules
 redis-portable

@@ -26,7 +26,7 @@ export const redisConnector = async () => {
 		password: REDIS_CONNECTION_OPTIONS.PASSWORD,
 		socket: {
 			host: REDIS_CONNECTION_OPTIONS.HOST,
-			port: REDIS_CONNECTION_OPTIONS.PORT,
+			port: +REDIS_CONNECTION_OPTIONS.PORT || undefined,
 			tls: false,
 		},
 	});

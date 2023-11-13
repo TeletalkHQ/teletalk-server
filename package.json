@@ -28,6 +28,7 @@
 		"start:dev": "cross-env NODE_ENV=development CUSTOM_PORT=${PORT}  nodemon ./index.ts",
 		"start:production": "cross-env NODE_ENV=production npm run app-runner",
 		"start:production:local": "cross-env NODE_ENV=production_local npm run app-runner",
+		"start:production:railway": "cross-env NODE_ENV=production_railway npm run app-runner",
 		"test-runner": "npm run test-runner:mocha",
 		"test-runner:jest": "cross-env TEST_RUNNER=JEST NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx jest",
 		"test-runner:mocha": "cross-env TEST_RUNNER=MOCHA mocha",
@@ -80,7 +81,7 @@
 		"superjson": "^1.13.1",
 		"teletalk-type-store": "^1.1.4",
 		"underscore": "^1.13.6",
-		"utility-store": "^14.0.33",
+		"utility-store": "^14.0.43",
 		"winston": "^3.10.0",
 		"word-wrap": "^1.2.5"
 	},

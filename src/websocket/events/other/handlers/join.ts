@@ -11,7 +11,7 @@ export const join: SocketOnHandler<JoinIO> = async (socket) => {
 	} = await services.user.findBySessionId({
 		currentSessionId: socket.sessionId,
 	});
-
+	socket.join("public");
 	socket.join(userId);
 	clientStatusStore.incConnection(userId);
 

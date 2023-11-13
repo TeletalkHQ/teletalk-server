@@ -9,13 +9,14 @@ export const ignoreMiddlewares = (
 	...middlewares: SocketMiddleware[]
 ) => {
 	return (async (socket, next, socketMiddlewareEvent) => {
-		return utils.isEventNameMatch(eventNamesToIgnore, socketMiddlewareEvent[0])
-			? next()
-			: await utils.executeMiddlewares({
-					middlewares,
-					next,
-					socket,
-					socketMiddlewareEvent,
-			  });
+		if (utils.isEventNameMatch(eventNamesToIgnore, socketMiddlewareEvent[0]))
+			next();
+		else
+			await utils.executeMiddlewares({
+				middlewares,
+				next,
+				socket,
+				socketMiddlewareEvent,
+			});
 	}) as SocketMiddleware;
 };

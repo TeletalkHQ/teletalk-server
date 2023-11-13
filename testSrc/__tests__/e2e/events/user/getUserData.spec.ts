@@ -1,5 +1,3 @@
-import { extractor } from "~/classes/Extractor";
-
 import { assertion } from "@/classes/Assertion";
 import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
@@ -21,8 +19,14 @@ describe(
 				} = await utils.requesterCollection.getUserData(socket).emitFull();
 
 				assertion().userData({
-					equalValue: extractor.userData(user),
-					testValue: receivedUserData,
+					equalValue: {
+						...user,
+						sessions: [],
+					},
+					testValue: {
+						...receivedUserData,
+						sessions: [],
+					},
 				});
 			}
 		);

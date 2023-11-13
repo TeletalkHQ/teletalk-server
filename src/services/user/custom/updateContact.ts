@@ -1,11 +1,10 @@
 import {
-	ContactItem,
-	Contacts,
+	DBContactItem,
+	DBContacts,
 	FullName,
 	SessionId,
 	UserId,
 } from "teletalk-type-store";
-import { errorThrower, extractor } from "utility-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
@@ -34,14 +33,15 @@ export const updateContact = serviceBuilder
 			data.targetUserId
 		);
 
-		errorThrower(index < 0, {
-			...errorStore.find("CONTACT_ITEM_NOT_EXIST"),
-			editValues: data.editValues,
-		});
+		if (index < 0)
+			throw {
+				...errorStore.find("CONTACT_ITEM_NOT_EXIST"),
+				editValues: data.editValues,
+			};
 
-		const updatedContact: ContactItem = {
-			...extractor.cellphone(oldContact),
+		const updatedContact: DBContactItem = {
 			...data.editValues,
+			isCellphoneAccessible: oldContact.isCellphoneAccessible,
 			userId: data.targetUserId,
 		};
 
@@ -49,7 +49,7 @@ export const updateContact = serviceBuilder
 	})
 	.build();
 
-const findContact = (contacts: Contacts, targetUserId: string) => {
+const findContact = (contacts: DBContacts, targetUserId: string) => {
 	const index = contacts.findIndex((c) => c.userId === targetUserId);
 
 	return {
@@ -60,7 +60,7 @@ const findContact = (contacts: Contacts, targetUserId: string) => {
 
 const saveContact = async (
 	currentUser: HydratedUser,
-	updatedContact: ContactItem,
+	updatedContact: DBContactItem,
 	index: number
 ) => {
 	currentUser.contacts.splice(index, 1, updatedContact);

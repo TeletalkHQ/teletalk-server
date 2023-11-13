@@ -1,9 +1,5 @@
 import { UnknownCellphone, UserId } from "teletalk-type-store";
-import {
-	errorThrower,
-	extractor,
-	isDataHasEqualityWithTargetCellphone,
-} from "utility-store";
+import { extractor, isDataHasEqualityWithTargetCellphone } from "utility-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { HydratedUser, ServiceMiddleware } from "~/types";
@@ -17,22 +13,23 @@ export const throwIfSelfDataRequested: ServiceMiddleware<
 	void
 > = async (data) => {
 	if (data.targetUserId) {
-		errorThrower(data.currentUser.userId === data.targetUserId, {
-			...errorStore.find("SELF_DATA_REQUESTED"),
-			targetUserId: data.targetUserId,
-		});
+		if (data.currentUser.userId === data.targetUserId)
+			throw {
+				...errorStore.find("SELF_DATA_REQUESTED"),
+				targetUserId: data.targetUserId,
+			};
 	} else if (data.targetUserCellphone) {
 		const currentUserCellphone = extractor.cellphone(data.currentUser);
 
-		errorThrower(
+		if (
 			isDataHasEqualityWithTargetCellphone(
 				data.targetUserCellphone,
 				currentUserCellphone
-			),
-			{
+			)
+		)
+			throw {
 				...errorStore.find("SELF_DATA_REQUESTED"),
 				targetUserCellphone: data.targetUserCellphone,
-			}
-		);
+			};
 	}
 };

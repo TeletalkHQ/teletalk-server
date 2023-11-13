@@ -24,7 +24,6 @@ describe(
 						messageText,
 					});
 
-				//REFACTOR: replace with `messageItem` and use new stringEquality method
 				assertion()
 					.chatId(
 						{

@@ -1,18 +1,17 @@
-FROM node:18-alpine3.15
+FROM node:18-bookworm
+# FROM node:18-alpine3.15
 
 WORKDIR /teletalk-server
 
-RUN npm i -g npm
-
-RUN npm i -g yarn --force
+RUN npm i -g pnpm
 
 COPY package.json ./
 COPY tsconfig.json ./
 
-RUN yarn
+RUN pnpm i
 
-COPY environments/ environments/
 COPY configs/ configs/
+COPY environments/ environments/
 COPY modules/ modules/
 COPY public/ public/
 COPY index.ts ./

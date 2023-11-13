@@ -18,6 +18,8 @@ export const logout: SocketOnHandler<LogoutIO> = async (socket) => {
 				socket.rooms.clear();
 				socket.disconnect();
 			},
+			shouldEmitReturnValue: false,
+			shouldEmitToUserRooms: false,
 		},
 	};
 };

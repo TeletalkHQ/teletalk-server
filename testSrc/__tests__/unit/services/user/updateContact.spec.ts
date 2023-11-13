@@ -47,7 +47,7 @@ describe(
 					});
 
 					updatingContacts[index] = {
-						...targetUser,
+						...extractor.contact(targetUser),
 						...editValues,
 					};
 

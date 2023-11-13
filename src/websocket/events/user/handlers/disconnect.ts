@@ -6,7 +6,9 @@ import { SocketOnHandler } from "~/types";
 import { utils } from "~/utils";
 
 export const disconnect: SocketOnHandler<DisconnectIO> = async (socket) => {
-	if (socket.sessionId) {
+	const notAllowedEvents: EventName[] = ["signIn", "createNewUser", "verify"];
+
+	if (socket.sessionId && !notAllowedEvents.includes(socket.eventName)) {
 		const {
 			user: { userId },
 		} = await services.user.findBySessionId({
@@ -28,6 +30,7 @@ export const disconnect: SocketOnHandler<DisconnectIO> = async (socket) => {
 		options: {
 			shouldEmitReturnValue: false,
 			shouldEmitToUserRooms: false,
+			shouldCallResponseCallback: false,
 		},
 	};
 };

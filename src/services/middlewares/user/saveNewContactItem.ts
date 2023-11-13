@@ -1,4 +1,4 @@
-import { ContactItem } from "teletalk-type-store";
+import { DBContactItem } from "teletalk-type-store";
 
 import { ServiceMiddleware } from "~/types";
 import { HydratedUser } from "~/types/model";
@@ -6,7 +6,7 @@ import { HydratedUser } from "~/types/model";
 export const saveNewContactItem: ServiceMiddleware<
 	{
 		currentUser: HydratedUser;
-		newContact: ContactItem;
+		newContact: DBContactItem;
 	},
 	void
 > = async (data) => {

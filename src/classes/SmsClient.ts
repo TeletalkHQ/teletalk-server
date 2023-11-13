@@ -1,6 +1,5 @@
 import axios from "axios";
 import { trier } from "simple-trier";
-import { errorThrower } from "utility-store";
 
 import { appConfigs } from "~/classes/AppConfigs";
 import { escapeChars } from "~/variables";
@@ -66,7 +65,7 @@ export class SmsClient {
 			}
 		);
 
-		errorThrower(smsResult.status !== 200, errorStore.find("SEND_SMS_FAILED"));
+		if (smsResult.status !== 200) throw errorStore.find("SEND_SMS_FAILED");
 	}
 	private async provider2(sendTo: string, text: string) {
 		const {

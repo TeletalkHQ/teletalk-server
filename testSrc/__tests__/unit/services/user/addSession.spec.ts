@@ -1,4 +1,4 @@
-import { Sessions, UserData } from "teletalk-type-store";
+import { DBUserData, Sessions } from "teletalk-type-store";
 
 import { services } from "~/services";
 
@@ -42,7 +42,7 @@ describe(
 					const { sessions: currentSessions } =
 						(await services.user.findByUserId({
 							targetUserId: currentUser.userId,
-						})) as UserData;
+						})) as DBUserData;
 
 					assertion().sessions({
 						testValue: currentSessions,

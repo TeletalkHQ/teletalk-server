@@ -40,6 +40,7 @@ const registerTests = async () => {
 	// await import("@/__tests__/unit/services/user/removeContact.spec");
 	// await import("@/__tests__/unit/services/user/updateContact.spec");
 	// await import("@/__tests__/unit/services/user/updatePublicData.spec");
+	// await import("@/__tests__/unit/functions/crashServer.spec");
 };
 
 await registerTests();

@@ -20,11 +20,9 @@ export const throwIfUserExist: ServiceMiddleware<
 			? data.currentUserId
 			: undefined;
 
-	const user =
-		uid &&
-		(await coreServices.find({
-			userId: uid,
-		}));
+	const isUserExist = await coreServices.find({
+		userId: uid,
+	});
 
-	if (user) errorStore.find("USER_EXIST");
+	if (isUserExist) throw errorStore.find("USER_EXIST");
 };

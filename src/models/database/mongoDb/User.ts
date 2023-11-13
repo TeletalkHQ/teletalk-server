@@ -1,136 +1,58 @@
-import { Schema, SchemaDefinitionProperty, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
-import { nativeModels } from "~/models/native";
 import { IUserDoc, IUserModel } from "~/types/model";
-import { utils } from "~/utils";
 
-const avatarSrcMaker = utils.makeMongoSchemaValue("avatarSrc");
-const bioMaker = utils.makeMongoSchemaValue("bio");
-const countryCodeMaker = utils.makeMongoSchemaValue("countryCode");
-const countryNameMaker = utils.makeMongoSchemaValue("countryName");
-const firstNameMaker = utils.makeMongoSchemaValue("firstName");
-const lastNameMaker = utils.makeMongoSchemaValue("lastName");
-const phoneNumberMaker = utils.makeMongoSchemaValue("phoneNumber");
-const userIdMaker = utils.makeMongoSchemaValue("userId");
-const usernameMaker = utils.makeMongoSchemaValue("username");
+import { schemas } from "./schema";
 
-//FIXME: Do something with unique property
-const avatarSrc: SchemaDefinitionProperty = {
-	maxlength: avatarSrcMaker("maxLength"),
-	minlength: avatarSrcMaker("minLength"),
-	// required: bioMaker("required"),
-	trim: nativeModels.bio.trim,
-	type: "string",
-};
-const bio: SchemaDefinitionProperty = {
-	maxlength: bioMaker("maxLength"),
-	minlength: bioMaker("minLength"),
-	// required: bioMaker("required"),
-	trim: nativeModels.bio.trim,
-	type: "string",
-};
-
-const countryCode: SchemaDefinitionProperty = {
-	maxlength: countryCodeMaker("maxLength"),
-	minlength: countryCodeMaker("minLength"),
-	// required: countryCodeMaker("required"),
-	type: "string",
-};
-
-const createdAt: SchemaDefinitionProperty = {
-	// required: nativeModels.createdAt.required ,
-	type: "number",
-};
-
-const countryName: SchemaDefinitionProperty = {
-	maxlength: countryNameMaker("maxLength"),
-	minlength: countryNameMaker("minLength"),
-	// required: countryNameMaker("required"),
-	type: "string",
-};
-
-const firstName: SchemaDefinitionProperty = {
-	maxlength: firstNameMaker("maxLength"),
-	minlength: firstNameMaker("minLength"),
-	// required: firstNameMaker("required"),
-	trim: nativeModels.firstName.trim,
-	type: "string",
-};
-
-const isActive: SchemaDefinitionProperty = {
-	default: nativeModels.isActive.defaultValue as boolean,
-	// required: [
-	// nativeModels.isActive.required ,
-	// nativeModels.isActive.required.error.reason,
-	// ],
-	type: "boolean",
-};
-
-const lastName: SchemaDefinitionProperty = {
-	maxlength: lastNameMaker("maxLength"),
-	// required: lastNameMaker("required"),
-	trim: nativeModels.lastName.trim,
-	type: "string",
-};
-
-const phoneNumber: SchemaDefinitionProperty = {
-	maxlength: phoneNumberMaker("maxLength"),
-	minlength: phoneNumberMaker("minLength"),
-	// required: phoneNumberMaker("required"),
-	trim: nativeModels.firstName.trim,
-	type: "string",
-};
-
-const sessionId: SchemaDefinitionProperty = {
-	//TODO: Move sessionId models from common to user
-	// required: nativeModels.sessionId.required ,
-	type: "string",
-};
-
-const userId: SchemaDefinitionProperty = {
-	maxlength: userIdMaker("maxLength"),
-	minlength: userIdMaker("minLength"),
-	required: userIdMaker("required"),
-	trim: nativeModels.userId.trim,
-	type: "string",
-	// unique: nativeModels.userId.unique ,
-};
-
-const username: SchemaDefinitionProperty = {
-	maxlength: usernameMaker("maxLength"),
-	// required: usernameMaker("required"),
-	trim: nativeModels.username.trim,
-	type: "string",
-	// unique: nativeModels.username.unique ,
-};
+const {
+	avatarSrc,
+	bio,
+	countryCode,
+	createdAt,
+	countryName,
+	firstName,
+	isActive,
+	lastName,
+	phoneNumber,
+	sessionId,
+	userId,
+	username,
+} = schemas;
 
 const userSchema = new Schema<IUserDoc, IUserModel>({
 	avatarSrc,
 	bio,
 	blacklist: [
 		{
-			userId,
+			userId: {
+				...userId,
+				unique: false,
+			},
 		},
 	],
 	contacts: [
 		{
 			firstName,
 			lastName,
-			userId,
-			countryCode: { ...countryCode, required: false, minlength: 0 },
-			countryName: { ...countryName, required: false, minlength: 0 },
-			phoneNumber: { ...phoneNumber, required: false, minlength: 0 },
+			userId: {
+				...userId,
+				unique: false,
+			},
+			isCellphoneAccessible: {
+				type: "boolean",
+				required: true,
+			},
 		},
 	],
-	countryCode,
-	countryName,
+	countryCode: { ...countryCode, unique: false },
+	countryName: { ...countryName, unique: false },
 	createdAt,
 	firstName,
 	lastName,
-	phoneNumber,
+	phoneNumber: { ...phoneNumber, unique: false },
 	sessions: [
 		{
-			sessionId,
+			sessionId: { ...sessionId, unique: false },
 		},
 	],
 	status: {
@@ -140,8 +62,9 @@ const userSchema = new Schema<IUserDoc, IUserModel>({
 	username,
 });
 
-//CLEANME: Remove
-Schema.Types.String.checkRequired((v) => v !== null);
+Schema.Types.String.checkRequired((v) => {
+	return v !== null || v !== undefined;
+});
 
 export const UserModel = model<IUserDoc, IUserModel>(
 	"User",

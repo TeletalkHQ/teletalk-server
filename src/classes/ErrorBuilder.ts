@@ -1,5 +1,4 @@
 import { customTypeof } from "custom-typeof";
-import { errorThrower } from "utility-store";
 
 import { ErrorReason, NativeError } from "~/types";
 
@@ -36,7 +35,7 @@ export class ErrorBuilder<ReasonType extends ErrorReason> {
 		const isUndefined = values.some(
 			customTypeof.isUndefined.bind(customTypeof)
 		);
-		errorThrower(isUndefined, "ERROR_IS_INVALID");
+		if (isUndefined) throw "ERROR_IS_INVALID";
 
 		return this.error;
 	}

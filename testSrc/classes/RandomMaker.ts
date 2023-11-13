@@ -3,18 +3,21 @@ import {
 	Cellphone,
 	ContactItem,
 	ContactItemWithoutUserId,
+	DBUserData,
 	FullNameWithUserId,
 	MessageItem,
 	MessageText,
 	SessionId,
 	Sessions,
 	UserData,
+	UserDataWithoutSessions,
 	UserId,
 	UserPublicData,
 } from "teletalk-type-store";
-import { RandomMaker as RandomMakerMain, userUtils } from "utility-store";
+import { RandomMaker as RandomMakerMain } from "utility-store";
 
 import { sessionManager } from "~/classes/SessionManager";
+import { userUtils } from "~/classes/UserUtils";
 import { models } from "~/models";
 
 import { authHelper } from "@/classes/AuthHelper";
@@ -22,7 +25,7 @@ import { services } from "@/services";
 import { utils } from "@/utils";
 
 interface E2EUser {
-	user: UserData;
+	user: UserDataWithoutSessions;
 	socket: Socket;
 }
 
@@ -112,8 +115,8 @@ class RandomMaker extends RandomMakerMain {
 	): Promise<ServiceUser> {
 		const sessionId = sessionManager.generateSessionId();
 
-		const userData: UserData = {
-			...userUtils.getDefaultUserData(),
+		const userData: DBUserData = {
+			...userUtils.getDBDefaultUserData(),
 			...cellphone,
 			...fullName,
 			userId: randomMaker.userId(),
@@ -124,13 +127,14 @@ class RandomMaker extends RandomMakerMain {
 			],
 		};
 
-		await services.user.createNewUser({
-			userData,
-		});
+		await services.user.createNewUser(userData);
 
 		return {
 			sessionId,
-			user: userData,
+			user: {
+				...userData,
+				contacts: [],
+			},
 		};
 	}
 

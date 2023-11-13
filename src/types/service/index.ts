@@ -1,5 +1,6 @@
 import { ProjectionType, QueryOptions } from "mongoose";
 import {
+	DBUserData,
 	PrivateChatItem,
 	SessionId,
 	UserData,
@@ -46,7 +47,7 @@ export type UserServiceQueryData = Partial<UserData> &
 		currentSessionId: SessionId;
 		currentUserId: UserId;
 		targetUserId: UserId;
-		userData: UserData;
+		userData: DBUserData;
 	}>;
 
 export type UserService<

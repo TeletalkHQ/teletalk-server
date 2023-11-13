@@ -22,6 +22,7 @@ const description = statics.string;
 const errorReason = statics.string;
 const firstName = statics.string;
 const isActive = statics.boolean;
+const isOnline = statics.boolean;
 const language = statics.string;
 const lastName = statics.string;
 const messageId = statics.string;
@@ -142,6 +143,7 @@ const single = {
 	username,
 	verificationCode,
 	welcomeMessage,
+	isOnline,
 };
 
 const collection = {

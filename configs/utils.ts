@@ -3,6 +3,8 @@ import { randomMaker } from "utility-store";
 
 import { appConfigs } from "~/classes/AppConfigs";
 
+await appConfigs.setup();
+
 export const testServerInitializer = async () => {
 	await appConfigs.setup();
 

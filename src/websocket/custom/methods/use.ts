@@ -16,7 +16,7 @@ export const registerCustomUse = (socket: Socket) => {
 	return ((middleware) => {
 		socket.use(
 			async (socketMiddlewareEvent: SocketDefaultMiddlewareEvent, next) => {
-				await trier("socket.customUse")
+				await trier(`customUse:${socketMiddlewareEvent[0]}`)
 					.async()
 					.try(tryBlock, socket, next, socketMiddlewareEvent, middleware)
 					.catch(catchBlock, socket, socketMiddlewareEvent)

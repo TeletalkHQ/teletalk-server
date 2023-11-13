@@ -1,4 +1,4 @@
-import { SessionId, UserData } from "teletalk-type-store";
+import { DBUserData, SessionId } from "teletalk-type-store";
 
 import { extractor } from "~/classes/Extractor";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
@@ -11,7 +11,7 @@ export const findBySessionId = serviceBuilder
 			currentSessionId: SessionId;
 		},
 		{
-			user: UserData;
+			user: DBUserData;
 		},
 		{
 			currentUser: HydratedUser;
@@ -20,7 +20,7 @@ export const findBySessionId = serviceBuilder
 	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
 	.setBody((data) => {
 		return {
-			user: extractor.userData(data.currentUser),
+			user: extractor.dbUserData(data.currentUser),
 		};
 	})
 	.build();

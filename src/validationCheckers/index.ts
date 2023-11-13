@@ -1,4 +1,3 @@
-import { errorThrower } from "check-fields";
 import { customTypeof } from "custom-typeof";
 
 import { errorStore } from "~/classes/ErrorStore";
@@ -28,10 +27,8 @@ const {
 validationCheckers.countryCode = (result, value) => {
 	if (result === true) {
 		const country = countries.find((c) => c.countryCode === value);
-		errorThrower(
-			customTypeof.isUndefined(country),
-			errorStore.find("COUNTRY_CODE_NOT_SUPPORTED")
-		);
+		if (customTypeof.isUndefined(country))
+			throw errorStore.find("COUNTRY_CODE_NOT_SUPPORTED");
 
 		return;
 	}
@@ -42,10 +39,8 @@ validationCheckers.countryCode = (result, value) => {
 validationCheckers.countryName = (result, value) => {
 	if (result === true) {
 		const country = countries.find((c) => c.countryName === value);
-		errorThrower(
-			customTypeof.isUndefined(country),
-			errorStore.find("COUNTRY_NAME_NOT_SUPPORTED")
-		);
+		if (customTypeof.isUndefined(country))
+			throw errorStore.find("COUNTRY_NAME_NOT_SUPPORTED");
 
 		return;
 	}

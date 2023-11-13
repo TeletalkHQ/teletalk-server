@@ -24,9 +24,7 @@ export const websocketServer = async (httpServer: HttpServer) => {
 
 	io.on("connection", (socket) => {
 		socket.io = io;
-		socket.join("public");
 
-		socket.customEmit = customMethods.registerCustomEmit(socket);
 		socket.customOn = customMethods.registerCustomOn(socket);
 		socket.customUse = customMethods.registerCustomUse(socket);
 

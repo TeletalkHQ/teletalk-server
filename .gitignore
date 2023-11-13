@@ -10,7 +10,7 @@ coverage
 dist
 dump.rdb
 environments/production_local.env
-environments/production.env
+environments/.env.production
 node_modules
 redis-portable
 .yarn

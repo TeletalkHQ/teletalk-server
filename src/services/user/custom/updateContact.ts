@@ -5,7 +5,6 @@ import {
 	SessionId,
 	UserId,
 } from "teletalk-type-store";
-import { errorThrower } from "utility-store";
 
 import { errorStore } from "~/classes/ErrorStore";
 import { serviceBuilder } from "~/classes/service/ServiceBuilder";
@@ -34,10 +33,11 @@ export const updateContact = serviceBuilder
 			data.targetUserId
 		);
 
-		errorThrower(index < 0, {
-			...errorStore.find("CONTACT_ITEM_NOT_EXIST"),
-			editValues: data.editValues,
-		});
+		if (index < 0)
+			throw {
+				...errorStore.find("CONTACT_ITEM_NOT_EXIST"),
+				editValues: data.editValues,
+			};
 
 		const updatedContact: DBContactItem = {
 			...data.editValues,

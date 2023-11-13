@@ -1,6 +1,4 @@
 /* eslint-disable indent */
-import { errorThrower } from "utility-store";
-
 import { errorStore } from "~/classes/ErrorStore";
 import { ServiceMiddleware } from "~/types";
 import { HydratedUser } from "~/types/model";
@@ -18,8 +16,5 @@ export const throwIfContactExist: ServiceMiddleware<
 		queryData: data.targetUser.userId,
 	};
 
-	errorThrower(
-		contacts.some((i) => i.userId == data.targetUser.userId),
-		error
-	);
+	if (contacts.some((i) => i.userId == data.targetUser.userId)) throw error;
 };

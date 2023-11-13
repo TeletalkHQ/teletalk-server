@@ -14,13 +14,13 @@ services:
     container_name: mongo-server
     restart: always
     network_mode: bridge
-    hostname: mongodb
+    hostname: mongo-server
     expose:
       - 27017
 
   teletalk-server:
     env_file:
-      - ./environments/production_local.env
+      - ./environments/.env.production_local
     build: .
     image: stalwart95/teletalk-server
     restart: unless-stopped

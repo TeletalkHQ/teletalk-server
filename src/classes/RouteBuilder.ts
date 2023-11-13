@@ -1,6 +1,5 @@
 import { IoFields } from "check-fields";
 import { customTypeof } from "custom-typeof";
-import { errorThrower } from "utility-store";
 
 import { NativeError, Route } from "~/types";
 
@@ -29,9 +28,10 @@ export abstract class RouteBuilder {
 		error: NativeError | { reason: string },
 		...requirements: unknown[]
 	) {
-		errorThrower(customTypeof.isUndefined(...requirements), {
-			...error,
-			route: this.route,
-		});
+		if (customTypeof.isUndefined(...requirements))
+			throw {
+				...error,
+				route: this.route,
+			};
 	}
 }

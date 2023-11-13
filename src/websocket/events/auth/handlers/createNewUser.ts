@@ -1,5 +1,5 @@
 import { CreateNewUserIO } from "teletalk-type-store";
-import { errorThrower, extractor, randomMaker } from "utility-store";
+import { extractor, randomMaker } from "utility-store";
 
 import { authSessionStore } from "~/classes/AuthSessionStore";
 import { errorStore } from "~/classes/ErrorStore";
@@ -48,10 +48,11 @@ export const createNewUser: SocketOnHandler<CreateNewUserIO> = async (
 };
 
 const checkClientVerification = (authSession: StoredAuthSession) => {
-	errorThrower(!authSession.isVerified, {
-		...errorStore.find("SESSION_NOT_VERIFIED"),
-		createNewUser: "failed",
-	});
+	if (!authSession.isVerified)
+		throw {
+			...errorStore.find("SESSION_NOT_VERIFIED"),
+			createNewUser: "failed",
+		};
 };
 
 const getRandomId = () => randomMaker.id(models.native.userId.maxLength);

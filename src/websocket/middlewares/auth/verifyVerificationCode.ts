@@ -1,7 +1,6 @@
 import { trier } from "simple-trier";
 import { Socket } from "socket.io";
 import { SessionId, VerifyIO } from "teletalk-type-store";
-import { errorThrower } from "utility-store";
 
 import { authSessionStore } from "~/classes/AuthSessionStore";
 import { errorStore } from "~/classes/ErrorStore";
@@ -26,10 +25,11 @@ const tryBlock = async (socket: Socket, data: VerifyIO["input"]) => {
 	const authSession = await findAuthSession(socket.sessionId);
 	const { verificationCode: actualVerificationCode } = authSession;
 
-	errorThrower(sentVerificationCode !== actualVerificationCode, {
-		...errorStore.find("VERIFICATION_CODE_INVALID"),
-		sentVerificationCode,
-	});
+	if (sentVerificationCode !== actualVerificationCode)
+		throw {
+			...errorStore.find("VERIFICATION_CODE_INVALID"),
+			sentVerificationCode,
+		};
 
 	await authSessionStore.update(socket.sessionId, {
 		...authSession,

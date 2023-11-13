@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import path from "path";
 
 const NODE_ENV = process.env.NODE_ENV;
@@ -9,7 +10,10 @@ const start = async () => {
 		if (isProduction()) return await runProduction();
 
 		runDev();
-	} catch (_error) {
+	} catch (error) {
+		console.error("something bad happened during the initialization");
+		console.error(error);
+
 		process.exit(1);
 	}
 };
@@ -24,6 +28,7 @@ const runProduction = async () => {
 		getBuildFolderName(),
 		"app.mjs"
 	);
+
 	const app = await import(appPath);
 
 	app.runner();

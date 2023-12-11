@@ -1,65 +1,94 @@
-// import { createAdapter, setupPrimary } from "@socket.io/cluster-adapter";
-// import { setupMaster, setupWorker } from "@socket.io/sticky";
+import { createAdapter, setupPrimary } from "@socket.io/cluster-adapter";
+import { setupMaster, setupWorker } from "@socket.io/sticky";
 import address from "address";
+import cluster from "cluster";
 import http from "http";
-// import cluster from "cluster";
-// import os from "os";
+import os from "os";
 import PrettyError from "pretty-error";
 
-import { appConfigs } from "~/classes/AppConfigs";
+import { configs } from "~/classes/Configs";
 import { requirements } from "~/requirements";
-// import { utils } from "~/utils";
 import { websocketServer } from "~/websocket";
 
 PrettyError.start();
 
-const listeningListener = () => {
-	const { ENVIRONMENT, PORT } = appConfigs.getConfigs().APP;
+const httpServerListener = () => {
+	const { ENVIRONMENT, PORT } = configs.getConfigs().APP;
 
 	logger.info(
-		`Server is running in ${ENVIRONMENT} mode on port ${PORT}`,
-		`url: http://${address.ip()}:${PORT}`
+		`Server is running. RUNTIME_MODE:${ENVIRONMENT}, PID:${
+			process.pid
+		}, PORT:${PORT}, ACCESS_POINT:${address.ip()}:${PORT}`
 	);
 };
 
-await appConfigs.setup();
+await configs.setup();
 
 export const runner = async () => {
-	// if (cluster.isPrimary) {
 	// utils.logEnvironments();
 
-	//   const NUM_WORKERS = os.cpus().length;
-
-	//   logger.debug(`Master ${process.pid} is running`);
-
-	//   const httpServer = crateHttpServer();
-
-	//   setupMaster(httpServer, {
-	//     loadBalancingMethod: "round-robin",
-	//   });
-
-	//   setupPrimary();
-
-	//   httpServer.listen(appConfigs.getConfigs().APP.PORT);
-
-	//   for (let i = 0; i < NUM_WORKERS; i++) cluster.fork();
-	// } else {
 	await requirements.database();
+	if (configs.getConfigs().APP.USE_CLUSTERS) {
+		runWithClusters();
+	} else runNormal();
+};
 
-	//   logger.debug(`Worker ${process.pid} started`);
+const runWithClusters = async () => {
+	if (cluster.isPrimary) setupPrimaryServer();
+	else setupWorkerServer();
+};
 
-	const httpServer = crateHttpServer();
-	httpServer.listen(appConfigs.getConfigs().APP.PORT, listeningListener);
-
-	// const io =
+const runNormal = async () => {
+	const httpServer = createHttpServerWithListener();
 	await websocketServer(httpServer);
-	//   io.adapter(createAdapter());
-	//   setupWorker(io);
-	// }
 };
 
-export const crateHttpServer = () => {
-	return http.createServer();
+const setupPrimaryServer = () => {
+	const httpServer = createHttpServerWithListener();
+
+	setupMaster(httpServer, {
+		loadBalancingMethod: "round-robin",
+	});
+
+	setupPrimary();
+
+	cluster.setupPrimary({
+		serialization: "advanced",
+	});
+
+	forkClusters();
+
+	registerClusterOnExitEvent();
 };
 
-if (appConfigs.getConfigs().APP.SELF_EXEC) await runner();
+const setupWorkerServer = async () => {
+	const httpServer = http.createServer();
+
+	const io = await websocketServer(httpServer);
+
+	io.adapter(createAdapter());
+
+	setupWorker(io);
+};
+
+const createHttpServerWithListener = () => {
+	const httpServer = http.createServer();
+	httpServer.listen(configs.getConfigs().APP.PORT, httpServerListener);
+	return httpServer;
+};
+
+const forkClusters = () => {
+	const NUM_OF_WORKER_THREADS = os.cpus().length;
+	for (let i = 0; i < NUM_OF_WORKER_THREADS; i++) {
+		cluster.fork();
+	}
+};
+
+const registerClusterOnExitEvent = () => {
+	cluster.on("exit", (worker) => {
+		logger.debug(`Worker ${worker.process.pid} died`);
+		cluster.fork();
+	});
+};
+
+if (configs.getConfigs().APP.SELF_EXEC) await runner();

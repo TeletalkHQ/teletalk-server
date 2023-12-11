@@ -1,7 +1,7 @@
 import axios from "axios";
 import { trier } from "simple-trier";
 
-import { appConfigs } from "~/classes/AppConfigs";
+import { configs } from "~/classes/Configs";
 import { escapeChars } from "~/variables";
 
 import { errorStore } from "./ErrorStore";
@@ -21,7 +21,7 @@ export class SmsClient {
 		verificationCode: string
 	) {
 		const text = this.templates().verificationCode(verificationCode, host);
-		const { SMS_PROVIDER_SELECTOR } = appConfigs.getConfigs().SMS_CLIENT;
+		const { SMS_PROVIDER_SELECTOR } = configs.getConfigs().SMS_CLIENT;
 
 		const providers = [this.devProvider, this.provider1, this.provider2];
 		await trier(this.sendVerificationCode.name)
@@ -45,7 +45,7 @@ export class SmsClient {
 			SMS_PROVIDER_1_ROUTE,
 			SMS_PROVIDER_1_SENDER,
 			SMS_PROVIDER_1_SESSION,
-		} = appConfigs.getConfigs().SMS_CLIENT;
+		} = configs.getConfigs().SMS_CLIENT;
 
 		const { method, sendFrom, url } = {
 			method: "POST",
@@ -73,7 +73,7 @@ export class SmsClient {
 			SMS_PROVIDER_2_REPORT_URL,
 			SMS_PROVIDER_2_ROUTE,
 			SMS_PROVIDER_2_SESSION,
-		} = appConfigs.getConfigs().SMS_CLIENT;
+		} = configs.getConfigs().SMS_CLIENT;
 
 		const config = {
 			data: {

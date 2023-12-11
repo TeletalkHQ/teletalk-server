@@ -5,7 +5,7 @@ import { faker } from "@faker-js/faker";
 import chai from "chai";
 import { IoFields } from "check-fields";
 
-import { appConfigs } from "~/classes/AppConfigs";
+import { configs } from "~/classes/Configs";
 import { models } from "~/models";
 import { ErrorReason, NativeError } from "~/types";
 import { Field } from "~/types/model";
@@ -124,7 +124,7 @@ function generateDynamicData(schema: IoFields): Record<string, unknown> {
 	return data;
 }
 
-const isJestRunning = () => appConfigs.getConfigs().TEST.RUNNER === "JEST";
+const isJestRunning = () => configs.getConfigs().TEST.RUNNER === "JEST";
 
 const jestDescribe = (...args: DescribeArgs) =>
 	isJestRunning() && describe(...args);

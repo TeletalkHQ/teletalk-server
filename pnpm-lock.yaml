@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@redis/json':
     specifier: ^1.0.6
-    version: 1.0.6(@redis/client@1.5.9)
+    version: 1.0.6(@redis/client@1.5.12)
   '@sindresorhus/is':
     specifier: ^6.1.0
     version: 6.1.0
@@ -2622,10 +2622,10 @@ packages:
     dependencies:
       '@babel/core': 7.23.5
       '@babel/helper-annotate-as-pure': 7.22.5
-      '@babel/helper-module-imports': 7.22.5
+      '@babel/helper-module-imports': 7.22.15
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.23.5)
-      '@babel/types': 7.22.11
+      '@babel/types': 7.23.5
     dev: true
 
   /@babel/plugin-transform-regenerator@7.23.3(@babel/core@7.23.5):
@@ -4286,15 +4286,6 @@ packages:
       yallist: 4.0.0
     dev: false
 
-  /@redis/client@1.5.9:
-    resolution: {integrity: sha512-SffgN+P1zdWJWSXBvJeynvEnmnZrYmtKSRW00xl8pOPFOMJjxRR9u0frSxJpPR6Y4V+k54blJjGW7FgxbTI7bQ==}
-    engines: {node: '>=14'}
-    dependencies:
-      cluster-key-slot: 1.1.2
-      generic-pool: 3.9.0
-      yallist: 4.0.0
-    dev: false
-
   /@redis/graph@1.1.1(@redis/client@1.5.12):
     resolution: {integrity: sha512-FEMTcTHZozZciLRl6GiiIB4zGm5z5F3F6a6FZCyrfxdKOhFlGkiAqlexWMBzCi4DcRoyiOsuLfW+cjlGWyExOw==}
     peerDependencies:
@@ -4309,14 +4300,6 @@ packages:
       '@redis/client': ^1.0.0
     dependencies:
       '@redis/client': 1.5.12
-    dev: false
-
-  /@redis/json@1.0.6(@redis/client@1.5.9):
-    resolution: {integrity: sha512-rcZO3bfQbm2zPRpqo82XbW8zg4G/w4W3tI7X8Mqleq9goQjAGLL7q/1n1ZX4dXEAmORVZ4s1+uKLaUOg7LrUhw==}
-    peerDependencies:
-      '@redis/client': ^1.0.0
-    dependencies:
-      '@redis/client': 1.5.9
     dev: false
 
   /@redis/search@1.1.6(@redis/client@1.5.12):

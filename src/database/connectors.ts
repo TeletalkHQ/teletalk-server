@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 import { createClient } from "redis";
 
-import { appConfigs } from "~/classes/AppConfigs";
+import { configs } from "~/classes/Configs";
 import { utils } from "~/utils";
 
 export const mongodbConnector = () => {
-	const configs = appConfigs.getConfigs();
+	const { DB: DB_CONFIGS } = configs.getConfigs();
 
 	mongoose.set("strictQuery", false);
 	mongoose.connection.once("connected", () =>
-		logger.info(`MongoDB connected to: ${configs.DB.MONGO_URI}`)
+		logger.info(`MongoDB connected to: ${DB_CONFIGS.MONGO_URI}`)
 	);
 
-	return mongoose.connect(configs.DB.MONGO_URI);
+	return mongoose.connect(DB_CONFIGS.MONGO_URI);
 };
 
 export const redisConnector = async () => {
 	const REDIS_CONNECTION_OPTIONS = {
-		HOST: appConfigs.getConfigs().DB.REDIS_HOST,
-		PASSWORD: appConfigs.getConfigs().DB.REDIS_PASSWORD,
-		PORT: appConfigs.getConfigs().DB.REDIS_PORT,
+		HOST: configs.getConfigs().DB.REDIS_HOST,
+		PASSWORD: configs.getConfigs().DB.REDIS_PASSWORD,
+		PORT: configs.getConfigs().DB.REDIS_PORT,
 	};
 
 	const storage = createClient({

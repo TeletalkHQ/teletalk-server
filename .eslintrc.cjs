@@ -37,6 +37,7 @@ module.exports = defineConfig({
 		"unused-imports",
 	],
 	rules: {
+		"@typescript-eslint/no-redeclare": "error",
 		"@cspell/spellchecker": [
 			"error",
 			{

@@ -5,7 +5,7 @@ import Client, {
 } from "socket.io-client";
 import { EncryptedSession } from "teletalk-type-store";
 
-import { appConfigs } from "~/classes/AppConfigs";
+import { configs } from "~/classes/Configs";
 
 export class ClientInitializer {
 	private client: Socket;
@@ -19,7 +19,7 @@ export class ClientInitializer {
 	private getUrl() {
 		const {
 			APP: { PORT, HOSTNAME },
-		} = appConfigs.getConfigs();
+		} = configs.getConfigs();
 		return `http://${HOSTNAME}:${PORT}`;
 	}
 

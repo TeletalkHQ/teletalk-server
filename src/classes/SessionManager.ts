@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { EncryptedSession, SessionId } from "teletalk-type-store";
 import { randomMaker } from "utility-store";
 
-import { appConfigs } from "~/classes/AppConfigs";
+import { configs } from "~/classes/Configs";
 import { models } from "~/models";
 import { VerifiedSession } from "~/types";
 
@@ -40,7 +40,7 @@ class SessionManager {
 	}
 
 	private getEncodedSecret() {
-		return this.encodeString(appConfigs.getConfigs().APP.SESSION_SECRET);
+		return this.encodeString(configs.getConfigs().APP.SESSION_SECRET);
 	}
 
 	private encodeString(str: string) {

@@ -3,7 +3,7 @@ import { LoggerChalker } from "logger-chalker";
 import { envManager } from "~/classes/EnvironmentManager";
 import { Environments } from "~/types";
 
-class AppConfigs {
+class Configs {
 	private ENVIRONMENTS: Environments;
 
 	async setup() {
@@ -32,14 +32,14 @@ class AppConfigs {
 	}
 
 	getConfigs() {
-		//FIXME: All to optional
 		return {
 			APP: {
-				SESSION_SECRET: this.ENVIRONMENTS.SESSION_SECRET,
 				ENVIRONMENT: this.ENVIRONMENTS.NODE_ENV,
 				HOSTNAME: "localhost",
 				PORT: this.ENVIRONMENTS.CUSTOM_PORT || this.ENVIRONMENTS.PORT,
 				SELF_EXEC: this.ENVIRONMENTS.SELF_EXEC,
+				SESSION_SECRET: this.ENVIRONMENTS.SESSION_SECRET,
+				USE_CLUSTERS: false,
 			},
 			DB: {
 				MONGO_URI: this.ENVIRONMENTS.MONGO_URI,
@@ -65,4 +65,4 @@ class AppConfigs {
 	}
 }
 
-export const appConfigs = new AppConfigs();
+export const configs = new Configs();

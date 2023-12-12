@@ -4,29 +4,29 @@ import { errors } from "~/variables/errors";
 import { modelErrorBuilder } from "./ModelErrorBuilder";
 
 class ErrorStore {
-	private errors: NativeError[] = [];
+  private errors: NativeError[] = [];
 
-	constructor() {
-		this.build();
-	}
+  constructor() {
+    this.build();
+  }
 
-	find(reason: ErrorReason) {
-		return this.errors.find((i) => i.reason === reason)!;
-	}
+  find(reason: ErrorReason) {
+    return this.errors.find((i) => i.reason === reason)!;
+  }
 
-	getAll() {
-		return this.errors;
-	}
+  getAll() {
+    return this.errors;
+  }
 
-	private build() {
-		this.errors.push(...modelErrorBuilder().build(), ...errors.custom);
+  private build() {
+    this.errors.push(...modelErrorBuilder().build(), ...errors.custom);
 
-		this.errors.forEach((item) => {
-			if (item.reason.startsWith("SESSION_")) {
-				item.isAuthError = true;
-			}
-		});
-	}
+    this.errors.forEach((item) => {
+      if (item.reason.startsWith("SESSION_")) {
+        item.isAuthError = true;
+      }
+    });
+  }
 }
 
 export const errorStore = new ErrorStore();

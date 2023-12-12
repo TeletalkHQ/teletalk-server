@@ -5,24 +5,24 @@ import { PrivateChatService } from "~/types";
 import { HydratedPrivateChat } from "~/types/model";
 
 export const create: PrivateChatService<
-	{
-		chatId: string;
-		createdAt: CreatedAt;
-		currentParticipantId: string;
-		targetParticipantId: string;
-	},
-	HydratedPrivateChat
+  {
+    chatId: string;
+    createdAt: CreatedAt;
+    currentParticipantId: string;
+    targetParticipantId: string;
+  },
+  HydratedPrivateChat
 > = (data) => {
-	return models.database.PrivateChat.create({
-		chatId: data.chatId,
-		createdAt: data.createdAt,
-		participants: [
-			{
-				participantId: data.currentParticipantId,
-			},
-			{
-				participantId: data.targetParticipantId,
-			},
-		],
-	});
+  return models.database.PrivateChat.create({
+    chatId: data.chatId,
+    createdAt: data.createdAt,
+    participants: [
+      {
+        participantId: data.currentParticipantId,
+      },
+      {
+        participantId: data.targetParticipantId,
+      },
+    ],
+  });
 };

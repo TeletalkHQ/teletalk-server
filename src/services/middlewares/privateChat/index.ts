@@ -6,10 +6,10 @@ import { throwIfParticipantIsBlacklisted } from "./throwIfParticipantIsBlacklist
 import { throwIfPrivateChatExist } from "./throwIfPrivateChatExist";
 
 export const privateChatMiddlewares = {
-	createPrivateChatIfNotExist,
-	findCurrentParticipant,
-	findPrivateChat,
-	findTargetParticipant,
-	throwIfParticipantIsBlacklisted,
-	throwIfPrivateChatExist,
+  createPrivateChatIfNotExist,
+  findCurrentParticipant,
+  findPrivateChat,
+  findTargetParticipant,
+  throwIfParticipantIsBlacklisted,
+  throwIfPrivateChatExist,
 };

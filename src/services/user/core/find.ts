@@ -5,9 +5,9 @@ import { UserService } from "~/types";
 import { HydratedUser, IUserDoc } from "~/types/model";
 
 export const find: UserService<FilterQuery<IUserDoc>, HydratedUser | null> = (
-	data,
-	options,
-	projection
+  data,
+  options,
+  projection
 ) => {
-	return models.database.User.findOne(data, projection, options);
+  return models.database.User.findOne(data, projection, options);
 };

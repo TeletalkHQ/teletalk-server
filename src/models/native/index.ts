@@ -3,7 +3,7 @@ import { privateChatModels } from "~/models/native/privateChat";
 import { userModels } from "~/models/native/user";
 
 export const nativeModels = {
-	...privateChatModels,
-	...commonModels,
-	...userModels,
+  ...privateChatModels,
+  ...commonModels,
+  ...userModels,
 };

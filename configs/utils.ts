@@ -6,19 +6,19 @@ import { configs } from "~/classes/Configs";
 await configs.setup();
 
 export const testServerInitializer = async () => {
-	await configs.setup();
+  await configs.setup();
 
-	const { runner } = await import("~/index");
+  const { runner } = await import("~/index");
 
-	configs.setPort(randomMaker.numberWithRange(8000, 50000));
+  configs.setPort(randomMaker.numberWithRange(8000, 50000));
 
-	logger.offAll();
-	logger.on("debug");
+  logger.offAll();
+  logger.on("debug");
 
-	Trier.changeGlobalConfigs({
-		callerName: "unknownCaller",
-		canPrintError: false,
-	});
+  Trier.changeGlobalConfigs({
+    callerName: "unknownCaller",
+    canPrintError: false,
+  });
 
-	await runner();
+  await runner();
 };

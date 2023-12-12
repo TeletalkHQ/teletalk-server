@@ -7,17 +7,17 @@ import { HydratedUser } from "~/types/model";
 import { coreServices } from "../core";
 
 export const createNewUser = serviceBuilder
-	.create<
-		DBUserData,
-		void,
-		{
-			currentUser: HydratedUser;
-		}
-	>()
-	.setBeforeRunMiddlewares(serviceMiddlewares.throwIfUserExist)
-	.setBody(async (data) => {
-		await coreServices.create({
-			userData: data,
-		});
-	})
-	.build();
+  .create<
+    DBUserData,
+    void,
+    {
+      currentUser: HydratedUser;
+    }
+  >()
+  .setBeforeRunMiddlewares(serviceMiddlewares.throwIfUserExist)
+  .setBody(async (data) => {
+    await coreServices.create({
+      userData: data,
+    });
+  })
+  .build();

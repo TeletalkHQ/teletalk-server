@@ -5,45 +5,45 @@ import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
 describe(
-	utils.createTestMessage.unitSuccessDescribe("logout", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitSuccessTest(
-				"logout",
-				"service",
-				"should logout and remove the specific session"
-			),
-			async () => {
-				const { sessionId, user: currentUser } =
-					await randomMaker.serviceUser();
+  utils.createTestMessage.unitSuccessDescribe("logout", "service"),
+  () => {
+    it(
+      utils.createTestMessage.unitSuccessTest(
+        "logout",
+        "service",
+        "should logout and remove the specific session"
+      ),
+      async () => {
+        const { sessionId, user: currentUser } =
+          await randomMaker.serviceUser();
 
-				const length = 10;
+        const length = 10;
 
-				const sessions = await randomMaker.sessions(length, currentUser.userId);
+        const sessions = await randomMaker.sessions(length, currentUser.userId);
 
-				sessions.push({
-					sessionId,
-				});
+        sessions.push({
+          sessionId,
+        });
 
-				for (const item of [...sessions]) {
-					await services.user.logout({
-						currentSessionId: item.sessionId,
-					});
+        for (const item of [...sessions]) {
+          await services.user.logout({
+            currentSessionId: item.sessionId,
+          });
 
-					sessions.shift();
+          sessions.shift();
 
-					const user = await services.user.findByUserId({
-						targetUserId: currentUser.userId,
-					});
+          const user = await services.user.findByUserId({
+            targetUserId: currentUser.userId,
+          });
 
-					assertion().sessions({
-						testValue: user.sessions,
-						equalValue: sessions,
-					});
-				}
-			}
-		);
-	}
+          assertion().sessions({
+            testValue: user.sessions,
+            equalValue: sessions,
+          });
+        }
+      }
+    );
+  }
 );
 
 // await utils.generateServiceFailTest("logout", "CURRENT_USER_NOT_EXIST", {

@@ -34,11 +34,5 @@ jobs:
           npm i -g pnpm
           pnpm i
 
-      - name: Run prettier
-        run: npm run check:format
-
-      - name: Run eslint
-        run: npm run check:lint
-
-      - name: Run tsc
+      - name: Check style
         run: npm run check:style

@@ -9,13 +9,13 @@ import { throwIfSelfDataRequested } from "./throwIfSelfDataRequested";
 import { throwIfUserExist } from "./throwIfUserExist";
 
 export const userMiddlewares = {
-	findCurrentUser,
-	findTargetUser,
-	saveNewContactItem,
-	throwIfBlacklistItemExist,
-	throwIfBlacklistItemNotExist,
-	throwIfContactExist,
-	throwIfContactNotExist,
-	throwIfSelfDataRequested,
-	throwIfUserExist,
+  findCurrentUser,
+  findTargetUser,
+  saveNewContactItem,
+  throwIfBlacklistItemExist,
+  throwIfBlacklistItemNotExist,
+  throwIfContactExist,
+  throwIfContactNotExist,
+  throwIfSelfDataRequested,
+  throwIfUserExist,
 };

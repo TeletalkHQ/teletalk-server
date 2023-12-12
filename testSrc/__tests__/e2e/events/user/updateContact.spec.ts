@@ -7,40 +7,40 @@ import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
 describe(
-	utils.createTestMessage.e2eSuccessDescribe("updateContact", "event"),
-	() => {
-		it(
-			utils.createTestMessage.e2eSuccessTest(
-				"updateContact",
-				"event",
-				"should edit users in contacts"
-			),
-			async () => {
-				const { socket } = await randomMaker.e2eUser();
-				const { user: targetUser } = await randomMaker.e2eUser();
+  utils.createTestMessage.e2eSuccessDescribe("updateContact", "event"),
+  () => {
+    it(
+      utils.createTestMessage.e2eSuccessTest(
+        "updateContact",
+        "event",
+        "should edit users in contacts"
+      ),
+      async () => {
+        const { socket } = await randomMaker.e2eUser();
+        const { user: targetUser } = await randomMaker.e2eUser();
 
-				const addingContactData = extractor.contactWithUserId(targetUser);
+        const addingContactData = extractor.contactWithUserId(targetUser);
 
-				await utils.requesterCollection
-					.addContactWithUserId(socket)
-					.emitFull(addingContactData);
+        await utils.requesterCollection
+          .addContactWithUserId(socket)
+          .emitFull(addingContactData);
 
-				const editingContactData: FullNameWithUserId = {
-					...randomMaker.fullName(),
-					userId: addingContactData.userId,
-				};
+        const editingContactData: FullNameWithUserId = {
+          ...randomMaker.fullName(),
+          userId: addingContactData.userId,
+        };
 
-				const {
-					data: { updatedContact },
-				} = await utils.requesterCollection
-					.updateContact(socket)
-					.emitFull(editingContactData);
+        const {
+          data: { updatedContact },
+        } = await utils.requesterCollection
+          .updateContact(socket)
+          .emitFull(editingContactData);
 
-				assertion().oneContactWithUserId({
-					testValue: updatedContact,
-					equalValue: editingContactData,
-				});
-			}
-		);
-	}
+        assertion().oneContactWithUserId({
+          testValue: updatedContact,
+          equalValue: editingContactData,
+        });
+      }
+    );
+  }
 );

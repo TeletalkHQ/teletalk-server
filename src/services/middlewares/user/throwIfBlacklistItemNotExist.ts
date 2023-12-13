@@ -5,18 +5,18 @@ import { ServiceMiddleware } from "~/types";
 import { HydratedUser } from "~/types/model";
 
 export const throwIfBlacklistItemNotExist: ServiceMiddleware<
-	{
-		currentUser: HydratedUser;
-		targetUserId: UserId;
-	},
-	void
+  {
+    currentUser: HydratedUser;
+    targetUserId: UserId;
+  },
+  void
 > = (data) => {
-	const index = data.currentUser.blacklist.findIndex(
-		(i) => i.userId === data.targetUserId
-	);
-	if (index === -1)
-		throw {
-			...errorStore.find("BLACKLIST_ITEM_NOT_EXIST"),
-			targetUserData: data.targetUserId,
-		};
+  const index = data.currentUser.blacklist.findIndex(
+    (i) => i.userId === data.targetUserId
+  );
+  if (index === -1)
+    throw {
+      ...errorStore.find("BLACKLIST_ITEM_NOT_EXIST"),
+      targetUserData: data.targetUserId,
+    };
 };

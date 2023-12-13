@@ -1,65 +1,65 @@
 import Client, {
-	ManagerOptions,
-	Socket,
-	SocketOptions,
+  ManagerOptions,
+  Socket,
+  SocketOptions,
 } from "socket.io-client";
 import { EncryptedSession } from "teletalk-type-store";
 
-import { appConfigs } from "~/classes/AppConfigs";
+import { configs } from "~/classes/Configs";
 
 export class ClientInitializer {
-	private client: Socket;
-	private session: EncryptedSession = "";
+  private client: Socket;
+  private session: EncryptedSession = "";
 
-	async init() {
-		this.client = Client(this.getUrl(), this.makeClientSocketOptions());
-		return this;
-	}
+  async init() {
+    this.client = Client(this.getUrl(), this.makeClientSocketOptions());
+    return this;
+  }
 
-	private getUrl() {
-		const {
-			APP: { PORT, HOSTNAME },
-		} = appConfigs.getConfigs();
-		return `http://${HOSTNAME}:${PORT}`;
-	}
+  private getUrl() {
+    const {
+      APP: { PORT, HOSTNAME },
+    } = configs.getConfigs();
+    return `http://${HOSTNAME}:${PORT}`;
+  }
 
-	setSession(session: EncryptedSession) {
-		this.session = session;
-	}
+  setSession(session: EncryptedSession) {
+    this.session = session;
+  }
 
-	initSession() {
-		this.client.auth = {
-			...this.client.auth,
-			session: this.session,
-		};
-	}
+  initSession() {
+    this.client.auth = {
+      ...this.client.auth,
+      session: this.session,
+    };
+  }
 
-	private makeClientSocketOptions(session = this.session) {
-		const options: Partial<ManagerOptions & SocketOptions> = {
-			autoConnect: false,
-			auth: {
-				session,
-			},
-		};
+  private makeClientSocketOptions(session = this.session) {
+    const options: Partial<ManagerOptions & SocketOptions> = {
+      autoConnect: false,
+      auth: {
+        session,
+      },
+    };
 
-		return options;
-	}
+    return options;
+  }
 
-	connect() {
-		this.client.connect();
-		return this;
-	}
+  connect() {
+    this.client.connect();
+    return this;
+  }
 
-	getClient() {
-		return this.client;
-	}
+  getClient() {
+    return this.client;
+  }
 
-	reinitializeWithSession(session: EncryptedSession) {
-		this.setSession(session);
-		this.initSession();
-		this.client.disconnect();
-		this.client.connect();
-	}
+  reinitializeWithSession(session: EncryptedSession) {
+    this.setSession(session);
+    this.initSession();
+    this.client.disconnect();
+    this.client.connect();
+  }
 }
 
 export const clientInitializer = () => new ClientInitializer();

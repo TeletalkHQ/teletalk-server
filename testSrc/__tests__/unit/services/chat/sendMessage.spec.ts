@@ -8,87 +8,87 @@ import { randomMaker } from "@/classes/RandomMaker";
 import { utils } from "@/utils";
 
 describe(
-	utils.createTestMessage.unitSuccessDescribe("sendMessage", "service"),
-	() => {
-		it(
-			utils.createTestMessage.unitSuccessTest(
-				"sendMessage",
-				"service",
-				"should be able to send private message to someone"
-			),
-			async () => {
-				const { user: currentUser, sessionId } =
-					await randomMaker.serviceUser();
-				const { user: targetUser } = await randomMaker.serviceUser();
+  utils.createTestMessage.unitSuccessDescribe("sendMessage", "service"),
+  () => {
+    it(
+      utils.createTestMessage.unitSuccessTest(
+        "sendMessage",
+        "service",
+        "should be able to send private message to someone"
+      ),
+      async () => {
+        const { user: currentUser, sessionId } =
+          await randomMaker.serviceUser();
+        const { user: targetUser } = await randomMaker.serviceUser();
 
-				const length = 10;
+        const length = 10;
 
-				for (let i = 0; i < length; i++) {
-					const sendingMessageText = randomMaker.messageText();
+        for (let i = 0; i < length; i++) {
+          const sendingMessageText = randomMaker.messageText();
 
-					const addedMessageInfo = await services.privateChat.sendMessage({
-						currentSessionId: sessionId,
-						targetParticipantId: targetUser.userId,
-						messageText: sendingMessageText,
-					});
+          const addedMessageInfo = await services.privateChat.sendMessage({
+            currentSessionId: sessionId,
+            targetParticipantId: targetUser.userId,
+            messageText: sendingMessageText,
+          });
 
-					const privateChat = (await services.privateChat.findByChatId({
-						chatId: addedMessageInfo.chatId,
-					})) as PrivateChatItem;
+          const privateChat = (await services.privateChat.findByChatId({
+            chatId: addedMessageInfo.chatId,
+          })) as PrivateChatItem;
 
-					const savedMessageItem = privateChat.messages.at(i)!;
+          const savedMessageItem = privateChat.messages.at(i)!;
 
-					const isParticipantIdExistInParticipants =
-						privateChat.participants.some(
-							(i) => i.participantId === currentUser.userId
-						);
-					chai.expect(isParticipantIdExistInParticipants).to.be.equal(true);
+          const isParticipantIdExistInParticipants =
+            privateChat.participants.some(
+              (i) => i.participantId === currentUser.userId
+            );
+          chai.expect(isParticipantIdExistInParticipants).to.be.equal(true);
 
-					const isTargetUserIdExistInParticipants =
-						privateChat.participants.some(
-							(i) => i.participantId === targetUser.userId
-						);
-					chai.expect(isTargetUserIdExistInParticipants).to.be.equal(true);
+          const isTargetUserIdExistInParticipants =
+            privateChat.participants.some(
+              (i) => i.participantId === targetUser.userId
+            );
+          chai.expect(isTargetUserIdExistInParticipants).to.be.equal(true);
 
-					assertion()
-						.chatId({
-							testValue: addedMessageInfo.chatId,
-							equalValue: privateChat.chatId,
-						})
-						.messageText({
-							equalValue: sendingMessageText,
-							testValue: savedMessageItem.messageText,
-						})
-						.messageId({
-							testValue: savedMessageItem.messageId,
-							equalValue: addedMessageInfo.messageId,
-						})
-						.userId({
-							equalValue: currentUser.userId,
-							testValue: savedMessageItem.sender.senderId,
-						});
-				}
-			}
-		);
-	}
+          assertion()
+            .chatId({
+              testValue: addedMessageInfo.chatId,
+              equalValue: privateChat.chatId,
+            })
+            .messageText({
+              equalValue: sendingMessageText,
+              testValue: savedMessageItem.messageText,
+            })
+            .messageId({
+              testValue: savedMessageItem.messageId,
+              equalValue: addedMessageInfo.messageId,
+            })
+            .userId({
+              equalValue: currentUser.userId,
+              testValue: savedMessageItem.sender.senderId,
+            });
+        }
+      }
+    );
+  }
 );
 
 await utils.generateServiceFailTest("sendMessage", "CURRENT_USER_NOT_EXIST", {
-	currentSessionId: randomMaker.sessionId(),
-	messageText: randomMaker.messageText(),
-	targetParticipantId: randomMaker.userId(),
+  currentSessionId: randomMaker.sessionId(),
+  messageText: randomMaker.messageText(),
+  targetParticipantId: randomMaker.userId(),
 });
 
 await utils.generateServiceFailTest(
-	"sendMessage",
-	"TARGET_USER_NOT_EXIST",
-	async () => {
-		const { sessionId } = await randomMaker.serviceUser();
+  "sendMessage",
+  "TARGET_USER_NOT_EXIST",
+  async () => {
+    const { sessionId } = await randomMaker.serviceUser();
 
-		return {
-			currentSessionId: sessionId,
-			messageText: randomMaker.messageText(),
-			targetParticipantId: randomMaker.userId(),
-		};
-	}
+    return {
+      currentSessionId: sessionId,
+      messageText: randomMaker.messageText(),
+      targetParticipantId: randomMaker.userId(),
+    };
+  }
 );

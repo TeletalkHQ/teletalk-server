@@ -6,17 +6,17 @@ import { serviceMiddlewares } from "~/services/middlewares";
 import { HydratedUser } from "~/types/model";
 
 export const findByUserId = serviceBuilder
-	.create<
-		{
-			targetUserId: UserId;
-		},
-		DBUserData,
-		{
-			targetUser: HydratedUser;
-		}
-	>()
-	.setBeforeRunMiddlewares(serviceMiddlewares.findTargetUser)
-	.setBody((data) => {
-		return extractor.dbUserData(data.targetUser);
-	})
-	.build();
+  .create<
+    {
+      targetUserId: UserId;
+    },
+    DBUserData,
+    {
+      targetUser: HydratedUser;
+    }
+  >()
+  .setBeforeRunMiddlewares(serviceMiddlewares.findTargetUser)
+  .setBody((data) => {
+    return extractor.dbUserData(data.targetUser);
+  })
+  .build();

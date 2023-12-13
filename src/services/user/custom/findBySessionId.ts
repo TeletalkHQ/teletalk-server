@@ -6,21 +6,21 @@ import { serviceMiddlewares } from "~/services/middlewares";
 import { HydratedUser } from "~/types";
 
 export const findBySessionId = serviceBuilder
-	.create<
-		{
-			currentSessionId: SessionId;
-		},
-		{
-			user: DBUserData;
-		},
-		{
-			currentUser: HydratedUser;
-		}
-	>()
-	.setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
-	.setBody((data) => {
-		return {
-			user: extractor.dbUserData(data.currentUser),
-		};
-	})
-	.build();
+  .create<
+    {
+      currentSessionId: SessionId;
+    },
+    {
+      user: DBUserData;
+    },
+    {
+      currentUser: HydratedUser;
+    }
+  >()
+  .setBeforeRunMiddlewares(serviceMiddlewares.findCurrentUser)
+  .setBody((data) => {
+    return {
+      user: extractor.dbUserData(data.currentUser),
+    };
+  })
+  .build();

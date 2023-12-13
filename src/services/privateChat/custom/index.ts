@@ -5,9 +5,9 @@ import { isPrivateChatExist } from "./isPrivateChatExist";
 import { sendMessage } from "./sendMessage";
 
 export const chatServices = {
-	findByChatId,
-	findManyByParticipantId,
-	isPrivateChatExist,
-	sendMessage,
-	create,
+  findByChatId,
+  findManyByParticipantId,
+  isPrivateChatExist,
+  sendMessage,
+  create,
 };

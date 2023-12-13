@@ -4,10 +4,10 @@ import { models } from "~/models";
 import { UserService } from "~/types";
 
 export const create: UserService<
-	{
-		userData: DBUserData;
-	},
-	void
+  {
+    userData: DBUserData;
+  },
+  void
 > = async (data) => {
-	await models.database.User.create(data.userData);
+  await models.database.User.create(data.userData);
 };

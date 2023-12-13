@@ -1,24 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { JWTPayload, JWTVerifyResult } from "jose";
 import { Cellphone } from "teletalk-type-store";
 
 export interface StringMap {
-	[prop: string | symbol]: any;
+  [prop: string | symbol]: any;
 }
 
 export type LogLevel = "debug" | "error" | "info" | "warn";
 
 export interface StoredAuthSession extends Cellphone {
-	isVerified: boolean;
-	verificationCode: string;
+  isVerified: boolean;
+  verificationCode: string;
 }
 
 export interface SessionPayload extends JWTPayload {
-	sessionId: string;
+  sessionId: string;
 }
 
 export interface VerifiedSession extends JWTVerifyResult {
-	payload: SessionPayload;
+  payload: SessionPayload;
 }
 
 export type VoidNoArgsFn = () => void;

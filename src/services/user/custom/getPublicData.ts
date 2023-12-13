@@ -6,21 +6,21 @@ import { serviceMiddlewares } from "~/services/middlewares";
 import { HydratedUser } from "~/types/model";
 
 export const getPublicData = serviceBuilder
-	.create<
-		{
-			targetUserId: UserId;
-		},
-		{
-			publicData: UserPublicData;
-		},
-		{
-			targetUser: HydratedUser;
-		}
-	>()
-	.setBeforeRunMiddlewares(serviceMiddlewares.findTargetUser)
-	.setBody(async (data) => {
-		return {
-			publicData: extractor.userPublicData(data.targetUser),
-		};
-	})
-	.build();
+  .create<
+    {
+      targetUserId: UserId;
+    },
+    {
+      publicData: UserPublicData;
+    },
+    {
+      targetUser: HydratedUser;
+    }
+  >()
+  .setBeforeRunMiddlewares(serviceMiddlewares.findTargetUser)
+  .setBody(async (data) => {
+    return {
+      publicData: extractor.userPublicData(data.targetUser),
+    };
+  })
+  .build();

@@ -350,8 +350,8 @@ devDependencies:
     specifier: ^1.7.1
     version: 1.7.1
   eslint-plugin-sonarjs:
-    specifier: ^0.21.0
-    version: 0.21.0(eslint@8.55.0)
+    specifier: ^0.23.0
+    version: 0.23.0(eslint@8.55.0)
   eslint-plugin-testing-library:
     specifier: ^6.2.0
     version: 6.2.0(eslint@8.55.0)(typescript@5.3.3)
@@ -7354,8 +7354,8 @@ packages:
       safe-regex: 2.1.1
     dev: true
 
-  /eslint-plugin-sonarjs@0.21.0(eslint@8.55.0):
-    resolution: {integrity: sha512-oezUDfFT5S6j3rQheZ4DLPrbetPmMS7zHIKWGHr0CM3g5JgyZroz1FpIKa4jV83NsGpmgIeagpokWDKIJzRQmw==}
+  /eslint-plugin-sonarjs@0.23.0(eslint@8.55.0):
+    resolution: {integrity: sha512-z44T3PBf9W7qQ/aR+NmofOTyg6HLhSEZOPD4zhStqBpLoMp8GYhFksuUBnCxbnf1nfISpKBVkQhiBLFI/F4Wlg==}
     engines: {node: '>=14'}
     peerDependencies:
       eslint: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0

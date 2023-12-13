@@ -10,7 +10,6 @@ export type NodeEnvValue =
 export type EnvFileName = NodeEnvValue | "base";
 
 export interface Environments {
-  SESSION_SECRET: string;
   CUSTOM_PORT: number;
   LOG_LEVEL: LogLevel;
   MONGO_COLLECTION_NAME: string;
@@ -25,9 +24,8 @@ export interface Environments {
   REDIS_HOST: string;
   REDIS_PASSWORD: string;
   REDIS_PORT: number;
-  //TODO: Move to testSrc scope
-  TEST_RUNNER: "JEST" | "MOCHA";
   SELF_EXEC: boolean;
+  SESSION_SECRET: string;
   SMS_PROVIDER_1_HOST: string;
   SMS_PROVIDER_1_ROUTE: string;
   SMS_PROVIDER_1_SENDER: string;
@@ -37,4 +35,7 @@ export interface Environments {
   SMS_PROVIDER_2_ROUTE: string;
   SMS_PROVIDER_2_SESSION: string;
   SMS_PROVIDER_SELECTOR: number;
+  //TODO: Move to testSrc scope
+  TEST_RUNNER: "JEST" | "MOCHA";
+  USE_CLUSTERS: boolean;
 }

@@ -38,7 +38,7 @@ jobs:
           pnpm i
 
       - name: Start MongoDB version ${{ matrix.mongodb-version }}
-        uses: supercharge/mongodb-github-action@1.8.0
+        uses: supercharge/mongodb-github-action@v1.10.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 

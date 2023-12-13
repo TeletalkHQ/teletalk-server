@@ -9,8 +9,11 @@ export type NodeEnvValue =
 
 export type EnvFileName = NodeEnvValue | "base";
 
+type StringBoolean = "false" | "true";
+
 export interface Environments {
   CUSTOM_PORT: number;
+  LOG_ENVS: StringBoolean;
   LOG_LEVEL: LogLevel;
   MONGO_COLLECTION_NAME: string;
   MONGO_HOST: string;
@@ -37,5 +40,5 @@ export interface Environments {
   SMS_PROVIDER_SELECTOR: number;
   //TODO: Move to testSrc scope
   TEST_RUNNER: "JEST" | "MOCHA";
-  USE_CLUSTERS: boolean;
+  USE_CLUSTERS: StringBoolean;
 }

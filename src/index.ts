@@ -13,23 +13,16 @@ import { utils } from "./utils";
 
 PrettyError.start();
 
-const httpServerListener = () => {
-  const { ENVIRONMENT, PORT } = configs.getConfigs().APP;
-
-  logger.info(
-    `Server is running. RUNTIME_MODE:${ENVIRONMENT}, PID:${
-      process.pid
-    }, PORT:${PORT}, ACCESS_POINT:${address.ip()}:${PORT}`
-  );
-};
-
 await configs.setup();
 
 export const runner = async () => {
-  // utils.logEnvironments();
+  const { USE_CLUSTERS, LOG_ENVS } = configs.getConfigs().APP;
+
+  if (LOG_ENVS === "true") utils.logEnvironments();
 
   await utils.initializeDatabases();
-  if (configs.getConfigs().APP.USE_CLUSTERS) {
+
+  if (USE_CLUSTERS === "true") {
     runWithClusters();
   } else runNormal();
 };
@@ -76,6 +69,16 @@ const createHttpServerWithListener = () => {
   const httpServer = http.createServer();
   httpServer.listen(configs.getConfigs().APP.PORT, httpServerListener);
   return httpServer;
+};
+
+const httpServerListener = () => {
+  const { ENVIRONMENT, PORT } = configs.getConfigs().APP;
+
+  logger.info(
+    `Server is running. RUNTIME_MODE:${ENVIRONMENT}, PID:${
+      process.pid
+    }, PORT:${PORT}, ACCESS_POINT:${address.ip()}:${PORT}`
+  );
 };
 
 const forkClusters = () => {

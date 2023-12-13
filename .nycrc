@@ -4,7 +4,7 @@
   "include": ["src"],
   "exclude": ["src/classes/SmsClient.js"],
   "output": "reports",
-  "reporter": ["text", "clover"],
+  "reporter": ["text", "clover", "lcov"],
   "branches": 50,
   "lines": 50,
   "functions": 50,

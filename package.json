@@ -101,7 +101,7 @@
     "@jest/console": "^29.7.0",
     "@jest/globals": "^29.7.0",
     "@jest/reporters": "^29.7.0",
-    "@liara/cli": "^4.0.1",
+    "@liara/cli": "^5.0.0",
     "@railway/cli": "^3.5.2",
     "@rushstack/eslint-patch": "^1.6.0",
     "@stryker-mutator/core": "^8.0.0",

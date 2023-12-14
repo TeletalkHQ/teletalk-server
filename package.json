@@ -96,7 +96,7 @@
     "@babel/eslint-parser": "^7.23.3",
     "@babel/preset-env": "^7.23.5",
     "@babel/register": "^7.22.15",
-    "@cspell/eslint-plugin": "^7.3.2",
+    "@cspell/eslint-plugin": "^8.0.0",
     "@faker-js/faker": "^8.3.1",
     "@jest/console": "^29.7.0",
     "@jest/globals": "^29.7.0",

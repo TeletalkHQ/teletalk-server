@@ -1,4 +1,4 @@
-FROM node:18-bookworm
+FROM node:20-bookworm
 # FROM node:18-alpine3.15
 
 WORKDIR /teletalk-server

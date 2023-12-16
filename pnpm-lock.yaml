@@ -84,8 +84,8 @@ dependencies:
     specifier: ^7.1.0
     version: 7.1.0
   jose:
-    specifier: ^4.14.5
-    version: 4.15.4
+    specifier: ^5.0.0
+    version: 5.1.3
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -9211,8 +9211,8 @@ packages:
       - ts-node
     dev: true
 
-  /jose@4.15.4:
-    resolution: {integrity: sha512-W+oqK4H+r5sITxfxpSU+MMdr/YSWGvgZMQDIsNoBDGGy4i7GBPTtvFKibQzW06n3U3TqHjhvBJsirShsEJ6eeQ==}
+  /jose@5.1.3:
+    resolution: {integrity: sha512-GPExOkcMsCLBTi1YetY2LmkoY559fss0+0KVa6kOfb2YFe84nAM7Nm/XzuZozah4iHgmBGrCOHL5/cy670SBRw==}
     dev: false
 
   /js-tokens@4.0.0:

@@ -16,6 +16,7 @@ module.exports = defineConfig({
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:json/recommended",
+    "plugin:security/recommended",
     "plugin:sonarjs/recommended",
   ],
   globals: {
@@ -32,12 +33,13 @@ module.exports = defineConfig({
     "@typescript-eslint",
     "chai-friendly",
     "import",
+    "security",
     "sonarjs",
     "unicorn",
     "unused-imports",
   ],
   rules: {
-    "@typescript-eslint/no-redeclare": "error",
+    "security/detect-object-injection": "off",
     "@cspell/spellchecker": [
       "error",
       {
@@ -49,8 +51,10 @@ module.exports = defineConfig({
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-redeclare": "error",
     "@typescript-eslint/no-unused-vars": "off",
     "arrow-parens": "warn",
+    "chai-friendly/no-unused-expressions": 1,
     "import/no-unresolved": [
       2,
       {
@@ -67,7 +71,6 @@ module.exports = defineConfig({
     "no-restricted-globals": ["error"].concat(restrictedGlobals),
     "no-undef": "error",
     "no-unused-expressions": 0,
-    "chai-friendly/no-unused-expressions": 1,
     "no-unused-vars": "off",
     "no-use-before-define": [
       "error",

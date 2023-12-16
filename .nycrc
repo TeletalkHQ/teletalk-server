@@ -2,7 +2,7 @@
   "all": true,
   "check-coverage": true,
   "include": ["src"],
-  "exclude": ["src/classes/SmsClient.js"],
+  "exclude": ["src/classes/SmsClient.js", "src/types"],
   "output": "reports",
   "reporter": ["text", "clover", "lcov"],
   "branches": 50,

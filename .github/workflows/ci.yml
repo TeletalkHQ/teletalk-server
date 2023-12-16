@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.operations }}
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install redis
         run: |
@@ -28,7 +28,7 @@ jobs:
           ./scripts/redis-loader/portable.sh
 
       - name: Use Node.js version ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -38,7 +38,7 @@ jobs:
           pnpm i
 
       - name: Start MongoDB version ${{ matrix.mongodb-version }}
-        uses: supercharge/mongodb-github-action@1.8.0
+        uses: supercharge/mongodb-github-action@v1.10.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 

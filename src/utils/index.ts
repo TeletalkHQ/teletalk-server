@@ -65,10 +65,7 @@ const executeMiddlewares = async ({
   next();
 };
 
-const regexMaker = (pattern: string) => {
-  // eslint-disable-next-line security/detect-non-literal-regexp
-  new RegExp(pattern);
-};
+const regexMaker = (pattern: string) => new RegExp(pattern);
 
 const logEnvironments = () => logger.debug(sortEnvironments());
 

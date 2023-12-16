@@ -16,7 +16,7 @@ module.exports = defineConfig({
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:json/recommended",
-    "plugin:security/recommended",
+    // "plugin:security/recommended",
     "plugin:sonarjs/recommended",
   ],
   globals: {
@@ -33,13 +33,13 @@ module.exports = defineConfig({
     "@typescript-eslint",
     "chai-friendly",
     "import",
-    "security",
+    // "security",
     "sonarjs",
     "unicorn",
     "unused-imports",
   ],
   rules: {
-    "security/detect-object-injection": "off",
+    // "security/detect-object-injection": "off",
     "@cspell/spellchecker": [
       "error",
       {

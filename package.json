@@ -144,7 +144,7 @@
     "c8": "^8.0.1",
     "chai": "^4.3.10",
     "confusing-browser-globals": "^1.0.11",
-    "esbuild": "^0.19.2",
+    "esbuild": "^0.20.0",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-define-config": "^2.0.0",

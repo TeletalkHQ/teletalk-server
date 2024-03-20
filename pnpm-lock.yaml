@@ -204,7 +204,7 @@ devDependencies:
     version: 8.0.0(@stryker-mutator/core@8.0.0)(typescript@5.3.3)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.3.0
-    version: 4.3.0(prettier@3.1.1)
+    version: 4.3.0(prettier@3.2.5)
   '@types/babel__core':
     specifier: ^7.20.5
     version: 7.20.5
@@ -272,8 +272,8 @@ devDependencies:
     specifier: ^20.10.4
     version: 20.10.4
   '@types/prettier':
-    specifier: ^2.7.3
-    version: 2.7.3
+    specifier: ^3.0.0
+    version: 3.0.0
   '@types/resolve':
     specifier: ^1.20.6
     version: 1.20.6
@@ -392,8 +392,8 @@ devDependencies:
     specifier: ^0.4.4
     version: 0.4.4
   prettier:
-    specifier: 3.1.1
-    version: 3.1.1
+    specifier: 3.2.5
+    version: 3.2.5
   snyk:
     specifier: ^1.1260.0
     version: 1.1264.0
@@ -4291,7 +4291,7 @@ packages:
     engines: {node: '>= 10'}
     dev: false
 
-  /@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.1.1):
+  /@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.2.5):
     resolution: {integrity: sha512-r3n0onD3BTOVUNPhR4lhVK4/pABGpbA7bW3eumZnYdKaHkf1qEC+Mag6DPbGNuuh0eG8AaYj+YqmVHSiGslaTQ==}
     peerDependencies:
       '@vue/compiler-sfc': 3.x
@@ -4306,7 +4306,7 @@ packages:
       '@babel/types': 7.17.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.1.1
+      prettier: 3.2.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4528,8 +4528,11 @@ packages:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
     dev: true
 
-  /@types/prettier@2.7.3:
-    resolution: {integrity: sha512-+68kP9yzs4LMp7VNh8gdzMSPZFL44MLGqiHWvttYJe+6qnuVr4Ek9wSBQoveqY/r+LwjCcU29kNVkidwim+kYA==}
+  /@types/prettier@3.0.0:
+    resolution: {integrity: sha512-mFMBfMOz8QxhYVbuINtswBp9VL2b4Y0QqYHwqLz3YbgtfAcat2Dl6Y1o4e22S/OVE6Ebl9m7wWiMT2lSbAs1wA==}
+    deprecated: This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
+    dependencies:
+      prettier: 3.2.5
     dev: true
 
   /@types/qs@6.9.10:
@@ -10749,8 +10752,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier@3.1.1:
-    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
